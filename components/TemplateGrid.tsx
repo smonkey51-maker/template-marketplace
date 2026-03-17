@@ -137,25 +137,12 @@ export default function TemplateGrid() {
         </div>
       </div>
 
-      {/* ── Studio Access Banner ── */}
-      <div className="mb-8 relative overflow-hidden rounded-[20px] border border-[#5E5CE6]/25"
-        style={{ background: "linear-gradient(135deg, rgba(94,92,230,0.08) 0%, rgba(10,132,255,0.06) 100%)" }}>
-        <div className="absolute inset-x-0 top-0 h-px" style={{ background: "linear-gradient(90deg,transparent,rgba(94,92,230,0.4),transparent)" }} />
-        <div className="px-5 py-4 flex flex-col sm:flex-row items-start sm:items-center gap-3">
-          <div className="flex items-center gap-3 flex-1 min-w-0">
-            <div className="w-10 h-10 rounded-xl bg-[#5E5CE6]/20 flex items-center justify-center text-xl shrink-0">🤖</div>
-            <div className="min-w-0">
-              <p className="font-bold text-theme text-[14px] leading-tight">{t[lang].studioAccessBanner.title}</p>
-              <p className="text-muted text-[12px] mt-0.5">{t[lang].studioAccessBanner.subtitle}</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3 shrink-0">
-            <span className="text-[13px] font-bold" style={{ background: "linear-gradient(135deg,#5E5CE6,#0A84FF)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-              {t[lang].studioAccessBanner.price}
-            </span>
-            <StudioAccessButton compact />
-          </div>
-        </div>
+      {/* ── Studio Access inline hint ── */}
+      <div className="mb-7 flex items-center justify-between gap-3 px-1">
+        <p className="text-[13px] text-muted">
+          🤖 {t[lang].studioAccessBanner.title}
+        </p>
+        <StudioAccessButton compact />
       </div>
 
       {/* ── Filtered results view ── */}
