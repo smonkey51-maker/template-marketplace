@@ -40,9 +40,9 @@ export default function StudioAccessButton() {
       <button
         onClick={handleClick}
         disabled={loading}
-        className="inline-block px-8 py-3 bg-white text-indigo-900 font-bold rounded-xl hover:bg-white/90 disabled:opacity-60 transition"
+        className="inline-block px-8 py-3 bg-orange-500 hover:bg-orange-400 text-white font-bold rounded-2xl disabled:opacity-60 transition-all duration-200 shadow-lg shadow-orange-500/25"
       >
-        {loading ? "Caricamento..." : "Acquista Studio Access →"}
+        {loading ? "Caricamento..." : "Inizia con Studio Access →"}
       </button>
       {error && <p className="text-red-400 text-sm">{error}</p>}
     </div>

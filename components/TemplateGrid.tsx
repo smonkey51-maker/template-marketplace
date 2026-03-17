@@ -6,8 +6,8 @@ import TemplateCard from "@/components/TemplateCard";
 
 function SkeletonCard() {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 overflow-hidden animate-pulse">
-      <div className="h-36 bg-white/10" />
+    <div className="rounded-3xl border border-white/10 bg-white/4 overflow-hidden animate-pulse">
+      <div className="h-40 bg-white/10" />
       <div className="p-4 flex flex-col gap-2">
         <div className="h-3 w-24 bg-white/10 rounded-full" />
         <div className="h-4 w-3/4 bg-white/10 rounded-full" />
@@ -48,11 +48,10 @@ export default function TemplateGrid() {
             <span className="text-sm font-normal text-gray-500">
               HTML + Tailwind CSS
             </span>
-            <span className="w-8 h-0.5 bg-orange-500 rounded-full" />
+            <span className="bg-orange-500/15 text-orange-300 border border-orange-500/20 rounded-full px-3 py-0.5 text-sm font-normal">
+              {uiTemplates.length}
+            </span>
           </h2>
-          <span className="text-sm text-gray-500">
-            {uiTemplates.length} templates
-          </span>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {loading
@@ -77,11 +76,10 @@ export default function TemplateGrid() {
             <span className="text-sm font-normal text-gray-500">
               Works with any LLM
             </span>
-            <span className="w-8 h-0.5 bg-orange-500 rounded-full" />
+            <span className="bg-orange-500/15 text-orange-300 border border-orange-500/20 rounded-full px-3 py-0.5 text-sm font-normal">
+              {promptTemplates.length}
+            </span>
           </h2>
-          <span className="text-sm text-gray-500">
-            {promptTemplates.length} templates
-          </span>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {loading

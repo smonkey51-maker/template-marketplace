@@ -6,17 +6,31 @@ import StudioAccessButton from "@/components/StudioAccessButton";
 
 export default function MarketplacePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-orange-950/10">
-      {/* Nav */}
-      <nav className="sticky top-0 z-50 border-b border-white/10 bg-gray-950/80 backdrop-blur-md px-6 py-4">
+    <div className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-orange-950/10 relative">
+      {/* Background blobs for depth */}
+      <div
+        className="fixed top-0 left-0 w-96 h-96 bg-orange-500/15 blur-3xl rounded-full pointer-events-none z-0"
+        style={{ transform: "translate(-30%, -30%)" }}
+      />
+      <div
+        className="fixed top-0 right-0 w-80 h-80 bg-amber-400/10 blur-3xl rounded-full pointer-events-none z-0"
+        style={{ transform: "translate(30%, -30%)" }}
+      />
+      <div
+        className="fixed bottom-0 left-1/2 w-72 h-72 bg-violet-500/10 blur-3xl rounded-full pointer-events-none z-0"
+        style={{ transform: "translate(-50%, 30%)" }}
+      />
+
+      {/* Nav — liquid glass */}
+      <nav className="sticky top-0 z-50 border-b border-white/8 backdrop-blur-2xl bg-gray-950/60 px-6 py-4 relative">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <span className="text-xl font-extrabold bg-gradient-to-r from-orange-400 to-amber-300 bg-clip-text text-transparent">
+          <span className="text-xl font-extrabold tracking-tight bg-gradient-to-r from-orange-400 to-amber-300 bg-clip-text text-transparent">
             TemplateLab
           </span>
           <div className="flex items-center gap-4">
             <Link
               href="/studio"
-              className="text-sm text-gray-400 hover:text-white transition"
+              className="text-sm text-gray-400 hover:text-white transition-all duration-300"
             >
               AI Studio
             </Link>
@@ -26,8 +40,8 @@ export default function MarketplacePage() {
       </nav>
 
       {/* Hero */}
-      <section className="py-20 px-6 text-center max-w-4xl mx-auto">
-        <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-orange-500/20 text-orange-300 border border-orange-500/30 mb-6">
+      <section className="relative z-10 py-20 px-6 text-center max-w-4xl mx-auto">
+        <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium bg-white/8 backdrop-blur-sm border border-white/15 text-orange-300 mb-6">
           ⚡ Powered by Claude AI
         </span>
         <h1 className="text-5xl md:text-6xl font-extrabold leading-tight mb-5">
@@ -44,13 +58,13 @@ export default function MarketplacePage() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
             href="#browse"
-            className="px-7 py-3 bg-orange-500 hover:bg-orange-400 rounded-xl font-semibold transition text-white"
+            className="px-8 py-3.5 bg-orange-500 hover:bg-orange-400 rounded-2xl font-bold transition-all duration-200 text-white shadow-lg shadow-orange-500/25"
           >
             Sfoglia template →
           </a>
           <Link
             href="/studio"
-            className="px-7 py-3 bg-white/10 hover:bg-white/20 rounded-xl font-semibold transition"
+            className="px-8 py-3.5 bg-white/8 backdrop-blur-sm hover:bg-white/15 border border-white/15 rounded-2xl font-bold transition-all duration-200"
           >
             Apri AI Studio
           </Link>
@@ -62,42 +76,38 @@ export default function MarketplacePage() {
         </div>
       </section>
 
-      {/* Studio Access Banner — prominent, above template grid */}
-      <section className="px-6 mb-16 max-w-5xl mx-auto">
-        <div className="relative rounded-3xl overflow-hidden border border-orange-500/30 bg-gradient-to-br from-amber-950 via-orange-950 to-red-950 p-10 text-center shadow-2xl shadow-orange-950/40">
-          {/* Glow effect */}
-          <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 via-transparent to-red-500/10 pointer-events-none" />
+      {/* Studio Access Banner */}
+      <section className="relative z-10 px-6 mb-16 max-w-5xl mx-auto">
+        <div className="relative rounded-3xl overflow-hidden border border-orange-400/20 bg-gradient-to-br from-orange-500/10 via-amber-500/5 to-transparent backdrop-blur-2xl p-10 text-center shadow-2xl shadow-orange-950/20">
+          {/* Decorative background character */}
+          <div className="absolute -top-4 -right-4 text-[12rem] leading-none text-orange-500/5 select-none pointer-events-none font-bold">
+            ✦
+          </div>
 
-          <span className="inline-block text-xs font-bold bg-orange-500/30 text-orange-300 border border-orange-400/40 px-3 py-1 rounded-full mb-4">
-            🔥 Offerta limitata
+          <span className="inline-block text-xs font-bold bg-orange-500/20 text-orange-300 border border-orange-400/30 px-3 py-1 rounded-full mb-4">
+            ⚡ Studio Access
           </span>
 
           <h2 className="text-3xl md:text-4xl font-extrabold mb-3 text-white">
-            Genera template illimitati con AI
+            Genera qualsiasi template con l&apos;AI
           </h2>
 
-          <p className="text-gray-300 mb-2 max-w-xl mx-auto">
-            Descrivi quello che vuoi e Claude lo crea per te — componenti UI, prompt template, qualsiasi cosa.
+          <p className="text-gray-300 mb-4 max-w-xl mx-auto">
+            Descrivi quello che vuoi, Claude lo crea in secondi. Componenti UI, prompt, landing page — illimitati.
           </p>
 
-          <p className="text-amber-300 font-bold text-lg mb-2">
-            Acquisto unico · Generazioni illimitate
-          </p>
-
-          <p className="text-2xl font-extrabold text-white mb-6">
-            Solo <span className="text-yellow-400">$29.00</span>
+          <p className="text-amber-300 font-semibold text-base mb-6">
+            €9,99 / mese · Disdici quando vuoi
           </p>
 
           <StudioAccessButton />
-
-          <p className="text-xs text-gray-500 mt-4">
-            Nessun abbonamento · Accesso permanente · Garanzia soddisfatti o rimborsati
-          </p>
         </div>
       </section>
 
-      {/* Template Grid (client — fetches purchases, renders cards with modal) */}
-      <TemplateGrid />
+      {/* Template Grid */}
+      <div className="relative z-10">
+        <TemplateGrid />
+      </div>
     </div>
   );
 }
