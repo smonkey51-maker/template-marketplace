@@ -133,12 +133,17 @@ export default function TemplateGrid() {
                 ? Array.from({ length: sectionTemplates.length }).map((_, i) => (
                     <SkeletonCard key={i} />
                   ))
-                : sectionTemplates.map((t) => (
-                    <TemplateCard
+                : sectionTemplates.map((t, i) => (
+                    <div
                       key={t.id}
-                      template={t}
-                      purchasedIds={purchasedIds}
-                    />
+                      className="anim-fade-up"
+                      style={{ animationDelay: `${i * 60}ms` }}
+                    >
+                      <TemplateCard
+                        template={t}
+                        purchasedIds={purchasedIds}
+                      />
+                    </div>
                   ))}
             </div>
           </section>
