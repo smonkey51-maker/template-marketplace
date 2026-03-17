@@ -264,13 +264,18 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
 
           <div className="flex gap-1.5 flex-wrap mb-2.5">
             {template.tags.slice(0, 4).map((tag) => (
-              <span key={tag} className="text-[10px] text-muted glass-subtle px-2 py-0.5 rounded-full border border-theme">
+              <Link
+                key={tag}
+                href={`/?q=${encodeURIComponent(tag)}`}
+                className="text-[10px] text-muted glass-subtle px-2 py-0.5 rounded-full border border-theme
+                  hover:text-[#0A84FF] hover:border-[#0A84FF]/30 transition-colors duration-200"
+              >
                 {tag}
-              </span>
+              </Link>
             ))}
             <span className="text-[10px] text-muted flex items-center gap-1 ml-1">
               <svg width="10" height="10" viewBox="0 0 12 12" fill="none" className="opacity-50"><path d="M6 1v7M3 6l3 3 3-3M2 10h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              {template.downloads.toLocaleString("it-IT")}
+              {template.downloads.toLocaleString(lang === "it" ? "it-IT" : "en-US")}
             </span>
           </div>
 

@@ -172,6 +172,25 @@ export default function HomeContent() {
         </div>
       </div>
 
+      {/* ── Works with strip ── */}
+      <div className="relative z-10 max-w-2xl mx-auto px-4 sm:px-6 pb-10">
+        <div className="flex flex-col items-center gap-3">
+          <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-muted/50">
+            {lang === "it" ? "Compatibile con" : "Works with"}
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            {["Next.js", "React", "Vue", "HTML/CSS", "Framer", "Webflow", "Claude AI", "ChatGPT"].map((name) => (
+              <span
+                key={name}
+                className="text-[11px] font-semibold text-muted glass-subtle px-3 py-1 rounded-full border border-theme"
+              >
+                {name}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* ── Section divider → browse ── */}
       <div id="browse" className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 mb-0">
         <div className="flex items-center gap-4">

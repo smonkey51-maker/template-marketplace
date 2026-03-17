@@ -64,6 +64,8 @@ export default function TemplateGrid() {
   const [sortOrder, setSortOrder] = useState<"popular" | "recent">("popular");
   const [quickViewId, setQuickViewId] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState<string | null>(null);
+  const [animKey, setAnimKey] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(12);
   const searchRef = useRef<HTMLInputElement>(null);
   const handleQuickView = useCallback((id: string) => setQuickViewId(id), []);
 
@@ -114,6 +116,19 @@ export default function TemplateGrid() {
     };
     document.addEventListener("keydown", handler);
     return () => document.removeEventListener("keydown", handler);
+  }, []);
+
+  // Reset pagination and trigger re-animation when filters change
+  useEffect(() => {
+    setVisibleCount(12);
+    setAnimKey((k) => k + 1);
+  }, [query, categoryFilter, styleFilter, sortOrder]);
+
+  // Pre-fill search from URL query param
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get("q");
+    if (q) setQuery(q);
   }, []);
 
   const filteredTemplates = useMemo(() => {
@@ -307,15 +322,28 @@ export default function TemplateGrid() {
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+            <div key={animKey} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
               {loading
                 ? Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)
-                : filteredTemplates.map((tmpl, i) => (
+                : filteredTemplates.slice(0, visibleCount).map((tmpl, i) => (
                     <div key={tmpl.id} className="anim-fade-up" style={{ animationDelay: `${i * 35}ms` }}>
                       <TemplateCard template={tmpl} purchasedIds={purchasedIds} onQuickView={handleQuickView} />
                     </div>
                   ))}
             </div>
+            {!loading && filteredTemplates.length > visibleCount && (
+              <div className="flex justify-center mt-6">
+                <button
+                  onClick={() => setVisibleCount((v) => v + 12)}
+                  className="px-6 py-2.5 glass border border-theme rounded-2xl text-[13px] font-semibold text-muted
+                    hover:text-theme hover:border-[#0A84FF]/30 transition-all duration-200 ios-spring"
+                >
+                  {lang === "it"
+                    ? `Mostra altri ${Math.min(12, filteredTemplates.length - visibleCount)} →`
+                    : `Show ${Math.min(12, filteredTemplates.length - visibleCount)} more →`}
+                </button>
+              </div>
+            )}
           )}
         </div>
       ) : (

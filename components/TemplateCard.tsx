@@ -92,6 +92,18 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
   const displayName = lang === "it" ? (templateTranslations[template.id]?.name ?? template.name) : template.name;
   const displayDesc = lang === "it" ? (templateTranslations[template.id]?.description ?? template.description) : template.description;
 
+  const [copied, setCopied] = useState(false);
+
+  const handleShare = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const url = `${window.location.origin}/preview/${template.id}`;
+    navigator.clipboard.writeText(url).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    });
+  };
+
   return (
     <Link
       href={`/preview/${template.id}`}
@@ -170,6 +182,26 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
               </svg>
               {template.downloads.toLocaleString(lang === "it" ? "it-IT" : "en-US")}
             </span>
+            {/* Share button */}
+            <button
+              onClick={handleShare}
+              aria-label={copied ? "Link copiato" : "Copia link"}
+              className={`opacity-0 group-hover:opacity-100 transition-all duration-200 rounded-lg p-1 -mr-0.5
+                ${copied ? "text-[#30D158]" : "text-muted hover:text-theme"}`}
+            >
+              {copied ? (
+                <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden>
+                  <path d="M2 7l3.5 3.5L12 3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              ) : (
+                <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden>
+                  <circle cx="11" cy="3" r="1.8" stroke="currentColor" strokeWidth="1.4"/>
+                  <circle cx="3" cy="7" r="1.8" stroke="currentColor" strokeWidth="1.4"/>
+                  <circle cx="11" cy="11" r="1.8" stroke="currentColor" strokeWidth="1.4"/>
+                  <path d="M4.7 6.1l4.6-2.3M4.7 7.9l4.6 2.3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
+                </svg>
+              )}
+            </button>
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden
               className="text-muted opacity-0 group-hover:opacity-60 transition-opacity duration-200 group-hover:translate-x-0.5 transition-transform">
               <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
