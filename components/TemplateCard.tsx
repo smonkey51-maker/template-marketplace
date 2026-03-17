@@ -169,7 +169,7 @@ export default function TemplateCard({ template, purchasedIds }: TemplateCardPro
           <div className="relative w-full sm:max-w-3xl bg-[#1C1C1E]/95 backdrop-blur-2xl
             border border-white/10
             rounded-t-[32px] sm:rounded-[32px]
-            overflow-hidden shadow-2xl shadow-black/60
+            shadow-2xl shadow-black/60
             flex flex-col max-h-[92vh] sm:max-h-[88vh] sm:mx-4
             sheet-enter sm:modal-enter"
           >
@@ -211,7 +211,7 @@ export default function TemplateCard({ template, purchasedIds }: TemplateCardPro
             </div>
 
             {/* Preview area */}
-            <div className="overflow-auto flex-1 bg-black/20">
+            <div className="overflow-y-auto flex-1 min-h-0 bg-black/20">
               {template.category === "ui" ? (
                 <iframe
                   src={`/api/preview/${template.id}`}
