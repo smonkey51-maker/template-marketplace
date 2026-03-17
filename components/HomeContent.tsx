@@ -26,7 +26,8 @@ export default function HomeContent() {
       </div>
 
       {/* ── Nav ── */}
-      <nav className="sticky top-0 z-50 border-b border-theme backdrop-blur-2xl bg-nav px-4 sm:px-6 py-3.5">
+      <nav className="sticky top-0 z-50 border-b border-theme backdrop-blur-2xl bg-nav px-4 sm:px-6 py-3.5"
+        style={{ boxShadow: "0 1px 0 0 var(--border-theme)" }}>
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
           <span className="text-[17px] font-bold tracking-tight text-[#0A84FF] shrink-0 select-none">
             TemplateLab
@@ -84,9 +85,12 @@ export default function HomeContent() {
         <div className="anim-fade-up delay-225 flex flex-col sm:flex-row gap-3 justify-center">
           <a
             href="#browse"
-            className="relative px-8 py-4 bg-[#0A84FF] hover:bg-[#409CFF] rounded-2xl font-bold text-white text-[15px] btn-glow-blue active:scale-[0.96] ios-spring shadow-[0_4px_20px_rgba(10,132,255,0.35)]"
+            className="relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#0A84FF] hover:bg-[#409CFF] rounded-2xl font-bold text-white text-[15px] btn-glow-blue active:scale-[0.96] ios-spring shadow-[0_4px_20px_rgba(10,132,255,0.35)]"
           >
             {t[lang].hero.cta1}
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="shrink-0">
+              <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
           </a>
           <Link
             href="/studio"
@@ -97,16 +101,18 @@ export default function HomeContent() {
         </div>
 
         {/* Trust stats */}
-        <div className="anim-fade-up delay-300 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mt-9 text-[13px] text-muted">
-          <span className="flex items-center gap-1.5">
+        <div className="anim-fade-up delay-300 flex flex-wrap items-center justify-center gap-y-2 mt-9 text-[13px] text-muted">
+          <span className="flex items-center gap-1.5 px-4">
             <span className="w-1.5 h-1.5 rounded-full bg-[#0A84FF]" />
             {templates.length} {t[lang].hero.statTemplates}
           </span>
-          <span className="flex items-center gap-1.5">
+          <span className="w-px h-3.5 bg-theme/30 shrink-0" />
+          <span className="flex items-center gap-1.5 px-4">
             <span className="w-1.5 h-1.5 rounded-full bg-[#30D158]" />
             {totalDownloads.toLocaleString("it-IT")}+ {t[lang].hero.statDownloads}
           </span>
-          <span className="flex items-center gap-1.5">
+          <span className="w-px h-3.5 bg-theme/30 shrink-0" />
+          <span className="flex items-center gap-1.5 px-4">
             <span className="w-1.5 h-1.5 rounded-full bg-[#5E5CE6]" />
             {t[lang].hero.statPayment}
           </span>
@@ -123,8 +129,10 @@ export default function HomeContent() {
           <div className="relative bg-surface border border-theme rounded-[24px] p-6 text-center overflow-hidden group">
             <div className="absolute inset-x-0 top-0 h-px"
               style={{ background: "linear-gradient(90deg, transparent, rgba(10,132,255,0.3), transparent)" }} />
+            <div className="absolute top-4 left-4 w-7 h-7 rounded-full bg-[#0A84FF]/10 border border-[#0A84FF]/20 flex items-center justify-center">
+              <span className="text-[10px] font-black text-[#0A84FF] tracking-tight">01</span>
+            </div>
             <div className="w-12 h-12 rounded-2xl bg-[#0A84FF]/10 flex items-center justify-center text-2xl mx-auto mb-4">🔍</div>
-            <div className="text-[10px] font-black text-[#0A84FF] uppercase tracking-widest mb-2">Step 1</div>
             <h3 className="font-bold text-theme text-[15px] mb-1">{t[lang].howItWorks.step1Title}</h3>
             <p className="text-muted text-[13px] leading-relaxed">{t[lang].howItWorks.step1Desc}</p>
           </div>
@@ -132,8 +140,10 @@ export default function HomeContent() {
           <div className="relative bg-surface border border-theme rounded-[24px] p-6 text-center overflow-hidden">
             <div className="absolute inset-x-0 top-0 h-px"
               style={{ background: "linear-gradient(90deg, transparent, rgba(94,92,230,0.3), transparent)" }} />
+            <div className="absolute top-4 left-4 w-7 h-7 rounded-full bg-[#5E5CE6]/10 border border-[#5E5CE6]/20 flex items-center justify-center">
+              <span className="text-[10px] font-black text-[#5E5CE6] tracking-tight">02</span>
+            </div>
             <div className="w-12 h-12 rounded-2xl bg-[#5E5CE6]/10 flex items-center justify-center text-2xl mx-auto mb-4">⚡</div>
-            <div className="text-[10px] font-black text-[#5E5CE6] uppercase tracking-widest mb-2">Step 2</div>
             <h3 className="font-bold text-theme text-[15px] mb-1">{t[lang].howItWorks.step2Title}</h3>
             <p className="text-muted text-[13px] leading-relaxed">{t[lang].howItWorks.step2Desc}</p>
           </div>
@@ -141,8 +151,10 @@ export default function HomeContent() {
           <div className="relative bg-surface border border-theme rounded-[24px] p-6 text-center overflow-hidden">
             <div className="absolute inset-x-0 top-0 h-px"
               style={{ background: "linear-gradient(90deg, transparent, rgba(48,209,88,0.3), transparent)" }} />
+            <div className="absolute top-4 left-4 w-7 h-7 rounded-full bg-[#30D158]/10 border border-[#30D158]/20 flex items-center justify-center">
+              <span className="text-[10px] font-black text-[#30D158] tracking-tight">03</span>
+            </div>
             <div className="w-12 h-12 rounded-2xl bg-[#30D158]/10 flex items-center justify-center text-2xl mx-auto mb-4">🤖</div>
-            <div className="text-[10px] font-black text-[#30D158] uppercase tracking-widest mb-2">Step 3</div>
             <h3 className="font-bold text-theme text-[15px] mb-1">{t[lang].howItWorks.step3Title}</h3>
             <p className="text-muted text-[13px] leading-relaxed">{t[lang].howItWorks.step3Desc}</p>
           </div>

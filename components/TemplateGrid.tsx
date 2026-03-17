@@ -14,75 +14,35 @@ const SECTION_IDS: {
   emoji: string;
   ids: string[];
 }[] = [
-  {
-    id: "professionals",
-    emoji: "🏢",
-    ids: ["real-estate-agent", "therapist-profile", "law-firm-services"],
-  },
-  {
-    id: "lifestyle-finance",
-    emoji: "🏡",
-    ids: ["airbnb-property-listing", "budget-tracker", "personal-finance-dashboard"],
-  },
-  {
-    id: "business",
-    emoji: "🛍️",
-    ids: ["artisan-product-catalog", "revenue-analytics", "pricing-table"],
-  },
-  {
-    id: "startup",
-    emoji: "🚀",
-    ids: ["saas-landing-dark", "startup-product-launch", "hero-saas"],
-  },
-  {
-    id: "creative",
-    emoji: "🎨",
-    ids: ["creative-agency-portfolio", "freelance-tech-profile", "blog-card-grid"],
-  },
-  {
-    id: "copywriting-ai",
-    emoji: "✍️",
-    ids: ["cold-email-b2b", "product-description-ecom", "ai-assistant-system-prompt"],
-  },
-  {
-    id: "hospitality",
-    emoji: "🍽️",
-    ids: ["restaurant-menu", "coffee-shop-landing", "hotel-booking"],
-  },
-  {
-    id: "digital-product",
-    emoji: "📱",
-    ids: ["mobile-app-showcase", "feature-showcase", "saas-dashboard"],
-  },
-  {
-    id: "personal-brand",
-    emoji: "🪪",
-    ids: ["digital-resume", "link-in-bio", "newsletter-landing"],
-  },
+  { id: "professionals", emoji: "🏢", ids: ["real-estate-agent", "therapist-profile", "law-firm-services"] },
+  { id: "lifestyle-finance", emoji: "🏡", ids: ["airbnb-property-listing", "budget-tracker", "personal-finance-dashboard"] },
+  { id: "business", emoji: "🛍️", ids: ["artisan-product-catalog", "revenue-analytics", "pricing-table"] },
+  { id: "startup", emoji: "🚀", ids: ["saas-landing-dark", "startup-product-launch", "hero-saas"] },
+  { id: "creative", emoji: "🎨", ids: ["creative-agency-portfolio", "freelance-tech-profile", "blog-card-grid"] },
+  { id: "copywriting-ai", emoji: "✍️", ids: ["cold-email-b2b", "product-description-ecom", "ai-assistant-system-prompt"] },
+  { id: "hospitality", emoji: "🍽️", ids: ["restaurant-menu", "coffee-shop-landing", "hotel-booking"] },
+  { id: "digital-product", emoji: "📱", ids: ["mobile-app-showcase", "feature-showcase", "saas-dashboard"] },
+  { id: "personal-brand", emoji: "🪪", ids: ["digital-resume", "link-in-bio", "newsletter-landing"] },
 ];
 
 function SkeletonCard() {
   return (
-    <div className="bg-card border border-theme rounded-[24px] overflow-hidden animate-pulse">
-      <div className="h-40 bg-theme/5" />
+    <div className="bg-card border border-theme rounded-[22px] overflow-hidden animate-pulse">
+      <div className="h-48 bg-theme/5" />
       <div className="p-4 flex flex-col gap-2.5">
-        <div className="h-2.5 w-20 bg-theme/8 rounded-full" />
-        <div className="h-4 w-3/4 bg-theme/8 rounded-full" />
+        <div className="h-2 w-16 bg-theme/8 rounded-full" />
+        <div className="h-3.5 w-3/4 bg-theme/8 rounded-full" />
         <div className="mt-2 flex items-center justify-between">
-          <div className="h-4 w-10 bg-theme/8 rounded-full" />
-          <div className="h-3 w-14 bg-theme/8 rounded-full" />
+          <div className="h-3.5 w-10 bg-theme/8 rounded-full" />
+          <div className="h-2.5 w-12 bg-theme/8 rounded-full" />
         </div>
       </div>
     </div>
   );
 }
 
-// Normalize string: lowercase, remove accents
 function normalize(str: string): string {
-  return str
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
+  return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
 export default function TemplateGrid() {
@@ -94,41 +54,31 @@ export default function TemplateGrid() {
 
   useEffect(() => {
     fetch("/api/purchases")
-      .then((r) => {
-        if (!r.ok) throw new Error("not signed in");
-        return r.json();
-      })
+      .then((r) => { if (!r.ok) throw new Error(); return r.json(); })
       .then((data) => setPurchasedIds(data.templateIds ?? []))
       .catch(() => setPurchasedIds([]))
       .finally(() => setLoading(false));
   }, []);
 
   const byId = Object.fromEntries(templates.map((tmpl) => [tmpl.id, tmpl]));
-
   const isFiltered = query.trim() !== "" || categoryFilter !== "all";
 
   const filteredTemplates = useMemo(() => {
     const q = normalize(query.trim());
     return templates.filter((tmpl) => {
-      const matchesCategory =
-        categoryFilter === "all" || tmpl.category === categoryFilter;
+      const matchesCategory = categoryFilter === "all" || tmpl.category === categoryFilter;
       if (!matchesCategory) return false;
       if (!q) return true;
-
-      // Expand query with synonyms
       const synonyms: string[] = SEARCH_SYNONYMS[q] ?? [];
-
       const matchesDirect =
         normalize(tmpl.name).includes(q) ||
         normalize(tmpl.description).includes(q) ||
         tmpl.tags.some((tag) => normalize(tag).includes(q));
-
       const matchesSynonym = synonyms.some((syn) =>
         normalize(tmpl.name).includes(normalize(syn)) ||
         normalize(tmpl.description).includes(normalize(syn)) ||
         tmpl.tags.some((tag) => normalize(tag).includes(normalize(syn)))
       );
-
       return matchesDirect || matchesSynonym;
     });
   }, [query, categoryFilter]);
@@ -141,40 +91,43 @@ export default function TemplateGrid() {
 
   return (
     <div id="browse" className="px-4 sm:px-6 pb-24 max-w-5xl mx-auto">
+
       {/* ── Search + Filter Bar ── */}
-      <div className="sticky top-[60px] z-40 py-3 bg-page/80 backdrop-blur-xl -mx-4 sm:-mx-6 px-4 sm:px-6 mb-8 border-b border-theme">
-        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-          {/* Search input */}
+      <div className="sticky top-[60px] z-40 py-3 bg-page/80 backdrop-blur-xl -mx-4 sm:-mx-6 px-4 sm:px-6 mb-6 border-b border-theme">
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
           <div className="relative flex-1">
-            <svg
-              className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted pointer-events-none"
-              width="15"
-              height="15"
-              viewBox="0 0 20 20"
-              fill="none"
-            >
-              <circle cx="8.5" cy="8.5" r="5.75" stroke="currentColor" strokeWidth="1.7" />
-              <path d="M13 13l4 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+            <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted pointer-events-none"
+              width="15" height="15" viewBox="0 0 20 20" fill="none">
+              <circle cx="8.5" cy="8.5" r="5.75" stroke="currentColor" strokeWidth="1.7"/>
+              <path d="M13 13l4 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/>
             </svg>
             <input
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={t[lang].search.placeholder}
-              className="w-full bg-input border border-theme rounded-2xl pl-9 pr-4 py-2.5 text-sm text-theme placeholder:text-muted outline-none focus:border-[#0A84FF]/50 focus:ring-2 focus:ring-[#0A84FF]/10 transition-all duration-200"
+              className="w-full bg-input border border-theme rounded-2xl pl-10 pr-4 py-3 text-[14px] text-theme placeholder:text-muted outline-none focus:border-[#0A84FF]/50 focus:ring-2 focus:ring-[#0A84FF]/10 transition-all duration-200"
             />
+            {query && (
+              <button
+                onClick={() => setQuery("")}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-theme transition-colors"
+              >
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M2 2l10 10M12 2L2 12" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+                </svg>
+              </button>
+            )}
           </div>
-
-          {/* Category chips */}
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-1.5 shrink-0">
             {categoryChips.map((chip) => (
               <button
                 key={chip.value}
                 onClick={() => setCategoryFilter(chip.value)}
-                className={`glass-subtle rounded-full px-3 py-1.5 text-[12px] font-semibold transition-all duration-200 ios-spring whitespace-nowrap ${
+                className={`rounded-2xl px-4 py-3 text-[13px] font-semibold transition-all duration-200 ios-spring whitespace-nowrap border ${
                   categoryFilter === chip.value
-                    ? "bg-[#0A84FF] text-white border-transparent"
-                    : "text-muted hover:text-theme"
+                    ? "bg-[#0A84FF] text-white border-transparent shadow-[0_2px_12px_rgba(10,132,255,0.3)]"
+                    : "text-muted border-theme bg-input hover:text-theme hover:border-[#0A84FF]/30"
                 }`}
               >
                 {chip.label}
@@ -185,40 +138,37 @@ export default function TemplateGrid() {
       </div>
 
       {/* ── Studio Access Banner ── */}
-      <div className="mb-8 bg-surface border border-theme rounded-[20px] px-5 py-4 flex flex-col sm:flex-row items-start sm:items-center gap-4 relative overflow-hidden">
-        {/* glow */}
-        <div className="absolute inset-x-0 top-0 h-px" style={{ background: "linear-gradient(90deg,transparent,rgba(10,132,255,0.3),transparent)" }} />
-
-        {/* icon + text */}
-        <div className="flex items-center gap-3 flex-1 min-w-0">
-          <div className="w-10 h-10 rounded-xl bg-[#5E5CE6]/15 flex items-center justify-center text-xl shrink-0">🤖</div>
-          <div className="min-w-0">
-            <p className="font-bold text-theme text-[14px] leading-tight">{t[lang].studioAccessBanner.title}</p>
-            <p className="text-muted text-[12px] mt-0.5 truncate">{t[lang].studioAccessBanner.subtitle}</p>
+      <div className="mb-8 relative overflow-hidden rounded-[20px] border border-[#5E5CE6]/25"
+        style={{ background: "linear-gradient(135deg, rgba(94,92,230,0.08) 0%, rgba(10,132,255,0.06) 100%)" }}>
+        <div className="absolute inset-x-0 top-0 h-px" style={{ background: "linear-gradient(90deg,transparent,rgba(94,92,230,0.4),transparent)" }} />
+        <div className="px-5 py-4 flex flex-col sm:flex-row items-start sm:items-center gap-3">
+          <div className="flex items-center gap-3 flex-1 min-w-0">
+            <div className="w-10 h-10 rounded-xl bg-[#5E5CE6]/20 flex items-center justify-center text-xl shrink-0">🤖</div>
+            <div className="min-w-0">
+              <p className="font-bold text-theme text-[14px] leading-tight">{t[lang].studioAccessBanner.title}</p>
+              <p className="text-muted text-[12px] mt-0.5">{t[lang].studioAccessBanner.subtitle}</p>
+            </div>
           </div>
-        </div>
-
-        {/* price + cta */}
-        <div className="flex items-center gap-3 shrink-0">
-          <span className="text-[13px] font-bold" style={{ background: "linear-gradient(135deg,#0A84FF,#5E5CE6)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-            {t[lang].studioAccessBanner.price}
-          </span>
-          <StudioAccessButton compact />
+          <div className="flex items-center gap-3 shrink-0">
+            <span className="text-[13px] font-bold" style={{ background: "linear-gradient(135deg,#5E5CE6,#0A84FF)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+              {t[lang].studioAccessBanner.price}
+            </span>
+            <StudioAccessButton compact />
+          </div>
         </div>
       </div>
 
       {/* ── Filtered results view ── */}
       {isFiltered ? (
-        <div className="space-y-6">
-          <p className="text-[13px] text-muted font-medium">
-            {filteredTemplates.length > 0
-              ? t[lang].search.found.replace("{{n}}", String(filteredTemplates.length))
-              : null}
-          </p>
-
+        <div className="space-y-5">
+          {filteredTemplates.length > 0 && (
+            <p className="text-[13px] text-muted font-medium">
+              {t[lang].search.found.replace("{{n}}", String(filteredTemplates.length))}
+            </p>
+          )}
           {filteredTemplates.length === 0 ? (
             <div className="py-24 flex flex-col items-center gap-4 text-center">
-              <span className="text-4xl">🔍</span>
+              <span className="text-5xl">🔍</span>
               <p className="text-[17px] font-semibold text-theme">{t[lang].search.notFound}</p>
               <p className="text-[14px] text-muted">{t[lang].search.notFoundDesc}</p>
               <button
@@ -229,19 +179,11 @@ export default function TemplateGrid() {
               </button>
             </div>
           ) : (
-            <div className="flex flex-wrap justify-center gap-4 sm:gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
               {loading
-                ? Array.from({ length: 6 }).map((_, i) => (
-                    <div key={i} className="w-full sm:w-[calc(50%-10px)] lg:w-[calc(33.333%-14px)]">
-                      <SkeletonCard />
-                    </div>
-                  ))
+                ? Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)
                 : filteredTemplates.map((tmpl, i) => (
-                    <div
-                      key={tmpl.id}
-                      className="w-full sm:w-[calc(50%-10px)] lg:w-[calc(33.333%-14px)] anim-fade-up"
-                      style={{ animationDelay: `${i * 40}ms` }}
-                    >
+                    <div key={tmpl.id} className="anim-fade-up" style={{ animationDelay: `${i * 35}ms` }}>
                       <TemplateCard template={tmpl} purchasedIds={purchasedIds} />
                     </div>
                   ))}
@@ -249,55 +191,39 @@ export default function TemplateGrid() {
           )}
         </div>
       ) : (
-        /* ── Normal sections view ── */
         <div className="space-y-14">
           {SECTION_IDS.map((section) => {
-            const sectionTemplates = section.ids
-              .map((id) => byId[id])
-              .filter(Boolean) as Template[];
-
+            const sectionTemplates = section.ids.map((id) => byId[id]).filter(Boolean) as Template[];
             if (sectionTemplates.length === 0) return null;
-
             const sectionMeta = t[lang].sections[section.id as keyof typeof t[typeof lang]["sections"]];
 
             return (
               <section key={section.id}>
                 {/* Section header */}
                 <div className="flex items-center gap-3 mb-5">
-                  <span className="text-2xl sm:text-3xl shrink-0">{section.emoji}</span>
-                  <div className="min-w-0">
-                    <h2 className="text-[17px] sm:text-[20px] font-bold tracking-tight flex flex-wrap items-center gap-x-2 gap-y-1 text-theme">
-                      {sectionMeta.label}
-                      <span className="bg-[#0A84FF]/12 text-[#0A84FF] rounded-full px-2 py-0.5 text-[12px] font-semibold shrink-0">
+                  <div className="w-10 h-10 rounded-2xl bg-surface border border-theme flex items-center justify-center text-xl shrink-0 shadow-sm">
+                    {section.emoji}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <h2 className="text-[16px] sm:text-[18px] font-bold tracking-tight text-theme">
+                        {sectionMeta.label}
+                      </h2>
+                      <span className="bg-[#0A84FF]/10 text-[#0A84FF] rounded-full px-2 py-0.5 text-[11px] font-bold shrink-0">
                         {sectionTemplates.length}
                       </span>
-                    </h2>
-                    <p className="text-[12px] sm:text-[13px] text-muted mt-0.5 truncate">
-                      {sectionMeta.subtitle}
-                    </p>
+                    </div>
+                    <p className="text-[12px] text-muted mt-0.5">{sectionMeta.subtitle}</p>
                   </div>
                 </div>
 
-                <div className="h-px border-t border-theme mb-5" />
-
-                {/* Cards — flex-wrap so partial rows stay centered */}
-                <div className="flex flex-wrap justify-center gap-4 sm:gap-5">
+                {/* Cards grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
                   {loading
-                    ? Array.from({ length: sectionTemplates.length }).map((_, i) => (
-                        <div key={i} className="w-full sm:w-[calc(50%-10px)] lg:w-[calc(33.333%-14px)]">
-                          <SkeletonCard />
-                        </div>
-                      ))
+                    ? Array.from({ length: sectionTemplates.length }).map((_, i) => <SkeletonCard key={i} />)
                     : sectionTemplates.map((tmpl, i) => (
-                        <div
-                          key={tmpl.id}
-                          className="w-full sm:w-[calc(50%-10px)] lg:w-[calc(33.333%-14px)] anim-fade-up"
-                          style={{ animationDelay: `${i * 60}ms` }}
-                        >
-                          <TemplateCard
-                            template={tmpl}
-                            purchasedIds={purchasedIds}
-                          />
+                        <div key={tmpl.id} className="anim-fade-up" style={{ animationDelay: `${i * 50}ms` }}>
+                          <TemplateCard template={tmpl} purchasedIds={purchasedIds} />
                         </div>
                       ))}
                 </div>

@@ -26,10 +26,7 @@ function PromptFullView({ content }: { content: string }) {
         <div className="p-6 sm:p-8 font-mono text-[14px] text-[#1C1C1E] leading-relaxed whitespace-pre-wrap">
           {parts.map((part, i) =>
             part.startsWith("{{") ? (
-              <span
-                key={i}
-                className="inline-block bg-[#007AFF]/10 text-[#007AFF] rounded-[5px] px-1.5 py-0.5 font-semibold text-[13px]"
-              >
+              <span key={i} className="inline-block bg-[#007AFF]/10 text-[#007AFF] rounded-[5px] px-1.5 py-0.5 font-semibold text-[13px]">
                 {part}
               </span>
             ) : (
@@ -97,8 +94,8 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
       <button
         onClick={() => router.back()}
         className="fixed top-4 left-4 z-50 flex items-center gap-1.5 px-3.5 py-2 rounded-2xl
-          glass shadow-[0_4px_24px_rgba(0,0,0,0.18)]
-          text-[#0A84FF] text-[15px] font-semibold
+          glass shadow-[0_4px_24px_rgba(0,0,0,0.12)]
+          text-[#0A84FF] text-[14px] font-semibold
           hover:scale-105 active:scale-[0.96] ios-spring transition-all duration-200"
         aria-label={t[lang].preview.back}
       >
@@ -110,58 +107,115 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
 
       {/* ── Mobile/Desktop toggle (UI only) ── */}
       {template.category === "ui" && (
-        <div className="fixed top-4 right-4 z-50 flex items-center gap-1 glass rounded-2xl p-1 shadow-[0_4px_24px_rgba(0,0,0,0.18)]">
+        <div className="fixed top-4 right-4 z-50 flex items-center gap-0.5 glass rounded-2xl p-1 shadow-[0_4px_24px_rgba(0,0,0,0.12)]">
           <button
             onClick={() => setViewMode("desktop")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[13px] font-semibold transition-all duration-200 ${
+            title="Desktop"
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[12px] font-semibold transition-all duration-200 ${
               viewMode === "desktop"
                 ? "bg-[#0A84FF] text-white shadow-sm"
                 : "text-muted hover:text-theme"
             }`}
           >
-            <svg width="14" height="12" viewBox="0 0 14 12" fill="none">
-              <rect x="0.5" y="0.5" width="13" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.2"/>
-              <path d="M4.5 11.5h5M7 9.5v2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+            <svg width="15" height="11" viewBox="0 0 15 11" fill="none">
+              <rect x="0.6" y="0.6" width="13.8" height="8.3" rx="1.4" stroke="currentColor" strokeWidth="1.2"/>
+              <path d="M4.5 10.5h6M7.5 8.9v1.6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
             </svg>
-            <span className="hidden sm:inline">{lang === "it" ? "Desktop" : "Desktop"}</span>
+            <span className="hidden sm:inline">Desktop</span>
           </button>
           <button
             onClick={() => setViewMode("mobile")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[13px] font-semibold transition-all duration-200 ${
+            title="Mobile"
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[12px] font-semibold transition-all duration-200 ${
               viewMode === "mobile"
                 ? "bg-[#0A84FF] text-white shadow-sm"
                 : "text-muted hover:text-theme"
             }`}
           >
-            <svg width="9" height="14" viewBox="0 0 9 14" fill="none">
-              <rect x="0.5" y="0.5" width="8" height="13" rx="2" stroke="currentColor" strokeWidth="1.2"/>
-              <circle cx="4.5" cy="11.5" r="0.75" fill="currentColor"/>
+            <svg width="8" height="13" viewBox="0 0 8 13" fill="none">
+              <rect x="0.6" y="0.6" width="6.8" height="11.8" rx="1.8" stroke="currentColor" strokeWidth="1.2"/>
+              <circle cx="4" cy="10.2" r="0.7" fill="currentColor"/>
             </svg>
-            <span className="hidden sm:inline">{lang === "it" ? "Mobile" : "Mobile"}</span>
+            <span className="hidden sm:inline">Mobile</span>
           </button>
         </div>
       )}
 
       {/* ── Preview area ── */}
-      <div className="flex-1" style={{ paddingBottom: "100px" }}>
+      <div className="flex-1" style={{ paddingBottom: "160px" }}>
         {template.category === "ui" ? (
-          <div className={`pt-16 flex justify-center bg-[#1C1C1E] min-h-screen ${viewMode === "mobile" ? "items-start" : ""}`}>
-            <div
-              className="transition-all duration-300 ease-in-out"
-              style={viewMode === "mobile" ? { width: "375px", maxWidth: "100%" } : { width: "100%" }}
-            >
-              <iframe
-                src={`/api/preview/${template.id}`}
-                title={template.name}
-                className="w-full border-0"
+          viewMode === "desktop" ? (
+            /* Desktop: full-width iframe */
+            <iframe
+              src={`/api/preview/${template.id}`}
+              title={template.name}
+              className="w-full border-0 block"
+              style={{ height: "100vh", minHeight: "600px" }}
+            />
+          ) : (
+            /* Mobile: phone-frame bezel, iframe at real 390px viewport */
+            <div className="flex justify-center items-start pt-20 pb-10 px-4 bg-[#111113] min-h-screen">
+              {/* Phone outer shell */}
+              <div
+                className="relative shrink-0"
                 style={{
-                  height: viewMode === "mobile" ? "812px" : "100vh",
-                  minHeight: "600px",
-                  display: "block",
+                  width: "390px",
+                  maxWidth: "calc(100vw - 32px)",
                 }}
-              />
+              >
+                {/* Bezel ring */}
+                <div
+                  className="relative rounded-[48px] overflow-hidden"
+                  style={{
+                    boxShadow: "0 0 0 10px #2C2C2E, 0 0 0 11px #3A3A3C, 0 40px 120px rgba(0,0,0,0.9), 0 8px 32px rgba(0,0,0,0.5)",
+                    background: "#1C1C1E",
+                  }}
+                >
+                  {/* Notch / Dynamic Island */}
+                  <div className="relative bg-black flex items-center justify-between px-6 pt-3 pb-2">
+                    <span className="text-white text-[11px] font-semibold opacity-80">9:41</span>
+                    <div className="absolute left-1/2 -translate-x-1/2 top-2.5 w-24 h-6 bg-black rounded-full border border-[#333]" />
+                    <div className="flex items-center gap-1 opacity-80">
+                      <svg width="15" height="10" viewBox="0 0 15 10" fill="white">
+                        <rect x="0" y="3" width="2.5" height="7" rx="0.5"/><rect x="3.5" y="2" width="2.5" height="8" rx="0.5"/><rect x="7" y="0.5" width="2.5" height="9.5" rx="0.5"/><rect x="10.5" y="0" width="3.5" height="10" rx="0.5" opacity="0.35"/>
+                      </svg>
+                      <svg width="24" height="12" viewBox="0 0 24 12" fill="none">
+                        <rect x="0.5" y="0.5" width="20" height="11" rx="3.5" stroke="white" strokeOpacity="0.35"/>
+                        <rect x="1.5" y="1.5" width="16" height="9" rx="2.5" fill="white"/>
+                        <path d="M21.5 4v4a2 2 0 000-4z" fill="white" fillOpacity="0.4"/>
+                      </svg>
+                    </div>
+                  </div>
+
+                  {/* Iframe — 390px wide = real mobile viewport */}
+                  <div style={{ overflow: "hidden" }}>
+                    <iframe
+                      src={`/api/preview/${template.id}`}
+                      title={template.name}
+                      style={{
+                        width: "390px",
+                        height: "780px",
+                        border: "none",
+                        display: "block",
+                        maxWidth: "390px",
+                      }}
+                    />
+                  </div>
+
+                  {/* Home indicator */}
+                  <div className="bg-black flex justify-center py-2">
+                    <div className="w-28 h-1 bg-white/30 rounded-full" />
+                  </div>
+                </div>
+
+                {/* Side buttons */}
+                <div className="absolute -left-[3px] top-24 w-[3px] h-8 bg-[#3A3A3C] rounded-l-sm" />
+                <div className="absolute -left-[3px] top-36 w-[3px] h-14 bg-[#3A3A3C] rounded-l-sm" />
+                <div className="absolute -left-[3px] top-52 w-[3px] h-14 bg-[#3A3A3C] rounded-l-sm" />
+                <div className="absolute -right-[3px] top-36 w-[3px] h-20 bg-[#3A3A3C] rounded-r-sm" />
+              </div>
             </div>
-          </div>
+          )
         ) : (
           <div className="pt-16 pb-4 bg-gradient-to-b from-[#1C1C1E] to-[#2C2C2E] min-h-screen">
             <PromptFullView content={template.content} />
@@ -183,31 +237,28 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
           backgroundColor: "var(--nav-bg)",
         }}
       >
-        {/* Top glint */}
         <div className="absolute inset-x-8 top-0 h-px rounded-full"
           style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent)" }} />
 
         <div className="max-w-2xl mx-auto px-4 py-3 sm:py-4">
-          {/* Template info row */}
-          <div className="flex items-start gap-3 mb-3">
+          <div className="flex items-center gap-3 mb-2.5">
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 flex-wrap">
+              <div className="flex items-center gap-2 flex-wrap mb-0.5">
                 <span className="text-[10px] font-bold text-muted uppercase tracking-widest">{categoryLabel}</span>
                 {template.downloads >= 700 && (
                   <span className="text-[10px] font-bold text-[#FF9F0A] bg-[#FF9F0A]/10 border border-[#FF9F0A]/20 px-1.5 py-0.5 rounded-full">{t[lang].card.bestseller}</span>
                 )}
               </div>
-              <p className="text-[15px] font-bold text-theme leading-tight mt-0.5">{template.name}</p>
+              <p className="text-[15px] font-bold text-theme leading-tight">{template.name}</p>
               <p className="text-[12px] text-muted mt-0.5 line-clamp-1">{template.description}</p>
             </div>
             <div className="text-right shrink-0">
-              <p className="text-[20px] font-black text-[#0A84FF]">{formatPrice(template.price)}</p>
-              <p className="text-[11px] text-muted">{t[lang].preview.oneTime}</p>
+              <p className="text-[22px] font-black text-[#0A84FF] leading-none">{formatPrice(template.price)}</p>
+              <p className="text-[11px] text-muted mt-0.5">{t[lang].preview.oneTime}</p>
             </div>
           </div>
 
-          {/* Tags row */}
-          <div className="flex gap-1.5 flex-wrap mb-3">
+          <div className="flex gap-1.5 flex-wrap mb-2.5">
             {template.tags.slice(0, 4).map((tag) => (
               <span key={tag} className="text-[10px] text-muted glass-subtle px-2 py-0.5 rounded-full border border-theme">
                 {tag}
@@ -219,23 +270,24 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
             </span>
           </div>
 
-          {/* CTA button */}
           {isPurchased ? (
-            <div className="flex flex-col gap-2">
+            <div className="flex gap-2">
               <Link
                 href={`/studio?templateId=${template.id}`}
-                className="flex items-center justify-center gap-2 bg-[#5E5CE6] hover:bg-[#6E6CF6] active:scale-[0.97]
-                  text-white font-bold rounded-2xl px-6 py-3.5 w-full text-center
+                className="flex-1 flex items-center justify-center gap-2 bg-[#5E5CE6] hover:bg-[#6E6CF6] active:scale-[0.97]
+                  text-white font-bold rounded-2xl px-4 py-3 text-center
                   transition-all duration-200 ios-spring
-                  shadow-[0_4px_20px_rgba(94,92,230,0.35)] text-[15px]"
+                  shadow-[0_4px_20px_rgba(94,92,230,0.35)] text-[14px]"
               >
                 {t[lang].preview.openStudio}
               </Link>
-              <DownloadButton
-                templateId={template.id}
-                downloadType={getDownloadType(template)}
-                variant="full"
-              />
+              <div className="flex-1">
+                <DownloadButton
+                  templateId={template.id}
+                  downloadType={getDownloadType(template)}
+                  variant="full"
+                />
+              </div>
             </div>
           ) : (
             <button
