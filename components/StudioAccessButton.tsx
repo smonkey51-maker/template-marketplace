@@ -40,11 +40,11 @@ export default function StudioAccessButton() {
       <button
         onClick={handleClick}
         disabled={loading}
-        className="inline-block px-8 py-3 bg-orange-500 hover:bg-orange-400 text-white font-bold rounded-2xl disabled:opacity-60 transition-all duration-200 shadow-lg shadow-orange-500/25"
+        className="inline-block px-8 py-4 bg-[#FF9F0A] hover:bg-[#FFB340] active:scale-[0.97] text-white font-bold rounded-2xl text-[17px] disabled:opacity-60 transition-all duration-200 ios-spring shadow-[0_4px_24px_rgba(255,159,10,0.3)]"
       >
         {loading ? "Caricamento..." : "Inizia con Studio Access →"}
       </button>
-      {error && <p className="text-red-400 text-sm">{error}</p>}
+      {error && <p className="text-[#FF453A] text-[13px]">{error}</p>}
     </div>
   );
 }

@@ -6,14 +6,14 @@ import TemplateCard from "@/components/TemplateCard";
 
 function SkeletonCard() {
   return (
-    <div className="rounded-3xl border border-white/10 bg-white/4 overflow-hidden animate-pulse">
-      <div className="h-40 bg-white/10" />
+    <div className="bg-[#1C1C1E] rounded-[28px] overflow-hidden animate-pulse">
+      <div className="h-40 bg-white/[0.06]" />
       <div className="p-4 flex flex-col gap-2">
-        <div className="h-3 w-24 bg-white/10 rounded-full" />
-        <div className="h-4 w-3/4 bg-white/10 rounded-full" />
+        <div className="h-3 w-24 bg-white/[0.06] rounded-full" />
+        <div className="h-4 w-3/4 bg-white/[0.06] rounded-full" />
         <div className="mt-3 flex items-center justify-between">
-          <div className="h-4 w-12 bg-white/10 rounded-full" />
-          <div className="h-3 w-16 bg-white/10 rounded-full" />
+          <div className="h-4 w-12 bg-white/[0.06] rounded-full" />
+          <div className="h-3 w-16 bg-white/[0.06] rounded-full" />
         </div>
       </div>
     </div>
@@ -43,12 +43,12 @@ export default function TemplateGrid() {
       {/* UI Templates */}
       <section id="browse" className="px-6 pb-16 max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold flex items-center gap-3">
+          <h2 className="text-[22px] font-bold flex items-center gap-3 tracking-tight">
             UI Templates
-            <span className="text-sm font-normal text-gray-500">
+            <span className="text-[13px] font-normal text-[#8E8E93]">
               HTML + Tailwind CSS
             </span>
-            <span className="bg-orange-500/15 text-orange-300 border border-orange-500/20 rounded-full px-3 py-0.5 text-sm font-normal">
+            <span className="bg-[#FF9F0A]/15 text-[#FF9F0A] rounded-full px-2.5 py-0.5 text-[13px] font-semibold">
               {uiTemplates.length}
             </span>
           </h2>
@@ -71,12 +71,12 @@ export default function TemplateGrid() {
       {/* Prompt Templates */}
       <section className="px-6 pb-24 max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold flex items-center gap-3">
+          <h2 className="text-[22px] font-bold flex items-center gap-3 tracking-tight">
             Prompt Templates
-            <span className="text-sm font-normal text-gray-500">
+            <span className="text-[13px] font-normal text-[#8E8E93]">
               Works with any LLM
             </span>
-            <span className="bg-orange-500/15 text-orange-300 border border-orange-500/20 rounded-full px-3 py-0.5 text-sm font-normal">
+            <span className="bg-[#FF9F0A]/15 text-[#FF9F0A] rounded-full px-2.5 py-0.5 text-[13px] font-semibold">
               {promptTemplates.length}
             </span>
           </h2>

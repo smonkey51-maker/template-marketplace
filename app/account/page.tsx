@@ -36,25 +36,22 @@ export default function AccountPage() {
 
   if (!isLoaded) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="w-8 h-8 rounded-full border-2 border-orange-500 border-t-transparent animate-spin" />
+      <div className="min-h-screen flex items-center justify-center bg-[#000000]">
+        <div className="w-8 h-8 rounded-full border-2 border-[#FF9F0A] border-t-transparent animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-orange-950/10 relative">
-      {/* Background blobs */}
-      <div className="fixed top-0 left-0 w-96 h-96 bg-orange-500/10 blur-3xl rounded-full pointer-events-none z-0" style={{ transform: "translate(-30%,-30%)" }} />
-      <div className="fixed bottom-0 right-0 w-72 h-72 bg-violet-500/10 blur-3xl rounded-full pointer-events-none z-0" style={{ transform: "translate(30%,30%)" }} />
+    <div className="min-h-screen bg-[#000000] relative" style={{ background: "radial-gradient(ellipse at top, #1a1a1a 0%, #000 60%)" }}>
 
-      {/* Nav */}
-      <nav className="sticky top-0 z-50 border-b border-white/8 backdrop-blur-2xl bg-gray-950/60 px-6 py-4">
+      {/* Nav — iOS liquid glass */}
+      <nav className="sticky top-0 z-50 border-b border-white/[0.08] backdrop-blur-2xl bg-[#1C1C1E]/80 px-6 py-4">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <Link href="/" className="text-xl font-extrabold tracking-tight bg-gradient-to-r from-orange-400 to-amber-300 bg-clip-text text-transparent">
+          <Link href="/" className="text-xl font-bold tracking-tight text-[#FF9F0A]">
             TemplateLab
           </Link>
-          <Link href="/" className="text-sm text-gray-400 hover:text-white transition">
+          <Link href="/" className="text-[15px] text-[#8E8E93] hover:text-white transition">
             ← Marketplace
           </Link>
         </div>
@@ -63,41 +60,41 @@ export default function AccountPage() {
       <div className="relative z-10 max-w-4xl mx-auto px-6 py-12 flex flex-col gap-8">
 
         {/* Profile card */}
-        <div className="bg-white/4 backdrop-blur-xl border border-white/10 rounded-3xl p-6 flex items-center gap-5">
-          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-orange-400 to-amber-300 flex items-center justify-center text-2xl font-bold text-white shrink-0">
+        <div className="bg-[#1C1C1E] border border-white/[0.08] rounded-[28px] p-6 flex items-center gap-5">
+          <div className="w-16 h-16 rounded-full bg-[#FF9F0A] flex items-center justify-center text-2xl font-bold text-white shrink-0">
             {user?.firstName?.[0] ?? user?.emailAddresses?.[0]?.emailAddress?.[0]?.toUpperCase() ?? "?"}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-lg font-bold text-white truncate">
+            <p className="text-[17px] font-semibold text-white truncate">
               {user?.fullName ?? user?.emailAddresses?.[0]?.emailAddress ?? "Utente"}
             </p>
-            <p className="text-sm text-gray-400 truncate">
+            <p className="text-[13px] text-[#8E8E93] truncate">
               {user?.emailAddresses?.[0]?.emailAddress}
             </p>
           </div>
           <Link
             href="/studio"
-            className="px-4 py-2 bg-orange-500 hover:bg-orange-400 text-white font-semibold rounded-2xl text-sm transition-all duration-200 shadow-lg shadow-orange-500/20 shrink-0"
+            className="px-4 py-2 bg-[#5E5CE6] hover:bg-[#7B79F7] text-white font-semibold rounded-2xl text-[14px] transition-all duration-200 active:scale-[0.97] ios-spring shrink-0"
           >
             AI Studio →
           </Link>
         </div>
 
         {/* Studio Access */}
-        <div className={`rounded-3xl border p-6 flex items-center justify-between gap-4 ${
+        <div className={`rounded-[28px] border p-6 flex items-center justify-between gap-4 ${
           hasStudioAccess
-            ? "bg-violet-500/8 border-violet-400/20"
-            : "bg-white/4 border-white/10"
+            ? "bg-[#5E5CE6]/10 border-[#5E5CE6]/25"
+            : "bg-white/[0.04] backdrop-blur-xl border-white/10"
         }`}>
           <div className="flex items-center gap-4">
             <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-2xl ${
-              hasStudioAccess ? "bg-violet-500/20" : "bg-white/8"
+              hasStudioAccess ? "bg-[#5E5CE6]/20 text-[#5E5CE6]" : "bg-white/[0.08] text-white"
             }`}>
               ✦
             </div>
             <div>
-              <p className="font-bold text-white">Studio Access</p>
-              <p className="text-sm text-gray-400">
+              <p className="font-bold text-white text-[17px]">Studio Access</p>
+              <p className="text-[13px] text-[#8E8E93]">
                 {hasStudioAccess ? "Attivo — Generazioni AI illimitate" : "Non attivo"}
               </p>
             </div>
@@ -106,14 +103,14 @@ export default function AccountPage() {
             <button
               onClick={openPortal}
               disabled={portalLoading}
-              className="px-4 py-2 bg-white/8 hover:bg-white/15 border border-white/15 rounded-2xl text-sm font-medium transition-all duration-200 shrink-0"
+              className="px-4 py-2 bg-[#2C2C2E] border border-white/[0.08] rounded-2xl text-[15px] font-medium transition-all duration-200 active:scale-[0.97] ios-spring shrink-0"
             >
               {portalLoading ? "..." : "Gestisci abbonamento"}
             </button>
           ) : (
             <Link
               href="/#studio-access"
-              className="px-4 py-2 bg-orange-500 hover:bg-orange-400 text-white font-semibold rounded-2xl text-sm transition-all duration-200 shadow-lg shadow-orange-500/20 shrink-0"
+              className="px-4 py-2 bg-[#FF9F0A] hover:bg-[#FFB340] text-white font-semibold rounded-2xl text-[14px] transition-all duration-200 active:scale-[0.97] ios-spring shrink-0"
             >
               Attiva →
             </Link>
@@ -122,39 +119,44 @@ export default function AccountPage() {
 
         {/* Purchased templates */}
         <div>
-          <h2 className="text-xl font-bold text-white mb-4">
+          <h2 className="text-[13px] font-semibold text-[#8E8E93] uppercase tracking-widest mb-3 px-1">
             I miei template{" "}
             {purchasedTemplates.length > 0 && (
-              <span className="text-sm font-normal text-gray-500">({purchasedTemplates.length})</span>
+              <span className="normal-case tracking-normal text-[#8E8E93]">({purchasedTemplates.length})</span>
             )}
           </h2>
 
           {purchasedTemplates.length === 0 ? (
-            <div className="bg-white/4 backdrop-blur-xl border border-white/10 rounded-3xl p-10 text-center">
-              <p className="text-gray-500 mb-4">Nessun template acquistato ancora.</p>
+            <div className="bg-[#1C1C1E] border border-white/[0.08] rounded-[28px] p-10 text-center flex flex-col items-center gap-4">
+              <p className="text-[15px] text-[#8E8E93]">Nessun template acquistato ancora.</p>
               <Link
                 href="/"
-                className="inline-block px-6 py-2.5 bg-orange-500 hover:bg-orange-400 text-white font-semibold rounded-2xl text-sm transition-all duration-200"
+                className="inline-block px-6 py-2.5 bg-[#FF9F0A] hover:bg-[#FFB340] text-white font-semibold rounded-2xl text-[15px] transition-all duration-200 active:scale-[0.97] ios-spring"
               >
-                Sfoglia il marketplace →
+                Vai al marketplace →
               </Link>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {purchasedTemplates.map((t) => (
-                <div key={t.id} className="bg-white/4 backdrop-blur-xl border border-white/10 rounded-2xl p-5 flex items-center gap-4 hover:bg-white/7 transition-all duration-200">
-                  <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-xl shrink-0 ${
-                    t.category === "ui" ? "bg-blue-500/20" : "bg-orange-500/20"
+            <div className="bg-[#1C1C1E] rounded-[20px] overflow-hidden">
+              {purchasedTemplates.map((t, index) => (
+                <div
+                  key={t.id}
+                  className={`flex items-center gap-4 px-5 py-4 active:bg-white/[0.05] transition-colors duration-150 ${
+                    index > 0 ? "border-t border-white/[0.06]" : ""
+                  }`}
+                >
+                  <div className={`w-11 h-11 rounded-2xl flex items-center justify-center text-xl shrink-0 ${
+                    t.category === "ui" ? "bg-[#007AFF]/20" : "bg-[#FF9F0A]/20"
                   }`}>
                     {t.category === "ui" ? "🖼" : "📝"}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-white truncate">{t.name}</p>
-                    <p className="text-xs text-gray-500">{formatPrice(t.price)}</p>
+                    <p className="font-semibold text-white text-[15px] truncate">{t.name}</p>
+                    <p className="text-[13px] text-[#8E8E93]">{formatPrice(t.price)}</p>
                   </div>
                   <Link
                     href={`/studio?templateId=${t.id}`}
-                    className="px-3 py-1.5 bg-violet-600 hover:bg-violet-500 text-white text-xs font-semibold rounded-xl transition-all duration-200 shrink-0"
+                    className="px-3 py-1.5 bg-[#5E5CE6] hover:bg-[#7B79F7] text-white text-[13px] font-semibold rounded-xl transition-all duration-200 active:scale-[0.97] ios-spring shrink-0"
                   >
                     Apri Studio
                   </Link>
@@ -164,22 +166,24 @@ export default function AccountPage() {
           )}
         </div>
 
-        {/* Danger zone */}
-        <div className="bg-white/3 border border-white/8 rounded-3xl p-6">
-          <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">Account</h3>
-          <div className="flex flex-wrap gap-3">
+        {/* Account section */}
+        <div>
+          <h3 className="text-[13px] font-semibold text-[#8E8E93] uppercase tracking-widest mb-3 px-1">Account</h3>
+          <div className="bg-[#1C1C1E] border border-white/[0.08] rounded-[20px] overflow-hidden">
             <button
               onClick={openPortal}
               disabled={portalLoading}
-              className="px-4 py-2 bg-white/8 hover:bg-white/15 border border-white/10 rounded-2xl text-sm transition-all duration-200"
+              className="w-full text-left px-5 py-4 text-[15px] text-white hover:bg-white/[0.04] active:bg-white/[0.05] transition-colors duration-150 border-b border-white/[0.06] flex items-center justify-between"
             >
-              {portalLoading ? "..." : "Gestisci pagamenti e fatture"}
+              <span>{portalLoading ? "..." : "Gestisci pagamenti e fatture"}</span>
+              <span className="text-[#8E8E93] text-[18px]">›</span>
             </button>
             <Link
               href="/studio"
-              className="px-4 py-2 bg-white/8 hover:bg-white/15 border border-white/10 rounded-2xl text-sm transition-all duration-200"
+              className="block px-5 py-4 text-[15px] text-white hover:bg-white/[0.04] active:bg-white/[0.05] transition-colors duration-150 flex items-center justify-between"
             >
-              Vai all'AI Studio
+              <span>Vai all&apos;AI Studio</span>
+              <span className="text-[#8E8E93] text-[18px]">›</span>
             </Link>
           </div>
         </div>

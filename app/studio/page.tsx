@@ -131,28 +131,19 @@ function StudioContent() {
   const isUIOutput = activeCategory === "ui";
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 relative">
-      {/* Background blobs */}
-      <div
-        className="fixed top-0 left-0 w-96 h-96 bg-orange-500/10 blur-3xl rounded-full pointer-events-none z-0"
-        style={{ transform: "translate(-30%, -30%)" }}
-      />
-      <div
-        className="fixed bottom-0 right-0 w-80 h-80 bg-violet-500/8 blur-3xl rounded-full pointer-events-none z-0"
-        style={{ transform: "translate(30%, 30%)" }}
-      />
+    <div className="min-h-screen flex flex-col bg-[#000000] relative" style={{ background: "radial-gradient(ellipse at top, #1a1a1a 0%, #000 60%)" }}>
 
-      {/* Nav — liquid glass */}
-      <nav className="border-b border-white/8 backdrop-blur-2xl bg-gray-950/60 px-6 py-4 relative z-50">
+      {/* Nav — iOS liquid glass */}
+      <nav className="border-b border-white/[0.08] backdrop-blur-2xl bg-[#1C1C1E]/80 px-6 py-4 relative z-50">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <Link
             href="/"
-            className="text-xl font-extrabold tracking-tight bg-gradient-to-r from-orange-400 to-amber-300 bg-clip-text text-transparent"
+            className="text-xl font-bold tracking-tight text-[#FF9F0A]"
           >
             TemplateLab
           </Link>
           <div className="flex items-center gap-4">
-            <span className="text-sm text-gray-400 bg-white/5 backdrop-blur-sm px-3 py-1 rounded-full border border-white/10">
+            <span className="text-[13px] text-[#8E8E93] bg-white/[0.06] backdrop-blur-sm px-3 py-1 rounded-full border border-white/[0.08] font-medium uppercase tracking-widest">
               AI Studio
             </span>
             <UserButton />
@@ -162,8 +153,8 @@ function StudioContent() {
 
       <div className="flex-1 max-w-7xl mx-auto w-full px-6 py-10 relative z-10">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-1">AI Template Studio</h1>
-          <p className="text-gray-400">
+          <h1 className="text-[28px] font-bold mb-1 tracking-tight">AI Template Studio</h1>
+          <p className="text-[15px] text-[#8E8E93]">
             Generate new templates or customize existing ones with Claude.
           </p>
         </div>
@@ -171,19 +162,19 @@ function StudioContent() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left: Controls */}
           <div className="flex flex-col gap-6">
-            {/* Tab switcher */}
-            <div className="flex rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 p-1 gap-1">
+            {/* Tab switcher — iOS segmented control */}
+            <div className="flex bg-[#1C1C1E] rounded-[12px] p-1 gap-1">
               {(["generate", "customize"] as Tab[]).map((t) => (
                 <button
                   key={t}
                   onClick={() => setTab(t)}
                   disabled={t === "generate" && !hasStudioAccess}
-                  className={`flex-1 py-2 rounded-xl text-sm font-medium capitalize transition-all duration-200 ${
+                  className={`flex-1 py-2 rounded-[10px] text-[15px] font-medium capitalize transition-all duration-200 ${
                     tab === t
-                      ? "bg-white/15 backdrop-blur-sm text-white"
+                      ? "bg-[#2C2C2E] text-white shadow-sm"
                       : t === "generate" && !hasStudioAccess
-                      ? "text-gray-600 cursor-not-allowed"
-                      : "text-gray-400 hover:text-white"
+                      ? "text-[#48484A] cursor-not-allowed"
+                      : "text-[#8E8E93] hover:text-white"
                   }`}
                 >
                   {t === "generate" ? "✨ Generate New" : "🎨 Customize"}
@@ -194,12 +185,12 @@ function StudioContent() {
               ))}
             </div>
 
-            {/* Generate locked — glass card with orange glow */}
+            {/* Generate locked */}
             {tab === "generate" && !hasStudioAccess && (
-              <div className="rounded-3xl bg-gradient-to-br from-orange-500/10 via-amber-500/5 to-transparent backdrop-blur-xl border border-orange-400/20 p-8 text-center flex flex-col items-center gap-4 shadow-xl shadow-orange-950/20">
-                <div className="text-4xl">🔒</div>
-                <h3 className="font-semibold text-white">Studio Access richiesto</h3>
-                <p className="text-sm text-gray-400">
+              <div className="bg-[#1C1C1E] border border-white/10 rounded-[28px] p-8 text-center flex flex-col items-center gap-4">
+                <div className="text-5xl">🔒</div>
+                <h3 className="font-semibold text-white text-[17px]">Studio Access richiesto</h3>
+                <p className="text-[15px] text-[#8E8E93]">
                   Acquista Studio Access per generare template illimitati con l&apos;AI.
                 </p>
                 <button
@@ -212,7 +203,7 @@ function StudioContent() {
                     const data = await res.json();
                     if (data.url) window.location.href = data.url;
                   }}
-                  className="px-6 py-3 bg-orange-500 hover:bg-orange-400 rounded-2xl font-bold text-sm transition-all duration-200 shadow-lg shadow-orange-500/25"
+                  className="px-6 py-3 bg-[#FF9F0A] hover:bg-[#FFB340] rounded-2xl font-bold text-[15px] text-white transition-all duration-200 shadow-[0_4px_20px_rgba(255,159,10,0.25)] active:scale-[0.97] ios-spring"
                 >
                   Acquista Studio Access →
                 </button>
@@ -223,7 +214,7 @@ function StudioContent() {
               <div className="flex flex-col gap-4">
                 {/* Category */}
                 <div>
-                  <label className="text-sm font-medium text-gray-300 mb-2 block">
+                  <label className="text-[11px] font-semibold text-[#8E8E93] uppercase tracking-widest mb-2 block px-1">
                     Template type
                   </label>
                   <div className="flex gap-3">
@@ -231,10 +222,10 @@ function StudioContent() {
                       <button
                         key={c}
                         onClick={() => setGenCategory(c)}
-                        className={`flex-1 py-2 rounded-2xl text-sm font-medium border transition-all duration-200 ${
+                        className={`flex-1 py-2.5 rounded-2xl text-[15px] font-medium border transition-all duration-200 active:scale-[0.97] ios-spring ${
                           genCategory === c
-                            ? "bg-orange-500/15 border-orange-400/50 text-orange-300"
-                            : "border-white/10 text-gray-400 hover:border-white/30"
+                            ? "bg-[#007AFF]/15 border-[#007AFF]/40 text-[#007AFF]"
+                            : "border-white/[0.08] text-[#8E8E93] hover:border-white/20"
                         }`}
                       >
                         {c === "ui" ? "🖼 UI Component" : "📝 Prompt Template"}
@@ -246,7 +237,7 @@ function StudioContent() {
                 {/* Style (UI only) */}
                 {genCategory === "ui" && (
                   <div>
-                    <label className="text-sm font-medium text-gray-300 mb-2 block">
+                    <label className="text-[11px] font-semibold text-[#8E8E93] uppercase tracking-widest mb-2 block px-1">
                       Visual style
                     </label>
                     <div className="flex flex-wrap gap-2">
@@ -262,10 +253,10 @@ function StudioContent() {
                         <button
                           key={s}
                           onClick={() => setGenStyle(s)}
-                          className={`px-3 py-1.5 rounded-full text-xs font-medium capitalize border transition-all duration-200 ${
+                          className={`px-3.5 py-1.5 rounded-full text-[13px] font-medium capitalize border transition-all duration-200 active:scale-[0.97] ios-spring ${
                             genStyle === s
-                              ? "bg-orange-500/15 border-orange-400/50 text-orange-300"
-                              : "border-white/10 text-gray-400 hover:border-white/30"
+                              ? "bg-[#007AFF]/15 border-[#007AFF]/40 text-[#007AFF]"
+                              : "border-white/[0.08] text-[#8E8E93] hover:border-white/20"
                           }`}
                         >
                           {s}
@@ -277,7 +268,7 @@ function StudioContent() {
 
                 {/* Description */}
                 <div>
-                  <label className="text-sm font-medium text-gray-300 mb-2 block">
+                  <label className="text-[11px] font-semibold text-[#8E8E93] uppercase tracking-widest mb-2 block px-1">
                     Describe what you want
                   </label>
                   <textarea
@@ -292,19 +283,19 @@ function StudioContent() {
                         ? "e.g. A testimonial section with 3 cards, star ratings, and customer photos"
                         : "e.g. A LinkedIn connection request message for B2B SaaS outreach"
                     }
-                    className="w-full bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-orange-400/50 resize-none transition-all duration-200"
+                    className="w-full bg-[#1C1C1E] border border-white/[0.08] rounded-2xl px-4 py-3 text-[15px] text-white placeholder-[#48484A] focus:outline-none focus:border-[#007AFF]/50 focus:ring-1 focus:ring-[#007AFF]/30 resize-none transition-all duration-200"
                   />
-                  <p className="text-xs text-gray-600 mt-1">⌘+Enter to generate</p>
+                  <p className="text-[11px] text-[#48484A] mt-1 px-1">⌘+Enter to generate</p>
                 </div>
 
                 <button
                   onClick={handleGenerate}
                   disabled={genLoading || !genDescription.trim()}
-                  className="py-3 rounded-2xl bg-orange-500 hover:bg-orange-400 disabled:opacity-40 disabled:cursor-not-allowed font-bold transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-orange-500/25"
+                  className="py-3.5 rounded-2xl bg-[#FF9F0A] hover:bg-[#FFB340] disabled:opacity-40 disabled:cursor-not-allowed font-bold text-[15px] text-white transition-all duration-200 flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(255,159,10,0.25)] active:scale-[0.97] ios-spring"
                 >
                   {genLoading ? (
                     <>
-                      <span className="animate-spin">⟳</span> Generating...
+                      <span style={{ display: "inline-block", animation: "spin 1s linear infinite" }}>⟳</span> Generating...
                     </>
                   ) : (
                     "✨ Generate Template"
@@ -318,13 +309,13 @@ function StudioContent() {
               <div className="flex flex-col gap-4">
                 {/* Template picker */}
                 <div>
-                  <label className="text-sm font-medium text-gray-300 mb-2 block">
+                  <label className="text-[11px] font-semibold text-[#8E8E93] uppercase tracking-widest mb-2 block px-1">
                     Select a template to customize
                   </label>
                   {purchasedIds.length === 0 ? (
-                    <div className="rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 px-4 py-6 text-center text-sm text-gray-500">
+                    <div className="bg-[#1C1C1E] border border-white/[0.08] rounded-2xl px-4 py-6 text-center text-[15px] text-[#8E8E93]">
                       Non hai ancora acquistato nessun template.{" "}
-                      <Link href="/" className="text-orange-400 hover:underline">
+                      <Link href="/" className="text-[#007AFF] hover:underline">
                         Vai al marketplace →
                       </Link>
                     </div>
@@ -332,7 +323,7 @@ function StudioContent() {
                     <select
                       value={selectedId}
                       onChange={(e) => setSelectedId(e.target.value)}
-                      className="w-full bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-orange-400/50 transition-all duration-200"
+                      className="w-full bg-[#1C1C1E] border border-white/[0.08] rounded-2xl px-4 py-3 text-[15px] text-white focus:outline-none focus:border-[#007AFF]/50 focus:ring-1 focus:ring-[#007AFF]/30 transition-all duration-200"
                     >
                       <option value="">— Choose a template —</option>
                       {["ui", "prompt"].map((cat) => {
@@ -359,11 +350,11 @@ function StudioContent() {
 
                 {/* Template preview */}
                 {selectedTemplate && (
-                  <div className="rounded-2xl bg-white/4 backdrop-blur-xl border border-white/10 p-4">
-                    <p className="text-xs font-semibold text-gray-400 mb-2 uppercase tracking-wider">
+                  <div className="bg-[#1C1C1E] border border-white/[0.08] rounded-2xl p-4">
+                    <p className="text-[11px] font-semibold text-[#8E8E93] mb-2 uppercase tracking-widest">
                       Template preview
                     </p>
-                    <pre className="text-xs text-gray-500 font-mono overflow-hidden line-clamp-5">
+                    <pre className="text-[12px] text-[#8E8E93] font-mono overflow-hidden line-clamp-5">
                       {selectedTemplate.content.slice(0, 300)}...
                     </pre>
                   </div>
@@ -371,7 +362,7 @@ function StudioContent() {
 
                 {/* Instructions */}
                 <div>
-                  <label className="text-sm font-medium text-gray-300 mb-2 block">
+                  <label className="text-[11px] font-semibold text-[#8E8E93] uppercase tracking-widest mb-2 block px-1">
                     Customization instructions
                   </label>
                   <textarea
@@ -386,9 +377,9 @@ function StudioContent() {
                         ? "e.g. Change the color scheme to dark green, add an animation on the headline, make the CTA button larger"
                         : "e.g. Make it more casual and friendly, add a variable for company size, shorten to under 100 words"
                     }
-                    className="w-full bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-orange-400/50 resize-none transition-all duration-200"
+                    className="w-full bg-[#1C1C1E] border border-white/[0.08] rounded-2xl px-4 py-3 text-[15px] text-white placeholder-[#48484A] focus:outline-none focus:border-[#007AFF]/50 focus:ring-1 focus:ring-[#007AFF]/30 resize-none transition-all duration-200"
                   />
-                  <p className="text-xs text-gray-600 mt-1">⌘+Enter to customize</p>
+                  <p className="text-[11px] text-[#48484A] mt-1 px-1">⌘+Enter to customize</p>
                 </div>
 
                 <button
@@ -398,11 +389,11 @@ function StudioContent() {
                     !selectedTemplate ||
                     !customInstructions.trim()
                   }
-                  className="py-3 rounded-2xl bg-orange-500 hover:bg-orange-400 disabled:opacity-40 disabled:cursor-not-allowed font-bold transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-orange-500/25"
+                  className="py-3.5 rounded-2xl bg-[#FF9F0A] hover:bg-[#FFB340] disabled:opacity-40 disabled:cursor-not-allowed font-bold text-[15px] text-white transition-all duration-200 flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(255,159,10,0.25)] active:scale-[0.97] ios-spring"
                 >
                   {customLoading ? (
                     <>
-                      <span className="animate-spin">⟳</span> Customizing...
+                      <span style={{ display: "inline-block", animation: "spin 1s linear infinite" }}>⟳</span> Customizing...
                     </>
                   ) : (
                     "🎨 Customize Template"
@@ -416,25 +407,25 @@ function StudioContent() {
           <div className="flex flex-col">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
-                <h2 className="text-sm font-semibold text-gray-300">Output</h2>
+                <h2 className="text-[13px] font-semibold text-[#8E8E93] uppercase tracking-widest">Output</h2>
                 {activeOutput && isUIOutput && (
-                  <div className="flex rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 p-0.5 gap-0.5">
+                  <div className="flex bg-[#1C1C1E] rounded-[12px] p-0.5 gap-0.5">
                     <button
                       onClick={() => setOutputView("code")}
-                      className={`px-3 py-1 rounded-lg text-xs font-medium transition-all duration-200 ${
+                      className={`px-3 py-1 rounded-[10px] text-[13px] font-medium transition-all duration-200 ${
                         outputView === "code"
-                          ? "bg-white/15 backdrop-blur-sm text-white"
-                          : "text-gray-400 hover:text-white"
+                          ? "bg-[#2C2C2E] text-white shadow-sm"
+                          : "text-[#8E8E93] hover:text-white"
                       }`}
                     >
                       &lt;/&gt; Code
                     </button>
                     <button
                       onClick={() => setOutputView("preview")}
-                      className={`px-3 py-1 rounded-lg text-xs font-medium transition-all duration-200 ${
+                      className={`px-3 py-1 rounded-[10px] text-[13px] font-medium transition-all duration-200 ${
                         outputView === "preview"
-                          ? "bg-white/15 backdrop-blur-sm text-white"
-                          : "text-gray-400 hover:text-white"
+                          ? "bg-[#2C2C2E] text-white shadow-sm"
+                          : "text-[#8E8E93] hover:text-white"
                       }`}
                     >
                       👁 Preview
@@ -445,16 +436,16 @@ function StudioContent() {
               {activeOutput && (
                 <button
                   onClick={() => copyToClipboard(activeOutput)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-xs font-medium transition-all duration-200"
+                  className="flex items-center gap-1.5 px-3 py-1.5 bg-[#2C2C2E] hover:bg-[#3A3A3C] rounded-xl text-[13px] font-medium transition-all duration-200 active:scale-[0.97] ios-spring"
                 >
                   {copied ? "✓ Copied!" : "Copy"}
                 </button>
               )}
             </div>
 
-            <div className="flex-1 relative rounded-3xl border border-white/10 bg-white/4 backdrop-blur-xl overflow-hidden min-h-[500px]">
+            <div className="flex-1 relative bg-[#1C1C1E] border border-white/[0.08] rounded-[28px] overflow-hidden min-h-[500px]">
               {!activeOutput && !isLoading && (
-                <div className="absolute inset-0 flex items-center justify-center text-gray-600 text-sm">
+                <div className="absolute inset-0 flex items-center justify-center text-[#48484A] text-[15px]">
                   <div className="text-center">
                     <div className="text-4xl mb-3">
                       {tab === "generate" ? "✨" : "🎨"}
@@ -470,9 +461,9 @@ function StudioContent() {
 
               {isLoading && !activeOutput && (
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="flex items-center gap-3 text-gray-400">
-                    <span className="animate-spin text-2xl">⟳</span>
-                    <span className="text-sm">
+                  <div className="flex items-center gap-3 text-[#8E8E93]">
+                    <span style={{ display: "inline-block", animation: "spin 1s linear infinite", fontSize: "1.5rem", color: "#FF9F0A" }}>⟳</span>
+                    <span className="text-[15px]">
                       Claude is thinking
                       <span className="animate-pulse">...</span>
                     </span>
@@ -481,10 +472,10 @@ function StudioContent() {
               )}
 
               {activeOutput && (outputView === "code" || !isUIOutput) && (
-                <pre className="p-5 text-xs font-mono text-gray-300 overflow-auto h-full leading-relaxed whitespace-pre-wrap">
+                <pre className="p-5 text-[12px] font-mono text-[#8E8E93] overflow-auto h-full leading-relaxed whitespace-pre-wrap">
                   {activeOutput}
                   {isLoading && (
-                    <span className="inline-block w-2 h-4 bg-orange-400 animate-pulse ml-0.5 align-middle" />
+                    <span className="inline-block w-2 h-4 bg-[#FF9F0A] animate-pulse ml-0.5 align-middle" />
                   )}
                 </pre>
               )}
@@ -500,20 +491,27 @@ function StudioContent() {
             </div>
 
             {activeOutput && (
-              <p className="text-xs text-gray-600 mt-2 text-right">
+              <p className="text-[11px] text-[#48484A] mt-2 text-right">
                 {activeOutput.length.toLocaleString()} characters
               </p>
             )}
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
     </div>
   );
 }
 
 export default function StudioPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-gray-400">Loading...</div>}>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-[#8E8E93]">Loading...</div>}>
       <StudioContent />
     </Suspense>
   );
