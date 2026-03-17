@@ -966,6 +966,603 @@ QUALITY CRITERIA:
 - Free from contradictions
 - Length: 400-600 words`,
   },
+
+  // ── Ristorazione & Hospitality ────────────────────────────────────────────
+  {
+    id: "restaurant-menu",
+    name: "Restaurant Menu Dark",
+    description:
+      "Luxury dark-themed restaurant menu with dish cards, chef's specials, and reservation CTA.",
+    category: "ui",
+    price: 899,
+    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    tags: ["restaurant", "menu", "food", "dark", "luxury"],
+    downloads: 344,
+    content: `<div class="min-h-screen bg-[#0d0d0d] text-white font-sans">
+  <style>@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');</style>
+  <!-- Header -->
+  <div class="relative overflow-hidden bg-gradient-to-b from-[#1a1008] to-[#0d0d0d] px-8 py-14 text-center border-b border-amber-900/30">
+    <div class="absolute inset-0 opacity-5" style="background-image:radial-gradient(circle,#d97706 1px,transparent 1px);background-size:24px 24px"></div>
+    <p class="text-amber-400 text-xs tracking-[0.3em] uppercase mb-3">Ristorante</p>
+    <h1 class="text-5xl font-bold text-amber-100 mb-2" style="font-family:'Playfair Display',serif">Oro & Fuoco</h1>
+    <p class="text-amber-600 text-sm tracking-widest">Milano · Dal 1987</p>
+    <div class="flex justify-center gap-6 mt-6 text-xs text-amber-700">
+      <span>Lun–Sab 19:00–23:30</span><span class="text-amber-800">·</span><span>+39 02 1234567</span>
+    </div>
+  </div>
+  <!-- Chef's Special -->
+  <div class="max-w-4xl mx-auto px-6 py-10">
+    <div class="flex items-center gap-4 mb-6"><div class="flex-1 h-px bg-amber-900/40"></div><p class="text-amber-500 text-xs tracking-[0.25em] uppercase">Chef's Selection</p><div class="flex-1 h-px bg-amber-900/40"></div></div>
+    <div class="bg-gradient-to-r from-amber-950/60 to-[#0d0d0d] border border-amber-800/40 rounded-2xl p-6 mb-10 relative overflow-hidden">
+      <div class="absolute top-0 right-0 bg-amber-500 text-black text-[10px] font-bold px-3 py-1 rounded-bl-xl tracking-widest">SPECIALE</div>
+      <div class="flex items-start gap-5">
+        <div class="w-16 h-16 rounded-xl bg-amber-900/30 flex items-center justify-center text-3xl shrink-0">🥩</div>
+        <div class="flex-1">
+          <h3 class="text-lg font-bold text-amber-100 mb-1">Filetto al Tartufo Nero</h3>
+          <p class="text-amber-700 text-sm leading-relaxed">Controfiletto di Fassona piemontese, riduzione di Barolo, lamelle di tartufo nero d'Acqualagna, purè al burro di Normandia.</p>
+          <div class="flex items-center justify-between mt-3">
+            <div class="flex gap-2"><span class="text-[10px] bg-amber-900/50 text-amber-400 px-2 py-0.5 rounded-full">Senza glutine</span><span class="text-[10px] bg-amber-900/50 text-amber-400 px-2 py-0.5 rounded-full">Signature</span></div>
+            <span class="text-amber-400 font-bold text-lg">€42</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Menu Sections -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Antipasti -->
+      <div>
+        <div class="flex items-center gap-3 mb-4"><div class="w-7 h-7 rounded-lg bg-amber-900/40 flex items-center justify-center text-sm">🌿</div><h2 class="text-sm font-bold text-amber-400 uppercase tracking-widest">Antipasti</h2></div>
+        <div class="space-y-4">
+          <div class="flex justify-between items-start border-b border-white/5 pb-3"><div><p class="text-white font-medium text-sm">Carpaccio di Manzo</p><p class="text-white/40 text-xs mt-0.5">Rucola, grana, capperi, limone</p></div><span class="text-amber-400 font-bold text-sm ml-4">€18</span></div>
+          <div class="flex justify-between items-start border-b border-white/5 pb-3"><div><p class="text-white font-medium text-sm">Burrata Pugliese</p><p class="text-white/40 text-xs mt-0.5">Pomodorini confit, basilico fresco</p></div><span class="text-amber-400 font-bold text-sm ml-4">€16</span></div>
+          <div class="flex justify-between items-start"><div><p class="text-white font-medium text-sm">Frittura di Gamberi</p><p class="text-white/40 text-xs mt-0.5">Gamberi rossi, salsa tartara</p></div><span class="text-amber-400 font-bold text-sm ml-4">€22</span></div>
+        </div>
+      </div>
+      <!-- Primi -->
+      <div>
+        <div class="flex items-center gap-3 mb-4"><div class="w-7 h-7 rounded-lg bg-amber-900/40 flex items-center justify-center text-sm">🍝</div><h2 class="text-sm font-bold text-amber-400 uppercase tracking-widest">Primi Piatti</h2></div>
+        <div class="space-y-4">
+          <div class="flex justify-between items-start border-b border-white/5 pb-3"><div><p class="text-white font-medium text-sm">Tagliolini al Caviale</p><p class="text-white/40 text-xs mt-0.5">Pasta fresca, burro, caviale Beluga</p></div><span class="text-amber-400 font-bold text-sm ml-4">€38</span></div>
+          <div class="flex justify-between items-start border-b border-white/5 pb-3"><div><p class="text-white font-medium text-sm">Risotto Mantecato</p><p class="text-white/40 text-xs mt-0.5">Carnaroli, zafferano DOP, osso buco</p></div><span class="text-amber-400 font-bold text-sm ml-4">€28</span></div>
+          <div class="flex justify-between items-start"><div><p class="text-white font-medium text-sm">Paccheri all'Astice</p><p class="text-white/40 text-xs mt-0.5">Astice bretone, pomodorini, bisque</p></div><span class="text-amber-400 font-bold text-sm ml-4">€34</span></div>
+        </div>
+      </div>
+    </div>
+    <!-- Reserve CTA -->
+    <div class="mt-10 bg-gradient-to-r from-amber-950/80 to-amber-900/20 border border-amber-800/40 rounded-2xl p-6 text-center">
+      <p class="text-amber-200 font-bold text-lg mb-1">Prenota il tuo tavolo</p>
+      <p class="text-amber-700 text-sm mb-4">Disponibilità limitata · Dress code richiesto</p>
+      <button class="bg-amber-500 hover:bg-amber-400 text-black font-bold px-8 py-3 rounded-xl text-sm transition">Prenota ora →</button>
+    </div>
+  </div>
+</div>`,
+  },
+  {
+    id: "coffee-shop-landing",
+    name: "Coffee Shop Landing Page",
+    description:
+      "Warm, cozy landing page for coffee shops and cafés with menu highlights and loyalty program.",
+    category: "ui",
+    price: 699,
+    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    tags: ["coffee", "café", "food", "warm", "landing"],
+    downloads: 291,
+    content: `<div class="min-h-screen font-sans" style="background:#fdf6ed">
+  <!-- Nav -->
+  <nav class="flex items-center justify-between px-8 py-4 border-b border-[#e8d5b0]">
+    <div class="flex items-center gap-2"><span class="text-2xl">☕</span><span class="font-bold text-[#3d1f0a] text-lg">Brewed & Co.</span></div>
+    <div class="hidden md:flex gap-6 text-sm text-[#7a4f2e]"><a class="hover:text-[#3d1f0a]">Menu</a><a class="hover:text-[#3d1f0a]">About</a><a class="hover:text-[#3d1f0a]">Find Us</a></div>
+    <button class="bg-[#3d1f0a] text-[#fdf6ed] px-4 py-2 rounded-xl text-sm font-semibold">Order Online</button>
+  </nav>
+  <!-- Hero -->
+  <div class="max-w-5xl mx-auto px-6 py-14 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    <div>
+      <span class="inline-block bg-[#3d1f0a]/10 text-[#3d1f0a] text-xs font-bold px-3 py-1 rounded-full mb-4 tracking-widest uppercase">Specialty Coffee · Milano</span>
+      <h1 class="text-4xl md:text-5xl font-black text-[#2a1205] leading-tight mb-4">Every cup<br/>tells a<br/><span style="color:#c2692a">story.</span></h1>
+      <p class="text-[#7a4f2e] mb-6 leading-relaxed">Single-origin beans, slow-roasted in our micro-roastery. Drop by, slow down, and taste the difference.</p>
+      <div class="flex gap-3"><button class="bg-[#c2692a] hover:bg-[#a8551f] text-white font-bold px-6 py-3 rounded-xl transition">View Menu →</button><button class="border border-[#c2692a] text-[#c2692a] font-bold px-6 py-3 rounded-xl hover:bg-[#c2692a]/5 transition">Our Story</button></div>
+    </div>
+    <div class="grid grid-cols-2 gap-3">
+      <div class="rounded-2xl overflow-hidden h-44 bg-gradient-to-br from-[#c2692a] to-[#7a2d0a] flex items-center justify-center text-6xl">☕</div>
+      <div class="rounded-2xl overflow-hidden h-44 bg-gradient-to-br from-[#f5e6c8] to-[#e8c98a] flex items-center justify-center text-6xl">🥐</div>
+      <div class="rounded-2xl overflow-hidden h-44 bg-gradient-to-br from-[#e8c98a] to-[#d4a44c] flex items-center justify-center text-6xl">🍰</div>
+      <div class="rounded-2xl overflow-hidden h-44 bg-gradient-to-br from-[#3d1f0a] to-[#6b3518] flex items-center justify-center text-6xl">🫘</div>
+    </div>
+  </div>
+  <!-- Menu Highlights -->
+  <div class="bg-[#3d1f0a] py-12 px-6">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-[#fdf6ed] text-center font-bold text-2xl mb-2">Today's Menu</h2>
+      <p class="text-[#c2692a] text-center text-sm mb-8">Fresh every morning · House-made pastries</p>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-[#fdf6ed]/5 rounded-2xl p-4 text-center border border-[#fdf6ed]/10"><div class="text-3xl mb-2">☕</div><p class="text-[#fdf6ed] font-semibold text-sm">Flat White</p><p class="text-[#c2692a] text-xs mt-1">€3.50</p></div>
+        <div class="bg-[#fdf6ed]/5 rounded-2xl p-4 text-center border border-[#fdf6ed]/10"><div class="text-3xl mb-2">🧋</div><p class="text-[#fdf6ed] font-semibold text-sm">Matcha Latte</p><p class="text-[#c2692a] text-xs mt-1">€4.20</p></div>
+        <div class="bg-[#fdf6ed]/5 rounded-2xl p-4 text-center border border-[#fdf6ed]/10"><div class="text-3xl mb-2">🥐</div><p class="text-[#fdf6ed] font-semibold text-sm">Croissant Beurre</p><p class="text-[#c2692a] text-xs mt-1">€2.80</p></div>
+        <div class="bg-[#c2692a]/20 rounded-2xl p-4 text-center border border-[#c2692a]/40"><div class="text-3xl mb-2">🫙</div><p class="text-[#fdf6ed] font-semibold text-sm">Cold Brew</p><p class="text-[#c2692a] text-xs mt-1">€4.50</p></div>
+      </div>
+    </div>
+  </div>
+  <!-- Loyalty -->
+  <div class="max-w-4xl mx-auto px-6 py-12">
+    <div class="bg-gradient-to-r from-[#c2692a]/15 to-[#3d1f0a]/10 border border-[#c2692a]/20 rounded-2xl p-8 flex flex-col md:flex-row items-center gap-6">
+      <div class="text-5xl">🎁</div>
+      <div class="flex-1 text-center md:text-left"><h3 class="text-[#2a1205] font-bold text-xl mb-1">Join Brewed Rewards</h3><p class="text-[#7a4f2e] text-sm">Collect stamps, unlock free drinks. Your 10th coffee is always on us.</p></div>
+      <button class="bg-[#c2692a] text-white font-bold px-6 py-3 rounded-xl whitespace-nowrap hover:bg-[#a8551f] transition">Get Card →</button>
+    </div>
+  </div>
+</div>`,
+  },
+  {
+    id: "hotel-booking",
+    name: "Boutique Hotel Booking Card",
+    description:
+      "Elegant hotel booking UI with room showcase, amenities, and date selection.",
+    category: "ui",
+    price: 799,
+    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    tags: ["hotel", "booking", "travel", "luxury", "hospitality"],
+    downloads: 188,
+    content: `<div class="min-h-screen bg-[#f8f6f2] font-sans">
+  <!-- Hero Image -->
+  <div class="relative h-80 bg-gradient-to-br from-slate-700 via-slate-600 to-stone-600 overflow-hidden">
+    <div class="absolute inset-0 flex items-center justify-center text-[120px] opacity-20">🏨</div>
+    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+    <div class="absolute bottom-0 left-0 right-0 p-8">
+      <span class="text-[10px] font-bold text-white/60 tracking-[0.3em] uppercase">5-Star · Firenze Centro</span>
+      <h1 class="text-3xl font-bold text-white mt-1">Villa dei Medici</h1>
+      <div class="flex items-center gap-2 mt-2"><span class="text-yellow-400 text-sm">★★★★★</span><span class="text-white/60 text-xs">9.4 Eccellente · 1.240 recensioni</span></div>
+    </div>
+    <!-- Floating badge -->
+    <div class="absolute top-4 right-4 bg-emerald-500 text-white text-xs font-bold px-3 py-1.5 rounded-full">Disponibile</div>
+  </div>
+  <!-- Main Content -->
+  <div class="max-w-5xl mx-auto px-6 py-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+    <!-- Details -->
+    <div class="md:col-span-2 space-y-6">
+      <!-- Amenities -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-stone-100">
+        <h2 class="font-bold text-stone-800 mb-4">Servizi inclusi</h2>
+        <div class="grid grid-cols-3 gap-3">
+          <div class="flex flex-col items-center gap-1.5 p-3 bg-stone-50 rounded-xl text-center"><span class="text-2xl">🍳</span><span class="text-xs text-stone-600 font-medium">Colazione inclusa</span></div>
+          <div class="flex flex-col items-center gap-1.5 p-3 bg-stone-50 rounded-xl text-center"><span class="text-2xl">🏊</span><span class="text-xs text-stone-600 font-medium">Piscina & SPA</span></div>
+          <div class="flex flex-col items-center gap-1.5 p-3 bg-stone-50 rounded-xl text-center"><span class="text-2xl">🚗</span><span class="text-xs text-stone-600 font-medium">Parcheggio</span></div>
+          <div class="flex flex-col items-center gap-1.5 p-3 bg-stone-50 rounded-xl text-center"><span class="text-2xl">📶</span><span class="text-xs text-stone-600 font-medium">WiFi veloce</span></div>
+          <div class="flex flex-col items-center gap-1.5 p-3 bg-stone-50 rounded-xl text-center"><span class="text-2xl">🍽️</span><span class="text-xs text-stone-600 font-medium">Ristorante</span></div>
+          <div class="flex flex-col items-center gap-1.5 p-3 bg-stone-50 rounded-xl text-center"><span class="text-2xl">✈️</span><span class="text-xs text-stone-600 font-medium">Transfer</span></div>
+        </div>
+      </div>
+      <!-- Rooms -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-stone-100">
+        <h2 class="font-bold text-stone-800 mb-4">Scegli la camera</h2>
+        <div class="space-y-3">
+          <div class="border border-stone-200 rounded-xl p-4 flex items-center gap-4 hover:border-stone-400 transition cursor-pointer">
+            <div class="w-16 h-14 rounded-lg bg-gradient-to-br from-stone-300 to-stone-400 flex items-center justify-center text-2xl shrink-0">🛏️</div>
+            <div class="flex-1"><p class="font-semibold text-stone-800 text-sm">Superior Room</p><p class="text-stone-400 text-xs mt-0.5">25 m² · Vista cortile · King bed</p></div>
+            <div class="text-right"><p class="font-bold text-stone-800">€180</p><p class="text-stone-400 text-xs">/ notte</p></div>
+          </div>
+          <div class="border-2 border-amber-400 rounded-xl p-4 flex items-center gap-4 bg-amber-50 cursor-pointer relative">
+            <div class="absolute -top-2 right-3 bg-amber-400 text-white text-[9px] font-bold px-2 py-0.5 rounded-full tracking-widest">CONSIGLIATA</div>
+            <div class="w-16 h-14 rounded-lg bg-gradient-to-br from-amber-300 to-amber-400 flex items-center justify-center text-2xl shrink-0">🛏️</div>
+            <div class="flex-1"><p class="font-semibold text-stone-800 text-sm">Deluxe Suite</p><p class="text-stone-400 text-xs mt-0.5">45 m² · Vista Duomo · Vasca</p></div>
+            <div class="text-right"><p class="font-bold text-amber-700">€320</p><p class="text-stone-400 text-xs">/ notte</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Booking Card -->
+    <div class="bg-white rounded-2xl shadow-lg border border-stone-100 p-6 h-fit sticky top-6">
+      <p class="text-stone-500 text-xs font-bold uppercase tracking-widest mb-4">Da</p>
+      <div class="text-3xl font-black text-stone-800 mb-1">€180 <span class="text-base font-normal text-stone-400">/ notte</span></div>
+      <div class="space-y-3 mt-4">
+        <div class="border border-stone-200 rounded-xl overflow-hidden">
+          <div class="grid grid-cols-2 divide-x divide-stone-200">
+            <div class="p-3"><p class="text-[10px] font-bold text-stone-500 uppercase">Arrivo</p><p class="text-stone-700 text-sm mt-0.5">15 Apr</p></div>
+            <div class="p-3"><p class="text-[10px] font-bold text-stone-500 uppercase">Partenza</p><p class="text-stone-700 text-sm mt-0.5">18 Apr</p></div>
+          </div>
+        </div>
+        <div class="border border-stone-200 rounded-xl p-3"><p class="text-[10px] font-bold text-stone-500 uppercase">Ospiti</p><p class="text-stone-700 text-sm mt-0.5">2 adulti · 1 camera</p></div>
+      </div>
+      <div class="mt-4 space-y-2 text-sm text-stone-600 border-t border-stone-100 pt-4">
+        <div class="flex justify-between"><span>€180 × 3 notti</span><span>€540</span></div>
+        <div class="flex justify-between"><span>Colazione</span><span class="text-emerald-600">Inclusa</span></div>
+        <div class="flex justify-between font-bold text-stone-800 pt-2 border-t border-stone-100"><span>Totale</span><span>€540</span></div>
+      </div>
+      <button class="mt-4 w-full bg-stone-800 hover:bg-stone-700 text-white font-bold py-3.5 rounded-xl text-sm transition">Prenota ora</button>
+      <p class="text-center text-stone-400 text-xs mt-2">Cancellazione gratuita entro 48h</p>
+    </div>
+  </div>
+</div>`,
+  },
+
+  // ── App & Prodotto Digitale ───────────────────────────────────────────────
+  {
+    id: "mobile-app-showcase",
+    name: "Mobile App Showcase",
+    description:
+      "App Store-style showcase page for iOS/Android apps with screenshots, ratings, and download CTA.",
+    category: "ui",
+    price: 899,
+    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    tags: ["app", "mobile", "ios", "showcase", "download"],
+    downloads: 412,
+    content: `<div class="min-h-screen bg-gradient-to-b from-[#0a0a1a] via-[#0d0d20] to-[#060610] font-sans text-white">
+  <!-- App Header -->
+  <div class="max-w-3xl mx-auto px-6 pt-12 pb-8">
+    <div class="flex items-start gap-5">
+      <div class="w-20 h-20 rounded-[22px] bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-4xl shadow-[0_8px_32px_rgba(139,92,246,0.4)] shrink-0">🎯</div>
+      <div class="flex-1">
+        <h1 class="text-2xl font-bold">FocusFlow</h1>
+        <p class="text-white/50 text-sm mt-0.5">Productivity & Focus Timer</p>
+        <div class="flex items-center gap-3 mt-2">
+          <div class="flex items-center gap-1"><span class="text-yellow-400 text-sm">★★★★★</span><span class="text-white/40 text-xs ml-1">4.9</span></div>
+          <span class="text-white/20">·</span>
+          <span class="text-white/40 text-xs">12.4K ratings</span>
+          <span class="text-white/20">·</span>
+          <span class="text-white/40 text-xs">Gratis</span>
+        </div>
+      </div>
+      <button class="bg-[#0A84FF] hover:bg-[#409CFF] text-white font-bold px-5 py-2.5 rounded-xl text-sm transition shrink-0">Scarica</button>
+    </div>
+    <!-- Stats Bar -->
+    <div class="grid grid-cols-3 gap-4 mt-8 border-t border-white/5 pt-8">
+      <div class="text-center"><div class="text-2xl font-black text-white">#1</div><div class="text-white/40 text-xs mt-1">Produttività</div></div>
+      <div class="text-center border-x border-white/5"><div class="text-2xl font-black text-white">500K+</div><div class="text-white/40 text-xs mt-1">Download</div></div>
+      <div class="text-center"><div class="text-2xl font-black text-white">4.9</div><div class="text-white/40 text-xs mt-1">Valutazione</div></div>
+    </div>
+  </div>
+  <!-- Screenshots -->
+  <div class="px-6 py-4 max-w-3xl mx-auto">
+    <div class="flex gap-4 overflow-x-auto pb-4" style="scrollbar-width:none">
+      <div class="shrink-0 w-36 h-64 rounded-2xl bg-gradient-to-b from-violet-900/80 to-indigo-900/80 border border-white/10 overflow-hidden relative">
+        <div class="absolute top-0 inset-x-0 h-1.5 bg-white/5 rounded-t-2xl"></div>
+        <div class="p-4 text-center mt-4"><div class="text-4xl mb-2">⏱️</div><div class="text-xs font-bold text-white">Focus Mode</div><div class="text-[10px] text-white/40 mt-1">25:00</div><div class="mt-4 w-16 h-16 rounded-full border-4 border-violet-400 flex items-center justify-center text-violet-300 text-2xl mx-auto">▶</div></div>
+      </div>
+      <div class="shrink-0 w-36 h-64 rounded-2xl bg-gradient-to-b from-emerald-900/80 to-teal-900/80 border border-white/10 overflow-hidden relative">
+        <div class="p-4 text-center mt-4"><div class="text-4xl mb-2">📊</div><div class="text-xs font-bold text-white">Stats</div><div class="mt-3 space-y-2"><div class="h-2 bg-emerald-500/30 rounded-full"><div class="h-full bg-emerald-400 rounded-full" style="width:78%"></div></div><div class="h-2 bg-emerald-500/30 rounded-full"><div class="h-full bg-teal-400 rounded-full" style="width:55%"></div></div><div class="h-2 bg-emerald-500/30 rounded-full"><div class="h-full bg-emerald-300 rounded-full" style="width:90%"></div></div></div></div>
+      </div>
+      <div class="shrink-0 w-36 h-64 rounded-2xl bg-gradient-to-b from-amber-900/80 to-orange-900/80 border border-white/10 overflow-hidden relative">
+        <div class="p-4 text-center mt-4"><div class="text-4xl mb-2">🏆</div><div class="text-xs font-bold text-white">Streak</div><div class="text-[10px] text-white/40 mt-1">14 giorni 🔥</div><div class="grid grid-cols-7 gap-1 mt-3">${Array(21).fill(0).map((_, i) => `<div class="h-4 rounded-sm ${i < 14 ? 'bg-amber-400' : 'bg-amber-900/50'}"></div>`).join('')}</div></div>
+      </div>
+      <div class="shrink-0 w-36 h-64 rounded-2xl bg-gradient-to-b from-pink-900/80 to-rose-900/80 border border-white/10 overflow-hidden relative">
+        <div class="p-4 text-center mt-4"><div class="text-4xl mb-2">🎵</div><div class="text-xs font-bold text-white">Focus Music</div><div class="mt-3 space-y-2 text-left"><div class="bg-pink-900/50 rounded-lg p-2 text-[10px] text-pink-200">Lo-fi Beats ▶</div><div class="bg-pink-900/50 rounded-lg p-2 text-[10px] text-pink-200">Nature Sounds</div><div class="bg-pink-900/50 rounded-lg p-2 text-[10px] text-pink-200">White Noise</div></div></div>
+      </div>
+    </div>
+  </div>
+  <!-- Features -->
+  <div class="max-w-3xl mx-auto px-6 py-6">
+    <h2 class="text-white/60 text-xs font-bold uppercase tracking-widest mb-4">Funzionalità</h2>
+    <div class="grid grid-cols-1 gap-3">
+      <div class="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-4 flex items-center gap-4"><div class="w-10 h-10 rounded-xl bg-violet-500/20 flex items-center justify-center text-xl shrink-0">🍅</div><div><p class="font-semibold text-sm">Tecnica Pomodoro</p><p class="text-white/40 text-xs mt-0.5">Sessioni da 25 minuti con pause guidate</p></div></div>
+      <div class="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-4 flex items-center gap-4"><div class="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center text-xl shrink-0">📈</div><div><p class="font-semibold text-sm">Analisi produttività</p><p class="text-white/40 text-xs mt-0.5">Grafici settimanali e trend mensili</p></div></div>
+    </div>
+  </div>
+</div>`,
+  },
+  {
+    id: "feature-showcase",
+    name: "SaaS Features Showcase",
+    description:
+      "Glassmorphism feature cards page for SaaS products with icons, descriptions, and benefit highlights.",
+    category: "ui",
+    price: 799,
+    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    tags: ["features", "saas", "glassmorphism", "cards", "product"],
+    downloads: 538,
+    content: `<div class="min-h-screen font-sans" style="background:linear-gradient(135deg,#0f0c29 0%,#1a1040 50%,#24243e 100%)">
+  <!-- Header -->
+  <div class="max-w-4xl mx-auto px-6 pt-16 pb-10 text-center">
+    <span class="inline-block text-[11px] font-bold tracking-[0.25em] uppercase text-purple-300/70 bg-purple-500/10 border border-purple-500/20 px-4 py-1.5 rounded-full mb-5">Tutto ciò di cui hai bisogno</span>
+    <h1 class="text-4xl md:text-5xl font-black text-white leading-tight mb-4">Funzionalità <span style="background:linear-gradient(135deg,#a78bfa,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent">potenti</span></h1>
+    <p class="text-white/40 text-lg max-w-xl mx-auto">Una piattaforma completa per team che vogliono muoversi velocemente senza compromessi.</p>
+  </div>
+  <!-- Feature Grid -->
+  <div class="max-w-4xl mx-auto px-6 pb-16 grid grid-cols-1 md:grid-cols-3 gap-4">
+    <!-- Big feature -->
+    <div class="md:col-span-2 rounded-3xl p-6 relative overflow-hidden border border-white/[0.08]" style="background:rgba(255,255,255,0.04);backdrop-filter:blur(20px)">
+      <div class="absolute inset-0 opacity-30" style="background:radial-gradient(circle at 80% 20%,rgba(139,92,246,0.3),transparent 60%)"></div>
+      <div class="relative">
+        <div class="w-12 h-12 rounded-2xl bg-violet-500/20 flex items-center justify-center text-2xl mb-4">⚡</div>
+        <h3 class="text-white font-bold text-xl mb-2">AI Automation Engine</h3>
+        <p class="text-white/50 text-sm leading-relaxed mb-4">Automatizza workflow complessi con regole intelligenti. Il nostro motore AI impara dai tuoi pattern e suggerisce ottimizzazioni in tempo reale.</p>
+        <div class="flex gap-2 flex-wrap">
+          <span class="text-[11px] bg-violet-500/15 text-violet-300 border border-violet-500/20 px-2.5 py-1 rounded-full">Smart Rules</span>
+          <span class="text-[11px] bg-violet-500/15 text-violet-300 border border-violet-500/20 px-2.5 py-1 rounded-full">ML-powered</span>
+          <span class="text-[11px] bg-violet-500/15 text-violet-300 border border-violet-500/20 px-2.5 py-1 rounded-full">No-code</span>
+        </div>
+      </div>
+    </div>
+    <!-- Small feature -->
+    <div class="rounded-3xl p-6 relative overflow-hidden border border-white/[0.08]" style="background:rgba(255,255,255,0.04);backdrop-filter:blur(20px)">
+      <div class="absolute inset-0 opacity-30" style="background:radial-gradient(circle at 20% 80%,rgba(96,165,250,0.3),transparent 60%)"></div>
+      <div class="relative">
+        <div class="w-12 h-12 rounded-2xl bg-blue-500/20 flex items-center justify-center text-2xl mb-4">🔒</div>
+        <h3 class="text-white font-bold text-lg mb-2">Enterprise Security</h3>
+        <p class="text-white/50 text-sm leading-relaxed">SOC 2 Type II, SSO, 2FA, audit log completo.</p>
+        <div class="mt-4 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div><span class="text-emerald-400 text-xs font-medium">99.99% uptime</span></div>
+      </div>
+    </div>
+    <!-- Three equal features -->
+    <div class="rounded-3xl p-6 border border-white/[0.08]" style="background:rgba(255,255,255,0.04);backdrop-filter:blur(20px)">
+      <div class="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center text-xl mb-3">📊</div>
+      <h3 class="text-white font-bold mb-1">Analytics Real-time</h3>
+      <p class="text-white/40 text-xs leading-relaxed">Dashboard interattive con dati aggiornati ogni secondo.</p>
+    </div>
+    <div class="rounded-3xl p-6 border border-white/[0.08]" style="background:rgba(255,255,255,0.04);backdrop-filter:blur(20px)">
+      <div class="w-10 h-10 rounded-xl bg-pink-500/20 flex items-center justify-center text-xl mb-3">🤝</div>
+      <h3 class="text-white font-bold mb-1">Team Collaboration</h3>
+      <p class="text-white/40 text-xs leading-relaxed">Commenti, menzioni, permessi granulari per ogni risorsa.</p>
+    </div>
+    <div class="rounded-3xl p-6 border border-white/[0.08]" style="background:rgba(255,255,255,0.04);backdrop-filter:blur(20px)">
+      <div class="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center text-xl mb-3">🔌</div>
+      <h3 class="text-white font-bold mb-1">500+ Integrazioni</h3>
+      <p class="text-white/40 text-xs leading-relaxed">Slack, Notion, GitHub, Jira e tutto il tuo stack.</p>
+    </div>
+  </div>
+  <!-- CTA -->
+  <div class="max-w-4xl mx-auto px-6 pb-16 text-center">
+    <button class="bg-gradient-to-r from-violet-500 to-blue-500 hover:from-violet-400 hover:to-blue-400 text-white font-bold px-10 py-4 rounded-2xl text-[15px] transition shadow-[0_4px_24px_rgba(139,92,246,0.4)]">Inizia gratis — nessuna carta richiesta</button>
+  </div>
+</div>`,
+  },
+  {
+    id: "saas-dashboard",
+    name: "SaaS Dashboard Preview",
+    description:
+      "Dark minimal SaaS analytics dashboard with KPI cards, charts, and activity feed.",
+    category: "ui",
+    price: 999,
+    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    tags: ["dashboard", "analytics", "saas", "dark", "minimal"],
+    downloads: 672,
+    content: `<div class="min-h-screen bg-[#0e0e12] text-white font-sans flex">
+  <!-- Sidebar -->
+  <div class="hidden md:flex flex-col w-16 bg-[#16161c] border-r border-white/[0.06] items-center py-5 gap-5 shrink-0">
+    <div class="w-8 h-8 rounded-lg bg-[#0A84FF] flex items-center justify-center text-sm font-black">N</div>
+    <div class="flex-1 flex flex-col gap-3 mt-4">
+      <div class="w-9 h-9 rounded-xl bg-[#0A84FF]/15 flex items-center justify-center text-base cursor-pointer">📊</div>
+      <div class="w-9 h-9 rounded-xl hover:bg-white/5 flex items-center justify-center text-base cursor-pointer opacity-50">👤</div>
+      <div class="w-9 h-9 rounded-xl hover:bg-white/5 flex items-center justify-center text-base cursor-pointer opacity-50">💬</div>
+      <div class="w-9 h-9 rounded-xl hover:bg-white/5 flex items-center justify-center text-base cursor-pointer opacity-50">⚙️</div>
+    </div>
+  </div>
+  <!-- Main -->
+  <div class="flex-1 overflow-hidden">
+    <!-- Top Bar -->
+    <div class="h-12 border-b border-white/[0.06] flex items-center justify-between px-6">
+      <div class="flex items-center gap-2"><span class="text-white/30 text-xs">Dashboard</span><span class="text-white/20 text-xs">/</span><span class="text-white text-xs font-semibold">Overview</span></div>
+      <div class="flex items-center gap-3"><div class="bg-white/5 border border-white/[0.08] rounded-lg px-3 py-1.5 text-xs text-white/40">Apr 2025 ▾</div><div class="w-7 h-7 rounded-full bg-[#0A84FF] flex items-center justify-center text-xs font-bold">M</div></div>
+    </div>
+    <!-- Content -->
+    <div class="p-5 space-y-4 overflow-y-auto" style="max-height:calc(100vh - 48px)">
+      <!-- KPIs -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div class="bg-[#16161c] border border-white/[0.06] rounded-2xl p-4"><div class="text-white/40 text-xs mb-2">MRR</div><div class="text-xl font-black">€28.4K</div><div class="text-emerald-400 text-xs mt-1">↑ +12% vs last month</div></div>
+        <div class="bg-[#16161c] border border-white/[0.06] rounded-2xl p-4"><div class="text-white/40 text-xs mb-2">Active Users</div><div class="text-xl font-black">1,847</div><div class="text-emerald-400 text-xs mt-1">↑ +5.3%</div></div>
+        <div class="bg-[#16161c] border border-white/[0.06] rounded-2xl p-4"><div class="text-white/40 text-xs mb-2">Churn Rate</div><div class="text-xl font-black">2.1%</div><div class="text-emerald-400 text-xs mt-1">↓ -0.4%</div></div>
+        <div class="bg-[#16161c] border border-white/[0.06] rounded-2xl p-4"><div class="text-white/40 text-xs mb-2">NPS Score</div><div class="text-xl font-black">71</div><div class="text-white/30 text-xs mt-1">→ Stable</div></div>
+      </div>
+      <!-- Chart + Feed -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div class="md:col-span-2 bg-[#16161c] border border-white/[0.06] rounded-2xl p-5">
+          <div class="flex items-center justify-between mb-4"><h3 class="font-semibold text-sm">Revenue Trend</h3><span class="text-white/30 text-xs">Ultimi 7 giorni</span></div>
+          <!-- Fake bar chart -->
+          <div class="flex items-end gap-2 h-24">
+            ${[60, 75, 55, 85, 70, 90, 100].map((h, i) => `<div class="flex-1 rounded-t-md transition" style="height:${h}%;background:${i === 6 ? 'linear-gradient(to top,#0A84FF,#5E5CE6)' : 'rgba(10,132,255,0.15)'}"></div>`).join('')}
+          </div>
+          <div class="flex justify-between mt-2 text-white/20 text-[10px]"><span>Lun</span><span>Mar</span><span>Mer</span><span>Gio</span><span>Ven</span><span>Sab</span><span>Dom</span></div>
+        </div>
+        <div class="bg-[#16161c] border border-white/[0.06] rounded-2xl p-5">
+          <h3 class="font-semibold text-sm mb-4">Activity</h3>
+          <div class="space-y-3">
+            <div class="flex items-start gap-2.5"><div class="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-xs shrink-0">↑</div><div class="text-xs"><p class="text-white/70">New signup</p><p class="text-white/30 text-[10px]">marco@mail.it · 2m fa</p></div></div>
+            <div class="flex items-start gap-2.5"><div class="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center text-xs shrink-0">💳</div><div class="text-xs"><p class="text-white/70">Payment received</p><p class="text-white/30 text-[10px]">€299 · Pro Plan · 8m fa</p></div></div>
+            <div class="flex items-start gap-2.5"><div class="w-6 h-6 rounded-full bg-amber-500/20 flex items-center justify-center text-xs shrink-0">⚠</div><div class="text-xs"><p class="text-white/70">Trial expiring</p><p class="text-white/30 text-[10px]">3 accounts · tomorrow</p></div></div>
+            <div class="flex items-start gap-2.5"><div class="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-xs shrink-0">↑</div><div class="text-xs"><p class="text-white/70">Upgrade Pro→Enterprise</p><p class="text-white/30 text-[10px]">acme corp · 1h fa</p></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>`,
+  },
+
+  // ── Identità & Personal Brand ─────────────────────────────────────────────
+  {
+    id: "digital-resume",
+    name: "Digital Resume / CV",
+    description:
+      "Clean minimal digital CV with skills, experience timeline, and contact card.",
+    category: "ui",
+    price: 699,
+    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    tags: ["cv", "resume", "portfolio", "minimal", "personal"],
+    downloads: 891,
+    content: `<div class="min-h-screen bg-white font-sans">
+  <div class="max-w-3xl mx-auto px-6 py-12">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row items-start md:items-center gap-6 mb-10 pb-8 border-b border-gray-100">
+      <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#0A84FF] to-[#5E5CE6] flex items-center justify-center text-3xl font-black text-white shrink-0">LM</div>
+      <div class="flex-1">
+        <h1 class="text-3xl font-black text-gray-900 tracking-tight">Luca Marchetti</h1>
+        <p class="text-[#0A84FF] font-semibold mt-0.5">Senior Product Designer</p>
+        <div class="flex flex-wrap gap-3 mt-3 text-xs text-gray-500">
+          <span>📍 Milano, Italy</span><span>✉️ luca@marchetti.io</span><span>🌐 marchetti.io</span>
+        </div>
+      </div>
+      <div class="flex flex-col gap-2 shrink-0">
+        <button class="bg-[#0A84FF] text-white font-bold px-5 py-2.5 rounded-xl text-sm hover:bg-[#409CFF] transition">Download CV</button>
+        <button class="border border-gray-200 text-gray-600 font-medium px-5 py-2.5 rounded-xl text-sm hover:bg-gray-50 transition">Contattami</button>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Main column -->
+      <div class="md:col-span-2 space-y-8">
+        <!-- About -->
+        <div>
+          <h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">About</h2>
+          <p class="text-gray-600 text-sm leading-relaxed">Product Designer con 8+ anni di esperienza nel creare interfacce digitali che uniscono estetica e funzionalità. Specializzato in design systems, UX research e prototipazione ad alta fedeltà.</p>
+        </div>
+        <!-- Experience -->
+        <div>
+          <h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Esperienza</h2>
+          <div class="space-y-5">
+            <div class="flex gap-4">
+              <div class="flex flex-col items-center"><div class="w-9 h-9 rounded-xl bg-[#0A84FF]/10 flex items-center justify-center text-base shrink-0">🏢</div><div class="w-px flex-1 bg-gray-100 my-2"></div></div>
+              <div class="pb-2"><p class="font-bold text-gray-900 text-sm">Lead Product Designer</p><p class="text-[#0A84FF] text-xs font-medium">Factorial · 2022 – oggi</p><p class="text-gray-500 text-xs mt-1 leading-relaxed">Design system da zero, ridotto il tempo di sviluppo del 40%. Team di 4 designer.</p></div>
+            </div>
+            <div class="flex gap-4">
+              <div class="flex flex-col items-center"><div class="w-9 h-9 rounded-xl bg-purple-50 flex items-center justify-center text-base shrink-0">🎨</div><div class="w-px flex-1 bg-gray-100 my-2"></div></div>
+              <div class="pb-2"><p class="font-bold text-gray-900 text-sm">Senior UX Designer</p><p class="text-purple-600 text-xs font-medium">Bending Spoons · 2019 – 2022</p><p class="text-gray-500 text-xs mt-1 leading-relaxed">Redesign completo di Elytra (4M utenti). App featured nell'App Store 3 volte.</p></div>
+            </div>
+            <div class="flex gap-4">
+              <div class="flex flex-col items-center"><div class="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center text-base shrink-0">🚀</div></div>
+              <div><p class="font-bold text-gray-900 text-sm">Product Designer</p><p class="text-emerald-600 text-xs font-medium">Satispay · 2017 – 2019</p><p class="text-gray-500 text-xs mt-1 leading-relaxed">Interfacce per il pagamento mobile. 0 → 2M utenti attivi.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Side column -->
+      <div class="space-y-6">
+        <!-- Skills -->
+        <div>
+          <h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Skills</h2>
+          <div class="space-y-2">
+            <div><div class="flex justify-between text-xs mb-1"><span class="text-gray-700 font-medium">Figma / Framer</span><span class="text-gray-400">Expert</span></div><div class="h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-[#0A84FF] rounded-full" style="width:95%"></div></div></div>
+            <div><div class="flex justify-between text-xs mb-1"><span class="text-gray-700 font-medium">Design Systems</span><span class="text-gray-400">Expert</span></div><div class="h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-[#0A84FF] rounded-full" style="width:90%"></div></div></div>
+            <div><div class="flex justify-between text-xs mb-1"><span class="text-gray-700 font-medium">UX Research</span><span class="text-gray-400">Advanced</span></div><div class="h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-purple-500 rounded-full" style="width:80%"></div></div></div>
+            <div><div class="flex justify-between text-xs mb-1"><span class="text-gray-700 font-medium">React / CSS</span><span class="text-gray-400">Intermediate</span></div><div class="h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-emerald-500 rounded-full" style="width:65%"></div></div></div>
+          </div>
+        </div>
+        <!-- Tools -->
+        <div>
+          <h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Tools</h2>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs bg-gray-50 border border-gray-200 text-gray-600 px-2.5 py-1 rounded-lg">Figma</span>
+            <span class="text-xs bg-gray-50 border border-gray-200 text-gray-600 px-2.5 py-1 rounded-lg">Framer</span>
+            <span class="text-xs bg-gray-50 border border-gray-200 text-gray-600 px-2.5 py-1 rounded-lg">Notion</span>
+            <span class="text-xs bg-gray-50 border border-gray-200 text-gray-600 px-2.5 py-1 rounded-lg">Linear</span>
+            <span class="text-xs bg-gray-50 border border-gray-200 text-gray-600 px-2.5 py-1 rounded-lg">Lottie</span>
+          </div>
+        </div>
+        <!-- Education -->
+        <div>
+          <h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Formazione</h2>
+          <div class="bg-gray-50 rounded-xl p-3"><p class="font-semibold text-gray-800 text-sm">Comunicazione Visiva</p><p class="text-gray-500 text-xs mt-0.5">Politecnico di Milano · 2017</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>`,
+  },
+  {
+    id: "link-in-bio",
+    name: "Link in Bio Page",
+    description:
+      "Minimal link-in-bio page for creators and influencers with social links and featured content.",
+    category: "ui",
+    price: 599,
+    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    tags: ["link in bio", "creator", "social", "minimal", "instagram"],
+    downloads: 1204,
+    content: `<div class="min-h-screen flex items-center justify-center py-10 px-4 font-sans" style="background:linear-gradient(160deg,#1a0533 0%,#0d001a 50%,#001a33 100%)">
+  <div class="w-full max-w-sm">
+    <!-- Profile -->
+    <div class="text-center mb-7">
+      <div class="relative inline-block mb-4">
+        <div class="w-24 h-24 rounded-full bg-gradient-to-br from-purple-400 via-pink-400 to-amber-400 flex items-center justify-center text-4xl" style="padding:3px">
+          <div class="w-full h-full rounded-full bg-[#0d001a] flex items-center justify-center text-3xl">✨</div>
+        </div>
+        <div class="absolute bottom-0 right-0 w-6 h-6 rounded-full bg-emerald-400 border-2 border-[#0d001a]"></div>
+      </div>
+      <h1 class="text-white font-black text-xl">@giulia.creates</h1>
+      <p class="text-white/50 text-sm mt-1">Designer & Content Creator</p>
+      <div class="flex justify-center gap-4 mt-3 text-white/40 text-xs">
+        <span>📍 Milano</span><span>·</span><span>42K followers</span>
+      </div>
+    </div>
+    <!-- Links -->
+    <div class="space-y-3">
+      <a class="flex items-center gap-3 bg-white/[0.08] hover:bg-white/[0.14] border border-white/[0.12] rounded-2xl px-5 py-3.5 transition cursor-pointer group">
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center text-sm shrink-0">📸</div>
+        <span class="text-white font-semibold text-sm flex-1">Instagram</span>
+        <span class="text-white/30 text-xs group-hover:translate-x-0.5 transition-transform">→</span>
+      </a>
+      <a class="flex items-center gap-3 bg-white/[0.08] hover:bg-white/[0.14] border border-white/[0.12] rounded-2xl px-5 py-3.5 transition cursor-pointer group">
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-red-500 to-rose-600 flex items-center justify-center text-sm shrink-0">▶</div>
+        <span class="text-white font-semibold text-sm flex-1">YouTube</span>
+        <span class="text-white/30 text-xs group-hover:translate-x-0.5 transition-transform">→</span>
+      </a>
+      <!-- Featured -->
+      <div class="bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-2xl px-5 py-4 relative overflow-hidden cursor-pointer">
+        <div class="absolute top-2 right-3 text-[10px] font-bold text-purple-300 bg-purple-500/20 px-2 py-0.5 rounded-full tracking-widest">NUOVO</div>
+        <div class="flex items-center gap-3"><div class="w-8 h-8 rounded-xl bg-purple-500/30 flex items-center justify-center text-sm shrink-0">🎨</div><div><p class="text-white font-semibold text-sm">Design Course 2025</p><p class="text-white/40 text-xs mt-0.5">Figma · UI · Brand Identity</p></div></div>
+      </div>
+      <a class="flex items-center gap-3 bg-white/[0.08] hover:bg-white/[0.14] border border-white/[0.12] rounded-2xl px-5 py-3.5 transition cursor-pointer group">
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-sm shrink-0">💼</div>
+        <span class="text-white font-semibold text-sm flex-1">Portfolio & Lavora con me</span>
+        <span class="text-white/30 text-xs group-hover:translate-x-0.5 transition-transform">→</span>
+      </a>
+      <a class="flex items-center gap-3 bg-white/[0.08] hover:bg-white/[0.14] border border-white/[0.12] rounded-2xl px-5 py-3.5 transition cursor-pointer group">
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center text-sm shrink-0">📬</div>
+        <span class="text-white font-semibold text-sm flex-1">Newsletter</span>
+        <span class="text-white/30 text-xs group-hover:translate-x-0.5 transition-transform">→</span>
+      </a>
+    </div>
+    <!-- Footer -->
+    <p class="text-center text-white/20 text-xs mt-8">Made with TemplateLab ✦</p>
+  </div>
+</div>`,
+  },
+  {
+    id: "newsletter-landing",
+    name: "Newsletter Landing Page",
+    description:
+      "High-converting newsletter signup page with social proof, benefits, and email form.",
+    category: "ui",
+    price: 699,
+    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    tags: ["newsletter", "email", "landing", "signup", "conversion"],
+    downloads: 763,
+    content: `<div class="min-h-screen flex items-center justify-center bg-[#f5f0ff] px-4 font-sans py-16">
+  <div class="w-full max-w-2xl">
+    <!-- Social Proof Bar -->
+    <div class="flex justify-center mb-8">
+      <div class="flex items-center gap-2 bg-white border border-purple-100 shadow-sm rounded-full px-4 py-2">
+        <div class="flex -space-x-1">${['bg-pink-400','bg-violet-400','bg-blue-400','bg-emerald-400'].map(c=>`<div class="w-6 h-6 rounded-full ${c} border-2 border-white"></div>`).join('')}</div>
+        <span class="text-sm text-gray-600 font-medium">Uniti a <strong class="text-gray-900">14.200</strong> lettori</span>
+      </div>
+    </div>
+    <!-- Main Card -->
+    <div class="bg-white rounded-[32px] shadow-[0_8px_64px_rgba(139,92,246,0.12)] border border-purple-100/50 overflow-hidden">
+      <!-- Top gradient band -->
+      <div class="h-2 w-full bg-gradient-to-r from-violet-500 via-purple-500 to-pink-500"></div>
+      <div class="p-8 md:p-12">
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 bg-violet-50 border border-violet-100 text-violet-600 text-xs font-bold px-3 py-1.5 rounded-full mb-6 tracking-wide uppercase">📬 Newsletter Settimanale</div>
+        <h1 class="text-3xl md:text-4xl font-black text-gray-900 leading-tight mb-4">Il meglio del design<br/>nella tua inbox.<br/><span class="bg-gradient-to-r from-violet-600 to-pink-500 bg-clip-text text-transparent">Ogni lunedì.</span></h1>
+        <p class="text-gray-500 text-base leading-relaxed mb-8">Risorse, tools, case study e ispirazioni selezionate per designer e product manager. Breve, curata, senza spam.</p>
+        <!-- Email Form -->
+        <div class="flex flex-col sm:flex-row gap-3 mb-6">
+          <input type="email" placeholder="tua@email.com" class="flex-1 border-2 border-gray-200 focus:border-violet-400 rounded-2xl px-5 py-3.5 text-sm outline-none transition bg-gray-50 placeholder-gray-400"/>
+          <button class="bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-400 hover:to-purple-500 text-white font-bold px-7 py-3.5 rounded-2xl text-sm transition shadow-[0_4px_16px_rgba(139,92,246,0.3)] whitespace-nowrap">Iscriviti gratis →</button>
+        </div>
+        <p class="text-gray-400 text-xs text-center">Cancellazione con un click · Zero spam · Privacy garantita</p>
+        <!-- Benefits -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 pt-8 border-t border-gray-100">
+          <div class="flex items-start gap-3"><div class="w-8 h-8 rounded-xl bg-violet-50 flex items-center justify-center text-base shrink-0">✏️</div><div><p class="font-semibold text-gray-800 text-sm">Curata a mano</p><p class="text-gray-400 text-xs mt-0.5">Solo il meglio, selezionato ogni settimana</p></div></div>
+          <div class="flex items-start gap-3"><div class="w-8 h-8 rounded-xl bg-pink-50 flex items-center justify-center text-base shrink-0">⚡</div><div><p class="font-semibold text-gray-800 text-sm">5 minuti in lettura</p><p class="text-gray-400 text-xs mt-0.5">Denso, senza contenuto di riempimento</p></div></div>
+          <div class="flex items-start gap-3"><div class="w-8 h-8 rounded-xl bg-emerald-50 flex items-center justify-center text-base shrink-0">🔒</div><div><p class="font-semibold text-gray-800 text-sm">Privacy first</p><p class="text-gray-400 text-xs mt-0.5">I tuoi dati non vengono mai condivisi</p></div></div>
+        </div>
+      </div>
+    </div>
+    <!-- Testimonial -->
+    <div class="mt-6 bg-white rounded-2xl border border-purple-100 p-5 flex items-start gap-4 shadow-sm">
+      <div class="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-orange-400 flex items-center justify-center text-lg shrink-0">👤</div>
+      <div><p class="text-gray-700 text-sm italic">"La migliore newsletter di design in Italia. La aspetto ogni lunedì."</p><p class="text-gray-400 text-xs mt-1 font-medium">— Federica R., UX Lead @ Satispay</p></div>
+    </div>
+  </div>
+</div>`,
+  },
 ];
 
 export function getTemplate(id: string): Template | undefined {

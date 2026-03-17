@@ -53,6 +53,27 @@ const SECTIONS: {
     subtitle: "Prompt pronti per vendite, SEO e assistenti AI",
     ids: ["cold-email-b2b", "product-description-ecom", "ai-assistant-system-prompt"],
   },
+  {
+    id: "hospitality",
+    emoji: "🍽️",
+    label: "Ristorazione & Hospitality",
+    subtitle: "Ristoranti, café, hotel e strutture ricettive",
+    ids: ["restaurant-menu", "coffee-shop-landing", "hotel-booking"],
+  },
+  {
+    id: "digital-product",
+    emoji: "📱",
+    label: "App & Prodotto Digitale",
+    subtitle: "Showcase app, dashboard SaaS, feature page",
+    ids: ["mobile-app-showcase", "feature-showcase", "saas-dashboard"],
+  },
+  {
+    id: "personal-brand",
+    emoji: "🪪",
+    label: "Identità & Personal Brand",
+    subtitle: "CV digitale, link in bio, newsletter landing",
+    ids: ["digital-resume", "link-in-bio", "newsletter-landing"],
+  },
 ];
 
 function SkeletonCard() {
