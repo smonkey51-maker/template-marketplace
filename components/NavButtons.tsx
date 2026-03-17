@@ -11,6 +11,9 @@ export default function NavButtons() {
     <div className="flex items-center gap-2 sm:gap-3">
       {/* Mobile-only quick links */}
       <div className="flex sm:hidden items-center gap-1">
+        <Link href="/guide" className="text-[13px] text-muted px-2.5 py-1.5 rounded-xl hover:bg-card hover:text-theme transition-colors">
+          Guida
+        </Link>
         <Link href="/studio" className="text-[13px] text-muted px-2.5 py-1.5 rounded-xl hover:bg-card hover:text-theme transition-colors">
           Studio
         </Link>

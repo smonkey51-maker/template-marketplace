@@ -27,6 +27,9 @@ export default function MarketplacePage() {
             TemplateLab
           </span>
           <div className="hidden sm:flex items-center gap-1">
+            <Link href="/guide" className="text-[14px] text-muted hover:text-theme transition-colors duration-200 px-3 py-1.5 rounded-xl hover:bg-card">
+              Guida
+            </Link>
             <Link href="/studio" className="text-[14px] text-muted hover:text-theme transition-colors duration-200 px-3 py-1.5 rounded-xl hover:bg-card">
               AI Studio
             </Link>
