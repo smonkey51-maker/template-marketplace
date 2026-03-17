@@ -1,11 +1,18 @@
 "use client";
 
 import { useState } from "react";
+import { useUser } from "@clerk/nextjs";
 
 export default function StudioAccessButton() {
+  const { isSignedIn } = useUser();
   const [loading, setLoading] = useState(false);
 
   const handleClick = async () => {
+    if (!isSignedIn) {
+      window.location.href = "/sign-in";
+      return;
+    }
+
     setLoading(true);
     try {
       const res = await fetch("/api/checkout", {
