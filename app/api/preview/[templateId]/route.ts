@@ -18,7 +18,7 @@ export async function GET(
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>body { margin: 0; }</style>
+  <style>body { margin: 0; } * { scrollbar-width: none; -ms-overflow-style: none; } *::-webkit-scrollbar { display: none; }</style>
 </head>
 <body>${template.content}</body>
 </html>`;
