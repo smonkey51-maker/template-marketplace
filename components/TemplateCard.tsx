@@ -2,11 +2,8 @@
 
 import Link from "next/link";
 import { Template, formatPrice } from "@/lib/templates";
-
-const categoryLabels: Record<string, string> = {
-  ui: "UI Template",
-  prompt: "Prompt",
-};
+import { useLang } from "@/components/LanguageProvider";
+import { t } from "@/lib/i18n";
 
 /* ─── Prompt thumbnail ─── */
 function PromptThumbnail({ template, isPurchased }: { template: Template; isPurchased: boolean }) {
@@ -70,6 +67,7 @@ export default function TemplateCard({ template, purchasedIds }: {
   template: Template;
   purchasedIds: string[];
 }) {
+  const { lang } = useLang();
   const isPurchased = purchasedIds.includes(template.id);
   const isBestseller = template.downloads >= 700;
 
@@ -85,7 +83,7 @@ export default function TemplateCard({ template, purchasedIds }: {
       {/* Bestseller badge */}
       {isBestseller && !isPurchased && (
         <div className="absolute top-2.5 right-2.5 z-10 flex items-center gap-1 bg-[#FF9F0A]/20 text-[#FF9F0A] border border-[#FF9F0A]/30 rounded-full px-2 py-0.5 text-[10px] font-bold backdrop-blur-sm">
-          ★ Bestseller
+          {t[lang].card.bestseller}
         </div>
       )}
 
@@ -96,7 +94,7 @@ export default function TemplateCard({ template, purchasedIds }: {
 
       <div className="px-4 py-3.5 flex flex-col flex-1">
         <span className="text-[10px] font-bold text-muted uppercase tracking-[0.1em] mb-1">
-          {categoryLabels[template.category]}
+          {template.category === "ui" ? t[lang].card.categoryUI : t[lang].card.categoryPrompt}
         </span>
         <h3 className="text-[14px] font-semibold text-theme leading-snug group-hover:text-[#0A84FF] transition-colors duration-200">
           {template.name}

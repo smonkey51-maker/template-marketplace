@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { getTemplate, formatPrice } from "@/lib/templates";
 import { useUser } from "@clerk/nextjs";
+import { useLang } from "@/components/LanguageProvider";
+import { t } from "@/lib/i18n";
 
 function PromptFullView({ content }: { content: string }) {
   const parts = content.split(/({{[^}]+}})/g);
@@ -42,6 +44,7 @@ export default function PreviewPage() {
   const params = useParams();
   const router = useRouter();
   const { isSignedIn } = useUser();
+  const { lang } = useLang();
   const [purchasedIds, setPurchasedIds] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -77,14 +80,14 @@ export default function PreviewPage() {
     return (
       <div className="min-h-screen bg-page flex items-center justify-center">
         <div className="text-center">
-          <p className="text-muted text-[15px] mb-4">Template non trovato.</p>
-          <Link href="/" className="text-[#0A84FF] font-semibold">← Torna al marketplace</Link>
+          <p className="text-muted text-[15px] mb-4">{t[lang].preview.notFound}</p>
+          <Link href="/" className="text-[#0A84FF] font-semibold">{t[lang].preview.notFoundBack}</Link>
         </div>
       </div>
     );
   }
 
-  const categoryLabel = template.category === "ui" ? "UI Template" : "Prompt";
+  const categoryLabel = template.category === "ui" ? t[lang].card.categoryUI : t[lang].card.categoryPrompt;
 
   return (
     <div className="min-h-screen bg-page flex flex-col">
@@ -96,12 +99,12 @@ export default function PreviewPage() {
           glass shadow-[0_4px_24px_rgba(0,0,0,0.18)]
           text-[#0A84FF] text-[15px] font-semibold
           hover:scale-105 active:scale-[0.96] ios-spring transition-all duration-200"
-        aria-label="Torna indietro"
+        aria-label={t[lang].preview.back}
       >
         <svg width="8" height="14" viewBox="0 0 8 14" fill="none" className="shrink-0">
           <path d="M7 1L1.5 7L7 13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
-        <span className="hidden sm:inline">Indietro</span>
+        <span className="hidden sm:inline">{t[lang].preview.back}</span>
       </button>
 
       {/* ── Preview area ── */}
@@ -140,7 +143,7 @@ export default function PreviewPage() {
               <div className="flex items-center gap-2 flex-wrap">
                 <span className="text-[10px] font-bold text-muted uppercase tracking-widest">{categoryLabel}</span>
                 {template.downloads >= 700 && (
-                  <span className="text-[10px] font-bold text-[#FF9F0A] bg-[#FF9F0A]/10 border border-[#FF9F0A]/20 px-1.5 py-0.5 rounded-full">★ Bestseller</span>
+                  <span className="text-[10px] font-bold text-[#FF9F0A] bg-[#FF9F0A]/10 border border-[#FF9F0A]/20 px-1.5 py-0.5 rounded-full">{t[lang].card.bestseller}</span>
                 )}
               </div>
               <p className="text-[15px] font-bold text-theme leading-tight mt-0.5">{template.name}</p>
@@ -148,7 +151,7 @@ export default function PreviewPage() {
             </div>
             <div className="text-right shrink-0">
               <p className="text-[20px] font-black text-[#0A84FF]">{formatPrice(template.price)}</p>
-              <p className="text-[11px] text-muted">una tantum</p>
+              <p className="text-[11px] text-muted">{t[lang].preview.oneTime}</p>
             </div>
           </div>
 
@@ -174,7 +177,7 @@ export default function PreviewPage() {
                 transition-all duration-200 ios-spring
                 shadow-[0_4px_20px_rgba(94,92,230,0.35)] text-[15px]"
             >
-              Personalizza in AI Studio →
+              {t[lang].preview.openStudio}
             </Link>
           ) : (
             <button
@@ -186,7 +189,9 @@ export default function PreviewPage() {
                 disabled:opacity-50 btn-glow-blue text-[15px]
                 shadow-[0_4px_20px_rgba(10,132,255,0.35)]"
             >
-              {loading ? "Caricamento..." : `Acquista ora — ${formatPrice(template.price)}`}
+              {loading
+                ? t[lang].preview.loading
+                : t[lang].preview.buyNow.replace("{{price}}", formatPrice(template.price))}
             </button>
           )}
         </div>

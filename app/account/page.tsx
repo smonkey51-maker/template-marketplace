@@ -4,9 +4,12 @@ import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { templates, getTemplate, formatPrice } from "@/lib/templates";
+import { useLang } from "@/components/LanguageProvider";
+import { t } from "@/lib/i18n";
 
 export default function AccountPage() {
   const { user, isLoaded } = useUser();
+  const { lang } = useLang();
   const [purchasedIds, setPurchasedIds] = useState<string[]>([]);
   const [portalLoading, setPortalLoading] = useState(false);
 
@@ -53,12 +56,12 @@ export default function AccountPage() {
             <svg width="9" height="15" viewBox="0 0 9 15" fill="none" className="shrink-0">
               <path d="M8 1L1.5 7.5L8 14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            <span className="hidden sm:inline">Marketplace</span>
+            <span className="hidden sm:inline">{t[lang].account.backToMarketplace}</span>
           </Link>
 
-          <span className="text-[13px] text-muted font-semibold uppercase tracking-widest">Account</span>
+          <span className="text-[13px] text-muted font-semibold uppercase tracking-widest">{t[lang].account.title}</span>
 
-          <div className="w-9" />{/* spacer per centrare il titolo */}
+          <div className="w-9" />{/* spacer */}
         </div>
       </nav>
 
@@ -71,7 +74,7 @@ export default function AccountPage() {
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-[17px] font-semibold text-theme truncate">
-              {user?.fullName ?? user?.emailAddresses?.[0]?.emailAddress ?? "Utente"}
+              {user?.fullName ?? user?.emailAddresses?.[0]?.emailAddress ?? (lang === "it" ? "Utente" : "User")}
             </p>
             <p className="text-[13px] text-muted truncate">
               {user?.emailAddresses?.[0]?.emailAddress}
@@ -81,7 +84,7 @@ export default function AccountPage() {
             href="/studio"
             className="px-4 py-2 bg-[#5E5CE6] hover:bg-[#7B79F7] text-white font-semibold rounded-2xl text-[14px] transition-all duration-200 active:scale-[0.97] ios-spring shrink-0"
           >
-            AI Studio →
+            {t[lang].account.studioBtn}
           </Link>
         </div>
 
@@ -98,9 +101,9 @@ export default function AccountPage() {
               ✦
             </div>
             <div>
-              <p className="font-bold text-theme text-[17px]">Studio Access</p>
+              <p className="font-bold text-theme text-[17px]">{t[lang].account.studioAccessTitle}</p>
               <p className="text-[13px] text-muted">
-                {hasStudioAccess ? "Attivo — Generazioni AI illimitate" : "Non attivo"}
+                {hasStudioAccess ? t[lang].account.studioAccessActive : t[lang].account.studioAccessInactive}
               </p>
             </div>
           </div>
@@ -110,14 +113,14 @@ export default function AccountPage() {
               disabled={portalLoading}
               className="px-4 py-2 bg-card border border-theme rounded-2xl text-[15px] font-medium transition-all duration-200 active:scale-[0.97] ios-spring shrink-0"
             >
-              {portalLoading ? "..." : "Gestisci abbonamento"}
+              {portalLoading ? "..." : t[lang].account.manageSubscription}
             </button>
           ) : (
             <Link
               href="/#studio-access"
               className="px-4 py-2 bg-[#0A84FF] hover:bg-[#409CFF] text-white font-semibold rounded-2xl text-[14px] transition-all duration-200 active:scale-[0.97] ios-spring shrink-0"
             >
-              Attiva →
+              {t[lang].account.activateCta}
             </Link>
           )}
         </div>
@@ -125,7 +128,7 @@ export default function AccountPage() {
         {/* Purchased templates */}
         <div>
           <h2 className="text-[13px] font-semibold text-muted uppercase tracking-widest mb-3 px-1">
-            I miei template{" "}
+            {t[lang].account.myTemplates}{" "}
             {purchasedTemplates.length > 0 && (
               <span className="normal-case tracking-normal text-muted">({purchasedTemplates.length})</span>
             )}
@@ -133,37 +136,37 @@ export default function AccountPage() {
 
           {purchasedTemplates.length === 0 ? (
             <div className="bg-surface border border-theme rounded-[28px] p-10 text-center flex flex-col items-center gap-4">
-              <p className="text-[15px] text-muted">Nessun template acquistato ancora.</p>
+              <p className="text-[15px] text-muted">{t[lang].account.noTemplates}</p>
               <Link
                 href="/"
                 className="inline-block px-6 py-2.5 bg-[#0A84FF] hover:bg-[#409CFF] text-white font-semibold rounded-2xl text-[15px] transition-all duration-200 active:scale-[0.97] ios-spring"
               >
-                Vai al marketplace →
+                {t[lang].account.goToMarketplace}
               </Link>
             </div>
           ) : (
             <div className="bg-surface rounded-[20px] overflow-hidden">
-              {purchasedTemplates.map((t, index) => (
+              {purchasedTemplates.map((tmpl, index) => (
                 <div
-                  key={t.id}
+                  key={tmpl.id}
                   className={`flex items-center gap-4 px-5 py-4 active:bg-white/[0.05] transition-colors duration-150 ${
                     index > 0 ? "border-t border-theme" : ""
                   }`}
                 >
                   <div className={`w-11 h-11 rounded-2xl flex items-center justify-center text-xl shrink-0 ${
-                    t.category === "ui" ? "bg-[#007AFF]/20" : "bg-[#0A84FF]/20"
+                    tmpl.category === "ui" ? "bg-[#007AFF]/20" : "bg-[#0A84FF]/20"
                   }`}>
-                    {t.category === "ui" ? "🖼" : "📝"}
+                    {tmpl.category === "ui" ? "🖼" : "📝"}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-theme text-[15px] truncate">{t.name}</p>
-                    <p className="text-[13px] text-muted">{formatPrice(t.price)}</p>
+                    <p className="font-semibold text-theme text-[15px] truncate">{tmpl.name}</p>
+                    <p className="text-[13px] text-muted">{formatPrice(tmpl.price)}</p>
                   </div>
                   <Link
-                    href={`/studio?templateId=${t.id}`}
+                    href={`/studio?templateId=${tmpl.id}`}
                     className="px-3 py-1.5 bg-[#5E5CE6] hover:bg-[#7B79F7] text-white text-[13px] font-semibold rounded-xl transition-all duration-200 active:scale-[0.97] ios-spring shrink-0"
                   >
-                    Apri Studio
+                    {lang === "it" ? "Apri Studio" : "Open Studio"}
                   </Link>
                 </div>
               ))}
@@ -173,21 +176,21 @@ export default function AccountPage() {
 
         {/* Account section */}
         <div>
-          <h3 className="text-[13px] font-semibold text-muted uppercase tracking-widest mb-3 px-1">Account</h3>
+          <h3 className="text-[13px] font-semibold text-muted uppercase tracking-widest mb-3 px-1">{t[lang].account.accountSection}</h3>
           <div className="bg-surface border border-theme rounded-[20px] overflow-hidden">
             <button
               onClick={openPortal}
               disabled={portalLoading}
               className="w-full text-left px-5 py-4 text-[15px] text-theme hover:bg-card active:bg-card transition-colors duration-150 border-b border-theme flex items-center justify-between"
             >
-              <span>{portalLoading ? "..." : "Gestisci pagamenti e fatture"}</span>
+              <span>{portalLoading ? "..." : t[lang].account.managePayments}</span>
               <span className="text-muted text-[18px]">›</span>
             </button>
             <Link
               href="/studio"
               className="block px-5 py-4 text-[15px] text-theme hover:bg-card/[0.04] active:bg-white/[0.05] transition-colors duration-150 flex items-center justify-between"
             >
-              <span>Vai all&apos;AI Studio</span>
+              <span>{t[lang].account.goToStudio}</span>
               <span className="text-muted text-[18px]">›</span>
             </Link>
           </div>

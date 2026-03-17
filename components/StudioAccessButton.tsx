@@ -2,9 +2,16 @@
 
 import { useState } from "react";
 import { useUser } from "@clerk/nextjs";
+import { useLang } from "@/components/LanguageProvider";
+import { t } from "@/lib/i18n";
 
-export default function StudioAccessButton() {
+interface StudioAccessButtonProps {
+  compact?: boolean;
+}
+
+export default function StudioAccessButton({ compact = false }: StudioAccessButtonProps) {
   const { isSignedIn } = useUser();
+  const { lang } = useLang();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -33,6 +40,30 @@ export default function StudioAccessButton() {
       setLoading(false);
     }
   };
+
+  if (compact) {
+    return (
+      <div className="flex flex-col items-center gap-2">
+        <button
+          onClick={handleClick}
+          disabled={loading}
+          className="px-4 py-2 font-bold rounded-2xl text-[13px] text-white disabled:opacity-60 transition-all duration-200 active:scale-[0.97] ios-spring"
+          style={{ background: "linear-gradient(135deg, #0A84FF 0%, #5E5CE6 100%)" }}
+        >
+          {loading ? (
+            <span className="flex items-center gap-2">
+              <span className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+            </span>
+          ) : (
+            t[lang].studioAccessBanner.cta
+          )}
+        </button>
+        {error && (
+          <p className="text-[#FF453A] text-[12px] anim-fade-in">{error}</p>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col items-center gap-3">
@@ -65,10 +96,10 @@ export default function StudioAccessButton() {
           {loading ? (
             <span className="flex items-center gap-2">
               <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-              Caricamento...
+              {lang === "it" ? "Caricamento..." : "Loading..."}
             </span>
           ) : (
-            "Inizia con Studio Access →"
+            t[lang].studioAccessBanner.cta
           )}
         </button>
       </div>

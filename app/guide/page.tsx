@@ -1,6 +1,12 @@
+"use client";
+
 import Link from "next/link";
+import { useLang } from "@/components/LanguageProvider";
+import { t } from "@/lib/i18n";
 
 export default function GuidePage() {
+  const { lang } = useLang();
+
   return (
     <div className="min-h-screen bg-page relative overflow-x-hidden">
 
@@ -33,12 +39,12 @@ export default function GuidePage() {
                 strokeLinejoin="round"
               />
             </svg>
-            <span className="hidden sm:inline">Marketplace</span>
+            <span className="hidden sm:inline">{t[lang].account.backToMarketplace}</span>
           </Link>
 
-          <span className="text-[13px] text-muted font-semibold uppercase tracking-widest">Guida</span>
+          <span className="text-[13px] text-muted font-semibold uppercase tracking-widest">{t[lang].guide.pageTitle}</span>
 
-          <div className="w-9" />{/* spacer per centrare il titolo */}
+          <div className="w-9" />{/* spacer */}
         </div>
       </nav>
 
@@ -49,20 +55,20 @@ export default function GuidePage() {
         <section className="text-center anim-fade-up delay-0">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[12px] font-semibold glass-subtle text-[#0A84FF] mb-6 select-none">
             <span className="w-1.5 h-1.5 rounded-full bg-[#0A84FF]" />
-            Come funziona
+            {t[lang].guide.badge}
           </div>
           <h1 className="text-[2rem] sm:text-[2.8rem] font-black tracking-[-0.03em] leading-[1.1] text-theme mb-4">
-            Come usare TemplateLab
+            {t[lang].guide.title}
           </h1>
           <p className="text-[16px] sm:text-[18px] text-muted max-w-lg mx-auto leading-relaxed">
-            Dalla scelta all&apos;utilizzo in pochi minuti.
+            {t[lang].guide.subtitle}
           </p>
         </section>
 
         {/* ── Sezione 1: Due tipi di template ── */}
         <section className="anim-fade-up delay-75">
           <p className="text-[11px] font-bold text-muted uppercase tracking-[0.2em] mb-6 text-center">
-            I due tipi di template
+            {t[lang].guide.sectionTypes}
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* UI Template */}
@@ -71,10 +77,9 @@ export default function GuidePage() {
                 🖼️
               </div>
               <div>
-                <h2 className="text-[18px] font-bold text-theme mb-2">UI Template</h2>
+                <h2 className="text-[18px] font-bold text-theme mb-2">{t[lang].guide.uiTitle}</h2>
                 <p className="text-[14px] text-muted leading-relaxed">
-                  Pagine HTML complete, pronte da copiare e incollare nel tuo progetto. Ogni template è
-                  realizzato con Tailwind CSS e personalizzabile in secondi con l&apos;AI Studio.
+                  {t[lang].guide.uiDesc}
                 </p>
               </div>
               <div className="flex flex-wrap gap-2 mt-auto">
@@ -95,10 +100,9 @@ export default function GuidePage() {
                 📝
               </div>
               <div>
-                <h2 className="text-[18px] font-bold text-theme mb-2">Prompt Template</h2>
+                <h2 className="text-[18px] font-bold text-theme mb-2">{t[lang].guide.promptTitle}</h2>
                 <p className="text-[14px] text-muted leading-relaxed">
-                  Testi strutturati pronti per l&apos;uso con qualsiasi AI. Basta copiarli, compilare i
-                  campi e ottenere risultati professionali in secondi.
+                  {t[lang].guide.promptDesc}
                 </p>
               </div>
               <div className="flex flex-wrap gap-2 mt-auto">
@@ -118,15 +122,15 @@ export default function GuidePage() {
         {/* ── Sezione 2: Come installare un UI Template ── */}
         <section className="anim-fade-up delay-150">
           <p className="text-[11px] font-bold text-muted uppercase tracking-[0.2em] mb-6">
-            Come installare un UI Template
+            {t[lang].guide.sectionInstall}
           </p>
           <div className="bg-surface border border-theme rounded-[24px] p-6 sm:p-8">
             <StepList
               steps={[
-                { emoji: "🛒", title: "Acquista il template", desc: "Scegli il template che ti serve dal marketplace e acquistalo in un click con pagamento sicuro Stripe." },
-                { emoji: "🤖", title: "Aprilo in AI Studio e personalizzalo", desc: "Accedi all'AI Studio incluso nell'acquisto. Descrivi in italiano i colori, testi e stile che vuoi — Claude li applica in secondi." },
-                { emoji: "📋", title: "Copia il codice HTML generato", desc: "Con un click copi l'intero codice HTML personalizzato negli appunti. Pronto all'uso." },
-                { emoji: "🚀", title: "Incollalo nel tuo progetto", desc: "Funziona con qualsiasi framework (React, Next.js, Vue, Svelte) o anche in HTML puro. Zero dipendenze." },
+                { emoji: "🛒", title: t[lang].guide.installStep1Title, desc: t[lang].guide.installStep1Desc },
+                { emoji: "🤖", title: t[lang].guide.installStep2Title, desc: t[lang].guide.installStep2Desc },
+                { emoji: "📋", title: t[lang].guide.installStep3Title, desc: t[lang].guide.installStep3Desc },
+                { emoji: "🚀", title: t[lang].guide.installStep4Title, desc: t[lang].guide.installStep4Desc },
               ]}
             />
           </div>
@@ -135,14 +139,14 @@ export default function GuidePage() {
         {/* ── Sezione 3: Come usare un Prompt Template ── */}
         <section className="anim-fade-up delay-225">
           <p className="text-[11px] font-bold text-muted uppercase tracking-[0.2em] mb-6">
-            Come usare un Prompt Template
+            {t[lang].guide.sectionPromptUse}
           </p>
           <div className="bg-surface border border-theme rounded-[24px] p-6 sm:p-8">
             <StepList
               steps={[
-                { emoji: "🛒", title: "Acquista il prompt", desc: "Ogni prompt è ottimizzato per un caso d'uso specifico: copywriting, SEO, email, assistenti AI e molto altro." },
-                { emoji: "📋", title: "Copialo e incollalo nella tua AI preferita", desc: "Funziona con Claude, ChatGPT, Gemini o qualsiasi altra AI. Basta incollarlo nella chat." },
-                { emoji: "✍️", title: "Compila i tuoi dati", desc: "Sostituisci i campi {{placeholder}} con le tue informazioni specifiche e ottieni un risultato professionale su misura." },
+                { emoji: "🛒", title: t[lang].guide.promptStep1Title, desc: t[lang].guide.promptStep1Desc },
+                { emoji: "📋", title: t[lang].guide.promptStep2Title, desc: t[lang].guide.promptStep2Desc },
+                { emoji: "✍️", title: t[lang].guide.promptStep3Title, desc: t[lang].guide.promptStep3Desc },
               ]}
             />
           </div>
@@ -151,14 +155,14 @@ export default function GuidePage() {
         {/* ── Sezione 4: Demo visiva ── */}
         <section className="anim-fade-up delay-300">
           <p className="text-[11px] font-bold text-muted uppercase tracking-[0.2em] mb-6 text-center">
-            Come appaiono i template
+            {t[lang].guide.sectionDemo}
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
             {/* UI Template mock */}
             <div className="bg-surface border border-theme rounded-[24px] p-5 flex flex-col gap-4">
               <div className="flex items-center gap-2">
-                <span className="text-[13px] font-bold text-theme">UI Template</span>
+                <span className="text-[13px] font-bold text-theme">{t[lang].guide.uiTitle}</span>
                 <span className="glass-subtle rounded-full px-2 py-0.5 text-[11px] font-semibold text-[#0A84FF]">HTML</span>
               </div>
               {/* Mini HTML mockup */}
@@ -198,14 +202,14 @@ export default function GuidePage() {
                 </div>
               </div>
               <p className="text-[12px] text-muted leading-relaxed">
-                Pagina HTML completa con navbar, hero e sezioni. Pronta da personalizzare con AI Studio.
+                {t[lang].guide.demoUIDesc}
               </p>
             </div>
 
             {/* Prompt Template mock */}
             <div className="bg-surface border border-theme rounded-[24px] p-5 flex flex-col gap-4">
               <div className="flex items-center gap-2">
-                <span className="text-[13px] font-bold text-theme">Prompt Template</span>
+                <span className="text-[13px] font-bold text-theme">{t[lang].guide.promptTitle}</span>
                 <span className="glass-subtle rounded-full px-2 py-0.5 text-[11px] font-semibold text-[#5E5CE6]">AI</span>
               </div>
               {/* macOS Notes style */}
@@ -236,9 +240,7 @@ export default function GuidePage() {
                 </div>
               </div>
               <p className="text-[12px] text-muted leading-relaxed">
-                I campi{" "}
-                <span className="text-[#0A84FF] font-semibold font-mono text-[11px]">{"{{placeholder}}"}</span>{" "}
-                si compilano con le tue informazioni per un risultato su misura.
+                {t[lang].guide.demoPromptDesc}
               </p>
             </div>
           </div>
@@ -257,19 +259,19 @@ export default function GuidePage() {
             />
             <div className="relative">
               <p className="text-[13px] text-muted font-semibold uppercase tracking-widest mb-3">
-                Inizia ora
+                {t[lang].guide.ctaLabel}
               </p>
               <h2 className="text-[1.6rem] sm:text-[2rem] font-black tracking-[-0.03em] text-theme mb-3">
-                Pronto a usare TemplateLab?
+                {t[lang].guide.ctaTitle}
               </h2>
               <p className="text-[15px] text-muted mb-7 max-w-md mx-auto leading-relaxed">
-                Sfoglia i template, scegli quello che fa per te e personalizzalo in secondi con AI.
+                {t[lang].guide.ctaSubtitle}
               </p>
               <Link
                 href="/#browse"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-[#0A84FF] hover:bg-[#409CFF] text-white font-bold text-[15px] rounded-2xl ios-spring transition-all duration-200 shadow-[0_4px_20px_rgba(10,132,255,0.35)]"
               >
-                Sfoglia i template →
+                {t[lang].guide.ctaBtn}
               </Link>
             </div>
           </div>
