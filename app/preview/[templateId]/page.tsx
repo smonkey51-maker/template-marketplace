@@ -3,7 +3,8 @@
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { getTemplate, formatPrice } from "@/lib/templates";
+import { getTemplate, formatPrice, getDownloadType } from "@/lib/templates";
+import DownloadButton from "@/components/DownloadButton";
 import { useUser } from "@clerk/nextjs";
 import { useLang } from "@/components/LanguageProvider";
 import { t } from "@/lib/i18n";
@@ -170,15 +171,22 @@ export default function PreviewPage() {
 
           {/* CTA button */}
           {isPurchased ? (
-            <Link
-              href={`/studio?templateId=${template.id}`}
-              className="flex items-center justify-center gap-2 bg-[#5E5CE6] hover:bg-[#6E6CF6] active:scale-[0.97]
-                text-white font-bold rounded-2xl px-6 py-3.5 w-full text-center
-                transition-all duration-200 ios-spring
-                shadow-[0_4px_20px_rgba(94,92,230,0.35)] text-[15px]"
-            >
-              {t[lang].preview.openStudio}
-            </Link>
+            <div className="flex flex-col gap-2">
+              <Link
+                href={`/studio?templateId=${template.id}`}
+                className="flex items-center justify-center gap-2 bg-[#5E5CE6] hover:bg-[#6E6CF6] active:scale-[0.97]
+                  text-white font-bold rounded-2xl px-6 py-3.5 w-full text-center
+                  transition-all duration-200 ios-spring
+                  shadow-[0_4px_20px_rgba(94,92,230,0.35)] text-[15px]"
+              >
+                {t[lang].preview.openStudio}
+              </Link>
+              <DownloadButton
+                templateId={template.id}
+                downloadType={getDownloadType(template)}
+                variant="full"
+              />
+            </div>
           ) : (
             <button
               onClick={handleBuy}

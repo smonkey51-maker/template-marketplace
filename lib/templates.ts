@@ -1,4 +1,13 @@
 export type TemplateCategory = "ui" | "prompt";
+export type DownloadType =
+  | "html"     // UI template → .html file with Tailwind CDN
+  | "prompt"   // Prompt template → .txt file
+  | "canva"    // Canva edit link
+  | "excel"    // .xlsx file
+  | "sheets"   // Google Sheets /copy link
+  | "notion"   // Notion duplicate link
+  | "webflow"  // Webflow project link
+  | "framer";  // Framer project link
 
 export interface Template {
   id: string;
@@ -10,6 +19,15 @@ export interface Template {
   tags: string[];
   downloads: number;
   content: string;
+  /** Defaults to "html" for ui templates, "prompt" for prompt templates */
+  downloadType?: DownloadType;
+  /** Required for canva / excel / sheets / notion / webflow / framer */
+  downloadUrl?: string;
+}
+
+/** Returns the effective download type, falling back to category-based default */
+export function getDownloadType(template: Template): DownloadType {
+  return template.downloadType ?? (template.category === "ui" ? "html" : "prompt");
 }
 
 export const templates: Template[] = [

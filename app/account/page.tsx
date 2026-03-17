@@ -3,7 +3,8 @@
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { templates, getTemplate, formatPrice } from "@/lib/templates";
+import { templates, getTemplate, formatPrice, getDownloadType } from "@/lib/templates";
+import DownloadButton from "@/components/DownloadButton";
 import { useLang } from "@/components/LanguageProvider";
 import { t } from "@/lib/i18n";
 
@@ -162,12 +163,19 @@ export default function AccountPage() {
                     <p className="font-semibold text-theme text-[15px] truncate">{tmpl.name}</p>
                     <p className="text-[13px] text-muted">{formatPrice(tmpl.price)}</p>
                   </div>
-                  <Link
-                    href={`/studio?templateId=${tmpl.id}`}
-                    className="px-3 py-1.5 bg-[#5E5CE6] hover:bg-[#7B79F7] text-white text-[13px] font-semibold rounded-xl transition-all duration-200 active:scale-[0.97] ios-spring shrink-0"
-                  >
-                    {lang === "it" ? "Apri Studio" : "Open Studio"}
-                  </Link>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <DownloadButton
+                      templateId={tmpl.id}
+                      downloadType={getDownloadType(tmpl)}
+                      variant="compact"
+                    />
+                    <Link
+                      href={`/studio?templateId=${tmpl.id}`}
+                      className="px-3 py-1.5 bg-[#5E5CE6] hover:bg-[#7B79F7] text-white text-[13px] font-semibold rounded-xl transition-all duration-200 active:scale-[0.97] ios-spring"
+                    >
+                      {lang === "it" ? "Apri Studio" : "Open Studio"}
+                    </Link>
+                  </div>
                 </div>
               ))}
             </div>
