@@ -1,8 +1,69 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { templates } from "@/lib/templates";
+import { templates, Template } from "@/lib/templates";
 import TemplateCard from "@/components/TemplateCard";
+
+const SECTIONS: {
+  id: string;
+  emoji: string;
+  label: string;
+  subtitle: string;
+  ids: string[];
+}[] = [
+  {
+    id: "real-estate",
+    emoji: "🏠",
+    label: "Agenti immobiliari & Host Airbnb",
+    subtitle: "Schede proprietà, profili agente, listing brevi",
+    ids: ["real-estate-agent", "airbnb-property-listing"],
+  },
+  {
+    id: "health-legal",
+    emoji: "🩺",
+    label: "Psicologi & Studi Legali",
+    subtitle: "Profili professionali, servizi, prenotazioni",
+    ids: ["therapist-profile", "law-firm-services"],
+  },
+  {
+    id: "finance-artisan",
+    emoji: "💰",
+    label: "Finanza personale & Piccoli imprenditori",
+    subtitle: "Budget, analytics, cataloghi prodotto",
+    ids: [
+      "budget-tracker",
+      "personal-finance-dashboard",
+      "artisan-product-catalog",
+      "revenue-analytics",
+    ],
+  },
+  {
+    id: "startup-tech",
+    emoji: "🚀",
+    label: "Startup, Agenzie & Freelance tech",
+    subtitle: "Landing page, portfolio, profili developer",
+    ids: [
+      "saas-landing-dark",
+      "creative-agency-portfolio",
+      "freelance-tech-profile",
+      "startup-product-launch",
+      "hero-saas",
+      "pricing-table",
+      "blog-card-grid",
+    ],
+  },
+  {
+    id: "copywriting-ai",
+    emoji: "✍️",
+    label: "Copywriting & AI Prompt",
+    subtitle: "Prompt pronti per vendite, SEO e assistenti AI",
+    ids: [
+      "cold-email-b2b",
+      "product-description-ecom",
+      "ai-assistant-system-prompt",
+    ],
+  },
+];
 
 function SkeletonCard() {
   return (
@@ -35,66 +96,55 @@ export default function TemplateGrid() {
       .finally(() => setLoading(false));
   }, []);
 
-  const uiTemplates = templates.filter((t) => t.category === "ui");
-  const promptTemplates = templates.filter((t) => t.category === "prompt");
+  const byId = Object.fromEntries(templates.map((t) => [t.id, t]));
 
   return (
-    <>
-      {/* UI Templates */}
-      <section id="browse" className="px-6 pb-16 max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-[22px] font-bold flex items-center gap-3 tracking-tight">
-            UI Templates
-            <span className="text-[13px] font-normal text-[#8E8E93]">
-              HTML + Tailwind CSS
-            </span>
-            <span className="bg-[#FF9F0A]/15 text-[#FF9F0A] rounded-full px-2.5 py-0.5 text-[13px] font-semibold">
-              {uiTemplates.length}
-            </span>
-          </h2>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {loading
-            ? Array.from({ length: uiTemplates.length }).map((_, i) => (
-                <SkeletonCard key={i} />
-              ))
-            : uiTemplates.map((t) => (
-                <TemplateCard
-                  key={t.id}
-                  template={t}
-                  purchasedIds={purchasedIds}
-                />
-              ))}
-        </div>
-      </section>
+    <div id="browse" className="px-6 pb-24 max-w-7xl mx-auto space-y-16">
+      {SECTIONS.map((section) => {
+        const sectionTemplates = section.ids
+          .map((id) => byId[id])
+          .filter(Boolean) as Template[];
 
-      {/* Prompt Templates */}
-      <section className="px-6 pb-24 max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-[22px] font-bold flex items-center gap-3 tracking-tight">
-            Prompt Templates
-            <span className="text-[13px] font-normal text-[#8E8E93]">
-              Works with any LLM
-            </span>
-            <span className="bg-[#FF9F0A]/15 text-[#FF9F0A] rounded-full px-2.5 py-0.5 text-[13px] font-semibold">
-              {promptTemplates.length}
-            </span>
-          </h2>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {loading
-            ? Array.from({ length: promptTemplates.length }).map((_, i) => (
-                <SkeletonCard key={i} />
-              ))
-            : promptTemplates.map((t) => (
-                <TemplateCard
-                  key={t.id}
-                  template={t}
-                  purchasedIds={purchasedIds}
-                />
-              ))}
-        </div>
-      </section>
-    </>
+        if (sectionTemplates.length === 0) return null;
+
+        return (
+          <section key={section.id}>
+            {/* Section header */}
+            <div className="flex items-center gap-3 mb-6">
+              <span className="text-3xl">{section.emoji}</span>
+              <div>
+                <h2 className="text-[20px] font-bold tracking-tight flex items-center gap-2">
+                  {section.label}
+                  <span className="bg-[#FF9F0A]/15 text-[#FF9F0A] rounded-full px-2.5 py-0.5 text-[13px] font-semibold">
+                    {sectionTemplates.length}
+                  </span>
+                </h2>
+                <p className="text-[13px] text-[#8E8E93] mt-0.5">
+                  {section.subtitle}
+                </p>
+              </div>
+            </div>
+
+            {/* Divider */}
+            <div className="h-px bg-white/[0.06] mb-6" />
+
+            {/* Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {loading
+                ? Array.from({ length: sectionTemplates.length }).map((_, i) => (
+                    <SkeletonCard key={i} />
+                  ))
+                : sectionTemplates.map((t) => (
+                    <TemplateCard
+                      key={t.id}
+                      template={t}
+                      purchasedIds={purchasedIds}
+                    />
+                  ))}
+            </div>
+          </section>
+        );
+      })}
+    </div>
   );
 }
