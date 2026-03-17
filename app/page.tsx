@@ -100,7 +100,7 @@ export default function MarketplacePage() {
       </section>
 
       {/* ── Studio Access Banner ── */}
-      <section className="relative z-10 px-4 sm:px-6 mb-16 max-w-4xl mx-auto anim-fade-up delay-400">
+      <section className="relative z-10 px-4 sm:px-6 mb-16 max-w-5xl mx-auto anim-fade-up delay-400">
         <div className="relative bg-surface border border-theme rounded-[28px] sm:rounded-[36px] p-6 sm:p-10 overflow-hidden shadow-[0_2px_40px_rgba(0,0,0,0.08)]">
 
           {/* Inner glow top */}

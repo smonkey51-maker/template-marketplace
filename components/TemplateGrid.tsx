@@ -99,7 +99,7 @@ export default function TemplateGrid() {
   const byId = Object.fromEntries(templates.map((t) => [t.id, t]));
 
   return (
-    <div id="browse" className="px-4 sm:px-6 pb-24 max-w-7xl mx-auto space-y-14">
+    <div id="browse" className="px-4 sm:px-6 pb-24 max-w-5xl mx-auto space-y-14">
       {SECTIONS.map((section) => {
         const sectionTemplates = section.ids
           .map((id) => byId[id])
@@ -127,16 +127,18 @@ export default function TemplateGrid() {
 
             <div className="h-px border-t border-theme mb-5" />
 
-            {/* Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            {/* Cards — flex-wrap so partial rows stay centered */}
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-5">
               {loading
                 ? Array.from({ length: sectionTemplates.length }).map((_, i) => (
-                    <SkeletonCard key={i} />
+                    <div key={i} className="w-full sm:w-[calc(50%-10px)] lg:w-[calc(33.333%-14px)]">
+                      <SkeletonCard />
+                    </div>
                   ))
                 : sectionTemplates.map((t, i) => (
                     <div
                       key={t.id}
-                      className="anim-fade-up"
+                      className="w-full sm:w-[calc(50%-10px)] lg:w-[calc(33.333%-14px)] anim-fade-up"
                       style={{ animationDelay: `${i * 60}ms` }}
                     >
                       <TemplateCard
