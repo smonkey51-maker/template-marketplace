@@ -93,11 +93,12 @@ export default function TemplateCard({ template, purchasedIds }: {
     <Link
       href={`/preview/${template.id}`}
       aria-label={displayName}
-      className="group relative glass-subtle rounded-[22px] overflow-hidden flex flex-col h-full
+      className={`group relative glass-subtle rounded-[22px] overflow-hidden flex flex-col h-full
         transition-all duration-300 ease-premium
         hover:-translate-y-1
         hover:shadow-[0_16px_48px_rgba(0,0,0,0.15),0_0_0_1px_rgba(10,132,255,0.15)]
-        active:scale-[0.98] active:opacity-90"
+        active:scale-[0.98] active:opacity-90
+        ${isBestseller && !isPurchased ? "ring-1 ring-[#FF9F0A]/25" : ""}`}
     >
       {/* Bestseller badge */}
       {isBestseller && !isPurchased && (

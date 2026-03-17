@@ -83,10 +83,10 @@ export default function TemplateGrid() {
     });
   }, [query, categoryFilter]);
 
-  const categoryChips: { value: CategoryFilter; label: string }[] = [
-    { value: "all", label: t[lang].search.chipAll },
-    { value: "ui", label: t[lang].search.chipUI },
-    { value: "prompt", label: t[lang].search.chipPrompt },
+  const categoryChips: { value: CategoryFilter; label: string; activeClass: string }[] = [
+    { value: "all",    label: t[lang].search.chipAll,    activeClass: "bg-[#0A84FF] text-white border-transparent shadow-[0_2px_12px_rgba(10,132,255,0.3)]" },
+    { value: "ui",     label: t[lang].search.chipUI,     activeClass: "bg-[#0A84FF] text-white border-transparent shadow-[0_2px_12px_rgba(10,132,255,0.3)]" },
+    { value: "prompt", label: t[lang].search.chipPrompt, activeClass: "bg-[#5E5CE6] text-white border-transparent shadow-[0_2px_12px_rgba(94,92,230,0.3)]" },
   ];
 
   return (
@@ -127,7 +127,7 @@ export default function TemplateGrid() {
                 onClick={() => setCategoryFilter(chip.value)}
                 className={`rounded-2xl px-4 py-3 text-[13px] font-semibold transition-all duration-200 ios-spring whitespace-nowrap border ${
                   categoryFilter === chip.value
-                    ? "bg-[#0A84FF] text-white border-transparent shadow-[0_2px_12px_rgba(10,132,255,0.3)]"
+                    ? chip.activeClass
                     : "text-muted border-theme bg-input hover:text-theme hover:border-[#0A84FF]/30"
                 }`}
               >

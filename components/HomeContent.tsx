@@ -122,6 +122,7 @@ export default function HomeContent() {
                 <div>
                   <p className="text-[11px] font-black text-[#0A84FF] uppercase tracking-widest mb-0.5">01</p>
                   <p className="text-[12px] font-semibold text-theme leading-snug">{t[lang].howItWorks.step1Title}</p>
+                  <p className="text-[10.5px] text-muted mt-1 leading-snug hidden sm:block">{t[lang].howItWorks.step1Desc}</p>
                 </div>
               </div>
               {/* Step 2 */}
@@ -130,6 +131,7 @@ export default function HomeContent() {
                 <div>
                   <p className="text-[11px] font-black text-[#5E5CE6] uppercase tracking-widest mb-0.5">02</p>
                   <p className="text-[12px] font-semibold text-theme leading-snug">{t[lang].howItWorks.step2Title}</p>
+                  <p className="text-[10.5px] text-muted mt-1 leading-snug hidden sm:block">{t[lang].howItWorks.step2Desc}</p>
                 </div>
               </div>
               {/* Step 3 */}
@@ -138,6 +140,7 @@ export default function HomeContent() {
                 <div>
                   <p className="text-[11px] font-black text-[#30D158] uppercase tracking-widest mb-0.5">03</p>
                   <p className="text-[12px] font-semibold text-theme leading-snug">{t[lang].howItWorks.step3Title}</p>
+                  <p className="text-[10.5px] text-muted mt-1 leading-snug hidden sm:block">{t[lang].howItWorks.step3Desc}</p>
                 </div>
               </div>
             </div>
