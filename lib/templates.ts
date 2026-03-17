@@ -75,7 +75,7 @@ export const templates: Template[] = [
       "Clean pricing cards with highlighted recommended plan and feature lists.",
     category: "ui",
     price: 799,
-    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    stripePriceId: "price_1TBixDBoWNgrJbiyjst5ntr3",
     tags: ["pricing", "saas", "cards", "table"],
     downloads: 987,
     content: `<div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-4 py-16">
@@ -130,7 +130,7 @@ export const templates: Template[] = [
       "Responsive 3-column blog post cards with author info and hover effects.",
     category: "ui",
     price: 599,
-    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    stripePriceId: "price_1TBixEBoWNgrJbiyhJfNG8k8",
     tags: ["blog", "cards", "grid", "articles"],
     downloads: 756,
     content: `<div class="bg-gray-50 min-h-screen py-12 px-4">
@@ -189,7 +189,7 @@ export const templates: Template[] = [
       "Elegant Canva-style profile page for real estate agents with listings showcase and contact CTA.",
     category: "ui",
     price: 899,
-    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    stripePriceId: "price_1TBz4bBoWNgrJbiy53ZV2H24",
     tags: ["real estate", "agent", "profile", "canva", "listings"],
     downloads: 312,
     content: `<div class="min-h-screen bg-gradient-to-b from-amber-50 to-white font-sans">
@@ -254,7 +254,7 @@ export const templates: Template[] = [
       "Beautiful property showcase page for short-term rental hosts with amenities and booking CTA.",
     category: "ui",
     price: 799,
-    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    stripePriceId: "price_1TBz4cBoWNgrJbiylT4TF2vL",
     tags: ["airbnb", "property", "rental", "canva", "hospitality"],
     downloads: 489,
     content: `<div class="min-h-screen bg-white font-sans">
@@ -316,7 +316,7 @@ export const templates: Template[] = [
       "Warm, professional Canva-style profile page for therapists with specializations and booking.",
     category: "ui",
     price: 799,
-    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    stripePriceId: "price_1TBz4cBoWNgrJbiyl78g7arm",
     tags: ["therapist", "psychologist", "health", "canva", "booking"],
     downloads: 267,
     content: `<div class="min-h-screen bg-gradient-to-b from-teal-50 to-white font-sans">
@@ -375,7 +375,7 @@ export const templates: Template[] = [
       "Authoritative, trust-building services page for law firms with practice areas and CTA.",
     category: "ui",
     price: 899,
-    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    stripePriceId: "price_1TBz4dBoWNgrJbiyTRJrTvkK",
     tags: ["law", "legal", "firm", "canva", "professional"],
     downloads: 198,
     content: `<div class="min-h-screen bg-slate-900 text-white font-sans">
@@ -437,7 +437,7 @@ export const templates: Template[] = [
       "Clean spreadsheet-style monthly budget tracker with income, expenses, and savings overview.",
     category: "ui",
     price: 699,
-    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    stripePriceId: "price_1TBz4eBoWNgrJbiyCYxFpTUr",
     tags: ["budget", "finance", "tracker", "spreadsheet", "personal"],
     downloads: 621,
     content: `<div class="min-h-screen bg-gray-50 p-6 font-mono text-sm">
@@ -488,7 +488,7 @@ export const templates: Template[] = [
       "Comprehensive spreadsheet dashboard for net worth, investments, and financial goals tracking.",
     category: "ui",
     price: 799,
-    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    stripePriceId: "price_1TBz4fBoWNgrJbiyRXLSv3aw",
     tags: ["finance", "investments", "net worth", "spreadsheet", "dashboard"],
     downloads: 843,
     content: `<div class="min-h-screen bg-slate-950 p-6 font-mono text-sm text-white">
@@ -550,7 +550,7 @@ export const templates: Template[] = [
       "Spreadsheet-style inventory and pricing catalog for artisans and small makers.",
     category: "ui",
     price: 599,
-    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    stripePriceId: "price_1TBz4fBoWNgrJbiy7LMgcESo",
     tags: ["artisan", "catalog", "inventory", "spreadsheet", "small business"],
     downloads: 334,
     content: `<div class="min-h-screen bg-amber-50 p-6 font-sans text-sm">
@@ -598,7 +598,7 @@ export const templates: Template[] = [
       "MRR, churn, and growth metrics spreadsheet dashboard for small business owners.",
     category: "ui",
     price: 799,
-    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    stripePriceId: "price_1TBz4gBoWNgrJbiyKIPEVnxT",
     tags: ["revenue", "analytics", "mrr", "spreadsheet", "business"],
     downloads: 512,
     content: `<div class="min-h-screen bg-gray-950 text-white p-6 font-mono text-sm">
@@ -644,7 +644,7 @@ export const templates: Template[] = [
       "High-converting Framer-style dark SaaS landing page with animated gradients and social proof.",
     category: "ui",
     price: 1199,
-    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    stripePriceId: "price_1TBz4hBoWNgrJbiyldGkbh0n",
     tags: ["saas", "landing", "dark", "framer", "conversion"],
     downloads: 728,
     content: `<div class="min-h-screen bg-black text-white overflow-hidden font-sans">
@@ -704,7 +704,7 @@ export const templates: Template[] = [
       "Bold Framer-style agency portfolio with case studies grid and bold typography.",
     category: "ui",
     price: 1099,
-    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    stripePriceId: "price_1TBz4iBoWNgrJbiyKCR10XRH",
     tags: ["agency", "portfolio", "creative", "framer", "webflow"],
     downloads: 456,
     content: `<div class="min-h-screen bg-zinc-950 text-white font-sans">
@@ -768,7 +768,7 @@ export const templates: Template[] = [
       "Minimal Webflow-style profile for freelance developers and designers with skills and work.",
     category: "ui",
     price: 899,
-    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    stripePriceId: "price_1TBz4iBoWNgrJbiyzETQok5Q",
     tags: ["freelance", "developer", "portfolio", "webflow", "tech"],
     downloads: 389,
     content: `<div class="min-h-screen bg-gray-950 text-white font-sans">
@@ -834,7 +834,7 @@ export const templates: Template[] = [
       "Conversion-optimized Framer/Webflow-style product launch page with waitlist and features.",
     category: "ui",
     price: 1299,
-    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    stripePriceId: "price_1TBz4jBoWNgrJbiy6sGjzcNh",
     tags: ["startup", "launch", "waitlist", "framer", "product"],
     downloads: 615,
     content: `<div class="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white font-sans overflow-hidden">
@@ -891,7 +891,7 @@ export const templates: Template[] = [
       "High-converting cold email prompt with personalization variables for any prospect.",
     category: "prompt",
     price: 1299,
-    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    stripePriceId: "price_1TBixFBoWNgrJbiyzxGXK1Jo",
     tags: ["cold email", "b2b", "sales", "outreach"],
     downloads: 2341,
     content: `You are an expert B2B sales copywriter. Write a cold outreach email:
@@ -937,7 +937,7 @@ Alternative subject lines:
       "SEO-optimized product description generator for any e-commerce store.",
     category: "prompt",
     price: 799,
-    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    stripePriceId: "price_1TBixFBoWNgrJbiyOlJPdvT0",
     tags: ["e-commerce", "seo", "product", "copywriting"],
     downloads: 1876,
     content: `You are an expert e-commerce copywriter and SEO specialist.
@@ -975,7 +975,7 @@ DELIVERABLES:
       "Craft the perfect system prompt for any custom AI assistant or chatbot.",
     category: "prompt",
     price: 1499,
-    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    stripePriceId: "price_1TBixGBoWNgrJbiyioEK1MiF",
     tags: ["system prompt", "ai assistant", "chatbot", "llm"],
     downloads: 3102,
     content: `You are a world-class AI prompt engineer. Create a comprehensive system prompt for a custom AI assistant:
@@ -1015,7 +1015,7 @@ QUALITY CRITERIA:
       "Luxury dark-themed restaurant menu with dish cards, chef's specials, and reservation CTA.",
     category: "ui",
     price: 899,
-    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    stripePriceId: "price_1TBz23BoWNgrJbiyyFk0vJBh",
     tags: ["restaurant", "menu", "food", "dark", "luxury"],
     downloads: 344,
     content: `<div class="min-h-screen bg-[#0d0d0d] text-white font-sans">
@@ -1084,7 +1084,7 @@ QUALITY CRITERIA:
       "Warm, cozy landing page for coffee shops and cafés with menu highlights and loyalty program.",
     category: "ui",
     price: 699,
-    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    stripePriceId: "price_1TBz23BoWNgrJbiyqDLxdo1I",
     tags: ["coffee", "café", "food", "warm", "landing"],
     downloads: 291,
     content: `<div class="min-h-screen font-sans" style="background:#fdf6ed">
@@ -1139,7 +1139,7 @@ QUALITY CRITERIA:
       "Elegant hotel booking UI with room showcase, amenities, and date selection.",
     category: "ui",
     price: 799,
-    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    stripePriceId: "price_1TBz24BoWNgrJbiyThvqyfL5",
     tags: ["hotel", "booking", "travel", "luxury", "hospitality"],
     downloads: 188,
     content: `<div class="min-h-screen bg-[#f8f6f2] font-sans">
@@ -1222,7 +1222,7 @@ QUALITY CRITERIA:
       "App Store-style showcase page for iOS/Android apps with screenshots, ratings, and download CTA.",
     category: "ui",
     price: 899,
-    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    stripePriceId: "price_1TBz25BoWNgrJbiy9Lsn21ma",
     tags: ["app", "mobile", "ios", "showcase", "download"],
     downloads: 412,
     content: `<div class="min-h-screen bg-gradient-to-b from-[#0a0a1a] via-[#0d0d20] to-[#060610] font-sans text-white">
@@ -1285,7 +1285,7 @@ QUALITY CRITERIA:
       "Glassmorphism feature cards page for SaaS products with icons, descriptions, and benefit highlights.",
     category: "ui",
     price: 799,
-    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    stripePriceId: "price_1TBz25BoWNgrJbiyIiw34qio",
     tags: ["features", "saas", "glassmorphism", "cards", "product"],
     downloads: 538,
     content: `<div class="min-h-screen font-sans" style="background:linear-gradient(135deg,#0f0c29 0%,#1a1040 50%,#24243e 100%)">
@@ -1351,7 +1351,7 @@ QUALITY CRITERIA:
       "Dark minimal SaaS analytics dashboard with KPI cards, charts, and activity feed.",
     category: "ui",
     price: 999,
-    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    stripePriceId: "price_1TBz26BoWNgrJbiyAaT2x1l1",
     tags: ["dashboard", "analytics", "saas", "dark", "minimal"],
     downloads: 672,
     content: `<div class="min-h-screen bg-[#0e0e12] text-white font-sans flex">
@@ -1414,7 +1414,7 @@ QUALITY CRITERIA:
       "Clean minimal digital CV with skills, experience timeline, and contact card.",
     category: "ui",
     price: 699,
-    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    stripePriceId: "price_1TBz27BoWNgrJbiy4EzhrLu3",
     tags: ["cv", "resume", "portfolio", "minimal", "personal"],
     downloads: 891,
     content: `<div class="min-h-screen bg-white font-sans">
@@ -1501,7 +1501,7 @@ QUALITY CRITERIA:
       "Minimal link-in-bio page for creators and influencers with social links and featured content.",
     category: "ui",
     price: 599,
-    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    stripePriceId: "price_1TBz28BoWNgrJbiy02owOzUD",
     tags: ["link in bio", "creator", "social", "minimal", "instagram"],
     downloads: 1204,
     content: `<div class="min-h-screen flex items-center justify-center py-10 px-4 font-sans" style="background:linear-gradient(160deg,#1a0533 0%,#0d001a 50%,#001a33 100%)">
@@ -1560,7 +1560,7 @@ QUALITY CRITERIA:
       "High-converting newsletter signup page with social proof, benefits, and email form.",
     category: "ui",
     price: 699,
-    stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
+    stripePriceId: "price_1TBz28BoWNgrJbiykMdFUZHe",
     tags: ["newsletter", "email", "landing", "signup", "conversion"],
     downloads: 763,
     content: `<div class="min-h-screen flex items-center justify-center bg-[#f5f0ff] px-4 font-sans py-16">

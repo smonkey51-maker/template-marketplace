@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRef, useEffect, useState } from "react";
 import { Template, formatPrice } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
 import { t } from "@/lib/i18n";
@@ -31,20 +32,36 @@ function PromptThumbnail({ template, isPurchased }: { template: Template; isPurc
   );
 }
 
-/* ─── UI thumbnail ─── */
+/* ─── UI thumbnail (lazy) ─── */
 function UIThumbnail({ template, isPurchased }: { template: Template; isPurchased: boolean }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); observer.disconnect(); } },
+      { rootMargin: "200px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="relative h-44 overflow-hidden bg-gray-950">
+    <div ref={containerRef} className="relative h-44 overflow-hidden bg-gray-950">
       <div
         className="absolute inset-0 pointer-events-none"
         style={{ transform: "scale(0.38)", transformOrigin: "top left", width: "263%", height: "263%" }}
       >
-        <iframe
-          src={`/api/preview/${template.id}`}
-          title={template.name}
-          className="w-full border-0"
-          style={{ height: "460px" }}
-        />
+        {visible && (
+          <iframe
+            src={`/api/preview/${template.id}`}
+            title={template.name}
+            className="w-full border-0"
+            style={{ height: "460px" }}
+          />
+        )}
       </div>
       <div className="absolute inset-0"
         style={{ background: "linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.5) 100%)" }} />
