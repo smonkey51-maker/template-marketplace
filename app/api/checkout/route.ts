@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
     mode: isSubscription ? "subscription" : "payment",
     line_items: [{ price: priceId, quantity: 1 }],
     success_url: `${appUrl}/success?templateId=${templateId}&session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${appUrl}/?canceled=1`,
+    cancel_url: `${appUrl}/`,
     ...(isSubscription
       ? { subscription_data: { metadata: { userId, templateId } } }
       : { payment_intent_data: { metadata: { userId, templateId } } }),
