@@ -14,21 +14,21 @@ const SECTIONS: {
   {
     id: "real-estate",
     emoji: "🏠",
-    label: "Agenti immobiliari & Host Airbnb",
-    subtitle: "Schede proprietà, profili agente, listing brevi",
+    label: "Immobiliare & Airbnb",
+    subtitle: "Profili agente, schede proprietà, listing brevi",
     ids: ["real-estate-agent", "airbnb-property-listing"],
   },
   {
     id: "health-legal",
     emoji: "🩺",
-    label: "Psicologi & Studi Legali",
+    label: "Salute & Professioni legali",
     subtitle: "Profili professionali, servizi, prenotazioni",
     ids: ["therapist-profile", "law-firm-services"],
   },
   {
     id: "finance-artisan",
     emoji: "💰",
-    label: "Finanza personale & Piccoli imprenditori",
+    label: "Finanza & Piccoli imprenditori",
     subtitle: "Budget, analytics, cataloghi prodotto",
     ids: [
       "budget-tracker",
@@ -40,7 +40,7 @@ const SECTIONS: {
   {
     id: "startup-tech",
     emoji: "🚀",
-    label: "Startup, Agenzie & Freelance tech",
+    label: "Startup, Agenzie & Freelance",
     subtitle: "Landing page, portfolio, profili developer",
     ids: [
       "saas-landing-dark",
@@ -67,14 +67,14 @@ const SECTIONS: {
 
 function SkeletonCard() {
   return (
-    <div className="bg-[#1C1C1E] rounded-[28px] overflow-hidden animate-pulse">
-      <div className="h-40 bg-white/[0.06]" />
-      <div className="p-4 flex flex-col gap-2">
-        <div className="h-3 w-24 bg-white/[0.06] rounded-full" />
-        <div className="h-4 w-3/4 bg-white/[0.06] rounded-full" />
-        <div className="mt-3 flex items-center justify-between">
-          <div className="h-4 w-12 bg-white/[0.06] rounded-full" />
-          <div className="h-3 w-16 bg-white/[0.06] rounded-full" />
+    <div className="bg-card border border-theme rounded-[24px] overflow-hidden animate-pulse">
+      <div className="h-40 bg-theme/5" />
+      <div className="p-4 flex flex-col gap-2.5">
+        <div className="h-2.5 w-20 bg-theme/8 rounded-full" />
+        <div className="h-4 w-3/4 bg-theme/8 rounded-full" />
+        <div className="mt-2 flex items-center justify-between">
+          <div className="h-4 w-10 bg-theme/8 rounded-full" />
+          <div className="h-3 w-14 bg-theme/8 rounded-full" />
         </div>
       </div>
     </div>
@@ -99,7 +99,7 @@ export default function TemplateGrid() {
   const byId = Object.fromEntries(templates.map((t) => [t.id, t]));
 
   return (
-    <div id="browse" className="px-6 pb-24 max-w-7xl mx-auto space-y-16">
+    <div id="browse" className="px-4 sm:px-6 pb-24 max-w-7xl mx-auto space-y-14">
       {SECTIONS.map((section) => {
         const sectionTemplates = section.ids
           .map((id) => byId[id])
@@ -110,26 +110,25 @@ export default function TemplateGrid() {
         return (
           <section key={section.id}>
             {/* Section header */}
-            <div className="flex items-center gap-3 mb-6">
-              <span className="text-3xl">{section.emoji}</span>
-              <div>
-                <h2 className="text-[20px] font-bold tracking-tight flex items-center gap-2 text-theme">
+            <div className="flex items-center gap-3 mb-5">
+              <span className="text-2xl sm:text-3xl shrink-0">{section.emoji}</span>
+              <div className="min-w-0">
+                <h2 className="text-[17px] sm:text-[20px] font-bold tracking-tight flex flex-wrap items-center gap-x-2 gap-y-1 text-theme">
                   {section.label}
-                  <span className="bg-[#0A84FF]/15 text-[#0A84FF] rounded-full px-2.5 py-0.5 text-[13px] font-semibold">
+                  <span className="bg-[#0A84FF]/12 text-[#0A84FF] rounded-full px-2 py-0.5 text-[12px] font-semibold shrink-0">
                     {sectionTemplates.length}
                   </span>
                 </h2>
-                <p className="text-[13px] text-muted mt-0.5">
+                <p className="text-[12px] sm:text-[13px] text-muted mt-0.5 truncate">
                   {section.subtitle}
                 </p>
               </div>
             </div>
 
-            {/* Divider */}
-            <div className="h-px border-theme bg-transparent border-t mb-6" />
+            <div className="h-px border-t border-theme mb-5" />
 
             {/* Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {loading
                 ? Array.from({ length: sectionTemplates.length }).map((_, i) => (
                     <SkeletonCard key={i} />
