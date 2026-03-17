@@ -20,18 +20,10 @@ interface TemplateCardProps {
   purchasedIds: string[];
 }
 
-function UIPreview({ content }: { content: string }) {
-  const srcDoc = `<!DOCTYPE html><html><head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<script src="https://cdn.tailwindcss.com"><\/script>
-<style>body{margin:0;overflow:hidden;}</style>
-</head><body>${content}</body></html>`;
-
+function UIPreview({ templateId }: { templateId: string }) {
   return (
     <iframe
-      srcDoc={srcDoc}
-      sandbox="allow-scripts"
+      src={`/api/preview/${templateId}`}
       title="Template preview"
       className="w-full border-0 pointer-events-none"
       style={{ height: "500px" }}
@@ -58,12 +50,6 @@ function PromptPreview({ content }: { content: string }) {
 
 function CardThumbnail({ template, isPurchased }: { template: Template; isPurchased: boolean }) {
   if (template.category === "ui") {
-    const srcDoc = `<!DOCTYPE html><html><head>
-<meta charset="UTF-8"/>
-<script src="https://cdn.tailwindcss.com"><\/script>
-<style>body{margin:0;overflow:hidden;transform-origin:top left;}</style>
-</head><body>${template.content}</body></html>`;
-
     return (
       <div className="relative h-44 overflow-hidden bg-gray-950">
         <div
@@ -71,8 +57,7 @@ function CardThumbnail({ template, isPurchased }: { template: Template; isPurcha
           style={{ transform: "scale(0.38)", transformOrigin: "top left", width: "263%", height: "263%" }}
         >
           <iframe
-            srcDoc={srcDoc}
-            sandbox="allow-scripts"
+            src={`/api/preview/${template.id}`}
             title={template.name}
             className="w-full border-0"
             style={{ height: "460px" }}
@@ -202,7 +187,7 @@ export default function TemplateCard({ template, purchasedIds }: TemplateCardPro
             {/* Preview */}
             <div className="overflow-auto flex-1 bg-gray-950/50">
               {template.category === "ui" ? (
-                <UIPreview content={template.content} />
+                <UIPreview templateId={template.id} />
               ) : (
                 <PromptPreview content={template.content} />
               )}

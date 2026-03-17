@@ -28,11 +28,11 @@ export default function MarketplacePage() {
             TemplateLab
           </span>
           <div className="flex items-center gap-4">
-            <Link
-              href="/studio"
-              className="text-sm text-gray-400 hover:text-white transition-all duration-300"
-            >
+            <Link href="/studio" className="text-sm text-gray-400 hover:text-white transition-all duration-300">
               AI Studio
+            </Link>
+            <Link href="/account" className="text-sm text-gray-400 hover:text-white transition-all duration-300">
+              Account
             </Link>
             <NavButtons />
           </div>
@@ -72,7 +72,7 @@ export default function MarketplacePage() {
         <div className="flex items-center justify-center gap-8 mt-10 text-sm text-gray-600">
           <span>⚡ {templates.length}+ templates</span>
           <span>🤖 Claude AI</span>
-          <span>💳 Acquisto unico</span>
+          <span>💳 Pagamenti sicuri</span>
         </div>
       </section>
 
@@ -97,7 +97,7 @@ export default function MarketplacePage() {
           </p>
 
           <p className="text-amber-300 font-semibold text-base mb-6">
-            €9,99 / mese · Disdici quando vuoi
+            €9,99 / mese · Generazioni illimitate
           </p>
 
           <StudioAccessButton />
