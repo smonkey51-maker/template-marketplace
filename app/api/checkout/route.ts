@@ -29,11 +29,16 @@ export async function POST(req: NextRequest) {
     priceId = template.stripePriceId;
   }
 
+  const isSubscription = templateId === "studio-access";
+
   const session = await stripe.checkout.sessions.create({
-    mode: "payment",
+    mode: isSubscription ? "subscription" : "payment",
     line_items: [{ price: priceId, quantity: 1 }],
     success_url: `${appUrl}/success?templateId=${templateId}&session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${appUrl}/?canceled=1`,
+    ...(isSubscription
+      ? { subscription_data: { metadata: { userId, templateId } } }
+      : { payment_intent_data: { metadata: { userId, templateId } } }),
     metadata: { userId, templateId },
   });
 
