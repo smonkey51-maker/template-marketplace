@@ -3,8 +3,10 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 // Routes che richiedono login
 const isProtected = createRouteMatcher([
   "/studio(.*)",
+  "/account(.*)",
   "/api/generate(.*)",
   "/api/customize(.*)",
+  "/api/stripe-portal(.*)",
 ]);
 
 export default clerkMiddleware(async (auth, req) => {

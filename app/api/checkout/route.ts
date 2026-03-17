@@ -3,6 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { getTemplate } from "@/lib/templates";
 
+const STUDIO_ACCESS_PRICE_ID = "price_1TBruJBoWNgrJbiy6Ry5WGB2";
+
 export async function POST(req: NextRequest) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
   const { userId } = await auth();
@@ -11,19 +13,34 @@ export async function POST(req: NextRequest) {
   }
 
   const { templateId } = await req.json();
-  const template = getTemplate(templateId);
+  // Prefer request origin (always matches current deployment), fall back to env var
+  const requestOrigin =
+    req.headers.get("origin") ??
+    req.headers.get("referer")?.match(/^https?:\/\/[^/]+/)?.[0];
+  const appUrl = requestOrigin ?? process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
 
-  if (!template) {
-    return NextResponse.json({ error: "Template non trovato" }, { status: 404 });
+  let priceId: string;
+
+  if (templateId === "studio-access") {
+    priceId = STUDIO_ACCESS_PRICE_ID;
+  } else {
+    const template = getTemplate(templateId);
+    if (!template) {
+      return NextResponse.json({ error: "Template non trovato" }, { status: 404 });
+    }
+    priceId = template.stripePriceId;
   }
 
-  const origin = req.headers.get("origin") ?? req.nextUrl.origin ?? process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+  const isSubscription = templateId === "studio-access";
 
   const session = await stripe.checkout.sessions.create({
-    mode: "payment",
-    line_items: [{ price: template.stripePriceId, quantity: 1 }],
-    success_url: `${origin}/success?templateId=${templateId}&session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${origin}/?canceled=1`,
+    mode: isSubscription ? "subscription" : "payment",
+    line_items: [{ price: priceId, quantity: 1 }],
+    success_url: `${appUrl}/success?templateId=${templateId}&session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${appUrl}/`,
+    ...(isSubscription
+      ? { subscription_data: { metadata: { userId, templateId } } }
+      : { payment_intent_data: { metadata: { userId, templateId } } }),
     metadata: { userId, templateId },
   });
 
