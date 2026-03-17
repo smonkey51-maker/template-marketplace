@@ -14,8 +14,11 @@ export async function POST(req: NextRequest) {
   }
 
   const { templateId } = await req.json();
-  const origin = req.headers.get("origin") ?? req.headers.get("referer")?.replace(/\/[^/]*$/, "") ?? "http://localhost:3000";
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? origin;
+  // Prefer request origin (always matches current deployment), fall back to env var
+  const requestOrigin =
+    req.headers.get("origin") ??
+    req.headers.get("referer")?.match(/^https?:\/\/[^/]+/)?.[0];
+  const appUrl = requestOrigin ?? process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
 
   let priceId: string;
 
