@@ -3,9 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { getTemplate } from "@/lib/templates";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-
 export async function POST(req: NextRequest) {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
   const { userId } = await auth();
   if (!userId) {
     return NextResponse.json({ error: "Non autenticato" }, { status: 401 });
