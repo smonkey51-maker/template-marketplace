@@ -148,7 +148,7 @@ export default function TemplateGrid() {
 
       {/* ── Section jump nav (non-filtered only) ── */}
       {!isFiltered && (
-        <div className="flex gap-2 overflow-x-auto pb-2 mb-8 -mx-1 px-1" style={{ scrollbarWidth: "none" }}>
+        <div className="flex gap-2 overflow-x-auto pb-2 mb-8 -mx-4 sm:-mx-6 px-4 sm:px-6" style={{ scrollbarWidth: "none" }}>
           {SECTION_IDS.map((section) => {
             const sectionMeta = t[lang].sections[section.id as keyof typeof t[typeof lang]["sections"]];
             return (
