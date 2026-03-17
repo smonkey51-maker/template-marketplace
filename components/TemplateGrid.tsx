@@ -45,12 +45,22 @@ function normalize(str: string): string {
   return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
+const STYLE_TAG_MAP: Record<string, string> = {
+  dark: "dark",
+  minimal: "minimal",
+  gradient: "gradient",
+  glass: "glassmorphism",
+  cards: "cards",
+};
+
 export default function TemplateGrid() {
   const { lang } = useLang();
   const [purchasedIds, setPurchasedIds] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>("all");
+  const [styleFilter, setStyleFilter] = useState<string>("all");
+  const [sortOrder, setSortOrder] = useState<"popular" | "recent">("popular");
 
   useEffect(() => {
     fetch("/api/purchases")
@@ -61,13 +71,15 @@ export default function TemplateGrid() {
   }, []);
 
   const byId = Object.fromEntries(templates.map((tmpl) => [tmpl.id, tmpl]));
-  const isFiltered = query.trim() !== "" || categoryFilter !== "all";
+  const isFiltered = query.trim() !== "" || categoryFilter !== "all" || styleFilter !== "all";
 
   const filteredTemplates = useMemo(() => {
     const q = normalize(query.trim());
-    return templates.filter((tmpl) => {
+    let result = templates.filter((tmpl) => {
       const matchesCategory = categoryFilter === "all" || tmpl.category === categoryFilter;
       if (!matchesCategory) return false;
+      const matchesStyle = styleFilter === "all" || tmpl.tags.includes(STYLE_TAG_MAP[styleFilter] ?? styleFilter);
+      if (!matchesStyle) return false;
       if (!q) return true;
       const synonyms: string[] = SEARCH_SYNONYMS[q] ?? [];
       const matchesDirect =
@@ -81,7 +93,12 @@ export default function TemplateGrid() {
       );
       return matchesDirect || matchesSynonym;
     });
-  }, [query, categoryFilter]);
+    if (sortOrder === "popular") {
+      result = [...result].sort((a, b) => b.downloads - a.downloads);
+    }
+    // "recent" keeps insertion order (last in array = newest)
+    return result;
+  }, [query, categoryFilter, styleFilter, sortOrder]);
 
   const categoryChips: { value: CategoryFilter; label: string; activeClass: string }[] = [
     { value: "all",    label: t[lang].search.chipAll,    activeClass: "bg-[#0A84FF] text-white border-transparent shadow-[0_2px_12px_rgba(10,132,255,0.3)]" },
@@ -136,6 +153,53 @@ export default function TemplateGrid() {
             ))}
           </div>
         </div>
+        {/* Style + Sort row */}
+        <div className="flex items-center justify-between gap-3 mt-2">
+          <div className="flex items-center gap-1.5 overflow-x-auto" style={{ scrollbarWidth: "none" }}>
+            {(["all", "dark", "minimal", "gradient", "glass", "cards"] as string[]).map((style) => {
+              const labels: Record<string, string> = {
+                all: t[lang].search.styleAll,
+                dark: t[lang].search.styleDark,
+                minimal: t[lang].search.styleMinimal,
+                gradient: t[lang].search.styleGradient,
+                glass: t[lang].search.styleGlass,
+                cards: t[lang].search.styleCards,
+              };
+              return (
+                <button
+                  key={style}
+                  onClick={() => setStyleFilter(style)}
+                  className={`shrink-0 rounded-xl px-3 py-1.5 text-[12px] font-semibold transition-all duration-200 ios-spring whitespace-nowrap border ${
+                    styleFilter === style
+                      ? "bg-[#30D158]/15 text-[#30D158] border-[#30D158]/30"
+                      : "text-muted border-theme bg-input hover:text-theme hover:border-[#30D158]/20"
+                  }`}
+                >
+                  {labels[style]}
+                </button>
+              );
+            })}
+          </div>
+          {/* Sort toggle */}
+          <div className="flex items-center gap-1 shrink-0 glass rounded-xl p-0.5">
+            <button
+              onClick={() => setSortOrder("popular")}
+              className={`px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-all duration-200 whitespace-nowrap ${
+                sortOrder === "popular" ? "bg-[#0A84FF] text-white shadow-sm" : "text-muted hover:text-theme"
+              }`}
+            >
+              {t[lang].search.sortPopular}
+            </button>
+            <button
+              onClick={() => setSortOrder("recent")}
+              className={`px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-all duration-200 whitespace-nowrap ${
+                sortOrder === "recent" ? "bg-[#0A84FF] text-white shadow-sm" : "text-muted hover:text-theme"
+              }`}
+            >
+              {t[lang].search.sortRecent}
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* ── Studio Access inline hint ── */}
@@ -163,7 +227,7 @@ export default function TemplateGrid() {
                   whitespace-nowrap"
               >
                 <span>{section.emoji}</span>
-                <span>{sectionMeta.label}</span>
+                <span className="hidden sm:inline">{sectionMeta.label}</span>
               </button>
             );
           })}
@@ -213,9 +277,6 @@ export default function TemplateGrid() {
               <section key={section.id} id={`section-${section.id}`}>
                 {/* Section header */}
                 <div className="flex items-center gap-3 mb-5">
-                  <div className="w-10 h-10 rounded-2xl bg-surface border border-theme flex items-center justify-center text-xl shrink-0 shadow-sm">
-                    {section.emoji}
-                  </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
                       <h2 className="text-[16px] sm:text-[18px] font-bold tracking-tight text-theme">

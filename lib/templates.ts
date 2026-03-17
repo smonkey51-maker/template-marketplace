@@ -23,6 +23,7 @@ export interface Template {
   downloadType?: DownloadType;
   /** Required for canva / excel / sheets / notion / webflow / framer */
   downloadUrl?: string;
+  editorsPick?: boolean;
 }
 
 /** Returns the effective download type, falling back to category-based default */
@@ -42,6 +43,7 @@ export const templates: Template[] = [
     stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
     tags: ["hero", "saas", "landing", "gradient"],
     downloads: 1423,
+    editorsPick: true,
     content: `<section class="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
     <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white/10 text-white backdrop-blur-sm border border-white/20 mb-6">
@@ -647,6 +649,7 @@ export const templates: Template[] = [
     stripePriceId: "price_1TBz4hBoWNgrJbiyldGkbh0n",
     tags: ["saas", "landing", "dark", "framer", "conversion"],
     downloads: 728,
+    editorsPick: true,
     content: `<div class="min-h-screen bg-black text-white overflow-hidden font-sans">
   <!-- Gradient Orbs -->
   <div class="fixed inset-0 pointer-events-none">
@@ -894,6 +897,7 @@ export const templates: Template[] = [
     stripePriceId: "price_1TBixFBoWNgrJbiyzxGXK1Jo",
     tags: ["cold email", "b2b", "sales", "outreach"],
     downloads: 2341,
+    editorsPick: true,
     content: `You are an expert B2B sales copywriter. Write a cold outreach email:
 
 PROSPECT INFO:
@@ -1417,6 +1421,7 @@ QUALITY CRITERIA:
     stripePriceId: "price_1TBz27BoWNgrJbiy4EzhrLu3",
     tags: ["cv", "resume", "portfolio", "minimal", "personal"],
     downloads: 891,
+    editorsPick: true,
     content: `<div class="min-h-screen bg-white font-sans">
   <div class="max-w-3xl mx-auto px-6 py-12">
     <!-- Header -->
@@ -1504,6 +1509,7 @@ QUALITY CRITERIA:
     stripePriceId: "price_1TBz28BoWNgrJbiy02owOzUD",
     tags: ["link in bio", "creator", "social", "minimal", "instagram"],
     downloads: 1204,
+    editorsPick: true,
     content: `<div class="min-h-screen flex items-center justify-center py-10 px-4 font-sans" style="background:linear-gradient(160deg,#1a0533 0%,#0d001a 50%,#001a33 100%)">
   <div class="w-full max-w-sm">
     <!-- Profile -->

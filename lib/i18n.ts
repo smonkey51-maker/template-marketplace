@@ -45,6 +45,14 @@ export const t = {
       notFound: "Nessun template trovato",
       notFoundDesc: "Prova con un termine diverso o cambia categoria.",
       resetCta: "Sfoglia tutti",
+      sortPopular: "Più scaricati",
+      sortRecent: "Più recenti",
+      styleAll: "Tutti",
+      styleDark: "Dark",
+      styleMinimal: "Minimal",
+      styleGradient: "Gradient",
+      styleGlass: "Glassmorphic",
+      styleCards: "Cards",
     },
     sections: {
       professionals: {
@@ -90,6 +98,7 @@ export const t = {
       bestseller: "★ Bestseller",
       downloads: "acquisti",
       open: "Apri →",
+      editorsPick: "Editor's Pick",
     },
     preview: {
       back: "Indietro",
@@ -160,6 +169,15 @@ export const t = {
       customizeStudio: "Personalizza in AI Studio →",
       backToMarketplace: "Torna al marketplace",
     },
+    footer: {
+      tagline: "Template UI e Prompt AI pronti all'uso.",
+      guide: "Guida",
+      studio: "AI Studio",
+      account: "Account",
+      privacy: "Privacy Policy",
+      terms: "Termini di servizio",
+      copyright: "© 2026 TemplateLab. Tutti i diritti riservati.",
+    },
   },
   en: {
     nav: {
@@ -205,6 +223,14 @@ export const t = {
       notFound: "No templates found",
       notFoundDesc: "Try a different term or change the category.",
       resetCta: "Browse all",
+      sortPopular: "Most downloaded",
+      sortRecent: "Most recent",
+      styleAll: "All",
+      styleDark: "Dark",
+      styleMinimal: "Minimal",
+      styleGradient: "Gradient",
+      styleGlass: "Glassmorphic",
+      styleCards: "Cards",
     },
     sections: {
       professionals: {
@@ -250,6 +276,7 @@ export const t = {
       bestseller: "★ Bestseller",
       downloads: "purchases",
       open: "Open →",
+      editorsPick: "Editor's Pick",
     },
     preview: {
       back: "Back",
@@ -319,6 +346,15 @@ export const t = {
       subtitleTemplate: "You can now customize the template with AI Studio.",
       customizeStudio: "Customize in AI Studio →",
       backToMarketplace: "Back to marketplace",
+    },
+    footer: {
+      tagline: "UI templates and AI prompts, ready to use.",
+      guide: "Guide",
+      studio: "AI Studio",
+      account: "Account",
+      privacy: "Privacy Policy",
+      terms: "Terms of Service",
+      copyright: "© 2026 TemplateLab. All rights reserved.",
     },
   },
 } as const;

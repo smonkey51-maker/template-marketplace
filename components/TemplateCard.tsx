@@ -86,6 +86,7 @@ export default function TemplateCard({ template, purchasedIds }: {
   const { lang } = useLang();
   const isPurchased = purchasedIds.includes(template.id);
   const isBestseller = template.downloads >= 700;
+  const isEditorsPick = template.editorsPick === true;
   const displayName = lang === "it" ? (templateTranslations[template.id]?.name ?? template.name) : template.name;
   const displayDesc = lang === "it" ? (templateTranslations[template.id]?.description ?? template.description) : template.description;
 
@@ -98,19 +99,33 @@ export default function TemplateCard({ template, purchasedIds }: {
         hover:-translate-y-1
         hover:shadow-[0_16px_48px_rgba(0,0,0,0.15),0_0_0_1px_rgba(10,132,255,0.15)]
         active:scale-[0.98] active:opacity-90
-        ${isBestseller && !isPurchased ? "ring-1 ring-[#FF9F0A]/25" : ""}`}
+        ${isEditorsPick && !isPurchased ? "ring-1 ring-[#5E5CE6]/30" : isBestseller && !isPurchased ? "ring-1 ring-[#FF9F0A]/25" : ""}`}
     >
+      {/* Editor's Pick badge (takes priority over bestseller) */}
+      {isEditorsPick && !isPurchased && (
+        <div className="absolute top-2.5 right-2.5 z-10 bg-[#5E5CE6]/20 text-[#5E5CE6] border border-[#5E5CE6]/30 rounded-full px-2 py-0.5 text-[10px] font-bold backdrop-blur-sm">
+          {t[lang].card.editorsPick}
+        </div>
+      )}
       {/* Bestseller badge */}
-      {isBestseller && !isPurchased && (
+      {isBestseller && !isPurchased && !isEditorsPick && (
         <div className="absolute top-2.5 right-2.5 z-10 bg-[#FF9F0A]/20 text-[#FF9F0A] border border-[#FF9F0A]/30 rounded-full px-2 py-0.5 text-[10px] font-bold backdrop-blur-sm">
           {t[lang].card.bestseller}
         </div>
       )}
 
-      {template.category === "ui"
-        ? <UIThumbnail template={template} isPurchased={isPurchased} lang={lang} />
-        : <PromptThumbnail template={template} isPurchased={isPurchased} lang={lang} />
-      }
+      <div className="relative">
+        {template.category === "ui"
+          ? <UIThumbnail template={template} isPurchased={isPurchased} lang={lang} />
+          : <PromptThumbnail template={template} isPurchased={isPurchased} lang={lang} />
+        }
+        {/* Hover CTA overlay */}
+        <div className="absolute inset-0 flex items-end justify-center pb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+          <span className="bg-[#0A84FF] text-white text-[12px] font-bold px-4 py-2 rounded-xl shadow-[0_4px_16px_rgba(10,132,255,0.4)] backdrop-blur-sm">
+            {lang === "it" ? "Vedi anteprima →" : "Preview →"}
+          </span>
+        </div>
+      </div>
 
       <div className="px-4 py-3.5 flex flex-col flex-1">
         {/* Category pill */}

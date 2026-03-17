@@ -44,7 +44,7 @@ html.dark {
    GLOBAL TRANSITIONS & FONT
    ═══════════════════════════════════════════════════════════ */
 html {
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+  font-family: var(--font-geist), -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
     system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

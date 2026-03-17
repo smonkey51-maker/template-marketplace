@@ -1,16 +1,35 @@
 "use client";
 
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import { templates } from "@/lib/templates";
 import TemplateGrid from "@/components/TemplateGrid";
 import NavButtons from "@/components/NavButtons";
 import { useLang } from "@/components/LanguageProvider";
 import { t } from "@/lib/i18n";
 import EmailCapture from "@/components/EmailCapture";
+import Footer from "@/components/Footer";
+
+function useCountUp(target: number, duration = 1200) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    let start = 0;
+    const step = Math.ceil(target / (duration / 16));
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= target) { setCount(target); clearInterval(timer); }
+      else setCount(start);
+    }, 16);
+    return () => clearInterval(timer);
+  }, [target, duration]);
+  return count;
+}
 
 export default function HomeContent() {
   const { lang } = useLang();
   const totalDownloads = templates.reduce((s, tmpl) => s + tmpl.downloads, 0);
+  const animatedDownloads = useCountUp(totalDownloads);
+  const animatedTemplates = useCountUp(templates.length);
 
   return (
     <div className="min-h-screen bg-page relative overflow-x-hidden">
@@ -92,12 +111,12 @@ export default function HomeContent() {
         <div className="anim-fade-up delay-300 flex items-center justify-center gap-0 mt-7 text-[12px] text-muted">
           <span className="flex items-center gap-1.5 px-3.5">
             <span className="w-1.5 h-1.5 rounded-full bg-[#0A84FF] shrink-0" />
-            {templates.length} {t[lang].hero.statTemplates}
+            {animatedTemplates} {t[lang].hero.statTemplates}
           </span>
           <span className="w-px h-3 bg-theme/25 shrink-0" />
           <span className="flex items-center gap-1.5 px-3.5">
             <span className="w-1.5 h-1.5 rounded-full bg-[#30D158] shrink-0" />
-            {totalDownloads.toLocaleString("it-IT")}+ {t[lang].hero.statDownloads}
+            {animatedDownloads.toLocaleString(lang === "it" ? "it-IT" : "en-US")}+ {t[lang].hero.statDownloads}
           </span>
           <span className="w-px h-3 bg-theme/25 shrink-0" />
           <span className="flex items-center gap-1.5 px-3.5">
@@ -164,26 +183,13 @@ export default function HomeContent() {
         <TemplateGrid />
       </div>
 
-      {/* ── Quote ── */}
-      <div className="relative z-10 border-t border-theme py-14 px-4 sm:px-6">
-        <div className="max-w-xl mx-auto text-center">
-          <p className="text-[15px] sm:text-[17px] font-semibold text-theme leading-relaxed mb-3">
-            {lang === "it"
-              ? "\"Il codice non è poesia. È lavoro. Lascia che l'AI faccia il lavoro.\""
-              : "\"Code is not poetry. It's work. Let the AI do the work.\""}
-          </p>
-          <p className="text-[12px] text-muted">
-            {lang === "it"
-              ? "— Qualcuno che ha perso 3 notti su un form di contatto"
-              : "— Someone who lost 3 nights on a contact form"}
-          </p>
-        </div>
-      </div>
-
       {/* ── Newsletter ── */}
       <div className="relative z-10 border-t border-theme">
         <EmailCapture />
       </div>
+
+      {/* ── Footer ── */}
+      <Footer />
 
     </div>
   );
