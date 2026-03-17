@@ -46,14 +46,19 @@ export default function AccountPage() {
     <div className="min-h-screen bg-page relative">
 
       {/* Nav — iOS liquid glass */}
-      <nav className="sticky top-0 z-50 border-b border-theme backdrop-blur-2xl bg-nav px-6 py-4">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <Link href="/" className="text-xl font-bold tracking-tight text-[#0A84FF]">
-            TemplateLab
+      <nav className="sticky top-0 z-50 border-b border-theme backdrop-blur-2xl bg-nav px-4 sm:px-6 py-3.5">
+        <div className="max-w-4xl mx-auto flex items-center justify-between gap-4">
+          {/* Back */}
+          <Link href="/" className="flex items-center gap-1 text-[#0A84FF] text-[15px] font-medium hover:opacity-70 transition-opacity ios-spring shrink-0">
+            <svg width="9" height="15" viewBox="0 0 9 15" fill="none" className="shrink-0">
+              <path d="M8 1L1.5 7.5L8 14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <span className="hidden sm:inline">Marketplace</span>
           </Link>
-          <Link href="/" className="text-[15px] text-muted hover:text-theme transition">
-            ← Marketplace
-          </Link>
+
+          <span className="text-[13px] text-muted font-semibold uppercase tracking-widest">Account</span>
+
+          <div className="w-9" />{/* spacer per centrare il titolo */}
         </div>
       </nav>
 

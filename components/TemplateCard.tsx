@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import { Template, formatPrice } from "@/lib/templates";
@@ -103,6 +103,12 @@ export default function TemplateCard({ template, purchasedIds }: {
 
   const isPurchased = purchasedIds.includes(template.id);
 
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    document.body.style.overflow = modalOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [modalOpen]);
+
   const handleBuy = async () => {
     if (!isSignedIn) { window.location.href = "/sign-in"; return; }
     setLoading(true);
@@ -170,15 +176,16 @@ export default function TemplateCard({ template, purchasedIds }: {
             <div className="absolute inset-x-8 top-0 h-px rounded-full"
               style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)" }} />
 
-            {/* Handle */}
-            <div className="sm:hidden flex justify-center pt-3 pb-1 shrink-0">
-              <div className="w-10 h-[5px] rounded-full bg-theme/15" />
+            {/* Handle (mobile) + Close (always visible) */}
+            <div className="flex items-center justify-between pt-3 pb-1 px-4 shrink-0 sm:pt-4 sm:pb-2">
+              {/* Pull handle — mobile only */}
+              <div className="sm:hidden w-10 h-[5px] rounded-full bg-theme/15 mx-auto" />
             </div>
 
-            {/* Close */}
+            {/* Close button — always visible */}
             <button
               onClick={() => setModalOpen(false)}
-              className="hidden sm:flex absolute top-4 right-4 z-10 w-9 h-9 rounded-full glass-subtle items-center justify-center text-muted hover:text-theme transition-all duration-200 text-[18px] leading-none hover:scale-110 ios-spring"
+              className="absolute top-3.5 right-3.5 z-10 w-9 h-9 rounded-full glass-subtle flex items-center justify-center text-muted hover:text-theme transition-all duration-200 text-[18px] leading-none hover:scale-110 ios-spring"
             >
               ×
             </button>
