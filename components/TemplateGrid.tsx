@@ -146,6 +146,30 @@ export default function TemplateGrid() {
         <StudioAccessButton compact />
       </div>
 
+      {/* ── Section jump nav (non-filtered only) ── */}
+      {!isFiltered && (
+        <div className="flex gap-2 overflow-x-auto pb-2 mb-8 -mx-1 px-1" style={{ scrollbarWidth: "none" }}>
+          {SECTION_IDS.map((section) => {
+            const sectionMeta = t[lang].sections[section.id as keyof typeof t[typeof lang]["sections"]];
+            return (
+              <button
+                key={section.id}
+                onClick={() => {
+                  document.getElementById(`section-${section.id}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+                }}
+                className="flex items-center gap-1.5 shrink-0 px-3 py-1.5 rounded-xl
+                  bg-input border border-theme text-muted text-[12px] font-semibold
+                  hover:text-theme hover:border-[#0A84FF]/30 transition-all duration-200 ios-spring
+                  whitespace-nowrap"
+              >
+                <span>{section.emoji}</span>
+                <span>{sectionMeta.label}</span>
+              </button>
+            );
+          })}
+        </div>
+      )}
+
       {/* ── Filtered results view ── */}
       {isFiltered ? (
         <div className="space-y-5">
@@ -186,7 +210,7 @@ export default function TemplateGrid() {
             const sectionMeta = t[lang].sections[section.id as keyof typeof t[typeof lang]["sections"]];
 
             return (
-              <section key={section.id}>
+              <section key={section.id} id={`section-${section.id}`}>
                 {/* Section header */}
                 <div className="flex items-center gap-3 mb-5">
                   <div className="w-10 h-10 rounded-2xl bg-surface border border-theme flex items-center justify-center text-xl shrink-0 shadow-sm">
