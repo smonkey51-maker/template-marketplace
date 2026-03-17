@@ -145,7 +145,7 @@ function StudioContent() {
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <Link
             href="/"
-            className="text-xl font-bold tracking-tight text-[#FF9F0A]"
+            className="text-xl font-bold tracking-tight text-[#0A84FF]"
           >
             TemplateLab
           </Link>
@@ -210,7 +210,7 @@ function StudioContent() {
                     const data = await res.json();
                     if (data.url) window.location.href = data.url;
                   }}
-                  className="px-6 py-3 bg-[#FF9F0A] hover:bg-[#FFB340] rounded-2xl font-bold text-[15px] text-white transition-all duration-200 shadow-[0_4px_20px_rgba(255,159,10,0.25)] active:scale-[0.97] ios-spring"
+                  className="px-6 py-3 bg-[#0A84FF] hover:bg-[#409CFF] rounded-2xl font-bold text-[15px] text-white transition-all duration-200 shadow-[0_4px_20px_rgba(10,132,255,0.25)] active:scale-[0.97] ios-spring"
                 >
                   Acquista Studio Access →
                 </button>
@@ -298,7 +298,7 @@ function StudioContent() {
                 <button
                   onClick={handleGenerate}
                   disabled={genLoading || !genDescription.trim()}
-                  className="py-3.5 rounded-2xl bg-[#FF9F0A] hover:bg-[#FFB340] disabled:opacity-40 disabled:cursor-not-allowed font-bold text-[15px] text-white transition-all duration-200 flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(255,159,10,0.25)] active:scale-[0.97] ios-spring"
+                  className="py-3.5 rounded-2xl bg-[#0A84FF] hover:bg-[#409CFF] disabled:opacity-40 disabled:cursor-not-allowed font-bold text-[15px] text-white transition-all duration-200 flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(10,132,255,0.25)] active:scale-[0.97] ios-spring"
                 >
                   {genLoading ? (
                     <>
@@ -411,7 +411,7 @@ function StudioContent() {
                     !selectedTemplate ||
                     !customInstructions.trim()
                   }
-                  className="py-3.5 rounded-2xl bg-[#FF9F0A] hover:bg-[#FFB340] disabled:opacity-40 disabled:cursor-not-allowed font-bold text-[15px] text-white transition-all duration-200 flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(255,159,10,0.25)] active:scale-[0.97] ios-spring"
+                  className="py-3.5 rounded-2xl bg-[#0A84FF] hover:bg-[#409CFF] disabled:opacity-40 disabled:cursor-not-allowed font-bold text-[15px] text-white transition-all duration-200 flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(10,132,255,0.25)] active:scale-[0.97] ios-spring"
                 >
                   {customLoading ? (
                     <>
@@ -484,7 +484,7 @@ function StudioContent() {
               {isLoading && !activeOutput && (
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="flex items-center gap-3 text-[#8E8E93]">
-                    <span style={{ display: "inline-block", animation: "spin 1s linear infinite", fontSize: "1.5rem", color: "#FF9F0A" }}>⟳</span>
+                    <span style={{ display: "inline-block", animation: "spin 1s linear infinite", fontSize: "1.5rem", color: "#0A84FF" }}>⟳</span>
                     <span className="text-[15px]">
                       Claude is thinking
                       <span className="animate-pulse">...</span>
@@ -497,7 +497,7 @@ function StudioContent() {
                 <pre className="p-5 text-[12px] font-mono text-[#8E8E93] overflow-auto h-full leading-relaxed whitespace-pre-wrap">
                   {activeOutput}
                   {isLoading && (
-                    <span className="inline-block w-2 h-4 bg-[#FF9F0A] animate-pulse ml-0.5 align-middle" />
+                    <span className="inline-block w-2 h-4 bg-[#0A84FF] animate-pulse ml-0.5 align-middle" />
                   )}
                 </pre>
               )}

@@ -147,12 +147,12 @@ export default function TemplateCard({ template, purchasedIds }: TemplateCardPro
           <span className="text-[11px] font-semibold text-gray-500 uppercase tracking-widest mb-1">
             {categoryLabels[template.category]}
           </span>
-          <h3 className="text-[15px] font-semibold text-white group-hover:text-orange-300 transition-colors leading-snug">
+          <h3 className="text-[15px] font-semibold text-white group-hover:text-[#409CFF] transition-colors leading-snug">
             {template.name}
           </h3>
           <div className="mt-auto pt-3 flex items-center justify-between">
-            <span className="text-[15px] font-bold text-yellow-400">{formatPrice(template.price)}</span>
-            <span className="text-[12px] text-gray-500 group-hover:text-orange-400 transition-colors ios-spring">
+            <span className="text-[15px] font-bold text-[#0A84FF]">{formatPrice(template.price)}</span>
+            <span className="text-[12px] text-gray-500 group-hover:text-[#409CFF] transition-colors ios-spring">
               Anteprima →
             </span>
           </div>
@@ -204,7 +204,7 @@ export default function TemplateCard({ template, purchasedIds }: TemplateCardPro
                   </div>
                 </div>
                 <div className="text-right shrink-0">
-                  <span className="text-2xl font-extrabold text-yellow-400">{formatPrice(template.price)}</span>
+                  <span className="text-2xl font-extrabold text-[#0A84FF]">{formatPrice(template.price)}</span>
                   <p className="text-[11px] text-gray-500 mt-0.5">one-time</p>
                 </div>
               </div>
@@ -237,7 +237,7 @@ export default function TemplateCard({ template, purchasedIds }: TemplateCardPro
                 <button
                   onClick={handleBuy}
                   disabled={loading}
-                  className="bg-[#FF9F0A] hover:bg-[#FFB340] active:scale-[0.97] active:bg-[#E8900A] text-white font-bold rounded-2xl px-6 py-4 w-full transition-all duration-200 ios-spring disabled:opacity-50 text-[17px] shadow-lg shadow-orange-500/25"
+                  className="bg-[#0A84FF] hover:bg-[#409CFF] active:scale-[0.97] active:bg-[#0066CC] text-white font-bold rounded-2xl px-6 py-4 w-full transition-all duration-200 ios-spring disabled:opacity-50 text-[17px] shadow-lg shadow-blue-500/25"
                 >
                   {loading ? "Caricamento..." : `Acquista — ${formatPrice(template.price)}`}
                 </button>

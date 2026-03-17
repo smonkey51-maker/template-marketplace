@@ -320,8 +320,8 @@ export const templates: Template[] = [
     <div class="bg-white rounded-2xl p-6 shadow-sm border border-teal-100 mb-6">
       <h2 class="text-lg font-bold text-gray-800 mb-4">What clients say</h2>
       <div class="space-y-4">
-        <div class="flex gap-3"><div class="text-yellow-400 text-sm">★★★★★</div><p class="text-gray-600 text-sm italic">"Dr. Ferretti changed my life. I finally feel understood."</p></div>
-        <div class="flex gap-3"><div class="text-yellow-400 text-sm">★★★★★</div><p class="text-gray-600 text-sm italic">"Practical, kind, and truly effective. Highly recommend."</p></div>
+        <div class="flex gap-3"><div class="text-[#0A84FF] text-sm">★★★★★</div><p class="text-gray-600 text-sm italic">"Dr. Ferretti changed my life. I finally feel understood."</p></div>
+        <div class="flex gap-3"><div class="text-[#0A84FF] text-sm">★★★★★</div><p class="text-gray-600 text-sm italic">"Practical, kind, and truly effective. Highly recommend."</p></div>
       </div>
     </div>
     <button class="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-4 rounded-2xl transition text-lg">Book a Free Consultation</button>
@@ -355,8 +355,8 @@ export const templates: Template[] = [
   </div>
   <!-- Hero -->
   <div class="max-w-6xl mx-auto px-8 py-16 text-center">
-    <div class="inline-flex items-center gap-2 bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 px-4 py-2 rounded-full text-sm mb-6">⚖️ Oltre 500 casi vinti · Dal 1998</div>
-    <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-4">La tua tutela legale,<br/><span class="text-yellow-400">la nostra priorità</span></h1>
+    <div class="inline-flex items-center gap-2 bg-yellow-500/10 border border-yellow-500/30 text-[#0A84FF] px-4 py-2 rounded-full text-sm mb-6">⚖️ Oltre 500 casi vinti · Dal 1998</div>
+    <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-4">La tua tutela legale,<br/><span class="text-[#0A84FF]">la nostra priorità</span></h1>
     <p class="text-slate-400 text-lg max-w-xl mx-auto">Assistenza legale personalizzata per privati e aziende. Risultati concreti, massima riservatezza.</p>
     <div class="flex gap-4 justify-center mt-8">
       <button class="bg-yellow-500 text-slate-900 font-bold px-8 py-4 rounded-xl hover:bg-yellow-400 transition">Prenota ora</button>
@@ -477,7 +477,7 @@ export const templates: Template[] = [
       <div class="bg-slate-800 rounded-xl p-4 border border-slate-700">
         <div class="text-slate-400 text-xs mb-1">Monthly Savings</div>
         <div class="text-2xl font-bold text-white">€1,060</div>
-        <div class="text-yellow-400 text-xs mt-1">33% savings rate</div>
+        <div class="text-[#0A84FF] text-xs mt-1">33% savings rate</div>
       </div>
     </div>
     <!-- Portfolio + Goals -->
@@ -496,7 +496,7 @@ export const templates: Template[] = [
         <div class="space-y-4">
           <div><div class="flex justify-between text-xs mb-1"><span class="text-slate-300">🏠 House Down Payment</span><span class="text-green-400">68%</span></div><div class="h-2 bg-slate-700 rounded-full"><div class="h-full bg-gradient-to-r from-green-500 to-emerald-400 rounded-full" style="width:68%"></div></div><div class="text-slate-500 text-xs mt-1">€34,000 / €50,000</div></div>
           <div><div class="flex justify-between text-xs mb-1"><span class="text-slate-300">✈️ Travel Fund</span><span class="text-blue-400">45%</span></div><div class="h-2 bg-slate-700 rounded-full"><div class="h-full bg-blue-500 rounded-full" style="width:45%"></div></div><div class="text-slate-500 text-xs mt-1">€2,250 / €5,000</div></div>
-          <div><div class="flex justify-between text-xs mb-1"><span class="text-slate-300">🎓 Education</span><span class="text-yellow-400">22%</span></div><div class="h-2 bg-slate-700 rounded-full"><div class="h-full bg-yellow-500 rounded-full" style="width:22%"></div></div><div class="text-slate-500 text-xs mt-1">€2,200 / €10,000</div></div>
+          <div><div class="flex justify-between text-xs mb-1"><span class="text-slate-300">🎓 Education</span><span class="text-[#0A84FF]">22%</span></div><div class="h-2 bg-slate-700 rounded-full"><div class="h-full bg-yellow-500 rounded-full" style="width:22%"></div></div><div class="text-slate-500 text-xs mt-1">€2,200 / €10,000</div></div>
         </div>
       </div>
     </div>
@@ -670,35 +670,35 @@ export const templates: Template[] = [
     content: `<div class="min-h-screen bg-zinc-950 text-white font-sans">
   <!-- Nav -->
   <nav class="flex items-center justify-between px-8 py-6 border-b border-zinc-800">
-    <div class="font-black text-2xl tracking-tight">FORMA<span class="text-yellow-400">.</span></div>
+    <div class="font-black text-2xl tracking-tight">FORMA<span class="text-[#0A84FF]">.</span></div>
     <div class="hidden md:flex gap-8 text-sm text-zinc-400">
       <a class="hover:text-white transition">Work</a>
       <a class="hover:text-white transition">About</a>
       <a class="hover:text-white transition">Services</a>
       <a class="hover:text-white transition">Contact</a>
     </div>
-    <button class="border border-yellow-400 text-yellow-400 px-5 py-2 text-sm font-bold hover:bg-yellow-400 hover:text-black transition rounded">Start a project</button>
+    <button class="border border-yellow-400 text-[#0A84FF] px-5 py-2 text-sm font-bold hover:bg-yellow-400 hover:text-black transition rounded">Start a project</button>
   </nav>
   <!-- Hero -->
   <div class="px-8 pt-20 pb-12 max-w-6xl mx-auto">
     <div class="text-xs tracking-widest text-zinc-500 mb-6 uppercase">Design & Brand Studio · Milano, IT</div>
     <h1 class="text-7xl md:text-8xl font-black leading-none mb-6 tracking-tighter">
       We craft<br/>
-      <span class="text-yellow-400">bold</span> brands<br/>
+      <span class="text-[#0A84FF]">bold</span> brands<br/>
       <span class="text-zinc-600">that last.</span>
     </h1>
     <div class="flex items-center gap-8 mt-10">
       <p class="text-zinc-400 max-w-xs leading-relaxed">Strategic design for forward-thinking companies. From identity to digital, we build experiences that convert.</p>
       <div class="flex gap-8 text-center ml-auto">
-        <div><div class="text-3xl font-black text-yellow-400">120+</div><div class="text-zinc-500 text-xs mt-1">Projects</div></div>
-        <div><div class="text-3xl font-black text-yellow-400">8yr</div><div class="text-zinc-500 text-xs mt-1">Experience</div></div>
-        <div><div class="text-3xl font-black text-yellow-400">4.9★</div><div class="text-zinc-500 text-xs mt-1">Clutch</div></div>
+        <div><div class="text-3xl font-black text-[#0A84FF]">120+</div><div class="text-zinc-500 text-xs mt-1">Projects</div></div>
+        <div><div class="text-3xl font-black text-[#0A84FF]">8yr</div><div class="text-zinc-500 text-xs mt-1">Experience</div></div>
+        <div><div class="text-3xl font-black text-[#0A84FF]">4.9★</div><div class="text-zinc-500 text-xs mt-1">Clutch</div></div>
       </div>
     </div>
   </div>
   <!-- Portfolio Grid -->
   <div class="px-8 pb-20 max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-4">
-    <div class="group relative col-span-2 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl h-64 overflow-hidden cursor-pointer">
+    <div class="group relative col-span-2 bg-gradient-to-br from-yellow-400 to-blue-500 rounded-2xl h-64 overflow-hidden cursor-pointer">
       <div class="absolute inset-0 flex items-center justify-center text-7xl opacity-30">🎨</div>
       <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/60"><div class="font-bold text-lg">Nuvola — Brand Identity</div><div class="text-white/60 text-sm">Branding · Strategy</div></div>
     </div>
@@ -756,9 +756,9 @@ export const templates: Template[] = [
         <span class="bg-blue-500/10 text-blue-400 border border-blue-500/20 px-3 py-1 rounded-lg text-sm">Next.js</span>
         <span class="bg-violet-500/10 text-violet-400 border border-violet-500/20 px-3 py-1 rounded-lg text-sm">TypeScript</span>
         <span class="bg-green-500/10 text-green-400 border border-green-500/20 px-3 py-1 rounded-lg text-sm">Node.js</span>
-        <span class="bg-orange-500/10 text-orange-400 border border-orange-500/20 px-3 py-1 rounded-lg text-sm">Supabase</span>
+        <span class="bg-blue-500/10 text-orange-400 border border-blue-500/20 px-3 py-1 rounded-lg text-sm">Supabase</span>
         <span class="bg-pink-500/10 text-pink-400 border border-pink-500/20 px-3 py-1 rounded-lg text-sm">Tailwind</span>
-        <span class="bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 px-3 py-1 rounded-lg text-sm">AI/LLMs</span>
+        <span class="bg-yellow-500/10 text-[#0A84FF] border border-yellow-500/20 px-3 py-1 rounded-lg text-sm">AI/LLMs</span>
         <span class="bg-red-500/10 text-red-400 border border-red-500/20 px-3 py-1 rounded-lg text-sm">Docker</span>
         <span class="bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-3 py-1 rounded-lg text-sm">AWS</span>
       </div>
@@ -778,7 +778,7 @@ export const templates: Template[] = [
           <span class="text-gray-600 group-hover:text-white transition text-sm">→</span>
         </div>
         <div class="group flex items-center gap-4 bg-gray-900 hover:bg-gray-800 border border-gray-800 hover:border-gray-700 rounded-xl p-4 cursor-pointer transition">
-          <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center text-lg flex-shrink-0">🛒</div>
+          <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-red-500 flex items-center justify-center text-lg flex-shrink-0">🛒</div>
           <div class="flex-1"><div class="font-semibold text-sm">E-commerce Engine</div><div class="text-gray-500 text-xs mt-0.5">Next.js · Shopify API · TypeScript</div></div>
           <span class="text-gray-600 group-hover:text-white transition text-sm">→</span>
         </div>
@@ -973,5 +973,5 @@ export function getTemplate(id: string): Template | undefined {
 }
 
 export function formatPrice(cents: number): string {
-  return `$${(cents / 100).toFixed(2)}`;
+  return `€${(cents / 100).toFixed(2)}`;
 }

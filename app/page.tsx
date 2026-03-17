@@ -11,7 +11,7 @@ export default function MarketplacePage() {
       {/* Nav — iOS liquid glass */}
       <nav className="sticky top-0 z-50 border-b border-white/[0.08] backdrop-blur-2xl bg-[#1C1C1E]/80 px-6 py-4 relative">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <span className="text-xl font-bold tracking-tight text-[#FF9F0A]">
+          <span className="text-xl font-bold tracking-tight text-[#0A84FF]">
             TemplateLab
           </span>
           <div className="flex items-center gap-4">
@@ -28,12 +28,12 @@ export default function MarketplacePage() {
 
       {/* Hero */}
       <section className="relative z-10 py-20 px-6 text-center max-w-4xl mx-auto">
-        <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[13px] font-medium bg-white/[0.08] backdrop-blur-sm border border-white/[0.12] text-[#FF9F0A] mb-6">
+        <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[13px] font-medium bg-white/[0.08] backdrop-blur-sm border border-white/[0.12] text-[#0A84FF] mb-6">
           ⚡ Powered by Claude AI
         </span>
         <h1 className="text-5xl md:text-6xl font-bold leading-tight tracking-tight mb-5">
           Template premium,{" "}
-          <span className="text-[#FF9F0A]">
+          <span className="text-[#0A84FF]">
             personalizzati con AI
           </span>{" "}
           per te
@@ -45,7 +45,7 @@ export default function MarketplacePage() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
             href="#browse"
-            className="px-8 py-3.5 bg-[#FF9F0A] hover:bg-[#FFB340] rounded-2xl font-bold transition-all duration-200 text-white shadow-[0_4px_20px_rgba(255,159,10,0.3)] active:scale-[0.97] ios-spring"
+            className="px-8 py-3.5 bg-[#0A84FF] hover:bg-[#409CFF] rounded-2xl font-bold transition-all duration-200 text-white shadow-[0_4px_20px_rgba(10,132,255,0.3)] active:scale-[0.97] ios-spring"
           >
             Sfoglia template →
           </a>
@@ -71,7 +71,7 @@ export default function MarketplacePage() {
             ✦
           </div>
 
-          <span className="inline-block text-[11px] font-bold uppercase tracking-widest bg-[#FF9F0A]/15 text-[#FF9F0A] border border-[#FF9F0A]/20 px-3 py-1 rounded-full mb-4">
+          <span className="inline-block text-[11px] font-bold uppercase tracking-widest bg-[#0A84FF]/15 text-[#0A84FF] border border-[#0A84FF]/20 px-3 py-1 rounded-full mb-4">
             Studio Access
           </span>
 
@@ -83,7 +83,7 @@ export default function MarketplacePage() {
             Descrivi quello che vuoi, Claude lo crea in secondi. Componenti UI, prompt, landing page — illimitati.
           </p>
 
-          <p className="text-[#FF9F0A] font-semibold text-[17px] mb-6">
+          <p className="text-[#0A84FF] font-semibold text-[17px] mb-6">
             €9,99 / mese · Generazioni illimitate
           </p>
 

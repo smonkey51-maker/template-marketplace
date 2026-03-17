@@ -115,7 +115,7 @@ export default function TemplateGrid() {
               <div>
                 <h2 className="text-[20px] font-bold tracking-tight flex items-center gap-2">
                   {section.label}
-                  <span className="bg-[#FF9F0A]/15 text-[#FF9F0A] rounded-full px-2.5 py-0.5 text-[13px] font-semibold">
+                  <span className="bg-[#0A84FF]/15 text-[#0A84FF] rounded-full px-2.5 py-0.5 text-[13px] font-semibold">
                     {sectionTemplates.length}
                   </span>
                 </h2>

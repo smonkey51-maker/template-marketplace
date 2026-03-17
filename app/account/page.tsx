@@ -37,7 +37,7 @@ export default function AccountPage() {
   if (!isLoaded) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#000000]">
-        <div className="w-8 h-8 rounded-full border-2 border-[#FF9F0A] border-t-transparent animate-spin" />
+        <div className="w-8 h-8 rounded-full border-2 border-[#0A84FF] border-t-transparent animate-spin" />
       </div>
     );
   }
@@ -48,7 +48,7 @@ export default function AccountPage() {
       {/* Nav — iOS liquid glass */}
       <nav className="sticky top-0 z-50 border-b border-white/[0.08] backdrop-blur-2xl bg-[#1C1C1E]/80 px-6 py-4">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <Link href="/" className="text-xl font-bold tracking-tight text-[#FF9F0A]">
+          <Link href="/" className="text-xl font-bold tracking-tight text-[#0A84FF]">
             TemplateLab
           </Link>
           <Link href="/" className="text-[15px] text-[#8E8E93] hover:text-white transition">
@@ -61,7 +61,7 @@ export default function AccountPage() {
 
         {/* Profile card */}
         <div className="bg-[#1C1C1E] border border-white/[0.08] rounded-[28px] p-6 flex items-center gap-5">
-          <div className="w-16 h-16 rounded-full bg-[#FF9F0A] flex items-center justify-center text-2xl font-bold text-white shrink-0">
+          <div className="w-16 h-16 rounded-full bg-[#0A84FF] flex items-center justify-center text-2xl font-bold text-white shrink-0">
             {user?.firstName?.[0] ?? user?.emailAddresses?.[0]?.emailAddress?.[0]?.toUpperCase() ?? "?"}
           </div>
           <div className="flex-1 min-w-0">
@@ -110,7 +110,7 @@ export default function AccountPage() {
           ) : (
             <Link
               href="/#studio-access"
-              className="px-4 py-2 bg-[#FF9F0A] hover:bg-[#FFB340] text-white font-semibold rounded-2xl text-[14px] transition-all duration-200 active:scale-[0.97] ios-spring shrink-0"
+              className="px-4 py-2 bg-[#0A84FF] hover:bg-[#409CFF] text-white font-semibold rounded-2xl text-[14px] transition-all duration-200 active:scale-[0.97] ios-spring shrink-0"
             >
               Attiva →
             </Link>
@@ -131,7 +131,7 @@ export default function AccountPage() {
               <p className="text-[15px] text-[#8E8E93]">Nessun template acquistato ancora.</p>
               <Link
                 href="/"
-                className="inline-block px-6 py-2.5 bg-[#FF9F0A] hover:bg-[#FFB340] text-white font-semibold rounded-2xl text-[15px] transition-all duration-200 active:scale-[0.97] ios-spring"
+                className="inline-block px-6 py-2.5 bg-[#0A84FF] hover:bg-[#409CFF] text-white font-semibold rounded-2xl text-[15px] transition-all duration-200 active:scale-[0.97] ios-spring"
               >
                 Vai al marketplace →
               </Link>
@@ -146,7 +146,7 @@ export default function AccountPage() {
                   }`}
                 >
                   <div className={`w-11 h-11 rounded-2xl flex items-center justify-center text-xl shrink-0 ${
-                    t.category === "ui" ? "bg-[#007AFF]/20" : "bg-[#FF9F0A]/20"
+                    t.category === "ui" ? "bg-[#007AFF]/20" : "bg-[#0A84FF]/20"
                   }`}>
                     {t.category === "ui" ? "🖼" : "📝"}
                   </div>
