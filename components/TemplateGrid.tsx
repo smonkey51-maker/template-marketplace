@@ -276,7 +276,7 @@ export default function TemplateGrid() {
 
       {/* ── Section jump nav (non-filtered only) ── */}
       {!isFiltered && (
-        <div className="flex gap-2 overflow-x-auto pb-2 mb-8 -mx-4 sm:-mx-6 px-4 sm:px-6" style={{ scrollbarWidth: "none" }}>
+        <div className="flex flex-wrap gap-2 pb-2 mb-8">
           {SECTION_IDS.map((section) => {
             const sectionMeta = t[lang].sections[section.id as keyof typeof t[typeof lang]["sections"]];
             return (
@@ -285,7 +285,7 @@ export default function TemplateGrid() {
                 onClick={() => {
                   document.getElementById(`section-${section.id}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
                 }}
-                className={`flex items-center gap-1.5 shrink-0 px-3 py-1.5 rounded-xl
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl
                   text-[12px] font-semibold transition-all duration-200 ios-spring whitespace-nowrap border ${
                   activeSection === section.id
                     ? "bg-[#0A84FF] text-white border-transparent shadow-[0_2px_10px_rgba(10,132,255,0.3)]"
@@ -293,11 +293,10 @@ export default function TemplateGrid() {
                 }`}
               >
                 <span>{section.emoji}</span>
-                <span className="hidden sm:inline">{sectionMeta.label}</span>
+                <span>{sectionMeta.label}</span>
               </button>
             );
           })}
-          <span className="shrink-0 w-4 sm:w-6" aria-hidden />
         </div>
       )}
 
