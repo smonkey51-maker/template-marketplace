@@ -322,28 +322,30 @@ export default function TemplateGrid() {
               </button>
             </div>
           ) : (
-            <div key={animKey} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-              {loading
-                ? Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)
-                : filteredTemplates.slice(0, visibleCount).map((tmpl, i) => (
-                    <div key={tmpl.id} className="anim-fade-up" style={{ animationDelay: `${i * 35}ms` }}>
-                      <TemplateCard template={tmpl} purchasedIds={purchasedIds} onQuickView={handleQuickView} />
-                    </div>
-                  ))}
-            </div>
-            {!loading && filteredTemplates.length > visibleCount && (
-              <div className="flex justify-center mt-6">
-                <button
-                  onClick={() => setVisibleCount((v) => v + 12)}
-                  className="px-6 py-2.5 glass border border-theme rounded-2xl text-[13px] font-semibold text-muted
-                    hover:text-theme hover:border-[#0A84FF]/30 transition-all duration-200 ios-spring"
-                >
-                  {lang === "it"
-                    ? `Mostra altri ${Math.min(12, filteredTemplates.length - visibleCount)} →`
-                    : `Show ${Math.min(12, filteredTemplates.length - visibleCount)} more →`}
-                </button>
+            <>
+              <div key={animKey} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+                {loading
+                  ? Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)
+                  : filteredTemplates.slice(0, visibleCount).map((tmpl, i) => (
+                      <div key={tmpl.id} className="anim-fade-up" style={{ animationDelay: `${i * 35}ms` }}>
+                        <TemplateCard template={tmpl} purchasedIds={purchasedIds} onQuickView={handleQuickView} />
+                      </div>
+                    ))}
               </div>
-            )}
+              {!loading && filteredTemplates.length > visibleCount && (
+                <div className="flex justify-center mt-6">
+                  <button
+                    onClick={() => setVisibleCount((v) => v + 12)}
+                    className="px-6 py-2.5 glass border border-theme rounded-2xl text-[13px] font-semibold text-muted
+                      hover:text-theme hover:border-[#0A84FF]/30 transition-all duration-200 ios-spring"
+                  >
+                    {lang === "it"
+                      ? `Mostra altri ${Math.min(12, filteredTemplates.length - visibleCount)} →`
+                      : `Show ${Math.min(12, filteredTemplates.length - visibleCount)} more →`}
+                  </button>
+                </div>
+              )}
+            </>
           )}
         </div>
       ) : (
