@@ -115,29 +115,51 @@ export const templates: Template[] = [
     stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
     tags: ["blog", "cards", "grid", "articles"],
     downloads: 756,
-    content: `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto px-4 py-12">
-  <article class="group rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white">
-    <div class="h-48 bg-gradient-to-br from-violet-400 to-indigo-600"></div>
-    <div class="p-6">
-      <div class="flex items-center gap-2 mb-3">
-        <span class="text-xs font-semibold text-indigo-600 bg-indigo-50 px-2 py-1 rounded-full">Technology</span>
-        <span class="text-xs text-gray-400">5 min read</span>
-      </div>
-      <h2 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">
-        The Future of AI in Product Development
-      </h2>
-      <p class="text-gray-500 text-sm leading-relaxed">
-        How modern teams are leveraging artificial intelligence to ship products 10x faster.
-      </p>
-      <div class="flex items-center gap-3 mt-6">
-        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-pink-400 to-violet-500"></div>
-        <div>
-          <p class="text-sm font-medium text-gray-900">Sarah Chen</p>
-          <p class="text-xs text-gray-400">March 15, 2025</p>
-        </div>
-      </div>
+    content: `<div class="bg-gray-50 min-h-screen py-12 px-4">
+  <div class="max-w-5xl mx-auto">
+    <div class="mb-10 text-center">
+      <h1 class="text-3xl font-black text-gray-900 mb-2">The Journal</h1>
+      <p class="text-gray-500 text-sm">Ideas, insights and stories worth reading.</p>
     </div>
-  </article>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Card 1 — Featured -->
+      <article class="group md:col-span-1 rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white">
+        <div class="h-48 bg-gradient-to-br from-violet-400 to-indigo-600 relative">
+          <span class="absolute top-3 left-3 text-xs font-bold bg-white/20 text-white backdrop-blur-sm px-2.5 py-1 rounded-full">Technology</span>
+        </div>
+        <div class="p-5">
+          <div class="flex items-center gap-2 mb-2"><span class="text-xs text-gray-400">5 min read</span><span class="text-gray-200">·</span><span class="text-xs text-gray-400">Mar 15</span></div>
+          <h2 class="text-[15px] font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors leading-snug">The Future of AI in Product Development</h2>
+          <p class="text-gray-500 text-xs leading-relaxed">How modern teams are leveraging AI to ship products 10x faster without sacrificing quality.</p>
+          <div class="flex items-center gap-2 mt-5"><div class="w-7 h-7 rounded-full bg-gradient-to-br from-pink-400 to-violet-500 shrink-0"></div><div><p class="text-xs font-semibold text-gray-800">Sarah Chen</p><p class="text-[10px] text-gray-400">Editor in Chief</p></div></div>
+        </div>
+      </article>
+      <!-- Card 2 -->
+      <article class="group rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white">
+        <div class="h-48 bg-gradient-to-br from-emerald-400 to-teal-600 relative">
+          <span class="absolute top-3 left-3 text-xs font-bold bg-white/20 text-white backdrop-blur-sm px-2.5 py-1 rounded-full">Design</span>
+        </div>
+        <div class="p-5">
+          <div class="flex items-center gap-2 mb-2"><span class="text-xs text-gray-400">3 min read</span><span class="text-gray-200">·</span><span class="text-xs text-gray-400">Mar 10</span></div>
+          <h2 class="text-[15px] font-bold text-gray-900 mb-2 group-hover:text-teal-600 transition-colors leading-snug">Why Minimalism Still Wins in 2025</h2>
+          <p class="text-gray-500 text-xs leading-relaxed">Clean interfaces reduce cognitive load. Here's the data behind less-is-more design thinking.</p>
+          <div class="flex items-center gap-2 mt-5"><div class="w-7 h-7 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 shrink-0"></div><div><p class="text-xs font-semibold text-gray-800">Marco Bianchi</p><p class="text-[10px] text-gray-400">Design Lead</p></div></div>
+        </div>
+      </article>
+      <!-- Card 3 -->
+      <article class="group rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white">
+        <div class="h-48 bg-gradient-to-br from-amber-400 to-orange-500 relative">
+          <span class="absolute top-3 left-3 text-xs font-bold bg-white/20 text-white backdrop-blur-sm px-2.5 py-1 rounded-full">Business</span>
+        </div>
+        <div class="p-5">
+          <div class="flex items-center gap-2 mb-2"><span class="text-xs text-gray-400">7 min read</span><span class="text-gray-200">·</span><span class="text-xs text-gray-400">Mar 5</span></div>
+          <h2 class="text-[15px] font-bold text-gray-900 mb-2 group-hover:text-amber-600 transition-colors leading-snug">Bootstrap to €1M ARR: Lessons Learned</h2>
+          <p class="text-gray-500 text-xs leading-relaxed">A founder's honest account of what worked, what failed, and the one decision that changed everything.</p>
+          <div class="flex items-center gap-2 mt-5"><div class="w-7 h-7 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 shrink-0"></div><div><p class="text-xs font-semibold text-gray-800">Giulia Rossi</p><p class="text-[10px] text-gray-400">Founder</p></div></div>
+        </div>
+      </article>
+    </div>
+  </div>
 </div>`,
   },
 

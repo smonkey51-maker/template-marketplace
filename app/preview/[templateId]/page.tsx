@@ -11,7 +11,6 @@ function PromptFullView({ content }: { content: string }) {
   return (
     <div className="min-h-full p-6 sm:p-10 max-w-2xl mx-auto">
       <div className="bg-[#FFFEF7] rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.18)] overflow-hidden">
-        {/* macOS-style title bar */}
         <div className="flex items-center gap-2 px-4 py-3 bg-[#F7F6EE] border-b border-black/[0.07]">
           <div className="w-3 h-3 rounded-full bg-[#FF5F57]" />
           <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
@@ -85,6 +84,8 @@ export default function PreviewPage() {
     );
   }
 
+  const categoryLabel = template.category === "ui" ? "UI Template" : "Prompt";
+
   return (
     <div className="min-h-screen bg-page flex flex-col">
 
@@ -104,7 +105,7 @@ export default function PreviewPage() {
       </button>
 
       {/* ── Preview area ── */}
-      <div className="flex-1 overflow-y-auto" style={{ paddingBottom: "100px" }}>
+      <div className="flex-1" style={{ paddingBottom: "100px" }}>
         {template.category === "ui" ? (
           <iframe
             src={`/api/preview/${template.id}`}
@@ -121,7 +122,7 @@ export default function PreviewPage() {
 
       {/* ── Fixed bottom CTA bar ── */}
       <div
-        className="fixed bottom-0 inset-x-0 z-50 px-4 pb-6 pt-4 border-t border-theme"
+        className="fixed bottom-0 inset-x-0 z-50 border-t border-theme"
         style={{
           backdropFilter: "blur(40px) saturate(200%)",
           WebkitBackdropFilter: "blur(40px) saturate(200%)",
@@ -130,40 +131,64 @@ export default function PreviewPage() {
       >
         {/* Top glint */}
         <div className="absolute inset-x-8 top-0 h-px rounded-full"
-          style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)" }} />
+          style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent)" }} />
 
-        <div className="max-w-xl mx-auto flex items-center gap-4">
-          {/* Template info */}
-          <div className="flex-1 min-w-0">
-            <p className="text-[13px] font-bold text-theme truncate">{template.name}</p>
-            <p className="text-[12px] text-muted truncate">{template.description}</p>
+        <div className="max-w-2xl mx-auto px-4 py-3 sm:py-4">
+          {/* Template info row */}
+          <div className="flex items-start gap-3 mb-3">
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-[10px] font-bold text-muted uppercase tracking-widest">{categoryLabel}</span>
+                {template.downloads >= 700 && (
+                  <span className="text-[10px] font-bold text-[#FF9F0A] bg-[#FF9F0A]/10 border border-[#FF9F0A]/20 px-1.5 py-0.5 rounded-full">★ Bestseller</span>
+                )}
+              </div>
+              <p className="text-[15px] font-bold text-theme leading-tight mt-0.5">{template.name}</p>
+              <p className="text-[12px] text-muted mt-0.5 line-clamp-1">{template.description}</p>
+            </div>
+            <div className="text-right shrink-0">
+              <p className="text-[20px] font-black text-[#0A84FF]">{formatPrice(template.price)}</p>
+              <p className="text-[11px] text-muted">una tantum</p>
+            </div>
           </div>
 
-          {/* Price + CTA */}
-          <div className="flex items-center gap-3 shrink-0">
-            <span className="text-[18px] font-black text-[#0A84FF]">{formatPrice(template.price)}</span>
-
-            {isPurchased ? (
-              <Link
-                href={`/studio?templateId=${template.id}`}
-                className="px-5 py-3 bg-[#5E5CE6] hover:bg-[#6E6CF6] active:scale-[0.97]
-                  text-white font-bold rounded-2xl text-[14px] transition-all duration-200 ios-spring
-                  shadow-[0_4px_20px_rgba(94,92,230,0.35)] whitespace-nowrap"
-              >
-                Apri Studio →
-              </Link>
-            ) : (
-              <button
-                onClick={handleBuy}
-                disabled={loading}
-                className="px-5 py-3 bg-[#0A84FF] hover:bg-[#409CFF] active:scale-[0.97]
-                  text-white font-bold rounded-2xl text-[14px] transition-all duration-200 ios-spring
-                  disabled:opacity-50 btn-glow-blue whitespace-nowrap"
-              >
-                {loading ? "..." : `Acquista`}
-              </button>
-            )}
+          {/* Tags row */}
+          <div className="flex gap-1.5 flex-wrap mb-3">
+            {template.tags.slice(0, 4).map((tag) => (
+              <span key={tag} className="text-[10px] text-muted glass-subtle px-2 py-0.5 rounded-full border border-theme">
+                {tag}
+              </span>
+            ))}
+            <span className="text-[10px] text-muted flex items-center gap-1 ml-1">
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none" className="opacity-50"><path d="M6 1v7M3 6l3 3 3-3M2 10h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              {template.downloads.toLocaleString("it-IT")}
+            </span>
           </div>
+
+          {/* CTA button */}
+          {isPurchased ? (
+            <Link
+              href={`/studio?templateId=${template.id}`}
+              className="flex items-center justify-center gap-2 bg-[#5E5CE6] hover:bg-[#6E6CF6] active:scale-[0.97]
+                text-white font-bold rounded-2xl px-6 py-3.5 w-full text-center
+                transition-all duration-200 ios-spring
+                shadow-[0_4px_20px_rgba(94,92,230,0.35)] text-[15px]"
+            >
+              Personalizza in AI Studio →
+            </Link>
+          ) : (
+            <button
+              onClick={handleBuy}
+              disabled={loading}
+              className="w-full bg-[#0A84FF] hover:bg-[#409CFF] active:scale-[0.97]
+                text-white font-bold rounded-2xl px-6 py-3.5
+                transition-all duration-200 ios-spring
+                disabled:opacity-50 btn-glow-blue text-[15px]
+                shadow-[0_4px_20px_rgba(10,132,255,0.35)]"
+            >
+              {loading ? "Caricamento..." : `Acquista ora — ${formatPrice(template.price)}`}
+            </button>
+          )}
         </div>
       </div>
     </div>

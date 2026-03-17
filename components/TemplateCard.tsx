@@ -49,7 +49,6 @@ function UIThumbnail({ template, isPurchased }: { template: Template; isPurchase
           style={{ height: "460px" }}
         />
       </div>
-      {/* Vignette overlay */}
       <div className="absolute inset-0"
         style={{ background: "linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.5) 100%)" }} />
       {isPurchased && <PurchasedBadge />}
@@ -72,6 +71,7 @@ export default function TemplateCard({ template, purchasedIds }: {
   purchasedIds: string[];
 }) {
   const isPurchased = purchasedIds.includes(template.id);
+  const isBestseller = template.downloads >= 700;
 
   return (
     <Link
@@ -82,6 +82,13 @@ export default function TemplateCard({ template, purchasedIds }: {
         hover:shadow-[0_20px_60px_rgba(0,0,0,0.18),0_0_0_1px_rgba(10,132,255,0.12)]
         active:scale-[0.97] active:opacity-90"
     >
+      {/* Bestseller badge */}
+      {isBestseller && !isPurchased && (
+        <div className="absolute top-2.5 right-2.5 z-10 flex items-center gap-1 bg-[#FF9F0A]/20 text-[#FF9F0A] border border-[#FF9F0A]/30 rounded-full px-2 py-0.5 text-[10px] font-bold backdrop-blur-sm">
+          ★ Bestseller
+        </div>
+      )}
+
       {template.category === "ui"
         ? <UIThumbnail template={template} isPurchased={isPurchased} />
         : <PromptThumbnail template={template} isPurchased={isPurchased} />
@@ -96,8 +103,9 @@ export default function TemplateCard({ template, purchasedIds }: {
         </h3>
         <div className="mt-auto pt-3 flex items-center justify-between">
           <span className="text-[15px] font-bold text-[#0A84FF]">{formatPrice(template.price)}</span>
-          <span className="text-[12px] text-muted group-hover:text-[#0A84FF] transition-colors duration-200 flex items-center gap-0.5">
-            Apri <span className="group-hover:translate-x-0.5 transition-transform duration-200 inline-block">→</span>
+          <span className="text-[11px] text-muted flex items-center gap-1">
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="currentColor" className="opacity-60"><path d="M6 1v7M3 6l3 3 3-3M2 10h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/></svg>
+            {template.downloads.toLocaleString("it-IT")}
           </span>
         </div>
       </div>
