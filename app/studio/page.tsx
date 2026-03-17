@@ -58,7 +58,6 @@ function StudioContent() {
       abortRef.current = controller;
 
       setOutput("");
-      setOutputView("code");
       setLoading(true);
 
       try {
@@ -77,11 +76,19 @@ function StudioContent() {
 
         const reader = res.body.getReader();
         const decoder = new TextDecoder();
+        let result = "";
 
         while (true) {
           const { done, value } = await reader.read();
           if (done) break;
-          setOutput((prev) => prev + decoder.decode(value, { stream: true }));
+          const chunk = decoder.decode(value, { stream: true });
+          result += chunk;
+          setOutput((prev) => prev + chunk);
+        }
+
+        // Auto-switch to preview for UI output after streaming completes
+        if (result.trim().startsWith("<") || result.includes("<div") || result.includes("<section")) {
+          setOutputView("preview");
         }
       } catch (err) {
         if ((err as Error).name !== "AbortError") {
@@ -350,13 +357,28 @@ function StudioContent() {
 
                 {/* Template preview */}
                 {selectedTemplate && (
-                  <div className="bg-[#1C1C1E] border border-white/[0.08] rounded-2xl p-4">
-                    <p className="text-[11px] font-semibold text-[#8E8E93] mb-2 uppercase tracking-widest">
+                  <div className="bg-[#1C1C1E] border border-white/[0.08] rounded-2xl overflow-hidden">
+                    <p className="text-[11px] font-semibold text-[#8E8E93] px-4 pt-3 pb-2 uppercase tracking-widest">
                       Template preview
                     </p>
-                    <pre className="text-[12px] text-[#8E8E93] font-mono overflow-hidden line-clamp-5">
-                      {selectedTemplate.content.slice(0, 300)}...
-                    </pre>
+                    {selectedTemplate.category === "ui" ? (
+                      <div className="h-40 overflow-hidden relative">
+                        <div className="absolute inset-0 pointer-events-none" style={{ transform: "scale(0.38)", transformOrigin: "top left", width: "263%", height: "263%" }}>
+                          <iframe
+                            src={`/api/preview/${selectedTemplate.id}`}
+                            title={selectedTemplate.name}
+                            className="w-full border-0"
+                            style={{ height: "420px" }}
+                          />
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="px-4 pb-3">
+                        <pre className="text-[11px] text-[#8E8E93] font-mono overflow-hidden line-clamp-4 leading-relaxed">
+                          {selectedTemplate.content.slice(0, 200)}...
+                        </pre>
+                      </div>
+                    )}
                   </div>
                 )}
 
@@ -482,9 +504,9 @@ function StudioContent() {
 
               {activeOutput && isUIOutput && outputView === "preview" && (
                 <iframe
-                  srcDoc={activeOutput}
+                  srcDoc={`<!DOCTYPE html><html><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><script src="https://cdn.tailwindcss.com"><\/script><style>body{margin:0}</style></head><body>${activeOutput}</body></html>`}
                   className="w-full h-full border-0"
-                  sandbox="allow-scripts"
+                  sandbox="allow-scripts allow-same-origin"
                   title="Template Preview"
                 />
               )}

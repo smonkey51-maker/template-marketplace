@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className="bg-gray-950 text-white antialiased">{children}</body>
+        <body className="bg-[#000000] text-white antialiased">{children}</body>
       </html>
     </ClerkProvider>
   );
