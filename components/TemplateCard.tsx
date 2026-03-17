@@ -5,24 +5,111 @@ import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import { Template, formatPrice } from "@/lib/templates";
 
-const thumbnailGradients: Record<string, string> = {
-  ui: "from-blue-600/80 to-violet-700/80",
-  prompt: "from-orange-600/80 to-rose-600/80",
-};
-
-const thumbnailEmojis: Record<string, string> = {
-  ui: "🖼",
-  prompt: "📝",
-};
-
 const categoryLabels: Record<string, string> = {
   ui: "UI Template",
   prompt: "Prompt Template",
 };
 
+const categoryGradients: Record<string, string> = {
+  ui: "from-blue-600 to-violet-700",
+  prompt: "from-orange-500 to-rose-600",
+};
+
 interface TemplateCardProps {
   template: Template;
   purchasedIds: string[];
+}
+
+function UIPreview({ content }: { content: string }) {
+  const srcDoc = `<!DOCTYPE html><html><head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<script src="https://cdn.tailwindcss.com"><\/script>
+<style>body{margin:0;overflow:hidden;}</style>
+</head><body>${content}</body></html>`;
+
+  return (
+    <iframe
+      srcDoc={srcDoc}
+      sandbox="allow-scripts"
+      title="Template preview"
+      className="w-full border-0 pointer-events-none"
+      style={{ height: "500px" }}
+    />
+  );
+}
+
+function PromptPreview({ content }: { content: string }) {
+  const parts = content.split(/({{[^}]+}})/g);
+  return (
+    <div className="p-5 font-mono text-sm text-gray-300 leading-relaxed whitespace-pre-wrap overflow-auto max-h-[500px]">
+      {parts.map((part, i) =>
+        part.startsWith("{{") ? (
+          <span key={i} className="bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded px-1">
+            {part}
+          </span>
+        ) : (
+          <span key={i}>{part}</span>
+        )
+      )}
+    </div>
+  );
+}
+
+function CardThumbnail({ template, isPurchased }: { template: Template; isPurchased: boolean }) {
+  if (template.category === "ui") {
+    const srcDoc = `<!DOCTYPE html><html><head>
+<meta charset="UTF-8"/>
+<script src="https://cdn.tailwindcss.com"><\/script>
+<style>body{margin:0;overflow:hidden;transform-origin:top left;}</style>
+</head><body>${template.content}</body></html>`;
+
+    return (
+      <div className="relative h-44 overflow-hidden bg-gray-950">
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{ transform: "scale(0.38)", transformOrigin: "top left", width: "263%", height: "263%" }}
+        >
+          <iframe
+            srcDoc={srcDoc}
+            sandbox="allow-scripts"
+            title={template.name}
+            className="w-full border-0"
+            style={{ height: "460px" }}
+          />
+        </div>
+        {isPurchased && (
+          <span className="absolute bottom-2 left-2 z-10 bg-green-500/20 text-green-400 border border-green-500/30 rounded-full px-2 py-0.5 text-xs font-medium backdrop-blur-sm">
+            ✓ Acquistato
+          </span>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-950/60 via-transparent to-transparent" />
+      </div>
+    );
+  }
+
+  // Prompt template thumbnail — styled text preview
+  const preview = template.content.slice(0, 180);
+  const parts = preview.split(/({{[^}]+}})/g);
+  return (
+    <div className={`relative h-44 overflow-hidden bg-gradient-to-br ${categoryGradients.prompt} p-4`}>
+      <div className="font-mono text-xs text-white/80 leading-relaxed line-clamp-6">
+        {parts.map((part, i) =>
+          part.startsWith("{{") ? (
+            <span key={i} className="bg-black/30 text-amber-300 rounded px-0.5">{part}</span>
+          ) : (
+            <span key={i}>{part}</span>
+          )
+        )}
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+      {isPurchased && (
+        <span className="absolute bottom-2 left-2 bg-green-500/20 text-green-400 border border-green-500/30 rounded-full px-2 py-0.5 text-xs font-medium backdrop-blur-sm">
+          ✓ Acquistato
+        </span>
+      )}
+    </div>
+  );
 }
 
 export default function TemplateCard({ template, purchasedIds }: TemplateCardProps) {
@@ -37,7 +124,6 @@ export default function TemplateCard({ template, purchasedIds }: TemplateCardPro
       window.location.href = "/sign-in";
       return;
     }
-
     setLoading(true);
     try {
       const res = await fetch("/api/checkout", {
@@ -54,121 +140,80 @@ export default function TemplateCard({ template, purchasedIds }: TemplateCardPro
 
   return (
     <>
-      {/* Card — glassmorphism */}
+      {/* Card */}
       <div
         className="group cursor-pointer bg-white/4 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden flex flex-col hover:bg-white/7 hover:border-white/20 hover:shadow-xl hover:shadow-black/30 hover:-translate-y-1 transition-all duration-300"
         onClick={() => setModalOpen(true)}
       >
-        {/* Thumbnail */}
-        <div
-          className={`h-40 bg-gradient-to-br ${thumbnailGradients[template.category]} flex items-center justify-center relative`}
-        >
-          <span className="text-5xl select-none">{thumbnailEmojis[template.category]}</span>
-          {isPurchased && (
-            <span className="absolute bottom-3 left-3 bg-green-500/20 text-green-400 border border-green-500/30 rounded-full px-2 py-0.5 text-xs font-medium flex items-center gap-1">
-              ✓ Acquistato
-            </span>
-          )}
-        </div>
+        <CardThumbnail template={template} isPurchased={isPurchased} />
 
-        {/* Card Body */}
         <div className="p-4 flex flex-col flex-1">
-          <span className="text-xs text-gray-500 mb-1">
-            {categoryLabels[template.category]}
-          </span>
+          <span className="text-xs text-gray-500 mb-1">{categoryLabels[template.category]}</span>
           <h3 className="text-base font-semibold text-white group-hover:text-orange-300 transition-colors leading-tight">
             {template.name}
           </h3>
           <div className="mt-auto pt-3 flex items-center justify-between">
-            <span className="text-sm font-bold text-yellow-400">
-              {formatPrice(template.price)}
-            </span>
+            <span className="text-sm font-bold text-yellow-400">{formatPrice(template.price)}</span>
             <span className="text-xs text-gray-500 group-hover:text-gray-300 transition-colors">
-              Dettagli →
+              Vedi anteprima →
             </span>
           </div>
         </div>
       </div>
 
-      {/* Modal Overlay */}
+      {/* Modal */}
       {modalOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) setModalOpen(false);
-          }}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-4"
+          onClick={(e) => { if (e.target === e.currentTarget) setModalOpen(false); }}
         >
-          <div className="relative w-full max-w-2xl bg-gray-900/80 backdrop-blur-2xl border border-white/12 rounded-3xl overflow-hidden shadow-2xl shadow-black/60 mx-4">
-            {/* Close button */}
+          <div className="relative w-full max-w-3xl bg-gray-900/85 backdrop-blur-2xl border border-white/12 rounded-3xl overflow-hidden shadow-2xl shadow-black/60 flex flex-col max-h-[90vh]">
+            {/* Close */}
             <button
               onClick={() => setModalOpen(false)}
-              className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-gray-400 hover:text-white transition-all duration-200"
-              aria-label="Chiudi"
+              className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-gray-400 hover:text-white transition-all duration-200 text-lg leading-none"
             >
               ×
             </button>
 
-            {/* Modal Header — gradient thumbnail strip */}
-            <div
-              className={`h-16 bg-gradient-to-br ${thumbnailGradients[template.category]} flex items-center px-6`}
-            >
-              <span className="text-xs font-bold text-white/80 bg-black/30 px-2 py-0.5 rounded-full">
-                {categoryLabels[template.category]}
-              </span>
-            </div>
-
-            {/* Modal Content */}
-            <div className="p-6 flex flex-col gap-4 max-h-[80vh] overflow-y-auto">
-              {/* Name + Price */}
-              <div className="flex items-start justify-between gap-4">
-                <h2 className="text-xl font-bold text-white leading-tight">
-                  {template.name}
-                </h2>
-                <span className="text-xl font-extrabold text-yellow-400 shrink-0">
+            {/* Header */}
+            <div className="px-6 pt-6 pb-4 border-b border-white/8 shrink-0">
+              <div className="flex items-start justify-between gap-4 pr-10">
+                <div>
+                  <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    {categoryLabels[template.category]}
+                  </span>
+                  <h2 className="text-xl font-bold text-white mt-0.5">{template.name}</h2>
+                  <p className="text-sm text-gray-400 mt-1">{template.description}</p>
+                  <div className="flex flex-wrap gap-1.5 mt-2">
+                    {template.tags.map((tag) => (
+                      <span key={tag} className="text-xs text-gray-400 bg-white/8 border border-white/10 px-2 py-0.5 rounded-full">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <span className="text-2xl font-extrabold text-yellow-400 shrink-0">
                   {formatPrice(template.price)}
                 </span>
               </div>
+            </div>
 
-              {/* Description */}
-              <p className="text-gray-400 text-sm leading-relaxed">
-                {template.description}
-              </p>
+            {/* Preview */}
+            <div className="overflow-auto flex-1 bg-gray-950/50">
+              {template.category === "ui" ? (
+                <UIPreview content={template.content} />
+              ) : (
+                <PromptPreview content={template.content} />
+              )}
+            </div>
 
-              {/* Tags */}
-              <div className="flex flex-wrap gap-1.5">
-                {template.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-xs text-gray-400 bg-white/10 border border-white/10 px-2 py-0.5 rounded-full"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              {/* Code Preview — macOS style */}
-              <div className="rounded-2xl bg-gray-950 border border-white/10 overflow-hidden">
-                <div className="flex items-center gap-2 px-4 py-2.5 border-b border-white/10 bg-white/5">
-                  <div className="flex gap-1.5">
-                    <span className="w-3 h-3 rounded-full bg-red-500/80" />
-                    <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                    <span className="w-3 h-3 rounded-full bg-green-500/80" />
-                  </div>
-                  <span className="text-xs text-gray-600 ml-2">preview</span>
-                </div>
-                <pre className="p-4 text-xs font-mono text-gray-400 overflow-auto max-h-64 leading-relaxed whitespace-pre-wrap">
-                  {template.content.slice(0, 600)}
-                  {template.content.length > 600 && (
-                    <span className="text-gray-600">…</span>
-                  )}
-                </pre>
-              </div>
-
-              {/* CTA */}
+            {/* CTA */}
+            <div className="p-6 border-t border-white/8 shrink-0">
               {isPurchased ? (
                 <Link
                   href={`/studio?templateId=${template.id}`}
-                  className="bg-violet-600 hover:bg-violet-500 text-white font-bold rounded-2xl px-6 py-3 w-full text-center transition-all duration-200"
+                  className="block bg-violet-600 hover:bg-violet-500 text-white font-bold rounded-2xl px-6 py-3.5 w-full text-center transition-all duration-200"
                 >
                   Personalizza in AI Studio →
                 </Link>
@@ -176,7 +221,7 @@ export default function TemplateCard({ template, purchasedIds }: TemplateCardPro
                 <button
                   onClick={handleBuy}
                   disabled={loading}
-                  className="bg-orange-500 hover:bg-orange-400 text-white font-bold rounded-2xl px-6 py-3 w-full transition-all duration-200 disabled:opacity-50 text-lg"
+                  className="bg-orange-500 hover:bg-orange-400 text-white font-bold rounded-2xl px-6 py-3.5 w-full transition-all duration-200 disabled:opacity-50 text-lg shadow-lg shadow-orange-500/25"
                 >
                   {loading ? "Caricamento..." : `Acquista ora — ${formatPrice(template.price)}`}
                 </button>
