@@ -35,9 +35,6 @@ Rules:
   const stream = anthropic.messages.stream({
     model: "claude-opus-4-6",
     max_tokens: 4096,
-    // "adaptive" is supported on claude-opus-4-6 but not yet typed in the SDK
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    thinking: { type: "adaptive" } as any,
     system,
     messages: [{ role: "user", content: userMsg }],
   });
