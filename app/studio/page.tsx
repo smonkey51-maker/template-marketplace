@@ -30,6 +30,7 @@ function StudioContent() {
   const [customLoading, setCustomLoading] = useState(false);
 
   const [copied, setCopied] = useState(false);
+  const [outputView, setOutputView] = useState<"code" | "preview">("code");
   const abortRef = useRef<AbortController | null>(null);
 
   const selectedTemplate = getTemplate(selectedId);
@@ -46,6 +47,7 @@ function StudioContent() {
       abortRef.current = controller;
 
       setOutput("");
+      setOutputView("code");
       setLoading(true);
 
       try {
@@ -113,6 +115,9 @@ function StudioContent() {
 
   const activeOutput = tab === "generate" ? genOutput : customOutput;
   const isLoading = tab === "generate" ? genLoading : customLoading;
+  const activeCategory =
+    tab === "generate" ? genCategory : selectedTemplate?.category ?? "ui";
+  const isUIOutput = activeCategory === "ui";
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -350,7 +355,33 @@ function StudioContent() {
           {/* Right: Output */}
           <div className="flex flex-col">
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-sm font-semibold text-gray-300">Output</h2>
+              <div className="flex items-center gap-2">
+                <h2 className="text-sm font-semibold text-gray-300">Output</h2>
+                {activeOutput && isUIOutput && (
+                  <div className="flex rounded-lg bg-white/5 border border-white/10 p-0.5 gap-0.5">
+                    <button
+                      onClick={() => setOutputView("code")}
+                      className={`px-3 py-1 rounded-md text-xs font-medium transition ${
+                        outputView === "code"
+                          ? "bg-white/15 text-white"
+                          : "text-gray-400 hover:text-white"
+                      }`}
+                    >
+                      &lt;/&gt; Code
+                    </button>
+                    <button
+                      onClick={() => setOutputView("preview")}
+                      className={`px-3 py-1 rounded-md text-xs font-medium transition ${
+                        outputView === "preview"
+                          ? "bg-white/15 text-white"
+                          : "text-gray-400 hover:text-white"
+                      }`}
+                    >
+                      👁 Preview
+                    </button>
+                  </div>
+                )}
+              </div>
               {activeOutput && (
                 <button
                   onClick={() => copyToClipboard(activeOutput)}
@@ -389,13 +420,22 @@ function StudioContent() {
                 </div>
               )}
 
-              {activeOutput && (
+              {activeOutput && (outputView === "code" || !isUIOutput) && (
                 <pre className="p-5 text-xs font-mono text-gray-300 overflow-auto h-full leading-relaxed whitespace-pre-wrap">
                   {activeOutput}
                   {isLoading && (
                     <span className="inline-block w-2 h-4 bg-violet-400 animate-pulse ml-0.5 align-middle" />
                   )}
                 </pre>
+              )}
+
+              {activeOutput && isUIOutput && outputView === "preview" && (
+                <iframe
+                  srcDoc={activeOutput}
+                  className="w-full h-full border-0"
+                  sandbox="allow-scripts"
+                  title="Template Preview"
+                />
               )}
             </div>
 
