@@ -2,6 +2,7 @@ import Link from "next/link";
 import { templates } from "@/lib/templates";
 import TemplateCard from "@/components/TemplateCard";
 import NavButtons from "@/components/NavButtons";
+import StudioAccessButton from "@/components/StudioAccessButton";
 
 export default function MarketplacePage() {
   const uiTemplates = templates.filter((t) => t.category === "ui");
@@ -104,21 +105,19 @@ export default function MarketplacePage() {
         </div>
       </section>
 
-      {/* CTA Banner */}
+      {/* Studio Access Banner */}
       <section className="mx-6 mb-24 rounded-3xl bg-gradient-to-br from-violet-900 to-indigo-900 border border-violet-500/30 p-12 text-center max-w-4xl lg:mx-auto">
+        <span className="inline-block text-xs font-bold bg-violet-500/30 text-violet-300 border border-violet-400/30 px-3 py-1 rounded-full mb-4">
+          ✨ Studio Access
+        </span>
         <h2 className="text-3xl font-bold mb-3">
-          Don't see what you need?
+          Generate templates from scratch
         </h2>
-        <p className="text-gray-300 mb-6">
-          Use the AI Studio to generate a brand-new template from scratch —
-          just describe what you want.
+        <p className="text-gray-300 mb-2">
+          Describe what you want and Claude builds it for you — UI components, prompt templates, anything.
         </p>
-        <Link
-          href="/studio"
-          className="inline-block px-8 py-3 bg-white text-indigo-900 font-bold rounded-xl hover:bg-white/90 transition"
-        >
-          Generate a template →
-        </Link>
+        <p className="text-violet-300 font-semibold text-lg mb-6">One-time purchase. Unlimited generations.</p>
+        <StudioAccessButton />
       </section>
     </div>
   );
