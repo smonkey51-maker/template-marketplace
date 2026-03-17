@@ -138,10 +138,10 @@ function StudioContent() {
   const isUIOutput = activeCategory === "ui";
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#000000] relative" style={{ background: "radial-gradient(ellipse at top, #1a1a1a 0%, #000 60%)" }}>
+    <div className="min-h-screen flex flex-col bg-page relative">
 
       {/* Nav — iOS liquid glass */}
-      <nav className="border-b border-white/[0.08] backdrop-blur-2xl bg-[#1C1C1E]/80 px-6 py-4 relative z-50">
+      <nav className="border-b border-theme backdrop-blur-2xl bg-nav px-6 py-4 relative z-50">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <Link
             href="/"
@@ -150,7 +150,7 @@ function StudioContent() {
             TemplateLab
           </Link>
           <div className="flex items-center gap-4">
-            <span className="text-[13px] text-[#8E8E93] bg-white/[0.06] backdrop-blur-sm px-3 py-1 rounded-full border border-white/[0.08] font-medium uppercase tracking-widest">
+            <span className="text-[13px] text-muted bg-card backdrop-blur-sm px-3 py-1 rounded-full border border-theme font-medium uppercase tracking-widest">
               AI Studio
             </span>
             <UserButton />
@@ -161,7 +161,7 @@ function StudioContent() {
       <div className="flex-1 max-w-7xl mx-auto w-full px-6 py-10 relative z-10">
         <div className="mb-8">
           <h1 className="text-[28px] font-bold mb-1 tracking-tight">AI Template Studio</h1>
-          <p className="text-[15px] text-[#8E8E93]">
+          <p className="text-[15px] text-muted">
             Generate new templates or customize existing ones with Claude.
           </p>
         </div>
@@ -170,7 +170,7 @@ function StudioContent() {
           {/* Left: Controls */}
           <div className="flex flex-col gap-6">
             {/* Tab switcher — iOS segmented control */}
-            <div className="flex bg-[#1C1C1E] rounded-[12px] p-1 gap-1">
+            <div className="flex bg-card rounded-[12px] p-1 gap-1">
               {(["generate", "customize"] as Tab[]).map((t) => (
                 <button
                   key={t}
@@ -178,10 +178,10 @@ function StudioContent() {
                   disabled={t === "generate" && !hasStudioAccess}
                   className={`flex-1 py-2 rounded-[10px] text-[15px] font-medium capitalize transition-all duration-200 ${
                     tab === t
-                      ? "bg-[#2C2C2E] text-white shadow-sm"
+                      ? "bg-surface text-theme shadow-sm"
                       : t === "generate" && !hasStudioAccess
                       ? "text-[#48484A] cursor-not-allowed"
-                      : "text-[#8E8E93] hover:text-white"
+                      : "text-muted hover:text-theme"
                   }`}
                 >
                   {t === "generate" ? "✨ Generate New" : "🎨 Customize"}
@@ -194,10 +194,10 @@ function StudioContent() {
 
             {/* Generate locked */}
             {tab === "generate" && !hasStudioAccess && (
-              <div className="bg-[#1C1C1E] border border-white/10 rounded-[28px] p-8 text-center flex flex-col items-center gap-4">
+              <div className="bg-surface border border-theme rounded-[28px] p-8 text-center flex flex-col items-center gap-4">
                 <div className="text-5xl">🔒</div>
-                <h3 className="font-semibold text-white text-[17px]">Studio Access richiesto</h3>
-                <p className="text-[15px] text-[#8E8E93]">
+                <h3 className="font-semibold text-theme text-[17px]">Studio Access richiesto</h3>
+                <p className="text-[15px] text-muted">
                   Acquista Studio Access per generare template illimitati con l&apos;AI.
                 </p>
                 <button
@@ -221,7 +221,7 @@ function StudioContent() {
               <div className="flex flex-col gap-4">
                 {/* Category */}
                 <div>
-                  <label className="text-[11px] font-semibold text-[#8E8E93] uppercase tracking-widest mb-2 block px-1">
+                  <label className="text-[11px] font-semibold text-muted uppercase tracking-widest mb-2 block px-1">
                     Template type
                   </label>
                   <div className="flex gap-3">
@@ -232,7 +232,7 @@ function StudioContent() {
                         className={`flex-1 py-2.5 rounded-2xl text-[15px] font-medium border transition-all duration-200 active:scale-[0.97] ios-spring ${
                           genCategory === c
                             ? "bg-[#007AFF]/15 border-[#007AFF]/40 text-[#007AFF]"
-                            : "border-white/[0.08] text-[#8E8E93] hover:border-white/20"
+                            : "border-theme text-muted hover:border-[#0A84FF]/50"
                         }`}
                       >
                         {c === "ui" ? "🖼 UI Component" : "📝 Prompt Template"}
@@ -244,7 +244,7 @@ function StudioContent() {
                 {/* Style (UI only) */}
                 {genCategory === "ui" && (
                   <div>
-                    <label className="text-[11px] font-semibold text-[#8E8E93] uppercase tracking-widest mb-2 block px-1">
+                    <label className="text-[11px] font-semibold text-muted uppercase tracking-widest mb-2 block px-1">
                       Visual style
                     </label>
                     <div className="flex flex-wrap gap-2">
@@ -263,7 +263,7 @@ function StudioContent() {
                           className={`px-3.5 py-1.5 rounded-full text-[13px] font-medium capitalize border transition-all duration-200 active:scale-[0.97] ios-spring ${
                             genStyle === s
                               ? "bg-[#007AFF]/15 border-[#007AFF]/40 text-[#007AFF]"
-                              : "border-white/[0.08] text-[#8E8E93] hover:border-white/20"
+                              : "border-theme text-muted hover:border-[#0A84FF]/50"
                           }`}
                         >
                           {s}
@@ -275,7 +275,7 @@ function StudioContent() {
 
                 {/* Description */}
                 <div>
-                  <label className="text-[11px] font-semibold text-[#8E8E93] uppercase tracking-widest mb-2 block px-1">
+                  <label className="text-[11px] font-semibold text-muted uppercase tracking-widest mb-2 block px-1">
                     Describe what you want
                   </label>
                   <textarea
@@ -290,7 +290,7 @@ function StudioContent() {
                         ? "e.g. A testimonial section with 3 cards, star ratings, and customer photos"
                         : "e.g. A LinkedIn connection request message for B2B SaaS outreach"
                     }
-                    className="w-full bg-[#1C1C1E] border border-white/[0.08] rounded-2xl px-4 py-3 text-[15px] text-white placeholder-[#48484A] focus:outline-none focus:border-[#007AFF]/50 focus:ring-1 focus:ring-[#007AFF]/30 resize-none transition-all duration-200"
+                    className="w-full bg-input border border-theme rounded-2xl px-4 py-3 text-[15px] text-theme placeholder-muted focus:outline-none focus:border-[#007AFF]/50 focus:ring-1 focus:ring-[#007AFF]/30 resize-none transition-all duration-200"
                   />
                   <p className="text-[11px] text-[#48484A] mt-1 px-1">⌘+Enter to generate</p>
                 </div>
@@ -316,11 +316,11 @@ function StudioContent() {
               <div className="flex flex-col gap-4">
                 {/* Template picker */}
                 <div>
-                  <label className="text-[11px] font-semibold text-[#8E8E93] uppercase tracking-widest mb-2 block px-1">
+                  <label className="text-[11px] font-semibold text-muted uppercase tracking-widest mb-2 block px-1">
                     Select a template to customize
                   </label>
                   {purchasedIds.length === 0 ? (
-                    <div className="bg-[#1C1C1E] border border-white/[0.08] rounded-2xl px-4 py-6 text-center text-[15px] text-[#8E8E93]">
+                    <div className="bg-surface border border-theme rounded-2xl px-4 py-6 text-center text-[15px] text-muted">
                       Non hai ancora acquistato nessun template.{" "}
                       <Link href="/" className="text-[#007AFF] hover:underline">
                         Vai al marketplace →
@@ -330,7 +330,7 @@ function StudioContent() {
                     <select
                       value={selectedId}
                       onChange={(e) => setSelectedId(e.target.value)}
-                      className="w-full bg-[#1C1C1E] border border-white/[0.08] rounded-2xl px-4 py-3 text-[15px] text-white focus:outline-none focus:border-[#007AFF]/50 focus:ring-1 focus:ring-[#007AFF]/30 transition-all duration-200"
+                      className="w-full bg-input border border-theme rounded-2xl px-4 py-3 text-[15px] text-theme focus:outline-none focus:border-[#007AFF]/50 focus:ring-1 focus:ring-[#007AFF]/30 transition-all duration-200"
                     >
                       <option value="">— Choose a template —</option>
                       {["ui", "prompt"].map((cat) => {
@@ -357,8 +357,8 @@ function StudioContent() {
 
                 {/* Template preview */}
                 {selectedTemplate && (
-                  <div className="bg-[#1C1C1E] border border-white/[0.08] rounded-2xl overflow-hidden">
-                    <p className="text-[11px] font-semibold text-[#8E8E93] px-4 pt-3 pb-2 uppercase tracking-widest">
+                  <div className="bg-surface border border-theme rounded-2xl overflow-hidden">
+                    <p className="text-[11px] font-semibold text-muted px-4 pt-3 pb-2 uppercase tracking-widest">
                       Template preview
                     </p>
                     {selectedTemplate.category === "ui" ? (
@@ -374,7 +374,7 @@ function StudioContent() {
                       </div>
                     ) : (
                       <div className="px-4 pb-3">
-                        <pre className="text-[11px] text-[#8E8E93] font-mono overflow-hidden line-clamp-4 leading-relaxed">
+                        <pre className="text-[11px] text-muted font-mono overflow-hidden line-clamp-4 leading-relaxed">
                           {selectedTemplate.content.slice(0, 200)}...
                         </pre>
                       </div>
@@ -384,7 +384,7 @@ function StudioContent() {
 
                 {/* Instructions */}
                 <div>
-                  <label className="text-[11px] font-semibold text-[#8E8E93] uppercase tracking-widest mb-2 block px-1">
+                  <label className="text-[11px] font-semibold text-muted uppercase tracking-widest mb-2 block px-1">
                     Customization instructions
                   </label>
                   <textarea
@@ -399,7 +399,7 @@ function StudioContent() {
                         ? "e.g. Change the color scheme to dark green, add an animation on the headline, make the CTA button larger"
                         : "e.g. Make it more casual and friendly, add a variable for company size, shorten to under 100 words"
                     }
-                    className="w-full bg-[#1C1C1E] border border-white/[0.08] rounded-2xl px-4 py-3 text-[15px] text-white placeholder-[#48484A] focus:outline-none focus:border-[#007AFF]/50 focus:ring-1 focus:ring-[#007AFF]/30 resize-none transition-all duration-200"
+                    className="w-full bg-input border border-theme rounded-2xl px-4 py-3 text-[15px] text-theme placeholder-muted focus:outline-none focus:border-[#007AFF]/50 focus:ring-1 focus:ring-[#007AFF]/30 resize-none transition-all duration-200"
                   />
                   <p className="text-[11px] text-[#48484A] mt-1 px-1">⌘+Enter to customize</p>
                 </div>
@@ -429,15 +429,15 @@ function StudioContent() {
           <div className="flex flex-col">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
-                <h2 className="text-[13px] font-semibold text-[#8E8E93] uppercase tracking-widest">Output</h2>
+                <h2 className="text-[13px] font-semibold text-muted uppercase tracking-widest">Output</h2>
                 {activeOutput && isUIOutput && (
-                  <div className="flex bg-[#1C1C1E] rounded-[12px] p-0.5 gap-0.5">
+                  <div className="flex bg-card rounded-[12px] p-0.5 gap-0.5">
                     <button
                       onClick={() => setOutputView("code")}
                       className={`px-3 py-1 rounded-[10px] text-[13px] font-medium transition-all duration-200 ${
                         outputView === "code"
-                          ? "bg-[#2C2C2E] text-white shadow-sm"
-                          : "text-[#8E8E93] hover:text-white"
+                          ? "bg-surface text-theme shadow-sm"
+                          : "text-muted hover:text-theme"
                       }`}
                     >
                       &lt;/&gt; Code
@@ -446,8 +446,8 @@ function StudioContent() {
                       onClick={() => setOutputView("preview")}
                       className={`px-3 py-1 rounded-[10px] text-[13px] font-medium transition-all duration-200 ${
                         outputView === "preview"
-                          ? "bg-[#2C2C2E] text-white shadow-sm"
-                          : "text-[#8E8E93] hover:text-white"
+                          ? "bg-surface text-theme shadow-sm"
+                          : "text-muted hover:text-theme"
                       }`}
                     >
                       👁 Preview
@@ -465,7 +465,7 @@ function StudioContent() {
               )}
             </div>
 
-            <div className="flex-1 relative bg-[#1C1C1E] border border-white/[0.08] rounded-[28px] overflow-hidden min-h-[500px]">
+            <div className="flex-1 relative bg-surface border border-theme rounded-[28px] overflow-hidden min-h-[500px]">
               {!activeOutput && !isLoading && (
                 <div className="absolute inset-0 flex items-center justify-center text-[#48484A] text-[15px]">
                   <div className="text-center">
@@ -483,7 +483,7 @@ function StudioContent() {
 
               {isLoading && !activeOutput && (
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="flex items-center gap-3 text-[#8E8E93]">
+                  <div className="flex items-center gap-3 text-muted">
                     <span style={{ display: "inline-block", animation: "spin 1s linear infinite", fontSize: "1.5rem", color: "#0A84FF" }}>⟳</span>
                     <span className="text-[15px]">
                       Claude is thinking
@@ -494,7 +494,7 @@ function StudioContent() {
               )}
 
               {activeOutput && (outputView === "code" || !isUIOutput) && (
-                <pre className="p-5 text-[12px] font-mono text-[#8E8E93] overflow-auto h-full leading-relaxed whitespace-pre-wrap">
+                <pre className="p-5 text-[12px] font-mono text-muted overflow-auto h-full leading-relaxed whitespace-pre-wrap">
                   {activeOutput}
                   {isLoading && (
                     <span className="inline-block w-2 h-4 bg-[#0A84FF] animate-pulse ml-0.5 align-middle" />
@@ -533,7 +533,7 @@ function StudioContent() {
 
 export default function StudioPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-[#8E8E93]">Loading...</div>}>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-muted">Loading...</div>}>
       <StudioContent />
     </Suspense>
   );

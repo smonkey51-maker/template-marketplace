@@ -36,22 +36,22 @@ export default function AccountPage() {
 
   if (!isLoaded) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#000000]">
+      <div className="min-h-screen flex items-center justify-center bg-page">
         <div className="w-8 h-8 rounded-full border-2 border-[#0A84FF] border-t-transparent animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#000000] relative" style={{ background: "radial-gradient(ellipse at top, #1a1a1a 0%, #000 60%)" }}>
+    <div className="min-h-screen bg-page relative">
 
       {/* Nav — iOS liquid glass */}
-      <nav className="sticky top-0 z-50 border-b border-white/[0.08] backdrop-blur-2xl bg-[#1C1C1E]/80 px-6 py-4">
+      <nav className="sticky top-0 z-50 border-b border-theme backdrop-blur-2xl bg-nav px-6 py-4">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <Link href="/" className="text-xl font-bold tracking-tight text-[#0A84FF]">
             TemplateLab
           </Link>
-          <Link href="/" className="text-[15px] text-[#8E8E93] hover:text-white transition">
+          <Link href="/" className="text-[15px] text-muted hover:text-theme transition">
             ← Marketplace
           </Link>
         </div>
@@ -60,15 +60,15 @@ export default function AccountPage() {
       <div className="relative z-10 max-w-4xl mx-auto px-6 py-12 flex flex-col gap-8">
 
         {/* Profile card */}
-        <div className="bg-[#1C1C1E] border border-white/[0.08] rounded-[28px] p-6 flex items-center gap-5">
+        <div className="bg-surface border border-theme rounded-[28px] p-6 flex items-center gap-5">
           <div className="w-16 h-16 rounded-full bg-[#0A84FF] flex items-center justify-center text-2xl font-bold text-white shrink-0">
             {user?.firstName?.[0] ?? user?.emailAddresses?.[0]?.emailAddress?.[0]?.toUpperCase() ?? "?"}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-[17px] font-semibold text-white truncate">
+            <p className="text-[17px] font-semibold text-theme truncate">
               {user?.fullName ?? user?.emailAddresses?.[0]?.emailAddress ?? "Utente"}
             </p>
-            <p className="text-[13px] text-[#8E8E93] truncate">
+            <p className="text-[13px] text-muted truncate">
               {user?.emailAddresses?.[0]?.emailAddress}
             </p>
           </div>
@@ -88,13 +88,13 @@ export default function AccountPage() {
         }`}>
           <div className="flex items-center gap-4">
             <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-2xl ${
-              hasStudioAccess ? "bg-[#5E5CE6]/20 text-[#5E5CE6]" : "bg-white/[0.08] text-white"
+              hasStudioAccess ? "bg-[#5E5CE6]/20 text-[#5E5CE6]" : "bg-card text-theme"
             }`}>
               ✦
             </div>
             <div>
-              <p className="font-bold text-white text-[17px]">Studio Access</p>
-              <p className="text-[13px] text-[#8E8E93]">
+              <p className="font-bold text-theme text-[17px]">Studio Access</p>
+              <p className="text-[13px] text-muted">
                 {hasStudioAccess ? "Attivo — Generazioni AI illimitate" : "Non attivo"}
               </p>
             </div>
@@ -103,7 +103,7 @@ export default function AccountPage() {
             <button
               onClick={openPortal}
               disabled={portalLoading}
-              className="px-4 py-2 bg-[#2C2C2E] border border-white/[0.08] rounded-2xl text-[15px] font-medium transition-all duration-200 active:scale-[0.97] ios-spring shrink-0"
+              className="px-4 py-2 bg-card border border-theme rounded-2xl text-[15px] font-medium transition-all duration-200 active:scale-[0.97] ios-spring shrink-0"
             >
               {portalLoading ? "..." : "Gestisci abbonamento"}
             </button>
@@ -119,16 +119,16 @@ export default function AccountPage() {
 
         {/* Purchased templates */}
         <div>
-          <h2 className="text-[13px] font-semibold text-[#8E8E93] uppercase tracking-widest mb-3 px-1">
+          <h2 className="text-[13px] font-semibold text-muted uppercase tracking-widest mb-3 px-1">
             I miei template{" "}
             {purchasedTemplates.length > 0 && (
-              <span className="normal-case tracking-normal text-[#8E8E93]">({purchasedTemplates.length})</span>
+              <span className="normal-case tracking-normal text-muted">({purchasedTemplates.length})</span>
             )}
           </h2>
 
           {purchasedTemplates.length === 0 ? (
-            <div className="bg-[#1C1C1E] border border-white/[0.08] rounded-[28px] p-10 text-center flex flex-col items-center gap-4">
-              <p className="text-[15px] text-[#8E8E93]">Nessun template acquistato ancora.</p>
+            <div className="bg-surface border border-theme rounded-[28px] p-10 text-center flex flex-col items-center gap-4">
+              <p className="text-[15px] text-muted">Nessun template acquistato ancora.</p>
               <Link
                 href="/"
                 className="inline-block px-6 py-2.5 bg-[#0A84FF] hover:bg-[#409CFF] text-white font-semibold rounded-2xl text-[15px] transition-all duration-200 active:scale-[0.97] ios-spring"
@@ -137,12 +137,12 @@ export default function AccountPage() {
               </Link>
             </div>
           ) : (
-            <div className="bg-[#1C1C1E] rounded-[20px] overflow-hidden">
+            <div className="bg-surface rounded-[20px] overflow-hidden">
               {purchasedTemplates.map((t, index) => (
                 <div
                   key={t.id}
                   className={`flex items-center gap-4 px-5 py-4 active:bg-white/[0.05] transition-colors duration-150 ${
-                    index > 0 ? "border-t border-white/[0.06]" : ""
+                    index > 0 ? "border-t border-theme" : ""
                   }`}
                 >
                   <div className={`w-11 h-11 rounded-2xl flex items-center justify-center text-xl shrink-0 ${
@@ -151,8 +151,8 @@ export default function AccountPage() {
                     {t.category === "ui" ? "🖼" : "📝"}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-white text-[15px] truncate">{t.name}</p>
-                    <p className="text-[13px] text-[#8E8E93]">{formatPrice(t.price)}</p>
+                    <p className="font-semibold text-theme text-[15px] truncate">{t.name}</p>
+                    <p className="text-[13px] text-muted">{formatPrice(t.price)}</p>
                   </div>
                   <Link
                     href={`/studio?templateId=${t.id}`}
@@ -168,22 +168,22 @@ export default function AccountPage() {
 
         {/* Account section */}
         <div>
-          <h3 className="text-[13px] font-semibold text-[#8E8E93] uppercase tracking-widest mb-3 px-1">Account</h3>
-          <div className="bg-[#1C1C1E] border border-white/[0.08] rounded-[20px] overflow-hidden">
+          <h3 className="text-[13px] font-semibold text-muted uppercase tracking-widest mb-3 px-1">Account</h3>
+          <div className="bg-surface border border-theme rounded-[20px] overflow-hidden">
             <button
               onClick={openPortal}
               disabled={portalLoading}
-              className="w-full text-left px-5 py-4 text-[15px] text-white hover:bg-white/[0.04] active:bg-white/[0.05] transition-colors duration-150 border-b border-white/[0.06] flex items-center justify-between"
+              className="w-full text-left px-5 py-4 text-[15px] text-theme hover:bg-card active:bg-card transition-colors duration-150 border-b border-theme flex items-center justify-between"
             >
               <span>{portalLoading ? "..." : "Gestisci pagamenti e fatture"}</span>
-              <span className="text-[#8E8E93] text-[18px]">›</span>
+              <span className="text-muted text-[18px]">›</span>
             </button>
             <Link
               href="/studio"
-              className="block px-5 py-4 text-[15px] text-white hover:bg-white/[0.04] active:bg-white/[0.05] transition-colors duration-150 flex items-center justify-between"
+              className="block px-5 py-4 text-[15px] text-theme hover:bg-card/[0.04] active:bg-white/[0.05] transition-colors duration-150 flex items-center justify-between"
             >
               <span>Vai all&apos;AI Studio</span>
-              <span className="text-[#8E8E93] text-[18px]">›</span>
+              <span className="text-muted text-[18px]">›</span>
             </Link>
           </div>
         </div>

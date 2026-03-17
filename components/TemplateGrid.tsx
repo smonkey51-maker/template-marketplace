@@ -113,20 +113,20 @@ export default function TemplateGrid() {
             <div className="flex items-center gap-3 mb-6">
               <span className="text-3xl">{section.emoji}</span>
               <div>
-                <h2 className="text-[20px] font-bold tracking-tight flex items-center gap-2">
+                <h2 className="text-[20px] font-bold tracking-tight flex items-center gap-2 text-theme">
                   {section.label}
                   <span className="bg-[#0A84FF]/15 text-[#0A84FF] rounded-full px-2.5 py-0.5 text-[13px] font-semibold">
                     {sectionTemplates.length}
                   </span>
                 </h2>
-                <p className="text-[13px] text-[#8E8E93] mt-0.5">
+                <p className="text-[13px] text-muted mt-0.5">
                   {section.subtitle}
                 </p>
               </div>
             </div>
 
             {/* Divider */}
-            <div className="h-px bg-white/[0.06] mb-6" />
+            <div className="h-px border-theme bg-transparent border-t mb-6" />
 
             {/* Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

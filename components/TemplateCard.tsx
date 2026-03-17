@@ -10,24 +10,17 @@ const categoryLabels: Record<string, string> = {
   prompt: "Prompt Template",
 };
 
-interface TemplateCardProps {
-  template: Template;
-  purchasedIds: string[];
-}
-
 /* ─── iOS Notes-style prompt preview ─── */
 function PromptPreview({ content }: { content: string }) {
   const parts = content.split(/({{[^}]+}})/g);
   return (
     <div className="bg-[#FFFEF7] m-4 rounded-2xl shadow-[0_2px_16px_rgba(0,0,0,0.12)] overflow-hidden">
-      {/* Notes toolbar */}
       <div className="flex items-center gap-2 px-4 py-2.5 bg-[#F7F6EE] border-b border-black/6">
         <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F57]" />
         <div className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]" />
         <div className="w-2.5 h-2.5 rounded-full bg-[#28C840]" />
         <span className="text-xs text-[#8E8E93] ml-2 font-medium">Prompt Template</span>
       </div>
-      {/* Notes body */}
       <div className="p-5 font-mono text-[13px] text-[#1C1C1E] leading-relaxed whitespace-pre-wrap overflow-auto max-h-[460px]">
         {parts.map((part, i) =>
           part.startsWith("{{") ? (
@@ -52,7 +45,6 @@ function PromptThumbnail({ template, isPurchased }: { template: Template; isPurc
   const parts = preview.split(/({{[^}]+}})/g);
   return (
     <div className="relative h-44 overflow-hidden bg-gradient-to-b from-[#1C1C1E] to-[#2C2C2E] p-3 flex items-start">
-      {/* Mini Notes card */}
       <div className="w-full bg-[#FFFEF7] rounded-xl shadow-lg p-3 overflow-hidden">
         <div className="flex items-center gap-1.5 mb-2">
           <div className="w-2 h-2 rounded-full bg-[#FF5F57]" />
@@ -105,7 +97,10 @@ function UIThumbnail({ template, isPurchased }: { template: Template; isPurchase
 }
 
 /* ─── Main component ─── */
-export default function TemplateCard({ template, purchasedIds }: TemplateCardProps) {
+export default function TemplateCard({ template, purchasedIds }: {
+  template: Template;
+  purchasedIds: string[];
+}) {
   const { isSignedIn } = useUser();
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -133,10 +128,11 @@ export default function TemplateCard({ template, purchasedIds }: TemplateCardPro
       {/* ── Card ── */}
       <div
         onClick={() => setModalOpen(true)}
-        className="group cursor-pointer bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-[28px] overflow-hidden flex flex-col
-          hover:bg-white/[0.07] hover:border-white/18 hover:shadow-2xl hover:shadow-black/40 hover:-translate-y-1
+        className="group cursor-pointer bg-card border border-theme rounded-[28px] overflow-hidden flex flex-col
+          hover:shadow-xl hover:-translate-y-1
           active:scale-[0.97] active:opacity-90
           transition-all duration-300 ios-spring"
+        style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}
       >
         {template.category === "ui"
           ? <UIThumbnail template={template} isPurchased={isPurchased} />
@@ -144,15 +140,15 @@ export default function TemplateCard({ template, purchasedIds }: TemplateCardPro
         }
 
         <div className="px-4 py-3.5 flex flex-col flex-1">
-          <span className="text-[11px] font-semibold text-gray-500 uppercase tracking-widest mb-1">
+          <span className="text-[11px] font-semibold text-muted uppercase tracking-widest mb-1">
             {categoryLabels[template.category]}
           </span>
-          <h3 className="text-[15px] font-semibold text-white group-hover:text-[#409CFF] transition-colors leading-snug">
+          <h3 className="text-[15px] font-semibold text-theme group-hover:text-[#0A84FF] transition-colors duration-200 leading-snug">
             {template.name}
           </h3>
           <div className="mt-auto pt-3 flex items-center justify-between">
             <span className="text-[15px] font-bold text-[#0A84FF]">{formatPrice(template.price)}</span>
-            <span className="text-[12px] text-gray-500 group-hover:text-[#409CFF] transition-colors ios-spring">
+            <span className="text-[12px] text-muted group-hover:text-[#0A84FF] transition-colors duration-200">
               Anteprima →
             </span>
           </div>
@@ -162,42 +158,44 @@ export default function TemplateCard({ template, purchasedIds }: TemplateCardPro
       {/* ── Modal / Bottom Sheet ── */}
       {modalOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-end sm:items-center justify-center"
+          style={{ backgroundColor: "rgba(0,0,0,0.5)", backdropFilter: "blur(8px)" }}
           onClick={(e) => { if (e.target === e.currentTarget) setModalOpen(false); }}
         >
           {/* Sheet */}
-          <div className="relative w-full sm:max-w-3xl bg-[#1C1C1E]/95 backdrop-blur-2xl
-            border border-white/10
-            rounded-t-[32px] sm:rounded-[32px]
-            shadow-2xl shadow-black/60
-            flex flex-col max-h-[92vh] sm:max-h-[88vh] sm:mx-4
-            sheet-enter sm:modal-enter"
+          <div
+            className="relative w-full sm:max-w-3xl border border-theme
+              rounded-t-[32px] sm:rounded-[32px]
+              shadow-2xl
+              flex flex-col max-h-[92vh] sm:max-h-[88vh] sm:mx-4
+              sheet-enter sm:modal-enter"
+            style={{ backgroundColor: "var(--surface-2)", backdropFilter: "blur(40px)" }}
           >
             {/* Handle (mobile) */}
             <div className="sm:hidden flex justify-center pt-3 pb-1 shrink-0">
-              <div className="w-9 h-1 rounded-full bg-white/20" />
+              <div className="w-9 h-1 rounded-full bg-theme/20" />
             </div>
 
             {/* Close (desktop) */}
             <button
               onClick={() => setModalOpen(false)}
-              className="hidden sm:flex absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 items-center justify-center text-gray-400 hover:text-white transition-all duration-200 text-lg leading-none"
+              className="hidden sm:flex absolute top-4 right-4 z-10 w-8 h-8 rounded-full items-center justify-center text-muted hover:text-theme transition-all duration-200 text-lg leading-none hover:bg-card"
             >
               ×
             </button>
 
             {/* Header */}
-            <div className="px-6 pt-4 pb-4 border-b border-white/8 shrink-0">
+            <div className="px-6 pt-4 pb-4 border-b border-theme shrink-0">
               <div className="flex items-start justify-between gap-4 pr-4 sm:pr-10">
                 <div>
-                  <span className="text-[11px] font-semibold text-gray-500 uppercase tracking-widest">
+                  <span className="text-[11px] font-semibold text-muted uppercase tracking-widest">
                     {categoryLabels[template.category]}
                   </span>
-                  <h2 className="text-xl font-bold text-white mt-0.5 leading-tight">{template.name}</h2>
-                  <p className="text-[14px] text-gray-400 mt-1 leading-relaxed">{template.description}</p>
+                  <h2 className="text-xl font-bold text-theme mt-0.5 leading-tight">{template.name}</h2>
+                  <p className="text-[14px] text-muted mt-1 leading-relaxed">{template.description}</p>
                   <div className="flex flex-wrap gap-1.5 mt-2.5">
                     {template.tags.map((tag) => (
-                      <span key={tag} className="text-[11px] text-gray-400 bg-white/8 border border-white/10 px-2 py-0.5 rounded-full">
+                      <span key={tag} className="text-[11px] text-muted bg-card border border-theme px-2 py-0.5 rounded-full">
                         {tag}
                       </span>
                     ))}
@@ -205,13 +203,13 @@ export default function TemplateCard({ template, purchasedIds }: TemplateCardPro
                 </div>
                 <div className="text-right shrink-0">
                   <span className="text-2xl font-extrabold text-[#0A84FF]">{formatPrice(template.price)}</span>
-                  <p className="text-[11px] text-gray-500 mt-0.5">one-time</p>
+                  <p className="text-[11px] text-muted mt-0.5">one-time</p>
                 </div>
               </div>
             </div>
 
             {/* Preview area */}
-            <div className="overflow-y-auto flex-1 min-h-0 bg-black/20">
+            <div className="overflow-y-auto flex-1 min-h-0 bg-card">
               {template.category === "ui" ? (
                 <iframe
                   src={`/api/preview/${template.id}`}
@@ -225,7 +223,7 @@ export default function TemplateCard({ template, purchasedIds }: TemplateCardPro
             </div>
 
             {/* CTA */}
-            <div className="p-5 border-t border-white/8 shrink-0">
+            <div className="p-5 border-t border-theme shrink-0">
               {isPurchased ? (
                 <Link
                   href={`/studio?templateId=${template.id}`}
