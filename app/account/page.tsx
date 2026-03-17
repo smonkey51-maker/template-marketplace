@@ -154,10 +154,21 @@ export default function AccountPage() {
                     index > 0 ? "border-t border-theme" : ""
                   }`}
                 >
-                  <div className={`w-11 h-11 rounded-2xl flex items-center justify-center text-xl shrink-0 ${
-                    tmpl.category === "ui" ? "bg-[#007AFF]/20" : "bg-[#0A84FF]/20"
+                  <div className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 ${
+                    tmpl.category === "ui" ? "bg-[#007AFF]/10" : "bg-[#5E5CE6]/10"
                   }`}>
-                    {tmpl.category === "ui" ? "🖼" : "📝"}
+                    {tmpl.category === "ui" ? (
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
+                        <rect x="1.5" y="3.5" width="17" height="12" rx="2" stroke="#007AFF" strokeWidth="1.5"/>
+                        <path d="M5 16.5v1.5M15 16.5v1.5M4 18h12" stroke="#007AFF" strokeWidth="1.5" strokeLinecap="round"/>
+                        <path d="M5 7h4M5 10h7" stroke="#007AFF" strokeWidth="1.3" strokeLinecap="round" opacity="0.5"/>
+                      </svg>
+                    ) : (
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
+                        <rect x="3.5" y="1.5" width="13" height="17" rx="2" stroke="#5E5CE6" strokeWidth="1.5"/>
+                        <path d="M7 6h6M7 9.5h6M7 13h4" stroke="#5E5CE6" strokeWidth="1.3" strokeLinecap="round"/>
+                      </svg>
+                    )}
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="font-semibold text-theme text-[15px] truncate">{tmpl.name}</p>

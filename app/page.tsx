@@ -10,6 +10,13 @@ export const metadata: Metadata = {
     description:
       "Scarica template HTML/UI e prompt AI professionali. Personalizzali con lo Studio AI integrato.",
     type: "website",
+    images: [{ url: "/api/og", width: 1200, height: 630, alt: "TemplateLab" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "TemplateLab — Template UI e Prompt AI pronti all'uso",
+    description: "Scarica template HTML/UI e prompt AI professionali.",
+    images: ["/api/og"],
   },
 };
 

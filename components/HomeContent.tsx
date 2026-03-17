@@ -14,6 +14,10 @@ import ScrollToTop from "@/components/ScrollToTop";
 function useCountUp(target: number, duration = 1200) {
   const [count, setCount] = useState(0);
   useEffect(() => {
+    if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setCount(target);
+      return;
+    }
     let start = 0;
     const step = Math.ceil(target / (duration / 16));
     const timer = setInterval(() => {

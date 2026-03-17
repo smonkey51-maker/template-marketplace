@@ -73,8 +73,12 @@ export default function GuidePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* UI Template */}
             <div className="bg-surface border border-theme rounded-[24px] p-6 flex flex-col gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-[#0A84FF]/10 flex items-center justify-center text-2xl">
-                🖼️
+              <div className="w-12 h-12 rounded-2xl bg-[#0A84FF]/10 flex items-center justify-center">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden>
+                  <rect x="2" y="4" width="20" height="14" rx="2" stroke="#0A84FF" strokeWidth="1.7"/>
+                  <path d="M8 18v2M16 18v2M6 20h12" stroke="#0A84FF" strokeWidth="1.7" strokeLinecap="round"/>
+                  <path d="M6 8h5M6 11.5h8" stroke="#0A84FF" strokeWidth="1.4" strokeLinecap="round" opacity="0.5"/>
+                </svg>
               </div>
               <div>
                 <h2 className="text-[18px] font-bold text-theme mb-2">{t[lang].guide.uiTitle}</h2>
@@ -96,8 +100,11 @@ export default function GuidePage() {
 
             {/* Prompt Template */}
             <div className="bg-surface border border-theme rounded-[24px] p-6 flex flex-col gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-[#5E5CE6]/10 flex items-center justify-center text-2xl">
-                📝
+              <div className="w-12 h-12 rounded-2xl bg-[#5E5CE6]/10 flex items-center justify-center">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden>
+                  <rect x="4" y="2" width="16" height="20" rx="2" stroke="#5E5CE6" strokeWidth="1.7"/>
+                  <path d="M8 8h8M8 12h8M8 16h5" stroke="#5E5CE6" strokeWidth="1.4" strokeLinecap="round"/>
+                </svg>
               </div>
               <div>
                 <h2 className="text-[18px] font-bold text-theme mb-2">{t[lang].guide.promptTitle}</h2>

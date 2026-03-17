@@ -23,7 +23,7 @@ export const t = {
     howItWorks: {
       title: "Come funziona",
       step1Title: "Scegli un template",
-      step1Desc: "Sfoglia 27 template professionali. Anteprima completa prima di acquistare.",
+      step1Desc: "Sfoglia i template professionali. Anteprima completa prima di acquistare.",
       step2Title: "Acquista in un click",
       step2Desc: "Pagamento sicuro con Stripe. Accesso immediato al template e all'AI Studio.",
       step3Title: "Personalizza con AI",
@@ -202,7 +202,7 @@ export const t = {
     howItWorks: {
       title: "How it works",
       step1Title: "Choose a template",
-      step1Desc: "Browse 27 professional templates. Full preview before purchasing.",
+      step1Desc: "Browse professional templates. Full preview before purchasing.",
       step2Title: "Buy in one click",
       step2Desc: "Secure payment with Stripe. Immediate access to the template and AI Studio.",
       step3Title: "Customize with AI",

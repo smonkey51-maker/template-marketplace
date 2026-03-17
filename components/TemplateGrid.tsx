@@ -64,6 +64,7 @@ export default function TemplateGrid() {
   const [sortOrder, setSortOrder] = useState<"popular" | "recent">("popular");
   const [quickViewId, setQuickViewId] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState<string | null>(null);
+  const searchRef = useRef<HTMLInputElement>(null);
   const handleQuickView = useCallback((id: string) => setQuickViewId(id), []);
 
   useEffect(() => {
@@ -102,6 +103,18 @@ export default function TemplateGrid() {
     });
     return () => observer.disconnect();
   }, [isFiltered]);
+
+  // "/" key focuses search
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "/" && document.activeElement?.tagName !== "INPUT" && document.activeElement?.tagName !== "TEXTAREA") {
+        e.preventDefault();
+        searchRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
+  }, []);
 
   const filteredTemplates = useMemo(() => {
     const q = normalize(query.trim());
@@ -149,11 +162,12 @@ export default function TemplateGrid() {
               <path d="M13 13l4 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/>
             </svg>
             <input
+              ref={searchRef}
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={t[lang].search.placeholder}
-              className="w-full bg-input border border-theme rounded-2xl pl-10 pr-4 py-3 text-[14px] text-theme placeholder:text-muted outline-none focus:border-[#0A84FF]/50 focus:ring-2 focus:ring-[#0A84FF]/10 transition-all duration-200"
+              className="w-full bg-input border border-theme rounded-2xl pl-10 pr-10 py-3 text-[14px] text-theme placeholder:text-muted outline-none focus:border-[#0A84FF]/50 focus:ring-2 focus:ring-[#0A84FF]/10 transition-all duration-200"
             />
             {query && (
               <button
@@ -165,6 +179,11 @@ export default function TemplateGrid() {
                   <path d="M2 2l10 10M12 2L2 12" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
                 </svg>
               </button>
+            )}
+            {!query && (
+              <kbd className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-muted/60 font-mono border border-theme/50 rounded px-1 py-0.5 pointer-events-none hidden sm:block">
+                /
+              </kbd>
             )}
           </div>
           <div className="flex items-center gap-1.5 shrink-0">
@@ -263,6 +282,7 @@ export default function TemplateGrid() {
               </button>
             );
           })}
+          <span className="shrink-0 w-4 sm:w-6" aria-hidden />
         </div>
       )}
 
@@ -280,7 +300,7 @@ export default function TemplateGrid() {
               <p className="text-[17px] font-semibold text-theme">{t[lang].search.notFound}</p>
               <p className="text-[14px] text-muted">{t[lang].search.notFoundDesc}</p>
               <button
-                onClick={() => { setQuery(""); setCategoryFilter("all"); }}
+                onClick={() => { setQuery(""); setCategoryFilter("all"); setStyleFilter("all"); }}
                 className="mt-2 px-5 py-2.5 bg-[#0A84FF] hover:bg-[#409CFF] text-white font-semibold rounded-2xl text-[14px] ios-spring transition-all duration-200"
               >
                 {t[lang].search.resetCta}

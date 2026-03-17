@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getTemplate } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
 
@@ -10,6 +10,7 @@ export default function PreviewModal({ templateId, onClose }: {
 }) {
   const { lang } = useLang();
   const template = getTemplate(templateId);
+  const [iframeLoaded, setIframeLoaded] = useState(false);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
@@ -63,11 +64,19 @@ export default function PreviewModal({ templateId, onClose }: {
         {/* Content */}
         <div className="flex-1 bg-white overflow-hidden">
           {template.category === "ui" ? (
-            <iframe
-              src={`/api/preview/${template.id}`}
-              title={template.name}
-              className="w-full h-full border-0 block"
-            />
+            <div className="relative w-full h-full">
+              {!iframeLoaded && (
+                <div className="absolute inset-0 flex items-center justify-center bg-[#F2F2F7]">
+                  <div className="w-7 h-7 rounded-full border-2 border-[#0A84FF] border-t-transparent animate-spin" />
+                </div>
+              )}
+              <iframe
+                src={`/api/preview/${template.id}`}
+                title={template.name}
+                className="w-full h-full border-0 block"
+                onLoad={() => setIframeLoaded(true)}
+              />
+            </div>
           ) : (
             <div className="h-full overflow-y-auto p-8 bg-[#FFFEF7]">
               <div className="max-w-2xl mx-auto font-mono text-[14px] text-[#1C1C1E] leading-relaxed whitespace-pre-wrap">
