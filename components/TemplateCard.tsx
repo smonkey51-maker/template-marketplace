@@ -214,7 +214,7 @@ export default function TemplateCard({ template, purchasedIds }: {
                 <iframe
                   src={`/api/preview/${template.id}`}
                   title="Template preview"
-                  className="w-full border-0 pointer-events-none"
+                  className="w-full border-0"
                   style={{ height: "500px" }}
                 />
               ) : (
