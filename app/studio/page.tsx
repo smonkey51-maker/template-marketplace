@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback, Suspense } from "react";
+import { useState, useRef, useCallback, Suspense, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
@@ -28,6 +28,16 @@ function StudioContent() {
   const [customInstructions, setCustomInstructions] = useState("");
   const [customOutput, setCustomOutput] = useState("");
   const [customLoading, setCustomLoading] = useState(false);
+
+  // Purchased templates
+  const [purchasedIds, setPurchasedIds] = useState<string[]>([]);
+
+  useEffect(() => {
+    fetch("/api/purchases")
+      .then((r) => r.json())
+      .then((data) => setPurchasedIds(data.templateIds ?? []))
+      .catch(() => {});
+  }, []);
 
   const [copied, setCopied] = useState(false);
   const [outputView, setOutputView] = useState<"code" | "preview">("code");
@@ -270,31 +280,40 @@ function StudioContent() {
                   <label className="text-sm font-medium text-gray-300 mb-2 block">
                     Select a template to customize
                   </label>
-                  <select
-                    value={selectedId}
-                    onChange={(e) => setSelectedId(e.target.value)}
-                    className="w-full bg-gray-900 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-violet-500"
-                  >
-                    <option value="">— Choose a template —</option>
-                    <optgroup label="UI Templates">
-                      {templates
-                        .filter((t) => t.category === "ui")
-                        .map((t) => (
-                          <option key={t.id} value={t.id}>
-                            {t.name} ({formatPrice(t.price)})
-                          </option>
-                        ))}
-                    </optgroup>
-                    <optgroup label="Prompt Templates">
-                      {templates
-                        .filter((t) => t.category === "prompt")
-                        .map((t) => (
-                          <option key={t.id} value={t.id}>
-                            {t.name} ({formatPrice(t.price)})
-                          </option>
-                        ))}
-                    </optgroup>
-                  </select>
+                  {purchasedIds.length === 0 ? (
+                    <div className="rounded-xl bg-white/5 border border-white/10 px-4 py-6 text-center text-sm text-gray-500">
+                      Non hai ancora acquistato nessun template.{" "}
+                      <Link href="/" className="text-violet-400 hover:underline">
+                        Vai al marketplace →
+                      </Link>
+                    </div>
+                  ) : (
+                    <select
+                      value={selectedId}
+                      onChange={(e) => setSelectedId(e.target.value)}
+                      className="w-full bg-gray-900 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-violet-500"
+                    >
+                      <option value="">— Choose a template —</option>
+                      {["ui", "prompt"].map((cat) => {
+                        const group = templates.filter(
+                          (t) => t.category === cat && purchasedIds.includes(t.id)
+                        );
+                        if (group.length === 0) return null;
+                        return (
+                          <optgroup
+                            key={cat}
+                            label={cat === "ui" ? "UI Templates" : "Prompt Templates"}
+                          >
+                            {group.map((t) => (
+                              <option key={t.id} value={t.id}>
+                                {t.name} ({formatPrice(t.price)})
+                              </option>
+                            ))}
+                          </optgroup>
+                        );
+                      })}
+                    </select>
+                  )}
                 </div>
 
                 {/* Template preview */}
