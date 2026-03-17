@@ -99,6 +99,7 @@ export const t = {
       downloads: "acquisti",
       open: "Apri →",
       editorsPick: "Editor's Pick",
+      isNew: "Nuovo",
     },
     preview: {
       back: "Indietro",
@@ -277,6 +278,7 @@ export const t = {
       downloads: "purchases",
       open: "Open →",
       editorsPick: "Editor's Pick",
+      isNew: "New",
     },
     preview: {
       back: "Back",

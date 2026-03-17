@@ -9,6 +9,7 @@ import { useLang } from "@/components/LanguageProvider";
 import { t } from "@/lib/i18n";
 import EmailCapture from "@/components/EmailCapture";
 import Footer from "@/components/Footer";
+import ScrollToTop from "@/components/ScrollToTop";
 
 function useCountUp(target: number, duration = 1200) {
   const [count, setCount] = useState(0);
@@ -191,6 +192,7 @@ export default function HomeContent() {
       {/* ── Footer ── */}
       <Footer />
 
+      <ScrollToTop />
     </div>
   );
 }

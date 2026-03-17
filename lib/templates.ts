@@ -24,6 +24,7 @@ export interface Template {
   /** Required for canva / excel / sheets / notion / webflow / framer */
   downloadUrl?: string;
   editorsPick?: boolean;
+  isNew?: boolean;
 }
 
 /** Returns the effective download type, falling back to category-based default */
@@ -194,6 +195,7 @@ export const templates: Template[] = [
     stripePriceId: "price_1TBz4bBoWNgrJbiy53ZV2H24",
     tags: ["real estate", "agent", "profile", "canva", "listings"],
     downloads: 312,
+    isNew: true,
     content: `<div class="min-h-screen bg-gradient-to-b from-amber-50 to-white font-sans">
   <!-- Hero -->
   <div class="relative bg-gradient-to-r from-amber-800 to-amber-600 text-white py-20 px-8 text-center overflow-hidden">
@@ -321,6 +323,7 @@ export const templates: Template[] = [
     stripePriceId: "price_1TBz4cBoWNgrJbiyl78g7arm",
     tags: ["therapist", "psychologist", "health", "canva", "booking"],
     downloads: 267,
+    isNew: true,
     content: `<div class="min-h-screen bg-gradient-to-b from-teal-50 to-white font-sans">
   <div class="max-w-3xl mx-auto px-6 py-12">
     <!-- Profile Header -->
@@ -380,6 +383,7 @@ export const templates: Template[] = [
     stripePriceId: "price_1TBz4dBoWNgrJbiyTRJrTvkK",
     tags: ["law", "legal", "firm", "canva", "professional"],
     downloads: 198,
+    isNew: true,
     content: `<div class="min-h-screen bg-slate-900 text-white font-sans">
   <!-- Header -->
   <div class="bg-gradient-to-r from-slate-900 to-slate-800 border-b border-slate-700 px-8 py-5 flex items-center justify-between max-w-6xl mx-auto">
@@ -1091,6 +1095,7 @@ QUALITY CRITERIA:
     stripePriceId: "price_1TBz23BoWNgrJbiyqDLxdo1I",
     tags: ["coffee", "café", "food", "warm", "landing"],
     downloads: 291,
+    isNew: true,
     content: `<div class="min-h-screen font-sans" style="background:#fdf6ed">
   <!-- Nav -->
   <nav class="flex items-center justify-between px-8 py-4 border-b border-[#e8d5b0]">
@@ -1146,6 +1151,7 @@ QUALITY CRITERIA:
     stripePriceId: "price_1TBz24BoWNgrJbiyThvqyfL5",
     tags: ["hotel", "booking", "travel", "luxury", "hospitality"],
     downloads: 188,
+    isNew: true,
     content: `<div class="min-h-screen bg-[#f8f6f2] font-sans">
   <!-- Hero Image -->
   <div class="relative h-80 bg-gradient-to-br from-slate-700 via-slate-600 to-stone-600 overflow-hidden">

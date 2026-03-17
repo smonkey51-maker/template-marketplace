@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { templates, Template } from "@/lib/templates";
 import TemplateCard from "@/components/TemplateCard";
 import StudioAccessButton from "@/components/StudioAccessButton";
 import { useLang } from "@/components/LanguageProvider";
 import { t, SEARCH_SYNONYMS } from "@/lib/i18n";
+import PreviewModal from "@/components/PreviewModal";
 
 type CategoryFilter = "all" | "ui" | "prompt";
 
@@ -61,6 +62,9 @@ export default function TemplateGrid() {
   const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>("all");
   const [styleFilter, setStyleFilter] = useState<string>("all");
   const [sortOrder, setSortOrder] = useState<"popular" | "recent">("popular");
+  const [quickViewId, setQuickViewId] = useState<string | null>(null);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
+  const handleQuickView = useCallback((id: string) => setQuickViewId(id), []);
 
   useEffect(() => {
     fetch("/api/purchases")
@@ -70,8 +74,34 @@ export default function TemplateGrid() {
       .finally(() => setLoading(false));
   }, []);
 
+  // Reset style filter when category changes
+  useEffect(() => { setStyleFilter("all"); }, [categoryFilter]);
+
   const byId = Object.fromEntries(templates.map((tmpl) => [tmpl.id, tmpl]));
   const isFiltered = query.trim() !== "" || categoryFilter !== "all" || styleFilter !== "all";
+
+  // Track active section for jump nav highlight
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  useEffect(() => {
+    if (isFiltered) { setActiveSection(null); return; }
+    observerRef.current?.disconnect();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id.replace("section-", ""));
+          }
+        });
+      },
+      { rootMargin: "-120px 0px -55% 0px", threshold: 0 }
+    );
+    observerRef.current = observer;
+    SECTION_IDS.forEach(({ id }) => {
+      const el = document.getElementById(`section-${id}`);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, [isFiltered]);
 
   const filteredTemplates = useMemo(() => {
     const q = normalize(query.trim());
@@ -205,7 +235,7 @@ export default function TemplateGrid() {
       {/* ── Studio Access inline hint ── */}
       <div className="mb-7 flex items-center justify-between gap-3 px-1">
         <p className="text-[13px] text-muted">
-          🤖 {t[lang].studioAccessBanner.title}
+          {t[lang].studioAccessBanner.title}
         </p>
         <StudioAccessButton compact />
       </div>
@@ -221,10 +251,12 @@ export default function TemplateGrid() {
                 onClick={() => {
                   document.getElementById(`section-${section.id}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
                 }}
-                className="flex items-center gap-1.5 shrink-0 px-3 py-1.5 rounded-xl
-                  bg-input border border-theme text-muted text-[12px] font-semibold
-                  hover:text-theme hover:border-[#0A84FF]/30 transition-all duration-200 ios-spring
-                  whitespace-nowrap"
+                className={`flex items-center gap-1.5 shrink-0 px-3 py-1.5 rounded-xl
+                  text-[12px] font-semibold transition-all duration-200 ios-spring whitespace-nowrap border ${
+                  activeSection === section.id
+                    ? "bg-[#0A84FF] text-white border-transparent shadow-[0_2px_10px_rgba(10,132,255,0.3)]"
+                    : "bg-input border-theme text-muted hover:text-theme hover:border-[#0A84FF]/30"
+                }`}
               >
                 <span>{section.emoji}</span>
                 <span className="hidden sm:inline">{sectionMeta.label}</span>
@@ -260,7 +292,7 @@ export default function TemplateGrid() {
                 ? Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)
                 : filteredTemplates.map((tmpl, i) => (
                     <div key={tmpl.id} className="anim-fade-up" style={{ animationDelay: `${i * 35}ms` }}>
-                      <TemplateCard template={tmpl} purchasedIds={purchasedIds} />
+                      <TemplateCard template={tmpl} purchasedIds={purchasedIds} onQuickView={handleQuickView} />
                     </div>
                   ))}
             </div>
@@ -296,7 +328,7 @@ export default function TemplateGrid() {
                     ? Array.from({ length: sectionTemplates.length }).map((_, i) => <SkeletonCard key={i} />)
                     : sectionTemplates.map((tmpl, i) => (
                         <div key={tmpl.id} className="anim-fade-up" style={{ animationDelay: `${i * 50}ms` }}>
-                          <TemplateCard template={tmpl} purchasedIds={purchasedIds} />
+                          <TemplateCard template={tmpl} purchasedIds={purchasedIds} onQuickView={handleQuickView} />
                         </div>
                       ))}
                 </div>
@@ -304,6 +336,11 @@ export default function TemplateGrid() {
             );
           })}
         </div>
+      )}
+
+      {/* ── Quick Preview Modal ── */}
+      {quickViewId && (
+        <PreviewModal templateId={quickViewId} onClose={() => setQuickViewId(null)} />
       )}
     </div>
   );

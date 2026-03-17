@@ -79,14 +79,16 @@ function PurchasedBadge({ lang }: { lang: Lang }) {
   );
 }
 
-export default function TemplateCard({ template, purchasedIds }: {
+export default function TemplateCard({ template, purchasedIds, onQuickView }: {
   template: Template;
   purchasedIds: string[];
+  onQuickView?: (id: string) => void;
 }) {
   const { lang } = useLang();
   const isPurchased = purchasedIds.includes(template.id);
   const isBestseller = template.downloads >= 700;
   const isEditorsPick = template.editorsPick === true;
+  const isNew = template.isNew === true;
   const displayName = lang === "it" ? (templateTranslations[template.id]?.name ?? template.name) : template.name;
   const displayDesc = lang === "it" ? (templateTranslations[template.id]?.description ?? template.description) : template.description;
 
@@ -113,8 +115,17 @@ export default function TemplateCard({ template, purchasedIds }: {
           {t[lang].card.bestseller}
         </div>
       )}
+      {/* New badge */}
+      {isNew && !isPurchased && !isEditorsPick && !isBestseller && (
+        <div className="absolute top-2.5 left-2.5 z-10 bg-[#30D158]/20 text-[#30D158] border border-[#30D158]/30 rounded-full px-2 py-0.5 text-[10px] font-bold backdrop-blur-sm">
+          {t[lang].card.isNew}
+        </div>
+      )}
 
-      <div className="relative">
+      <div
+        className="relative"
+        onClick={(e) => { if (onQuickView) { e.preventDefault(); e.stopPropagation(); onQuickView(template.id); } }}
+      >
         {template.category === "ui"
           ? <UIThumbnail template={template} isPurchased={isPurchased} lang={lang} />
           : <PromptThumbnail template={template} isPurchased={isPurchased} lang={lang} />
@@ -122,7 +133,7 @@ export default function TemplateCard({ template, purchasedIds }: {
         {/* Hover CTA overlay */}
         <div className="absolute inset-0 flex items-end justify-center pb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
           <span className="bg-[#0A84FF] text-white text-[12px] font-bold px-4 py-2 rounded-xl shadow-[0_4px_16px_rgba(10,132,255,0.4)] backdrop-blur-sm">
-            {lang === "it" ? "Vedi anteprima →" : "Preview →"}
+            {lang === "it" ? "Anteprima rapida →" : "Quick preview →"}
           </span>
         </div>
       </div>
@@ -157,7 +168,7 @@ export default function TemplateCard({ template, purchasedIds }: {
               <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden>
                 <path d="M6 1v7M3 6l3 3 3-3M2 10h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              {template.downloads.toLocaleString("it-IT")}
+              {template.downloads.toLocaleString(lang === "it" ? "it-IT" : "en-US")}
             </span>
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden
               className="text-muted opacity-0 group-hover:opacity-60 transition-opacity duration-200 group-hover:translate-x-0.5 transition-transform">
