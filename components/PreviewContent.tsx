@@ -8,7 +8,7 @@ import DownloadButton from "@/components/DownloadButton";
 import RelatedTemplates from "@/components/RelatedTemplates";
 import { useUser } from "@clerk/nextjs";
 import { useLang } from "@/components/LanguageProvider";
-import { t } from "@/lib/i18n";
+import { t, templateTranslations } from "@/lib/i18n";
 
 function PromptFullView({ content }: { content: string }) {
   const parts = content.split(/({{[^}]+}})/g);
@@ -86,6 +86,8 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
   }
 
   const categoryLabel = template.category === "ui" ? t[lang].card.categoryUI : t[lang].card.categoryPrompt;
+  const displayName = lang === "it" ? (templateTranslations[template.id]?.name ?? template.name) : template.name;
+  const displayDesc = lang === "it" ? (templateTranslations[template.id]?.description ?? template.description) : template.description;
 
   return (
     <div className="min-h-screen bg-page flex flex-col">
@@ -249,8 +251,8 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
                   <span className="text-[10px] font-bold text-[#FF9F0A] bg-[#FF9F0A]/10 border border-[#FF9F0A]/20 px-1.5 py-0.5 rounded-full">{t[lang].card.bestseller}</span>
                 )}
               </div>
-              <p className="text-[15px] font-bold text-theme leading-tight">{template.name}</p>
-              <p className="text-[12px] text-muted mt-0.5 line-clamp-1">{template.description}</p>
+              <p className="text-[15px] font-bold text-theme leading-tight">{displayName}</p>
+              <p className="text-[12px] text-muted mt-0.5 line-clamp-1">{displayDesc}</p>
             </div>
             <div className="text-right shrink-0">
               <p className="text-[22px] font-black text-[#0A84FF] leading-none">{formatPrice(template.price)}</p>

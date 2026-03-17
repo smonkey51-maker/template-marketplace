@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRef, useEffect, useState } from "react";
 import { Template, formatPrice } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
-import { t } from "@/lib/i18n";
+import { t, templateTranslations } from "@/lib/i18n";
 
 function PromptThumbnail({ template, isPurchased }: { template: Template; isPurchased: boolean }) {
   const preview = template.content.slice(0, 180);
@@ -85,6 +85,7 @@ export default function TemplateCard({ template, purchasedIds }: {
   const { lang } = useLang();
   const isPurchased = purchasedIds.includes(template.id);
   const isBestseller = template.downloads >= 700;
+  const displayName = lang === "it" ? (templateTranslations[template.id]?.name ?? template.name) : template.name;
 
   return (
     <Link
@@ -118,7 +119,7 @@ export default function TemplateCard({ template, purchasedIds }: {
           </span>
         </div>
         <h3 className="text-[13.5px] font-semibold text-theme leading-snug group-hover:text-[#0A84FF] transition-colors duration-200 flex-1">
-          {template.name}
+          {displayName}
         </h3>
         <div className="mt-2.5 pt-2.5 border-t border-theme flex items-center justify-between">
           <span className="text-[15px] font-bold text-[#0A84FF]">{formatPrice(template.price)}</span>

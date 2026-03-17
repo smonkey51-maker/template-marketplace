@@ -323,6 +323,38 @@ export const t = {
   },
 } as const;
 
+// Italian name+description translations for every template.
+// EN falls back to the original name/description in lib/templates.ts.
+export const templateTranslations: Record<string, { name: string; description: string }> = {
+  "hero-saas":                { name: "Sezione Hero SaaS",             description: "Hero moderno con sfondo gradiente, CTA e badge social proof." },
+  "pricing-table":            { name: "Tabella Prezzi 3 Livelli",       description: "Card prezzi pulite con piano consigliato in evidenza e lista funzionalità." },
+  "blog-card-grid":           { name: "Griglia Articoli Blog",          description: "Layout a 3 colonne con card articolo, autore, data e tag categoria." },
+  "real-estate-agent":        { name: "Profilo Agente Immobiliare",     description: "Pagina profilo Canva-style per agenti con vetrina annunci e CTA contatto." },
+  "airbnb-property-listing":  { name: "Annuncio Affitto Breve",         description: "Pagina proprietà per host con galleria, servizi e CTA prenotazione." },
+  "therapist-profile":        { name: "Profilo Psicologo / Terapeuta",  description: "Pagina professionale calda per terapeuti con specializzazioni e prenotazione." },
+  "law-firm-services":        { name: "Studio Legale — Servizi",        description: "Pagina servizi autorevole per studi legali e avvocati." },
+  "budget-tracker":           { name: "Tracker Budget Personale",       description: "Dashboard finanza personale con categorie spese, grafici e obiettivi." },
+  "personal-finance-dashboard": { name: "Dashboard Finanza Personale", description: "Panoramica patrimonio con asset, obiettivi di risparmio e rendimenti." },
+  "artisan-product-catalog":  { name: "Catalogo Prodotti Artigianali",  description: "Vetrina prodotti fatti a mano con storytelling del brand e checkout." },
+  "revenue-analytics":        { name: "Analytics Ricavi",               description: "Dashboard KPI con grafici trend, metriche chiave e breakdown per canale." },
+  "saas-landing-dark":        { name: "Landing Page SaaS Dark",         description: "Pagina lancio dark-mode con feature, prezzi e social proof." },
+  "creative-agency-portfolio": { name: "Portfolio Agenzia Creativa",    description: "Pagina portfolio con case study, servizi offerti e presentazione del team." },
+  "freelance-tech-profile":   { name: "Profilo Freelance Tech",         description: "Pagina personale per developer con skill, progetti e contatti." },
+  "startup-product-launch":   { name: "Lancio Prodotto Startup",        description: "Pagina lancio con countdown, lista d'attesa e social proof." },
+  "cold-email-b2b":           { name: "Email Fredda B2B",               description: "Prompt copywriting per outreach B2B con variabili di personalizzazione." },
+  "product-description-ecom": { name: "Descrizione Prodotto Ecommerce", description: "Prompt per descrizioni prodotto persuasive ottimizzate SEO." },
+  "ai-assistant-system-prompt": { name: "System Prompt Assistente AI",  description: "Prompt di sistema per configurare un assistente AI personalizzato e coerente." },
+  "restaurant-menu":          { name: "Menù Ristorante",                description: "Pagina menù elegante con categorie, prezzi e sezione speciali del giorno." },
+  "coffee-shop-landing":      { name: "Landing Caffetteria",            description: "Pagina landing calda per caffetterie con storia del locale e offerte." },
+  "hotel-booking":            { name: "Prenotazione Hotel",             description: "Pagina hotel con galleria foto, servizi e modulo prenotazione integrato." },
+  "mobile-app-showcase":      { name: "Showcase App Mobile",            description: "Pagina vetrina app con mockup device, funzionalità e link download." },
+  "feature-showcase":         { name: "Vetrina Funzionalità",           description: "Pagina feature con icone, descrizioni e comparazione piani." },
+  "saas-dashboard":           { name: "Anteprima Dashboard SaaS",       description: "Dashboard con sidebar, metriche e grafici interattivi." },
+  "digital-resume":           { name: "CV Digitale",                    description: "Curriculum vitae online con timeline esperienze, skill e portfolio." },
+  "link-in-bio":              { name: "Link in Bio",                    description: "Pagina link in bio per creator con profilo social e link multipli." },
+  "newsletter-landing":       { name: "Landing Newsletter",             description: "Pagina iscrizione newsletter con anteprima contenuti e CTA ottimizzata." },
+};
+
 // Per la ricerca bilingue: mappa termini italiani → tag inglesi
 export const SEARCH_SYNONYMS: Record<string, string[]> = {
   "ristorante": ["restaurant", "food", "menu", "hospitality"],

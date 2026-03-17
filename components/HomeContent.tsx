@@ -6,6 +6,7 @@ import TemplateGrid from "@/components/TemplateGrid";
 import NavButtons from "@/components/NavButtons";
 import { useLang } from "@/components/LanguageProvider";
 import { t } from "@/lib/i18n";
+import EmailCapture from "@/components/EmailCapture";
 
 export default function HomeContent() {
   const { lang } = useLang();
@@ -158,6 +159,27 @@ export default function HomeContent() {
       {/* ── Template Grid ── */}
       <div className="relative z-10">
         <TemplateGrid />
+      </div>
+
+      {/* ── Quote ── */}
+      <div className="relative z-10 border-t border-theme py-14 px-4 sm:px-6">
+        <div className="max-w-xl mx-auto text-center">
+          <p className="text-[15px] sm:text-[17px] font-semibold text-theme leading-relaxed mb-3">
+            {lang === "it"
+              ? "\"Il codice non è poesia. È lavoro. Lascia che l'AI faccia il lavoro.\""
+              : "\"Code is not poetry. It's work. Let the AI do the work.\""}
+          </p>
+          <p className="text-[12px] text-muted">
+            {lang === "it"
+              ? "— Qualcuno che ha perso 3 notti su un form di contatto"
+              : "— Someone who lost 3 nights on a contact form"}
+          </p>
+        </div>
+      </div>
+
+      {/* ── Newsletter ── */}
+      <div className="relative z-10 border-t border-theme">
+        <EmailCapture />
       </div>
 
     </div>
