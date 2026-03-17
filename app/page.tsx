@@ -1,19 +1,16 @@
 import Link from "next/link";
 import { templates } from "@/lib/templates";
-import TemplateCard from "@/components/TemplateCard";
+import TemplateGrid from "@/components/TemplateGrid";
 import NavButtons from "@/components/NavButtons";
 import StudioAccessButton from "@/components/StudioAccessButton";
 
 export default function MarketplacePage() {
-  const uiTemplates = templates.filter((t) => t.category === "ui");
-  const promptTemplates = templates.filter((t) => t.category === "prompt");
-
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-orange-950/10">
       {/* Nav */}
       <nav className="sticky top-0 z-50 border-b border-white/10 bg-gray-950/80 backdrop-blur-md px-6 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <span className="text-xl font-extrabold bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">
+          <span className="text-xl font-extrabold bg-gradient-to-r from-orange-400 to-amber-300 bg-clip-text text-transparent">
             TemplateLab
           </span>
           <div className="flex items-center gap-4">
@@ -29,96 +26,78 @@ export default function MarketplacePage() {
       </nav>
 
       {/* Hero */}
-      <section className="py-24 px-6 text-center max-w-4xl mx-auto">
-        <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-violet-500/20 text-violet-300 border border-violet-500/30 mb-6">
-          ✨ Powered by Claude AI
+      <section className="py-20 px-6 text-center max-w-4xl mx-auto">
+        <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-orange-500/20 text-orange-300 border border-orange-500/30 mb-6">
+          ⚡ Powered by Claude AI
         </span>
         <h1 className="text-5xl md:text-6xl font-extrabold leading-tight mb-5">
-          Premium templates,{" "}
-          <span className="bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">
-            AI-customized
+          Template premium,{" "}
+          <span className="bg-gradient-to-r from-orange-400 to-amber-300 bg-clip-text text-transparent">
+            personalizzati con AI
           </span>{" "}
-          for you
+          per te
         </h1>
         <p className="text-lg text-gray-400 max-w-2xl mx-auto mb-8">
-          Buy any template, then instantly adapt it with AI. Change styles,
-          swap content, generate new variations — in seconds.
+          Acquista un template, poi adattalo istantaneamente con l&apos;AI. Cambia stili,
+          contenuti, genera varianti — in pochi secondi.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link
-            href="/studio"
-            className="px-7 py-3 bg-violet-600 hover:bg-violet-500 rounded-xl font-semibold transition"
-          >
-            Open AI Studio →
-          </Link>
           <a
             href="#browse"
+            className="px-7 py-3 bg-orange-500 hover:bg-orange-400 rounded-xl font-semibold transition text-white"
+          >
+            Sfoglia template →
+          </a>
+          <Link
+            href="/studio"
             className="px-7 py-3 bg-white/10 hover:bg-white/20 rounded-xl font-semibold transition"
           >
-            Browse templates
-          </a>
+            Apri AI Studio
+          </Link>
         </div>
         <div className="flex items-center justify-center gap-8 mt-10 text-sm text-gray-600">
           <span>⚡ {templates.length}+ templates</span>
-          <span>🤖 Claude Opus 4.6</span>
-          <span>💳 One-time purchase</span>
+          <span>🤖 Claude AI</span>
+          <span>💳 Acquisto unico</span>
         </div>
       </section>
 
-      {/* UI Templates */}
-      <section id="browse" className="px-6 pb-16 max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold">
-            UI Templates{" "}
-            <span className="text-sm font-normal text-gray-500 ml-2">
-              HTML + Tailwind CSS
-            </span>
-          </h2>
-          <span className="text-sm text-gray-500">
-            {uiTemplates.length} templates
+      {/* Studio Access Banner — prominent, above template grid */}
+      <section className="px-6 mb-16 max-w-5xl mx-auto">
+        <div className="relative rounded-3xl overflow-hidden border border-orange-500/30 bg-gradient-to-br from-amber-950 via-orange-950 to-red-950 p-10 text-center shadow-2xl shadow-orange-950/40">
+          {/* Glow effect */}
+          <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 via-transparent to-red-500/10 pointer-events-none" />
+
+          <span className="inline-block text-xs font-bold bg-orange-500/30 text-orange-300 border border-orange-400/40 px-3 py-1 rounded-full mb-4">
+            🔥 Offerta limitata
           </span>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {uiTemplates.map((t) => (
-            <TemplateCard key={t.id} template={t} />
-          ))}
-        </div>
-      </section>
 
-      {/* Prompt Templates */}
-      <section className="px-6 pb-24 max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold">
-            Prompt Templates{" "}
-            <span className="text-sm font-normal text-gray-500 ml-2">
-              Works with any LLM
-            </span>
+          <h2 className="text-3xl md:text-4xl font-extrabold mb-3 text-white">
+            Genera template illimitati con AI
           </h2>
-          <span className="text-sm text-gray-500">
-            {promptTemplates.length} templates
-          </span>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {promptTemplates.map((t) => (
-            <TemplateCard key={t.id} template={t} />
-          ))}
+
+          <p className="text-gray-300 mb-2 max-w-xl mx-auto">
+            Descrivi quello che vuoi e Claude lo crea per te — componenti UI, prompt template, qualsiasi cosa.
+          </p>
+
+          <p className="text-amber-300 font-bold text-lg mb-2">
+            Acquisto unico · Generazioni illimitate
+          </p>
+
+          <p className="text-2xl font-extrabold text-white mb-6">
+            Solo <span className="text-yellow-400">$29.00</span>
+          </p>
+
+          <StudioAccessButton />
+
+          <p className="text-xs text-gray-500 mt-4">
+            Nessun abbonamento · Accesso permanente · Garanzia soddisfatti o rimborsati
+          </p>
         </div>
       </section>
 
-      {/* Studio Access Banner */}
-      <section className="mx-6 mb-24 rounded-3xl bg-gradient-to-br from-violet-900 to-indigo-900 border border-violet-500/30 p-12 text-center max-w-4xl lg:mx-auto">
-        <span className="inline-block text-xs font-bold bg-violet-500/30 text-violet-300 border border-violet-400/30 px-3 py-1 rounded-full mb-4">
-          ✨ Studio Access
-        </span>
-        <h2 className="text-3xl font-bold mb-3">
-          Generate templates from scratch
-        </h2>
-        <p className="text-gray-300 mb-2">
-          Describe what you want and Claude builds it for you — UI components, prompt templates, anything.
-        </p>
-        <p className="text-violet-300 font-semibold text-lg mb-6">One-time purchase. Unlimited generations.</p>
-        <StudioAccessButton />
-      </section>
+      {/* Template Grid (client — fetches purchases, renders cards with modal) */}
+      <TemplateGrid />
     </div>
   );
 }
