@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import ThemeProvider from "@/components/ThemeProvider";
 import LanguageProvider from "@/components/LanguageProvider";
 import "./globals.css";
-
-const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
 
 export const metadata: Metadata = {
   title: "TemplateLab — AI-Powered Template Marketplace",
@@ -20,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en" className={`dark ${geist.variable}`}>
+      <html lang="en" className="dark">
         <body className="bg-page text-theme antialiased min-h-screen">
           <ThemeProvider><LanguageProvider>{children}</LanguageProvider></ThemeProvider>
         </body>
