@@ -6,7 +6,9 @@ import { Template, formatPrice } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
 import { t, templateTranslations } from "@/lib/i18n";
 
-function PromptThumbnail({ template, isPurchased }: { template: Template; isPurchased: boolean }) {
+type Lang = "it" | "en";
+
+function PromptThumbnail({ template, isPurchased, lang }: { template: Template; isPurchased: boolean; lang: Lang }) {
   const preview = template.content.slice(0, 180);
   const parts = preview.split(/({{[^}]+}})/g);
   return (
@@ -17,7 +19,7 @@ function PromptThumbnail({ template, isPurchased }: { template: Template; isPurc
           <div className="w-2 h-2 rounded-full bg-[#FFBD2E]" />
           <div className="w-2 h-2 rounded-full bg-[#28C840]" />
         </div>
-        <div className="font-mono text-[9.5px] text-[#1C1C1E] leading-relaxed line-clamp-5">
+        <div className="font-mono text-[11px] text-[#1C1C1E] leading-relaxed line-clamp-4">
           {parts.map((part, i) =>
             part.startsWith("{{") ? (
               <span key={i} className="bg-[#007AFF]/15 text-[#007AFF] rounded px-0.5 font-semibold">{part}</span>
@@ -26,12 +28,12 @@ function PromptThumbnail({ template, isPurchased }: { template: Template; isPurc
         </div>
       </div>
       <div className="absolute inset-0 bg-gradient-to-t from-[#1C1C1E] via-[#1C1C1E]/10 to-transparent" />
-      {isPurchased && <PurchasedBadge />}
+      {isPurchased && <PurchasedBadge lang={lang} />}
     </div>
   );
 }
 
-function UIThumbnail({ template, isPurchased }: { template: Template; isPurchased: boolean }) {
+function UIThumbnail({ template, isPurchased, lang }: { template: Template; isPurchased: boolean; lang: Lang }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -61,19 +63,18 @@ function UIThumbnail({ template, isPurchased }: { template: Template; isPurchase
           />
         )}
       </div>
-      {/* Better gradient: transparent top, heavy bottom */}
       <div className="absolute inset-0 pointer-events-none"
         style={{ background: "linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.45) 80%, rgba(0,0,0,0.7) 100%)" }} />
-      {isPurchased && <PurchasedBadge />}
+      {isPurchased && <PurchasedBadge lang={lang} />}
     </div>
   );
 }
 
-function PurchasedBadge() {
+function PurchasedBadge({ lang }: { lang: Lang }) {
   return (
     <span className="absolute bottom-3 left-3 z-10 flex items-center gap-1 bg-[#30D158]/20 text-[#30D158] border border-[#30D158]/30 rounded-full px-2.5 py-1 text-[11px] font-semibold backdrop-blur-sm">
       <span className="w-1.5 h-1.5 rounded-full bg-[#30D158]" />
-      Acquistato
+      {lang === "it" ? "Acquistato" : "Purchased"}
     </span>
   );
 }
@@ -86,10 +87,12 @@ export default function TemplateCard({ template, purchasedIds }: {
   const isPurchased = purchasedIds.includes(template.id);
   const isBestseller = template.downloads >= 700;
   const displayName = lang === "it" ? (templateTranslations[template.id]?.name ?? template.name) : template.name;
+  const displayDesc = lang === "it" ? (templateTranslations[template.id]?.description ?? template.description) : template.description;
 
   return (
     <Link
       href={`/preview/${template.id}`}
+      aria-label={displayName}
       className="group relative glass-subtle rounded-[22px] overflow-hidden flex flex-col h-full
         transition-all duration-300 ease-premium
         hover:-translate-y-1
@@ -98,19 +101,20 @@ export default function TemplateCard({ template, purchasedIds }: {
     >
       {/* Bestseller badge */}
       {isBestseller && !isPurchased && (
-        <div className="absolute top-2.5 right-2.5 z-10 flex items-center gap-1 bg-[#FF9F0A]/20 text-[#FF9F0A] border border-[#FF9F0A]/30 rounded-full px-2 py-0.5 text-[10px] font-bold backdrop-blur-sm">
-          ⭐ {t[lang].card.bestseller}
+        <div className="absolute top-2.5 right-2.5 z-10 bg-[#FF9F0A]/20 text-[#FF9F0A] border border-[#FF9F0A]/30 rounded-full px-2 py-0.5 text-[10px] font-bold backdrop-blur-sm">
+          {t[lang].card.bestseller}
         </div>
       )}
 
       {template.category === "ui"
-        ? <UIThumbnail template={template} isPurchased={isPurchased} />
-        : <PromptThumbnail template={template} isPurchased={isPurchased} />
+        ? <UIThumbnail template={template} isPurchased={isPurchased} lang={lang} />
+        : <PromptThumbnail template={template} isPurchased={isPurchased} lang={lang} />
       }
 
       <div className="px-4 py-3.5 flex flex-col flex-1">
-        <div className="flex items-center gap-1.5 mb-1">
-          <span className={`text-[9px] font-bold uppercase tracking-[0.12em] px-1.5 py-0.5 rounded-md ${
+        {/* Category pill */}
+        <div className="mb-1.5">
+          <span className={`text-[10px] font-bold uppercase tracking-[0.1em] px-1.5 py-0.5 rounded-md ${
             template.category === "ui"
               ? "bg-[#007AFF]/10 text-[#007AFF]"
               : "bg-[#5E5CE6]/10 text-[#5E5CE6]"
@@ -118,22 +122,29 @@ export default function TemplateCard({ template, purchasedIds }: {
             {template.category === "ui" ? t[lang].card.categoryUI : t[lang].card.categoryPrompt}
           </span>
         </div>
-        <h3 className="text-[13.5px] font-semibold text-theme leading-snug group-hover:text-[#0A84FF] transition-colors duration-200 flex-1">
+
+        {/* Name */}
+        <h3 className="text-[13.5px] font-semibold text-theme leading-snug group-hover:text-[#0A84FF] transition-colors duration-200 mb-1">
           {displayName}
         </h3>
+
+        {/* Description — 1 line, gives context without clicking */}
+        <p className="text-[12px] text-muted leading-snug line-clamp-1 flex-1">
+          {displayDesc}
+        </p>
+
+        {/* Price + downloads */}
         <div className="mt-2.5 pt-2.5 border-t border-theme flex items-center justify-between">
           <span className="text-[15px] font-bold text-[#0A84FF]">{formatPrice(template.price)}</span>
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2">
             <span className="text-[11px] text-muted flex items-center gap-1">
-              <svg width="10" height="10" viewBox="0 0 12 12" fill="none" className="opacity-50">
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden>
                 <path d="M6 1v7M3 6l3 3 3-3M2 10h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
               {template.downloads.toLocaleString("it-IT")}
             </span>
-            <svg
-              width="12" height="12" viewBox="0 0 12 12" fill="none"
-              className="text-muted opacity-0 group-hover:opacity-60 transition-opacity duration-200 translate-x-0 group-hover:translate-x-0.5 transition-transform"
-            >
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden
+              className="text-muted opacity-0 group-hover:opacity-60 transition-opacity duration-200 group-hover:translate-x-0.5 transition-transform">
               <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </div>

@@ -101,7 +101,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
           hover:scale-105 active:scale-[0.96] ios-spring transition-all duration-200"
         aria-label={t[lang].preview.back}
       >
-        <svg width="8" height="14" viewBox="0 0 8 14" fill="none" className="shrink-0">
+        <svg width="8" height="14" viewBox="0 0 8 14" fill="none" className="shrink-0" aria-hidden>
           <path d="M7 1L1.5 7L7 13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
         <span className="hidden sm:inline">{t[lang].preview.back}</span>
@@ -112,14 +112,15 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
         <div className="fixed top-4 right-4 z-50 flex items-center gap-0.5 glass rounded-2xl p-1 shadow-[0_4px_24px_rgba(0,0,0,0.12)]">
           <button
             onClick={() => setViewMode("desktop")}
-            title="Desktop"
+            aria-pressed={viewMode === "desktop"}
+            aria-label="Desktop preview"
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[12px] font-semibold transition-all duration-200 ${
               viewMode === "desktop"
                 ? "bg-[#0A84FF] text-white shadow-sm"
                 : "text-muted hover:text-theme"
             }`}
           >
-            <svg width="15" height="11" viewBox="0 0 15 11" fill="none">
+            <svg width="15" height="11" viewBox="0 0 15 11" fill="none" aria-hidden>
               <rect x="0.6" y="0.6" width="13.8" height="8.3" rx="1.4" stroke="currentColor" strokeWidth="1.2"/>
               <path d="M4.5 10.5h6M7.5 8.9v1.6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
             </svg>
@@ -127,7 +128,8 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
           </button>
           <button
             onClick={() => setViewMode("mobile")}
-            title="Mobile"
+            aria-pressed={viewMode === "mobile"}
+            aria-label="Mobile preview"
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[12px] font-semibold transition-all duration-200 ${
               viewMode === "mobile"
                 ? "bg-[#0A84FF] text-white shadow-sm"

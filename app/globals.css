@@ -10,14 +10,19 @@
   --surface:     #FFFFFF;
   --surface-2:   rgba(255,255,255,0.92);
   --text:        #000000;
-  --muted:       #6C6C70;
-  --border:      rgba(0,0,0,0.08);
+  --muted:       #4C4C50; /* WCAG AA: ~6.2:1 on #F2F2F7 */
+  --border:      rgba(0,0,0,0.09);
   --nav-bg:      rgba(242,242,247,0.88);
   --card-bg:     rgba(0,0,0,0.025);
-  --card-border: rgba(0,0,0,0.07);
+  --card-border: rgba(0,0,0,0.08);
   --input-bg:    rgba(0,0,0,0.05);
   --glow-blue:   rgba(10,132,255,0.12);
   --glow-purple: rgba(94,92,230,0.10);
+  /* Border radius tokens */
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 22px;
+  --r-xl: 28px;
 }
 
 html.dark {
@@ -25,8 +30,8 @@ html.dark {
   --surface:     #1C1C1E;
   --surface-2:   rgba(28,28,30,0.96);
   --text:        #FFFFFF;
-  --muted:       #8E8E93;
-  --border:      rgba(255,255,255,0.08);
+  --muted:       #AEAEB2; /* WCAG AA: ~4.7:1 on #000000 */
+  --border:      rgba(255,255,255,0.09);
   --nav-bg:      rgba(28,28,30,0.85);
   --card-bg:     rgba(255,255,255,0.04);
   --card-border: rgba(255,255,255,0.08);
@@ -212,4 +217,44 @@ html {
   0%   { background-position: 0% 50%; }
   50%  { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FOCUS VISIBLE — keyboard navigation
+   ═══════════════════════════════════════════════════════════ */
+:focus-visible {
+  outline: 2px solid #0A84FF;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+/* Remove default outline for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   REDUCED MOTION
+   ═══════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .anim-fade-up,
+  .anim-fade-in,
+  .anim-scale-in,
+  .sheet-enter,
+  .modal-enter {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .ios-spring {
+    transition-timing-function: linear !important;
+    transition-duration: 150ms !important;
+  }
+  .ease-premium {
+    transition-timing-function: linear !important;
+    transition-duration: 150ms !important;
+  }
+  .animate-ping,
+  .animate-spin {
+    animation: none !important;
+  }
 }
