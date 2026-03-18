@@ -226,22 +226,18 @@ function NavDropdown({
 }
 
 // ── Hero search ──────────────────────────────────────────────────────────────
-function HeroSearch({ lang }: { lang: "it" | "en" }) {
-  const [q, setQ] = useState("");
-  const router = useRouter();
-
+function HeroSearch({
+  lang,
+  query,
+  setQuery,
+}: {
+  lang: "it" | "en";
+  query: string;
+  setQuery: (q: string) => void;
+}) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const el = document.getElementById("browse");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-      setTimeout(() => {
-        // update URL + trigger TemplateGrid
-        const url = new URL(window.location.href);
-        url.searchParams.set("q", q);
-        router.replace(url.pathname + (q ? `?q=${encodeURIComponent(q)}` : ""), { scroll: false });
-      }, 300);
-    }
+    document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -255,18 +251,28 @@ function HeroSearch({ lang }: { lang: "it" | "en" }) {
       </svg>
       <input
         type="text"
-        value={q}
-        onChange={(e) => setQ(e.target.value)}
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
         placeholder={lang === "it" ? "Cerca tra tutti i template…" : "Search all templates…"}
         className="w-full bg-white/80 dark:bg-zinc-900/80 backdrop-blur border border-zinc-200 dark:border-zinc-700 rounded-2xl pl-11 pr-32 py-3.5 text-[15px] text-zinc-900 dark:text-white placeholder:text-muted outline-none focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/10 transition-all duration-200 shadow-sm"
       />
-      <button
-        type="submit"
-        className="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-2 rounded-xl text-[13px] font-bold text-white transition-all duration-200 active:scale-[0.97]"
-        style={{ backgroundColor: "var(--accent)" }}
-      >
-        {lang === "it" ? "Cerca" : "Search"}
-      </button>
+      {query ? (
+        <button
+          type="button"
+          onClick={() => setQuery("")}
+          className="absolute right-2 top-1/2 -translate-y-1/2 px-3 py-1.5 rounded-xl text-[13px] font-semibold text-muted hover:text-theme transition-colors duration-200"
+        >
+          ✕
+        </button>
+      ) : (
+        <button
+          type="submit"
+          className="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-2 rounded-xl text-[13px] font-bold text-white transition-all duration-200 active:scale-[0.97]"
+          style={{ backgroundColor: "var(--accent)" }}
+        >
+          {lang === "it" ? "Cerca" : "Search"}
+        </button>
+      )}
     </form>
   );
 }
@@ -276,6 +282,9 @@ export default function HomeContent() {
   const { lang } = useLang();
   const router = useRouter();
   const animatedTemplates = templates.length;
+
+  // Shared search query — lifted so hero search bar drives TemplateGrid
+  const [query, setQuery] = useState("");
 
   const [purchasedIds, setPurchasedIds] = useState<string[]>([]);
   const [bundleError, setBundleError] = useState<string | null>(null);
@@ -402,7 +411,7 @@ export default function HomeContent() {
 
         {/* ── Prominent search bar ── */}
         <div className="anim-fade-up delay-200 mb-6">
-          <HeroSearch lang={lang} />
+          <HeroSearch lang={lang} query={query} setQuery={setQuery} />
         </div>
 
         {/* Secondary CTA */}
@@ -444,8 +453,8 @@ export default function HomeContent() {
       </section>
 
       {/* ── Template Grid ── */}
-      <div id="browse" className="relative z-10">
-        <TemplateGrid />
+      <div className="relative z-10">
+        <TemplateGrid externalQuery={query} />
       </div>
 
       {/* ── Newsletter — subtle ── */}
