@@ -95,6 +95,10 @@ export const t = {
         label: "Identità & Personal Brand",
         subtitle: "CV digitale, link in bio, newsletter landing",
       },
+      "notion-workspace": {
+        label: "Notion Workspace",
+        subtitle: "Template Notion pronti: CRM, project management, finanze, PKM",
+      },
     },
     card: {
       categoryUI: "UI Template",
@@ -295,6 +299,10 @@ export const t = {
       hospitality: {
         label: "Food & Hospitality",
         subtitle: "Restaurants, cafés, hotels and accommodations",
+      },
+      "notion-workspace": {
+        label: "Notion Workspace",
+        subtitle: "Ready-to-use Notion templates: CRM, project management, finance, PKM",
       },
       "digital-product": {
         label: "App & Digital Product",

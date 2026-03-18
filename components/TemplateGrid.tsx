@@ -25,6 +25,7 @@ const SECTION_IDS: {
   { id: "hospitality",     emoji: "🍽️", ids: ["restaurant-menu", "coffee-shop-landing", "hotel-booking"] },
   { id: "digital-product", emoji: "📱", ids: ["mobile-app-showcase", "feature-showcase", "saas-dashboard"] },
   { id: "personal-brand",  emoji: "🪪", ids: ["digital-resume", "link-in-bio", "newsletter-landing"] },
+  { id: "notion-workspace", emoji: "📓", ids: ["notion-project-hub", "notion-freelancer-crm", "notion-content-calendar", "notion-finance-tracker", "notion-second-brain", "notion-job-tracker", "notion-weekly-review", "notion-client-portal"] },
 ];
 
 const byId = Object.fromEntries(templates.map((tmpl) => [tmpl.id, tmpl]));

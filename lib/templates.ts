@@ -2886,7 +2886,1049 @@ IMPLEMENTATION NOTES
 5. Recommended model: Claude 3.5 Haiku for speed/cost, Claude 3.5 Sonnet for quality
 `,
   },
+
+  {
+    id: "notion-project-hub",
+    name: "Notion Project Management Hub",
+    category: "prompt",
+    price: 1299,
+    stripePriceId: "price_1TCIgABoWNgrJbiyUCgrGaoU",
+    tags: ["notion", "project management", "productivity", "kanban", "team"],
+    downloads: 387,
+    description: "Complete Notion workspace for managing projects, tasks and deadlines with 5 pre-built views.",
+    isNew: true,
+    editorsPick: true,
+    content: `# Notion Project Management Hub
+
+## Come usare questo template
+
+Duplica questa struttura nel tuo workspace Notion. Sostituisci tutti i campi {{placeholder}} con i tuoi valori.
+
+---
+
+## DATABASE 1: PROJECTS
+
+### Proprietà
+- **Name** (Title) — nome del progetto
+- **Status** (Status) — Planning / In Progress / Completed / On Hold
+- **Priority** (Select) — 🔥 High / 🟧 Medium / 🟩 Low
+- **Owner** (Person) — responsabile del progetto
+- **Team** (Multi-select) — {{your_team_members}}
+- **Start Date** (Date)
+- **Due Date** (Date)
+- **Days Remaining** (Formula): \`if(empty(prop("Due Date")), "No deadline", if(dateBetween(prop("Due Date"), now(), "days") < 0, "Overdue", toText(dateBetween(prop("Due Date"), now(), "days")) + " days left"))\`
+- **Progress %** (Rollup) — % di task completate dal database Tasks
+- **Budget** (Number) — formato: Euro
+- **Client** (Text) — {{client_name}}
+- **Tags** (Multi-select) — {{your_project_categories}}
+
+### Views da creare
+1. **All Projects** (Table) — ordinata per Due Date, raggruppata per Status
+2. **Kanban Board** (Board) — raggruppata per Status, card preview: Owner + Due Date + Priority
+3. **Timeline** (Timeline) — date range: Start Date → Due Date, raggruppata per Owner
+4. **My Projects** (Table) — filtro: Owner = {{your_name}}
+5. **Overdue** (Table) — filtro: Days Remaining < 0
+
+---
+
+## DATABASE 2: TASKS
+
+### Proprietà
+- **Name** (Title) — nome del task
+- **Project** (Relation) → Projects database
+- **Status** (Status) — To Do / In Progress / Done / Blocked
+- **Priority** (Select) — 🔥 High / 🟧 Medium / 🟩 Low
+- **Assignee** (Person)
+- **Due Date** (Date)
+- **Estimated Hours** (Number)
+- **Notes** (Text)
+
+### Views da creare
+1. **My Tasks** — filtro: Assignee = {{your_name}}, ordine: Due Date
+2. **By Project** — raggruppata per Project
+3. **Board** — raggruppata per Status
+
+---
+
+## DASHBOARD PRINCIPALE
+
+Crea una pagina "🏠 Home" con:
+
+\`\`\`
+📊 PROJECT OVERVIEW
+┌─────────────────────────────────────────┐
+│ Database view: Projects — filtro Active  │
+│ Layout: Board o Gallery                  │
+└─────────────────────────────────────────┘
+
+✅ MY TASKS TODAY
+┌─────────────────────────────────────────┐
+│ Database view: Tasks                     │
+│ Filtro: Assignee = Me, Due = Today       │
+└─────────────────────────────────────────┘
+
+🔥 HIGH PRIORITY
+┌─────────────────────────────────────────┐
+│ Database view: Tasks                     │
+│ Filtro: Priority = High, Status ≠ Done  │
+└─────────────────────────────────────────┘
+\`\`\`
+
+## Setup rapido (10 minuti)
+
+1. Duplica il template nel tuo Notion
+2. Rinomina "{{your_workspace_name}}" con il nome della tua azienda/progetto
+3. Aggiungi i membri del team nelle proprietà Person
+4. Crea il tuo primo progetto e assegna 3-5 task
+5. Configura le notifiche Notion per le scadenze
+
+## Consigli d'uso
+
+- **Weekly review**: ogni lunedì apri la view "My Tasks" per pianificare la settimana
+- **Daily standup**: usa la view "Board" per vedere l'avanzamento del team
+- **Budget tracking**: aggiungi una colonna "Actual Spend" per confrontare con il Budget
+- **Client reports**: duplica la timeline view per ogni cliente e condividila (share to web)
+
+Personalizzazioni consigliate:
+- Aggiungi un database **MEETINGS** collegato a Projects per i verbali
+- Crea una **formula "Health"** che combina Priority + Days Remaining + Status
+- Integra con {{your_calendar_tool}} tramite Zapier o Make per sincronizzare le scadenze`,
+  },
+  {
+    id: "notion-freelancer-crm",
+    name: "Notion Freelancer CRM",
+    category: "prompt",
+    price: 1299,
+    stripePriceId: "price_1TCIgBBoWNgrJbiyTSZ5qOHG",
+    tags: ["notion", "crm", "freelance", "clients", "invoices"],
+    downloads: 312,
+    description: "Manage clients, projects, invoices and follow-ups in one Notion database.",
+    isNew: true,
+    editorsPick: false,
+    content: `# Notion Freelancer CRM
+
+## Il tuo CRM completo in Notion
+
+Gestisci clienti, progetti, fatture e follow-up in un unico workspace. Progettato per freelancer e consulenti indipendenti.
+
+---
+
+## DATABASE 1: CLIENTS
+
+### Proprietà
+- **Name** (Title) — nome cliente / azienda
+- **Status** (Select) — 🟢 Active / 🟡 Lead / 🔴 Churned / ⚫ Archived
+- **Contact Name** (Text) — {{contact_person}}
+- **Email** (Email)
+- **Phone** (Phone)
+- **Company Size** (Select) — Solo / Small (2-10) / Medium (11-50) / Large (50+)
+- **Source** (Select) — Referral / LinkedIn / Cold outreach / Upwork / Other
+- **Total Revenue** (Rollup) — somma da database Invoices, filtro: Status = Paid
+- **Active Projects** (Rollup) — count da Projects, filtro: Status = In Progress
+- **Last Contact** (Date)
+- **Next Follow-up** (Date)
+- **Notes** (Text)
+
+### Views
+1. **Pipeline** (Board) — raggruppata per Status
+2. **All Clients** (Table) — ordinata per Total Revenue decrescente
+3. **Follow-ups** (Table) — filtro: Next Follow-up ≤ Today + 7 giorni
+
+---
+
+## DATABASE 2: PROJECTS
+
+### Proprietà
+- **Name** (Title)
+- **Client** (Relation) → Clients
+- **Status** (Status) — Proposal / Active / Review / Completed / Paused
+- **Start Date** (Date)
+- **End Date** (Date)
+- **Rate Type** (Select) — Hourly / Fixed / Retainer
+- **Rate** (Number) — tariffa oraria o importo fisso
+- **Hours Logged** (Rollup) — somma da Time Log
+- **Total Value** (Formula): \`if(prop("Rate Type") == "Hourly", prop("Rate") * prop("Hours Logged"), prop("Rate"))\`
+- **Description** (Text)
+
+---
+
+## DATABASE 3: INVOICES
+
+### Proprietà
+- **Invoice #** (Title) — es. INV-2026-001
+- **Client** (Relation) → Clients
+- **Project** (Relation) → Projects
+- **Amount** (Number)
+- **Status** (Select) — Draft / Sent / Paid / Overdue
+- **Issue Date** (Date)
+- **Due Date** (Date)
+- **Paid Date** (Date)
+- **Payment Method** (Select) — Bank Transfer / PayPal / Stripe / Crypto
+
+### Views
+1. **Unpaid** — filtro: Status = Sent o Overdue
+2. **This Month** — filtro: Issue Date = questo mese
+3. **Revenue by Client** — raggruppata per Client
+
+---
+
+## DASHBOARD REVENUE
+
+Aggiungi queste callout nella homepage:
+
+\`\`\`
+💰 Fatturato questo mese: [Linked mention da Invoices]
+📊 Pipeline valore: [Rollup da Projects attivi]
+⚠️ Fatture scadute: [Count da Invoices Overdue]
+🎯 Obiettivo mensile: €{{your_monthly_goal}}
+\`\`\`
+
+## Workflow consigliato
+
+**Acquisire un nuovo cliente:**
+1. Crea record in Clients con Status = Lead
+2. Crea Project con Status = Proposal
+3. Invia proposta → aggiorna a Active quando accettata
+4. Crea Invoice con Status = Draft
+
+**Fine mese:**
+1. Apri view "This Month" in Invoices
+2. Invia tutte le fatture Draft
+3. Aggiorna "Last Contact" per ogni cliente attivo
+4. Imposta "Next Follow-up" per i lead
+
+## Personalizzazioni
+
+- Aggiungi un database **CONTRACTS** per archiviare i contratti firmati (PDF upload)
+- Crea una formula **"Days Since Last Contact"** per identificare clienti trascurati
+- Collega con {{your_accounting_tool}} per la contabilità automatica`,
+  },
+  {
+    id: "notion-content-calendar",
+    name: "Notion Content Calendar",
+    category: "prompt",
+    price: 999,
+    stripePriceId: "price_1TCIgCBoWNgrJbiyLKZj4e5L",
+    tags: ["notion", "content", "social media", "calendar", "marketing"],
+    downloads: 445,
+    description: "Plan, schedule and track content across all channels with status tracking.",
+    isNew: true,
+    editorsPick: true,
+    content: `# Notion Content Calendar
+
+## Piano editoriale completo in Notion
+
+Pianifica, crea e pubblica contenuti su tutti i canali da un unico database. Perfetto per creator, marketer e team di comunicazione.
+
+---
+
+## DATABASE PRINCIPALE: CONTENT
+
+### Proprietà
+- **Title** (Title) — titolo del contenuto
+- **Status** (Status) — Idea / Writing / Review / Scheduled / Published / Archived
+- **Channel** (Multi-select) — LinkedIn / Instagram / Twitter/X / Blog / Newsletter / YouTube / TikTok / Podcast
+- **Format** (Select) — Post / Article / Video / Reel / Story / Thread / Newsletter / Podcast Episode
+- **Publish Date** (Date)
+- **Author** (Person) — {{your_name}}
+- **Topic** (Select) — {{your_content_pillars}}
+- **Hook** (Text) — prima frase/headline del contenuto
+- **Body** (Text) — bozza o link al documento
+- **CTA** (Text) — call to action
+- **Target Audience** (Select) — {{audience_segments}}
+- **Goal** (Select) — Brand Awareness / Lead Generation / Engagement / Sales / Education
+- **Engagement** (Number) — like + commenti + condivisioni
+- **Reach** (Number)
+- **Clicks** (Number)
+- **Notes** (Text)
+
+### Views da creare
+1. **Calendar** (Calendar) — per data di pubblicazione, raggruppata per Channel
+2. **Pipeline** (Board) — raggruppata per Status
+3. **By Channel** (Table) — raggruppata per Channel, filtro: Status = Published o Scheduled
+4. **Content Ideas** (Gallery) — filtro: Status = Idea
+5. **This Week** (Table) — filtro: Publish Date = questa settimana
+6. **Analytics** (Table) — filtro: Status = Published, ordinata per Engagement decrescente
+
+---
+
+## CONTENT PILLARS
+
+Crea una sezione con i tuoi {{number}} pillar editoriali:
+
+\`\`\`
+Pillar 1: {{topic_1}} — {{description_1}}
+Pillar 2: {{topic_2}} — {{description_2}}
+Pillar 3: {{topic_3}} — {{description_3}}
+Pillar 4: {{topic_4}} — {{description_4}}
+\`\`\`
+
+## WORKFLOW DI PRODUZIONE
+
+### Lunedì — Planning
+- Apri la view "Content Ideas"
+- Scegli 5-7 contenuti per la settimana
+- Aggiorna Status a "Writing"
+- Assegna date di pubblicazione
+
+### Martedì-Giovedì — Creazione
+- Scrivi bozze in Notion o link a Google Doc
+- Usa il campo "Hook" per testare aperture diverse
+- Aggiungi CTA specifiche per ogni canale
+
+### Venerdì — Review & Schedule
+- Revisa tutti i contenuti "Review"
+- Carica su strumenti di scheduling: {{your_scheduler}}
+- Aggiorna Status a "Scheduled"
+
+### Domenica sera — Analytics
+- Aggiorna Engagement e Reach dei post pubblicati
+- Identifica i contenuti top performer
+- Crea variazioni dei contenuti ad alto engagement
+
+---
+
+## TEMPLATES RAPIDI
+
+Aggiungi questi template nella pagina principale:
+
+**Post LinkedIn (template):**
+\`\`\`
+🎯 Hook: {{attention_grabbing_statement}}
+
+Il problema: {{pain_point}}
+
+La soluzione: {{your_approach}}
+
+3 cose che ho imparato:
+→ {{lesson_1}}
+→ {{lesson_2}}
+→ {{lesson_3}}
+
+Qual è la tua esperienza? 👇
+#{{hashtag_1}} #{{hashtag_2}} #{{hashtag_3}}
+\`\`\`
+
+## Setup (15 minuti)
+1. Definisci i tuoi 3-5 content pillars
+2. Imposta i canali su cui pubblichi
+3. Crea 10 idee nella view "Ideas"
+4. Pianifica la prima settimana nella Calendar view`,
+  },
+  {
+    id: "notion-finance-tracker",
+    name: "Notion Personal Finance Tracker",
+    category: "prompt",
+    price: 1299,
+    stripePriceId: "price_1TCIgDBoWNgrJbiyzQGqse0q",
+    tags: ["notion", "finance", "budget", "savings", "money"],
+    downloads: 298,
+    description: "Track income, expenses, savings goals and net worth in Notion.",
+    isNew: true,
+    editorsPick: false,
+    content: `# Notion Personal Finance Tracker
+
+## Il tuo centro di controllo finanziario
+
+Monitora entrate, uscite, obiettivi di risparmio e patrimonio netto in un unico workspace Notion. Aggiorna-to mensilmente in 10 minuti.
+
+---
+
+## DATABASE 1: TRANSACTIONS
+
+### Proprietà
+- **Name** (Title) — descrizione della transazione
+- **Date** (Date)
+- **Amount** (Number) — positivo per entrate, negativo per uscite
+- **Type** (Select) — Income / Expense / Transfer / Investment
+- **Category** (Select):
+  - **Entrate**: 💼 Stipendio / 🔧 Freelance / 📈 Investimenti / 🎁 Regalo / Altro
+  - **Uscite**: 🏠 Affitto / 🛒 Spesa / 🚗 Trasporti / 🍽️ Ristoranti / 🎬 Intrattenimento / 👗 Abbigliamento / 💊 Salute / 📱 Abbonamenti / 🏋️ Sport / 📚 Formazione / ✈️ Viaggi / 💰 Risparmio / Altro
+- **Account** (Select) — {{your_bank_accounts}}
+- **Recurring** (Checkbox) — spesa ricorrente mensile
+- **Notes** (Text)
+
+### Views
+1. **This Month** — filtro: Date = questo mese, raggruppata per Type
+2. **By Category** — raggruppata per Category, filtro: Type = Expense
+3. **Recurring** — filtro: Recurring = true
+4. **All Transactions** — ordinata per Date decrescente
+
+---
+
+## DATABASE 2: BUDGETS
+
+### Proprietà
+- **Category** (Title) — categoria di spesa
+- **Monthly Budget** (Number) — budget mensile
+- **Spent This Month** (Rollup) — somma da Transactions, filtro: Category = match, Date = questo mese
+- **Remaining** (Formula): \`prop("Monthly Budget") - prop("Spent This Month")\`
+- **% Used** (Formula): \`round(prop("Spent This Month") / prop("Monthly Budget") * 100)\`
+- **Status** (Formula): \`if(prop("% Used") > 100, "🔴 Over budget", if(prop("% Used") > 80, "🟡 Attenzione", "🟢 OK"))\`
+
+---
+
+## DATABASE 3: SAVINGS GOALS
+
+### Proprietà
+- **Goal** (Title) — nome dell'obiettivo
+- **Target Amount** (Number)
+- **Current Amount** (Number) — aggiorna manualmente ogni mese
+- **Target Date** (Date)
+- **Monthly Contribution** (Number) — quanto risparmiare al mese
+- **Progress %** (Formula): \`round(prop("Current Amount") / prop("Target Amount") * 100)\`
+- **Months Remaining** (Formula)
+- **Emoji** (Select) — 🏠 Casa / ✈️ Viaggio / 🚗 Auto / 💍 Matrimonio / 🎓 Formazione / 🏖️ Vacanza
+
+---
+
+## DASHBOARD MENSILE
+
+### Struttura consigliata per la homepage:
+
+\`\`\`
+📅 {{current_month}} {{current_year}}
+
+💰 RIEPILOGO MESE
+Entrate:  +€{{total_income}}
+Uscite:   -€{{total_expenses}}
+Saldo:    €{{balance}}
+
+📊 BUDGET STATUS
+[Linked view: Budgets con Progress bar]
+
+🎯 OBIETTIVI DI RISPARMIO
+[Linked view: Savings Goals]
+
+📈 PATRIMONIO NETTO: €{{net_worth}}
+\`\`\`
+
+---
+
+## SETUP INIZIALE (20 minuti)
+
+1. **Inserisci i tuoi account**: crea i tag per ogni conto bancario/carta
+2. **Imposta i budget mensili**: aggiungi ogni categoria con il budget realistico
+3. **Crea i tuoi obiettivi**: aggiungi 2-3 savings goals con target e data
+4. **Importa le transazioni**: inserisci le ultime 30 transazioni per avere un benchmark
+
+## Workflow mensile
+
+**Primo del mese:**
+- Azzera "Spent This Month" aggiornando il filtro
+- Rivedi i budget della categoria con più sforamenti
+- Aggiorna "Current Amount" in ogni Savings Goal
+
+**Fine mese:**
+- Calcola risparmio netto: Entrate - Uscite
+- Aggiorna il Patrimonio Netto
+- Identifica la categoria con più sprechi`,
+  },
+  {
+    id: "notion-second-brain",
+    name: "Notion Second Brain (PKM)",
+    category: "prompt",
+    price: 1499,
+    stripePriceId: "price_1TCIgDBoWNgrJbiycUQ3W6EM",
+    tags: ["notion", "pkm", "second brain", "knowledge", "notes", "productivity"],
+    downloads: 521,
+    description: "Full personal knowledge management system: capture, organize and retrieve ideas.",
+    isNew: true,
+    editorsPick: true,
+    content: `# Notion Second Brain (PKM System)
+
+## Il tuo sistema di gestione della conoscenza
+
+Basato sui principi di Building a Second Brain (BASB) di Tiago Forte. Cattura, organizza e recupera qualsiasi informazione in modo sistematico.
+
+---
+
+## STRUTTURA PARA
+
+Il sistema usa il framework PARA: Projects, Areas, Resources, Archive.
+
+### P — PROJECTS (Progetti attivi)
+Tutto ciò su cui stai lavorando con una scadenza o obiettivo definito.
+- Database: collegato al tuo Project Manager Notion
+- Regola: massimo 10-15 progetti attivi contemporaneamente
+
+### A — AREAS (Aree di responsabilità)
+Aspetti della vita che richiedono attenzione continuativa (senza scadenza).
+Esempi: Salute / Finanze / Famiglia / Carriera / Casa / {{your_areas}}
+
+### R — RESOURCES (Risorse per argomento)
+Tutto ciò che potrebbe essere utile in futuro, organizzato per argomento.
+Esempi: Marketing / AI / Design / Libri / Ricette / {{your_topics}}
+
+### A — ARCHIVE (Archivio)
+Tutto ciò che non è più attivo ma vuoi conservare.
+
+---
+
+## DATABASE 1: NOTES (Capture Inbox)
+
+### Proprietà
+- **Title** (Title)
+- **Status** (Select) — 📥 Inbox / 🔄 Processing / ✅ Filed / 🗑️ Discard
+- **Type** (Select) — 💡 Idea / 📖 Book Note / 🎥 Video / 🌐 Article / 💬 Quote / 🎧 Podcast / 📝 Meeting / 💭 Thought / 🔗 Resource
+- **Source** (URL) — link originale
+- **PARA** (Select) — Projects / Areas / Resources / Archive
+- **Project/Area/Resource** (Relation) — collegamento alla categoria
+- **Tags** (Multi-select) — {{your_tags}}
+- **Created** (Created time)
+- **Last Reviewed** (Date)
+- **Actionable** (Checkbox) — richiede un'azione?
+
+### Views
+1. **📥 Inbox** — filtro: Status = Inbox (processa queste notes regolarmente)
+2. **🔄 Processing** — filtro: Status = Processing
+3. **By Type** — raggruppata per Type
+4. **Recent** — ordinata per Created decrescente
+5. **Search** — usa la search di Notion per trovare qualsiasi nota
+
+---
+
+## DATABASE 2: RESOURCES
+
+### Proprietà
+- **Name** (Title) — nome della risorsa/argomento
+- **Type** (Select) — Topic / Book List / Course List / Tool / Framework / Person
+- **Description** (Text)
+- **Related Notes** (Rollup) — count da Notes, filtro: PARA = Resources
+
+### Resources preconfigurate
+Crea questi topic:
+- 🤖 AI & Machine Learning
+- 📊 Marketing & Growth
+- 💻 Programming & Tech
+- 🧠 Psychology & Productivity
+- 💼 Business & Strategy
+- 🎨 Design & Creativity
+- {{your_custom_topics}}
+
+---
+
+## SISTEMA DI CAPTURE
+
+### Metodi di cattura rapida:
+
+1. **Notion Web Clipper** (Chrome/Firefox) — salva articoli web direttamente in Inbox
+2. **Notion Mobile App** — cattura pensieri ovunque tu sia
+3. **Quick Note template**:
+   \`\`\`
+   🗓️ Data: {{today}}
+   📌 Fonte: {{source}}
+   💡 Insight principale:
+   [scrivi qui]
+
+   🔗 Connessioni con altre idee:
+   -
+
+   ⚡ Azioni:
+   - [ ]
+   \`\`\`
+
+---
+
+## WORKFLOW SETTIMANALE
+
+**Daily (5 min):**
+- Cattura tutto in Inbox senza organizzare
+- Usa shortcuts Notion per velocità
+
+**Weekly Review (30 min):**
+1. Processa tutta la Inbox (cambia Status)
+2. Archivia ciò che non serve
+3. Collega le note ai progetti/aree pertinenti
+4. Identifica 3 note da sviluppare ulteriormente
+
+**Monthly (1 ora):**
+- Rivedi i tag e rimuovi quelli inutilizzati
+- Archivia progetti completati
+- Identifica pattern nelle tue idee
+
+---
+
+## TEMPLATE NOTE AVANZATO
+
+\`\`\`
+# {{title}}
+
+**Fonte**: {{source_url}}
+**Data**: {{date}}
+**Tipo**: {{note_type}}
+
+## 📌 Punti chiave
+1.
+2.
+3.
+
+## 💭 Miei pensieri
+[Cosa ne penso? Come si collega a quello che so già?]
+
+## ❓ Domande aperte
+-
+
+## 🔗 Connessioni
+- Collegato a: [[{{related_note}}]]
+- Simile a: [[{{similar_concept}}]]
+
+## ⚡ Azioni
+- [ ] {{action_item}}
+
+## 🏷️ Tags
+#{{tag1}} #{{tag2}} #{{tag3}}
+\`\`\``,
+  },
+  {
+    id: "notion-job-tracker",
+    name: "Notion Job Application Tracker",
+    category: "prompt",
+    price: 799,
+    stripePriceId: "price_1TCIgEBoWNgrJbiys2bAQxkB",
+    tags: ["notion", "job search", "career", "applications", "interviews"],
+    downloads: 189,
+    description: "Track job applications, interviews and offers with a Kanban pipeline.",
+    isNew: true,
+    editorsPick: false,
+    content: `# Notion Job Application Tracker
+
+## La tua pipeline di ricerca lavoro
+
+Traccia ogni candidatura, ogni colloquio e ogni offerta in modo sistematico. Non perdere mai un follow-up.
+
+---
+
+## DATABASE PRINCIPALE: APPLICATIONS
+
+### Proprietà
+- **Position** (Title) — titolo del ruolo
+- **Company** (Text) — nome azienda
+- **Status** (Status):
+  - 📝 To Apply — da candidarsi
+  - 📤 Applied — candidatura inviata
+  - 📞 Screening — colloquio telefonico
+  - 🎯 Interview — colloquio tecnico/HR
+  - 🔄 Final Round — fase finale
+  - ✅ Offer — offerta ricevuta
+  - ❌ Rejected — risposta negativa
+  - 🚫 Withdrawn — ritirato
+- **Job URL** (URL) — link all'annuncio
+- **Applied Date** (Date)
+- **Next Action Date** (Date) — quando fare follow-up
+- **Salary Range** (Text) — es. "€40k-€50k"
+- **Location** (Text) — Remote / {{city}} / Hybrid
+- **Contract Type** (Select) — Full-time / Part-time / Freelance / Internship
+- **Company Size** (Select) — Startup / SME / Corporate / Agency
+- **Source** (Select) — LinkedIn / Indeed / Company Site / Referral / Headhunter / Other
+- **Contact Name** (Text) — recruiter o HR
+- **Contact Email** (Email)
+- **Priority** (Select) — 🔥 Top Choice / ⭐ Interested / 💤 Maybe
+- **Notes** (Text)
+- **Interview Notes** (Text) — appunti sui colloqui
+
+### Views
+1. **Pipeline** (Board) — raggruppata per Status (la principale!)
+2. **Calendar** (Calendar) — per Next Action Date (non dimenticare i follow-up)
+3. **Top Choices** — filtro: Priority = Top Choice
+4. **Active** — filtro: Status ≠ Rejected, Withdrawn, Offer
+
+---
+
+## DATABASE 2: INTERVIEWS
+
+### Proprietà
+- **Interview** (Title) — es. "TechCorp — Round 1 — HR Screen"
+- **Application** (Relation) → Applications
+- **Date** (Date)
+- **Time** (Text)
+- **Format** (Select) — Video Call / In Person / Phone / Technical Test / Case Study
+- **Interviewer** (Text)
+- **Questions Asked** (Text)
+- **My Answers** (Text)
+- **Outcome** (Select) — Passed / Failed / Pending / Waiting
+- **Follow-up Sent** (Checkbox)
+- **Notes** (Text)
+
+---
+
+## TEMPLATE PREPARAZIONE COLLOQUIO
+
+Crea una nuova pagina per ogni colloquio:
+
+\`\`\`
+# 🎯 {{company}} — {{role}} — {{date}}
+
+## 📋 Info colloquio
+- **Durata prevista**: {{duration}}
+- **Formato**: {{format}}
+- **Intervistatore**: {{interviewer_name}} ({{role}})
+- **Link meeting**: {{zoom_link}}
+
+## 🏢 Ricerca sull'azienda
+- Prodotto/servizio: {{what_they_do}}
+- Clienti target: {{their_customers}}
+- Competitor principali: {{competitors}}
+- Notizie recenti: {{recent_news}}
+- Cultura aziendale: {{culture_notes}}
+
+## ❓ Domande che potrebbero farmi
+1. Parlami di te
+2. Perché {{company}}?
+3. Dove ti vedi tra 5 anni?
+4. Raccontami di un progetto di cui sei orgoglioso
+5. {{role_specific_question}}
+
+## 💬 Le mie domande per loro
+1. Come misura il successo in questo ruolo?
+2. Come è strutturato il team?
+3. Quali sono le sfide principali dei primi 90 giorni?
+4. {{your_question}}
+
+## ✅ Dopo il colloquio
+- [ ] Invia email di ringraziamento entro 24h
+- [ ] Aggiorna il database con l'outcome
+- [ ] Imposta Next Action Date per il follow-up
+\`\`\`
+
+## Workflow consigliato
+
+**Ogni settimana:**
+- Apri la view "Calendar" per vedere i follow-up in scadenza
+- Aggiorna lo Status di ogni candidatura
+- Aggiungi 3-5 nuove candidature nella view "To Apply"
+
+**Dopo ogni colloquio:**
+- Compila il database Interviews entro 2 ore (mentre è fresco)
+- Invia email di ringraziamento
+- Aggiorna Next Action Date`,
+  },
+  {
+    id: "notion-weekly-review",
+    name: "Notion Weekly Review System",
+    category: "prompt",
+    price: 799,
+    stripePriceId: "price_1TCIgFBoWNgrJbiySP8ORstl",
+    tags: ["notion", "weekly review", "productivity", "goals", "reflection"],
+    downloads: 234,
+    description: "Structured weekly and monthly review template to stay aligned with goals.",
+    isNew: true,
+    editorsPick: false,
+    content: `# Notion Weekly Review System
+
+## Il sistema di revisione settimanale che cambia le abitudini
+
+Un template strutturato per la tua revisione settimanale e mensile. 30 minuti ogni domenica per avere chiarezza totale sulla settimana che viene.
+
+---
+
+## DATABASE: WEEKLY REVIEWS
+
+### Proprietà
+- **Week** (Title) — es. "Week 12 — 17-23 Mar 2026"
+- **Date Range** (Date) — data inizio settimana
+- **Energy Level** (Select) — ⚡⚡⚡ Alta / ⚡⚡ Media / ⚡ Bassa
+- **Overall Rating** (Select) — ⭐⭐⭐⭐⭐ / ⭐⭐⭐⭐ / ⭐⭐⭐ / ⭐⭐ / ⭐
+- **Top Win** (Text) — miglior risultato della settimana
+- **Top Challenge** (Text) — sfida principale affrontata
+- **Key Learning** (Text) — cosa hai imparato
+- **Next Week Priority** (Text) — 3 priorità per la prossima settimana
+
+### Views
+1. **Timeline** — ordinata per Date Range decrescente
+2. **By Rating** — raggruppata per Overall Rating
+3. **Monthly** — filtro per mese
+
+---
+
+## TEMPLATE WEEKLY REVIEW
+
+Usa questo template ogni domenica (compila in 30 minuti):
+
+\`\`\`
+# 📅 Weekly Review — {{week_number}} | {{date_range}}
+
+## ✅ COMPLETAMENTO
+
+### Cosa ho completato questa settimana?
+- [ ]
+- [ ]
+- [ ]
+
+### Cosa NON ho completato? Perché?
+-
+-
+
+---
+
+## 🎯 OBIETTIVI
+
+### Progressi verso i miei obiettivi annuali
+**Obiettivo 1: {{annual_goal_1}}**
+- Progresso: {{progress_percentage}}%
+- Azione svolta:
+
+**Obiettivo 2: {{annual_goal_2}}**
+- Progresso: {{progress_percentage}}%
+- Azione svolta:
+
+---
+
+## 🧠 RIFLESSIONE
+
+### Cosa ha funzionato bene?
+1.
+2.
+3.
+
+### Cosa avrei potuto fare meglio?
+1.
+2.
+
+### La lezione più importante di questa settimana:
+>
+
+### Come mi sono sentito questa settimana? (1-10)
+- **Energia**: {{energy_score}}/10
+- **Focus**: {{focus_score}}/10
+- **Relazioni**: {{relationships_score}}/10
+- **Salute**: {{health_score}}/10
+
+---
+
+## 📋 INBOX PROCESSING
+
+- [ ] Email processata
+- [ ] Note Notion processate (Inbox → 0)
+- [ ] Calendario prossima settimana aggiornato
+- [ ] Task in sospeso rivisti
+- [ ] Desktop/Downloads puliti
+
+---
+
+## 🚀 PIANIFICAZIONE PROSSIMA SETTIMANA
+
+### Le mie 3 priorità assolute:
+1. **{{priority_1}}** — deadline: {{deadline_1}}
+2. **{{priority_2}}** — deadline: {{deadline_2}}
+3. **{{priority_3}}** — deadline: {{deadline_3}}
+
+### Appuntamenti importanti:
+- {{appointment_1}}
+- {{appointment_2}}
+
+### Una cosa che voglio fare per me stesso:
+-
+
+---
+
+## 💰 REVIEW FINANZIARIA (rapida)
+- Spese questa settimana: €{{weekly_expenses}}
+- Nel budget? Sì / No
+- Note:
+
+---
+
+## 🌟 GRATITUDINE
+Tre cose per cui sono grato questa settimana:
+1.
+2.
+3.
+\`\`\`
+
+---
+
+## DATABASE: ANNUAL GOALS
+
+### Proprietà
+- **Goal** (Title)
+- **Category** (Select) — Career / Health / Relationships / Finance / Learning / Personal
+- **Target** (Text) — obiettivo misurabile
+- **Current Status** (Text)
+- **Progress %** (Number)
+- **Deadline** (Date)
+- **Milestones** (Text)
+- **Why** (Text) — motivazione profonda
+
+## Setup (10 minuti)
+
+1. Crea i tuoi obiettivi annuali nel database Annual Goals
+2. Completa la prima weekly review usando il template
+3. Imposta un promemoria ricorrente ogni domenica alle 17:00
+4. Dopo 4 settimane, aggiungi una Monthly Review mensile`,
+  },
+  {
+    id: "notion-client-portal",
+    name: "Notion Client Portal",
+    category: "prompt",
+    price: 1299,
+    stripePriceId: "price_1TCIgFBoWNgrJbiyGO4iJItH",
+    tags: ["notion", "client portal", "freelance", "agency", "onboarding"],
+    downloads: 267,
+    description: "Shareable Notion workspace for client onboarding, deliverables and updates.",
+    isNew: true,
+    editorsPick: true,
+    content: `# Notion Client Portal
+
+## Il portale clienti professionale in Notion
+
+Un workspace condivisibile con i tuoi clienti per tenere tutto organizzato: onboarding, deliverable, comunicazioni e aggiornamenti di progetto. Impressiona i clienti dal primo giorno.
+
+---
+
+## STRUTTURA DEL PORTALE
+
+Crea una pagina principale per ogni cliente con questa struttura:
+
+\`\`\`
+📁 {{Client Name}} Portal
+
+  📋 Project Overview
+  📅 Timeline & Milestones
+  📦 Deliverables
+  💬 Communication Log
+  📄 Documents & Files
+  ❓ FAQ & Resources
+  📊 Progress Dashboard
+\`\`\`
+
+---
+
+## 1. PROJECT OVERVIEW (pagina)
+
+\`\`\`
+# 🎯 {{Project Name}} — Overview
+
+## Il progetto in una riga
+{{one_sentence_project_description}}
+
+## Obiettivi principali
+1. {{primary_goal}}
+2. {{secondary_goal}}
+3. {{tertiary_goal}}
+
+## Cosa È incluso in questo progetto
+✅ {{deliverable_1}}
+✅ {{deliverable_2}}
+✅ {{deliverable_3}}
+
+## Cosa NON è incluso
+❌ {{out_of_scope_1}}
+❌ {{out_of_scope_2}}
+
+## Persone coinvolte
+| Ruolo | Nome | Responsabilità |
+|-------|------|----------------|
+| Project Lead | {{your_name}} | {{your_responsibilities}} |
+| Client Contact | {{client_contact}} | {{client_responsibilities}} |
+| Designer | {{designer_name}} | {{design_scope}} |
+
+## Info di contatto rapido
+- **Email principale**: {{project_email}}
+- **Meeting ricorrente**: {{meeting_cadence}} — {{meeting_link}}
+- **Tool di comunicazione**: {{slack_discord_whatsapp}}
+\`\`\`
+
+---
+
+## 2. TIMELINE & MILESTONES (database)
+
+### Proprietà
+- **Milestone** (Title)
+- **Phase** (Select) — Discovery / Design / Development / Review / Launch
+- **Due Date** (Date)
+- **Status** (Status) — Not Started / In Progress / Completed / Delayed
+- **Owner** (Select) — {{your_name}} / {{client_name}} / Shared
+- **Deliverable** (Text)
+- **Notes** (Text)
+
+### Milestone template per progetto web:
+\`\`\`
+Week 1: Kickoff & Discovery
+Week 2-3: Design Phase
+Week 4: Client Review Round 1
+Week 5: Revisions
+Week 6: Development
+Week 7: Testing & QA
+Week 8: Launch & Handoff
+\`\`\`
+
+---
+
+## 3. DELIVERABLES (database)
+
+### Proprietà
+- **Deliverable** (Title)
+- **Status** (Status) — In Progress / Review Requested / Approved / Delivered
+- **Version** (Number) — numero di versione
+- **Due Date** (Date)
+- **File/Link** (URL o File upload)
+- **Feedback** (Text)
+- **Approval** (Checkbox) — cliente ha approvato?
+- **Revision Count** (Number)
+
+---
+
+## 4. COMMUNICATION LOG (database)
+
+### Proprietà
+- **Subject** (Title)
+- **Date** (Date)
+- **Type** (Select) — Meeting / Email / Call / Message / Decision
+- **Summary** (Text) — riassunto della comunicazione
+- **Action Items** (Text) — chi fa cosa entro quando
+- **Attendees** (Multi-select)
+- **Recording Link** (URL)
+
+---
+
+## 5. ONBOARDING CHECKLIST
+
+Aggiungi questa checklist al kickoff di ogni progetto:
+
+\`\`\`
+## ✅ Onboarding Checklist
+
+### Prima del kickoff
+- [ ] Contratto firmato
+- [ ] Acconto ricevuto
+- [ ] Accesso al portale condiviso con il cliente
+- [ ] Credenziali/accessi necessari ricevuti: {{access_list}}
+- [ ] Kickoff call schedulato
+
+### Durante il kickoff
+- [ ] Obiettivi del progetto allineati
+- [ ] Timeline condivisa e approvata
+- [ ] Canale di comunicazione preferito definito
+- [ ] Processo di feedback spiegato
+- [ ] Processo di approvazione spiegato
+
+### Prima dell'entrata in produzione
+- [ ] Tutti i deliverable approvati
+- [ ] Fattura finale inviata
+- [ ] Handoff completato
+- [ ] Testimonial/referral richiesto
+\`\`\`
+
+---
+
+## COME CONDIVIDERE IL PORTALE
+
+1. Apri la pagina principale del portale cliente
+2. Clicca "Share" in alto a destra
+3. Seleziona "Share to web" con "Can view" (o "Can comment" se vuoi feedback inline)
+4. Copia il link e condividi con il cliente
+5. Opzione avanzata: usa un dominio personalizzato con {{super.so}} o {{notion.site}}
+
+## Personalizzazioni consigliate
+
+- Aggiungi il logo del cliente come cover della pagina
+- Usa i colori brand del cliente negli emoji e nei colori dei tag
+- Crea un database **FEEDBACK** separato per raccogliere feedback strutturati
+- Aggiungi una sezione **INVOICE HISTORY** con link alle fatture pagate`,
+  },
 ];
+
 
 export function getTemplate(id: string): Template | undefined {
   return templates.find((t) => t.id === id);
@@ -3029,6 +4071,25 @@ export const bundles: Bundle[] = [
     emoji: "⚡",
     accentColor: "orange",
     tags: ["productivity", "focus", "adhd", "automation"],
+  },
+  {
+    id: "bundle-notion-productivity",
+    name: "Notion Productivity Pack",
+    tagline: "Il tuo workspace Notion completo in un colpo solo",
+    description:
+      "5 template Notion premium: Project Hub, CRM, Content Calendar, Finance Tracker e Second Brain. Tutto ciò che serve per lavorare meglio.",
+    templateIds: ["notion-project-hub", "notion-freelancer-crm", "notion-content-calendar", "notion-finance-tracker", "notion-second-brain"],
+    highlights: [
+      "5 template Notion premium pronti all'uso",
+      "Da CRM a PKM: copertura completa del workflow",
+      "Risparmia €19 rispetto all'acquisto singolo",
+    ],
+    price: 3499,
+    regularPrice: 6395,
+    stripePriceId: "price_1TCIgGBoWNgrJbiyhXB2eWbc",
+    emoji: "📓",
+    accentColor: "emerald",
+    tags: ["notion", "productivity", "pkm", "crm", "project management"],
   },
 ];
 
