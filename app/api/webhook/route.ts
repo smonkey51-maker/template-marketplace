@@ -1,21 +1,26 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { createClient } from "@supabase/supabase-js";
+import { getBundle } from "@/lib/templates";
 
 export async function POST(req: NextRequest) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET ?? "";
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+
+  if (!webhookSecret) {
+    console.error("STRIPE_WEBHOOK_SECRET not configured");
+    return NextResponse.json({ error: "Webhook not configured" }, { status: 500 });
+  }
+
   const body = await req.text();
   const signature = req.headers.get("stripe-signature") ?? "";
 
   let event: Stripe.Event;
 
   try {
-    event = webhookSecret
-      ? stripe.webhooks.constructEvent(body, signature, webhookSecret)
-      : (JSON.parse(body) as Stripe.Event);
+    event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
   } catch (err) {
-    console.error("Webhook error:", err);
+    console.error("Webhook signature verification failed:", err);
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
 
@@ -30,9 +35,10 @@ export async function POST(req: NextRequest) {
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
 
-    if (bundleId && templateIds) {
-      // Bundle purchase: insert one row per template in the bundle
-      const ids = templateIds.split(",").filter(Boolean);
+    if (bundleId) {
+      // Bundle purchase: resolve template IDs from bundle definition (avoids 500-char metadata limit)
+      const bundle = getBundle(bundleId);
+      const ids = bundle?.templateIds ?? (templateIds ? templateIds.split(",").filter(Boolean) : []);
       const rows = ids.map((tid) => ({
         user_id: userId,
         template_id: tid,

@@ -44,16 +44,19 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
   const { isSignedIn } = useUser();
   const { lang } = useLang();
   const [purchasedIds, setPurchasedIds] = useState<string[]>([]);
+  const [purchasesLoading, setPurchasesLoading] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<"desktop" | "mobile">("desktop");
 
   const template = getTemplate(templateId);
 
   useEffect(() => {
     fetch("/api/purchases")
-      .then((r) => r.json())
+      .then((r) => r.ok ? r.json() : { templateIds: [] })
       .then((d) => setPurchasedIds(d.templateIds ?? []))
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => setPurchasesLoading(false));
   }, []);
 
   const isPurchased = purchasedIds.includes(templateId);
@@ -61,14 +64,19 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
   const handleBuy = async () => {
     if (!isSignedIn) { router.push("/sign-in"); return; }
     setLoading(true);
+    setCheckoutError(null);
     try {
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ templateId }),
       });
+      if (!res.ok) throw new Error("checkout_failed");
       const data = await res.json();
       if (data.url) window.location.href = data.url;
+      else throw new Error("no_url");
+    } catch {
+      setCheckoutError(lang === "it" ? "Errore durante il checkout. Riprova più tardi." : "Checkout failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -281,7 +289,12 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
             </span>
           </div>
 
-          {isPurchased ? (
+          {checkoutError && (
+            <p className="text-center text-[12px] text-[#FF453A] mb-2 font-medium">{checkoutError}</p>
+          )}
+          {purchasesLoading ? (
+            <div className="w-full h-[50px] rounded-2xl bg-theme/10 animate-pulse" />
+          ) : isPurchased ? (
             <div className="flex gap-2">
               <Link
                 href={`/studio?templateId=${template.id}`}

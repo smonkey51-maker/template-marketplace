@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Bundle, formatPrice, getTemplate } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
+import { t } from "@/lib/i18n";
 
 const COLOR_MAP: Record<string, { bg: string; border: string; text: string; badge: string; btn: string }> = {
   blue:    { bg: "bg-blue-500/10",    border: "border-blue-500/30",    text: "text-blue-400",    badge: "bg-blue-500/20 text-blue-300 border-blue-500/30",    btn: "bg-blue-500/15 hover:bg-blue-500/25 border-blue-500/40 text-blue-300" },
@@ -20,7 +21,7 @@ export default function BundleCard({
 }: {
   bundle: Bundle;
   purchasedIds: string[];
-  onBuy: (bundleId: string) => void;
+  onBuy: (bundleId: string) => Promise<void>;
 }) {
   const { lang } = useLang();
   const colors = COLOR_MAP[bundle.accentColor] ?? COLOR_MAP.blue;
@@ -68,7 +69,7 @@ export default function BundleCard({
       {/* Included templates */}
       <div className="px-5 pt-4 pb-3 flex-1">
         <p className="text-[10px] font-black text-muted/60 uppercase tracking-[0.18em] mb-2.5">
-          {lang === "it" ? "Include" : "Includes"} ({bundle.templateIds.length} template)
+          {t[lang].bundleCard.includes} ({bundle.templateIds.length} template)
         </p>
         <div className="space-y-1.5">
           {includedTemplates.map((tmpl) => {
@@ -80,7 +81,7 @@ export default function BundleCard({
                 </span>
                 <span className={`text-[12px] leading-snug ${owned ? "text-[#30D158]/80" : "text-theme/80"}`}>
                   {tmpl!.name}
-                  {owned && <span className="text-[10px] text-[#30D158]/60 ml-1">(già tuo)</span>}
+                  {owned && <span className="text-[10px] text-[#30D158]/60 ml-1">{t[lang].bundleCard.alreadyYours}</span>}
                 </span>
               </div>
             );
@@ -97,14 +98,14 @@ export default function BundleCard({
           </div>
           <div className="text-right">
             <span className="text-[11px] text-muted">
-              {lang === "it" ? "Risparmi" : "Save"} <strong className={colors.text}>{formatPrice(savings)}</strong>
+              {t[lang].bundleCard.save} <strong className={colors.text}>{formatPrice(savings)}</strong>
             </span>
           </div>
         </div>
 
         {isFullyOwned ? (
           <div className="w-full py-2.5 rounded-xl bg-[#30D158]/10 text-[#30D158] text-[13px] font-bold text-center border border-[#30D158]/20">
-            {lang === "it" ? "✓ Bundle già acquistato" : "✓ Already owned"}
+            {t[lang].bundleCard.fullyOwned}
           </div>
         ) : (
           <button
@@ -112,17 +113,15 @@ export default function BundleCard({
             disabled={loading}
             className={`w-full py-2.5 rounded-xl text-[13px] font-bold transition-all duration-200 active:scale-[0.97] disabled:opacity-60 border ${colors.btn}`}
           >
-            {loading
-              ? (lang === "it" ? "Caricamento..." : "Loading...")
-              : (lang === "it" ? `Acquista il bundle →` : "Get the bundle →")}
+            {loading ? t[lang].bundleCard.loading : t[lang].bundleCard.buyBundle}
           </button>
         )}
 
         {ownedCount > 0 && !isFullyOwned && (
           <p className="text-center text-[10px] text-muted mt-2">
-            {lang === "it"
-              ? `Possiedi già ${ownedCount}/${bundle.templateIds.length} template`
-              : `You own ${ownedCount}/${bundle.templateIds.length} templates`}
+            {t[lang].bundleCard.youOwn
+              .replace("{{owned}}", String(ownedCount))
+              .replace("{{total}}", String(bundle.templateIds.length))}
           </p>
         )}
       </div>

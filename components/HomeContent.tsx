@@ -40,6 +40,7 @@ export default function HomeContent() {
   const animatedTemplates = useCountUp(templates.length);
 
   const [purchasedIds, setPurchasedIds] = useState<string[]>([]);
+  const [bundleError, setBundleError] = useState<string | null>(null);
   useEffect(() => {
     fetch("/api/purchases")
       .then((r) => r.ok ? r.json() : { templateIds: [] })
@@ -48,14 +49,21 @@ export default function HomeContent() {
   }, []);
 
   const handleBundleBuy = useCallback(async (bundleId: string) => {
-    const res = await fetch("/api/checkout", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ bundleId }),
-    });
-    const data = await res.json();
-    if (data.url) router.push(data.url);
-  }, [router]);
+    setBundleError(null);
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ bundleId }),
+      });
+      if (!res.ok) throw new Error("checkout_failed");
+      const data = await res.json();
+      if (data.url) router.push(data.url);
+      else throw new Error("no_url");
+    } catch {
+      setBundleError(lang === "it" ? "Errore durante il checkout. Riprova più tardi." : "Checkout failed. Please try again.");
+    }
+  }, [router, lang]);
 
   return (
     <div className="min-h-screen bg-page relative overflow-x-hidden">
@@ -230,6 +238,9 @@ export default function HomeContent() {
             ? "Acquista più template insieme e risparmia fino al 55%. Ogni bundle è pensato per un obiettivo specifico."
             : "Buy template packs and save up to 55%. Each bundle targets a specific goal."}
         </p>
+        {bundleError && (
+          <p className="text-center text-[13px] text-[#FF453A] mb-4 font-medium">{bundleError}</p>
+        )}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {bundles.map((bundle) => (
             <BundleCard

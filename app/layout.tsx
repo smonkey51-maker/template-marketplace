@@ -4,10 +4,31 @@ import ThemeProvider from "@/components/ThemeProvider";
 import LanguageProvider from "@/components/LanguageProvider";
 import "./globals.css";
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://templatelab.io";
+
 export const metadata: Metadata = {
-  title: "TemplateLab — AI-Powered Template Marketplace",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "TemplateLab — AI-Powered Template Marketplace",
+    template: "%s — TemplateLab",
+  },
   description:
-    "Buy premium UI and prompt templates. Customize any template instantly with Claude AI.",
+    "Buy premium UI and prompt templates. Customize any template instantly with Claude AI. No code required.",
+  openGraph: {
+    type: "website",
+    siteName: "TemplateLab",
+    title: "TemplateLab — AI-Powered Template Marketplace",
+    description:
+      "Buy premium UI and prompt templates. Customize any template instantly with Claude AI.",
+    images: [{ url: "/api/og", width: 1200, height: 630, alt: "TemplateLab" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "TemplateLab — AI-Powered Template Marketplace",
+    description:
+      "Buy premium UI and prompt templates. Customize any template instantly with Claude AI.",
+    images: ["/api/og"],
+  },
 };
 
 export default function RootLayout({
@@ -17,7 +38,7 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en" className="dark">
+      <html lang="it" className="dark">
         <body className="bg-page text-theme antialiased min-h-screen">
           <ThemeProvider><LanguageProvider>{children}</LanguageProvider></ThemeProvider>
         </body>

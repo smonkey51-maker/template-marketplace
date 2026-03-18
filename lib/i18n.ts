@@ -174,6 +174,15 @@ export const t = {
       customizeStudio: "Personalizza in AI Studio →",
       backToMarketplace: "Torna al marketplace",
     },
+    bundleCard: {
+      includes: "Include",
+      alreadyYours: "(già tuo)",
+      fullyOwned: "✓ Bundle già acquistato",
+      buyBundle: "Acquista il bundle →",
+      loading: "Caricamento...",
+      youOwn: "Possiedi già {{owned}}/{{total}} template",
+      save: "Risparmi",
+    },
     footer: {
       tagline: "Template UI e Prompt AI pronti all'uso.",
       guide: "Guida",
@@ -356,6 +365,15 @@ export const t = {
       subtitleTemplate: "You can now customize the template with AI Studio.",
       customizeStudio: "Customize in AI Studio →",
       backToMarketplace: "Back to marketplace",
+    },
+    bundleCard: {
+      includes: "Includes",
+      alreadyYours: "(already yours)",
+      fullyOwned: "✓ Already owned",
+      buyBundle: "Get the bundle →",
+      loading: "Loading...",
+      youOwn: "You own {{owned}}/{{total}} templates",
+      save: "Save",
     },
     footer: {
       tagline: "UI templates and AI prompts, ready to use.",

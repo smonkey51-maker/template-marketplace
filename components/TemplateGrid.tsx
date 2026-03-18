@@ -27,6 +27,8 @@ const SECTION_IDS: {
   { id: "personal-brand",  emoji: "🪪", ids: ["digital-resume", "link-in-bio", "newsletter-landing"] },
 ];
 
+const byId = Object.fromEntries(templates.map((tmpl) => [tmpl.id, tmpl]));
+
 function SkeletonCard() {
   return (
     <div className="bg-card border border-theme rounded-[22px] overflow-hidden animate-pulse">
@@ -81,7 +83,6 @@ export default function TemplateGrid() {
   // Reset style filter when category changes
   useEffect(() => { setStyleFilter("all"); }, [categoryFilter]);
 
-  const byId = Object.fromEntries(templates.map((tmpl) => [tmpl.id, tmpl]));
   const isFiltered = query.trim() !== "" || categoryFilter !== "all" || styleFilter !== "all";
 
   // Track active section for jump nav highlight
