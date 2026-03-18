@@ -35,7 +35,7 @@ export default function NavButtons() {
         <UserButton />
       ) : (
         <SignInButton mode="modal">
-          <button className="px-3.5 sm:px-4 py-2 bg-[#0A84FF] hover:bg-[#409CFF] active:scale-[0.97] text-white font-semibold rounded-2xl text-[13px] sm:text-[14px] transition-all duration-200 ios-spring shadow-[0_2px_12px_rgba(10,132,255,0.25)] whitespace-nowrap">
+          <button className="px-4 py-2 bg-zinc-900 dark:bg-white hover:opacity-80 active:scale-[0.97] text-white dark:text-zinc-900 font-semibold rounded-full text-[13px] transition-opacity duration-200 whitespace-nowrap">
             {t[lang].nav.signIn}
           </button>
         </SignInButton>

@@ -68,18 +68,11 @@ export default function HomeContent() {
   return (
     <div className="min-h-screen bg-page relative overflow-x-hidden">
 
-      {/* ── Ambient orbs ── */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden>
-        <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[900px] h-[600px] rounded-full opacity-60"
-          style={{ background: "radial-gradient(ellipse, var(--glow-blue) 0%, transparent 70%)" }} />
-        <div className="absolute top-[20%] right-[-5%] w-[500px] h-[500px] rounded-full"
-          style={{ background: "radial-gradient(ellipse, var(--glow-purple) 0%, transparent 70%)" }} />
-      </div>
 
-      {/* ── Nav ── */}
+{/* ── Nav ── */}
       <nav className="sticky top-0 z-50 border-b border-theme backdrop-blur-2xl bg-nav px-4 sm:px-6 py-3.5">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
-          <span className="text-[17px] font-bold tracking-tight text-[#0A84FF] shrink-0 select-none">
+          <span className="text-[17px] font-bold tracking-tight text-zinc-900 dark:text-white shrink-0 select-none">
             TemplateLab
           </span>
           <div className="hidden sm:flex items-center gap-1">
@@ -101,19 +94,18 @@ export default function HomeContent() {
       <section className="relative z-10 px-4 sm:px-6 pt-16 pb-10 sm:pt-24 sm:pb-16 text-center max-w-2xl mx-auto">
 
         {/* Badge */}
-        <div className="anim-fade-up delay-0 inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-semibold glass-subtle text-[#0A84FF] mb-6 select-none">
+        <div className="anim-fade-up delay-0 inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-semibold bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 mb-6 select-none">
           <span className="relative flex h-1.5 w-1.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0A84FF] opacity-50" />
-            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#0A84FF]" />
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-zinc-400 opacity-50" />
+            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-zinc-400 dark:bg-zinc-500" />
           </span>
           {t[lang].hero.badge}
         </div>
 
         {/* Heading */}
-        <h1 className="anim-fade-up delay-75 text-[2rem] sm:text-[3rem] md:text-[3.6rem] font-black leading-[1.06] tracking-[-0.03em] mb-4 text-theme">
+        <h1 className="anim-fade-up delay-75 text-[2rem] sm:text-[3rem] md:text-[3.6rem] font-black leading-[1.06] tracking-[-0.03em] mb-4 text-zinc-900 dark:text-white">
           {t[lang].hero.titleStart}{" "}
-          <span className="bg-clip-text text-transparent"
-            style={{ backgroundImage: "linear-gradient(135deg, #0A84FF 0%, #5E5CE6 100%)" }}>
+          <span>
             {t[lang].hero.titleGradient.split("\n").map((line, i, arr) => (
               <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
             ))}
@@ -129,14 +121,14 @@ export default function HomeContent() {
         {/* CTAs */}
         <div className="anim-fade-up delay-225 flex flex-col sm:flex-row gap-3 justify-center">
           <a href="#browse"
-            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-[#0A84FF] hover:bg-[#409CFF] rounded-2xl font-bold text-white text-[15px] btn-glow-blue active:scale-[0.96] ios-spring shadow-[0_4px_20px_rgba(10,132,255,0.3)]">
+            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-zinc-900 dark:bg-white hover:opacity-80 rounded-2xl font-bold text-white dark:text-zinc-900 text-[15px] active:scale-[0.96] transition-opacity duration-200">
             {t[lang].hero.cta1}
             <svg width="13" height="13" viewBox="0 0 14 14" fill="none" className="shrink-0 opacity-80">
               <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </a>
           <Link href="/studio"
-            className="px-7 py-3.5 glass-subtle rounded-2xl font-bold text-[15px] text-theme hover:border-[#0A84FF]/30 active:scale-[0.96] ios-spring transition-all duration-300">
+            className="px-7 py-3.5 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl font-bold text-[15px] text-zinc-900 dark:text-zinc-100 hover:bg-zinc-200 dark:hover:bg-zinc-700 active:scale-[0.96] transition-colors duration-200">
             {t[lang].hero.cta2}
           </Link>
         </div>
@@ -144,17 +136,17 @@ export default function HomeContent() {
         {/* Trust stats */}
         <div className="anim-fade-up delay-300 flex items-center justify-center gap-0 mt-7 text-[12px] text-muted">
           <span className="flex items-center gap-1.5 px-3.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#0A84FF] shrink-0" />
+            <span className="w-1.5 h-1.5 rounded-full bg-zinc-400 dark:bg-zinc-500 shrink-0" />
             {animatedTemplates} {t[lang].hero.statTemplates}
           </span>
           <span className="w-px h-3 bg-theme/25 shrink-0" />
           <span className="flex items-center gap-1.5 px-3.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#30D158] shrink-0" />
+            <span className="w-1.5 h-1.5 rounded-full bg-zinc-400 dark:bg-zinc-500 shrink-0" />
             {animatedDownloads.toLocaleString(lang === "it" ? "it-IT" : "en-US")}+ {t[lang].hero.statDownloads}
           </span>
           <span className="w-px h-3 bg-theme/25 shrink-0" />
           <span className="flex items-center gap-1.5 px-3.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#5E5CE6] shrink-0" />
+            <span className="w-1.5 h-1.5 rounded-full bg-zinc-400 dark:bg-zinc-500 shrink-0" />
             {t[lang].hero.statPayment}
           </span>
         </div>
@@ -164,34 +156,30 @@ export default function HomeContent() {
       <div className="relative z-10 anim-fade-up delay-300">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 pb-12">
           <div className="relative border border-theme rounded-[20px] bg-surface overflow-hidden">
-            {/* top glow line */}
-            <div className="absolute inset-x-0 top-0 h-px"
-              style={{ background: "linear-gradient(90deg, transparent, rgba(10,132,255,0.2), rgba(94,92,230,0.2), transparent)" }} />
-
             <div className="grid grid-cols-3 divide-x divide-theme">
               {/* Step 1 */}
               <div className="flex flex-col items-center text-center px-4 py-5 gap-2">
-                <div className="w-8 h-8 rounded-xl bg-[#0A84FF]/10 flex items-center justify-center text-base">🔍</div>
+                <div className="w-8 h-8 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-base">🔍</div>
                 <div>
-                  <p className="text-[11px] font-black text-[#0A84FF] uppercase tracking-widest mb-0.5">01</p>
+                  <p className="text-[11px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-widest mb-0.5">01</p>
                   <p className="text-[12px] font-semibold text-theme leading-snug">{t[lang].howItWorks.step1Title}</p>
                   <p className="text-[10.5px] text-muted mt-1 leading-snug hidden sm:block">{t[lang].howItWorks.step1Desc}</p>
                 </div>
               </div>
               {/* Step 2 */}
               <div className="flex flex-col items-center text-center px-4 py-5 gap-2">
-                <div className="w-8 h-8 rounded-xl bg-[#5E5CE6]/10 flex items-center justify-center text-base">⚡</div>
+                <div className="w-8 h-8 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-base">⚡</div>
                 <div>
-                  <p className="text-[11px] font-black text-[#5E5CE6] uppercase tracking-widest mb-0.5">02</p>
+                  <p className="text-[11px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-widest mb-0.5">02</p>
                   <p className="text-[12px] font-semibold text-theme leading-snug">{t[lang].howItWorks.step2Title}</p>
                   <p className="text-[10.5px] text-muted mt-1 leading-snug hidden sm:block">{t[lang].howItWorks.step2Desc}</p>
                 </div>
               </div>
               {/* Step 3 */}
               <div className="flex flex-col items-center text-center px-4 py-5 gap-2">
-                <div className="w-8 h-8 rounded-xl bg-[#30D158]/10 flex items-center justify-center text-base">🤖</div>
+                <div className="w-8 h-8 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-base">🤖</div>
                 <div>
-                  <p className="text-[11px] font-black text-[#30D158] uppercase tracking-widest mb-0.5">03</p>
+                  <p className="text-[11px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-widest mb-0.5">03</p>
                   <p className="text-[12px] font-semibold text-theme leading-snug">{t[lang].howItWorks.step3Title}</p>
                   <p className="text-[10.5px] text-muted mt-1 leading-snug hidden sm:block">{t[lang].howItWorks.step3Desc}</p>
                 </div>
@@ -211,7 +199,7 @@ export default function HomeContent() {
             {["Next.js", "React", "Vue", "HTML/CSS", "Framer", "Webflow", "Claude AI", "ChatGPT"].map((name) => (
               <span
                 key={name}
-                className="text-[11px] font-semibold text-muted glass-subtle px-3 py-1 rounded-full border border-theme"
+                className="text-[11px] font-semibold text-muted bg-zinc-100 dark:bg-zinc-800 px-3 py-1 rounded-full border border-zinc-200 dark:border-zinc-700"
               >
                 {name}
               </span>
@@ -225,14 +213,13 @@ export default function HomeContent() {
         {/* Section header */}
         <div className="text-center mb-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold
-            glass-subtle border border-[#FF9F0A]/20 text-[#FF9F0A] mb-4">
+            bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 mb-4">
             <span>🎁</span>
             {lang === "it" ? "Offerte esclusive · Risparmio fino al 55%" : "Exclusive deals · Save up to 55%"}
           </div>
-          <h2 className="text-[1.6rem] sm:text-[2rem] font-black text-theme leading-[1.1] tracking-tight mb-3">
+          <h2 className="text-[1.6rem] sm:text-[2rem] font-black text-zinc-900 dark:text-white leading-[1.1] tracking-tight mb-3">
             {lang === "it" ? "Prendi tutto ciò che ti serve." : "Get everything you need."}<br />
-            <span className="bg-clip-text text-transparent"
-              style={{ backgroundImage: "linear-gradient(135deg, #FF9F0A 0%, #FF6B00 100%)" }}>
+            <span className="text-zinc-900 dark:text-white">
               {lang === "it" ? "Paga molto meno." : "Pay a lot less."}
             </span>
           </h2>

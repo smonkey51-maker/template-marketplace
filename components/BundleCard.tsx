@@ -6,15 +6,13 @@ import { Bundle, formatPrice, getTemplate } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
 import { t } from "@/lib/i18n";
 
-const COLOR_MAP: Record<string, {
-  bg: string; border: string; text: string; badge: string; shadow: string;
-}> = {
-  blue:    { bg: "bg-blue-500/10",    border: "border-blue-500/30",    text: "text-blue-400",    badge: "bg-blue-500/20 text-blue-300 border-blue-500/30",    shadow: "hover:shadow-[0_20px_60px_rgba(10,132,255,0.15)]" },
-  violet:  { bg: "bg-violet-500/10",  border: "border-violet-500/30",  text: "text-violet-400",  badge: "bg-violet-500/20 text-violet-300 border-violet-500/30",  shadow: "hover:shadow-[0_20px_60px_rgba(139,92,246,0.15)]" },
-  emerald: { bg: "bg-emerald-500/10", border: "border-emerald-500/30", text: "text-emerald-400", badge: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30", shadow: "hover:shadow-[0_20px_60px_rgba(52,211,153,0.15)]" },
-  purple:  { bg: "bg-purple-500/10",  border: "border-purple-500/30",  text: "text-purple-400",  badge: "bg-purple-500/20 text-purple-300 border-purple-500/30",  shadow: "hover:shadow-[0_20px_60px_rgba(168,85,247,0.15)]" },
-  amber:   { bg: "bg-amber-500/10",   border: "border-amber-500/30",   text: "text-amber-400",   badge: "bg-amber-500/20 text-amber-300 border-amber-500/30",    shadow: "hover:shadow-[0_20px_60px_rgba(245,158,11,0.15)]" },
-  orange:  { bg: "bg-orange-500/10",  border: "border-orange-500/30",  text: "text-orange-400",  badge: "bg-orange-500/20 text-orange-300 border-orange-500/30",  shadow: "hover:shadow-[0_20px_60px_rgba(249,115,22,0.15)]" },
+// Monochromatic — single neutral style regardless of bundle accent color
+const NEUTRAL_COLORS = {
+  bg:     "bg-zinc-50 dark:bg-zinc-800/50",
+  border: "border-zinc-100 dark:border-zinc-800",
+  text:   "text-zinc-700 dark:text-zinc-300",
+  badge:  "bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 border-zinc-200 dark:border-zinc-700",
+  shadow: "hover:shadow-lg",
 };
 
 export default function BundleCard({
@@ -28,7 +26,7 @@ export default function BundleCard({
 }) {
   const { lang } = useLang();
   const router = useRouter();
-  const colors = COLOR_MAP[bundle.accentColor] ?? COLOR_MAP.blue;
+  const colors = NEUTRAL_COLORS;
   const savings = bundle.regularPrice - bundle.price;
   const savingsPct = Math.round((savings / bundle.regularPrice) * 100);
 
@@ -51,8 +49,8 @@ export default function BundleCard({
 
   return (
     <article
-      className={`relative glass-subtle rounded-[22px] overflow-hidden border ${colors.border} flex flex-col h-full
-        transition-all duration-300 hover:-translate-y-1 ${colors.shadow}
+      className={`relative bg-white dark:bg-zinc-900 rounded-[22px] overflow-hidden border ${colors.border} flex flex-col h-full
+        transition-shadow duration-200 ${colors.shadow}
         cursor-pointer group`}
       onClick={() => router.push(`/bundle/${bundle.id}`)}
       aria-label={`${bundle.name} — ${formatPrice(bundle.price)}`}
@@ -102,7 +100,7 @@ export default function BundleCard({
                   key={tmpl!.id}
                   className={`text-[10px] px-2 py-0.5 rounded-full border leading-snug transition-colors duration-200 ${
                     owned
-                      ? "bg-[#30D158]/10 text-[#30D158]/80 border-[#30D158]/20"
+                      ? "bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 border-zinc-200 dark:border-zinc-700"
                       : "bg-theme/5 text-muted border-theme"
                   }`}
                 >
@@ -131,7 +129,7 @@ export default function BundleCard({
         {isFullyOwned ? (
           <div
             onClick={(e) => e.stopPropagation()}
-            className="w-full py-2.5 rounded-xl bg-[#30D158]/10 text-[#30D158] text-[13px] font-bold text-center border border-[#30D158]/20"
+            className="w-full py-2.5 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 text-[13px] font-bold text-center border border-zinc-200 dark:border-zinc-700"
           >
             {t[lang].bundleCard.fullyOwned}
           </div>
@@ -139,11 +137,9 @@ export default function BundleCard({
           <button
             onClick={handleBuy}
             disabled={loading}
-            className="w-full py-3 rounded-xl text-[13px] font-bold transition-all duration-200
-              active:scale-[0.97] disabled:opacity-60 ios-spring
-              bg-[#0A84FF] hover:bg-[#409CFF] text-white
-              shadow-[0_4px_16px_rgba(10,132,255,0.30)] btn-glow-blue
-              group-hover:shadow-[0_4px_20px_rgba(10,132,255,0.45)]"
+            className="w-full py-3 rounded-xl text-[13px] font-bold transition-opacity duration-200
+              active:scale-[0.97] disabled:opacity-60
+              bg-zinc-900 dark:bg-white hover:opacity-80 text-white dark:text-zinc-900"
           >
             {loading
               ? t[lang].bundleCard.loading

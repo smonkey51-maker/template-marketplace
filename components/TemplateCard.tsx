@@ -73,8 +73,8 @@ function UIThumbnail({ template, isPurchased, lang }: { template: Template; isPu
 
 function PurchasedBadge({ lang }: { lang: Lang }) {
   return (
-    <span className="absolute bottom-3 left-3 z-10 flex items-center gap-1 bg-[#30D158]/20 text-[#30D158] border border-[#30D158]/30 rounded-full px-2.5 py-1 text-[11px] font-semibold backdrop-blur-sm">
-      <span className="w-1.5 h-1.5 rounded-full bg-[#30D158]" />
+    <span className="absolute bottom-3 left-3 z-10 flex items-center gap-1 bg-white/90 dark:bg-zinc-900/90 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 rounded-full px-2.5 py-1 text-[11px] font-semibold">
+      <span className="w-1.5 h-1.5 rounded-full bg-zinc-400 dark:bg-zinc-500" />
       {lang === "it" ? "Acquistato" : "Purchased"}
     </span>
   );
@@ -109,28 +109,26 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
     <Link
       href={`/preview/${template.id}`}
       aria-label={displayName}
-      className={`group relative glass-subtle rounded-[22px] overflow-hidden flex flex-col h-full
-        transition-all duration-300 ease-premium
-        hover:-translate-y-1
-        hover:shadow-[0_16px_48px_rgba(0,0,0,0.15),0_0_0_1px_rgba(10,132,255,0.15)]
-        active:scale-[0.98] active:opacity-90
-        ${isEditorsPick && !isPurchased ? "ring-1 ring-[#5E5CE6]/30" : isBestseller && !isPurchased ? "ring-1 ring-[#FF9F0A]/25" : ""}`}
+      className="group relative bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-2xl overflow-hidden flex flex-col h-full
+        transition-shadow duration-200
+        hover:shadow-lg
+        active:opacity-90"
     >
       {/* Editor's Pick badge (takes priority over bestseller) */}
       {isEditorsPick && !isPurchased && (
-        <div className="absolute top-2.5 right-2.5 z-10 bg-[#5E5CE6]/20 text-[#5E5CE6] border border-[#5E5CE6]/30 rounded-full px-2 py-0.5 text-[10px] font-bold backdrop-blur-sm">
+        <div className="absolute top-2.5 right-2.5 z-10 bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700 rounded-full px-2 py-0.5 text-[10px] font-bold">
           {t[lang].card.editorsPick}
         </div>
       )}
       {/* Bestseller badge */}
       {isBestseller && !isPurchased && !isEditorsPick && (
-        <div className="absolute top-2.5 right-2.5 z-10 bg-[#FF9F0A]/20 text-[#FF9F0A] border border-[#FF9F0A]/30 rounded-full px-2 py-0.5 text-[10px] font-bold backdrop-blur-sm">
+        <div className="absolute top-2.5 right-2.5 z-10 bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700 rounded-full px-2 py-0.5 text-[10px] font-bold">
           {t[lang].card.bestseller}
         </div>
       )}
       {/* New badge */}
       {isNew && !isPurchased && !isEditorsPick && !isBestseller && (
-        <div className="absolute top-2.5 left-2.5 z-10 bg-[#30D158]/20 text-[#30D158] border border-[#30D158]/30 rounded-full px-2 py-0.5 text-[10px] font-bold backdrop-blur-sm">
+        <div className="absolute top-2.5 left-2.5 z-10 bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700 rounded-full px-2 py-0.5 text-[10px] font-bold">
           {t[lang].card.isNew}
         </div>
       )}
@@ -145,7 +143,7 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
         }
         {/* Hover CTA overlay */}
         <div className="absolute inset-0 flex items-end justify-center pb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-          <span className="bg-[#0A84FF] text-white text-[12px] font-bold px-4 py-2 rounded-xl shadow-[0_4px_16px_rgba(10,132,255,0.4)] backdrop-blur-sm">
+          <span className="bg-white/90 dark:bg-black/80 text-zinc-900 dark:text-zinc-100 text-[12px] font-bold px-4 py-2 rounded-xl shadow-sm">
             {lang === "it" ? "Anteprima rapida →" : "Quick preview →"}
           </span>
         </div>
@@ -154,17 +152,13 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
       <div className="px-4 py-3.5 flex flex-col flex-1">
         {/* Category pill */}
         <div className="mb-1.5">
-          <span className={`text-[10px] font-bold uppercase tracking-[0.1em] px-1.5 py-0.5 rounded-md ${
-            template.category === "ui"
-              ? "bg-[#007AFF]/10 text-[#007AFF]"
-              : "bg-[#5E5CE6]/10 text-[#5E5CE6]"
-          }`}>
+          <span className="text-[10px] font-bold uppercase tracking-[0.1em] px-1.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400">
             {template.category === "ui" ? t[lang].card.categoryUI : t[lang].card.categoryPrompt}
           </span>
         </div>
 
         {/* Name */}
-        <h3 className="text-[13.5px] font-semibold text-theme leading-snug group-hover:text-[#0A84FF] transition-colors duration-200 mb-1">
+        <h3 className="text-[14px] font-semibold text-zinc-900 dark:text-zinc-100 leading-snug group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors duration-200 mb-1">
           {displayName}
         </h3>
 
@@ -175,7 +169,7 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
 
         {/* Price + downloads */}
         <div className="mt-2.5 pt-2.5 border-t border-theme flex items-center justify-between">
-          <span className="text-[15px] font-bold text-[#0A84FF]">{formatPrice(template.price)}</span>
+          <span className="text-[16px] font-bold text-zinc-900 dark:text-white">{formatPrice(template.price)}</span>
           <div className="flex items-center gap-2">
             <span className="text-[11px] text-muted flex items-center gap-1">
               <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden>
@@ -188,7 +182,7 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
               onClick={handleShare}
               aria-label={copied ? "Link copiato" : "Copia link"}
               className={`opacity-0 group-hover:opacity-100 transition-all duration-200 rounded-lg p-1 -mr-0.5
-                ${copied ? "text-[#30D158]" : "text-muted hover:text-theme"}`}
+                ${copied ? "text-zinc-900 dark:text-zinc-100" : "text-muted hover:text-theme"}`}
             >
               {copied ? (
                 <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden>
