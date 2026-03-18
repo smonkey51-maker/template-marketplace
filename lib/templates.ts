@@ -23,6 +23,8 @@ export interface Template {
   downloadType?: DownloadType;
   /** Required for canva / excel / sheets / notion / webflow / framer */
   downloadUrl?: string;
+  /** Optional YouTube/Loom URL for a walkthrough tutorial shown on the preview page */
+  videoUrl?: string;
   editorsPick?: boolean;
   isNew?: boolean;
 }
@@ -2892,7 +2894,9 @@ IMPLEMENTATION NOTES
     name: "Notion Project Management Hub",
     category: "prompt",
     price: 1299,
-    stripePriceId: "price_1TCIgABoWNgrJbiyUCgrGaoU",
+    stripePriceId: "price_1TCIgABoWNgrJbiyUCgrGaoU",
+    downloadType: "notion",
+    downloadUrl: "", // TODO: incolla qui il link di duplicazione Notion
     tags: ["notion", "project management", "productivity", "kanban", "team"],
     downloads: 387,
     description: "Complete Notion workspace for managing projects, tasks and deadlines with 5 pre-built views.",
@@ -3083,7 +3087,9 @@ Configura un template button nella pagina Projects che crea automaticamente:
     name: "Notion Freelancer CRM",
     category: "prompt",
     price: 1299,
-    stripePriceId: "price_1TCIgBBoWNgrJbiyTSZ5qOHG",
+    stripePriceId: "price_1TCIgBBoWNgrJbiyTSZ5qOHG",
+    downloadType: "notion",
+    downloadUrl: "", // TODO: incolla qui il link di duplicazione Notion
     tags: ["notion", "crm", "freelance", "clients", "invoices"],
     downloads: 312,
     description: "Manage clients, projects, invoices and follow-ups in one Notion database.",
@@ -3317,7 +3323,9 @@ prop("Amount") * (1 + prop("VAT %") / 100)
     name: "Notion Content Calendar",
     category: "prompt",
     price: 999,
-    stripePriceId: "price_1TCIgCBoWNgrJbiyLKZj4e5L",
+    stripePriceId: "price_1TCIgCBoWNgrJbiyLKZj4e5L",
+    downloadType: "notion",
+    downloadUrl: "", // TODO: incolla qui il link di duplicazione Notion
     tags: ["notion", "content", "social media", "calendar", "marketing"],
     downloads: 445,
     description: "Plan, schedule and track content across all channels with status tracking.",
@@ -3545,7 +3553,9 @@ Usa la relazione "Repurposed From" per tracciare l'origine di ogni contenuto e l
     name: "Notion Personal Finance Tracker",
     category: "prompt",
     price: 1299,
-    stripePriceId: "price_1TCIgDBoWNgrJbiyzQGqse0q",
+    stripePriceId: "price_1TCIgDBoWNgrJbiyzQGqse0q",
+    downloadType: "notion",
+    downloadUrl: "", // TODO: incolla qui il link di duplicazione Notion
     tags: ["notion", "finance", "budget", "savings", "money"],
     downloads: 298,
     description: "Track income, expenses, savings goals and net worth in Notion.",
@@ -3760,7 +3770,9 @@ Liquidità totale: €___ + Investimenti: €___ - Debiti: €___ = Patrimonio N
     name: "Notion Second Brain (PKM)",
     category: "prompt",
     price: 1499,
-    stripePriceId: "price_1TCIgDBoWNgrJbiycUQ3W6EM",
+    stripePriceId: "price_1TCIgDBoWNgrJbiycUQ3W6EM",
+    downloadType: "notion",
+    downloadUrl: "", // TODO: incolla qui il link di duplicazione Notion
     tags: ["notion", "pkm", "second brain", "knowledge", "notes", "productivity"],
     downloads: 521,
     description: "Full personal knowledge management system: capture, organize and retrieve ideas.",
@@ -4071,7 +4083,9 @@ Data lettura: [data]
     name: "Notion Job Application Tracker",
     category: "prompt",
     price: 799,
-    stripePriceId: "price_1TCIgEBoWNgrJbiys2bAQxkB",
+    stripePriceId: "price_1TCIgEBoWNgrJbiys2bAQxkB",
+    downloadType: "notion",
+    downloadUrl: "", // TODO: incolla qui il link di duplicazione Notion
     tags: ["notion", "job search", "career", "applications", "interviews"],
     downloads: 189,
     description: "Track job applications, interviews and offers with a Kanban pipeline.",
@@ -4354,7 +4368,9 @@ Follow-up da inviare: [ ] Email ringraziamento entro 24h
     name: "Notion Weekly Review System",
     category: "prompt",
     price: 799,
-    stripePriceId: "price_1TCIgFBoWNgrJbiySP8ORstl",
+    stripePriceId: "price_1TCIgFBoWNgrJbiySP8ORstl",
+    downloadType: "notion",
+    downloadUrl: "", // TODO: incolla qui il link di duplicazione Notion
     tags: ["notion", "weekly review", "productivity", "goals", "reflection"],
     downloads: 234,
     description: "Structured weekly and monthly review template to stay aligned with goals.",
@@ -4638,7 +4654,9 @@ FOCUS DEL MESE PROSSIMO
     name: "Notion Client Portal",
     category: "prompt",
     price: 1299,
-    stripePriceId: "price_1TCIgFBoWNgrJbiyGO4iJItH",
+    stripePriceId: "price_1TCIgFBoWNgrJbiyGO4iJItH",
+    downloadType: "notion",
+    downloadUrl: "", // TODO: incolla qui il link di duplicazione Notion
     tags: ["notion", "client portal", "freelance", "agency", "onboarding"],
     downloads: 267,
     description: "Shareable Notion workspace for client onboarding, deliverables and updates.",
