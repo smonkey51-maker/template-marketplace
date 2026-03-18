@@ -34,17 +34,17 @@ const SECTIONS: {
 // ── Category cover images (Unsplash) ─────────────────────────────────────────
 
 const CATEGORY_IMAGES: Record<string, string> = {
-  professionals:     "https://images.unsplash.com/photo-KKJOQg5grhQ?w=600&h=280&fit=crop&q=80&auto=format",
-  "lifestyle-finance":"https://images.unsplash.com/photo-vNecZJJQRLE?w=600&h=280&fit=crop&q=80&auto=format",
-  business:          "https://images.unsplash.com/photo-WUXaLGUkNs8?w=600&h=280&fit=crop&q=80&auto=format",
-  startup:           "https://images.unsplash.com/photo-QLvGADM5Sko?w=600&h=280&fit=crop&q=80&auto=format",
-  creative:          "https://images.unsplash.com/photo-FPOU7Dxi7pg?w=600&h=280&fit=crop&q=80&auto=format",
-  "copywriting-ai":  "https://images.unsplash.com/photo-AvIC3xvZCAI?w=600&h=280&fit=crop&q=80&auto=format",
-  "ai-productivity": "https://images.unsplash.com/photo-l-c0Lnf2ySA?w=600&h=280&fit=crop&q=80&auto=format",
-  hospitality:       "https://images.unsplash.com/photo-Q73XXHcIsa8?w=600&h=280&fit=crop&q=80&auto=format",
-  "digital-product": "https://images.unsplash.com/photo-weRQAu9TA-A?w=600&h=280&fit=crop&q=80&auto=format",
-  "personal-brand":  "https://images.unsplash.com/photo-H3Tuh0hwYQk?w=600&h=280&fit=crop&q=80&auto=format",
-  "notion-workspace":"https://images.unsplash.com/photo-CXLXekF-6EU?w=600&h=280&fit=crop&q=80&auto=format",
+  professionals:     "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=280&fit=crop&q=80&auto=format",
+  "lifestyle-finance":"https://images.unsplash.com/photo-1484154218962-a197022b5858?w=600&h=280&fit=crop&q=80&auto=format",
+  business:          "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=280&fit=crop&q=80&auto=format",
+  startup:           "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=280&fit=crop&q=80&auto=format",
+  creative:          "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&h=280&fit=crop&q=80&auto=format",
+  "copywriting-ai":  "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=600&h=280&fit=crop&q=80&auto=format",
+  "ai-productivity": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&h=280&fit=crop&q=80&auto=format",
+  hospitality:       "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&h=280&fit=crop&q=80&auto=format",
+  "digital-product": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=280&fit=crop&q=80&auto=format",
+  "personal-brand":  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=280&fit=crop&q=80&auto=format",
+  "notion-workspace":"https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=600&h=280&fit=crop&q=80&auto=format",
 };
 
 const byId = Object.fromEntries(templates.map((tmpl) => [tmpl.id, tmpl]));
