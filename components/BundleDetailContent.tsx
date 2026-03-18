@@ -135,23 +135,46 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
         <div className="mb-8">
           <h2 className="text-[16px] font-black text-theme mb-4">{t[lang].bundleDetail.whatsIncluded}</h2>
 
-          {/* Tab bar */}
-          <div className="flex gap-2 overflow-x-auto pb-2 mb-4" style={{ scrollbarWidth: "none" }}>
+          {/* Template list */}
+          <div className="space-y-2 mb-4">
             {includedTemplates.map((tmpl, i) => {
               const owned = purchasedIds.includes(tmpl!.id);
+              const isActive = activeTemplateIdx === i;
               return (
                 <button
                   key={tmpl!.id}
                   onClick={() => setActiveTemplateIdx(i)}
-                  className={`shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] font-semibold
-                    transition-all duration-200 ios-spring whitespace-nowrap border ${
-                    activeTemplateIdx === i
-                      ? `${colors.bg} ${colors.border} ${colors.text}`
-                      : "bg-input border-theme text-muted hover:text-theme"
+                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-left
+                    transition-all duration-200 ios-spring border ${
+                    isActive
+                      ? `${colors.bg} ${colors.border}`
+                      : "bg-input border-theme hover:border-theme/60"
                   }`}
                 >
-                  {owned && <span className="text-[#30D158] text-[10px]">✓</span>}
-                  {tmpl!.name}
+                  <span className={`w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-black shrink-0 border ${
+                    isActive ? colors.badge : "bg-theme/10 border-theme/30 text-muted"
+                  }`}>
+                    {owned ? "✓" : i + 1}
+                  </span>
+                  <div className="flex-1 min-w-0">
+                    <p className={`text-[13px] font-semibold leading-tight ${isActive ? colors.text : "text-theme"}`}>
+                      {tmpl!.name}
+                    </p>
+                    <p className="text-[11px] text-muted truncate mt-0.5">{tmpl!.description}</p>
+                  </div>
+                  <div className="shrink-0 flex items-center gap-2">
+                    {owned && (
+                      <span className="text-[10px] font-bold text-[#30D158] bg-[#30D158]/10 border border-[#30D158]/20 px-1.5 py-0.5 rounded-full">
+                        {t[lang].bundleDetail.alreadyOwned}
+                      </span>
+                    )}
+                    <span className="text-[12px] text-muted/60 line-through">{formatPrice(tmpl!.price)}</span>
+                    {isActive && (
+                      <svg width="6" height="10" viewBox="0 0 6 10" fill="none" className={colors.text} aria-hidden>
+                        <path d="M1 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    )}
+                  </div>
                 </button>
               );
             })}

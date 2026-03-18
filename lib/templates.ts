@@ -2900,99 +2900,183 @@ IMPLEMENTATION NOTES
     editorsPick: true,
     content: `# Notion Project Management Hub
 
-## Come usare questo template
+## Il tuo centro di comando per ogni progetto
 
-Duplica questa struttura nel tuo workspace Notion. Sostituisci tutti i campi {{placeholder}} con i tuoi valori.
+Questo workspace Notion a 4 database gestisce l'intero ciclo di vita dei tuoi progetti: dall'idea alla consegna finale. Include oltre 30 view pre-configurate, formule automatiche per priorità e scadenze, e una dashboard che ti mostra tutto ciò che conta in un colpo d'occhio. Progettato per team, freelancer e professionisti che non si accontentano di un semplice to-do list.
 
 ---
 
 ## DATABASE 1: PROJECTS
 
+Icona consigliata: 📁 | Cover: immagine astratta geometrica
+
 ### Proprietà
 - **Name** (Title) — nome del progetto
-- **Status** (Status) — Planning / In Progress / Completed / On Hold
-- **Priority** (Select) — 🔥 High / 🟧 Medium / 🟩 Low
-- **Owner** (Person) — responsabile del progetto
-- **Team** (Multi-select) — {{your_team_members}}
+- **Status** (Status) — Not Started / Planning / In Progress / Review / Completed / On Hold / Cancelled
+- **Priority** (Select) — 🔥 Critical / 🟠 High / 🟡 Medium / 🟢 Low
+- **Owner** (Person) — responsabile principale del progetto
+- **Team Members** (Person) — tutti i collaboratori
+- **Client** (Text) — nome del cliente o stakeholder
 - **Start Date** (Date)
 - **Due Date** (Date)
-- **Days Remaining** (Formula): \`if(empty(prop("Due Date")), "No deadline", if(dateBetween(prop("Due Date"), now(), "days") < 0, "Overdue", toText(dateBetween(prop("Due Date"), now(), "days")) + " days left"))\`
-- **Progress %** (Rollup) — % di task completate dal database Tasks
-- **Budget** (Number) — formato: Euro
-- **Client** (Text) — {{client_name}}
-- **Tags** (Multi-select) — {{your_project_categories}}
+- **Days Remaining** (Formula):
+  \`if(empty(prop("Due Date")), "Nessuna scadenza", if(dateBetween(prop("Due Date"), now(), "days") < 0, "⛔ " + toText(abs(dateBetween(prop("Due Date"), now(), "days"))) + " giorni di ritardo", if(dateBetween(prop("Due Date"), now(), "days") == 0, "🚨 Scade oggi", "✅ " + toText(dateBetween(prop("Due Date"), now(), "days")) + " giorni rimasti")))\`
+- **Progress %** (Rollup) — da database Tasks: percentuale task con Status = Done sul totale
+- **Health** (Formula):
+  \`if(prop("Progress %") == 100, "✅ Completato", if(dateBetween(prop("Due Date"), now(), "days") < 0, "🔴 In ritardo", if(dateBetween(prop("Due Date"), now(), "days") < 7 and prop("Progress %") < 80, "🟡 A rischio", "🟢 In linea")))\`
+- **Budget** (Number) — formato: Euro (€)
+- **Actual Spend** (Rollup) — somma da database Invoices/Expenses collegato
+- **Budget Remaining** (Formula): \`prop("Budget") - prop("Actual Spend")\`
+- **Category** (Multi-select) — Web / Design / Marketing / Sviluppo / Consulenza / Interno
+- **Notes** (Text) — note interne non visibili al cliente
 
 ### Views da creare
-1. **All Projects** (Table) — ordinata per Due Date, raggruppata per Status
-2. **Kanban Board** (Board) — raggruppata per Status, card preview: Owner + Due Date + Priority
-3. **Timeline** (Timeline) — date range: Start Date → Due Date, raggruppata per Owner
-4. **My Projects** (Table) — filtro: Owner = {{your_name}}
-5. **Overdue** (Table) — filtro: Days Remaining < 0
+1. **All Projects** (Table) — ordinata per Due Date crescente, visibile: Name, Status, Priority, Owner, Progress %, Health
+2. **Kanban Board** (Board) — raggruppata per Status, card preview: Owner + Due Date + Priority + Progress %
+3. **Timeline** (Timeline) — date range: Start Date → Due Date, raggruppata per Owner, colori per Priority
+4. **My Projects** (Table) — filtro: Owner = Me o Team Members = Me, ordinata per Priority
+5. **Active Projects** (Gallery) — filtro: Status = In Progress o Planning, card con cover e Progress %
+6. **Overdue** (Table) — filtro: Due Date è nel passato AND Status ≠ Completed, colore rosso
+7. **This Month** (Calendar) — per Due Date, raggruppata per Owner
 
 ---
 
 ## DATABASE 2: TASKS
 
+Icona consigliata: ✅
+
 ### Proprietà
-- **Name** (Title) — nome del task
-- **Project** (Relation) → Projects database
-- **Status** (Status) — To Do / In Progress / Done / Blocked
-- **Priority** (Select) — 🔥 High / 🟧 Medium / 🟩 Low
+- **Name** (Title) — descrizione del task
+- **Project** (Relation) → Projects (bidirezionale)
+- **Milestone** (Relation) → Milestones (bidirezionale)
+- **Status** (Status) — To Do / In Progress / Blocked / In Review / Done
+- **Priority** (Select) — 🔥 Urgent / 🟠 High / 🟡 Medium / 🟢 Low
 - **Assignee** (Person)
 - **Due Date** (Date)
 - **Estimated Hours** (Number)
-- **Notes** (Text)
+- **Actual Hours** (Number)
+- **Effort Variance** (Formula): \`if(empty(prop("Actual Hours")), "N/A", toText(prop("Actual Hours") - prop("Estimated Hours")) + "h")\`
+- **Blocked By** (Text) — descrizione del blocco se Status = Blocked
+- **Tags** (Multi-select) — Frontend / Backend / Design / Copy / QA / Meeting / Research
 
 ### Views da creare
-1. **My Tasks** — filtro: Assignee = {{your_name}}, ordine: Due Date
-2. **By Project** — raggruppata per Project
-3. **Board** — raggruppata per Status
+1. **My Tasks** (Table) — filtro: Assignee = Me, ordinata per Due Date, raggruppata per Status
+2. **Today** (Table) — filtro: Due Date = Today AND Status ≠ Done
+3. **Board** (Board) — raggruppata per Status, card: Assignee + Due Date
+4. **By Project** (Table) — raggruppata per Project
+5. **Blocked** (Table) — filtro: Status = Blocked — revisione giornaliera!
+6. **Completed This Week** (Table) — filtro: Status = Done AND Due Date = questa settimana
 
 ---
 
-## DASHBOARD PRINCIPALE
+## DATABASE 3: MILESTONES
 
-Crea una pagina "🏠 Home" con:
+Icona consigliata: 🏁
 
+### Proprietà
+- **Name** (Title) — nome della milestone
+- **Project** (Relation) → Projects
+- **Due Date** (Date)
+- **Status** (Status) — Upcoming / In Progress / Completed / Delayed
+- **Deliverable** (Text) — cosa viene consegnato a questa milestone
+- **Tasks Count** (Rollup) — count da Tasks collegati
+- **Tasks Done** (Rollup) — count da Tasks con Status = Done
+- **Completion %** (Formula): \`if(prop("Tasks Count") == 0, 0, round(prop("Tasks Done") / prop("Tasks Count") * 100))\`
+
+### Views
+1. **Timeline** (Timeline) — per Due Date, raggruppata per Project
+2. **By Project** (Table) — raggruppata per Project, filtro: Status ≠ Completed
+
+---
+
+## DATABASE 4: MEETINGS
+
+Icona consigliata: 💬
+
+### Proprietà
+- **Subject** (Title)
+- **Project** (Relation) → Projects
+- **Date** (Date)
+- **Attendees** (Person)
+- **Type** (Select) — Kickoff / Standup / Review / Client Call / Retrospective
+- **Agenda** (Text)
+- **Action Items** (Text) — chi fa cosa entro quando
+- **Recording** (URL)
+
+---
+
+## FORMULE CHIAVE
+
+### Days Remaining (in Projects):
 \`\`\`
-📊 PROJECT OVERVIEW
-┌─────────────────────────────────────────┐
-│ Database view: Projects — filtro Active  │
-│ Layout: Board o Gallery                  │
-└─────────────────────────────────────────┘
-
-✅ MY TASKS TODAY
-┌─────────────────────────────────────────┐
-│ Database view: Tasks                     │
-│ Filtro: Assignee = Me, Due = Today       │
-└─────────────────────────────────────────┘
-
-🔥 HIGH PRIORITY
-┌─────────────────────────────────────────┐
-│ Database view: Tasks                     │
-│ Filtro: Priority = High, Status ≠ Done  │
-└─────────────────────────────────────────┘
+if(empty(prop("Due Date")), "Nessuna scadenza", if(dateBetween(prop("Due Date"), now(), "days") < 0, "⛔ " + toText(abs(dateBetween(prop("Due Date"), now(), "days"))) + " giorni di ritardo", if(dateBetween(prop("Due Date"), now(), "days") == 0, "🚨 Scade oggi", "✅ " + toText(dateBetween(prop("Due Date"), now(), "days")) + " giorni rimasti")))
 \`\`\`
 
-## Setup rapido (10 minuti)
+### Health Score (in Projects):
+\`\`\`
+if(prop("Progress %") == 100, "✅ Completato", if(dateBetween(prop("Due Date"), now(), "days") < 0, "🔴 In ritardo", if(dateBetween(prop("Due Date"), now(), "days") < 7 and prop("Progress %") < 80, "🟡 A rischio", "🟢 In linea")))
+\`\`\`
 
-1. Duplica il template nel tuo Notion
-2. Rinomina "{{your_workspace_name}}" con il nome della tua azienda/progetto
-3. Aggiungi i membri del team nelle proprietà Person
-4. Crea il tuo primo progetto e assegna 3-5 task
-5. Configura le notifiche Notion per le scadenze
+---
 
-## Consigli d'uso
+## DASHBOARD PRINCIPALE — HOME
 
-- **Weekly review**: ogni lunedì apri la view "My Tasks" per pianificare la settimana
-- **Daily standup**: usa la view "Board" per vedere l'avanzamento del team
-- **Budget tracking**: aggiungi una colonna "Actual Spend" per confrontare con il Budget
-- **Client reports**: duplica la timeline view per ogni cliente e condividila (share to web)
+Crea una pagina "🏠 Project Hub" con queste sezioni:
 
-Personalizzazioni consigliate:
-- Aggiungi un database **MEETINGS** collegato a Projects per i verbali
-- Crea una **formula "Health"** che combina Priority + Days Remaining + Status
-- Integra con {{your_calendar_tool}} tramite Zapier o Make per sincronizzare le scadenze`,
+**Sezione 1 — Panoramica Attiva**
+Inserisci una linked view del database Projects con filtro Status = In Progress, layout Gallery, card con Progress % e Health.
+
+**Sezione 2 — I Miei Task di Oggi**
+Inserisci una linked view di Tasks con filtro: Assignee = Me AND Due Date = Today AND Status ≠ Done.
+
+**Sezione 3 — Scadenze Critiche**
+Linked view di Projects filtrata per: Days Remaining < 7 AND Status ≠ Completed, ordinata per Due Date.
+
+**Sezione 4 — Task Bloccati**
+Linked view di Tasks filtrata per Status = Blocked — da revisionare ogni giorno con il team.
+
+**Sezione 5 — Meeting di Oggi**
+Linked view di Meetings filtrata per Date = Today.
+
+---
+
+## RELAZIONI E ROLLUP
+
+- **Projects → Tasks**: relazione bidirezionale. Rollup in Projects: Count(Tasks) totale e Count(Tasks dove Status=Done) per il Progress %
+- **Projects → Milestones**: relazione bidirezionale. Rollup: prossima milestone con Status ≠ Completed
+- **Projects → Meetings**: relazione per avere tutti i verbali in un click dalla pagina progetto
+- **Milestones → Tasks**: relazione bidirezionale per organizzare i task per fase
+
+---
+
+## QUICK START (15 minuti)
+
+1. Duplica questo workspace nel tuo Notion tramite il link incluso
+2. Apri il database Projects e rinomina le opzioni Status/Priority con i tuoi valori
+3. Crea il tuo primo progetto: nome, date, owner, budget
+4. Aggiungi 3-5 Milestones con le fasi chiave del progetto
+5. Crea i Task per la prima milestone e assegnali ai collaboratori
+6. Personalizza la Home page aggiungendo le linked view sopra descritte
+7. Imposta i filtri della view "My Tasks" con il tuo nome e salva come default
+
+---
+
+## BONUS: TEMPLATE BUTTON PER NUOVO PROGETTO
+
+Configura un template button nella pagina Projects che crea automaticamente:
+- La pagina progetto con tutte le proprietà vuote
+- 3 milestone standard: Kickoff, Delivery, Retrospective
+- 5 task iniziali: Brief, Planning, Execution, Review, Handoff
+
+---
+
+## PRO TIPS
+
+- **Standup quotidiano**: apri la view "Board" del database Tasks ogni mattina con il team (5 minuti)
+- **Colori per priorità**: nella Timeline view, usa i colori per Priority (rosso=Critical, arancione=High) per un colpo d'occhio immediato
+- **Share timeline con clienti**: duplica la Timeline view, filtra solo le Milestones e condividi il link pubblico Notion con il cliente
+- **Formula Health come semaforo**: aggiungi la property Health come prima colonna in ogni view per identificare subito i progetti a rischio
+- **Automazione**: con Notion Automations (piano Plus), imposta una regola che cambia lo Status del Project a "Completed" quando il Progress % raggiunge 100%`,
   },
   {
     id: "notion-freelancer-crm",
@@ -3007,101 +3091,226 @@ Personalizzazioni consigliate:
     editorsPick: false,
     content: `# Notion Freelancer CRM
 
-## Il tuo CRM completo in Notion
+## Il CRM che ogni freelancer dovrebbe avere
 
-Gestisci clienti, progetti, fatture e follow-up in un unico workspace. Progettato per freelancer e consulenti indipendenti.
+Un sistema completo a 7 database per gestire ogni aspetto del tuo business freelance: lead, clienti, progetti, time tracking, fatture, pacchetti servizi e collaboratori. Smetti di perdere opportunità per mancanza di follow-up e inizia a conoscere il tuo fatturato in tempo reale.
 
 ---
 
 ## DATABASE 1: CLIENTS
 
+Icona: 👥 | Colore: Blu
+
 ### Proprietà
-- **Name** (Title) — nome cliente / azienda
-- **Status** (Select) — 🟢 Active / 🟡 Lead / 🔴 Churned / ⚫ Archived
-- **Contact Name** (Text) — {{contact_person}}
+- **Name** (Title) — nome azienda o cliente
+- **Status** (Select) — 🟡 Lead / 📞 In trattativa / 🟢 Active / 🔁 Retainer / 🔴 Churned / ⚫ Archived
+- **Lead Score** (Formula):
+  \`if(prop("Source") == "Referral", 3, if(prop("Source") == "LinkedIn", 2, 1)) + if(prop("Company Size") == "Large (50+)", 3, if(prop("Company Size") == "Medium (11-50)", 2, 1))\`
+- **Contact Name** (Text) — persona di riferimento
 - **Email** (Email)
 - **Phone** (Phone)
 - **Company Size** (Select) — Solo / Small (2-10) / Medium (11-50) / Large (50+)
-- **Source** (Select) — Referral / LinkedIn / Cold outreach / Upwork / Other
-- **Total Revenue** (Rollup) — somma da database Invoices, filtro: Status = Paid
-- **Active Projects** (Rollup) — count da Projects, filtro: Status = In Progress
+- **Industry** (Select) — Tech / E-commerce / Consulenza / Healthcare / Retail / Education / Altro
+- **Source** (Select) — Referral / LinkedIn / Cold Outreach / Upwork / Fiverr / Sito Web / Evento / Altro
+- **Total Revenue** (Rollup) — somma Amount da Invoices dove Status = Paid
+- **Open Revenue** (Rollup) — somma Amount da Invoices dove Status = Sent o Draft
+- **Active Projects** (Rollup) — count da Projects dove Status = Active o Review
 - **Last Contact** (Date)
 - **Next Follow-up** (Date)
+- **Days Since Contact** (Formula): \`if(empty(prop("Last Contact")), "Mai contattato", toText(dateBetween(now(), prop("Last Contact"), "days")) + " giorni fa")\`
 - **Notes** (Text)
+- **Tags** (Multi-select) — VIP / Referral Source / Long-term / Quick Pay / Problematic
 
 ### Views
-1. **Pipeline** (Board) — raggruppata per Status
+1. **Pipeline** (Board) — raggruppata per Status, card: Contact Name + Next Follow-up + Lead Score
 2. **All Clients** (Table) — ordinata per Total Revenue decrescente
-3. **Follow-ups** (Table) — filtro: Next Follow-up ≤ Today + 7 giorni
+3. **Follow-up Urgenti** (Table) — filtro: Next Follow-up ≤ oggi + 3 giorni, ordinata per Next Follow-up
+4. **Lead Scoring** (Table) — filtro: Status = Lead o In trattativa, ordinata per Lead Score decrescente
+5. **Clienti Trascurati** (Table) — filtro: Status = Active AND Last Contact è più di 30 giorni fa
 
 ---
 
 ## DATABASE 2: PROJECTS
 
+Icona: 💼
+
 ### Proprietà
 - **Name** (Title)
-- **Client** (Relation) → Clients
-- **Status** (Status) — Proposal / Active / Review / Completed / Paused
+- **Client** (Relation) → Clients (bidirezionale)
+- **Status** (Status) — Proposal / Negotiation / Active / In Review / Completed / Paused / Cancelled
 - **Start Date** (Date)
 - **End Date** (Date)
-- **Rate Type** (Select) — Hourly / Fixed / Retainer
-- **Rate** (Number) — tariffa oraria o importo fisso
-- **Hours Logged** (Rollup) — somma da Time Log
+- **Rate Type** (Select) — Hourly / Fixed Price / Retainer Mensile / Value-Based
+- **Rate** (Number) — tariffa oraria o importo fisso in €
+- **Hours Logged** (Rollup) — somma Hours da Time Log
+- **Invoiced Amount** (Rollup) — somma Amount da Invoices collegati
 - **Total Value** (Formula): \`if(prop("Rate Type") == "Hourly", prop("Rate") * prop("Hours Logged"), prop("Rate"))\`
+- **Margin** (Formula): \`prop("Total Value") - prop("Invoiced Amount")\`
+- **Service** (Relation) → Services (tipo di servizio erogato)
 - **Description** (Text)
+- **Contract URL** (URL) — link al contratto firmato
+
+### Views
+1. **Active** (Table) — filtro: Status = Active o In Review
+2. **Pipeline** (Board) — raggruppata per Status
+3. **By Client** (Table) — raggruppata per Client
+4. **Revenue View** (Table) — visibile: Name, Client, Total Value, Invoiced Amount, Margin
 
 ---
 
-## DATABASE 3: INVOICES
+## DATABASE 3: TIME LOG
+
+Icona: ⏱️
 
 ### Proprietà
-- **Invoice #** (Title) — es. INV-2026-001
+- **Description** (Title) — cosa hai fatto
+- **Project** (Relation) → Projects
+- **Date** (Date)
+- **Hours** (Number) — con decimali (es. 1.5 = 1h 30min)
+- **Billable** (Checkbox) — ore fatturabili?
+- **Hourly Rate** (Number) — tariffa per questa sessione
+- **Amount** (Formula): \`if(prop("Billable"), prop("Hours") * prop("Hourly Rate"), 0)\`
+
+### Views
+1. **This Week** — filtro: Date = questa settimana, ordinata per Date
+2. **By Project** — raggruppata per Project, con totale Hours
+3. **Unbilled** — filtro: Billable = true AND (nessuna fattura collegata)
+
+---
+
+## DATABASE 4: INVOICES
+
+Icona: 🧾
+
+### Proprietà
+- **Invoice #** (Title) — formato: INV-2026-001 (incrementa manualmente)
 - **Client** (Relation) → Clients
 - **Project** (Relation) → Projects
-- **Amount** (Number)
-- **Status** (Select) — Draft / Sent / Paid / Overdue
+- **Amount** (Number) — importo in € (IVA esclusa)
+- **VAT %** (Number) — aliquota IVA (es. 22)
+- **Total with VAT** (Formula): \`prop("Amount") * (1 + prop("VAT %") / 100)\`
+- **Status** (Select) — Draft / Sent / Paid / Overdue / Cancelled
 - **Issue Date** (Date)
 - **Due Date** (Date)
 - **Paid Date** (Date)
-- **Payment Method** (Select) — Bank Transfer / PayPal / Stripe / Crypto
+- **Days Overdue** (Formula): \`if(prop("Status") == "Overdue", toText(dateBetween(now(), prop("Due Date"), "days")) + " giorni", "")\`
+- **Payment Method** (Select) — Bonifico Bancario / PayPal / Stripe / Satispay / Contanti / Altro
+- **Invoice URL** (URL) — link alla fattura PDF (Drive, Dropbox, ecc.)
+- **Notes** (Text)
 
 ### Views
-1. **Unpaid** — filtro: Status = Sent o Overdue
-2. **This Month** — filtro: Issue Date = questo mese
-3. **Revenue by Client** — raggruppata per Client
+1. **Da Incassare** (Table) — filtro: Status = Sent o Overdue, totale Amount visibile in fondo
+2. **Scadute** (Table) — filtro: Status = Overdue, ordinata per Due Date
+3. **This Month** (Table) — filtro: Issue Date = questo mese
+4. **Revenue Annuale** (Table) — filtro: Status = Paid, raggruppata per mese con Issue Date
+5. **By Client** (Table) — raggruppata per Client
 
 ---
 
-## DASHBOARD REVENUE
+## DATABASE 5: SERVICES (Pacchetti)
 
-Aggiungi queste callout nella homepage:
+Icona: 📦
 
+### Proprietà
+- **Name** (Title) — nome del pacchetto
+- **Description** (Text) — cosa include
+- **Price** (Number) — prezzo standard in €
+- **Type** (Select) — One-time / Retainer / Hourly / Custom
+- **Delivery Time** (Text) — es. "5 giorni lavorativi"
+- **Active** (Checkbox) — è attualmente offerto?
+
+---
+
+## DATABASE 6: LEADS (Opportunità)
+
+Icona: 🎯
+
+### Proprietà
+- **Lead** (Title) — nome opportunità
+- **Company** (Text)
+- **Contact** (Email)
+- **Source** (Select) — Referral / LinkedIn / Cold DM / Evento / Sito Web
+- **Estimated Value** (Number) — valore stimato in €
+- **Status** (Select) — New / Contacted / Proposal Sent / Negotiating / Won / Lost
+- **Follow-up Date** (Date)
+- **Notes** (Text)
+- **Conversion** (Formula): \`if(prop("Status") == "Won", "✅ Convertito", if(prop("Status") == "Lost", "❌ Perso", "🔄 In corso"))\`
+
+---
+
+## DASHBOARD REVENUE — HOME
+
+Crea una pagina "💼 Business Dashboard" con:
+
+**Callout superiore (aggiornato manualmente ogni mese):**
+Fatturato MTD: €___ | Obiettivo mese: €___ | Da incassare: €___ | Pipeline: €___
+
+**Sezione 1 — Fatture da incassare**
+Linked view: Invoices, filtro Status = Sent o Overdue
+
+**Sezione 2 — Follow-up urgenti**
+Linked view: Clients, filtro Next Follow-up ≤ +3 giorni
+
+**Sezione 3 — Progetti attivi**
+Linked view: Projects, filtro Status = Active, layout Board
+
+**Sezione 4 — Lead pipeline**
+Linked view: Leads, layout Board per Status
+
+---
+
+## FORMULE CHIAVE
+
+### Lead Score (Clients):
 \`\`\`
-💰 Fatturato questo mese: [Linked mention da Invoices]
-📊 Pipeline valore: [Rollup da Projects attivi]
-⚠️ Fatture scadute: [Count da Invoices Overdue]
-🎯 Obiettivo mensile: €{{your_monthly_goal}}
+if(prop("Source") == "Referral", 3, if(prop("Source") == "LinkedIn", 2, 1)) + if(prop("Company Size") == "Large (50+)", 3, if(prop("Company Size") == "Medium (11-50)", 2, 1))
 \`\`\`
 
-## Workflow consigliato
+### Days Since Contact (Clients):
+\`\`\`
+if(empty(prop("Last Contact")), "Mai contattato", toText(dateBetween(now(), prop("Last Contact"), "days")) + " giorni fa")
+\`\`\`
 
-**Acquisire un nuovo cliente:**
-1. Crea record in Clients con Status = Lead
-2. Crea Project con Status = Proposal
-3. Invia proposta → aggiorna a Active quando accettata
-4. Crea Invoice con Status = Draft
+### Total with VAT (Invoices):
+\`\`\`
+prop("Amount") * (1 + prop("VAT %") / 100)
+\`\`\`
 
-**Fine mese:**
-1. Apri view "This Month" in Invoices
-2. Invia tutte le fatture Draft
-3. Aggiorna "Last Contact" per ogni cliente attivo
-4. Imposta "Next Follow-up" per i lead
+---
 
-## Personalizzazioni
+## WORKFLOW MENSILE CONSIGLIATO
 
-- Aggiungi un database **CONTRACTS** per archiviare i contratti firmati (PDF upload)
-- Crea una formula **"Days Since Last Contact"** per identificare clienti trascurati
-- Collega con {{your_accounting_tool}} per la contabilità automatica`,
+**Ogni lunedì mattina (15 min):**
+1. Apri "Follow-up Urgenti" — contatta tutti i lead con Next Follow-up scaduto
+2. Apri "Da Incassare" in Invoices — sollecita fatture non pagate
+3. Controlla "Clienti Trascurati" — manda un check-in ai clienti attivi non contattati da +30 giorni
+
+**Fine mese (30 min):**
+1. Emetti tutte le fatture Draft per i progetti del mese
+2. Aggiorna Total Revenue per ogni cliente
+3. Rivedi la pipeline Lead: archivia i persi, avanza i promettenti
+4. Calcola il fatturato del mese e aggiorna l'obiettivo mensile
+
+---
+
+## QUICK START (20 minuti)
+
+1. Duplica il workspace nel tuo Notion
+2. Crea i tuoi pacchetti servizi nel database Services
+3. Aggiungi i tuoi 3-5 clienti attivi nel database Clients con Status = Active
+4. Crea le fatture aperte corrispondenti con Status = Sent
+5. Inizia a loggare le ore nel Time Log collegandole ai Projects
+6. Imposta un blocco di 15 minuti ogni lunedì per il CRM review
+
+---
+
+## PRO TIPS
+
+- **Email template di follow-up**: crea una sezione nella pagina cliente con i tuoi template email di follow-up e proposta — copia e incolla in 10 secondi
+- **Formula Days Since Contact**: usa questa formula per non dimenticare mai un cliente attivo (regola: nessun cliente Active senza contatto da +30 giorni)
+- **Pipeline view come termometro**: la Board view dei Leads ti dice immediatamente dove sei nel mese rispetto agli obiettivi di fatturato
+- **Fattura con un click**: crea un Template Button nel database Invoices che pre-popola Issue Date = oggi, VAT = 22%, Status = Draft
+- **Automazione Notion**: con il piano Plus, crea un'automazione che aggiunge un tag "Follow-up Needed" al Client quando una fattura passa allo Status "Overdue"`,
   },
   {
     id: "notion-content-calendar",
@@ -3116,104 +3325,220 @@ Aggiungi queste callout nella homepage:
     editorsPick: true,
     content: `# Notion Content Calendar
 
-## Piano editoriale completo in Notion
+## Il sistema editoriale professionale in Notion
 
-Pianifica, crea e pubblica contenuti su tutti i canali da un unico database. Perfetto per creator, marketer e team di comunicazione.
+Pianifica, produci e analizza i tuoi contenuti su 10 canali diversi da un unico hub. Include un Idea Hub per catturare ispirazioni ovunque, un workflow di produzione strutturato, tracker delle performance e template di scrittura pronti all'uso. Perfetto per creator, social media manager, marketer e team di comunicazione.
 
 ---
 
-## DATABASE PRINCIPALE: CONTENT
+## DATABASE 1: CONTENT (Hub principale)
+
+Icona: 📝 | Cover: sfondo gradient viola/rosa
 
 ### Proprietà
-- **Title** (Title) — titolo del contenuto
-- **Status** (Status) — Idea / Writing / Review / Scheduled / Published / Archived
-- **Channel** (Multi-select) — LinkedIn / Instagram / Twitter/X / Blog / Newsletter / YouTube / TikTok / Podcast
-- **Format** (Select) — Post / Article / Video / Reel / Story / Thread / Newsletter / Podcast Episode
-- **Publish Date** (Date)
-- **Author** (Person) — {{your_name}}
-- **Topic** (Select) — {{your_content_pillars}}
-- **Hook** (Text) — prima frase/headline del contenuto
-- **Body** (Text) — bozza o link al documento
-- **CTA** (Text) — call to action
-- **Target Audience** (Select) — {{audience_segments}}
-- **Goal** (Select) — Brand Awareness / Lead Generation / Engagement / Sales / Education
-- **Engagement** (Number) — like + commenti + condivisioni
-- **Reach** (Number)
-- **Clicks** (Number)
-- **Notes** (Text)
+- **Title** (Title) — titolo o headline del contenuto
+- **Status** (Status) — 💡 Idea / ✍️ Writing / 👀 In Review / 📅 Scheduled / ✅ Published / 🗃️ Archived
+- **Channel** (Multi-select) — LinkedIn / Instagram / Twitter/X / Blog / Newsletter / YouTube / TikTok / Podcast / Facebook / Pinterest
+- **Format** (Select) — Post Testo / Carosello / Reel / Story / Video Long-form / Thread / Newsletter / Articolo Blog / Podcast Episode / Infografica
+- **Content Pillar** (Select) — Education / Inspiration / Entertainment / Promotion / Behind the Scenes / Case Study / Community (personalizza con i tuoi pillar)
+- **Publish Date** (Date) — data e ora di pubblicazione
+- **Author** (Person)
+- **Hook** (Text) — prima frase/headline: deve fermare lo scroll
+- **Body Copy** (Text) — bozza del testo o link a Google Doc
+- **CTA** (Text) — call to action specifica (es. "Commenta qui sotto", "Link in bio")
+- **Visual Notes** (Text) — istruzioni per grafiche o video
+- **Hashtags** (Text) — set di hashtag per questo contenuto
+- **Goal** (Select) — Brand Awareness / Lead Generation / Engagement / Sales / Traffic / SEO / Community
+- **Target Audience** (Select) — Beginner / Intermediate / Advanced / Decision Maker / General
+- **Repurposed From** (Relation) → Content (auto-reference per tracking del repurposing)
+- **Repurpose Status** (Select) — Original / Repurposed / Can Repurpose / Repurposing In Progress
+- **Engagement** (Number) — like + commenti + condivisioni (aggiorna dopo 48h)
+- **Reach** (Number) — impressioni o visualizzazioni
+- **Clicks** (Number) — click sul link o CTA
+- **Saves** (Number) — salvataggi (ottimo indicatore per Instagram)
+- **Engagement Rate %** (Formula): \`if(prop("Reach") > 0, round(prop("Engagement") / prop("Reach") * 100 * 10) / 10, 0)\`
+- **Performance** (Formula): \`if(prop("Status") != "Published", "", if(prop("Engagement Rate %") > 5, "⭐ Top Performer", if(prop("Engagement Rate %") > 2, "📊 Nella media", "💤 Bassa performance")))\`
 
 ### Views da creare
-1. **Calendar** (Calendar) — per data di pubblicazione, raggruppata per Channel
-2. **Pipeline** (Board) — raggruppata per Status
-3. **By Channel** (Table) — raggruppata per Channel, filtro: Status = Published o Scheduled
-4. **Content Ideas** (Gallery) — filtro: Status = Idea
-5. **This Week** (Table) — filtro: Publish Date = questa settimana
-6. **Analytics** (Table) — filtro: Status = Published, ordinata per Engagement decrescente
+1. **Calendario Editoriale** (Calendar) — per Publish Date, colori per Channel o Content Pillar
+2. **Pipeline di Produzione** (Board) — raggruppata per Status, card: Channel + Author + Publish Date
+3. **Idea Hub** (Gallery) — filtro: Status = Idea, ordinata per Created time decrescente, card con Hook
+4. **Questa Settimana** (Table) — filtro: Publish Date = questa settimana, raggruppata per giorno
+5. **Per Canale** (Table) — raggruppata per Channel, filtro: Status = Published o Scheduled
+6. **Analytics** (Table) — filtro: Status = Published, ordinata per Engagement Rate % decrescente
+7. **Da Riutilizzare** (Table) — filtro: Performance = Top Performer AND Repurpose Status = Can Repurpose
+8. **Backlog** (Table) — filtro: Status = Idea, ordinata per Content Pillar
 
 ---
 
-## CONTENT PILLARS
+## DATABASE 2: CONTENT PILLARS
 
-Crea una sezione con i tuoi {{number}} pillar editoriali:
+Icona: 🏛️
 
-\`\`\`
-Pillar 1: {{topic_1}} — {{description_1}}
-Pillar 2: {{topic_2}} — {{description_2}}
-Pillar 3: {{topic_3}} — {{description_3}}
-Pillar 4: {{topic_4}} — {{description_4}}
-\`\`\`
+### Proprietà
+- **Pillar** (Title) — nome del pillar editoriale
+- **Description** (Text) — di cosa tratta e perché è importante per il tuo brand
+- **Target Audience** (Text) — a chi si rivolge principalmente
+- **Goal** (Select) — Awareness / Trust / Conversion / Retention
+- **Color** (Select) — associa un colore per la visual identity
+- **Posts This Month** (Rollup) — count da Content dove Content Pillar = questo AND Publish Date = questo mese
+- **Avg Engagement** (Rollup) — media Engagement Rate % da Content pubblicato con questo pillar
 
-## WORKFLOW DI PRODUZIONE
+### Pillar consigliati (personalizza con i tuoi)
+- Education: insegna qualcosa di utile al tuo pubblico
+- Inspiration: storie, trasformazioni, motivazione
+- Entertainment: contenuto leggero, umorismo, tendenze
+- Promotion: offerte, prodotti, servizi (max 20% del totale)
+- Behind the Scenes: il tuo processo, la tua vita, il team
 
-### Lunedì — Planning
-- Apri la view "Content Ideas"
-- Scegli 5-7 contenuti per la settimana
-- Aggiorna Status a "Writing"
-- Assegna date di pubblicazione
+---
+
+## DATABASE 3: ANALYTICS MENSILI
+
+Icona: 📊
+
+### Proprietà
+- **Month** (Title) — es. "Marzo 2026"
+- **Channel** (Select) — un record per ogni canale per mese
+- **Followers Start** (Number)
+- **Followers End** (Number)
+- **Follower Growth** (Formula): \`prop("Followers End") - prop("Followers Start")\`
+- **Growth %** (Formula): \`if(prop("Followers Start") > 0, round(prop("Follower Growth") / prop("Followers Start") * 100 * 10) / 10, 0)\`
+- **Posts Published** (Number)
+- **Total Reach** (Number)
+- **Total Engagement** (Number)
+- **Top Post** (Relation) → Content
+- **Notes** (Text)
+
+---
+
+## WORKFLOW DI PRODUZIONE SETTIMANALE
+
+### Lunedì — Content Planning (30 min)
+- Apri "Idea Hub" e seleziona 5-7 contenuti da produrre questa settimana
+- Aggiorna il loro Status da "Idea" a "Writing"
+- Assegna le Publish Date basandoti sul calendario editoriale
+- Verifica che ogni pillar sia coperto almeno una volta
 
 ### Martedì-Giovedì — Creazione
-- Scrivi bozze in Notion o link a Google Doc
-- Usa il campo "Hook" per testare aperture diverse
-- Aggiungi CTA specifiche per ogni canale
+- Scrivi l'Hook per primo (è la cosa più importante)
+- Compila il campo Body Copy o crea una sub-page con il testo completo
+- Aggiungi visual notes per il designer o crea tu la grafica
+- Cambia Status a "In Review" quando il testo è pronto
 
-### Venerdì — Review & Schedule
-- Revisa tutti i contenuti "Review"
-- Carica su strumenti di scheduling: {{your_scheduler}}
-- Aggiorna Status a "Scheduled"
+### Venerdì — Review & Scheduling (1 ora)
+- Revisa tutti i contenuti in "In Review"
+- Approva e carica su Buffer / Later / Hootsuite / Publer
+- Aggiorna Status a "Scheduled" e verifica la Publish Date
+- Prepara i contenuti del weekend se necessario
 
-### Domenica sera — Analytics
-- Aggiorna Engagement e Reach dei post pubblicati
-- Identifica i contenuti top performer
-- Crea variazioni dei contenuti ad alto engagement
+### Domenica / Lunedì — Analytics (20 min)
+- Aggiorna Engagement, Reach, Clicks dei post pubblicati mercoledì-venerdì
+- Identifica i Top Performers
+- Aggiungi i contenuti top alla view "Da Riutilizzare"
+- Cattura nuove idee ispirate dai post con più engagement
 
 ---
 
-## TEMPLATES RAPIDI
+## FORMULE CHIAVE
 
-Aggiungi questi template nella pagina principale:
-
-**Post LinkedIn (template):**
+### Engagement Rate % (Content):
 \`\`\`
-🎯 Hook: {{attention_grabbing_statement}}
-
-Il problema: {{pain_point}}
-
-La soluzione: {{your_approach}}
-
-3 cose che ho imparato:
-→ {{lesson_1}}
-→ {{lesson_2}}
-→ {{lesson_3}}
-
-Qual è la tua esperienza? 👇
-#{{hashtag_1}} #{{hashtag_2}} #{{hashtag_3}}
+if(prop("Reach") > 0, round(prop("Engagement") / prop("Reach") * 100 * 10) / 10, 0)
 \`\`\`
 
-## Setup (15 minuti)
-1. Definisci i tuoi 3-5 content pillars
-2. Imposta i canali su cui pubblichi
-3. Crea 10 idee nella view "Ideas"
-4. Pianifica la prima settimana nella Calendar view`,
+### Performance Label (Content):
+\`\`\`
+if(prop("Status") != "Published", "", if(prop("Engagement Rate %") > 5, "⭐ Top Performer", if(prop("Engagement Rate %") > 2, "📊 Nella media", "💤 Bassa performance")))
+\`\`\`
+
+### Follower Growth % (Analytics Mensili):
+\`\`\`
+if(prop("Followers Start") > 0, round(prop("Follower Growth") / prop("Followers Start") * 100 * 10) / 10, 0)
+\`\`\`
+
+---
+
+## TEMPLATE DI SCRITTURA RAPIDA
+
+### Template Post LinkedIn (incolla come sub-page in ogni record):
+\`\`\`
+HOOK (prima riga — ferma lo scroll):
+[Affermazione controversa o domanda curiosa]
+
+PROBLEMA:
+[Descrive il dolore che il tuo pubblico riconosce]
+
+SOLUZIONE:
+[Il tuo approccio in 1-2 frasi]
+
+3 punti chiave:
+→ [Punto 1 con specificità]
+→ [Punto 2 con specificità]
+→ [Punto 3 con specificità]
+
+CTA:
+[Domanda che invita al commento]
+
+Hashtag: #[pillar] #[argomento] #[nicchia]
+\`\`\`
+
+### Template Newsletter:
+\`\`\`
+Oggetto: [Numero] + [Beneficio specifico] + [Curiosità]
+Preview text: [Amplia l'oggetto con dettaglio intrigante]
+
+---
+Ciao [Nome],
+
+[Apertura personale — 2-3 righe max]
+
+QUESTA SETTIMANA:
+→ [Titolo sezione 1]
+→ [Titolo sezione 2]
+→ [Titolo sezione 3]
+
+[Sezione 1]
+...
+
+CTA principale:
+[Un'azione sola, chiara e motivata]
+
+A presto,
+[La tua firma]
+\`\`\`
+
+---
+
+## SISTEMA DI REPURPOSING
+
+Ogni Top Performer può essere riciclato in 5 formati diversi:
+- Un thread su Twitter/X → post LinkedIn → newsletter section
+- Un video YouTube → 5 Reel clip → 3 caroselli Instagram
+- Un articolo blog → LinkedIn post → newsletter → thread → podcast episode
+
+Usa la relazione "Repurposed From" per tracciare l'origine di ogni contenuto e la view "Da Riutilizzare" per avere sempre una lista di contenuti ad alto potenziale pronti da reinterpretare.
+
+---
+
+## QUICK START (15 minuti)
+
+1. Duplica il workspace nel tuo Notion
+2. Personalizza i Content Pillars nel database dedicato (3-5 pillar)
+3. Seleziona i canali su cui pubblichi (aggiorna le Multi-select options in Channel)
+4. Aggiungi 10-15 idee nella view "Idea Hub" per popolare il backlog
+5. Pianifica la prima settimana: assegna Publish Date a 5 contenuti
+6. Configura un blocco calendario fisso per il Content Planning del lunedì
+
+---
+
+## PRO TIPS
+
+- **Ratio contenuti**: segui la regola 80/20: 80% contenuti di valore (Education, Inspiration, Entertainment) e 20% promozionali — controlla il ratio con il rollup per pillar
+- **Hook è tutto**: dedica il 50% del tempo di scrittura al campo Hook. Un buon hook vale 10 post mediocri
+- **Batch creation**: produci tutti i contenuti di una settimana in un unico blocco di 2-3 ore. Il context switching è il nemico della creatività
+- **Analytics domenicale**: non aspettare un mese per guardare i dati. Aggiorna Engagement ogni settimana e identifica pattern mentre sono freschi
+- **Calendario visivo**: nella Calendar view, usa il colore per Channel — a colpo d'occhio vedi se stai bilanciando i canali correttamente`,
   },
   {
     id: "notion-finance-tracker",
@@ -3228,101 +3553,207 @@ Qual è la tua esperienza? 👇
     editorsPick: false,
     content: `# Notion Personal Finance Tracker
 
-## Il tuo centro di controllo finanziario
+## Il tuo centro di controllo finanziario completo
 
-Monitora entrate, uscite, obiettivi di risparmio e patrimonio netto in un unico workspace Notion. Aggiorna-to mensilmente in 10 minuti.
+Un sistema a 5 database per avere una visione totale delle tue finanze personali: ogni transazione registrata, ogni budget monitorato, ogni obiettivo di risparmio tracciato, ogni investimento documentato. Aggiornato in 10 minuti al giorno, ti dà una fotografia precisa del tuo patrimonio netto in qualsiasi momento.
 
 ---
 
 ## DATABASE 1: TRANSACTIONS
 
+Icona: 💸 | Colore: Verde
+
 ### Proprietà
-- **Name** (Title) — descrizione della transazione
+- **Description** (Title) — breve descrizione della transazione
 - **Date** (Date)
-- **Amount** (Number) — positivo per entrate, negativo per uscite
-- **Type** (Select) — Income / Expense / Transfer / Investment
+- **Amount** (Number) — sempre positivo (il Type distingue entrate/uscite)
+- **Type** (Select) — 📈 Income / 📉 Expense / 🔄 Transfer / 💹 Investment / 💰 Saving
 - **Category** (Select):
-  - **Entrate**: 💼 Stipendio / 🔧 Freelance / 📈 Investimenti / 🎁 Regalo / Altro
-  - **Uscite**: 🏠 Affitto / 🛒 Spesa / 🚗 Trasporti / 🍽️ Ristoranti / 🎬 Intrattenimento / 👗 Abbigliamento / 💊 Salute / 📱 Abbonamenti / 🏋️ Sport / 📚 Formazione / ✈️ Viaggi / 💰 Risparmio / Altro
-- **Account** (Select) — {{your_bank_accounts}}
-- **Recurring** (Checkbox) — spesa ricorrente mensile
+  - Entrate: 💼 Stipendio / 🔧 Freelance / 📈 Dividendi / 🏠 Affitto Attivo / 🎁 Regalo / 🔙 Rimborso / Altro
+  - Uscite: 🏠 Affitto/Mutuo / 🛒 Spesa Alimentare / 🚗 Trasporti / ⛽ Carburante / 🍽️ Ristoranti / ☕ Bar & Caffè / 🎬 Intrattenimento / 🎮 Streaming/Software / 👗 Abbigliamento / 💊 Salute & Farmacia / 🏋️ Sport & Benessere / 📚 Formazione / ✈️ Viaggi / 🎁 Regali / 🔧 Casa & Riparazioni / 💅 Cura Personale / Altro
+- **Account** (Select) — Conto Principale / Conto Secondario / Carta Credito / Contanti / PayPal / Altro (personalizza con i tuoi conti)
+- **Recurring** (Checkbox) — spesa o entrata ricorrente ogni mese
+- **Needs vs Wants** (Select) — Need (necessario) / Want (piacere) / Investment (investimento in sé)
+- **Budget Category** (Relation) → Budgets — collega la transazione al budget corrispondente
 - **Notes** (Text)
 
 ### Views
-1. **This Month** — filtro: Date = questo mese, raggruppata per Type
-2. **By Category** — raggruppata per Category, filtro: Type = Expense
-3. **Recurring** — filtro: Recurring = true
-4. **All Transactions** — ordinata per Date decrescente
+1. **Questo Mese** (Table) — filtro: Date = questo mese, raggruppata per Type, totale Amount in fondo
+2. **Per Categoria** (Table) — filtro: Type = Expense, raggruppata per Category, ordinata per Amount desc
+3. **Entrate** (Table) — filtro: Type = Income, ordinata per Date desc
+4. **Uscite Ricorrenti** (Table) — filtro: Recurring = true AND Type = Expense
+5. **Tutte le Transazioni** (Table) — ordinata per Date decrescente, nessun filtro
+6. **Needs vs Wants** (Table) — raggruppata per Needs vs Wants, filtro: Type = Expense
 
 ---
 
 ## DATABASE 2: BUDGETS
 
+Icona: 📊
+
 ### Proprietà
-- **Category** (Title) — categoria di spesa
-- **Monthly Budget** (Number) — budget mensile
-- **Spent This Month** (Rollup) — somma da Transactions, filtro: Category = match, Date = questo mese
+- **Category** (Title) — categoria di spesa (deve corrispondere alle categorie in Transactions)
+- **Monthly Budget** (Number) — budget mensile in €
+- **Spent This Month** (Rollup) — somma Amount da Transactions dove Category = questo AND Date = questo mese AND Type = Expense
 - **Remaining** (Formula): \`prop("Monthly Budget") - prop("Spent This Month")\`
-- **% Used** (Formula): \`round(prop("Spent This Month") / prop("Monthly Budget") * 100)\`
-- **Status** (Formula): \`if(prop("% Used") > 100, "🔴 Over budget", if(prop("% Used") > 80, "🟡 Attenzione", "🟢 OK"))\`
+- **Percentage Used** (Formula): \`if(prop("Monthly Budget") > 0, round(prop("Spent This Month") / prop("Monthly Budget") * 100), 0)\`
+- **Status** (Formula): \`if(prop("Percentage Used") > 100, "🔴 Sforato di €" + toText(round(prop("Spent This Month") - prop("Monthly Budget"))), if(prop("Percentage Used") > 85, "🟡 Attenzione: " + toText(prop("Percentage Used")) + "%", "🟢 OK: " + toText(prop("Percentage Used")) + "%"))\`
+- **Annual Budget** (Formula): \`prop("Monthly Budget") * 12\`
+- **Priority** (Select) — Fisso (impossibile tagliare) / Essenziale / Discrezionale / Eliminabile
+
+### Views
+1. **Budget Overview** (Table) — ordinata per Spent This Month desc — vista principale mensile
+2. **Sforamenti** (Table) — filtro: Percentage Used > 100
+3. **Discrezionali** (Table) — filtro: Priority = Discrezionale o Eliminabile — candidati ai tagli
 
 ---
 
 ## DATABASE 3: SAVINGS GOALS
 
+Icona: 🎯
+
 ### Proprietà
 - **Goal** (Title) — nome dell'obiettivo
-- **Target Amount** (Number)
-- **Current Amount** (Number) — aggiorna manualmente ogni mese
+- **Emoji** (Select) — 🏠 Casa / ✈️ Viaggio / 🚗 Auto / 💍 Matrimonio / 🎓 Formazione / 🏖️ Vacanza / 🚨 Fondo Emergenza / 🏦 Pensione / 🎁 Altro
+- **Target Amount** (Number) — importo obiettivo in €
+- **Current Amount** (Number) — aggiorna manualmente ogni primo del mese
+- **Monthly Contribution** (Number) — quanto risparmi al mese per questo obiettivo
 - **Target Date** (Date)
-- **Monthly Contribution** (Number) — quanto risparmiare al mese
-- **Progress %** (Formula): \`round(prop("Current Amount") / prop("Target Amount") * 100)\`
-- **Months Remaining** (Formula)
-- **Emoji** (Select) — 🏠 Casa / ✈️ Viaggio / 🚗 Auto / 💍 Matrimonio / 🎓 Formazione / 🏖️ Vacanza
+- **Progress %** (Formula): \`if(prop("Target Amount") > 0, min(round(prop("Current Amount") / prop("Target Amount") * 100), 100), 0)\`
+- **Amount Remaining** (Formula): \`max(prop("Target Amount") - prop("Current Amount"), 0)\`
+- **Months to Goal** (Formula): \`if(prop("Monthly Contribution") > 0 and prop("Amount Remaining") > 0, ceil(prop("Amount Remaining") / prop("Monthly Contribution")), if(prop("Amount Remaining") == 0, 0, -1))\`
+- **On Track** (Formula): \`if(prop("Progress %") >= 100, "✅ Raggiunto!", if(empty(prop("Target Date")), "📅 Nessuna scadenza", if(prop("Months to Goal") <= dateBetween(prop("Target Date"), now(), "months"), "🟢 Nei tempi", "🔴 In ritardo")))\`
+- **Priority** (Select) — Alta / Media / Bassa
+- **Notes** (Text)
+
+### Views
+1. **Goals Overview** (Gallery) — con Progress % e On Track — vista principale ispirazionale
+2. **On Track** (Table) — filtro: On Track = Nei tempi o Raggiunto
+3. **In Ritardo** (Table) — filtro: On Track = In ritardo — richiede revisione strategia
 
 ---
 
-## DASHBOARD MENSILE
+## DATABASE 4: INVESTMENTS
 
-### Struttura consigliata per la homepage:
+Icona: 📈
 
+### Proprietà
+- **Asset** (Title) — nome dell'investimento
+- **Type** (Select) — ETF / Azione / Obbligazione / Crypto / Immobile / Fondo Pensione / Conto Deposito / Oro / Altro
+- **Platform** (Text) — dove è investito (es. Fineco, DEGIRO, Coinbase)
+- **Purchase Date** (Date)
+- **Purchase Price** (Number) — valore al momento dell'acquisto
+- **Current Value** (Number) — aggiorna mensilmente
+- **Units** (Number) — numero di quote/unità possedute
+- **Total Invested** (Number) — capitale investito totale
+- **Gain/Loss** (Formula): \`prop("Current Value") - prop("Total Invested")\`
+- **Return %** (Formula): \`if(prop("Total Invested") > 0, round(prop("Gain/Loss") / prop("Total Invested") * 100 * 10) / 10, 0)\`
+- **Notes** (Text)
+
+---
+
+## DATABASE 5: SUBSCRIPTIONS
+
+Icona: 🔄
+
+### Proprietà
+- **Service** (Title) — nome del servizio
+- **Monthly Cost** (Number) — costo mensile in € (converti quelli annuali)
+- **Annual Cost** (Formula): \`prop("Monthly Cost") * 12\`
+- **Category** (Select) — Streaming / Software / Fitness / Cloud / News / Music / Gaming / Education / Altro
+- **Billing Cycle** (Select) — Mensile / Trimestrale / Annuale
+- **Next Renewal** (Date)
+- **Active** (Checkbox) — è ancora attivo e necessario?
+- **Necessity** (Select) — Indispensabile / Utile / Lusso / Da cancellare
+- **Notes** (Text)
+
+### Views
+1. **Tutti gli Abbonamenti** (Table) — ordinata per Monthly Cost desc, totale in fondo
+2. **Da Valutare** (Table) — filtro: Necessity = Lusso o Da cancellare
+3. **Rinnovi in arrivo** (Calendar) — per Next Renewal
+
+---
+
+## FORMULE CHIAVE
+
+### Budget Status (Budgets):
 \`\`\`
-📅 {{current_month}} {{current_year}}
+if(prop("Percentage Used") > 100, "🔴 Sforato di €" + toText(round(prop("Spent This Month") - prop("Monthly Budget"))), if(prop("Percentage Used") > 85, "🟡 Attenzione: " + toText(prop("Percentage Used")) + "%", "🟢 OK: " + toText(prop("Percentage Used")) + "%"))
+\`\`\`
 
-💰 RIEPILOGO MESE
-Entrate:  +€{{total_income}}
-Uscite:   -€{{total_expenses}}
-Saldo:    €{{balance}}
+### On Track (Savings Goals):
+\`\`\`
+if(prop("Progress %") >= 100, "✅ Raggiunto!", if(empty(prop("Target Date")), "📅 Nessuna scadenza", if(prop("Months to Goal") <= dateBetween(prop("Target Date"), now(), "months"), "🟢 Nei tempi", "🔴 In ritardo")))
+\`\`\`
 
-📊 BUDGET STATUS
-[Linked view: Budgets con Progress bar]
-
-🎯 OBIETTIVI DI RISPARMIO
-[Linked view: Savings Goals]
-
-📈 PATRIMONIO NETTO: €{{net_worth}}
+### Return % (Investments):
+\`\`\`
+if(prop("Total Invested") > 0, round(prop("Gain/Loss") / prop("Total Invested") * 100 * 10) / 10, 0)
 \`\`\`
 
 ---
 
-## SETUP INIZIALE (20 minuti)
+## DASHBOARD MENSILE — HOME
 
-1. **Inserisci i tuoi account**: crea i tag per ogni conto bancario/carta
-2. **Imposta i budget mensili**: aggiungi ogni categoria con il budget realistico
-3. **Crea i tuoi obiettivi**: aggiungi 2-3 savings goals con target e data
-4. **Importa le transazioni**: inserisci le ultime 30 transazioni per avere un benchmark
+Crea una pagina "💰 Finance Dashboard" con queste sezioni:
 
-## Workflow mensile
+**Callout riepilogo del mese (aggiorna il primo di ogni mese):**
+Entrate: €___ | Uscite: €___ | Risparmio netto: €___ | Tasso di risparmio: ___%
 
-**Primo del mese:**
-- Azzera "Spent This Month" aggiornando il filtro
-- Rivedi i budget della categoria con più sforamenti
-- Aggiorna "Current Amount" in ogni Savings Goal
+**Sezione 1 — Budget Status**
+Linked view: Budgets, ordinata per Percentage Used decrescente
 
-**Fine mese:**
-- Calcola risparmio netto: Entrate - Uscite
-- Aggiorna il Patrimonio Netto
-- Identifica la categoria con più sprechi`,
+**Sezione 2 — Obiettivi di Risparmio**
+Linked view: Savings Goals, layout Gallery con Progress % e On Track
+
+**Sezione 3 — Transazioni recenti**
+Linked view: Transactions, filtro: Date = ultima settimana
+
+**Sezione 4 — Abbonamenti da valutare**
+Linked view: Subscriptions, filtro: Necessity = Da cancellare
+
+**Callout Patrimonio Netto (aggiorna trimestralmente):**
+Liquidità totale: €___ + Investimenti: €___ - Debiti: €___ = Patrimonio Netto: €___
+
+---
+
+## QUICK START (20 minuti)
+
+1. Duplica il workspace nel tuo Notion
+2. Configura i tuoi account (banca, carte, contanti) nelle opzioni Select di Account
+3. Crea un record Budget per ogni categoria di spesa con il tuo budget realistico
+4. Inserisci tutti i tuoi abbonamenti attivi nel database Subscriptions
+5. Aggiungi 2-3 Savings Goals con il tuo obiettivo prioritario (es. fondo emergenza = 3 mesi di spese)
+6. Registra le ultime 10-15 transazioni per avere un benchmark immediato
+7. Segna un appuntamento fisso in calendario: 10 minuti ogni domenica sera per aggiornare le transazioni
+
+---
+
+## WORKFLOW MENSILE
+
+**Ogni domenica sera (10 min):** registra le transazioni della settimana nel database Transactions.
+
+**Primo del mese (30 min):**
+- Rivedi il Budget Overview: quali categorie sono sforatre? Perché?
+- Aggiorna Current Amount in ogni Savings Goal
+- Aggiorna Current Value in ogni Investment
+- Calcola il saldo netto del mese: Entrate - Uscite totali
+- Identifica l'abbonamento da cancellare (ne hai sempre almeno uno!)
+
+**Trimestralmente (1 ora):**
+- Aggiorna il Patrimonio Netto nel callout della dashboard
+- Rivedi gli investimenti: Return %, ribilanciamento del portafoglio
+- Aumenta o riduci i budget in base all'andamento reale degli ultimi 3 mesi
+
+---
+
+## PRO TIPS
+
+- **Regola 50/30/20**: usa i budget per applicare la regola classica: 50% needs (affitto, spesa, bollette), 30% wants (ristoranti, intrattenimento), 20% savings/investments. Il database Budgets ti mostra subito il ratio
+- **Tasso di risparmio come KPI principale**: calcola ogni mese (Risparmio Netto / Entrate Totali × 100). L'obiettivo è >20%. Tutto il resto è conseguenza
+- **Subscriptions audit trimestrale**: guarda il totale Annual Cost nel database Subscriptions — spesso supera €1.000/anno per servizi dimenticati
+- **Needs vs Wants**: questo campo in Transactions è rivelatore. Dopo 3 mesi vedrai esattamente dove vai a parare nei momenti di stress o noia
+- **Fondo emergenza come primo obiettivo**: crea un Savings Goal "🚨 Fondo Emergenza" con target = 3-6 mesi di spese mensili. Raggiungerlo prima di qualsiasi altro obiettivo`,
   },
   {
     id: "notion-second-brain",
@@ -3337,148 +3768,303 @@ Saldo:    €{{balance}}
     editorsPick: true,
     content: `# Notion Second Brain (PKM System)
 
-## Il tuo sistema di gestione della conoscenza
+## Il tuo sistema di gestione della conoscenza personale
 
-Basato sui principi di Building a Second Brain (BASB) di Tiago Forte. Cattura, organizza e recupera qualsiasi informazione in modo sistematico.
+Basato sul metodo Building a Second Brain (BASB) di Tiago Forte e sul framework PARA. Un sistema a 11 database che ti permette di catturare qualsiasi informazione, organizzarla sistematicamente e recuperarla nel momento esatto in cui ne hai bisogno. Include Area manager, Project tracker, Note vault, Book tracker, Habit tracker, Daily journal, Resource library, Contact database e molto altro.
 
 ---
 
-## STRUTTURA PARA
+## IL FRAMEWORK PARA
 
-Il sistema usa il framework PARA: Projects, Areas, Resources, Archive.
+Prima di costruire il sistema, interiorizza la struttura fondamentale:
 
-### P — PROJECTS (Progetti attivi)
-Tutto ciò su cui stai lavorando con una scadenza o obiettivo definito.
-- Database: collegato al tuo Project Manager Notion
-- Regola: massimo 10-15 progetti attivi contemporaneamente
+**P — Projects** (Progetti con scadenza): tutto ciò su cui stai lavorando attivamente con un obiettivo definito e una fine prevista. Massimo 10-15 progetti attivi.
 
-### A — AREAS (Aree di responsabilità)
-Aspetti della vita che richiedono attenzione continuativa (senza scadenza).
-Esempi: Salute / Finanze / Famiglia / Carriera / Casa / {{your_areas}}
+**A — Areas** (Aree di responsabilità): aspetti della tua vita che richiedono attenzione continuativa ma senza scadenza. Esempi: Salute, Finanze, Relazioni, Carriera, Casa, Spiritualità.
 
-### R — RESOURCES (Risorse per argomento)
-Tutto ciò che potrebbe essere utile in futuro, organizzato per argomento.
-Esempi: Marketing / AI / Design / Libri / Ricette / {{your_topics}}
+**R — Resources** (Risorse per argomento): tutto ciò che ti interessa o potrebbe essere utile in futuro, organizzato per argomento. Esempi: Marketing, AI, Cucina, Investimenti, Storia.
 
-### A — ARCHIVE (Archivio)
-Tutto ciò che non è più attivo ma vuoi conservare.
+**A — Archive** (Archivio): tutto ciò che non è più attivo ma vuoi conservare. Progetti completati, aree abbandonate, risorse non più rilevanti.
 
 ---
 
 ## DATABASE 1: NOTES (Capture Inbox)
 
+Icona: 📥 — Il cuore del sistema. Tutto entra qui prima.
+
 ### Proprietà
-- **Title** (Title)
+- **Title** (Title) — titolo o prima frase della nota
 - **Status** (Select) — 📥 Inbox / 🔄 Processing / ✅ Filed / 🗑️ Discard
-- **Type** (Select) — 💡 Idea / 📖 Book Note / 🎥 Video / 🌐 Article / 💬 Quote / 🎧 Podcast / 📝 Meeting / 💭 Thought / 🔗 Resource
-- **Source** (URL) — link originale
+- **Type** (Select) — 💡 Idea / 📖 Book Note / 🎥 Video Note / 🌐 Article / 💬 Quote / 🎧 Podcast Note / 📝 Meeting Note / 💭 Pensiero / 🔗 Resource / 📊 Research / ✉️ Email
 - **PARA** (Select) — Projects / Areas / Resources / Archive
-- **Project/Area/Resource** (Relation) — collegamento alla categoria
-- **Tags** (Multi-select) — {{your_tags}}
-- **Created** (Created time)
+- **Source** (URL) — link originale (articolo, video, podcast)
+- **Author** (Text) — autore della fonte
+- **Tags** (Multi-select) — massimo 3 tag per nota (meno è meglio)
+- **Project** (Relation) → Projects
+- **Area** (Relation) → Areas
+- **Resource** (Relation) → Resources
+- **Created** (Created time) — automatico
 - **Last Reviewed** (Date)
-- **Actionable** (Checkbox) — richiede un'azione?
+- **Actionable** (Checkbox) — questa nota richiede un'azione?
+- **Evergreen** (Checkbox) — nota di valore permanente da sviluppare nel tempo
 
 ### Views
-1. **📥 Inbox** — filtro: Status = Inbox (processa queste notes regolarmente)
-2. **🔄 Processing** — filtro: Status = Processing
-3. **By Type** — raggruppata per Type
-4. **Recent** — ordinata per Created decrescente
-5. **Search** — usa la search di Notion per trovare qualsiasi nota
+1. **📥 Inbox** (Table) — filtro: Status = Inbox — svuota ogni settimana
+2. **🔄 Processing** (Table) — filtro: Status = Processing
+3. **🌱 Evergreen Notes** (Gallery) — filtro: Evergreen = true — le tue note più preziose
+4. **Per Tipo** (Table) — raggruppata per Type
+5. **Recenti** (Table) — ordinata per Created decrescente, nessun filtro
+6. **Azionabili** (Table) — filtro: Actionable = true AND Status ≠ Discard
 
 ---
 
-## DATABASE 2: RESOURCES
+## DATABASE 2: PROJECTS
+
+Icona: 🚀
 
 ### Proprietà
-- **Name** (Title) — nome della risorsa/argomento
-- **Type** (Select) — Topic / Book List / Course List / Tool / Framework / Person
-- **Description** (Text)
-- **Related Notes** (Rollup) — count da Notes, filtro: PARA = Resources
+- **Name** (Title)
+- **Status** (Status) — Active / Planning / On Hold / Completed / Cancelled
+- **Area** (Relation) → Areas — a quale area di vita appartiene?
+- **Goal** (Text) — risultato specifico e misurabile
+- **Due Date** (Date)
+- **Progress %** (Number) — aggiorna manualmente (0-100)
+- **Notes Count** (Rollup) — count da Notes collegate
+- **Why** (Text) — perché questo progetto è importante per te?
+- **Next Action** (Text) — prossimo passo fisico concreto
 
-### Resources preconfigurate
-Crea questi topic:
-- 🤖 AI & Machine Learning
+### Views
+1. **Active Projects** (Board) — raggruppata per Area
+2. **By Due Date** (Table) — ordinata per Due Date crescente, filtro: Status = Active
+3. **Completed** (Table) — filtro: Status = Completed — fonte di orgoglio e apprendimento
+
+---
+
+## DATABASE 3: AREAS
+
+Icona: 🗺️
+
+### Proprietà
+- **Name** (Title) — nome dell'area di responsabilità
+- **Emoji** (Select) — 💪 Salute / 💰 Finanze / 👨‍👩‍👧 Famiglia / 💼 Carriera / 🏠 Casa / 📚 Formazione / 🧘 Benessere / 🤝 Relazioni / 🌍 Community / 🎨 Creatività
+- **Standard** (Text) — qual è lo standard minimo per questa area? (es. "Dormire almeno 7h, allenarmi 3x/settimana")
+- **Current Status** (Select) — Thriving / Stable / Needs Attention / Crisis
+- **Active Projects** (Rollup) — count da Projects dove Status = Active
+- **Notes Count** (Rollup) — count da Notes collegate
+
+### Aree di vita consigliate (personalizza)
+- 💪 Salute & Fitness
+- 💰 Finanze & Investimenti
+- 💼 Carriera & Business
+- 📚 Apprendimento & Crescita
+- 👨‍👩‍👧 Famiglia & Relazioni
+- 🏠 Casa & Ambiente
+- 🧘 Benessere Mentale
+- 🤝 Community & Contributo
+
+---
+
+## DATABASE 4: RESOURCES
+
+Icona: 📚
+
+### Proprietà
+- **Name** (Title) — nome del topic/argomento
+- **Type** (Select) — Topic / Skill / Tool / Framework / Person / Luogo
+- **Description** (Text) — perché questo argomento ti interessa
+- **Notes Count** (Rollup) — count da Notes dove PARA = Resources
+
+### Resources pre-configurate (personalizza)
+- 🤖 Intelligenza Artificiale
 - 📊 Marketing & Growth
-- 💻 Programming & Tech
-- 🧠 Psychology & Productivity
-- 💼 Business & Strategy
-- 🎨 Design & Creativity
-- {{your_custom_topics}}
+- 💻 Tecnologia & Programmazione
+- 🧠 Psicologia & Produttività
+- 💼 Business & Strategia
+- 🎨 Design & Creatività
+- 📈 Investimenti & Finanza personale
+- 🌍 Geopolitica & Storia
+- 🍳 Cucina & Salute
 
 ---
 
-## SISTEMA DI CAPTURE
+## DATABASE 5: BOOK TRACKER
 
-### Metodi di cattura rapida:
+Icona: 📖
 
-1. **Notion Web Clipper** (Chrome/Firefox) — salva articoli web direttamente in Inbox
-2. **Notion Mobile App** — cattura pensieri ovunque tu sia
-3. **Quick Note template**:
-   \`\`\`
-   🗓️ Data: {{today}}
-   📌 Fonte: {{source}}
-   💡 Insight principale:
-   [scrivi qui]
+### Proprietà
+- **Title** (Title) — titolo del libro
+- **Author** (Text)
+- **Status** (Select) — 📋 Want to Read / 📖 Reading / ✅ Read / 🔁 Re-reading / ⏸️ On Hold
+- **Format** (Select) — Fisico / eBook / Audiolibro
+- **Start Date** (Date)
+- **Finish Date** (Date)
+- **Rating** (Select) — ⭐ / ⭐⭐ / ⭐⭐⭐ / ⭐⭐⭐⭐ / ⭐⭐⭐⭐⭐
+- **Genre** (Multi-select) — Saggistica / Narrativa / Business / Psicologia / Storia / Filosofia / Tecnico / Altro
+- **Key Takeaway** (Text) — l'idea principale in una frase
+- **Recommended By** (Text)
+- **Notes** (Relation) → Notes — le note prese durante la lettura
+- **Buy Link** (URL)
 
-   🔗 Connessioni con altre idee:
-   -
-
-   ⚡ Azioni:
-   - [ ]
-   \`\`\`
-
----
-
-## WORKFLOW SETTIMANALE
-
-**Daily (5 min):**
-- Cattura tutto in Inbox senza organizzare
-- Usa shortcuts Notion per velocità
-
-**Weekly Review (30 min):**
-1. Processa tutta la Inbox (cambia Status)
-2. Archivia ciò che non serve
-3. Collega le note ai progetti/aree pertinenti
-4. Identifica 3 note da sviluppare ulteriormente
-
-**Monthly (1 ora):**
-- Rivedi i tag e rimuovi quelli inutilizzati
-- Archivia progetti completati
-- Identifica pattern nelle tue idee
+### Views
+1. **Reading Now** (Gallery) — filtro: Status = Reading
+2. **To Read** (Table) — filtro: Status = Want to Read, ordinata per Rating (raccomandazioni)
+3. **Read** (Table) — filtro: Status = Read, ordinata per Finish Date desc
+4. **By Genre** (Table) — raggruppata per Genre, filtro: Status = Read
 
 ---
 
-## TEMPLATE NOTE AVANZATO
+## DATABASE 6: HABIT TRACKER
 
+Icona: ✅
+
+### Proprietà
+- **Habit** (Title) — nome dell'abitudine
+- **Category** (Select) — 💪 Salute / 🧠 Mente / 💼 Lavoro / 🤝 Relazioni / 🏠 Casa / 💰 Finanze
+- **Frequency** (Select) — Daily / Weekly / Monthly
+- **Target** (Number) — quante volte a settimana/mese
+- **Current Streak** (Number) — aggiorna manualmente
+- **Best Streak** (Number)
+- **Start Date** (Date)
+- **Cue** (Text) — il trigger dell'abitudine (es. "Dopo il caffè mattutino")
+- **Why** (Text) — perché questa abitudine è importante
+- **Active** (Checkbox)
+
+---
+
+## DATABASE 7: DAILY JOURNAL
+
+Icona: 🌅
+
+### Proprietà
+- **Date** (Title) — es. "18 Marzo 2026"
+- **Day** (Date)
+- **Mood** (Select) — 😄 Ottimo / 😊 Bene / 😐 Nella media / 😕 Sotto / 😞 Male
+- **Energy** (Select) — ⚡⚡⚡ Alta / ⚡⚡ Media / ⚡ Bassa
+- **Gratitude** (Text) — 3 cose per cui sono grato
+- **Highlight of the Day** (Text) — il momento migliore del giorno
+- **Lessons Learned** (Text)
+- **Tomorrow's Priority** (Text) — una sola cosa più importante di domani
+
+### Template per entrata giornaliera:
 \`\`\`
-# {{title}}
-
-**Fonte**: {{source_url}}
-**Data**: {{date}}
-**Tipo**: {{note_type}}
-
-## 📌 Punti chiave
+MATTINA (5 min):
+Come mi sento? [Mood + Energy]
+Sono grato per:
 1.
 2.
 3.
+L'unica cosa che renderebbe questa giornata un successo:
 
-## 💭 Miei pensieri
-[Cosa ne penso? Come si collega a quello che so già?]
+SERA (5 min):
+Highlight della giornata:
+Cosa ho imparato:
+Priorità di domani:
+\`\`\`
 
-## ❓ Domande aperte
--
+---
 
-## 🔗 Connessioni
-- Collegato a: [[{{related_note}}]]
-- Simile a: [[{{similar_concept}}]]
+## DATABASE 8: CONTACTS
 
-## ⚡ Azioni
-- [ ] {{action_item}}
+Icona: 👤
 
-## 🏷️ Tags
-#{{tag1}} #{{tag2}} #{{tag3}}
-\`\`\``,
+### Proprietà
+- **Name** (Title)
+- **Relationship** (Select) — Famiglia / Amico Intimo / Amico / Collega / Mentore / Network / Conoscente
+- **Company** (Text)
+- **Email** (Email)
+- **Phone** (Phone)
+- **How We Met** (Text)
+- **Last Contact** (Date)
+- **Notes** (Text) — interessi, dettagli personali, argomenti di conversazione
+- **Mutual Connections** (Relation) → Contacts (auto-reference)
+
+---
+
+## SISTEMA DI CAPTURE — REGOLE D'ORO
+
+**Strumenti consigliati per catturare:**
+- Notion Web Clipper (Chrome/Firefox/Safari) — per articoli web
+- Notion Mobile — per pensieri on-the-go
+- Nota vocale → trascrivi in Notion la sera
+
+**Le 3 regole del capture:**
+1. Non organizzare durante il capture: tutto va in Inbox, sempre
+2. Cattura il perché, non solo il cosa: aggiungi sempre 1 riga con "Perché mi interessa questo?"
+3. Meno è meglio: cattura solo ciò che ti entusiasma o che userai, non tutto
+
+---
+
+## TEMPLATE NOTA AVANZATO (sub-page in Notes)
+
+\`\`\`
+## Fonte
+Titolo originale: [titolo]
+URL: [link]
+Autore: [nome]
+Data lettura: [data]
+
+## Punti chiave (max 3)
+1. [Prima idea principale — in parole tue]
+2. [Seconda idea principale — in parole tue]
+3. [Terza idea principale — in parole tue]
+
+## Citazione da conservare
+> "[citazione testuale più significativa]"
+
+## Miei pensieri
+[Come si collega a ciò che so già? Cosa mi sorprende? Con cosa sono in disaccordo?]
+
+## Domande aperte
+- [Domanda che questa nota genera]
+
+## Connessioni con altre note
+- Collegata a: [nome nota correlata]
+- Simile a: [concetto simile]
+- Contraddice: [idea contraria]
+
+## Azioni
+- [ ] [Azione concreta se la nota è Actionable]
+\`\`\`
+
+---
+
+## WORKFLOW — SISTEMA QUOTIDIANO
+
+**Mattina (5 min):** apri il Daily Journal, compila la sezione mattina, controlla le priorità del giorno.
+
+**Durante il giorno:** cattura tutto in Inbox senza organizzare. Usa Web Clipper per gli articoli, app mobile per i pensieri.
+
+**Sera (5 min):** completa il Daily Journal, aggiungi le abitudini completate nel Habit Tracker.
+
+**Weekly Review domenicale (45 min):**
+1. Svuota la Inbox: processa ogni nota (Filed, Discard o sviluppa)
+2. Rivedi i Projects attivi: aggiorna Progress %, identifica blocchi
+3. Controlla Areas: qualcuna è in "Needs Attention"?
+4. Scrivi 3 note Evergreen sviluppando idee dall'Inbox della settimana
+5. Aggiorna Current Streak in Habit Tracker
+
+---
+
+## QUICK START (30 minuti)
+
+1. Duplica il workspace nel tuo Notion
+2. Configura le tue 6-8 Areas di vita nel database Areas
+3. Aggiungi i tuoi 3-5 Projects attivi con Goal e Due Date
+4. Crea i topic che ti interessano nel database Resources
+5. Aggiungi i libri in lettura e la lista "Want to Read"
+6. Configura 3-5 habits fondamentali nel Habit Tracker
+7. Scrivi la prima entrata nel Daily Journal
+8. Inizia a catturare: installa il Web Clipper e salva il prossimo articolo interessante in Inbox
+
+---
+
+## PRO TIPS
+
+- **Non costruire il sistema perfetto subito**: inizia con Notes + Projects + Areas. Aggiungi gli altri database uno alla volta quando ne senti il bisogno reale
+- **Evergreen Notes sono il vero tesoro**: le note collegate tra loro, sviluppate nel tempo, diventano il tuo "libro non scritto". Ogni settimana ne sviluppa almeno 2-3 dall'Inbox
+- **La Inbox deve tornare a zero ogni settimana**: se accumuli più di 20-30 note non processate, il sistema smette di funzionare e diventa un altro posto dove le cose vanno a morire
+- **Tagging minimalista**: max 3 tag per nota. Il vero recupero delle informazioni avviene tramite search full-text di Notion, non tramite tag
+- **Book notes come multiplier**: prendere note strutturate dai libri (non sottolineare, ma riscrivere in tue parole) moltiplica la retention. Una nota da un libro vale più di 10 libri letti senza note`,
   },
   {
     id: "notion-job-tracker",
@@ -3493,115 +4079,275 @@ Crea questi topic:
     editorsPick: false,
     content: `# Notion Job Application Tracker
 
-## La tua pipeline di ricerca lavoro
+## La pipeline di ricerca lavoro che non ti fa perdere nessuna opportunità
 
-Traccia ogni candidatura, ogni colloquio e ogni offerta in modo sistematico. Non perdere mai un follow-up.
+Un sistema completo a 3 database con 15+ proprietà per ogni candidatura, pipeline Kanban visiva, tracker dei colloqui con note strutturate, 5 template email pronti per follow-up e proposte, e un comparatore di offerte per fare la scelta giusta quando arrivano più proposte contemporaneamente.
 
 ---
 
-## DATABASE PRINCIPALE: APPLICATIONS
+## DATABASE 1: APPLICATIONS
+
+Icona: 💼 | Vista principale: Kanban Pipeline
 
 ### Proprietà
-- **Position** (Title) — titolo del ruolo
-- **Company** (Text) — nome azienda
+- **Position** (Title) — titolo esatto del ruolo come appare nell'annuncio
+- **Company** (Text) — nome dell'azienda
 - **Status** (Status):
-  - 📝 To Apply — da candidarsi
+  - 📋 Saved — annuncio salvato, non ancora candidato
   - 📤 Applied — candidatura inviata
-  - 📞 Screening — colloquio telefonico
-  - 🎯 Interview — colloquio tecnico/HR
-  - 🔄 Final Round — fase finale
-  - ✅ Offer — offerta ricevuta
+  - 📞 Screening — primo contatto con HR o recruiter
+  - 🎯 Interview — colloquio in corso (1+ round)
+  - 🔄 Final Round — fase decisionale finale
+  - 🤝 Offer Received — offerta ricevuta
+  - ✅ Accepted — offerta accettata
   - ❌ Rejected — risposta negativa
-  - 🚫 Withdrawn — ritirato
-- **Job URL** (URL) — link all'annuncio
+  - 🚫 Withdrawn — ritirata da te
+  - 👻 Ghosted — nessuna risposta da +14 giorni
+- **Priority** (Select) — 🔥 Dream Job / ⭐ Top Choice / ✅ Interested / 💤 Maybe / ❓ Unclear
+- **Job URL** (URL) — link all'annuncio (salvalo subito: spesso scadono)
 - **Applied Date** (Date)
-- **Next Action Date** (Date) — quando fare follow-up
-- **Salary Range** (Text) — es. "€40k-€50k"
-- **Location** (Text) — Remote / {{city}} / Hybrid
-- **Contract Type** (Select) — Full-time / Part-time / Freelance / Internship
-- **Company Size** (Select) — Startup / SME / Corporate / Agency
-- **Source** (Select) — LinkedIn / Indeed / Company Site / Referral / Headhunter / Other
-- **Contact Name** (Text) — recruiter o HR
+- **Next Action Date** (Date) — quando fare il prossimo follow-up
+- **Days Since Applied** (Formula): \`if(empty(prop("Applied Date")), "Non ancora", toText(dateBetween(now(), prop("Applied Date"), "days")) + " giorni fa")\`
+- **Response Time** (Formula): \`if(empty(prop("Applied Date")), "", if(prop("Status") == "Rejected" or prop("Status") == "Screening" or prop("Status") == "Interview", toText(dateBetween(now(), prop("Applied Date"), "days")) + "g", "In attesa"))\`
+- **Salary Min** (Number) — minimo accettabile in € annui lordi
+- **Salary Max** (Number) — massimo indicato nell'annuncio
+- **Salary Midpoint** (Formula): \`if(prop("Salary Min") > 0 and prop("Salary Max") > 0, (prop("Salary Min") + prop("Salary Max")) / 2, 0)\`
+- **Location** (Text) — città o Remote / Hybrid / On-site
+- **Remote %** (Number) — percentuale di lavoro da remoto (0-100)
+- **Contract Type** (Select) — Tempo Indeterminato / Tempo Determinato / Partita IVA / Stage / Apprendistato
+- **Seniority** (Select) — Junior / Mid / Senior / Lead / Manager / Director / C-Level
+- **Company Size** (Select) — Startup (1-10) / Scaleup (11-50) / PMI (51-200) / Corporate (201-1000) / Enterprise (1000+)
+- **Industry** (Select) — Tech / Fintech / E-commerce / Consulenza / Media / Healthcare / Education / Retail / Altro
+- **Source** (Select) — LinkedIn / Indeed / Glassdoor / Sito Aziendale / Referral / Headhunter / Job Fair / Candidatura Spontanea / Altro
+- **Contact Name** (Text) — nome del recruiter o HR
 - **Contact Email** (Email)
-- **Priority** (Select) — 🔥 Top Choice / ⭐ Interested / 💤 Maybe
-- **Notes** (Text)
-- **Interview Notes** (Text) — appunti sui colloqui
+- **Contact LinkedIn** (URL) — profilo LinkedIn del recruiter
+- **Cover Letter** (Checkbox) — hai inviato la lettera di presentazione?
+- **Custom CV** (Checkbox) — hai personalizzato il CV per questo ruolo?
+- **Referral** (Text) — nome di chi ti ha riferito (se applicabile)
+- **Notes** (Text) — note interne
+- **Excitement Level** (Select) — 🔥🔥🔥 Super Excited / 🔥🔥 Excited / 🔥 Interested / 😐 Neutral
+- **Red Flags** (Text) — eventuali segnali negativi durante il processo
 
 ### Views
-1. **Pipeline** (Board) — raggruppata per Status (la principale!)
-2. **Calendar** (Calendar) — per Next Action Date (non dimenticare i follow-up)
-3. **Top Choices** — filtro: Priority = Top Choice
-4. **Active** — filtro: Status ≠ Rejected, Withdrawn, Offer
+1. **Pipeline** (Board) — raggruppata per Status — la tua vista principale quotidiana
+2. **Follow-up Calendar** (Calendar) — per Next Action Date — non dimenticare mai un follow-up
+3. **Top Choices** (Gallery) — filtro: Priority = Dream Job o Top Choice, con cover azienda
+4. **Active** (Table) — filtro: Status ≠ Rejected, Withdrawn, Ghosted, Accepted, Saved
+5. **Salary Comparison** (Table) — filtro: Status = Offer Received o Final Round, visibile: Position, Company, Salary Midpoint, Remote %, Contract Type
+6. **Statistics** (Table) — tutte le candidature ordinate per Applied Date — per calcolare il tuo conversion rate
 
 ---
 
 ## DATABASE 2: INTERVIEWS
 
+Icona: 🎤
+
 ### Proprietà
-- **Interview** (Title) — es. "TechCorp — Round 1 — HR Screen"
+- **Interview** (Title) — formato: "NomeAzienda — Round N — Tipo" (es. "Acme Corp — Round 2 — Technical")
+- **Application** (Relation) → Applications (bidirezionale)
+- **Date** (Date) — data e ora
+- **Duration** (Number) — durata in minuti
+- **Format** (Select) — Video Call / In Person / Phone / Take-home Test / Case Study / Panel / Assessment Center
+- **Platform** (Text) — Zoom, Teams, Meet, sede fisica
+- **Interviewer Name** (Text)
+- **Interviewer Role** (Text) — es. "Senior Engineer", "HR Manager", "CTO"
+- **Interviewer LinkedIn** (URL)
+- **Round** (Number) — numero del round (1, 2, 3...)
+- **Topic** (Select) — Behavioral / Technical / Cultural Fit / Case Study / Presentation / Salary Negotiation / Final Decision
+- **Outcome** (Select) — Passed / Failed / Pending / Waiting / Withdrawn
+- **Follow-up Sent** (Checkbox) — email di ringraziamento inviata?
+- **My Performance** (Select) — ⭐⭐⭐⭐⭐ Eccellente / ⭐⭐⭐⭐ Bene / ⭐⭐⭐ Nella media / ⭐⭐ Sotto / ⭐ Male
+- **Questions Asked** (Text) — domande che ti hanno fatto
+- **My Best Answers** (Text) — le risposte che hanno funzionato
+- **Weak Points** (Text) — dove puoi migliorare per il prossimo round
+- **Next Steps** (Text) — cosa ti hanno detto alla fine
+
+---
+
+## DATABASE 3: OFFERS COMPARISON
+
+Icona: ⚖️
+
+### Proprietà
+- **Offer** (Title) — nome dell'offerta
 - **Application** (Relation) → Applications
-- **Date** (Date)
-- **Time** (Text)
-- **Format** (Select) — Video Call / In Person / Phone / Technical Test / Case Study
-- **Interviewer** (Text)
-- **Questions Asked** (Text)
-- **My Answers** (Text)
-- **Outcome** (Select) — Passed / Failed / Pending / Waiting
-- **Follow-up Sent** (Checkbox)
-- **Notes** (Text)
+- **Base Salary** (Number) — RAL in € annui
+- **Bonus** (Number) — bonus target annuo in €
+- **Stock/Equity** (Text) — opzioni, RSU, ESOP
+- **Benefits** (Text) — lista benefit (ticket, assicurazione, welfare, ecc.)
+- **Vacation Days** (Number) — giorni di ferie
+- **Remote Days/Week** (Number) — giorni di smart working a settimana
+- **Start Date** (Date)
+- **Deadline** (Date) — entro quando devi rispondere
+- **Total Compensation** (Formula): \`prop("Base Salary") + prop("Bonus")\`
+- **Score** (Number) — punteggio totale 1-10 (tua valutazione soggettiva)
+- **Pros** (Text)
+- **Cons** (Text)
+- **Gut Feeling** (Select) — 🤩 Sì assolutamente / 😊 Probabile sì / 🤔 Indeciso / 😬 Probabile no / ❌ No
+
+---
+
+## 5 TEMPLATE EMAIL PRONTI
+
+### Email 1 — Follow-up dopo candidatura (dopo 7 giorni senza risposta):
+\`\`\`
+Oggetto: Follow-up — Candidatura per [Posizione] — [Tuo Nome]
+
+Buongiorno [Nome Recruiter],
+
+Le scrivo per verificare lo stato della mia candidatura per la posizione di [Posizione], inviata il [data].
+
+Sono molto interessato all'opportunità e a [cosa ti entusiasma dell'azienda in 1 frase].
+
+Resto a disposizione per qualsiasi informazione aggiuntiva.
+
+Cordiali saluti,
+[Tuo Nome]
+[LinkedIn] | [Email] | [Telefono]
+\`\`\`
+
+### Email 2 — Ringraziamento post-colloquio (entro 24 ore):
+\`\`\`
+Oggetto: Grazie per il colloquio — [Posizione] — [Tuo Nome]
+
+Buongiorno [Nome Intervistatore],
+
+La ringrazio per il tempo dedicatomi oggi. Ho trovato molto stimolante la conversazione, in particolare [dettaglio specifico discusso: es. "il vostro approccio alla product discovery"].
+
+Il ruolo di [Posizione] mi interessa ancora di più dopo aver capito meglio [aspetto specifico del ruolo o del team].
+
+Resto in attesa di sviluppi e sono disponibile per qualsiasi approfondimento.
+
+Cordiali saluti,
+[Tuo Nome]
+\`\`\`
+
+### Email 3 — Richiesta di feedback dopo rifiuto:
+\`\`\`
+Oggetto: Feedback sulla candidatura — [Posizione]
+
+Buongiorno [Nome],
+
+La ringrazio per avermi comunicato la decisione. Capisco e rispetto la vostra scelta.
+
+Se possibile, le sarei grato di un breve feedback su dove avrei potuto migliorare la mia candidatura o il mio profilo. Questo mi aiuterebbe a crescere professionalmente.
+
+La ringrazio in anticipo per la disponibilità.
+
+Cordiali saluti,
+[Tuo Nome]
+\`\`\`
+
+### Email 4 — Negoziazione stipendio:
+\`\`\`
+Oggetto: RE: Offerta [Posizione] — [Tuo Nome]
+
+Buongiorno [Nome],
+
+La ringrazio per l'offerta. Sono entusiasta dell'opportunità di unirmi a [Azienda].
+
+Dopo una valutazione attenta, sulla base della mia esperienza in [X, Y, Z] e del valore che posso portare al team, speravo in una RAL di circa €[importo]. Sarebbe possibile rivalutare questo aspetto?
+
+Resto aperto a discuterne e a trovare una soluzione che funzioni per entrambi.
+
+Cordiali saluti,
+[Tuo Nome]
+\`\`\`
+
+### Email 5 — Candidatura spontanea:
+\`\`\`
+Oggetto: Candidatura Spontanea — [Tuo Ruolo/Specializzazione] — [Tuo Nome]
+
+Buongiorno [Nome HR o Hiring Manager],
+
+Ho seguito con interesse [azienda] e il suo lavoro in [ambito specifico]. Sono [Tuo Ruolo] con [X anni] di esperienza in [competenze chiave].
+
+Ho contribuito a [risultato misurabile] e credo di poter portare valore al vostro team in particolare su [area specifica].
+
+Allego il mio CV e mi rendo disponibile per una call esplorativa di 15 minuti.
+
+Cordiali saluti,
+[Tuo Nome]
+[Portfolio/LinkedIn]
+\`\`\`
 
 ---
 
 ## TEMPLATE PREPARAZIONE COLLOQUIO
 
-Crea una nuova pagina per ogni colloquio:
+Crea questa sub-page per ogni colloquio nel database Interviews:
 
 \`\`\`
-# 🎯 {{company}} — {{role}} — {{date}}
+PRIMA DEL COLLOQUIO
 
-## 📋 Info colloquio
-- **Durata prevista**: {{duration}}
-- **Formato**: {{format}}
-- **Intervistatore**: {{interviewer_name}} ({{role}})
-- **Link meeting**: {{zoom_link}}
+Info logistiche:
+- Data/ora: [data] alle [ora]
+- Durata: [minuti]
+- Formato: [Video/In person/ecc.]
+- Link: [URL meeting o indirizzo]
 
-## 🏢 Ricerca sull'azienda
-- Prodotto/servizio: {{what_they_do}}
-- Clienti target: {{their_customers}}
-- Competitor principali: {{competitors}}
-- Notizie recenti: {{recent_news}}
-- Cultura aziendale: {{culture_notes}}
+Ricerca azienda (compila almeno 24h prima):
+- Cosa fa: [prodotto/servizio in 2 righe]
+- Clienti: [chi compra da loro]
+- Competitor: [2-3 concorrenti]
+- Notizie recenti: [ultime novità, funding, lanci prodotto]
+- Perché voglio lavorarci: [DEVE essere specifico, non generico]
 
-## ❓ Domande che potrebbero farmi
-1. Parlami di te
-2. Perché {{company}}?
-3. Dove ti vedi tra 5 anni?
-4. Raccontami di un progetto di cui sei orgoglioso
-5. {{role_specific_question}}
+Le mie risposte alle domande tipiche:
+1. "Parlami di te" — [versione 90 secondi]
+2. "Perché questa azienda?" — [risposta specifica]
+3. "Perché lasci il lavoro attuale?" — [versione positiva]
+4. "Maggiore punto di forza?" — [con esempio STAR]
+5. "Maggiore debolezza?" — [con piano di miglioramento]
 
-## 💬 Le mie domande per loro
-1. Come misura il successo in questo ruolo?
-2. Come è strutturato il team?
-3. Quali sono le sfide principali dei primi 90 giorni?
-4. {{your_question}}
+Le mie domande per loro (scegliene 3-4):
+- Come misura il successo in questo ruolo nei primi 90 giorni?
+- Qual è la sfida più grande che il team affronta ora?
+- Come è strutturata la crescita professionale?
+- Come descriveresti la cultura del team?
+- [Domanda specifica sul prodotto/progetto]
 
-## ✅ Dopo il colloquio
-- [ ] Invia email di ringraziamento entro 24h
-- [ ] Aggiorna il database con l'outcome
-- [ ] Imposta Next Action Date per il follow-up
+DOPO IL COLLOQUIO
+
+Domande che mi hanno fatto:
+-
+
+Le mie risposte (cosa ha funzionato):
+-
+
+Cosa avrei potuto rispondere meglio:
+-
+
+Impression generale sull'azienda:
+-
+
+Next steps comunicati:
+-
+
+Follow-up da inviare: [ ] Email ringraziamento entro 24h
 \`\`\`
 
-## Workflow consigliato
+---
 
-**Ogni settimana:**
-- Apri la view "Calendar" per vedere i follow-up in scadenza
-- Aggiorna lo Status di ogni candidatura
-- Aggiungi 3-5 nuove candidature nella view "To Apply"
+## QUICK START (20 minuti)
 
-**Dopo ogni colloquio:**
-- Compila il database Interviews entro 2 ore (mentre è fresco)
-- Invia email di ringraziamento
-- Aggiorna Next Action Date`,
+1. Duplica il workspace nel tuo Notion
+2. Aggiungi tutte le candidature attive in Applications con il loro Status corrente
+3. Imposta il Next Action Date per ogni candidatura attiva (quando fare follow-up)
+4. Crea un record in Interviews per ogni colloquio passato e futuro
+5. Salva i 5 template email in una pagina dedicata nel tuo Notion per copia/incolla rapido
+6. Imposta un blocco calendario di 20 minuti ogni lunedì per aggiornare la pipeline
+
+---
+
+## PRO TIPS
+
+- **Conversion rate tracking**: usa la view Statistics per calcolare il tuo tasso di successo (Applied → Screening, Screening → Interview, ecc.). Con i dati puoi capire dove ottimizzare: il CV, la lettera, le skills, o la preparazione al colloquio
+- **Personalizza sempre il CV**: la property Custom CV è il tuo reminder. Candidature con CV personalizzato hanno un tasso di risposta 3x superiore rispetto al CV generico
+- **Follow-up sistematico**: la view Calendar per Next Action Date è la feature più sottovalutata. La maggior parte delle offerte arriva a chi fa follow-up, non a chi aspetta
+- **Debriefing post-colloquio entro 2 ore**: compila il database Interviews immediatamente dopo, finché è fresco. Le note che scrivi subito sono 10x più dettagliate di quelle scritte il giorno dopo
+- **Negozia sempre**: usa il database Offers Comparison per confrontare le offerte in modo razionale prima di negoziare. Conoscere la tua BATNA (migliore alternativa) ti dà una leva enorme`,
   },
   {
     id: "notion-weekly-review",
@@ -3616,146 +4362,276 @@ Crea una nuova pagina per ogni colloquio:
     editorsPick: false,
     content: `# Notion Weekly Review System
 
-## Il sistema di revisione settimanale che cambia le abitudini
+## Il rituale settimanale che trasforma le intenzioni in risultati
 
-Un template strutturato per la tua revisione settimanale e mensile. 30 minuti ogni domenica per avere chiarezza totale sulla settimana che viene.
+Un sistema completo a 3 database per la revisione settimanale, mensile e trimestrale. Collegato ai tuoi Goals e ai tuoi Projects (compatibile con il framework PARA), ti dà una visione a 360° su ciò che sta funzionando, dove stai perdendo energia, e cosa deve succedere la settimana prossima. 30 minuti ogni domenica che cambiano la traiettoria della tua vita.
 
 ---
 
-## DATABASE: WEEKLY REVIEWS
+## DATABASE 1: WEEKLY REVIEWS
+
+Icona: 📅 | Ogni record = una settimana
 
 ### Proprietà
-- **Week** (Title) — es. "Week 12 — 17-23 Mar 2026"
-- **Date Range** (Date) — data inizio settimana
+- **Week** (Title) — formato: "Week 12 | 17-23 Mar 2026"
+- **Week Start** (Date) — lunedì della settimana
+- **Week Number** (Formula): \`"Settimana " + toText(date(prop("Week Start")).week)\`
+- **Overall Rating** (Select) — ⭐⭐⭐⭐⭐ Eccezionale / ⭐⭐⭐⭐ Ottima / ⭐⭐⭐ Buona / ⭐⭐ Difficile / ⭐ Molto difficile
 - **Energy Level** (Select) — ⚡⚡⚡ Alta / ⚡⚡ Media / ⚡ Bassa
-- **Overall Rating** (Select) — ⭐⭐⭐⭐⭐ / ⭐⭐⭐⭐ / ⭐⭐⭐ / ⭐⭐ / ⭐
-- **Top Win** (Text) — miglior risultato della settimana
-- **Top Challenge** (Text) — sfida principale affrontata
-- **Key Learning** (Text) — cosa hai imparato
-- **Next Week Priority** (Text) — 3 priorità per la prossima settimana
+- **Focus Level** (Select) — Alta / Media / Bassa
+- **Top Win** (Text) — il risultato più importante della settimana
+- **Top Challenge** (Text) — la sfida principale che hai affrontato
+- **Key Learning** (Text) — la cosa più importante imparata
+- **Biggest Time Waster** (Text) — cosa ha rubato tempo senza creare valore
+- **Next Week #1 Priority** (Text) — UNA sola priorità assoluta
+- **Goals Progress** (Relation) → Annual Goals — quali goal hai fatto avanzare
+- **Projects Progress** (Relation) → Projects (se hai il Project Hub)
+- **Mood Score** (Number) — da 1 a 10, quanto ti sei sentito bene nel complesso
+- **Health Score** (Number) — esercizio, sonno, alimentazione (1-10)
+- **Work Score** (Number) — produttività e impatto al lavoro (1-10)
+- **Relationships Score** (Number) — connessione con le persone care (1-10)
 
 ### Views
-1. **Timeline** — ordinata per Date Range decrescente
-2. **By Rating** — raggruppata per Overall Rating
-3. **Monthly** — filtro per mese
+1. **All Reviews** (Table) — ordinata per Week Start decrescente — archivio completo
+2. **Timeline** (Timeline) — per Week Start, colori per Overall Rating
+3. **By Rating** (Table) — raggruppata per Overall Rating — pattern di settimane ottime vs difficili
+4. **Trend Scores** (Table) — visibile: Week, Mood Score, Health Score, Work Score, Relationships Score
 
 ---
 
-## TEMPLATE WEEKLY REVIEW
+## DATABASE 2: ANNUAL GOALS
 
-Usa questo template ogni domenica (compila in 30 minuti):
-
-\`\`\`
-# 📅 Weekly Review — {{week_number}} | {{date_range}}
-
-## ✅ COMPLETAMENTO
-
-### Cosa ho completato questa settimana?
-- [ ]
-- [ ]
-- [ ]
-
-### Cosa NON ho completato? Perché?
--
--
-
----
-
-## 🎯 OBIETTIVI
-
-### Progressi verso i miei obiettivi annuali
-**Obiettivo 1: {{annual_goal_1}}**
-- Progresso: {{progress_percentage}}%
-- Azione svolta:
-
-**Obiettivo 2: {{annual_goal_2}}**
-- Progresso: {{progress_percentage}}%
-- Azione svolta:
-
----
-
-## 🧠 RIFLESSIONE
-
-### Cosa ha funzionato bene?
-1.
-2.
-3.
-
-### Cosa avrei potuto fare meglio?
-1.
-2.
-
-### La lezione più importante di questa settimana:
->
-
-### Come mi sono sentito questa settimana? (1-10)
-- **Energia**: {{energy_score}}/10
-- **Focus**: {{focus_score}}/10
-- **Relazioni**: {{relationships_score}}/10
-- **Salute**: {{health_score}}/10
-
----
-
-## 📋 INBOX PROCESSING
-
-- [ ] Email processata
-- [ ] Note Notion processate (Inbox → 0)
-- [ ] Calendario prossima settimana aggiornato
-- [ ] Task in sospeso rivisti
-- [ ] Desktop/Downloads puliti
-
----
-
-## 🚀 PIANIFICAZIONE PROSSIMA SETTIMANA
-
-### Le mie 3 priorità assolute:
-1. **{{priority_1}}** — deadline: {{deadline_1}}
-2. **{{priority_2}}** — deadline: {{deadline_2}}
-3. **{{priority_3}}** — deadline: {{deadline_3}}
-
-### Appuntamenti importanti:
-- {{appointment_1}}
-- {{appointment_2}}
-
-### Una cosa che voglio fare per me stesso:
--
-
----
-
-## 💰 REVIEW FINANZIARIA (rapida)
-- Spese questa settimana: €{{weekly_expenses}}
-- Nel budget? Sì / No
-- Note:
-
----
-
-## 🌟 GRATITUDINE
-Tre cose per cui sono grato questa settimana:
-1.
-2.
-3.
-\`\`\`
-
----
-
-## DATABASE: ANNUAL GOALS
+Icona: 🎯
 
 ### Proprietà
-- **Goal** (Title)
-- **Category** (Select) — Career / Health / Relationships / Finance / Learning / Personal
-- **Target** (Text) — obiettivo misurabile
-- **Current Status** (Text)
-- **Progress %** (Number)
+- **Goal** (Title) — obiettivo in forma di outcome, non di attività
+- **Category** (Select) — 💼 Carriera / 💪 Salute / 💰 Finanze / 📚 Formazione / 👨‍👩‍👧 Relazioni / 🧘 Benessere / 🏠 Casa / 🎨 Creatività / 🌍 Contributo
+- **Year** (Number) — anno di riferimento (es. 2026)
+- **Why** (Text) — perché questo obiettivo è importante? Cosa cambia nella tua vita se lo raggiungi?
+- **Target** (Text) — obiettivo specifico e misurabile (chi / cosa / quanto / entro quando)
+- **Current Status** (Text) — dove sei ora rispetto al target
+- **Progress %** (Number) — 0-100, aggiorna mensile
+- **Milestones** (Text) — 3-5 traguardi intermedi
 - **Deadline** (Date)
-- **Milestones** (Text)
-- **Why** (Text) — motivazione profonda
+- **Quarter** (Select) — Q1 / Q2 / Q3 / Q4 (il trimestre in cui vuoi completarlo o fare un salto)
+- **Status** (Select) — 🔥 On Fire / 🟢 On Track / 🟡 Needs Attention / 🔴 Off Track / ✅ Achieved / ❌ Abandoned
+- **Weekly Reviews** (Relation) → Weekly Reviews — le review in cui hai avanzato su questo goal
+- **Key Actions** (Text) — le 3 azioni più importanti per questo goal
 
-## Setup (10 minuti)
+### Views
+1. **Goals 2026** (Gallery) — filtro: Year = 2026, card con Category, Progress %, Status
+2. **By Quarter** (Table) — raggruppata per Quarter
+3. **Off Track** (Table) — filtro: Status = Off Track o Needs Attention — richiede azione immediata
+4. **Achieved** (Table) — filtro: Status = Achieved — celebra i successi!
 
-1. Crea i tuoi obiettivi annuali nel database Annual Goals
-2. Completa la prima weekly review usando il template
-3. Imposta un promemoria ricorrente ogni domenica alle 17:00
-4. Dopo 4 settimane, aggiungi una Monthly Review mensile`,
+---
+
+## DATABASE 3: QUARTERLY REVIEWS
+
+Icona: 🗓️
+
+### Proprietà
+- **Quarter** (Title) — es. "Q1 2026 — Gennaio/Marzo"
+- **Year** (Number)
+- **Quarter Number** (Select) — Q1 / Q2 / Q3 / Q4
+- **Overall Rating** (Select) — ⭐⭐⭐⭐⭐ / ⭐⭐⭐⭐ / ⭐⭐⭐ / ⭐⭐ / ⭐
+- **Goals Achieved** (Relation) → Annual Goals
+- **Top Achievement** (Text) — il più grande risultato del trimestre
+- **Top Lesson** (Text) — l'insegnamento più importante
+- **What Changed** (Text) — cosa è cambiato nella tua visione o priorità
+- **Next Quarter Focus** (Text) — le 3 priorità per il prossimo trimestre
+- **Energy Theme** (Text) — la parola o tema che descrive il trimestre
+
+---
+
+## TEMPLATE WEEKLY REVIEW COMPLETO
+
+Crea un Template Button nel database Weekly Reviews che genera questa struttura:
+
+\`\`\`
+---
+SEZIONE 1 — GUARDARE INDIETRO (15 min)
+---
+
+COMPLETAMENTO
+Cosa ho completato questa settimana?
+- [ ]
+- [ ]
+- [ ]
+
+Cosa non ho completato? (Sii onesto sul perché)
+- Attività: [cosa], Motivo reale: [perché]
+
+WINS
+Il mio risultato più importante di questa settimana:
+>
+
+SFIDE
+La sfida principale che ho affrontato:
+>
+
+Come l'ho gestita:
+>
+
+ENERGIA & BENESSERE
+- Energia generale: /10
+- Ore di sonno (media): h
+- Esercizio fisico: giorni su 7
+- Alimentazione: /10
+- Come si sono sentite le mie relazioni principali: /10
+
+TEMPO & FOCUS
+Dove ho investito la maggior parte del tempo?
+1.
+2.
+3.
+
+La mia più grande perdita di tempo:
+>
+
+---
+SEZIONE 2 — OBIETTIVI (10 min)
+---
+
+Rivedi ogni Annual Goal. Per ognuno scrivi 1 riga:
+[Nome Goal] → [cosa hai fatto questa settimana] → [% progresso attuale]
+
+1.
+2.
+3.
+
+---
+SEZIONE 3 — INBOX PROCESSING (5 min)
+---
+
+- [ ] Email processata a zero
+- [ ] Note Notion spostate da Inbox a PARA
+- [ ] Calendario prossima settimana controllato
+- [ ] Task in sospeso rivisti
+- [ ] Desktop e Downloads puliti
+- [ ] Messaggi importanti (Slack, WhatsApp, SMS) risposti
+
+---
+SEZIONE 4 — PIANIFICARE LA SETTIMANA (10 min)
+---
+
+LA MIA UNICA PRIORITÀ ASSOLUTA:
+> [UNA sola cosa — se completassi solo questa, la settimana sarebbe un successo]
+
+Le altre 2 priorità importanti:
+1.
+2.
+
+Appuntamenti e scadenze fisse:
+- Lunedì:
+- Martedì:
+- Mercoledì:
+- Giovedì:
+- Venerdì:
+- Weekend:
+
+Una cosa che faccio per me stesso questa settimana:
+>
+
+---
+SEZIONE 5 — RIFLESSIONE (5 min)
+---
+
+La lezione più importante di questa settimana:
+>
+
+Una cosa che avrei potuto fare meglio:
+>
+
+Tre cose per cui sono grato:
+1.
+2.
+3.
+
+Una parola che descrive come voglio che sia la settimana prossima:
+>
+\`\`\`
+
+---
+
+## TEMPLATE MONTHLY REVIEW
+
+Usa il primo weekend del mese per questa review più approfondita (60 min):
+
+\`\`\`
+MONTHLY REVIEW — [Mese] [Anno]
+
+BILANCIO DEL MESE
+Mese in una frase:
+>
+
+Top 3 risultati:
+1.
+2.
+3.
+
+Top 3 lezioni imparate:
+1.
+2.
+3.
+
+OBIETTIVI MENSILI
+Goal 1: [nome] — Progresso: _% → questo mese: +_%
+Goal 2: [nome] — Progresso: _% → questo mese: +_%
+Goal 3: [nome] — Progresso: _% → questo mese: +_%
+
+AREE DI VITA (valuta 1-10 e scrivi 1 riga per ognuna)
+- Carriera: /10 →
+- Salute: /10 →
+- Finanze: /10 →
+- Relazioni: /10 →
+- Apprendimento: /10 →
+- Benessere: /10 →
+
+FOCUS DEL MESE PROSSIMO
+1 obiettivo principale:
+>
+
+3 abitudini da mantenere:
+1.
+2.
+3.
+
+1 abitudine da aggiungere:
+>
+
+1 cosa da eliminare:
+>
+\`\`\`
+
+---
+
+## QUICK START (10 minuti)
+
+1. Duplica il workspace nel tuo Notion
+2. Crea i tuoi Annual Goals per il 2026 (inizia con 3-5, max 7)
+3. Assegna Status, Category e Progress % iniziale a ogni goal
+4. Fai la tua prima Weekly Review usando il template completo sopra
+5. Imposta un promemoria sul telefono: "Weekly Review" ogni domenica alle 17:00
+6. Dopo 4 review, fai la tua prima Monthly Review
+
+---
+
+## COLLEGAMENTO CON ALTRI SISTEMI
+
+- **Se hai il Second Brain**: collega le Weekly Reviews al database Areas e usa la review per aggiornare lo Status di ogni area
+- **Se hai il Project Hub**: collega Projects alla review per notare quali progetti avanzano e quali sono bloccati settimana dopo settimana
+- **Se hai il Finance Tracker**: usa la sezione rapida finanziaria per notare le spese della settimana
+
+---
+
+## PRO TIPS
+
+- **L'unica priorità funziona**: scegliere UNA sola priorità assoluta per la settimana (non tre, non cinque — UNA) è la differenza tra chi fa review settimanali e chi ottiene risultati dalle review settimanali
+- **Trend di umore e energia**: dopo 8-10 settimane, guarda la colonna Mood Score e Energy Level insieme. Vedrai pattern (certi giorni/settimani sistematicamente peggiori) che non avresti mai notato senza i dati
+- **Non saltare la sezione Inbox**: svuotare la Inbox di Notion e processare le email ogni settimana sembra banale ma è il gesto che tiene il sistema vivo. Un sistema con Inbox piena è un sistema morto
+- **Celebra i Wins**: molte persone si concentrano sui fallimenti nella review settimanale. La sezione "Top Win" è obbligatoria — costringe il cervello a riconoscere i progressi reali
+- **Review trimestrale come bussola**: una volta al trimestre (Q1/Q2/Q3/Q4), fai la Quarterly Review. È il momento per aggiustare la rotta, non la navigazione settimanale`,
   },
   {
     id: "notion-client-portal",
@@ -3770,162 +4646,287 @@ Tre cose per cui sono grato questa settimana:
     editorsPick: true,
     content: `# Notion Client Portal
 
-## Il portale clienti professionale in Notion
+## Il portale clienti che impressiona dal primo giorno
 
-Un workspace condivisibile con i tuoi clienti per tenere tutto organizzato: onboarding, deliverable, comunicazioni e aggiornamenti di progetto. Impressiona i clienti dal primo giorno.
+Un workspace condivisibile con i tuoi clienti, strutturato come un prodotto professionale: onboarding guidato, milestone trasparente, deliverable con workflow di approvazione, document hub, communication log e feedback tracker. Ogni cliente che accede al tuo portale percepisce immediatamente la differenza rispetto alla concorrenza.
 
 ---
 
 ## STRUTTURA DEL PORTALE
 
-Crea una pagina principale per ogni cliente con questa struttura:
+Ogni portale cliente è una pagina Notion dedicata con questa architettura:
 
 \`\`\`
-📁 {{Client Name}} Portal
+📁 [Nome Cliente] | [Nome Progetto] Portal
 
-  📋 Project Overview
+  🎯 Benvenuto & Overview del Progetto
   📅 Timeline & Milestones
   📦 Deliverables
   💬 Communication Log
   📄 Documents & Files
-  ❓ FAQ & Resources
+  ✅ Onboarding Checklist
+  ❓ FAQ & Come Funziona
   📊 Progress Dashboard
 \`\`\`
 
 ---
 
-## 1. PROJECT OVERVIEW (pagina)
+## SEZIONE 1 — BENVENUTO & PROJECT OVERVIEW
+
+Struttura della pagina di benvenuto (visibile al cliente subito dopo l'accesso):
 
 \`\`\`
-# 🎯 {{Project Name}} — Overview
+# Benvenuto nel tuo portale, [Nome Cliente]!
 
-## Il progetto in una riga
-{{one_sentence_project_description}}
+Questa è la tua area dedicata per il progetto [Nome Progetto].
+Qui trovi sempre: lo stato aggiornato del progetto, i file, le decisioni prese e i prossimi passi.
 
-## Obiettivi principali
-1. {{primary_goal}}
-2. {{secondary_goal}}
-3. {{tertiary_goal}}
+---
 
-## Cosa È incluso in questo progetto
-✅ {{deliverable_1}}
-✅ {{deliverable_2}}
-✅ {{deliverable_3}}
+IL PROGETTO IN UNA RIGA
+[Descrizione del progetto in una frase chiara e orientata al risultato]
 
-## Cosa NON è incluso
-❌ {{out_of_scope_1}}
-❌ {{out_of_scope_2}}
+OBIETTIVI DEL PROGETTO
+1. [Obiettivo principale misurabile]
+2. [Obiettivo secondario]
+3. [Obiettivo terziario]
 
-## Persone coinvolte
+COSA È INCLUSO
+✅ [Deliverable 1]
+✅ [Deliverable 2]
+✅ [Deliverable 3]
+✅ [Deliverable 4]
+
+COSA NON È INCLUSO (Scope)
+❌ [Fuori scope 1]
+❌ [Fuori scope 2]
+(Qualsiasi elemento fuori scope sarà preventivato separatamente)
+
+PERSONE COINVOLTE
 | Ruolo | Nome | Responsabilità |
 |-------|------|----------------|
-| Project Lead | {{your_name}} | {{your_responsibilities}} |
-| Client Contact | {{client_contact}} | {{client_responsibilities}} |
-| Designer | {{designer_name}} | {{design_scope}} |
+| Project Lead | [Tuo nome] | [Le tue responsabilità] |
+| Client Contact | [Nome cliente] | [Approvazioni, feedback, accessi] |
+| [Ruolo aggiuntivo] | [Nome] | [Scope] |
 
-## Info di contatto rapido
-- **Email principale**: {{project_email}}
-- **Meeting ricorrente**: {{meeting_cadence}} — {{meeting_link}}
-- **Tool di comunicazione**: {{slack_discord_whatsapp}}
+CONTATTI RAPIDI
+- Email di progetto: [email]
+- Meeting ricorrente: [cadenza] — [link]
+- Canale preferito: [Slack / WhatsApp / Email]
+- Tempo di risposta garantito: [es. entro 24h nei giorni lavorativi]
 \`\`\`
 
 ---
 
-## 2. TIMELINE & MILESTONES (database)
+## DATABASE 1: MILESTONES
+
+Icona: 🏁 | Questo database è condiviso con il cliente
 
 ### Proprietà
-- **Milestone** (Title)
-- **Phase** (Select) — Discovery / Design / Development / Review / Launch
+- **Milestone** (Title) — nome della fase o traguardo
+- **Phase** (Select) — Discovery / Strategy / Design / Development / Content / Review / Testing / Launch / Handoff
+- **Status** (Status) — Upcoming / In Progress / Client Review / Completed / Delayed
+- **Owner** (Select) — [Tuo Nome] / [Nome Cliente] / Shared
 - **Due Date** (Date)
-- **Status** (Status) — Not Started / In Progress / Completed / Delayed
-- **Owner** (Select) — {{your_name}} / {{client_name}} / Shared
-- **Deliverable** (Text)
+- **Completed Date** (Date) — data effettiva di completamento
+- **Deliverable** (Text) — cosa viene consegnato a questa milestone
+- **Client Action Required** (Checkbox) — il cliente deve fare qualcosa per questa milestone
+- **Notes** (Text) — visibile al cliente
+
+### Views
+1. **Project Timeline** (Timeline) — per Due Date, colori per Status — la view da condividere con il cliente
+2. **Current Status** (Table) — raggruppata per Status
+3. **Client Actions** (Table) — filtro: Client Action Required = true AND Status ≠ Completed
+
+### Template milestone per progetto web (8 settimane):
+\`\`\`
+Week 1: Kickoff & Discovery (Owner: Shared)
+  → Deliverable: Brief approvato, accessi ricevuti
+
+Week 2-3: Strategy & Wireframes (Owner: Tuo nome)
+  → Deliverable: Architettura informativa + wireframe
+
+Week 4: Design Phase (Owner: Tuo nome)
+  → Deliverable: Mockup desktop e mobile
+
+Week 5: Client Review Round 1 (Owner: Cliente)
+  → Deliverable: Feedback consolidato scritto
+
+Week 6: Revisions (Owner: Tuo nome)
+  → Deliverable: Design revisionato approvato
+
+Week 7: Development & Content (Owner: Shared)
+  → Deliverable: Sito funzionante in staging
+
+Week 8: Testing & Launch (Owner: Tuo nome)
+  → Deliverable: Sito live + handoff materials
+\`\`\`
+
+---
+
+## DATABASE 2: DELIVERABLES
+
+Icona: 📦 | Il cuore del portale — ogni consegna documentata
+
+### Proprietà
+- **Deliverable** (Title) — nome del deliverable
+- **Milestone** (Relation) → Milestones
+- **Status** (Status) — Working On It / Ready for Review / Changes Requested / Approved / Delivered
+- **Version** (Number) — numero di versione (incrementa ad ogni revisione)
+- **Due Date** (Date) — data di consegna prevista
+- **Delivered Date** (Date) — data di consegna effettiva
+- **File or Link** (URL) — link al file su Drive, Figma, Dropbox, ecc.
+- **Revision Round** (Number) — numero del giro di revisioni (default inclusi: 2)
+- **Client Feedback** (Text) — feedback scritto del cliente (visibile a entrambi)
+- **Approved** (Checkbox) — approvazione formale del cliente
+- **Approval Date** (Date) — quando il cliente ha approvato
+- **Internal Notes** (Text) — note interne non visibili al cliente
+
+### Views
+1. **Active Deliverables** (Table) — filtro: Status ≠ Delivered AND Approved ≠ true
+2. **Awaiting Client Review** (Table) — filtro: Status = Ready for Review — il cliente deve agire
+3. **Approved** (Table) — filtro: Approved = true — archivio degli approvati
+4. **All Deliverables** (Table) — nessun filtro, ordinata per Due Date
+
+---
+
+## DATABASE 3: COMMUNICATION LOG
+
+Icona: 💬 | Ogni decisione documentata — nessun "ma non me lo avevi detto"
+
+### Proprietà
+- **Subject** (Title) — titolo della comunicazione
+- **Date** (Date)
+- **Type** (Select) — Meeting / Kickoff Call / Status Update / Decision / Email / Change Request / Feedback / Escalation
+- **Attendees** (Text) — chi era presente
+- **Summary** (Text) — riassunto in 3-5 punti
+- **Decisions Made** (Text) — decisioni prese e da chi (fondamentale per protezione legale)
+- **Action Items** (Text) — formato: "Chi fa Cosa entro Quando" (es. "[Cliente] invia le foto entro [data]")
+- **Recording Link** (URL) — link alla registrazione del meeting
+- **Follow-up Done** (Checkbox)
+
+### Views
+1. **Recent Communications** (Table) — ordinata per Date desc — le ultime 10 interazioni
+2. **Open Action Items** (Table) — filtro: Follow-up Done = false
+3. **Decisions Archive** (Table) — filtro: Type = Decision — archivio di tutte le decisioni formali
+
+---
+
+## DATABASE 4: DOCUMENTS & FILES
+
+Icona: 📄 | Tutto in un posto, sempre trovabile
+
+### Proprietà
+- **Document** (Title) — nome del documento
+- **Type** (Select) — Contratto / NDA / Brief / Proposta / Fattura / Asset / Manuale / Presentazione / Altro
+- **Status** (Select) — Draft / Sent / Signed / Final / Archived
+- **Upload Date** (Date)
+- **Version** (Text) — es. "v1.0", "v2.3-final"
+- **File Link** (URL) — link al documento
+- **Accessible to Client** (Checkbox) — il cliente può vederlo?
 - **Notes** (Text)
 
-### Milestone template per progetto web:
-\`\`\`
-Week 1: Kickoff & Discovery
-Week 2-3: Design Phase
-Week 4: Client Review Round 1
-Week 5: Revisions
-Week 6: Development
-Week 7: Testing & QA
-Week 8: Launch & Handoff
-\`\`\`
-
 ---
 
-## 3. DELIVERABLES (database)
+## ONBOARDING CHECKLIST COMPLETA
 
-### Proprietà
-- **Deliverable** (Title)
-- **Status** (Status) — In Progress / Review Requested / Approved / Delivered
-- **Version** (Number) — numero di versione
-- **Due Date** (Date)
-- **File/Link** (URL o File upload)
-- **Feedback** (Text)
-- **Approval** (Checkbox) — cliente ha approvato?
-- **Revision Count** (Number)
-
----
-
-## 4. COMMUNICATION LOG (database)
-
-### Proprietà
-- **Subject** (Title)
-- **Date** (Date)
-- **Type** (Select) — Meeting / Email / Call / Message / Decision
-- **Summary** (Text) — riassunto della comunicazione
-- **Action Items** (Text) — chi fa cosa entro quando
-- **Attendees** (Multi-select)
-- **Recording Link** (URL)
-
----
-
-## 5. ONBOARDING CHECKLIST
-
-Aggiungi questa checklist al kickoff di ogni progetto:
+Aggiungi questa pagina al portale nella sezione Onboarding:
 
 \`\`\`
-## ✅ Onboarding Checklist
+ONBOARDING CHECKLIST — [Nome Progetto]
 
-### Prima del kickoff
-- [ ] Contratto firmato
-- [ ] Acconto ricevuto
+PRIMA DEL KICKOFF (il tuo lavoro)
+- [ ] Contratto firmato e archiviato
+- [ ] Acconto ricevuto e registrato
+- [ ] Portale creato e personalizzato con brand del cliente
 - [ ] Accesso al portale condiviso con il cliente
-- [ ] Credenziali/accessi necessari ricevuti: {{access_list}}
-- [ ] Kickoff call schedulato
+- [ ] Kickoff call schedulato nel calendario di entrambi
+- [ ] Questionario pre-kickoff inviato al cliente
 
-### Durante il kickoff
-- [ ] Obiettivi del progetto allineati
-- [ ] Timeline condivisa e approvata
+DURANTE IL KICKOFF (con il cliente)
+- [ ] Obiettivi del progetto allineati e scritti
+- [ ] Timeline condivisa, approvata e nel portale
+- [ ] Scope confermato (incluso e non incluso)
+- [ ] Accessi necessari ricevuti: [lista accessi]
 - [ ] Canale di comunicazione preferito definito
-- [ ] Processo di feedback spiegato
-- [ ] Processo di approvazione spiegato
+- [ ] Processo di feedback spiegato (scritto, max 48h)
+- [ ] Processo di approvazione spiegato (Approved checkbox)
+- [ ] Numero di revisioni incluse comunicato
 
-### Prima dell'entrata in produzione
-- [ ] Tutti i deliverable approvati
+DURANTE IL PROGETTO (aggiornamento continuo)
+- [ ] Aggiornamento settimanale inviato (ogni venerdì)
+- [ ] Deliverables caricati con link funzionanti
+- [ ] Feedback del cliente documentato nel Communication Log
+- [ ] Decisioni chiave salvate come tipo "Decision" nel Communication Log
+
+CHIUSURA PROGETTO
+- [ ] Tutti i Deliverables approvati (Approved = true)
 - [ ] Fattura finale inviata
-- [ ] Handoff completato
-- [ ] Testimonial/referral richiesto
+- [ ] Handoff materials preparati e consegnati
+- [ ] Tutorial o formazione sull'uso del prodotto
+- [ ] Case study / testimonial richiesto (link form)
+- [ ] Referral program spiegato al cliente soddisfatto
+- [ ] Portale archiviato nella cartella clienti completati
+\`\`\`
+
+---
+
+## SISTEMA DI FEEDBACK STRUTTURATO
+
+Aggiungi questa sezione al portale per raccogliere feedback in modo professionale:
+
+\`\`\`
+COME DARCI FEEDBACK
+
+Per mantenere il progetto fluido, ti chiediamo di seguire questo processo:
+
+1. SCRIVI il feedback nel campo "Client Feedback" del deliverable
+2. SII SPECIFICO: invece di "non mi piace", scrivi "il colore del pulsante è troppo scuro, vorrei qualcosa di più chiaro come [riferimento]"
+3. CONSOLIDA: raccogli tutto il feedback prima di inviarlo — non a pezzi nel corso dei giorni
+4. RISPETTA la deadline: il feedback entro [X] giorni garantisce il rispetto della timeline
+5. APPROVA formalmente: quando sei soddisfatto, clicca "Approved" nel deliverable
 \`\`\`
 
 ---
 
 ## COME CONDIVIDERE IL PORTALE
 
-1. Apri la pagina principale del portale cliente
+**Opzione 1 — Link pubblico (più semplice):**
+1. Apri la pagina principale del portale
 2. Clicca "Share" in alto a destra
-3. Seleziona "Share to web" con "Can view" (o "Can comment" se vuoi feedback inline)
-4. Copia il link e condividi con il cliente
-5. Opzione avanzata: usa un dominio personalizzato con {{super.so}} o {{notion.site}}
+3. Attiva "Share to web"
+4. Seleziona permessi: "Can view" (lettura) o "Can comment" (commenti inline)
+5. Copia e invia il link al cliente
 
-## Personalizzazioni consigliate
+**Opzione 2 — Invito diretto (raccomandato per progetti lunghi):**
+1. Invita il cliente con il suo indirizzo email
+2. Imposta permessi: "Can edit" solo per le sezioni dove deve agire (es. Feedback)
+3. Il cliente vede solo ciò che decidi tu (usa le nested page per nascondere sezioni interne)
 
-- Aggiungi il logo del cliente come cover della pagina
-- Usa i colori brand del cliente negli emoji e nei colori dei tag
-- Crea un database **FEEDBACK** separato per raccogliere feedback strutturati
-- Aggiungi una sezione **INVOICE HISTORY** con link alle fatture pagate`,
+**Opzione 3 — Dominio personalizzato (massima professionalità):**
+Usa Notion.site o Super.so per pubblicare il portale con un URL personalizzato come: portal.tuodominio.com/[nomecliente]
+
+---
+
+## QUICK START (30 minuti)
+
+1. Duplica il template master del portale
+2. Rinomina con il nome del cliente e del progetto
+3. Compila la sezione "Benvenuto & Project Overview" con i dettagli del progetto
+4. Crea le Milestones per tutte le fasi del progetto con le date
+5. Carica il contratto firmato nel database Documents
+6. Condividi il link con il cliente prima del kickoff call
+7. Mostra il portale al cliente durante il kickoff — spiega come funziona ogni sezione
+
+---
+
+## PRO TIPS
+
+- **Il portale come strumento di vendita**: mostrare il portale ai prospect durante la proposta aumenta il tasso di chiusura. La professionalità del sistema comunica il valore prima ancora di iniziare
+- **Communication Log come protezione legale**: documentare ogni decisione con data, chi era presente e cosa è stato deciso ti protegge in caso di dispute su scope, revisioni o aspettative
+- **Deliverable con versione**: aumenta sempre il numero di versione ad ogni revisione. Questo rende visibile al cliente quante revisioni ha già usato e rende naturale la conversazione sulle revisioni aggiuntive a pagamento
+- **Weekly status update**: ogni venerdì aggiungi un record nel Communication Log di tipo "Status Update" con 3 punti: cosa è stato completato, cosa è in corso, cosa viene fatto la settimana prossima. Il cliente si sente aggiornato senza bisogno di chiedere
+- **Template per ogni tipo di progetto**: crea varianti del portale per i tuoi servizi principali (es. "Portal — Sito Web", "Portal — Social Media", "Portal — Branding"). Duplica e personalizza in 15 minuti invece di costruire da zero`,
   },
 ];
 
