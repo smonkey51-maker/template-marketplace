@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import { templates } from "@/lib/templates";
+import { useState, useEffect, useCallback } from "react";
+import { useRouter } from "next/navigation";
+import { templates, bundles } from "@/lib/templates";
 import TemplateGrid from "@/components/TemplateGrid";
+import BundleCard from "@/components/BundleCard";
 import NavButtons from "@/components/NavButtons";
 import { useLang } from "@/components/LanguageProvider";
 import { t } from "@/lib/i18n";
@@ -32,9 +34,20 @@ function useCountUp(target: number, duration = 1200) {
 
 export default function HomeContent() {
   const { lang } = useLang();
+  const router = useRouter();
   const totalDownloads = templates.reduce((s, tmpl) => s + tmpl.downloads, 0);
   const animatedDownloads = useCountUp(totalDownloads);
   const animatedTemplates = useCountUp(templates.length);
+
+  const handleBundleBuy = useCallback(async (bundleId: string) => {
+    const res = await fetch("/api/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ bundleId }),
+    });
+    const data = await res.json();
+    if (data.url) router.push(data.url);
+  }, [router]);
 
   return (
     <div className="min-h-screen bg-page relative overflow-x-hidden">
@@ -188,6 +201,36 @@ export default function HomeContent() {
               </span>
             ))}
           </div>
+        </div>
+      </div>
+
+      {/* ── Bundles section ── */}
+      <div id="bundles" className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 pb-16">
+        {/* Section header */}
+        <div className="flex items-center gap-4 mb-8">
+          <div className="flex-1 h-px bg-theme" />
+          <div className="text-center shrink-0">
+            <span className="inline-flex items-center gap-2 text-[11px] font-black text-muted uppercase tracking-[0.18em]">
+              <span className="text-[#FF9F0A]">🎁</span>
+              {lang === "it" ? "Bundle risparmio" : "Bundle deals"}
+            </span>
+          </div>
+          <div className="flex-1 h-px bg-theme" />
+        </div>
+        <p className="text-center text-[13px] text-muted mb-8 max-w-md mx-auto">
+          {lang === "it"
+            ? "Acquista più template insieme e risparmia fino al 55%. Ogni bundle è pensato per un obiettivo specifico."
+            : "Buy template packs and save up to 55%. Each bundle targets a specific goal."}
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {bundles.map((bundle) => (
+            <BundleCard
+              key={bundle.id}
+              bundle={bundle}
+              purchasedIds={[]}
+              onBuy={handleBundleBuy}
+            />
+          ))}
         </div>
       </div>
 

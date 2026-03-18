@@ -21,19 +21,36 @@ export async function POST(req: NextRequest) {
 
   if (event.type === "checkout.session.completed") {
     const session = event.data.object as Stripe.Checkout.Session;
-    const { userId, templateId } = session.metadata ?? {};
+    const { userId, templateId, bundleId, templateIds } = session.metadata ?? {};
 
-    if (userId && templateId) {
-      const supabase = createClient(
-        process.env.SUPABASE_URL!,
-        process.env.SUPABASE_SERVICE_ROLE_KEY!
-      );
+    if (!userId) return NextResponse.json({ received: true });
+
+    const supabase = createClient(
+      process.env.SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
+
+    if (bundleId && templateIds) {
+      // Bundle purchase: insert one row per template in the bundle
+      const ids = templateIds.split(",").filter(Boolean);
+      const rows = ids.map((tid) => ({
+        user_id: userId,
+        template_id: tid,
+        session_id: session.id,
+      }));
+      const { error } = await supabase.from("purchases").insert(rows);
+      if (error) {
+        console.error("Supabase bundle insert error:", error);
+      } else {
+        console.log(`✅ Bundle salvato — userId: ${userId}, bundleId: ${bundleId}, templates: ${templateIds}`);
+      }
+    } else if (templateId) {
+      // Single template purchase
       const { error } = await supabase.from("purchases").insert({
         user_id: userId,
         template_id: templateId,
         session_id: session.id,
       });
-
       if (error) {
         console.error("Supabase insert error:", error);
       } else {

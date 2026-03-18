@@ -1615,6 +1615,1277 @@ QUALITY CRITERIA:
   </div>
 </div>`,
   },
+
+  // ── Nuovi Template HTML ────────────────────────────────────────────────────
+  {
+    id: "waiting-list-page",
+    name: "Waitlist Coming Soon Page",
+    description:
+      "High-converting coming soon page with animated countdown, email capture, and social proof.",
+    category: "ui",
+    price: 999,
+    stripePriceId: "price_PLACEHOLDER_waitinglist01",
+    tags: ["waitlist", "coming soon", "launch", "email capture", "startup"],
+    downloads: 124,
+    isNew: true,
+    content: `<div class="min-h-screen flex flex-col items-center justify-center px-4 py-16 font-sans" style="background:linear-gradient(135deg,#0a0015 0%,#120028 50%,#0a001e 100%)">
+  <!-- Ambient glow -->
+  <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full opacity-20 pointer-events-none" style="background:radial-gradient(ellipse,#7c3aed,transparent 70%)"></div>
+  <div class="relative z-10 text-center max-w-2xl w-full">
+    <!-- Logo -->
+    <div class="flex justify-center mb-10">
+      <div class="flex items-center gap-3 bg-white/5 border border-white/10 rounded-2xl px-5 py-2.5">
+        <div class="w-7 h-7 rounded-lg bg-violet-500 flex items-center justify-center text-sm font-black text-white">V</div>
+        <span class="text-white font-bold text-lg tracking-tight">Vault</span>
+      </div>
+    </div>
+    <!-- Badge -->
+    <div class="inline-flex items-center gap-2 bg-violet-500/10 border border-violet-500/20 text-violet-300 px-4 py-1.5 rounded-full text-xs font-semibold mb-6 tracking-wide">
+      <span class="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse"></span>
+      Lancio previsto — Q3 2025
+    </div>
+    <!-- Headline -->
+    <h1 class="text-4xl md:text-6xl font-black text-white leading-tight mb-5 tracking-tight">
+      Qualcosa di<br/>
+      <span style="background:linear-gradient(90deg,#a78bfa,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent">straordinario</span><br/>
+      sta arrivando.
+    </h1>
+    <p class="text-white/50 text-lg max-w-md mx-auto mb-10 leading-relaxed">
+      Il tuo nuovo strumento per gestire, condividere e monetizzare i tuoi asset digitali in un click.
+    </p>
+    <!-- Countdown -->
+    <div class="flex justify-center gap-4 mb-10">
+      <div class="bg-white/5 border border-white/10 rounded-2xl px-5 py-4 min-w-[72px] text-center">
+        <div class="text-3xl font-black text-white">47</div>
+        <div class="text-white/30 text-xs mt-1 uppercase tracking-widest">Giorni</div>
+      </div>
+      <div class="bg-white/5 border border-white/10 rounded-2xl px-5 py-4 min-w-[72px] text-center">
+        <div class="text-3xl font-black text-white">12</div>
+        <div class="text-white/30 text-xs mt-1 uppercase tracking-widest">Ore</div>
+      </div>
+      <div class="bg-white/5 border border-white/10 rounded-2xl px-5 py-4 min-w-[72px] text-center">
+        <div class="text-3xl font-black text-white">34</div>
+        <div class="text-white/30 text-xs mt-1 uppercase tracking-widest">Min</div>
+      </div>
+      <div class="bg-white/5 border border-white/10 rounded-2xl px-5 py-4 min-w-[72px] text-center">
+        <div class="text-3xl font-black text-white">08</div>
+        <div class="text-white/30 text-xs mt-1 uppercase tracking-widest">Sec</div>
+      </div>
+    </div>
+    <!-- Email Form -->
+    <div class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-6">
+      <input type="email" placeholder="La tua email" class="flex-1 bg-white/5 border border-white/10 focus:border-violet-500 text-white placeholder-white/30 px-5 py-3.5 rounded-2xl outline-none text-sm transition"/>
+      <button class="bg-violet-600 hover:bg-violet-500 transition text-white font-bold px-6 py-3.5 rounded-2xl text-sm whitespace-nowrap shadow-[0_4px_20px_rgba(124,58,237,0.4)]">Unisciti alla lista →</button>
+    </div>
+    <!-- Social proof -->
+    <div class="flex items-center justify-center gap-3 mb-10">
+      <div class="flex -space-x-2">
+        <div class="w-7 h-7 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 border-2 border-[#0a0015]"></div>
+        <div class="w-7 h-7 rounded-full bg-gradient-to-br from-violet-400 to-purple-500 border-2 border-[#0a0015]"></div>
+        <div class="w-7 h-7 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 border-2 border-[#0a0015]"></div>
+        <div class="w-7 h-7 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 border-2 border-[#0a0015]"></div>
+      </div>
+      <span class="text-white/40 text-sm"><strong class="text-white/70">1.847</strong> persone già in lista</span>
+    </div>
+    <!-- Features teaser -->
+    <div class="grid grid-cols-3 gap-4 border-t border-white/5 pt-8">
+      <div class="text-center"><div class="text-2xl mb-2">⚡</div><p class="text-white/50 text-xs leading-relaxed">Setup in 60 secondi</p></div>
+      <div class="text-center"><div class="text-2xl mb-2">🔒</div><p class="text-white/50 text-xs leading-relaxed">Privacy by design</p></div>
+      <div class="text-center"><div class="text-2xl mb-2">🚀</div><p class="text-white/50 text-xs leading-relaxed">Early access gratuito</p></div>
+    </div>
+  </div>
+</div>`,
+  },
+  {
+    id: "saas-pricing-full",
+    name: "SaaS Full Pricing Page",
+    description:
+      "Complete pricing page with monthly/annual toggle, 3-tier comparison, feature matrix, and FAQ.",
+    category: "ui",
+    price: 1499,
+    stripePriceId: "price_PLACEHOLDER_saaspricingfull",
+    tags: ["pricing", "saas", "comparison", "plans", "conversion"],
+    downloads: 87,
+    isNew: true,
+    content: `<div class="min-h-screen bg-gray-950 text-white font-sans">
+  <div class="max-w-5xl mx-auto px-6 py-16">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <span class="inline-block text-xs font-bold tracking-widest uppercase text-blue-400 bg-blue-500/10 border border-blue-500/20 px-4 py-1.5 rounded-full mb-5">Prezzi trasparenti</span>
+      <h1 class="text-4xl md:text-5xl font-black mb-4 leading-tight">Scegli il piano<br/><span style="background:linear-gradient(90deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent">giusto per te</span></h1>
+      <p class="text-white/50 text-lg max-w-md mx-auto">Parti gratis, scala quando sei pronto. Nessuna sorpresa in fattura.</p>
+      <!-- Toggle -->
+      <div class="inline-flex items-center gap-3 mt-8 bg-white/5 border border-white/10 rounded-2xl p-1.5">
+        <button class="px-5 py-2 rounded-xl bg-white text-gray-900 font-bold text-sm">Mensile</button>
+        <button class="px-5 py-2 rounded-xl text-white/60 font-medium text-sm flex items-center gap-2">Annuale <span class="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-1.5 py-0.5 rounded-full">–20%</span></button>
+      </div>
+    </div>
+    <!-- Plans -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+      <!-- Starter -->
+      <div class="bg-white/[0.04] border border-white/[0.08] rounded-3xl p-7">
+        <div class="text-white/60 font-semibold text-sm mb-1">Starter</div>
+        <div class="text-4xl font-black mb-1">Gratis</div>
+        <p class="text-white/40 text-xs mb-6">Per sempre. Nessuna carta.</p>
+        <button class="w-full border border-white/20 text-white font-bold py-3 rounded-xl hover:bg-white/5 transition text-sm mb-7">Inizia gratis</button>
+        <ul class="space-y-3 text-sm text-white/70">
+          <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> 3 progetti</li>
+          <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> 100 operazioni/mese</li>
+          <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> 1 GB storage</li>
+          <li class="flex items-center gap-2"><span class="text-white/20">✗</span> <span class="text-white/30">API access</span></li>
+          <li class="flex items-center gap-2"><span class="text-white/20">✗</span> <span class="text-white/30">Priority support</span></li>
+        </ul>
+      </div>
+      <!-- Pro (highlighted) -->
+      <div class="relative bg-gradient-to-b from-blue-600/20 to-violet-600/10 border-2 border-blue-500/50 rounded-3xl p-7 shadow-[0_0_60px_rgba(59,130,246,0.15)]">
+        <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-500 to-violet-500 text-white text-[11px] font-black px-4 py-1 rounded-full tracking-wider">POPOLARE</div>
+        <div class="text-blue-300 font-semibold text-sm mb-1">Pro</div>
+        <div class="text-4xl font-black mb-0.5">€29<span class="text-lg font-normal text-white/40">/mo</span></div>
+        <p class="text-white/40 text-xs mb-6">Fatturato mensilmente</p>
+        <button class="w-full bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-500 hover:to-violet-500 text-white font-bold py-3 rounded-xl transition text-sm mb-7 shadow-[0_4px_16px_rgba(59,130,246,0.3)]">Inizia la prova</button>
+        <ul class="space-y-3 text-sm text-white/70">
+          <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Progetti illimitati</li>
+          <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> 10.000 operazioni/mese</li>
+          <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> 50 GB storage</li>
+          <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> API access</li>
+          <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Priority support</li>
+        </ul>
+      </div>
+      <!-- Enterprise -->
+      <div class="bg-white/[0.04] border border-white/[0.08] rounded-3xl p-7">
+        <div class="text-violet-300 font-semibold text-sm mb-1">Enterprise</div>
+        <div class="text-4xl font-black mb-1">Su misura</div>
+        <p class="text-white/40 text-xs mb-6">Contattaci per un preventivo</p>
+        <button class="w-full border border-violet-500/40 bg-violet-500/10 text-violet-300 font-bold py-3 rounded-xl hover:bg-violet-500/20 transition text-sm mb-7">Contatta le vendite</button>
+        <ul class="space-y-3 text-sm text-white/70">
+          <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Volume illimitato</li>
+          <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Storage illimitato</li>
+          <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> SLA 99.99%</li>
+          <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> SSO / SAML</li>
+          <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Dedicated support</li>
+        </ul>
+      </div>
+    </div>
+    <!-- FAQ -->
+    <div class="border-t border-white/[0.08] pt-12">
+      <h2 class="text-2xl font-black text-center mb-8">Domande frequenti</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div class="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-5"><p class="font-semibold text-sm mb-2">Posso cambiare piano?</p><p class="text-white/40 text-xs leading-relaxed">Sì, puoi passare a un piano superiore o inferiore in qualsiasi momento. Il credito non utilizzato viene scalato automaticamente.</p></div>
+        <div class="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-5"><p class="font-semibold text-sm mb-2">C'è un contratto?</p><p class="text-white/40 text-xs leading-relaxed">No. I piani mensili possono essere cancellati quando vuoi. I piani annuali durano 12 mesi e non si rinnovano automaticamente.</p></div>
+        <div class="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-5"><p class="font-semibold text-sm mb-2">Accettate PayPal?</p><p class="text-white/40 text-xs leading-relaxed">Accettiamo tutte le principali carte di credito/debito e PayPal. Il pagamento è gestito da Stripe con crittografia end-to-end.</p></div>
+        <div class="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-5"><p class="font-semibold text-sm mb-2">Esiste una garanzia?</p><p class="text-white/40 text-xs leading-relaxed">Offriamo rimborso completo entro 14 giorni dall'acquisto, senza domande.</p></div>
+      </div>
+    </div>
+  </div>
+</div>`,
+  },
+  {
+    id: "ecommerce-product-page",
+    name: "E-commerce Product Page",
+    description:
+      "Conversion-optimized product detail page with gallery, variant selector, reviews, and trust badges.",
+    category: "ui",
+    price: 1299,
+    stripePriceId: "price_PLACEHOLDER_ecommerceproduct",
+    tags: ["ecommerce", "product", "shop", "cart", "conversion"],
+    downloads: 63,
+    isNew: true,
+    content: `<div class="min-h-screen bg-white font-sans">
+  <div class="max-w-5xl mx-auto px-4 py-8">
+    <!-- Breadcrumb -->
+    <div class="flex items-center gap-2 text-xs text-gray-400 mb-6">
+      <span class="hover:text-gray-600 cursor-pointer">Home</span>
+      <span>›</span>
+      <span class="hover:text-gray-600 cursor-pointer">Abbigliamento</span>
+      <span>›</span>
+      <span class="text-gray-700 font-medium">Premium Hoodie</span>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+      <!-- Gallery -->
+      <div class="space-y-3">
+        <!-- Main image -->
+        <div class="aspect-square rounded-3xl bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center relative overflow-hidden border border-slate-200">
+          <span class="text-[120px]">👕</span>
+          <div class="absolute top-4 left-4 bg-red-500 text-white text-[11px] font-black px-3 py-1 rounded-full">–30%</div>
+          <div class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white shadow-sm flex items-center justify-center text-gray-400 hover:text-red-500 cursor-pointer transition">♡</div>
+        </div>
+        <!-- Thumbnails -->
+        <div class="flex gap-3">
+          <div class="flex-1 aspect-square rounded-xl bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center text-4xl border-2 border-blue-500 cursor-pointer">👕</div>
+          <div class="flex-1 aspect-square rounded-xl bg-gradient-to-br from-slate-200 to-white flex items-center justify-center text-4xl border border-slate-200 cursor-pointer opacity-60 hover:opacity-100 transition">👕</div>
+          <div class="flex-1 aspect-square rounded-xl bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center text-4xl border border-slate-200 cursor-pointer opacity-60 hover:opacity-100 transition">👕</div>
+          <div class="flex-1 aspect-square rounded-xl bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center text-base border border-slate-200 cursor-pointer opacity-60 hover:opacity-100 transition text-gray-500">+2</div>
+        </div>
+      </div>
+      <!-- Details -->
+      <div>
+        <!-- Title & Rating -->
+        <div class="flex items-start justify-between mb-2">
+          <div>
+            <p class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-1">ARKET STUDIO</p>
+            <h1 class="text-2xl font-black text-gray-900 leading-tight">Premium Organic Hoodie</h1>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 mb-5">
+          <div class="flex text-yellow-400 text-sm">★★★★★</div>
+          <span class="text-gray-500 text-sm">4.9 · <span class="underline cursor-pointer">284 recensioni</span></span>
+        </div>
+        <!-- Price -->
+        <div class="flex items-baseline gap-3 mb-6">
+          <span class="text-3xl font-black text-gray-900">€69</span>
+          <span class="text-xl text-gray-400 line-through">€99</span>
+          <span class="bg-red-50 text-red-600 text-sm font-bold px-2.5 py-1 rounded-lg">Risparmi €30</span>
+        </div>
+        <!-- Colors -->
+        <div class="mb-5">
+          <p class="text-sm font-bold text-gray-700 mb-2.5">Colore: <span class="font-normal text-gray-500">Midnight Black</span></p>
+          <div class="flex gap-2.5">
+            <div class="w-9 h-9 rounded-full bg-gray-900 border-2 border-blue-500 cursor-pointer shadow-sm"></div>
+            <div class="w-9 h-9 rounded-full bg-gray-100 border-2 border-transparent hover:border-gray-300 cursor-pointer shadow-sm"></div>
+            <div class="w-9 h-9 rounded-full bg-blue-100 border-2 border-transparent hover:border-blue-300 cursor-pointer shadow-sm"></div>
+          </div>
+        </div>
+        <!-- Sizes -->
+        <div class="mb-7">
+          <div class="flex justify-between items-center mb-2.5">
+            <p class="text-sm font-bold text-gray-700">Taglia</p>
+            <span class="text-xs text-blue-600 underline cursor-pointer">Guida taglie</span>
+          </div>
+          <div class="flex gap-2.5">
+            <button class="w-11 h-11 rounded-xl border border-gray-200 text-sm text-gray-400 hover:border-gray-400 transition">XS</button>
+            <button class="w-11 h-11 rounded-xl border border-gray-200 text-sm text-gray-400 hover:border-gray-400 transition">S</button>
+            <button class="w-11 h-11 rounded-xl border-2 border-gray-900 bg-gray-900 text-white text-sm font-bold">M</button>
+            <button class="w-11 h-11 rounded-xl border border-gray-200 text-sm text-gray-400 hover:border-gray-400 transition">L</button>
+            <button class="w-11 h-11 rounded-xl border border-gray-200 text-sm text-gray-400 hover:border-gray-400 transition">XL</button>
+          </div>
+        </div>
+        <!-- CTA -->
+        <div class="space-y-3 mb-7">
+          <button class="w-full bg-gray-900 hover:bg-gray-800 text-white font-bold py-4 rounded-2xl text-base transition shadow-[0_4px_16px_rgba(0,0,0,0.15)]">Aggiungi al carrello — €69</button>
+          <button class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-2xl text-base transition">Acquista subito →</button>
+        </div>
+        <!-- Trust badges -->
+        <div class="flex items-center gap-4 text-xs text-gray-500 border-t border-gray-100 pt-5">
+          <div class="flex items-center gap-1.5"><span class="text-emerald-500">✓</span> Reso gratuito</div>
+          <div class="flex items-center gap-1.5"><span class="text-emerald-500">✓</span> Consegna in 48h</div>
+          <div class="flex items-center gap-1.5"><span class="text-emerald-500">✓</span> Pago sicuro</div>
+        </div>
+      </div>
+    </div>
+    <!-- Reviews preview -->
+    <div class="mt-12 border-t border-gray-100 pt-10">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-xl font-black text-gray-900">Recensioni</h2>
+        <div class="flex items-center gap-2"><span class="text-3xl font-black text-gray-900">4.9</span><div class="flex text-yellow-400">★★★★★</div></div>
+      </div>
+      <div class="space-y-4">
+        <div class="bg-gray-50 rounded-2xl p-5"><div class="flex items-center gap-2 mb-2"><div class="text-yellow-400 text-sm">★★★★★</div><span class="text-gray-700 font-semibold text-sm">Marco T.</span><span class="text-gray-400 text-xs">· Acquisto verificato</span></div><p class="text-gray-600 text-sm leading-relaxed">Qualità eccellente, il tessuto è morbidissimo. Ho preso la M e veste perfetta. Consiglio assolutamente.</p></div>
+        <div class="bg-gray-50 rounded-2xl p-5"><div class="flex items-center gap-2 mb-2"><div class="text-yellow-400 text-sm">★★★★★</div><span class="text-gray-700 font-semibold text-sm">Federica R.</span><span class="text-gray-400 text-xs">· Acquisto verificato</span></div><p class="text-gray-600 text-sm leading-relaxed">Bellissima! L'ho lavata 5 volte e non ha perso forma né colore. Packaging curatissimo.</p></div>
+      </div>
+    </div>
+  </div>
+</div>`,
+  },
+  {
+    id: "adhd-focus-tracker",
+    name: "ADHD Focus Tracker Dashboard",
+    description:
+      "Minimal focus dashboard with Pomodoro timer, task manager, energy tracker, and daily streak.",
+    category: "ui",
+    price: 999,
+    stripePriceId: "price_PLACEHOLDER_adhdfocustracker",
+    tags: ["focus", "adhd", "productivity", "pomodoro", "dashboard"],
+    downloads: 341,
+    isNew: true,
+    content: `<div class="min-h-screen bg-[#f0eff8] font-sans">
+  <div class="max-w-3xl mx-auto px-4 py-8">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <p class="text-[#6b5ce7]/60 text-xs font-bold uppercase tracking-widest mb-0.5">Mercoledì 15 Maggio</p>
+        <h1 class="text-2xl font-black text-[#1a1040]">Ciao, Luca 👋</h1>
+        <p class="text-[#6b5ce7]/50 text-sm mt-0.5">Hai completato 3 sessioni oggi. Ottimo lavoro!</p>
+      </div>
+      <div class="flex items-center gap-2 bg-white rounded-2xl px-4 py-2.5 shadow-sm border border-purple-100">
+        <span class="text-2xl">🔥</span>
+        <div><p class="text-2xl font-black text-[#1a1040] leading-none">7</p><p class="text-xs text-[#6b5ce7]/50">giorno streak</p></div>
+      </div>
+    </div>
+    <!-- Focus Timer -->
+    <div class="bg-gradient-to-br from-[#6b5ce7] to-[#5e4dcd] rounded-3xl p-8 mb-6 text-white relative overflow-hidden shadow-[0_8px_32px_rgba(107,92,231,0.3)]">
+      <div class="absolute inset-0 opacity-10" style="background:radial-gradient(circle at 80% 20%,white,transparent 60%)"></div>
+      <div class="relative text-center">
+        <p class="text-white/60 text-xs font-bold uppercase tracking-widest mb-6">Sessione Focus · Pomodoro #4</p>
+        <!-- Timer circle mockup -->
+        <div class="relative inline-flex items-center justify-center w-40 h-40 mb-6">
+          <svg class="absolute inset-0" viewBox="0 0 160 160">
+            <circle cx="80" cy="80" r="70" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="10"/>
+            <circle cx="80" cy="80" r="70" fill="none" stroke="white" stroke-width="10" stroke-linecap="round" stroke-dasharray="439.8" stroke-dashoffset="110" transform="rotate(-90 80 80)"/>
+          </svg>
+          <div><p class="text-5xl font-black">17:42</p><p class="text-white/50 text-xs mt-1">rimanenti</p></div>
+        </div>
+        <p class="text-white/70 text-sm mb-6">🎯 Stai lavorando su: <strong>Progetto Template</strong></p>
+        <div class="flex justify-center gap-3">
+          <button class="bg-white/20 hover:bg-white/30 border border-white/20 text-white font-bold px-5 py-2.5 rounded-2xl text-sm transition">Pausa</button>
+          <button class="bg-white text-[#6b5ce7] font-bold px-8 py-2.5 rounded-2xl text-sm shadow-[0_4px_12px_rgba(0,0,0,0.15)]">▶ Riprendi</button>
+          <button class="bg-white/20 hover:bg-white/30 border border-white/20 text-white font-bold px-5 py-2.5 rounded-2xl text-sm transition">Stop</button>
+        </div>
+      </div>
+    </div>
+    <!-- Tasks + Energy -->
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
+      <!-- Tasks -->
+      <div class="md:col-span-3 bg-white rounded-3xl p-6 shadow-sm border border-purple-100">
+        <div class="flex items-center justify-between mb-5">
+          <h2 class="font-black text-[#1a1040]">Task di oggi</h2>
+          <span class="text-xs bg-[#6b5ce7]/10 text-[#6b5ce7] font-bold px-2.5 py-1 rounded-full">3/5 completati</span>
+        </div>
+        <div class="space-y-3">
+          <label class="flex items-center gap-3 cursor-pointer group">
+            <input type="checkbox" checked class="w-5 h-5 rounded-lg accent-[#6b5ce7]"/>
+            <span class="text-sm text-gray-400 line-through flex-1">Revisionare mockup homepage</span>
+            <span class="text-[#6b5ce7] text-xs opacity-0 group-hover:opacity-100">✓</span>
+          </label>
+          <label class="flex items-center gap-3 cursor-pointer group">
+            <input type="checkbox" checked class="w-5 h-5 rounded-lg accent-[#6b5ce7]"/>
+            <span class="text-sm text-gray-400 line-through flex-1">Call con il cliente 15:00</span>
+          </label>
+          <label class="flex items-center gap-3 cursor-pointer group">
+            <input type="checkbox" checked class="w-5 h-5 rounded-lg accent-[#6b5ce7]"/>
+            <span class="text-sm text-gray-400 line-through flex-1">Scrivere 3 sezioni del report</span>
+          </label>
+          <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" class="w-5 h-5 rounded-lg accent-[#6b5ce7]"/>
+            <span class="text-sm text-[#1a1040] font-medium flex-1">Completare template pricing</span>
+            <span class="text-[10px] bg-orange-100 text-orange-600 font-bold px-2 py-0.5 rounded-full">ALTA</span>
+          </label>
+          <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" class="w-5 h-5 rounded-lg accent-[#6b5ce7]"/>
+            <span class="text-sm text-[#1a1040] flex-1">Rispondere alle email</span>
+          </label>
+        </div>
+        <button class="mt-5 w-full border-2 border-dashed border-purple-200 text-[#6b5ce7]/50 py-2.5 rounded-2xl text-sm hover:border-purple-400 hover:text-[#6b5ce7] transition">+ Aggiungi task</button>
+      </div>
+      <!-- Energy -->
+      <div class="md:col-span-2 bg-white rounded-3xl p-6 shadow-sm border border-purple-100">
+        <h2 class="font-black text-[#1a1040] mb-5">Energia</h2>
+        <div class="space-y-3 mb-6">
+          <div class="flex items-center justify-between"><span class="text-sm text-gray-500">9:00</span><div class="flex-1 mx-3 h-2 bg-purple-100 rounded-full"><div class="h-full bg-[#6b5ce7] rounded-full" style="width:85%"></div></div><span class="text-xs text-[#6b5ce7] font-bold">Alta</span></div>
+          <div class="flex items-center justify-between"><span class="text-sm text-gray-500">11:00</span><div class="flex-1 mx-3 h-2 bg-purple-100 rounded-full"><div class="h-full bg-[#6b5ce7] rounded-full" style="width:70%"></div></div><span class="text-xs text-[#6b5ce7] font-bold">Media</span></div>
+          <div class="flex items-center justify-between"><span class="text-sm text-gray-500">13:00</span><div class="flex-1 mx-3 h-2 bg-purple-100 rounded-full"><div class="h-full bg-purple-300 rounded-full" style="width:45%"></div></div><span class="text-xs text-purple-500 font-bold">Bassa</span></div>
+          <div class="flex items-center justify-between"><span class="text-sm text-gray-500">Ora</span><div class="flex-1 mx-3 h-2 bg-purple-100 rounded-full"><div class="h-full bg-[#6b5ce7] rounded-full" style="width:65%"></div></div><span class="text-xs text-[#6b5ce7] font-bold">Media</span></div>
+        </div>
+        <p class="text-xs text-gray-400 text-center mb-4">Come ti senti adesso?</p>
+        <div class="flex justify-between">
+          <button class="flex flex-col items-center gap-1 hover:scale-110 transition"><span class="text-2xl">😴</span><span class="text-[10px] text-gray-400">Stanco</span></button>
+          <button class="flex flex-col items-center gap-1 hover:scale-110 transition"><span class="text-2xl">😐</span><span class="text-[10px] text-gray-400">Neutro</span></button>
+          <button class="flex flex-col items-center gap-1 hover:scale-110 transition ring-2 ring-[#6b5ce7] rounded-xl px-1"><span class="text-2xl">🙂</span><span class="text-[10px] text-[#6b5ce7] font-bold">Bene</span></button>
+          <button class="flex flex-col items-center gap-1 hover:scale-110 transition"><span class="text-2xl">🚀</span><span class="text-[10px] text-gray-400">Top</span></button>
+        </div>
+      </div>
+    </div>
+    <!-- Session stats -->
+    <div class="grid grid-cols-4 gap-3">
+      <div class="bg-white rounded-2xl p-4 text-center shadow-sm border border-purple-100"><div class="text-2xl font-black text-[#6b5ce7]">3</div><div class="text-xs text-gray-400 mt-1">Sessioni oggi</div></div>
+      <div class="bg-white rounded-2xl p-4 text-center shadow-sm border border-purple-100"><div class="text-2xl font-black text-[#6b5ce7]">75m</div><div class="text-xs text-gray-400 mt-1">Tempo focus</div></div>
+      <div class="bg-white rounded-2xl p-4 text-center shadow-sm border border-purple-100"><div class="text-2xl font-black text-[#6b5ce7]">3/5</div><div class="text-xs text-gray-400 mt-1">Task done</div></div>
+      <div class="bg-white rounded-2xl p-4 text-center shadow-sm border border-purple-100"><div class="text-2xl font-black text-[#6b5ce7]">7🔥</div><div class="text-xs text-gray-400 mt-1">Streak giorni</div></div>
+    </div>
+  </div>
+</div>`,
+  },
+  {
+    id: "invoice-html",
+    name: "Professional Invoice Template",
+    description:
+      "Clean, print-ready invoice with line items, VAT calculation, payment details, and company branding.",
+    category: "ui",
+    price: 799,
+    stripePriceId: "price_PLACEHOLDER_invoicehtml01",
+    tags: ["invoice", "billing", "freelance", "print", "business"],
+    downloads: 512,
+    isNew: true,
+    content: `<div class="min-h-screen bg-gray-100 flex items-start justify-center py-10 px-4 font-sans">
+  <div class="w-full max-w-2xl bg-white shadow-xl rounded-2xl overflow-hidden">
+    <!-- Header -->
+    <div class="bg-gray-900 text-white px-8 py-7 flex items-start justify-between">
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-9 h-9 rounded-xl bg-blue-500 flex items-center justify-center text-base font-black">S</div>
+          <span class="font-black text-xl tracking-tight">Studio Marco</span>
+        </div>
+        <div class="text-white/50 text-xs space-y-0.5">
+          <p>Via Roma 42, 20121 Milano</p>
+          <p>P.IVA: IT12345678901</p>
+          <p>studio@marco.design</p>
+        </div>
+      </div>
+      <div class="text-right">
+        <div class="text-4xl font-black text-white/10 mb-2">FATTURA</div>
+        <p class="text-white/60 text-sm"># <span class="text-white font-bold">2025-047</span></p>
+        <p class="text-white/40 text-xs mt-1">Emessa: 15 Maggio 2025</p>
+        <p class="text-white/40 text-xs">Scadenza: <span class="text-amber-400">14 Giugno 2025</span></p>
+      </div>
+    </div>
+    <!-- Bill To -->
+    <div class="px-8 py-5 bg-gray-50 border-b border-gray-200 grid grid-cols-2 gap-6">
+      <div>
+        <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Fatturato a</p>
+        <p class="font-bold text-gray-900">Acme Corporation Srl</p>
+        <div class="text-gray-500 text-xs space-y-0.5 mt-1">
+          <p>Via Manzoni 10, 20123 Milano</p>
+          <p>P.IVA: IT98765432100</p>
+          <p>admin@acme.it</p>
+        </div>
+      </div>
+      <div class="text-right">
+        <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Stato pagamento</p>
+        <span class="inline-block bg-amber-100 text-amber-700 border border-amber-200 text-xs font-bold px-3 py-1.5 rounded-full">In attesa</span>
+        <p class="text-gray-400 text-xs mt-2">Bonifico bancario</p>
+      </div>
+    </div>
+    <!-- Line items -->
+    <div class="px-8 py-6">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="border-b-2 border-gray-200 text-[10px] font-black text-gray-400 uppercase tracking-widest">
+            <th class="text-left pb-3">Descrizione</th>
+            <th class="text-center pb-3">Qta</th>
+            <th class="text-right pb-3">Prezzo unit.</th>
+            <th class="text-right pb-3">Totale</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          <tr class="py-3">
+            <td class="py-3.5">
+              <p class="font-semibold text-gray-900">Progettazione UI/UX — App Mobile</p>
+              <p class="text-gray-400 text-xs mt-0.5">Design system, wireframe, prototipo interattivo</p>
+            </td>
+            <td class="text-center text-gray-600 py-3.5">20h</td>
+            <td class="text-right text-gray-600 py-3.5">€120,00</td>
+            <td class="text-right font-bold text-gray-900 py-3.5">€2.400,00</td>
+          </tr>
+          <tr>
+            <td class="py-3.5">
+              <p class="font-semibold text-gray-900">Sviluppo componenti React</p>
+              <p class="text-gray-400 text-xs mt-0.5">8 componenti + design token setup</p>
+            </td>
+            <td class="text-center text-gray-600 py-3.5">12h</td>
+            <td class="text-right text-gray-600 py-3.5">€150,00</td>
+            <td class="text-right font-bold text-gray-900 py-3.5">€1.800,00</td>
+          </tr>
+          <tr>
+            <td class="py-3.5">
+              <p class="font-semibold text-gray-900">Revisioni e consegna finale</p>
+              <p class="text-gray-400 text-xs mt-0.5">2 cicli di revisione inclusi</p>
+            </td>
+            <td class="text-center text-gray-600 py-3.5">1</td>
+            <td class="text-right text-gray-600 py-3.5">€300,00</td>
+            <td class="text-right font-bold text-gray-900 py-3.5">€300,00</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Totals -->
+    <div class="px-8 pb-6">
+      <div class="ml-auto max-w-xs space-y-2 text-sm border-t border-gray-200 pt-4">
+        <div class="flex justify-between text-gray-600"><span>Imponibile</span><span>€4.500,00</span></div>
+        <div class="flex justify-between text-gray-600"><span>IVA 22%</span><span>€990,00</span></div>
+        <div class="flex justify-between font-black text-gray-900 text-base border-t border-gray-200 pt-2 mt-2"><span>Totale</span><span class="text-blue-600">€5.490,00</span></div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <div class="px-8 py-5 bg-gray-50 border-t border-gray-200 grid grid-cols-2 gap-6 text-xs">
+      <div>
+        <p class="font-black text-gray-400 uppercase tracking-widest mb-2">Dati per il pagamento</p>
+        <div class="text-gray-600 space-y-0.5">
+          <p>Banca: UniCredit SpA</p>
+          <p>IBAN: IT60 X054 2811 1010 0000 0123 456</p>
+          <p>Causale: Fattura n. 2025-047</p>
+        </div>
+      </div>
+      <div class="text-right text-gray-400">
+        <p class="mb-1">Grazie per la collaborazione!</p>
+        <p>Per qualsiasi domanda scrivici a</p>
+        <p class="text-blue-600 font-medium">studio@marco.design</p>
+      </div>
+    </div>
+  </div>
+</div>`,
+  },
+  {
+    id: "ai-tech-portfolio",
+    name: "AI & Tech Portfolio",
+    description:
+      "Dark glassmorphism portfolio for AI engineers and ML researchers with projects, papers, and skills matrix.",
+    category: "ui",
+    price: 1299,
+    stripePriceId: "price_PLACEHOLDER_aitechportfolio",
+    tags: ["ai", "ml", "portfolio", "dark", "tech", "engineer"],
+    downloads: 178,
+    isNew: true,
+    content: `<div class="min-h-screen bg-[#030712] text-white font-sans">
+  <!-- Ambient background -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden">
+    <div class="absolute top-0 left-1/3 w-[500px] h-[500px] rounded-full opacity-10" style="background:radial-gradient(circle,#3b82f6,transparent 70%)"></div>
+    <div class="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full opacity-10" style="background:radial-gradient(circle,#8b5cf6,transparent 70%)"></div>
+  </div>
+  <div class="relative z-10 max-w-4xl mx-auto px-6 py-16">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row items-start gap-8 mb-16 pb-16 border-b border-white/5">
+      <div class="w-24 h-24 rounded-3xl bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-4xl shrink-0 shadow-[0_8px_32px_rgba(59,130,246,0.4)]">🤖</div>
+      <div class="flex-1">
+        <div class="flex items-center gap-3 mb-1">
+          <h1 class="text-3xl font-black tracking-tight">Sara Chen</h1>
+          <span class="flex items-center gap-1.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-bold px-3 py-1 rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>Open to work</span>
+        </div>
+        <p class="text-blue-400 font-semibold mb-3">Senior ML Engineer · LLM Researcher</p>
+        <p class="text-white/50 text-sm leading-relaxed max-w-xl mb-5">Building production AI systems that actually ship. Previously at DeepMind and Hugging Face. 7 published papers. NeurIPS 2024 spotlight.</p>
+        <div class="flex flex-wrap gap-2.5">
+          <a class="flex items-center gap-1.5 border border-white/10 text-white/60 hover:text-white hover:border-white/30 px-4 py-2 rounded-xl text-sm transition">🐙 GitHub</a>
+          <a class="flex items-center gap-1.5 border border-white/10 text-white/60 hover:text-white hover:border-white/30 px-4 py-2 rounded-xl text-sm transition">📄 arXiv</a>
+          <a class="flex items-center gap-1.5 border border-white/10 text-white/60 hover:text-white hover:border-white/30 px-4 py-2 rounded-xl text-sm transition">🐦 Twitter</a>
+          <a class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-xl text-sm font-bold transition">Contattami →</a>
+        </div>
+      </div>
+    </div>
+    <!-- Projects -->
+    <div class="mb-16">
+      <h2 class="text-xs font-black text-white/30 uppercase tracking-[0.25em] mb-6">Progetti selezionati</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="group relative bg-white/[0.03] border border-white/[0.08] hover:border-blue-500/40 rounded-3xl p-6 transition cursor-pointer">
+          <div class="flex items-start justify-between mb-4">
+            <div class="w-12 h-12 rounded-2xl bg-blue-500/20 flex items-center justify-center text-2xl">🧠</div>
+            <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2.5 py-1 rounded-full font-bold">Open Source</span>
+          </div>
+          <h3 class="font-bold text-lg mb-2">NeuroRAG</h3>
+          <p class="text-white/50 text-sm leading-relaxed mb-4">Retrieval-augmented generation framework ottimizzato per documenti lunghi. 2.4k ⭐ su GitHub, 180k+ download/mese su PyPI.</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="text-[11px] bg-white/5 text-white/40 px-2.5 py-1 rounded-lg">Python</span>
+            <span class="text-[11px] bg-white/5 text-white/40 px-2.5 py-1 rounded-lg">PyTorch</span>
+            <span class="text-[11px] bg-white/5 text-white/40 px-2.5 py-1 rounded-lg">LangChain</span>
+          </div>
+        </div>
+        <div class="group relative bg-white/[0.03] border border-white/[0.08] hover:border-violet-500/40 rounded-3xl p-6 transition cursor-pointer">
+          <div class="flex items-start justify-between mb-4">
+            <div class="w-12 h-12 rounded-2xl bg-violet-500/20 flex items-center justify-center text-2xl">⚗️</div>
+            <span class="text-xs bg-violet-500/10 text-violet-400 border border-violet-500/20 px-2.5 py-1 rounded-full font-bold">NeurIPS 2024</span>
+          </div>
+          <h3 class="font-bold text-lg mb-2">EfficientFine</h3>
+          <p class="text-white/50 text-sm leading-relaxed mb-4">Metodo di fine-tuning che riduce del 73% il consumo di memoria con performance comparabili a LoRA su task reasoning.</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="text-[11px] bg-white/5 text-white/40 px-2.5 py-1 rounded-lg">Transformers</span>
+            <span class="text-[11px] bg-white/5 text-white/40 px-2.5 py-1 rounded-lg">CUDA</span>
+            <span class="text-[11px] bg-white/5 text-white/40 px-2.5 py-1 rounded-lg">Triton</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Skills matrix -->
+    <div class="mb-16">
+      <h2 class="text-xs font-black text-white/30 uppercase tracking-[0.25em] mb-6">Stack tecnico</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div class="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-4 text-center"><div class="text-2xl mb-2">🔥</div><p class="font-semibold text-sm">PyTorch</p><p class="text-white/30 text-xs mt-0.5">Expert</p></div>
+        <div class="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-4 text-center"><div class="text-2xl mb-2">🤗</div><p class="font-semibold text-sm">HuggingFace</p><p class="text-white/30 text-xs mt-0.5">Expert</p></div>
+        <div class="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-4 text-center"><div class="text-2xl mb-2">⚡</div><p class="font-semibold text-sm">vLLM / TGI</p><p class="text-white/30 text-xs mt-0.5">Advanced</p></div>
+        <div class="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-4 text-center"><div class="text-2xl mb-2">☁️</div><p class="font-semibold text-sm">AWS / GCP</p><p class="text-white/30 text-xs mt-0.5">Advanced</p></div>
+      </div>
+    </div>
+    <!-- CTA -->
+    <div class="bg-gradient-to-r from-blue-600/20 to-violet-600/20 border border-blue-500/20 rounded-3xl p-8 text-center">
+      <h3 class="text-xl font-black mb-2">Collaboriamo?</h3>
+      <p class="text-white/50 text-sm mb-6">Sono disponibile per consulenze, contratti e posizioni senior a partire da Q4 2025.</p>
+      <a class="inline-block bg-white text-gray-900 font-bold px-8 py-3.5 rounded-2xl hover:bg-gray-100 transition shadow-[0_4px_16px_rgba(255,255,255,0.15)]">sara@chenai.dev →</a>
+    </div>
+  </div>
+</div>`,
+  },
+  {
+    id: "personal-trainer-profile",
+    name: "Personal Trainer Profile",
+    description:
+      "High-energy fitness coach profile with services, transformation gallery, and booking CTA.",
+    category: "ui",
+    price: 999,
+    stripePriceId: "price_PLACEHOLDER_personaltrainer",
+    tags: ["fitness", "coach", "personal trainer", "booking", "health"],
+    downloads: 145,
+    isNew: true,
+    content: `<div class="min-h-screen bg-[#111] text-white font-sans">
+  <!-- Hero -->
+  <div class="relative overflow-hidden bg-gradient-to-br from-[#111] via-[#1a1a1a] to-[#111] px-6 pt-16 pb-12">
+    <div class="absolute inset-0 opacity-5" style="background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(255,255,255,0.1) 40px,rgba(255,255,255,0.1) 41px)"></div>
+    <div class="max-w-3xl mx-auto relative">
+      <div class="flex flex-col md:flex-row items-center gap-8">
+        <!-- Photo mockup -->
+        <div class="w-40 h-40 rounded-3xl bg-gradient-to-br from-orange-400 to-red-600 flex items-center justify-center text-7xl shrink-0 shadow-[0_16px_48px_rgba(249,115,22,0.4)]">💪</div>
+        <div class="text-center md:text-left flex-1">
+          <div class="inline-flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-bold px-3 py-1.5 rounded-full mb-4 uppercase tracking-wide">Certified Personal Trainer</div>
+          <h1 class="text-4xl md:text-5xl font-black tracking-tight mb-3">Alex Fontana</h1>
+          <p class="text-white/60 text-base mb-5 leading-relaxed">12 anni di esperienza · 800+ clienti trasformati · Milano & Online</p>
+          <div class="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
+            <button class="bg-orange-500 hover:bg-orange-400 text-white font-black px-8 py-3.5 rounded-2xl transition shadow-[0_4px_20px_rgba(249,115,22,0.4)] text-[15px]">Prenota una sessione →</button>
+            <button class="border border-white/20 text-white/70 hover:text-white hover:border-white/40 font-bold px-8 py-3.5 rounded-2xl transition">Vedi i pacchetti</button>
+          </div>
+        </div>
+      </div>
+      <!-- Stats -->
+      <div class="grid grid-cols-4 gap-4 mt-10 border-t border-white/5 pt-8">
+        <div class="text-center"><div class="text-3xl font-black text-orange-400">800+</div><div class="text-white/40 text-xs mt-1">Clienti</div></div>
+        <div class="text-center"><div class="text-3xl font-black text-orange-400">12</div><div class="text-white/40 text-xs mt-1">Anni exp.</div></div>
+        <div class="text-center"><div class="text-3xl font-black text-orange-400">4.9★</div><div class="text-white/40 text-xs mt-1">Rating</div></div>
+        <div class="text-center"><div class="text-3xl font-black text-orange-400">100%</div><div class="text-white/40 text-xs mt-1">Online ready</div></div>
+      </div>
+    </div>
+  </div>
+  <!-- Services -->
+  <div class="max-w-3xl mx-auto px-6 py-12">
+    <h2 class="text-xs font-black text-white/30 uppercase tracking-[0.25em] mb-6">Pacchetti allenamento</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+      <div class="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-6">
+        <div class="text-3xl mb-3">🌱</div>
+        <h3 class="font-bold text-lg mb-1">Starter</h3>
+        <div class="text-2xl font-black text-orange-400 mb-3">€149 <span class="text-sm font-normal text-white/40">/mese</span></div>
+        <ul class="space-y-2 text-sm text-white/60 mb-5">
+          <li>✓ 4 sessioni/mese (60 min)</li>
+          <li>✓ Piano nutrizionale base</li>
+          <li>✓ Accesso app tracker</li>
+        </ul>
+        <button class="w-full border border-orange-500/40 text-orange-400 font-bold py-2.5 rounded-xl hover:bg-orange-500/10 transition text-sm">Scegli Starter</button>
+      </div>
+      <div class="relative bg-gradient-to-b from-orange-500/20 to-red-600/10 border-2 border-orange-500/60 rounded-2xl p-6">
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-[10px] font-black px-3 py-1 rounded-full tracking-widest">PIÙ SCELTO</div>
+        <div class="text-3xl mb-3">🔥</div>
+        <h3 class="font-bold text-lg mb-1">Trasformazione</h3>
+        <div class="text-2xl font-black text-orange-400 mb-3">€299 <span class="text-sm font-normal text-white/40">/mese</span></div>
+        <ul class="space-y-2 text-sm text-white/70 mb-5">
+          <li>✓ 8 sessioni/mese</li>
+          <li>✓ Piano nutrizionale personalizzato</li>
+          <li>✓ Check-in settimanale via chat</li>
+          <li>✓ Accesso programma online</li>
+        </ul>
+        <button class="w-full bg-orange-500 hover:bg-orange-400 text-white font-bold py-2.5 rounded-xl transition text-sm shadow-[0_4px_16px_rgba(249,115,22,0.3)]">Scegli Trasformazione</button>
+      </div>
+      <div class="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-6">
+        <div class="text-3xl mb-3">👑</div>
+        <h3 class="font-bold text-lg mb-1">Elite</h3>
+        <div class="text-2xl font-black text-orange-400 mb-3">€499 <span class="text-sm font-normal text-white/40">/mese</span></div>
+        <ul class="space-y-2 text-sm text-white/60 mb-5">
+          <li>✓ 12 sessioni/mese</li>
+          <li>✓ Supporto illimitato via chat</li>
+          <li>✓ Analisi body composition mensile</li>
+          <li>✓ Piano 100% personalizzato</li>
+        </ul>
+        <button class="w-full border border-orange-500/40 text-orange-400 font-bold py-2.5 rounded-xl hover:bg-orange-500/10 transition text-sm">Scegli Elite</button>
+      </div>
+    </div>
+    <!-- Testimonials -->
+    <h2 class="text-xs font-black text-white/30 uppercase tracking-[0.25em] mb-6">Risultati reali</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="bg-white/[0.04] border border-white/[0.06] rounded-2xl p-5">
+        <div class="flex text-orange-400 text-sm mb-3">★★★★★</div>
+        <p class="text-white/70 text-sm italic leading-relaxed mb-4">"In 3 mesi ho perso 12kg e guadagnato una mentalità completamente diversa verso il cibo e l'allenamento."</p>
+        <div class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-sm">👩</div><div><p class="font-semibold text-sm">Chiara M.</p><p class="text-white/30 text-xs">Paziente da 6 mesi</p></div></div>
+      </div>
+      <div class="bg-white/[0.04] border border-white/[0.06] rounded-2xl p-5">
+        <div class="flex text-orange-400 text-sm mb-3">★★★★★</div>
+        <p class="text-white/70 text-sm italic leading-relaxed mb-4">"Il primo PT che ha capito le mie esigenze. Ho aumentato la massa del 15% senza compromettere la mobilità."</p>
+        <div class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center text-sm">👨</div><div><p class="font-semibold text-sm">Davide K.</p><p class="text-white/30 text-xs">Paziente da 8 mesi</p></div></div>
+      </div>
+    </div>
+  </div>
+</div>`,
+  },
+
+  // ── Nuovi Prompt Templates ─────────────────────────────────────────────────
+  {
+    id: "linkedin-prompt-pack",
+    name: "LinkedIn Content Pack (5 formati)",
+    description:
+      "5 proven LinkedIn post formats: thought leadership, personal story, how-to list, contrarian take, and viral hook.",
+    category: "prompt",
+    price: 999,
+    stripePriceId: "price_PLACEHOLDER_linkedinpack01",
+    tags: ["linkedin", "social media", "content", "copywriting", "personal brand"],
+    downloads: 678,
+    isNew: true,
+    content: `You are a top LinkedIn content strategist. Generate a high-performing LinkedIn post using the format specified below.
+
+ABOUT THE AUTHOR:
+- Name: {{author_name}}
+- Role: {{author_role}}
+- Industry: {{industry}}
+- Audience: {{target_audience}} (e.g., "founders", "marketers", "engineers")
+- Core topic: {{topic}}
+- Key insight or message: {{key_insight}}
+
+SELECT A FORMAT:
+{{format}} — choose one: thought-leadership | personal-story | how-to-list | contrarian-take | viral-hook
+
+══════════════════════════════════════
+FORMAT: thought-leadership
+══════════════════════════════════════
+Structure:
+1. Bold opening statement (1 line, no fluff)
+2. Context: why this matters NOW (2-3 lines)
+3. Your unique perspective (3-4 lines, specific data or examples)
+4. What most people get wrong (2-3 lines)
+5. The real insight (2-3 lines)
+6. Close with a question to drive comments
+
+Tone: confident, direct, no buzzwords, data-backed when possible
+Length: 150-200 words
+
+══════════════════════════════════════
+FORMAT: personal-story
+══════════════════════════════════════
+Structure:
+1. Hook: a surprising moment or failure (1-2 lines)
+2. The backstory (3-4 lines — set the scene)
+3. The turning point (2-3 lines)
+4. The lesson learned (2-3 lines)
+5. Universal takeaway for {{target_audience}} (2-3 lines)
+6. CTA: ask readers to share a similar experience
+
+Tone: vulnerable but professional, storytelling voice
+Length: 180-230 words
+
+══════════════════════════════════════
+FORMAT: how-to-list
+══════════════════════════════════════
+Structure:
+1. Promise headline: "How to [result] in [timeframe]"
+2. Brief credibility statement (1 line)
+3. Numbered list of 5-7 actionable tips
+   - Each tip: bold label + 1-2 sentence explanation
+   - Include one counterintuitive tip
+4. Summary line
+5. CTA: save this post + follow for more
+
+Tone: practical, no-nonsense, specific
+Length: 200-280 words
+
+══════════════════════════════════════
+FORMAT: contrarian-take
+══════════════════════════════════════
+Structure:
+1. "Hot take:" or "Unpopular opinion:" opener
+2. State the conventional wisdom (1-2 lines)
+3. "I disagree. Here's why:" pivot (bold)
+4. Your argument with 3 specific reasons
+5. Acknowledge what IS true about the common view
+6. Your conclusion
+7. CTA: "Agree or disagree? Tell me below"
+
+Tone: provocative but fair, backed by logic
+Length: 160-210 words
+
+══════════════════════════════════════
+FORMAT: viral-hook
+══════════════════════════════════════
+Structure:
+1. Opening hook (1 shocking line — stat, question, or bold claim)
+2. Expand the hook (2-3 lines explaining)
+3. The revelation (3-4 lines with the actual insight)
+4. Practical application for {{target_audience}} (3-4 lines)
+5. Memorable close (1 punchy line)
+6. 3 relevant hashtags
+
+Tone: energetic, punchy, shareable
+Length: 130-170 words
+
+OUTPUT:
+Write the complete post only. No commentary or meta-text.
+Then add:
+---
+Best time to post: [day + time window]
+Estimated reach boost: [low/medium/high] for this format
+`,
+  },
+  {
+    id: "youtube-script-pack",
+    name: "YouTube Script Builder",
+    description:
+      "Full YouTube video script with hook, story arc, CTA and SEO title/description generator.",
+    category: "prompt",
+    price: 1299,
+    stripePriceId: "price_PLACEHOLDER_youtubescriptpack",
+    tags: ["youtube", "script", "video", "content creator", "seo"],
+    downloads: 432,
+    isNew: true,
+    content: `You are a professional YouTube scriptwriter and SEO strategist. Create a complete, production-ready script for a YouTube video.
+
+VIDEO BRIEF:
+- Channel name: {{channel_name}}
+- Channel niche: {{niche}} (e.g., personal finance, fitness, tech tutorials)
+- Target audience: {{target_audience}}
+- Video topic: {{video_topic}}
+- Main keyword: {{main_keyword}}
+- Desired video length: {{duration}} (e.g., "8-10 minutes")
+- Video style: {{style}} (e.g., talking head, tutorial, story, listicle)
+- Tone: {{tone}} (e.g., educational, entertaining, inspiring, conversational)
+
+═══════════════════════════════════════
+PART 1 — SEO PACKAGE
+═══════════════════════════════════════
+
+1. VIDEO TITLE (3 options)
+   Option A: [Curiosity-gap style — 50-60 chars]
+   Option B: [How-to/listicle style — 50-60 chars]
+   Option C: [Story/emotional style — 50-60 chars]
+
+2. DESCRIPTION (500 chars)
+   - First 2 lines must contain {{main_keyword}} (shown before "Show more")
+   - Value proposition + timestamps placeholder
+   - 3-5 relevant hashtags
+
+3. TAGS (15 tags — mix of broad, specific, long-tail)
+
+═══════════════════════════════════════
+PART 2 — FULL SCRIPT
+═══════════════════════════════════════
+
+[HOOK — 0:00–0:45]
+Goal: Stop the scroll. The first 30 seconds determine retention.
+Write a hook using ONE of these techniques:
+- Pattern interrupt: start mid-action or mid-sentence
+- Bold claim: state the most surprising fact about {{video_topic}}
+- Pain/desire opener: "If you've ever [frustration]... this video is for you"
+
+[INTRO — 0:45–1:30]
+- Introduce {{channel_name}} in one sentence (no long intros)
+- Preview the 3 main things viewers will learn
+- Subscribe nudge: natural, not desperate
+
+[MAIN CONTENT — 1:30–end-2:00]
+Divide the {{video_topic}} into 3-5 sections based on {{duration}}:
+
+Section 1: [Title]
+  - Opening transition
+  - Key point explanation (clear, with example or analogy)
+  - Visual cue note: [B-roll/graphic suggestion]
+  - Mini CTA or engagement hook (e.g., "Comment below if...")
+
+Section 2: [Title]
+  [same structure]
+
+Section 3: [Title]
+  [same structure]
+
+[Add more sections as needed for {{duration}}]
+
+[OUTRO — last 90 seconds]
+- Summary: 3 key takeaways in bullet form
+- CTA priority 1: subscribe with specific reason ("so you don't miss...")
+- CTA priority 2: next video recommendation (describe what to pitch)
+- Final memorable line / sign-off
+
+═══════════════════════════════════════
+PART 3 — PRODUCTION NOTES
+═══════════════════════════════════════
+- Thumbnail concept: [describe the ideal thumbnail composition]
+- Best upload time for {{niche}}: [day + time]
+- Suggested end screen CTA video: [describe ideal paired video topic]
+
+Write the complete script using natural spoken language.
+Use [PAUSE], [SMILE], [HOLD UP PRODUCT] style stage directions sparingly.
+Word count should match {{duration}} at ~130 words/minute.
+`,
+  },
+  {
+    id: "claude-projects-pack",
+    name: "Claude Projects Starter Pack",
+    description:
+      "6 ready-to-use Claude Project system prompts: writing assistant, code reviewer, business strategist, research analyst, email coach, and product manager.",
+    category: "prompt",
+    price: 1499,
+    stripePriceId: "price_PLACEHOLDER_claudeprojectspack",
+    tags: ["claude", "ai assistant", "system prompt", "projects", "productivity"],
+    downloads: 891,
+    editorsPick: true,
+    isNew: true,
+    content: `Six production-ready Claude Project system prompts. Copy each one directly into a Claude Project's "Project instructions" field.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROJECT 1: Writing & Content Assistant
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+You are an elite writing assistant for {{user_name}}, a {{user_role}} in {{industry}}.
+
+YOUR CORE BEHAVIORS:
+- Match and elevate the user's existing voice — never replace it
+- Default output length: concise. Ask to expand if needed
+- Format: use markdown only when the user will render it
+- When editing: track changes clearly, explain key edits in a separate bullet list
+- When generating: ask for target audience, purpose, and tone before starting
+
+SPECIALIZATIONS:
+- Long-form articles and essays: structure, argument flow, transitions
+- Email and Slack messages: clarity, brevity, appropriate tone
+- Social media: platform-specific optimization (LinkedIn, Twitter/X, Newsletter)
+- Presentations: narrative arc, slide-by-slide flow
+- Technical documentation: accuracy + accessibility balance
+
+WHAT TO AVOID:
+- Hollow phrases: "Certainly!", "Great question!", "As an AI..."
+- Unnecessary hedging or disclaimers
+- Changing the user's core argument without flagging it
+- Adding fluff to hit word counts
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROJECT 2: Senior Code Reviewer
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+You are a senior software engineer and code reviewer with deep expertise in {{tech_stack}}.
+
+REVIEW FRAMEWORK (always apply in this order):
+1. CORRECTNESS — Does it do what it's supposed to? Edge cases?
+2. SECURITY — Injection risks, auth issues, exposed secrets, OWASP top 10
+3. PERFORMANCE — Unnecessary loops, N+1 queries, memory leaks
+4. READABILITY — Naming, complexity, documentation where needed
+5. ARCHITECTURE — Does it fit the existing patterns? SOLID principles?
+
+OUTPUT FORMAT for code reviews:
+🔴 CRITICAL (must fix before merge): [issue + fix]
+🟡 WARNING (should fix): [issue + suggestion]
+🟢 IMPROVEMENT (optional refactor): [suggestion]
+💡 LEARNING NOTE: [explain why, not just what]
+
+When writing new code:
+- Prioritize correctness over cleverness
+- Add comments only for non-obvious logic
+- Write tests first if asked for TDD
+- Flag when a request could introduce technical debt
+
+Stack assumptions: {{tech_stack}}. Ask before assuming other technologies.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROJECT 3: Business Strategist & Advisor
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+You are a strategic advisor for {{company_name}}, a {{company_description}}.
+
+CONTEXT (always keep in mind):
+- Stage: {{company_stage}} (e.g., pre-revenue, Series A, profitable SMB)
+- Team size: {{team_size}}
+- Primary goal this quarter: {{quarterly_goal}}
+- Biggest constraint: {{main_constraint}} (e.g., cash, talent, time)
+
+YOUR APPROACH:
+- Lead with the most important insight, not with process
+- Use first-principles thinking for novel problems
+- Apply known frameworks (JTBD, BCG matrix, Porter's 5 forces) only when genuinely useful — not by default
+- When you spot an assumption in the user's question, name it
+- Offer 2-3 concrete options with trade-offs, not a single answer
+
+COMMUNICATION STYLE:
+- Bullet points for lists, prose for reasoning
+- Bold the single most important sentence in each response
+- If a question needs more context, ask ONE specific clarifying question
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROJECT 4: Research & Analysis Engine
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+You are a research analyst for {{user_name}} in the field of {{research_domain}}.
+
+RESEARCH STANDARDS:
+- Always distinguish: [FACT], [INFERENCE], [ASSUMPTION], [UNKNOWN]
+- Cite reasoning chains, not just conclusions
+- Acknowledge knowledge cutoff limitations proactively
+- Flag when a topic requires real-time data you cannot provide
+
+OUTPUT TEMPLATES:
+
+For topic overviews:
+## Summary (2-3 sentences)
+## Key findings (5-7 bullets with source reasoning)
+## Conflicting views (if any)
+## Gaps / open questions
+## Recommended next steps
+
+For comparisons:
+## Criteria matrix (table format)
+## Verdict with reasoning
+## What the comparison misses
+
+For literature/report summaries:
+## Core argument
+## Evidence quality (strong/weak/mixed)
+## Implications for {{user_name}}'s work
+## One critical question this raises
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROJECT 5: Email & Communication Coach
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+You are a communication coach helping {{user_name}} write clear, effective professional emails and messages.
+
+STYLE PROFILE:
+- User's communication style: {{communication_style}} (e.g., formal, direct, warm)
+- Typical recipients: {{recipient_types}} (e.g., investors, clients, team)
+- Recurring challenge: {{communication_challenge}} (e.g., "too long", "not assertive enough", "unclear asks")
+
+FOR EVERY EMAIL/MESSAGE YOU WRITE OR REVIEW:
+1. Subject line: 6-8 words, specific, action-oriented
+2. Opening: skip "I hope this email finds you well" — lead with the point
+3. Body: one paragraph per idea, max 3 paragraphs for most emails
+4. Ask: one clear, specific request per email
+5. Close: action + deadline if relevant
+
+REVIEW MODE (when user pastes a draft):
+- Highlight the single biggest problem
+- Rewrite the subject line
+- Rewrite the first sentence
+- Offer a full rewrite only if requested
+
+TONE CALIBRATION:
+- Cold outreach → curious, respectful, brief
+- Client updates → confident, transparent, solution-focused
+- Internal team → direct, warm, actionable
+- Difficult conversations → empathetic, factual, collaborative
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROJECT 6: Product Manager Co-Pilot
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+You are a product management partner for {{pm_name}}, PM at {{company_name}}.
+
+PRODUCT CONTEXT:
+- Product: {{product_description}}
+- Users: {{primary_users}}
+- Current phase: {{product_phase}} (e.g., discovery, build, growth, optimization)
+- OKRs this cycle: {{current_okrs}}
+
+YOUR PM TOOLKIT:
+
+PRDs & Specs:
+- Lead with user problem + evidence, not solution
+- Include: success metrics, non-goals, edge cases
+- Flag assumptions explicitly with [ASSUMPTION] tags
+
+User Stories:
+Format: "As [specific user type], when [context], I want [action] so that [outcome]"
+- Include acceptance criteria (Given/When/Then)
+- Add one "sad path" per story
+
+Prioritization:
+- Default to RICE when asked to prioritize (Reach × Impact × Confidence / Effort)
+- Always show the denominator (effort) — it's the most underestimated variable
+- Challenge any prioritization that ignores user evidence
+
+Retrospectives & Analysis:
+- Structure: What happened → Why → What we learned → What changes
+- Avoid blame language; focus on systems and processes
+
+HOW TO USE EACH PROJECT:
+1. Create a new Claude Project for each prompt
+2. Paste the system prompt into "Project instructions"
+3. Fill in all {{variables}} with your specific context
+4. Upload relevant documents (codebase, brand guide, product spec) to the Project
+`,
+  },
+  {
+    id: "ai-workflow-pack",
+    name: "AI Workflow Automation Pack",
+    description:
+      "5 AI workflow prompts for n8n, Make, and Zapier: email triage, content repurposing, lead qualification, support ticket routing, and weekly digest.",
+    category: "prompt",
+    price: 1699,
+    stripePriceId: "price_PLACEHOLDER_aiworkflowpack01",
+    tags: ["automation", "workflow", "n8n", "zapier", "make", "ai agent"],
+    downloads: 312,
+    isNew: true,
+    content: `Five production-tested AI workflow automation prompts. Each is designed as the AI step in an n8n/Make/Zapier automation.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+WORKFLOW 1: Smart Email Triage Agent
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TRIGGER: New email arrives in Gmail/Outlook
+AI STEP PROMPT:
+
+You are an email triage assistant for {{user_name}} at {{company_name}}.
+
+Analyze this email and return a JSON object only (no other text):
+
+Email from: {{sender}}
+Subject: {{subject}}
+Body: {{email_body}}
+
+Return:
+{
+  "priority": "urgent|high|normal|low",
+  "category": "client|sales|support|admin|newsletter|spam|personal",
+  "requires_response": true/false,
+  "response_deadline_hours": number or null,
+  "suggested_label": "string",
+  "one_line_summary": "max 10 words",
+  "draft_reply": "string or null (only if requires_response is true, keep under 100 words)",
+  "action_items": ["array of strings, max 3"]
+}
+
+PRIORITY RULES for {{company_name}}:
+- urgent: clients with active contracts, revenue impact, legal
+- high: new leads, team blockers, time-sensitive decisions
+- normal: general business correspondence
+- low: newsletters, automated notifications, FYI emails
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+WORKFLOW 2: Content Repurposing Engine
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TRIGGER: New blog post / YouTube video published
+AI STEP PROMPT:
+
+You are a content repurposing specialist. Turn the following source content into multiple platform-specific formats. Return valid JSON only.
+
+Source content: {{source_content}}
+Author name: {{author_name}}
+Brand voice: {{brand_voice}} (e.g., "direct and educational, never corporate")
+Primary audience: {{audience}}
+
+Return:
+{
+  "twitter_thread": {
+    "hook_tweet": "string (max 240 chars, creates curiosity)",
+    "thread_tweets": ["array of 4-6 tweets, each max 240 chars"],
+    "closing_cta": "string (follow + link)"
+  },
+  "linkedin_post": "string (150-200 words, professional tone, ends with question)",
+  "newsletter_section": {
+    "subject_line": "string",
+    "preview_text": "string (max 90 chars)",
+    "body": "string (200-250 words, conversational)"
+  },
+  "instagram_caption": "string (max 150 words + 5 hashtags)",
+  "seo_meta": {
+    "title": "string (max 60 chars)",
+    "description": "string (max 155 chars)",
+    "focus_keyword": "string"
+  }
+}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+WORKFLOW 3: Lead Qualification Scorer
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TRIGGER: New lead form submission / CRM entry
+AI STEP PROMPT:
+
+You are a B2B lead qualification agent for {{company_name}}, which sells {{product_description}} to {{ideal_customer_profile}}.
+
+Qualify this lead and return JSON only:
+
+Lead data:
+- Name: {{lead_name}}
+- Company: {{company_name_lead}}
+- Title: {{job_title}}
+- Company size: {{company_size}}
+- Message/notes: {{lead_message}}
+- Source: {{lead_source}}
+- Website: {{company_website}}
+
+Return:
+{
+  "score": number (0-100),
+  "tier": "hot|warm|cold|disqualified",
+  "fit_analysis": {
+    "company_fit": "high|medium|low",
+    "persona_fit": "high|medium|low",
+    "intent_signals": ["array of strings"]
+  },
+  "recommended_action": "string (specific next step)",
+  "assign_to": "{{sales_rep_name}} | {{account_executive}} | nurture_sequence | discard",
+  "personalization_note": "string (1-2 sentences for the first outreach email)",
+  "red_flags": ["array of strings or empty"]
+}
+
+SCORING CRITERIA for {{company_name}}:
+- 80-100: ICP match + high intent → immediate outreach
+- 60-79: partial fit → nurture sequence
+- 40-59: low fit → low-priority follow-up
+- <40: disqualify
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+WORKFLOW 4: Support Ticket Router
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TRIGGER: New support ticket created
+AI STEP PROMPT:
+
+You are a support operations agent for {{company_name}}. Analyze this ticket and return JSON only.
+
+Ticket:
+- From: {{customer_name}} ({{customer_plan}} plan, customer since {{customer_since}})
+- Subject: {{ticket_subject}}
+- Message: {{ticket_body}}
+
+Return:
+{
+  "category": "billing|technical|onboarding|feature_request|bug|account|general",
+  "priority": "critical|high|medium|low",
+  "sentiment": "frustrated|neutral|positive",
+  "churn_risk": "high|medium|low",
+  "assign_to": "tier1|tier2|engineering|billing|success_manager",
+  "sla_hours": number,
+  "suggested_response": "string (empathetic, professional, under 100 words — leave [SOLUTION] placeholder where the specific answer goes)",
+  "escalation_flag": true/false,
+  "escalation_reason": "string or null",
+  "knowledge_base_articles": ["array of relevant article slugs to check"]
+}
+
+PRIORITY RULES:
+- critical: service down, data loss, security issue
+- high: feature broken, {{customer_plan}} = enterprise/pro
+- medium: non-blocking issue, workaround exists
+- low: question, feature request, general inquiry
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+WORKFLOW 5: Weekly Business Digest
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TRIGGER: Every Friday at {{digest_time}}
+DATA INPUTS: Pull from your CRM, analytics, and project tools
+
+AI STEP PROMPT:
+
+You are a business analyst preparing {{user_name}}'s weekly digest for {{company_name}}.
+
+Analyze the following data and write a clear, scannable digest. Return as formatted markdown.
+
+DATA PROVIDED:
+- Revenue this week: {{weekly_revenue}} (vs last week: {{last_week_revenue}})
+- New customers: {{new_customers}}
+- Churned customers: {{churned_customers}}
+- Active support tickets: {{open_tickets}} open, {{closed_tickets}} closed
+- Key tasks completed: {{completed_tasks}}
+- Key tasks overdue: {{overdue_tasks}}
+- Top content: {{top_content_title}} ({{top_content_views}} views)
+- Team notes: {{team_notes}}
+
+FORMAT:
+# Weekly Digest — Week of {{week_date}}
+
+## 🎯 Headline number
+[Single most important metric with context]
+
+## 📈 Revenue
+[2-3 bullets with trend analysis]
+
+## 👥 Customers
+[Acquisition + churn summary with signals]
+
+## ⚡ Wins this week
+[3 bullets — be specific, quantify where possible]
+
+## ⚠️ Watch list
+[2-3 items that need attention next week]
+
+## 📌 This week's focus
+[1-2 sentences on what the team should prioritize Monday]
+
+Keep the entire digest under 300 words. No empty positivity — only signal.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+IMPLEMENTATION NOTES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Replace all {{variables}} with your actual values or dynamic fields from your automation tool
+2. For JSON-returning workflows, add a JSON parse step after the AI call
+3. Test with edge cases: empty fields, very long inputs, special characters
+4. Add error handling: if AI returns invalid JSON, route to manual review
+5. Recommended model: Claude 3.5 Haiku for speed/cost, Claude 3.5 Sonnet for quality
+`,
+  },
 ];
 
 export function getTemplate(id: string): Template | undefined {
@@ -1623,4 +2894,112 @@ export function getTemplate(id: string): Template | undefined {
 
 export function formatPrice(cents: number): string {
   return `€${(cents / 100).toFixed(2)}`;
+}
+
+// ── Bundles ────────────────────────────────────────────────────────────────
+
+export interface Bundle {
+  id: string;
+  name: string;
+  tagline: string;
+  description: string;
+  templateIds: string[];
+  price: number; // cents
+  /** Regular price (sum of individual templates) for savings display */
+  regularPrice: number;
+  stripePriceId: string;
+  emoji: string;
+  accentColor: string; // Tailwind color class prefix, e.g. "blue"
+  tags: string[];
+}
+
+export const bundles: Bundle[] = [
+  {
+    id: "bundle-saas-starter",
+    name: "SaaS Starter Kit",
+    tagline: "Lancia il tuo SaaS in un weekend",
+    description:
+      "Tutto ciò che serve per il tuo prodotto SaaS: hero section, pricing, features, dashboard e pricing completo. Risparmia ore di lavoro.",
+    templateIds: ["hero-saas", "pricing-table", "feature-showcase", "saas-dashboard", "saas-pricing-full"],
+    price: 2999,
+    regularPrice: 6595,
+    stripePriceId: "price_BUNDLE_PLACEHOLDER_saas01",
+    emoji: "🚀",
+    accentColor: "blue",
+    tags: ["saas", "startup", "landing", "dashboard"],
+  },
+  {
+    id: "bundle-ai-content",
+    name: "AI Content Creator Pack",
+    tagline: "Contenuti AI pronti per ogni canale",
+    description:
+      "I 5 prompt più usati dai creator: email B2B, descrizioni e-commerce, system prompt AI, LinkedIn e YouTube. Un arsenale completo.",
+    templateIds: ["cold-email-b2b", "product-description-ecom", "ai-assistant-system-prompt", "linkedin-prompt-pack", "youtube-script-pack"],
+    price: 2299,
+    regularPrice: 5395,
+    stripePriceId: "price_BUNDLE_PLACEHOLDER_aicontent",
+    emoji: "✍️",
+    accentColor: "violet",
+    tags: ["content", "ai", "copywriting", "linkedin", "youtube"],
+  },
+  {
+    id: "bundle-freelancer-kit",
+    name: "Freelancer Essential Kit",
+    tagline: "Il kit completo per freelancer seri",
+    description:
+      "CV digitale, profilo tech, fattura professionale e landing newsletter. Presenta te stesso al meglio da subito.",
+    templateIds: ["digital-resume", "freelance-tech-profile", "invoice-html", "newsletter-landing"],
+    price: 1999,
+    regularPrice: 3195,
+    stripePriceId: "price_BUNDLE_PLACEHOLDER_freelancer",
+    emoji: "💼",
+    accentColor: "emerald",
+    tags: ["freelance", "portfolio", "invoice", "personal brand"],
+  },
+  {
+    id: "bundle-claude-power",
+    name: "Claude Power Bundle",
+    tagline: "Trasforma Claude nel tuo collaboratore ideale",
+    description:
+      "6 Claude Project system prompts + AI workflow automation + LinkedIn content pack. Il setup definitivo per lavorare con Claude.",
+    templateIds: ["claude-projects-pack", "ai-workflow-pack", "ai-assistant-system-prompt", "linkedin-prompt-pack"],
+    price: 2999,
+    regularPrice: 5195,
+    stripePriceId: "price_BUNDLE_PLACEHOLDER_claudepower",
+    emoji: "🤖",
+    accentColor: "purple",
+    tags: ["claude", "ai", "automation", "workflow", "productivity"],
+  },
+  {
+    id: "bundle-local-business",
+    name: "Local Business Web Pack",
+    tagline: "Il sito perfetto per la tua attività locale",
+    description:
+      "Menu ristorante, landing café, booking hotel e pagina prodotto e-commerce. Dai al tuo business locale una presenza online professionale.",
+    templateIds: ["restaurant-menu", "coffee-shop-landing", "hotel-booking", "ecommerce-product-page"],
+    price: 1999,
+    regularPrice: 4095,
+    stripePriceId: "price_BUNDLE_PLACEHOLDER_localbiz",
+    emoji: "🏪",
+    accentColor: "amber",
+    tags: ["local business", "restaurant", "hospitality", "ecommerce"],
+  },
+  {
+    id: "bundle-productivity",
+    name: "Focus & Productivity Bundle",
+    tagline: "Smetti di procrastinare, inizia a produrre",
+    description:
+      "ADHD focus tracker, AI workflow automation e YouTube script builder. Strumenti concreti per chi vuole fare di più in meno tempo.",
+    templateIds: ["adhd-focus-tracker", "ai-workflow-pack", "youtube-script-pack"],
+    price: 2499,
+    regularPrice: 3997,
+    stripePriceId: "price_BUNDLE_PLACEHOLDER_productivity",
+    emoji: "⚡",
+    accentColor: "orange",
+    tags: ["productivity", "focus", "adhd", "automation"],
+  },
+];
+
+export function getBundle(id: string): Bundle | undefined {
+  return bundles.find((b) => b.id === id);
 }
