@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo, useCallback, useRef } from "react";
+import Image from "next/image";
 import { templates, Template } from "@/lib/templates";
 import TemplateCard from "@/components/TemplateCard";
 import StudioAccessButton from "@/components/StudioAccessButton";
@@ -30,6 +31,22 @@ const SECTIONS: {
   { id: "notion-workspace", emoji: "📓", gradientFrom: "#1c1c1c", gradientTo: "#0f0f0f", ids: ["notion-project-hub", "notion-freelancer-crm", "notion-content-calendar", "notion-finance-tracker", "notion-second-brain", "notion-job-tracker", "notion-weekly-review", "notion-client-portal"] },
 ];
 
+// ── Category cover images (Unsplash) ─────────────────────────────────────────
+
+const CATEGORY_IMAGES: Record<string, string> = {
+  professionals:     "https://images.unsplash.com/photo-KKJOQg5grhQ?w=600&h=280&fit=crop&q=80&auto=format",
+  "lifestyle-finance":"https://images.unsplash.com/photo-vNecZJJQRLE?w=600&h=280&fit=crop&q=80&auto=format",
+  business:          "https://images.unsplash.com/photo-WUXaLGUkNs8?w=600&h=280&fit=crop&q=80&auto=format",
+  startup:           "https://images.unsplash.com/photo-QLvGADM5Sko?w=600&h=280&fit=crop&q=80&auto=format",
+  creative:          "https://images.unsplash.com/photo-FPOU7Dxi7pg?w=600&h=280&fit=crop&q=80&auto=format",
+  "copywriting-ai":  "https://images.unsplash.com/photo-AvIC3xvZCAI?w=600&h=280&fit=crop&q=80&auto=format",
+  "ai-productivity": "https://images.unsplash.com/photo-l-c0Lnf2ySA?w=600&h=280&fit=crop&q=80&auto=format",
+  hospitality:       "https://images.unsplash.com/photo-Q73XXHcIsa8?w=600&h=280&fit=crop&q=80&auto=format",
+  "digital-product": "https://images.unsplash.com/photo-weRQAu9TA-A?w=600&h=280&fit=crop&q=80&auto=format",
+  "personal-brand":  "https://images.unsplash.com/photo-H3Tuh0hwYQk?w=600&h=280&fit=crop&q=80&auto=format",
+  "notion-workspace":"https://images.unsplash.com/photo-CXLXekF-6EU?w=600&h=280&fit=crop&q=80&auto=format",
+};
+
 const byId = Object.fromEntries(templates.map((tmpl) => [tmpl.id, tmpl]));
 
 // ── Utilities ────────────────────────────────────────────────────────────────
@@ -58,83 +75,42 @@ function SkeletonCard() {
 
 // ── Category card thumbnail ───────────────────────────────────────────────────
 
-function CategoryThumbnail({
-  section,
-  firstTemplate,
-}: {
-  section: (typeof SECTIONS)[number];
-  firstTemplate: Template | undefined;
-}) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
-      { rootMargin: "300px" }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
-  const showIframe = visible && firstTemplate && firstTemplate.category === "ui";
+function CategoryThumbnail({ section }: { section: (typeof SECTIONS)[number] }) {
+  const imgSrc = CATEGORY_IMAGES[section.id];
 
   return (
     <div
-      ref={containerRef}
       className="relative h-36 overflow-hidden"
-      style={{ background: `linear-gradient(135deg, ${section.gradientFrom}, ${section.gradientTo})` }}
+      style={!imgSrc ? { background: `linear-gradient(135deg, ${section.gradientFrom}, ${section.gradientTo})` } : undefined}
     >
-      {/* Template iframe preview */}
-      {showIframe && (
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{ transform: "scale(0.36)", transformOrigin: "top left", width: "278%", height: "278%" }}
-        >
-          <iframe
-            src={`/api/preview/${firstTemplate.id}`}
-            title={firstTemplate.name}
-            sandbox="allow-scripts"
-            className="w-full border-0"
-            style={{ height: "400px" }}
+      {imgSrc ? (
+        <Image
+          src={imgSrc}
+          alt={section.id}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          priority={false}
+        />
+      ) : (
+        <>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="select-none" style={{ fontSize: "2.8rem", filter: "drop-shadow(0 2px 12px rgba(0,0,0,0.5))", opacity: 0.85 }}>
+              {section.emoji}
+            </span>
+          </div>
+          <div
+            className="absolute inset-0 pointer-events-none opacity-[0.05]"
+            style={{ backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)", backgroundSize: "22px 22px" }}
           />
-        </div>
+        </>
       )}
 
-      {/* Gradient overlay */}
+      {/* Dark gradient overlay at the bottom for text readability */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{
-          background: showIframe
-            ? "linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.45) 65%, rgba(0,0,0,0.78) 100%)"
-            : "linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 60%)",
-        }}
+        style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.42) 70%, rgba(0,0,0,0.72) 100%)" }}
       />
-
-      {/* Emoji fallback */}
-      {!showIframe && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span
-            className="select-none"
-            style={{ fontSize: "2.8rem", filter: "drop-shadow(0 2px 12px rgba(0,0,0,0.5))", opacity: 0.85 }}
-          >
-            {section.emoji}
-          </span>
-        </div>
-      )}
-
-      {/* Dot-grid pattern (non-iframe only) */}
-      {!showIframe && (
-        <div
-          className="absolute inset-0 pointer-events-none opacity-[0.05]"
-          style={{
-            backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)",
-            backgroundSize: "22px 22px",
-          }}
-        />
-      )}
     </div>
   );
 }
@@ -159,9 +135,6 @@ function CategoryCard({
   const cardRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<number>(0);
   const sectionMeta = t[lang].sections[section.id as keyof typeof t[typeof lang]["sections"]];
-
-  // Pick the most downloaded template as the thumbnail preview
-  const featured = [...sectionTemplates].sort((a, b) => b.downloads - a.downloads)[0];
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     cancelAnimationFrame(frameRef.current);
@@ -199,7 +172,7 @@ function CategoryCard({
         <div className="absolute top-0 left-[8%] right-[8%] h-px pointer-events-none z-10" style={{ background: "var(--glass-top-edge)" }} />
 
         {/* Thumbnail */}
-        <CategoryThumbnail section={section} firstTemplate={featured} />
+        <CategoryThumbnail section={section} />
 
         {/* Hover CTA overlay — sits over the thumbnail */}
         <div className="absolute top-0 left-0 right-0 h-36 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
