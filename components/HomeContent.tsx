@@ -12,6 +12,42 @@ import EmailCapture from "@/components/EmailCapture";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 
+// ── Scroll progress bar ───────────────────────────────────────────────────────
+function ScrollProgressBar() {
+  const [width, setWidth] = useState(0);
+  useEffect(() => {
+    function update() {
+      const el = document.documentElement;
+      const total = el.scrollHeight - el.clientHeight;
+      setWidth(total > 0 ? (el.scrollTop / total) * 100 : 0);
+    }
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
+  return (
+    <div className="fixed top-0 left-0 right-0 h-[2px] z-[100] pointer-events-none">
+      <div style={{ width: `${width}%`, height: "100%", background: "linear-gradient(to right, var(--accent), #C77DFF, #FF6B6B)", transition: "width 0.1s linear" }} />
+    </div>
+  );
+}
+
+// ── Count-up hook ─────────────────────────────────────────────────────────────
+function useCountUp(target: number, duration = 900) {
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    if (!target) return;
+    const t0 = performance.now();
+    function step(now: number) {
+      const p = Math.min((now - t0) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setValue(Math.round(eased * target));
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }, [target, duration]);
+  return value;
+}
+
 // ── Dropdown nav ────────────────────────────────────────────────────────────
 
 const CATEGORIES = [
@@ -308,6 +344,8 @@ export default function HomeContent() {
   const [mobileExpandTemplates, setMobileExpandTemplates] = useState(false);
   const [mobileExpandBundles, setMobileExpandBundles] = useState(false);
 
+  const countedTemplates = useCountUp(animatedTemplates);
+
   // Lock body scroll when mobile menu open
   useEffect(() => {
     document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
@@ -348,7 +386,8 @@ export default function HomeContent() {
   }, [router, lang]);
 
   return (
-    <div className="min-h-screen bg-page relative overflow-x-hidden">
+    <div className="min-h-screen bg-page relative overflow-x-hidden anim-page-enter">
+      <ScrollProgressBar />
 
       {/* ── Hero ambient glow ── */}
       <div
@@ -361,8 +400,8 @@ export default function HomeContent() {
           width: "700px",
           height: "700px",
           background: "radial-gradient(circle, var(--accent-bg) 0%, transparent 68%)",
-          opacity: 0.5,
           zIndex: 0,
+          animation: "glow-pulse 5s ease-in-out infinite",
         }}
       />
 
@@ -588,6 +627,30 @@ export default function HomeContent() {
       <section className="relative z-10 px-4 sm:px-6 pt-12 pb-0 overflow-hidden">
         <div className="max-w-5xl mx-auto">
 
+          {/* Floating particles */}
+          <div aria-hidden className="absolute inset-0 overflow-hidden pointer-events-none select-none">
+            {([
+              { top: "18%",  left: "6%",  size: 5, anim: "float-a 6s ease-in-out infinite",   delay: "0s" },
+              { top: "42%",  left: "93%", size: 3, anim: "float-b 8s ease-in-out infinite",   delay: "1.2s" },
+              { top: "12%",  left: "78%", size: 4, anim: "float-c 7s ease-in-out infinite",   delay: "2.5s" },
+              { top: "68%",  left: "12%", size: 6, anim: "float-a 9s ease-in-out infinite",   delay: "0.8s" },
+              { top: "58%",  left: "88%", size: 3, anim: "float-b 6.5s ease-in-out infinite", delay: "3.5s" },
+            ] as const).map((p, i) => (
+              <span
+                key={i}
+                style={{
+                  position: "absolute",
+                  top: p.top, left: p.left,
+                  width: p.size, height: p.size,
+                  borderRadius: "50%",
+                  background: "var(--accent)",
+                  animation: p.anim,
+                  animationDelay: p.delay,
+                }}
+              />
+            ))}
+          </div>
+
           {/* ── Top row: badge + tagline ── */}
           <div className="flex flex-col items-center text-center mb-10 pt-8 sm:pt-12">
 
@@ -605,14 +668,14 @@ export default function HomeContent() {
               {lang === "it" ? (
                 <>
                   Template UI pronti.<br />
-                  <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(135deg, var(--accent) 0%, #C77DFF 50%, #FF6B6B 100%)" }}>
+                  <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(135deg, var(--accent) 0%, #C77DFF 50%, #FF6B6B 100%)", backgroundSize: "200% 100%", animation: "gradient-shift 5s ease infinite" }}>
                     Personalizzati con AI.
                   </span>
                 </>
               ) : (
                 <>
                   Premium templates.<br />
-                  <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(135deg, var(--accent) 0%, #C77DFF 50%, #FF6B6B 100%)" }}>
+                  <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(135deg, var(--accent) 0%, #C77DFF 50%, #FF6B6B 100%)", backgroundSize: "200% 100%", animation: "gradient-shift 5s ease infinite" }}>
                     Customized with AI.
                   </span>
                 </>
@@ -632,13 +695,14 @@ export default function HomeContent() {
               <a
                 href="#browse"
                 onClick={(e) => { e.preventDefault(); document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" }); }}
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl font-bold text-white text-[15px] active:scale-[0.97] transition-all duration-200 shadow-lg"
+                className="relative overflow-hidden inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl font-bold text-white text-[15px] active:scale-[0.97] transition-all duration-200 shadow-lg"
                 style={{ background: "linear-gradient(135deg, var(--accent), #9B59FF)", boxShadow: "0 8px 32px rgba(91,76,245,0.35)" }}
               >
                 {lang === "it" ? "Sfoglia i template" : "Browse templates"}
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="opacity-80">
                   <path d="M2 7h10M8 3l4 4-4 4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
+                <span className="shimmer-span" aria-hidden />
               </a>
 
               {/* AI Studio CTA */}
@@ -662,17 +726,17 @@ export default function HomeContent() {
             {/* Trust badges */}
             <div className="anim-fade-up delay-300 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 px-2 text-[12px] text-muted">
               <span className="flex items-center gap-1.5">
-                <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5l3 3 6-6" stroke="#30D158" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                {animatedTemplates} {lang === "it" ? "template pronti" : "templates ready"}
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5l3 3 6-6" className="check-path" stroke="#30D158" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                {countedTemplates} {lang === "it" ? "template pronti" : "templates ready"}
               </span>
               <span className="text-zinc-300 dark:text-zinc-700">·</span>
               <span className="flex items-center gap-1.5">
-                <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5l3 3 6-6" stroke="#30D158" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5l3 3 6-6" className="check-path check-path-delay-1" stroke="#30D158" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 {lang === "it" ? "Pagamento sicuro Stripe" : "Secure Stripe payment"}
               </span>
               <span className="text-zinc-300 dark:text-zinc-700">·</span>
               <span className="flex items-center gap-1.5">
-                <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5l3 3 6-6" stroke="#30D158" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5l3 3 6-6" className="check-path check-path-delay-2" stroke="#30D158" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 {lang === "it" ? "Accesso immediato" : "Instant access"}
               </span>
             </div>

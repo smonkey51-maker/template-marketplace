@@ -162,7 +162,7 @@ function CategoryCard({
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      onClick={onClick}
+      onClick={(e) => { addRipple(e); onClick(); }}
       className="group relative rounded-2xl h-full anim-fade-up cursor-pointer"
       style={{ willChange: "transform", animationDelay: `${index * 45}ms` }}
     >
@@ -216,6 +216,18 @@ function CategoryCard({
   );
 }
 
+// ── Ripple helper ─────────────────────────────────────────────────────────────
+function addRipple(e: React.MouseEvent<HTMLElement>) {
+  const el = e.currentTarget;
+  const rect = el.getBoundingClientRect();
+  const dot = document.createElement("span");
+  dot.className = "ripple-dot";
+  dot.style.left = `${e.clientX - rect.left}px`;
+  dot.style.top = `${e.clientY - rect.top}px`;
+  el.appendChild(dot);
+  dot.addEventListener("animationend", () => dot.remove(), { once: true });
+}
+
 // ── Main ──────────────────────────────────────────────────────────────────────
 
 export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: string }) {
@@ -227,6 +239,7 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
   const [visibleCount, setVisibleCount] = useState(12);
   const [animKey, setAnimKey] = useState(0);
   const gridTopRef = useRef<HTMLDivElement>(null);
+  const drillDirectionRef = useRef<"in" | "back">("in");
 
   const handleQuickView = useCallback((id: string) => setQuickViewId(id), []);
 
@@ -282,6 +295,7 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
     : null;
 
   const handleOpenCategory = (id: string) => {
+    drillDirectionRef.current = "in";
     setOpenCategoryId(id);
     setVisibleCount(12);
     setAnimKey((k) => k + 1);
@@ -292,6 +306,7 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
   };
 
   const handleBack = () => {
+    drillDirectionRef.current = "back";
     setOpenCategoryId(null);
     setAnimKey((k) => k + 1);
     setTimeout(() => {
@@ -357,7 +372,7 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
           VIEW 2 — Category templates (drilled in)
       ══════════════════════════════════════════════════ */}
       {!isSearching && openCategoryId && openSection && openSectionMeta && (
-        <div>
+        <div key={`drill-${animKey}`} className={drillDirectionRef.current === "in" ? "anim-drill-in" : "anim-drill-back"}>
           {/* Back header */}
           <div className="flex items-center gap-3 mb-7">
             <button
@@ -396,7 +411,7 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
           VIEW 3 — Category cards grid (default)
       ══════════════════════════════════════════════════ */}
       {!isSearching && !openCategoryId && (
-        <div>
+        <div key={`grid-${animKey}`} className={drillDirectionRef.current === "back" ? "anim-drill-back" : ""}>
           {/* Section label */}
           <div className="flex items-center gap-4 mb-6 px-1">
             <div className="flex-1 h-px bg-zinc-200 dark:bg-zinc-800" />

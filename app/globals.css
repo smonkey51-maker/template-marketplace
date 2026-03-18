@@ -282,3 +282,115 @@ html.dark :focus-visible {
   from { transform: translateX(-50%); }
   to   { transform: translateX(0); }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   ANIMATION ADDITIONS
+   ═══════════════════════════════════════════════════════════ */
+
+/* CTA shimmer sweep */
+@keyframes shimmer-sweep {
+  0%   { transform: translateX(-150%) skewX(-12deg); }
+  100% { transform: translateX(400%) skewX(-12deg); }
+}
+
+/* Ambient glow pulse */
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.48; transform: translateX(-50%) scale(1); }
+  50%       { opacity: 0.70; transform: translateX(-50%) scale(1.1); }
+}
+
+/* Floating particles */
+@keyframes float-a {
+  0%, 100% { transform: translate(0, 0);          opacity: 0.10; }
+  50%       { transform: translate(10px, -22px);   opacity: 0.22; }
+}
+@keyframes float-b {
+  0%, 100% { transform: translate(0, 0);           opacity: 0.07; }
+  45%       { transform: translate(-8px, -16px);   opacity: 0.16; }
+}
+@keyframes float-c {
+  0%, 100% { transform: translate(0, 0)    scale(1);    opacity: 0.09; }
+  60%       { transform: translate(6px, -28px) scale(1.15); opacity: 0.19; }
+}
+
+/* SVG check draw */
+@keyframes check-draw {
+  from { stroke-dashoffset: 20; opacity: 0.2; }
+  to   { stroke-dashoffset: 0;  opacity: 1;   }
+}
+
+/* Ripple */
+@keyframes ripple-expand {
+  from { transform: scale(0) translate(-50%, -50%); opacity: 0.30; }
+  to   { transform: scale(9) translate(-50%, -50%); opacity: 0; }
+}
+
+/* Drill-in from right */
+@keyframes drill-in {
+  from { opacity: 0; transform: translateX(18px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Drill-back from left */
+@keyframes drill-back {
+  from { opacity: 0; transform: translateX(-18px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Page entry */
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@layer utilities {
+  .anim-drill-in   { animation: drill-in  0.30s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .anim-drill-back { animation: drill-back 0.30s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .anim-page-enter { animation: page-enter 0.40s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+  /* Ripple dot (appended via JS) */
+  .ripple-dot {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.28);
+    pointer-events: none;
+    animation: ripple-expand 0.55s ease-out forwards;
+    transform-origin: 0 0;
+    z-index: 20;
+  }
+
+  /* CTA shimmer child span */
+  .shimmer-span {
+    position: absolute;
+    top: 0; left: 0;
+    width: 28%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+    animation: shimmer-sweep 3.8s ease-in-out infinite;
+    animation-delay: 2s;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  /* Animated SVG check path */
+  .check-path {
+    stroke-dasharray: 20;
+    stroke-dashoffset: 20;
+    animation: check-draw 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  .check-path-delay-1 { animation-delay: 0.15s; }
+  .check-path-delay-2 { animation-delay: 0.30s; }
+}
+
+/* Also disable new animations under reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .anim-drill-in, .anim-drill-back, .anim-page-enter,
+  .shimmer-span, .check-path {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+}
