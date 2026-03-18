@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { templates } from "@/lib/templates";
+import { templates, bundles } from "@/lib/templates";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://templatelab.io";
 const LAST_UPDATED = new Date("2026-03-18");
@@ -12,11 +12,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: tmpl.editorsPick ? 0.9 : 0.8,
   }));
 
+  const bundleEntries: MetadataRoute.Sitemap = bundles.map((b) => ({
+    url: `${BASE_URL}/bundle/${b.id}`,
+    lastModified: LAST_UPDATED,
+    changeFrequency: "monthly",
+    priority: 0.85,
+  }));
+
   return [
     { url: BASE_URL, lastModified: LAST_UPDATED, changeFrequency: "weekly", priority: 1.0 },
     { url: `${BASE_URL}/guide`, lastModified: LAST_UPDATED, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE_URL}/privacy`, lastModified: new Date("2026-01-01"), changeFrequency: "yearly", priority: 0.3 },
     { url: `${BASE_URL}/terms`, lastModified: new Date("2026-01-01"), changeFrequency: "yearly", priority: 0.3 },
+    ...bundleEntries,
     ...templateEntries,
   ];
 }

@@ -2904,6 +2904,8 @@ export interface Bundle {
   tagline: string;
   description: string;
   templateIds: string[];
+  /** 3 short USP bullet points shown on the card and detail page */
+  highlights: string[];
   price: number; // cents
   /** Regular price (sum of individual templates) for savings display */
   regularPrice: number;
@@ -2921,6 +2923,11 @@ export const bundles: Bundle[] = [
     description:
       "Tutto ciò che serve per il tuo prodotto SaaS: hero section, pricing, features, dashboard e pricing completo. Risparmia ore di lavoro.",
     templateIds: ["hero-saas", "pricing-table", "feature-showcase", "saas-dashboard", "saas-pricing-full"],
+    highlights: [
+      "5 template UI pronti per produzione",
+      "Da zero a SaaS in un weekend",
+      "Risparmia €36 rispetto all'acquisto singolo",
+    ],
     price: 2999,
     regularPrice: 6595,
     stripePriceId: "price_1TCExzBoWNgrJbiyVMKwMclb",
@@ -2935,6 +2942,11 @@ export const bundles: Bundle[] = [
     description:
       "I 5 prompt più usati dai creator: email B2B, descrizioni e-commerce, system prompt AI, LinkedIn e YouTube. Un arsenale completo.",
     templateIds: ["cold-email-b2b", "product-description-ecom", "ai-assistant-system-prompt", "linkedin-prompt-pack", "youtube-script-pack"],
+    highlights: [
+      "5 prompt ottimizzati per Claude e ChatGPT",
+      "Copertura completa: email, social, e-commerce",
+      "Risparmia €31 rispetto all'acquisto singolo",
+    ],
     price: 2299,
     regularPrice: 5395,
     stripePriceId: "price_1TCEy0BoWNgrJbiyV3JvPKLu",
@@ -2949,6 +2961,11 @@ export const bundles: Bundle[] = [
     description:
       "CV digitale, profilo tech, fattura professionale e landing newsletter. Presenta te stesso al meglio da subito.",
     templateIds: ["digital-resume", "freelance-tech-profile", "invoice-html", "newsletter-landing"],
+    highlights: [
+      "Presenza online professionale in un giorno",
+      "CV, portfolio, fattura e newsletter inclusi",
+      "Risparmia €12 rispetto all'acquisto singolo",
+    ],
     price: 1999,
     regularPrice: 3195,
     stripePriceId: "price_1TCEy1BoWNgrJbiyl3MIkjJA",
@@ -2963,6 +2980,11 @@ export const bundles: Bundle[] = [
     description:
       "6 Claude Project system prompts + AI workflow automation + LinkedIn content pack. Il setup definitivo per lavorare con Claude.",
     templateIds: ["claude-projects-pack", "ai-workflow-pack", "ai-assistant-system-prompt", "linkedin-prompt-pack"],
+    highlights: [
+      "Il setup definitivo per lavorare con Claude",
+      "6 system prompt + workflow + content LinkedIn",
+      "Risparmia €22 rispetto all'acquisto singolo",
+    ],
     price: 2999,
     regularPrice: 5195,
     stripePriceId: "price_1TCEy1BoWNgrJbiyKvC8QEdv",
@@ -2977,6 +2999,11 @@ export const bundles: Bundle[] = [
     description:
       "Menu ristorante, landing café, booking hotel e pagina prodotto e-commerce. Dai al tuo business locale una presenza online professionale.",
     templateIds: ["restaurant-menu", "coffee-shop-landing", "hotel-booking", "ecommerce-product-page"],
+    highlights: [
+      "Tutti i touchpoint digitali in un colpo solo",
+      "Ristorante, café, hotel e e-commerce coperti",
+      "Risparmia €21 rispetto all'acquisto singolo",
+    ],
     price: 1999,
     regularPrice: 4095,
     stripePriceId: "price_1TCEy2BoWNgrJbiyNuGtejM7",
@@ -2991,6 +3018,11 @@ export const bundles: Bundle[] = [
     description:
       "ADHD focus tracker, AI workflow automation e YouTube script builder. Strumenti concreti per chi vuole fare di più in meno tempo.",
     templateIds: ["adhd-focus-tracker", "ai-workflow-pack", "youtube-script-pack"],
+    highlights: [
+      "Strumenti concreti per chi produce davvero",
+      "ADHD tracker, AI workflow e YouTube script",
+      "Risparmia €15 rispetto all'acquisto singolo",
+    ],
     price: 2499,
     regularPrice: 3997,
     stripePriceId: "price_1TCEy3BoWNgrJbiyfOfCLSnm",

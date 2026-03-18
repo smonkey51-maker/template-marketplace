@@ -223,32 +223,37 @@ export default function HomeContent() {
       {/* ── Bundles section ── */}
       <div id="bundles" className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 pb-16">
         {/* Section header */}
-        <div className="flex items-center gap-4 mb-8">
-          <div className="flex-1 h-px bg-theme" />
-          <div className="text-center shrink-0">
-            <span className="inline-flex items-center gap-2 text-[11px] font-black text-muted uppercase tracking-[0.18em]">
-              <span className="text-[#FF9F0A]">🎁</span>
-              {lang === "it" ? "Bundle risparmio" : "Bundle deals"}
-            </span>
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold
+            glass-subtle border border-[#FF9F0A]/20 text-[#FF9F0A] mb-4">
+            <span>🎁</span>
+            {lang === "it" ? "Offerte esclusive · Risparmio fino al 55%" : "Exclusive deals · Save up to 55%"}
           </div>
-          <div className="flex-1 h-px bg-theme" />
+          <h2 className="text-[1.6rem] sm:text-[2rem] font-black text-theme leading-[1.1] tracking-tight mb-3">
+            {lang === "it" ? "Prendi tutto ciò che ti serve." : "Get everything you need."}<br />
+            <span className="bg-clip-text text-transparent"
+              style={{ backgroundImage: "linear-gradient(135deg, #FF9F0A 0%, #FF6B00 100%)" }}>
+              {lang === "it" ? "Paga molto meno." : "Pay a lot less."}
+            </span>
+          </h2>
+          <p className="text-[14px] text-muted max-w-md mx-auto leading-relaxed">
+            {lang === "it"
+              ? "Ogni bundle è studiato per un obiettivo preciso. Risparmia fino a €36 rispetto all'acquisto singolo."
+              : "Each bundle is designed for a specific goal. Save up to €36 compared to buying individually."}
+          </p>
         </div>
-        <p className="text-center text-[13px] text-muted mb-8 max-w-md mx-auto">
-          {lang === "it"
-            ? "Acquista più template insieme e risparmia fino al 55%. Ogni bundle è pensato per un obiettivo specifico."
-            : "Buy template packs and save up to 55%. Each bundle targets a specific goal."}
-        </p>
         {bundleError && (
           <p className="text-center text-[13px] text-[#FF453A] mb-4 font-medium">{bundleError}</p>
         )}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {bundles.map((bundle) => (
-            <BundleCard
-              key={bundle.id}
-              bundle={bundle}
-              purchasedIds={purchasedIds}
-              onBuy={handleBundleBuy}
-            />
+          {bundles.map((bundle, i) => (
+            <div key={bundle.id} className="anim-fade-up" style={{ animationDelay: `${i * 80}ms` }}>
+              <BundleCard
+                bundle={bundle}
+                purchasedIds={purchasedIds}
+                onBuy={handleBundleBuy}
+              />
+            </div>
           ))}
         </div>
       </div>
