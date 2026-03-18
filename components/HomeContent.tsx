@@ -3,11 +3,11 @@
 import Link from "next/link";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { templates, bundles, formatPrice } from "@/lib/templates";
+import { templates, bundles, formatPrice, Template } from "@/lib/templates";
 import TemplateGrid from "@/components/TemplateGrid";
 import NavButtons from "@/components/NavButtons";
 import { useLang } from "@/components/LanguageProvider";
-import { t } from "@/lib/i18n";
+import { t, templateTranslations } from "@/lib/i18n";
 import EmailCapture from "@/components/EmailCapture";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -108,15 +108,7 @@ function TemplatesDropdown({ lang }: { lang: "it" | "en" }) {
   );
 }
 
-function BundlesDropdown({
-  lang,
-  purchasedIds,
-  onBuy,
-}: {
-  lang: "it" | "en";
-  purchasedIds: string[];
-  onBuy: (bundleId: string) => void;
-}) {
+function BundlesDropdown({ lang, purchasedIds }: { lang: "it" | "en"; purchasedIds: string[] }) {
   const accentMap: Record<string, string> = {
     blue: "bg-blue-500/10 text-blue-500",
     violet: "bg-violet-500/10 text-violet-500",
@@ -138,10 +130,10 @@ function BundlesDropdown({
               const ownedCount = bundle.templateIds.filter((id) => purchasedIds.includes(id)).length;
               const fullyOwned = ownedCount === bundle.templateIds.length;
               return (
-                <div
+                <Link
                   key={bundle.id}
+                  href={`/bundle/${bundle.id}`}
                   className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-zinc-50 dark:hover:bg-zinc-800/60 transition-colors group cursor-pointer"
-                  onClick={() => !fullyOwned && onBuy(bundle.id)}
                 >
                   <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-base flex-shrink-0 ${accentMap[bundle.accentColor] ?? "bg-zinc-100 dark:bg-zinc-800 text-zinc-500"}`}>
                     {bundle.emoji}
@@ -164,7 +156,7 @@ function BundlesDropdown({
                       </>
                     )}
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>
@@ -225,55 +217,68 @@ function NavDropdown({
   );
 }
 
-// ── Hero search ──────────────────────────────────────────────────────────────
-function HeroSearch({
-  lang,
-  query,
-  setQuery,
-}: {
-  lang: "it" | "en";
-  query: string;
-  setQuery: (q: string) => void;
-}) {
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" });
-  };
+// ── Marquee template cards ────────────────────────────────────────────────────
 
+// Carefully picked template IDs for the two marquee rows
+const ROW1_IDS = [
+  "hero-saas", "restaurant-menu", "personal-finance-dashboard", "saas-dashboard",
+  "digital-resume", "cold-email-b2b", "hotel-booking", "creative-agency-portfolio",
+  "ecommerce-product-page", "saas-pricing-full",
+];
+const ROW2_IDS = [
+  "pricing-table", "ai-assistant-system-prompt", "link-in-bio", "revenue-analytics",
+  "coffee-shop-landing", "mobile-app-showcase", "airbnb-property-listing",
+  "linkedin-prompt-pack", "invoice-html", "budget-tracker",
+];
+
+const tmplById = Object.fromEntries(templates.map((t) => [t.id, t]));
+const marqueeTemplates = ROW1_IDS.map((id) => tmplById[id]).filter(Boolean);
+const marqueeTemplates2 = ROW2_IDS.map((id) => tmplById[id]).filter(Boolean);
+
+// Category gradient for marquee cards
+const CARD_GRADIENTS: Record<string, string> = {
+  "hero-saas":                 "from-indigo-900 to-purple-900",
+  "restaurant-menu":           "from-red-900 to-orange-900",
+  "personal-finance-dashboard":"from-emerald-900 to-teal-900",
+  "saas-dashboard":            "from-slate-800 to-zinc-900",
+  "digital-resume":            "from-blue-900 to-indigo-900",
+  "cold-email-b2b":            "from-zinc-800 to-slate-900",
+  "hotel-booking":             "from-amber-900 to-yellow-900",
+  "creative-agency-portfolio": "from-pink-900 to-rose-900",
+  "ecommerce-product-page":    "from-stone-800 to-neutral-900",
+  "saas-pricing-full":         "from-violet-900 to-purple-900",
+  "pricing-table":             "from-sky-900 to-blue-900",
+  "ai-assistant-system-prompt":"from-zinc-900 to-slate-800",
+  "link-in-bio":               "from-fuchsia-900 to-pink-900",
+  "revenue-analytics":         "from-green-900 to-emerald-900",
+  "coffee-shop-landing":       "from-orange-900 to-amber-900",
+  "mobile-app-showcase":       "from-cyan-900 to-sky-900",
+  "airbnb-property-listing":   "from-teal-900 to-cyan-900",
+  "linkedin-prompt-pack":      "from-blue-800 to-indigo-900",
+  "invoice-html":              "from-gray-800 to-zinc-900",
+  "budget-tracker":            "from-lime-900 to-green-900",
+};
+
+function MarqueeCard({ tmpl, lang }: { tmpl: Template; lang: "it" | "en" }) {
+  const name = lang === "it" ? (templateTranslations[tmpl.id]?.name ?? tmpl.name) : tmpl.name;
+  const grad = CARD_GRADIENTS[tmpl.id] ?? "from-zinc-800 to-zinc-900";
   return (
-    <form onSubmit={handleSubmit} className="relative max-w-lg mx-auto">
-      <svg
-        className="absolute left-4 top-1/2 -translate-y-1/2 text-muted pointer-events-none"
-        width="16" height="16" viewBox="0 0 20 20" fill="none"
-      >
-        <circle cx="8.5" cy="8.5" r="5.75" stroke="currentColor" strokeWidth="1.7"/>
-        <path d="M13 13l4 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/>
-      </svg>
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder={lang === "it" ? "Cerca tra tutti i template…" : "Search all templates…"}
-        className="w-full bg-white/80 dark:bg-zinc-900/80 backdrop-blur border border-zinc-200 dark:border-zinc-700 rounded-2xl pl-11 pr-32 py-3.5 text-[15px] text-zinc-900 dark:text-white placeholder:text-muted outline-none focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/10 transition-all duration-200 shadow-sm"
-      />
-      {query ? (
-        <button
-          type="button"
-          onClick={() => setQuery("")}
-          className="absolute right-2 top-1/2 -translate-y-1/2 px-3 py-1.5 rounded-xl text-[13px] font-semibold text-muted hover:text-theme transition-colors duration-200"
-        >
-          ✕
-        </button>
-      ) : (
-        <button
-          type="submit"
-          className="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-2 rounded-xl text-[13px] font-bold text-white transition-all duration-200 active:scale-[0.97]"
-          style={{ backgroundColor: "var(--accent)" }}
-        >
-          {lang === "it" ? "Cerca" : "Search"}
-        </button>
-      )}
-    </form>
+    <Link
+      href={`/preview/${tmpl.id}`}
+      className={`flex-shrink-0 w-[200px] h-[120px] rounded-xl bg-gradient-to-br ${grad} overflow-hidden relative group cursor-pointer`}
+      style={{ boxShadow: "0 2px 12px rgba(0,0,0,0.3)" }}
+      tabIndex={-1}
+    >
+      {/* Subtle pattern */}
+      <div className="absolute inset-0 opacity-[0.07]" style={{ backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)", backgroundSize: "18px 18px" }} />
+      {/* Label */}
+      <div className="absolute bottom-0 left-0 right-0 p-2.5" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.7), transparent)" }}>
+        <p className="text-white text-[11px] font-semibold leading-tight truncate">{name}</p>
+        <p className="text-white/50 text-[10px]">{formatPrice(tmpl.price)}</p>
+      </div>
+      {/* Hover overlay */}
+      <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+    </Link>
   );
 }
 
@@ -349,7 +354,7 @@ export default function HomeContent() {
               <TemplatesDropdown lang={lang} />
             </NavDropdown>
             <NavDropdown label={lang === "it" ? "Bundle" : "Bundles"}>
-              <BundlesDropdown lang={lang} purchasedIds={purchasedIds} onBuy={handleBundleBuy} />
+              <BundlesDropdown lang={lang} purchasedIds={purchasedIds} />
             </NavDropdown>
             <Link
               href="/guide"
@@ -371,6 +376,27 @@ export default function HomeContent() {
             </Link>
           </div>
 
+          {/* ── Nav search — compact ── */}
+          <div className="hidden sm:flex items-center relative">
+            <svg className="absolute left-3 top-1/2 -translate-y-1/2 text-muted pointer-events-none" width="14" height="14" viewBox="0 0 20 20" fill="none">
+              <circle cx="8.5" cy="8.5" r="5.75" stroke="currentColor" strokeWidth="1.7"/>
+              <path d="M13 13l4 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/>
+            </svg>
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => { setQuery(e.target.value); if (e.target.value) document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" }); }}
+              placeholder={lang === "it" ? "Cerca…" : "Search…"}
+              className="bg-input border border-theme rounded-xl pl-8 pr-3 py-1.5 text-[13px] text-theme placeholder:text-muted outline-none focus:border-[#0A84FF]/40 transition-all duration-200 w-36 focus:w-52"
+              style={{ transition: "width 0.2s ease" }}
+            />
+            {query && (
+              <button onClick={() => setQuery("")} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted hover:text-theme">
+                <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2L2 10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg>
+              </button>
+            )}
+          </div>
+
           <NavButtons />
         </div>
         {bundleError && (
@@ -378,82 +404,122 @@ export default function HomeContent() {
         )}
       </nav>
 
-      {/* ── Hero ── */}
-      <section className="relative z-10 px-4 sm:px-6 pt-14 pb-12 sm:pt-20 sm:pb-16 text-center max-w-2xl mx-auto">
+      {/* ═══════════════════════════════════════════
+          HERO — full redesign
+      ═══════════════════════════════════════════ */}
+      <section className="relative z-10 px-4 sm:px-6 pt-12 pb-0 overflow-hidden">
+        <div className="max-w-5xl mx-auto">
 
-        {/* Badge */}
-        <div className="anim-fade-up delay-0 inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-semibold bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 mb-5 select-none">
-          <span className="relative flex h-1.5 w-1.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-zinc-400 opacity-50" />
-            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-zinc-400 dark:bg-zinc-500" />
-          </span>
-          {t[lang].hero.badge}
-        </div>
+          {/* ── Top row: badge + tagline ── */}
+          <div className="flex flex-col items-center text-center mb-10 pt-8 sm:pt-12">
 
-        {/* Heading */}
-        <h1 className="anim-fade-up delay-75 text-[2rem] sm:text-[2.9rem] md:text-[3.4rem] font-black leading-[1.06] tracking-[-0.03em] mb-4 text-zinc-900 dark:text-white">
-          {t[lang].hero.titleStart}{" "}
-          <span
-            className="bg-clip-text text-transparent"
-            style={{ backgroundImage: "linear-gradient(135deg, var(--accent), #C77DFF)" }}
-          >
-            {t[lang].hero.titleGradient.split("\n").map((line, i, arr) => (
-              <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
-            ))}
-          </span>{" "}
-          {t[lang].hero.titleEnd}
-        </h1>
+            {/* Badge */}
+            <div className="anim-fade-up delay-0 inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-semibold bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 mb-6 select-none">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-zinc-400 opacity-50" />
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-zinc-400 dark:bg-zinc-500" />
+              </span>
+              {t[lang].hero.badge}
+            </div>
 
-        {/* Subtitle */}
-        <p className="anim-fade-up delay-150 text-[15px] sm:text-[16px] text-muted max-w-md mx-auto mb-8 leading-relaxed">
-          {t[lang].hero.subtitle}
-        </p>
+            {/* Headline — bigger, bolder */}
+            <h1 className="anim-fade-up delay-75 text-[2.6rem] sm:text-[3.6rem] md:text-[4.2rem] font-extrabold leading-[1.04] tracking-[-0.04em] mb-5 text-zinc-900 dark:text-white max-w-3xl">
+              {lang === "it" ? (
+                <>
+                  Template UI pronti.<br />
+                  <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(135deg, var(--accent) 0%, #C77DFF 50%, #FF6B6B 100%)" }}>
+                    Personalizzati con AI.
+                  </span>
+                </>
+              ) : (
+                <>
+                  Premium templates.<br />
+                  <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(135deg, var(--accent) 0%, #C77DFF 50%, #FF6B6B 100%)" }}>
+                    Customized with AI.
+                  </span>
+                </>
+              )}
+            </h1>
 
-        {/* ── Prominent search bar ── */}
-        <div className="anim-fade-up delay-200 mb-6">
-          <HeroSearch lang={lang} query={query} setQuery={setQuery} />
-        </div>
+            {/* Subtitle */}
+            <p className="anim-fade-up delay-150 text-[16px] sm:text-[17px] text-muted max-w-xl mx-auto mb-8 leading-relaxed font-normal">
+              {lang === "it"
+                ? "Compra un template professionale, poi adattalo in secondi con Claude AI. Nessun codice."
+                : "Buy a professional template, then adapt it in seconds with Claude AI. No code required."}
+            </p>
 
-        {/* AI Studio CTA — subtle but unmissable */}
-        <div className="anim-fade-up delay-225 flex items-center justify-center">
-          <Link
-            href="/studio"
-            className="group inline-flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-semibold transition-all duration-200 border"
-            style={{
-              background: "linear-gradient(135deg, rgba(167,139,250,0.08), rgba(139,92,246,0.06))",
-              borderColor: "rgba(167,139,250,0.25)",
-              color: "var(--accent)",
-            }}
-          >
-            <span
-              className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-              style={{ background: "var(--accent)", boxShadow: "0 0 6px var(--accent)" }}
-            />
-            {t[lang].hero.cta2}
-            <svg
-              width="12" height="12" viewBox="0 0 12 12" fill="none"
-              className="group-hover:translate-x-0.5 transition-transform duration-200"
-            >
-              <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </Link>
-        </div>
+            {/* CTAs */}
+            <div className="anim-fade-up delay-200 flex flex-col sm:flex-row items-center gap-3 mb-8">
+              {/* Primary CTA */}
+              <a
+                href="#browse"
+                onClick={(e) => { e.preventDefault(); document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" }); }}
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl font-bold text-white text-[15px] active:scale-[0.97] transition-all duration-200 shadow-lg"
+                style={{ background: "linear-gradient(135deg, var(--accent), #9B59FF)", boxShadow: "0 8px 32px rgba(91,76,245,0.35)" }}
+              >
+                {lang === "it" ? "Sfoglia i template" : "Browse templates"}
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="opacity-80">
+                  <path d="M2 7h10M8 3l4 4-4 4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </a>
 
-        {/* Trust line */}
-        <div className="anim-fade-up delay-300 flex items-center justify-center gap-3 mt-6 text-[12px] text-muted">
-          <span className="flex items-center gap-1.5">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-emerald-500">
-              <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            {animatedTemplates} {t[lang].hero.statTemplates}
-          </span>
-          <span className="w-px h-3 bg-zinc-300 dark:bg-zinc-700" />
-          <span className="flex items-center gap-1.5">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-emerald-500">
-              <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            {t[lang].hero.statPayment}
-          </span>
+              {/* AI Studio CTA */}
+              <Link
+                href="/studio"
+                className="group inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl text-[14px] font-semibold transition-all duration-200 border"
+                style={{
+                  background: "linear-gradient(135deg, rgba(167,139,250,0.07), rgba(139,92,246,0.05))",
+                  borderColor: "rgba(167,139,250,0.22)",
+                  color: "var(--accent)",
+                }}
+              >
+                <span className="w-1.5 h-1.5 rounded-full flex-shrink-0 animate-pulse" style={{ background: "var(--accent)" }} />
+                {lang === "it" ? "Prova l'AI Studio" : "Try AI Studio"}
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="group-hover:translate-x-0.5 transition-transform duration-200 opacity-70">
+                  <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </Link>
+            </div>
+
+            {/* Trust badges */}
+            <div className="anim-fade-up delay-300 flex flex-wrap items-center justify-center gap-4 text-[12px] text-muted">
+              <span className="flex items-center gap-1.5">
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5l3 3 6-6" stroke="#30D158" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                {animatedTemplates} {lang === "it" ? "template pronti" : "templates ready"}
+              </span>
+              <span className="text-zinc-300 dark:text-zinc-700">·</span>
+              <span className="flex items-center gap-1.5">
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5l3 3 6-6" stroke="#30D158" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                {lang === "it" ? "Pagamento sicuro Stripe" : "Secure Stripe payment"}
+              </span>
+              <span className="text-zinc-300 dark:text-zinc-700">·</span>
+              <span className="flex items-center gap-1.5">
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5l3 3 6-6" stroke="#30D158" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                {lang === "it" ? "Accesso immediato" : "Instant access"}
+              </span>
+            </div>
+          </div>
+
+          {/* ── Template marquee strip ── */}
+          <div className="relative -mx-4 sm:-mx-6 overflow-hidden pb-12">
+            {/* fade edges */}
+            <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 z-10 pointer-events-none" style={{ background: "linear-gradient(to right, var(--bg), transparent)" }} />
+            <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 z-10 pointer-events-none" style={{ background: "linear-gradient(to left, var(--bg), transparent)" }} />
+
+            {/* Row 1 — scrolls left */}
+            <div className="flex gap-3 mb-3" style={{ animation: "marquee-left 32s linear infinite", width: "max-content" }}>
+              {[...marqueeTemplates, ...marqueeTemplates].map((tmpl, i) => (
+                <MarqueeCard key={`r1-${i}`} tmpl={tmpl} lang={lang} />
+              ))}
+            </div>
+            {/* Row 2 — scrolls right */}
+            <div className="flex gap-3" style={{ animation: "marquee-right 28s linear infinite", width: "max-content" }}>
+              {[...marqueeTemplates2, ...marqueeTemplates2].map((tmpl, i) => (
+                <MarqueeCard key={`r2-${i}`} tmpl={tmpl} lang={lang} />
+              ))}
+            </div>
+          </div>
+
         </div>
       </section>
 

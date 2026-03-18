@@ -1,8 +1,16 @@
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import ThemeProvider from "@/components/ThemeProvider";
 import LanguageProvider from "@/components/LanguageProvider";
 import "./globals.css";
+
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-jakarta",
+  weight: ["300", "400", "500", "600", "700", "800"],
+  display: "swap",
+});
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://templatelab.io";
 
@@ -39,7 +47,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="it" className="dark">
-        <body className="bg-page text-theme antialiased min-h-screen">
+        <body className={`${jakarta.variable} bg-page text-theme antialiased min-h-screen`}>
           <ThemeProvider><LanguageProvider>{children}</LanguageProvider></ThemeProvider>
         </body>
       </html>
