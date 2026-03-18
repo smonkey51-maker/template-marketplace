@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Bundle, formatPrice, getTemplate } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
@@ -37,6 +37,30 @@ export default function BundleCard({
 
   const [loading, setLoading] = useState(false);
 
+  const cardRef = useRef<HTMLDivElement>(null);
+  const frameRef = useRef<number>(0);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    cancelAnimationFrame(frameRef.current);
+    frameRef.current = requestAnimationFrame(() => {
+      const el = cardRef.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      el.style.transform = `perspective(700px) rotateX(${(-y * 8).toFixed(1)}deg) rotateY(${(x * 8).toFixed(1)}deg) scale3d(1.025,1.025,1.025)`;
+    });
+  };
+
+  const handleMouseLeave = () => {
+    cancelAnimationFrame(frameRef.current);
+    const el = cardRef.current;
+    if (!el) return;
+    el.style.transition = 'transform .5s cubic-bezier(.34,1.2,.64,1)';
+    el.style.transform = 'perspective(700px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)';
+    setTimeout(() => { if (el) el.style.transition = ''; }, 500);
+  };
+
   const handleBuy = async (e: React.MouseEvent) => {
     e.stopPropagation();
     setLoading(true);
@@ -48,13 +72,22 @@ export default function BundleCard({
   };
 
   return (
+    <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="relative rounded-[22px] h-full"
+      style={{ willChange: 'transform' }}
+    >
     <article
-      className={`relative bg-white dark:bg-zinc-900 rounded-[22px] overflow-hidden border ${colors.border} flex flex-col h-full
-        transition-shadow duration-200 ${colors.shadow}
+      className={`glass relative rounded-[22px] overflow-hidden flex flex-col h-full
         cursor-pointer group`}
       onClick={() => router.push(`/bundle/${bundle.id}`)}
       aria-label={`${bundle.name} — ${formatPrice(bundle.price)}`}
     >
+      {/* Specular top edge highlight */}
+      <div className="absolute top-0 left-[8%] right-[8%] h-px pointer-events-none z-10" style={{ background: 'var(--glass-top-edge)' }} />
+
       {/* Savings badge */}
       <div className={`absolute top-3 right-3 z-10 border rounded-full px-2.5 py-1 text-[10px] font-black ${colors.badge}
         transition-transform duration-300 group-hover:scale-110`}>
@@ -163,5 +196,6 @@ export default function BundleCard({
         </button>
       </div>
     </article>
+    </div>
   );
 }

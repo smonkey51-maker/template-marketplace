@@ -68,9 +68,24 @@ export default function HomeContent() {
   return (
     <div className="min-h-screen bg-page relative overflow-x-hidden">
 
+{/* ── Hero ambient orb ── */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute"
+        style={{
+          top: '-200px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '600px',
+          height: '600px',
+          background: 'radial-gradient(circle, var(--accent-bg) 0%, transparent 70%)',
+          opacity: 0.6,
+          zIndex: 0,
+        }}
+      />
 
 {/* ── Nav ── */}
-      <nav className="sticky top-0 z-50 border-b border-theme bg-nav px-4 sm:px-6 py-3.5">
+      <nav className="sticky top-0 z-50 border-b border-theme bg-nav backdrop-blur-xl px-4 sm:px-6 py-3.5">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
           <span className="text-[17px] font-bold tracking-tight text-zinc-900 dark:text-white shrink-0 select-none">
             TemplateLab
@@ -105,7 +120,7 @@ export default function HomeContent() {
         {/* Heading */}
         <h1 className="anim-fade-up delay-75 text-[2rem] sm:text-[3rem] md:text-[3.6rem] font-black leading-[1.06] tracking-[-0.03em] mb-4 text-zinc-900 dark:text-white">
           {t[lang].hero.titleStart}{" "}
-          <span>
+          <span className="bg-clip-text text-transparent" style={{ backgroundImage: 'linear-gradient(135deg, var(--accent), #C77DFF)' }}>
             {t[lang].hero.titleGradient.split("\n").map((line, i, arr) => (
               <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
             ))}
@@ -121,7 +136,8 @@ export default function HomeContent() {
         {/* CTAs */}
         <div className="anim-fade-up delay-225 flex flex-col sm:flex-row gap-3 justify-center">
           <a href="#browse"
-            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-zinc-900 dark:bg-white hover:opacity-80 rounded-2xl font-bold text-white dark:text-zinc-900 text-[15px] active:scale-[0.96] transition-opacity duration-200">
+            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 hover:opacity-90 rounded-2xl font-bold text-white text-[15px] active:scale-[0.96] transition-opacity duration-200"
+            style={{ backgroundColor: 'var(--accent)' }}>
             {t[lang].hero.cta1}
             <svg width="13" height="13" viewBox="0 0 14 14" fill="none" className="shrink-0 opacity-80">
               <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>

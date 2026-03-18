@@ -35,7 +35,10 @@ export default function NavButtons() {
         <UserButton />
       ) : (
         <SignInButton mode="modal">
-          <button className="px-4 py-2 bg-zinc-900 dark:bg-white hover:opacity-80 active:scale-[0.97] text-white dark:text-zinc-900 font-semibold rounded-full text-[13px] transition-opacity duration-200 whitespace-nowrap">
+          <button
+            className="px-4 py-2 hover:opacity-90 active:scale-[0.97] text-white font-semibold rounded-2xl text-[13px] transition-opacity duration-200 whitespace-nowrap"
+            style={{ backgroundColor: 'var(--accent)' }}
+          >
             {t[lang].nav.signIn}
           </button>
         </SignInButton>

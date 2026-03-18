@@ -892,6 +892,59 @@ export const templates: Template[] = [
 </div>`,
   },
 
+  // ── Dashboard Templates ───────────────────────────────────────────────────
+  {
+    id: "dashboard-fusion-v3",
+    name: "Dashboard Fusion v3",
+    description: "Glassmorphism analytics dashboard with KPI widgets, sparklines, score ring, segmented controls and animated counters. Built in React/JSX.",
+    category: "ui",
+    price: 1999,
+    stripePriceId: "price_dashboard_fusion_v3",
+    tags: ["dashboard", "analytics", "glassmorphism", "react", "jsx"],
+    downloads: 0,
+    editorsPick: true,
+    isNew: true,
+    downloadType: "html",
+    downloadUrl: "",
+    content: `## Dashboard Fusion v3 — Glassmorphism Analytics Dashboard
+
+Un dashboard analytics professionale costruito con React, con effetti glassmorphism avanzati, animazioni fluide e interazioni native iOS.
+
+### Componenti inclusi
+- **GlassSurface** — superficie vetro con blur 44px, saturate 180%, specular highlight che segue il cursore
+- **KpiWidget** — 6 KPI card con sparkline SVG animate, contatori animati, tilt 3D su hover
+- **ScoreRing** — cerchio SVG animato con glow colorato e score percentuale
+- **Sparkline** — grafico SVG con stroke-dashoffset draw-on animation, colore per trend
+- **SegControl** — segmented control glassmorphism con pill attivo animato
+- **BudgetChart** — barre di progresso con colori per campagna
+- **Toast** — notifiche floating con pulse dot
+- **FilterSheet** — bottom sheet mobile con toggle campagne e colori per iniziale
+
+### Effetti & Animazioni
+- Tilt 3D: \`perspective(700px) rotateX rotateY scale3d(1.025)\` su mouse move
+- Bounce counter: cubic-bezier easing + bounce on value change
+- Press scale: \`scale(.96)\` on press con spring release
+- Specular highlight: radial-gradient che segue il cursore su ogni GlassSurface
+- Range themes: colori accent cambiano per Oggi / 7 giorni / 30 giorni
+
+### Sistema CSS Variables
+\`\`\`css
+--glass-fill, --glass-shadow, --glass-stroke, --glass-top-edge, --glass-bright
+--spec-hot, --spec-mid (specular highlight)
+--text-primary, --text-muted, --text-tertiary
+--accent, --accent-bg, --green, --red, --divider
+\`\`\`
+
+### Dati inclusi
+- 6 campagne Google Ads con colori per iniziale (SD, FA, BR, IM, GP, UR)
+- Dati per 3 range temporali (Oggi, 7 giorni, 30 giorni)
+- Export CSV integrato
+- Live clock localizzato
+
+### Tech
+React 18, CSS custom properties, SVG animations, no dipendenze esterne`,
+  },
+
   // ── Prompt Templates ──────────────────────────────────────────────────────
   {
     id: "cold-email-b2b",

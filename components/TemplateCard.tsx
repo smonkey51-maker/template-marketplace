@@ -95,6 +95,30 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
 
   const [copied, setCopied] = useState(false);
 
+  const cardRef = useRef<HTMLDivElement>(null);
+  const frameRef = useRef<number>(0);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    cancelAnimationFrame(frameRef.current);
+    frameRef.current = requestAnimationFrame(() => {
+      const el = cardRef.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      el.style.transform = `perspective(700px) rotateX(${(-y * 8).toFixed(1)}deg) rotateY(${(x * 8).toFixed(1)}deg) scale3d(1.025,1.025,1.025)`;
+    });
+  };
+
+  const handleMouseLeave = () => {
+    cancelAnimationFrame(frameRef.current);
+    const el = cardRef.current;
+    if (!el) return;
+    el.style.transition = 'transform .5s cubic-bezier(.34,1.2,.64,1)';
+    el.style.transform = 'perspective(700px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)';
+    setTimeout(() => { if (el) el.style.transition = ''; }, 500);
+  };
+
   const handleShare = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -106,14 +130,22 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
   };
 
   return (
+    <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="group relative rounded-2xl h-full"
+      style={{ willChange: 'transform' }}
+    >
     <Link
       href={`/preview/${template.id}`}
       aria-label={displayName}
-      className="group relative bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-2xl overflow-hidden flex flex-col h-full
-        transition-shadow duration-200
-        hover:shadow-lg
-        active:opacity-90"
+      className="glass relative rounded-2xl overflow-hidden flex flex-col h-full
+        active:opacity-90 block"
     >
+      {/* Specular top edge highlight */}
+      <div className="absolute top-0 left-[8%] right-[8%] h-px pointer-events-none z-10" style={{ background: 'var(--glass-top-edge)' }} />
+
       {/* Editor's Pick badge (takes priority over bestseller) */}
       {isEditorsPick && !isPurchased && (
         <div className="absolute top-2.5 right-2.5 z-10 bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700 rounded-full px-2 py-0.5 text-[10px] font-bold">
@@ -205,5 +237,6 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
         </div>
       </div>
     </Link>
+    </div>
   );
 }
