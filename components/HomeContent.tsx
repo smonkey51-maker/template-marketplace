@@ -208,11 +208,20 @@ function NavDropdown({
           <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
       </button>
-      {open && (
-        <div onClick={() => setOpen(false)}>
-          {children}
-        </div>
-      )}
+      {/* Always rendered — animated with opacity + transform */}
+      <div
+        className="transition-all duration-[180ms] ease-out"
+        style={{
+          opacity: open ? 1 : 0,
+          pointerEvents: open ? "auto" : "none",
+          transform: open ? "translateY(0) scale(1)" : "translateY(-6px) scale(0.97)",
+          transformOrigin: "top center",
+        }}
+        aria-hidden={!open}
+        onClick={() => setOpen(false)}
+      >
+        {children}
+      </div>
     </div>
   );
 }
@@ -294,6 +303,24 @@ export default function HomeContent() {
   const [purchasedIds, setPurchasedIds] = useState<string[]>([]);
   const [bundleError, setBundleError] = useState<string | null>(null);
 
+  // Mobile menu state
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileExpandTemplates, setMobileExpandTemplates] = useState(false);
+  const [mobileExpandBundles, setMobileExpandBundles] = useState(false);
+
+  // Lock body scroll when mobile menu open
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileMenuOpen]);
+
+  // Close mobile menu on Escape
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) { if (e.key === "Escape") setMobileMenuOpen(false); }
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, []);
+
   useEffect(() => {
     fetch("/api/purchases")
       .then((r) => r.ok ? r.json() : { templateIds: [] })
@@ -341,12 +368,24 @@ export default function HomeContent() {
 
       {/* ── Nav ── */}
       <nav className="sticky top-0 z-50 border-b border-theme bg-nav backdrop-blur-xl px-4 sm:px-6 py-3.5">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto flex items-center gap-3">
 
           {/* Brand */}
           <span className="text-[17px] font-bold tracking-tight text-zinc-900 dark:text-white shrink-0 select-none">
             TemplateLab
           </span>
+
+          {/* Mobile: hamburger */}
+          <button
+            onClick={() => setMobileMenuOpen(true)}
+            className="sm:hidden flex items-center justify-center w-9 h-9 rounded-xl text-muted hover:text-theme hover:bg-card transition-colors"
+            aria-label="Open menu"
+            aria-expanded={mobileMenuOpen}
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+            </svg>
+          </button>
 
           {/* Desktop nav links + dropdowns */}
           <div className="hidden sm:flex items-center gap-0.5">
@@ -376,7 +415,10 @@ export default function HomeContent() {
             </Link>
           </div>
 
-          {/* ── Nav search — compact ── */}
+          {/* Flex spacer */}
+          <div className="flex-1" />
+
+          {/* Desktop search */}
           <div className="hidden sm:flex items-center relative">
             <svg className="absolute left-3 top-1/2 -translate-y-1/2 text-muted pointer-events-none" width="14" height="14" viewBox="0 0 20 20" fill="none">
               <circle cx="8.5" cy="8.5" r="5.75" stroke="currentColor" strokeWidth="1.7"/>
@@ -397,12 +439,148 @@ export default function HomeContent() {
             )}
           </div>
 
-          <NavButtons />
+          <NavButtons showMobileLinks={false} />
         </div>
         {bundleError && (
           <p className="text-center text-[12px] text-red-500 mt-1">{bundleError}</p>
         )}
       </nav>
+
+      {/* ── Mobile menu overlay ── */}
+      {/* Backdrop */}
+      <div
+        className="fixed inset-0 z-[90] bg-black/60 backdrop-blur-sm sm:hidden transition-opacity duration-300"
+        style={{ opacity: mobileMenuOpen ? 1 : 0, pointerEvents: mobileMenuOpen ? "auto" : "none" }}
+        onClick={() => setMobileMenuOpen(false)}
+        aria-hidden
+      />
+      {/* Slide-down panel */}
+      <div
+        className="fixed top-0 left-0 right-0 z-[95] bg-page border-b border-theme shadow-2xl sm:hidden max-h-[90vh] overflow-y-auto"
+        style={{
+          transform: mobileMenuOpen ? "translateY(0)" : "translateY(-100%)",
+          transition: "transform 0.3s cubic-bezier(0.32,0.72,0,1)",
+        }}
+        aria-modal={mobileMenuOpen}
+      >
+        {/* Panel header */}
+        <div className="flex items-center justify-between px-4 py-3.5 border-b border-theme">
+          <span className="text-[17px] font-bold tracking-tight text-zinc-900 dark:text-white">
+            TemplateLab
+          </span>
+          <button
+            onClick={() => setMobileMenuOpen(false)}
+            className="w-8 h-8 flex items-center justify-center rounded-xl text-muted hover:text-theme hover:bg-card transition-colors"
+            aria-label="Close menu"
+          >
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M2 2l10 10M12 2L2 12" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+            </svg>
+          </button>
+        </div>
+
+        {/* Search */}
+        <div className="px-4 py-3 border-b border-theme">
+          <div className="relative">
+            <svg className="absolute left-3 top-1/2 -translate-y-1/2 text-muted pointer-events-none" width="14" height="14" viewBox="0 0 20 20" fill="none">
+              <circle cx="8.5" cy="8.5" r="5.75" stroke="currentColor" strokeWidth="1.7"/>
+              <path d="M13 13l4 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/>
+            </svg>
+            <input
+              type="text"
+              defaultValue={query}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                if (e.target.value) {
+                  setMobileMenuOpen(false);
+                  setTimeout(() => document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" }), 150);
+                }
+              }}
+              placeholder={lang === "it" ? "Cerca template…" : "Search templates…"}
+              className="w-full bg-input border border-theme rounded-xl pl-9 pr-3 py-2.5 text-[14px] text-theme placeholder:text-muted outline-none focus:border-[#0A84FF]/40 transition-colors"
+            />
+          </div>
+        </div>
+
+        {/* Nav items */}
+        <div className="px-2 py-2">
+
+          {/* Templates accordion */}
+          <button
+            onClick={() => setMobileExpandTemplates((o) => !o)}
+            className="w-full flex items-center justify-between px-3 py-3 rounded-xl text-[14px] font-semibold text-zinc-800 dark:text-zinc-200 hover:bg-card transition-colors"
+          >
+            <span>{lang === "it" ? "Template" : "Templates"}</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+              className={`text-muted transition-transform duration-200 ${mobileExpandTemplates ? "rotate-180" : ""}`}>
+              <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+          {mobileExpandTemplates && (
+            <div className="px-2 pb-2 grid grid-cols-2 gap-0.5">
+              {CATEGORIES.map((cat) => (
+                <button
+                  key={cat.id}
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setTimeout(() => document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" }), 150);
+                  }}
+                  className="flex items-center gap-2 px-2.5 py-2.5 rounded-xl text-left hover:bg-card transition-colors"
+                >
+                  <span className="text-sm flex-shrink-0">{cat.emoji}</span>
+                  <span className="text-[12px] text-muted leading-tight">{lang === "it" ? cat.labelIt : cat.labelEn}</span>
+                </button>
+              ))}
+            </div>
+          )}
+
+          {/* Bundles accordion */}
+          <button
+            onClick={() => setMobileExpandBundles((o) => !o)}
+            className="w-full flex items-center justify-between px-3 py-3 rounded-xl text-[14px] font-semibold text-zinc-800 dark:text-zinc-200 hover:bg-card transition-colors"
+          >
+            <span>{lang === "it" ? "Bundle" : "Bundles"}</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+              className={`text-muted transition-transform duration-200 ${mobileExpandBundles ? "rotate-180" : ""}`}>
+              <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+          {mobileExpandBundles && (
+            <div className="px-2 pb-2 space-y-0.5">
+              {bundles.map((bundle) => (
+                <Link
+                  key={bundle.id}
+                  href={`/bundle/${bundle.id}`}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-card transition-colors"
+                >
+                  <span className="text-lg">{bundle.emoji}</span>
+                  <div className="min-w-0">
+                    <p className="text-[13px] font-semibold text-zinc-800 dark:text-zinc-200 leading-tight">{bundle.name}</p>
+                    <p className="text-[11px] text-muted">{formatPrice(bundle.price)}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
+
+          {/* Other links */}
+          <div className="mt-1 pt-1 border-t border-theme/50 space-y-0.5">
+            <Link href="/guide" onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center px-3 py-3 rounded-xl hover:bg-card transition-colors">
+              <span className="text-[14px] font-medium text-zinc-700 dark:text-zinc-300">{t[lang].nav.guide}</span>
+            </Link>
+            <Link href="/studio" onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center px-3 py-3 rounded-xl hover:bg-card transition-colors">
+              <span className="text-[14px] font-medium text-zinc-700 dark:text-zinc-300">{t[lang].nav.studio}</span>
+            </Link>
+            <Link href="/account" onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center px-3 py-3 rounded-xl hover:bg-card transition-colors">
+              <span className="text-[14px] font-medium text-zinc-700 dark:text-zinc-300">{t[lang].nav.account}</span>
+            </Link>
+          </div>
+        </div>
+      </div>
 
       {/* ═══════════════════════════════════════════
           HERO — full redesign
@@ -482,7 +660,7 @@ export default function HomeContent() {
             </div>
 
             {/* Trust badges */}
-            <div className="anim-fade-up delay-300 flex flex-wrap items-center justify-center gap-4 text-[12px] text-muted">
+            <div className="anim-fade-up delay-300 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 px-2 text-[12px] text-muted">
               <span className="flex items-center gap-1.5">
                 <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5l3 3 6-6" stroke="#30D158" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 {animatedTemplates} {lang === "it" ? "template pronti" : "templates ready"}

@@ -7,24 +7,26 @@ import LanguageToggle from "./LanguageToggle";
 import { useLang } from "./LanguageProvider";
 import { t } from "@/lib/i18n";
 
-export default function NavButtons() {
+export default function NavButtons({ showMobileLinks = true }: { showMobileLinks?: boolean }) {
   const { isSignedIn, isLoaded } = useUser();
   const { lang } = useLang();
 
   return (
     <div className="flex items-center gap-2 sm:gap-3">
       {/* Mobile-only quick links */}
-      <div className="flex sm:hidden items-center gap-1">
-        <Link href="/guide" className="text-[13px] text-muted px-2.5 py-1.5 rounded-xl hover:bg-card hover:text-theme transition-colors">
-          {t[lang].nav.guide}
-        </Link>
-        <Link href="/studio" className="text-[13px] text-muted px-2.5 py-1.5 rounded-xl hover:bg-card hover:text-theme transition-colors">
-          {t[lang].nav.studio}
-        </Link>
-        <Link href="/account" className="text-[13px] text-muted px-2.5 py-1.5 rounded-xl hover:bg-card hover:text-theme transition-colors">
-          {t[lang].nav.account}
-        </Link>
-      </div>
+      {showMobileLinks && (
+        <div className="flex sm:hidden items-center gap-1">
+          <Link href="/guide" className="text-[13px] text-muted px-2.5 py-1.5 rounded-xl hover:bg-card hover:text-theme transition-colors">
+            {t[lang].nav.guide}
+          </Link>
+          <Link href="/studio" className="text-[13px] text-muted px-2.5 py-1.5 rounded-xl hover:bg-card hover:text-theme transition-colors">
+            {t[lang].nav.studio}
+          </Link>
+          <Link href="/account" className="text-[13px] text-muted px-2.5 py-1.5 rounded-xl hover:bg-card hover:text-theme transition-colors">
+            {t[lang].nav.account}
+          </Link>
+        </div>
+      )}
 
       <LanguageToggle />
       <ThemeToggle />
