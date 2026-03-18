@@ -414,23 +414,28 @@ export default function HomeContent() {
           <HeroSearch lang={lang} query={query} setQuery={setQuery} />
         </div>
 
-        {/* Secondary CTA */}
-        <div className="anim-fade-up delay-225 flex items-center justify-center gap-4 flex-wrap">
-          <a
-            href="#browse"
-            className="text-[13px] text-muted hover:text-theme transition-colors duration-200 flex items-center gap-1"
-          >
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <path d="M6 2v8M3 8l3 2 3-2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            {lang === "it" ? "Sfoglia tutti i template" : "Browse all templates"}
-          </a>
-          <span className="text-zinc-300 dark:text-zinc-600 text-[11px]">·</span>
+        {/* AI Studio CTA — subtle but unmissable */}
+        <div className="anim-fade-up delay-225 flex items-center justify-center">
           <Link
             href="/studio"
-            className="text-[13px] text-muted hover:text-theme transition-colors duration-200"
+            className="group inline-flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-semibold transition-all duration-200 border"
+            style={{
+              background: "linear-gradient(135deg, rgba(167,139,250,0.08), rgba(139,92,246,0.06))",
+              borderColor: "rgba(167,139,250,0.25)",
+              color: "var(--accent)",
+            }}
           >
-            {t[lang].hero.cta2} →
+            <span
+              className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+              style={{ background: "var(--accent)", boxShadow: "0 0 6px var(--accent)" }}
+            />
+            {t[lang].hero.cta2}
+            <svg
+              width="12" height="12" viewBox="0 0 12 12" fill="none"
+              className="group-hover:translate-x-0.5 transition-transform duration-200"
+            >
+              <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
           </Link>
         </div>
 

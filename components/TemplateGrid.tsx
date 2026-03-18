@@ -84,7 +84,7 @@ function CategoryThumbnail({
   return (
     <div
       ref={containerRef}
-      className="relative h-44 overflow-hidden"
+      className="relative h-36 overflow-hidden"
       style={{ background: `linear-gradient(135deg, ${section.gradientFrom}, ${section.gradientTo})` }}
     >
       {/* Template iframe preview */}
@@ -98,40 +98,40 @@ function CategoryThumbnail({
             title={firstTemplate.name}
             sandbox="allow-scripts"
             className="w-full border-0"
-            style={{ height: "490px" }}
+            style={{ height: "400px" }}
           />
         </div>
       )}
 
-      {/* Gradient overlay — heavier at bottom for text readability */}
+      {/* Gradient overlay */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background: showIframe
-            ? "linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.55) 70%, rgba(0,0,0,0.85) 100%)"
-            : "linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 60%)",
+            ? "linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.45) 65%, rgba(0,0,0,0.78) 100%)"
+            : "linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 60%)",
         }}
       />
 
-      {/* Big emoji (only when no iframe or as fallback) */}
+      {/* Emoji fallback */}
       {!showIframe && (
         <div className="absolute inset-0 flex items-center justify-center">
           <span
             className="select-none"
-            style={{ fontSize: "3.5rem", filter: "drop-shadow(0 2px 16px rgba(0,0,0,0.5))", opacity: 0.9 }}
+            style={{ fontSize: "2.8rem", filter: "drop-shadow(0 2px 12px rgba(0,0,0,0.5))", opacity: 0.85 }}
           >
             {section.emoji}
           </span>
         </div>
       )}
 
-      {/* Subtle grid pattern */}
+      {/* Dot-grid pattern (non-iframe only) */}
       {!showIframe && (
         <div
-          className="absolute inset-0 pointer-events-none opacity-[0.06]"
+          className="absolute inset-0 pointer-events-none opacity-[0.05]"
           style={{
-            backgroundImage: "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
-            backgroundSize: "28px 28px",
+            backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)",
+            backgroundSize: "22px 22px",
           }}
         />
       )}
@@ -171,7 +171,7 @@ function CategoryCard({
       const r = el.getBoundingClientRect();
       const x = (e.clientX - r.left) / r.width - 0.5;
       const y = (e.clientY - r.top) / r.height - 0.5;
-      el.style.transform = `perspective(700px) rotateX(${(-y * 7).toFixed(1)}deg) rotateY(${(x * 7).toFixed(1)}deg) scale3d(1.025,1.025,1.025)`;
+      el.style.transform = `perspective(700px) rotateX(${(-y * 8).toFixed(1)}deg) rotateY(${(x * 8).toFixed(1)}deg) scale3d(1.025,1.025,1.025)`;
     });
   };
 
@@ -179,9 +179,9 @@ function CategoryCard({
     cancelAnimationFrame(frameRef.current);
     const el = cardRef.current;
     if (!el) return;
-    el.style.transition = "transform .45s cubic-bezier(.34,1.2,.64,1)";
+    el.style.transition = "transform .5s cubic-bezier(.34,1.2,.64,1)";
     el.style.transform = "perspective(700px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)";
-    setTimeout(() => { if (el) el.style.transition = ""; }, 450);
+    setTimeout(() => { if (el) el.style.transition = ""; }, 500);
   };
 
   return (
@@ -201,39 +201,38 @@ function CategoryCard({
         {/* Thumbnail */}
         <CategoryThumbnail section={section} firstTemplate={featured} />
 
-        {/* Hover CTA overlay */}
-        <div className="absolute inset-0 flex items-end justify-center pb-16 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-          <span className="bg-white/90 dark:bg-black/80 text-zinc-900 dark:text-zinc-100 text-[12px] font-bold px-4 py-2 rounded-xl shadow-sm">
+        {/* Hover CTA overlay — sits over the thumbnail */}
+        <div className="absolute top-0 left-0 right-0 h-36 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+          <span className="bg-white/90 dark:bg-black/75 text-zinc-900 dark:text-zinc-100 text-[12px] font-bold px-3.5 py-1.5 rounded-xl shadow-sm backdrop-blur-sm">
             {lang === "it"
               ? `Vedi ${sectionTemplates.length} template →`
               : `View ${sectionTemplates.length} templates →`}
           </span>
         </div>
 
-        {/* Info */}
-        <div className="px-4 py-3.5 flex flex-col flex-1">
-          {/* Count badge */}
-          <div className="mb-1.5">
-            <span className="text-[10px] font-bold uppercase tracking-[0.1em] px-1.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400">
-              {sectionTemplates.length} {lang === "it" ? "template" : "templates"}
-            </span>
+        {/* Info — compact */}
+        <div className="px-3.5 py-3 flex items-center gap-2.5">
+          {/* Emoji pill */}
+          <span className="text-base flex-shrink-0 leading-none">{section.emoji}</span>
+
+          {/* Text */}
+          <div className="flex-1 min-w-0">
+            <h3 className="text-[13px] font-semibold text-zinc-900 dark:text-zinc-100 leading-snug group-hover:text-[#0A84FF] transition-colors duration-200 truncate">
+              {sectionMeta.label}
+            </h3>
+            <p className="text-[11px] text-muted leading-snug truncate mt-0.5">
+              {sectionMeta.subtitle}
+            </p>
           </div>
 
-          {/* Name */}
-          <h3 className="text-[14px] font-semibold text-zinc-900 dark:text-zinc-100 leading-snug group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors duration-200 mb-1">
-            {section.emoji} {sectionMeta.label}
-          </h3>
-
-          {/* Subtitle */}
-          <p className="text-[12px] text-muted leading-snug line-clamp-1 flex-1">
-            {sectionMeta.subtitle}
-          </p>
-
-          {/* Arrow */}
-          <div className="mt-2.5 pt-2.5 border-t border-theme flex items-center justify-end">
+          {/* Count + arrow */}
+          <div className="flex items-center gap-1.5 flex-shrink-0">
+            <span className="text-[11px] font-bold text-zinc-400 dark:text-zinc-500 tabular-nums">
+              {sectionTemplates.length}
+            </span>
             <svg
-              width="14" height="14" viewBox="0 0 14 14" fill="none"
-              className="text-muted group-hover:text-[#0A84FF] group-hover:translate-x-0.5 transition-all duration-200"
+              width="13" height="13" viewBox="0 0 14 14" fill="none"
+              className="text-zinc-300 dark:text-zinc-600 group-hover:text-[#0A84FF] group-hover:translate-x-0.5 transition-all duration-200"
             >
               <path d="M2 7h10M7 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
