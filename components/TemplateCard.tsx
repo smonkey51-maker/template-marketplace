@@ -58,6 +58,7 @@ function UIThumbnail({ template, isPurchased, lang }: { template: Template; isPu
           <iframe
             src={`/api/preview/${template.id}`}
             title={template.name}
+            sandbox="allow-scripts"
             className="w-full border-0"
             style={{ height: "530px" }}
           />

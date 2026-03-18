@@ -40,7 +40,7 @@ export const templates: Template[] = [
     description:
       "Modern hero with gradient background, CTA buttons, and social proof badge.",
     category: "ui",
-    price: 999,
+    price: 1299,
     stripePriceId: "price_1TBixDBoWNgrJbiydllw5Qig",
     tags: ["hero", "saas", "landing", "gradient"],
     downloads: 1423,
@@ -77,7 +77,7 @@ export const templates: Template[] = [
     description:
       "Clean pricing cards with highlighted recommended plan and feature lists.",
     category: "ui",
-    price: 799,
+    price: 999,
     stripePriceId: "price_1TBixDBoWNgrJbiyjst5ntr3",
     tags: ["pricing", "saas", "cards", "table"],
     downloads: 987,
@@ -132,7 +132,7 @@ export const templates: Template[] = [
     description:
       "Responsive 3-column blog post cards with author info and hover effects.",
     category: "ui",
-    price: 599,
+    price: 699,
     stripePriceId: "price_1TBixEBoWNgrJbiyhJfNG8k8",
     tags: ["blog", "cards", "grid", "articles"],
     downloads: 756,
@@ -191,7 +191,7 @@ export const templates: Template[] = [
     description:
       "Elegant Canva-style profile page for real estate agents with listings showcase and contact CTA.",
     category: "ui",
-    price: 899,
+    price: 1199,
     stripePriceId: "price_1TBz4bBoWNgrJbiy53ZV2H24",
     tags: ["real estate", "agent", "profile", "canva", "listings"],
     downloads: 312,
@@ -257,7 +257,7 @@ export const templates: Template[] = [
     description:
       "Beautiful property showcase page for short-term rental hosts with amenities and booking CTA.",
     category: "ui",
-    price: 799,
+    price: 999,
     stripePriceId: "price_1TBz4cBoWNgrJbiylT4TF2vL",
     tags: ["airbnb", "property", "rental", "canva", "hospitality"],
     downloads: 489,
@@ -319,7 +319,7 @@ export const templates: Template[] = [
     description:
       "Warm, professional Canva-style profile page for therapists with specializations and booking.",
     category: "ui",
-    price: 799,
+    price: 1099,
     stripePriceId: "price_1TBz4cBoWNgrJbiyl78g7arm",
     tags: ["therapist", "psychologist", "health", "canva", "booking"],
     downloads: 267,
@@ -379,7 +379,7 @@ export const templates: Template[] = [
     description:
       "Authoritative, trust-building services page for law firms with practice areas and CTA.",
     category: "ui",
-    price: 899,
+    price: 1399,
     stripePriceId: "price_1TBz4dBoWNgrJbiyTRJrTvkK",
     tags: ["law", "legal", "firm", "canva", "professional"],
     downloads: 198,
@@ -493,7 +493,7 @@ export const templates: Template[] = [
     description:
       "Comprehensive spreadsheet dashboard for net worth, investments, and financial goals tracking.",
     category: "ui",
-    price: 799,
+    price: 999,
     stripePriceId: "price_1TBz4fBoWNgrJbiyRXLSv3aw",
     tags: ["finance", "investments", "net worth", "spreadsheet", "dashboard"],
     downloads: 843,
@@ -555,7 +555,7 @@ export const templates: Template[] = [
     description:
       "Spreadsheet-style inventory and pricing catalog for artisans and small makers.",
     category: "ui",
-    price: 599,
+    price: 799,
     stripePriceId: "price_1TBz4fBoWNgrJbiy7LMgcESo",
     tags: ["artisan", "catalog", "inventory", "spreadsheet", "small business"],
     downloads: 334,
@@ -603,7 +603,7 @@ export const templates: Template[] = [
     description:
       "MRR, churn, and growth metrics spreadsheet dashboard for small business owners.",
     category: "ui",
-    price: 799,
+    price: 1199,
     stripePriceId: "price_1TBz4gBoWNgrJbiyKIPEVnxT",
     tags: ["revenue", "analytics", "mrr", "spreadsheet", "business"],
     downloads: 512,
@@ -649,7 +649,7 @@ export const templates: Template[] = [
     description:
       "High-converting Framer-style dark SaaS landing page with animated gradients and social proof.",
     category: "ui",
-    price: 1199,
+    price: 1299,
     stripePriceId: "price_1TBz4hBoWNgrJbiyldGkbh0n",
     tags: ["saas", "landing", "dark", "framer", "conversion"],
     downloads: 728,
@@ -897,7 +897,7 @@ export const templates: Template[] = [
     description:
       "High-converting cold email prompt with personalization variables for any prospect.",
     category: "prompt",
-    price: 1299,
+    price: 699,
     stripePriceId: "price_1TBixFBoWNgrJbiyzxGXK1Jo",
     tags: ["cold email", "b2b", "sales", "outreach"],
     downloads: 2341,
@@ -944,7 +944,7 @@ Alternative subject lines:
     description:
       "SEO-optimized product description generator for any e-commerce store.",
     category: "prompt",
-    price: 799,
+    price: 699,
     stripePriceId: "price_1TBixFBoWNgrJbiyOlJPdvT0",
     tags: ["e-commerce", "seo", "product", "copywriting"],
     downloads: 1876,
@@ -982,7 +982,7 @@ DELIVERABLES:
     description:
       "Craft the perfect system prompt for any custom AI assistant or chatbot.",
     category: "prompt",
-    price: 1499,
+    price: 799,
     stripePriceId: "price_1TBixGBoWNgrJbiyioEK1MiF",
     tags: ["system prompt", "ai assistant", "chatbot", "llm"],
     downloads: 3102,
@@ -1022,7 +1022,7 @@ QUALITY CRITERIA:
     description:
       "Luxury dark-themed restaurant menu with dish cards, chef's specials, and reservation CTA.",
     category: "ui",
-    price: 899,
+    price: 799,
     stripePriceId: "price_1TBz23BoWNgrJbiyyFk0vJBh",
     tags: ["restaurant", "menu", "food", "dark", "luxury"],
     downloads: 344,
@@ -1147,7 +1147,7 @@ QUALITY CRITERIA:
     description:
       "Elegant hotel booking UI with room showcase, amenities, and date selection.",
     category: "ui",
-    price: 799,
+    price: 1299,
     stripePriceId: "price_1TBz24BoWNgrJbiyThvqyfL5",
     tags: ["hotel", "booking", "travel", "luxury", "hospitality"],
     downloads: 188,
@@ -1231,7 +1231,7 @@ QUALITY CRITERIA:
     description:
       "App Store-style showcase page for iOS/Android apps with screenshots, ratings, and download CTA.",
     category: "ui",
-    price: 899,
+    price: 999,
     stripePriceId: "price_1TBz25BoWNgrJbiy9Lsn21ma",
     tags: ["app", "mobile", "ios", "showcase", "download"],
     downloads: 412,
@@ -1360,7 +1360,7 @@ QUALITY CRITERIA:
     description:
       "Dark minimal SaaS analytics dashboard with KPI cards, charts, and activity feed.",
     category: "ui",
-    price: 999,
+    price: 1299,
     stripePriceId: "price_1TBz26BoWNgrJbiyAaT2x1l1",
     tags: ["dashboard", "analytics", "saas", "dark", "minimal"],
     downloads: 672,
@@ -1571,7 +1571,7 @@ QUALITY CRITERIA:
     description:
       "High-converting newsletter signup page with social proof, benefits, and email form.",
     category: "ui",
-    price: 699,
+    price: 799,
     stripePriceId: "price_1TBz28BoWNgrJbiykMdFUZHe",
     tags: ["newsletter", "email", "landing", "signup", "conversion"],
     downloads: 763,

@@ -153,6 +153,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
             <iframe
               src={`/api/preview/${template.id}`}
               title={template.name}
+              sandbox="allow-scripts"
               className="w-full border-0 block"
               style={{ height: "100vh", minHeight: "600px" }}
             />
@@ -196,6 +197,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
                     <iframe
                       src={`/api/preview/${template.id}`}
                       title={template.name}
+                      sandbox="allow-scripts"
                       style={{
                         width: "390px",
                         height: "780px",

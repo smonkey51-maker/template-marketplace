@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "export-templates": "npx tsx scripts/export-for-marketplace.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.39.0",
