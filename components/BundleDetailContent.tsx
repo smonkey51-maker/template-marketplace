@@ -85,10 +85,10 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
       {/* ── Back button ── */}
       <button
         onClick={() => router.back()}
-        className="fixed top-4 left-4 z-50 flex items-center gap-1.5 px-3.5 py-2 rounded-2xl
-          glass shadow-[0_4px_24px_rgba(0,0,0,0.12)]
-          text-[#0A84FF] text-[14px] font-semibold
-          hover:scale-105 active:scale-[0.96] ios-spring transition-all duration-200"
+        className="fixed top-4 left-4 z-50 flex items-center gap-1.5 px-3.5 py-2 rounded-full
+          bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 shadow-sm
+          text-zinc-700 dark:text-zinc-300 text-[14px] font-semibold
+          hover:opacity-80 transition-opacity duration-200"
         aria-label={t[lang].bundleDetail.back}
       >
         <svg width="8" height="14" viewBox="0 0 8 14" fill="none" className="shrink-0" aria-hidden>

@@ -14,7 +14,7 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row items-start justify-between gap-8">
           {/* Brand */}
           <div className="flex flex-col gap-2">
-            <span className="text-[16px] font-bold text-[#0A84FF] tracking-tight select-none">
+            <span className="text-[16px] font-bold text-zinc-900 dark:text-white tracking-tight select-none">
               TemplateLab
             </span>
             <p className="text-[12px] text-muted max-w-[200px] leading-relaxed">
@@ -43,7 +43,7 @@ export default function Footer() {
           <p className="text-[11px] text-muted">{f.copyright}</p>
           <div className="flex items-center gap-1 text-[11px] text-muted">
             <span>Powered by</span>
-            <span className="font-semibold text-[#0A84FF]">Claude AI</span>
+            <span className="font-semibold text-zinc-900 dark:text-white">Claude AI</span>
           </div>
         </div>
       </div>

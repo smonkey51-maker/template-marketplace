@@ -70,7 +70,7 @@ export default function HomeContent() {
 
 
 {/* ── Nav ── */}
-      <nav className="sticky top-0 z-50 border-b border-theme backdrop-blur-2xl bg-nav px-4 sm:px-6 py-3.5">
+      <nav className="sticky top-0 z-50 border-b border-theme bg-nav px-4 sm:px-6 py-3.5">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
           <span className="text-[17px] font-bold tracking-tight text-zinc-900 dark:text-white shrink-0 select-none">
             TemplateLab
