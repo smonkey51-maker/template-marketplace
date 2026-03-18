@@ -17,9 +17,16 @@ const nextConfig: NextConfig = {
         source: "/(.*)",
         headers: [
           { key: "X-Content-Type-Options", value: "nosniff" },
-          { key: "X-Frame-Options", value: "DENY" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
           { key: "X-XSS-Protection", value: "1; mode=block" },
+        ],
+      },
+      {
+        // Prevent page-level routes from being embedded in external iframes,
+        // but NOT /api/preview/* which must be loadable in same-origin iframes.
+        source: "/((?!api/preview).*)",
+        headers: [
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
         ],
       },
       {
