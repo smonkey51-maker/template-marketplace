@@ -948,126 +948,359 @@ React 18, CSS custom properties, SVG animations, no dipendenze esterne`,
   // ── Prompt Templates ──────────────────────────────────────────────────────
   {
     id: "cold-email-b2b",
-    name: "B2B Cold Email Outreach",
+    name: "B2B Outreach CRM",
     description:
-      "High-converting cold email prompt with personalization variables for any prospect.",
-    category: "prompt",
+      "Dark CRM dashboard for email outreach campaigns with sequence tracking and reply analytics.",
+    category: "ui",
     price: 699,
     stripePriceId: "price_1TBixFBoWNgrJbiyzxGXK1Jo",
-    tags: ["cold email", "b2b", "sales", "outreach"],
+    tags: ["crm", "outreach", "email", "dashboard", "dark", "saas"],
     downloads: 2341,
     editorsPick: true,
-    content: `You are an expert B2B sales copywriter. Write a cold outreach email:
-
-PROSPECT INFO:
-- Name: {{prospect_name}}
-- Company: {{company_name}}
-- Role: {{prospect_role}}
-- Industry: {{industry}}
-- Pain point: {{pain_point}}
-
-SENDER INFO:
-- My name: {{sender_name}}
-- My company: {{sender_company}}
-- Product/service: {{product_description}}
-- Key benefit: {{key_benefit}}
-- Social proof: {{social_proof}} (e.g., "trusted by 500+ SaaS companies")
-
-EMAIL REQUIREMENTS:
-1. Subject line: Under 50 chars, create curiosity without clickbait
-2. Opening: Reference something specific about their company
-3. Problem: Briefly acknowledge the {{pain_point}} they face
-4. Solution: One sentence on how {{product_description}} solves it
-5. Social proof: Weave in {{social_proof}} naturally
-6. CTA: Single, low-friction ask — a 15-minute call
-7. Length: Under 150 words
-8. Tone: Professional but conversational, never pushy
-
-OUTPUT FORMAT:
-Subject: [subject line]
-
-[email body]
-
----
-Alternative subject lines:
-1. [alt 1]
-2. [alt 2]`,
+    content: `<div class="min-h-screen bg-[#0A0A0B] text-white font-sans" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <div class="w-64 bg-[#111113] border-r border-white/[0.06] flex flex-col p-4 gap-1">
+      <div class="flex items-center gap-2 px-3 py-2 mb-4">
+        <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-xs font-bold">R</div>
+        <span class="font-semibold text-[15px]">ReachPro</span>
+      </div>
+      <a class="flex items-center gap-3 px-3 py-2 rounded-xl bg-white/[0.06] text-white text-[13px] font-medium" href="#">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="5" height="5" rx="1.5" fill="currentColor" opacity=".9"/><rect x="9" y="2" width="5" height="5" rx="1.5" fill="currentColor" opacity=".5"/><rect x="2" y="9" width="5" height="5" rx="1.5" fill="currentColor" opacity=".5"/><rect x="9" y="9" width="5" height="5" rx="1.5" fill="currentColor" opacity=".5"/></svg>
+        Dashboard
+      </a>
+      <a class="flex items-center gap-3 px-3 py-2 rounded-xl text-white/50 text-[13px] hover:text-white hover:bg-white/[0.04] transition-colors" href="#">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M2 8h8M2 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Sequences
+      </a>
+      <a class="flex items-center gap-3 px-3 py-2 rounded-xl text-white/50 text-[13px] hover:text-white hover:bg-white/[0.04] transition-colors" href="#">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="6" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M2 14c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Contacts
+      </a>
+      <a class="flex items-center gap-3 px-3 py-2 rounded-xl text-white/50 text-[13px] hover:text-white hover:bg-white/[0.04] transition-colors" href="#">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M2 6h12" stroke="currentColor" stroke-width="1.5"/></svg>
+        Templates
+      </a>
+      <div class="mt-auto pt-4 border-t border-white/[0.06]">
+        <div class="flex items-center gap-2 px-3 py-2">
+          <div class="w-7 h-7 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 text-[11px] font-bold flex items-center justify-center">JD</div>
+          <div><p class="text-[12px] font-medium">James D.</p><p class="text-[11px] text-white/40">Pro plan</p></div>
+        </div>
+      </div>
+    </div>
+    <!-- Main -->
+    <div class="flex-1 overflow-auto">
+      <!-- Header -->
+      <div class="border-b border-white/[0.06] px-6 py-4 flex items-center justify-between">
+        <div>
+          <h1 class="text-[18px] font-semibold">Outreach Dashboard</h1>
+          <p class="text-white/40 text-[12px] mt-0.5">March 2026 · Active campaign</p>
+        </div>
+        <button class="flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-500 hover:bg-blue-400 text-[13px] font-semibold transition-colors">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2v10M2 7h10" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+          New sequence
+        </button>
+      </div>
+      <!-- Stats -->
+      <div class="grid grid-cols-4 gap-4 p-6 pb-0">
+        <div class="bg-[#111113] border border-white/[0.06] rounded-2xl p-4">
+          <p class="text-white/40 text-[11px] uppercase tracking-wider mb-2">Emails sent</p>
+          <p class="text-[28px] font-bold">2,847</p>
+          <p class="text-emerald-400 text-[12px] mt-1 flex items-center gap-1">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 2l3 4H2l3-4z" fill="currentColor"/></svg>
+            +18% this week
+          </p>
+        </div>
+        <div class="bg-[#111113] border border-white/[0.06] rounded-2xl p-4">
+          <p class="text-white/40 text-[11px] uppercase tracking-wider mb-2">Open rate</p>
+          <p class="text-[28px] font-bold">68.4%</p>
+          <p class="text-emerald-400 text-[12px] mt-1">↑ 12% vs avg</p>
+        </div>
+        <div class="bg-[#111113] border border-white/[0.06] rounded-2xl p-4">
+          <p class="text-white/40 text-[11px] uppercase tracking-wider mb-2">Replies</p>
+          <p class="text-[28px] font-bold">184</p>
+          <p class="text-white/40 text-[12px] mt-1">6.5% reply rate</p>
+        </div>
+        <div class="bg-[#111113] border border-white/[0.06] rounded-2xl p-4">
+          <p class="text-white/40 text-[11px] uppercase tracking-wider mb-2">Meetings booked</p>
+          <p class="text-[28px] font-bold">31</p>
+          <p class="text-emerald-400 text-[12px] mt-1">↑ 8 this week</p>
+        </div>
+      </div>
+      <!-- Recent emails -->
+      <div class="p-6">
+        <div class="bg-[#111113] border border-white/[0.06] rounded-2xl overflow-hidden">
+          <div class="px-5 py-4 border-b border-white/[0.06] flex items-center justify-between">
+            <h2 class="font-semibold text-[14px]">Active Sequences</h2>
+            <span class="bg-blue-500/10 text-blue-400 text-[11px] font-semibold px-2 py-0.5 rounded-full">3 running</span>
+          </div>
+          <div class="divide-y divide-white/[0.04]">
+            <div class="px-5 py-3.5 flex items-center gap-4">
+              <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-500/20 to-indigo-500/20 border border-blue-500/20 flex items-center justify-center text-xs">📧</div>
+              <div class="flex-1">
+                <p class="text-[13px] font-medium">SaaS Founders — Q1 Push</p>
+                <p class="text-white/40 text-[11px]">Step 2 of 4 · 312 contacts</p>
+              </div>
+              <div class="text-right">
+                <p class="text-[13px] font-semibold text-emerald-400">72% open</p>
+                <p class="text-white/40 text-[11px]">8.1% reply</p>
+              </div>
+              <span class="bg-emerald-500/10 text-emerald-400 text-[11px] font-medium px-2.5 py-1 rounded-full">Active</span>
+            </div>
+            <div class="px-5 py-3.5 flex items-center gap-4">
+              <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/20 flex items-center justify-center text-xs">🎯</div>
+              <div class="flex-1">
+                <p class="text-[13px] font-medium">E-commerce Decision Makers</p>
+                <p class="text-white/40 text-[11px]">Step 1 of 3 · 187 contacts</p>
+              </div>
+              <div class="text-right">
+                <p class="text-[13px] font-semibold text-blue-400">61% open</p>
+                <p class="text-white/40 text-[11px]">5.3% reply</p>
+              </div>
+              <span class="bg-emerald-500/10 text-emerald-400 text-[11px] font-medium px-2.5 py-1 rounded-full">Active</span>
+            </div>
+            <div class="px-5 py-3.5 flex items-center gap-4">
+              <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-orange-500/20 to-amber-500/20 border border-orange-500/20 flex items-center justify-center text-xs">🚀</div>
+              <div class="flex-1">
+                <p class="text-[13px] font-medium">Agency Outreach — Winter</p>
+                <p class="text-white/40 text-[11px]">Step 3 of 4 · 94 contacts</p>
+              </div>
+              <div class="text-right">
+                <p class="text-[13px] font-semibold text-orange-400">58% open</p>
+                <p class="text-white/40 text-[11px]">9.6% reply</p>
+              </div>
+              <span class="bg-yellow-500/10 text-yellow-400 text-[11px] font-medium px-2.5 py-1 rounded-full">Paused</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>`,
   },
   {
     id: "product-description-ecom",
-    name: "E-commerce Product Description",
+    name: "E-commerce Product Page",
     description:
-      "SEO-optimized product description generator for any e-commerce store.",
-    category: "prompt",
+      "Elegant minimal product detail page with gallery, variant selector, reviews, and trust badges.",
+    category: "ui",
     price: 699,
     stripePriceId: "price_1TBixFBoWNgrJbiyOlJPdvT0",
-    tags: ["e-commerce", "seo", "product", "copywriting"],
+    tags: ["ecommerce", "product", "shop", "minimal", "cards"],
     downloads: 1876,
-    content: `You are an expert e-commerce copywriter and SEO specialist.
-
-PRODUCT DETAILS:
-- Product name: {{product_name}}
-- Category: {{category}}
-- Key features: {{features_list}}
-- Target audience: {{target_audience}}
-- Price point: {{price}}
-- Brand voice: {{brand_voice}} (e.g., premium, fun, technical, casual)
-
-SEO REQUIREMENTS:
-- Primary keyword: {{primary_keyword}}
-- Secondary keywords: {{secondary_keywords}}
-
-DELIVERABLES:
-1. Meta title (60 chars max): Include primary keyword naturally
-2. Meta description (155 chars max): Include primary keyword + CTA
-3. Product headline (H1): Benefit-focused, include primary keyword
-4. Short description (2-3 sentences): Above-the-fold hook
-5. Full description (150-200 words):
-   - Lead with the customer's desired outcome
-   - Address top 3 pain points it solves
-   - Highlight 3-5 key features as benefits
-   - Include social proof signal
-   - Close with urgency or guarantee
-6. Bullet points (5 bullets): Feature → Benefit format
-7. FAQ (3 Q&A): Address top buying objections`,
+    content: `<div class="min-h-screen bg-white" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <!-- Nav -->
+  <nav class="border-b border-gray-100 px-6 py-4 flex items-center justify-between">
+    <span class="text-[18px] font-bold tracking-tight text-gray-900">MAISON</span>
+    <div class="flex items-center gap-6 text-[13px] text-gray-500">
+      <a href="#" class="hover:text-gray-900 transition-colors">Collection</a>
+      <a href="#" class="hover:text-gray-900 transition-colors">About</a>
+      <a href="#" class="hover:text-gray-900 transition-colors">Contact</a>
+      <button class="relative"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M6 2H4a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V4a2 2 0 00-2-2h-2M6 2a2 2 0 012-2h4a2 2 0 012 2M6 2h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="absolute -top-1 -right-1 bg-gray-900 text-white text-[9px] rounded-full w-4 h-4 flex items-center justify-center font-bold">2</span></button>
+    </div>
+  </nav>
+  <!-- Product -->
+  <div class="max-w-6xl mx-auto px-6 py-12 grid grid-cols-2 gap-16 items-start">
+    <!-- Images -->
+    <div class="space-y-3">
+      <div class="aspect-square bg-gradient-to-br from-stone-100 to-stone-200 rounded-2xl flex items-center justify-center overflow-hidden">
+        <div class="w-40 h-52 bg-gradient-to-br from-stone-300 to-stone-400 rounded-xl shadow-2xl flex items-center justify-center">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><path d="M16 12h16v24H16z" fill="white" opacity=".3"/><path d="M20 8h8v4h-8zM14 36h20v4H14z" fill="white" opacity=".2"/></svg>
+        </div>
+      </div>
+      <div class="grid grid-cols-4 gap-2">
+        <div class="aspect-square bg-gradient-to-br from-stone-100 to-stone-200 rounded-xl cursor-pointer ring-2 ring-gray-900"></div>
+        <div class="aspect-square bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl cursor-pointer opacity-60 hover:opacity-100 transition-opacity"></div>
+        <div class="aspect-square bg-gradient-to-br from-zinc-100 to-zinc-200 rounded-xl cursor-pointer opacity-60 hover:opacity-100 transition-opacity"></div>
+        <div class="aspect-square bg-gradient-to-br from-neutral-200 to-neutral-300 rounded-xl cursor-pointer opacity-60 hover:opacity-100 transition-opacity"></div>
+      </div>
+    </div>
+    <!-- Details -->
+    <div class="pt-4 space-y-6">
+      <div>
+        <p class="text-[11px] text-gray-400 uppercase tracking-widest font-semibold mb-2">Premium Collection · 2026</p>
+        <h1 class="text-[32px] font-bold text-gray-900 leading-tight">Minimalist Ceramic<br/>Diffuser Set</h1>
+        <div class="flex items-center gap-3 mt-3">
+          <div class="flex text-amber-400 text-sm">★★★★★</div>
+          <p class="text-[13px] text-gray-500">4.9 (284 reviews)</p>
+        </div>
+      </div>
+      <div class="flex items-baseline gap-3">
+        <span class="text-[32px] font-bold text-gray-900">€89</span>
+        <span class="text-[18px] text-gray-400 line-through">€120</span>
+        <span class="bg-rose-100 text-rose-600 text-[12px] font-bold px-2.5 py-1 rounded-full">-26%</span>
+      </div>
+      <!-- Options -->
+      <div>
+        <p class="text-[13px] font-semibold text-gray-700 mb-2">Fragrance</p>
+        <div class="flex gap-2">
+          <button class="px-4 py-2 rounded-xl border-2 border-gray-900 text-[13px] font-semibold bg-gray-900 text-white">Cedar &amp; Sage</button>
+          <button class="px-4 py-2 rounded-xl border border-gray-200 text-[13px] text-gray-600 hover:border-gray-400 transition-colors">Bergamot</button>
+          <button class="px-4 py-2 rounded-xl border border-gray-200 text-[13px] text-gray-600 hover:border-gray-400 transition-colors">Lavender</button>
+        </div>
+      </div>
+      <!-- CTA -->
+      <div class="space-y-3">
+        <button class="w-full py-4 bg-gray-900 text-white rounded-2xl text-[15px] font-bold hover:bg-gray-800 transition-colors">Add to cart</button>
+        <button class="w-full py-4 border-2 border-gray-200 text-gray-900 rounded-2xl text-[15px] font-semibold hover:border-gray-400 transition-colors flex items-center justify-center gap-2">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 14s-6-4.5-6-8a6 6 0 0112 0c0 3.5-6 8-6 8z" stroke="currentColor" stroke-width="1.5"/></svg>
+          Save to wishlist
+        </button>
+      </div>
+      <!-- Features -->
+      <div class="border-t border-gray-100 pt-6 space-y-3">
+        <div class="flex items-center gap-3 text-[13px] text-gray-600">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8l4 4 8-8" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Free shipping on orders over €60
+        </div>
+        <div class="flex items-center gap-3 text-[13px] text-gray-600">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8l4 4 8-8" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          30-day free returns
+        </div>
+        <div class="flex items-center gap-3 text-[13px] text-gray-600">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8l4 4 8-8" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Handcrafted in Italy
+        </div>
+      </div>
+    </div>
+  </div>
+</div>`,
   },
   {
     id: "ai-assistant-system-prompt",
-    name: "Custom AI Assistant System Prompt",
+    name: "AI Chat Interface",
     description:
-      "Craft the perfect system prompt for any custom AI assistant or chatbot.",
-    category: "prompt",
+      "Modern dark AI assistant UI with sidebar conversation history, streaming messages, and model picker.",
+    category: "ui",
     price: 799,
     stripePriceId: "price_1TBixGBoWNgrJbiyioEK1MiF",
-    tags: ["system prompt", "ai assistant", "chatbot", "llm"],
+    tags: ["ai", "chat", "dark", "saas", "dashboard", "minimal"],
     downloads: 3102,
-    content: `You are a world-class AI prompt engineer. Create a comprehensive system prompt for a custom AI assistant:
-
-ASSISTANT SPECS:
-- Name: {{assistant_name}}
-- Use case: {{use_case}}
-- Target users: {{target_users}}
-- Primary tasks: {{primary_tasks}}
-- Tone/personality: {{personality}} (e.g., formal, friendly, direct, empathetic)
-- Expertise domains: {{expertise_domains}}
-- Off-limits topics: {{restrictions}}
-- Output format preference: {{output_format}}
-
-BUILD THE SYSTEM PROMPT WITH THESE SECTIONS:
-1. Role definition: Clear, specific role statement (who the AI is)
-2. Core capabilities: 3-5 specific things it excels at
-3. Personality & tone: How it communicates and its character traits
-4. Response format rules: Structure, length, formatting conventions
-5. Handling edge cases: What to do when asked something outside scope
-6. Example interaction: A sample Q&A demonstrating ideal behavior
-7. Safety boundaries: Clear, firm limits without being preachy
-
-QUALITY CRITERIA:
-- Specific enough to be consistent
-- Flexible enough to handle varied inputs
-- Focused on the user's actual needs
-- Free from contradictions
-- Length: 400-600 words`,
+    content: `<div class="min-h-screen bg-[#0A0A0B] flex" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <!-- Sidebar -->
+  <div class="w-72 bg-[#111113] border-r border-white/[0.06] flex flex-col p-3">
+    <div class="px-3 py-2 flex items-center justify-between mb-3">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2a5 5 0 100 10A5 5 0 007 2z" fill="white" opacity=".8"/><circle cx="7" cy="7" r="2" fill="white"/></svg>
+        </div>
+        <span class="text-white text-[14px] font-semibold">Aria AI</span>
+      </div>
+      <button class="w-7 h-7 rounded-lg bg-white/[0.06] flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 transition-colors">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2v10M2 7h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="px-3 mb-3">
+      <div class="bg-white/[0.04] rounded-xl px-3 py-2 flex items-center gap-2">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="5.5" cy="5.5" r="4" stroke="white" stroke-opacity=".3" stroke-width="1.5"/><path d="M10 10l-2-2" stroke="white" stroke-opacity=".3" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span class="text-white/30 text-[12px]">Search conversations...</span>
+      </div>
+    </div>
+    <div class="px-3 mb-2">
+      <p class="text-white/25 text-[10px] uppercase tracking-widest font-semibold">Today</p>
+    </div>
+    <div class="space-y-0.5 px-1.5">
+      <div class="flex items-center gap-2 px-2.5 py-2.5 rounded-xl bg-white/[0.06] cursor-pointer">
+        <div class="w-1.5 h-1.5 rounded-full bg-violet-400 flex-shrink-0"></div>
+        <span class="text-white text-[13px] font-medium truncate">Marketing strategy for Q2</span>
+      </div>
+      <div class="flex items-center gap-2 px-2.5 py-2.5 rounded-xl hover:bg-white/[0.04] cursor-pointer transition-colors">
+        <div class="w-1.5 h-1.5 rounded-full bg-white/20 flex-shrink-0"></div>
+        <span class="text-white/60 text-[13px] truncate">Write product descriptions</span>
+      </div>
+      <div class="flex items-center gap-2 px-2.5 py-2.5 rounded-xl hover:bg-white/[0.04] cursor-pointer transition-colors">
+        <div class="w-1.5 h-1.5 rounded-full bg-white/20 flex-shrink-0"></div>
+        <span class="text-white/60 text-[13px] truncate">Code review: auth module</span>
+      </div>
+    </div>
+    <div class="px-3 mt-3 mb-2">
+      <p class="text-white/25 text-[10px] uppercase tracking-widest font-semibold">Yesterday</p>
+    </div>
+    <div class="space-y-0.5 px-1.5">
+      <div class="flex items-center gap-2 px-2.5 py-2.5 rounded-xl hover:bg-white/[0.04] cursor-pointer transition-colors">
+        <div class="w-1.5 h-1.5 rounded-full bg-white/20 flex-shrink-0"></div>
+        <span class="text-white/60 text-[13px] truncate">Investor pitch deck outline</span>
+      </div>
+      <div class="flex items-center gap-2 px-2.5 py-2.5 rounded-xl hover:bg-white/[0.04] cursor-pointer transition-colors">
+        <div class="w-1.5 h-1.5 rounded-full bg-white/20 flex-shrink-0"></div>
+        <span class="text-white/60 text-[13px] truncate">SEO content audit report</span>
+      </div>
+    </div>
+    <div class="mt-auto border-t border-white/[0.06] pt-3 px-1.5">
+      <div class="flex items-center gap-2.5 px-2.5 py-2.5 rounded-xl hover:bg-white/[0.04] transition-colors cursor-pointer">
+        <div class="w-7 h-7 rounded-full bg-gradient-to-br from-blue-400 to-cyan-500 flex items-center justify-center text-[11px] font-bold">SA</div>
+        <div class="flex-1"><p class="text-white text-[12px] font-medium">Sarah A.</p><p class="text-white/40 text-[11px]">Pro · Unlimited</p></div>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 4l4 3-4 3" stroke="white" stroke-opacity=".3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+  </div>
+  <!-- Chat -->
+  <div class="flex-1 flex flex-col">
+    <!-- Header -->
+    <div class="border-b border-white/[0.06] px-6 py-3.5 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5" fill="white" opacity=".8"/><circle cx="7" cy="7" r="2.5" fill="#7c3aed"/></svg>
+        </div>
+        <div><p class="text-white text-[14px] font-semibold">Aria</p><p class="text-emerald-400 text-[11px] flex items-center gap-1"><span class="w-1.5 h-1.5 bg-emerald-400 rounded-full inline-block"></span>Online · GPT-4o</p></div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button class="w-8 h-8 rounded-xl bg-white/[0.06] flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 transition-colors">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M7 4.5v3l2 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <button class="w-8 h-8 rounded-xl bg-white/[0.06] flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 transition-colors">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+    <!-- Messages -->
+    <div class="flex-1 overflow-auto px-6 py-6 space-y-6">
+      <!-- User message -->
+      <div class="flex justify-end">
+        <div class="max-w-[70%] bg-violet-500/20 border border-violet-500/20 rounded-2xl rounded-br-md px-4 py-3">
+          <p class="text-white text-[14px] leading-relaxed">Can you help me create a comprehensive marketing strategy for our Q2 product launch? We're targeting mid-market SaaS companies.</p>
+          <p class="text-white/30 text-[11px] mt-1.5 text-right">10:24 AM</p>
+        </div>
+      </div>
+      <!-- AI message -->
+      <div class="flex gap-3">
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex-shrink-0 flex items-center justify-center mt-0.5">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4" fill="white" opacity=".8"/><circle cx="6" cy="6" r="2" fill="#7c3aed"/></svg>
+        </div>
+        <div class="flex-1 space-y-3">
+          <div class="bg-white/[0.04] border border-white/[0.06] rounded-2xl rounded-tl-md px-4 py-3">
+            <p class="text-white text-[14px] leading-relaxed mb-3">Here's a structured Q2 marketing strategy for mid-market SaaS companies:</p>
+            <div class="space-y-2">
+              <div class="flex items-start gap-2"><span class="text-violet-400 font-bold text-[13px] mt-0.5">1.</span><div><p class="text-white font-semibold text-[13px]">Content marketing blitz</p><p class="text-white/60 text-[12px] leading-relaxed">Publish 3 high-value case studies featuring ROI metrics. Target "head of operations" and "VP of sales" decision makers.</p></div></div>
+              <div class="flex items-start gap-2"><span class="text-violet-400 font-bold text-[13px] mt-0.5">2.</span><div><p class="text-white font-semibold text-[13px]">LinkedIn outbound sequence</p><p class="text-white/60 text-[12px] leading-relaxed">5-touch sequence targeting 200–500 employee companies. Personalize using recent funding rounds or hiring signals.</p></div></div>
+              <div class="flex items-start gap-2"><span class="text-violet-400 font-bold text-[13px] mt-0.5">3.</span><div><p class="text-white font-semibold text-[13px]">Product-led growth loop</p><p class="text-white/60 text-[12px] leading-relaxed">Free tier with viral activation trigger. Conversion prompt at the 7-day mark with social proof overlay.</p></div></div>
+            </div>
+            <p class="text-white/30 text-[11px] mt-3">10:24 AM · Aria</p>
+          </div>
+          <div class="flex gap-2">
+            <button class="text-white/40 hover:text-white/70 transition-colors p-1.5 rounded-lg hover:bg-white/[0.04]"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="1" y="4" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M4 4V3a2 2 0 012-2h4a2 2 0 012 2v4a2 2 0 01-2 2h-1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></button>
+            <button class="text-white/40 hover:text-white/70 transition-colors p-1.5 rounded-lg hover:bg-white/[0.04]"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 9.5L5.5 2l3.5 7.5M3.5 7h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="text-white/40 hover:text-white/70 transition-colors p-1.5 rounded-lg hover:bg-white/[0.04]"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 4.5h9M2 8.5h6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Input -->
+    <div class="border-t border-white/[0.06] p-4">
+      <div class="bg-white/[0.04] border border-white/[0.08] rounded-2xl flex items-end gap-3 px-4 py-3">
+        <textarea class="flex-1 bg-transparent text-white text-[14px] resize-none outline-none placeholder-white/30 max-h-32" placeholder="Message Aria..." rows="1"></textarea>
+        <div class="flex items-center gap-2 pb-0.5">
+          <button class="w-8 h-8 rounded-xl bg-white/[0.06] flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 transition-colors">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2v6M4 5l3-3 3 3M2 11h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="w-8 h-8 rounded-xl bg-violet-500 hover:bg-violet-400 flex items-center justify-center transition-colors">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l10-5-5 10V7H2z" fill="white"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>`,
   },
 
   // ── Ristorazione & Hospitality ────────────────────────────────────────────
@@ -2355,591 +2588,408 @@ QUALITY CRITERIA:
   // ── Nuovi Prompt Templates ─────────────────────────────────────────────────
   {
     id: "linkedin-prompt-pack",
-    name: "LinkedIn Content Pack (5 formati)",
+    name: "Personal Brand Landing",
     description:
-      "5 proven LinkedIn post formats: thought leadership, personal story, how-to list, contrarian take, and viral hook.",
-    category: "prompt",
+      "Creator profile landing page with social stats, recent posts, newsletter opt-in, and follower metrics.",
+    category: "ui",
     price: 999,
     stripePriceId: "price_1TCExxBoWNgrJbiyijEzE2LI",
-    tags: ["linkedin", "social media", "content", "copywriting", "personal brand"],
+    tags: ["personal brand", "creator", "landing", "minimal", "profile"],
     downloads: 678,
     isNew: true,
-    content: `You are a top LinkedIn content strategist. Generate a high-performing LinkedIn post using the format specified below.
-
-ABOUT THE AUTHOR:
-- Name: {{author_name}}
-- Role: {{author_role}}
-- Industry: {{industry}}
-- Audience: {{target_audience}} (e.g., "founders", "marketers", "engineers")
-- Core topic: {{topic}}
-- Key insight or message: {{key_insight}}
-
-SELECT A FORMAT:
-{{format}} — choose one: thought-leadership | personal-story | how-to-list | contrarian-take | viral-hook
-
-══════════════════════════════════════
-FORMAT: thought-leadership
-══════════════════════════════════════
-Structure:
-1. Bold opening statement (1 line, no fluff)
-2. Context: why this matters NOW (2-3 lines)
-3. Your unique perspective (3-4 lines, specific data or examples)
-4. What most people get wrong (2-3 lines)
-5. The real insight (2-3 lines)
-6. Close with a question to drive comments
-
-Tone: confident, direct, no buzzwords, data-backed when possible
-Length: 150-200 words
-
-══════════════════════════════════════
-FORMAT: personal-story
-══════════════════════════════════════
-Structure:
-1. Hook: a surprising moment or failure (1-2 lines)
-2. The backstory (3-4 lines — set the scene)
-3. The turning point (2-3 lines)
-4. The lesson learned (2-3 lines)
-5. Universal takeaway for {{target_audience}} (2-3 lines)
-6. CTA: ask readers to share a similar experience
-
-Tone: vulnerable but professional, storytelling voice
-Length: 180-230 words
-
-══════════════════════════════════════
-FORMAT: how-to-list
-══════════════════════════════════════
-Structure:
-1. Promise headline: "How to [result] in [timeframe]"
-2. Brief credibility statement (1 line)
-3. Numbered list of 5-7 actionable tips
-   - Each tip: bold label + 1-2 sentence explanation
-   - Include one counterintuitive tip
-4. Summary line
-5. CTA: save this post + follow for more
-
-Tone: practical, no-nonsense, specific
-Length: 200-280 words
-
-══════════════════════════════════════
-FORMAT: contrarian-take
-══════════════════════════════════════
-Structure:
-1. "Hot take:" or "Unpopular opinion:" opener
-2. State the conventional wisdom (1-2 lines)
-3. "I disagree. Here's why:" pivot (bold)
-4. Your argument with 3 specific reasons
-5. Acknowledge what IS true about the common view
-6. Your conclusion
-7. CTA: "Agree or disagree? Tell me below"
-
-Tone: provocative but fair, backed by logic
-Length: 160-210 words
-
-══════════════════════════════════════
-FORMAT: viral-hook
-══════════════════════════════════════
-Structure:
-1. Opening hook (1 shocking line — stat, question, or bold claim)
-2. Expand the hook (2-3 lines explaining)
-3. The revelation (3-4 lines with the actual insight)
-4. Practical application for {{target_audience}} (3-4 lines)
-5. Memorable close (1 punchy line)
-6. 3 relevant hashtags
-
-Tone: energetic, punchy, shareable
-Length: 130-170 words
-
-OUTPUT:
-Write the complete post only. No commentary or meta-text.
-Then add:
----
-Best time to post: [day + time window]
-Estimated reach boost: [low/medium/high] for this format
-`,
+    content: `<div class="min-h-screen bg-[#F8F7F4]" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <!-- Nav -->
+  <nav class="bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between">
+    <span class="font-bold text-gray-900 text-[16px]">Alex Chen</span>
+    <div class="flex items-center gap-4 text-[13px] text-gray-500">
+      <a href="#" class="hover:text-gray-900">About</a>
+      <a href="#" class="hover:text-gray-900">Newsletter</a>
+      <a href="#" class="hover:text-gray-900">Courses</a>
+      <a href="#" class="bg-gray-900 text-white px-4 py-2 rounded-xl font-semibold hover:bg-gray-800 transition-colors">Follow</a>
+    </div>
+  </nav>
+  <!-- Hero -->
+  <div class="max-w-3xl mx-auto px-6 pt-16 pb-12 text-center">
+    <div class="w-20 h-20 rounded-full bg-gradient-to-br from-blue-400 to-indigo-600 mx-auto mb-4 flex items-center justify-center text-2xl shadow-lg shadow-blue-500/20">👨‍💻</div>
+    <div class="flex items-center justify-center gap-2 mb-3">
+      <span class="text-[13px] text-gray-500">@alexchen</span>
+      <span class="bg-blue-100 text-blue-600 text-[11px] font-bold px-2 py-0.5 rounded-full">✓ Verified</span>
+    </div>
+    <h1 class="text-[38px] font-bold text-gray-900 leading-tight mb-4">I help founders build<br/><span class="text-blue-500">products people love</span></h1>
+    <p class="text-[16px] text-gray-500 leading-relaxed max-w-xl mx-auto mb-8">Product designer &amp; growth strategist. Writing about SaaS, design systems, and building in public. 47K followers · 12K newsletter subscribers.</p>
+    <div class="flex items-center justify-center gap-3">
+      <button class="px-6 py-3 bg-blue-500 text-white rounded-xl font-semibold text-[14px] hover:bg-blue-600 transition-colors shadow-lg shadow-blue-500/25">Subscribe to newsletter →</button>
+      <button class="px-6 py-3 bg-white text-gray-700 rounded-xl font-semibold text-[14px] border border-gray-200 hover:border-gray-300 transition-colors">View courses</button>
+    </div>
+  </div>
+  <!-- Stats -->
+  <div class="max-w-3xl mx-auto px-6 pb-12">
+    <div class="bg-white rounded-2xl border border-gray-100 p-6 grid grid-cols-3 gap-6 text-center">
+      <div><p class="text-[28px] font-bold text-gray-900">47K</p><p class="text-[12px] text-gray-400 mt-1">LinkedIn followers</p></div>
+      <div class="border-x border-gray-100"><p class="text-[28px] font-bold text-gray-900">12K</p><p class="text-[12px] text-gray-400 mt-1">Newsletter readers</p></div>
+      <div><p class="text-[28px] font-bold text-gray-900">3.2M</p><p class="text-[12px] text-gray-400 mt-1">Post impressions</p></div>
+    </div>
+  </div>
+  <!-- Latest posts -->
+  <div class="max-w-3xl mx-auto px-6 pb-16">
+    <h2 class="text-[20px] font-bold text-gray-900 mb-4">Latest posts</h2>
+    <div class="space-y-3">
+      <div class="bg-white rounded-2xl border border-gray-100 p-5 flex items-center gap-4 hover:border-blue-200 transition-colors cursor-pointer">
+        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-500 flex items-center justify-center text-lg flex-shrink-0">💡</div>
+        <div class="flex-1"><p class="font-semibold text-gray-900 text-[14px]">The 5-step framework I used to grow from 0 to 47K followers</p><p class="text-gray-400 text-[12px] mt-0.5">47K impressions · 892 reactions</p></div>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="text-gray-300"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="bg-white rounded-2xl border border-gray-100 p-5 flex items-center gap-4 hover:border-blue-200 transition-colors cursor-pointer">
+        <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-500 flex items-center justify-center text-lg flex-shrink-0">🚀</div>
+        <div class="flex-1"><p class="font-semibold text-gray-900 text-[14px]">Why most SaaS products fail in the first 90 days (and how to fix it)</p><p class="text-gray-400 text-[12px] mt-0.5">31K impressions · 654 reactions</p></div>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="text-gray-300"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="bg-white rounded-2xl border border-gray-100 p-5 flex items-center gap-4 hover:border-blue-200 transition-colors cursor-pointer">
+        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-500 flex items-center justify-center text-lg flex-shrink-0">📊</div>
+        <div class="flex-1"><p class="font-semibold text-gray-900 text-[14px]">I analyzed 100 landing pages. Here are the 7 elements that convert best</p><p class="text-gray-400 text-[12px] mt-0.5">28K impressions · 521 reactions</p></div>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="text-gray-300"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+  </div>
+</div>`,
   },
   {
     id: "youtube-script-pack",
-    name: "YouTube Script Builder",
+    name: "Content Creator Studio",
     description:
-      "Full YouTube video script with hook, story arc, CTA and SEO title/description generator.",
-    category: "prompt",
+      "YouTube creator dashboard with subscriber analytics, video performance metrics, and upload management.",
+    category: "ui",
     price: 1299,
     stripePriceId: "price_1TCExxBoWNgrJbiyMycBkeO2",
-    tags: ["youtube", "script", "video", "content creator", "seo"],
+    tags: ["creator", "youtube", "dashboard", "dark", "analytics"],
     downloads: 432,
     isNew: true,
-    content: `You are a professional YouTube scriptwriter and SEO strategist. Create a complete, production-ready script for a YouTube video.
-
-VIDEO BRIEF:
-- Channel name: {{channel_name}}
-- Channel niche: {{niche}} (e.g., personal finance, fitness, tech tutorials)
-- Target audience: {{target_audience}}
-- Video topic: {{video_topic}}
-- Main keyword: {{main_keyword}}
-- Desired video length: {{duration}} (e.g., "8-10 minutes")
-- Video style: {{style}} (e.g., talking head, tutorial, story, listicle)
-- Tone: {{tone}} (e.g., educational, entertaining, inspiring, conversational)
-
-═══════════════════════════════════════
-PART 1 — SEO PACKAGE
-═══════════════════════════════════════
-
-1. VIDEO TITLE (3 options)
-   Option A: [Curiosity-gap style — 50-60 chars]
-   Option B: [How-to/listicle style — 50-60 chars]
-   Option C: [Story/emotional style — 50-60 chars]
-
-2. DESCRIPTION (500 chars)
-   - First 2 lines must contain {{main_keyword}} (shown before "Show more")
-   - Value proposition + timestamps placeholder
-   - 3-5 relevant hashtags
-
-3. TAGS (15 tags — mix of broad, specific, long-tail)
-
-═══════════════════════════════════════
-PART 2 — FULL SCRIPT
-═══════════════════════════════════════
-
-[HOOK — 0:00–0:45]
-Goal: Stop the scroll. The first 30 seconds determine retention.
-Write a hook using ONE of these techniques:
-- Pattern interrupt: start mid-action or mid-sentence
-- Bold claim: state the most surprising fact about {{video_topic}}
-- Pain/desire opener: "If you've ever [frustration]... this video is for you"
-
-[INTRO — 0:45–1:30]
-- Introduce {{channel_name}} in one sentence (no long intros)
-- Preview the 3 main things viewers will learn
-- Subscribe nudge: natural, not desperate
-
-[MAIN CONTENT — 1:30–end-2:00]
-Divide the {{video_topic}} into 3-5 sections based on {{duration}}:
-
-Section 1: [Title]
-  - Opening transition
-  - Key point explanation (clear, with example or analogy)
-  - Visual cue note: [B-roll/graphic suggestion]
-  - Mini CTA or engagement hook (e.g., "Comment below if...")
-
-Section 2: [Title]
-  [same structure]
-
-Section 3: [Title]
-  [same structure]
-
-[Add more sections as needed for {{duration}}]
-
-[OUTRO — last 90 seconds]
-- Summary: 3 key takeaways in bullet form
-- CTA priority 1: subscribe with specific reason ("so you don't miss...")
-- CTA priority 2: next video recommendation (describe what to pitch)
-- Final memorable line / sign-off
-
-═══════════════════════════════════════
-PART 3 — PRODUCTION NOTES
-═══════════════════════════════════════
-- Thumbnail concept: [describe the ideal thumbnail composition]
-- Best upload time for {{niche}}: [day + time]
-- Suggested end screen CTA video: [describe ideal paired video topic]
-
-Write the complete script using natural spoken language.
-Use [PAUSE], [SMILE], [HOLD UP PRODUCT] style stage directions sparingly.
-Word count should match {{duration}} at ~130 words/minute.
-`,
+    content: `<div class="min-h-screen bg-[#0F0F10]" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: white;">
+  <!-- Header -->
+  <div class="border-b border-white/[0.06] px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-red-500 to-rose-600 flex items-center justify-center">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 4l6 3-6 3V4z" fill="white"/></svg>
+      </div>
+      <span class="font-semibold text-[15px]">Creator Studio</span>
+    </div>
+    <div class="flex items-center gap-3 text-[13px] text-white/50">
+      <button class="px-3 py-1.5 rounded-lg hover:bg-white/[0.06] transition-colors">Analytics</button>
+      <button class="px-3 py-1.5 rounded-lg hover:bg-white/[0.06] transition-colors">Content</button>
+      <button class="px-4 py-2 rounded-xl bg-red-500 hover:bg-red-400 text-white font-semibold transition-colors flex items-center gap-2">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+        Upload
+      </button>
+    </div>
+  </div>
+  <!-- Channel banner -->
+  <div class="h-32 bg-gradient-to-r from-red-900/60 via-purple-900/60 to-indigo-900/60 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-40" style="background-image:repeating-linear-gradient(90deg,rgba(255,255,255,0.03) 0px,rgba(255,255,255,0.03) 1px,transparent 1px,transparent 40px),repeating-linear-gradient(0deg,rgba(255,255,255,0.03) 0px,rgba(255,255,255,0.03) 1px,transparent 1px,transparent 40px)"></div>
+  </div>
+  <div class="px-6 pb-6">
+    <div class="flex items-end gap-4 -mt-8 mb-6">
+      <div class="w-16 h-16 rounded-full bg-gradient-to-br from-red-400 to-purple-600 border-4 border-[#0F0F10] flex items-center justify-center text-xl shadow-xl">🎬</div>
+      <div class="pb-2">
+        <h2 class="font-bold text-[18px]">TechWithMarcus</h2>
+        <p class="text-white/50 text-[12px]">@techwithmarcus · 284K subscribers</p>
+      </div>
+      <button class="ml-auto mb-2 px-4 py-2 rounded-xl bg-white text-gray-900 font-bold text-[13px] hover:bg-gray-100 transition-colors">Customize channel</button>
+    </div>
+    <!-- Stats row -->
+    <div class="grid grid-cols-4 gap-3 mb-6">
+      <div class="bg-white/[0.04] border border-white/[0.06] rounded-2xl p-4">
+        <p class="text-white/40 text-[11px] uppercase tracking-wider mb-1.5">Subscribers</p>
+        <p class="text-[22px] font-bold">284K</p>
+        <p class="text-emerald-400 text-[11px] mt-1">+2.1K this week</p>
+      </div>
+      <div class="bg-white/[0.04] border border-white/[0.06] rounded-2xl p-4">
+        <p class="text-white/40 text-[11px] uppercase tracking-wider mb-1.5">Monthly views</p>
+        <p class="text-[22px] font-bold">1.8M</p>
+        <p class="text-emerald-400 text-[11px] mt-1">+12% vs last month</p>
+      </div>
+      <div class="bg-white/[0.04] border border-white/[0.06] rounded-2xl p-4">
+        <p class="text-white/40 text-[11px] uppercase tracking-wider mb-1.5">Watch time (hrs)</p>
+        <p class="text-[22px] font-bold">92K</p>
+        <p class="text-white/40 text-[11px] mt-1">avg 8.4 min/video</p>
+      </div>
+      <div class="bg-white/[0.04] border border-white/[0.06] rounded-2xl p-4">
+        <p class="text-white/40 text-[11px] uppercase tracking-wider mb-1.5">Revenue (est.)</p>
+        <p class="text-[22px] font-bold">€4.2K</p>
+        <p class="text-white/40 text-[11px] mt-1">AdSense + sponsors</p>
+      </div>
+    </div>
+    <!-- Videos -->
+    <div class="bg-white/[0.04] border border-white/[0.06] rounded-2xl overflow-hidden">
+      <div class="px-5 py-4 border-b border-white/[0.06] flex items-center justify-between">
+        <h3 class="font-semibold text-[14px]">Recent videos</h3>
+        <button class="text-red-400 text-[12px] font-semibold hover:text-red-300 transition-colors">View all →</button>
+      </div>
+      <div class="divide-y divide-white/[0.04]">
+        <div class="px-5 py-4 flex items-center gap-4">
+          <div class="w-24 h-14 bg-gradient-to-br from-red-900/60 to-purple-900/60 rounded-xl flex-shrink-0 flex items-center justify-center">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="white" stroke-opacity=".3" stroke-width="1.5"/><path d="M8 7l6 3-6 3V7z" fill="white" opacity=".8"/></svg>
+          </div>
+          <div class="flex-1">
+            <p class="text-[13px] font-medium line-clamp-1">I built an AI SaaS in 72 hours — here's what happened</p>
+            <p class="text-white/40 text-[11px] mt-1">148K views · 3 days ago</p>
+          </div>
+          <div class="text-right flex-shrink-0">
+            <p class="text-emerald-400 text-[12px] font-semibold">68% retention</p>
+            <p class="text-white/40 text-[11px]">4.7% CTR</p>
+          </div>
+        </div>
+        <div class="px-5 py-4 flex items-center gap-4">
+          <div class="w-24 h-14 bg-gradient-to-br from-blue-900/60 to-indigo-900/60 rounded-xl flex-shrink-0 flex items-center justify-center">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="white" stroke-opacity=".3" stroke-width="1.5"/><path d="M8 7l6 3-6 3V7z" fill="white" opacity=".8"/></svg>
+          </div>
+          <div class="flex-1">
+            <p class="text-[13px] font-medium line-clamp-1">The ONLY Tailwind CSS course you need in 2026</p>
+            <p class="text-white/40 text-[11px] mt-1">91K views · 1 week ago</p>
+          </div>
+          <div class="text-right flex-shrink-0">
+            <p class="text-blue-400 text-[12px] font-semibold">54% retention</p>
+            <p class="text-white/40 text-[11px]">3.2% CTR</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>`,
   },
   {
     id: "claude-projects-pack",
-    name: "Claude Projects Starter Pack",
+    name: "AI Projects Command Center",
     description:
-      "6 ready-to-use Claude Project system prompts: writing assistant, code reviewer, business strategist, research analyst, email coach, and product manager.",
-    category: "prompt",
+      "Claude Projects-style dashboard to manage AI assistants with system prompts, knowledge base, and usage stats.",
+    category: "ui",
     price: 1499,
     stripePriceId: "price_1TCExyBoWNgrJbiyIqOtURBP",
-    tags: ["claude", "ai assistant", "system prompt", "projects", "productivity"],
+    tags: ["ai", "projects", "dashboard", "dark", "saas"],
     downloads: 891,
     editorsPick: true,
     isNew: true,
-    content: `Six production-ready Claude Project system prompts. Copy each one directly into a Claude Project's "Project instructions" field.
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-PROJECT 1: Writing & Content Assistant
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-You are an elite writing assistant for {{user_name}}, a {{user_role}} in {{industry}}.
-
-YOUR CORE BEHAVIORS:
-- Match and elevate the user's existing voice — never replace it
-- Default output length: concise. Ask to expand if needed
-- Format: use markdown only when the user will render it
-- When editing: track changes clearly, explain key edits in a separate bullet list
-- When generating: ask for target audience, purpose, and tone before starting
-
-SPECIALIZATIONS:
-- Long-form articles and essays: structure, argument flow, transitions
-- Email and Slack messages: clarity, brevity, appropriate tone
-- Social media: platform-specific optimization (LinkedIn, Twitter/X, Newsletter)
-- Presentations: narrative arc, slide-by-slide flow
-- Technical documentation: accuracy + accessibility balance
-
-WHAT TO AVOID:
-- Hollow phrases: "Certainly!", "Great question!", "As an AI..."
-- Unnecessary hedging or disclaimers
-- Changing the user's core argument without flagging it
-- Adding fluff to hit word counts
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-PROJECT 2: Senior Code Reviewer
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-You are a senior software engineer and code reviewer with deep expertise in {{tech_stack}}.
-
-REVIEW FRAMEWORK (always apply in this order):
-1. CORRECTNESS — Does it do what it's supposed to? Edge cases?
-2. SECURITY — Injection risks, auth issues, exposed secrets, OWASP top 10
-3. PERFORMANCE — Unnecessary loops, N+1 queries, memory leaks
-4. READABILITY — Naming, complexity, documentation where needed
-5. ARCHITECTURE — Does it fit the existing patterns? SOLID principles?
-
-OUTPUT FORMAT for code reviews:
-🔴 CRITICAL (must fix before merge): [issue + fix]
-🟡 WARNING (should fix): [issue + suggestion]
-🟢 IMPROVEMENT (optional refactor): [suggestion]
-💡 LEARNING NOTE: [explain why, not just what]
-
-When writing new code:
-- Prioritize correctness over cleverness
-- Add comments only for non-obvious logic
-- Write tests first if asked for TDD
-- Flag when a request could introduce technical debt
-
-Stack assumptions: {{tech_stack}}. Ask before assuming other technologies.
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-PROJECT 3: Business Strategist & Advisor
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-You are a strategic advisor for {{company_name}}, a {{company_description}}.
-
-CONTEXT (always keep in mind):
-- Stage: {{company_stage}} (e.g., pre-revenue, Series A, profitable SMB)
-- Team size: {{team_size}}
-- Primary goal this quarter: {{quarterly_goal}}
-- Biggest constraint: {{main_constraint}} (e.g., cash, talent, time)
-
-YOUR APPROACH:
-- Lead with the most important insight, not with process
-- Use first-principles thinking for novel problems
-- Apply known frameworks (JTBD, BCG matrix, Porter's 5 forces) only when genuinely useful — not by default
-- When you spot an assumption in the user's question, name it
-- Offer 2-3 concrete options with trade-offs, not a single answer
-
-COMMUNICATION STYLE:
-- Bullet points for lists, prose for reasoning
-- Bold the single most important sentence in each response
-- If a question needs more context, ask ONE specific clarifying question
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-PROJECT 4: Research & Analysis Engine
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-You are a research analyst for {{user_name}} in the field of {{research_domain}}.
-
-RESEARCH STANDARDS:
-- Always distinguish: [FACT], [INFERENCE], [ASSUMPTION], [UNKNOWN]
-- Cite reasoning chains, not just conclusions
-- Acknowledge knowledge cutoff limitations proactively
-- Flag when a topic requires real-time data you cannot provide
-
-OUTPUT TEMPLATES:
-
-For topic overviews:
-## Summary (2-3 sentences)
-## Key findings (5-7 bullets with source reasoning)
-## Conflicting views (if any)
-## Gaps / open questions
-## Recommended next steps
-
-For comparisons:
-## Criteria matrix (table format)
-## Verdict with reasoning
-## What the comparison misses
-
-For literature/report summaries:
-## Core argument
-## Evidence quality (strong/weak/mixed)
-## Implications for {{user_name}}'s work
-## One critical question this raises
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-PROJECT 5: Email & Communication Coach
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-You are a communication coach helping {{user_name}} write clear, effective professional emails and messages.
-
-STYLE PROFILE:
-- User's communication style: {{communication_style}} (e.g., formal, direct, warm)
-- Typical recipients: {{recipient_types}} (e.g., investors, clients, team)
-- Recurring challenge: {{communication_challenge}} (e.g., "too long", "not assertive enough", "unclear asks")
-
-FOR EVERY EMAIL/MESSAGE YOU WRITE OR REVIEW:
-1. Subject line: 6-8 words, specific, action-oriented
-2. Opening: skip "I hope this email finds you well" — lead with the point
-3. Body: one paragraph per idea, max 3 paragraphs for most emails
-4. Ask: one clear, specific request per email
-5. Close: action + deadline if relevant
-
-REVIEW MODE (when user pastes a draft):
-- Highlight the single biggest problem
-- Rewrite the subject line
-- Rewrite the first sentence
-- Offer a full rewrite only if requested
-
-TONE CALIBRATION:
-- Cold outreach → curious, respectful, brief
-- Client updates → confident, transparent, solution-focused
-- Internal team → direct, warm, actionable
-- Difficult conversations → empathetic, factual, collaborative
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-PROJECT 6: Product Manager Co-Pilot
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-You are a product management partner for {{pm_name}}, PM at {{company_name}}.
-
-PRODUCT CONTEXT:
-- Product: {{product_description}}
-- Users: {{primary_users}}
-- Current phase: {{product_phase}} (e.g., discovery, build, growth, optimization)
-- OKRs this cycle: {{current_okrs}}
-
-YOUR PM TOOLKIT:
-
-PRDs & Specs:
-- Lead with user problem + evidence, not solution
-- Include: success metrics, non-goals, edge cases
-- Flag assumptions explicitly with [ASSUMPTION] tags
-
-User Stories:
-Format: "As [specific user type], when [context], I want [action] so that [outcome]"
-- Include acceptance criteria (Given/When/Then)
-- Add one "sad path" per story
-
-Prioritization:
-- Default to RICE when asked to prioritize (Reach × Impact × Confidence / Effort)
-- Always show the denominator (effort) — it's the most underestimated variable
-- Challenge any prioritization that ignores user evidence
-
-Retrospectives & Analysis:
-- Structure: What happened → Why → What we learned → What changes
-- Avoid blame language; focus on systems and processes
-
-HOW TO USE EACH PROJECT:
-1. Create a new Claude Project for each prompt
-2. Paste the system prompt into "Project instructions"
-3. Fill in all {{variables}} with your specific context
-4. Upload relevant documents (codebase, brand guide, product spec) to the Project
-`,
+    content: `<div class="min-h-screen bg-[#09090B]" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: white;">
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <div class="w-60 bg-[#0F0F11] border-r border-white/[0.05] p-4 flex flex-col gap-1">
+      <div class="flex items-center gap-2 px-2 py-2 mb-3">
+        <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-orange-400 to-amber-500 flex items-center justify-center text-[13px]">⚡</div>
+        <span class="font-semibold text-[14px]">Claude Projects</span>
+      </div>
+      <button class="flex items-center gap-2 px-3 py-2 rounded-xl bg-orange-500/10 border border-orange-500/20 text-orange-400 text-[12px] font-semibold mb-2">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        New Project
+      </button>
+      <p class="text-white/20 text-[9px] uppercase tracking-widest px-3 mb-1 mt-2">My Projects</p>
+      <div class="space-y-0.5">
+        <div class="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-white/[0.06] cursor-pointer">
+          <div class="w-2 h-2 rounded-full bg-emerald-400 flex-shrink-0"></div>
+          <span class="text-white text-[12px] truncate font-medium">Marketing Copywriter</span>
+        </div>
+        <div class="flex items-center gap-2 px-3 py-2.5 rounded-xl hover:bg-white/[0.04] cursor-pointer transition-colors">
+          <div class="w-2 h-2 rounded-full bg-blue-400 flex-shrink-0"></div>
+          <span class="text-white/60 text-[12px] truncate">Code Reviewer Pro</span>
+        </div>
+        <div class="flex items-center gap-2 px-3 py-2.5 rounded-xl hover:bg-white/[0.04] cursor-pointer transition-colors">
+          <div class="w-2 h-2 rounded-full bg-violet-400 flex-shrink-0"></div>
+          <span class="text-white/60 text-[12px] truncate">Research Assistant</span>
+        </div>
+        <div class="flex items-center gap-2 px-3 py-2.5 rounded-xl hover:bg-white/[0.04] cursor-pointer transition-colors">
+          <div class="w-2 h-2 rounded-full bg-amber-400 flex-shrink-0"></div>
+          <span class="text-white/60 text-[12px] truncate">Sales Email Writer</span>
+        </div>
+        <div class="flex items-center gap-2 px-3 py-2.5 rounded-xl hover:bg-white/[0.04] cursor-pointer transition-colors">
+          <div class="w-2 h-2 rounded-full bg-pink-400 flex-shrink-0"></div>
+          <span class="text-white/60 text-[12px] truncate">SEO Content Wizard</span>
+        </div>
+      </div>
+    </div>
+    <!-- Main -->
+    <div class="flex-1 overflow-auto p-6">
+      <div class="mb-6">
+        <h1 class="text-[22px] font-bold">Marketing Copywriter</h1>
+        <p class="text-white/40 text-[13px] mt-1">Active project · 847 conversations · Last used 2h ago</p>
+      </div>
+      <!-- Instructions card -->
+      <div class="bg-white/[0.04] border border-white/[0.06] rounded-2xl p-5 mb-4">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <div class="w-6 h-6 rounded-lg bg-orange-500/15 flex items-center justify-center"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 3h8M2 6h5M2 9h7" stroke="#f97316" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+            <span class="text-[13px] font-semibold">System Instructions</span>
+          </div>
+          <button class="text-white/40 hover:text-white text-[12px] transition-colors">Edit</button>
+        </div>
+        <div class="bg-black/30 rounded-xl p-4 font-mono text-[12px] text-white/60 leading-relaxed">
+          <span class="text-orange-400">You are</span> an expert marketing copywriter specializing in <span class="text-blue-400">SaaS products</span>. Your writing style is <span class="text-emerald-400">conversational, benefit-focused</span>, and optimized for conversion.<br/><br/>
+          <span class="text-white/30"># Guidelines</span><br/>
+          - Always lead with the customer's desired outcome<br/>
+          - Use power words: proven, instant, effortless, exclusive<br/>
+          - Structure: Hook → Problem → Solution → CTA
+        </div>
+      </div>
+      <!-- Knowledge files -->
+      <div class="bg-white/[0.04] border border-white/[0.06] rounded-2xl p-5 mb-4">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <div class="w-6 h-6 rounded-lg bg-blue-500/15 flex items-center justify-center"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="2" y="1" width="8" height="10" rx="1.5" stroke="#60a5fa" stroke-width="1.4"/><path d="M4 4.5h4M4 6.5h4M4 8.5h2" stroke="#60a5fa" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+            <span class="text-[13px] font-semibold">Knowledge Base</span>
+          </div>
+          <button class="text-white/40 hover:text-white text-[12px] transition-colors flex items-center gap-1"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> Add file</button>
+        </div>
+        <div class="space-y-2">
+          <div class="flex items-center gap-3 p-3 bg-black/20 rounded-xl">
+            <div class="w-8 h-8 rounded-lg bg-white/[0.06] flex items-center justify-center text-[11px]">📄</div>
+            <div class="flex-1"><p class="text-[12px] font-medium">brand_voice_guide.pdf</p><p class="text-white/30 text-[10px]">48 KB · Added 3 days ago</p></div>
+          </div>
+          <div class="flex items-center gap-3 p-3 bg-black/20 rounded-xl">
+            <div class="w-8 h-8 rounded-lg bg-white/[0.06] flex items-center justify-center text-[11px]">📊</div>
+            <div class="flex-1"><p class="text-[12px] font-medium">competitor_analysis.xlsx</p><p class="text-white/30 text-[10px]">124 KB · Added 1 week ago</p></div>
+          </div>
+        </div>
+      </div>
+      <!-- Usage stats -->
+      <div class="grid grid-cols-3 gap-3">
+        <div class="bg-white/[0.04] border border-white/[0.06] rounded-2xl p-4 text-center">
+          <p class="text-[22px] font-bold text-orange-400">847</p>
+          <p class="text-white/40 text-[11px] mt-1">Conversations</p>
+        </div>
+        <div class="bg-white/[0.04] border border-white/[0.06] rounded-2xl p-4 text-center">
+          <p class="text-[22px] font-bold text-blue-400">2.1M</p>
+          <p class="text-white/40 text-[11px] mt-1">Tokens used</p>
+        </div>
+        <div class="bg-white/[0.04] border border-white/[0.06] rounded-2xl p-4 text-center">
+          <p class="text-[22px] font-bold text-emerald-400">94%</p>
+          <p class="text-white/40 text-[11px] mt-1">Satisfaction rate</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>`,
   },
   {
     id: "ai-workflow-pack",
-    name: "AI Workflow Automation Pack",
+    name: "Automation Workflow Board",
     description:
-      "5 AI workflow prompts for n8n, Make, and Zapier: email triage, content repurposing, lead qualification, support ticket routing, and weekly digest.",
-    category: "prompt",
+      "Visual automation workflow dashboard with multi-step pipeline builder and real-time execution stats.",
+    category: "ui",
     price: 1699,
     stripePriceId: "price_1TCExzBoWNgrJbiyehVGNbWT",
-    tags: ["automation", "workflow", "n8n", "zapier", "make", "ai agent"],
+    tags: ["automation", "workflow", "dashboard", "dark", "saas"],
     downloads: 312,
     isNew: true,
-    content: `Five production-tested AI workflow automation prompts. Each is designed as the AI step in an n8n/Make/Zapier automation.
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-WORKFLOW 1: Smart Email Triage Agent
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-TRIGGER: New email arrives in Gmail/Outlook
-AI STEP PROMPT:
-
-You are an email triage assistant for {{user_name}} at {{company_name}}.
-
-Analyze this email and return a JSON object only (no other text):
-
-Email from: {{sender}}
-Subject: {{subject}}
-Body: {{email_body}}
-
-Return:
-{
-  "priority": "urgent|high|normal|low",
-  "category": "client|sales|support|admin|newsletter|spam|personal",
-  "requires_response": true/false,
-  "response_deadline_hours": number or null,
-  "suggested_label": "string",
-  "one_line_summary": "max 10 words",
-  "draft_reply": "string or null (only if requires_response is true, keep under 100 words)",
-  "action_items": ["array of strings, max 3"]
-}
-
-PRIORITY RULES for {{company_name}}:
-- urgent: clients with active contracts, revenue impact, legal
-- high: new leads, team blockers, time-sensitive decisions
-- normal: general business correspondence
-- low: newsletters, automated notifications, FYI emails
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-WORKFLOW 2: Content Repurposing Engine
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-TRIGGER: New blog post / YouTube video published
-AI STEP PROMPT:
-
-You are a content repurposing specialist. Turn the following source content into multiple platform-specific formats. Return valid JSON only.
-
-Source content: {{source_content}}
-Author name: {{author_name}}
-Brand voice: {{brand_voice}} (e.g., "direct and educational, never corporate")
-Primary audience: {{audience}}
-
-Return:
-{
-  "twitter_thread": {
-    "hook_tweet": "string (max 240 chars, creates curiosity)",
-    "thread_tweets": ["array of 4-6 tweets, each max 240 chars"],
-    "closing_cta": "string (follow + link)"
-  },
-  "linkedin_post": "string (150-200 words, professional tone, ends with question)",
-  "newsletter_section": {
-    "subject_line": "string",
-    "preview_text": "string (max 90 chars)",
-    "body": "string (200-250 words, conversational)"
-  },
-  "instagram_caption": "string (max 150 words + 5 hashtags)",
-  "seo_meta": {
-    "title": "string (max 60 chars)",
-    "description": "string (max 155 chars)",
-    "focus_keyword": "string"
-  }
-}
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-WORKFLOW 3: Lead Qualification Scorer
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-TRIGGER: New lead form submission / CRM entry
-AI STEP PROMPT:
-
-You are a B2B lead qualification agent for {{company_name}}, which sells {{product_description}} to {{ideal_customer_profile}}.
-
-Qualify this lead and return JSON only:
-
-Lead data:
-- Name: {{lead_name}}
-- Company: {{company_name_lead}}
-- Title: {{job_title}}
-- Company size: {{company_size}}
-- Message/notes: {{lead_message}}
-- Source: {{lead_source}}
-- Website: {{company_website}}
-
-Return:
-{
-  "score": number (0-100),
-  "tier": "hot|warm|cold|disqualified",
-  "fit_analysis": {
-    "company_fit": "high|medium|low",
-    "persona_fit": "high|medium|low",
-    "intent_signals": ["array of strings"]
-  },
-  "recommended_action": "string (specific next step)",
-  "assign_to": "{{sales_rep_name}} | {{account_executive}} | nurture_sequence | discard",
-  "personalization_note": "string (1-2 sentences for the first outreach email)",
-  "red_flags": ["array of strings or empty"]
-}
-
-SCORING CRITERIA for {{company_name}}:
-- 80-100: ICP match + high intent → immediate outreach
-- 60-79: partial fit → nurture sequence
-- 40-59: low fit → low-priority follow-up
-- <40: disqualify
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-WORKFLOW 4: Support Ticket Router
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-TRIGGER: New support ticket created
-AI STEP PROMPT:
-
-You are a support operations agent for {{company_name}}. Analyze this ticket and return JSON only.
-
-Ticket:
-- From: {{customer_name}} ({{customer_plan}} plan, customer since {{customer_since}})
-- Subject: {{ticket_subject}}
-- Message: {{ticket_body}}
-
-Return:
-{
-  "category": "billing|technical|onboarding|feature_request|bug|account|general",
-  "priority": "critical|high|medium|low",
-  "sentiment": "frustrated|neutral|positive",
-  "churn_risk": "high|medium|low",
-  "assign_to": "tier1|tier2|engineering|billing|success_manager",
-  "sla_hours": number,
-  "suggested_response": "string (empathetic, professional, under 100 words — leave [SOLUTION] placeholder where the specific answer goes)",
-  "escalation_flag": true/false,
-  "escalation_reason": "string or null",
-  "knowledge_base_articles": ["array of relevant article slugs to check"]
-}
-
-PRIORITY RULES:
-- critical: service down, data loss, security issue
-- high: feature broken, {{customer_plan}} = enterprise/pro
-- medium: non-blocking issue, workaround exists
-- low: question, feature request, general inquiry
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-WORKFLOW 5: Weekly Business Digest
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-TRIGGER: Every Friday at {{digest_time}}
-DATA INPUTS: Pull from your CRM, analytics, and project tools
-
-AI STEP PROMPT:
-
-You are a business analyst preparing {{user_name}}'s weekly digest for {{company_name}}.
-
-Analyze the following data and write a clear, scannable digest. Return as formatted markdown.
-
-DATA PROVIDED:
-- Revenue this week: {{weekly_revenue}} (vs last week: {{last_week_revenue}})
-- New customers: {{new_customers}}
-- Churned customers: {{churned_customers}}
-- Active support tickets: {{open_tickets}} open, {{closed_tickets}} closed
-- Key tasks completed: {{completed_tasks}}
-- Key tasks overdue: {{overdue_tasks}}
-- Top content: {{top_content_title}} ({{top_content_views}} views)
-- Team notes: {{team_notes}}
-
-FORMAT:
-# Weekly Digest — Week of {{week_date}}
-
-## 🎯 Headline number
-[Single most important metric with context]
-
-## 📈 Revenue
-[2-3 bullets with trend analysis]
-
-## 👥 Customers
-[Acquisition + churn summary with signals]
-
-## ⚡ Wins this week
-[3 bullets — be specific, quantify where possible]
-
-## ⚠️ Watch list
-[2-3 items that need attention next week]
-
-## 📌 This week's focus
-[1-2 sentences on what the team should prioritize Monday]
-
-Keep the entire digest under 300 words. No empty positivity — only signal.
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-IMPLEMENTATION NOTES
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-1. Replace all {{variables}} with your actual values or dynamic fields from your automation tool
-2. For JSON-returning workflows, add a JSON parse step after the AI call
-3. Test with edge cases: empty fields, very long inputs, special characters
-4. Add error handling: if AI returns invalid JSON, route to manual review
-5. Recommended model: Claude 3.5 Haiku for speed/cost, Claude 3.5 Sonnet for quality
-`,
+    content: `<div class="min-h-screen bg-[#0C0D0F]" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: white;">
+  <!-- Header -->
+  <div class="border-b border-white/[0.06] px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-teal-400 to-emerald-500 flex items-center justify-center">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l3-4 2 3 2-5 3 6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span class="font-semibold text-[15px]">FlowAI</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="bg-emerald-500/10 text-emerald-400 text-[12px] font-medium px-3 py-1 rounded-full border border-emerald-500/20 flex items-center gap-1.5">
+        <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full"></span>
+        12 automations running
+      </span>
+      <button class="px-4 py-2 rounded-xl bg-teal-500 hover:bg-teal-400 text-white text-[13px] font-semibold transition-colors">New workflow</button>
+    </div>
+  </div>
+  <!-- Content -->
+  <div class="p-6">
+    <!-- Stats -->
+    <div class="grid grid-cols-4 gap-4 mb-6">
+      <div class="bg-[#111214] border border-white/[0.05] rounded-2xl p-4">
+        <div class="flex items-center justify-between mb-3">
+          <p class="text-white/40 text-[11px] uppercase tracking-wider">Tasks automated</p>
+          <div class="w-7 h-7 rounded-lg bg-teal-500/10 flex items-center justify-center"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5l3 3 6-6" stroke="#14b8a6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <p class="text-[26px] font-bold">14,821</p>
+        <p class="text-teal-400 text-[11px] mt-1">↑ +847 this week</p>
+      </div>
+      <div class="bg-[#111214] border border-white/[0.05] rounded-2xl p-4">
+        <div class="flex items-center justify-between mb-3">
+          <p class="text-white/40 text-[11px] uppercase tracking-wider">Time saved</p>
+          <div class="w-7 h-7 rounded-lg bg-blue-500/10 flex items-center justify-center"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="#60a5fa" stroke-width="1.4"/><path d="M6.5 4v3l2 1" stroke="#60a5fa" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+        </div>
+        <p class="text-[26px] font-bold">312h</p>
+        <p class="text-blue-400 text-[11px] mt-1">This month</p>
+      </div>
+      <div class="bg-[#111214] border border-white/[0.05] rounded-2xl p-4">
+        <div class="flex items-center justify-between mb-3">
+          <p class="text-white/40 text-[11px] uppercase tracking-wider">Success rate</p>
+          <div class="w-7 h-7 rounded-lg bg-emerald-500/10 flex items-center justify-center"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 8l3-4 2 3 2-5 4 6" stroke="#34d399" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <p class="text-[26px] font-bold">99.2%</p>
+        <p class="text-emerald-400 text-[11px] mt-1">0 errors today</p>
+      </div>
+      <div class="bg-[#111214] border border-white/[0.05] rounded-2xl p-4">
+        <div class="flex items-center justify-between mb-3">
+          <p class="text-white/40 text-[11px] uppercase tracking-wider">Active workflows</p>
+          <div class="w-7 h-7 rounded-lg bg-purple-500/10 flex items-center justify-center"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="1" y="1" width="4.5" height="4.5" rx="1" stroke="#a78bfa" stroke-width="1.4"/><rect x="7.5" y="1" width="4.5" height="4.5" rx="1" stroke="#a78bfa" stroke-width="1.4"/><rect x="1" y="7.5" width="4.5" height="4.5" rx="1" stroke="#a78bfa" stroke-width="1.4"/><rect x="7.5" y="7.5" width="4.5" height="4.5" rx="1" stroke="#a78bfa" stroke-width="1.4"/></svg></div>
+        </div>
+        <p class="text-[26px] font-bold">12</p>
+        <p class="text-purple-400 text-[11px] mt-1">4 scheduled</p>
+      </div>
+    </div>
+    <!-- Workflows list -->
+    <div class="bg-[#111214] border border-white/[0.05] rounded-2xl overflow-hidden">
+      <div class="px-5 py-4 border-b border-white/[0.05] flex items-center justify-between">
+        <h2 class="font-semibold text-[14px]">Active Workflows</h2>
+        <div class="flex gap-1.5">
+          <button class="px-3 py-1.5 rounded-lg bg-teal-500/10 text-teal-400 text-[11px] font-semibold">Running</button>
+          <button class="px-3 py-1.5 rounded-lg text-white/40 text-[11px] hover:bg-white/[0.04] transition-colors">All</button>
+        </div>
+      </div>
+      <div class="divide-y divide-white/[0.04]">
+        <div class="px-5 py-4 flex items-center gap-4">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-teal-500/20 to-emerald-500/20 border border-teal-500/20 flex items-center justify-center text-base">📧</div>
+          <div class="flex-1">
+            <p class="text-[13px] font-medium">Email → CRM auto-sync</p>
+            <div class="flex items-center gap-2 mt-1">
+              <span class="text-white/30 text-[11px]">Gmail</span>
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2l3 3-3 3" stroke="white" stroke-opacity=".2" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="text-white/30 text-[11px]">HubSpot</span>
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2l3 3-3 3" stroke="white" stroke-opacity=".2" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="text-white/30 text-[11px]">Slack notification</span>
+            </div>
+          </div>
+          <div class="text-right"><p class="text-teal-400 text-[12px] font-semibold">2,847 runs</p><p class="text-white/30 text-[11px]">Last: 2 min ago</p></div>
+          <span class="w-2 h-2 rounded-full bg-teal-400"></span>
+        </div>
+        <div class="px-5 py-4 flex items-center gap-4">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500/20 to-indigo-500/20 border border-blue-500/20 flex items-center justify-center text-base">📊</div>
+          <div class="flex-1">
+            <p class="text-[13px] font-medium">Weekly report generator</p>
+            <div class="flex items-center gap-2 mt-1">
+              <span class="text-white/30 text-[11px]">Airtable</span>
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2l3 3-3 3" stroke="white" stroke-opacity=".2" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="text-white/30 text-[11px]">Claude AI</span>
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2l3 3-3 3" stroke="white" stroke-opacity=".2" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="text-white/30 text-[11px]">Google Docs</span>
+            </div>
+          </div>
+          <div class="text-right"><p class="text-blue-400 text-[12px] font-semibold">12 runs</p><p class="text-white/30 text-[11px]">Every Monday 8AM</p></div>
+          <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+        </div>
+        <div class="px-5 py-4 flex items-center gap-4">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/20 flex items-center justify-center text-base">🤖</div>
+          <div class="flex-1">
+            <p class="text-[13px] font-medium">Support ticket AI triage</p>
+            <div class="flex items-center gap-2 mt-1">
+              <span class="text-white/30 text-[11px]">Zendesk</span>
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2l3 3-3 3" stroke="white" stroke-opacity=".2" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="text-white/30 text-[11px]">Claude AI classify</span>
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2l3 3-3 3" stroke="white" stroke-opacity=".2" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="text-white/30 text-[11px]">Auto-assign</span>
+            </div>
+          </div>
+          <div class="text-right"><p class="text-purple-400 text-[12px] font-semibold">5,219 runs</p><p class="text-white/30 text-[11px]">Last: 8 min ago</p></div>
+          <span class="w-2 h-2 rounded-full bg-purple-400"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>`,
   },
 
   {

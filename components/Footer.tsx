@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useLang } from "@/components/LanguageProvider";
 import { t } from "@/lib/i18n";
+import ThemeToggle from "@/components/ThemeToggle";
+import LanguageToggle from "@/components/LanguageToggle";
 
 export default function Footer() {
   const { lang } = useLang();
@@ -39,11 +41,15 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-8 pt-6 border-t border-theme flex items-center justify-between gap-4">
+        <div className="mt-8 pt-6 border-t border-theme flex items-center justify-between gap-4 flex-wrap">
           <p className="text-[11px] text-muted">{f.copyright}</p>
-          <div className="flex items-center gap-1 text-[11px] text-muted">
-            <span>Powered by</span>
-            <span className="font-semibold text-zinc-900 dark:text-white">Claude AI</span>
+          <div className="flex items-center gap-3">
+            <LanguageToggle />
+            <ThemeToggle />
+            <div className="flex items-center gap-1 text-[11px] text-muted">
+              <span>Powered by</span>
+              <span className="font-semibold text-zinc-900 dark:text-white">Claude AI</span>
+            </div>
           </div>
         </div>
       </div>
