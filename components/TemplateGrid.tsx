@@ -15,15 +15,16 @@ const SECTION_IDS: {
   emoji: string;
   ids: string[];
 }[] = [
-  { id: "professionals", emoji: "🏢", ids: ["real-estate-agent", "therapist-profile", "law-firm-services"] },
-  { id: "lifestyle-finance", emoji: "🏡", ids: ["airbnb-property-listing", "budget-tracker", "personal-finance-dashboard"] },
-  { id: "business", emoji: "🛍️", ids: ["artisan-product-catalog", "revenue-analytics", "pricing-table"] },
-  { id: "startup", emoji: "🚀", ids: ["saas-landing-dark", "startup-product-launch", "hero-saas"] },
-  { id: "creative", emoji: "🎨", ids: ["creative-agency-portfolio", "freelance-tech-profile", "blog-card-grid"] },
-  { id: "copywriting-ai", emoji: "✍️", ids: ["cold-email-b2b", "product-description-ecom", "ai-assistant-system-prompt"] },
-  { id: "hospitality", emoji: "🍽️", ids: ["restaurant-menu", "coffee-shop-landing", "hotel-booking"] },
+  { id: "professionals",   emoji: "🏢", ids: ["real-estate-agent", "therapist-profile", "law-firm-services", "personal-trainer-profile", "ai-tech-portfolio"] },
+  { id: "lifestyle-finance", emoji: "🏡", ids: ["airbnb-property-listing", "budget-tracker", "personal-finance-dashboard", "adhd-focus-tracker"] },
+  { id: "business",        emoji: "🛍️", ids: ["artisan-product-catalog", "revenue-analytics", "pricing-table", "ecommerce-product-page", "invoice-html"] },
+  { id: "startup",         emoji: "🚀", ids: ["saas-landing-dark", "startup-product-launch", "hero-saas", "waiting-list-page", "saas-pricing-full"] },
+  { id: "creative",        emoji: "🎨", ids: ["creative-agency-portfolio", "freelance-tech-profile", "blog-card-grid"] },
+  { id: "copywriting-ai",  emoji: "✍️", ids: ["cold-email-b2b", "product-description-ecom", "ai-assistant-system-prompt", "linkedin-prompt-pack", "youtube-script-pack"] },
+  { id: "ai-productivity", emoji: "🤖", ids: ["claude-projects-pack", "ai-workflow-pack"] },
+  { id: "hospitality",     emoji: "🍽️", ids: ["restaurant-menu", "coffee-shop-landing", "hotel-booking"] },
   { id: "digital-product", emoji: "📱", ids: ["mobile-app-showcase", "feature-showcase", "saas-dashboard"] },
-  { id: "personal-brand", emoji: "🪪", ids: ["digital-resume", "link-in-bio", "newsletter-landing"] },
+  { id: "personal-brand",  emoji: "🪪", ids: ["digital-resume", "link-in-bio", "newsletter-landing"] },
 ];
 
 function SkeletonCard() {

@@ -39,6 +39,14 @@ export default function HomeContent() {
   const animatedDownloads = useCountUp(totalDownloads);
   const animatedTemplates = useCountUp(templates.length);
 
+  const [purchasedIds, setPurchasedIds] = useState<string[]>([]);
+  useEffect(() => {
+    fetch("/api/purchases")
+      .then((r) => r.ok ? r.json() : { templateIds: [] })
+      .then((data) => setPurchasedIds(data.templateIds ?? []))
+      .catch(() => {});
+  }, []);
+
   const handleBundleBuy = useCallback(async (bundleId: string) => {
     const res = await fetch("/api/checkout", {
       method: "POST",
@@ -227,7 +235,7 @@ export default function HomeContent() {
             <BundleCard
               key={bundle.id}
               bundle={bundle}
-              purchasedIds={[]}
+              purchasedIds={purchasedIds}
               onBuy={handleBundleBuy}
             />
           ))}

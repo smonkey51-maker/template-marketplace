@@ -77,7 +77,11 @@ export const t = {
       },
       "copywriting-ai": {
         label: "Copywriting & AI Prompt",
-        subtitle: "Prompt pronti per vendite, SEO e assistenti AI",
+        subtitle: "Prompt pronti per vendite, SEO, LinkedIn e YouTube",
+      },
+      "ai-productivity": {
+        label: "AI & Produttività",
+        subtitle: "Claude Project pack, workflow automation, focus tracker",
       },
       hospitality: {
         label: "Ristorazione & Hospitality",
@@ -256,7 +260,11 @@ export const t = {
       },
       "copywriting-ai": {
         label: "Copywriting & AI Prompts",
-        subtitle: "Ready-made prompts for sales, SEO and AI assistants",
+        subtitle: "Ready-made prompts for sales, SEO, LinkedIn and YouTube",
+      },
+      "ai-productivity": {
+        label: "AI & Productivity",
+        subtitle: "Claude Project pack, workflow automation, focus tracker",
       },
       hospitality: {
         label: "Food & Hospitality",

@@ -4,13 +4,13 @@ import { useState } from "react";
 import { Bundle, formatPrice, getTemplate } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
 
-const COLOR_MAP: Record<string, { bg: string; border: string; text: string; badge: string }> = {
-  blue:    { bg: "bg-blue-500/10",    border: "border-blue-500/30",    text: "text-blue-400",    badge: "bg-blue-500/20 text-blue-300 border-blue-500/30" },
-  violet:  { bg: "bg-violet-500/10",  border: "border-violet-500/30",  text: "text-violet-400",  badge: "bg-violet-500/20 text-violet-300 border-violet-500/30" },
-  emerald: { bg: "bg-emerald-500/10", border: "border-emerald-500/30", text: "text-emerald-400", badge: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30" },
-  purple:  { bg: "bg-purple-500/10",  border: "border-purple-500/30",  text: "text-purple-400",  badge: "bg-purple-500/20 text-purple-300 border-purple-500/30" },
-  amber:   { bg: "bg-amber-500/10",   border: "border-amber-500/30",   text: "text-amber-400",   badge: "bg-amber-500/20 text-amber-300 border-amber-500/30" },
-  orange:  { bg: "bg-orange-500/10",  border: "border-orange-500/30",  text: "text-orange-400",  badge: "bg-orange-500/20 text-orange-300 border-orange-500/30" },
+const COLOR_MAP: Record<string, { bg: string; border: string; text: string; badge: string; btn: string }> = {
+  blue:    { bg: "bg-blue-500/10",    border: "border-blue-500/30",    text: "text-blue-400",    badge: "bg-blue-500/20 text-blue-300 border-blue-500/30",    btn: "bg-blue-500/15 hover:bg-blue-500/25 border-blue-500/40 text-blue-300" },
+  violet:  { bg: "bg-violet-500/10",  border: "border-violet-500/30",  text: "text-violet-400",  badge: "bg-violet-500/20 text-violet-300 border-violet-500/30",  btn: "bg-violet-500/15 hover:bg-violet-500/25 border-violet-500/40 text-violet-300" },
+  emerald: { bg: "bg-emerald-500/10", border: "border-emerald-500/30", text: "text-emerald-400", badge: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30", btn: "bg-emerald-500/15 hover:bg-emerald-500/25 border-emerald-500/40 text-emerald-300" },
+  purple:  { bg: "bg-purple-500/10",  border: "border-purple-500/30",  text: "text-purple-400",  badge: "bg-purple-500/20 text-purple-300 border-purple-500/30",  btn: "bg-purple-500/15 hover:bg-purple-500/25 border-purple-500/40 text-purple-300" },
+  amber:   { bg: "bg-amber-500/10",   border: "border-amber-500/30",   text: "text-amber-400",   badge: "bg-amber-500/20 text-amber-300 border-amber-500/30",    btn: "bg-amber-500/15 hover:bg-amber-500/25 border-amber-500/40 text-amber-300" },
+  orange:  { bg: "bg-orange-500/10",  border: "border-orange-500/30",  text: "text-orange-400",  badge: "bg-orange-500/20 text-orange-300 border-orange-500/30",  btn: "bg-orange-500/15 hover:bg-orange-500/25 border-orange-500/40 text-orange-300" },
 };
 
 export default function BundleCard({
@@ -110,8 +110,7 @@ export default function BundleCard({
           <button
             onClick={handleBuy}
             disabled={loading}
-            className={`w-full py-2.5 rounded-xl text-[13px] font-bold text-white transition-all duration-200 active:scale-[0.97] disabled:opacity-60 ${colors.bg} border ${colors.border} hover:border-opacity-60 ${colors.text} hover:bg-opacity-20`}
-            style={{ background: `var(--accent-${bundle.accentColor}, rgba(59,130,246,0.15))` }}
+            className={`w-full py-2.5 rounded-xl text-[13px] font-bold transition-all duration-200 active:scale-[0.97] disabled:opacity-60 border ${colors.btn}`}
           >
             {loading
               ? (lang === "it" ? "Caricamento..." : "Loading...")
