@@ -28,6 +28,7 @@ export default function Footer() {
           <div className="flex flex-col sm:flex-row gap-8 sm:gap-16">
             <div className="flex flex-col gap-2.5">
               <p className="text-[10px] font-bold text-muted uppercase tracking-[0.15em] mb-0.5">Product</p>
+              <Link href="/#bundles" className="text-[13px] text-muted hover:text-theme transition-colors duration-200">{f.bundles}</Link>
               <Link href="/guide" className="text-[13px] text-muted hover:text-theme transition-colors duration-200">{f.guide}</Link>
               <Link href="/studio" className="text-[13px] text-muted hover:text-theme transition-colors duration-200">{f.studio}</Link>
               <Link href="/account" className="text-[13px] text-muted hover:text-theme transition-colors duration-200">{f.account}</Link>

@@ -7,6 +7,7 @@ import { getBundle, getTemplate, formatPrice } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
 import { t } from "@/lib/i18n";
 import PromptFullView from "@/components/PromptFullView";
+import { useToast } from "@/components/Toast";
 
 const COLOR_MAP: Record<string, { bg: string; border: string; text: string; badge: string; glow: string }> = {
   blue:    { bg: "bg-blue-500/10",    border: "border-blue-500/30",    text: "text-blue-400",    badge: "bg-blue-500/20 text-blue-300 border-blue-500/30",    glow: "shadow-[0_4px_20px_rgba(10,132,255,0.35)]" },
@@ -23,8 +24,8 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
   const [purchasedIds, setPurchasedIds] = useState<string[]>([]);
   const [purchasesLoading, setPurchasesLoading] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [checkoutError, setCheckoutError] = useState<string | null>(null);
   const [activeTemplateIdx, setActiveTemplateIdx] = useState(0);
+  const toast = useToast();
 
   const bundle = getBundle(bundleId);
 
@@ -57,7 +58,6 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
 
   const handleBuy = async () => {
     setLoading(true);
-    setCheckoutError(null);
     try {
       const res = await fetch("/api/checkout", {
         method: "POST",
@@ -69,10 +69,11 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
       if (data.url) window.location.href = data.url;
       else throw new Error("no_url");
     } catch {
-      setCheckoutError(
+      toast(
         lang === "it"
           ? "Errore durante il checkout. Riprova più tardi."
-          : "Checkout failed. Please try again."
+          : "Checkout failed. Please try again.",
+        "error"
       );
     } finally {
       setLoading(false);
@@ -291,17 +292,13 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
             <span className="text-2xl shrink-0">{bundle.emoji}</span>
             <div className="flex-1 min-w-0">
               <p className="text-[14px] font-bold text-theme leading-tight truncate">{bundle.name}</p>
-              <p className="text-[11px] text-muted">{includedTemplates.length} template inclusi</p>
+              <p className="text-[11px] text-muted">{includedTemplates.length} {lang === "it" ? "template inclusi" : "templates included"}</p>
             </div>
             <div className="text-right shrink-0">
               <p className={`text-[22px] font-black leading-none ${colors.text}`}>{formatPrice(bundle.price)}</p>
               <p className="text-[11px] text-muted line-through">{formatPrice(bundle.regularPrice)}</p>
             </div>
           </div>
-
-          {checkoutError && (
-            <p className="text-center text-[12px] text-[#FF453A] mb-2 font-medium">{checkoutError}</p>
-          )}
 
           {purchasesLoading ? (
             <div className="w-full h-[50px] rounded-2xl bg-theme/10 animate-pulse" />

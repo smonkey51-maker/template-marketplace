@@ -11,6 +11,7 @@ import { t, templateTranslations } from "@/lib/i18n";
 import EmailCapture from "@/components/EmailCapture";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import { useToast } from "@/components/Toast";
 
 // ── Scroll progress bar ───────────────────────────────────────────────────────
 function ScrollProgressBar() {
@@ -609,8 +610,8 @@ export default function HomeContent() {
   const [query, setQuery] = useState("");
 
   const [purchasedIds, setPurchasedIds] = useState<string[]>([]);
-  const [bundleError, setBundleError] = useState<string | null>(null);
   const [marqueePaused, setMarqueePaused] = useState(false);
+  const toast = useToast();
 
   // Mobile menu state
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -640,7 +641,6 @@ export default function HomeContent() {
   }, []);
 
   const handleBundleBuy = useCallback(async (bundleId: string) => {
-    setBundleError(null);
     try {
       const res = await fetch("/api/checkout", {
         method: "POST",
@@ -649,14 +649,13 @@ export default function HomeContent() {
       });
       if (!res.ok) throw new Error("checkout_failed");
       const data = await res.json();
+      if (data.requireAuth) { window.location.href = "/sign-in?redirect_url=/"; return; }
       if (data.url) router.push(data.url);
       else throw new Error("no_url");
     } catch {
-      setBundleError(lang === "it"
-        ? "Errore durante il checkout. Riprova."
-        : "Checkout failed. Please try again.");
+      toast(lang === "it" ? "Errore durante il checkout. Riprova." : "Checkout failed. Please try again.", "error");
     }
-  }, [router, lang]);
+  }, [router, lang, toast]);
 
   return (
     <div className="min-h-screen bg-page relative overflow-x-hidden anim-page-enter">
@@ -753,9 +752,6 @@ export default function HomeContent() {
 
           <NavButtons showMobileLinks={false} />
         </div>
-        {bundleError && (
-          <p className="text-center text-[12px] text-red-500 mt-1">{bundleError}</p>
-        )}
       </nav>
 
       {/* ── Mobile menu overlay ── */}
@@ -1089,7 +1085,7 @@ export default function HomeContent() {
       {/* ── Quote ── */}
       <div className="relative z-10 border-t border-theme px-4 sm:px-6 py-10">
         <div className="max-w-xl mx-auto text-center">
-          <p className="text-[11px] text-zinc-300 dark:text-zinc-600 italic">
+          <p className="text-[11px] text-zinc-500 dark:text-zinc-600 italic">
             &ldquo;Non c&rsquo;è niente di più definitivo di un template &lsquo;temporaneo&rsquo; che resterà in produzione per i prossimi otto anni.&rdquo;
           </p>
         </div>

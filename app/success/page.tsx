@@ -1,12 +1,49 @@
 "use client";
 
 import Link from "next/link";
-import { Suspense } from "react";
+import { Suspense, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 import { getTemplate } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
 import { t } from "@/lib/i18n";
+
+const CONFETTI_COLORS = ["#0A84FF", "#5E5CE6", "#30D158", "#FFD60A", "#FF453A", "#FF9F0A", "#BF5AF2"];
+
+function Confetti() {
+  const pieces = useRef(
+    Array.from({ length: 60 }, (_, i) => ({
+      id: i,
+      color: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
+      left: Math.random() * 100,
+      delay: Math.random() * 2.5,
+      duration: 2.8 + Math.random() * 2.2,
+      size: 6 + Math.random() * 6,
+      isRect: Math.random() > 0.5,
+    }))
+  ).current;
+
+  return (
+    <div className="fixed inset-0 pointer-events-none overflow-hidden z-[200]" aria-hidden>
+      {pieces.map((p) => (
+        <div
+          key={p.id}
+          style={{
+            position: "absolute",
+            top: -16,
+            left: `${p.left}%`,
+            width: p.isRect ? p.size : p.size * 0.6,
+            height: p.isRect ? p.size * 0.5 : p.size,
+            borderRadius: p.isRect ? 2 : "50%",
+            background: p.color,
+            opacity: 0.9,
+            animation: `confetti-fall ${p.duration}s ${p.delay}s ease-in forwards, confetti-sway ${p.duration * 0.7}s ${p.delay}s ease-in-out infinite`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
 
 function SuccessContent() {
   const searchParams = useSearchParams();
@@ -110,6 +147,7 @@ function SuccessContent() {
 export default function SuccessPage() {
   return (
     <div className="min-h-screen flex items-center justify-center px-6 bg-page">
+      <Confetti />
       {/* Ambient glow */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden>
         <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full opacity-50"

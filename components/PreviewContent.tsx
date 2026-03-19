@@ -10,6 +10,7 @@ import RelatedTemplates from "@/components/RelatedTemplates";
 import { useLang } from "@/components/LanguageProvider";
 import { t, templateTranslations } from "@/lib/i18n";
 import PromptFullView from "@/components/PromptFullView";
+import { useToast } from "@/components/Toast";
 
 export default function PreviewContent({ templateId }: { templateId: string }) {
   const router = useRouter();
@@ -18,7 +19,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
   const [purchasedIds, setPurchasedIds] = useState<string[]>([]);
   const [purchasesLoading, setPurchasesLoading] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [checkoutError, setCheckoutError] = useState<string | null>(null);
+  const toast = useToast();
   const [viewMode, setViewMode] = useState<"desktop" | "mobile">("desktop");
 
   const template = getTemplate(templateId);
@@ -35,7 +36,6 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
 
   const handleBuy = async () => {
     setLoading(true);
-    setCheckoutError(null);
     try {
       const res = await fetch("/api/checkout", {
         method: "POST",
@@ -47,7 +47,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
       if (data.url) window.location.href = data.url;
       else throw new Error("no_url");
     } catch {
-      setCheckoutError(lang === "it" ? "Errore durante il checkout. Riprova più tardi." : "Checkout failed. Please try again.");
+      toast(lang === "it" ? "Errore durante il checkout. Riprova più tardi." : "Checkout failed. Please try again.", "error");
     } finally {
       setLoading(false);
     }
@@ -294,9 +294,6 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
             </span>
           </div>
 
-          {checkoutError && (
-            <p className="text-center text-[12px] text-[#FF453A] mb-2 font-medium">{checkoutError}</p>
-          )}
           {purchasesLoading ? (
             <div className="w-full h-[50px] rounded-2xl bg-theme/10 animate-pulse" />
           ) : isPurchased ? (

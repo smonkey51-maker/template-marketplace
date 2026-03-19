@@ -6,6 +6,7 @@ import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
 // UserButton handles its own visibility — shows nothing when signed out
 import { templates, getTemplate, formatPrice } from "@/lib/templates";
+import { useLang } from "@/components/LanguageProvider";
 
 type Tab = "generate" | "customize";
 type UIStyle = "modern" | "minimal" | "bold" | "glassmorphism" | "retro";
@@ -76,6 +77,7 @@ function StudioContent() {
   const abortRef = useRef<AbortController | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const { lang } = useLang();
   const selectedTemplate = getTemplate(selectedId);
 
   const streamRequest = useCallback(
@@ -243,10 +245,30 @@ function StudioContent() {
                       : "text-muted hover:text-theme"
                   }`}
                 >
-                  {t === "generate" ? "✨ Generate New" : "🎨 Customize"}
-                  {t === "generate" && !hasStudioAccess && (
-                    <span className="ml-1 text-xs">🔒</span>
-                  )}
+                  <span className="flex items-center justify-center gap-1.5">
+                    {t === "generate" ? (
+                      <>
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+                          <path d="M7 1v2M7 11v2M1 7h2M11 7h2M2.93 2.93l1.41 1.41M9.66 9.66l1.41 1.41M2.93 11.07l1.41-1.41M9.66 4.34l1.41-1.41" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
+                          <circle cx="7" cy="7" r="2.2" stroke="currentColor" strokeWidth="1.4"/>
+                        </svg>
+                        {lang === "it" ? "Genera" : "Generate"}
+                      </>
+                    ) : (
+                      <>
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+                          <path d="M9.5 2.5l2 2-7 7H2.5v-2l7-7z" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                        {lang === "it" ? "Personalizza" : "Customize"}
+                      </>
+                    )}
+                    {t === "generate" && !hasStudioAccess && (
+                      <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden className="opacity-50">
+                        <rect x="2" y="4.5" width="7" height="5" rx="1" stroke="currentColor" strokeWidth="1.3"/>
+                        <path d="M3.5 4.5V3a2 2 0 014 0v1.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+                      </svg>
+                    )}
+                  </span>
                 </button>
               ))}
             </div>
@@ -254,10 +276,19 @@ function StudioContent() {
             {/* Generate locked */}
             {tab === "generate" && !hasStudioAccess && (
               <div className="bg-surface border border-theme rounded-[28px] p-8 text-center flex flex-col items-center gap-4">
-                <div className="text-5xl">🔒</div>
-                <h3 className="font-semibold text-theme text-[17px]">Studio Access richiesto</h3>
+                <div className="w-14 h-14 rounded-2xl bg-[#0A84FF]/10 flex items-center justify-center">
+                  <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden>
+                    <rect x="4" y="11" width="18" height="13" rx="3" stroke="#0A84FF" strokeWidth="1.8"/>
+                    <path d="M8 11V8a5 5 0 0110 0v3" stroke="#0A84FF" strokeWidth="1.8" strokeLinecap="round"/>
+                  </svg>
+                </div>
+                <h3 className="font-semibold text-theme text-[17px]">
+                  {lang === "it" ? "Studio Access richiesto" : "Studio Access required"}
+                </h3>
                 <p className="text-[15px] text-muted">
-                  Acquista Studio Access per generare template illimitati con l&apos;AI.
+                  {lang === "it"
+                    ? "Acquista Studio Access per generare template illimitati con l'AI."
+                    : "Get Studio Access to generate unlimited templates with AI."}
                 </p>
                 <button
                   onClick={async () => {
@@ -272,11 +303,11 @@ function StudioContent() {
                   }}
                   className="px-6 py-3 bg-[#0A84FF] hover:bg-[#409CFF] rounded-2xl font-bold text-[15px] text-white transition-all duration-200 shadow-[0_4px_20px_rgba(10,132,255,0.25)] active:scale-[0.97] ios-spring"
                 >
-                  €9.99/mese — Abbonati →
+                  {lang === "it" ? "€9.99/mese — Abbonati →" : "€9.99/mo — Subscribe →"}
                 </button>
                 {process.env.NEXT_PUBLIC_STUDIO_LIFETIME_AVAILABLE === "true" && (
                   <>
-                    <span className="text-[12px] text-muted">— oppure —</span>
+                    <span className="text-[12px] text-muted">— {lang === "it" ? "oppure" : "or"} —</span>
                     <button
                       onClick={async () => {
                         const res = await fetch("/api/checkout", {
@@ -290,7 +321,7 @@ function StudioContent() {
                       }}
                       className="px-6 py-2.5 glass-subtle border border-theme rounded-2xl font-semibold text-[14px] text-theme transition-all duration-200 active:scale-[0.97] ios-spring"
                     >
-                      ✦ Lifetime — €49 una volta sola
+                      {lang === "it" ? "✦ Lifetime — €49 una volta sola" : "✦ Lifetime — €49 one-time"}
                     </button>
                   </>
                 )}
@@ -426,7 +457,7 @@ function StudioContent() {
                       <span style={{ display: "inline-block", animation: "spin 1s linear infinite" }}>⟳</span> Generating...
                     </>
                   ) : (
-                    "✨ Generate Template"
+                    lang === "it" ? "Genera Template" : "Generate Template"
                   )}
                 </button>
               </div>
@@ -539,7 +570,7 @@ function StudioContent() {
                       <span style={{ display: "inline-block", animation: "spin 1s linear infinite" }}>⟳</span> Customizing...
                     </>
                   ) : (
-                    "🎨 Customize Template"
+                    lang === "it" ? "Personalizza Template" : "Customize Template"
                   )}
                 </button>
               </div>
@@ -603,13 +634,22 @@ function StudioContent() {
               {!activeOutput && !isLoading && (
                 <div className="absolute inset-0 flex items-center justify-center text-[#48484A] text-[15px]">
                   <div className="text-center">
-                    <div className="text-4xl mb-3">
-                      {tab === "generate" ? "✨" : "🎨"}
+                    <div className="flex justify-center mb-3 text-[#48484A]">
+                      {tab === "generate" ? (
+                        <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden>
+                          <path d="M18 4v4M18 28v4M4 18h4M28 18h4M7.76 7.76l2.83 2.83M25.41 25.41l2.83 2.83M7.76 28.24l2.83-2.83M25.41 10.59l2.83-2.83" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                          <circle cx="18" cy="18" r="6" stroke="currentColor" strokeWidth="2"/>
+                        </svg>
+                      ) : (
+                        <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden>
+                          <path d="M24 8l4 4-18 18H6v-4L24 8z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      )}
                     </div>
                     <p>
                       {tab === "generate"
-                        ? "Describe a template to generate"
-                        : "Select a template and add instructions"}
+                        ? (lang === "it" ? "Descrivi un template da generare" : "Describe a template to generate")
+                        : (lang === "it" ? "Seleziona un template e aggiungi istruzioni" : "Select a template and add instructions")}
                     </p>
                   </div>
                 </div>
@@ -625,7 +665,9 @@ function StudioContent() {
                     </span>
                     {showTimeoutHint && (
                       <p className="text-[12px] text-[#48484A] max-w-[260px] leading-relaxed">
-                        Ci sta pensando su 🧠 — i template UI con extended thinking possono richiedere fino a 60 secondi.
+                        {lang === "it"
+                          ? "Ci sta pensando su 🧠 — i template UI con extended thinking possono richiedere fino a 60 secondi."
+                          : "Still thinking 🧠 — UI templates with extended thinking can take up to 60 seconds."}
                       </p>
                     )}
                   </div>
