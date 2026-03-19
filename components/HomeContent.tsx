@@ -318,12 +318,11 @@ function NavDropdown({
         className="transition-all duration-[180ms] ease-out"
         style={{
           opacity: open ? 1 : 0,
-          pointerEvents: open ? "auto" : "none",
+          visibility: open ? "visible" : "hidden",
           transform: open ? "translateY(0) scale(1)" : "translateY(-6px) scale(0.97)",
           transformOrigin: "top center",
         }}
         aria-hidden={!open}
-        onClick={() => setOpen(false)}
       >
         {children}
       </div>

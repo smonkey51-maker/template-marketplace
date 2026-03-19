@@ -84,7 +84,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
 
       {/* ── Back button ── */}
       <button
-        onClick={() => router.back()}
+        onClick={() => router.push("/")}
         className="fixed top-4 left-4 z-50 flex items-center gap-1.5 px-3.5 py-2 rounded-full
           bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 shadow-sm
           text-zinc-700 dark:text-zinc-300 text-[14px] font-semibold
