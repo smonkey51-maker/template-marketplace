@@ -1086,7 +1086,9 @@ export default function HomeContent() {
       <div className="relative z-10 border-t border-theme px-4 sm:px-6 py-10">
         <div className="max-w-xl mx-auto text-center">
           <p className="text-[11px] text-zinc-500 dark:text-zinc-600 italic">
-            &ldquo;Non c&rsquo;è niente di più definitivo di un template &lsquo;temporaneo&rsquo; che resterà in produzione per i prossimi otto anni.&rdquo;
+            {lang === "it"
+              ? <>&ldquo;Non c&rsquo;è niente di più definitivo di un template &lsquo;temporaneo&rsquo; che resterà in produzione per i prossimi otto anni.&rdquo;</>
+              : <>&ldquo;There&rsquo;s nothing more permanent than a &lsquo;temporary&rsquo; template that ends up in production for the next eight years.&rdquo;</>}
           </p>
         </div>
       </div>
