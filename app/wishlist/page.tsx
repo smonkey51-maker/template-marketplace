@@ -1,17 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useWishlist } from "@/lib/useWishlist";
 import { getTemplate } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
 import TemplateCard from "@/components/TemplateCard";
+import SiteNav from "@/components/SiteNav";
 import { useEffect, useState } from "react";
 
 export default function WishlistPage() {
   const { ids, toggle } = useWishlist();
   const { lang } = useLang();
-  const router = useRouter();
   const [purchasedIds, setPurchasedIds] = useState<string[]>([]);
 
   useEffect(() => {
@@ -25,25 +24,7 @@ export default function WishlistPage() {
 
   return (
     <div className="min-h-screen bg-page pb-24">
-      {/* Nav */}
-      <nav className="border-b border-theme backdrop-blur-2xl bg-nav px-4 sm:px-6 py-3.5 sticky top-0 z-50">
-        <div className="max-w-5xl mx-auto flex items-center gap-3">
-          <button
-            onClick={() => router.push("/")}
-            className="flex items-center gap-1 text-[#0A84FF] text-[15px] font-medium hover:opacity-70 transition-opacity"
-          >
-            <svg width="9" height="15" viewBox="0 0 9 15" fill="none" className="shrink-0">
-              <path d="M8 1L1.5 7.5L8 14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            <span className="hidden sm:inline">{lang === "it" ? "Marketplace" : "Marketplace"}</span>
-          </button>
-          <div className="flex-1" />
-          <span className="text-[13px] font-bold text-theme">
-            {lang === "it" ? "❤ Salvati" : "❤ Saved"}
-          </span>
-          <div className="flex-1" />
-        </div>
-      </nav>
+      <SiteNav title={lang === "it" ? "Salvati" : "Saved"} />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10">
         {saved.length === 0 ? (

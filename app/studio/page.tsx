@@ -3,10 +3,10 @@
 import { useState, useRef, useCallback, Suspense, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { UserButton } from "@clerk/nextjs";
-// UserButton handles its own visibility — shows nothing when signed out
+// UserButton is rendered inside SiteNav
 import { templates, getTemplate, formatPrice } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
+import SiteNav from "@/components/SiteNav";
 
 type Tab = "generate" | "customize";
 type UIStyle = "modern" | "minimal" | "bold" | "glassmorphism" | "retro";
@@ -215,22 +215,7 @@ function StudioContent() {
   return (
     <div className="min-h-screen flex flex-col bg-page relative">
 
-      {/* Nav — iOS liquid glass */}
-      <nav className="border-b border-theme backdrop-blur-2xl bg-nav px-4 sm:px-6 py-3.5 relative z-50">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
-          {/* Back */}
-          <Link href="/" className="flex items-center gap-1 text-[#0A84FF] text-[15px] font-medium hover:opacity-70 transition-opacity ios-spring shrink-0">
-            <svg width="9" height="15" viewBox="0 0 9 15" fill="none" className="shrink-0">
-              <path d="M8 1L1.5 7.5L8 14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            <span className="hidden sm:inline">Marketplace</span>
-          </Link>
-
-          <span className="text-[13px] text-muted font-semibold uppercase tracking-widest">AI Studio</span>
-
-          <UserButton />
-        </div>
-      </nav>
+      <SiteNav title="AI Studio" />
 
       <div className="flex-1 max-w-7xl mx-auto w-full px-6 py-10 relative z-10">
         <div className="mb-8">

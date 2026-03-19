@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useLang } from "@/components/LanguageProvider";
 import { t } from "@/lib/i18n";
+import SiteNav from "@/components/SiteNav";
 
 export default function GuidePage() {
   const { lang } = useLang();
@@ -22,31 +22,7 @@ export default function GuidePage() {
         />
       </div>
 
-      {/* ── Nav ── */}
-      <nav className="sticky top-0 z-50 border-b border-theme backdrop-blur-2xl bg-nav px-4 sm:px-6 py-3.5">
-        <div className="max-w-4xl mx-auto flex items-center justify-between gap-4">
-          {/* Back */}
-          <Link
-            href="/"
-            className="flex items-center gap-1 text-[#0A84FF] text-[15px] font-medium hover:opacity-70 transition-opacity ios-spring shrink-0"
-          >
-            <svg width="9" height="15" viewBox="0 0 9 15" fill="none" className="shrink-0">
-              <path
-                d="M8 1L1.5 7.5L8 14"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            <span className="hidden sm:inline">{t[lang].account.backToMarketplace}</span>
-          </Link>
-
-          <span className="text-[13px] text-muted font-semibold uppercase tracking-widest">{t[lang].guide.pageTitle}</span>
-
-          <div className="w-9" />{/* spacer */}
-        </div>
-      </nav>
+      <SiteNav title={t[lang].guide.pageTitle} />
 
       {/* ── Content ── */}
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 py-12 flex flex-col gap-16">
