@@ -61,7 +61,7 @@ export default function EmailCapture() {
         </div>
 
         {/* Form */}
-        <div className="w-full sm:w-auto shrink-0">
+        <div className="w-full sm:w-auto shrink-0 flex flex-col items-center sm:items-end">
           {status === "success" ? (
             <p className="text-[13px] text-emerald-500 font-medium">{c.success}</p>
           ) : (
