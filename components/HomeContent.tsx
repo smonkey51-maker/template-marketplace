@@ -1040,9 +1040,6 @@ export default function HomeContent() {
         <TemplateGrid externalQuery={query} />
       </div>
 
-      {/* ── Bundle Showcase ── */}
-      <BundleShowcase lang={lang} purchasedIds={purchasedIds} onBuy={handleBundleBuy} />
-
       {/* ── Testimonials — da aggiungere quando ci saranno utenti reali ── */}
       {/* <div className="relative z-10 border-t border-theme px-4 sm:px-6 py-14">
         <div className="max-w-5xl mx-auto">
