@@ -610,6 +610,7 @@ export default function HomeContent() {
 
   const [purchasedIds, setPurchasedIds] = useState<string[]>([]);
   const [bundleError, setBundleError] = useState<string | null>(null);
+  const [marqueePaused, setMarqueePaused] = useState(false);
 
   // Mobile menu state
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -1030,19 +1031,23 @@ export default function HomeContent() {
           </div>
 
           {/* ── Template marquee strip ── */}
-          <div className="group relative -mx-4 sm:-mx-6 overflow-hidden pb-12">
+          <div
+            className="relative -mx-4 sm:-mx-6 overflow-hidden pb-12"
+            onMouseEnter={() => setMarqueePaused(true)}
+            onMouseLeave={() => setMarqueePaused(false)}
+          >
             {/* fade edges */}
             <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 z-10 pointer-events-none" style={{ background: "linear-gradient(to right, var(--bg), transparent)" }} />
             <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 z-10 pointer-events-none" style={{ background: "linear-gradient(to left, var(--bg), transparent)" }} />
 
             {/* Row 1 — scrolls left */}
-            <div className="flex gap-3 mb-3 group-hover:[animation-play-state:paused]" style={{ animation: "marquee-left 32s linear infinite", width: "max-content" }}>
+            <div className="flex gap-3 mb-3" style={{ animation: "marquee-left 32s linear infinite", animationPlayState: marqueePaused ? "paused" : "running", width: "max-content" }}>
               {[...marqueeTemplates, ...marqueeTemplates].map((tmpl, i) => (
                 <MarqueeCard key={`r1-${i}`} tmpl={tmpl} lang={lang} />
               ))}
             </div>
             {/* Row 2 — scrolls right */}
-            <div className="flex gap-3 group-hover:[animation-play-state:paused]" style={{ animation: "marquee-right 28s linear infinite", width: "max-content" }}>
+            <div className="flex gap-3" style={{ animation: "marquee-right 28s linear infinite", animationPlayState: marqueePaused ? "paused" : "running", width: "max-content" }}>
               {[...marqueeTemplates2, ...marqueeTemplates2].map((tmpl, i) => (
                 <MarqueeCard key={`r2-${i}`} tmpl={tmpl} lang={lang} />
               ))}
