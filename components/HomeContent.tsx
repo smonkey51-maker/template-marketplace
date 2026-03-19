@@ -854,8 +854,8 @@ export default function HomeContent() {
         <TemplateGrid externalQuery={query} />
       </div>
 
-      {/* ── Testimonials ── */}
-      <div className="relative z-10 border-t border-theme px-4 sm:px-6 py-14">
+      {/* ── Testimonials — da aggiungere quando ci saranno utenti reali ── */}
+      {/* <div className="relative z-10 border-t border-theme px-4 sm:px-6 py-14">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-8">
             <p className="text-[10px] font-bold text-muted uppercase tracking-[0.18em] mb-3">
@@ -871,7 +871,7 @@ export default function HomeContent() {
             ))}
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* ── Newsletter — subtle ── */}
       <div className="relative z-10 border-t border-theme">
@@ -881,13 +881,8 @@ export default function HomeContent() {
       {/* ── Quote ── */}
       <div className="relative z-10 border-t border-theme px-4 sm:px-6 py-10">
         <div className="max-w-xl mx-auto text-center">
-          <p className="text-[13px] text-muted/60 font-mono tracking-wide mb-2 select-none">
-            {lang === "it" ? "— ogni grande prodotto inizia con un template —" : "— every great product starts with a template —"}
-          </p>
           <p className="text-[11px] text-zinc-300 dark:text-zinc-600 italic">
-            {lang === "it"
-              ? "\"Il perfetto è nemico del fatto. Il template è amico di entrambi.\""
-              : "\"Perfect is the enemy of done. A template is a friend of both.\""}
+            &ldquo;Non c&rsquo;è niente di più definitivo di un template &lsquo;temporaneo&rsquo; che resterà in produzione per i prossimi otto anni.&rdquo;
           </p>
         </div>
       </div>
