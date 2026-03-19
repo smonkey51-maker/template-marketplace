@@ -1,6 +1,5 @@
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM = process.env.RESEND_FROM ?? "TemplateLab <noreply@templatelab.io>";
 
 type PurchaseEmailParams = {
@@ -14,6 +13,7 @@ type PurchaseEmailParams = {
 
 export async function sendPurchaseEmail(params: PurchaseEmailParams) {
   if (!process.env.RESEND_API_KEY) return; // silently skip if not configured
+  const resend = new Resend(process.env.RESEND_API_KEY);
 
   const { to, type, itemName, downloadUrl, previewUrl, bundleTemplates } = params;
 
