@@ -1,30 +1,24 @@
 import { MetadataRoute } from "next";
 import { templates, bundles } from "@/lib/templates";
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://templatelab.io";
-const LAST_UPDATED = new Date("2026-03-18");
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://templatelab.io";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const templateEntries: MetadataRoute.Sitemap = templates.map((tmpl) => ({
-    url: `${BASE_URL}/preview/${tmpl.id}`,
-    lastModified: tmpl.isNew ? LAST_UPDATED : new Date("2026-01-01"),
-    changeFrequency: "monthly",
-    priority: tmpl.editorsPick ? 0.9 : 0.8,
-  }));
-
-  const bundleEntries: MetadataRoute.Sitemap = bundles.map((b) => ({
-    url: `${BASE_URL}/bundle/${b.id}`,
-    lastModified: LAST_UPDATED,
-    changeFrequency: "monthly",
-    priority: 0.85,
-  }));
-
   return [
-    { url: BASE_URL, lastModified: LAST_UPDATED, changeFrequency: "weekly", priority: 1.0 },
-    { url: `${BASE_URL}/guide`, lastModified: LAST_UPDATED, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${BASE_URL}/privacy`, lastModified: new Date("2026-01-01"), changeFrequency: "yearly", priority: 0.3 },
-    { url: `${BASE_URL}/terms`, lastModified: new Date("2026-01-01"), changeFrequency: "yearly", priority: 0.3 },
-    ...bundleEntries,
-    ...templateEntries,
+    { url: SITE_URL, lastModified: new Date(), changeFrequency: "daily", priority: 1 },
+    { url: `${SITE_URL}/studio`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${SITE_URL}/guide`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
+    ...bundles.map((b) => ({
+      url: `${SITE_URL}/bundle/${b.id}`,
+      lastModified: new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 0.9,
+    })),
+    ...templates.map((t) => ({
+      url: `${SITE_URL}/preview/${t.id}`,
+      lastModified: new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    })),
   ];
 }

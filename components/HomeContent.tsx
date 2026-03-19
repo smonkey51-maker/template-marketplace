@@ -330,6 +330,193 @@ function NavDropdown({
   );
 }
 
+// ── Bundle scroll section ─────────────────────────────────────────────────────
+
+const BUNDLE_GRADIENTS: Record<string, { bg: string; glow: string; accent: string; badgeBg: string }> = {
+  blue:    { bg: "linear-gradient(145deg,#1e3a8a 0%,#0f172a 100%)", glow: "59,130,246",   accent: "#93c5fd", badgeBg: "rgba(59,130,246,0.22)" },
+  violet:  { bg: "linear-gradient(145deg,#4c1d95 0%,#0f0721 100%)", glow: "139,92,246",   accent: "#c4b5fd", badgeBg: "rgba(139,92,246,0.22)" },
+  emerald: { bg: "linear-gradient(145deg,#064e3b 0%,#022c22 100%)", glow: "16,185,129",   accent: "#6ee7b7", badgeBg: "rgba(16,185,129,0.22)" },
+  purple:  { bg: "linear-gradient(145deg,#581c87 0%,#1a0533 100%)", glow: "168,85,247",   accent: "#d8b4fe", badgeBg: "rgba(168,85,247,0.22)" },
+  amber:   { bg: "linear-gradient(145deg,#78350f 0%,#1c0a00 100%)", glow: "245,158,11",   accent: "#fcd34d", badgeBg: "rgba(245,158,11,0.22)" },
+  orange:  { bg: "linear-gradient(145deg,#7c2d12 0%,#1c0700 100%)", glow: "249,115,22",   accent: "#fed7aa", badgeBg: "rgba(249,115,22,0.22)" },
+};
+
+function BundleScrollCard({ bundle, purchasedIds, onBuy, lang }: {
+  bundle: typeof bundles[number];
+  purchasedIds: string[];
+  onBuy: (id: string) => Promise<void>;
+  lang: "it" | "en";
+}) {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number>(0);
+  const g = BUNDLE_GRADIENTS[bundle.accentColor] ?? BUNDLE_GRADIENTS.blue;
+  const savings = bundle.regularPrice - bundle.price;
+  const savingsPct = Math.round((savings / bundle.regularPrice) * 100);
+  const isOwned = bundle.templateIds.every((id) => purchasedIds.includes(id));
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(() => {
+      const el = cardRef.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      el.style.transform = `perspective(900px) rotateX(${(-y * 5).toFixed(1)}deg) rotateY(${(x * 5).toFixed(1)}deg) scale3d(1.02,1.02,1.02)`;
+    });
+  };
+  const handleMouseLeave = () => {
+    cancelAnimationFrame(rafRef.current);
+    const el = cardRef.current;
+    if (!el) return;
+    el.style.transition = "transform .5s cubic-bezier(.34,1.2,.64,1)";
+    el.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)";
+    setTimeout(() => { if (el) el.style.transition = ""; }, 500);
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      onClick={() => router.push(`/bundle/${bundle.id}`)}
+      className="flex-shrink-0 w-[290px] sm:w-[330px] rounded-[24px] overflow-hidden cursor-pointer flex flex-col"
+      style={{ scrollSnapAlign: "start", willChange: "transform", background: g.bg, boxShadow: `0 8px 40px rgba(${g.glow},0.18), 0 2px 10px rgba(0,0,0,0.4)` }}
+    >
+      {/* Card body */}
+      <div className="flex-1 px-5 pt-6 pb-4 relative">
+        {/* Glow spot */}
+        <div className="absolute top-0 right-0 w-40 h-40 rounded-full pointer-events-none" style={{ background: `radial-gradient(circle, rgba(${g.glow},0.18) 0%, transparent 70%)`, transform: "translate(30%,-30%)" }} />
+        {/* Discount badge */}
+        <span className="absolute top-4 right-4 text-[11px] font-black rounded-full px-2.5 py-1 border" style={{ background: g.badgeBg, color: g.accent, borderColor: `rgba(${g.glow},0.4)` }}>
+          –{savingsPct}%
+        </span>
+        {/* Emoji */}
+        <div className="text-4xl mb-4">{bundle.emoji}</div>
+        {/* Name & tagline */}
+        <h3 className="text-[17px] font-black text-white leading-tight mb-1.5">{bundle.name}</h3>
+        <p className="text-[12px] leading-snug" style={{ color: g.accent }}>{bundle.tagline}</p>
+        {/* Template count chips */}
+        <div className="flex items-center gap-1.5 mt-4 flex-wrap">
+          {Array.from({ length: Math.min(bundle.templateIds.length, 5) }).map((_, i) => (
+            <div key={i} className="w-6 h-6 rounded-full border border-white/15 bg-white/8 flex items-center justify-center text-[9px] text-white/50 font-bold">{i + 1}</div>
+          ))}
+          <span className="text-[11px] text-white/35 ml-0.5">{bundle.templateIds.length} template</span>
+        </div>
+      </div>
+
+      {/* Bottom CTA */}
+      <div className="px-5 pb-5 pt-4 bg-black/25 relative">
+        <div className="absolute top-0 inset-x-0 h-px" style={{ background: `linear-gradient(90deg,transparent,rgba(${g.glow},0.4),transparent)` }} />
+        <div className="flex items-end justify-between mb-3">
+          <div>
+            <p className="text-[22px] font-black text-white leading-none">{formatPrice(bundle.price)}</p>
+            <p className="text-[11px] text-white/35 line-through mt-0.5">{formatPrice(bundle.regularPrice)}</p>
+          </div>
+          <p className="text-[11px] font-bold mb-0.5" style={{ color: g.accent }}>
+            {lang === "it" ? `Risparmi ${formatPrice(savings)}` : `Save ${formatPrice(savings)}`}
+          </p>
+        </div>
+        {isOwned ? (
+          <div className="w-full py-2.5 rounded-2xl text-center text-[13px] font-bold text-white/40 bg-white/5 border border-white/10">
+            {lang === "it" ? "✓ Già acquistato" : "✓ Already owned"}
+          </div>
+        ) : (
+          <button
+            onClick={async (e) => { e.stopPropagation(); setLoading(true); try { await onBuy(bundle.id); } finally { setLoading(false); } }}
+            disabled={loading}
+            className="w-full py-2.5 rounded-2xl text-[13px] font-bold text-white transition-opacity duration-200 active:scale-[0.97] disabled:opacity-50 border"
+            style={{ background: `rgba(${g.glow},0.3)`, borderColor: `rgba(${g.glow},0.5)` }}
+          >
+            {loading ? "…" : lang === "it" ? `Acquista — ${formatPrice(bundle.price)}` : `Buy — ${formatPrice(bundle.price)}`}
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function BundleShowcase({ lang, purchasedIds, onBuy }: { lang: "it" | "en"; purchasedIds: string[]; onBuy: (id: string) => Promise<void> }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  const scroll = (dir: "prev" | "next") => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const cardW = window.innerWidth < 640 ? 290 + 16 : 330 + 16;
+    el.scrollBy({ left: dir === "next" ? cardW : -cardW, behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const handler = () => {
+      const cardW = window.innerWidth < 640 ? 290 + 16 : 330 + 16;
+      setActiveIdx(Math.min(Math.round(el.scrollLeft / cardW), bundles.length - 1));
+    };
+    el.addEventListener("scroll", handler, { passive: true });
+    return () => el.removeEventListener("scroll", handler);
+  }, []);
+
+  return (
+    <div className="relative z-10 border-t border-theme py-12 overflow-hidden">
+      {/* Header */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 mb-7 flex items-end justify-between gap-4">
+        <div>
+          <p className="text-[10px] font-black text-muted uppercase tracking-[0.2em] mb-2">Bundle</p>
+          <h2 className="text-[1.5rem] sm:text-[1.9rem] font-extrabold tracking-tight text-zinc-900 dark:text-white">
+            {lang === "it" ? "Risparmia di più, crea di più" : "Save more, build more"}
+          </h2>
+          <p className="text-[13px] text-muted mt-1.5">
+            {lang === "it" ? "Fino al 55% di sconto rispetto all'acquisto singolo." : "Up to 55% off vs. buying individually."}
+          </p>
+        </div>
+        <div className="hidden sm:flex items-center gap-2 shrink-0">
+          <button onClick={() => scroll("prev")} aria-label="Precedente" className="w-9 h-9 flex items-center justify-center rounded-xl border border-theme bg-card hover:bg-surface text-muted hover:text-theme transition-colors">
+            <svg width="7" height="12" viewBox="0 0 7 12" fill="none"><path d="M6 1L1 6l5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </button>
+          <button onClick={() => scroll("next")} aria-label="Successivo" className="w-9 h-9 flex items-center justify-center rounded-xl border border-theme bg-card hover:bg-surface text-muted hover:text-theme transition-colors">
+            <svg width="7" height="12" viewBox="0 0 7 12" fill="none"><path d="M1 1l5 5-5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+
+      {/* Scroll rail */}
+      <div
+        ref={scrollRef}
+        className="flex gap-4 overflow-x-auto px-4 sm:px-6 pb-3"
+        style={{ scrollSnapType: "x mandatory", scrollbarWidth: "none", msOverflowStyle: "none" } as React.CSSProperties}
+      >
+        {bundles.map((bundle) => (
+          <BundleScrollCard key={bundle.id} bundle={bundle} purchasedIds={purchasedIds} onBuy={onBuy} lang={lang} />
+        ))}
+        {/* Trailing spacer so last card doesn't hug the edge */}
+        <div className="flex-shrink-0 w-4 sm:w-6" />
+      </div>
+
+      {/* Dot indicators */}
+      <div className="flex items-center justify-center gap-2 mt-5">
+        {bundles.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => {
+              const el = scrollRef.current;
+              if (!el) return;
+              const cardW = window.innerWidth < 640 ? 290 + 16 : 330 + 16;
+              el.scrollTo({ left: i * cardW, behavior: "smooth" });
+              setActiveIdx(i);
+            }}
+            className={`rounded-full transition-all duration-300 ${i === activeIdx ? "w-5 h-1.5 bg-zinc-900 dark:bg-white" : "w-1.5 h-1.5 bg-zinc-300 dark:bg-zinc-700 hover:bg-zinc-400 dark:hover:bg-zinc-500"}`}
+            aria-label={`Bundle ${i + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // ── Marquee template cards ────────────────────────────────────────────────────
 
 // Carefully picked template IDs for the two marquee rows
@@ -852,6 +1039,9 @@ export default function HomeContent() {
       <div className="relative z-10">
         <TemplateGrid externalQuery={query} />
       </div>
+
+      {/* ── Bundle Showcase ── */}
+      <BundleShowcase lang={lang} purchasedIds={purchasedIds} onBuy={handleBundleBuy} />
 
       {/* ── Testimonials — da aggiungere quando ci saranno utenti reali ── */}
       {/* <div className="relative z-10 border-t border-theme px-4 sm:px-6 py-14">

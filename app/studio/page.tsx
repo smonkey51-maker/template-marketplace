@@ -72,7 +72,9 @@ function StudioContent() {
 
   const [copied, setCopied] = useState(false);
   const [outputView, setOutputView] = useState<"code" | "preview">("code");
+  const [showTimeoutHint, setShowTimeoutHint] = useState(false);
   const abortRef = useRef<AbortController | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const selectedTemplate = getTemplate(selectedId);
 
@@ -90,6 +92,9 @@ function StudioContent() {
 
       setOutput("");
       setLoading(true);
+      setShowTimeoutHint(false);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(() => setShowTimeoutHint(true), 22_000);
 
       try {
         const res = await fetch(url, {
@@ -144,6 +149,8 @@ function StudioContent() {
         }
       } finally {
         setLoading(false);
+        setShowTimeoutHint(false);
+        if (timeoutRef.current) clearTimeout(timeoutRef.current);
       }
     },
     []
@@ -610,12 +617,17 @@ function StudioContent() {
 
               {isLoading && !activeOutput && (
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="flex items-center gap-3 text-muted">
+                  <div className="flex flex-col items-center gap-4 text-muted px-6 text-center">
                     <span style={{ display: "inline-block", animation: "spin 1s linear infinite", fontSize: "1.5rem", color: "#0A84FF" }}>⟳</span>
                     <span className="text-[15px]">
                       Claude is thinking
                       <span className="animate-pulse">...</span>
                     </span>
+                    {showTimeoutHint && (
+                      <p className="text-[12px] text-[#48484A] max-w-[260px] leading-relaxed">
+                        Ci sta pensando su 🧠 — i template UI con extended thinking possono richiedere fino a 60 secondi.
+                      </p>
+                    )}
                   </div>
                 </div>
               )}

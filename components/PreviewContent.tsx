@@ -34,7 +34,6 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
   const isPurchased = purchasedIds.includes(templateId);
 
   const handleBuy = async () => {
-    if (!isSignedIn) { router.push("/sign-in"); return; }
     setLoading(true);
     setCheckoutError(null);
     try {

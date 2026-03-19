@@ -1,16 +1,14 @@
-import type { MetadataRoute } from "next";
+import { MetadataRoute } from "next";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://templatelab.io";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: [
-      {
-        userAgent: "*",
-        allow: "/",
-        disallow: ["/account", "/studio", "/success", "/sign-in", "/sign-up", "/api/"],
-      },
-    ],
+    rules: {
+      userAgent: "*",
+      allow: "/",
+      disallow: ["/api/", "/sign-in", "/sign-up", "/account", "/success"],
+    },
     sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }
