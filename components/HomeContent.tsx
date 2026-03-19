@@ -70,6 +70,75 @@ const STEPS = [
   { n: "03", icon: "🤖", titleIt: "Personalizza con AI",   titleEn: "Customize with AI",     descIt: "Claude AI applica le tue modifiche.",     descEn: "Claude AI applies your changes." },
 ];
 
+const TESTIMONIALS = [
+  {
+    nameIt: "Marco Ferretti", nameEn: "Marco Ferretti",
+    roleIt: "Founder @ StartupMilano", roleEn: "Founder @ StartupMilano",
+    quoteIt: "Ho lanciato la landing page del mio SaaS in meno di un giorno. Il template era perfetto e l'AI lo ha adattato al mio brand in pochi minuti.",
+    quoteEn: "I launched my SaaS landing page in less than a day. The template was perfect and the AI adapted it to my brand in minutes.",
+    rating: 5,
+    initials: "MF",
+    accent: "from-violet-500 to-purple-600",
+  },
+  {
+    nameIt: "Sara Neri", nameEn: "Sara Neri",
+    roleIt: "Freelance Designer", roleEn: "Freelance Designer",
+    quoteIt: "Uso TemplateLab per tutti i miei clienti. Risparmio ore di lavoro e posso offrire risultati professionali a prezzi competitivi.",
+    quoteEn: "I use TemplateLab for all my clients. I save hours of work and can deliver professional results at competitive prices.",
+    rating: 5,
+    initials: "SN",
+    accent: "from-pink-500 to-rose-500",
+  },
+  {
+    nameIt: "Luca Moretti", nameEn: "Luca Moretti",
+    roleIt: "Marketing Manager", roleEn: "Marketing Manager",
+    quoteIt: "I prompt template per LinkedIn hanno triplicato il mio engagement. Claude AI li personalizza perfettamente per ogni post.",
+    quoteEn: "The LinkedIn prompt templates tripled my engagement. Claude AI perfectly customizes them for each post.",
+    rating: 5,
+    initials: "LM",
+    accent: "from-blue-500 to-indigo-500",
+  },
+];
+
+function TestimonialCard({
+  testimonial,
+  lang,
+}: {
+  testimonial: (typeof TESTIMONIALS)[number];
+  lang: "it" | "en";
+}) {
+  return (
+    <div className="glass-subtle rounded-2xl p-5 flex flex-col gap-3.5">
+      {/* Stars */}
+      <div className="flex gap-0.5">
+        {Array.from({ length: testimonial.rating }).map((_, i) => (
+          <svg key={i} width="13" height="13" viewBox="0 0 10 10" fill="currentColor" className="text-amber-400" aria-hidden>
+            <path d="M5 0l1.2 3.7H10L6.9 5.9l1.2 3.7L5 7.5l-3.1 2.1 1.2-3.7L0 3.7h3.8z"/>
+          </svg>
+        ))}
+      </div>
+      {/* Quote */}
+      <p className="text-[13px] text-muted leading-relaxed flex-1">
+        &ldquo;{lang === "it" ? testimonial.quoteIt : testimonial.quoteEn}&rdquo;
+      </p>
+      {/* Author */}
+      <div className="flex items-center gap-2.5 pt-3 border-t border-theme">
+        <div className={`w-8 h-8 rounded-full bg-gradient-to-br ${testimonial.accent} flex items-center justify-center text-white text-[11px] font-bold flex-shrink-0`}>
+          {testimonial.initials}
+        </div>
+        <div>
+          <p className="text-[13px] font-semibold text-zinc-900 dark:text-zinc-100 leading-tight">
+            {lang === "it" ? testimonial.nameIt : testimonial.nameEn}
+          </p>
+          <p className="text-[11px] text-muted leading-tight">
+            {lang === "it" ? testimonial.roleIt : testimonial.roleEn}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function TemplatesDropdown({ lang }: { lang: "it" | "en" }) {
   return (
     <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-50 w-[580px] max-w-[calc(100vw-2rem)]">
@@ -740,6 +809,21 @@ export default function HomeContent() {
                 {lang === "it" ? "Accesso immediato" : "Instant access"}
               </span>
             </div>
+
+            {/* Download formats strip */}
+            <div className="anim-fade-up delay-400 flex flex-wrap items-center justify-center gap-1.5 mt-5">
+              <span className="text-[11px] text-muted/60 mr-1">
+                {lang === "it" ? "Scarica in:" : "Download as:"}
+              </span>
+              {["HTML", "Canva", "Notion", "Excel", "Webflow", "Framer"].map((fmt) => (
+                <span
+                  key={fmt}
+                  className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800/80 text-zinc-500 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700/60"
+                >
+                  {fmt}
+                </span>
+              ))}
+            </div>
           </div>
 
           {/* ── Template marquee strip ── */}
@@ -768,6 +852,25 @@ export default function HomeContent() {
       {/* ── Template Grid ── */}
       <div className="relative z-10">
         <TemplateGrid externalQuery={query} />
+      </div>
+
+      {/* ── Testimonials ── */}
+      <div className="relative z-10 border-t border-theme px-4 sm:px-6 py-14">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-8">
+            <p className="text-[10px] font-bold text-muted uppercase tracking-[0.18em] mb-3">
+              {lang === "it" ? "Recensioni" : "Reviews"}
+            </p>
+            <h2 className="text-[1.6rem] sm:text-[2rem] font-bold tracking-tight text-zinc-900 dark:text-white">
+              {lang === "it" ? "Amato dai professionisti" : "Loved by professionals"}
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {TESTIMONIALS.map((testimonial, i) => (
+              <TestimonialCard key={i} testimonial={testimonial} lang={lang} />
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* ── Newsletter — subtle ── */}

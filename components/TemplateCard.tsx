@@ -73,8 +73,10 @@ function UIThumbnail({ template, isPurchased, lang }: { template: Template; isPu
 
 function PurchasedBadge({ lang }: { lang: Lang }) {
   return (
-    <span className="absolute bottom-3 left-3 z-10 flex items-center gap-1 bg-white/90 dark:bg-zinc-900/90 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 rounded-full px-2.5 py-1 text-[11px] font-semibold">
-      <span className="w-1.5 h-1.5 rounded-full bg-zinc-400 dark:bg-zinc-500" />
+    <span className="absolute bottom-3 left-3 z-10 flex items-center gap-1 bg-emerald-500/90 text-white rounded-full px-2.5 py-1 text-[11px] font-semibold shadow-sm backdrop-blur-sm">
+      <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden>
+        <path d="M2 6l2.8 3 5.2-5" stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
       {lang === "it" ? "Acquistato" : "Purchased"}
     </span>
   );
@@ -146,21 +148,23 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
       {/* Specular top edge highlight */}
       <div className="absolute top-0 left-[8%] right-[8%] h-px pointer-events-none z-10" style={{ background: 'var(--glass-top-edge)' }} />
 
-      {/* Editor's Pick badge (takes priority over bestseller) */}
+      {/* Editor's Pick badge — violet */}
       {isEditorsPick && !isPurchased && (
-        <div className="absolute top-2.5 right-2.5 z-10 bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700 rounded-full px-2 py-0.5 text-[10px] font-bold">
+        <div className="absolute top-2.5 right-2.5 z-10 bg-violet-100 dark:bg-violet-950/70 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800/60 rounded-full px-2 py-0.5 text-[10px] font-bold flex items-center gap-1">
+          <svg width="8" height="8" viewBox="0 0 10 10" fill="currentColor" aria-hidden><path d="M5 0l1.2 3.7H10L6.9 5.9l1.2 3.7L5 7.5l-3.1 2.1 1.2-3.7L0 3.7h3.8z"/></svg>
           {t[lang].card.editorsPick}
         </div>
       )}
-      {/* Bestseller badge */}
+      {/* Bestseller badge — amber */}
       {isBestseller && !isPurchased && !isEditorsPick && (
-        <div className="absolute top-2.5 right-2.5 z-10 bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700 rounded-full px-2 py-0.5 text-[10px] font-bold">
+        <div className="absolute top-2.5 right-2.5 z-10 bg-amber-100 dark:bg-amber-950/70 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800/60 rounded-full px-2 py-0.5 text-[10px] font-bold flex items-center gap-1">
+          <svg width="8" height="8" viewBox="0 0 10 10" fill="currentColor" aria-hidden><path d="M5 0l1.2 3.7H10L6.9 5.9l1.2 3.7L5 7.5l-3.1 2.1 1.2-3.7L0 3.7h3.8z"/></svg>
           {t[lang].card.bestseller}
         </div>
       )}
-      {/* New badge */}
+      {/* New badge — emerald */}
       {isNew && !isPurchased && !isEditorsPick && !isBestseller && (
-        <div className="absolute top-2.5 left-2.5 z-10 bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700 rounded-full px-2 py-0.5 text-[10px] font-bold">
+        <div className="absolute top-2.5 left-2.5 z-10 bg-emerald-100 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/60 rounded-full px-2 py-0.5 text-[10px] font-bold">
           {t[lang].card.isNew}
         </div>
       )}
@@ -184,7 +188,11 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
       <div className="px-4 py-3.5 flex flex-col flex-1">
         {/* Category pill */}
         <div className="mb-1.5">
-          <span className="text-[10px] font-bold uppercase tracking-[0.1em] px-1.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400">
+          <span className={`text-[10px] font-bold uppercase tracking-[0.1em] px-1.5 py-0.5 rounded-md ${
+            template.category === "ui"
+              ? "bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400"
+              : "bg-orange-100 dark:bg-orange-950/60 text-orange-600 dark:text-orange-400"
+          }`}>
             {template.category === "ui" ? t[lang].card.categoryUI : t[lang].card.categoryPrompt}
           </span>
         </div>
