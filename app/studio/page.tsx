@@ -9,6 +9,29 @@ import { templates, getTemplate, formatPrice } from "@/lib/templates";
 
 type Tab = "generate" | "customize";
 type UIStyle = "modern" | "minimal" | "bold" | "glassmorphism" | "retro";
+type Tone = "professional" | "minimal" | "playful" | "bold";
+
+type HistoryEntry = {
+  id: string;
+  output: string;
+  label: string;
+  category: "ui" | "prompt";
+  tab: Tab;
+  timestamp: number;
+};
+
+const SECTORS = [
+  "SaaS / Tech", "E-commerce", "Portfolio / Freelance", "Restaurant / Food",
+  "Health & Wellness", "Finance / Fintech", "Agency / Creative",
+  "Real Estate", "Education", "Other / Custom",
+];
+
+function relativeTime(ts: number): string {
+  const diff = Math.floor((Date.now() - ts) / 1000);
+  if (diff < 60) return "just now";
+  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+  return `${Math.floor(diff / 3600)}h ago`;
+}
 
 function StudioContent() {
   const searchParams = useSearchParams();
@@ -20,8 +43,15 @@ function StudioContent() {
   const [genCategory, setGenCategory] = useState<"ui" | "prompt">("ui");
   const [genDescription, setGenDescription] = useState("");
   const [genStyle, setGenStyle] = useState<UIStyle>("modern");
+  const [genSector, setGenSector] = useState("");
+  const [genTone, setGenTone] = useState<Tone>("professional");
   const [genOutput, setGenOutput] = useState("");
   const [genLoading, setGenLoading] = useState(false);
+
+  // History
+  const [genHistory, setGenHistory] = useState<HistoryEntry[]>([]);
+  const [customHistory, setCustomHistory] = useState<HistoryEntry[]>([]);
+  const [showHistory, setShowHistory] = useState(false);
 
   // Customize state
   const [selectedId, setSelectedId] = useState(initialTemplateId);
@@ -51,7 +81,8 @@ function StudioContent() {
       url: string,
       body: Record<string, unknown>,
       setOutput: (v: string | ((prev: string) => string)) => void,
-      setLoading: (v: boolean) => void
+      setLoading: (v: boolean) => void,
+      historyMeta: { label: string; category: "ui" | "prompt"; tab: Tab }
     ) => {
       abortRef.current?.abort();
       const controller = new AbortController();
@@ -86,6 +117,23 @@ function StudioContent() {
           setOutput((prev) => prev + chunk);
         }
 
+        // Save to history
+        if (result.trim()) {
+          const entry: HistoryEntry = {
+            id: Math.random().toString(36).slice(2),
+            output: result,
+            label: historyMeta.label.slice(0, 60),
+            category: historyMeta.category,
+            tab: historyMeta.tab,
+            timestamp: Date.now(),
+          };
+          if (historyMeta.tab === "generate") {
+            setGenHistory((h) => [entry, ...h].slice(0, 10));
+          } else {
+            setCustomHistory((h) => [entry, ...h].slice(0, 10));
+          }
+        }
+
         // Auto-switch to preview for UI output after streaming completes
         if (result.trim().startsWith("<") || result.includes("<div") || result.includes("<section")) {
           setOutputView("preview");
@@ -103,11 +151,15 @@ function StudioContent() {
 
   const handleGenerate = () => {
     if (!genDescription.trim()) return;
+    const sectorSuffix = genSector && genSector !== "Other / Custom" ? ` for a ${genSector} business` : "";
+    const toneSuffix = genCategory === "ui" ? `, ${genTone} tone` : "";
+    const enhancedDesc = `${genDescription}${sectorSuffix}${toneSuffix}`;
     streamRequest(
       "/api/generate",
-      { category: genCategory, description: genDescription, style: genStyle },
+      { category: genCategory, description: enhancedDesc, style: genStyle },
       setGenOutput,
-      setGenLoading
+      setGenLoading,
+      { label: genDescription, category: genCategory, tab: "generate" }
     );
   };
 
@@ -121,7 +173,8 @@ function StudioContent() {
         instructions: customInstructions,
       },
       setCustomOutput,
-      setCustomLoading
+      setCustomLoading,
+      { label: customInstructions, category: selectedTemplate.category, tab: "customize" }
     );
   };
 
@@ -207,12 +260,33 @@ function StudioContent() {
                       body: JSON.stringify({ templateId: "studio-access" }),
                     });
                     const data = await res.json();
+                    if (data.requireAuth) { window.location.href = "/sign-in?redirect_url=/studio"; return; }
                     if (data.url) window.location.href = data.url;
                   }}
                   className="px-6 py-3 bg-[#0A84FF] hover:bg-[#409CFF] rounded-2xl font-bold text-[15px] text-white transition-all duration-200 shadow-[0_4px_20px_rgba(10,132,255,0.25)] active:scale-[0.97] ios-spring"
                 >
-                  Acquista Studio Access →
+                  €9.99/mese — Abbonati →
                 </button>
+                {process.env.NEXT_PUBLIC_STUDIO_LIFETIME_AVAILABLE === "true" && (
+                  <>
+                    <span className="text-[12px] text-muted">— oppure —</span>
+                    <button
+                      onClick={async () => {
+                        const res = await fetch("/api/checkout", {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({ templateId: "studio-access-lifetime" }),
+                        });
+                        const data = await res.json();
+                        if (data.requireAuth) { window.location.href = "/sign-in?redirect_url=/studio"; return; }
+                        if (data.url) window.location.href = data.url;
+                      }}
+                      className="px-6 py-2.5 glass-subtle border border-theme rounded-2xl font-semibold text-[14px] text-theme transition-all duration-200 active:scale-[0.97] ios-spring"
+                    >
+                      ✦ Lifetime — €49 una volta sola
+                    </button>
+                  </>
+                )}
               </div>
             )}
 
@@ -266,6 +340,47 @@ function StudioContent() {
                           }`}
                         >
                           {s}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Sector */}
+                <div>
+                  <label className="text-[11px] font-semibold text-muted uppercase tracking-widest mb-2 block px-1">
+                    Industry / Sector <span className="normal-case text-[#48484A] font-normal">(optional)</span>
+                  </label>
+                  <select
+                    value={genSector}
+                    onChange={(e) => setGenSector(e.target.value)}
+                    className="w-full bg-input border border-theme rounded-2xl px-4 py-2.5 text-[15px] text-theme focus:outline-none focus:border-[#007AFF]/50 focus:ring-1 focus:ring-[#007AFF]/30 transition-all duration-200"
+                  >
+                    <option value="">— Any sector —</option>
+                    {SECTORS.map((s) => (
+                      <option key={s} value={s}>{s}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Tone (UI only) */}
+                {genCategory === "ui" && (
+                  <div>
+                    <label className="text-[11px] font-semibold text-muted uppercase tracking-widest mb-2 block px-1">
+                      Tone
+                    </label>
+                    <div className="flex flex-wrap gap-2">
+                      {(["professional", "minimal", "playful", "bold"] as Tone[]).map((t) => (
+                        <button
+                          key={t}
+                          onClick={() => setGenTone(t)}
+                          className={`px-3.5 py-1.5 rounded-full text-[13px] font-medium capitalize border transition-all duration-200 active:scale-[0.97] ios-spring ${
+                            genTone === t
+                              ? "bg-[#30D158]/15 border-[#30D158]/40 text-[#30D158]"
+                              : "border-theme text-muted hover:border-[#30D158]/50"
+                          }`}
+                        >
+                          {t}
                         </button>
                       ))}
                     </div>
@@ -429,6 +544,19 @@ function StudioContent() {
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
                 <h2 className="text-[13px] font-semibold text-muted uppercase tracking-widest">Output</h2>
+                {/* History toggle */}
+                {(tab === "generate" ? genHistory : customHistory).length > 0 && (
+                  <button
+                    onClick={() => setShowHistory((v) => !v)}
+                    className={`flex items-center gap-1 px-2.5 py-1 rounded-xl text-[12px] font-medium border transition-all duration-200 ${
+                      showHistory
+                        ? "bg-[#007AFF]/15 border-[#007AFF]/40 text-[#007AFF]"
+                        : "border-theme text-muted hover:border-[#0A84FF]/50"
+                    }`}
+                  >
+                    🕐 History ({(tab === "generate" ? genHistory : customHistory).length})
+                  </button>
+                )}
                 {activeOutput && isUIOutput && (
                   <div className="flex bg-card rounded-[12px] p-0.5 gap-0.5">
                     <button
@@ -515,6 +643,48 @@ function StudioContent() {
               <p className="text-[11px] text-[#48484A] mt-2 text-right">
                 {activeOutput.length.toLocaleString()} characters
               </p>
+            )}
+
+            {/* History panel */}
+            {showHistory && (
+              <div className="mt-4 bg-surface border border-theme rounded-[20px] overflow-hidden">
+                <p className="text-[11px] font-semibold text-muted uppercase tracking-widest px-4 pt-3 pb-2">
+                  Recent generations
+                </p>
+                <ul className="divide-y divide-theme max-h-64 overflow-y-auto">
+                  {(tab === "generate" ? genHistory : customHistory).map((entry) => (
+                    <li key={entry.id}>
+                      <button
+                        onClick={() => {
+                          if (tab === "generate") setGenOutput(entry.output);
+                          else setCustomOutput(entry.output);
+                          setShowHistory(false);
+                          if (entry.output.trim().startsWith("<") || entry.output.includes("<div") || entry.output.includes("<section")) {
+                            setOutputView("preview");
+                          } else {
+                            setOutputView("code");
+                          }
+                        }}
+                        className="w-full text-left px-4 py-3 hover:bg-card transition-colors duration-150 flex items-center justify-between gap-3 group"
+                      >
+                        <span className="text-[13px] text-theme truncate flex-1 group-hover:text-[#007AFF] transition-colors">
+                          {entry.label || "Untitled"}
+                        </span>
+                        <span className="text-[11px] text-[#48484A] shrink-0 flex items-center gap-2">
+                          <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium ${
+                            entry.category === "ui"
+                              ? "bg-blue-100 text-blue-600 dark:bg-blue-950/50 dark:text-blue-400"
+                              : "bg-orange-100 text-orange-600 dark:bg-orange-950/50 dark:text-orange-400"
+                          }`}>
+                            {entry.category.toUpperCase()}
+                          </span>
+                          {relativeTime(entry.timestamp)}
+                        </span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             )}
           </div>
         </div>

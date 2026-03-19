@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
 import { getTemplate } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
 import { t } from "@/lib/i18n";
@@ -10,6 +11,8 @@ import { t } from "@/lib/i18n";
 function SuccessContent() {
   const searchParams = useSearchParams();
   const templateId = searchParams.get("templateId") ?? undefined;
+  const sessionId = searchParams.get("session_id") ?? undefined;
+  const { isSignedIn } = useUser();
   const { lang } = useLang();
 
   const isStudioAccess = templateId === "studio-access";
@@ -54,11 +57,36 @@ function SuccessContent() {
               <span className="text-theme font-semibold">{template.name}</span>
             </p>
           )}
-          <p className="text-[13px] text-muted mb-8">
+          <p className="text-[13px] text-muted mb-6">
             {t[lang].success.subtitleTemplate}
           </p>
           <div className="flex flex-col gap-3">
-            {template && (
+            {/* Guest: show direct download + sign-up prompt */}
+            {!isSignedIn && template && sessionId && (
+              <>
+                <a
+                  href={`/api/download-session?session_id=${sessionId}&templateId=${template.id}&lang=${lang}`}
+                  className="block w-full px-6 py-3.5 bg-[#30D158] hover:bg-[#34E55F] rounded-2xl font-bold text-[15px] text-white text-center transition-all duration-200 active:scale-[0.97] ios-spring shadow-[0_4px_20px_rgba(48,209,88,0.25)]"
+                >
+                  {lang === "it" ? "⬇ Scarica il template" : "⬇ Download template"}
+                </a>
+                <div className="px-1 py-3 border-t border-theme/50">
+                  <p className="text-[12px] text-muted mb-2">
+                    {lang === "it"
+                      ? "Crea un account per personalizzare con AI e accedere ai tuoi acquisti dal tuo profilo."
+                      : "Create an account to customize with AI and access your purchases from your profile."}
+                  </p>
+                  <Link
+                    href={`/sign-up?redirect_url=/studio?templateId=${template.id}`}
+                    className="block w-full px-6 py-3 bg-[#5E5CE6] hover:bg-[#7B79F7] rounded-2xl font-bold text-[14px] text-white text-center transition-all duration-200 active:scale-[0.97] ios-spring"
+                  >
+                    {lang === "it" ? "Crea account gratuito →" : "Create free account →"}
+                  </Link>
+                </div>
+              </>
+            )}
+            {/* Authenticated user: studio customization link */}
+            {isSignedIn && template && (
               <Link
                 href={`/studio?templateId=${template.id}`}
                 className="block w-full px-6 py-3.5 bg-[#5E5CE6] hover:bg-[#7B79F7] rounded-2xl font-bold text-[15px] text-white transition-all duration-200 active:scale-[0.97] ios-spring shadow-[0_4px_20px_rgba(94,92,230,0.25)]"
@@ -68,7 +96,7 @@ function SuccessContent() {
             )}
             <Link
               href="/"
-              className="block w-full px-6 py-3.5 glass-subtle rounded-2xl font-bold text-[15px] text-theme transition-all duration-200 active:scale-[0.97] ios-spring"
+              className="block w-full px-6 py-3.5 glass-subtle rounded-2xl font-bold text-[15px] text-theme text-center transition-all duration-200 active:scale-[0.97] ios-spring"
             >
               {t[lang].success.backToMarketplace}
             </Link>

@@ -27,40 +27,43 @@ export async function POST(req: NextRequest) {
   if (event.type === "checkout.session.completed") {
     const session = event.data.object as Stripe.Checkout.Session;
     const { userId, templateId, bundleId, templateIds } = session.metadata ?? {};
-
-    if (!userId) return NextResponse.json({ received: true });
+    const guestEmail = session.customer_details?.email ?? null;
 
     const supabase = createClient(
       process.env.SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
 
-    if (bundleId) {
-      // Bundle purchase: resolve template IDs from bundle definition (avoids 500-char metadata limit)
+    // Resolve the effective user_id: authenticated user or guest placeholder
+    const effectiveUserId = userId ?? (guestEmail ? `guest:${guestEmail}` : null);
+
+    if (bundleId && userId) {
+      // Bundle purchase: always requires auth
       const bundle = getBundle(bundleId);
       const ids = bundle?.templateIds ?? (templateIds ? templateIds.split(",").filter(Boolean) : []);
       const rows = ids.map((tid) => ({
         user_id: userId,
         template_id: tid,
-        session_id: session.id,
+        stripe_session_id: session.id,
       }));
       const { error } = await supabase.from("purchases").insert(rows);
       if (error) {
         console.error("Supabase bundle insert error:", error);
       } else {
-        console.log(`✅ Bundle salvato — userId: ${userId}, bundleId: ${bundleId}, templates: ${templateIds}`);
+        console.log(`✅ Bundle salvato — userId: ${userId}, bundleId: ${bundleId}`);
       }
-    } else if (templateId) {
-      // Single template purchase
+    } else if (templateId && effectiveUserId) {
+      // Single template purchase (authenticated or guest)
       const { error } = await supabase.from("purchases").insert({
-        user_id: userId,
+        user_id: effectiveUserId,
         template_id: templateId,
-        session_id: session.id,
+        stripe_session_id: session.id,
+        guest_email: userId ? null : guestEmail,
       });
       if (error) {
         console.error("Supabase insert error:", error);
       } else {
-        console.log(`✅ Acquisto salvato — userId: ${userId}, templateId: ${templateId}`);
+        console.log(`✅ Acquisto salvato — userId: ${effectiveUserId}, templateId: ${templateId}`);
       }
     }
   }

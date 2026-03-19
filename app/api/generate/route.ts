@@ -45,25 +45,46 @@ Rules:
       ? `Create a ${style || "modern"} UI template for: ${description}`
       : `Create a professional prompt template for: ${description}`;
 
-    // Await the stream creation so auth/config errors are caught before we start streaming
-    const stream = await anthropic.messages.create({
-      model: "claude-opus-4-6",
-      max_tokens: 4096,
-      stream: true,
-      system,
-      messages: [{ role: "user", content: userMsg }],
-    });
-
     const encoder = new TextEncoder();
+
+    // UI templates use extended thinking for higher quality output
     const readable = new ReadableStream({
       async start(controller) {
         try {
-          for await (const event of stream) {
-            if (
-              event.type === "content_block_delta" &&
-              event.delta.type === "text_delta"
-            ) {
-              controller.enqueue(encoder.encode(event.delta.text));
+          if (isUI) {
+            const betaStream = await anthropic.beta.messages.create({
+              model: "claude-opus-4-6",
+              max_tokens: 8000,
+              betas: ["interleaved-thinking-2025-05-14"],
+              thinking: { type: "enabled", budget_tokens: 3000 },
+              stream: true,
+              system,
+              messages: [{ role: "user", content: userMsg }],
+            } as Parameters<typeof anthropic.beta.messages.create>[0]);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            for await (const event of betaStream as any) {
+              if (
+                event.type === "content_block_delta" &&
+                event.delta?.type === "text_delta"
+              ) {
+                controller.enqueue(encoder.encode(event.delta.text));
+              }
+            }
+          } else {
+            const stream = await anthropic.messages.create({
+              model: "claude-opus-4-6",
+              max_tokens: 4096,
+              stream: true,
+              system,
+              messages: [{ role: "user", content: userMsg }],
+            });
+            for await (const event of stream) {
+              if (
+                event.type === "content_block_delta" &&
+                event.delta.type === "text_delta"
+              ) {
+                controller.enqueue(encoder.encode(event.delta.text));
+              }
             }
           }
           controller.close();

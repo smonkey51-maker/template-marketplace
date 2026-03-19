@@ -3,6 +3,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import ThemeProvider from "@/components/ThemeProvider";
 import LanguageProvider from "@/components/LanguageProvider";
+import { PostHogProvider } from "@/components/PostHogProvider";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -48,7 +49,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="it" className="dark">
         <body className={`${jakarta.variable} bg-page text-theme antialiased min-h-screen`}>
-          <ThemeProvider><LanguageProvider>{children}</LanguageProvider></ThemeProvider>
+          <PostHogProvider><ThemeProvider><LanguageProvider>{children}</LanguageProvider></ThemeProvider></PostHogProvider>
         </body>
       </html>
     </ClerkProvider>

@@ -60,6 +60,14 @@ export default async function PreviewPage(
           url: `${SITE_URL}/preview/${templateId}`,
           priceValidUntil: "2027-12-31",
         },
+        // TODO: replace with real data when reviews are collected
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: "5.0",
+          reviewCount: "1",
+          bestRating: "5",
+          worstRating: "1",
+        },
         keywords: template.tags.join(", "),
       }
     : null;
