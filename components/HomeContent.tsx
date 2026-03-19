@@ -565,19 +565,36 @@ function MarqueeCard({ tmpl, lang }: { tmpl: Template; lang: "it" | "en" }) {
   return (
     <Link
       href={`/preview/${tmpl.id}`}
-      className={`flex-shrink-0 w-[200px] h-[120px] rounded-xl bg-gradient-to-br ${grad} overflow-hidden relative group cursor-pointer`}
-      style={{ boxShadow: "0 2px 12px rgba(0,0,0,0.3)" }}
+      className={`flex-shrink-0 w-[200px] h-[120px] rounded-[14px] bg-gradient-to-br ${grad} overflow-hidden relative group cursor-pointer`}
+      style={{ boxShadow: "0 4px 16px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.07)" }}
       tabIndex={-1}
     >
-      {/* Subtle pattern */}
-      <div className="absolute inset-0 opacity-[0.07]" style={{ backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)", backgroundSize: "18px 18px" }} />
-      {/* Label */}
-      <div className="absolute bottom-0 left-0 right-0 p-2.5" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.7), transparent)" }}>
-        <p className="text-white text-[11px] font-semibold leading-tight truncate">{name}</p>
-        <p className="text-white/50 text-[10px]">{formatPrice(tmpl.price)}</p>
+      {/* Subtle grid pattern */}
+      <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,1) 1px,transparent 1px)", backgroundSize: "20px 20px" }} />
+
+      {/* Browser chrome bar */}
+      <div className="absolute top-0 left-0 right-0 h-[22px] flex items-center px-2.5 gap-1.5" style={{ background: "rgba(0,0,0,0.28)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+        <div className="flex gap-[3px]">
+          <div className="w-[5px] h-[5px] rounded-full bg-[#FF5F57] opacity-75" />
+          <div className="w-[5px] h-[5px] rounded-full bg-[#FFBD2E] opacity-75" />
+          <div className="w-[5px] h-[5px] rounded-full bg-[#28C840] opacity-75" />
+        </div>
+        <span className="ml-auto text-[7px] font-semibold text-white/25 uppercase tracking-[0.1em]">
+          {tmpl.category === "ui" ? "UI" : "AI"}
+        </span>
       </div>
+
+      {/* Top-edge specular line */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+
+      {/* Label */}
+      <div className="absolute bottom-0 left-0 right-0 px-2.5 pt-4 pb-2.5" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.3) 60%, transparent 100%)" }}>
+        <p className="text-white text-[11px] font-semibold leading-tight truncate">{name}</p>
+        <p className="text-white/40 text-[9px] mt-0.5 font-medium">{formatPrice(tmpl.price)}</p>
+      </div>
+
       {/* Hover overlay */}
-      <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+      <div className="absolute inset-0 bg-white/0 group-hover:bg-white/[0.05] transition-colors duration-300" />
     </Link>
   );
 }
