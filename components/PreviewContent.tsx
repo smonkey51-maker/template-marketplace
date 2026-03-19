@@ -6,14 +6,14 @@ import Link from "next/link";
 import { getTemplate, formatPrice, getDownloadType } from "@/lib/templates";
 import DownloadButton from "@/components/DownloadButton";
 import RelatedTemplates from "@/components/RelatedTemplates";
-import { useUser } from "@clerk/nextjs";
+
 import { useLang } from "@/components/LanguageProvider";
 import { t, templateTranslations } from "@/lib/i18n";
 import PromptFullView from "@/components/PromptFullView";
 
 export default function PreviewContent({ templateId }: { templateId: string }) {
   const router = useRouter();
-  const { isSignedIn } = useUser();
+
   const { lang } = useLang();
   const [purchasedIds, setPurchasedIds] = useState<string[]>([]);
   const [purchasesLoading, setPurchasesLoading] = useState(true);
