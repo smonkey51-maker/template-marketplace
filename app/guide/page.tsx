@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useLang } from "@/components/LanguageProvider";
 import { t } from "@/lib/i18n";
 import SiteNav from "@/components/SiteNav";
