@@ -1,40 +1,46 @@
 ---
-name: TemplateLab design system — monochrome minimal direction
-description: Design tokens, aesthetic decisions, and component patterns after the March 2026 monochrome redesign
+name: TemplateLab design system — glassmorphism direction (March 2026)
+description: Design tokens, aesthetic decisions, and component patterns after the glassmorphism redesign (March 2026). Previous monochrome direction was abandoned.
 type: project
 ---
 
-Design direction: minimal, clean, premium — inspired by peony.ink (monochrome, generous whitespace) and blendful.com (dark minimal gallery-first). No glassmorphism, no neon glows.
+Design direction: glassmorphism aesthetic inspired by dashboard-fusion-v3.jsx. Accent color is indigo/violet (`--accent`), with frosted glass cards, specular top-edge highlights, and 3D tilt effects. Not fully opaque zinc anymore — cards use backdrop-filter blur.
 
 **CSS variables (globals.css):**
-- Light: `--bg: #FFFFFF`, `--surface: #FAFAFA`, `--card-bg: #FFFFFF`, `--nav-bg: rgba(255,255,255,0.94)`, `--muted: #6B7280`
-- Dark: `--bg: #09090B`, `--surface: #111113`, `--card-bg: #111113`, `--nav-bg: rgba(9,9,11,0.94)`, `--muted: #9CA3AF`
-- `--glow-blue` and `--glow-purple` have been removed — do not reference them.
+- Light: `--bg: #FFFFFF`, `--surface: #FAFAFA`, `--nav-bg: rgba(255,255,255,0.82)`, `--accent: #5B4CF5`, `--accent-bg: rgba(91,76,245,0.08)`
+- Dark: `--bg: #09090B`, `--surface: #111113`, `--nav-bg: rgba(9,9,11,0.82)`, `--accent: #7C6FF7`, `--accent-bg: rgba(124,111,247,0.12)`
+- Glass tokens (both modes): `--glass-fill`, `--glass-shadow`, `--glass-stroke`, `--glass-top-edge`, `--glass-bright`, `--spec-hot`, `--spec-mid`, `--divider`
+
+**`.glass` utility class (globals.css):**
+- `backdrop-filter: blur(44px) saturate(180%) brightness(var(--glass-bright))`
+- `background: var(--glass-fill)` | `box-shadow: var(--glass-shadow)` | `border: 1px solid var(--glass-stroke)`
 
 **Card pattern (TemplateCard, BundleCard):**
-- `bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-2xl`
-- Hover: `hover:shadow-lg transition-shadow duration-200` — no translate, no colored shadow.
-- `.glass-subtle` class is still in globals.css but is now opaque (no backdrop-filter) — use explicit zinc classes for new components instead.
+- Outer wrapper `div`: holds `ref`, `onMouseMove`, `onMouseLeave`, tilt transform, `group` class, `willChange: transform`
+- Inner card (`Link` or `article`): has `.glass` class + `rounded-2xl overflow-hidden`
+- Specular top edge: `<div className="absolute top-0 left-[8%] right-[8%] h-px pointer-events-none z-10" style={{ background: 'var(--glass-top-edge)' }} />`
+- Tilt: `perspective(700px) rotateX rotateY scale3d(1.025)` on mousemove, spring reset on mouseleave via `cancelAnimationFrame` + rAF pattern
 
-**Badges/pills:** Always `bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700`. No per-category or per-bundle accent colors.
+**Badges/pills:** Still `bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700`. No per-category accent.
 
 **CTA buttons:**
-- Primary: `bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 hover:opacity-80 transition-opacity duration-200 rounded-full` (or `rounded-2xl` for large CTAs).
-- Secondary: `bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-200 dark:hover:bg-zinc-700`.
-- No `ios-spring`, no `btn-glow-blue` hover shadow, no `shadow-[0_..._rgba(10,132,255,...)]`.
+- Primary / sign-in: `style={{ backgroundColor: 'var(--accent)' }}` + `text-white hover:opacity-90 rounded-2xl`
+- Secondary: `bg-zinc-100 dark:bg-zinc-800` neutral (unchanged)
+- Hero CTA uses inline style `backgroundColor: var(--accent)` — not a Tailwind class, to respect the CSS variable
 
-**Typography:** Headings use `text-zinc-900 dark:text-white` — no gradient `bg-clip-text`. Card names use `text-[14px] font-semibold`. Prices use `text-[16px] font-bold text-zinc-900 dark:text-white`.
+**Typography:**
+- Hero H1 gradient span: `className="bg-clip-text text-transparent"` + `style={{ backgroundImage: 'linear-gradient(135deg, var(--accent), #C77DFF)' }}`
+- Card names, prices: unchanged zinc neutral
 
-**Focus ring:** `outline: 2px solid #09090B` in light, `#FFFFFF` in dark (set in globals.css).
+**Navigation:**
+- `bg-nav backdrop-blur-xl` on `<nav>` — `--nav-bg` is 0.82 opacity to show blur effect
+- NavButtons sign-in button uses `var(--accent)` background
 
-**What was removed:**
-- All `backdrop-filter`/`-webkit-backdrop-filter` from `.glass` and `.glass-subtle`.
-- `.btn-glow-blue:hover` box-shadow glow (class kept but gutted to only `transition: opacity`).
-- `--glow-blue` and `--glow-purple` CSS variables.
-- Ambient orb divs from HomeContent (referenced removed vars).
-- Colored rings on cards (`ring-[#5E5CE6]/30`, `ring-[#FF9F0A]/25`).
-- `hover:-translate-y-1` on cards.
-- `ios-spring` from CTA buttons and NavButtons sign-in.
+**Hero:**
+- Single ambient orb: `position:absolute, top:-200px, left:50%, translateX(-50%), width:600px, height:600px, radial-gradient(circle, var(--accent-bg) 0%, transparent 70%), opacity:0.6`
 
-**Why:** Owner wanted a premium, monochrome aesthetic matching peony.ink/blendful.com references.
-**How to apply:** All new UI components must follow the zinc/neutral palette. Never introduce `0A84FF`, `5E5CE6`, `FF9F0A`, `30D158` as UI accent colors on interactive elements (fine to keep in iframe preview thumbnails which show actual template content).
+**New template added:**
+- `dashboard-fusion-v3` (id) — glassmorphism analytics dashboard, category: "ui", price: 1999 cents, editorsPick: true, isNew: true, downloadType: "html"
+
+**Why:** Owner was not satisfied with the monochrome zinc direction. Switched to glassmorphism inspired by dashboard-fusion-v3.jsx (March 2026).
+**How to apply:** New UI components should use `.glass` class for surfaces, `var(--accent)` for primary interactive elements, and the tilt pattern for cards.

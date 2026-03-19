@@ -207,6 +207,7 @@ export const t = {
     footer: {
       tagline: "Template UI e Prompt AI pronti all'uso.",
       bundles: "Bundle",
+      saved: "Salvati",
       guide: "Guida",
       studio: "AI Studio",
       account: "Account",
@@ -421,6 +422,7 @@ export const t = {
     footer: {
       tagline: "UI templates and AI prompts, ready to use.",
       bundles: "Bundles",
+      saved: "Saved",
       guide: "Guide",
       studio: "AI Studio",
       account: "Account",

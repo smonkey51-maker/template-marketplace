@@ -8,6 +8,7 @@ import StudioAccessButton from "@/components/StudioAccessButton";
 import { useLang } from "@/components/LanguageProvider";
 import { t, SEARCH_SYNONYMS, templateTranslations } from "@/lib/i18n";
 import PreviewModal from "@/components/PreviewModal";
+import { useRecentlyViewed } from "@/lib/useRecentlyViewed";
 
 // ── Section definitions ──────────────────────────────────────────────────────
 
@@ -232,6 +233,11 @@ function addRipple(e: React.MouseEvent<HTMLElement>) {
 
 export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: string }) {
   const { lang } = useLang();
+  const { ids: recentIds } = useRecentlyViewed();
+  const recentTemplates = useMemo(
+    () => recentIds.map((id) => byId[id]).filter(Boolean) as Template[],
+    [recentIds]
+  );
   const [purchasedIds, setPurchasedIds] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [openCategoryId, setOpenCategoryId] = useState<string | null>(null);
@@ -403,6 +409,30 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
                     <TemplateCard template={tmpl} purchasedIds={purchasedIds} onQuickView={handleQuickView} />
                   </div>
                 ))}
+          </div>
+        </div>
+      )}
+
+      {/* ══════════════════════════════════════════════════
+          Recently viewed (default view only, no search)
+      ══════════════════════════════════════════════════ */}
+      {!isSearching && !openCategoryId && recentTemplates.length > 0 && (
+        <div className="mb-10">
+          <div className="flex items-center gap-3 mb-4 px-1">
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none" className="text-muted" aria-hidden>
+              <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.4"/>
+              <path d="M7 4v3.5l2 1.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <span className="text-[11px] font-bold text-muted uppercase tracking-[0.15em]">
+              {lang === "it" ? "Visti di recente" : "Recently viewed"}
+            </span>
+          </div>
+          <div className="flex gap-3 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-none">
+            {recentTemplates.map((tmpl) => (
+              <div key={tmpl.id} className="flex-shrink-0 w-[160px]">
+                <TemplateCard template={tmpl} purchasedIds={purchasedIds} onQuickView={handleQuickView} />
+              </div>
+            ))}
           </div>
         </div>
       )}

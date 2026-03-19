@@ -5,6 +5,7 @@ import { useRef, useEffect, useState } from "react";
 import { Template, formatPrice } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
 import { t, templateTranslations } from "@/lib/i18n";
+import { useWishlist } from "@/lib/useWishlist";
 
 type Lang = "it" | "en";
 
@@ -88,12 +89,14 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
   onQuickView?: (id: string) => void;
 }) {
   const { lang } = useLang();
+  const { toggle, isWishlisted } = useWishlist();
   const isPurchased = purchasedIds.includes(template.id);
   const isBestseller = template.downloads >= 700;
   const isEditorsPick = template.editorsPick === true;
   const isNew = template.isNew === true;
   const displayName = lang === "it" ? (templateTranslations[template.id]?.name ?? template.name) : template.name;
   const displayDesc = lang === "it" ? (templateTranslations[template.id]?.description ?? template.description) : template.description;
+  const saved = isWishlisted(template.id);
 
   const [copied, setCopied] = useState(false);
 
@@ -210,13 +213,29 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
         {/* Price + downloads */}
         <div className="mt-2.5 pt-2.5 border-t border-theme flex items-center justify-between">
           <span className="text-[16px] font-bold text-zinc-900 dark:text-white">{formatPrice(template.price)}</span>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             <span className="text-[11px] text-muted flex items-center gap-1">
               <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden>
                 <path d="M6 1v7M3 6l3 3 3-3M2 10h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
               {template.downloads.toLocaleString(lang === "it" ? "it-IT" : "en-US")}
             </span>
+            {/* Wishlist button */}
+            <button
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggle(template.id); }}
+              aria-label={saved ? (lang === "it" ? "Rimuovi dai salvati" : "Remove from saved") : (lang === "it" ? "Salva" : "Save")}
+              className={`transition-all duration-200 rounded-lg p-1 ${
+                saved
+                  ? "text-[#FF453A] opacity-100"
+                  : "opacity-0 group-hover:opacity-100 text-muted hover:text-[#FF453A]"
+              }`}
+            >
+              <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden>
+                <path d="M7 12S1 8 1 4.5A3.5 3.5 0 017 2.1a3.5 3.5 0 016 2.4C13 8 7 12 7 12z"
+                  stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"
+                  fill={saved ? "currentColor" : "none"} />
+              </svg>
+            </button>
             {/* Share button */}
             <button
               onClick={handleShare}

@@ -49,10 +49,23 @@ function StudioContent() {
   const [genOutput, setGenOutput] = useState("");
   const [genLoading, setGenLoading] = useState(false);
 
-  // History
-  const [genHistory, setGenHistory] = useState<HistoryEntry[]>([]);
-  const [customHistory, setCustomHistory] = useState<HistoryEntry[]>([]);
+  // History — persisted in localStorage
+  const [genHistory, setGenHistory] = useState<HistoryEntry[]>(() => {
+    if (typeof window === "undefined") return [];
+    try { return JSON.parse(localStorage.getItem("tl_gen_history") ?? "[]"); } catch { return []; }
+  });
+  const [customHistory, setCustomHistory] = useState<HistoryEntry[]>(() => {
+    if (typeof window === "undefined") return [];
+    try { return JSON.parse(localStorage.getItem("tl_custom_history") ?? "[]"); } catch { return []; }
+  });
   const [showHistory, setShowHistory] = useState(false);
+
+  useEffect(() => {
+    try { localStorage.setItem("tl_gen_history", JSON.stringify(genHistory.slice(0, 10))); } catch {}
+  }, [genHistory]);
+  useEffect(() => {
+    try { localStorage.setItem("tl_custom_history", JSON.stringify(customHistory.slice(0, 10))); } catch {}
+  }, [customHistory]);
 
   // Customize state
   const [selectedId, setSelectedId] = useState(initialTemplateId);
@@ -621,12 +634,32 @@ function StudioContent() {
                 )}
               </div>
               {activeOutput && (
-                <button
-                  onClick={() => copyToClipboard(activeOutput)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 bg-[#2C2C2E] hover:bg-[#3A3A3C] rounded-xl text-[13px] font-medium transition-all duration-200 active:scale-[0.97] ios-spring"
-                >
-                  {copied ? "✓ Copied!" : "Copy"}
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => copyToClipboard(activeOutput)}
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-[#2C2C2E] hover:bg-[#3A3A3C] rounded-xl text-[13px] font-medium transition-all duration-200 active:scale-[0.97] ios-spring"
+                  >
+                    {copied ? "✓ Copied!" : "Copy"}
+                  </button>
+                  <button
+                    onClick={() => {
+                      const ext = activeCategory === "ui" ? "html" : "txt";
+                      const mime = activeCategory === "ui" ? "text/html" : "text/plain";
+                      const blob = new Blob([activeOutput], { type: mime });
+                      const url = URL.createObjectURL(blob);
+                      const a = document.createElement("a");
+                      a.href = url; a.download = `template-${Date.now()}.${ext}`; a.click();
+                      URL.revokeObjectURL(url);
+                    }}
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-[#2C2C2E] hover:bg-[#3A3A3C] rounded-xl text-[13px] font-medium transition-all duration-200 active:scale-[0.97] ios-spring"
+                    aria-label={lang === "it" ? "Scarica file" : "Download file"}
+                  >
+                    <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden>
+                      <path d="M7 1v8M4 7l3 3 3-3M2 12h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    {lang === "it" ? "Scarica" : "Download"}
+                  </button>
+                </div>
               )}
             </div>
 

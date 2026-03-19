@@ -5,6 +5,7 @@ import ThemeProvider from "@/components/ThemeProvider";
 import LanguageProvider from "@/components/LanguageProvider";
 import { PostHogProvider } from "@/components/PostHogProvider";
 import { ToastProvider } from "@/components/Toast";
+import MobileNav from "@/components/MobileNav";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -50,7 +51,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="it" className="dark">
         <body className={`${jakarta.variable} bg-page text-theme antialiased min-h-screen`}>
-          <PostHogProvider><ThemeProvider><LanguageProvider><ToastProvider>{children}</ToastProvider></LanguageProvider></ThemeProvider></PostHogProvider>
+          <PostHogProvider><ThemeProvider><LanguageProvider><ToastProvider>{children}<MobileNav /></ToastProvider></LanguageProvider></ThemeProvider></PostHogProvider>
         </body>
       </html>
     </ClerkProvider>

@@ -11,6 +11,8 @@ import { useLang } from "@/components/LanguageProvider";
 import { t, templateTranslations } from "@/lib/i18n";
 import PromptFullView from "@/components/PromptFullView";
 import { useToast } from "@/components/Toast";
+import { useWishlist } from "@/lib/useWishlist";
+import { useRecentlyViewed } from "@/lib/useRecentlyViewed";
 
 export default function PreviewContent({ templateId }: { templateId: string }) {
   const router = useRouter();
@@ -20,9 +22,16 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
   const [purchasesLoading, setPurchasesLoading] = useState(true);
   const [loading, setLoading] = useState(false);
   const toast = useToast();
+  const { toggle, isWishlisted } = useWishlist();
+  const { track } = useRecentlyViewed();
   const [viewMode, setViewMode] = useState<"desktop" | "mobile">("desktop");
 
   const template = getTemplate(templateId);
+
+  // Track this template as recently viewed
+  useEffect(() => {
+    if (templateId) track(templateId);
+  }, [templateId, track]);
 
   useEffect(() => {
     fetch("/api/purchases")
@@ -71,20 +80,39 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
   return (
     <div className="min-h-screen bg-page flex flex-col">
 
-      {/* ── Floating back button ── */}
-      <button
-        onClick={() => router.push("/")}
-        className="fixed top-4 left-4 z-50 flex items-center gap-1.5 px-3.5 py-2 rounded-full
-          bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 shadow-sm
-          text-zinc-700 dark:text-zinc-300 text-[14px] font-semibold
-          hover:opacity-80 transition-opacity duration-200"
-        aria-label={t[lang].preview.back}
-      >
-        <svg width="8" height="14" viewBox="0 0 8 14" fill="none" className="shrink-0" aria-hidden>
-          <path d="M7 1L1.5 7L7 13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-        <span className="hidden sm:inline">{t[lang].preview.back}</span>
-      </button>
+      {/* ── Floating back + save buttons ── */}
+      <div className="fixed top-4 left-4 z-50 flex items-center gap-2">
+        <button
+          onClick={() => router.push("/")}
+          className="flex items-center gap-1.5 px-3.5 py-2 rounded-full
+            bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 shadow-sm
+            text-zinc-700 dark:text-zinc-300 text-[14px] font-semibold
+            hover:opacity-80 transition-opacity duration-200"
+          aria-label={t[lang].preview.back}
+        >
+          <svg width="8" height="14" viewBox="0 0 8 14" fill="none" className="shrink-0" aria-hidden>
+            <path d="M7 1L1.5 7L7 13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          <span className="hidden sm:inline">{t[lang].preview.back}</span>
+        </button>
+        {template && (
+          <button
+            onClick={() => toggle(template.id)}
+            aria-label={isWishlisted(template.id) ? (lang === "it" ? "Rimuovi dai salvati" : "Unsave") : (lang === "it" ? "Salva" : "Save")}
+            className={`flex items-center justify-center w-9 h-9 rounded-full border shadow-sm transition-all duration-200
+              ${isWishlisted(template.id)
+                ? "bg-[#FF453A]/10 border-[#FF453A]/30 text-[#FF453A]"
+                : "bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-700 text-zinc-400 hover:text-[#FF453A]"
+              }`}
+          >
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden>
+              <path d="M8 13.5S1.5 9.5 1.5 5A3.75 3.75 0 018 2.3a3.75 3.75 0 016.5 2.7C14.5 9.5 8 13.5 8 13.5z"
+                stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"
+                fill={isWishlisted(template.id) ? "currentColor" : "none"} />
+            </svg>
+          </button>
+        )}
+      </div>
 
       {/* ── Mobile/Desktop toggle (UI only) ── */}
       {template.category === "ui" && (

@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { createClient } from "@supabase/supabase-js";
-import { getBundle } from "@/lib/templates";
+import { getBundle, getTemplate } from "@/lib/templates";
+import { sendPurchaseEmail } from "@/lib/email";
 
 export async function POST(req: NextRequest) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
@@ -51,6 +52,15 @@ export async function POST(req: NextRequest) {
         console.error("Supabase bundle insert error:", error);
       } else {
         console.log(`✅ Bundle salvato — userId: ${userId}, bundleId: ${bundleId}`);
+        if (guestEmail && bundle) {
+          await sendPurchaseEmail({
+            to: guestEmail,
+            type: "bundle",
+            itemName: bundle.name,
+            previewUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/`,
+            bundleTemplates: ids.map((tid) => getTemplate(tid)?.name ?? tid),
+          }).catch(console.error);
+        }
       }
     } else if (templateId && effectiveUserId) {
       // Single template purchase (authenticated or guest)
@@ -64,6 +74,22 @@ export async function POST(req: NextRequest) {
         console.error("Supabase insert error:", error);
       } else {
         console.log(`✅ Acquisto salvato — userId: ${effectiveUserId}, templateId: ${templateId}`);
+        if (guestEmail) {
+          const tmpl = templateId === "studio-access" || templateId === "studio-access-lifetime"
+            ? null
+            : getTemplate(templateId);
+          const isStudio = templateId === "studio-access" || templateId === "studio-access-lifetime";
+          const downloadUrl = tmpl && (tmpl.category === "ui" || !tmpl.downloadUrl)
+            ? `${process.env.NEXT_PUBLIC_SITE_URL}/api/download-session?session_id=${session.id}&templateId=${templateId}&lang=it`
+            : tmpl?.downloadUrl ?? undefined;
+          await sendPurchaseEmail({
+            to: guestEmail,
+            type: isStudio ? "studio" : "template",
+            itemName: isStudio ? "Studio Access" : (tmpl?.name ?? templateId),
+            downloadUrl: isStudio ? undefined : downloadUrl,
+            previewUrl: tmpl ? `${process.env.NEXT_PUBLIC_SITE_URL}/preview/${tmpl.id}` : undefined,
+          }).catch(console.error);
+        }
       }
     }
   }
