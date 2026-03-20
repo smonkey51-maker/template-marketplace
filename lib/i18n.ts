@@ -99,6 +99,10 @@ export const t = {
         label: "Notion Workspace",
         subtitle: "Template Notion pronti: CRM, project management, finanze, PKM",
       },
+      elearning: {
+        label: "E-learning & Corsi",
+        subtitle: "Landing page corsi, webinar, curriculum AI, email onboarding",
+      },
     },
     card: {
       categoryUI: "UI Template",
@@ -305,6 +309,10 @@ export const t = {
       "notion-workspace": {
         label: "Notion Workspace",
         subtitle: "Ready-to-use Notion templates: CRM, project management, finance, PKM",
+      },
+      elearning: {
+        label: "E-learning & Courses",
+        subtitle: "Course landing pages, webinar registration, AI curriculum, onboarding emails",
       },
       "digital-product": {
         label: "App & Digital Product",

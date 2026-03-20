@@ -66,6 +66,7 @@ const SECTION_ACCENTS: Record<string, string> = {
   "digital-product":  "#14B8A6",
   "personal-brand":   "#A855F7",
   "notion-workspace": "#9CA3AF",
+  "elearning":        "#6366F1",
 };
 
 const SECTION_ACCENTS_RGB: Record<string, string> = {
@@ -80,6 +81,7 @@ const SECTION_ACCENTS_RGB: Record<string, string> = {
   "digital-product":  "20,184,166",
   "personal-brand":   "168,85,247",
   "notion-workspace": "156,163,175",
+  "elearning":        "99,102,241",
 };
 
 // ── Scramble chars ────────────────────────────────────────────────────────────
