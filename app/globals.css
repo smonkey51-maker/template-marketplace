@@ -534,21 +534,6 @@ body::after {
   }
 }
 
-/* ═══════════════════════════════════════════════════════════
-   MASONRY GRID
-   ═══════════════════════════════════════════════════════════ */
-.masonry-grid {
-  display: flex;
-  gap: 1.25rem;
-  width: 100%;
-}
-.masonry-grid__col {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  flex: 1;
-  min-width: 0;
-}
 
 /* ═══════════════════════════════════════════════════════════
    LOADING STATE — dot-pulse per bottoni / spinner leggero

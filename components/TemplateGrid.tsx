@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import Image from "next/image";
-import Masonry from "react-masonry-css";
 import { templates, Template } from "@/lib/templates";
 import TemplateCard from "@/components/TemplateCard";
 import StudioAccessButton from "@/components/StudioAccessButton";
@@ -33,22 +32,6 @@ const SECTIONS: {
   { id: "notion-workspace", emoji: "📓", gradientFrom: "#1c1c1c", gradientTo: "#0f0f0f", ids: ["notion-project-hub", "notion-freelancer-crm", "notion-content-calendar", "notion-finance-tracker", "notion-second-brain", "notion-job-tracker", "notion-weekly-review", "notion-client-portal"] },
 ];
 
-// ── Thumbnail heights — varied to create real masonry rhythm ─────────────────
-// tall=176px  medium=140px  short=112px
-const THUMB_HEIGHTS: Record<string, number> = {
-  "professionals":     176,
-  "lifestyle-finance": 112,
-  "business":          152,
-  "startup":           176,
-  "creative":          112,
-  "copywriting-ai":    152,
-  "ai-productivity":   176,
-  "hospitality":       112,
-  "digital-product":   152,
-  "personal-brand":    176,
-  "notion-workspace":  112,
-};
-
 // ── Category cover images (Unsplash) ─────────────────────────────────────────
 
 const CATEGORY_IMAGES: Record<string, string> = {
@@ -66,8 +49,6 @@ const CATEGORY_IMAGES: Record<string, string> = {
 };
 
 const byId = Object.fromEntries(templates.map((tmpl) => [tmpl.id, tmpl]));
-
-const MASONRY_BREAKPOINTS = { default: 3, 1024: 2, 640: 1 };
 
 // ── Utilities ────────────────────────────────────────────────────────────────
 
@@ -95,16 +76,13 @@ function SkeletonCard() {
 
 // ── Category card thumbnail ───────────────────────────────────────────────────
 
-function CategoryThumbnail({ section, thumbHeight }: { section: (typeof SECTIONS)[number]; thumbHeight: number }) {
+function CategoryThumbnail({ section }: { section: (typeof SECTIONS)[number] }) {
   const imgSrc = CATEGORY_IMAGES[section.id];
 
   return (
     <div
-      className="relative overflow-hidden"
-      style={{
-        height: thumbHeight,
-        ...(!imgSrc ? { background: `linear-gradient(135deg, ${section.gradientFrom}, ${section.gradientTo})` } : {}),
-      }}
+      className="relative h-36 overflow-hidden"
+      style={!imgSrc ? { background: `linear-gradient(135deg, ${section.gradientFrom}, ${section.gradientTo})` } : undefined}
     >
       {imgSrc ? (
         <Image
@@ -155,7 +133,6 @@ function CategoryCard({
   lang: Lang;
   index: number;
 }) {
-  const thumbHeight = THUMB_HEIGHTS[section.id] ?? 140;
   const cardRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<number>(0);
   const sectionMeta = t[lang].sections[section.id as keyof typeof t[typeof lang]["sections"]];
@@ -190,19 +167,22 @@ function CategoryCard({
       className="group relative rounded-2xl h-full anim-fade-up cursor-pointer"
       style={{ willChange: "transform", animationDelay: `${index * 45}ms` }}
     >
+      {/* Ambient glow — follows category color */}
+      <div
+        className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none -z-10 blur-xl"
+        style={{ background: `radial-gradient(ellipse at 50% 80%, ${section.gradientFrom}99 0%, transparent 70%)` }}
+      />
+
       {/* Card */}
       <div className="glass relative rounded-2xl overflow-hidden flex flex-col h-full active:opacity-90">
         {/* Specular top edge */}
         <div className="absolute top-0 left-[8%] right-[8%] h-px pointer-events-none z-10" style={{ background: "var(--glass-top-edge)" }} />
 
         {/* Thumbnail */}
-        <CategoryThumbnail section={section} thumbHeight={thumbHeight} />
+        <CategoryThumbnail section={section} />
 
         {/* Hover CTA overlay — sits over the thumbnail */}
-        <div
-          className="absolute top-0 left-0 right-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"
-          style={{ height: thumbHeight }}
-        >
+        <div className="absolute top-0 left-0 right-0 h-36 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
           <span className="bg-white/90 dark:bg-black/75 text-zinc-900 dark:text-zinc-100 text-[12px] font-bold px-3.5 py-1.5 rounded-xl shadow-sm backdrop-blur-sm">
             {lang === "it"
               ? `Vedi ${sectionTemplates.length} template →`
@@ -241,6 +221,40 @@ function CategoryCard({
       </div>
     </div>
   );
+}
+
+// ── CountUp ───────────────────────────────────────────────────────────────────
+
+function CountUp({ to, duration = 900 }: { to: number; duration?: number }) {
+  const [value, setValue] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const started = useRef(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !started.current) {
+          started.current = true;
+          const start = performance.now();
+          const tick = (now: number) => {
+            const progress = Math.min((now - start) / duration, 1);
+            // ease-out cubic
+            const eased = 1 - Math.pow(1 - progress, 3);
+            setValue(Math.round(eased * to));
+            if (progress < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+        }
+      },
+      { threshold: 0.5 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [to, duration]);
+
+  return <span ref={ref}>{value}</span>;
 }
 
 // ── Ripple helper ─────────────────────────────────────────────────────────────
@@ -368,12 +382,7 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
               <p className="text-[13px] text-muted font-medium px-1">
                 {t[lang].search.found.replace("{{n}}", String(searchResults.length))}
               </p>
-              <Masonry
-                key={animKey}
-                breakpointCols={MASONRY_BREAKPOINTS}
-                className="masonry-grid"
-                columnClassName="masonry-grid__col"
-              >
+              <div key={animKey} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
                 {loading
                   ? Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)
                   : searchResults.slice(0, visibleCount).map((tmpl, i) => (
@@ -381,7 +390,7 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
                         <TemplateCard template={tmpl} purchasedIds={purchasedIds} onQuickView={handleQuickView} />
                       </div>
                     ))}
-              </Masonry>
+              </div>
               {!loading && searchResults.length > visibleCount && (
                 <div className="flex justify-center mt-6">
                   <button
@@ -432,12 +441,7 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
           </div>
 
           {/* Template cards */}
-          <Masonry
-            key={animKey}
-            breakpointCols={MASONRY_BREAKPOINTS}
-            className="masonry-grid"
-            columnClassName="masonry-grid__col"
-          >
+          <div key={animKey} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
             {loading
               ? Array.from({ length: openSectionTemplates.length || 3 }).map((_, i) => <SkeletonCard key={i} />)
               : openSectionTemplates.map((tmpl, i) => (
@@ -445,7 +449,7 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
                     <TemplateCard template={tmpl} purchasedIds={purchasedIds} onQuickView={handleQuickView} />
                   </div>
                 ))}
-          </Masonry>
+          </div>
         </div>
       )}
 
@@ -482,16 +486,12 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
           <div className="flex items-center gap-4 mb-6 px-1">
             <div className="flex-1 h-px bg-zinc-200 dark:bg-zinc-800" />
             <span className="text-[10px] font-bold text-muted uppercase tracking-[0.18em] shrink-0">
-              {templates.length} {lang === "it" ? "template disponibili" : "templates available"}
+              <CountUp to={templates.length} /> {lang === "it" ? "template disponibili" : "templates available"}
             </span>
             <div className="flex-1 h-px bg-zinc-200 dark:bg-zinc-800" />
           </div>
 
-          <Masonry
-            breakpointCols={MASONRY_BREAKPOINTS}
-            className="masonry-grid"
-            columnClassName="masonry-grid__col"
-          >
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
             {SECTIONS.map((section, i) => {
               const sectionTemplates = section.ids.map((id) => byId[id]).filter(Boolean) as Template[];
               if (sectionTemplates.length === 0) return null;
@@ -506,7 +506,7 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
                 />
               );
             })}
-          </Masonry>
+          </div>
         </div>
       )}
 
