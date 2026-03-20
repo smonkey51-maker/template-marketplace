@@ -50,6 +50,39 @@ const CATEGORY_IMAGES: Record<string, string> = {
 
 const byId = Object.fromEntries(templates.map((tmpl) => [tmpl.id, tmpl]));
 
+// ── Accent colours per category ───────────────────────────────────────────────
+
+const SECTION_ACCENTS: Record<string, string> = {
+  "professionals":    "#3B82F6",
+  "lifestyle-finance":"#10B981",
+  "business":         "#F59E0B",
+  "startup":          "#8B5CF6",
+  "creative":         "#EC4899",
+  "copywriting-ai":   "#06B6D4",
+  "ai-productivity":  "#6366F1",
+  "hospitality":      "#EF4444",
+  "digital-product":  "#14B8A6",
+  "personal-brand":   "#A855F7",
+  "notion-workspace": "#9CA3AF",
+};
+
+const SECTION_ACCENTS_RGB: Record<string, string> = {
+  "professionals":    "59,130,246",
+  "lifestyle-finance":"16,185,129",
+  "business":         "245,158,11",
+  "startup":          "139,92,246",
+  "creative":         "236,72,153",
+  "copywriting-ai":   "6,182,212",
+  "ai-productivity":  "99,102,241",
+  "hospitality":      "239,68,68",
+  "digital-product":  "20,184,166",
+  "personal-brand":   "168,85,247",
+  "notion-workspace": "156,163,175",
+};
+
+// ── Scramble chars ────────────────────────────────────────────────────────────
+const SCRAMBLE_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
 // ── Utilities ────────────────────────────────────────────────────────────────
 
 function normalize(str: string): string {
@@ -133,9 +166,22 @@ function CategoryCard({
   lang: Lang;
   index: number;
 }) {
-  const cardRef = useRef<HTMLDivElement>(null);
+  const cardRef  = useRef<HTMLDivElement>(null);
+  const revealRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<number>(0);
+  const [revealed, setRevealed] = useState(false);
   const sectionMeta = t[lang].sections[section.id as keyof typeof t[typeof lang]["sections"]];
+
+  useEffect(() => {
+    const el = revealRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setRevealed(true); obs.disconnect(); } },
+      { threshold: 0.08 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     cancelAnimationFrame(frameRef.current);
@@ -160,62 +206,68 @@ function CategoryCard({
 
   return (
     <div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      onClick={(e) => { addRipple(e); onClick(); }}
-      className="group relative rounded-2xl h-full anim-fade-up cursor-pointer"
-      style={{ willChange: "transform", animationDelay: `${index * 45}ms` }}
+      ref={revealRef}
+      className={`scroll-reveal${revealed ? " visible" : ""}`}
+      style={{ transitionDelay: `${index * 50}ms` }}
     >
-      {/* Ambient glow — follows category color */}
       <div
-        className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none -z-10 blur-xl"
-        style={{ background: `radial-gradient(ellipse at 50% 80%, ${section.gradientFrom}99 0%, transparent 70%)` }}
-      />
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        onClick={(e) => { addRipple(e); onClick(); }}
+        className="group relative rounded-2xl h-full cursor-pointer"
+        style={{ willChange: "transform" }}
+      >
+        {/* Ambient glow — follows category color */}
+        <div
+          className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none -z-10 blur-xl"
+          style={{ background: `radial-gradient(ellipse at 50% 80%, ${section.gradientFrom}99 0%, transparent 70%)` }}
+        />
 
-      {/* Card */}
-      <div className="glass relative rounded-2xl overflow-hidden flex flex-col h-full active:opacity-90">
-        {/* Specular top edge */}
-        <div className="absolute top-0 left-[8%] right-[8%] h-px pointer-events-none z-10" style={{ background: "var(--glass-top-edge)" }} />
+        {/* Card */}
+        <div className="glass relative rounded-2xl overflow-hidden flex flex-col h-full active:opacity-90">
+          {/* Specular top edge */}
+          <div className="absolute top-0 left-[8%] right-[8%] h-px pointer-events-none z-10" style={{ background: "var(--glass-top-edge)" }} />
 
-        {/* Thumbnail */}
-        <CategoryThumbnail section={section} />
+          {/* Thumbnail */}
+          <CategoryThumbnail section={section} />
 
-        {/* Hover CTA overlay — sits over the thumbnail */}
-        <div className="absolute top-0 left-0 right-0 h-36 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-          <span className="bg-white/90 dark:bg-black/75 text-zinc-900 dark:text-zinc-100 text-[12px] font-bold px-3.5 py-1.5 rounded-xl shadow-sm backdrop-blur-sm">
-            {lang === "it"
-              ? `Vedi ${sectionTemplates.length} template →`
-              : `View ${sectionTemplates.length} templates →`}
-          </span>
-        </div>
-
-        {/* Info — compact */}
-        <div className="px-3.5 py-3 flex items-center gap-2.5">
-          {/* Emoji pill */}
-          <span className="text-base flex-shrink-0 leading-none">{section.emoji}</span>
-
-          {/* Text */}
-          <div className="flex-1 min-w-0">
-            <h3 className="text-[13px] font-semibold text-zinc-900 dark:text-zinc-100 leading-snug group-hover:text-[#0A84FF] transition-colors duration-200 truncate">
-              {sectionMeta.label}
-            </h3>
-            <p className="text-[11px] text-muted leading-snug truncate mt-0.5">
-              {sectionMeta.subtitle}
-            </p>
+          {/* Hover CTA overlay — sits over the thumbnail */}
+          <div className="absolute top-0 left-0 right-0 h-36 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+            <span className="bg-white/90 dark:bg-black/75 text-zinc-900 dark:text-zinc-100 text-[12px] font-bold px-3.5 py-1.5 rounded-xl shadow-sm backdrop-blur-sm">
+              {lang === "it"
+                ? `Vedi ${sectionTemplates.length} template →`
+                : `View ${sectionTemplates.length} templates →`}
+            </span>
           </div>
 
-          {/* Count + arrow */}
-          <div className="flex items-center gap-1.5 flex-shrink-0">
-            <span className="text-[11px] font-bold text-zinc-400 dark:text-zinc-500 tabular-nums">
-              {sectionTemplates.length}
-            </span>
-            <svg
-              width="13" height="13" viewBox="0 0 14 14" fill="none"
-              className="text-zinc-300 dark:text-zinc-600 group-hover:text-[#0A84FF] group-hover:translate-x-0.5 transition-all duration-200"
-            >
-              <path d="M2 7h10M7 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+          {/* Info — compact */}
+          <div className="px-3.5 py-3 flex items-center gap-2.5">
+            {/* Emoji pill */}
+            <span className="text-base flex-shrink-0 leading-none">{section.emoji}</span>
+
+            {/* Text */}
+            <div className="flex-1 min-w-0">
+              <h3 className="text-[13px] font-semibold text-zinc-900 dark:text-zinc-100 leading-snug group-hover:text-[#0A84FF] transition-colors duration-200 truncate">
+                <ScrambleText text={sectionMeta.label} />
+              </h3>
+              <p className="text-[11px] text-muted leading-snug truncate mt-0.5">
+                {sectionMeta.subtitle}
+              </p>
+            </div>
+
+            {/* Count + arrow */}
+            <div className="flex items-center gap-1.5 flex-shrink-0">
+              <span className="text-[11px] font-bold text-zinc-400 dark:text-zinc-500 tabular-nums">
+                {sectionTemplates.length}
+              </span>
+              <svg
+                width="13" height="13" viewBox="0 0 14 14" fill="none"
+                className="text-zinc-300 dark:text-zinc-600 group-hover:text-[#0A84FF] group-hover:translate-x-0.5 transition-all duration-200"
+              >
+                <path d="M2 7h10M7 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
           </div>
         </div>
       </div>
@@ -223,9 +275,13 @@ function CategoryCard({
   );
 }
 
-// ── CountUp ───────────────────────────────────────────────────────────────────
+// ── SplitFlap counter ─────────────────────────────────────────────────────────
 
-function CountUp({ to, duration = 900 }: { to: number; duration?: number }) {
+function SplitFlapDigit({ char }: { char: string }) {
+  return <span key={char} className="split-flap-char">{char}</span>;
+}
+
+function SplitFlap({ to, duration = 1100 }: { to: number; duration?: number }) {
   const [value, setValue] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
   const started = useRef(false);
@@ -240,7 +296,6 @@ function CountUp({ to, duration = 900 }: { to: number; duration?: number }) {
           const start = performance.now();
           const tick = (now: number) => {
             const progress = Math.min((now - start) / duration, 1);
-            // ease-out cubic
             const eased = 1 - Math.pow(1 - progress, 3);
             setValue(Math.round(eased * to));
             if (progress < 1) requestAnimationFrame(tick);
@@ -254,7 +309,103 @@ function CountUp({ to, duration = 900 }: { to: number; duration?: number }) {
     return () => obs.disconnect();
   }, [to, duration]);
 
-  return <span ref={ref}>{value}</span>;
+  const digits = String(value).split("");
+  return (
+    <span ref={ref} className="inline-flex tabular-nums">
+      {digits.map((d, i) => <SplitFlapDigit key={`${i}-${d}`} char={d} />)}
+    </span>
+  );
+}
+
+// ── ScrambleText ──────────────────────────────────────────────────────────────
+
+function ScrambleText({ text }: { text: string }) {
+  const [display, setDisplay] = useState(text);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const frameRef = useRef(0);
+
+  const scramble = () => {
+    frameRef.current = 0;
+    const totalFrames = Math.ceil(text.length * 2.5);
+    clearInterval(timerRef.current!);
+    timerRef.current = setInterval(() => {
+      frameRef.current++;
+      const revealed = Math.floor((frameRef.current / totalFrames) * text.length);
+      setDisplay(
+        text.split("").map((ch, i) => {
+          if (i < revealed || ch === " " || ch === "&" || ch === "-") return ch;
+          return SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
+        }).join("")
+      );
+      if (frameRef.current >= totalFrames) {
+        clearInterval(timerRef.current!);
+        setDisplay(text);
+      }
+    }, 35);
+  };
+
+  const reset = () => { clearInterval(timerRef.current!); setDisplay(text); };
+  useEffect(() => () => clearInterval(timerRef.current!), []);
+
+  return <span onMouseEnter={scramble} onMouseLeave={reset}>{display}</span>;
+}
+
+// ── MagneticWrap ──────────────────────────────────────────────────────────────
+
+function MagneticWrap({ children, strength = 0.38 }: { children: React.ReactNode; strength?: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const raf = useRef<number>(0);
+
+  const onMove = (e: React.MouseEvent) => {
+    cancelAnimationFrame(raf.current);
+    raf.current = requestAnimationFrame(() => {
+      const el = ref.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const dx = (e.clientX - (r.left + r.width  / 2)) * strength;
+      const dy = (e.clientY - (r.top  + r.height / 2)) * strength;
+      el.style.transform = `translate(${dx}px, ${dy}px)`;
+    });
+  };
+
+  const onLeave = () => {
+    cancelAnimationFrame(raf.current);
+    const el = ref.current;
+    if (!el) return;
+    el.style.transition = "transform 0.5s cubic-bezier(0.34,1.56,0.64,1)";
+    el.style.transform   = "translate(0px, 0px)";
+    setTimeout(() => { if (el) el.style.transition = ""; }, 500);
+  };
+
+  return (
+    <div ref={ref} onMouseMove={onMove} onMouseLeave={onLeave} style={{ display: "inline-block" }}>
+      {children}
+    </div>
+  );
+}
+
+// ── ScrollRevealCard ──────────────────────────────────────────────────────────
+
+function ScrollRevealCard({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold: 0.08 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} className={`scroll-reveal${visible ? " visible" : ""}`} style={{ transitionDelay: `${delay}ms` }}>
+      {children}
+    </div>
+  );
 }
 
 // ── Ripple helper ─────────────────────────────────────────────────────────────
@@ -288,6 +439,22 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
   const drillDirectionRef = useRef<"in" | "back">("in");
 
   const handleQuickView = useCallback((id: string) => setQuickViewId(id), []);
+
+  // Dynamic accent colour when inside a category
+  useEffect(() => {
+    const root = document.documentElement;
+    if (openCategoryId && SECTION_ACCENTS[openCategoryId]) {
+      root.style.setProperty("--accent",     SECTION_ACCENTS[openCategoryId]);
+      root.style.setProperty("--accent-rgb", SECTION_ACCENTS_RGB[openCategoryId]);
+    } else {
+      root.style.removeProperty("--accent");
+      root.style.removeProperty("--accent-rgb");
+    }
+    return () => {
+      root.style.removeProperty("--accent");
+      root.style.removeProperty("--accent-rgb");
+    };
+  }, [openCategoryId]);
 
   useEffect(() => {
     fetch("/api/purchases")
@@ -369,7 +536,7 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
       {/* ── Studio Access hint ── */}
       <div className="mb-8 mt-4 flex items-center justify-between gap-3 px-1">
         <p className="text-[13px] text-muted">{t[lang].studioAccessBanner.title}</p>
-        <StudioAccessButton compact />
+        <MagneticWrap><StudioAccessButton compact /></MagneticWrap>
       </div>
 
       {/* ══════════════════════════════════════════════════
@@ -386,21 +553,23 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
                 {loading
                   ? Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)
                   : searchResults.slice(0, visibleCount).map((tmpl, i) => (
-                      <div key={tmpl.id} className="anim-fade-up" style={{ animationDelay: `${i * 35}ms` }}>
+                      <ScrollRevealCard key={tmpl.id} delay={i * 35}>
                         <TemplateCard template={tmpl} purchasedIds={purchasedIds} onQuickView={handleQuickView} />
-                      </div>
+                      </ScrollRevealCard>
                     ))}
               </div>
               {!loading && searchResults.length > visibleCount && (
                 <div className="flex justify-center mt-6">
-                  <button
-                    onClick={() => setVisibleCount((v) => v + 12)}
-                    className="px-6 py-2.5 glass border border-theme rounded-2xl text-[13px] font-semibold text-muted hover:text-theme hover:border-[#0A84FF]/30 transition-all duration-200 ios-spring"
-                  >
-                    {lang === "it"
-                      ? `Mostra altri ${Math.min(12, searchResults.length - visibleCount)} →`
-                      : `Show ${Math.min(12, searchResults.length - visibleCount)} more →`}
-                  </button>
+                  <MagneticWrap>
+                    <button
+                      onClick={() => setVisibleCount((v) => v + 12)}
+                      className="px-6 py-2.5 glass border border-theme rounded-2xl text-[13px] font-semibold text-muted hover:text-theme hover:border-[#0A84FF]/30 transition-all duration-200 ios-spring"
+                    >
+                      {lang === "it"
+                        ? `Mostra altri ${Math.min(12, searchResults.length - visibleCount)} →`
+                        : `Show ${Math.min(12, searchResults.length - visibleCount)} more →`}
+                    </button>
+                  </MagneticWrap>
                 </div>
               )}
             </>
@@ -445,9 +614,9 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
             {loading
               ? Array.from({ length: openSectionTemplates.length || 3 }).map((_, i) => <SkeletonCard key={i} />)
               : openSectionTemplates.map((tmpl, i) => (
-                  <div key={tmpl.id} className="anim-fade-up" style={{ animationDelay: `${i * 45}ms` }}>
+                  <ScrollRevealCard key={tmpl.id} delay={i * 45}>
                     <TemplateCard template={tmpl} purchasedIds={purchasedIds} onQuickView={handleQuickView} />
-                  </div>
+                  </ScrollRevealCard>
                 ))}
           </div>
         </div>
@@ -486,7 +655,7 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
           <div className="flex items-center gap-4 mb-6 px-1">
             <div className="flex-1 h-px bg-zinc-200 dark:bg-zinc-800" />
             <span className="text-[10px] font-bold text-muted uppercase tracking-[0.18em] shrink-0">
-              <CountUp to={templates.length} /> {lang === "it" ? "template disponibili" : "templates available"}
+              <SplitFlap to={templates.length} /> {lang === "it" ? "template disponibili" : "templates available"}
             </span>
             <div className="flex-1 h-px bg-zinc-200 dark:bg-zinc-800" />
           </div>
