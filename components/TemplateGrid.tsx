@@ -30,6 +30,7 @@ const SECTIONS: {
   { id: "digital-product",  emoji: "📱", gradientFrom: "#003b4a", gradientTo: "#002535", ids: ["mobile-app-showcase", "feature-showcase", "saas-dashboard"] },
   { id: "personal-brand",   emoji: "🪪", gradientFrom: "#2d0e4a", gradientTo: "#1e0933", ids: ["digital-resume", "link-in-bio", "newsletter-landing"] },
   { id: "notion-workspace", emoji: "📓", gradientFrom: "#1c1c1c", gradientTo: "#0f0f0f", ids: ["notion-project-hub", "notion-freelancer-crm", "notion-content-calendar", "notion-finance-tracker", "notion-second-brain", "notion-job-tracker", "notion-weekly-review", "notion-client-portal"] },
+  { id: "elearning", emoji: "🎓", gradientFrom: "#1a3a5c", gradientTo: "#0d2240", ids: ["course-landing-page", "webinar-registration", "course-curriculum-builder", "student-success-story", "course-email-welcome"] },
 ];
 
 // ── Category cover images (Unsplash) ─────────────────────────────────────────
@@ -46,6 +47,7 @@ const CATEGORY_IMAGES: Record<string, string> = {
   "digital-product": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=280&fit=crop&q=80&auto=format",
   "personal-brand":  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=280&fit=crop&q=80&auto=format",
   "notion-workspace":"https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=600&h=280&fit=crop&q=80&auto=format",
+  "elearning":       "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&h=280&fit=crop&q=80&auto=format",
 };
 
 const byId = Object.fromEntries(templates.map((tmpl) => [tmpl.id, tmpl]));

@@ -63,6 +63,7 @@ const CATEGORIES = [
   { id: "digital-product",  emoji: "📱", labelIt: "App & Prodotto digitale", labelEn: "App & Digital" },
   { id: "personal-brand",   emoji: "🪪", labelIt: "Personal Brand",          labelEn: "Personal Brand" },
   { id: "notion-workspace", emoji: "📓", labelIt: "Notion Workspace",        labelEn: "Notion Workspace" },
+  { id: "elearning",        emoji: "🎓", labelIt: "E-learning & Corsi",      labelEn: "E-learning & Courses" },
 ];
 
 const STEPS = [

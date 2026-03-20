@@ -5049,6 +5049,827 @@ Usa Notion.site o Super.so per pubblicare il portale con un URL personalizzato c
 - **Weekly status update**: ogni venerdì aggiungi un record nel Communication Log di tipo "Status Update" con 3 punti: cosa è stato completato, cosa è in corso, cosa viene fatto la settimana prossima. Il cliente si sente aggiornato senza bisogno di chiedere
 - **Template per ogni tipo di progetto**: crea varianti del portale per i tuoi servizi principali (es. "Portal — Sito Web", "Portal — Social Media", "Portal — Branding"). Duplica e personalizza in 15 minuti invece di costruire da zero`,
   },
+
+  // ── E-learning & Corsi ────────────────────────────────────────────────────
+  {
+    id: "course-landing-page",
+    name: "Online Course Landing Page",
+    description:
+      "Full landing page for an online course: hero, curriculum, instructor bio, testimonials and CTA with pricing.",
+    category: "ui",
+    price: 1299,
+    stripePriceId: "price_1TD5Q7BoWNgrJbiy9N8N8GoF",
+    tags: ["elearning", "course", "landing page", "education", "online course"],
+    downloads: 0,
+    isNew: true,
+    editorsPick: true,
+    content: `<div class="min-h-screen bg-white font-sans">
+  <!-- Hero -->
+  <section class="bg-gradient-to-br from-indigo-700 via-purple-700 to-pink-600 text-white py-20 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <span class="inline-block bg-white/20 text-white text-sm font-semibold px-4 py-1.5 rounded-full mb-6 backdrop-blur-sm border border-white/20">🎓 Corso Online</span>
+      <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
+        Diventa uno <span class="text-yellow-300">Sviluppatore AI</span><br/>in 8 settimane
+      </h1>
+      <p class="text-xl text-white/80 max-w-2xl mx-auto mb-8">
+        Il corso pratico per imparare a costruire applicazioni AI con Python, LangChain e le API di OpenAI. Zero prerequisiti.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+        <button class="px-8 py-4 bg-yellow-400 text-gray-900 font-bold text-lg rounded-2xl hover:bg-yellow-300 transition shadow-lg">Inizia ora — €197</button>
+        <button class="px-8 py-4 bg-white/15 text-white font-semibold rounded-2xl border border-white/30 hover:bg-white/25 transition backdrop-blur-sm">Guarda il video gratuito →</button>
+      </div>
+      <p class="text-white/50 text-sm">✅ Garanzia soddisfatti o rimborsati 30 giorni · 🎥 8 ore di video · 📁 Codice sorgente incluso</p>
+    </div>
+  </section>
+
+  <!-- Social proof bar -->
+  <section class="bg-indigo-900 text-white py-4 px-4">
+    <div class="max-w-4xl mx-auto flex flex-wrap justify-center gap-8 text-center text-sm">
+      <div><span class="font-bold text-yellow-400 text-lg">2.400+</span><br/>studenti iscritti</div>
+      <div><span class="font-bold text-yellow-400 text-lg">4.9 ★</span><br/>valutazione media</div>
+      <div><span class="font-bold text-yellow-400 text-lg">8 settimane</span><br/>percorso guidato</div>
+      <div><span class="font-bold text-yellow-400 text-lg">100%</span><br/>online & flessibile</div>
+    </div>
+  </section>
+
+  <!-- What you'll learn -->
+  <section class="py-16 px-4 bg-gray-50">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl font-extrabold text-gray-900 text-center mb-2">Cosa imparerai</h2>
+      <p class="text-gray-500 text-center mb-10">8 moduli · 40+ lezioni · 3 progetti reali</p>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="flex gap-3 bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+          <span class="text-2xl">🐍</span>
+          <div><p class="font-semibold text-gray-900">Python per l'AI</p><p class="text-sm text-gray-500">Fondamenta solide: variabili, funzioni, async/await</p></div>
+        </div>
+        <div class="flex gap-3 bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+          <span class="text-2xl">🔗</span>
+          <div><p class="font-semibold text-gray-900">LangChain & LLMs</p><p class="text-sm text-gray-500">Catene, agenti e tool con OpenAI e Claude</p></div>
+        </div>
+        <div class="flex gap-3 bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+          <span class="text-2xl">🗃️</span>
+          <div><p class="font-semibold text-gray-900">RAG & Vector DB</p><p class="text-sm text-gray-500">Retrieval-Augmented Generation con Pinecone</p></div>
+        </div>
+        <div class="flex gap-3 bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+          <span class="text-2xl">🚀</span>
+          <div><p class="font-semibold text-gray-900">Deploy & Produzione</p><p class="text-sm text-gray-500">FastAPI, Docker, Railway e monitoring</p></div>
+        </div>
+        <div class="flex gap-3 bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+          <span class="text-2xl">🤖</span>
+          <div><p class="font-semibold text-gray-900">AI Agents</p><p class="text-sm text-gray-500">Agenti autonomi con tool use e reasoning</p></div>
+        </div>
+        <div class="flex gap-3 bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+          <span class="text-2xl">💼</span>
+          <div><p class="font-semibold text-gray-900">Portfolio & Lavoro</p><p class="text-sm text-gray-500">3 progetti reali da mostrare ai recruiter</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Curriculum -->
+  <section class="py-16 px-4 bg-white">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-3xl font-extrabold text-gray-900 text-center mb-10">Curriculum del corso</h2>
+      <div class="space-y-3">
+        <details class="border border-gray-200 rounded-xl overflow-hidden group">
+          <summary class="flex items-center justify-between px-5 py-4 cursor-pointer bg-gray-50 hover:bg-gray-100 transition font-semibold text-gray-800">
+            <span>Modulo 1 — Setup & Python Essentials</span>
+            <span class="text-sm text-gray-500 font-normal">4 lezioni · 45 min</span>
+          </summary>
+          <div class="px-5 py-4 text-sm text-gray-600 space-y-2">
+            <p>1.1 Setup ambiente: VS Code, Python 3.11, venv</p>
+            <p>1.2 Python per sviluppatori: sintassi accelerata</p>
+            <p>1.3 Async/await: concetti fondamentali</p>
+            <p>1.4 Prima chiamata API: OpenAI hello world</p>
+          </div>
+        </details>
+        <details class="border border-gray-200 rounded-xl overflow-hidden">
+          <summary class="flex items-center justify-between px-5 py-4 cursor-pointer bg-gray-50 hover:bg-gray-100 transition font-semibold text-gray-800">
+            <span>Modulo 2 — LangChain Core</span>
+            <span class="text-sm text-gray-500 font-normal">6 lezioni · 1h 20 min</span>
+          </summary>
+          <div class="px-5 py-4 text-sm text-gray-600 space-y-2">
+            <p>2.1 Chains: prompt → model → output</p>
+            <p>2.2 Memory: conversazioni con contesto</p>
+            <p>2.3 Tools & Agents: il modello che decide</p>
+            <p>2.4 Progetto: chatbot FAQ aziendale</p>
+          </div>
+        </details>
+        <details class="border border-gray-200 rounded-xl overflow-hidden">
+          <summary class="flex items-center justify-between px-5 py-4 cursor-pointer bg-gray-50 hover:bg-gray-100 transition font-semibold text-gray-800">
+            <span>Modulo 3 — RAG & Vector Databases</span>
+            <span class="text-sm text-gray-500 font-normal">5 lezioni · 1h 10 min</span>
+          </summary>
+          <div class="px-5 py-4 text-sm text-gray-600 space-y-2">
+            <p>3.1 Embeddings: come funzionano i vettori</p>
+            <p>3.2 Pinecone e ChromaDB a confronto</p>
+            <p>3.3 Pipeline RAG completa end-to-end</p>
+            <p>3.4 Progetto: AI che risponde dai tuoi PDF</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Instructor -->
+  <section class="py-16 px-4 bg-gray-50">
+    <div class="max-w-3xl mx-auto flex flex-col md:flex-row gap-8 items-center">
+      <div class="w-28 h-28 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-3xl font-extrabold flex-shrink-0">AI</div>
+      <div>
+        <p class="text-sm font-semibold text-indigo-600 uppercase tracking-wide mb-1">Il tuo istruttore</p>
+        <h3 class="text-2xl font-extrabold text-gray-900 mb-2">Alex Romano</h3>
+        <p class="text-gray-600 leading-relaxed">Senior AI Engineer con 8 anni di esperienza in Google e startup AI. Ha formato oltre 5.000 sviluppatori. Autore del blog "AI in Produzione" con 50k lettori mensili.</p>
+        <div class="flex gap-4 mt-4 text-sm text-gray-500">
+          <span>⭐ 4.97 rating</span>
+          <span>👥 5.000+ studenti</span>
+          <span>📚 12 corsi</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="py-16 px-4 bg-white">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl font-extrabold text-gray-900 text-center mb-10">Cosa dicono gli studenti</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-gray-50 rounded-2xl p-5 border border-gray-200">
+          <div class="flex gap-0.5 mb-3">★★★★★</div>
+          <p class="text-sm text-gray-600 mb-4">"Ho trovato lavoro come AI Engineer a Milano 3 settimane dopo aver finito il corso. Vale ogni centesimo."</p>
+          <div class="flex items-center gap-2.5"><div class="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center text-white text-xs font-bold">GT</div><div><p class="text-sm font-semibold text-gray-800">Giulia T.</p><p class="text-xs text-gray-500">AI Engineer @ Fintech Startup</p></div></div>
+        </div>
+        <div class="bg-gray-50 rounded-2xl p-5 border border-gray-200">
+          <div class="flex gap-0.5 mb-3">★★★★★</div>
+          <p class="text-sm text-gray-600 mb-4">"Partivo da zero con Python. Ora ho deployato il mio primo agente AI in produzione. Alex spiega tutto con chiarezza."</p>
+          <div class="flex items-center gap-2.5"><div class="w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center text-white text-xs font-bold">MR</div><div><p class="text-sm font-semibold text-gray-800">Marco R.</p><p class="text-xs text-gray-500">Full-Stack Developer</p></div></div>
+        </div>
+        <div class="bg-gray-50 rounded-2xl p-5 border border-gray-200">
+          <div class="flex gap-0.5 mb-3">★★★★★</div>
+          <p class="text-sm text-gray-600 mb-4">"Il modulo su RAG è il più completo che abbia mai visto. Ho implementato un chatbot per i documenti della mia azienda in 2 giorni."</p>
+          <div class="flex items-center gap-2.5"><div class="w-8 h-8 rounded-full bg-pink-500 flex items-center justify-center text-white text-xs font-bold">SC</div><div><p class="text-sm font-semibold text-gray-800">Sara C.</p><p class="text-xs text-gray-500">Data Scientist</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing CTA -->
+  <section class="py-20 px-4 bg-gradient-to-br from-indigo-700 via-purple-700 to-pink-600 text-white text-center">
+    <h2 class="text-3xl md:text-4xl font-extrabold mb-4">Pronto a iniziare?</h2>
+    <p class="text-white/70 mb-10 text-lg">Una tantum · Accesso a vita · Aggiornamenti gratuiti</p>
+    <div class="inline-block bg-white rounded-3xl p-8 text-gray-900 max-w-sm w-full shadow-2xl">
+      <p class="text-gray-500 text-sm mb-1">Prezzo di lancio</p>
+      <p class="text-5xl font-black mb-1">€197</p>
+      <p class="text-gray-400 line-through text-lg mb-6">€397</p>
+      <button class="w-full py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-lg rounded-2xl hover:opacity-90 transition mb-4">Iscriviti ora →</button>
+      <p class="text-xs text-gray-400">✅ Garanzia 30 giorni · 🔒 Pagamento sicuro con Stripe</p>
+    </div>
+  </section>
+</div>`,
+  },
+  {
+    id: "webinar-registration",
+    name: "Webinar Registration Page",
+    description:
+      "Live webinar opt-in page with countdown timer, speaker bio, session agenda and email capture form.",
+    category: "ui",
+    price: 999,
+    stripePriceId: "price_1TD5Q7BoWNgrJbiyN7sHkTVu",
+    tags: ["elearning", "webinar", "registration", "event", "lead generation"],
+    downloads: 0,
+    isNew: true,
+    content: `<div class="min-h-screen bg-gray-950 text-white font-sans">
+  <!-- Header -->
+  <header class="border-b border-white/10 px-6 py-4 flex items-center justify-between max-w-6xl mx-auto">
+    <div class="font-bold text-lg tracking-tight">🎓 AcademyPro</div>
+    <span class="text-xs text-gray-400 border border-white/10 rounded-full px-3 py-1">Evento GRATUITO</span>
+  </header>
+
+  <!-- Hero -->
+  <section class="py-16 px-4">
+    <div class="max-w-3xl mx-auto text-center">
+      <div class="inline-flex items-center gap-2 bg-red-500/15 border border-red-500/30 text-red-400 text-sm font-semibold px-4 py-2 rounded-full mb-8">
+        <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse inline-block"></span>
+        LIVE · Martedì 25 Marzo · ore 20:00
+      </div>
+      <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-6">
+        Come usare l'AI per<br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">10x la tua produttività</span><br/>nel 2025
+      </h1>
+      <p class="text-gray-400 text-lg max-w-xl mx-auto mb-10">
+        90 minuti di strategie pratiche e dimostrazione live. Porta il tuo laptop — costruiremo insieme il tuo primo agente AI.
+      </p>
+
+      <!-- Registration form -->
+      <div class="bg-white/5 border border-white/10 rounded-3xl p-8 max-w-md mx-auto text-left">
+        <p class="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-5 text-center">Prenota il tuo posto gratuito</p>
+        <div class="space-y-3 mb-5">
+          <input type="text" placeholder="Il tuo nome" class="w-full bg-white/10 border border-white/20 text-white placeholder-gray-500 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-violet-500 transition"/>
+          <input type="email" placeholder="La tua email" class="w-full bg-white/10 border border-white/20 text-white placeholder-gray-500 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-violet-500 transition"/>
+        </div>
+        <button class="w-full py-4 bg-gradient-to-r from-violet-600 to-cyan-600 font-bold text-lg rounded-2xl hover:opacity-90 transition shadow-lg shadow-violet-500/30">
+          Partecipo gratis →
+        </button>
+        <p class="text-center text-xs text-gray-500 mt-3">📧 Riceverai il link Zoom via email · Nessuno spam</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Countdown -->
+  <section class="py-10 px-4">
+    <div class="max-w-lg mx-auto text-center">
+      <p class="text-sm text-gray-500 mb-4 uppercase tracking-wide font-semibold">L'evento inizia tra</p>
+      <div class="flex justify-center gap-4">
+        <div class="bg-white/5 border border-white/10 rounded-2xl px-5 py-4 min-w-[72px]">
+          <p class="text-3xl font-black tabular-nums">03</p>
+          <p class="text-xs text-gray-500 mt-1">giorni</p>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-2xl px-5 py-4 min-w-[72px]">
+          <p class="text-3xl font-black tabular-nums">14</p>
+          <p class="text-xs text-gray-500 mt-1">ore</p>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-2xl px-5 py-4 min-w-[72px]">
+          <p class="text-3xl font-black tabular-nums">32</p>
+          <p class="text-xs text-gray-500 mt-1">minuti</p>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-2xl px-5 py-4 min-w-[72px]">
+          <p class="text-3xl font-black tabular-nums">18</p>
+          <p class="text-xs text-gray-500 mt-1">secondi</p>
+        </div>
+      </div>
+      <p class="text-sm text-red-400 font-semibold mt-5">⚡ Solo 200 posti disponibili · 147 già prenotati</p>
+    </div>
+  </section>
+
+  <!-- Agenda -->
+  <section class="py-16 px-4">
+    <div class="max-w-2xl mx-auto">
+      <h2 class="text-2xl font-extrabold text-center mb-8">Cosa vedremo insieme</h2>
+      <div class="space-y-4">
+        <div class="flex gap-4 items-start">
+          <div class="bg-violet-600/20 text-violet-400 text-xs font-bold px-2 py-1 rounded-lg flex-shrink-0 mt-0.5">20:00</div>
+          <div><p class="font-semibold text-white">Benvenuto e contesto</p><p class="text-sm text-gray-400">Perché l'AI cambierà ogni lavoro nei prossimi 2 anni</p></div>
+        </div>
+        <div class="flex gap-4 items-start">
+          <div class="bg-violet-600/20 text-violet-400 text-xs font-bold px-2 py-1 rounded-lg flex-shrink-0 mt-0.5">20:15</div>
+          <div><p class="font-semibold text-white">Il Sistema AI Produttività (live demo)</p><p class="text-sm text-gray-400">Come automatizzare email, report e ricerche in 15 minuti al giorno</p></div>
+        </div>
+        <div class="flex gap-4 items-start">
+          <div class="bg-violet-600/20 text-violet-400 text-xs font-bold px-2 py-1 rounded-lg flex-shrink-0 mt-0.5">20:45</div>
+          <div><p class="font-semibold text-white">Build insieme: il tuo primo agente AI</p><p class="text-sm text-gray-400">Costruiamo live un agente che legge le tue email e risponde in automatico</p></div>
+        </div>
+        <div class="flex gap-4 items-start">
+          <div class="bg-violet-600/20 text-violet-400 text-xs font-bold px-2 py-1 rounded-lg flex-shrink-0 mt-0.5">21:15</div>
+          <div><p class="font-semibold text-white">Q&A aperto + Offerta riservata ai partecipanti</p><p class="text-sm text-gray-400">Rispondo a tutto. Solo chi partecipa live avrà accesso all'offerta speciale</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Speaker -->
+  <section class="py-16 px-4 border-t border-white/10">
+    <div class="max-w-2xl mx-auto flex flex-col sm:flex-row gap-6 items-center">
+      <div class="w-24 h-24 rounded-2xl bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center text-white text-2xl font-extrabold flex-shrink-0">AR</div>
+      <div>
+        <p class="text-xs text-violet-400 uppercase tracking-widest mb-1 font-semibold">Il tuo speaker</p>
+        <h3 class="text-xl font-extrabold mb-2">Alex Romano</h3>
+        <p class="text-sm text-gray-400">AI Engineer e formatore. Ha aiutato 5.000+ professionisti ad integrare l'AI nel lavoro quotidiano. Ospite di TEDxMilano 2024.</p>
+        <div class="flex gap-3 mt-3 text-xs text-gray-500">
+          <span>🐦 @alexromano_ai</span>
+          <span>📺 50k YouTube</span>
+          <span>✉️ 30k newsletter</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>`,
+  },
+  {
+    id: "course-curriculum-builder",
+    name: "AI Course Curriculum Builder",
+    description:
+      "Structured AI prompt to generate a complete online course curriculum with modules, lessons, objectives and exercises.",
+    category: "prompt",
+    price: 999,
+    stripePriceId: "price_1TD5Q8BoWNgrJbiyj4Lgskzb",
+    tags: ["elearning", "course", "curriculum", "education", "course creation"],
+    downloads: 0,
+    isNew: true,
+    content: `# AI Course Curriculum Builder
+
+## Genera il curriculum completo del tuo corso online in minuti
+
+Questo prompt strutturato guida Claude (o qualsiasi LLM) a progettare un curriculum professionale per qualsiasi tipo di corso online: dalla struttura dei moduli agli obiettivi di apprendimento, dagli esercizi pratici ai materiali consigliati.
+
+---
+
+## PROMPT PRINCIPALE
+
+\`\`\`
+Sei un instructional designer esperto con 15 anni di esperienza nella creazione di corsi online di successo su Udemy, Teachable e Kajabi. Il tuo compito è progettare un curriculum completo per un corso online.
+
+DETTAGLI DEL CORSO:
+- Argomento: [ES. "Machine Learning con Python per principianti"]
+- Pubblico target: [ES. "Sviluppatori junior con 1-2 anni di esperienza in Python che vogliono passare all'AI/ML"]
+- Livello: [Principiante / Intermedio / Avanzato]
+- Durata totale target: [ES. "8-10 ore di contenuto video"]
+- Formato: [Solo video / Video + Esercizi / Video + Progetto finale / Blended learning]
+- Obiettivo principale dello studente: [ES. "Essere in grado di costruire e deployare il primo modello ML in produzione"]
+- Tool/tecnologie coinvolte: [ES. "Python 3.11, scikit-learn, pandas, FastAPI, Docker"]
+
+Progetta il curriculum seguendo questa struttura:
+
+1. LEARNING OUTCOMES (3-5 obiettivi misurabili usando la tassonomia di Bloom)
+2. STRUTTURA DEI MODULI (6-10 moduli con titolo, descrizione e rationale didattico)
+3. PER OGNI MODULO:
+   - Titolo e obiettivo specifico del modulo
+   - 3-6 lezioni con titolo e tipo (concetto / demo live / esercizio / quiz)
+   - Durata stimata
+   - Prerequisiti del modulo
+   - Esercizio pratico o mini-progetto
+   - Risorse consigliate (libri, articoli, tool)
+4. PROGETTO CAPSTONE (descrizione del progetto finale che integra tutti i moduli)
+5. VALUTAZIONE E CERTIFICAZIONE (come misurare il progresso dello studente)
+6. SEQUENZA DI LANCIO (ordine di creazione consigliato dei contenuti)
+
+Usa un formato Markdown pulito e strutturato. Sii specifico e concreto — evita generalità.
+\`\`\`
+
+---
+
+## VARIANTI SPECIALIZZATE
+
+### Per corsi tecnici / programmazione
+\`\`\`
+[Aggiungi al prompt principale]
+
+Per ogni lezione di tipo "demo live" includi:
+- Setup ambiente richiesto
+- Snippet di codice starter
+- Risultato atteso al termine
+- Errori comuni e come evitarli
+
+Per ogni esercizio includi:
+- Istruzioni dettagliate step-by-step
+- Criteri di completamento (definition of done)
+- Soluzione di riferimento (da non mostrare subito allo studente)
+\`\`\`
+
+### Per corsi soft skill / business
+\`\`\`
+[Aggiungi al prompt principale]
+
+Per ogni modulo includi:
+- Caso studio reale del settore
+- Role-play o scenario simulato
+- Template/framework scaricabile
+- Action item da implementare entro 48 ore
+
+Struttura le lezioni seguendo il modello: Teoria (20%) → Esempio (30%) → Pratica (50%)
+\`\`\`
+
+### Per corsi creativi (design, fotografia, musica)
+\`\`\`
+[Aggiungi al prompt principale]
+
+Per ogni lezione includi:
+- Brief creativo dell'esercizio
+- Criteri estetici di valutazione
+- Esempi di lavori eccellenti da analizzare
+- Feedback peer-to-peer: domande guida per la revisione tra studenti
+\`\`\`
+
+---
+
+## PROMPT PER SINGOLA LEZIONE (dopo aver generato il curriculum)
+
+\`\`\`
+Sei un instructional designer. Basandoti su questo curriculum: [INCOLLA CURRICULUM]
+
+Sviluppa la lezione "[TITOLO LEZIONE]" del modulo "[TITOLO MODULO]" con questa struttura:
+
+SCRIPT DELLA LEZIONE:
+- Hook di apertura (30 secondi): cattura l'attenzione con una domanda, statistica o storia
+- Obiettivo dichiarato: "Al termine di questa lezione saprai/potrai..."
+- Contenuto principale (diviso in 3-4 blocchi di 3-5 minuti)
+- Recap visivo: bullet point dei concetti chiave
+- Transizione: anticipa la prossima lezione
+
+SLIDE DECK (10-15 slide):
+- Slide 1: Titolo + obiettivo
+- Slide 2-X: Una slide per concetto chiave (regola: max 30 parole per slide)
+- Penultima slide: Recap
+- Ultima slide: Esercizio o call to action
+
+QUIZ (3 domande a scelta multipla):
+- Domanda 1: comprensione (livello ricorda)
+- Domanda 2: applicazione (livello applica)
+- Domanda 3: analisi (livello analizza)
+Per ogni domanda: 4 opzioni, risposta corretta, spiegazione del perché le altre sono sbagliate
+\`\`\`
+
+---
+
+## PROMPT PER LA PRICING PAGE DEL CORSO
+
+\`\`\`
+Crea il copy persuasivo per la sales page del corso "[NOME CORSO]" includendo:
+- Headline principale (formula: Risultato + Timeframe + Senza Obiezione principale)
+- 5 bullet point "Cosa imparerai" (formula: Verbo d'azione + Concetto + Beneficio concreto)
+- Sezione "Per chi è questo corso" (3 avatar ideali con nome, lavoro e obiettivo)
+- Sezione "Per chi NON è questo corso" (onestà che aumenta la fiducia)
+- 3 obiezioni principali + risposta per ognuna
+- Garanzia: come formularla per massimizzare le conversioni
+- CTA principale e secondaria
+- FAQ (8 domande con risposta)
+
+Tono: autorevole ma accessibile. Evita hype e superlativo. Parla ai risultati concreti.
+\`\`\`
+
+---
+
+## COME USARE AL MEGLIO
+
+**Flusso consigliato:**
+1. Usa il Prompt Principale → ottieni il curriculum completo
+2. Revisiona e aggiusta la struttura dei moduli
+3. Usa il Prompt per Singola Lezione per sviluppare ogni lezione
+4. Usa il Prompt Pricing Page per scrivere la sales page
+5. Usa le varianti specializzate per arricchire esercizi e materiali
+
+**Tips per risultati migliori:**
+- Sii il più specifico possibile sul pubblico target: "sviluppatori con 2+ anni di React che vogliono aggiungere AI alle loro app" è meglio di "sviluppatori"
+- Specifica sempre i tool concreti — il prompt darà esempi molto più utili
+- Se il curriculum è troppo lungo, chiedi: "Riduci a 6 moduli mantenendo solo le lezioni essenziali per raggiungere l'obiettivo principale"
+- Chiedi sempre una seconda versione: "Ora crea una variante per studenti con meno tempo — massimo 4 ore di contenuto totale"`,
+  },
+  {
+    id: "student-success-story",
+    name: "Student Success Story Template",
+    description:
+      "AI prompt to write compelling student case studies and testimonials that convert visitors into buyers.",
+    category: "prompt",
+    price: 799,
+    stripePriceId: "price_1TD5Q9BoWNgrJbiyJGqgvhe0",
+    tags: ["elearning", "testimonial", "case study", "social proof", "copywriting"],
+    downloads: 0,
+    isNew: true,
+    content: `# Student Success Story Template
+
+## Trasforma i risultati dei tuoi studenti in social proof che vende
+
+Un case study ben scritto vale più di qualsiasi copy pubblicitario. Questo template ti guida a raccogliere le informazioni giuste e a formattarle in storie che convertono.
+
+---
+
+## QUESTIONARIO PER LO STUDENTE
+
+Prima di scrivere il case study, raccogli questi dati con un Google Form o Typeform:
+
+\`\`\`
+1. Come ti chiami e cosa facevi PRIMA del corso? (ruolo, azienda/settore, anni di esperienza)
+
+2. Qual era il tuo problema principale o obiettivo quando ti sei iscritto?
+
+3. Cosa ti ha convinto a scegliere questo corso rispetto ad altri?
+
+4. Descrivi un momento specifico del corso che ha fatto "click" per te.
+
+5. Qual è il risultato più concreto che hai ottenuto dopo il corso?
+   (es. nuovo lavoro, aumento di stipendio, progetto lanciato, cliente acquisito)
+
+6. Quanto tempo ci è voluto per ottenere quel risultato?
+
+7. C'è stato un ostacolo che pensavi fosse insormontabile prima del corso?
+   Come lo hai superato?
+
+8. Cosa diresti a qualcuno che sta valutando di iscriversi?
+
+9. Hai un numero concreto da condividere?
+   (es. "ho guadagnato €X in più", "ho risparmiato X ore a settimana", "ho aumentato le conversioni del X%")
+
+10. Possiamo usare nome, cognome, foto e ruolo attuale nella nostra marketing?
+\`\`\`
+
+---
+
+## PROMPT PRINCIPALE — SCRIVI IL CASE STUDY
+
+\`\`\`
+Sei un copywriter specializzato in success story per corsi online. Il tuo copy è onesto, concreto e non esagerato.
+
+Scrivi un case study completo per il corso "[NOME CORSO]" basandoti su queste risposte dello studente:
+
+RISPOSTE STUDENTE:
+[INCOLLA LE RISPOSTE AL QUESTIONARIO]
+
+Struttura il case study così:
+
+1. HEADLINE (formula: [Nome] + risultato specifico + timeframe)
+   Esempio: "Come Giulia ha trovato lavoro come AI Engineer in 3 settimane dopo 8 anni come contabile"
+
+2. IL CONTESTO (3-4 righe)
+   Chi era lo studente prima. Situazione di partenza. Frustrazione principale.
+
+3. LA SVOLTA (3-4 righe)
+   Cosa lo ha portato a cercare una soluzione. Perché ha scelto questo corso.
+
+4. IL PERCORSO (5-6 righe)
+   Come ha affrontato il corso. Un momento specifico e memorabile. Come ha superato le difficoltà.
+
+5. I RISULTATI (con numeri concreti, in grassetto)
+   Risultati tangibili. Cambiamenti nella vita/carriera. Timeline precisa.
+
+6. LA CITAZIONE CHIAVE (1-2 frasi potenti, da usare come pull quote)
+   La frase più memorabile della storia.
+
+7. IL CONSIGLIO FINALE (1-2 righe)
+   Cosa direbbe a chi sta valutando il corso.
+
+Tono: autentico, specifico, realistico. Zero iperbole. Usa la prima persona per le citazioni.
+Lunghezza: 300-400 parole + citazione + headline
+\`\`\`
+
+---
+
+## VERSIONI BREVI (per social media)
+
+### LinkedIn (1200 caratteri)
+\`\`\`
+Riscrivi questo case study in formato LinkedIn post:
+[INCOLLA CASE STUDY LUNGO]
+
+Struttura:
+- Riga 1: Fact/statistica sorprendente o domanda provocatoria (hook per "see more")
+- Righe 2-4: La storia in pillole
+- Righe 5-7: I risultati con numeri
+- Riga 8-9: La lezione universale applicabile a chi legge
+- CTA finale soft: link al corso o invito a commentare
+
+Max 1200 caratteri. Usa emoji sparingly (max 3). No hashtag nel testo.
+\`\`\`
+
+### Instagram Caption (300 caratteri)
+\`\`\`
+Scrivi una caption Instagram per questo case study:
+[INCOLLA CASE STUDY LUNGO]
+
+Struttura: Hook (riga 1) → Storia in 3 righe → Risultato → CTA + 5 hashtag rilevanti
+Max 300 caratteri prima del "more". Tono ispirazionale ma credibile.
+\`\`\`
+
+### Video Testimonial Script (60 secondi)
+\`\`\`
+Scrivi uno script per un video testimonial di 60 secondi basato su questo case study:
+[INCOLLA CASE STUDY LUNGO]
+
+Struttura:
+- 0-5 sec: Chi sono (nome, ruolo attuale)
+- 5-15 sec: Dov'ero prima (problema/situazione)
+- 15-35 sec: Il corso e la svolta (momento specifico)
+- 35-50 sec: I risultati (con numeri)
+- 50-60 sec: Raccomandazione diretta alla camera
+
+Scrivi in prima persona, linguaggio parlato, frasi brevi. Segna dove fare pause naturali.
+\`\`\`
+
+---
+
+## EMAIL DI RICHIESTA TESTIMONIANZA
+
+\`\`\`
+Oggetto: [Nome], posso raccontare la tua storia? 🎓
+
+Ciao [Nome],
+
+Ho visto i tuoi progressi nel corso e devo dirti una cosa: sei esattamente il tipo di studente di cui vado più fiero.
+
+[Menzione specifica di un risultato o contributo dello studente]
+
+Volevo chiederti un favore: ti andrebbe di condividere la tua esperienza con chi sta valutando di iscriversi?
+
+Non ti chiedo un testo lungo — basta rispondere a 3-4 domande semplici (ci vogliono 10 minuti):
+👉 [LINK AL FORM]
+
+In cambio, ti offro:
+✅ 1 mese gratis di accesso alla community premium
+✅ Il tuo profilo LinkedIn menzionato nella nostra newsletter (30k iscritti)
+✅ Un certificato di "Alumni Featured" da aggiungere al CV
+
+La tua storia potrebbe aiutare qualcuno che si trova esattamente dove eri tu 6 mesi fa.
+
+Grazie mille,
+[Il tuo nome]
+
+P.S. Se preferisci farlo via video (anche con il telefono), ti mando uno script pronto — ancora più semplice!
+\`\`\``,
+  },
+  {
+    id: "course-email-welcome",
+    name: "Course Welcome Email Sequence",
+    description:
+      "5-part onboarding email sequence for new students: from purchase confirmation to first quick win.",
+    category: "prompt",
+    price: 1199,
+    stripePriceId: "price_1TD5Q9BoWNgrJbiyg4t1Uxfn",
+    tags: ["elearning", "email", "onboarding", "sequence", "student retention"],
+    downloads: 0,
+    isNew: true,
+    content: `# Course Welcome Email Sequence
+
+## 5 email per trasformare un acquirente in uno studente attivo (e ridurre i rimborsi)
+
+Il 60% degli studenti che abbandonano un corso lo fa nella prima settimana. Questa sequenza di onboarding li accompagna nei momenti critici, aumenta l'engagement e riduce i chargeback.
+
+---
+
+## SEQUENZA COMPLETA (5 EMAIL)
+
+### EMAIL 1 — Conferma Acquisto
+**Timing: Immediatamente dopo l'acquisto**
+
+\`\`\`
+OGGETTO: ✅ Benvenuto in [NOME CORSO], [NOME]!
+
+Ciao [NOME],
+
+Il tuo accesso è attivo. Benvenuto in [NOME CORSO].
+
+Prima di entrare nella piattaforma, voglio dirti una cosa importante:
+
+**Hai preso la decisione giusta.**
+
+Non perché voglio farti sentire bene — ma perché conosco già il tuo profilo. Hai [caratteristica del target] e vuoi [obiettivo del corso]. Questo corso è stato costruito esattamente per te.
+
+Cosa fare adesso:
+
+1. Accedi alla piattaforma → [LINK]
+2. Inizia dal Modulo 0: "Orientamento" (15 minuti — fondamentale)
+3. Unisciti alla community privata → [LINK SLACK/DISCORD]
+
+Una cosa sola per oggi: fai il login e guarda la prima lezione. Non devi finire il modulo. Non devi prendere appunti. Solo 15 minuti.
+
+I grandi risultati iniziano con piccoli passi.
+
+A presto,
+[NOME ISTRUTTORE]
+
+P.S. Hai 30 giorni di garanzia soddisfatti o rimborsati. Non devi preoccuparti di niente — concentrati solo sul corso.
+
+---
+📧 Per supporto: [email supporto]
+🔗 Accedi al corso: [link]
+\`\`\`
+
+---
+
+### EMAIL 2 — Il Tuo Piano di Studio
+**Timing: Giorno 1 (24 ore dopo l'acquisto)**
+
+\`\`\`
+OGGETTO: Il piano di studio personalizzato per te, [NOME]
+
+Ciao [NOME],
+
+Ieri hai fatto il primo passo. Oggi ti aiuto a non perderti.
+
+Il corso è strutturato in [N] moduli. Se lo affronti "come viene", rischi di sentirti sopraffatto o di saltare parti fondamentali.
+
+Ecco il piano che raccomando in base al tuo obiettivo ([OBIETTIVO PRINCIPALE]):
+
+**Piano A — 30 minuti al giorno (completi in 6 settimane)**
+- Lun/Mer/Ven: 1 lezione + esercizio
+- Mar/Gio: review e pratica
+- Sab: mini-progetto del modulo
+- Dom: riposo (il cervello consolida di notte)
+
+**Piano B — Weekend intensivo (completi in 4 weekend)**
+- Sabato: 3 ore (modulo completo)
+- Domenica: 2 ore (esercizi + progetto)
+
+Scegli il piano che si adatta alla tua vita. Non esiste quello giusto — esiste quello che riesci a rispettare.
+
+Una cosa che NON devi fare: guardare le lezioni passive senza fare gli esercizi. Il 90% dell'apprendimento avviene mentre *fai*, non mentre *guardi*.
+
+Hai già scelto il tuo piano? Rispondimi con "Piano A" o "Piano B" — voglio sapere come ti sta andando tra una settimana.
+
+[NOME ISTRUTTORE]
+\`\`\`
+
+---
+
+### EMAIL 3 — Il Primo Quick Win
+**Timing: Giorno 3**
+
+\`\`\`
+OGGETTO: Fai QUESTO oggi (richiede 20 minuti)
+
+Ciao [NOME],
+
+Sono passati 3 giorni. Voglio darti un successo rapido.
+
+Anche se non hai ancora aperto il corso (succede — nessun giudizio), questo esercizio ti mostrerà che sei già capace di più di quanto pensi.
+
+**L'esercizio dei 20 minuti:**
+
+[INSERISCI QUI UN ESERCIZIO PRATICO E BREVE DEL MODULO 1 — es. "Apri il terminale e scrivi questo codice... vedrai questo output... hai appena fatto X!"]
+
+Perché funziona: quando il cervello vede un risultato concreto, la motivazione aumenta. Non stai imparando "in astratto" — stai già *facendo*.
+
+Prova adesso e dimmi come va.
+
+[NOME ISTRUTTORE]
+
+P.S. Se sei bloccato su qualsiasi setup tecnico, rispondimi a questa email. Risolviamo insieme in 5 minuti.
+\`\`\`
+
+---
+
+### EMAIL 4 — Supera il Momento Difficile
+**Timing: Giorno 7**
+
+\`\`\`
+OGGETTO: Ti dico una cosa che nessun corso ti dirà mai
+
+Ciao [NOME],
+
+Siamo alla fine della prima settimana.
+
+Statisticamente, questa è la settimana in cui il 40% degli studenti rallenta o si ferma. Non perché il corso sia troppo difficile — ma per un motivo molto più semplice: la vita.
+
+Riunioni a sorpresa. Famiglia. Stanchezza. Il solito "comincio domani".
+
+Se è quello che è successo anche a te: normale. Aspettato. Umano.
+
+Ecco cosa fare adesso:
+
+**Non recuperare tutto. Riparti da dove eri.**
+
+Apri la piattaforma. Vai all'ultima lezione che hai guardato. Clicca play. Solo quello.
+
+Ogni grande cambiamento si costruisce così: fermata, ripartenza, fermata, ripartenza. Non è un fallimento — è il processo.
+
+Una cosa che mi ha aiutato: rendere il corso *impossibile* da dimenticare. Aggiungi "[NOME CORSO] — 20 min" nel tuo calendario per 3 volte a settimana. Non "quando hai voglia" — in agenda, come una riunione.
+
+Sei a un modulo da qualcosa che cambierà il tuo modo di lavorare.
+
+[NOME ISTRUTTORE]
+\`\`\`
+
+---
+
+### EMAIL 5 — Community & Prossimi Passi
+**Timing: Giorno 14**
+
+\`\`\`
+OGGETTO: Hai fatto 2 settimane — ecco cosa viene dopo
+
+Ciao [NOME],
+
+Due settimane. Come stai andando?
+
+Se hai completato almeno 2 moduli: ottimo lavoro. Sei nel top 30% degli studenti più attivi.
+
+Se sei indietro: nessun problema. Il corso non scade. Hai accesso a vita.
+
+**Tre risorse che forse non hai ancora esplorato:**
+
+1. **La Community** → [LINK]
+   350+ studenti attivi. Ogni giorno qualcuno posta il proprio progetto e riceve feedback. Anche tu puoi farlo — anche se sei "solo all'inizio".
+
+2. **Le sessioni live mensili** → [LINK CALENDARIO]
+   Ogni primo mercoledì del mese faccio una sessione Q&A di 60 minuti. La prossima è il [DATA]. Porta le tue domande.
+
+3. **Il Progetto Capstone**
+   Inizia a pensarci già dal Modulo 3. Gli studenti che finiscono il progetto trovano lavoro/clienti 3x più velocemente di chi non lo fa.
+
+Un'ultima cosa: se il corso ti sta dando valore, ti chiedo un piccolo favore. Lascia una recensione sulla piattaforma. Non per me — ma per il prossimo studente che è esattamente dove eri tu due settimane fa.
+
+Grazie per fidarti del percorso.
+
+[NOME ISTRUTTORE]
+
+P.S. Nel prossimo mese aggiungerò [NUOVO CONTENUTO/MODULO BONUS]. Tutti gli iscritti attuali lo riceveranno gratis.
+\`\`\`
+
+---
+
+## COME IMPLEMENTARE LA SEQUENZA
+
+**Strumenti consigliati:**
+- **Semplice**: Kit.com o MailerLite — automation visuale, free fino a 1.000 iscritti
+- **Avanzato**: ActiveCampaign — segmentazione per comportamento (ha aperto? ha cliccato?)
+- **Integrato**: Kajabi o Teachable — la sequenza si attiva automaticamente all'iscrizione
+
+**Personalizzazioni consigliate:**
+- Aggiungi un tag "Piano A" / "Piano B" basato sulla risposta all'Email 2
+- Se lo studente apre tutte le email ma non accede alla piattaforma → invia un'email extra con supporto diretto
+- Se lo studente completa il Modulo 1 entro 3 giorni → invia un'email di congratulazioni non prevista (sorpresa positiva)
+
+**KPI da monitorare:**
+- Open rate (benchmark: >40% per corsi online)
+- Click rate sulla piattaforma (benchmark: >15%)
+- Completion rate Modulo 1 entro 7 giorni (benchmark: >50%)
+- Richieste di rimborso nella prima settimana (target: <5%)`,
+  },
 ];
 
 
