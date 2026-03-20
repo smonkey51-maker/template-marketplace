@@ -23,6 +23,10 @@ export default function LanguageProvider({ children }: { children: React.ReactNo
     }
   }, []);
 
+  useEffect(() => {
+    document.documentElement.setAttribute("lang", lang);
+  }, [lang]);
+
   const toggle = () => {
     setLang((prev) => {
       const next: Lang = prev === "it" ? "en" : "it";

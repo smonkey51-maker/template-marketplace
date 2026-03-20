@@ -6,60 +6,44 @@ import Link from "next/link";
 import { getTemplate, formatPrice, getDownloadType } from "@/lib/templates";
 import DownloadButton from "@/components/DownloadButton";
 import RelatedTemplates from "@/components/RelatedTemplates";
-import { useUser } from "@clerk/nextjs";
+
 import { useLang } from "@/components/LanguageProvider";
 import { t, templateTranslations } from "@/lib/i18n";
-
-function PromptFullView({ content }: { content: string }) {
-  const parts = content.split(/({{[^}]+}})/g);
-  return (
-    <div className="min-h-full p-6 sm:p-10 max-w-2xl mx-auto">
-      <div className="bg-[#FFFEF7] rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.18)] overflow-hidden">
-        <div className="flex items-center gap-2 px-4 py-3 bg-[#F7F6EE] border-b border-black/[0.07]">
-          <div className="w-3 h-3 rounded-full bg-[#FF5F57]" />
-          <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
-          <div className="w-3 h-3 rounded-full bg-[#28C840]" />
-          <span className="text-[12px] text-[#8E8E93] ml-2 font-medium tracking-wide select-none">
-            Prompt Template
-          </span>
-        </div>
-        <div className="p-6 sm:p-8 font-mono text-[14px] text-[#1C1C1E] leading-relaxed whitespace-pre-wrap">
-          {parts.map((part, i) =>
-            part.startsWith("{{") ? (
-              <span key={i} className="inline-block bg-[#007AFF]/10 text-[#007AFF] rounded-[5px] px-1.5 py-0.5 font-semibold text-[13px]">
-                {part}
-              </span>
-            ) : (
-              <span key={i}>{part}</span>
-            )
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
+import PromptFullView from "@/components/PromptFullView";
+import { useToast } from "@/components/Toast";
+import { useWishlist } from "@/lib/useWishlist";
+import { useRecentlyViewed } from "@/lib/useRecentlyViewed";
 
 export default function PreviewContent({ templateId }: { templateId: string }) {
   const router = useRouter();
-  const { isSignedIn } = useUser();
+
   const { lang } = useLang();
   const [purchasedIds, setPurchasedIds] = useState<string[]>([]);
+  const [purchasesLoading, setPurchasesLoading] = useState(true);
   const [loading, setLoading] = useState(false);
+  const toast = useToast();
+  const { toggle, isWishlisted } = useWishlist();
+  const { track } = useRecentlyViewed();
   const [viewMode, setViewMode] = useState<"desktop" | "mobile">("desktop");
 
   const template = getTemplate(templateId);
 
+  // Track this template as recently viewed
+  useEffect(() => {
+    if (templateId) track(templateId);
+  }, [templateId, track]);
+
   useEffect(() => {
     fetch("/api/purchases")
-      .then((r) => r.json())
+      .then((r) => r.ok ? r.json() : { templateIds: [] })
       .then((d) => setPurchasedIds(d.templateIds ?? []))
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => setPurchasesLoading(false));
   }, []);
 
   const isPurchased = purchasedIds.includes(templateId);
 
   const handleBuy = async () => {
-    if (!isSignedIn) { router.push("/sign-in"); return; }
     setLoading(true);
     try {
       const res = await fetch("/api/checkout", {
@@ -67,8 +51,12 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ templateId }),
       });
+      if (!res.ok) throw new Error("checkout_failed");
       const data = await res.json();
       if (data.url) window.location.href = data.url;
+      else throw new Error("no_url");
+    } catch {
+      toast(lang === "it" ? "Errore durante il checkout. Riprova più tardi." : "Checkout failed. Please try again.", "error");
     } finally {
       setLoading(false);
     }
@@ -92,20 +80,39 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
   return (
     <div className="min-h-screen bg-page flex flex-col">
 
-      {/* ── Floating back button ── */}
-      <button
-        onClick={() => router.back()}
-        className="fixed top-4 left-4 z-50 flex items-center gap-1.5 px-3.5 py-2 rounded-2xl
-          glass shadow-[0_4px_24px_rgba(0,0,0,0.12)]
-          text-[#0A84FF] text-[14px] font-semibold
-          hover:scale-105 active:scale-[0.96] ios-spring transition-all duration-200"
-        aria-label={t[lang].preview.back}
-      >
-        <svg width="8" height="14" viewBox="0 0 8 14" fill="none" className="shrink-0" aria-hidden>
-          <path d="M7 1L1.5 7L7 13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-        <span className="hidden sm:inline">{t[lang].preview.back}</span>
-      </button>
+      {/* ── Floating back + save buttons ── */}
+      <div className="fixed top-4 left-4 z-50 flex items-center gap-2">
+        <button
+          onClick={() => router.push("/")}
+          className="flex items-center gap-1.5 px-3.5 py-2 rounded-full
+            bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 shadow-sm
+            text-zinc-700 dark:text-zinc-300 text-[14px] font-semibold
+            hover:opacity-80 transition-opacity duration-200"
+          aria-label={t[lang].preview.back}
+        >
+          <svg width="8" height="14" viewBox="0 0 8 14" fill="none" className="shrink-0" aria-hidden>
+            <path d="M7 1L1.5 7L7 13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          <span className="hidden sm:inline">{t[lang].preview.back}</span>
+        </button>
+        {template && (
+          <button
+            onClick={() => toggle(template.id)}
+            aria-label={isWishlisted(template.id) ? (lang === "it" ? "Rimuovi dai salvati" : "Unsave") : (lang === "it" ? "Salva" : "Save")}
+            className={`flex items-center justify-center w-9 h-9 rounded-full border shadow-sm transition-all duration-200
+              ${isWishlisted(template.id)
+                ? "bg-[#FF453A]/10 border-[#FF453A]/30 text-[#FF453A]"
+                : "bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-700 text-zinc-400 hover:text-[#FF453A]"
+              }`}
+          >
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden>
+              <path d="M8 13.5S1.5 9.5 1.5 5A3.75 3.75 0 018 2.3a3.75 3.75 0 016.5 2.7C14.5 9.5 8 13.5 8 13.5z"
+                stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"
+                fill={isWishlisted(template.id) ? "currentColor" : "none"} />
+            </svg>
+          </button>
+        )}
+      </div>
 
       {/* ── Mobile/Desktop toggle (UI only) ── */}
       {template.category === "ui" && (
@@ -153,6 +160,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
             <iframe
               src={`/api/preview/${template.id}`}
               title={template.name}
+              sandbox="allow-scripts"
               className="w-full border-0 block"
               style={{ height: "100vh", minHeight: "600px" }}
             />
@@ -196,6 +204,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
                     <iframe
                       src={`/api/preview/${template.id}`}
                       title={template.name}
+                      sandbox="allow-scripts"
                       style={{
                         width: "390px",
                         height: "780px",
@@ -226,6 +235,40 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
           </div>
         )}
       </div>
+
+      {/* ── Video tutorial (if set) ── */}
+      {template.videoUrl && (
+        <div className="relative z-10 bg-page border-t border-theme px-4 py-4 flex items-center justify-between gap-3 max-w-2xl mx-auto w-full">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-[#FF453A]/10 border border-[#FF453A]/20 flex items-center justify-center shrink-0">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+                <path d="M3 2.5l9 4.5-9 4.5V2.5z" fill="#FF453A"/>
+              </svg>
+            </div>
+            <div>
+              <p className="text-[13px] font-semibold text-theme leading-tight">
+                {lang === "it" ? "Video tutorial incluso" : "Video tutorial included"}
+              </p>
+              <p className="text-[11px] text-muted">
+                {lang === "it" ? "Guarda come usare questo template" : "Watch how to use this template"}
+              </p>
+            </div>
+          </div>
+          <a
+            href={template.videoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#FF453A]/10 border border-[#FF453A]/20
+              text-[#FF453A] text-[12px] font-semibold
+              hover:bg-[#FF453A]/20 transition-colors duration-200"
+          >
+            {lang === "it" ? "Guarda" : "Watch"}
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden>
+              <path d="M1 9L9 1M9 1H3M9 1v6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      )}
 
       {/* ── Related templates ── */}
       <div className="relative z-10 bg-page border-t border-theme">
@@ -279,7 +322,9 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
             </span>
           </div>
 
-          {isPurchased ? (
+          {purchasesLoading ? (
+            <div className="w-full h-[50px] rounded-2xl bg-theme/10 animate-pulse" />
+          ) : isPurchased ? (
             <div className="flex gap-2">
               <Link
                 href={`/studio?templateId=${template.id}`}

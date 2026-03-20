@@ -73,6 +73,7 @@ export default function PreviewModal({ templateId, onClose }: {
               <iframe
                 src={`/api/preview/${template.id}`}
                 title={template.name}
+                sandbox="allow-scripts"
                 className="w-full h-full border-0 block"
                 onLoad={() => setIframeLoaded(true)}
               />

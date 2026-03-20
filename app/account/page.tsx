@@ -2,6 +2,7 @@
 
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
+import SiteNav from "@/components/SiteNav";
 import { useEffect, useState } from "react";
 import { templates, getTemplate, formatPrice, getDownloadType } from "@/lib/templates";
 import DownloadButton from "@/components/DownloadButton";
@@ -49,22 +50,7 @@ export default function AccountPage() {
   return (
     <div className="min-h-screen bg-page relative">
 
-      {/* Nav — iOS liquid glass */}
-      <nav className="sticky top-0 z-50 border-b border-theme backdrop-blur-2xl bg-nav px-4 sm:px-6 py-3.5">
-        <div className="max-w-4xl mx-auto flex items-center justify-between gap-4">
-          {/* Back */}
-          <Link href="/" className="flex items-center gap-1 text-[#0A84FF] text-[15px] font-medium hover:opacity-70 transition-opacity ios-spring shrink-0">
-            <svg width="9" height="15" viewBox="0 0 9 15" fill="none" className="shrink-0">
-              <path d="M8 1L1.5 7.5L8 14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            <span className="hidden sm:inline">{t[lang].account.backToMarketplace}</span>
-          </Link>
-
-          <span className="text-[13px] text-muted font-semibold uppercase tracking-widest">{t[lang].account.title}</span>
-
-          <div className="w-9" />{/* spacer */}
-        </div>
-      </nav>
+      <SiteNav title={t[lang].account.title} />
 
       <div className="relative z-10 max-w-4xl mx-auto px-6 py-12 flex flex-col gap-8">
 

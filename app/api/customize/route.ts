@@ -1,7 +1,13 @@
 import { anthropic } from "@/lib/claude";
 import { NextRequest } from "next/server";
+import { rateLimit } from "@/lib/rateLimit";
 
 export async function POST(req: NextRequest) {
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+  if (!rateLimit(`customize:${ip}`, 20, 60_000)) {
+    return new Response("Too many requests. Please wait a moment.", { status: 429 });
+  }
+
   try {
     if (!process.env.ANTHROPIC_API_KEY) {
       return new Response("Server configuration error: missing API key", {

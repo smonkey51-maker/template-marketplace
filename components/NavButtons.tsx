@@ -7,24 +7,26 @@ import LanguageToggle from "./LanguageToggle";
 import { useLang } from "./LanguageProvider";
 import { t } from "@/lib/i18n";
 
-export default function NavButtons() {
+export default function NavButtons({ showMobileLinks = true }: { showMobileLinks?: boolean }) {
   const { isSignedIn, isLoaded } = useUser();
   const { lang } = useLang();
 
   return (
     <div className="flex items-center gap-2 sm:gap-3">
       {/* Mobile-only quick links */}
-      <div className="flex sm:hidden items-center gap-1">
-        <Link href="/guide" className="text-[13px] text-muted px-2.5 py-1.5 rounded-xl hover:bg-card hover:text-theme transition-colors">
-          {t[lang].nav.guide}
-        </Link>
-        <Link href="/studio" className="text-[13px] text-muted px-2.5 py-1.5 rounded-xl hover:bg-card hover:text-theme transition-colors">
-          {t[lang].nav.studio}
-        </Link>
-        <Link href="/account" className="text-[13px] text-muted px-2.5 py-1.5 rounded-xl hover:bg-card hover:text-theme transition-colors">
-          {t[lang].nav.account}
-        </Link>
-      </div>
+      {showMobileLinks && (
+        <div className="flex sm:hidden items-center gap-1">
+          <Link href="/guide" className="text-[13px] text-muted px-2.5 py-1.5 rounded-xl hover:bg-card hover:text-theme transition-colors">
+            {t[lang].nav.guide}
+          </Link>
+          <Link href="/studio" className="text-[13px] text-muted px-2.5 py-1.5 rounded-xl hover:bg-card hover:text-theme transition-colors">
+            {t[lang].nav.studio}
+          </Link>
+          <Link href="/account" className="text-[13px] text-muted px-2.5 py-1.5 rounded-xl hover:bg-card hover:text-theme transition-colors">
+            {t[lang].nav.account}
+          </Link>
+        </div>
+      )}
 
       <LanguageToggle />
       <ThemeToggle />
@@ -35,7 +37,10 @@ export default function NavButtons() {
         <UserButton />
       ) : (
         <SignInButton mode="modal">
-          <button className="px-3.5 sm:px-4 py-2 bg-[#0A84FF] hover:bg-[#409CFF] active:scale-[0.97] text-white font-semibold rounded-2xl text-[13px] sm:text-[14px] transition-all duration-200 ios-spring shadow-[0_2px_12px_rgba(10,132,255,0.25)] whitespace-nowrap">
+          <button
+            className="px-4 py-2 hover:opacity-90 active:scale-[0.97] text-white font-semibold rounded-2xl text-[13px] transition-opacity duration-200 whitespace-nowrap"
+            style={{ backgroundColor: 'var(--accent)' }}
+          >
             {t[lang].nav.signIn}
           </button>
         </SignInButton>

@@ -1,241 +1,1096 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import { templates } from "@/lib/templates";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { useRouter } from "next/navigation";
+import { templates, bundles, formatPrice, Template } from "@/lib/templates";
 import TemplateGrid from "@/components/TemplateGrid";
 import NavButtons from "@/components/NavButtons";
 import { useLang } from "@/components/LanguageProvider";
-import { t } from "@/lib/i18n";
+import { t, templateTranslations } from "@/lib/i18n";
 import EmailCapture from "@/components/EmailCapture";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import { useToast } from "@/components/Toast";
 
-function useCountUp(target: number, duration = 1200) {
-  const [count, setCount] = useState(0);
+// ── Scroll progress bar ───────────────────────────────────────────────────────
+function ScrollProgressBar() {
+  const [width, setWidth] = useState(0);
   useEffect(() => {
-    if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setCount(target);
-      return;
+    function update() {
+      const el = document.documentElement;
+      const total = el.scrollHeight - el.clientHeight;
+      setWidth(total > 0 ? (el.scrollTop / total) * 100 : 0);
     }
-    let start = 0;
-    const step = Math.ceil(target / (duration / 16));
-    const timer = setInterval(() => {
-      start += step;
-      if (start >= target) { setCount(target); clearInterval(timer); }
-      else setCount(start);
-    }, 16);
-    return () => clearInterval(timer);
-  }, [target, duration]);
-  return count;
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
+  return (
+    <div className="fixed top-0 left-0 right-0 h-[2px] z-[100] pointer-events-none">
+      <div style={{ width: `${width}%`, height: "100%", background: "linear-gradient(to right, var(--accent), #C77DFF, #FF6B6B)", transition: "width 0.1s linear" }} />
+    </div>
+  );
 }
 
-export default function HomeContent() {
-  const { lang } = useLang();
-  const totalDownloads = templates.reduce((s, tmpl) => s + tmpl.downloads, 0);
-  const animatedDownloads = useCountUp(totalDownloads);
-  const animatedTemplates = useCountUp(templates.length);
+// ── Count-up hook ─────────────────────────────────────────────────────────────
+function useCountUp(target: number, duration = 900) {
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    if (!target) return;
+    const t0 = performance.now();
+    function step(now: number) {
+      const p = Math.min((now - t0) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setValue(Math.round(eased * target));
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }, [target, duration]);
+  return value;
+}
 
+// ── Dropdown nav ────────────────────────────────────────────────────────────
+
+const CATEGORIES = [
+  { id: "professionals",    emoji: "🏢", labelIt: "Professionisti",          labelEn: "Professionals" },
+  { id: "lifestyle-finance",emoji: "🏡", labelIt: "Lifestyle & Finanza",     labelEn: "Lifestyle & Finance" },
+  { id: "business",         emoji: "🛍️", labelIt: "Business",               labelEn: "Business" },
+  { id: "startup",          emoji: "🚀", labelIt: "Startup & Lancio",        labelEn: "Startup & Launch" },
+  { id: "creative",         emoji: "🎨", labelIt: "Agenzie & Freelance",     labelEn: "Agencies & Freelance" },
+  { id: "copywriting-ai",   emoji: "✍️", labelIt: "Copywriting & AI",        labelEn: "Copywriting & AI" },
+  { id: "ai-productivity",  emoji: "🤖", labelIt: "AI & Produttività",       labelEn: "AI & Productivity" },
+  { id: "hospitality",      emoji: "🍽️", labelIt: "Ristorazione",           labelEn: "Hospitality" },
+  { id: "digital-product",  emoji: "📱", labelIt: "App & Prodotto digitale", labelEn: "App & Digital" },
+  { id: "personal-brand",   emoji: "🪪", labelIt: "Personal Brand",          labelEn: "Personal Brand" },
+  { id: "notion-workspace", emoji: "📓", labelIt: "Notion Workspace",        labelEn: "Notion Workspace" },
+];
+
+const STEPS = [
+  { n: "01", icon: "🔍", titleIt: "Scegli un template",    titleEn: "Choose a template",    descIt: "Anteprima completa prima di acquistare.", descEn: "Full preview before buying." },
+  { n: "02", icon: "⚡", titleIt: "Acquista in un click",  titleEn: "Buy in one click",      descIt: "Pagamento sicuro con Stripe.",            descEn: "Secure Stripe payment." },
+  { n: "03", icon: "🤖", titleIt: "Personalizza con AI",   titleEn: "Customize with AI",     descIt: "Claude AI applica le tue modifiche.",     descEn: "Claude AI applies your changes." },
+];
+
+const TESTIMONIALS = [
+  {
+    nameIt: "Marco Ferretti", nameEn: "Marco Ferretti",
+    roleIt: "Founder @ StartupMilano", roleEn: "Founder @ StartupMilano",
+    quoteIt: "Ho lanciato la landing page del mio SaaS in meno di un giorno. Il template era perfetto e l'AI lo ha adattato al mio brand in pochi minuti.",
+    quoteEn: "I launched my SaaS landing page in less than a day. The template was perfect and the AI adapted it to my brand in minutes.",
+    rating: 5,
+    initials: "MF",
+    accent: "from-violet-500 to-purple-600",
+  },
+  {
+    nameIt: "Sara Neri", nameEn: "Sara Neri",
+    roleIt: "Freelance Designer", roleEn: "Freelance Designer",
+    quoteIt: "Uso TemplateLab per tutti i miei clienti. Risparmio ore di lavoro e posso offrire risultati professionali a prezzi competitivi.",
+    quoteEn: "I use TemplateLab for all my clients. I save hours of work and can deliver professional results at competitive prices.",
+    rating: 5,
+    initials: "SN",
+    accent: "from-pink-500 to-rose-500",
+  },
+  {
+    nameIt: "Luca Moretti", nameEn: "Luca Moretti",
+    roleIt: "Marketing Manager", roleEn: "Marketing Manager",
+    quoteIt: "I prompt template per LinkedIn hanno triplicato il mio engagement. Claude AI li personalizza perfettamente per ogni post.",
+    quoteEn: "The LinkedIn prompt templates tripled my engagement. Claude AI perfectly customizes them for each post.",
+    rating: 5,
+    initials: "LM",
+    accent: "from-blue-500 to-indigo-500",
+  },
+];
+
+function TestimonialCard({
+  testimonial,
+  lang,
+}: {
+  testimonial: (typeof TESTIMONIALS)[number];
+  lang: "it" | "en";
+}) {
   return (
-    <div className="min-h-screen bg-page relative overflow-x-hidden">
-
-      {/* ── Ambient orbs ── */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden>
-        <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[900px] h-[600px] rounded-full opacity-60"
-          style={{ background: "radial-gradient(ellipse, var(--glow-blue) 0%, transparent 70%)" }} />
-        <div className="absolute top-[20%] right-[-5%] w-[500px] h-[500px] rounded-full"
-          style={{ background: "radial-gradient(ellipse, var(--glow-purple) 0%, transparent 70%)" }} />
+    <div className="glass-subtle rounded-2xl p-5 flex flex-col gap-3.5">
+      {/* Stars */}
+      <div className="flex gap-0.5">
+        {Array.from({ length: testimonial.rating }).map((_, i) => (
+          <svg key={i} width="13" height="13" viewBox="0 0 10 10" fill="currentColor" className="text-amber-400" aria-hidden>
+            <path d="M5 0l1.2 3.7H10L6.9 5.9l1.2 3.7L5 7.5l-3.1 2.1 1.2-3.7L0 3.7h3.8z"/>
+          </svg>
+        ))}
       </div>
-
-      {/* ── Nav ── */}
-      <nav className="sticky top-0 z-50 border-b border-theme backdrop-blur-2xl bg-nav px-4 sm:px-6 py-3.5">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
-          <span className="text-[17px] font-bold tracking-tight text-[#0A84FF] shrink-0 select-none">
-            TemplateLab
-          </span>
-          <div className="hidden sm:flex items-center gap-1">
-            <Link href="/guide" className="link-underline text-[14px] text-muted hover:text-theme transition-colors duration-200 px-3 py-1.5 rounded-xl hover:bg-card">
-              {t[lang].nav.guide}
-            </Link>
-            <Link href="/studio" className="link-underline text-[14px] text-muted hover:text-theme transition-colors duration-200 px-3 py-1.5 rounded-xl hover:bg-card">
-              {t[lang].nav.studio}
-            </Link>
-            <Link href="/account" className="link-underline text-[14px] text-muted hover:text-theme transition-colors duration-200 px-3 py-1.5 rounded-xl hover:bg-card">
-              {t[lang].nav.account}
-            </Link>
-          </div>
-          <NavButtons />
+      {/* Quote */}
+      <p className="text-[13px] text-muted leading-relaxed flex-1">
+        &ldquo;{lang === "it" ? testimonial.quoteIt : testimonial.quoteEn}&rdquo;
+      </p>
+      {/* Author */}
+      <div className="flex items-center gap-2.5 pt-3 border-t border-theme">
+        <div className={`w-8 h-8 rounded-full bg-gradient-to-br ${testimonial.accent} flex items-center justify-center text-white text-[11px] font-bold flex-shrink-0`}>
+          {testimonial.initials}
         </div>
-      </nav>
-
-      {/* ── Hero ── */}
-      <section className="relative z-10 px-4 sm:px-6 pt-16 pb-10 sm:pt-24 sm:pb-16 max-w-5xl mx-auto">
-
-        {/* Decorative background number */}
-        <div
-          aria-hidden
-          className="absolute top-4 right-0 sm:right-4 select-none pointer-events-none font-black leading-none"
-          style={{
-            fontSize: "clamp(7rem, 22vw, 18rem)",
-            color: "var(--accent)",
-            opacity: 0.04,
-            fontFamily: "var(--font-syne), system-ui, sans-serif",
-            letterSpacing: "-0.06em",
-          }}
-        >
-          TL
-        </div>
-
-        {/* Badge */}
-        <div className="anim-fade-up delay-0 inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-semibold glass-subtle text-[#0A84FF] mb-7 select-none">
-          <span className="relative flex h-1.5 w-1.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0A84FF] opacity-50" />
-            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#0A84FF]" />
-          </span>
-          {t[lang].hero.badge}
-        </div>
-
-        {/* Heading — left-aligned, editorial scale */}
-        <h1
-          className="anim-fade-up delay-75 font-black leading-[1.02] tracking-[-0.04em] mb-5 text-theme"
-          style={{ fontSize: "clamp(2.8rem, 6.5vw, 6rem)" }}
-        >
-          {t[lang].hero.titleStart}{" "}
-          <span
-            className="bg-clip-text text-transparent"
-            style={{ backgroundImage: "linear-gradient(135deg, #F5C842 0%, #0A84FF 55%, #5E5CE6 100%)" }}
-          >
-            {t[lang].hero.titleGradient.split("\n").map((line, i, arr) => (
-              <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
-            ))}
-          </span>{" "}
-          {t[lang].hero.titleEnd}
-        </h1>
-
-        {/* Subtitle + CTAs side by side on md+ */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-          <p className="anim-fade-up delay-150 text-[15px] sm:text-[17px] text-muted max-w-md leading-relaxed">
-            {t[lang].hero.subtitle}
+        <div>
+          <p className="text-[13px] font-semibold text-zinc-900 dark:text-zinc-100 leading-tight">
+            {lang === "it" ? testimonial.nameIt : testimonial.nameEn}
           </p>
+          <p className="text-[11px] text-muted leading-tight">
+            {lang === "it" ? testimonial.roleIt : testimonial.roleEn}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
 
-          {/* CTAs */}
-          <div className="anim-fade-up delay-225 flex flex-col sm:flex-row gap-3 shrink-0">
-            <a
-              href="#browse"
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-[#0A84FF] hover:bg-[#409CFF] rounded-2xl font-bold text-white text-[15px] btn-glow-blue active:scale-[0.96] ios-spring shadow-[0_4px_20px_rgba(10,132,255,0.3)]"
-            >
-              {t[lang].hero.cta1}
-              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" className="shrink-0 opacity-80">
-                <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </a>
-            <Link
-              href="/studio"
-              className="px-7 py-3.5 glass-subtle rounded-2xl font-bold text-[15px] text-theme hover:border-[#0A84FF]/30 active:scale-[0.96] ios-spring transition-all duration-300"
-            >
-              {t[lang].hero.cta2}
-            </Link>
+function TemplatesDropdown({ lang }: { lang: "it" | "en" }) {
+  return (
+    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-50 w-[580px] max-w-[calc(100vw-2rem)]">
+      <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl shadow-black/20 overflow-hidden">
+        <div className="grid grid-cols-[180px_1fr] divide-x divide-zinc-100 dark:divide-zinc-800">
+          {/* Left: steps */}
+          <div className="p-4 bg-zinc-50 dark:bg-zinc-950/50">
+            <p className="text-[9px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-[0.2em] mb-3 px-1">
+              {lang === "it" ? "Come funziona" : "How it works"}
+            </p>
+            <div className="flex flex-col gap-1">
+              {STEPS.map((s) => (
+                <div key={s.n} className="flex items-start gap-2.5 px-2 py-2.5 rounded-xl">
+                  <div className="w-7 h-7 rounded-lg bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 flex items-center justify-center text-sm flex-shrink-0 shadow-sm">
+                    {s.icon}
+                  </div>
+                  <div>
+                    <p className="text-[11px] font-bold text-zinc-400 dark:text-zinc-500 mb-0.5">{s.n}</p>
+                    <p className="text-[12px] font-semibold text-zinc-800 dark:text-zinc-200 leading-tight">
+                      {lang === "it" ? s.titleIt : s.titleEn}
+                    </p>
+                    <p className="text-[11px] text-zinc-400 dark:text-zinc-500 mt-0.5 leading-tight">
+                      {lang === "it" ? s.descIt : s.descEn}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-
-        {/* Trust stats — left-aligned row */}
-        <div className="anim-fade-up delay-300 flex flex-wrap items-center gap-0 mt-8 text-[12px] text-muted">
-          <span className="flex items-center gap-1.5 pr-4">
-            <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "var(--accent)" }} />
-            {animatedTemplates} {t[lang].hero.statTemplates}
-          </span>
-          <span className="w-px h-3 bg-theme/25 shrink-0" />
-          <span className="flex items-center gap-1.5 px-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#30D158] shrink-0" />
-            {animatedDownloads.toLocaleString(lang === "it" ? "it-IT" : "en-US")}+ {t[lang].hero.statDownloads}
-          </span>
-          <span className="w-px h-3 bg-theme/25 shrink-0" />
-          <span className="flex items-center gap-1.5 pl-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#5E5CE6] shrink-0" />
-            {t[lang].hero.statPayment}
-          </span>
-        </div>
-      </section>
-
-      {/* ── Come funziona — compact strip ── */}
-      <div className="relative z-10 anim-fade-up delay-300">
-        <div className="max-w-2xl mx-auto px-4 sm:px-6 pb-12">
-          <div className="relative border border-theme rounded-[20px] bg-surface overflow-hidden">
-            {/* top glow line */}
-            <div className="absolute inset-x-0 top-0 h-px"
-              style={{ background: "linear-gradient(90deg, transparent, rgba(10,132,255,0.2), rgba(94,92,230,0.2), transparent)" }} />
-
-            <div className="grid grid-cols-3 divide-x divide-theme">
-              {/* Step 1 */}
-              <div className="flex flex-col items-center text-center px-4 py-5 gap-2">
-                <div className="w-8 h-8 rounded-xl bg-[#0A84FF]/10 flex items-center justify-center text-base">🔍</div>
-                <div>
-                  <p className="text-[11px] font-black text-[#0A84FF] uppercase tracking-widest mb-0.5">01</p>
-                  <p className="text-[12px] font-semibold text-theme leading-snug">{t[lang].howItWorks.step1Title}</p>
-                  <p className="text-[10.5px] text-muted mt-1 leading-snug hidden sm:block">{t[lang].howItWorks.step1Desc}</p>
-                </div>
-              </div>
-              {/* Step 2 */}
-              <div className="flex flex-col items-center text-center px-4 py-5 gap-2">
-                <div className="w-8 h-8 rounded-xl bg-[#5E5CE6]/10 flex items-center justify-center text-base">⚡</div>
-                <div>
-                  <p className="text-[11px] font-black text-[#5E5CE6] uppercase tracking-widest mb-0.5">02</p>
-                  <p className="text-[12px] font-semibold text-theme leading-snug">{t[lang].howItWorks.step2Title}</p>
-                  <p className="text-[10.5px] text-muted mt-1 leading-snug hidden sm:block">{t[lang].howItWorks.step2Desc}</p>
-                </div>
-              </div>
-              {/* Step 3 */}
-              <div className="flex flex-col items-center text-center px-4 py-5 gap-2">
-                <div className="w-8 h-8 rounded-xl bg-[#30D158]/10 flex items-center justify-center text-base">🤖</div>
-                <div>
-                  <p className="text-[11px] font-black text-[#30D158] uppercase tracking-widest mb-0.5">03</p>
-                  <p className="text-[12px] font-semibold text-theme leading-snug">{t[lang].howItWorks.step3Title}</p>
-                  <p className="text-[10.5px] text-muted mt-1 leading-snug hidden sm:block">{t[lang].howItWorks.step3Desc}</p>
-                </div>
-              </div>
+          {/* Right: categories */}
+          <div className="p-4">
+            <p className="text-[9px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-[0.2em] mb-3 px-1">
+              {lang === "it" ? "Categorie" : "Categories"}
+            </p>
+            <div className="grid grid-cols-2 gap-0.5">
+              {CATEGORIES.map((cat) => (
+                <button
+                  key={cat.id}
+                  onClick={() => {
+                    const el = document.getElementById(`section-${cat.id}`);
+                    if (el) { el.scrollIntoView({ behavior: "smooth", block: "start" }); }
+                    else {
+                      const browse = document.getElementById("browse");
+                      browse?.scrollIntoView({ behavior: "smooth" });
+                    }
+                  }}
+                  className="flex items-center gap-2 px-2.5 py-2 rounded-xl text-left hover:bg-zinc-50 dark:hover:bg-zinc-800/60 transition-colors group"
+                >
+                  <span className="text-sm flex-shrink-0">{cat.emoji}</span>
+                  <span className="text-[12px] font-medium text-zinc-700 dark:text-zinc-300 group-hover:text-zinc-900 dark:group-hover:text-white leading-tight">
+                    {lang === "it" ? cat.labelIt : cat.labelEn}
+                  </span>
+                </button>
+              ))}
             </div>
           </div>
         </div>
+        {/* Footer hint */}
+        <div className="px-4 py-2.5 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between bg-zinc-50 dark:bg-zinc-950/50">
+          <span className="text-[11px] text-zinc-400 dark:text-zinc-500">
+            {templates.length} {lang === "it" ? "template disponibili" : "templates available"}
+          </span>
+          <button
+            onClick={() => document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" })}
+            className="text-[11px] font-semibold text-blue-500 hover:text-blue-400 transition-colors"
+          >
+            {lang === "it" ? "Vedi tutti →" : "Browse all →"}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function BundlesDropdown({ lang, purchasedIds }: { lang: "it" | "en"; purchasedIds: string[] }) {
+  const accentMap: Record<string, string> = {
+    blue: "bg-blue-500/10 text-blue-500",
+    violet: "bg-violet-500/10 text-violet-500",
+    emerald: "bg-emerald-500/10 text-emerald-500",
+    purple: "bg-purple-500/10 text-purple-500",
+    amber: "bg-amber-500/10 text-amber-500",
+    orange: "bg-orange-500/10 text-orange-500",
+  };
+
+  return (
+    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-50 w-[440px] max-w-[calc(100vw-2rem)]">
+      <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl shadow-black/20 overflow-hidden">
+        <div className="p-3">
+          <p className="text-[9px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-[0.2em] mb-2 px-2">
+            {lang === "it" ? "Bundle — risparmia fino al 55%" : "Bundles — save up to 55%"}
+          </p>
+          <div className="space-y-0.5">
+            {bundles.map((bundle) => {
+              const ownedCount = bundle.templateIds.filter((id) => purchasedIds.includes(id)).length;
+              const fullyOwned = ownedCount === bundle.templateIds.length;
+              return (
+                <Link
+                  key={bundle.id}
+                  href={`/bundle/${bundle.id}`}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-zinc-50 dark:hover:bg-zinc-800/60 transition-colors group cursor-pointer"
+                >
+                  <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-base flex-shrink-0 ${accentMap[bundle.accentColor] ?? "bg-zinc-100 dark:bg-zinc-800 text-zinc-500"}`}>
+                    {bundle.emoji}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[13px] font-semibold text-zinc-800 dark:text-zinc-200 group-hover:text-zinc-900 dark:group-hover:text-white leading-tight">
+                      {bundle.name}
+                    </p>
+                    <p className="text-[11px] text-zinc-400 dark:text-zinc-500 truncate leading-tight mt-0.5">
+                      {bundle.tagline}
+                    </p>
+                  </div>
+                  <div className="text-right flex-shrink-0">
+                    {fullyOwned ? (
+                      <span className="text-[11px] text-emerald-500 font-semibold">✓ {lang === "it" ? "Tuo" : "Owned"}</span>
+                    ) : (
+                      <>
+                        <p className="text-[13px] font-bold text-zinc-800 dark:text-zinc-200">{formatPrice(bundle.price)}</p>
+                        <p className="text-[10px] text-zinc-400 line-through">{formatPrice(bundle.regularPrice)}</p>
+                      </>
+                    )}
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+        <div className="px-5 py-2.5 border-t border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/50">
+          <p className="text-[11px] text-zinc-400 dark:text-zinc-500">
+            🎁 {lang === "it" ? "Ogni bundle ha accesso permanente + AI Studio incluso" : "Every bundle includes permanent access + AI Studio"}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── NavDropdown wrapper ──────────────────────────────────────────────────────
+function NavDropdown({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className={`flex items-center gap-1 text-[14px] px-3 py-1.5 rounded-xl transition-colors duration-200 ${
+          open
+            ? "text-zinc-900 dark:text-white bg-zinc-100 dark:bg-zinc-800"
+            : "text-muted hover:text-theme hover:bg-card"
+        }`}
+      >
+        {label}
+        <svg
+          width="12" height="12" viewBox="0 0 12 12" fill="none"
+          className={`transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+        >
+          <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </button>
+      {/* Always rendered — animated with opacity + transform */}
+      <div
+        className="transition-all duration-[180ms] ease-out"
+        style={{
+          opacity: open ? 1 : 0,
+          visibility: open ? "visible" : "hidden",
+          transform: open ? "translateY(0) scale(1)" : "translateY(-6px) scale(0.97)",
+          transformOrigin: "top center",
+        }}
+        aria-hidden={!open}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
+
+// ── Bundle scroll section ─────────────────────────────────────────────────────
+
+const BUNDLE_GRADIENTS: Record<string, { bg: string; glow: string; accent: string; badgeBg: string }> = {
+  blue:    { bg: "linear-gradient(145deg,#1e3a8a 0%,#0f172a 100%)", glow: "59,130,246",   accent: "#93c5fd", badgeBg: "rgba(59,130,246,0.22)" },
+  violet:  { bg: "linear-gradient(145deg,#4c1d95 0%,#0f0721 100%)", glow: "139,92,246",   accent: "#c4b5fd", badgeBg: "rgba(139,92,246,0.22)" },
+  emerald: { bg: "linear-gradient(145deg,#064e3b 0%,#022c22 100%)", glow: "16,185,129",   accent: "#6ee7b7", badgeBg: "rgba(16,185,129,0.22)" },
+  purple:  { bg: "linear-gradient(145deg,#581c87 0%,#1a0533 100%)", glow: "168,85,247",   accent: "#d8b4fe", badgeBg: "rgba(168,85,247,0.22)" },
+  amber:   { bg: "linear-gradient(145deg,#78350f 0%,#1c0a00 100%)", glow: "245,158,11",   accent: "#fcd34d", badgeBg: "rgba(245,158,11,0.22)" },
+  orange:  { bg: "linear-gradient(145deg,#7c2d12 0%,#1c0700 100%)", glow: "249,115,22",   accent: "#fed7aa", badgeBg: "rgba(249,115,22,0.22)" },
+};
+
+function BundleScrollCard({ bundle, purchasedIds, onBuy, lang }: {
+  bundle: typeof bundles[number];
+  purchasedIds: string[];
+  onBuy: (id: string) => Promise<void>;
+  lang: "it" | "en";
+}) {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number>(0);
+  const g = BUNDLE_GRADIENTS[bundle.accentColor] ?? BUNDLE_GRADIENTS.blue;
+  const savings = bundle.regularPrice - bundle.price;
+  const savingsPct = Math.round((savings / bundle.regularPrice) * 100);
+  const isOwned = bundle.templateIds.every((id) => purchasedIds.includes(id));
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(() => {
+      const el = cardRef.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      el.style.transform = `perspective(900px) rotateX(${(-y * 5).toFixed(1)}deg) rotateY(${(x * 5).toFixed(1)}deg) scale3d(1.02,1.02,1.02)`;
+    });
+  };
+  const handleMouseLeave = () => {
+    cancelAnimationFrame(rafRef.current);
+    const el = cardRef.current;
+    if (!el) return;
+    el.style.transition = "transform .5s cubic-bezier(.34,1.2,.64,1)";
+    el.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)";
+    setTimeout(() => { if (el) el.style.transition = ""; }, 500);
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      onClick={() => router.push(`/bundle/${bundle.id}`)}
+      className="flex-shrink-0 w-[290px] sm:w-[330px] rounded-[24px] overflow-hidden cursor-pointer flex flex-col"
+      style={{ scrollSnapAlign: "start", willChange: "transform", background: g.bg, boxShadow: `0 8px 40px rgba(${g.glow},0.18), 0 2px 10px rgba(0,0,0,0.4)` }}
+    >
+      {/* Card body */}
+      <div className="flex-1 px-5 pt-6 pb-4 relative">
+        {/* Glow spot */}
+        <div className="absolute top-0 right-0 w-40 h-40 rounded-full pointer-events-none" style={{ background: `radial-gradient(circle, rgba(${g.glow},0.18) 0%, transparent 70%)`, transform: "translate(30%,-30%)" }} />
+        {/* Discount badge */}
+        <span className="absolute top-4 right-4 text-[11px] font-black rounded-full px-2.5 py-1 border" style={{ background: g.badgeBg, color: g.accent, borderColor: `rgba(${g.glow},0.4)` }}>
+          –{savingsPct}%
+        </span>
+        {/* Emoji */}
+        <div className="text-4xl mb-4">{bundle.emoji}</div>
+        {/* Name & tagline */}
+        <h3 className="text-[17px] font-black text-white leading-tight mb-1.5">{bundle.name}</h3>
+        <p className="text-[12px] leading-snug" style={{ color: g.accent }}>{bundle.tagline}</p>
+        {/* Template count chips */}
+        <div className="flex items-center gap-1.5 mt-4 flex-wrap">
+          {Array.from({ length: Math.min(bundle.templateIds.length, 5) }).map((_, i) => (
+            <div key={i} className="w-6 h-6 rounded-full border border-white/15 bg-white/8 flex items-center justify-center text-[9px] text-white/50 font-bold">{i + 1}</div>
+          ))}
+          <span className="text-[11px] text-white/35 ml-0.5">{bundle.templateIds.length} template</span>
+        </div>
       </div>
 
-      {/* ── Works with strip ── */}
-      <div className="relative z-10 max-w-2xl mx-auto px-4 sm:px-6 pb-10">
-        <div className="flex flex-col items-center gap-3">
-          <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-muted/50">
-            {lang === "it" ? "Compatibile con" : "Works with"}
+      {/* Bottom CTA */}
+      <div className="px-5 pb-5 pt-4 bg-black/25 relative">
+        <div className="absolute top-0 inset-x-0 h-px" style={{ background: `linear-gradient(90deg,transparent,rgba(${g.glow},0.4),transparent)` }} />
+        <div className="flex items-end justify-between mb-3">
+          <div>
+            <p className="text-[22px] font-black text-white leading-none">{formatPrice(bundle.price)}</p>
+            <p className="text-[11px] text-white/35 line-through mt-0.5">{formatPrice(bundle.regularPrice)}</p>
+          </div>
+          <p className="text-[11px] font-bold mb-0.5" style={{ color: g.accent }}>
+            {lang === "it" ? `Risparmi ${formatPrice(savings)}` : `Save ${formatPrice(savings)}`}
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            {["Next.js", "React", "Vue", "HTML/CSS", "Framer", "Webflow", "Claude AI", "ChatGPT"].map((name) => (
-              <span
-                key={name}
-                className="text-[11px] font-semibold text-muted glass-subtle px-3 py-1 rounded-full border border-theme"
-              >
-                {name}
-              </span>
-            ))}
+        </div>
+        {isOwned ? (
+          <div className="w-full py-2.5 rounded-2xl text-center text-[13px] font-bold text-white/40 bg-white/5 border border-white/10">
+            {lang === "it" ? "✓ Già acquistato" : "✓ Already owned"}
+          </div>
+        ) : (
+          <button
+            onClick={async (e) => { e.stopPropagation(); setLoading(true); try { await onBuy(bundle.id); } finally { setLoading(false); } }}
+            disabled={loading}
+            className="w-full py-2.5 rounded-2xl text-[13px] font-bold text-white transition-opacity duration-200 active:scale-[0.97] disabled:opacity-50 border"
+            style={{ background: `rgba(${g.glow},0.3)`, borderColor: `rgba(${g.glow},0.5)` }}
+          >
+            {loading ? "…" : lang === "it" ? `Acquista — ${formatPrice(bundle.price)}` : `Buy — ${formatPrice(bundle.price)}`}
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function BundleShowcase({ lang, purchasedIds, onBuy }: { lang: "it" | "en"; purchasedIds: string[]; onBuy: (id: string) => Promise<void> }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  const scroll = (dir: "prev" | "next") => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const cardW = window.innerWidth < 640 ? 290 + 16 : 330 + 16;
+    el.scrollBy({ left: dir === "next" ? cardW : -cardW, behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const handler = () => {
+      const cardW = window.innerWidth < 640 ? 290 + 16 : 330 + 16;
+      setActiveIdx(Math.min(Math.round(el.scrollLeft / cardW), bundles.length - 1));
+    };
+    el.addEventListener("scroll", handler, { passive: true });
+    return () => el.removeEventListener("scroll", handler);
+  }, []);
+
+  return (
+    <div className="relative z-10 border-t border-theme py-12 overflow-hidden">
+      {/* Header */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 mb-7 flex items-end justify-between gap-4">
+        <div>
+          <p className="text-[10px] font-black text-muted uppercase tracking-[0.2em] mb-2">Bundle</p>
+          <h2 className="text-[1.5rem] sm:text-[1.9rem] font-extrabold tracking-tight text-zinc-900 dark:text-white">
+            {lang === "it" ? "Risparmia di più, crea di più" : "Save more, build more"}
+          </h2>
+          <p className="text-[13px] text-muted mt-1.5">
+            {lang === "it" ? "Fino al 55% di sconto rispetto all'acquisto singolo." : "Up to 55% off vs. buying individually."}
+          </p>
+        </div>
+        <div className="hidden sm:flex items-center gap-2 shrink-0">
+          <button onClick={() => scroll("prev")} aria-label="Precedente" className="w-9 h-9 flex items-center justify-center rounded-xl border border-theme bg-card hover:bg-surface text-muted hover:text-theme transition-colors">
+            <svg width="7" height="12" viewBox="0 0 7 12" fill="none"><path d="M6 1L1 6l5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </button>
+          <button onClick={() => scroll("next")} aria-label="Successivo" className="w-9 h-9 flex items-center justify-center rounded-xl border border-theme bg-card hover:bg-surface text-muted hover:text-theme transition-colors">
+            <svg width="7" height="12" viewBox="0 0 7 12" fill="none"><path d="M1 1l5 5-5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+
+      {/* Scroll rail */}
+      <div
+        ref={scrollRef}
+        className="flex gap-4 overflow-x-auto px-4 sm:px-6 pb-3"
+        style={{ scrollSnapType: "x mandatory", scrollbarWidth: "none", msOverflowStyle: "none" } as React.CSSProperties}
+      >
+        {bundles.map((bundle) => (
+          <BundleScrollCard key={bundle.id} bundle={bundle} purchasedIds={purchasedIds} onBuy={onBuy} lang={lang} />
+        ))}
+        {/* Trailing spacer so last card doesn't hug the edge */}
+        <div className="flex-shrink-0 w-4 sm:w-6" />
+      </div>
+
+      {/* Dot indicators */}
+      <div className="flex items-center justify-center gap-2 mt-5">
+        {bundles.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => {
+              const el = scrollRef.current;
+              if (!el) return;
+              const cardW = window.innerWidth < 640 ? 290 + 16 : 330 + 16;
+              el.scrollTo({ left: i * cardW, behavior: "smooth" });
+              setActiveIdx(i);
+            }}
+            className={`rounded-full transition-all duration-300 ${i === activeIdx ? "w-5 h-1.5 bg-zinc-900 dark:bg-white" : "w-1.5 h-1.5 bg-zinc-300 dark:bg-zinc-700 hover:bg-zinc-400 dark:hover:bg-zinc-500"}`}
+            aria-label={`Bundle ${i + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ── Marquee template cards ────────────────────────────────────────────────────
+
+// Carefully picked template IDs for the two marquee rows
+const ROW1_IDS = [
+  "hero-saas", "restaurant-menu", "personal-finance-dashboard", "saas-dashboard",
+  "digital-resume", "cold-email-b2b", "hotel-booking", "creative-agency-portfolio",
+  "ecommerce-product-page", "saas-pricing-full",
+];
+const ROW2_IDS = [
+  "pricing-table", "ai-assistant-system-prompt", "link-in-bio", "revenue-analytics",
+  "coffee-shop-landing", "mobile-app-showcase", "airbnb-property-listing",
+  "linkedin-prompt-pack", "invoice-html", "budget-tracker",
+];
+
+const tmplById = Object.fromEntries(templates.map((t) => [t.id, t]));
+const marqueeTemplates = ROW1_IDS.map((id) => tmplById[id]).filter(Boolean);
+const marqueeTemplates2 = ROW2_IDS.map((id) => tmplById[id]).filter(Boolean);
+
+// Category gradient for marquee cards
+const CARD_GRADIENTS: Record<string, string> = {
+  "hero-saas":                 "from-indigo-900 to-purple-900",
+  "restaurant-menu":           "from-red-900 to-orange-900",
+  "personal-finance-dashboard":"from-emerald-900 to-teal-900",
+  "saas-dashboard":            "from-slate-800 to-zinc-900",
+  "digital-resume":            "from-blue-900 to-indigo-900",
+  "cold-email-b2b":            "from-zinc-800 to-slate-900",
+  "hotel-booking":             "from-amber-900 to-yellow-900",
+  "creative-agency-portfolio": "from-pink-900 to-rose-900",
+  "ecommerce-product-page":    "from-stone-800 to-neutral-900",
+  "saas-pricing-full":         "from-violet-900 to-purple-900",
+  "pricing-table":             "from-sky-900 to-blue-900",
+  "ai-assistant-system-prompt":"from-zinc-900 to-slate-800",
+  "link-in-bio":               "from-fuchsia-900 to-pink-900",
+  "revenue-analytics":         "from-green-900 to-emerald-900",
+  "coffee-shop-landing":       "from-orange-900 to-amber-900",
+  "mobile-app-showcase":       "from-cyan-900 to-sky-900",
+  "airbnb-property-listing":   "from-teal-900 to-cyan-900",
+  "linkedin-prompt-pack":      "from-blue-800 to-indigo-900",
+  "invoice-html":              "from-gray-800 to-zinc-900",
+  "budget-tracker":            "from-lime-900 to-green-900",
+};
+
+function MarqueeCard({ tmpl, lang }: { tmpl: Template; lang: "it" | "en" }) {
+  const name = lang === "it" ? (templateTranslations[tmpl.id]?.name ?? tmpl.name) : tmpl.name;
+  const grad = CARD_GRADIENTS[tmpl.id] ?? "from-zinc-800 to-zinc-900";
+  return (
+    <Link
+      href={`/preview/${tmpl.id}`}
+      className={`flex-shrink-0 w-[200px] h-[120px] rounded-[14px] bg-gradient-to-br ${grad} overflow-hidden relative group cursor-pointer`}
+      style={{ boxShadow: "0 4px 16px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.07)" }}
+      tabIndex={-1}
+    >
+      {/* Subtle grid pattern */}
+      <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,1) 1px,transparent 1px)", backgroundSize: "20px 20px" }} />
+
+      {/* Browser chrome bar */}
+      <div className="absolute top-0 left-0 right-0 h-[22px] flex items-center px-2.5 gap-1.5" style={{ background: "rgba(0,0,0,0.28)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+        <div className="flex gap-[3px]">
+          <div className="w-[5px] h-[5px] rounded-full bg-[#FF5F57] opacity-75" />
+          <div className="w-[5px] h-[5px] rounded-full bg-[#FFBD2E] opacity-75" />
+          <div className="w-[5px] h-[5px] rounded-full bg-[#28C840] opacity-75" />
+        </div>
+        <span className="ml-auto text-[7px] font-semibold text-white/25 uppercase tracking-[0.1em]">
+          {tmpl.category === "ui" ? "UI" : "AI"}
+        </span>
+      </div>
+
+      {/* Top-edge specular line */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+
+      {/* Label */}
+      <div className="absolute bottom-0 left-0 right-0 px-2.5 pt-4 pb-2.5" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.3) 60%, transparent 100%)" }}>
+        <p className="text-white text-[11px] font-semibold leading-tight truncate">{name}</p>
+        <p className="text-white/40 text-[9px] mt-0.5 font-medium">{formatPrice(tmpl.price)}</p>
+      </div>
+
+      {/* Hover overlay */}
+      <div className="absolute inset-0 bg-white/0 group-hover:bg-white/[0.05] transition-colors duration-300" />
+    </Link>
+  );
+}
+
+// ── Main component ────────────────────────────────────────────────────────────
+export default function HomeContent() {
+  const { lang } = useLang();
+  const router = useRouter();
+  const animatedTemplates = templates.length;
+
+  // Shared search query — lifted so hero search bar drives TemplateGrid
+  const [query, setQuery] = useState("");
+
+  const [purchasedIds, setPurchasedIds] = useState<string[]>([]);
+  const [marqueePaused, setMarqueePaused] = useState(false);
+  const toast = useToast();
+
+  // Mobile menu state
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileExpandTemplates, setMobileExpandTemplates] = useState(false);
+  const [mobileExpandBundles, setMobileExpandBundles] = useState(false);
+
+  const countedTemplates = useCountUp(animatedTemplates);
+
+  // Lock body scroll when mobile menu open
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileMenuOpen]);
+
+  // Close mobile menu on Escape
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) { if (e.key === "Escape") setMobileMenuOpen(false); }
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, []);
+
+  useEffect(() => {
+    fetch("/api/purchases")
+      .then((r) => r.ok ? r.json() : { templateIds: [] })
+      .then((data) => setPurchasedIds(data.templateIds ?? []))
+      .catch(() => {});
+  }, []);
+
+  const handleBundleBuy = useCallback(async (bundleId: string) => {
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ bundleId }),
+      });
+      if (!res.ok) throw new Error("checkout_failed");
+      const data = await res.json();
+      if (data.requireAuth) { window.location.href = "/sign-in?redirect_url=/"; return; }
+      if (data.url) router.push(data.url);
+      else throw new Error("no_url");
+    } catch {
+      toast(lang === "it" ? "Errore durante il checkout. Riprova." : "Checkout failed. Please try again.", "error");
+    }
+  }, [router, lang, toast]);
+
+  return (
+    <div className="min-h-screen bg-page relative overflow-x-hidden anim-page-enter">
+      <ScrollProgressBar />
+
+      {/* ── Hero ambient glow ── */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute"
+        style={{
+          top: "-180px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "700px",
+          height: "700px",
+          background: "radial-gradient(circle, var(--accent-bg) 0%, transparent 68%)",
+          zIndex: 0,
+          animation: "glow-pulse 5s ease-in-out infinite",
+        }}
+      />
+
+      {/* ── Nav ── */}
+      <nav className="sticky top-0 z-50 border-b border-theme bg-nav backdrop-blur-xl px-4 sm:px-6 py-3.5">
+        <div className="max-w-7xl mx-auto flex items-center gap-3">
+
+          {/* Brand */}
+          <span className="text-[17px] font-bold tracking-tight text-zinc-900 dark:text-white shrink-0 select-none">
+            TemplateLab
+          </span>
+
+          {/* Mobile: hamburger */}
+          <button
+            onClick={() => setMobileMenuOpen(true)}
+            className="sm:hidden flex items-center justify-center w-9 h-9 rounded-xl text-muted hover:text-theme hover:bg-card transition-colors"
+            aria-label="Open menu"
+            aria-expanded={mobileMenuOpen}
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+            </svg>
+          </button>
+
+          {/* Desktop nav links + dropdowns */}
+          <div className="hidden sm:flex items-center gap-0.5">
+            <NavDropdown label={lang === "it" ? "Template" : "Templates"}>
+              <TemplatesDropdown lang={lang} />
+            </NavDropdown>
+            <NavDropdown label={lang === "it" ? "Bundle" : "Bundles"}>
+              <BundlesDropdown lang={lang} purchasedIds={purchasedIds} />
+            </NavDropdown>
+            <Link
+              href="/guide"
+              className="link-underline text-[14px] text-muted hover:text-theme transition-colors duration-200 px-3 py-1.5 rounded-xl hover:bg-card"
+            >
+              {t[lang].nav.guide}
+            </Link>
+            <Link
+              href="/studio"
+              className="link-underline text-[14px] text-muted hover:text-theme transition-colors duration-200 px-3 py-1.5 rounded-xl hover:bg-card"
+            >
+              {t[lang].nav.studio}
+            </Link>
+            <Link
+              href="/account"
+              className="link-underline text-[14px] text-muted hover:text-theme transition-colors duration-200 px-3 py-1.5 rounded-xl hover:bg-card"
+            >
+              {t[lang].nav.account}
+            </Link>
+          </div>
+
+          {/* Flex spacer */}
+          <div className="flex-1" />
+
+          {/* Desktop search */}
+          <div className="hidden sm:flex items-center relative">
+            <svg className="absolute left-3 top-1/2 -translate-y-1/2 text-muted pointer-events-none" width="14" height="14" viewBox="0 0 20 20" fill="none">
+              <circle cx="8.5" cy="8.5" r="5.75" stroke="currentColor" strokeWidth="1.7"/>
+              <path d="M13 13l4 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/>
+            </svg>
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => { setQuery(e.target.value); if (e.target.value) document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" }); }}
+              placeholder={lang === "it" ? "Cerca…" : "Search…"}
+              className="bg-input border border-theme rounded-xl pl-8 pr-3 py-1.5 text-[13px] text-theme placeholder:text-muted outline-none focus:border-[#0A84FF]/40 transition-all duration-200 w-36 focus:w-52"
+              style={{ transition: "width 0.2s ease" }}
+            />
+            {query && (
+              <button onClick={() => setQuery("")} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted hover:text-theme">
+                <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2L2 10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg>
+              </button>
+            )}
+          </div>
+
+          <NavButtons showMobileLinks={false} />
+        </div>
+      </nav>
+
+      {/* ── Mobile menu overlay ── */}
+      {/* Backdrop */}
+      <div
+        className="fixed inset-0 z-[90] bg-black/60 backdrop-blur-sm sm:hidden transition-opacity duration-300"
+        style={{ opacity: mobileMenuOpen ? 1 : 0, pointerEvents: mobileMenuOpen ? "auto" : "none" }}
+        onClick={() => setMobileMenuOpen(false)}
+        aria-hidden
+      />
+      {/* Slide-down panel */}
+      <div
+        className="fixed top-0 left-0 right-0 z-[95] bg-page border-b border-theme shadow-2xl sm:hidden max-h-[90vh] overflow-y-auto"
+        style={{
+          transform: mobileMenuOpen ? "translateY(0)" : "translateY(-100%)",
+          transition: "transform 0.3s cubic-bezier(0.32,0.72,0,1)",
+        }}
+        aria-modal={mobileMenuOpen}
+      >
+        {/* Panel header */}
+        <div className="flex items-center justify-between px-4 py-3.5 border-b border-theme">
+          <span className="text-[17px] font-bold tracking-tight text-zinc-900 dark:text-white">
+            TemplateLab
+          </span>
+          <button
+            onClick={() => setMobileMenuOpen(false)}
+            className="w-8 h-8 flex items-center justify-center rounded-xl text-muted hover:text-theme hover:bg-card transition-colors"
+            aria-label="Close menu"
+          >
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M2 2l10 10M12 2L2 12" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+            </svg>
+          </button>
+        </div>
+
+        {/* Search */}
+        <div className="px-4 py-3 border-b border-theme">
+          <div className="relative">
+            <svg className="absolute left-3 top-1/2 -translate-y-1/2 text-muted pointer-events-none" width="14" height="14" viewBox="0 0 20 20" fill="none">
+              <circle cx="8.5" cy="8.5" r="5.75" stroke="currentColor" strokeWidth="1.7"/>
+              <path d="M13 13l4 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/>
+            </svg>
+            <input
+              type="text"
+              defaultValue={query}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                if (e.target.value) {
+                  setMobileMenuOpen(false);
+                  setTimeout(() => document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" }), 150);
+                }
+              }}
+              placeholder={lang === "it" ? "Cerca template…" : "Search templates…"}
+              className="w-full bg-input border border-theme rounded-xl pl-9 pr-3 py-2.5 text-[14px] text-theme placeholder:text-muted outline-none focus:border-[#0A84FF]/40 transition-colors"
+            />
+          </div>
+        </div>
+
+        {/* Nav items */}
+        <div className="px-2 py-2">
+
+          {/* Templates accordion */}
+          <button
+            onClick={() => setMobileExpandTemplates((o) => !o)}
+            className="w-full flex items-center justify-between px-3 py-3 rounded-xl text-[14px] font-semibold text-zinc-800 dark:text-zinc-200 hover:bg-card transition-colors"
+          >
+            <span>{lang === "it" ? "Template" : "Templates"}</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+              className={`text-muted transition-transform duration-200 ${mobileExpandTemplates ? "rotate-180" : ""}`}>
+              <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+          {mobileExpandTemplates && (
+            <div className="px-2 pb-2 grid grid-cols-2 gap-0.5">
+              {CATEGORIES.map((cat) => (
+                <button
+                  key={cat.id}
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setTimeout(() => document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" }), 150);
+                  }}
+                  className="flex items-center gap-2 px-2.5 py-2.5 rounded-xl text-left hover:bg-card transition-colors"
+                >
+                  <span className="text-sm flex-shrink-0">{cat.emoji}</span>
+                  <span className="text-[12px] text-muted leading-tight">{lang === "it" ? cat.labelIt : cat.labelEn}</span>
+                </button>
+              ))}
+            </div>
+          )}
+
+          {/* Bundles accordion */}
+          <button
+            onClick={() => setMobileExpandBundles((o) => !o)}
+            className="w-full flex items-center justify-between px-3 py-3 rounded-xl text-[14px] font-semibold text-zinc-800 dark:text-zinc-200 hover:bg-card transition-colors"
+          >
+            <span>{lang === "it" ? "Bundle" : "Bundles"}</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+              className={`text-muted transition-transform duration-200 ${mobileExpandBundles ? "rotate-180" : ""}`}>
+              <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+          {mobileExpandBundles && (
+            <div className="px-2 pb-2 space-y-0.5">
+              {bundles.map((bundle) => (
+                <Link
+                  key={bundle.id}
+                  href={`/bundle/${bundle.id}`}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-card transition-colors"
+                >
+                  <span className="text-lg">{bundle.emoji}</span>
+                  <div className="min-w-0">
+                    <p className="text-[13px] font-semibold text-zinc-800 dark:text-zinc-200 leading-tight">{bundle.name}</p>
+                    <p className="text-[11px] text-muted">{formatPrice(bundle.price)}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
+
+          {/* Other links */}
+          <div className="mt-1 pt-1 border-t border-theme/50 space-y-0.5">
+            <Link href="/guide" onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center px-3 py-3 rounded-xl hover:bg-card transition-colors">
+              <span className="text-[14px] font-medium text-zinc-700 dark:text-zinc-300">{t[lang].nav.guide}</span>
+            </Link>
+            <Link href="/studio" onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center px-3 py-3 rounded-xl hover:bg-card transition-colors">
+              <span className="text-[14px] font-medium text-zinc-700 dark:text-zinc-300">{t[lang].nav.studio}</span>
+            </Link>
+            <Link href="/account" onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center px-3 py-3 rounded-xl hover:bg-card transition-colors">
+              <span className="text-[14px] font-medium text-zinc-700 dark:text-zinc-300">{t[lang].nav.account}</span>
+            </Link>
           </div>
         </div>
       </div>
 
-      {/* ── Section divider → browse ── */}
-      <div id="browse" className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 mb-0">
-        <div className="flex items-center gap-4">
-          <div className="flex-1 h-px bg-theme" />
-          <span className="text-[11px] font-bold text-muted uppercase tracking-[0.18em] shrink-0">
-            {templates.length} {lang === "it" ? "template disponibili" : "templates available"}
-          </span>
-          <div className="flex-1 h-px bg-theme" />
+      {/* ═══════════════════════════════════════════
+          HERO — full redesign
+      ═══════════════════════════════════════════ */}
+      <section className="relative z-10 px-4 sm:px-6 pt-12 pb-0 overflow-hidden">
+        <div className="max-w-5xl mx-auto">
+
+          {/* Floating particles */}
+          <div aria-hidden className="absolute inset-0 overflow-hidden pointer-events-none select-none">
+            {([
+              { top: "18%",  left: "6%",  size: 5, anim: "float-a 6s ease-in-out infinite",   delay: "0s" },
+              { top: "42%",  left: "93%", size: 3, anim: "float-b 8s ease-in-out infinite",   delay: "1.2s" },
+              { top: "12%",  left: "78%", size: 4, anim: "float-c 7s ease-in-out infinite",   delay: "2.5s" },
+              { top: "68%",  left: "12%", size: 6, anim: "float-a 9s ease-in-out infinite",   delay: "0.8s" },
+              { top: "58%",  left: "88%", size: 3, anim: "float-b 6.5s ease-in-out infinite", delay: "3.5s" },
+            ] as const).map((p, i) => (
+              <span
+                key={i}
+                style={{
+                  position: "absolute",
+                  top: p.top, left: p.left,
+                  width: p.size, height: p.size,
+                  borderRadius: "50%",
+                  background: "var(--accent)",
+                  animation: p.anim,
+                  animationDelay: p.delay,
+                }}
+              />
+            ))}
+          </div>
+
+          {/* ── Top row: badge + tagline ── */}
+          <div className="flex flex-col items-center text-center mb-10 pt-8 sm:pt-12">
+
+            {/* Badge */}
+            <div className="anim-fade-up delay-0 inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-semibold bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 mb-6 select-none">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-zinc-400 opacity-50" />
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-zinc-400 dark:bg-zinc-500" />
+              </span>
+              {t[lang].hero.badge}
+            </div>
+
+            {/* Headline — bigger, bolder */}
+            <h1 className="anim-fade-up delay-75 text-[2.6rem] sm:text-[3.6rem] md:text-[4.2rem] font-extrabold leading-[1.04] tracking-[-0.04em] mb-5 text-zinc-900 dark:text-white max-w-3xl">
+              {lang === "it" ? (
+                <>
+                  Template UI pronti.<br />
+                  <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(135deg, var(--accent) 0%, #C77DFF 50%, #FF6B6B 100%)", backgroundSize: "200% 100%", animation: "gradient-shift 5s ease infinite" }}>
+                    Personalizzati con AI.
+                  </span>
+                </>
+              ) : (
+                <>
+                  Premium templates.<br />
+                  <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(135deg, var(--accent) 0%, #C77DFF 50%, #FF6B6B 100%)", backgroundSize: "200% 100%", animation: "gradient-shift 5s ease infinite" }}>
+                    Customized with AI.
+                  </span>
+                </>
+              )}
+            </h1>
+
+            {/* Subtitle */}
+            <p className="anim-fade-up delay-150 text-[16px] sm:text-[17px] text-muted max-w-xl mx-auto mb-8 leading-relaxed font-normal">
+              {lang === "it"
+                ? "Compra un template professionale, poi adattalo in secondi con Claude AI. Nessun codice."
+                : "Buy a professional template, then adapt it in seconds with Claude AI. No code required."}
+            </p>
+
+            {/* CTAs */}
+            <div className="anim-fade-up delay-200 flex flex-col sm:flex-row items-center gap-3 mb-8">
+              {/* Primary CTA */}
+              <a
+                href="#browse"
+                onClick={(e) => { e.preventDefault(); document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" }); }}
+                className="relative overflow-hidden inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl font-bold text-white text-[15px] active:scale-[0.97] transition-all duration-200 shadow-lg"
+                style={{ background: "linear-gradient(135deg, var(--accent), #9B59FF)", boxShadow: "0 8px 32px rgba(91,76,245,0.35)" }}
+              >
+                {lang === "it" ? "Sfoglia i template" : "Browse templates"}
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="opacity-80">
+                  <path d="M2 7h10M8 3l4 4-4 4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <span className="shimmer-span" aria-hidden />
+              </a>
+
+              {/* AI Studio CTA */}
+              <Link
+                href="/studio"
+                className="group inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl text-[14px] font-semibold transition-all duration-200 border"
+                style={{
+                  background: "linear-gradient(135deg, rgba(167,139,250,0.07), rgba(139,92,246,0.05))",
+                  borderColor: "rgba(167,139,250,0.22)",
+                  color: "var(--accent)",
+                }}
+              >
+                <span className="w-1.5 h-1.5 rounded-full flex-shrink-0 animate-pulse" style={{ background: "var(--accent)" }} />
+                {lang === "it" ? "Prova l'AI Studio" : "Try AI Studio"}
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="group-hover:translate-x-0.5 transition-transform duration-200 opacity-70">
+                  <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </Link>
+            </div>
+
+            {/* Trust badges */}
+            <div className="anim-fade-up delay-300 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 px-2 text-[12px] text-muted">
+              <span className="flex items-center gap-1.5">
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5l3 3 6-6" className="check-path" stroke="#30D158" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                {countedTemplates} {lang === "it" ? "template pronti" : "templates ready"}
+              </span>
+              <span className="text-zinc-300 dark:text-zinc-700">·</span>
+              <span className="flex items-center gap-1.5">
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5l3 3 6-6" className="check-path check-path-delay-1" stroke="#30D158" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                {lang === "it" ? "Pagamento sicuro Stripe" : "Secure Stripe payment"}
+              </span>
+              <span className="text-zinc-300 dark:text-zinc-700">·</span>
+              <span className="flex items-center gap-1.5">
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5l3 3 6-6" className="check-path check-path-delay-2" stroke="#30D158" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                {lang === "it" ? "Accesso immediato" : "Instant access"}
+              </span>
+            </div>
+
+            {/* Download formats strip */}
+            <div className="anim-fade-up delay-400 flex flex-wrap items-center justify-center gap-1.5 mt-5">
+              <span className="text-[11px] text-muted/60 mr-1">
+                {lang === "it" ? "Scarica in:" : "Download as:"}
+              </span>
+              {["HTML", "Canva", "Notion", "Excel", "Webflow", "Framer"].map((fmt) => (
+                <span
+                  key={fmt}
+                  className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800/80 text-zinc-500 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700/60"
+                >
+                  {fmt}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* ── Template marquee strip ── */}
+          <div
+            className="relative -mx-4 sm:-mx-6 overflow-hidden pb-12"
+            onMouseEnter={() => setMarqueePaused(true)}
+            onMouseLeave={() => setMarqueePaused(false)}
+          >
+            {/* fade edges */}
+            <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 z-10 pointer-events-none" style={{ background: "linear-gradient(to right, var(--bg), transparent)" }} />
+            <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 z-10 pointer-events-none" style={{ background: "linear-gradient(to left, var(--bg), transparent)" }} />
+
+            {/* Row 1 — scrolls left */}
+            <div className="flex gap-3 mb-3" style={{ animation: "marquee-left 32s linear infinite", animationPlayState: marqueePaused ? "paused" : "running", width: "max-content" }}>
+              {[...marqueeTemplates, ...marqueeTemplates].map((tmpl, i) => (
+                <MarqueeCard key={`r1-${i}`} tmpl={tmpl} lang={lang} />
+              ))}
+            </div>
+            {/* Row 2 — scrolls right */}
+            <div className="flex gap-3" style={{ animation: "marquee-right 28s linear infinite", animationPlayState: marqueePaused ? "paused" : "running", width: "max-content" }}>
+              {[...marqueeTemplates2, ...marqueeTemplates2].map((tmpl, i) => (
+                <MarqueeCard key={`r2-${i}`} tmpl={tmpl} lang={lang} />
+              ))}
+            </div>
+          </div>
+
         </div>
-      </div>
+      </section>
 
       {/* ── Template Grid ── */}
       <div className="relative z-10">
-        <TemplateGrid />
+        <TemplateGrid externalQuery={query} />
       </div>
 
-      {/* ── Newsletter ── */}
+      {/* ── Testimonials — da aggiungere quando ci saranno utenti reali ── */}
+      {/* <div className="relative z-10 border-t border-theme px-4 sm:px-6 py-14">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-8">
+            <p className="text-[10px] font-bold text-muted uppercase tracking-[0.18em] mb-3">
+              {lang === "it" ? "Recensioni" : "Reviews"}
+            </p>
+            <h2 className="text-[1.6rem] sm:text-[2rem] font-bold tracking-tight text-zinc-900 dark:text-white">
+              {lang === "it" ? "Amato dai professionisti" : "Loved by professionals"}
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {TESTIMONIALS.map((testimonial, i) => (
+              <TestimonialCard key={i} testimonial={testimonial} lang={lang} />
+            ))}
+          </div>
+        </div>
+      </div> */}
+
+      {/* ── Newsletter — subtle ── */}
       <div className="relative z-10 border-t border-theme">
         <EmailCapture />
+      </div>
+
+      {/* ── Quote ── */}
+      <div className="relative z-10 border-t border-theme px-4 sm:px-6 py-10">
+        <div className="max-w-xl mx-auto text-center">
+          <p className="text-[11px] text-zinc-500 dark:text-zinc-600 italic">
+            {lang === "it"
+              ? <>&ldquo;Non c&rsquo;è niente di più definitivo di un template &lsquo;temporaneo&rsquo; che resterà in produzione per i prossimi otto anni.&rdquo;</>
+              : <>&ldquo;There&rsquo;s nothing more permanent than a &lsquo;temporary&rsquo; template that ends up in production for the next eight years.&rdquo;</>}
+          </p>
+        </div>
       </div>
 
       {/* ── Footer ── */}

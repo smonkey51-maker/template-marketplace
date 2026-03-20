@@ -5,6 +5,7 @@ import { useRef, useEffect, useState } from "react";
 import { Template, formatPrice } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
 import { t, templateTranslations } from "@/lib/i18n";
+import { useWishlist } from "@/lib/useWishlist";
 
 type Lang = "it" | "en";
 
@@ -58,6 +59,7 @@ function UIThumbnail({ template, isPurchased, lang }: { template: Template; isPu
           <iframe
             src={`/api/preview/${template.id}`}
             title={template.name}
+            sandbox="allow-scripts"
             className="w-full border-0"
             style={{ height: "530px" }}
           />
@@ -72,8 +74,10 @@ function UIThumbnail({ template, isPurchased, lang }: { template: Template; isPu
 
 function PurchasedBadge({ lang }: { lang: Lang }) {
   return (
-    <span className="absolute bottom-3 left-3 z-10 flex items-center gap-1 bg-[#30D158]/20 text-[#30D158] border border-[#30D158]/30 rounded-full px-2.5 py-1 text-[11px] font-semibold backdrop-blur-sm">
-      <span className="w-1.5 h-1.5 rounded-full bg-[#30D158]" />
+    <span className="absolute bottom-3 left-3 z-10 flex items-center gap-1 bg-emerald-500/90 text-white rounded-full px-2.5 py-1 text-[11px] font-semibold shadow-sm backdrop-blur-sm">
+      <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden>
+        <path d="M2 6l2.8 3 5.2-5" stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
       {lang === "it" ? "Acquistato" : "Purchased"}
     </span>
   );
@@ -85,14 +89,40 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
   onQuickView?: (id: string) => void;
 }) {
   const { lang } = useLang();
+  const { toggle, isWishlisted } = useWishlist();
   const isPurchased = purchasedIds.includes(template.id);
   const isBestseller = template.downloads >= 700;
   const isEditorsPick = template.editorsPick === true;
   const isNew = template.isNew === true;
   const displayName = lang === "it" ? (templateTranslations[template.id]?.name ?? template.name) : template.name;
   const displayDesc = lang === "it" ? (templateTranslations[template.id]?.description ?? template.description) : template.description;
+  const saved = isWishlisted(template.id);
 
   const [copied, setCopied] = useState(false);
+
+  const cardRef = useRef<HTMLDivElement>(null);
+  const frameRef = useRef<number>(0);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    cancelAnimationFrame(frameRef.current);
+    frameRef.current = requestAnimationFrame(() => {
+      const el = cardRef.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      el.style.transform = `perspective(700px) rotateX(${(-y * 8).toFixed(1)}deg) rotateY(${(x * 8).toFixed(1)}deg) scale3d(1.025,1.025,1.025)`;
+    });
+  };
+
+  const handleMouseLeave = () => {
+    cancelAnimationFrame(frameRef.current);
+    const el = cardRef.current;
+    if (!el) return;
+    el.style.transition = 'transform .5s cubic-bezier(.34,1.2,.64,1)';
+    el.style.transform = 'perspective(700px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)';
+    setTimeout(() => { if (el) el.style.transition = ''; }, 500);
+  };
 
   const handleShare = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -105,30 +135,39 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
   };
 
   return (
+    <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="group relative rounded-2xl h-full"
+      style={{ willChange: 'transform' }}
+    >
     <Link
       href={`/preview/${template.id}`}
       aria-label={displayName}
-      className={`group relative glass-subtle rounded-[22px] overflow-hidden flex flex-col h-full
-        card-tilt
-        hover:shadow-[0_16px_48px_rgba(0,0,0,0.18),0_0_0_1px_rgba(10,132,255,0.15)]
-        active:opacity-90
-        ${isEditorsPick && !isPurchased ? "ring-1 ring-[#5E5CE6]/30" : isBestseller && !isPurchased ? "ring-1 ring-[#FF9F0A]/25" : ""}`}
+      className="glass relative rounded-2xl overflow-hidden flex flex-col h-full
+        active:opacity-90 block"
     >
-      {/* Editor's Pick badge (takes priority over bestseller) */}
+      {/* Specular top edge highlight */}
+      <div className="absolute top-0 left-[8%] right-[8%] h-px pointer-events-none z-10" style={{ background: 'var(--glass-top-edge)' }} />
+
+      {/* Editor's Pick badge — violet */}
       {isEditorsPick && !isPurchased && (
-        <div className="absolute top-2.5 right-2.5 z-10 bg-[#5E5CE6]/20 text-[#5E5CE6] border border-[#5E5CE6]/30 rounded-full px-2 py-0.5 text-[10px] font-bold backdrop-blur-sm">
+        <div className="absolute top-2.5 right-2.5 z-10 bg-violet-100 dark:bg-violet-950/70 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800/60 rounded-full px-2 py-0.5 text-[10px] font-bold flex items-center gap-1">
+          <svg width="8" height="8" viewBox="0 0 10 10" fill="currentColor" aria-hidden><path d="M5 0l1.2 3.7H10L6.9 5.9l1.2 3.7L5 7.5l-3.1 2.1 1.2-3.7L0 3.7h3.8z"/></svg>
           {t[lang].card.editorsPick}
         </div>
       )}
-      {/* Bestseller badge */}
+      {/* Bestseller badge — amber */}
       {isBestseller && !isPurchased && !isEditorsPick && (
-        <div className="absolute top-2.5 right-2.5 z-10 bg-[#FF9F0A]/20 text-[#FF9F0A] border border-[#FF9F0A]/30 rounded-full px-2 py-0.5 text-[10px] font-bold backdrop-blur-sm">
+        <div className="absolute top-2.5 right-2.5 z-10 bg-amber-100 dark:bg-amber-950/70 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800/60 rounded-full px-2 py-0.5 text-[10px] font-bold flex items-center gap-1">
+          <svg width="8" height="8" viewBox="0 0 10 10" fill="currentColor" aria-hidden><path d="M5 0l1.2 3.7H10L6.9 5.9l1.2 3.7L5 7.5l-3.1 2.1 1.2-3.7L0 3.7h3.8z"/></svg>
           {t[lang].card.bestseller}
         </div>
       )}
-      {/* New badge */}
+      {/* New badge — emerald */}
       {isNew && !isPurchased && !isEditorsPick && !isBestseller && (
-        <div className="absolute top-2.5 left-2.5 z-10 bg-[#30D158]/20 text-[#30D158] border border-[#30D158]/30 rounded-full px-2 py-0.5 text-[10px] font-bold backdrop-blur-sm">
+        <div className="absolute top-2.5 left-2.5 z-10 bg-emerald-100 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/60 rounded-full px-2 py-0.5 text-[10px] font-bold">
           {t[lang].card.isNew}
         </div>
       )}
@@ -143,7 +182,7 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
         }
         {/* Hover CTA overlay */}
         <div className="absolute inset-0 flex items-end justify-center pb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-          <span className="bg-[#0A84FF] text-white text-[12px] font-bold px-4 py-2 rounded-xl shadow-[0_4px_16px_rgba(10,132,255,0.4)] backdrop-blur-sm">
+          <span className="bg-white/90 dark:bg-black/80 text-zinc-900 dark:text-zinc-100 text-[12px] font-bold px-4 py-2 rounded-xl shadow-sm">
             {lang === "it" ? "Anteprima rapida →" : "Quick preview →"}
           </span>
         </div>
@@ -154,15 +193,15 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
         <div className="mb-1.5">
           <span className={`text-[10px] font-bold uppercase tracking-[0.1em] px-1.5 py-0.5 rounded-md ${
             template.category === "ui"
-              ? "bg-[#007AFF]/10 text-[#007AFF]"
-              : "bg-[#5E5CE6]/10 text-[#5E5CE6]"
+              ? "bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400"
+              : "bg-orange-100 dark:bg-orange-950/60 text-orange-600 dark:text-orange-400"
           }`}>
             {template.category === "ui" ? t[lang].card.categoryUI : t[lang].card.categoryPrompt}
           </span>
         </div>
 
         {/* Name */}
-        <h3 className="text-[13.5px] font-semibold text-theme leading-snug group-hover:text-[#0A84FF] transition-colors duration-200 mb-1">
+        <h3 className="text-[14px] font-semibold text-zinc-900 dark:text-zinc-100 leading-snug group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors duration-200 mb-1">
           {displayName}
         </h3>
 
@@ -173,20 +212,36 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
 
         {/* Price + downloads */}
         <div className="mt-2.5 pt-2.5 border-t border-theme flex items-center justify-between">
-          <span className="text-[15px] font-bold text-[#0A84FF]">{formatPrice(template.price)}</span>
-          <div className="flex items-center gap-2">
+          <span className="text-[16px] font-bold text-zinc-900 dark:text-white">{formatPrice(template.price)}</span>
+          <div className="flex items-center gap-1.5">
             <span className="text-[11px] text-muted flex items-center gap-1">
               <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden>
                 <path d="M6 1v7M3 6l3 3 3-3M2 10h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
               {template.downloads.toLocaleString(lang === "it" ? "it-IT" : "en-US")}
             </span>
+            {/* Wishlist button */}
+            <button
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggle(template.id); }}
+              aria-label={saved ? (lang === "it" ? "Rimuovi dai salvati" : "Remove from saved") : (lang === "it" ? "Salva" : "Save")}
+              className={`transition-all duration-200 rounded-lg p-1 ${
+                saved
+                  ? "text-[#FF453A] opacity-100"
+                  : "opacity-0 group-hover:opacity-100 text-muted hover:text-[#FF453A]"
+              }`}
+            >
+              <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden>
+                <path d="M7 12S1 8 1 4.5A3.5 3.5 0 017 2.1a3.5 3.5 0 016 2.4C13 8 7 12 7 12z"
+                  stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"
+                  fill={saved ? "currentColor" : "none"} />
+              </svg>
+            </button>
             {/* Share button */}
             <button
               onClick={handleShare}
               aria-label={copied ? "Link copiato" : "Copia link"}
               className={`opacity-0 group-hover:opacity-100 transition-all duration-200 rounded-lg p-1 -mr-0.5
-                ${copied ? "text-[#30D158]" : "text-muted hover:text-theme"}`}
+                ${copied ? "text-zinc-900 dark:text-zinc-100" : "text-muted hover:text-theme"}`}
             >
               {copied ? (
                 <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden>
@@ -209,5 +264,6 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
         </div>
       </div>
     </Link>
+    </div>
   );
 }
