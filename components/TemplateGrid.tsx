@@ -33,6 +33,22 @@ const SECTIONS: {
   { id: "notion-workspace", emoji: "📓", gradientFrom: "#1c1c1c", gradientTo: "#0f0f0f", ids: ["notion-project-hub", "notion-freelancer-crm", "notion-content-calendar", "notion-finance-tracker", "notion-second-brain", "notion-job-tracker", "notion-weekly-review", "notion-client-portal"] },
 ];
 
+// ── Thumbnail heights — varied to create real masonry rhythm ─────────────────
+// tall=176px  medium=140px  short=112px
+const THUMB_HEIGHTS: Record<string, number> = {
+  "professionals":     176,
+  "lifestyle-finance": 112,
+  "business":          152,
+  "startup":           176,
+  "creative":          112,
+  "copywriting-ai":    152,
+  "ai-productivity":   176,
+  "hospitality":       112,
+  "digital-product":   152,
+  "personal-brand":    176,
+  "notion-workspace":  112,
+};
+
 // ── Category cover images (Unsplash) ─────────────────────────────────────────
 
 const CATEGORY_IMAGES: Record<string, string> = {
@@ -79,13 +95,16 @@ function SkeletonCard() {
 
 // ── Category card thumbnail ───────────────────────────────────────────────────
 
-function CategoryThumbnail({ section }: { section: (typeof SECTIONS)[number] }) {
+function CategoryThumbnail({ section, thumbHeight }: { section: (typeof SECTIONS)[number]; thumbHeight: number }) {
   const imgSrc = CATEGORY_IMAGES[section.id];
 
   return (
     <div
-      className="relative h-36 overflow-hidden"
-      style={!imgSrc ? { background: `linear-gradient(135deg, ${section.gradientFrom}, ${section.gradientTo})` } : undefined}
+      className="relative overflow-hidden"
+      style={{
+        height: thumbHeight,
+        ...(!imgSrc ? { background: `linear-gradient(135deg, ${section.gradientFrom}, ${section.gradientTo})` } : {}),
+      }}
     >
       {imgSrc ? (
         <Image
@@ -136,6 +155,7 @@ function CategoryCard({
   lang: Lang;
   index: number;
 }) {
+  const thumbHeight = THUMB_HEIGHTS[section.id] ?? 140;
   const cardRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<number>(0);
   const sectionMeta = t[lang].sections[section.id as keyof typeof t[typeof lang]["sections"]];
@@ -176,10 +196,13 @@ function CategoryCard({
         <div className="absolute top-0 left-[8%] right-[8%] h-px pointer-events-none z-10" style={{ background: "var(--glass-top-edge)" }} />
 
         {/* Thumbnail */}
-        <CategoryThumbnail section={section} />
+        <CategoryThumbnail section={section} thumbHeight={thumbHeight} />
 
         {/* Hover CTA overlay — sits over the thumbnail */}
-        <div className="absolute top-0 left-0 right-0 h-36 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+        <div
+          className="absolute top-0 left-0 right-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"
+          style={{ height: thumbHeight }}
+        >
           <span className="bg-white/90 dark:bg-black/75 text-zinc-900 dark:text-zinc-100 text-[12px] font-bold px-3.5 py-1.5 rounded-xl shadow-sm backdrop-blur-sm">
             {lang === "it"
               ? `Vedi ${sectionTemplates.length} template →`
