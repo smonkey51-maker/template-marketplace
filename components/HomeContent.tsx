@@ -708,19 +708,19 @@ export default function HomeContent() {
             </NavDropdown>
             <Link
               href="/guide"
-              className="text-[14px] text-muted hover:text-theme transition-colors duration-200 px-3 py-1.5 rounded-xl hover:bg-card"
+              className="link-underline text-[14px] text-muted hover:text-theme transition-colors duration-200 px-3 py-1.5 rounded-xl hover:bg-card"
             >
               {t[lang].nav.guide}
             </Link>
             <Link
               href="/studio"
-              className="text-[14px] text-muted hover:text-theme transition-colors duration-200 px-3 py-1.5 rounded-xl hover:bg-card"
+              className="link-underline text-[14px] text-muted hover:text-theme transition-colors duration-200 px-3 py-1.5 rounded-xl hover:bg-card"
             >
               {t[lang].nav.studio}
             </Link>
             <Link
               href="/account"
-              className="text-[14px] text-muted hover:text-theme transition-colors duration-200 px-3 py-1.5 rounded-xl hover:bg-card"
+              className="link-underline text-[14px] text-muted hover:text-theme transition-colors duration-200 px-3 py-1.5 rounded-xl hover:bg-card"
             >
               {t[lang].nav.account}
             </Link>

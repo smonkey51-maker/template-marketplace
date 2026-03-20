@@ -1,12 +1,21 @@
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Syne } from "next/font/google";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import ThemeProvider from "@/components/ThemeProvider";
 import LanguageProvider from "@/components/LanguageProvider";
 import { PostHogProvider } from "@/components/PostHogProvider";
 import { ToastProvider } from "@/components/Toast";
 import MobileNav from "@/components/MobileNav";
+import CustomCursor from "@/components/CustomCursor";
 import "./globals.css";
+
+const syne = Syne({
+  subsets: ["latin"],
+  variable: "--font-syne",
+  weight: ["400", "600", "700", "800"],
+  display: "swap",
+});
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -49,8 +58,9 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="it" className="dark">
-        <body className={`${jakarta.variable} bg-page text-theme antialiased min-h-screen`}>
+      <html lang="it" className={`dark ${syne.variable} ${jakarta.variable}`}>
+        <body className="bg-page text-theme antialiased min-h-screen">
+          <CustomCursor />
           <PostHogProvider><ThemeProvider><LanguageProvider><ToastProvider>{children}<MobileNav /></ToastProvider></LanguageProvider></ThemeProvider></PostHogProvider>
         </body>
       </html>
