@@ -109,10 +109,9 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
       href={`/preview/${template.id}`}
       aria-label={displayName}
       className={`group relative glass-subtle rounded-[22px] overflow-hidden flex flex-col h-full
-        transition-all duration-300 ease-premium
-        hover:-translate-y-1
-        hover:shadow-[0_16px_48px_rgba(0,0,0,0.15),0_0_0_1px_rgba(10,132,255,0.15)]
-        active:scale-[0.98] active:opacity-90
+        card-tilt
+        hover:shadow-[0_16px_48px_rgba(0,0,0,0.18),0_0_0_1px_rgba(10,132,255,0.15)]
+        active:opacity-90
         ${isEditorsPick && !isPurchased ? "ring-1 ring-[#5E5CE6]/30" : isBestseller && !isPurchased ? "ring-1 ring-[#FF9F0A]/25" : ""}`}
     >
       {/* Editor's Pick badge (takes priority over bestseller) */}

@@ -54,13 +54,13 @@ export default function HomeContent() {
             TemplateLab
           </span>
           <div className="hidden sm:flex items-center gap-1">
-            <Link href="/guide" className="text-[14px] text-muted hover:text-theme transition-colors duration-200 px-3 py-1.5 rounded-xl hover:bg-card">
+            <Link href="/guide" className="link-underline text-[14px] text-muted hover:text-theme transition-colors duration-200 px-3 py-1.5 rounded-xl hover:bg-card">
               {t[lang].nav.guide}
             </Link>
-            <Link href="/studio" className="text-[14px] text-muted hover:text-theme transition-colors duration-200 px-3 py-1.5 rounded-xl hover:bg-card">
+            <Link href="/studio" className="link-underline text-[14px] text-muted hover:text-theme transition-colors duration-200 px-3 py-1.5 rounded-xl hover:bg-card">
               {t[lang].nav.studio}
             </Link>
-            <Link href="/account" className="text-[14px] text-muted hover:text-theme transition-colors duration-200 px-3 py-1.5 rounded-xl hover:bg-card">
+            <Link href="/account" className="link-underline text-[14px] text-muted hover:text-theme transition-colors duration-200 px-3 py-1.5 rounded-xl hover:bg-card">
               {t[lang].nav.account}
             </Link>
           </div>
@@ -69,10 +69,25 @@ export default function HomeContent() {
       </nav>
 
       {/* ── Hero ── */}
-      <section className="relative z-10 px-4 sm:px-6 pt-16 pb-10 sm:pt-24 sm:pb-16 text-center max-w-2xl mx-auto">
+      <section className="relative z-10 px-4 sm:px-6 pt-16 pb-10 sm:pt-24 sm:pb-16 max-w-5xl mx-auto">
+
+        {/* Decorative background number */}
+        <div
+          aria-hidden
+          className="absolute top-4 right-0 sm:right-4 select-none pointer-events-none font-black leading-none"
+          style={{
+            fontSize: "clamp(7rem, 22vw, 18rem)",
+            color: "var(--accent)",
+            opacity: 0.04,
+            fontFamily: "var(--font-syne), system-ui, sans-serif",
+            letterSpacing: "-0.06em",
+          }}
+        >
+          TL
+        </div>
 
         {/* Badge */}
-        <div className="anim-fade-up delay-0 inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-semibold glass-subtle text-[#0A84FF] mb-6 select-none">
+        <div className="anim-fade-up delay-0 inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-semibold glass-subtle text-[#0A84FF] mb-7 select-none">
           <span className="relative flex h-1.5 w-1.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0A84FF] opacity-50" />
             <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#0A84FF]" />
@@ -80,11 +95,16 @@ export default function HomeContent() {
           {t[lang].hero.badge}
         </div>
 
-        {/* Heading */}
-        <h1 className="anim-fade-up delay-75 text-[2rem] sm:text-[3rem] md:text-[3.6rem] font-black leading-[1.06] tracking-[-0.03em] mb-4 text-theme">
+        {/* Heading — left-aligned, editorial scale */}
+        <h1
+          className="anim-fade-up delay-75 font-black leading-[1.02] tracking-[-0.04em] mb-5 text-theme"
+          style={{ fontSize: "clamp(2.8rem, 6.5vw, 6rem)" }}
+        >
           {t[lang].hero.titleStart}{" "}
-          <span className="bg-clip-text text-transparent"
-            style={{ backgroundImage: "linear-gradient(135deg, #0A84FF 0%, #5E5CE6 100%)" }}>
+          <span
+            className="bg-clip-text text-transparent"
+            style={{ backgroundImage: "linear-gradient(135deg, #F5C842 0%, #0A84FF 55%, #5E5CE6 100%)" }}
+          >
             {t[lang].hero.titleGradient.split("\n").map((line, i, arr) => (
               <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
             ))}
@@ -92,39 +112,45 @@ export default function HomeContent() {
           {t[lang].hero.titleEnd}
         </h1>
 
-        {/* Subtitle */}
-        <p className="anim-fade-up delay-150 text-[15px] sm:text-[16px] text-muted max-w-lg mx-auto mb-8 leading-relaxed">
-          {t[lang].hero.subtitle}
-        </p>
+        {/* Subtitle + CTAs side by side on md+ */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <p className="anim-fade-up delay-150 text-[15px] sm:text-[17px] text-muted max-w-md leading-relaxed">
+            {t[lang].hero.subtitle}
+          </p>
 
-        {/* CTAs */}
-        <div className="anim-fade-up delay-225 flex flex-col sm:flex-row gap-3 justify-center">
-          <a href="#browse"
-            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-[#0A84FF] hover:bg-[#409CFF] rounded-2xl font-bold text-white text-[15px] btn-glow-blue active:scale-[0.96] ios-spring shadow-[0_4px_20px_rgba(10,132,255,0.3)]">
-            {t[lang].hero.cta1}
-            <svg width="13" height="13" viewBox="0 0 14 14" fill="none" className="shrink-0 opacity-80">
-              <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </a>
-          <Link href="/studio"
-            className="px-7 py-3.5 glass-subtle rounded-2xl font-bold text-[15px] text-theme hover:border-[#0A84FF]/30 active:scale-[0.96] ios-spring transition-all duration-300">
-            {t[lang].hero.cta2}
-          </Link>
+          {/* CTAs */}
+          <div className="anim-fade-up delay-225 flex flex-col sm:flex-row gap-3 shrink-0">
+            <a
+              href="#browse"
+              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-[#0A84FF] hover:bg-[#409CFF] rounded-2xl font-bold text-white text-[15px] btn-glow-blue active:scale-[0.96] ios-spring shadow-[0_4px_20px_rgba(10,132,255,0.3)]"
+            >
+              {t[lang].hero.cta1}
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" className="shrink-0 opacity-80">
+                <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </a>
+            <Link
+              href="/studio"
+              className="px-7 py-3.5 glass-subtle rounded-2xl font-bold text-[15px] text-theme hover:border-[#0A84FF]/30 active:scale-[0.96] ios-spring transition-all duration-300"
+            >
+              {t[lang].hero.cta2}
+            </Link>
+          </div>
         </div>
 
-        {/* Trust stats */}
-        <div className="anim-fade-up delay-300 flex items-center justify-center gap-0 mt-7 text-[12px] text-muted">
-          <span className="flex items-center gap-1.5 px-3.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#0A84FF] shrink-0" />
+        {/* Trust stats — left-aligned row */}
+        <div className="anim-fade-up delay-300 flex flex-wrap items-center gap-0 mt-8 text-[12px] text-muted">
+          <span className="flex items-center gap-1.5 pr-4">
+            <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "var(--accent)" }} />
             {animatedTemplates} {t[lang].hero.statTemplates}
           </span>
           <span className="w-px h-3 bg-theme/25 shrink-0" />
-          <span className="flex items-center gap-1.5 px-3.5">
+          <span className="flex items-center gap-1.5 px-4">
             <span className="w-1.5 h-1.5 rounded-full bg-[#30D158] shrink-0" />
             {animatedDownloads.toLocaleString(lang === "it" ? "it-IT" : "en-US")}+ {t[lang].hero.statDownloads}
           </span>
           <span className="w-px h-3 bg-theme/25 shrink-0" />
-          <span className="flex items-center gap-1.5 px-3.5">
+          <span className="flex items-center gap-1.5 pl-4">
             <span className="w-1.5 h-1.5 rounded-full bg-[#5E5CE6] shrink-0" />
             {t[lang].hero.statPayment}
           </span>
