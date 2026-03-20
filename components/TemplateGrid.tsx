@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import Image from "next/image";
+import Masonry from "react-masonry-css";
 import { templates, Template } from "@/lib/templates";
 import TemplateCard from "@/components/TemplateCard";
 import StudioAccessButton from "@/components/StudioAccessButton";
@@ -49,6 +50,8 @@ const CATEGORY_IMAGES: Record<string, string> = {
 };
 
 const byId = Object.fromEntries(templates.map((tmpl) => [tmpl.id, tmpl]));
+
+const MASONRY_BREAKPOINTS = { default: 3, 1024: 2, 640: 1 };
 
 // ── Utilities ────────────────────────────────────────────────────────────────
 
@@ -342,7 +345,12 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
               <p className="text-[13px] text-muted font-medium px-1">
                 {t[lang].search.found.replace("{{n}}", String(searchResults.length))}
               </p>
-              <div key={animKey} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+              <Masonry
+                key={animKey}
+                breakpointCols={MASONRY_BREAKPOINTS}
+                className="masonry-grid"
+                columnClassName="masonry-grid__col"
+              >
                 {loading
                   ? Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)
                   : searchResults.slice(0, visibleCount).map((tmpl, i) => (
@@ -350,7 +358,7 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
                         <TemplateCard template={tmpl} purchasedIds={purchasedIds} onQuickView={handleQuickView} />
                       </div>
                     ))}
-              </div>
+              </Masonry>
               {!loading && searchResults.length > visibleCount && (
                 <div className="flex justify-center mt-6">
                   <button
@@ -401,7 +409,12 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
           </div>
 
           {/* Template cards */}
-          <div key={animKey} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+          <Masonry
+            key={animKey}
+            breakpointCols={MASONRY_BREAKPOINTS}
+            className="masonry-grid"
+            columnClassName="masonry-grid__col"
+          >
             {loading
               ? Array.from({ length: openSectionTemplates.length || 3 }).map((_, i) => <SkeletonCard key={i} />)
               : openSectionTemplates.map((tmpl, i) => (
@@ -409,7 +422,7 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
                     <TemplateCard template={tmpl} purchasedIds={purchasedIds} onQuickView={handleQuickView} />
                   </div>
                 ))}
-          </div>
+          </Masonry>
         </div>
       )}
 
@@ -451,7 +464,11 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
             <div className="flex-1 h-px bg-zinc-200 dark:bg-zinc-800" />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+          <Masonry
+            breakpointCols={MASONRY_BREAKPOINTS}
+            className="masonry-grid"
+            columnClassName="masonry-grid__col"
+          >
             {SECTIONS.map((section, i) => {
               const sectionTemplates = section.ids.map((id) => byId[id]).filter(Boolean) as Template[];
               if (sectionTemplates.length === 0) return null;
@@ -466,7 +483,7 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
                 />
               );
             })}
-          </div>
+          </Masonry>
         </div>
       )}
 
