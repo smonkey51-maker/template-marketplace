@@ -585,3 +585,51 @@ body::after {
   .btn-loading::after { animation: none; }
   .dots-loading span  { animation: none; opacity: 0.5; }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   SPLIT-FLAP DIGIT
+   ═══════════════════════════════════════════════════════════ */
+.split-flap-char {
+  display: inline-block;
+  animation: flap 0.1s cubic-bezier(0.4, 0, 0.6, 1);
+}
+@keyframes flap {
+  0%   { transform: scaleY(0); opacity: 0; }
+  60%  { transform: scaleY(1.06); }
+  100% { transform: scaleY(1); opacity: 1; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SCROLL REVEAL
+   ═══════════════════════════════════════════════════════════ */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.scroll-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CURSOR TRAIL
+   ═══════════════════════════════════════════════════════════ */
+@media (hover: hover) and (pointer: fine) {
+  .cursor-trail {
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 999990;
+    will-change: transform;
+    background: var(--accent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .split-flap-char { animation: none; }
+  .scroll-reveal    { opacity: 1; transform: none; transition: none; }
+}
