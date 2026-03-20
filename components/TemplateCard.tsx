@@ -139,7 +139,7 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="group relative rounded-2xl h-full"
+      className="group relative rounded-2xl h-full transition-[transform,box-shadow] duration-150 hover:-translate-y-0.5 hover:shadow-lg"
       style={{ willChange: 'transform' }}
     >
     <Link
@@ -181,7 +181,7 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
           : <PromptThumbnail template={template} isPurchased={isPurchased} lang={lang} />
         }
         {/* Hover CTA overlay */}
-        <div className="absolute inset-0 flex items-end justify-center pb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+        <div className="absolute inset-0 flex items-end justify-center pb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-100 pointer-events-none">
           <span className="bg-white/90 dark:bg-black/80 text-zinc-900 dark:text-zinc-100 text-[12px] font-bold px-4 py-2 rounded-xl shadow-sm">
             {lang === "it" ? "Anteprima rapida →" : "Quick preview →"}
           </span>
@@ -201,7 +201,7 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
         </div>
 
         {/* Name */}
-        <h3 className="text-[14px] font-semibold text-zinc-900 dark:text-zinc-100 leading-snug group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors duration-200 mb-1">
+        <h3 className="text-[14px] font-semibold text-zinc-900 dark:text-zinc-100 leading-snug group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors duration-100 mb-1">
           {displayName}
         </h3>
 
@@ -224,7 +224,7 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
             <button
               onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggle(template.id); }}
               aria-label={saved ? (lang === "it" ? "Rimuovi dai salvati" : "Remove from saved") : (lang === "it" ? "Salva" : "Save")}
-              className={`transition-all duration-200 rounded-lg p-1 ${
+              className={`transition-all duration-100 rounded-lg p-1 ${
                 saved
                   ? "text-[#FF453A] opacity-100"
                   : "opacity-0 group-hover:opacity-100 text-muted hover:text-[#FF453A]"
@@ -240,7 +240,7 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
             <button
               onClick={handleShare}
               aria-label={copied ? "Link copiato" : "Copia link"}
-              className={`opacity-0 group-hover:opacity-100 transition-all duration-200 rounded-lg p-1 -mr-0.5
+              className={`opacity-0 group-hover:opacity-100 transition-all duration-100 rounded-lg p-1 -mr-0.5
                 ${copied ? "text-zinc-900 dark:text-zinc-100" : "text-muted hover:text-theme"}`}
             >
               {copied ? (
@@ -257,7 +257,7 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
               )}
             </button>
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden
-              className="text-muted opacity-0 group-hover:opacity-60 transition-opacity duration-200 group-hover:translate-x-0.5 transition-transform">
+              className="text-muted opacity-0 group-hover:opacity-60 transition-opacity duration-100 group-hover:translate-x-0.5 transition-transform">
               <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </div>

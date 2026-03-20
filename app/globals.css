@@ -72,8 +72,8 @@ html {
   text-rendering: optimizeLegibility;
   background-color: var(--bg);
   color: var(--text);
-  transition: background-color 0.35s cubic-bezier(0.4,0,0.2,1),
-              color 0.35s cubic-bezier(0.4,0,0.2,1);
+  transition: background-color 0.22s cubic-bezier(0.4,0,0.2,1),
+              color 0.22s cubic-bezier(0.4,0,0.2,1);
 }
 
 /* Display font for headings */
@@ -148,8 +148,8 @@ html::-webkit-scrollbar-track {
 
   /* ── Surface utilities ── */
   .glass {
-    backdrop-filter: blur(44px) saturate(180%) brightness(var(--glass-bright));
-    -webkit-backdrop-filter: blur(44px) saturate(180%) brightness(var(--glass-bright));
+    backdrop-filter: blur(16px) saturate(160%) brightness(var(--glass-bright));
+    -webkit-backdrop-filter: blur(16px) saturate(160%) brightness(var(--glass-bright));
     background: var(--glass-fill);
     box-shadow: var(--glass-shadow);
     border: 1px solid var(--glass-stroke);
@@ -169,13 +169,13 @@ html::-webkit-scrollbar-track {
 
   /* ── Entrance animations ───────────────── */
   .anim-fade-up {
-    animation: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: fade-up 0.36s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
   .anim-fade-in {
-    animation: fade-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: fade-in 0.24s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
   .anim-scale-in {
-    animation: scale-in 0.45s cubic-bezier(0.34, 1.36, 0.64, 1) both;
+    animation: scale-in 0.28s cubic-bezier(0.34, 1.20, 0.64, 1) both;
   }
 
   /* Delay helpers */
@@ -188,10 +188,10 @@ html::-webkit-scrollbar-track {
 
   /* ── Sheet / modal ─────────────────────── */
   .sheet-enter {
-    animation: sheet-up 0.48s cubic-bezier(0.32, 1.20, 0.64, 1) both;
+    animation: sheet-up 0.32s cubic-bezier(0.32, 1.10, 0.64, 1) both;
   }
   .modal-enter {
-    animation: modal-in 0.36s cubic-bezier(0.32, 1.20, 0.64, 1) both;
+    animation: modal-in 0.26s cubic-bezier(0.32, 1.10, 0.64, 1) both;
   }
 
   /* ── Button base (glow removed) ────────── */
@@ -224,7 +224,7 @@ html::-webkit-scrollbar-track {
    KEYFRAMES
    ═══════════════════════════════════════════════════════════ */
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(28px); }
+  from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
@@ -234,7 +234,7 @@ html::-webkit-scrollbar-track {
 }
 
 @keyframes scale-in {
-  from { opacity: 0; transform: scale(0.90); }
+  from { opacity: 0; transform: scale(0.95); }
   to   { opacity: 1; transform: scale(1); }
 }
 
@@ -244,8 +244,8 @@ html::-webkit-scrollbar-track {
 }
 
 @keyframes modal-in {
-  from { transform: scale(0.88) translateY(16px); opacity: 0; }
-  to   { transform: scale(1)    translateY(0);    opacity: 1; }
+  from { transform: scale(0.96) translateY(8px); opacity: 0; }
+  to   { transform: scale(1)    translateY(0);   opacity: 1; }
 }
 
 @keyframes border-spin {
@@ -483,9 +483,9 @@ body::after {
 }
 
 @layer utilities {
-  .anim-drill-in   { animation: drill-in  0.30s cubic-bezier(0.22, 1, 0.36, 1) both; }
-  .anim-drill-back { animation: drill-back 0.30s cubic-bezier(0.22, 1, 0.36, 1) both; }
-  .anim-page-enter { animation: page-enter 0.40s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .anim-drill-in   { animation: drill-in  0.22s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .anim-drill-back { animation: drill-back 0.22s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .anim-page-enter { animation: page-enter 0.30s cubic-bezier(0.22, 1, 0.36, 1) both; }
 
   /* Ripple dot (appended via JS) */
   .ripple-dot {
@@ -604,9 +604,9 @@ body::after {
    ═══════════════════════════════════════════════════════════ */
 .scroll-reveal {
   opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(10px);
+  transition: opacity 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .scroll-reveal.visible {
   opacity: 1;
