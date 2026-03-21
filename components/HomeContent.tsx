@@ -1090,36 +1090,6 @@ export default function HomeContent() {
         <TemplateGrid externalQuery={query} />
       </div>
 
-      {/* ── Stats bar ── */}
-      <div
-        className="relative z-10 border-t border-b grid grid-cols-1 sm:grid-cols-3"
-        style={{ borderColor: "var(--border)", background: "var(--surface)" }}
-      >
-        {[
-          { num: countedTemplates.toString(), label: lang === "it" ? "template\ndisponibili" : "templates\navailable" },
-          { num: "12k+",                      label: lang === "it" ? "download\ncompleti"      : "completed\ndownloads" },
-          { num: "Claude AI",                  label: lang === "it" ? "personalizzazione\nistantanea" : "instant\ncustomization" },
-        ].map((stat, i) => (
-          <div
-            key={i}
-            className="flex items-center gap-4 px-8 py-6 border-b sm:border-b-0"
-            style={{ borderColor: "var(--border)", borderRight: i < 2 ? "1px solid var(--border)" : "none" }}
-          >
-            <span
-              className="text-[36px] sm:text-[40px] italic leading-none"
-              style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--text)" }}
-            >
-              {stat.num}
-            </span>
-            <span
-              className="text-[11px] leading-[1.5] font-light whitespace-pre-line"
-              style={{ color: "var(--muted)" }}
-            >
-              {stat.label}
-            </span>
-          </div>
-        ))}
-      </div>
 
 
       {/* ── Testimonials — da aggiungere quando ci saranno utenti reali ── */}
