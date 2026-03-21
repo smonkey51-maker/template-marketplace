@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-page px-4 sm:px-6 py-16 max-w-2xl mx-auto">
-      <Link href="/" className="text-[14px] text-[#0A84FF] font-semibold mb-8 inline-block hover:opacity-80 transition-opacity">
+      <Link href="/" className="text-[14px] font-semibold" style={{ color: "var(--accent)" }} mb-8 inline-block hover:opacity-80 transition-opacity">
         ← TemplateLab
       </Link>
       <h1 className="text-[28px] font-black text-theme mb-2">Privacy Policy</h1>

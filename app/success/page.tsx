@@ -63,8 +63,8 @@ function SuccessContent() {
 
       {/* Success icon */}
       <div className="flex justify-center mb-6">
-        <div className="w-20 h-20 rounded-full bg-[#30D158]/15 flex items-center justify-center">
-          <span className="text-[#30D158] text-[32px] font-bold">✓</span>
+        <div className="w-20 h-20 rounded-full bg-accent/15 flex items-center justify-center">
+          <span className="text-[32px] font-bold" style={{ color: "var(--accent)" }}>✓</span>
         </div>
       </div>
 
@@ -81,7 +81,8 @@ function SuccessContent() {
           </p>
           <Link
             href="/studio"
-            className="block w-full px-6 py-3.5 bg-[#5E5CE6] hover:bg-[#7B79F7] rounded-2xl font-bold text-[15px] text-white transition-all duration-200 active:scale-[0.97] ios-spring shadow-[0_4px_20px_rgba(94,92,230,0.25)]"
+            className="block w-full px-6 py-3.5 rounded-2xl font-bold text-[15px] transition-colors duration-200 active:scale-[0.97] ios-spring"
+            style={{ background: "var(--accent)", color: "var(--bg)" }}
           >
             {t[lang].success.openStudio}
           </Link>
@@ -103,7 +104,8 @@ function SuccessContent() {
               <>
                 <a
                   href={`/api/download-session?session_id=${sessionId}&templateId=${template.id}&lang=${lang}`}
-                  className="block w-full px-6 py-3.5 bg-[#30D158] hover:bg-[#34E55F] rounded-2xl font-bold text-[15px] text-white text-center transition-all duration-200 active:scale-[0.97] ios-spring shadow-[0_4px_20px_rgba(48,209,88,0.25)]"
+                  className="block w-full px-6 py-3.5 rounded-2xl font-bold text-[15px] text-center transition-colors duration-200 active:scale-[0.97] ios-spring"
+                  style={{ background: "var(--accent)", color: "var(--bg)" }}
                 >
                   {lang === "it" ? "⬇ Scarica il template" : "⬇ Download template"}
                 </a>
@@ -115,7 +117,8 @@ function SuccessContent() {
                   </p>
                   <Link
                     href={`/sign-up?redirect_url=/studio?templateId=${template.id}`}
-                    className="block w-full px-6 py-3 bg-[#5E5CE6] hover:bg-[#7B79F7] rounded-2xl font-bold text-[14px] text-white text-center transition-all duration-200 active:scale-[0.97] ios-spring"
+                    className="block w-full px-6 py-3 rounded-2xl font-bold text-[14px] text-center transition-colors duration-200 active:scale-[0.97] ios-spring"
+                    style={{ background: "var(--accent)", color: "var(--bg)" }}
                   >
                     {lang === "it" ? "Crea account gratuito →" : "Create free account →"}
                   </Link>
@@ -126,7 +129,8 @@ function SuccessContent() {
             {isSignedIn && template && (
               <Link
                 href={`/studio?templateId=${template.id}`}
-                className="block w-full px-6 py-3.5 bg-[#5E5CE6] hover:bg-[#7B79F7] rounded-2xl font-bold text-[15px] text-white transition-all duration-200 active:scale-[0.97] ios-spring shadow-[0_4px_20px_rgba(94,92,230,0.25)]"
+                className="block w-full px-6 py-3.5 rounded-2xl font-bold text-[15px] transition-colors duration-200 active:scale-[0.97] ios-spring"
+                style={{ background: "var(--accent)", color: "var(--bg)" }}
               >
                 {t[lang].success.customizeStudio}
               </Link>
@@ -156,7 +160,7 @@ export default function SuccessPage() {
 
       <Suspense fallback={
         <div className="relative z-10 bg-surface border border-theme rounded-[32px] p-8 max-w-sm w-full mx-auto text-center">
-          <div className="w-8 h-8 rounded-full border-2 border-[#0A84FF] border-t-transparent animate-spin mx-auto" />
+          <div className="w-8 h-8 rounded-full border-2 border-t-transparent animate-spin mx-auto" style={{ borderColor: "var(--accent)", borderTopColor: "transparent" }} />
         </div>
       }>
         <SuccessContent />

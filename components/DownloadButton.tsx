@@ -237,7 +237,7 @@ export default function DownloadButton({
       <button
         onClick={handleClick}
         disabled={loading}
-        className="flex items-center justify-center gap-2 w-full glass-subtle border border-theme rounded-2xl px-6 py-3 text-[14px] font-semibold text-theme hover:border-[#0A84FF]/40 hover:text-[#0A84FF] transition-all duration-200 active:scale-[0.97] ios-spring disabled:opacity-50"
+        className="flex items-center justify-center gap-2 w-full glass-subtle border border-theme rounded-2xl px-6 py-3 text-[14px] font-semibold text-theme hover:border-accent/40 hover:text-accent transition-all duration-200 active:scale-[0.97] ios-spring disabled:opacity-50"
       >
         {loading ? (
           <span className="w-4 h-4 border-2 border-muted border-t-transparent rounded-full animate-spin" />
