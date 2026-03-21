@@ -14,7 +14,7 @@ function PromptThumbnail({ template, isPurchased, lang }: { template: Template; 
   const parts = preview.split(/({{[^}]+}})/g);
   return (
     <div className="relative h-48 overflow-hidden bg-gradient-to-br from-[#1C1C1E] to-[#2C2C2E] p-3 flex items-start">
-      <div className="w-full bg-[#FFFEF7] rounded-xl shadow-lg p-3 overflow-hidden">
+      <div className="w-full bg-[#FFFEF7] rounded-none shadow-lg p-3 overflow-hidden">
         <div className="flex items-center gap-1.5 mb-2">
           <div className="w-2 h-2 rounded-full bg-[#FF5F57]" />
           <div className="w-2 h-2 rounded-full bg-[#FFBD2E]" />
@@ -74,7 +74,7 @@ function UIThumbnail({ template, isPurchased, lang }: { template: Template; isPu
 
 function PurchasedBadge({ lang }: { lang: Lang }) {
   return (
-    <span className="absolute bottom-3 left-3 z-10 flex items-center gap-1 bg-emerald-500/90 text-white rounded-full px-2.5 py-1 text-[11px] font-semibold shadow-sm backdrop-blur-sm">
+    <span className="absolute bottom-3 left-3 z-10 flex items-center gap-1 bg-emerald-500/90 text-white rounded-none px-2.5 py-1 text-[11px] font-semibold shadow-sm backdrop-blur-sm">
       <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden>
         <path d="M2 6l2.8 3 5.2-5" stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
@@ -193,7 +193,7 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
         }
         {/* Hover CTA overlay */}
         <div className="absolute inset-0 flex items-end justify-center pb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-100 pointer-events-none">
-          <span className="text-[12px] font-bold px-4 py-2 rounded-xl shadow-sm"
+          <span className="text-[12px] font-bold px-4 py-2 rounded-none shadow-sm"
             style={{ background: "var(--surface-2)", color: "var(--text)", backdropFilter: "blur(8px)" }}>
             {lang === "it" ? "Anteprima rapida →" : "Quick preview →"}
           </span>

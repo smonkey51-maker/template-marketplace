@@ -110,7 +110,7 @@ function TestimonialCard({
   lang: "it" | "en";
 }) {
   return (
-    <div className="glass-subtle rounded-2xl p-5 flex flex-col gap-3.5">
+    <div className="glass-subtle rounded-none p-5 flex flex-col gap-3.5">
       {/* Stars */}
       <div className="flex gap-0.5">
         {Array.from({ length: testimonial.rating }).map((_, i) => (
@@ -144,7 +144,7 @@ function TestimonialCard({
 function TemplatesDropdown({ lang }: { lang: "it" | "en" }) {
   return (
     <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-50 w-[580px] max-w-[calc(100vw-2rem)]">
-      <div className="border border-theme rounded-2xl shadow-2xl overflow-hidden" style={{ background: "var(--bg)" }}>
+      <div className="border border-theme rounded-none shadow-2xl overflow-hidden" style={{ background: "var(--bg)" }}>
         <div className="grid grid-cols-[180px_1fr]">
           {/* Left: steps */}
           <div className="p-4" style={{ background: "var(--surface)", borderRight: "1px solid var(--border)" }}>
@@ -153,8 +153,8 @@ function TemplatesDropdown({ lang }: { lang: "it" | "en" }) {
             </p>
             <div className="flex flex-col gap-1">
               {STEPS.map((s) => (
-                <div key={s.n} className="flex items-start gap-2.5 px-2 py-2.5 rounded-xl">
-                  <div className="w-7 h-7 rounded-lg flex items-center justify-center text-sm flex-shrink-0 shadow-sm border"
+                <div key={s.n} className="flex items-start gap-2.5 px-2 py-2.5 rounded-none">
+                  <div className="w-7 h-7 rounded-none flex items-center justify-center text-sm flex-shrink-0 shadow-sm border"
                     style={{ background: "var(--card-bg)", borderColor: "var(--border)" }}>
                     {s.icon}
                   </div>
@@ -188,7 +188,7 @@ function TemplatesDropdown({ lang }: { lang: "it" | "en" }) {
                       browse?.scrollIntoView({ behavior: "smooth" });
                     }
                   }}
-                  className="flex items-center gap-2 px-2.5 py-2 rounded-xl text-left transition-colors"
+                  className="flex items-center gap-2 px-2.5 py-2 rounded-none text-left transition-colors"
                   onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "var(--surface)")}
                   onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "transparent")}
                 >
@@ -222,7 +222,7 @@ function TemplatesDropdown({ lang }: { lang: "it" | "en" }) {
 function BundlesDropdown({ lang, purchasedIds }: { lang: "it" | "en"; purchasedIds: string[] }) {
   return (
     <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-50 w-[440px] max-w-[calc(100vw-2rem)]">
-      <div className="border border-theme rounded-2xl shadow-2xl overflow-hidden" style={{ background: "var(--bg)" }}>
+      <div className="border border-theme rounded-none shadow-2xl overflow-hidden" style={{ background: "var(--bg)" }}>
         <div className="p-3">
           <p className="text-[9px] font-black uppercase tracking-[0.2em] mb-2 px-2" style={{ color: "var(--muted)" }}>
             {lang === "it" ? "Bundle — risparmia fino al 55%" : "Bundles — save up to 55%"}
@@ -235,11 +235,11 @@ function BundlesDropdown({ lang, purchasedIds }: { lang: "it" | "en"; purchasedI
                 <Link
                   key={bundle.id}
                   href={`/bundle/${bundle.id}`}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors group cursor-pointer"
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-none transition-colors group cursor-pointer"
                   onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.background = "var(--surface)")}
                   onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.background = "transparent")}
                 >
-                  <div className="w-8 h-8 rounded-xl flex items-center justify-center text-base flex-shrink-0"
+                  <div className="w-8 h-8 rounded-none flex items-center justify-center text-base flex-shrink-0"
                     style={{ background: "var(--accent-bg)", color: "var(--accent)" }}>
                     {bundle.emoji}
                   </div>
@@ -299,7 +299,7 @@ function NavDropdown({
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen((o) => !o)}
-        className={`flex items-center gap-1 text-[14px] px-3 py-1.5 rounded-xl transition-colors duration-200 ${
+        className={`flex items-center gap-1 text-[14px] px-3 py-1.5 rounded-none transition-colors duration-200 ${
           open
             ? "bg-surface text-theme"
             : "text-muted hover:text-theme hover:bg-card"
@@ -382,7 +382,7 @@ function BundleScrollCard({ bundle, purchasedIds, onBuy, lang }: {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onClick={() => router.push(`/bundle/${bundle.id}`)}
-      className="flex-shrink-0 w-[290px] sm:w-[330px] rounded-[24px] overflow-hidden cursor-pointer flex flex-col"
+      className="flex-shrink-0 w-[290px] sm:w-[330px] rounded-none overflow-hidden cursor-pointer flex flex-col"
       style={{ scrollSnapAlign: "start", willChange: "transform", background: g.bg, boxShadow: `0 8px 40px rgba(${g.glow},0.18), 0 2px 10px rgba(0,0,0,0.4)` }}
     >
       {/* Card body */}
@@ -390,7 +390,7 @@ function BundleScrollCard({ bundle, purchasedIds, onBuy, lang }: {
         {/* Glow spot */}
         <div className="absolute top-0 right-0 w-40 h-40 rounded-full pointer-events-none" style={{ background: `radial-gradient(circle, rgba(${g.glow},0.18) 0%, transparent 70%)`, transform: "translate(30%,-30%)" }} />
         {/* Discount badge */}
-        <span className="absolute top-4 right-4 text-[11px] font-black rounded-full px-2.5 py-1 border" style={{ background: g.badgeBg, color: g.accent, borderColor: `rgba(${g.glow},0.4)` }}>
+        <span className="absolute top-4 right-4 text-[11px] font-black rounded-none px-2.5 py-1 border" style={{ background: g.badgeBg, color: g.accent, borderColor: `rgba(${g.glow},0.4)` }}>
           –{savingsPct}%
         </span>
         {/* Emoji */}
@@ -401,7 +401,7 @@ function BundleScrollCard({ bundle, purchasedIds, onBuy, lang }: {
         {/* Template count chips */}
         <div className="flex items-center gap-1.5 mt-4 flex-wrap">
           {Array.from({ length: Math.min(bundle.templateIds.length, 5) }).map((_, i) => (
-            <div key={i} className="w-6 h-6 rounded-full border border-white/15 bg-white/8 flex items-center justify-center text-[9px] text-white/50 font-bold">{i + 1}</div>
+            <div key={i} className="w-6 h-6 rounded-none border border-white/15 bg-white/8 flex items-center justify-center text-[9px] text-white/50 font-bold">{i + 1}</div>
           ))}
           <span className="text-[11px] text-white/35 ml-0.5">{bundle.templateIds.length} template</span>
         </div>
@@ -420,14 +420,14 @@ function BundleScrollCard({ bundle, purchasedIds, onBuy, lang }: {
           </p>
         </div>
         {isOwned ? (
-          <div className="w-full py-2.5 rounded-2xl text-center text-[13px] font-bold text-white/40 bg-white/5 border border-white/10">
+          <div className="w-full py-2.5 rounded-none text-center text-[13px] font-bold text-white/40 bg-white/5 border border-white/10">
             {lang === "it" ? "✓ Già acquistato" : "✓ Already owned"}
           </div>
         ) : (
           <button
             onClick={async (e) => { e.stopPropagation(); setLoading(true); try { await onBuy(bundle.id); } finally { setLoading(false); } }}
             disabled={loading}
-            className="w-full py-2.5 rounded-2xl text-[13px] font-bold text-white transition-opacity duration-200 active:scale-[0.97] disabled:opacity-50 border"
+            className="w-full py-2.5 rounded-none text-[13px] font-bold text-white transition-opacity duration-200 active:scale-[0.97] disabled:opacity-50 border"
             style={{ background: `rgba(${g.glow},0.3)`, borderColor: `rgba(${g.glow},0.5)` }}
           >
             {loading ? "…" : lang === "it" ? `Acquista — ${formatPrice(bundle.price)}` : `Buy — ${formatPrice(bundle.price)}`}
@@ -474,10 +474,10 @@ function BundleShowcase({ lang, purchasedIds, onBuy }: { lang: "it" | "en"; purc
           </p>
         </div>
         <div className="hidden sm:flex items-center gap-2 shrink-0">
-          <button onClick={() => scroll("prev")} aria-label="Precedente" className="w-9 h-9 flex items-center justify-center rounded-xl border border-theme bg-card hover:bg-surface text-muted hover:text-theme transition-colors">
+          <button onClick={() => scroll("prev")} aria-label="Precedente" className="w-9 h-9 flex items-center justify-center rounded-none border border-theme bg-card hover:bg-surface text-muted hover:text-theme transition-colors">
             <svg width="7" height="12" viewBox="0 0 7 12" fill="none"><path d="M6 1L1 6l5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
           </button>
-          <button onClick={() => scroll("next")} aria-label="Successivo" className="w-9 h-9 flex items-center justify-center rounded-xl border border-theme bg-card hover:bg-surface text-muted hover:text-theme transition-colors">
+          <button onClick={() => scroll("next")} aria-label="Successivo" className="w-9 h-9 flex items-center justify-center rounded-none border border-theme bg-card hover:bg-surface text-muted hover:text-theme transition-colors">
             <svg width="7" height="12" viewBox="0 0 7 12" fill="none"><path d="M1 1l5 5-5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
           </button>
         </div>
@@ -566,7 +566,7 @@ function MarqueeCard({ tmpl, lang }: { tmpl: Template; lang: "it" | "en" }) {
   return (
     <Link
       href={`/preview/${tmpl.id}`}
-      className={`flex-shrink-0 w-[200px] h-[120px] rounded-[14px] bg-gradient-to-br ${grad} overflow-hidden relative group cursor-pointer`}
+      className={`flex-shrink-0 w-[200px] h-[120px] rounded-none bg-gradient-to-br ${grad} overflow-hidden relative group cursor-pointer`}
       style={{ boxShadow: "0 4px 16px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.07)" }}
       tabIndex={-1}
     >
@@ -783,7 +783,7 @@ export default function HomeContent() {
           </span>
           <button
             onClick={() => setMobileMenuOpen(false)}
-            className="w-8 h-8 flex items-center justify-center rounded-xl text-muted hover:text-theme hover:bg-card transition-colors"
+            className="w-8 h-8 flex items-center justify-center rounded-none text-muted hover:text-theme hover:bg-card transition-colors"
             aria-label="Close menu"
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -810,7 +810,7 @@ export default function HomeContent() {
                 }
               }}
               placeholder={lang === "it" ? "Cerca template…" : "Search templates…"}
-              className="w-full bg-input border border-theme rounded-xl pl-9 pr-3 py-2.5 text-[14px] text-theme placeholder:text-muted outline-none focus:border-accent transition-colors"
+              className="w-full bg-input border border-theme rounded-none pl-9 pr-3 py-2.5 text-[14px] text-theme placeholder:text-muted outline-none focus:border-accent transition-colors"
             />
           </div>
         </div>
@@ -821,7 +821,7 @@ export default function HomeContent() {
           {/* Templates accordion */}
           <button
             onClick={() => setMobileExpandTemplates((o) => !o)}
-            className="w-full flex items-center justify-between px-3 py-3 rounded-xl text-[14px] font-semibold text-theme hover:bg-card transition-colors"
+            className="w-full flex items-center justify-between px-3 py-3 rounded-none text-[14px] font-semibold text-theme hover:bg-card transition-colors"
           >
             <span>{lang === "it" ? "Template" : "Templates"}</span>
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
@@ -838,7 +838,7 @@ export default function HomeContent() {
                     setMobileMenuOpen(false);
                     setTimeout(() => document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" }), 150);
                   }}
-                  className="flex items-center gap-2 px-2.5 py-2.5 rounded-xl text-left hover:bg-card transition-colors"
+                  className="flex items-center gap-2 px-2.5 py-2.5 rounded-none text-left hover:bg-card transition-colors"
                 >
                   <span className="text-sm flex-shrink-0">{cat.emoji}</span>
                   <span className="text-[12px] text-muted leading-tight">{lang === "it" ? cat.labelIt : cat.labelEn}</span>
@@ -850,7 +850,7 @@ export default function HomeContent() {
           {/* Bundles accordion */}
           <button
             onClick={() => setMobileExpandBundles((o) => !o)}
-            className="w-full flex items-center justify-between px-3 py-3 rounded-xl text-[14px] font-semibold text-theme hover:bg-card transition-colors"
+            className="w-full flex items-center justify-between px-3 py-3 rounded-none text-[14px] font-semibold text-theme hover:bg-card transition-colors"
           >
             <span>{lang === "it" ? "Bundle" : "Bundles"}</span>
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
@@ -865,7 +865,7 @@ export default function HomeContent() {
                   key={bundle.id}
                   href={`/bundle/${bundle.id}`}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-card transition-colors"
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-none hover:bg-card transition-colors"
                 >
                   <span className="text-lg">{bundle.emoji}</span>
                   <div className="min-w-0">
@@ -880,15 +880,15 @@ export default function HomeContent() {
           {/* Other links */}
           <div className="mt-1 pt-1 border-t border-theme/50 space-y-0.5">
             <Link href="/guide" onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center px-3 py-3 rounded-xl hover:bg-card transition-colors">
+              className="flex items-center px-3 py-3 rounded-none hover:bg-card transition-colors">
               <span className="text-[14px] font-medium text-theme">{t[lang].nav.guide}</span>
             </Link>
             <Link href="/studio" onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center px-3 py-3 rounded-xl hover:bg-card transition-colors">
+              className="flex items-center px-3 py-3 rounded-none hover:bg-card transition-colors">
               <span className="text-[14px] font-medium text-theme">{t[lang].nav.studio}</span>
             </Link>
             <Link href="/account" onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center px-3 py-3 rounded-xl hover:bg-card transition-colors">
+              className="flex items-center px-3 py-3 rounded-none hover:bg-card transition-colors">
               <span className="text-[14px] font-medium text-theme">{t[lang].nav.account}</span>
             </Link>
           </div>

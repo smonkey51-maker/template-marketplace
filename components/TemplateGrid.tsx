@@ -66,7 +66,7 @@ function normalize(str: string): string {
 
 function SkeletonCard() {
   return (
-    <div className="bg-card border border-theme rounded-[22px] overflow-hidden animate-pulse">
+    <div className="bg-card border border-theme rounded-none overflow-hidden animate-pulse">
       <div className="h-48 bg-theme/5" />
       <div className="p-4 flex flex-col gap-2.5">
         <div className="h-2 w-16 bg-theme/8 rounded-full" />
@@ -146,7 +146,7 @@ function CategoryCard({
     >
       {/* Ambient glow */}
       <div
-        className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none -z-10 blur-2xl"
+        className="absolute inset-0 rounded-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none -z-10 blur-2xl"
         style={{ background: `radial-gradient(ellipse at 50% 100%, ${section.gradientFrom}88 0%, transparent 70%)` }}
       />
       <div
@@ -154,7 +154,7 @@ function CategoryCard({
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         onClick={(e) => { addRipple(e); onClick(); }}
-        className="group relative rounded-2xl overflow-hidden cursor-pointer border border-white/10 dark:border-white/8"
+        className="group relative rounded-none overflow-hidden cursor-pointer border border-white/10 dark:border-white/8"
         style={{ willChange: "transform", height: "172px" }}
       >
         {/* Background — Unsplash image or gradient fallback */}
@@ -504,7 +504,7 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
                   <MagneticWrap>
                     <button
                       onClick={() => setVisibleCount((v) => v + 12)}
-                      className="px-6 py-2.5 glass border border-theme rounded-2xl text-[13px] font-semibold text-muted hover:text-theme hover:border-accent/30 transition-all duration-200 ios-spring"
+                      className="px-6 py-2.5 glass border border-theme rounded-none text-[13px] font-semibold text-muted hover:text-theme hover:border-accent/30 transition-all duration-200 ios-spring"
                     >
                       {lang === "it"
                         ? `Mostra altri ${Math.min(12, searchResults.length - visibleCount)} →`
@@ -545,7 +545,7 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
             <span className="text-[13px] font-semibold text-zinc-900 dark:text-zinc-100">
               {openSection.emoji} {openSectionMeta.label}
             </span>
-            <span className="bg-accent/10 text-accent rounded-full px-2 py-0.5 text-[11px] font-bold">
+            <span className="bg-accent/10 text-accent rounded-none px-2 py-0.5 text-[11px] font-bold">
               {openSectionTemplates.length}
             </span>
           </div>
