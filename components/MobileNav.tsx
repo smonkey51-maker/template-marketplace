@@ -87,8 +87,9 @@ export default function MobileNav() {
             key={tab.href}
             href={tab.href}
             className={`relative flex-1 flex flex-col items-center justify-center gap-1 py-2.5 transition-opacity duration-200 active:opacity-60 ${
-              tab.active ? "text-[#0A84FF]" : "text-muted"
+              tab.active ? "" : "text-muted"
             }`}
+            style={tab.active ? { color: "var(--accent)" } : undefined}
           >
             <span className="relative">
               {tab.icon(tab.active)}
@@ -98,7 +99,7 @@ export default function MobileNav() {
                 </span>
               ) : null}
             </span>
-            <span className={`text-[9px] font-semibold leading-none ${tab.active ? "text-[#0A84FF]" : "text-muted"}`}>
+            <span className={`text-[9px] font-semibold leading-none ${tab.active ? "" : "text-muted"}`} style={tab.active ? { color: "var(--accent)" } : undefined}>
               {tab.label}
             </span>
           </Link>

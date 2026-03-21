@@ -27,7 +27,7 @@ function ScrollProgressBar() {
   }, []);
   return (
     <div className="fixed top-0 left-0 right-0 h-[2px] z-[100] pointer-events-none">
-      <div style={{ width: `${width}%`, height: "100%", background: "linear-gradient(to right, var(--accent), #C77DFF, #FF6B6B)", transition: "width 0.1s linear" }} />
+      <div style={{ width: `${width}%`, height: "100%", background: "linear-gradient(to right, var(--gold-mid), var(--accent), var(--terra))", transition: "width 0.1s linear" }} />
     </div>
   );
 }
@@ -80,7 +80,7 @@ const TESTIMONIALS = [
     quoteEn: "I launched my SaaS landing page in less than a day. The template was perfect and the AI adapted it to my brand in minutes.",
     rating: 5,
     initials: "MF",
-    accent: "from-violet-500 to-purple-600",
+    accent: "from-amber-600 to-yellow-700",
   },
   {
     nameIt: "Sara Neri", nameEn: "Sara Neri",
@@ -89,7 +89,7 @@ const TESTIMONIALS = [
     quoteEn: "I use TemplateLab for all my clients. I save hours of work and can deliver professional results at competitive prices.",
     rating: 5,
     initials: "SN",
-    accent: "from-pink-500 to-rose-500",
+    accent: "from-orange-700 to-amber-800",
   },
   {
     nameIt: "Luca Moretti", nameEn: "Luca Moretti",
@@ -98,7 +98,7 @@ const TESTIMONIALS = [
     quoteEn: "The LinkedIn prompt templates tripled my engagement. Claude AI perfectly customizes them for each post.",
     rating: 5,
     initials: "LM",
-    accent: "from-blue-500 to-indigo-500",
+    accent: "from-stone-600 to-amber-700",
   },
 ];
 
@@ -220,15 +220,6 @@ function TemplatesDropdown({ lang }: { lang: "it" | "en" }) {
 }
 
 function BundlesDropdown({ lang, purchasedIds }: { lang: "it" | "en"; purchasedIds: string[] }) {
-  const accentMap: Record<string, string> = {
-    blue: "bg-blue-500/10 text-blue-500",
-    violet: "bg-violet-500/10 text-violet-500",
-    emerald: "bg-emerald-500/10 text-emerald-500",
-    purple: "bg-purple-500/10 text-purple-500",
-    amber: "bg-amber-500/10 text-amber-500",
-    orange: "bg-orange-500/10 text-orange-500",
-  };
-
   return (
     <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-50 w-[440px] max-w-[calc(100vw-2rem)]">
       <div className="border border-theme rounded-2xl shadow-2xl overflow-hidden" style={{ background: "var(--bg)" }}>
@@ -262,7 +253,7 @@ function BundlesDropdown({ lang, purchasedIds }: { lang: "it" | "en"; purchasedI
                   </div>
                   <div className="text-right flex-shrink-0">
                     {fullyOwned ? (
-                      <span className="text-[11px] text-emerald-500 font-semibold">✓ {lang === "it" ? "Tuo" : "Owned"}</span>
+                      <span className="text-[11px] font-semibold" style={{ color: "var(--accent)" }}>✓ {lang === "it" ? "Tuo" : "Owned"}</span>
                     ) : (
                       <>
                         <p className="text-[13px] font-bold" style={{ color: "var(--text)" }}>{formatPrice(bundle.price)}</p>
