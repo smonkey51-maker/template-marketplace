@@ -36,18 +36,26 @@ export default function RelatedTemplates({ currentTemplate }: { currentTemplate:
             <Link
               key={tmpl.id}
               href={`/preview/${tmpl.id}`}
-              className="flex items-center gap-4 bg-surface border border-theme rounded-[20px] px-4 py-3.5 hover:border-[#0A84FF]/30 hover:-translate-y-0.5 transition-all duration-200 active:scale-[0.98]"
+              className="flex items-center gap-4 bg-surface border border-theme rounded-[20px] px-4 py-3.5 hover:border-accent/40 hover:-translate-y-0.5 transition-all duration-200 active:scale-[0.98]"
             >
-              <div className={`w-10 h-10 rounded-2xl flex items-center justify-center text-xl shrink-0 ${
-                tmpl.category === "ui" ? "bg-[#007AFF]/15" : "bg-[#5E5CE6]/15"
-              }`}>
-                {tmpl.category === "ui" ? "🖼" : "📝"}
+              <div className="w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 bg-accent/10">
+                {tmpl.category === "ui" ? (
+                  <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden>
+                    <rect x="1.5" y="3.5" width="17" height="12" rx="2" stroke="var(--accent)" strokeWidth="1.5"/>
+                    <path d="M5 15.5v2M15 15.5v2M4 17.5h12" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round"/>
+                  </svg>
+                ) : (
+                  <svg width="16" height="18" viewBox="0 0 16 20" fill="none" aria-hidden>
+                    <rect x="1.5" y="1.5" width="13" height="17" rx="2" stroke="var(--accent)" strokeWidth="1.5"/>
+                    <path d="M5 7h6M5 10.5h6M5 14h4" stroke="var(--accent)" strokeWidth="1.3" strokeLinecap="round"/>
+                  </svg>
+                )}
               </div>
               <div className="flex-1 min-w-0">
                 <p className="font-semibold text-theme text-[14px] truncate">{tName}</p>
                 <p className="text-[12px] text-muted truncate">{tDesc}</p>
               </div>
-              <span className="text-[14px] font-bold text-[#0A84FF] shrink-0">{formatPrice(tmpl.price)}</span>
+              <span className="text-[14px] font-bold shrink-0" style={{ color: "var(--accent)" }}>{formatPrice(tmpl.price)}</span>
             </Link>
           );
         })}

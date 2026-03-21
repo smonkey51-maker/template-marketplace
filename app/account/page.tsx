@@ -42,7 +42,7 @@ export default function AccountPage() {
   if (!isLoaded) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-page">
-        <div className="w-8 h-8 rounded-full border-2 border-[#0A84FF] border-t-transparent animate-spin" />
+        <div className="w-8 h-8 rounded-full border-2 border-t-transparent animate-spin" style={{ borderColor: "var(--accent)", borderTopColor: "transparent" }} />
       </div>
     );
   }
@@ -56,7 +56,7 @@ export default function AccountPage() {
 
         {/* Profile card */}
         <div className="bg-surface border border-theme rounded-[28px] p-6 flex items-center gap-5">
-          <div className="w-16 h-16 rounded-full bg-[#0A84FF] flex items-center justify-center text-2xl font-bold text-white shrink-0">
+          <div className="w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold shrink-0" style={{ background: "var(--accent)", color: "var(--bg)" }}>
             {user?.firstName?.[0] ?? user?.emailAddresses?.[0]?.emailAddress?.[0]?.toUpperCase() ?? "?"}
           </div>
           <div className="flex-1 min-w-0">
@@ -69,7 +69,10 @@ export default function AccountPage() {
           </div>
           <Link
             href="/studio"
-            className="px-4 py-2 bg-[#5E5CE6] hover:bg-[#7B79F7] text-white font-semibold rounded-2xl text-[14px] transition-all duration-200 active:scale-[0.97] ios-spring shrink-0"
+            className="px-4 py-2 font-bold uppercase tracking-[0.12em] text-[10px] transition-colors duration-200 active:scale-[0.97] ios-spring shrink-0"
+            style={{ fontFamily: "var(--font-syne)", background: "var(--accent)", color: "var(--bg)" }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--text)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--accent)"; }}
           >
             {t[lang].account.studioBtn}
           </Link>
@@ -78,12 +81,12 @@ export default function AccountPage() {
         {/* Studio Access */}
         <div className={`rounded-[28px] border p-6 flex items-center justify-between gap-4 ${
           hasStudioAccess
-            ? "bg-[#5E5CE6]/10 border-[#5E5CE6]/25"
-            : "bg-white/[0.04] backdrop-blur-xl border-white/10"
-        }`}>
+            ? "bg-accent/10 border-accent/25"
+            : "border-theme"
+        }`} style={!hasStudioAccess ? { background: "var(--card-bg)" } : undefined}>
           <div className="flex items-center gap-4">
             <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-2xl ${
-              hasStudioAccess ? "bg-[#5E5CE6]/20 text-[#5E5CE6]" : "bg-card text-theme"
+              hasStudioAccess ? "bg-accent/20 text-accent" : "bg-card text-theme"
             }`}>
               ✦
             </div>
@@ -105,7 +108,10 @@ export default function AccountPage() {
           ) : (
             <Link
               href="/#studio-access"
-              className="px-4 py-2 bg-[#0A84FF] hover:bg-[#409CFF] text-white font-semibold rounded-2xl text-[14px] transition-all duration-200 active:scale-[0.97] ios-spring shrink-0"
+              className="px-4 py-2 font-bold uppercase tracking-[0.12em] text-[10px] transition-colors duration-200 active:scale-[0.97] ios-spring shrink-0"
+            style={{ fontFamily: "var(--font-syne)", background: "var(--accent)", color: "var(--bg)" }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--text)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--accent)"; }}
             >
               {t[lang].account.activateCta}
             </Link>
@@ -126,7 +132,10 @@ export default function AccountPage() {
               <p className="text-[15px] text-muted">{t[lang].account.noTemplates}</p>
               <Link
                 href="/"
-                className="inline-block px-6 py-2.5 bg-[#0A84FF] hover:bg-[#409CFF] text-white font-semibold rounded-2xl text-[15px] transition-all duration-200 active:scale-[0.97] ios-spring"
+                className="inline-block px-6 py-2.5 font-bold uppercase tracking-[0.12em] text-[10px] transition-colors duration-200 active:scale-[0.97] ios-spring"
+              style={{ fontFamily: "var(--font-syne)", background: "var(--accent)", color: "var(--bg)" }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--text)"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--accent)"; }}
               >
                 {t[lang].account.goToMarketplace}
               </Link>
@@ -140,19 +149,17 @@ export default function AccountPage() {
                     index > 0 ? "border-t border-theme" : ""
                   }`}
                 >
-                  <div className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 ${
-                    tmpl.category === "ui" ? "bg-[#007AFF]/10" : "bg-[#5E5CE6]/10"
-                  }`}>
+                  <div className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 bg-accent/10">
                     {tmpl.category === "ui" ? (
                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
-                        <rect x="1.5" y="3.5" width="17" height="12" rx="2" stroke="#007AFF" strokeWidth="1.5"/>
-                        <path d="M5 16.5v1.5M15 16.5v1.5M4 18h12" stroke="#007AFF" strokeWidth="1.5" strokeLinecap="round"/>
-                        <path d="M5 7h4M5 10h7" stroke="#007AFF" strokeWidth="1.3" strokeLinecap="round" opacity="0.5"/>
+                        <rect x="1.5" y="3.5" width="17" height="12" rx="2" stroke="var(--accent)" strokeWidth="1.5"/>
+                        <path d="M5 16.5v1.5M15 16.5v1.5M4 18h12" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round"/>
+                        <path d="M5 7h4M5 10h7" stroke="var(--accent)" strokeWidth="1.3" strokeLinecap="round" opacity="0.5"/>
                       </svg>
                     ) : (
                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
-                        <rect x="3.5" y="1.5" width="13" height="17" rx="2" stroke="#5E5CE6" strokeWidth="1.5"/>
-                        <path d="M7 6h6M7 9.5h6M7 13h4" stroke="#5E5CE6" strokeWidth="1.3" strokeLinecap="round"/>
+                        <rect x="3.5" y="1.5" width="13" height="17" rx="2" stroke="var(--accent)" strokeWidth="1.5"/>
+                        <path d="M7 6h6M7 9.5h6M7 13h4" stroke="var(--accent)" strokeWidth="1.3" strokeLinecap="round"/>
                       </svg>
                     )}
                   </div>
@@ -168,7 +175,10 @@ export default function AccountPage() {
                     />
                     <Link
                       href={`/studio?templateId=${tmpl.id}`}
-                      className="px-3 py-1.5 bg-[#5E5CE6] hover:bg-[#7B79F7] text-white text-[13px] font-semibold rounded-xl transition-all duration-200 active:scale-[0.97] ios-spring"
+                      className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.12em] transition-colors duration-200 active:scale-[0.97] ios-spring"
+                      style={{ fontFamily: "var(--font-syne)", background: "var(--accent)", color: "var(--bg)" }}
+                      onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--text)"; }}
+                      onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--accent)"; }}
                     >
                       {lang === "it" ? "Apri Studio" : "Open Studio"}
                     </Link>

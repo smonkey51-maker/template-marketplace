@@ -29,10 +29,10 @@ export default function WishlistPage() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10">
         {saved.length === 0 ? (
           <div className="flex flex-col items-center gap-5 py-24 text-center">
-            <div className="w-16 h-16 rounded-2xl bg-[#FF453A]/10 flex items-center justify-center">
+            <div className="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center">
               <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden>
                 <path d="M14 24S3 17.5 3 10A5.5 5.5 0 0114 6.2a5.5 5.5 0 0111 3.8C25 17.5 14 24 14 24z"
-                  stroke="#FF453A" strokeWidth="1.8" strokeLinejoin="round"/>
+                  stroke="var(--accent)" strokeWidth="1.8" strokeLinejoin="round"/>
               </svg>
             </div>
             <div>
@@ -47,7 +47,10 @@ export default function WishlistPage() {
             </div>
             <Link
               href="/"
-              className="px-6 py-3 bg-[#0A84FF] hover:bg-[#409CFF] text-white font-bold rounded-2xl text-[14px] transition-all duration-200 active:scale-[0.97] ios-spring"
+              className="px-6 py-3 font-bold uppercase tracking-[0.12em] text-[10px] transition-colors duration-200 active:scale-[0.97] ios-spring"
+              style={{ fontFamily: "var(--font-syne)", background: "var(--accent)", color: "var(--bg)" }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--text)"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--accent)"; }}
             >
               {lang === "it" ? "Sfoglia template →" : "Browse templates →"}
             </Link>
