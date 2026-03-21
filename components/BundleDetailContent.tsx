@@ -89,7 +89,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
       {/* ── Back button ── */}
       <button
         onClick={() => router.push("/")}
-        className="fixed top-4 left-4 z-50 flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-theme shadow-sm
+        className="fixed top-4 left-4 z-50 flex items-center gap-1.5 px-3.5 py-2 border border-theme shadow-sm
           text-theme text-[14px] font-semibold
           hover:opacity-80 transition-opacity duration-200"
         style={{ background: "var(--card-bg)" }}
@@ -104,13 +104,13 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
       <div className="flex-1 max-w-4xl mx-auto w-full px-4 sm:px-6 pt-20 pb-48">
 
         {/* ── Hero ── */}
-        <div className={`${colors.bg} border ${colors.border} rounded-[24px] p-6 sm:p-8 mb-8`}>
+        <div className={`${colors.bg} border ${colors.border} p-6 sm:p-8 mb-8`}>
           <div className="flex items-start gap-4 mb-4">
             <span className="text-5xl shrink-0">{bundle.emoji}</span>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap mb-1">
                 <span className={`text-[11px] font-black uppercase tracking-widest ${colors.text}`}>Bundle</span>
-                <span className={`border rounded-full px-2.5 py-0.5 text-[11px] font-black ${colors.badge}`}>
+                <span className={`border px-2.5 py-0.5 text-[11px] font-black ${colors.badge}`}>
                   –{savingsPct}%
                 </span>
               </div>
@@ -125,8 +125,8 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
           {/* Highlights */}
           <div className="grid sm:grid-cols-3 gap-2.5">
             {bundle.highlights.map((h, i) => (
-              <div key={i} className="flex items-start gap-2 bg-theme/5 rounded-xl px-3 py-2.5">
-                <span className={`mt-0.5 w-4 h-4 rounded-full flex items-center justify-center text-[9px] shrink-0 border ${colors.badge}`}>
+              <div key={i} className="flex items-start gap-2 bg-theme/5 px-3 py-2.5">
+                <span className={`mt-0.5 w-4 h-4 flex items-center justify-center text-[9px] shrink-0 border ${colors.badge}`}>
                   ✓
                 </span>
                 <span className="text-[12px] text-theme/80 leading-snug font-medium">{h}</span>
@@ -148,14 +148,14 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
                 <button
                   key={tmpl!.id}
                   onClick={() => setActiveTemplateIdx(i)}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-left
+                  className={`w-full flex items-center gap-3 px-4 py-3 text-left
                     transition-all duration-200 ios-spring border ${
                     isActive
                       ? `${colors.bg} ${colors.border}`
                       : "bg-input border-theme hover:border-theme/60"
                   }`}
                 >
-                  <span className={`w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-black shrink-0 border ${
+                  <span className={`w-6 h-6 flex items-center justify-center text-[11px] font-black shrink-0 border ${
                     isActive ? colors.badge : "bg-theme/10 border-theme/30 text-muted"
                   }`}>
                     {owned ? "✓" : i + 1}
@@ -168,7 +168,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
                   </div>
                   <div className="shrink-0 flex items-center gap-2">
                     {owned && (
-                      <span className="text-[10px] font-bold text-accent bg-accent/10 border border-accent/20 px-1.5 py-0.5 rounded-full">
+                      <span className="text-[10px] font-bold text-accent bg-accent/10 border border-accent/20 px-1.5 py-0.5">
                         {t[lang].bundleDetail.alreadyOwned}
                       </span>
                     )}
@@ -186,7 +186,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
 
           {/* Preview area */}
           {activeTemplate && (
-            <div className="border border-theme rounded-[20px] overflow-hidden bg-card">
+            <div className="border border-theme overflow-hidden bg-card">
               {activeTemplate.category === "ui" ? (
                 <div className="relative">
                   <iframe
@@ -214,7 +214,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
                   {purchasedIds.includes(activeTemplate.id) && (
-                    <span className="text-[10px] font-bold text-accent bg-accent/10 border border-accent/20 px-2 py-0.5 rounded-full">
+                    <span className="text-[10px] font-bold text-accent bg-accent/10 border border-accent/20 px-2 py-0.5">
                       {t[lang].bundleDetail.alreadyOwned}
                     </span>
                   )}
@@ -234,7 +234,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
         </div>
 
         {/* ── Price breakdown ── */}
-        <div className="glass-subtle border border-theme rounded-[20px] p-5 mb-4">
+        <div className="glass-subtle border border-theme p-5 mb-4">
           <h2 className="text-[13px] font-black text-muted/60 uppercase tracking-widest mb-4">
             {t[lang].bundleDetail.totalValue}
           </h2>
@@ -249,7 +249,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
                       {tmpl!.name}
                     </span>
                     {owned && (
-                      <span className="text-[10px] text-accent/60 bg-accent/10 px-1.5 py-0.5 rounded-full border border-accent/20">
+                      <span className="text-[10px] text-accent/60 bg-accent/10 px-1.5 py-0.5 border border-accent/20">
                         {t[lang].bundleDetail.alreadyOwned}
                       </span>
                     )}
@@ -304,16 +304,16 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
           </div>
 
           {purchasesLoading ? (
-            <div className="w-full h-[50px] rounded-2xl bg-theme/10 animate-pulse" />
+            <div className="w-full h-[50px] bg-theme/10 animate-pulse" />
           ) : isFullyOwned ? (
-            <div className="w-full py-3 rounded-2xl bg-accent/10 text-accent text-[14px] font-bold text-center border border-accent/20">
+            <div className="w-full py-3 bg-accent/10 text-accent text-[14px] font-bold text-center border border-accent/20">
               {t[lang].bundleDetail.fullyOwned}
             </div>
           ) : (
             <button
               onClick={handleBuy}
               disabled={loading}
-              className="w-full active:scale-[0.97] font-bold rounded-2xl px-6 py-3.5 transition-all duration-200 ios-spring disabled:opacity-50 text-[15px]"
+              className="w-full active:scale-[0.97] font-bold px-6 py-3.5 transition-all duration-200 ios-spring disabled:opacity-50 text-[15px]"
               style={{ background: "var(--accent)", color: "var(--bg)" }}
               onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--text)"; }}
               onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--accent)"; }}

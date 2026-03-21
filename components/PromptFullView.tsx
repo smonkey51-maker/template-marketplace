@@ -2,7 +2,7 @@ export default function PromptFullView({ content }: { content: string }) {
   const parts = content.split(/({{[^}]+}})/g);
   return (
     <div className="min-h-full p-6 sm:p-10 max-w-2xl mx-auto">
-      <div className="bg-[#FFFEF7] rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.18)] overflow-hidden">
+      <div className="bg-[#FFFEF7] shadow-[0_8px_40px_rgba(0,0,0,0.18)] overflow-hidden">
         <div className="flex items-center gap-2 px-4 py-3 bg-[#F7F6EE] border-b border-black/[0.07]">
           <div className="w-3 h-3 rounded-full bg-[#FF5F57]" />
           <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />

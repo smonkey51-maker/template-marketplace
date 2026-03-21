@@ -125,7 +125,7 @@ function TestimonialCard({
       </p>
       {/* Author */}
       <div className="flex items-center gap-2.5 pt-3 border-t border-theme">
-        <div className={`w-8 h-8 rounded-full bg-gradient-to-br ${testimonial.accent} flex items-center justify-center text-white text-[11px] font-bold flex-shrink-0`}>
+        <div className={`w-8 h-8 bg-gradient-to-br ${testimonial.accent} flex items-center justify-center text-white text-[11px] font-bold flex-shrink-0`}>
           {testimonial.initials}
         </div>
         <div>

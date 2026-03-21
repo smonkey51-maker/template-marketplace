@@ -29,7 +29,7 @@ export default function WishlistPage() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10">
         {saved.length === 0 ? (
           <div className="flex flex-col items-center gap-5 py-24 text-center">
-            <div className="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center">
+            <div className="w-16 h-16 bg-accent/10 flex items-center justify-center">
               <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden>
                 <path d="M14 24S3 17.5 3 10A5.5 5.5 0 0114 6.2a5.5 5.5 0 0111 3.8C25 17.5 14 24 14 24z"
                   stroke="var(--accent)" strokeWidth="1.8" strokeLinejoin="round"/>
