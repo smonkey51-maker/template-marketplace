@@ -239,7 +239,7 @@ function StudioContent() {
                     tab === t
                       ? "bg-surface text-theme shadow-sm"
                       : t === "generate" && !hasStudioAccess
-                      ? "text-[#48484A] cursor-not-allowed"
+                      ? "text-muted cursor-not-allowed"
                       : "text-muted hover:text-theme"
                   }`}
                 >
@@ -274,10 +274,10 @@ function StudioContent() {
             {/* Generate locked */}
             {tab === "generate" && !hasStudioAccess && (
               <div className="bg-surface border border-theme rounded-[28px] p-8 text-center flex flex-col items-center gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-[#0A84FF]/10 flex items-center justify-center">
+                <div className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center">
                   <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden>
-                    <rect x="4" y="11" width="18" height="13" rx="3" stroke="#0A84FF" strokeWidth="1.8"/>
-                    <path d="M8 11V8a5 5 0 0110 0v3" stroke="#0A84FF" strokeWidth="1.8" strokeLinecap="round"/>
+                    <rect x="4" y="11" width="18" height="13" rx="3" stroke="var(--accent)" strokeWidth="1.8"/>
+                    <path d="M8 11V8a5 5 0 0110 0v3" stroke="var(--accent)" strokeWidth="1.8" strokeLinecap="round"/>
                   </svg>
                 </div>
                 <h3 className="font-semibold text-theme text-[17px]">
@@ -299,7 +299,10 @@ function StudioContent() {
                     if (data.requireAuth) { window.location.href = "/sign-in?redirect_url=/studio"; return; }
                     if (data.url) window.location.href = data.url;
                   }}
-                  className="px-6 py-3 bg-[#0A84FF] hover:bg-[#409CFF] rounded-2xl font-bold text-[15px] text-white transition-all duration-200 shadow-[0_4px_20px_rgba(10,132,255,0.25)] active:scale-[0.97] ios-spring"
+                  className="px-6 py-3 rounded-2xl font-bold text-[15px] transition-colors duration-200 active:scale-[0.97] ios-spring"
+                  style={{ background: "var(--accent)", color: "var(--bg)" }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--text)"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--accent)"; }}
                 >
                   {lang === "it" ? "€9.99/mese — Abbonati →" : "€9.99/mo — Subscribe →"}
                 </button>
@@ -340,8 +343,8 @@ function StudioContent() {
                         onClick={() => setGenCategory(c)}
                         className={`flex-1 py-2.5 rounded-2xl text-[15px] font-medium border transition-all duration-200 active:scale-[0.97] ios-spring ${
                           genCategory === c
-                            ? "bg-[#007AFF]/15 border-[#007AFF]/40 text-[#007AFF]"
-                            : "border-theme text-muted hover:border-[#0A84FF]/50"
+                            ? "bg-accent/15 border-accent/40 text-accent"
+                            : "border-theme text-muted hover:border-accent/50"
                         }`}
                       >
                         {c === "ui" ? "🖼 UI Component" : "📝 Prompt Template"}
@@ -369,10 +372,10 @@ function StudioContent() {
                         <button
                           key={s}
                           onClick={() => setGenStyle(s)}
-                          className={`px-3.5 py-1.5 rounded-full text-[13px] font-medium capitalize border transition-all duration-200 active:scale-[0.97] ios-spring ${
+                          className={`px-3.5 py-1.5 text-[13px] font-medium capitalize border transition-all duration-200 active:scale-[0.97] ios-spring ${
                             genStyle === s
-                              ? "bg-[#007AFF]/15 border-[#007AFF]/40 text-[#007AFF]"
-                              : "border-theme text-muted hover:border-[#0A84FF]/50"
+                              ? "bg-accent/15 border-accent/40 text-accent"
+                              : "border-theme text-muted hover:border-accent/50"
                           }`}
                         >
                           {s}
@@ -385,12 +388,12 @@ function StudioContent() {
                 {/* Sector */}
                 <div>
                   <label className="text-[11px] font-semibold text-muted uppercase tracking-widest mb-2 block px-1">
-                    Industry / Sector <span className="normal-case text-[#48484A] font-normal">(optional)</span>
+                    Industry / Sector <span className="normal-case text-muted font-normal">(optional)</span>
                   </label>
                   <select
                     value={genSector}
                     onChange={(e) => setGenSector(e.target.value)}
-                    className="w-full bg-input border border-theme rounded-2xl px-4 py-2.5 text-[15px] text-theme focus:outline-none focus:border-[#007AFF]/50 focus:ring-1 focus:ring-[#007AFF]/30 transition-all duration-200"
+                    className="w-full bg-input border border-theme rounded-2xl px-4 py-2.5 text-[15px] text-theme focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all duration-200"
                   >
                     <option value="">— Any sector —</option>
                     {SECTORS.map((s) => (
@@ -410,10 +413,10 @@ function StudioContent() {
                         <button
                           key={t}
                           onClick={() => setGenTone(t)}
-                          className={`px-3.5 py-1.5 rounded-full text-[13px] font-medium capitalize border transition-all duration-200 active:scale-[0.97] ios-spring ${
+                          className={`px-3.5 py-1.5 text-[13px] font-medium capitalize border transition-all duration-200 active:scale-[0.97] ios-spring ${
                             genTone === t
-                              ? "bg-[#30D158]/15 border-[#30D158]/40 text-[#30D158]"
-                              : "border-theme text-muted hover:border-[#30D158]/50"
+                              ? "bg-accent/15 border-accent/40 text-accent"
+                              : "border-theme text-muted hover:border-accent/50"
                           }`}
                         >
                           {t}
@@ -440,15 +443,18 @@ function StudioContent() {
                         ? "e.g. A testimonial section with 3 cards, star ratings, and customer photos"
                         : "e.g. A LinkedIn connection request message for B2B SaaS outreach"
                     }
-                    className="w-full bg-input border border-theme rounded-2xl px-4 py-3 text-[15px] text-theme placeholder-muted focus:outline-none focus:border-[#007AFF]/50 focus:ring-1 focus:ring-[#007AFF]/30 resize-none transition-all duration-200"
+                    className="w-full bg-input border border-theme rounded-2xl px-4 py-3 text-[15px] text-theme placeholder-muted focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 resize-none transition-all duration-200"
                   />
-                  <p className="text-[11px] text-[#48484A] mt-1 px-1">⌘+Enter to generate</p>
+                  <p className="text-[11px] text-muted mt-1 px-1">⌘+Enter to generate</p>
                 </div>
 
                 <button
                   onClick={handleGenerate}
                   disabled={genLoading || !genDescription.trim()}
-                  className="py-3.5 rounded-2xl bg-[#0A84FF] hover:bg-[#409CFF] disabled:opacity-40 disabled:cursor-not-allowed font-bold text-[15px] text-white transition-all duration-200 flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(10,132,255,0.25)] active:scale-[0.97] ios-spring"
+                  className="py-3.5 rounded-2xl disabled:opacity-40 disabled:cursor-not-allowed font-bold text-[15px] transition-colors duration-200 flex items-center justify-center gap-2 active:scale-[0.97] ios-spring"
+                  style={{ background: "var(--accent)", color: "var(--bg)" }}
+                  onMouseEnter={(e) => { if (!e.currentTarget.disabled) (e.currentTarget as HTMLButtonElement).style.background = "var(--text)"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--accent)"; }}
                 >
                   {genLoading ? (
                     <>
@@ -472,7 +478,7 @@ function StudioContent() {
                   {purchasedIds.length === 0 ? (
                     <div className="bg-surface border border-theme rounded-2xl px-4 py-6 text-center text-[15px] text-muted">
                       Non hai ancora acquistato nessun template.{" "}
-                      <Link href="/" className="text-[#007AFF] hover:underline">
+                      <Link href="/" className="text-accent hover:underline">
                         Vai al marketplace →
                       </Link>
                     </div>
@@ -480,7 +486,7 @@ function StudioContent() {
                     <select
                       value={selectedId}
                       onChange={(e) => setSelectedId(e.target.value)}
-                      className="w-full bg-input border border-theme rounded-2xl px-4 py-3 text-[15px] text-theme focus:outline-none focus:border-[#007AFF]/50 focus:ring-1 focus:ring-[#007AFF]/30 transition-all duration-200"
+                      className="w-full bg-input border border-theme rounded-2xl px-4 py-3 text-[15px] text-theme focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all duration-200"
                     >
                       <option value="">— Choose a template —</option>
                       {["ui", "prompt"].map((cat) => {
@@ -549,9 +555,9 @@ function StudioContent() {
                         ? "e.g. Change the color scheme to dark green, add an animation on the headline, make the CTA button larger"
                         : "e.g. Make it more casual and friendly, add a variable for company size, shorten to under 100 words"
                     }
-                    className="w-full bg-input border border-theme rounded-2xl px-4 py-3 text-[15px] text-theme placeholder-muted focus:outline-none focus:border-[#007AFF]/50 focus:ring-1 focus:ring-[#007AFF]/30 resize-none transition-all duration-200"
+                    className="w-full bg-input border border-theme rounded-2xl px-4 py-3 text-[15px] text-theme placeholder-muted focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 resize-none transition-all duration-200"
                   />
-                  <p className="text-[11px] text-[#48484A] mt-1 px-1">⌘+Enter to customize</p>
+                  <p className="text-[11px] text-muted mt-1 px-1">⌘+Enter to customize</p>
                 </div>
 
                 <button
@@ -561,7 +567,10 @@ function StudioContent() {
                     !selectedTemplate ||
                     !customInstructions.trim()
                   }
-                  className="py-3.5 rounded-2xl bg-[#0A84FF] hover:bg-[#409CFF] disabled:opacity-40 disabled:cursor-not-allowed font-bold text-[15px] text-white transition-all duration-200 flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(10,132,255,0.25)] active:scale-[0.97] ios-spring"
+                  className="py-3.5 rounded-2xl disabled:opacity-40 disabled:cursor-not-allowed font-bold text-[15px] transition-colors duration-200 flex items-center justify-center gap-2 active:scale-[0.97] ios-spring"
+                  style={{ background: "var(--accent)", color: "var(--bg)" }}
+                  onMouseEnter={(e) => { if (!e.currentTarget.disabled) (e.currentTarget as HTMLButtonElement).style.background = "var(--text)"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--accent)"; }}
                 >
                   {customLoading ? (
                     <>
@@ -586,8 +595,8 @@ function StudioContent() {
                     onClick={() => setShowHistory((v) => !v)}
                     className={`flex items-center gap-1 px-2.5 py-1 rounded-xl text-[12px] font-medium border transition-all duration-200 ${
                       showHistory
-                        ? "bg-[#007AFF]/15 border-[#007AFF]/40 text-[#007AFF]"
-                        : "border-theme text-muted hover:border-[#0A84FF]/50"
+                        ? "bg-accent/15 border-accent/40 text-accent"
+                        : "border-theme text-muted hover:border-accent/50"
                     }`}
                   >
                     🕐 History ({(tab === "generate" ? genHistory : customHistory).length})
@@ -650,9 +659,9 @@ function StudioContent() {
 
             <div className="flex-1 relative bg-surface border border-theme rounded-[28px] overflow-hidden min-h-[500px]">
               {!activeOutput && !isLoading && (
-                <div className="absolute inset-0 flex items-center justify-center text-[#48484A] text-[15px]">
+                <div className="absolute inset-0 flex items-center justify-center text-muted text-[15px]">
                   <div className="text-center">
-                    <div className="flex justify-center mb-3 text-[#48484A]">
+                    <div className="flex justify-center mb-3 text-muted">
                       {tab === "generate" ? (
                         <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden>
                           <path d="M18 4v4M18 28v4M4 18h4M28 18h4M7.76 7.76l2.83 2.83M25.41 25.41l2.83 2.83M7.76 28.24l2.83-2.83M25.41 10.59l2.83-2.83" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
@@ -676,13 +685,13 @@ function StudioContent() {
               {isLoading && !activeOutput && (
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="flex flex-col items-center gap-4 text-muted px-6 text-center">
-                    <span style={{ display: "inline-block", animation: "spin 1s linear infinite", fontSize: "1.5rem", color: "#0A84FF" }}>⟳</span>
+                    <span style={{ display: "inline-block", animation: "spin 1s linear infinite", fontSize: "1.5rem", color: "var(--accent)" }}>⟳</span>
                     <span className="text-[15px]">
                       Claude is thinking
                       <span className="animate-pulse">...</span>
                     </span>
                     {showTimeoutHint && (
-                      <p className="text-[12px] text-[#48484A] max-w-[260px] leading-relaxed">
+                      <p className="text-[12px] text-muted max-w-[260px] leading-relaxed">
                         {lang === "it"
                           ? "Ci sta pensando su 🧠 — i template UI con extended thinking possono richiedere fino a 60 secondi."
                           : "Still thinking 🧠 — UI templates with extended thinking can take up to 60 seconds."}
@@ -696,7 +705,7 @@ function StudioContent() {
                 <pre className="p-5 text-[12px] font-mono text-muted overflow-auto h-full leading-relaxed whitespace-pre-wrap">
                   {activeOutput}
                   {isLoading && (
-                    <span className="inline-block w-2 h-4 bg-[#0A84FF] animate-pulse ml-0.5 align-middle" />
+                    <span className="inline-block w-2 h-4 bg-accent animate-pulse ml-0.5 align-middle" />
                   )}
                 </pre>
               )}
@@ -712,7 +721,7 @@ function StudioContent() {
             </div>
 
             {activeOutput && (
-              <p className="text-[11px] text-[#48484A] mt-2 text-right">
+              <p className="text-[11px] text-muted mt-2 text-right">
                 {activeOutput.length.toLocaleString()} characters
               </p>
             )}
@@ -739,10 +748,10 @@ function StudioContent() {
                         }}
                         className="w-full text-left px-4 py-3 hover:bg-card transition-colors duration-150 flex items-center justify-between gap-3 group"
                       >
-                        <span className="text-[13px] text-theme truncate flex-1 group-hover:text-[#007AFF] transition-colors">
+                        <span className="text-[13px] text-theme truncate flex-1 group-hover:text-accent transition-colors">
                           {entry.label || "Untitled"}
                         </span>
-                        <span className="text-[11px] text-[#48484A] shrink-0 flex items-center gap-2">
+                        <span className="text-[11px] text-muted shrink-0 flex items-center gap-2">
                           <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium ${
                             entry.category === "ui"
                               ? "bg-blue-100 text-blue-600 dark:bg-blue-950/50 dark:text-blue-400"
