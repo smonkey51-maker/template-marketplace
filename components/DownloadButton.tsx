@@ -105,19 +105,19 @@ function LangModal({
           <button
             onClick={() => onSelect("it")}
             disabled={loading}
-            className="flex-1 flex flex-col items-center gap-1.5 py-3 border border-theme hover:border-accent transition-colors disabled:opacity-50"
+            className="flex-1 flex flex-col items-center gap-2 py-3 border border-theme hover:border-accent transition-colors disabled:opacity-50"
             style={{ background: "var(--bg)" }}
           >
-            <span className="text-xl">🇮🇹</span>
+            <span className="text-[11px] font-black uppercase tracking-[0.15em] text-muted" style={{ fontFamily: "var(--font-syne)" }}>IT</span>
             <span className="text-theme text-[13px] font-semibold">Italiano</span>
           </button>
           <button
             onClick={() => onSelect("en")}
             disabled={loading}
-            className="flex-1 flex flex-col items-center gap-1.5 py-3 border border-theme hover:border-accent transition-colors disabled:opacity-50"
+            className="flex-1 flex flex-col items-center gap-2 py-3 border border-theme hover:border-accent transition-colors disabled:opacity-50"
             style={{ background: "var(--bg)" }}
           >
-            <span className="text-xl">🇬🇧</span>
+            <span className="text-[11px] font-black uppercase tracking-[0.15em] text-muted" style={{ fontFamily: "var(--font-syne)" }}>EN</span>
             <span className="text-theme text-[13px] font-semibold">English</span>
           </button>
         </div>

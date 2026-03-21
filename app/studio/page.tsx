@@ -347,7 +347,7 @@ function StudioContent() {
                             : "border-theme text-muted hover:border-accent/50"
                         }`}
                       >
-                        {c === "ui" ? "🖼 UI Component" : "📝 Prompt Template"}
+                        {c === "ui" ? "UI Component" : "Prompt Template"}
                       </button>
                     ))}
                   </div>
@@ -599,7 +599,7 @@ function StudioContent() {
                         : "border-theme text-muted hover:border-accent/50"
                     }`}
                   >
-                    🕐 History ({(tab === "generate" ? genHistory : customHistory).length})
+                    History ({(tab === "generate" ? genHistory : customHistory).length})
                   </button>
                 )}
                 {activeOutput && isUIOutput && (
@@ -622,7 +622,7 @@ function StudioContent() {
                           : "text-muted hover:text-theme"
                       }`}
                     >
-                      👁 Preview
+                      Preview
                     </button>
                   </div>
                 )}
