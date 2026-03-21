@@ -9,13 +9,16 @@ import { t } from "@/lib/i18n";
 import PromptFullView from "@/components/PromptFullView";
 import { useToast } from "@/components/Toast";
 
-const COLOR_MAP: Record<string, { bg: string; border: string; text: string; badge: string; glow: string }> = {
-  blue:    { bg: "bg-blue-500/10",    border: "border-blue-500/30",    text: "text-blue-400",    badge: "bg-blue-500/20 text-blue-300 border-blue-500/30",    glow: "shadow-[0_4px_20px_rgba(10,132,255,0.35)]" },
-  violet:  { bg: "bg-violet-500/10",  border: "border-violet-500/30",  text: "text-violet-400",  badge: "bg-violet-500/20 text-violet-300 border-violet-500/30",  glow: "shadow-[0_4px_20px_rgba(139,92,246,0.35)]" },
-  emerald: { bg: "bg-emerald-500/10", border: "border-emerald-500/30", text: "text-emerald-400", badge: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30", glow: "shadow-[0_4px_20px_rgba(52,211,153,0.35)]" },
-  purple:  { bg: "bg-purple-500/10",  border: "border-purple-500/30",  text: "text-purple-400",  badge: "bg-purple-500/20 text-purple-300 border-purple-500/30",  glow: "shadow-[0_4px_20px_rgba(168,85,247,0.35)]" },
-  amber:   { bg: "bg-amber-500/10",   border: "border-amber-500/30",   text: "text-amber-400",   badge: "bg-amber-500/20 text-amber-300 border-amber-500/30",    glow: "shadow-[0_4px_20px_rgba(245,158,11,0.35)]" },
-  orange:  { bg: "bg-orange-500/10",  border: "border-orange-500/30",  text: "text-orange-400",  badge: "bg-orange-500/20 text-orange-300 border-orange-500/30",  glow: "shadow-[0_4px_20px_rgba(249,115,22,0.35)]" },
+const BRAND_COLOR = {
+  bg: "bg-accent/10",
+  border: "border-accent/30",
+  text: "text-accent",
+  badge: "bg-accent/15 text-accent border-accent/30",
+  glow: "",
+};
+const COLOR_MAP: Record<string, typeof BRAND_COLOR> = {
+  blue: BRAND_COLOR, violet: BRAND_COLOR, emerald: BRAND_COLOR,
+  purple: BRAND_COLOR, amber: BRAND_COLOR, orange: BRAND_COLOR,
 };
 
 export default function BundleDetailContent({ bundleId }: { bundleId: string }) {
@@ -42,7 +45,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
       <div className="min-h-screen bg-page flex items-center justify-center">
         <div className="text-center">
           <p className="text-muted text-[15px] mb-4">{t[lang].bundleDetail.notFound}</p>
-          <Link href="/" className="text-[#0A84FF] font-semibold">{t[lang].bundleDetail.notFoundBack}</Link>
+          <Link href="/" className="font-semibold" style={{ color: "var(--accent)" }}>{t[lang].bundleDetail.notFoundBack}</Link>
         </div>
       </div>
     );
@@ -86,10 +89,10 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
       {/* ── Back button ── */}
       <button
         onClick={() => router.push("/")}
-        className="fixed top-4 left-4 z-50 flex items-center gap-1.5 px-3.5 py-2 rounded-full
-          bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 shadow-sm
-          text-zinc-700 dark:text-zinc-300 text-[14px] font-semibold
+        className="fixed top-4 left-4 z-50 flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-theme shadow-sm
+          text-theme text-[14px] font-semibold
           hover:opacity-80 transition-opacity duration-200"
+        style={{ background: "var(--card-bg)" }}
         aria-label={t[lang].bundleDetail.back}
       >
         <svg width="8" height="14" viewBox="0 0 8 14" fill="none" className="shrink-0" aria-hidden>
@@ -165,7 +168,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
                   </div>
                   <div className="shrink-0 flex items-center gap-2">
                     {owned && (
-                      <span className="text-[10px] font-bold text-[#30D158] bg-[#30D158]/10 border border-[#30D158]/20 px-1.5 py-0.5 rounded-full">
+                      <span className="text-[10px] font-bold text-accent bg-accent/10 border border-accent/20 px-1.5 py-0.5 rounded-full">
                         {t[lang].bundleDetail.alreadyOwned}
                       </span>
                     )}
@@ -211,7 +214,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
                   {purchasedIds.includes(activeTemplate.id) && (
-                    <span className="text-[10px] font-bold text-[#30D158] bg-[#30D158]/10 border border-[#30D158]/20 px-2 py-0.5 rounded-full">
+                    <span className="text-[10px] font-bold text-accent bg-accent/10 border border-accent/20 px-2 py-0.5 rounded-full">
                       {t[lang].bundleDetail.alreadyOwned}
                     </span>
                   )}
@@ -241,12 +244,12 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
               return (
                 <div key={tmpl!.id} className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    {owned && <span className="text-[#30D158] text-[11px]">✓</span>}
-                    <span className={`text-[13px] ${owned ? "text-[#30D158]/80" : "text-theme/80"}`}>
+                    {owned && <span className="text-accent text-[11px]">✓</span>}
+                    <span className={`text-[13px] ${owned ? "text-accent/80" : "text-theme/80"}`}>
                       {tmpl!.name}
                     </span>
                     {owned && (
-                      <span className="text-[10px] text-[#30D158]/60 bg-[#30D158]/10 px-1.5 py-0.5 rounded-full border border-[#30D158]/20">
+                      <span className="text-[10px] text-accent/60 bg-accent/10 px-1.5 py-0.5 rounded-full border border-accent/20">
                         {t[lang].bundleDetail.alreadyOwned}
                       </span>
                     )}
@@ -303,18 +306,17 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
           {purchasesLoading ? (
             <div className="w-full h-[50px] rounded-2xl bg-theme/10 animate-pulse" />
           ) : isFullyOwned ? (
-            <div className="w-full py-3 rounded-2xl bg-[#30D158]/10 text-[#30D158] text-[14px] font-bold text-center border border-[#30D158]/20">
+            <div className="w-full py-3 rounded-2xl bg-accent/10 text-accent text-[14px] font-bold text-center border border-accent/20">
               {t[lang].bundleDetail.fullyOwned}
             </div>
           ) : (
             <button
               onClick={handleBuy}
               disabled={loading}
-              className={`w-full bg-[#0A84FF] hover:bg-[#409CFF] active:scale-[0.97]
-                text-white font-bold rounded-2xl px-6 py-3.5
-                transition-all duration-200 ios-spring
-                disabled:opacity-50 btn-glow-blue text-[15px]
-                shadow-[0_4px_20px_rgba(10,132,255,0.35)]`}
+              className="w-full active:scale-[0.97] font-bold rounded-2xl px-6 py-3.5 transition-all duration-200 ios-spring disabled:opacity-50 text-[15px]"
+              style={{ background: "var(--accent)", color: "var(--bg)" }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--text)"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--accent)"; }}
             >
               {loading
                 ? t[lang].bundleDetail.loading
