@@ -91,35 +91,38 @@ function LangModal({
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
       {/* panel */}
       <div
-        className="relative z-10 w-full max-w-xs bg-zinc-900 dark:bg-zinc-900 border border-white/10 rounded-2xl p-5 shadow-2xl"
+        className="relative z-10 w-full max-w-xs border border-theme rounded-2xl p-5 shadow-2xl"
+        style={{ background: "var(--card-bg)" }}
         onClick={(e) => e.stopPropagation()}
       >
-        <h3 className="text-white text-[15px] font-semibold mb-1">
+        <h3 className="text-theme text-[15px] font-semibold mb-1">
           Lingua del template
         </h3>
-        <p className="text-zinc-400 text-[12px] mb-4 leading-relaxed">
+        <p className="text-muted text-[12px] mb-4 leading-relaxed">
           Scegli in quale lingua vuoi scaricare il template.
         </p>
         <div className="flex gap-2">
           <button
             onClick={() => onSelect("it")}
             disabled={loading}
-            className="flex-1 flex flex-col items-center gap-1.5 py-3 rounded-xl border border-white/10 bg-white/[0.05] hover:bg-white/[0.09] transition-colors disabled:opacity-50"
+            className="flex-1 flex flex-col items-center gap-1.5 py-3 rounded-xl border border-theme hover:border-accent transition-colors disabled:opacity-50"
+            style={{ background: "var(--bg)" }}
           >
             <span className="text-xl">🇮🇹</span>
-            <span className="text-white text-[13px] font-semibold">Italiano</span>
+            <span className="text-theme text-[13px] font-semibold">Italiano</span>
           </button>
           <button
             onClick={() => onSelect("en")}
             disabled={loading}
-            className="flex-1 flex flex-col items-center gap-1.5 py-3 rounded-xl border border-white/10 bg-white/[0.05] hover:bg-white/[0.09] transition-colors disabled:opacity-50"
+            className="flex-1 flex flex-col items-center gap-1.5 py-3 rounded-xl border border-theme hover:border-accent transition-colors disabled:opacity-50"
+            style={{ background: "var(--bg)" }}
           >
             <span className="text-xl">🇬🇧</span>
-            <span className="text-white text-[13px] font-semibold">English</span>
+            <span className="text-theme text-[13px] font-semibold">English</span>
           </button>
         </div>
         {loading && (
-          <p className="text-zinc-500 text-[11px] text-center mt-3">
+          <p className="text-muted text-[11px] text-center mt-3">
             Preparazione in corso…
           </p>
         )}

@@ -38,8 +38,10 @@ export default function NavButtons({ showMobileLinks = true }: { showMobileLinks
       ) : (
         <SignInButton mode="modal">
           <button
-            className="px-4 py-2 hover:opacity-90 active:scale-[0.97] text-white font-semibold rounded-2xl text-[13px] transition-opacity duration-200 whitespace-nowrap"
-            style={{ backgroundColor: 'var(--accent)' }}
+            className="px-4 py-2 active:scale-[0.97] font-bold uppercase tracking-[0.12em] text-[10px] transition-colors duration-200 whitespace-nowrap"
+            style={{ fontFamily: "var(--font-syne)", background: "var(--accent)", color: "var(--bg)" }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--text)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--accent)"; }}
           >
             {t[lang].nav.signIn}
           </button>

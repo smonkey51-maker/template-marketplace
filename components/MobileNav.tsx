@@ -94,7 +94,7 @@ export default function MobileNav() {
             <span className="relative">
               {tab.icon(tab.active)}
               {tab.badge ? (
-                <span className="absolute -top-1 -right-1.5 min-w-[14px] h-[14px] rounded-full bg-[#FF453A] text-white text-[9px] font-bold flex items-center justify-center px-0.5">
+                <span className="absolute -top-1 -right-1.5 min-w-[14px] h-[14px] rounded-full text-[9px] font-bold flex items-center justify-center px-0.5" style={{ background: "var(--accent)", color: "var(--bg)" }}>
                   {tab.badge > 9 ? "9+" : tab.badge}
                 </span>
               ) : null}

@@ -53,10 +53,10 @@ export default function EmailCapture() {
       <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
         {/* Text */}
         <div className="text-center sm:text-left">
-          <p className="text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-[0.2em] mb-1">
+          <p className="text-[10px] font-bold text-muted uppercase tracking-[0.2em] mb-1" style={{ fontFamily: "var(--font-syne)" }}>
             {c.label}
           </p>
-          <p className="text-[15px] font-semibold text-zinc-900 dark:text-zinc-100">{c.title}</p>
+          <p className="text-[15px] font-semibold text-theme">{c.title}</p>
           <p className="text-[13px] text-muted mt-0.5">{c.subtitle}</p>
         </div>
 
@@ -72,12 +72,15 @@ export default function EmailCapture() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder={c.placeholder}
                 required
-                className="w-48 sm:w-56 bg-input border border-theme rounded-xl px-3 py-2.5 text-[13px] text-theme placeholder:text-muted outline-none focus:border-[#0A84FF]/50 transition-colors duration-200"
+                className="w-48 sm:w-56 bg-input border border-theme rounded-xl px-3 py-2.5 text-[13px] text-theme placeholder:text-muted outline-none focus:border-accent transition-colors duration-200"
               />
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="px-4 py-2.5 bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 font-semibold rounded-xl text-[13px] transition-all duration-200 active:scale-[0.97] disabled:opacity-50 whitespace-nowrap"
+                className="px-4 py-2.5 font-bold uppercase tracking-[0.12em] rounded-none text-[10px] transition-colors duration-200 active:scale-[0.97] disabled:opacity-50 whitespace-nowrap"
+                style={{ fontFamily: "var(--font-syne)", background: "var(--accent)", color: "var(--bg)" }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--text)"; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--accent)"; }}
               >
                 {status === "loading" ? "…" : c.cta}
               </button>

@@ -810,7 +810,7 @@ export default function HomeContent() {
                 }
               }}
               placeholder={lang === "it" ? "Cerca template…" : "Search templates…"}
-              className="w-full bg-input border border-theme rounded-xl pl-9 pr-3 py-2.5 text-[14px] text-theme placeholder:text-muted outline-none focus:border-[#0A84FF]/40 transition-colors"
+              className="w-full bg-input border border-theme rounded-xl pl-9 pr-3 py-2.5 text-[14px] text-theme placeholder:text-muted outline-none focus:border-accent transition-colors"
             />
           </div>
         </div>
@@ -947,13 +947,13 @@ export default function HomeContent() {
               {lang === "it" ? (
                 <>
                   Template premium,<br />
-                  <em style={{ fontStyle: "italic", color: "#C4622D" }}>plasmati con cura</em><br />
+                  <em style={{ fontStyle: "italic", color: "var(--terra, #C4622D)" }}>plasmati con cura</em><br />
                   dall&apos;AI per te.
                 </>
               ) : (
                 <>
                   Premium templates,<br />
-                  <em style={{ fontStyle: "italic", color: "#C4622D" }}>crafted with care</em><br />
+                  <em style={{ fontStyle: "italic", color: "var(--terra, #C4622D)" }}>crafted with care</em><br />
                   by AI for you.
                 </>
               )}
