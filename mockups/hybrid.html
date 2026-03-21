@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="it" style="background:#050402;">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TemplateLab — Hybrid Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --obsidian:   #050402;
+    --obsidian-2: #0d0b08;
+    --obsidian-3: #161310;
+    --obsidian-4: #1e1a16;
+    --gold:       #C8A96E;
+    --gold-dim:   rgba(200,169,110,0.14);
+    --gold-mid:   rgba(200,169,110,0.35);
+    --terra:      #C4622D;
+    --terra-dim:  rgba(196,98,45,0.15);
+    --cream:      #F2EBD9;
+    --cream-60:   rgba(242,235,217,0.6);
+    --cream-30:   rgba(242,235,217,0.3);
+    --cream-08:   rgba(242,235,217,0.08);
+    --cream-04:   rgba(242,235,217,0.04);
+    --border:     1px solid rgba(242,235,217,0.09);
+    --border-gold:1px solid rgba(200,169,110,0.28);
+  }
+
+  body {
+    background: var(--obsidian);
+    color: var(--cream);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Subtle warm grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9000;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+  }
+
+  /* ── NAV ── */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 52px;
+    border-bottom: var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 500;
+    background: rgba(5,4,2,0.93);
+    backdrop-filter: blur(14px);
+  }
+
+  .nav-logo {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .nav-logo-main {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--cream);
+    line-height: 1;
+  }
+
+  .nav-logo-main span { color: var(--gold); }
+
+  .nav-logo-sub {
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.6;
+    font-weight: 500;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cream-30);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--cream); }
+
+  .nav-right { display: flex; align-items: center; gap: 20px; }
+
+  .nav-signin {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--cream-30);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-signin:hover { color: var(--cream); }
+
+  .nav-cta {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 10px 22px;
+    background: var(--gold);
+    color: var(--obsidian);
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .nav-cta:hover { background: var(--cream); }
+
+  /* ── TICKER ── */
+  .ticker {
+    border-bottom: var(--border);
+    overflow: hidden;
+    padding: 9px 0;
+    background: var(--obsidian-2);
+  }
+
+  .ticker-inner {
+    display: flex;
+    gap: 72px;
+    animation: ticker 28s linear infinite;
+    white-space: nowrap;
+    width: max-content;
+  }
+
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  .ticker-item {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--cream-30);
+  }
+
+  .ticker-item .dot { color: var(--gold); margin: 0 10px; }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 72px;
+    padding: 80px 52px 72px;
+    border-bottom: var(--border);
+    align-items: center;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+    font-weight: 500;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+
+  .hero-headline {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(52px, 6vw, 88px);
+    font-weight: 400;
+    line-height: 1.06;
+    letter-spacing: -0.025em;
+    color: var(--cream);
+    margin-bottom: 28px;
+  }
+
+  .hero-headline em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  /* "plasmati con cura" in terracotta italic — warmth injection */
+  .hero-headline .warm {
+    font-style: italic;
+    color: var(--terra);
+  }
+
+  .hero-sub {
+    font-size: 14px;
+    line-height: 1.78;
+    color: var(--cream-60);
+    max-width: 420px;
+    margin-bottom: 44px;
+    font-weight: 300;
+  }
+
+  .hero-actions { display: flex; align-items: center; gap: 24px; }
+
+  .btn-primary {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 13px 28px;
+    background: var(--gold);
+    color: var(--obsidian);
+    text-decoration: none;
+    transition: background 0.2s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { background: var(--cream); }
+
+  .btn-ghost {
+    font-size: 12px;
+    color: var(--cream-30);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .btn-ghost:hover { color: var(--cream); }
+
+  /* Hero right: craft-style catalog shelf */
+  .hero-shelf {
+    background: var(--obsidian-3);
+    border: var(--border);
+  }
+
+  .shelf-header {
+    background: var(--obsidian-4);
+    padding: 14px 22px;
+    border-bottom: var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .shelf-label {
+    font-family: 'DM Serif Display', serif;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--cream-60);
+  }
+
+  .shelf-count {
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    opacity: 0.7;
+  }
+
+  .shelf-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 22px;
+    border-bottom: var(--border);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .shelf-item:last-child { border-bottom: none; }
+  .shelf-item:hover { background: var(--cream-04); }
+
+  .shelf-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 11px;
+    font-style: italic;
+    color: var(--gold);
+    opacity: 0.5;
+    width: 44px;
+    flex-shrink: 0;
+  }
+
+  .shelf-name {
+    flex: 1;
+    font-size: 13px;
+    color: var(--cream);
+    font-weight: 400;
+  }
+
+  .shelf-cat {
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cream-30);
+    font-weight: 500;
+    margin-right: 14px;
+  }
+
+  .shelf-price {
+    font-family: 'DM Serif Display', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+
+  .shelf-item.featured { background: var(--gold-dim); }
+  .shelf-item.featured .shelf-num { opacity: 1; }
+  .shelf-item.featured .shelf-cat { color: var(--gold); opacity: 0.7; }
+
+  /* ── SECTION DIVIDER (craft ornament) ── */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 52px;
+    border-bottom: var(--border);
+    background: var(--obsidian-2);
+  }
+
+  .div-rule { flex: 1; height: 1px; background: rgba(242,235,217,0.07); }
+
+  .div-ornament {
+    font-size: 14px;
+    color: var(--gold);
+    opacity: 0.4;
+    padding: 13px 0;
+  }
+
+  .div-label {
+    font-family: 'DM Serif Display', serif;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--cream-30);
+    padding: 13px 0;
+    white-space: nowrap;
+  }
+
+  /* ── GRID ── */
+  .catalog {
+    padding: 60px 52px;
+  }
+
+  .catalog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 44px;
+  }
+
+  .catalog-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px;
+    font-style: italic;
+    color: var(--cream);
+  }
+
+  .catalog-meta {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cream-30);
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+  }
+
+  /* Editorial asymmetric grid */
+  .template-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1px;
+    background: rgba(242,235,217,0.07);
+  }
+
+  .template-card {
+    background: var(--obsidian);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .template-card:hover { background: var(--obsidian-3); }
+
+  /* Craft micro-rotation — warmth injection */
+  .template-card:not(.featured):nth-child(2) { transform: rotate(-0.25deg); }
+  .template-card:not(.featured):nth-child(3) { transform: rotate(0.2deg); }
+  .template-card:not(.featured):nth-child(4) { transform: rotate(-0.3deg); }
+  .template-card:not(.featured):nth-child(5) { transform: rotate(0.15deg); }
+
+  .template-card:hover { transform: rotate(0deg) !important; }
+
+  .template-card.featured { grid-row: span 2; }
+
+  /* Thin category color strip */
+  .card-strip { height: 2px; }
+  .strip-saas     { background: var(--gold); }
+  .strip-prompt   { background: var(--terra); }
+  .strip-portfolio{ background: #4A7C8E; }
+  .strip-ecommerce{ background: #5A7A3A; }
+  .strip-agency   { background: #7B5EA7; }
+
+  .card-preview {
+    width: 100%;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    border-bottom: var(--border);
+    position: relative;
+  }
+
+  .card-preview.tall { aspect-ratio: 3/4; }
+
+  .card-preview-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.5s cubic-bezier(.2,.8,.3,1);
+  }
+
+  .template-card:hover .card-preview-inner { transform: scale(1.04); }
+
+  .p1 { background: linear-gradient(145deg, #0d0b08 0%, #1a1510 60%, #221c14 100%); }
+  .p2 { background: linear-gradient(145deg, #0b0810 0%, #160f20 100%); }
+  .p3 { background: linear-gradient(145deg, #080d0a 0%, #0f1f15 100%); }
+  .p4 { background: linear-gradient(145deg, #100808 0%, #1f100a 100%); }
+  .p5 { background: linear-gradient(145deg, #080810 0%, #120f20 100%); }
+
+  .preview-ui { width: 62%; opacity: 0.45; }
+
+  .ul {
+    height: 3px;
+    border-radius: 1px;
+    background: rgba(242,235,217,0.25);
+    margin-bottom: 8px;
+  }
+
+  .ul.a  { background: var(--gold-mid); }
+  .ul.t  { background: rgba(196,98,45,0.4); }
+  .ul.w90{ width:90%; } .ul.w80{ width:80%; }
+  .ul.w70{ width:70%; } .ul.w60{ width:60%; }
+  .ul.w50{ width:50%; } .ul.w40{ width:40%; }
+
+  /* Craft-number badge (editorial placement) */
+  .card-edition {
+    position: absolute;
+    top: 14px;
+    left: 16px;
+    font-family: 'DM Serif Display', serif;
+    font-size: 11px;
+    font-style: italic;
+    color: var(--gold);
+    opacity: 0.65;
+    z-index: 2;
+    letter-spacing: 0.03em;
+    background: rgba(5,4,2,0.55);
+    padding: 2px 6px;
+    backdrop-filter: blur(4px);
+  }
+
+  /* Status badge */
+  .card-badge {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    font-family: 'Syne', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    z-index: 2;
+  }
+
+  .badge-pick { background: var(--gold); color: var(--obsidian); }
+  .badge-new  { background: var(--terra); color: white; }
+  .badge-hot  { background: rgba(242,235,217,0.1); color: var(--cream-60); border: 1px solid rgba(242,235,217,0.15); }
+
+  .card-info { padding: 20px 22px 18px; border-top: var(--border); }
+
+  .card-number {
+    font-family: 'DM Serif Display', serif;
+    font-size: 10px;
+    font-style: italic;
+    color: var(--gold);
+    opacity: 0.5;
+    margin-bottom: 5px;
+    letter-spacing: 0.04em;
+  }
+
+  .card-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+    color: var(--cream);
+    line-height: 1.25;
+    margin-bottom: 5px;
+  }
+
+  .card-name.large { font-size: 18px; }
+
+  .card-category {
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cream-30);
+    font-weight: 500;
+    margin-bottom: 14px;
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    border-top: var(--border);
+  }
+
+  .card-price {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .card-price.large { font-size: 28px; }
+
+  .card-downloads {
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    color: var(--cream-30);
+  }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr 1px 1fr;
+    border: var(--border);
+    border-top: none;
+    background: var(--obsidian-2);
+    margin: 0 52px;
+  }
+
+  .stat-cell {
+    padding: 26px 36px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1;
+  }
+
+  .stat-lbl {
+    font-size: 11px;
+    color: var(--cream-30);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  .stat-div { background: rgba(242,235,217,0.07); }
+
+  /* ── STUDIO BANNER ── */
+  .studio-banner {
+    margin: 48px 52px 0;
+    padding: 48px 52px;
+    background: var(--obsidian-3);
+    border: var(--border-gold);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 48px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Warm ornament behind */
+  .studio-banner::after {
+    content: '✦';
+    position: absolute;
+    right: -24px;
+    top: -48px;
+    font-size: 220px;
+    color: rgba(200,169,110,0.04);
+    pointer-events: none;
+  }
+
+  .banner-eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+  }
+
+  .banner-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 30px;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+
+  .banner-sub {
+    font-size: 13px;
+    color: var(--cream-60);
+    font-weight: 300;
+  }
+
+  /* ── HOW BENTO (craft layout) ── */
+  .how-section {
+    padding: 48px 52px 64px;
+  }
+
+  .how-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1px;
+    background: rgba(242,235,217,0.07);
+  }
+
+  .how-card {
+    background: var(--obsidian);
+    padding: 32px 36px;
+  }
+
+  .how-card.large { grid-row: span 2; }
+
+  .how-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 52px;
+    font-style: italic;
+    color: var(--gold);
+    opacity: 0.2;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  .how-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--cream);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .how-desc {
+    font-size: 13px;
+    color: var(--cream-60);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* ── MOCKUP LABEL ── */
+  .mockup-label {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--gold);
+    color: var(--obsidian);
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    z-index: 9999;
+  }
+</style>
+</head>
+<body>
+
+<div class="mockup-label">Mockup — Hybrid</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-main">Template<span>Lab</span></div>
+    <div class="nav-logo-sub">Mercato del digitale artigianale</div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#">Catalogo</a></li>
+    <li><a href="#">Collezioni</a></li>
+    <li><a href="#">AI Studio</a></li>
+    <li><a href="#">Guida</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="#" class="nav-signin">Accedi</a>
+    <a href="#" class="nav-cta">Studio Access</a>
+  </div>
+</nav>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">UI Template<span class="dot">✦</span></span>
+    <span class="ticker-item">Prompt Pack<span class="dot">✦</span></span>
+    <span class="ticker-item">Personalizzabili con Claude AI<span class="dot">✦</span></span>
+    <span class="ticker-item">N° 47 pezzi in catalogo<span class="dot">✦</span></span>
+    <span class="ticker-item">Editor's Pick<span class="dot">✦</span></span>
+    <span class="ticker-item">Startup · SaaS · Portfolio<span class="dot">✦</span></span>
+    <span class="ticker-item">UI Template<span class="dot">✦</span></span>
+    <span class="ticker-item">Prompt Pack<span class="dot">✦</span></span>
+    <span class="ticker-item">Personalizzabili con Claude AI<span class="dot">✦</span></span>
+    <span class="ticker-item">N° 47 pezzi in catalogo<span class="dot">✦</span></span>
+    <span class="ticker-item">Editor's Pick<span class="dot">✦</span></span>
+    <span class="ticker-item">Startup · SaaS · Portfolio<span class="dot">✦</span></span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <div class="hero-eyebrow">Collezione Primavera 2026</div>
+    <h1 class="hero-headline">
+      Template premium,<br>
+      <em class="warm">plasmati con cura</em><br>
+      dall'AI per te.
+    </h1>
+    <p class="hero-sub">
+      Acquista un template professionale numerato, poi adattalo in secondi con Claude AI. Nessun codice. Nessun compromesso. Solo design che funziona.
+    </p>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary">Sfoglia il catalogo →</a>
+      <a href="#" class="btn-ghost">Prova l'AI Studio</a>
+    </div>
+  </div>
+
+  <!-- Craft catalog shelf on dark background -->
+  <div class="hero-shelf">
+    <div class="shelf-header">
+      <div class="shelf-label">Selezionati questa settimana</div>
+      <div class="shelf-count">47 pezzi</div>
+    </div>
+    <div class="shelf-item featured">
+      <div class="shelf-num">N° 001</div>
+      <div class="shelf-name">SaaS Hero Section</div>
+      <div class="shelf-cat">UI · Pick</div>
+      <div class="shelf-price">€ 12,99</div>
+    </div>
+    <div class="shelf-item">
+      <div class="shelf-num">N° 002</div>
+      <div class="shelf-name">Pricing Table 3-Tier</div>
+      <div class="shelf-cat">UI</div>
+      <div class="shelf-price">€ 9,99</div>
+    </div>
+    <div class="shelf-item">
+      <div class="shelf-num">N° 018</div>
+      <div class="shelf-name">LinkedIn Growth Kit</div>
+      <div class="shelf-cat">Prompt</div>
+      <div class="shelf-price">€ 7,99</div>
+    </div>
+    <div class="shelf-item">
+      <div class="shelf-num">N° 031</div>
+      <div class="shelf-name">Portfolio Agency Dark</div>
+      <div class="shelf-cat">UI · Nuovo</div>
+      <div class="shelf-price">€ 14,99</div>
+    </div>
+    <div class="shelf-item">
+      <div class="shelf-num">N° 044</div>
+      <div class="shelf-name">E-learning Landing</div>
+      <div class="shelf-cat">UI</div>
+      <div class="shelf-price">€ 19,99</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION DIVIDER -->
+<div class="section-divider">
+  <div class="div-rule"></div>
+  <div class="div-ornament">✦</div>
+  <div class="div-label">I più scaricati questa settimana</div>
+  <div class="div-ornament">✦</div>
+  <div class="div-rule"></div>
+</div>
+
+<!-- CATALOG GRID -->
+<section class="catalog">
+  <div class="catalog-header">
+    <h2 class="catalog-title">Catalogo — Edizione Primavera</h2>
+    <span class="catalog-meta">47 template disponibili</span>
+  </div>
+
+  <div class="template-grid">
+
+    <!-- FEATURED (span 2 rows) -->
+    <div class="template-card featured">
+      <div class="card-strip strip-saas"></div>
+      <div class="card-preview tall">
+        <div class="card-preview-inner p1">
+          <div class="preview-ui">
+            <div class="ul a w50"></div>
+            <div class="ul w90"></div>
+            <div class="ul w70"></div>
+            <div style="height:14px"></div>
+            <div class="ul w80"></div>
+            <div class="ul w60"></div>
+            <div style="height:14px"></div>
+            <div class="ul a w40"></div>
+          </div>
+        </div>
+        <div class="card-edition">N° 001</div>
+        <div class="card-badge badge-pick">Editor's Pick</div>
+      </div>
+      <div class="card-info">
+        <div class="card-number">N° 001 — Edizione Primavera 2026</div>
+        <div class="card-name large">SaaS Hero<br>Section</div>
+        <div class="card-category">UI Template · Landing Page · SaaS</div>
+        <div class="card-footer">
+          <div class="card-price large">€ 12,99</div>
+          <div class="card-downloads">1.423 acquisti</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="template-card">
+      <div class="card-strip strip-saas"></div>
+      <div class="card-preview">
+        <div class="card-preview-inner p2">
+          <div class="preview-ui">
+            <div class="ul w80"></div>
+            <div class="ul a w60"></div>
+            <div class="ul w90"></div>
+            <div class="ul w50"></div>
+          </div>
+        </div>
+        <div class="card-edition">N° 002</div>
+        <div class="card-badge badge-hot">Hot</div>
+      </div>
+      <div class="card-info">
+        <div class="card-number">N° 002 — Serie SaaS</div>
+        <div class="card-name">Pricing Table 3-Tier</div>
+        <div class="card-category">UI Template · SaaS</div>
+        <div class="card-footer">
+          <div class="card-price">€ 9,99</div>
+          <div class="card-downloads">987 acquisti</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="template-card">
+      <div class="card-strip strip-portfolio"></div>
+      <div class="card-preview">
+        <div class="card-preview-inner p3">
+          <div class="preview-ui">
+            <div class="ul w60"></div>
+            <div class="ul w80"></div>
+            <div class="ul w40"></div>
+            <div class="ul w70"></div>
+          </div>
+        </div>
+        <div class="card-edition">N° 031</div>
+        <div class="card-badge badge-new">Nuovo</div>
+      </div>
+      <div class="card-info">
+        <div class="card-number">N° 031 — Portfolio</div>
+        <div class="card-name">Agency Dark</div>
+        <div class="card-category">UI Template · Portfolio</div>
+        <div class="card-footer">
+          <div class="card-price">€ 14,99</div>
+          <div class="card-downloads">421 acquisti</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="template-card">
+      <div class="card-strip strip-prompt"></div>
+      <div class="card-preview">
+        <div class="card-preview-inner p4">
+          <div class="preview-ui">
+            <div class="ul t w50"></div>
+            <div class="ul w90"></div>
+            <div class="ul w70"></div>
+            <div class="ul w60"></div>
+          </div>
+        </div>
+        <div class="card-edition">N° 018</div>
+      </div>
+      <div class="card-info">
+        <div class="card-number">N° 018 — Serie Copywriting</div>
+        <div class="card-name">LinkedIn Growth Kit</div>
+        <div class="card-category">AI Prompt · Social</div>
+        <div class="card-footer">
+          <div class="card-price">€ 7,99</div>
+          <div class="card-downloads">756 acquisti</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="template-card">
+      <div class="card-strip strip-ecommerce"></div>
+      <div class="card-preview">
+        <div class="card-preview-inner p5">
+          <div class="preview-ui">
+            <div class="ul w80"></div>
+            <div class="ul w60"></div>
+            <div class="ul a w70"></div>
+            <div class="ul w50"></div>
+          </div>
+        </div>
+        <div class="card-edition">N° 044</div>
+      </div>
+      <div class="card-info">
+        <div class="card-number">N° 044 — E-commerce</div>
+        <div class="card-name">Fashion Store Minimal</div>
+        <div class="card-category">UI Template · E-commerce</div>
+        <div class="card-footer">
+          <div class="card-price">€ 19,99</div>
+          <div class="card-downloads">312 acquisti</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat-cell">
+      <div class="stat-num">47</div>
+      <div class="stat-lbl">template<br>numerati</div>
+    </div>
+    <div class="stat-div"></div>
+    <div class="stat-cell">
+      <div class="stat-num">12k</div>
+      <div class="stat-lbl">acquisti<br>completati</div>
+    </div>
+    <div class="stat-div"></div>
+    <div class="stat-cell">
+      <div class="stat-num" style="font-size:22px; font-style:italic;">Claude AI</div>
+      <div class="stat-lbl">integrata per<br>personalizzare</div>
+    </div>
+  </div>
+</section>
+
+<!-- STUDIO BANNER -->
+<div class="studio-banner">
+  <div>
+    <div class="banner-eyebrow">✦ Studio Access — Claude AI</div>
+    <div class="banner-title">Non trovi il pezzo giusto?<br>Descrivilo, lo costruiamo insieme.</div>
+    <div class="banner-sub">Componenti UI, prompt, landing page — illimitati. €9,99/mese o accesso lifetime.</div>
+  </div>
+  <a href="#" class="btn-primary" style="padding:16px 36px; font-size:11px;">Inizia con Studio Access →</a>
+</div>
+
+<!-- HOW BENTO -->
+<div class="how-section">
+  <div class="how-grid">
+    <div class="how-card large">
+      <div class="how-num">01</div>
+      <div class="how-title">Scegli un template dal catalogo</div>
+      <div class="how-desc">
+        Sfoglia 47 template numerati come pezzi artigianali. Ogni template ha un'anteprima live completa — nessuna sorpresa dopo l'acquisto. Filtri per categoria, tecnologia, stile.
+      </div>
+    </div>
+    <div class="how-card">
+      <div class="how-num">02</div>
+      <div class="how-title">Acquista in un click</div>
+      <div class="how-desc">Pagamento sicuro Stripe. Download immediato.</div>
+    </div>
+    <div class="how-card">
+      <div class="how-num">03</div>
+      <div class="how-title">Personalizza con Claude AI</div>
+      <div class="how-desc">Descrivi le modifiche. L'AI le applica in secondi.</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
