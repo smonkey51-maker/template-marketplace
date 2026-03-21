@@ -1,0 +1,292 @@
+# CLAUDE.md — TemplateLab
+
+AI assistant reference for the **TemplateLab** codebase. Read this before making changes.
+
+---
+
+## Project Overview
+
+**TemplateLab** is an AI-powered template marketplace built with Next.js 16 (App Router). Users browse, purchase, and download premium UI/prompt templates, then customise them in real-time with Claude AI via the built-in Studio.
+
+**Tech stack:** Next.js 16 · React 19 · TypeScript 5 · Tailwind CSS 3 · Clerk (auth) · Stripe (payments) · Supabase (purchases DB) · Anthropic Claude API · PostHog (analytics) · Resend (email)
+
+---
+
+## Repository Structure
+
+```
+template-marketplace/
+├── app/                        # Next.js App Router
+│   ├── layout.tsx              # Root layout — providers, fonts (Syne + Plus Jakarta Sans)
+│   ├── page.tsx                # Home / marketplace listing
+│   ├── studio/page.tsx         # AI Studio (generate & customise templates)
+│   ├── preview/[templateId]/   # Template detail / preview page
+│   ├── bundle/[bundleId]/      # Bundle detail page
+│   ├── account/                # User account & purchase history (auth required)
+│   ├── success/                # Post-checkout success page
+│   ├── admin/newsletter/       # Admin newsletter sender (auth required)
+│   ├── wishlist/               # Client-side wishlist page
+│   ├── guide/                  # Buyer's guide
+│   ├── sign-in/ sign-up/       # Clerk auth pages
+│   ├── terms/ privacy/         # Legal pages
+│   ├── not-found.tsx           # 404 page
+│   └── api/
+│       ├── checkout/route.ts   # Stripe checkout session creation
+│       ├── webhook/route.ts    # Stripe webhook → Supabase insert + email
+│       ├── download/[templateId]/route.ts  # Authenticated template download
+│       ├── download-session/route.ts       # Guest download (via Stripe session ID)
+│       ├── preview/[templateId]/route.ts   # Template HTML preview (sandboxed iframe)
+│       ├── generate/route.ts   # Claude AI generation (streaming)
+│       ├── customize/route.ts  # Claude AI customisation (streaming)
+│       ├── purchases/route.ts  # List user purchases
+│       ├── subscribe/route.ts  # Newsletter subscription
+│       ├── stripe-portal/route.ts  # Stripe customer portal redirect
+│       ├── admin/newsletter/route.ts  # Admin newsletter send
+│       └── og/route.tsx        # Dynamic Open Graph image
+├── components/                 # Shared React components
+│   ├── SiteNav.tsx             # Top navigation bar
+│   ├── MobileNav.tsx           # Mobile drawer navigation
+│   ├── HomeContent.tsx         # Marketplace home page content
+│   ├── TemplateGrid.tsx        # Filterable/searchable template grid
+│   ├── TemplateCard.tsx        # Individual template card
+│   ├── BundleCard.tsx          # Bundle product card
+│   ├── BundleDetailContent.tsx # Bundle detail view
+│   ├── PreviewModal.tsx        # Quick preview modal
+│   ├── PreviewContent.tsx      # Iframe preview of HTML templates
+│   ├── PromptFullView.tsx      # Full-screen prompt template viewer
+│   ├── DownloadButton.tsx      # Download + auth gate button
+│   ├── RelatedTemplates.tsx    # Related templates carousel
+│   ├── EmailCapture.tsx        # Newsletter sign-up form
+│   ├── Toast.tsx               # Toast notification system (Context + hook)
+│   ├── ThemeProvider.tsx       # Dark/light theme context
+│   ├── ThemeToggle.tsx         # Theme toggle button
+│   ├── LanguageProvider.tsx    # IT/EN language context
+│   ├── LanguageToggle.tsx      # Language toggle button
+│   ├── PostHogProvider.tsx     # PostHog analytics wrapper
+│   ├── NavButtons.tsx          # Nav CTA buttons
+│   ├── StudioAccessButton.tsx  # Studio Access upsell button
+│   ├── ScrollToTop.tsx         # Scroll-to-top FAB
+│   ├── CustomCursor.tsx        # Custom animated cursor
+│   └── Footer.tsx              # Site footer
+├── lib/
+│   ├── templates.ts            # ⚠️ ALL template data lives here — single source of truth
+│   ├── i18n.ts                 # IT/EN translation strings + templateTranslations
+│   ├── claude.ts               # Anthropic SDK client (singleton)
+│   ├── email.ts                # Resend email helpers (purchase, newsletter)
+│   ├── purchases.ts            # Supabase purchases query
+│   ├── rateLimit.ts            # In-memory sliding-window rate limiter
+│   ├── useRecentlyViewed.ts    # localStorage hook for recently viewed templates
+│   └── useWishlist.ts          # localStorage hook for wishlist
+├── scripts/
+│   ├── export-for-marketplace.ts  # Generates exports/ dir for Gumroad/Etsy
+│   └── *.mjs / *.ts            # One-off Stripe/Notion/Supabase seed scripts
+├── middleware.ts               # Clerk auth middleware — protects /studio, /account, /admin, /api/generate, /api/customize, /api/stripe-portal, /api/admin
+├── instrumentation.ts          # Next.js instrumentation (runs export-for-marketplace on startup)
+├── next.config.ts              # Next.js config — security headers, image optimisation
+├── tailwind.config.ts          # Tailwind — darkMode: "class"
+└── .env.local.example          # Required env vars (see Environment Variables section)
+```
+
+---
+
+## Key Conventions
+
+### Template Data (`lib/templates.ts`)
+
+This is the **single source of truth** for all templates. It is a large file (~300 KB).
+
+- Every template is a `Template` object in the exported `templates` array.
+- `price` is always in **cents** (e.g. `1299` = €12.99).
+- `stripePriceId` must match a live Stripe Price object — never fabricate one.
+- `downloadType` defaults to `"html"` for `category: "ui"` and `"prompt"` for `category: "prompt"`. Set it explicitly for Canva/Notion/Excel/Sheets/Webflow/Framer types.
+- External-link types (`canva`, `notion`, `excel`, `sheets`, `webflow`, `framer`) require `downloadUrl`.
+- `content` holds the raw HTML or prompt text inline.
+- Helper functions: `getTemplate(id)`, `getBundle(id)`, `formatPrice(cents)`, `getDownloadType(template)`.
+
+**When adding a new template:**
+1. Add the `Template` object to `lib/templates.ts`.
+2. Add a real `stripePriceId` (create a Stripe Price if needed via `scripts/seed-stripe.ts`).
+3. Add Italian translations in `lib/i18n.ts` under `templateTranslations`.
+4. Run `npm run export-templates` to regenerate `exports/`.
+
+### Internationalisation (`lib/i18n.ts`)
+
+- The site is primarily **Italian**, with English support.
+- `Lang = "it" | "en"`. Default is Italian.
+- All UI strings live in the `t` object keyed by language.
+- Use `useLang()` from `LanguageProvider` in client components to get `{ lang, setLang, t: tStrings }`.
+- Template names/descriptions have Italian overrides in `templateTranslations`.
+
+### Authentication (Clerk)
+
+- Auth is handled entirely by Clerk (`@clerk/nextjs`).
+- Protected routes are declared in `middleware.ts`: `/studio`, `/account`, `/admin`, `/api/generate`, `/api/customize`, `/api/stripe-portal`, `/api/admin`.
+- In Server Components/Route Handlers use `auth()` from `@clerk/nextjs/server`.
+- Guest checkout is **allowed** for single-template purchases — `userId` may be null.
+
+### Payments (Stripe)
+
+Three purchase flows:
+1. **Single template** — guest or authenticated, `mode: "payment"`.
+2. **Bundle** — requires auth, `mode: "payment"`, expands to multiple template rows in Supabase.
+3. **Studio Access** — requires auth, subscription (`mode: "subscription"`) or lifetime (`mode: "payment"`).
+
+The Stripe webhook (`/api/webhook`) writes purchase records to Supabase and sends a confirmation email via Resend.
+
+`STUDIO_ACCESS_PRICE_ID = "price_1TBruJBoWNgrJbiy6Ry5WGB2"` is hardcoded in `checkout/route.ts`; the lifetime price comes from `STUDIO_ACCESS_LIFETIME_PRICE_ID` env var.
+
+### Database (Supabase)
+
+- Single table: **`purchases`** with columns `user_id`, `template_id`, `stripe_session_id`, `guest_email`.
+- Guest purchases use `user_id = "guest:<email>"`.
+- `lib/purchases.ts` provides `getUserPurchases(userId): Promise<string[]>`.
+- Always use `SUPABASE_SERVICE_ROLE_KEY` (server-side only, never expose to client).
+
+### Claude AI Integration
+
+- Client singleton: `lib/claude.ts` exports `anthropic` (Anthropic SDK instance).
+- **`/api/generate`** — generates new templates from scratch. Uses `claude-opus-4-6`. UI templates use extended thinking (`betas: ["interleaved-thinking-2025-05-14"]`, `budget_tokens: 3000`). Prompt templates use standard streaming. Rate limit: 10 req/min per IP.
+- **`/api/customize`** — customises an existing template. Uses `claude-opus-4-6` with standard streaming. Rate limit: 20 req/min per IP.
+- Both endpoints stream plain text (`text/plain; charset=utf-8`) back to the client.
+- Both require `ANTHROPIC_API_KEY` env var.
+
+### Rate Limiting
+
+`lib/rateLimit.ts` — simple **in-memory** sliding-window limiter. Resets on server restart. Not suitable for multi-instance deployments without Redis. Keyed by `"generate:<ip>"` and `"customize:<ip>"`.
+
+### Email (Resend)
+
+`lib/email.ts`:
+- `sendPurchaseEmail()` — sends post-purchase confirmation with download link.
+- `sendNewsletterEmail()` — batch sends up to 100 emails per Resend API call.
+- Silently no-ops if `RESEND_API_KEY` is not set (safe in dev).
+- From address: `RESEND_FROM` env var, defaults to `TemplateLab <noreply@templatelab.io>`.
+
+### Template Export Script
+
+```bash
+npm run export-templates
+```
+
+Generates `exports/gumroad/` and `exports/etsy/` from all templates in `lib/templates.ts`. Called automatically during `npm run build`. Do not commit the `exports/` directory — it is generated.
+
+---
+
+## Environment Variables
+
+| Variable | Required | Description |
+|---|---|---|
+| `ANTHROPIC_API_KEY` | Yes | Claude API key |
+| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Yes | Clerk publishable key |
+| `CLERK_SECRET_KEY` | Yes | Clerk secret key |
+| `STRIPE_SECRET_KEY` | Yes | Stripe secret key |
+| `STRIPE_WEBHOOK_SECRET` | Yes | Stripe webhook signing secret |
+| `STUDIO_ACCESS_LIFETIME_PRICE_ID` | Yes (for lifetime) | Stripe price ID for lifetime Studio Access |
+| `SUPABASE_URL` | Yes | Supabase project URL |
+| `SUPABASE_SERVICE_ROLE_KEY` | Yes | Supabase service role key (server-only) |
+| `NEXT_PUBLIC_SITE_URL` | Yes | Full site URL e.g. `https://templatelab.io` |
+| `NEXT_PUBLIC_APP_URL` | Optional | Fallback for checkout redirect URLs |
+| `RESEND_API_KEY` | Optional | Resend email API key |
+| `RESEND_FROM` | Optional | Sender address for emails |
+| `NEXT_PUBLIC_POSTHOG_KEY` | Optional | PostHog project API key |
+| `NEXT_PUBLIC_POSTHOG_HOST` | Optional | PostHog host (defaults to `https://app.posthog.com`) |
+
+Copy `.env.local.example` to `.env.local` and fill in values before running locally.
+
+---
+
+## Development Workflow
+
+```bash
+# Install dependencies
+npm install
+
+# Run dev server (also runs export-templates via instrumentation.ts)
+npm run dev
+
+# Production build (runs export-templates first, then next build)
+npm run build
+
+# Start production server
+npm start
+
+# Manually regenerate exports/ directory
+npm run export-templates
+```
+
+**No test suite is configured.** Validate changes manually in the browser.
+
+---
+
+## Architecture Notes
+
+### Providers (Root Layout)
+
+The root layout (`app/layout.tsx`) wraps everything in this order:
+```
+ClerkProvider
+  PostHogProvider
+    ThemeProvider
+      LanguageProvider
+        ToastProvider
+          {children}
+          MobileNav
+CustomCursor  (outside providers, fixed position)
+```
+
+### Fonts
+
+- **Syne** (`--font-syne`) — headings, display text
+- **Plus Jakarta Sans** (`--font-jakarta`) — body text
+
+### Theme
+
+Tailwind `darkMode: "class"`. The `<html>` element starts with `class="dark"`. `ThemeProvider` manages toggling. Custom theme tokens are defined in `app/globals.css` (e.g. `bg-page`, `text-theme`).
+
+### API Route Patterns
+
+- All API routes use the Next.js App Router convention (`app/api/.../route.ts`).
+- Auth-protected routes call `await auth()` from `@clerk/nextjs/server` at the top.
+- Streaming responses return `new Response(readableStream, { headers: { "Content-Type": "text/plain; charset=utf-8", "Transfer-Encoding": "chunked", "Cache-Control": "no-cache" } })`.
+- Error responses always include a meaningful message string in the body.
+
+### Security Headers (next.config.ts)
+
+- `X-Content-Type-Options: nosniff`
+- `X-XSS-Protection: 1; mode=block`
+- `Referrer-Policy: strict-origin-when-cross-origin`
+- `X-Frame-Options: SAMEORIGIN` — **except** `/api/preview/*` which must be embeddable in same-origin iframes.
+- Static assets cached with `Cache-Control: public, max-age=31536000, immutable`.
+
+### Preview Iframe
+
+`/api/preview/[templateId]` serves raw HTML for template previews. The `/preview/[templateId]` page loads it in a sandboxed `<iframe>`. The `X-Frame-Options` exemption in `next.config.ts` is intentional and required.
+
+---
+
+## Common Tasks
+
+### Add a new UI template
+
+1. Add to `lib/templates.ts` `templates` array with a unique `id`, `category: "ui"`, `price` in cents, valid `stripePriceId`, and inline HTML in `content`.
+2. Add Italian name/description override in `lib/i18n.ts` `templateTranslations`.
+3. Run `npm run export-templates` to update `exports/`.
+
+### Add a new template category/section
+
+1. Add the section key to `lib/i18n.ts` under `sections` for both `it` and `en`.
+2. Add matching accent colour in `app/globals.css` or wherever category colours are defined.
+3. Update `TemplateGrid.tsx` filter chips if the new category needs a dedicated filter.
+
+### Modify Claude prompts
+
+Edit the `system` prompt strings in `app/api/generate/route.ts` or `app/api/customize/route.ts`. Keep the "output ONLY" constraint to avoid unwanted preamble in streamed output.
+
+### Add a new Stripe product
+
+1. Create the Price in Stripe Dashboard (or run the relevant seed script in `scripts/`).
+2. Copy the `price_...` ID into the template definition in `lib/templates.ts`.
+
+### Debug purchases
+
+Query the Supabase `purchases` table directly. Guest purchases have `user_id` like `guest:user@example.com`. Check `stripe_session_id` against the Stripe Dashboard if a purchase is missing.
