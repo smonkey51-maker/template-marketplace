@@ -79,7 +79,7 @@ export default function NewsletterAdminPage() {
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
                 placeholder="es. Nuovi template disponibili su TemplateLab"
-                className="w-full bg-input border border-theme rounded-xl px-3 py-2.5 text-[13px] text-theme placeholder:text-muted outline-none focus:border-[#0A84FF]/50 transition-colors"
+                className="w-full bg-input border border-theme px-3 py-2.5 text-[13px] text-theme placeholder:text-muted outline-none focus:border-accent/50 transition-colors"
               />
             </div>
             <div>
@@ -89,7 +89,7 @@ export default function NewsletterAdminPage() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="es. 5 nuovi template questa settimana"
-                className="w-full bg-input border border-theme rounded-xl px-3 py-2.5 text-[13px] text-theme placeholder:text-muted outline-none focus:border-[#0A84FF]/50 transition-colors"
+                className="w-full bg-input border border-theme px-3 py-2.5 text-[13px] text-theme placeholder:text-muted outline-none focus:border-accent/50 transition-colors"
               />
             </div>
             <div>
@@ -101,7 +101,7 @@ export default function NewsletterAdminPage() {
                 onChange={(e) => setBody(e.target.value)}
                 placeholder={"Ciao!\n\nQuesta settimana abbiamo aggiunto 5 nuovi template..."}
                 rows={10}
-                className="w-full bg-input border border-theme rounded-xl px-3 py-2.5 text-[13px] text-theme placeholder:text-muted outline-none focus:border-[#0A84FF]/50 transition-colors resize-y font-mono"
+                className="w-full bg-input border border-theme px-3 py-2.5 text-[13px] text-theme placeholder:text-muted outline-none focus:border-accent/50 transition-colors resize-y font-mono"
               />
             </div>
 
@@ -118,7 +118,8 @@ export default function NewsletterAdminPage() {
             <button
               onClick={handleSend}
               disabled={!subject || !title || !body || status === "sending"}
-              className="w-full py-3 bg-[#0A84FF] hover:bg-[#0A84FF]/90 text-white font-semibold rounded-xl text-[14px] transition-all disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.98]"
+              className="w-full py-3 font-semibold text-[14px] transition-all disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.98]"
+              style={{ background: "var(--accent)", color: "var(--bg)" }}
             >
               {status === "sending" ? "Invio in corso…" : `Invia a ${count ?? "?"} subscriber`}
             </button>

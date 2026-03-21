@@ -30,7 +30,7 @@ export default function GuidePage() {
 
         {/* ── Hero ── */}
         <section className="text-center anim-fade-up delay-0">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[12px] font-semibold glass-subtle text-accent mb-6 select-none">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 text-[12px] font-semibold glass-subtle text-accent mb-6 select-none">
             <span className="w-1.5 h-1.5 bg-accent" />
             {t[lang].guide.badge}
           </div>
@@ -49,8 +49,8 @@ export default function GuidePage() {
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* UI Template */}
-            <div className="bg-surface border border-theme rounded-[24px] p-6 flex flex-col gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center">
+            <div className="bg-surface border border-theme p-6 flex flex-col gap-4">
+              <div className="w-12 h-12 bg-accent/10 flex items-center justify-center">
                 <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden>
                   <rect x="2" y="4" width="20" height="14" rx="2" stroke="var(--accent)" strokeWidth="1.7"/>
                   <path d="M8 18v2M16 18v2M6 20h12" stroke="var(--accent)" strokeWidth="1.7" strokeLinecap="round"/>
@@ -67,7 +67,7 @@ export default function GuidePage() {
                 {["HTML", "Tailwind CSS", "Copy & Paste"].map((tag) => (
                   <span
                     key={tag}
-                    className="glass-subtle rounded-full px-3 py-1 text-[11px] font-semibold text-muted"
+                    className="glass-subtle px-3 py-1 text-[11px] font-semibold text-muted"
                   >
                     {tag}
                   </span>
@@ -76,8 +76,8 @@ export default function GuidePage() {
             </div>
 
             {/* Prompt Template */}
-            <div className="bg-surface border border-theme rounded-[24px] p-6 flex flex-col gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center">
+            <div className="bg-surface border border-theme p-6 flex flex-col gap-4">
+              <div className="w-12 h-12 bg-accent/10 flex items-center justify-center">
                 <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden>
                   <rect x="4" y="2" width="16" height="20" rx="2" stroke="var(--accent)" strokeWidth="1.7"/>
                   <path d="M8 8h8M8 12h8M8 16h5" stroke="var(--accent)" strokeWidth="1.4" strokeLinecap="round"/>
@@ -93,7 +93,7 @@ export default function GuidePage() {
                 {["Claude AI", "ChatGPT", "Copy & Paste"].map((tag) => (
                   <span
                     key={tag}
-                    className="glass-subtle rounded-full px-3 py-1 text-[11px] font-semibold text-muted"
+                    className="glass-subtle px-3 py-1 text-[11px] font-semibold text-muted"
                   >
                     {tag}
                   </span>
@@ -108,7 +108,7 @@ export default function GuidePage() {
           <p className="text-[11px] font-bold text-muted uppercase tracking-[0.2em] mb-6">
             {t[lang].guide.sectionInstall}
           </p>
-          <div className="bg-surface border border-theme rounded-[24px] p-6 sm:p-8">
+          <div className="bg-surface border border-theme p-6 sm:p-8">
             <StepList
               steps={[
                 { emoji: "🛒", title: t[lang].guide.installStep1Title, desc: t[lang].guide.installStep1Desc },
@@ -125,7 +125,7 @@ export default function GuidePage() {
           <p className="text-[11px] font-bold text-muted uppercase tracking-[0.2em] mb-6">
             {t[lang].guide.sectionPromptUse}
           </p>
-          <div className="bg-surface border border-theme rounded-[24px] p-6 sm:p-8">
+          <div className="bg-surface border border-theme p-6 sm:p-8">
             <StepList
               steps={[
                 { emoji: "🛒", title: t[lang].guide.promptStep1Title, desc: t[lang].guide.promptStep1Desc },
@@ -144,13 +144,13 @@ export default function GuidePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
             {/* UI Template mock */}
-            <div className="bg-surface border border-theme rounded-[24px] p-5 flex flex-col gap-4">
+            <div className="bg-surface border border-theme p-5 flex flex-col gap-4">
               <div className="flex items-center gap-2">
                 <span className="text-[13px] font-bold text-theme">{t[lang].guide.uiTitle}</span>
-                <span className="glass-subtle rounded-full px-2 py-0.5 text-[11px] font-semibold text-accent">HTML</span>
+                <span className="glass-subtle px-2 py-0.5 text-[11px] font-semibold text-accent">HTML</span>
               </div>
               {/* Mini HTML mockup */}
-              <div className="rounded-xl overflow-hidden border border-theme/50 bg-[#0F0F10]">
+              <div className="overflow-hidden border border-theme/50 bg-[#0F0F10]">
                 {/* Fake browser bar */}
                 <div className="flex items-center gap-1.5 px-3 py-2 bg-[#1C1C1E] border-b border-white/5">
                   <div className="w-2 h-2 rounded-full bg-[#FF5F57]" />
@@ -191,13 +191,13 @@ export default function GuidePage() {
             </div>
 
             {/* Prompt Template mock */}
-            <div className="bg-surface border border-theme rounded-[24px] p-5 flex flex-col gap-4">
+            <div className="bg-surface border border-theme p-5 flex flex-col gap-4">
               <div className="flex items-center gap-2">
                 <span className="text-[13px] font-bold text-theme">{t[lang].guide.promptTitle}</span>
-                <span className="glass-subtle rounded-full px-2 py-0.5 text-[11px] font-semibold text-accent">AI</span>
+                <span className="glass-subtle px-2 py-0.5 text-[11px] font-semibold text-accent">AI</span>
               </div>
               {/* macOS Notes style */}
-              <div className="rounded-xl overflow-hidden border border-theme/50 bg-[#1C1C1E]">
+              <div className="overflow-hidden border border-theme/50 bg-[#1C1C1E]">
                 {/* Title bar */}
                 <div className="flex items-center gap-1.5 px-3 py-2 bg-[#2C2C2E] border-b border-white/5">
                   <div className="w-2 h-2 rounded-full bg-[#FF5F57]" />
@@ -232,7 +232,7 @@ export default function GuidePage() {
 
         {/* ── CTA finale ── */}
         <section className="anim-fade-up delay-300 text-center pb-8">
-          <div className="bg-surface border border-theme rounded-[24px] p-8 sm:p-10 relative overflow-hidden">
+          <div className="bg-surface border border-theme p-8 sm:p-10 relative overflow-hidden">
             <div
               className="absolute inset-x-0 top-0 h-px"
               style={{ background: "linear-gradient(90deg, transparent, rgba(10,132,255,0.4), transparent)" }}
@@ -253,7 +253,7 @@ export default function GuidePage() {
               </p>
               <Link
                 href="/#browse"
-                className="inline-flex items-center gap-2 px-8 py-4 font-bold text-[15px] rounded-2xl ios-spring transition-colors duration-200"
+                className="inline-flex items-center gap-2 px-8 py-4 font-bold text-[15px] ios-spring transition-colors duration-200"
                 style={{ background: "var(--accent)", color: "var(--bg)" }}
                 onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--text)"; }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--accent)"; }}

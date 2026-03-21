@@ -56,14 +56,14 @@ function SuccessContent() {
   const template = templateId && !isStudioAccess ? getTemplate(templateId) : null;
 
   return (
-    <div className="relative z-10 bg-surface border border-theme rounded-[32px] p-8 max-w-sm w-full mx-auto text-center shadow-[0_8px_40px_rgba(0,0,0,0.12)]">
+    <div className="relative z-10 bg-surface border border-theme p-8 max-w-sm w-full mx-auto text-center shadow-[0_8px_40px_rgba(0,0,0,0.12)]">
       {/* Top glint */}
       <div className="absolute inset-x-8 top-0 h-px rounded-full"
         style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)" }} />
 
       {/* Success icon */}
       <div className="flex justify-center mb-6">
-        <div className="w-20 h-20 rounded-full bg-accent/15 flex items-center justify-center">
+        <div className="w-20 h-20 bg-accent/15 flex items-center justify-center">
           <span className="text-[32px] font-bold" style={{ color: "var(--accent)" }}>✓</span>
         </div>
       </div>
@@ -81,7 +81,7 @@ function SuccessContent() {
           </p>
           <Link
             href="/studio"
-            className="block w-full px-6 py-3.5 rounded-2xl font-bold text-[15px] transition-colors duration-200 active:scale-[0.97] ios-spring"
+            className="block w-full px-6 py-3.5 font-bold text-[15px] transition-colors duration-200 active:scale-[0.97] ios-spring"
             style={{ background: "var(--accent)", color: "var(--bg)" }}
           >
             {t[lang].success.openStudio}
@@ -104,7 +104,7 @@ function SuccessContent() {
               <>
                 <a
                   href={`/api/download-session?session_id=${sessionId}&templateId=${template.id}&lang=${lang}`}
-                  className="block w-full px-6 py-3.5 rounded-2xl font-bold text-[15px] text-center transition-colors duration-200 active:scale-[0.97] ios-spring"
+                  className="block w-full px-6 py-3.5 font-bold text-[15px] text-center transition-colors duration-200 active:scale-[0.97] ios-spring"
                   style={{ background: "var(--accent)", color: "var(--bg)" }}
                 >
                   {lang === "it" ? "⬇ Scarica il template" : "⬇ Download template"}
@@ -117,7 +117,7 @@ function SuccessContent() {
                   </p>
                   <Link
                     href={`/sign-up?redirect_url=/studio?templateId=${template.id}`}
-                    className="block w-full px-6 py-3 rounded-2xl font-bold text-[14px] text-center transition-colors duration-200 active:scale-[0.97] ios-spring"
+                    className="block w-full px-6 py-3 font-bold text-[14px] text-center transition-colors duration-200 active:scale-[0.97] ios-spring"
                     style={{ background: "var(--accent)", color: "var(--bg)" }}
                   >
                     {lang === "it" ? "Crea account gratuito →" : "Create free account →"}
@@ -129,7 +129,7 @@ function SuccessContent() {
             {isSignedIn && template && (
               <Link
                 href={`/studio?templateId=${template.id}`}
-                className="block w-full px-6 py-3.5 rounded-2xl font-bold text-[15px] transition-colors duration-200 active:scale-[0.97] ios-spring"
+                className="block w-full px-6 py-3.5 font-bold text-[15px] transition-colors duration-200 active:scale-[0.97] ios-spring"
                 style={{ background: "var(--accent)", color: "var(--bg)" }}
               >
                 {t[lang].success.customizeStudio}
@@ -137,7 +137,7 @@ function SuccessContent() {
             )}
             <Link
               href="/"
-              className="block w-full px-6 py-3.5 glass-subtle rounded-2xl font-bold text-[15px] text-theme text-center transition-all duration-200 active:scale-[0.97] ios-spring"
+              className="block w-full px-6 py-3.5 glass-subtle font-bold text-[15px] text-theme text-center transition-all duration-200 active:scale-[0.97] ios-spring"
             >
               {t[lang].success.backToMarketplace}
             </Link>
@@ -159,7 +159,7 @@ export default function SuccessPage() {
       </div>
 
       <Suspense fallback={
-        <div className="relative z-10 bg-surface border border-theme rounded-[32px] p-8 max-w-sm w-full mx-auto text-center">
+        <div className="relative z-10 bg-surface border border-theme p-8 max-w-sm w-full mx-auto text-center">
           <div className="w-8 h-8 rounded-full border-2 border-t-transparent animate-spin mx-auto" style={{ borderColor: "var(--accent)", borderTopColor: "transparent" }} />
         </div>
       }>

@@ -229,13 +229,13 @@ function StudioContent() {
           {/* Left: Controls */}
           <div className="flex flex-col gap-6">
             {/* Tab switcher — iOS segmented control */}
-            <div className="flex bg-card rounded-[12px] p-1 gap-1">
+            <div className="flex bg-card p-1 gap-1">
               {(["generate", "customize"] as Tab[]).map((t) => (
                 <button
                   key={t}
                   onClick={() => setTab(t)}
                   disabled={t === "generate" && !hasStudioAccess}
-                  className={`flex-1 py-2 rounded-[10px] text-[15px] font-medium capitalize transition-all duration-200 ${
+                  className={`flex-1 py-2 text-[15px] font-medium capitalize transition-all duration-200 ${
                     tab === t
                       ? "bg-surface text-theme shadow-sm"
                       : t === "generate" && !hasStudioAccess
@@ -273,8 +273,8 @@ function StudioContent() {
 
             {/* Generate locked */}
             {tab === "generate" && !hasStudioAccess && (
-              <div className="bg-surface border border-theme rounded-[28px] p-8 text-center flex flex-col items-center gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center">
+              <div className="bg-surface border border-theme p-8 text-center flex flex-col items-center gap-4">
+                <div className="w-14 h-14 bg-accent/10 flex items-center justify-center">
                   <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden>
                     <rect x="4" y="11" width="18" height="13" rx="3" stroke="var(--accent)" strokeWidth="1.8"/>
                     <path d="M8 11V8a5 5 0 0110 0v3" stroke="var(--accent)" strokeWidth="1.8" strokeLinecap="round"/>
@@ -299,7 +299,7 @@ function StudioContent() {
                     if (data.requireAuth) { window.location.href = "/sign-in?redirect_url=/studio"; return; }
                     if (data.url) window.location.href = data.url;
                   }}
-                  className="px-6 py-3 rounded-2xl font-bold text-[15px] transition-colors duration-200 active:scale-[0.97] ios-spring"
+                  className="px-6 py-3 font-bold text-[15px] transition-colors duration-200 active:scale-[0.97] ios-spring"
                   style={{ background: "var(--accent)", color: "var(--bg)" }}
                   onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--text)"; }}
                   onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--accent)"; }}
@@ -320,7 +320,7 @@ function StudioContent() {
                         if (data.requireAuth) { window.location.href = "/sign-in?redirect_url=/studio"; return; }
                         if (data.url) window.location.href = data.url;
                       }}
-                      className="px-6 py-2.5 glass-subtle border border-theme rounded-2xl font-semibold text-[14px] text-theme transition-all duration-200 active:scale-[0.97] ios-spring"
+                      className="px-6 py-2.5 glass-subtle border border-theme font-semibold text-[14px] text-theme transition-all duration-200 active:scale-[0.97] ios-spring"
                     >
                       {lang === "it" ? "✦ Lifetime — €49 una volta sola" : "✦ Lifetime — €49 one-time"}
                     </button>
@@ -341,7 +341,7 @@ function StudioContent() {
                       <button
                         key={c}
                         onClick={() => setGenCategory(c)}
-                        className={`flex-1 py-2.5 rounded-2xl text-[15px] font-medium border transition-all duration-200 active:scale-[0.97] ios-spring ${
+                        className={`flex-1 py-2.5 text-[15px] font-medium border transition-all duration-200 active:scale-[0.97] ios-spring ${
                           genCategory === c
                             ? "bg-accent/15 border-accent/40 text-accent"
                             : "border-theme text-muted hover:border-accent/50"
@@ -393,7 +393,7 @@ function StudioContent() {
                   <select
                     value={genSector}
                     onChange={(e) => setGenSector(e.target.value)}
-                    className="w-full bg-input border border-theme rounded-2xl px-4 py-2.5 text-[15px] text-theme focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all duration-200"
+                    className="w-full bg-input border border-theme px-4 py-2.5 text-[15px] text-theme focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all duration-200"
                   >
                     <option value="">— Any sector —</option>
                     {SECTORS.map((s) => (
@@ -443,7 +443,7 @@ function StudioContent() {
                         ? "e.g. A testimonial section with 3 cards, star ratings, and customer photos"
                         : "e.g. A LinkedIn connection request message for B2B SaaS outreach"
                     }
-                    className="w-full bg-input border border-theme rounded-2xl px-4 py-3 text-[15px] text-theme placeholder-muted focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 resize-none transition-all duration-200"
+                    className="w-full bg-input border border-theme px-4 py-3 text-[15px] text-theme placeholder-muted focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 resize-none transition-all duration-200"
                   />
                   <p className="text-[11px] text-muted mt-1 px-1">⌘+Enter to generate</p>
                 </div>
@@ -451,7 +451,7 @@ function StudioContent() {
                 <button
                   onClick={handleGenerate}
                   disabled={genLoading || !genDescription.trim()}
-                  className="py-3.5 rounded-2xl disabled:opacity-40 disabled:cursor-not-allowed font-bold text-[15px] transition-colors duration-200 flex items-center justify-center gap-2 active:scale-[0.97] ios-spring"
+                  className="py-3.5 disabled:opacity-40 disabled:cursor-not-allowed font-bold text-[15px] transition-colors duration-200 flex items-center justify-center gap-2 active:scale-[0.97] ios-spring"
                   style={{ background: "var(--accent)", color: "var(--bg)" }}
                   onMouseEnter={(e) => { if (!e.currentTarget.disabled) (e.currentTarget as HTMLButtonElement).style.background = "var(--text)"; }}
                   onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--accent)"; }}
@@ -476,7 +476,7 @@ function StudioContent() {
                     Select a template to customize
                   </label>
                   {purchasedIds.length === 0 ? (
-                    <div className="bg-surface border border-theme rounded-2xl px-4 py-6 text-center text-[15px] text-muted">
+                    <div className="bg-surface border border-theme px-4 py-6 text-center text-[15px] text-muted">
                       Non hai ancora acquistato nessun template.{" "}
                       <Link href="/" className="text-accent hover:underline">
                         Vai al marketplace →
@@ -486,7 +486,7 @@ function StudioContent() {
                     <select
                       value={selectedId}
                       onChange={(e) => setSelectedId(e.target.value)}
-                      className="w-full bg-input border border-theme rounded-2xl px-4 py-3 text-[15px] text-theme focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all duration-200"
+                      className="w-full bg-input border border-theme px-4 py-3 text-[15px] text-theme focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all duration-200"
                     >
                       <option value="">— Choose a template —</option>
                       {["ui", "prompt"].map((cat) => {
@@ -513,7 +513,7 @@ function StudioContent() {
 
                 {/* Template preview */}
                 {selectedTemplate && (
-                  <div className="bg-surface border border-theme rounded-2xl overflow-hidden">
+                  <div className="bg-surface border border-theme overflow-hidden">
                     <p className="text-[11px] font-semibold text-muted px-4 pt-3 pb-2 uppercase tracking-widest">
                       Template preview
                     </p>
@@ -555,7 +555,7 @@ function StudioContent() {
                         ? "e.g. Change the color scheme to dark green, add an animation on the headline, make the CTA button larger"
                         : "e.g. Make it more casual and friendly, add a variable for company size, shorten to under 100 words"
                     }
-                    className="w-full bg-input border border-theme rounded-2xl px-4 py-3 text-[15px] text-theme placeholder-muted focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 resize-none transition-all duration-200"
+                    className="w-full bg-input border border-theme px-4 py-3 text-[15px] text-theme placeholder-muted focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 resize-none transition-all duration-200"
                   />
                   <p className="text-[11px] text-muted mt-1 px-1">⌘+Enter to customize</p>
                 </div>
@@ -567,7 +567,7 @@ function StudioContent() {
                     !selectedTemplate ||
                     !customInstructions.trim()
                   }
-                  className="py-3.5 rounded-2xl disabled:opacity-40 disabled:cursor-not-allowed font-bold text-[15px] transition-colors duration-200 flex items-center justify-center gap-2 active:scale-[0.97] ios-spring"
+                  className="py-3.5 disabled:opacity-40 disabled:cursor-not-allowed font-bold text-[15px] transition-colors duration-200 flex items-center justify-center gap-2 active:scale-[0.97] ios-spring"
                   style={{ background: "var(--accent)", color: "var(--bg)" }}
                   onMouseEnter={(e) => { if (!e.currentTarget.disabled) (e.currentTarget as HTMLButtonElement).style.background = "var(--text)"; }}
                   onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--accent)"; }}
@@ -593,7 +593,7 @@ function StudioContent() {
                 {(tab === "generate" ? genHistory : customHistory).length > 0 && (
                   <button
                     onClick={() => setShowHistory((v) => !v)}
-                    className={`flex items-center gap-1 px-2.5 py-1 rounded-xl text-[12px] font-medium border transition-all duration-200 ${
+                    className={`flex items-center gap-1 px-2.5 py-1 text-[12px] font-medium border transition-all duration-200 ${
                       showHistory
                         ? "bg-accent/15 border-accent/40 text-accent"
                         : "border-theme text-muted hover:border-accent/50"
@@ -603,10 +603,10 @@ function StudioContent() {
                   </button>
                 )}
                 {activeOutput && isUIOutput && (
-                  <div className="flex bg-card rounded-[12px] p-0.5 gap-0.5">
+                  <div className="flex bg-card p-0.5 gap-0.5">
                     <button
                       onClick={() => setOutputView("code")}
-                      className={`px-3 py-1 rounded-[10px] text-[13px] font-medium transition-all duration-200 ${
+                      className={`px-3 py-1 text-[13px] font-medium transition-all duration-200 ${
                         outputView === "code"
                           ? "bg-surface text-theme shadow-sm"
                           : "text-muted hover:text-theme"
@@ -616,7 +616,7 @@ function StudioContent() {
                     </button>
                     <button
                       onClick={() => setOutputView("preview")}
-                      className={`px-3 py-1 rounded-[10px] text-[13px] font-medium transition-all duration-200 ${
+                      className={`px-3 py-1 text-[13px] font-medium transition-all duration-200 ${
                         outputView === "preview"
                           ? "bg-surface text-theme shadow-sm"
                           : "text-muted hover:text-theme"
@@ -631,7 +631,7 @@ function StudioContent() {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => copyToClipboard(activeOutput)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 bg-[#2C2C2E] hover:bg-[#3A3A3C] rounded-xl text-[13px] font-medium transition-all duration-200 active:scale-[0.97] ios-spring"
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-[#2C2C2E] hover:bg-[#3A3A3C] text-[13px] font-medium transition-all duration-200 active:scale-[0.97] ios-spring"
                   >
                     {copied ? "✓ Copied!" : "Copy"}
                   </button>
@@ -645,7 +645,7 @@ function StudioContent() {
                       a.href = url; a.download = `template-${Date.now()}.${ext}`; a.click();
                       URL.revokeObjectURL(url);
                     }}
-                    className="flex items-center gap-1.5 px-3 py-1.5 bg-[#2C2C2E] hover:bg-[#3A3A3C] rounded-xl text-[13px] font-medium transition-all duration-200 active:scale-[0.97] ios-spring"
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-[#2C2C2E] hover:bg-[#3A3A3C] text-[13px] font-medium transition-all duration-200 active:scale-[0.97] ios-spring"
                     aria-label={lang === "it" ? "Scarica file" : "Download file"}
                   >
                     <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden>
@@ -657,7 +657,7 @@ function StudioContent() {
               )}
             </div>
 
-            <div className="flex-1 relative bg-surface border border-theme rounded-[28px] overflow-hidden min-h-[500px]">
+            <div className="flex-1 relative bg-surface border border-theme overflow-hidden min-h-[500px]">
               {!activeOutput && !isLoading && (
                 <div className="absolute inset-0 flex items-center justify-center text-muted text-[15px]">
                   <div className="text-center">
@@ -728,7 +728,7 @@ function StudioContent() {
 
             {/* History panel */}
             {showHistory && (
-              <div className="mt-4 bg-surface border border-theme rounded-[20px] overflow-hidden">
+              <div className="mt-4 bg-surface border border-theme overflow-hidden">
                 <p className="text-[11px] font-semibold text-muted uppercase tracking-widest px-4 pt-3 pb-2">
                   Recent generations
                 </p>

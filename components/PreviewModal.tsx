@@ -34,7 +34,7 @@ export default function PreviewModal({ templateId, onClose }: {
 
       {/* Modal */}
       <div
-        className="relative z-10 w-full max-w-5xl flex flex-col rounded-[24px] overflow-hidden
+        className="relative z-10 w-full max-w-5xl flex flex-col overflow-hidden
           shadow-[0_32px_80px_rgba(0,0,0,0.6)] border border-white/10 anim-scale-in"
         style={{ height: "min(85vh, 780px)" }}
         onClick={(e) => e.stopPropagation()}
@@ -101,7 +101,7 @@ export default function PreviewModal({ templateId, onClose }: {
           </div>
           <a
             href={`/preview/${template.id}`}
-            className="px-5 py-2.5 font-bold rounded-2xl text-[13px] transition-colors duration-200 ios-spring active:scale-[0.97]"
+            className="px-5 py-2.5 font-bold text-[13px] transition-colors duration-200 ios-spring active:scale-[0.97]"
             style={{ background: "var(--accent)", color: "var(--bg)" }}
             onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--text)"; }}
             onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--accent)"; }}

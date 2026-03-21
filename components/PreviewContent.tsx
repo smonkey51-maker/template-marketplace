@@ -84,7 +84,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
       <div className="fixed top-4 left-4 z-50 flex items-center gap-2">
         <button
           onClick={() => router.push("/")}
-          className="flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-theme shadow-sm
+          className="flex items-center gap-1.5 px-3.5 py-2 border border-theme shadow-sm
             text-theme text-[14px] font-semibold
             hover:opacity-80 transition-opacity duration-200"
           style={{ background: "var(--card-bg)" }}
@@ -99,7 +99,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
           <button
             onClick={() => toggle(template.id)}
             aria-label={isWishlisted(template.id) ? (lang === "it" ? "Rimuovi dai salvati" : "Unsave") : (lang === "it" ? "Salva" : "Save")}
-            className={`flex items-center justify-center w-9 h-9 rounded-full border shadow-sm transition-all duration-200
+            className={`flex items-center justify-center w-9 h-9 border shadow-sm transition-all duration-200
               ${isWishlisted(template.id)
                 ? "border-accent/30 text-accent"
                 : "border-theme text-muted hover:text-accent"
@@ -117,12 +117,12 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
 
       {/* ── Mobile/Desktop toggle (UI only) ── */}
       {template.category === "ui" && (
-        <div className="fixed top-4 right-4 z-50 flex items-center gap-0.5 glass rounded-2xl p-1 shadow-[0_4px_24px_rgba(0,0,0,0.12)]">
+        <div className="fixed top-4 right-4 z-50 flex items-center gap-0.5 glass p-1 shadow-[0_4px_24px_rgba(0,0,0,0.12)]">
           <button
             onClick={() => setViewMode("desktop")}
             aria-pressed={viewMode === "desktop"}
             aria-label="Desktop preview"
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[12px] font-semibold transition-all duration-200 ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 text-[12px] font-semibold transition-all duration-200 ${
               viewMode === "desktop"
                 ? "shadow-sm"
                 : "text-muted hover:text-theme"
@@ -139,7 +139,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
             onClick={() => setViewMode("mobile")}
             aria-pressed={viewMode === "mobile"}
             aria-label="Mobile preview"
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[12px] font-semibold transition-all duration-200 ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 text-[12px] font-semibold transition-all duration-200 ${
               viewMode === "mobile"
                 ? "shadow-sm"
                 : "text-muted hover:text-theme"
@@ -243,7 +243,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
       {template.videoUrl && (
         <div className="relative z-10 bg-page border-t border-theme px-4 py-4 flex items-center justify-between gap-3 max-w-2xl mx-auto w-full">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-[#FF453A]/10 border border-[#FF453A]/20 flex items-center justify-center shrink-0">
+            <div className="w-9 h-9 bg-[#FF453A]/10 border border-[#FF453A]/20 flex items-center justify-center shrink-0">
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
                 <path d="M3 2.5l9 4.5-9 4.5V2.5z" fill="#FF453A"/>
               </svg>
@@ -261,7 +261,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
             href={template.videoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#FF453A]/10 border border-[#FF453A]/20
+            className="shrink-0 flex items-center gap-1.5 px-3.5 py-2 bg-[#FF453A]/10 border border-[#FF453A]/20
               text-[#FF453A] text-[12px] font-semibold
               hover:bg-[#FF453A]/20 transition-colors duration-200"
           >
@@ -296,7 +296,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
               <div className="flex items-center gap-2 flex-wrap mb-0.5">
                 <span className="text-[10px] font-bold text-muted uppercase tracking-widest">{categoryLabel}</span>
                 {template.downloads >= 700 && (
-                  <span className="text-[10px] font-bold text-[#FF9F0A] bg-[#FF9F0A]/10 border border-[#FF9F0A]/20 px-1.5 py-0.5 rounded-full">{t[lang].card.bestseller}</span>
+                  <span className="text-[10px] font-bold text-[#FF9F0A] bg-[#FF9F0A]/10 border border-[#FF9F0A]/20 px-1.5 py-0.5">{t[lang].card.bestseller}</span>
                 )}
               </div>
               <p className="text-[15px] font-bold text-theme leading-tight">{displayName}</p>
@@ -313,7 +313,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
               <Link
                 key={tag}
                 href={`/?q=${encodeURIComponent(tag)}`}
-                className="text-[10px] text-muted glass-subtle px-2 py-0.5 rounded-full border border-theme
+                className="text-[10px] text-muted glass-subtle px-2 py-0.5 border border-theme
                   hover:text-theme hover:border-theme/60 transition-colors duration-200"
               >
                 {tag}
@@ -326,13 +326,13 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
           </div>
 
           {purchasesLoading ? (
-            <div className="w-full h-[50px] rounded-2xl bg-theme/10 animate-pulse" />
+            <div className="w-full h-[50px] bg-theme/10 animate-pulse" />
           ) : isPurchased ? (
             <div className="flex gap-2">
               <Link
                 href={`/studio?templateId=${template.id}`}
                 className="flex-1 flex items-center justify-center gap-2 active:scale-[0.97]
-                  font-bold rounded-2xl px-4 py-3 text-center
+                  font-bold px-4 py-3 text-center
                   transition-all duration-200 ios-spring text-[14px]"
               style={{ background: "var(--accent)", color: "var(--bg)" }}
               onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--text)"; }}
@@ -353,7 +353,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
               onClick={handleBuy}
               disabled={loading}
               className="w-full active:scale-[0.97]
-                font-bold rounded-2xl px-6 py-3.5
+                font-bold px-6 py-3.5
                 transition-all duration-200 ios-spring
                 disabled:opacity-50 text-[15px]"
               style={{ background: "var(--accent)", color: "var(--bg)" }}

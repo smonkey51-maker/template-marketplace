@@ -55,8 +55,8 @@ export default function AccountPage() {
       <div className="relative z-10 max-w-4xl mx-auto px-6 py-12 flex flex-col gap-8">
 
         {/* Profile card */}
-        <div className="bg-surface border border-theme rounded-[28px] p-6 flex items-center gap-5">
-          <div className="w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold shrink-0" style={{ background: "var(--accent)", color: "var(--bg)" }}>
+        <div className="bg-surface border border-theme p-6 flex items-center gap-5">
+          <div className="w-16 h-16 flex items-center justify-center text-2xl font-bold shrink-0" style={{ background: "var(--accent)", color: "var(--bg)" }}>
             {user?.firstName?.[0] ?? user?.emailAddresses?.[0]?.emailAddress?.[0]?.toUpperCase() ?? "?"}
           </div>
           <div className="flex-1 min-w-0">
@@ -79,13 +79,13 @@ export default function AccountPage() {
         </div>
 
         {/* Studio Access */}
-        <div className={`rounded-[28px] border p-6 flex items-center justify-between gap-4 ${
+        <div className={`border p-6 flex items-center justify-between gap-4 ${
           hasStudioAccess
             ? "bg-accent/10 border-accent/25"
             : "border-theme"
         }`} style={!hasStudioAccess ? { background: "var(--card-bg)" } : undefined}>
           <div className="flex items-center gap-4">
-            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-2xl ${
+            <div className={`w-12 h-12 flex items-center justify-center text-2xl ${
               hasStudioAccess ? "bg-accent/20 text-accent" : "bg-card text-theme"
             }`}>
               ✦
@@ -101,7 +101,7 @@ export default function AccountPage() {
             <button
               onClick={openPortal}
               disabled={portalLoading}
-              className="px-4 py-2 bg-card border border-theme rounded-2xl text-[15px] font-medium transition-all duration-200 active:scale-[0.97] ios-spring shrink-0"
+              className="px-4 py-2 bg-card border border-theme text-[15px] font-medium transition-all duration-200 active:scale-[0.97] ios-spring shrink-0"
             >
               {portalLoading ? "..." : t[lang].account.manageSubscription}
             </button>
@@ -128,7 +128,7 @@ export default function AccountPage() {
           </h2>
 
           {purchasedTemplates.length === 0 ? (
-            <div className="bg-surface border border-theme rounded-[28px] p-10 text-center flex flex-col items-center gap-4">
+            <div className="bg-surface border border-theme p-10 text-center flex flex-col items-center gap-4">
               <p className="text-[15px] text-muted">{t[lang].account.noTemplates}</p>
               <Link
                 href="/"
@@ -141,7 +141,7 @@ export default function AccountPage() {
               </Link>
             </div>
           ) : (
-            <div className="bg-surface rounded-[20px] overflow-hidden">
+            <div className="bg-surface overflow-hidden">
               {purchasedTemplates.map((tmpl, index) => (
                 <div
                   key={tmpl.id}
@@ -149,7 +149,7 @@ export default function AccountPage() {
                     index > 0 ? "border-t border-theme" : ""
                   }`}
                 >
-                  <div className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 bg-accent/10">
+                  <div className="w-11 h-11 flex items-center justify-center shrink-0 bg-accent/10">
                     {tmpl.category === "ui" ? (
                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
                         <rect x="1.5" y="3.5" width="17" height="12" rx="2" stroke="var(--accent)" strokeWidth="1.5"/>
@@ -192,7 +192,7 @@ export default function AccountPage() {
         {/* Account section */}
         <div>
           <h3 className="text-[13px] font-semibold text-muted uppercase tracking-widest mb-3 px-1">{t[lang].account.accountSection}</h3>
-          <div className="bg-surface border border-theme rounded-[20px] overflow-hidden">
+          <div className="bg-surface border border-theme overflow-hidden">
             <button
               onClick={openPortal}
               disabled={portalLoading}

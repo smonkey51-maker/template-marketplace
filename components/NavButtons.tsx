@@ -16,13 +16,13 @@ export default function NavButtons({ showMobileLinks = true }: { showMobileLinks
       {/* Mobile-only quick links */}
       {showMobileLinks && (
         <div className="flex sm:hidden items-center gap-1">
-          <Link href="/guide" className="text-[13px] text-muted px-2.5 py-1.5 rounded-xl hover:bg-card hover:text-theme transition-colors">
+          <Link href="/guide" className="text-[13px] text-muted px-2.5 py-1.5 hover:bg-card hover:text-theme transition-colors">
             {t[lang].nav.guide}
           </Link>
-          <Link href="/studio" className="text-[13px] text-muted px-2.5 py-1.5 rounded-xl hover:bg-card hover:text-theme transition-colors">
+          <Link href="/studio" className="text-[13px] text-muted px-2.5 py-1.5 hover:bg-card hover:text-theme transition-colors">
             {t[lang].nav.studio}
           </Link>
-          <Link href="/account" className="text-[13px] text-muted px-2.5 py-1.5 rounded-xl hover:bg-card hover:text-theme transition-colors">
+          <Link href="/account" className="text-[13px] text-muted px-2.5 py-1.5 hover:bg-card hover:text-theme transition-colors">
             {t[lang].nav.account}
           </Link>
         </div>

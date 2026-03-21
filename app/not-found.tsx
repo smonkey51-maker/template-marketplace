@@ -38,7 +38,7 @@ export default function NotFound() {
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link
             href="/"
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl font-bold text-[15px] transition-colors duration-200 active:scale-[0.97] ios-spring"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 font-bold text-[15px] transition-colors duration-200 active:scale-[0.97] ios-spring"
             style={{ background: "var(--accent)", color: "var(--bg)" }}
             onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--text)"; }}
             onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--accent)"; }}
@@ -50,7 +50,7 @@ export default function NotFound() {
           </Link>
           <Link
             href="/studio"
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl glass-subtle border border-theme text-theme font-bold text-[15px] transition-all duration-200 active:scale-[0.97] ios-spring"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 glass-subtle border border-theme text-theme font-bold text-[15px] transition-all duration-200 active:scale-[0.97] ios-spring"
           >
             {lang === "it" ? "AI Studio" : "AI Studio"}
           </Link>

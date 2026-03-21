@@ -18,7 +18,7 @@ export default function ScrollToTop() {
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       aria-label="Torna in cima"
       className="fixed bottom-6 right-6 z-50 w-10 h-10 flex items-center justify-center
-        glass rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.2)]
+        glass shadow-[0_4px_20px_rgba(0,0,0,0.2)]
         text-muted hover:text-theme hover:scale-110 active:scale-95
         transition-all duration-200 ios-spring anim-fade-in"
     >

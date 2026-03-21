@@ -238,7 +238,7 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
             <button
               onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggle(template.id); }}
               aria-label={saved ? (lang === "it" ? "Rimuovi dai salvati" : "Remove from saved") : (lang === "it" ? "Salva" : "Save")}
-              className={`transition-all duration-100 rounded-lg p-1 ${
+              className={`transition-all duration-100 p-1 ${
                 saved
                   ? "text-[#FF453A] opacity-100"
                   : "opacity-0 group-hover:opacity-100 text-muted hover:text-[#FF453A]"
@@ -254,7 +254,7 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
             <button
               onClick={handleShare}
               aria-label={copied ? "Link copiato" : "Copia link"}
-              className={`opacity-0 group-hover:opacity-100 transition-all duration-100 rounded-lg p-1 -mr-0.5 text-muted hover:text-theme`}
+              className={`opacity-0 group-hover:opacity-100 transition-all duration-100 p-1 -mr-0.5 text-muted hover:text-theme`}
             >
               {copied ? (
                 <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden>

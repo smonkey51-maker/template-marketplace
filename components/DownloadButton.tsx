@@ -91,7 +91,7 @@ function LangModal({
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
       {/* panel */}
       <div
-        className="relative z-10 w-full max-w-xs border border-theme rounded-2xl p-5 shadow-2xl"
+        className="relative z-10 w-full max-w-xs border border-theme p-5 shadow-2xl"
         style={{ background: "var(--card-bg)" }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -105,7 +105,7 @@ function LangModal({
           <button
             onClick={() => onSelect("it")}
             disabled={loading}
-            className="flex-1 flex flex-col items-center gap-1.5 py-3 rounded-xl border border-theme hover:border-accent transition-colors disabled:opacity-50"
+            className="flex-1 flex flex-col items-center gap-1.5 py-3 border border-theme hover:border-accent transition-colors disabled:opacity-50"
             style={{ background: "var(--bg)" }}
           >
             <span className="text-xl">🇮🇹</span>
@@ -114,7 +114,7 @@ function LangModal({
           <button
             onClick={() => onSelect("en")}
             disabled={loading}
-            className="flex-1 flex flex-col items-center gap-1.5 py-3 rounded-xl border border-theme hover:border-accent transition-colors disabled:opacity-50"
+            className="flex-1 flex flex-col items-center gap-1.5 py-3 border border-theme hover:border-accent transition-colors disabled:opacity-50"
             style={{ background: "var(--bg)" }}
           >
             <span className="text-xl">🇬🇧</span>
@@ -211,7 +211,7 @@ export default function DownloadButton({
         <button
           onClick={handleClick}
           disabled={loading}
-          className="flex items-center gap-1.5 px-3 py-1.5 glass-subtle border border-theme rounded-xl text-[12px] font-semibold text-muted hover:text-theme transition-all duration-200 active:scale-[0.97] ios-spring disabled:opacity-50"
+          className="flex items-center gap-1.5 px-3 py-1.5 glass-subtle border border-theme text-[12px] font-semibold text-muted hover:text-theme transition-all duration-200 active:scale-[0.97] ios-spring disabled:opacity-50"
         >
           {loading ? (
             <span className="w-3 h-3 border-2 border-muted border-t-transparent rounded-full animate-spin" />
@@ -237,7 +237,7 @@ export default function DownloadButton({
       <button
         onClick={handleClick}
         disabled={loading}
-        className="flex items-center justify-center gap-2 w-full glass-subtle border border-theme rounded-2xl px-6 py-3 text-[14px] font-semibold text-theme hover:border-accent/40 hover:text-accent transition-all duration-200 active:scale-[0.97] ios-spring disabled:opacity-50"
+        className="flex items-center justify-center gap-2 w-full glass-subtle border border-theme px-6 py-3 text-[14px] font-semibold text-theme hover:border-accent/40 hover:text-accent transition-all duration-200 active:scale-[0.97] ios-spring disabled:opacity-50"
       >
         {loading ? (
           <span className="w-4 h-4 border-2 border-muted border-t-transparent rounded-full animate-spin" />
