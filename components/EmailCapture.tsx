@@ -29,7 +29,7 @@ export default function EmailCapture() {
     it: {
       label: "Newsletter",
       title: "Nuovi template in anteprima",
-      subtitle: "Aggiornamenti selezionati sui nuovi template.",
+      subtitle: "Solo i template che contano.",
       placeholder: "La tua email",
       cta: "Iscriviti",
       success: "Sei dentro. Ti aggiungiamo alla lista ✓",
@@ -38,7 +38,7 @@ export default function EmailCapture() {
     en: {
       label: "Newsletter",
       title: "New templates, first",
-      subtitle: "Curated updates on new templates.",
+      subtitle: "Only the templates that matter.",
       placeholder: "Your email",
       cta: "Subscribe",
       success: "You're in. We'll keep you posted ✓",
