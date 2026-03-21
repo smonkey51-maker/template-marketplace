@@ -43,20 +43,20 @@ function ToastBubble({ toast: t, onDismiss }: { toast: ToastItem; onDismiss: () 
 
   const icon = t.type === "success" ? (
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-      <path d="M2 7l3.5 3.5L12 3" stroke="#30D158" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M2 7l3.5 3.5L12 3" stroke="#C8A96E" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   ) : t.type === "error" ? (
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-      <path d="M3 3l8 8M11 3L3 11" stroke="#FF453A" strokeWidth="1.8" strokeLinecap="round"/>
+      <path d="M3 3l8 8M11 3L3 11" stroke="#C4622D" strokeWidth="1.8" strokeLinecap="round"/>
     </svg>
   ) : (
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-      <circle cx="7" cy="7" r="5.5" stroke="#0A84FF" strokeWidth="1.5"/>
-      <path d="M7 6.5v4M7 4.5v.5" stroke="#0A84FF" strokeWidth="1.5" strokeLinecap="round"/>
+      <circle cx="7" cy="7" r="5.5" stroke="#C8A96E" strokeWidth="1.5"/>
+      <path d="M7 6.5v4M7 4.5v.5" stroke="#C8A96E" strokeWidth="1.5" strokeLinecap="round"/>
     </svg>
   );
 
-  const accent = t.type === "success" ? "#30D158" : t.type === "error" ? "#FF453A" : "#0A84FF";
+  const accent = t.type === "success" ? "#C8A96E" : t.type === "error" ? "#C4622D" : "#C8A96E";
 
   return (
     <div

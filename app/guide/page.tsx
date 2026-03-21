@@ -111,10 +111,10 @@ export default function GuidePage() {
           <div className="bg-surface border border-theme p-6 sm:p-8">
             <StepList
               steps={[
-                { emoji: "🛒", title: t[lang].guide.installStep1Title, desc: t[lang].guide.installStep1Desc },
-                { emoji: "🤖", title: t[lang].guide.installStep2Title, desc: t[lang].guide.installStep2Desc },
-                { emoji: "📋", title: t[lang].guide.installStep3Title, desc: t[lang].guide.installStep3Desc },
-                { emoji: "🚀", title: t[lang].guide.installStep4Title, desc: t[lang].guide.installStep4Desc },
+                { title: t[lang].guide.installStep1Title, desc: t[lang].guide.installStep1Desc },
+                { title: t[lang].guide.installStep2Title, desc: t[lang].guide.installStep2Desc },
+                { title: t[lang].guide.installStep3Title, desc: t[lang].guide.installStep3Desc },
+                { title: t[lang].guide.installStep4Title, desc: t[lang].guide.installStep4Desc },
               ]}
             />
           </div>
@@ -128,9 +128,9 @@ export default function GuidePage() {
           <div className="bg-surface border border-theme p-6 sm:p-8">
             <StepList
               steps={[
-                { emoji: "🛒", title: t[lang].guide.promptStep1Title, desc: t[lang].guide.promptStep1Desc },
-                { emoji: "📋", title: t[lang].guide.promptStep2Title, desc: t[lang].guide.promptStep2Desc },
-                { emoji: "✍️", title: t[lang].guide.promptStep3Title, desc: t[lang].guide.promptStep3Desc },
+                { title: t[lang].guide.promptStep1Title, desc: t[lang].guide.promptStep1Desc },
+                { title: t[lang].guide.promptStep2Title, desc: t[lang].guide.promptStep2Desc },
+                { title: t[lang].guide.promptStep3Title, desc: t[lang].guide.promptStep3Desc },
               ]}
             />
           </div>
@@ -273,7 +273,7 @@ export default function GuidePage() {
 function StepList({
   steps,
 }: {
-  steps: { emoji: string; title: string; desc: string }[];
+  steps: { title: string; desc: string }[];
 }) {
   return (
     <div className="flex flex-col gap-0">
@@ -289,13 +289,10 @@ function StepList({
             )}
           </div>
           {/* Right: content */}
-          <div className={`pb-${i < steps.length - 1 ? "6" : "0"} pt-0.5 flex-1`}
+          <div className="pt-0.5 flex-1"
             style={{ paddingBottom: i < steps.length - 1 ? "24px" : "0" }}
           >
-            <div className="flex items-center gap-2 mb-1">
-              <span className="text-xl leading-none">{step.emoji}</span>
-              <h3 className="text-[15px] font-bold text-theme">{step.title}</h3>
-            </div>
+            <h3 className="text-[15px] font-bold text-theme mb-1">{step.title}</h3>
             <p className="text-[13px] text-muted leading-relaxed">{step.desc}</p>
           </div>
         </div>

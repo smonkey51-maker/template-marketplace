@@ -8,7 +8,7 @@ import { getTemplate } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
 import { t } from "@/lib/i18n";
 
-const CONFETTI_COLORS = ["#0A84FF", "#5E5CE6", "#30D158", "#FFD60A", "#FF453A", "#FF9F0A", "#BF5AF2"];
+const CONFETTI_COLORS = ["#C8A96E", "#9C7733", "#D4B98A", "#6B5528", "#E8D5B0", "#A88445", "#7A6035"];
 
 function Confetti() {
   const pieces = useRef(
@@ -107,7 +107,7 @@ function SuccessContent() {
                   className="block w-full px-6 py-3.5 font-bold text-[15px] text-center transition-colors duration-200 active:scale-[0.97] ios-spring"
                   style={{ background: "var(--accent)", color: "var(--bg)" }}
                 >
-                  {lang === "it" ? "⬇ Scarica il template" : "⬇ Download template"}
+                  {lang === "it" ? "Scarica il template" : "Download template"}
                 </a>
                 <div className="px-1 py-3 border-t border-theme/50">
                   <p className="text-[12px] text-muted mb-2">
