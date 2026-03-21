@@ -67,7 +67,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
       <div className="min-h-screen bg-page flex items-center justify-center">
         <div className="text-center">
           <p className="text-muted text-[15px] mb-4">{t[lang].preview.notFound}</p>
-          <Link href="/" className="text-[#0A84FF] font-semibold">{t[lang].preview.notFoundBack}</Link>
+          <Link href="/" className="font-semibold" style={{ color: "var(--accent)" }}>{t[lang].preview.notFoundBack}</Link>
         </div>
       </div>
     );
@@ -84,10 +84,10 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
       <div className="fixed top-4 left-4 z-50 flex items-center gap-2">
         <button
           onClick={() => router.push("/")}
-          className="flex items-center gap-1.5 px-3.5 py-2 rounded-full
-            bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 shadow-sm
-            text-zinc-700 dark:text-zinc-300 text-[14px] font-semibold
+          className="flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-theme shadow-sm
+            text-theme text-[14px] font-semibold
             hover:opacity-80 transition-opacity duration-200"
+          style={{ background: "var(--card-bg)" }}
           aria-label={t[lang].preview.back}
         >
           <svg width="8" height="14" viewBox="0 0 8 14" fill="none" className="shrink-0" aria-hidden>
@@ -101,9 +101,10 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
             aria-label={isWishlisted(template.id) ? (lang === "it" ? "Rimuovi dai salvati" : "Unsave") : (lang === "it" ? "Salva" : "Save")}
             className={`flex items-center justify-center w-9 h-9 rounded-full border shadow-sm transition-all duration-200
               ${isWishlisted(template.id)
-                ? "bg-[#FF453A]/10 border-[#FF453A]/30 text-[#FF453A]"
-                : "bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-700 text-zinc-400 hover:text-[#FF453A]"
+                ? "border-accent/30 text-accent"
+                : "border-theme text-muted hover:text-accent"
               }`}
+            style={{ background: "var(--card-bg)" }}
           >
             <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden>
               <path d="M8 13.5S1.5 9.5 1.5 5A3.75 3.75 0 018 2.3a3.75 3.75 0 016.5 2.7C14.5 9.5 8 13.5 8 13.5z"
@@ -123,9 +124,10 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
             aria-label="Desktop preview"
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[12px] font-semibold transition-all duration-200 ${
               viewMode === "desktop"
-                ? "bg-[#0A84FF] text-white shadow-sm"
+                ? "shadow-sm"
                 : "text-muted hover:text-theme"
             }`}
+            style={viewMode === "desktop" ? { background: "var(--accent)", color: "var(--bg)" } : undefined}
           >
             <svg width="15" height="11" viewBox="0 0 15 11" fill="none" aria-hidden>
               <rect x="0.6" y="0.6" width="13.8" height="8.3" rx="1.4" stroke="currentColor" strokeWidth="1.2"/>
@@ -139,9 +141,10 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
             aria-label="Mobile preview"
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[12px] font-semibold transition-all duration-200 ${
               viewMode === "mobile"
-                ? "bg-[#0A84FF] text-white shadow-sm"
+                ? "shadow-sm"
                 : "text-muted hover:text-theme"
             }`}
+            style={viewMode === "mobile" ? { background: "var(--accent)", color: "var(--bg)" } : undefined}
           >
             <svg width="8" height="13" viewBox="0 0 8 13" fill="none">
               <rect x="0.6" y="0.6" width="6.8" height="11.8" rx="1.8" stroke="currentColor" strokeWidth="1.2"/>
@@ -300,7 +303,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
               <p className="text-[12px] text-muted mt-0.5 line-clamp-1">{displayDesc}</p>
             </div>
             <div className="text-right shrink-0">
-              <p className="text-[22px] font-black text-[#0A84FF] leading-none">{formatPrice(template.price)}</p>
+              <p className="text-[22px] font-black leading-none" style={{ color: "var(--accent)" }}>{formatPrice(template.price)}</p>
               <p className="text-[11px] text-muted mt-0.5">{t[lang].preview.oneTime}</p>
             </div>
           </div>
@@ -311,7 +314,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
                 key={tag}
                 href={`/?q=${encodeURIComponent(tag)}`}
                 className="text-[10px] text-muted glass-subtle px-2 py-0.5 rounded-full border border-theme
-                  hover:text-[#0A84FF] hover:border-[#0A84FF]/30 transition-colors duration-200"
+                  hover:text-theme hover:border-theme/60 transition-colors duration-200"
               >
                 {tag}
               </Link>
@@ -328,10 +331,12 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
             <div className="flex gap-2">
               <Link
                 href={`/studio?templateId=${template.id}`}
-                className="flex-1 flex items-center justify-center gap-2 bg-[#5E5CE6] hover:bg-[#6E6CF6] active:scale-[0.97]
-                  text-white font-bold rounded-2xl px-4 py-3 text-center
-                  transition-all duration-200 ios-spring
-                  shadow-[0_4px_20px_rgba(94,92,230,0.35)] text-[14px]"
+                className="flex-1 flex items-center justify-center gap-2 active:scale-[0.97]
+                  font-bold rounded-2xl px-4 py-3 text-center
+                  transition-all duration-200 ios-spring text-[14px]"
+              style={{ background: "var(--accent)", color: "var(--bg)" }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--text)"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--accent)"; }}
               >
                 {t[lang].preview.openStudio}
               </Link>
@@ -347,11 +352,13 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
             <button
               onClick={handleBuy}
               disabled={loading}
-              className="w-full bg-[#0A84FF] hover:bg-[#409CFF] active:scale-[0.97]
-                text-white font-bold rounded-2xl px-6 py-3.5
+              className="w-full active:scale-[0.97]
+                font-bold rounded-2xl px-6 py-3.5
                 transition-all duration-200 ios-spring
-                disabled:opacity-50 btn-glow-blue text-[15px]
-                shadow-[0_4px_20px_rgba(10,132,255,0.35)]"
+                disabled:opacity-50 text-[15px]"
+              style={{ background: "var(--accent)", color: "var(--bg)" }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--text)"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--accent)"; }}
             >
               {loading
                 ? t[lang].preview.loading
