@@ -66,11 +66,11 @@ export default function BundleCard({
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative rounded-[22px] h-full"
+      className="relative rounded-none h-full"
       style={{ willChange: 'transform' }}
     >
     <article
-      className="glass relative rounded-[22px] overflow-hidden flex flex-col h-full cursor-pointer group"
+      className="glass relative rounded-none overflow-hidden flex flex-col h-full cursor-pointer group"
       onClick={() => router.push(`/bundle/${bundle.id}`)}
       aria-label={`${bundle.name} — ${formatPrice(bundle.price)}`}
     >
@@ -78,7 +78,7 @@ export default function BundleCard({
       <div className="absolute top-0 left-[8%] right-[8%] h-px pointer-events-none z-10" style={{ background: 'var(--glass-top-edge)' }} />
 
       {/* Savings badge */}
-      <div className="absolute top-3 right-3 z-10 border rounded-full px-2.5 py-1 text-[10px] font-black transition-transform duration-300 group-hover:scale-110"
+      <div className="absolute top-3 right-3 z-10 border rounded-none px-2.5 py-1 text-[10px] font-black transition-transform duration-300 group-hover:scale-110"
         style={{ background: "var(--accent-bg)", color: "var(--accent)", borderColor: "var(--border)" }}>
         –{savingsPct}%
       </div>
@@ -101,7 +101,7 @@ export default function BundleCard({
         <div className="space-y-1.5">
           {bundle.highlights.map((h, i) => (
             <div key={i} className="flex items-start gap-2">
-              <span className="mt-0.5 w-4 h-4 rounded-full flex items-center justify-center text-[9px] shrink-0 border"
+              <span className="mt-0.5 w-4 h-4 rounded-none flex items-center justify-center text-[9px] shrink-0 border"
                 style={{ background: "var(--accent-bg)", color: "var(--accent)", borderColor: "var(--border)" }}>
                 ✓
               </span>
@@ -121,7 +121,7 @@ export default function BundleCard({
               return (
                 <span
                   key={tmpl!.id}
-                  className="text-[10px] px-2 py-0.5 rounded-full border leading-snug transition-colors duration-200"
+                  className="text-[10px] px-2 py-0.5 rounded-none border leading-snug transition-colors duration-200"
                   style={{
                     background: owned ? "var(--accent-bg)" : "var(--input-bg)",
                     color: owned ? "var(--accent)" : "var(--muted)",
@@ -153,7 +153,7 @@ export default function BundleCard({
         {isFullyOwned ? (
           <div
             onClick={(e) => e.stopPropagation()}
-            className="w-full py-2.5 rounded-xl text-[13px] font-bold text-center border"
+            className="w-full py-2.5 rounded-none text-[13px] font-bold text-center border"
             style={{ background: "var(--input-bg)", color: "var(--muted)", borderColor: "var(--border)" }}
           >
             {t[lang].bundleCard.fullyOwned}
@@ -162,7 +162,7 @@ export default function BundleCard({
           <button
             onClick={handleBuy}
             disabled={loading}
-            className="w-full py-3 rounded-xl text-[13px] font-bold transition-opacity duration-200 active:scale-[0.97] disabled:opacity-60"
+            className="w-full py-3 rounded-none text-[13px] font-bold transition-opacity duration-200 active:scale-[0.97] disabled:opacity-60"
             style={{ background: "var(--text)", color: "var(--bg)" }}
             onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "0.85")}
             onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "1")}
