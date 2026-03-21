@@ -129,7 +129,7 @@ function TestimonialCard({
           {testimonial.initials}
         </div>
         <div>
-          <p className="text-[13px] font-semibold text-zinc-900 dark:text-zinc-100 leading-tight">
+          <p className="text-[13px] font-semibold text-theme leading-tight">
             {lang === "it" ? testimonial.nameIt : testimonial.nameEn}
           </p>
           <p className="text-[11px] text-muted leading-tight">
@@ -145,9 +145,9 @@ function TemplatesDropdown({ lang }: { lang: "it" | "en" }) {
   return (
     <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-50 w-[580px] max-w-[calc(100vw-2rem)]">
       <div className="border border-theme rounded-2xl shadow-2xl overflow-hidden" style={{ background: "var(--bg)" }}>
-        <div className="grid grid-cols-[180px_1fr]" style={{ borderRight: "none" }}>
+        <div className="grid grid-cols-[180px_1fr]">
           {/* Left: steps */}
-          <div className="p-4 border-r border-theme" style={{ background: "var(--surface)" }}>
+          <div className="p-4" style={{ background: "var(--surface)", borderRight: "1px solid var(--border)" }}>
             <p className="text-[9px] font-black uppercase tracking-[0.2em] mb-3 px-1" style={{ color: "var(--muted)" }}>
               {lang === "it" ? "Come funziona" : "How it works"}
             </p>
@@ -301,7 +301,7 @@ function NavDropdown({
         onClick={() => setOpen((o) => !o)}
         className={`flex items-center gap-1 text-[14px] px-3 py-1.5 rounded-xl transition-colors duration-200 ${
           open
-            ? "text-zinc-900 dark:text-white bg-zinc-100 dark:bg-zinc-800"
+            ? "bg-surface text-theme"
             : "text-muted hover:text-theme hover:bg-card"
         }`}
       >
@@ -466,7 +466,7 @@ function BundleShowcase({ lang, purchasedIds, onBuy }: { lang: "it" | "en"; purc
       <div className="max-w-5xl mx-auto px-4 sm:px-6 mb-7 flex items-end justify-between gap-4">
         <div>
           <p className="text-[10px] font-black text-muted uppercase tracking-[0.2em] mb-2">Bundle</p>
-          <h2 className="text-[1.5rem] sm:text-[1.9rem] font-extrabold tracking-tight text-zinc-900 dark:text-white">
+          <h2 className="text-[1.5rem] sm:text-[1.9rem] font-extrabold tracking-tight text-theme">
             {lang === "it" ? "Risparmia di più, crea di più" : "Save more, build more"}
           </h2>
           <p className="text-[13px] text-muted mt-1.5">
@@ -508,7 +508,8 @@ function BundleShowcase({ lang, purchasedIds, onBuy }: { lang: "it" | "en"; purc
               el.scrollTo({ left: i * cardW, behavior: "smooth" });
               setActiveIdx(i);
             }}
-            className={`rounded-full transition-all duration-300 ${i === activeIdx ? "w-5 h-1.5 bg-zinc-900 dark:bg-white" : "w-1.5 h-1.5 bg-zinc-300 dark:bg-zinc-700 hover:bg-zinc-400 dark:hover:bg-zinc-500"}`}
+            className={`rounded-full transition-all duration-300 ${i === activeIdx ? "w-5 h-1.5" : "w-1.5 h-1.5"}`}
+            style={{ background: i === activeIdx ? "var(--text)" : "var(--border)" }}
             aria-label={`Bundle ${i + 1}`}
           />
         ))}
@@ -660,35 +661,29 @@ export default function HomeContent() {
     <div className="min-h-screen bg-page relative overflow-x-hidden anim-page-enter">
       <ScrollProgressBar />
 
-      {/* ── Hero ambient glow ── */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute"
-        style={{
-          top: "-180px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: "700px",
-          height: "700px",
-          background: "radial-gradient(circle, var(--accent-bg) 0%, transparent 68%)",
-          zIndex: 0,
-          animation: "glow-pulse 5s ease-in-out infinite",
-        }}
-      />
+      {/* no ambient glow in hybrid — grain overlay handles warmth */}
 
-      {/* ── Nav ── */}
-      <nav className="sticky top-0 z-50 border-b border-theme bg-nav backdrop-blur-xl px-4 sm:px-6 py-3.5">
-        <div className="max-w-7xl mx-auto flex items-center gap-3">
+      {/* ── Hybrid Nav ── */}
+      <nav
+        className="sticky top-0 z-50 border-b backdrop-blur-[14px] px-4 sm:px-8"
+        style={{ background: "var(--nav-bg)", borderColor: "var(--border)" }}
+      >
+        <div className="max-w-7xl mx-auto flex items-center h-[60px] gap-3">
+          {/* Logo */}
+          <Link href="/" className="shrink-0 flex flex-col gap-0.5 mr-4 hover:opacity-80 transition-opacity">
+            <span className="text-[15px] leading-none tracking-[0.06em] uppercase" style={{ fontFamily: "var(--font-syne)", fontWeight: 800, color: "var(--text)" }}>
+              Template<span style={{ color: "var(--accent)" }}>Lab</span>
+            </span>
+            <span className="hidden sm:block text-[8px] tracking-[0.18em] uppercase leading-none" style={{ color: "var(--accent)", opacity: 0.65, fontWeight: 500 }}>
+              {lang === "it" ? "Mercato del digitale artigianale" : "Artisan digital marketplace"}
+            </span>
+          </Link>
 
-          {/* Brand */}
-          <span className="text-[17px] font-bold tracking-tight text-zinc-900 dark:text-white shrink-0 select-none">
-            TemplateLab
-          </span>
-
-          {/* Mobile: hamburger */}
+          {/* Mobile hamburger */}
           <button
             onClick={() => setMobileMenuOpen(true)}
-            className="sm:hidden flex items-center justify-center w-9 h-9 rounded-xl text-muted hover:text-theme hover:bg-card transition-colors"
+            className="sm:hidden flex items-center justify-center w-9 h-9"
+            style={{ color: "var(--muted)" }}
             aria-label="Open menu"
             aria-expanded={mobileMenuOpen}
           >
@@ -697,7 +692,7 @@ export default function HomeContent() {
             </svg>
           </button>
 
-          {/* Desktop nav links + dropdowns */}
+          {/* Desktop nav */}
           <div className="hidden sm:flex items-center gap-0.5">
             <NavDropdown label={lang === "it" ? "Template" : "Templates"}>
               <TemplatesDropdown lang={lang} />
@@ -705,32 +700,27 @@ export default function HomeContent() {
             <NavDropdown label={lang === "it" ? "Bundle" : "Bundles"}>
               <BundlesDropdown lang={lang} purchasedIds={purchasedIds} />
             </NavDropdown>
-            <Link
-              href="/guide"
-              className="link-underline text-[14px] text-muted hover:text-theme transition-colors duration-200 px-3 py-1.5 rounded-xl hover:bg-card"
-            >
-              {t[lang].nav.guide}
-            </Link>
-            <Link
-              href="/studio"
-              className="link-underline text-[14px] text-muted hover:text-theme transition-colors duration-200 px-3 py-1.5 rounded-xl hover:bg-card"
-            >
-              {t[lang].nav.studio}
-            </Link>
-            <Link
-              href="/account"
-              className="link-underline text-[14px] text-muted hover:text-theme transition-colors duration-200 px-3 py-1.5 rounded-xl hover:bg-card"
-            >
-              {t[lang].nav.account}
-            </Link>
+            {[
+              { href: "/guide",   it: "Guida",     en: "Guide" },
+              { href: "/studio",  it: "AI Studio",  en: "AI Studio" },
+              { href: "/account", it: "Account",    en: "Account" },
+            ].map((l) => (
+              <Link key={l.href} href={l.href}
+                className="text-[11px] font-medium px-3 py-1.5 uppercase tracking-[0.1em] transition-colors duration-200"
+                style={{ color: "var(--muted)" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text)")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--muted)")}
+              >
+                {lang === "it" ? l.it : l.en}
+              </Link>
+            ))}
           </div>
 
-          {/* Flex spacer */}
           <div className="flex-1" />
 
           {/* Desktop search */}
           <div className="hidden sm:flex items-center relative">
-            <svg className="absolute left-3 top-1/2 -translate-y-1/2 text-muted pointer-events-none" width="14" height="14" viewBox="0 0 20 20" fill="none">
+            <svg className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" width="13" height="13" viewBox="0 0 20 20" fill="none" style={{ color: "var(--muted)" }}>
               <circle cx="8.5" cy="8.5" r="5.75" stroke="currentColor" strokeWidth="1.7"/>
               <path d="M13 13l4 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/>
             </svg>
@@ -739,15 +729,31 @@ export default function HomeContent() {
               value={query}
               onChange={(e) => { setQuery(e.target.value); if (e.target.value) document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" }); }}
               placeholder={lang === "it" ? "Cerca…" : "Search…"}
-              className="bg-input border border-theme rounded-xl pl-8 pr-3 py-1.5 text-[13px] text-theme placeholder:text-muted outline-none focus:border-[#0A84FF]/40 transition-all duration-200 w-36 focus:w-52"
-              style={{ transition: "width 0.2s ease" }}
+              className="pl-8 pr-3 py-1.5 text-[12px] outline-none w-32 focus:w-48 transition-all duration-200"
+              style={{
+                background: "var(--input-bg)",
+                border: "1px solid var(--border)",
+                color: "var(--text)",
+                caretColor: "var(--accent)",
+              }}
             />
             {query && (
-              <button onClick={() => setQuery("")} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted hover:text-theme">
+              <button onClick={() => setQuery("")} className="absolute right-2.5 top-1/2 -translate-y-1/2" style={{ color: "var(--muted)" }}>
                 <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2L2 10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg>
               </button>
             )}
           </div>
+
+          {/* Studio Access CTA */}
+          <Link
+            href="/studio"
+            className="hidden sm:inline-flex items-center ml-2 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.14em] transition-colors duration-200"
+            style={{ fontFamily: "var(--font-syne)", background: "var(--accent)", color: "var(--bg)" }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--text)"; (e.currentTarget as HTMLAnchorElement).style.color = "var(--bg)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--accent)"; (e.currentTarget as HTMLAnchorElement).style.color = "var(--bg)"; }}
+          >
+            Studio Access
+          </Link>
 
           <NavButtons showMobileLinks={false} />
         </div>
@@ -772,7 +778,7 @@ export default function HomeContent() {
       >
         {/* Panel header */}
         <div className="flex items-center justify-between px-4 py-3.5 border-b border-theme">
-          <span className="text-[17px] font-bold tracking-tight text-zinc-900 dark:text-white">
+          <span className="text-[17px] font-bold tracking-tight text-theme">
             TemplateLab
           </span>
           <button
@@ -815,7 +821,7 @@ export default function HomeContent() {
           {/* Templates accordion */}
           <button
             onClick={() => setMobileExpandTemplates((o) => !o)}
-            className="w-full flex items-center justify-between px-3 py-3 rounded-xl text-[14px] font-semibold text-zinc-800 dark:text-zinc-200 hover:bg-card transition-colors"
+            className="w-full flex items-center justify-between px-3 py-3 rounded-xl text-[14px] font-semibold text-theme hover:bg-card transition-colors"
           >
             <span>{lang === "it" ? "Template" : "Templates"}</span>
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
@@ -844,7 +850,7 @@ export default function HomeContent() {
           {/* Bundles accordion */}
           <button
             onClick={() => setMobileExpandBundles((o) => !o)}
-            className="w-full flex items-center justify-between px-3 py-3 rounded-xl text-[14px] font-semibold text-zinc-800 dark:text-zinc-200 hover:bg-card transition-colors"
+            className="w-full flex items-center justify-between px-3 py-3 rounded-xl text-[14px] font-semibold text-theme hover:bg-card transition-colors"
           >
             <span>{lang === "it" ? "Bundle" : "Bundles"}</span>
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
@@ -863,7 +869,7 @@ export default function HomeContent() {
                 >
                   <span className="text-lg">{bundle.emoji}</span>
                   <div className="min-w-0">
-                    <p className="text-[13px] font-semibold text-zinc-800 dark:text-zinc-200 leading-tight">{bundle.name}</p>
+                    <p className="text-[13px] font-semibold text-theme leading-tight">{bundle.name}</p>
                     <p className="text-[11px] text-muted">{formatPrice(bundle.price)}</p>
                   </div>
                 </Link>
@@ -875,186 +881,332 @@ export default function HomeContent() {
           <div className="mt-1 pt-1 border-t border-theme/50 space-y-0.5">
             <Link href="/guide" onClick={() => setMobileMenuOpen(false)}
               className="flex items-center px-3 py-3 rounded-xl hover:bg-card transition-colors">
-              <span className="text-[14px] font-medium text-zinc-700 dark:text-zinc-300">{t[lang].nav.guide}</span>
+              <span className="text-[14px] font-medium text-theme">{t[lang].nav.guide}</span>
             </Link>
             <Link href="/studio" onClick={() => setMobileMenuOpen(false)}
               className="flex items-center px-3 py-3 rounded-xl hover:bg-card transition-colors">
-              <span className="text-[14px] font-medium text-zinc-700 dark:text-zinc-300">{t[lang].nav.studio}</span>
+              <span className="text-[14px] font-medium text-theme">{t[lang].nav.studio}</span>
             </Link>
             <Link href="/account" onClick={() => setMobileMenuOpen(false)}
               className="flex items-center px-3 py-3 rounded-xl hover:bg-card transition-colors">
-              <span className="text-[14px] font-medium text-zinc-700 dark:text-zinc-300">{t[lang].nav.account}</span>
+              <span className="text-[14px] font-medium text-theme">{t[lang].nav.account}</span>
             </Link>
           </div>
         </div>
       </div>
 
       {/* ═══════════════════════════════════════════
-          HERO — full redesign
+          HYBRID TICKER
       ═══════════════════════════════════════════ */}
-      <section className="relative z-10 px-4 sm:px-6 pt-12 pb-0 overflow-hidden">
-        <div className="max-w-5xl mx-auto">
+      <div className="border-b overflow-hidden py-[9px]" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
+        <div className="flex gap-[72px] white-space-nowrap ticker-animate" style={{ width: "max-content", whiteSpace: "nowrap" }}>
+          {[
+            "UI Template", "Prompt Pack", lang === "it" ? "Personalizzabili con Claude AI" : "Customize with Claude AI",
+            `N° ${countedTemplates} ${lang === "it" ? "pezzi in catalogo" : "templates available"}`,
+            "Editor's Pick", "Startup · SaaS · Portfolio",
+            "UI Template", "Prompt Pack", lang === "it" ? "Personalizzabili con Claude AI" : "Customize with Claude AI",
+            `N° ${countedTemplates} ${lang === "it" ? "pezzi in catalogo" : "templates available"}`,
+            "Editor's Pick", "Startup · SaaS · Portfolio",
+          ].map((item, i) => (
+            <span key={i} className="text-[9px] tracking-[0.22em] uppercase" style={{ color: "var(--muted)" }}>
+              {item}
+              <span className="mx-[10px]" style={{ color: "var(--accent)" }}>✦</span>
+            </span>
+          ))}
+        </div>
+      </div>
 
-          {/* Floating particles */}
-          <div aria-hidden className="absolute inset-0 overflow-hidden pointer-events-none select-none">
-            {([
-              { top: "18%",  left: "6%",  size: 5, anim: "float-a 6s ease-in-out infinite",   delay: "0s" },
-              { top: "42%",  left: "93%", size: 3, anim: "float-b 8s ease-in-out infinite",   delay: "1.2s" },
-              { top: "12%",  left: "78%", size: 4, anim: "float-c 7s ease-in-out infinite",   delay: "2.5s" },
-              { top: "68%",  left: "12%", size: 6, anim: "float-a 9s ease-in-out infinite",   delay: "0.8s" },
-              { top: "58%",  left: "88%", size: 3, anim: "float-b 6.5s ease-in-out infinite", delay: "3.5s" },
-            ] as const).map((p, i) => (
-              <span
-                key={i}
-                style={{
-                  position: "absolute",
-                  top: p.top, left: p.left,
-                  width: p.size, height: p.size,
-                  borderRadius: "50%",
-                  background: "var(--accent)",
-                  animation: p.anim,
-                  animationDelay: p.delay,
-                }}
-              />
-            ))}
-          </div>
+      {/* ═══════════════════════════════════════════
+          HYBRID HERO — 2 col
+      ═══════════════════════════════════════════ */}
+      <section
+        className="relative z-10 border-b"
+        style={{ borderColor: "var(--border)" }}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-12 lg:gap-16 items-center py-16 sm:py-20">
 
-          {/* ── Top row: badge + tagline ── */}
-          <div className="flex flex-col items-center text-center mb-10 pt-8 sm:pt-12">
-
-            {/* Badge */}
-            <div className="anim-fade-up delay-0 inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-semibold bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 mb-6 select-none">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-zinc-400 opacity-50" />
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-zinc-400 dark:bg-zinc-500" />
-              </span>
-              {t[lang].hero.badge}
+          {/* Left: copy */}
+          <div>
+            {/* Eyebrow */}
+            <div className="inline-flex items-center gap-2.5 mb-7 text-[9px] tracking-[0.2em] uppercase font-medium" style={{ color: "var(--accent)" }}>
+              <span className="w-[5px] h-[5px] rounded-full flex-shrink-0" style={{ background: "var(--accent)" }} />
+              {lang === "it" ? "Collezione Primavera 2026" : "Spring Collection 2026"}
             </div>
 
-            {/* Headline — bigger, bolder */}
-            <h1 className="anim-fade-up delay-75 text-[2.6rem] sm:text-[3.6rem] md:text-[4.2rem] font-extrabold leading-[1.04] tracking-[-0.04em] mb-5 text-zinc-900 dark:text-white max-w-3xl">
+            {/* Headline */}
+            <h1
+              className="font-dm-serif leading-[1.06] mb-7"
+              style={{
+                fontSize: "clamp(48px, 6vw, 82px)",
+                fontWeight: 400,
+                letterSpacing: "-0.025em",
+                color: "var(--text)",
+                fontFamily: "var(--font-dm-serif), Georgia, serif",
+              }}
+            >
               {lang === "it" ? (
                 <>
-                  Template UI pronti.<br />
-                  <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(135deg, var(--accent) 0%, #C77DFF 50%, #FF6B6B 100%)", backgroundSize: "200% 100%", animation: "gradient-shift 5s ease infinite" }}>
-                    Personalizzati con AI.
-                  </span>
+                  Template premium,<br />
+                  <em style={{ fontStyle: "italic", color: "#C4622D" }}>plasmati con cura</em><br />
+                  dall&apos;AI per te.
                 </>
               ) : (
                 <>
-                  Premium templates.<br />
-                  <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(135deg, var(--accent) 0%, #C77DFF 50%, #FF6B6B 100%)", backgroundSize: "200% 100%", animation: "gradient-shift 5s ease infinite" }}>
-                    Customized with AI.
-                  </span>
+                  Premium templates,<br />
+                  <em style={{ fontStyle: "italic", color: "#C4622D" }}>crafted with care</em><br />
+                  by AI for you.
                 </>
               )}
             </h1>
 
-            {/* Subtitle */}
-            <p className="anim-fade-up delay-150 text-[16px] sm:text-[17px] text-muted max-w-xl mx-auto mb-8 leading-relaxed font-normal">
+            {/* Sub */}
+            <p className="text-[14px] leading-[1.78] mb-10 max-w-[420px] font-light" style={{ color: "var(--muted)" }}>
               {lang === "it"
-                ? "Compra un template professionale, poi adattalo in secondi con Claude AI. Nessun codice."
-                : "Buy a professional template, then adapt it in seconds with Claude AI. No code required."}
+                ? "Acquista un template professionale numerato, poi adattalo in secondi con Claude AI. Nessun codice. Nessun compromesso."
+                : "Buy a numbered professional template, then customize it in seconds with Claude AI. No code. No compromise."}
             </p>
 
             {/* CTAs */}
-            <div className="anim-fade-up delay-200 flex flex-col sm:flex-row items-center gap-3 mb-8">
-              {/* Primary CTA */}
+            <div className="flex items-center gap-6">
               <a
                 href="#browse"
                 onClick={(e) => { e.preventDefault(); document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" }); }}
-                className="relative overflow-hidden inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl font-bold text-white text-[15px] active:scale-[0.97] transition-all duration-200 shadow-lg"
-                style={{ background: "linear-gradient(135deg, var(--accent), #9B59FF)", boxShadow: "0 8px 32px rgba(91,76,245,0.35)" }}
+                className="inline-flex items-center gap-2 px-7 py-[13px] text-[10px] font-bold uppercase tracking-[0.14em] transition-colors duration-200 active:opacity-80"
+                style={{
+                  fontFamily: "var(--font-syne)",
+                  background: "var(--accent)",
+                  color: "var(--bg)",
+                }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--text)"; (e.currentTarget as HTMLAnchorElement).style.color = "var(--bg)"; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--accent)"; (e.currentTarget as HTMLAnchorElement).style.color = "var(--bg)"; }}
               >
-                {lang === "it" ? "Sfoglia i template" : "Browse templates"}
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="opacity-80">
-                  <path d="M2 7h10M8 3l4 4-4 4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                <span className="shimmer-span" aria-hidden />
+                {lang === "it" ? "Sfoglia il catalogo →" : "Browse catalog →"}
               </a>
-
-              {/* AI Studio CTA */}
               <Link
                 href="/studio"
-                className="group inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl text-[14px] font-semibold transition-all duration-200 border"
-                style={{
-                  background: "linear-gradient(135deg, rgba(167,139,250,0.07), rgba(139,92,246,0.05))",
-                  borderColor: "rgba(167,139,250,0.22)",
-                  color: "var(--accent)",
-                }}
+                className="text-[12px] flex items-center gap-1.5 transition-colors duration-200"
+                style={{ color: "var(--muted)", letterSpacing: "0.06em" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text)")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--muted)")}
               >
-                <span className="w-1.5 h-1.5 rounded-full flex-shrink-0 animate-pulse" style={{ background: "var(--accent)" }} />
                 {lang === "it" ? "Prova l'AI Studio" : "Try AI Studio"}
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="group-hover:translate-x-0.5 transition-transform duration-200 opacity-70">
-                  <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </Link>
             </div>
+          </div>
 
-            {/* Trust badges */}
-            <div className="anim-fade-up delay-300 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 px-2 text-[12px] text-muted">
-              <span className="flex items-center gap-1.5">
-                <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5l3 3 6-6" className="check-path" stroke="#30D158" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                {countedTemplates} {lang === "it" ? "template pronti" : "templates ready"}
+          {/* Right: catalog shelf widget */}
+          <div className="hidden lg:block border" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
+            {/* Header */}
+            <div className="flex items-center justify-between px-[22px] py-[14px] border-b" style={{ borderColor: "var(--border)", background: "var(--card-bg)" }}>
+              <span className="font-dm-serif text-[13px] italic" style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--muted)" }}>
+                {lang === "it" ? "Selezionati questa settimana" : "Selected this week"}
               </span>
-              <span className="text-zinc-300 dark:text-zinc-700">·</span>
-              <span className="flex items-center gap-1.5">
-                <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5l3 3 6-6" className="check-path check-path-delay-1" stroke="#30D158" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                {lang === "it" ? "Pagamento sicuro Stripe" : "Secure Stripe payment"}
-              </span>
-              <span className="text-zinc-300 dark:text-zinc-700">·</span>
-              <span className="flex items-center gap-1.5">
-                <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5l3 3 6-6" className="check-path check-path-delay-2" stroke="#30D158" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                {lang === "it" ? "Accesso immediato" : "Instant access"}
+              <span className="text-[9px] tracking-[0.18em] uppercase font-semibold" style={{ fontFamily: "var(--font-syne)", color: "var(--accent)", opacity: 0.75 }}>
+                {countedTemplates} {lang === "it" ? "pezzi" : "pieces"}
               </span>
             </div>
-
-            {/* Download formats strip */}
-            <div className="anim-fade-up delay-400 flex flex-wrap items-center justify-center gap-1.5 mt-5">
-              <span className="text-[11px] text-muted/60 mr-1">
-                {lang === "it" ? "Scarica in:" : "Download as:"}
-              </span>
-              {["HTML", "Canva", "Notion", "Excel", "Webflow", "Framer"].map((fmt) => (
+            {/* Shelf items — top templates */}
+            {[
+              { num: "001", name: "SaaS Hero Section",       cat: lang === "it" ? "UI · Pick" : "UI · Pick",      price: "€ 12,99", featured: true,  id: "hero-saas" },
+              { num: "002", name: "Pricing Table 3-Tier",    cat: "UI",                                             price: "€ 9,99",  featured: false, id: "pricing-table" },
+              { num: "018", name: "LinkedIn Growth Kit",     cat: "Prompt",                                         price: "€ 7,99",  featured: false, id: "linkedin-prompt-pack" },
+              { num: "031", name: "Portfolio Agency Dark",   cat: lang === "it" ? "UI · Nuovo" : "UI · New",        price: "€ 14,99", featured: false, id: "creative-agency-portfolio" },
+              { num: "044", name: "E-learning Landing",      cat: "UI",                                             price: "€ 10,99", featured: false, id: "elearning-landing" },
+            ].map((item) => (
+              <Link
+                key={item.num}
+                href={`/preview/${item.id}`}
+                className="flex items-center gap-3 px-[22px] py-[13px] border-b transition-colors duration-150 last:border-0"
+                style={{
+                  borderColor: "var(--border)",
+                  background: item.featured ? "var(--accent-bg)" : "transparent",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = "var(--cream-08, var(--input-bg))")}
+                onMouseLeave={(e) => (e.currentTarget.style.background = item.featured ? "var(--accent-bg)" : "transparent")}
+              >
                 <span
-                  key={fmt}
-                  className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800/80 text-zinc-500 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700/60"
+                  className="w-[44px] flex-shrink-0 text-[11px] italic"
+                  style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--accent)", opacity: item.featured ? 1 : 0.55 }}
                 >
-                  {fmt}
+                  N° {item.num}
                 </span>
-              ))}
-            </div>
+                <span className="flex-1 text-[13px] font-normal truncate" style={{ color: "var(--text)" }}>
+                  {item.name}
+                </span>
+                <span className="text-[9px] tracking-[0.12em] uppercase font-medium mr-3 hidden sm:block"
+                  style={{ color: item.featured ? "var(--accent)" : "var(--muted)", opacity: item.featured ? 0.9 : 0.7 }}>
+                  {item.cat}
+                </span>
+                <span className="text-[15px] italic flex-shrink-0" style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--accent)" }}>
+                  {item.price}
+                </span>
+              </Link>
+            ))}
           </div>
-
-          {/* ── Template marquee strip ── */}
-          <div
-            className="relative -mx-4 sm:-mx-6 overflow-hidden pb-12"
-            onMouseEnter={() => setMarqueePaused(true)}
-            onMouseLeave={() => setMarqueePaused(false)}
-          >
-            {/* fade edges */}
-            <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 z-10 pointer-events-none" style={{ background: "linear-gradient(to right, var(--bg), transparent)" }} />
-            <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 z-10 pointer-events-none" style={{ background: "linear-gradient(to left, var(--bg), transparent)" }} />
-
-            {/* Row 1 — scrolls left */}
-            <div className="flex gap-3 mb-3" style={{ animation: "marquee-left 32s linear infinite", animationPlayState: marqueePaused ? "paused" : "running", width: "max-content" }}>
-              {[...marqueeTemplates, ...marqueeTemplates].map((tmpl, i) => (
-                <MarqueeCard key={`r1-${i}`} tmpl={tmpl} lang={lang} />
-              ))}
-            </div>
-            {/* Row 2 — scrolls right */}
-            <div className="flex gap-3" style={{ animation: "marquee-right 28s linear infinite", animationPlayState: marqueePaused ? "paused" : "running", width: "max-content" }}>
-              {[...marqueeTemplates2, ...marqueeTemplates2].map((tmpl, i) => (
-                <MarqueeCard key={`r2-${i}`} tmpl={tmpl} lang={lang} />
-              ))}
-            </div>
-          </div>
-
         </div>
       </section>
+
+      {/* ── Marquee strip — kept below hero ── */}
+      <div
+        className="relative overflow-hidden border-b py-3"
+        style={{ borderColor: "var(--border)", background: "var(--surface)" }}
+        onMouseEnter={() => setMarqueePaused(true)}
+        onMouseLeave={() => setMarqueePaused(false)}
+      >
+        <div className="absolute left-0 top-0 bottom-0 w-16 z-10 pointer-events-none" style={{ background: "linear-gradient(to right, var(--surface), transparent)" }} />
+        <div className="absolute right-0 top-0 bottom-0 w-16 z-10 pointer-events-none" style={{ background: "linear-gradient(to left, var(--surface), transparent)" }} />
+        <div className="flex gap-3 mb-2.5" style={{ animation: "marquee-left 32s linear infinite", animationPlayState: marqueePaused ? "paused" : "running", width: "max-content" }}>
+          {[...marqueeTemplates, ...marqueeTemplates].map((tmpl, i) => (
+            <MarqueeCard key={`r1-${i}`} tmpl={tmpl} lang={lang} />
+          ))}
+        </div>
+        <div className="flex gap-3" style={{ animation: "marquee-right 28s linear infinite", animationPlayState: marqueePaused ? "paused" : "running", width: "max-content" }}>
+          {[...marqueeTemplates2, ...marqueeTemplates2].map((tmpl, i) => (
+            <MarqueeCard key={`r2-${i}`} tmpl={tmpl} lang={lang} />
+          ))}
+        </div>
+      </div>
+
+      {/* ── Catalog header ── */}
+      <div
+        className="relative z-10 border-b px-4 sm:px-8 py-[28px] flex items-baseline justify-between"
+        style={{ borderColor: "var(--border)", background: "var(--bg)" }}
+      >
+        <h2
+          className="text-[28px] sm:text-[32px] italic"
+          style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--text)", fontWeight: 400 }}
+        >
+          {lang === "it" ? "Catalogo — Edizione Primavera" : "Catalog — Spring Edition"}
+        </h2>
+        <span
+          className="text-[10px] tracking-[0.14em] uppercase font-semibold hidden sm:block"
+          style={{ fontFamily: "var(--font-syne)", color: "var(--muted)" }}
+        >
+          {countedTemplates} {lang === "it" ? "template disponibili" : "templates available"}
+        </span>
+      </div>
 
       {/* ── Template Grid ── */}
       <div className="relative z-10">
         <TemplateGrid externalQuery={query} />
+      </div>
+
+      {/* ── Stats bar ── */}
+      <div
+        className="relative z-10 border-t border-b grid grid-cols-1 sm:grid-cols-3"
+        style={{ borderColor: "var(--border)", background: "var(--surface)" }}
+      >
+        {[
+          { num: countedTemplates.toString(), label: lang === "it" ? "template\ndisponibili" : "templates\navailable" },
+          { num: "12k+",                      label: lang === "it" ? "download\ncompleti"      : "completed\ndownloads" },
+          { num: "Claude AI",                  label: lang === "it" ? "personalizzazione\nistantanea" : "instant\ncustomization" },
+        ].map((stat, i) => (
+          <div
+            key={i}
+            className="flex items-center gap-4 px-8 py-6 border-b sm:border-b-0"
+            style={{ borderColor: "var(--border)", borderRight: i < 2 ? "1px solid var(--border)" : "none" }}
+          >
+            <span
+              className="text-[36px] sm:text-[40px] italic leading-none"
+              style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--text)" }}
+            >
+              {stat.num}
+            </span>
+            <span
+              className="text-[11px] leading-[1.5] font-light whitespace-pre-line"
+              style={{ color: "var(--muted)" }}
+            >
+              {stat.label}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      {/* ── Studio banner ── */}
+      <div
+        className="relative z-10 mx-4 sm:mx-8 my-10 overflow-hidden"
+        style={{ background: "var(--card-bg)", border: "var(--border-gold)" }}
+      >
+        {/* Gold ornament */}
+        <div aria-hidden className="absolute right-[-24px] top-[-48px] text-[180px] sm:text-[220px] pointer-events-none select-none leading-none" style={{ color: "var(--gold-dim, rgba(200,169,110,0.06))" }}>✦</div>
+
+        <div className="relative grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-8 items-center px-8 sm:px-12 py-10 sm:py-12">
+          <div>
+            <p className="text-[9px] tracking-[0.22em] uppercase font-semibold mb-3" style={{ fontFamily: "var(--font-syne)", color: "var(--accent)" }}>
+              {lang === "it" ? "AI Studio — Accesso Premium" : "AI Studio — Premium Access"}
+            </p>
+            <h3
+              className="text-[26px] sm:text-[30px] italic mb-2"
+              style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--text)", fontWeight: 400, lineHeight: 1.2 }}
+            >
+              {lang === "it" ? "Non trovi il pezzo giusto?\nDescrivilo, lo costruiamo insieme." : "Can't find the right piece?\nDescribe it, we'll build it together."}
+            </h3>
+            <p className="text-[13px] font-light" style={{ color: "var(--muted)" }}>
+              {lang === "it"
+                ? "Componenti UI, prompt, landing page — AI Studio genera il template perfetto in secondi."
+                : "UI components, prompts, landing pages — AI Studio generates the perfect template in seconds."}
+            </p>
+          </div>
+          <Link
+            href="/studio"
+            className="shrink-0 inline-flex items-center px-6 py-3.5 text-[10px] font-bold uppercase tracking-[0.14em] transition-colors duration-200 whitespace-nowrap"
+            style={{ fontFamily: "var(--font-syne)", background: "var(--accent)", color: "var(--bg)" }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--text)"; (e.currentTarget as HTMLAnchorElement).style.color = "var(--bg)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--accent)"; (e.currentTarget as HTMLAnchorElement).style.color = "var(--bg)"; }}
+          >
+            {lang === "it" ? "Inizia con Studio Access" : "Start with Studio Access"}
+          </Link>
+        </div>
+      </div>
+
+      {/* ── How it works — bento ── */}
+      <div
+        className="relative z-10 mx-4 sm:mx-8 mb-12 border"
+        style={{ borderColor: "var(--border)" }}
+      >
+        <div
+          className="grid grid-cols-1 sm:grid-cols-[2fr_1fr] grid-rows-auto"
+          style={{ background: "var(--border)", gap: "1px" }}
+        >
+          {/* Large card */}
+          <div className="p-8 sm:p-9 sm:row-span-2" style={{ background: "var(--bg)" }}>
+            <div
+              className="text-[48px] sm:text-[52px] italic leading-none mb-3 font-normal"
+              style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--accent)", opacity: 0.25 }}
+            >
+              01
+            </div>
+            <h4 className="text-[17px] font-bold mb-2 tracking-[-0.01em]" style={{ fontFamily: "var(--font-syne)", color: "var(--text)" }}>
+              {lang === "it" ? "Scegli un template dal catalogo" : "Choose a template from the catalog"}
+            </h4>
+            <p className="text-[13px] font-light leading-[1.7]" style={{ color: "var(--muted)" }}>
+              {lang === "it"
+                ? "Ogni template è numerato, con anteprima completa prima dell'acquisto. Filtra per categoria, tecnologia, stile."
+                : "Every template is numbered, with a full preview before purchase. Filter by category, technology, style."}
+            </p>
+          </div>
+          {/* Step 02 */}
+          <div className="p-7 sm:p-8" style={{ background: "var(--bg)" }}>
+            <div className="text-[48px] italic leading-none mb-3 font-normal" style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--accent)", opacity: 0.25 }}>02</div>
+            <h4 className="text-[16px] font-bold mb-1.5" style={{ fontFamily: "var(--font-syne)", color: "var(--text)" }}>
+              {lang === "it" ? "Acquista in un click" : "Buy in one click"}
+            </h4>
+            <p className="text-[12px] font-light" style={{ color: "var(--muted)" }}>
+              {lang === "it" ? "Pagamento sicuro Stripe. Download immediato." : "Secure Stripe payment. Instant download."}
+            </p>
+          </div>
+          {/* Step 03 */}
+          <div className="p-7 sm:p-8" style={{ background: "var(--bg)" }}>
+            <div className="text-[48px] italic leading-none mb-3 font-normal" style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--accent)", opacity: 0.25 }}>03</div>
+            <h4 className="text-[16px] font-bold mb-1.5" style={{ fontFamily: "var(--font-syne)", color: "var(--text)" }}>
+              {lang === "it" ? "Personalizza con Claude AI" : "Customize with Claude AI"}
+            </h4>
+            <p className="text-[12px] font-light" style={{ color: "var(--muted)" }}>
+              {lang === "it" ? "Descrivi le modifiche. L'AI le applica in secondi." : "Describe the changes. AI applies them in seconds."}
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* ── Testimonials — da aggiungere quando ci saranno utenti reali ── */}
@@ -1081,10 +1233,10 @@ export default function HomeContent() {
         <EmailCapture />
       </div>
 
-      {/* ── Quote ── */}
+      {/* ── Ornamental quote ── */}
       <div className="relative z-10 border-t border-theme px-4 sm:px-6 py-10">
         <div className="max-w-xl mx-auto text-center">
-          <p className="text-[11px] text-zinc-500 dark:text-zinc-600 italic">
+          <p className="text-[11px] italic" style={{ color: "var(--muted)", opacity: 0.55, fontFamily: "var(--font-dm-serif), serif" }}>
             {lang === "it"
               ? <>&ldquo;Non c&rsquo;è niente di più definitivo di un template &lsquo;temporaneo&rsquo; che resterà in produzione per i prossimi otto anni.&rdquo;</>
               : <>&ldquo;There&rsquo;s nothing more permanent than a &lsquo;temporary&rsquo; template that ends up in production for the next eight years.&rdquo;</>}
