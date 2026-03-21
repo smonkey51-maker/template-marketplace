@@ -30,8 +30,8 @@ export default function GuidePage() {
 
         {/* ── Hero ── */}
         <section className="text-center anim-fade-up delay-0">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[12px] font-semibold glass-subtle text-[#0A84FF] mb-6 select-none">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#0A84FF]" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[12px] font-semibold glass-subtle text-accent mb-6 select-none">
+            <span className="w-1.5 h-1.5 bg-accent" />
             {t[lang].guide.badge}
           </div>
           <h1 className="text-[2rem] sm:text-[2.8rem] font-black tracking-[-0.03em] leading-[1.1] text-theme mb-4">
@@ -50,11 +50,11 @@ export default function GuidePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* UI Template */}
             <div className="bg-surface border border-theme rounded-[24px] p-6 flex flex-col gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-[#0A84FF]/10 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center">
                 <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden>
-                  <rect x="2" y="4" width="20" height="14" rx="2" stroke="#0A84FF" strokeWidth="1.7"/>
-                  <path d="M8 18v2M16 18v2M6 20h12" stroke="#0A84FF" strokeWidth="1.7" strokeLinecap="round"/>
-                  <path d="M6 8h5M6 11.5h8" stroke="#0A84FF" strokeWidth="1.4" strokeLinecap="round" opacity="0.5"/>
+                  <rect x="2" y="4" width="20" height="14" rx="2" stroke="var(--accent)" strokeWidth="1.7"/>
+                  <path d="M8 18v2M16 18v2M6 20h12" stroke="var(--accent)" strokeWidth="1.7" strokeLinecap="round"/>
+                  <path d="M6 8h5M6 11.5h8" stroke="var(--accent)" strokeWidth="1.4" strokeLinecap="round" opacity="0.5"/>
                 </svg>
               </div>
               <div>
@@ -77,10 +77,10 @@ export default function GuidePage() {
 
             {/* Prompt Template */}
             <div className="bg-surface border border-theme rounded-[24px] p-6 flex flex-col gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-[#5E5CE6]/10 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center">
                 <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden>
-                  <rect x="4" y="2" width="16" height="20" rx="2" stroke="#5E5CE6" strokeWidth="1.7"/>
-                  <path d="M8 8h8M8 12h8M8 16h5" stroke="#5E5CE6" strokeWidth="1.4" strokeLinecap="round"/>
+                  <rect x="4" y="2" width="16" height="20" rx="2" stroke="var(--accent)" strokeWidth="1.7"/>
+                  <path d="M8 8h8M8 12h8M8 16h5" stroke="var(--accent)" strokeWidth="1.4" strokeLinecap="round"/>
                 </svg>
               </div>
               <div>
@@ -147,7 +147,7 @@ export default function GuidePage() {
             <div className="bg-surface border border-theme rounded-[24px] p-5 flex flex-col gap-4">
               <div className="flex items-center gap-2">
                 <span className="text-[13px] font-bold text-theme">{t[lang].guide.uiTitle}</span>
-                <span className="glass-subtle rounded-full px-2 py-0.5 text-[11px] font-semibold text-[#0A84FF]">HTML</span>
+                <span className="glass-subtle rounded-full px-2 py-0.5 text-[11px] font-semibold text-accent">HTML</span>
               </div>
               {/* Mini HTML mockup */}
               <div className="rounded-xl overflow-hidden border border-theme/50 bg-[#0F0F10]">
@@ -162,7 +162,7 @@ export default function GuidePage() {
                 <div className="p-4 space-y-3">
                   {/* Fake nav */}
                   <div className="flex items-center justify-between mb-1">
-                    <div className="h-3 w-16 bg-[#0A84FF]/70 rounded-full" />
+                    <div className="h-3 w-16 bg-accent/70" />
                     <div className="flex gap-2">
                       <div className="h-2.5 w-8 bg-white/15 rounded-full" />
                       <div className="h-2.5 w-8 bg-white/15 rounded-full" />
@@ -172,7 +172,7 @@ export default function GuidePage() {
                   <div className="rounded-lg bg-gradient-to-br from-[#0A84FF]/20 to-[#5E5CE6]/20 p-4 text-center space-y-2">
                     <div className="h-3.5 w-3/4 mx-auto bg-white/40 rounded-full" />
                     <div className="h-2.5 w-1/2 mx-auto bg-white/20 rounded-full" />
-                    <div className="h-6 w-24 mx-auto bg-[#0A84FF] rounded-lg mt-2" />
+                    <div className="h-6 w-24 mx-auto bg-accent rounded-lg mt-2" />
                   </div>
                   {/* Fake cards row */}
                   <div className="grid grid-cols-3 gap-1.5">
@@ -194,7 +194,7 @@ export default function GuidePage() {
             <div className="bg-surface border border-theme rounded-[24px] p-5 flex flex-col gap-4">
               <div className="flex items-center gap-2">
                 <span className="text-[13px] font-bold text-theme">{t[lang].guide.promptTitle}</span>
-                <span className="glass-subtle rounded-full px-2 py-0.5 text-[11px] font-semibold text-[#5E5CE6]">AI</span>
+                <span className="glass-subtle rounded-full px-2 py-0.5 text-[11px] font-semibold text-accent">AI</span>
               </div>
               {/* macOS Notes style */}
               <div className="rounded-xl overflow-hidden border border-theme/50 bg-[#1C1C1E]">
@@ -210,16 +210,16 @@ export default function GuidePage() {
                   <p className="font-mono text-[10px] text-[#1C1C1E] leading-relaxed">
                     Sei un esperto di copywriting B2B.{" "}
                     <br />Scrivi una cold email per{" "}
-                    <span className="bg-[#007AFF]/15 text-[#007AFF] rounded px-0.5 font-semibold">{"{{nome_azienda}}"}</span>
+                    <span className="bg-accent/15 text-accent rounded px-0.5 font-semibold">{"{{nome_azienda}}"}</span>
                     , che vende{" "}
-                    <span className="bg-[#007AFF]/15 text-[#007AFF] rounded px-0.5 font-semibold">{"{{prodotto}}"}</span>
+                    <span className="bg-accent/15 text-accent rounded px-0.5 font-semibold">{"{{prodotto}}"}</span>
                     .
                     <br /><br />
                     Target:{" "}
-                    <span className="bg-[#007AFF]/15 text-[#007AFF] rounded px-0.5 font-semibold">{"{{target}}"}</span>
+                    <span className="bg-accent/15 text-accent rounded px-0.5 font-semibold">{"{{target}}"}</span>
                     <br />
                     Tono:{" "}
-                    <span className="bg-[#007AFF]/15 text-[#007AFF] rounded px-0.5 font-semibold">{"{{tono}}"}</span>
+                    <span className="bg-accent/15 text-accent rounded px-0.5 font-semibold">{"{{tono}}"}</span>
                   </p>
                 </div>
               </div>
@@ -253,7 +253,10 @@ export default function GuidePage() {
               </p>
               <Link
                 href="/#browse"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-[#0A84FF] hover:bg-[#409CFF] text-white font-bold text-[15px] rounded-2xl ios-spring transition-all duration-200 shadow-[0_4px_20px_rgba(10,132,255,0.35)]"
+                className="inline-flex items-center gap-2 px-8 py-4 font-bold text-[15px] rounded-2xl ios-spring transition-colors duration-200"
+                style={{ background: "var(--accent)", color: "var(--bg)" }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--text)"; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--accent)"; }}
               >
                 {t[lang].guide.ctaBtn}
               </Link>
@@ -278,7 +281,7 @@ function StepList({
         <div key={i} className="flex gap-4">
           {/* Left: number + connector line */}
           <div className="flex flex-col items-center shrink-0">
-            <div className="w-8 h-8 rounded-full bg-[#0A84FF]/10 text-[#0A84FF] font-black text-sm flex items-center justify-center shrink-0">
+            <div className="w-8 h-8 bg-accent/10 text-accent font-black text-sm flex items-center justify-center shrink-0">
               {i + 1}
             </div>
             {i < steps.length - 1 && (

@@ -504,7 +504,7 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
                   <MagneticWrap>
                     <button
                       onClick={() => setVisibleCount((v) => v + 12)}
-                      className="px-6 py-2.5 glass border border-theme rounded-2xl text-[13px] font-semibold text-muted hover:text-theme hover:border-[#0A84FF]/30 transition-all duration-200 ios-spring"
+                      className="px-6 py-2.5 glass border border-theme rounded-2xl text-[13px] font-semibold text-muted hover:text-theme hover:border-accent/30 transition-all duration-200 ios-spring"
                     >
                       {lang === "it"
                         ? `Mostra altri ${Math.min(12, searchResults.length - visibleCount)} →`
@@ -545,7 +545,7 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
             <span className="text-[13px] font-semibold text-zinc-900 dark:text-zinc-100">
               {openSection.emoji} {openSectionMeta.label}
             </span>
-            <span className="bg-[#0A84FF]/10 text-[#0A84FF] rounded-full px-2 py-0.5 text-[11px] font-bold">
+            <span className="bg-accent/10 text-accent rounded-full px-2 py-0.5 text-[11px] font-bold">
               {openSectionTemplates.length}
             </span>
           </div>

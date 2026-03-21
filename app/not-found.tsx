@@ -20,12 +20,7 @@ export default function NotFound() {
         {/* 404 number */}
         <p
           className="text-[120px] font-black leading-none tracking-tighter select-none"
-          style={{
-            background: "linear-gradient(135deg, #0A84FF 0%, #5E5CE6 100%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text",
-          }}
+          style={{ color: "var(--accent)" }}
         >
           404
         </p>
@@ -43,7 +38,10 @@ export default function NotFound() {
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link
             href="/"
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-[#0A84FF] hover:bg-[#409CFF] text-white font-bold text-[15px] transition-all duration-200 active:scale-[0.97] ios-spring shadow-[0_4px_20px_rgba(10,132,255,0.3)]"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl font-bold text-[15px] transition-colors duration-200 active:scale-[0.97] ios-spring"
+            style={{ background: "var(--accent)", color: "var(--bg)" }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--text)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--accent)"; }}
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
               <path d="M6 1L1 7l5 6M1 7h12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>

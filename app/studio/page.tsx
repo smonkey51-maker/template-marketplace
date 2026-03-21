@@ -754,7 +754,7 @@ function StudioContent() {
                         <span className="text-[11px] text-muted shrink-0 flex items-center gap-2">
                           <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium ${
                             entry.category === "ui"
-                              ? "bg-blue-100 text-blue-600 dark:bg-blue-950/50 dark:text-blue-400"
+                              ? "bg-accent/10 text-accent"
                               : "bg-orange-100 text-orange-600 dark:bg-orange-950/50 dark:text-orange-400"
                           }`}>
                             {entry.category.toUpperCase()}

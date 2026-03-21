@@ -67,7 +67,7 @@ export default function PreviewModal({ templateId, onClose }: {
             <div className="relative w-full h-full">
               {!iframeLoaded && (
                 <div className="absolute inset-0 flex items-center justify-center bg-[#F2F2F7]">
-                  <div className="w-7 h-7 rounded-full border-2 border-[#0A84FF] border-t-transparent animate-spin" />
+                  <div className="w-7 h-7 rounded-full border-2 border-t-transparent animate-spin" style={{ borderColor: "var(--accent)", borderTopColor: "transparent" }} />
                 </div>
               )}
               <iframe
@@ -83,7 +83,7 @@ export default function PreviewModal({ templateId, onClose }: {
               <div className="max-w-2xl mx-auto font-mono text-[14px] text-[#1C1C1E] leading-relaxed whitespace-pre-wrap">
                 {template.content.split(/({{[^}]+}})/g).map((part, i) =>
                   part.startsWith("{{") ? (
-                    <span key={i} className="inline-block bg-[#007AFF]/10 text-[#007AFF] rounded-[5px] px-1.5 py-0.5 font-semibold text-[13px]">{part}</span>
+                    <span key={i} className="inline-block bg-accent/10 text-accent rounded-[5px] px-1.5 py-0.5 font-semibold text-[13px]">{part}</span>
                   ) : (
                     <span key={i}>{part}</span>
                   )
@@ -101,9 +101,10 @@ export default function PreviewModal({ templateId, onClose }: {
           </div>
           <a
             href={`/preview/${template.id}`}
-            className="px-5 py-2.5 bg-[#0A84FF] hover:bg-[#409CFF] text-white font-bold rounded-2xl text-[13px]
-              transition-all duration-200 ios-spring active:scale-[0.97]
-              shadow-[0_4px_16px_rgba(10,132,255,0.4)]"
+            className="px-5 py-2.5 font-bold rounded-2xl text-[13px] transition-colors duration-200 ios-spring active:scale-[0.97]"
+            style={{ background: "var(--accent)", color: "var(--bg)" }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--text)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--accent)"; }}
           >
             {lang === "it" ? "Vedi dettagli →" : "View details →"}
           </a>
