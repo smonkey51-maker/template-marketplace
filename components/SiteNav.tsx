@@ -20,8 +20,8 @@ export default function SiteNav({ title }: { title?: string }) {
     <nav
       className="sticky top-0 z-50 border-b backdrop-blur-[14px] px-4 sm:px-6 py-3.5"
       style={{
-        background: "rgba(5,4,2,0.93)",
-        borderColor: "rgba(242,235,217,0.09)",
+        background: "var(--nav-bg)",
+        borderColor: "var(--border)",
       }}
     >
       <div className="max-w-7xl mx-auto flex items-center gap-1">
@@ -32,14 +32,14 @@ export default function SiteNav({ title }: { title?: string }) {
             style={{
               fontFamily: "var(--font-syne), sans-serif",
               fontWeight: 800,
-              color: "var(--cream, #F2EBD9)",
+              color: "var(--text)",
             }}
           >
-            Template<span style={{ color: "var(--gold, #C8A96E)" }}>Lab</span>
+            Template<span style={{ color: "var(--accent)" }}>Lab</span>
           </span>
           <span
             className="text-[8px] tracking-[0.18em] uppercase leading-none hidden sm:block"
-            style={{ color: "var(--gold, #C8A96E)", opacity: 0.6, fontWeight: 500 }}
+            style={{ color: "var(--accent)", opacity: 0.65, fontWeight: 500 }}
           >
             Mercato del digitale artigianale
           </span>
@@ -56,13 +56,10 @@ export default function SiteNav({ title }: { title?: string }) {
                 href={link.href}
                 className="text-[11px] font-medium px-3 py-1.5 transition-all duration-200 uppercase tracking-[0.1em]"
                 style={{
-                  color: isActive
-                    ? "var(--cream, #F2EBD9)"
-                    : "rgba(242,235,217,0.35)",
-                  letterSpacing: "0.1em",
+                  color: isActive ? "var(--text)" : "var(--muted)",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--cream, #F2EBD9)")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = isActive ? "var(--cream, #F2EBD9)" : "rgba(242,235,217,0.35)")}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text)")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = isActive ? "var(--text)" : "var(--muted)")}
               >
                 {label}
               </Link>
@@ -74,7 +71,7 @@ export default function SiteNav({ title }: { title?: string }) {
         {title && (
           <span
             className="sm:hidden flex-1 text-center text-[11px] font-semibold uppercase tracking-widest truncate"
-            style={{ color: "rgba(242,235,217,0.35)" }}
+            style={{ color: "var(--muted)" }}
           >
             {title}
           </span>
@@ -89,11 +86,17 @@ export default function SiteNav({ title }: { title?: string }) {
           className="hidden sm:inline-flex items-center mr-3 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.14em] transition-colors duration-200"
           style={{
             fontFamily: "var(--font-syne), sans-serif",
-            background: "var(--gold, #C8A96E)",
-            color: "#050402",
+            background: "var(--accent)",
+            color: "var(--bg)",
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.background = "var(--cream, #F2EBD9)")}
-          onMouseLeave={(e) => (e.currentTarget.style.background = "var(--gold, #C8A96E)")}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLAnchorElement).style.background = "var(--text)";
+            (e.currentTarget as HTMLAnchorElement).style.color = "var(--bg)";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLAnchorElement).style.background = "var(--accent)";
+            (e.currentTarget as HTMLAnchorElement).style.color = "var(--bg)";
+          }}
         >
           Studio Access
         </Link>
