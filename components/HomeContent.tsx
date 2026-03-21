@@ -947,14 +947,12 @@ export default function HomeContent() {
               {lang === "it" ? (
                 <>
                   Template premium,<br />
-                  <em style={{ fontStyle: "italic", color: "var(--terra, #C4622D)" }}>plasmati con cura</em><br />
-                  dall&apos;AI per te.
+                  <em style={{ fontStyle: "italic", color: "var(--terra, #C4622D)" }}>plasmati con cura.</em>
                 </>
               ) : (
                 <>
                   Premium templates,<br />
-                  <em style={{ fontStyle: "italic", color: "var(--terra, #C4622D)" }}>crafted with care</em><br />
-                  by AI for you.
+                  <em style={{ fontStyle: "italic", color: "var(--terra, #C4622D)" }}>crafted with care.</em>
                 </>
               )}
             </h1>
@@ -962,8 +960,8 @@ export default function HomeContent() {
             {/* Sub */}
             <p className="text-[14px] leading-[1.78] mb-10 max-w-[420px] font-light" style={{ color: "var(--muted)" }}>
               {lang === "it"
-                ? "Acquista un template professionale numerato, poi adattalo in secondi con Claude AI. Nessun codice. Nessun compromesso."
-                : "Buy a numbered professional template, then customize it in seconds with Claude AI. No code. No compromise."}
+                ? "Template professionali pronti all'uso, personalizzabili in pochi secondi con Claude AI."
+                : "Professional templates ready to use. Customize any design in seconds with Claude AI."}
             </p>
 
             {/* CTAs */}
