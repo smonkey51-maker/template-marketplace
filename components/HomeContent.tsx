@@ -129,7 +129,7 @@ function TestimonialCard({
           {testimonial.initials}
         </div>
         <div>
-          <p className="text-[13px] font-semibold text-zinc-900 dark:text-zinc-100 leading-tight">
+          <p className="text-[13px] font-semibold text-theme leading-tight">
             {lang === "it" ? testimonial.nameIt : testimonial.nameEn}
           </p>
           <p className="text-[11px] text-muted leading-tight">
@@ -144,25 +144,26 @@ function TestimonialCard({
 function TemplatesDropdown({ lang }: { lang: "it" | "en" }) {
   return (
     <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-50 w-[580px] max-w-[calc(100vw-2rem)]">
-      <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl shadow-black/20 overflow-hidden">
-        <div className="grid grid-cols-[180px_1fr] divide-x divide-zinc-100 dark:divide-zinc-800">
+      <div className="border border-theme rounded-2xl shadow-2xl overflow-hidden" style={{ background: "var(--bg)" }}>
+        <div className="grid grid-cols-[180px_1fr]">
           {/* Left: steps */}
-          <div className="p-4 bg-zinc-50 dark:bg-zinc-950/50">
-            <p className="text-[9px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-[0.2em] mb-3 px-1">
+          <div className="p-4" style={{ background: "var(--surface)", borderRight: "1px solid var(--border)" }}>
+            <p className="text-[9px] font-black uppercase tracking-[0.2em] mb-3 px-1" style={{ color: "var(--muted)" }}>
               {lang === "it" ? "Come funziona" : "How it works"}
             </p>
             <div className="flex flex-col gap-1">
               {STEPS.map((s) => (
                 <div key={s.n} className="flex items-start gap-2.5 px-2 py-2.5 rounded-xl">
-                  <div className="w-7 h-7 rounded-lg bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 flex items-center justify-center text-sm flex-shrink-0 shadow-sm">
+                  <div className="w-7 h-7 rounded-lg flex items-center justify-center text-sm flex-shrink-0 shadow-sm border"
+                    style={{ background: "var(--card-bg)", borderColor: "var(--border)" }}>
                     {s.icon}
                   </div>
                   <div>
-                    <p className="text-[11px] font-bold text-zinc-400 dark:text-zinc-500 mb-0.5">{s.n}</p>
-                    <p className="text-[12px] font-semibold text-zinc-800 dark:text-zinc-200 leading-tight">
+                    <p className="text-[11px] font-bold mb-0.5" style={{ color: "var(--muted)" }}>{s.n}</p>
+                    <p className="text-[12px] font-semibold leading-tight" style={{ color: "var(--text)" }}>
                       {lang === "it" ? s.titleIt : s.titleEn}
                     </p>
-                    <p className="text-[11px] text-zinc-400 dark:text-zinc-500 mt-0.5 leading-tight">
+                    <p className="text-[11px] mt-0.5 leading-tight" style={{ color: "var(--muted)" }}>
                       {lang === "it" ? s.descIt : s.descEn}
                     </p>
                   </div>
@@ -172,7 +173,7 @@ function TemplatesDropdown({ lang }: { lang: "it" | "en" }) {
           </div>
           {/* Right: categories */}
           <div className="p-4">
-            <p className="text-[9px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-[0.2em] mb-3 px-1">
+            <p className="text-[9px] font-black uppercase tracking-[0.2em] mb-3 px-1" style={{ color: "var(--muted)" }}>
               {lang === "it" ? "Categorie" : "Categories"}
             </p>
             <div className="grid grid-cols-2 gap-0.5">
@@ -187,10 +188,12 @@ function TemplatesDropdown({ lang }: { lang: "it" | "en" }) {
                       browse?.scrollIntoView({ behavior: "smooth" });
                     }
                   }}
-                  className="flex items-center gap-2 px-2.5 py-2 rounded-xl text-left hover:bg-zinc-50 dark:hover:bg-zinc-800/60 transition-colors group"
+                  className="flex items-center gap-2 px-2.5 py-2 rounded-xl text-left transition-colors"
+                  onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "var(--surface)")}
+                  onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "transparent")}
                 >
                   <span className="text-sm flex-shrink-0">{cat.emoji}</span>
-                  <span className="text-[12px] font-medium text-zinc-700 dark:text-zinc-300 group-hover:text-zinc-900 dark:group-hover:text-white leading-tight">
+                  <span className="text-[12px] font-medium leading-tight" style={{ color: "var(--text)", opacity: 0.8 }}>
                     {lang === "it" ? cat.labelIt : cat.labelEn}
                   </span>
                 </button>
@@ -199,13 +202,14 @@ function TemplatesDropdown({ lang }: { lang: "it" | "en" }) {
           </div>
         </div>
         {/* Footer hint */}
-        <div className="px-4 py-2.5 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between bg-zinc-50 dark:bg-zinc-950/50">
-          <span className="text-[11px] text-zinc-400 dark:text-zinc-500">
+        <div className="px-4 py-2.5 flex items-center justify-between" style={{ borderTop: "1px solid var(--border)", background: "var(--surface)" }}>
+          <span className="text-[11px]" style={{ color: "var(--muted)" }}>
             {templates.length} {lang === "it" ? "template disponibili" : "templates available"}
           </span>
           <button
             onClick={() => document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" })}
-            className="text-[11px] font-semibold text-blue-500 hover:text-blue-400 transition-colors"
+            className="text-[11px] font-semibold transition-colors"
+            style={{ color: "var(--accent)" }}
           >
             {lang === "it" ? "Vedi tutti →" : "Browse all →"}
           </button>
@@ -227,9 +231,9 @@ function BundlesDropdown({ lang, purchasedIds }: { lang: "it" | "en"; purchasedI
 
   return (
     <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-50 w-[440px] max-w-[calc(100vw-2rem)]">
-      <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl shadow-black/20 overflow-hidden">
+      <div className="border border-theme rounded-2xl shadow-2xl overflow-hidden" style={{ background: "var(--bg)" }}>
         <div className="p-3">
-          <p className="text-[9px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-[0.2em] mb-2 px-2">
+          <p className="text-[9px] font-black uppercase tracking-[0.2em] mb-2 px-2" style={{ color: "var(--muted)" }}>
             {lang === "it" ? "Bundle — risparmia fino al 55%" : "Bundles — save up to 55%"}
           </p>
           <div className="space-y-0.5">
@@ -240,16 +244,19 @@ function BundlesDropdown({ lang, purchasedIds }: { lang: "it" | "en"; purchasedI
                 <Link
                   key={bundle.id}
                   href={`/bundle/${bundle.id}`}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-zinc-50 dark:hover:bg-zinc-800/60 transition-colors group cursor-pointer"
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors group cursor-pointer"
+                  onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.background = "var(--surface)")}
+                  onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.background = "transparent")}
                 >
-                  <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-base flex-shrink-0 ${accentMap[bundle.accentColor] ?? "bg-zinc-100 dark:bg-zinc-800 text-zinc-500"}`}>
+                  <div className="w-8 h-8 rounded-xl flex items-center justify-center text-base flex-shrink-0"
+                    style={{ background: "var(--accent-bg)", color: "var(--accent)" }}>
                     {bundle.emoji}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-[13px] font-semibold text-zinc-800 dark:text-zinc-200 group-hover:text-zinc-900 dark:group-hover:text-white leading-tight">
+                    <p className="text-[13px] font-semibold leading-tight" style={{ color: "var(--text)" }}>
                       {bundle.name}
                     </p>
-                    <p className="text-[11px] text-zinc-400 dark:text-zinc-500 truncate leading-tight mt-0.5">
+                    <p className="text-[11px] truncate leading-tight mt-0.5" style={{ color: "var(--muted)" }}>
                       {bundle.tagline}
                     </p>
                   </div>
@@ -258,8 +265,8 @@ function BundlesDropdown({ lang, purchasedIds }: { lang: "it" | "en"; purchasedI
                       <span className="text-[11px] text-emerald-500 font-semibold">✓ {lang === "it" ? "Tuo" : "Owned"}</span>
                     ) : (
                       <>
-                        <p className="text-[13px] font-bold text-zinc-800 dark:text-zinc-200">{formatPrice(bundle.price)}</p>
-                        <p className="text-[10px] text-zinc-400 line-through">{formatPrice(bundle.regularPrice)}</p>
+                        <p className="text-[13px] font-bold" style={{ color: "var(--text)" }}>{formatPrice(bundle.price)}</p>
+                        <p className="text-[10px] line-through" style={{ color: "var(--muted)" }}>{formatPrice(bundle.regularPrice)}</p>
                       </>
                     )}
                   </div>
@@ -268,8 +275,8 @@ function BundlesDropdown({ lang, purchasedIds }: { lang: "it" | "en"; purchasedI
             })}
           </div>
         </div>
-        <div className="px-5 py-2.5 border-t border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/50">
-          <p className="text-[11px] text-zinc-400 dark:text-zinc-500">
+        <div className="px-5 py-2.5" style={{ borderTop: "1px solid var(--border)", background: "var(--surface)" }}>
+          <p className="text-[11px]" style={{ color: "var(--muted)" }}>
             🎁 {lang === "it" ? "Ogni bundle ha accesso permanente + AI Studio incluso" : "Every bundle includes permanent access + AI Studio"}
           </p>
         </div>
@@ -303,7 +310,7 @@ function NavDropdown({
         onClick={() => setOpen((o) => !o)}
         className={`flex items-center gap-1 text-[14px] px-3 py-1.5 rounded-xl transition-colors duration-200 ${
           open
-            ? "text-zinc-900 dark:text-white bg-zinc-100 dark:bg-zinc-800"
+            ? "bg-surface text-theme"
             : "text-muted hover:text-theme hover:bg-card"
         }`}
       >
@@ -468,7 +475,7 @@ function BundleShowcase({ lang, purchasedIds, onBuy }: { lang: "it" | "en"; purc
       <div className="max-w-5xl mx-auto px-4 sm:px-6 mb-7 flex items-end justify-between gap-4">
         <div>
           <p className="text-[10px] font-black text-muted uppercase tracking-[0.2em] mb-2">Bundle</p>
-          <h2 className="text-[1.5rem] sm:text-[1.9rem] font-extrabold tracking-tight text-zinc-900 dark:text-white">
+          <h2 className="text-[1.5rem] sm:text-[1.9rem] font-extrabold tracking-tight text-theme">
             {lang === "it" ? "Risparmia di più, crea di più" : "Save more, build more"}
           </h2>
           <p className="text-[13px] text-muted mt-1.5">
@@ -510,7 +517,8 @@ function BundleShowcase({ lang, purchasedIds, onBuy }: { lang: "it" | "en"; purc
               el.scrollTo({ left: i * cardW, behavior: "smooth" });
               setActiveIdx(i);
             }}
-            className={`rounded-full transition-all duration-300 ${i === activeIdx ? "w-5 h-1.5 bg-zinc-900 dark:bg-white" : "w-1.5 h-1.5 bg-zinc-300 dark:bg-zinc-700 hover:bg-zinc-400 dark:hover:bg-zinc-500"}`}
+            className={`rounded-full transition-all duration-300 ${i === activeIdx ? "w-5 h-1.5" : "w-1.5 h-1.5"}`}
+            style={{ background: i === activeIdx ? "var(--text)" : "var(--border)" }}
             aria-label={`Bundle ${i + 1}`}
           />
         ))}
@@ -667,15 +675,15 @@ export default function HomeContent() {
       {/* ── Hybrid Nav ── */}
       <nav
         className="sticky top-0 z-50 border-b backdrop-blur-[14px] px-4 sm:px-8"
-        style={{ background: "rgba(5,4,2,0.93)", borderColor: "rgba(242,235,217,0.09)" }}
+        style={{ background: "var(--nav-bg)", borderColor: "var(--border)" }}
       >
         <div className="max-w-7xl mx-auto flex items-center h-[60px] gap-3">
           {/* Logo */}
           <Link href="/" className="shrink-0 flex flex-col gap-0.5 mr-4 hover:opacity-80 transition-opacity">
-            <span className="text-[15px] leading-none tracking-[0.06em] uppercase" style={{ fontFamily: "var(--font-syne)", fontWeight: 800, color: "#F2EBD9" }}>
-              Template<span style={{ color: "#C8A96E" }}>Lab</span>
+            <span className="text-[15px] leading-none tracking-[0.06em] uppercase" style={{ fontFamily: "var(--font-syne)", fontWeight: 800, color: "var(--text)" }}>
+              Template<span style={{ color: "var(--accent)" }}>Lab</span>
             </span>
-            <span className="hidden sm:block text-[8px] tracking-[0.18em] uppercase leading-none" style={{ color: "#C8A96E", opacity: 0.6, fontWeight: 500 }}>
+            <span className="hidden sm:block text-[8px] tracking-[0.18em] uppercase leading-none" style={{ color: "var(--accent)", opacity: 0.65, fontWeight: 500 }}>
               {lang === "it" ? "Mercato del digitale artigianale" : "Artisan digital marketplace"}
             </span>
           </Link>
@@ -684,7 +692,7 @@ export default function HomeContent() {
           <button
             onClick={() => setMobileMenuOpen(true)}
             className="sm:hidden flex items-center justify-center w-9 h-9"
-            style={{ color: "rgba(242,235,217,0.4)" }}
+            style={{ color: "var(--muted)" }}
             aria-label="Open menu"
             aria-expanded={mobileMenuOpen}
           >
@@ -708,9 +716,9 @@ export default function HomeContent() {
             ].map((l) => (
               <Link key={l.href} href={l.href}
                 className="text-[11px] font-medium px-3 py-1.5 uppercase tracking-[0.1em] transition-colors duration-200"
-                style={{ color: "rgba(242,235,217,0.35)" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#F2EBD9")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(242,235,217,0.35)")}
+                style={{ color: "var(--muted)" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text)")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--muted)")}
               >
                 {lang === "it" ? l.it : l.en}
               </Link>
@@ -721,7 +729,7 @@ export default function HomeContent() {
 
           {/* Desktop search */}
           <div className="hidden sm:flex items-center relative">
-            <svg className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" width="13" height="13" viewBox="0 0 20 20" fill="none" style={{ color: "rgba(242,235,217,0.3)" }}>
+            <svg className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" width="13" height="13" viewBox="0 0 20 20" fill="none" style={{ color: "var(--muted)" }}>
               <circle cx="8.5" cy="8.5" r="5.75" stroke="currentColor" strokeWidth="1.7"/>
               <path d="M13 13l4 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/>
             </svg>
@@ -732,14 +740,14 @@ export default function HomeContent() {
               placeholder={lang === "it" ? "Cerca…" : "Search…"}
               className="pl-8 pr-3 py-1.5 text-[12px] outline-none w-32 focus:w-48 transition-all duration-200"
               style={{
-                background: "rgba(242,235,217,0.05)",
-                border: "1px solid rgba(242,235,217,0.12)",
-                color: "#F2EBD9",
-                caretColor: "#C8A96E",
+                background: "var(--input-bg)",
+                border: "1px solid var(--border)",
+                color: "var(--text)",
+                caretColor: "var(--accent)",
               }}
             />
             {query && (
-              <button onClick={() => setQuery("")} className="absolute right-2.5 top-1/2 -translate-y-1/2" style={{ color: "rgba(242,235,217,0.4)" }}>
+              <button onClick={() => setQuery("")} className="absolute right-2.5 top-1/2 -translate-y-1/2" style={{ color: "var(--muted)" }}>
                 <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2L2 10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg>
               </button>
             )}
@@ -749,9 +757,9 @@ export default function HomeContent() {
           <Link
             href="/studio"
             className="hidden sm:inline-flex items-center ml-2 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.14em] transition-colors duration-200"
-            style={{ fontFamily: "var(--font-syne)", background: "#C8A96E", color: "#050402" }}
-            onMouseEnter={(e) => (e.currentTarget.style.background = "#F2EBD9")}
-            onMouseLeave={(e) => (e.currentTarget.style.background = "#C8A96E")}
+            style={{ fontFamily: "var(--font-syne)", background: "var(--accent)", color: "var(--bg)" }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--text)"; (e.currentTarget as HTMLAnchorElement).style.color = "var(--bg)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--accent)"; (e.currentTarget as HTMLAnchorElement).style.color = "var(--bg)"; }}
           >
             Studio Access
           </Link>
@@ -779,7 +787,7 @@ export default function HomeContent() {
       >
         {/* Panel header */}
         <div className="flex items-center justify-between px-4 py-3.5 border-b border-theme">
-          <span className="text-[17px] font-bold tracking-tight text-zinc-900 dark:text-white">
+          <span className="text-[17px] font-bold tracking-tight text-theme">
             TemplateLab
           </span>
           <button
@@ -822,7 +830,7 @@ export default function HomeContent() {
           {/* Templates accordion */}
           <button
             onClick={() => setMobileExpandTemplates((o) => !o)}
-            className="w-full flex items-center justify-between px-3 py-3 rounded-xl text-[14px] font-semibold text-zinc-800 dark:text-zinc-200 hover:bg-card transition-colors"
+            className="w-full flex items-center justify-between px-3 py-3 rounded-xl text-[14px] font-semibold text-theme hover:bg-card transition-colors"
           >
             <span>{lang === "it" ? "Template" : "Templates"}</span>
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
@@ -851,7 +859,7 @@ export default function HomeContent() {
           {/* Bundles accordion */}
           <button
             onClick={() => setMobileExpandBundles((o) => !o)}
-            className="w-full flex items-center justify-between px-3 py-3 rounded-xl text-[14px] font-semibold text-zinc-800 dark:text-zinc-200 hover:bg-card transition-colors"
+            className="w-full flex items-center justify-between px-3 py-3 rounded-xl text-[14px] font-semibold text-theme hover:bg-card transition-colors"
           >
             <span>{lang === "it" ? "Bundle" : "Bundles"}</span>
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
@@ -870,7 +878,7 @@ export default function HomeContent() {
                 >
                   <span className="text-lg">{bundle.emoji}</span>
                   <div className="min-w-0">
-                    <p className="text-[13px] font-semibold text-zinc-800 dark:text-zinc-200 leading-tight">{bundle.name}</p>
+                    <p className="text-[13px] font-semibold text-theme leading-tight">{bundle.name}</p>
                     <p className="text-[11px] text-muted">{formatPrice(bundle.price)}</p>
                   </div>
                 </Link>
@@ -882,15 +890,15 @@ export default function HomeContent() {
           <div className="mt-1 pt-1 border-t border-theme/50 space-y-0.5">
             <Link href="/guide" onClick={() => setMobileMenuOpen(false)}
               className="flex items-center px-3 py-3 rounded-xl hover:bg-card transition-colors">
-              <span className="text-[14px] font-medium text-zinc-700 dark:text-zinc-300">{t[lang].nav.guide}</span>
+              <span className="text-[14px] font-medium text-theme">{t[lang].nav.guide}</span>
             </Link>
             <Link href="/studio" onClick={() => setMobileMenuOpen(false)}
               className="flex items-center px-3 py-3 rounded-xl hover:bg-card transition-colors">
-              <span className="text-[14px] font-medium text-zinc-700 dark:text-zinc-300">{t[lang].nav.studio}</span>
+              <span className="text-[14px] font-medium text-theme">{t[lang].nav.studio}</span>
             </Link>
             <Link href="/account" onClick={() => setMobileMenuOpen(false)}
               className="flex items-center px-3 py-3 rounded-xl hover:bg-card transition-colors">
-              <span className="text-[14px] font-medium text-zinc-700 dark:text-zinc-300">{t[lang].nav.account}</span>
+              <span className="text-[14px] font-medium text-theme">{t[lang].nav.account}</span>
             </Link>
           </div>
         </div>
@@ -899,7 +907,7 @@ export default function HomeContent() {
       {/* ═══════════════════════════════════════════
           HYBRID TICKER
       ═══════════════════════════════════════════ */}
-      <div className="border-b overflow-hidden py-[9px]" style={{ borderColor: "rgba(242,235,217,0.09)", background: "#0d0b08" }}>
+      <div className="border-b overflow-hidden py-[9px]" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
         <div className="flex gap-[72px] white-space-nowrap ticker-animate" style={{ width: "max-content", whiteSpace: "nowrap" }}>
           {[
             "UI Template", "Prompt Pack", lang === "it" ? "Personalizzabili con Claude AI" : "Customize with Claude AI",
@@ -909,9 +917,9 @@ export default function HomeContent() {
             `N° ${countedTemplates} ${lang === "it" ? "pezzi in catalogo" : "templates available"}`,
             "Editor's Pick", "Startup · SaaS · Portfolio",
           ].map((item, i) => (
-            <span key={i} className="text-[9px] tracking-[0.22em] uppercase" style={{ color: "rgba(242,235,217,0.3)" }}>
+            <span key={i} className="text-[9px] tracking-[0.22em] uppercase" style={{ color: "var(--muted)" }}>
               {item}
-              <span className="mx-[10px]" style={{ color: "#C8A96E" }}>✦</span>
+              <span className="mx-[10px]" style={{ color: "var(--accent)" }}>✦</span>
             </span>
           ))}
         </div>
@@ -922,15 +930,15 @@ export default function HomeContent() {
       ═══════════════════════════════════════════ */}
       <section
         className="relative z-10 border-b"
-        style={{ borderColor: "rgba(242,235,217,0.09)" }}
+        style={{ borderColor: "var(--border)" }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-12 lg:gap-16 items-center py-16 sm:py-20">
 
           {/* Left: copy */}
           <div>
             {/* Eyebrow */}
-            <div className="inline-flex items-center gap-2.5 mb-7 text-[9px] tracking-[0.2em] uppercase font-medium" style={{ color: "#C8A96E" }}>
-              <span className="w-[5px] h-[5px] rounded-full flex-shrink-0" style={{ background: "#C8A96E" }} />
+            <div className="inline-flex items-center gap-2.5 mb-7 text-[9px] tracking-[0.2em] uppercase font-medium" style={{ color: "var(--accent)" }}>
+              <span className="w-[5px] h-[5px] rounded-full flex-shrink-0" style={{ background: "var(--accent)" }} />
               {lang === "it" ? "Collezione Primavera 2026" : "Spring Collection 2026"}
             </div>
 
@@ -941,7 +949,7 @@ export default function HomeContent() {
                 fontSize: "clamp(48px, 6vw, 82px)",
                 fontWeight: 400,
                 letterSpacing: "-0.025em",
-                color: "#F2EBD9",
+                color: "var(--text)",
                 fontFamily: "var(--font-dm-serif), Georgia, serif",
               }}
             >
@@ -961,7 +969,7 @@ export default function HomeContent() {
             </h1>
 
             {/* Sub */}
-            <p className="text-[14px] leading-[1.78] mb-10 max-w-[420px] font-light" style={{ color: "rgba(242,235,217,0.6)" }}>
+            <p className="text-[14px] leading-[1.78] mb-10 max-w-[420px] font-light" style={{ color: "var(--muted)" }}>
               {lang === "it"
                 ? "Acquista un template professionale numerato, poi adattalo in secondi con Claude AI. Nessun codice. Nessun compromesso."
                 : "Buy a numbered professional template, then customize it in seconds with Claude AI. No code. No compromise."}
@@ -975,20 +983,20 @@ export default function HomeContent() {
                 className="inline-flex items-center gap-2 px-7 py-[13px] text-[10px] font-bold uppercase tracking-[0.14em] transition-colors duration-200 active:opacity-80"
                 style={{
                   fontFamily: "var(--font-syne)",
-                  background: "#C8A96E",
-                  color: "#050402",
+                  background: "var(--accent)",
+                  color: "var(--bg)",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = "#F2EBD9")}
-                onMouseLeave={(e) => (e.currentTarget.style.background = "#C8A96E")}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--text)"; (e.currentTarget as HTMLAnchorElement).style.color = "var(--bg)"; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--accent)"; (e.currentTarget as HTMLAnchorElement).style.color = "var(--bg)"; }}
               >
                 {lang === "it" ? "Sfoglia il catalogo →" : "Browse catalog →"}
               </a>
               <Link
                 href="/studio"
                 className="text-[12px] flex items-center gap-1.5 transition-colors duration-200"
-                style={{ color: "rgba(242,235,217,0.35)", letterSpacing: "0.06em" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#F2EBD9")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(242,235,217,0.35)")}
+                style={{ color: "var(--muted)", letterSpacing: "0.06em" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text)")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--muted)")}
               >
                 {lang === "it" ? "Prova l'AI Studio" : "Try AI Studio"}
                 <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -997,13 +1005,13 @@ export default function HomeContent() {
           </div>
 
           {/* Right: catalog shelf widget */}
-          <div className="hidden lg:block border" style={{ borderColor: "rgba(242,235,217,0.09)", background: "#161310" }}>
+          <div className="hidden lg:block border" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
             {/* Header */}
-            <div className="flex items-center justify-between px-[22px] py-[14px] border-b" style={{ borderColor: "rgba(242,235,217,0.09)", background: "#1e1a16" }}>
-              <span className="font-dm-serif text-[13px] italic" style={{ fontFamily: "var(--font-dm-serif), serif", color: "rgba(242,235,217,0.6)" }}>
+            <div className="flex items-center justify-between px-[22px] py-[14px] border-b" style={{ borderColor: "var(--border)", background: "var(--card-bg)" }}>
+              <span className="font-dm-serif text-[13px] italic" style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--muted)" }}>
                 {lang === "it" ? "Selezionati questa settimana" : "Selected this week"}
               </span>
-              <span className="text-[9px] tracking-[0.18em] uppercase font-semibold" style={{ fontFamily: "var(--font-syne)", color: "#C8A96E", opacity: 0.7 }}>
+              <span className="text-[9px] tracking-[0.18em] uppercase font-semibold" style={{ fontFamily: "var(--font-syne)", color: "var(--accent)", opacity: 0.75 }}>
                 {countedTemplates} {lang === "it" ? "pezzi" : "pieces"}
               </span>
             </div>
@@ -1020,25 +1028,26 @@ export default function HomeContent() {
                 href={`/preview/${item.id}`}
                 className="flex items-center gap-3 px-[22px] py-[13px] border-b transition-colors duration-150 last:border-0"
                 style={{
-                  borderColor: "rgba(242,235,217,0.09)",
-                  background: item.featured ? "rgba(200,169,110,0.08)" : "transparent",
+                  borderColor: "var(--border)",
+                  background: item.featured ? "var(--accent-bg)" : "transparent",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(242,235,217,0.04)")}
-                onMouseLeave={(e) => (e.currentTarget.style.background = item.featured ? "rgba(200,169,110,0.08)" : "transparent")}
+                onMouseEnter={(e) => (e.currentTarget.style.background = "var(--cream-08, var(--input-bg))")}
+                onMouseLeave={(e) => (e.currentTarget.style.background = item.featured ? "var(--accent-bg)" : "transparent")}
               >
                 <span
                   className="w-[44px] flex-shrink-0 text-[11px] italic"
-                  style={{ fontFamily: "var(--font-dm-serif), serif", color: "#C8A96E", opacity: item.featured ? 1 : 0.5 }}
+                  style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--accent)", opacity: item.featured ? 1 : 0.55 }}
                 >
                   N° {item.num}
                 </span>
-                <span className="flex-1 text-[13px] font-normal truncate" style={{ color: "#F2EBD9" }}>
+                <span className="flex-1 text-[13px] font-normal truncate" style={{ color: "var(--text)" }}>
                   {item.name}
                 </span>
-                <span className="text-[9px] tracking-[0.12em] uppercase font-medium mr-3 hidden sm:block" style={{ color: item.featured ? "#C8A96E" : "rgba(242,235,217,0.3)", opacity: item.featured ? 0.8 : 1 }}>
+                <span className="text-[9px] tracking-[0.12em] uppercase font-medium mr-3 hidden sm:block"
+                  style={{ color: item.featured ? "var(--accent)" : "var(--muted)", opacity: item.featured ? 0.9 : 0.7 }}>
                   {item.cat}
                 </span>
-                <span className="text-[15px] italic flex-shrink-0" style={{ fontFamily: "var(--font-dm-serif), serif", color: "#C8A96E" }}>
+                <span className="text-[15px] italic flex-shrink-0" style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--accent)" }}>
                   {item.price}
                 </span>
               </Link>
@@ -1050,12 +1059,12 @@ export default function HomeContent() {
       {/* ── Marquee strip — kept below hero ── */}
       <div
         className="relative overflow-hidden border-b py-3"
-        style={{ borderColor: "rgba(242,235,217,0.09)", background: "#0d0b08" }}
+        style={{ borderColor: "var(--border)", background: "var(--surface)" }}
         onMouseEnter={() => setMarqueePaused(true)}
         onMouseLeave={() => setMarqueePaused(false)}
       >
-        <div className="absolute left-0 top-0 bottom-0 w-16 z-10 pointer-events-none" style={{ background: "linear-gradient(to right, #0d0b08, transparent)" }} />
-        <div className="absolute right-0 top-0 bottom-0 w-16 z-10 pointer-events-none" style={{ background: "linear-gradient(to left, #0d0b08, transparent)" }} />
+        <div className="absolute left-0 top-0 bottom-0 w-16 z-10 pointer-events-none" style={{ background: "linear-gradient(to right, var(--surface), transparent)" }} />
+        <div className="absolute right-0 top-0 bottom-0 w-16 z-10 pointer-events-none" style={{ background: "linear-gradient(to left, var(--surface), transparent)" }} />
         <div className="flex gap-3 mb-2.5" style={{ animation: "marquee-left 32s linear infinite", animationPlayState: marqueePaused ? "paused" : "running", width: "max-content" }}>
           {[...marqueeTemplates, ...marqueeTemplates].map((tmpl, i) => (
             <MarqueeCard key={`r1-${i}`} tmpl={tmpl} lang={lang} />
@@ -1071,17 +1080,17 @@ export default function HomeContent() {
       {/* ── Catalog header ── */}
       <div
         className="relative z-10 border-b px-4 sm:px-8 py-[28px] flex items-baseline justify-between"
-        style={{ borderColor: "rgba(242,235,217,0.09)", background: "#050402" }}
+        style={{ borderColor: "var(--border)", background: "var(--bg)" }}
       >
         <h2
           className="text-[28px] sm:text-[32px] italic"
-          style={{ fontFamily: "var(--font-dm-serif), serif", color: "#F2EBD9", fontWeight: 400 }}
+          style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--text)", fontWeight: 400 }}
         >
           {lang === "it" ? "Catalogo — Edizione Primavera" : "Catalog — Spring Edition"}
         </h2>
         <span
           className="text-[10px] tracking-[0.14em] uppercase font-semibold hidden sm:block"
-          style={{ fontFamily: "var(--font-syne)", color: "rgba(242,235,217,0.3)" }}
+          style={{ fontFamily: "var(--font-syne)", color: "var(--muted)" }}
         >
           {countedTemplates} {lang === "it" ? "template disponibili" : "templates available"}
         </span>
@@ -1095,7 +1104,7 @@ export default function HomeContent() {
       {/* ── Stats bar ── */}
       <div
         className="relative z-10 border-t border-b grid grid-cols-1 sm:grid-cols-3"
-        style={{ borderColor: "rgba(242,235,217,0.09)", background: "#0d0b08" }}
+        style={{ borderColor: "var(--border)", background: "var(--surface)" }}
       >
         {[
           { num: countedTemplates.toString(), label: lang === "it" ? "template\ndisponibili" : "templates\navailable" },
@@ -1105,17 +1114,17 @@ export default function HomeContent() {
           <div
             key={i}
             className="flex items-center gap-4 px-8 py-6 border-b sm:border-b-0"
-            style={{ borderColor: "rgba(242,235,217,0.09)", borderRight: i < 2 ? "1px solid rgba(242,235,217,0.09)" : "none" }}
+            style={{ borderColor: "var(--border)", borderRight: i < 2 ? "1px solid var(--border)" : "none" }}
           >
             <span
               className="text-[36px] sm:text-[40px] italic leading-none"
-              style={{ fontFamily: "var(--font-dm-serif), serif", color: "#F2EBD9" }}
+              style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--text)" }}
             >
               {stat.num}
             </span>
             <span
               className="text-[11px] leading-[1.5] font-light whitespace-pre-line"
-              style={{ color: "rgba(242,235,217,0.3)" }}
+              style={{ color: "var(--muted)" }}
             >
               {stat.label}
             </span>
@@ -1126,23 +1135,23 @@ export default function HomeContent() {
       {/* ── Studio banner ── */}
       <div
         className="relative z-10 mx-4 sm:mx-8 my-10 overflow-hidden"
-        style={{ background: "#161310", border: "1px solid rgba(200,169,110,0.28)" }}
+        style={{ background: "var(--card-bg)", border: "var(--border-gold)" }}
       >
         {/* Gold ornament */}
-        <div aria-hidden className="absolute right-[-24px] top-[-48px] text-[180px] sm:text-[220px] pointer-events-none select-none leading-none" style={{ color: "rgba(200,169,110,0.04)" }}>✦</div>
+        <div aria-hidden className="absolute right-[-24px] top-[-48px] text-[180px] sm:text-[220px] pointer-events-none select-none leading-none" style={{ color: "var(--gold-dim, rgba(200,169,110,0.06))" }}>✦</div>
 
         <div className="relative grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-8 items-center px-8 sm:px-12 py-10 sm:py-12">
           <div>
-            <p className="text-[9px] tracking-[0.22em] uppercase font-semibold mb-3" style={{ fontFamily: "var(--font-syne)", color: "#C8A96E" }}>
+            <p className="text-[9px] tracking-[0.22em] uppercase font-semibold mb-3" style={{ fontFamily: "var(--font-syne)", color: "var(--accent)" }}>
               {lang === "it" ? "AI Studio — Accesso Premium" : "AI Studio — Premium Access"}
             </p>
             <h3
               className="text-[26px] sm:text-[30px] italic mb-2"
-              style={{ fontFamily: "var(--font-dm-serif), serif", color: "#F2EBD9", fontWeight: 400, lineHeight: 1.2 }}
+              style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--text)", fontWeight: 400, lineHeight: 1.2 }}
             >
               {lang === "it" ? "Non trovi il pezzo giusto?\nDescrivilo, lo costruiamo insieme." : "Can't find the right piece?\nDescribe it, we'll build it together."}
             </h3>
-            <p className="text-[13px] font-light" style={{ color: "rgba(242,235,217,0.6)" }}>
+            <p className="text-[13px] font-light" style={{ color: "var(--muted)" }}>
               {lang === "it"
                 ? "Componenti UI, prompt, landing page — AI Studio genera il template perfetto in secondi."
                 : "UI components, prompts, landing pages — AI Studio generates the perfect template in seconds."}
@@ -1151,9 +1160,9 @@ export default function HomeContent() {
           <Link
             href="/studio"
             className="shrink-0 inline-flex items-center px-6 py-3.5 text-[10px] font-bold uppercase tracking-[0.14em] transition-colors duration-200 whitespace-nowrap"
-            style={{ fontFamily: "var(--font-syne)", background: "#C8A96E", color: "#050402" }}
-            onMouseEnter={(e) => (e.currentTarget.style.background = "#F2EBD9")}
-            onMouseLeave={(e) => (e.currentTarget.style.background = "#C8A96E")}
+            style={{ fontFamily: "var(--font-syne)", background: "var(--accent)", color: "var(--bg)" }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--text)"; (e.currentTarget as HTMLAnchorElement).style.color = "var(--bg)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--accent)"; (e.currentTarget as HTMLAnchorElement).style.color = "var(--bg)"; }}
           >
             {lang === "it" ? "Inizia con Studio Access" : "Start with Studio Access"}
           </Link>
@@ -1163,46 +1172,46 @@ export default function HomeContent() {
       {/* ── How it works — bento ── */}
       <div
         className="relative z-10 mx-4 sm:mx-8 mb-12 border"
-        style={{ borderColor: "rgba(242,235,217,0.09)" }}
+        style={{ borderColor: "var(--border)" }}
       >
         <div
           className="grid grid-cols-1 sm:grid-cols-[2fr_1fr] grid-rows-auto"
-          style={{ background: "rgba(242,235,217,0.07)", gap: "1px" }}
+          style={{ background: "var(--border)", gap: "1px" }}
         >
           {/* Large card */}
-          <div className="p-8 sm:p-9 sm:row-span-2" style={{ background: "#050402" }}>
+          <div className="p-8 sm:p-9 sm:row-span-2" style={{ background: "var(--bg)" }}>
             <div
               className="text-[48px] sm:text-[52px] italic leading-none mb-3 font-normal"
-              style={{ fontFamily: "var(--font-dm-serif), serif", color: "#C8A96E", opacity: 0.2 }}
+              style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--accent)", opacity: 0.25 }}
             >
               01
             </div>
-            <h4 className="text-[17px] font-bold mb-2 tracking-[-0.01em]" style={{ fontFamily: "var(--font-syne)", color: "#F2EBD9" }}>
+            <h4 className="text-[17px] font-bold mb-2 tracking-[-0.01em]" style={{ fontFamily: "var(--font-syne)", color: "var(--text)" }}>
               {lang === "it" ? "Scegli un template dal catalogo" : "Choose a template from the catalog"}
             </h4>
-            <p className="text-[13px] font-light leading-[1.7]" style={{ color: "rgba(242,235,217,0.6)" }}>
+            <p className="text-[13px] font-light leading-[1.7]" style={{ color: "var(--muted)" }}>
               {lang === "it"
                 ? "Ogni template è numerato, con anteprima completa prima dell'acquisto. Filtra per categoria, tecnologia, stile."
                 : "Every template is numbered, with a full preview before purchase. Filter by category, technology, style."}
             </p>
           </div>
           {/* Step 02 */}
-          <div className="p-7 sm:p-8" style={{ background: "#050402" }}>
-            <div className="text-[48px] italic leading-none mb-3 font-normal" style={{ fontFamily: "var(--font-dm-serif), serif", color: "#C8A96E", opacity: 0.2 }}>02</div>
-            <h4 className="text-[16px] font-bold mb-1.5" style={{ fontFamily: "var(--font-syne)", color: "#F2EBD9" }}>
+          <div className="p-7 sm:p-8" style={{ background: "var(--bg)" }}>
+            <div className="text-[48px] italic leading-none mb-3 font-normal" style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--accent)", opacity: 0.25 }}>02</div>
+            <h4 className="text-[16px] font-bold mb-1.5" style={{ fontFamily: "var(--font-syne)", color: "var(--text)" }}>
               {lang === "it" ? "Acquista in un click" : "Buy in one click"}
             </h4>
-            <p className="text-[12px] font-light" style={{ color: "rgba(242,235,217,0.6)" }}>
+            <p className="text-[12px] font-light" style={{ color: "var(--muted)" }}>
               {lang === "it" ? "Pagamento sicuro Stripe. Download immediato." : "Secure Stripe payment. Instant download."}
             </p>
           </div>
           {/* Step 03 */}
-          <div className="p-7 sm:p-8" style={{ background: "#050402" }}>
-            <div className="text-[48px] italic leading-none mb-3 font-normal" style={{ fontFamily: "var(--font-dm-serif), serif", color: "#C8A96E", opacity: 0.2 }}>03</div>
-            <h4 className="text-[16px] font-bold mb-1.5" style={{ fontFamily: "var(--font-syne)", color: "#F2EBD9" }}>
+          <div className="p-7 sm:p-8" style={{ background: "var(--bg)" }}>
+            <div className="text-[48px] italic leading-none mb-3 font-normal" style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--accent)", opacity: 0.25 }}>03</div>
+            <h4 className="text-[16px] font-bold mb-1.5" style={{ fontFamily: "var(--font-syne)", color: "var(--text)" }}>
               {lang === "it" ? "Personalizza con Claude AI" : "Customize with Claude AI"}
             </h4>
-            <p className="text-[12px] font-light" style={{ color: "rgba(242,235,217,0.6)" }}>
+            <p className="text-[12px] font-light" style={{ color: "var(--muted)" }}>
               {lang === "it" ? "Descrivi le modifiche. L'AI le applica in secondi." : "Describe the changes. AI applies them in seconds."}
             </p>
           </div>
@@ -1229,14 +1238,14 @@ export default function HomeContent() {
       </div> */}
 
       {/* ── Newsletter — subtle ── */}
-      <div className="relative z-10 border-t" style={{ borderColor: "rgba(242,235,217,0.09)" }}>
+      <div className="relative z-10 border-t border-theme">
         <EmailCapture />
       </div>
 
       {/* ── Ornamental quote ── */}
-      <div className="relative z-10 border-t px-4 sm:px-6 py-10" style={{ borderColor: "rgba(242,235,217,0.09)" }}>
+      <div className="relative z-10 border-t border-theme px-4 sm:px-6 py-10">
         <div className="max-w-xl mx-auto text-center">
-          <p className="text-[11px] italic" style={{ color: "rgba(242,235,217,0.25)", fontFamily: "var(--font-dm-serif), serif" }}>
+          <p className="text-[11px] italic" style={{ color: "var(--muted)", opacity: 0.55, fontFamily: "var(--font-dm-serif), serif" }}>
             {lang === "it"
               ? <>&ldquo;Non c&rsquo;è niente di più definitivo di un template &lsquo;temporaneo&rsquo; che resterà in produzione per i prossimi otto anni.&rdquo;</>
               : <>&ldquo;There&rsquo;s nothing more permanent than a &lsquo;temporary&rsquo; template that ends up in production for the next eight years.&rdquo;</>}

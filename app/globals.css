@@ -6,34 +6,50 @@
    THEME VARIABLES
    ═══════════════════════════════════════════════════════════ */
 :root {
-  --bg:          #FFFFFF;
-  --surface:     #FAFAFA;
-  --surface-2:   rgba(255,255,255,0.94);
-  --text:        #000000;
-  --muted:       #6B7280;
-  --border:      rgba(0,0,0,0.07);
-  --nav-bg:      rgba(255,255,255,0.82);
-  --card-bg:     #FFFFFF;
-  --card-border: rgba(0,0,0,0.07);
-  --input-bg:    rgba(0,0,0,0.04);
+  /* ── Light mode: warm Italian craft palette ── */
+  --bg:          #FDFAF5;
+  --surface:     #F5EFE3;
+  --surface-2:   rgba(253,250,245,0.96);
+  --text:        #1C1610;
+  --muted:       #7A6B56;
+  --border:      rgba(28,22,16,0.10);
+  --nav-bg:      rgba(253,250,245,0.90);
+  --card-bg:     #FDFAF5;
+  --card-border: rgba(28,22,16,0.10);
+  --input-bg:    rgba(28,22,16,0.05);
   /* Border radius tokens */
   --r-sm: 10px;
   --r-md: 16px;
   --r-lg: 22px;
   --r-xl: 28px;
   /* Glassmorphism tokens */
-  --glass-fill:     rgba(255, 255, 255, 0.72);
-  --glass-shadow:   0 4px 32px rgba(0,0,0,0.08), 0 1px 0 rgba(255,255,255,0.8) inset;
-  --glass-stroke:   rgba(0,0,0,0.09);
-  --glass-top-edge: linear-gradient(90deg, transparent, rgba(255,255,255,0.9) 20%, rgba(255,255,255,0.9) 80%, transparent);
-  --glass-bright:   1.02;
-  --spec-hot:       rgba(255,255,255,0.55);
-  --spec-mid:       rgba(255,255,255,0.18);
-  --divider:        rgba(0,0,0,0.08);
-  --accent:         #5B4CF5;
-  --accent-bg:      rgba(91,76,245,0.08);
-  --accent-rgb:     91, 76, 245;
-  --accent-muted:   rgba(91,76,245,0.15);
+  --glass-fill:     rgba(253,250,245,0.84);
+  --glass-shadow:   0 4px 32px rgba(28,22,16,0.09), 0 1px 0 rgba(255,255,255,0.85) inset;
+  --glass-stroke:   rgba(28,22,16,0.10);
+  --glass-top-edge: linear-gradient(90deg, transparent, rgba(255,255,255,0.95) 20%, rgba(255,255,255,0.95) 80%, transparent);
+  --glass-bright:   1.01;
+  --spec-hot:       rgba(255,255,255,0.65);
+  --spec-mid:       rgba(255,255,255,0.28);
+  --divider:        rgba(28,22,16,0.09);
+  /* Gold accent — muted for light mode legibility */
+  --accent:         #9C7733;
+  --accent-bg:      rgba(156,119,51,0.10);
+  --accent-rgb:     156, 119, 51;
+  --accent-muted:   rgba(156,119,51,0.18);
+  /* Hybrid tokens for light mode */
+  --gold:           #9C7733;
+  --gold-dim:       rgba(156,119,51,0.12);
+  --gold-mid:       rgba(156,119,51,0.30);
+  --terra:          #B5501F;
+  --terra-dim:      rgba(181,80,31,0.12);
+  --cream:          #1C1610;
+  --cream-60:       rgba(28,22,16,0.60);
+  --cream-30:       rgba(28,22,16,0.30);
+  --cream-08:       rgba(28,22,16,0.08);
+  --obsidian-2:     #F5EFE3;
+  --obsidian-3:     #EDE5D5;
+  --obsidian-4:     #E3D9C6;
+  --border-gold:    1px solid rgba(156,119,51,0.28);
 }
 
 html.dark {
