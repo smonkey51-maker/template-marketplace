@@ -27,7 +27,7 @@ function ScrollProgressBar() {
   }, []);
   return (
     <div className="fixed top-0 left-0 right-0 h-[2px] z-[100] pointer-events-none">
-      <div style={{ width: `${width}%`, height: "100%", background: "linear-gradient(to right, var(--accent), #C77DFF, #FF6B6B)", transition: "width 0.1s linear" }} />
+      <div style={{ width: `${width}%`, height: "100%", background: "linear-gradient(to right, var(--gold-mid), var(--accent), var(--terra))", transition: "width 0.1s linear" }} />
     </div>
   );
 }
@@ -80,7 +80,7 @@ const TESTIMONIALS = [
     quoteEn: "I launched my SaaS landing page in less than a day. The template was perfect and the AI adapted it to my brand in minutes.",
     rating: 5,
     initials: "MF",
-    accent: "from-violet-500 to-purple-600",
+    accent: "from-amber-600 to-yellow-700",
   },
   {
     nameIt: "Sara Neri", nameEn: "Sara Neri",
@@ -89,7 +89,7 @@ const TESTIMONIALS = [
     quoteEn: "I use TemplateLab for all my clients. I save hours of work and can deliver professional results at competitive prices.",
     rating: 5,
     initials: "SN",
-    accent: "from-pink-500 to-rose-500",
+    accent: "from-orange-700 to-amber-800",
   },
   {
     nameIt: "Luca Moretti", nameEn: "Luca Moretti",
@@ -98,7 +98,7 @@ const TESTIMONIALS = [
     quoteEn: "The LinkedIn prompt templates tripled my engagement. Claude AI perfectly customizes them for each post.",
     rating: 5,
     initials: "LM",
-    accent: "from-blue-500 to-indigo-500",
+    accent: "from-stone-600 to-amber-700",
   },
 ];
 
@@ -144,25 +144,26 @@ function TestimonialCard({
 function TemplatesDropdown({ lang }: { lang: "it" | "en" }) {
   return (
     <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-50 w-[580px] max-w-[calc(100vw-2rem)]">
-      <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl shadow-black/20 overflow-hidden">
-        <div className="grid grid-cols-[180px_1fr] divide-x divide-zinc-100 dark:divide-zinc-800">
+      <div className="border border-theme rounded-2xl shadow-2xl overflow-hidden" style={{ background: "var(--bg)" }}>
+        <div className="grid grid-cols-[180px_1fr]" style={{ borderRight: "none" }}>
           {/* Left: steps */}
-          <div className="p-4 bg-zinc-50 dark:bg-zinc-950/50">
-            <p className="text-[9px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-[0.2em] mb-3 px-1">
+          <div className="p-4 border-r border-theme" style={{ background: "var(--surface)" }}>
+            <p className="text-[9px] font-black uppercase tracking-[0.2em] mb-3 px-1" style={{ color: "var(--muted)" }}>
               {lang === "it" ? "Come funziona" : "How it works"}
             </p>
             <div className="flex flex-col gap-1">
               {STEPS.map((s) => (
                 <div key={s.n} className="flex items-start gap-2.5 px-2 py-2.5 rounded-xl">
-                  <div className="w-7 h-7 rounded-lg bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 flex items-center justify-center text-sm flex-shrink-0 shadow-sm">
+                  <div className="w-7 h-7 rounded-lg flex items-center justify-center text-sm flex-shrink-0 shadow-sm border"
+                    style={{ background: "var(--card-bg)", borderColor: "var(--border)" }}>
                     {s.icon}
                   </div>
                   <div>
-                    <p className="text-[11px] font-bold text-zinc-400 dark:text-zinc-500 mb-0.5">{s.n}</p>
-                    <p className="text-[12px] font-semibold text-zinc-800 dark:text-zinc-200 leading-tight">
+                    <p className="text-[11px] font-bold mb-0.5" style={{ color: "var(--muted)" }}>{s.n}</p>
+                    <p className="text-[12px] font-semibold leading-tight" style={{ color: "var(--text)" }}>
                       {lang === "it" ? s.titleIt : s.titleEn}
                     </p>
-                    <p className="text-[11px] text-zinc-400 dark:text-zinc-500 mt-0.5 leading-tight">
+                    <p className="text-[11px] mt-0.5 leading-tight" style={{ color: "var(--muted)" }}>
                       {lang === "it" ? s.descIt : s.descEn}
                     </p>
                   </div>
@@ -172,7 +173,7 @@ function TemplatesDropdown({ lang }: { lang: "it" | "en" }) {
           </div>
           {/* Right: categories */}
           <div className="p-4">
-            <p className="text-[9px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-[0.2em] mb-3 px-1">
+            <p className="text-[9px] font-black uppercase tracking-[0.2em] mb-3 px-1" style={{ color: "var(--muted)" }}>
               {lang === "it" ? "Categorie" : "Categories"}
             </p>
             <div className="grid grid-cols-2 gap-0.5">
@@ -187,10 +188,12 @@ function TemplatesDropdown({ lang }: { lang: "it" | "en" }) {
                       browse?.scrollIntoView({ behavior: "smooth" });
                     }
                   }}
-                  className="flex items-center gap-2 px-2.5 py-2 rounded-xl text-left hover:bg-zinc-50 dark:hover:bg-zinc-800/60 transition-colors group"
+                  className="flex items-center gap-2 px-2.5 py-2 rounded-xl text-left transition-colors"
+                  onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "var(--surface)")}
+                  onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "transparent")}
                 >
                   <span className="text-sm flex-shrink-0">{cat.emoji}</span>
-                  <span className="text-[12px] font-medium text-zinc-700 dark:text-zinc-300 group-hover:text-zinc-900 dark:group-hover:text-white leading-tight">
+                  <span className="text-[12px] font-medium leading-tight" style={{ color: "var(--text)", opacity: 0.8 }}>
                     {lang === "it" ? cat.labelIt : cat.labelEn}
                   </span>
                 </button>
@@ -199,13 +202,14 @@ function TemplatesDropdown({ lang }: { lang: "it" | "en" }) {
           </div>
         </div>
         {/* Footer hint */}
-        <div className="px-4 py-2.5 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between bg-zinc-50 dark:bg-zinc-950/50">
-          <span className="text-[11px] text-zinc-400 dark:text-zinc-500">
+        <div className="px-4 py-2.5 flex items-center justify-between" style={{ borderTop: "1px solid var(--border)", background: "var(--surface)" }}>
+          <span className="text-[11px]" style={{ color: "var(--muted)" }}>
             {templates.length} {lang === "it" ? "template disponibili" : "templates available"}
           </span>
           <button
             onClick={() => document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" })}
-            className="text-[11px] font-semibold text-blue-500 hover:text-blue-400 transition-colors"
+            className="text-[11px] font-semibold transition-colors"
+            style={{ color: "var(--accent)" }}
           >
             {lang === "it" ? "Vedi tutti →" : "Browse all →"}
           </button>
@@ -216,20 +220,11 @@ function TemplatesDropdown({ lang }: { lang: "it" | "en" }) {
 }
 
 function BundlesDropdown({ lang, purchasedIds }: { lang: "it" | "en"; purchasedIds: string[] }) {
-  const accentMap: Record<string, string> = {
-    blue: "bg-blue-500/10 text-blue-500",
-    violet: "bg-violet-500/10 text-violet-500",
-    emerald: "bg-emerald-500/10 text-emerald-500",
-    purple: "bg-purple-500/10 text-purple-500",
-    amber: "bg-amber-500/10 text-amber-500",
-    orange: "bg-orange-500/10 text-orange-500",
-  };
-
   return (
     <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-50 w-[440px] max-w-[calc(100vw-2rem)]">
-      <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl shadow-black/20 overflow-hidden">
+      <div className="border border-theme rounded-2xl shadow-2xl overflow-hidden" style={{ background: "var(--bg)" }}>
         <div className="p-3">
-          <p className="text-[9px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-[0.2em] mb-2 px-2">
+          <p className="text-[9px] font-black uppercase tracking-[0.2em] mb-2 px-2" style={{ color: "var(--muted)" }}>
             {lang === "it" ? "Bundle — risparmia fino al 55%" : "Bundles — save up to 55%"}
           </p>
           <div className="space-y-0.5">
@@ -240,26 +235,29 @@ function BundlesDropdown({ lang, purchasedIds }: { lang: "it" | "en"; purchasedI
                 <Link
                   key={bundle.id}
                   href={`/bundle/${bundle.id}`}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-zinc-50 dark:hover:bg-zinc-800/60 transition-colors group cursor-pointer"
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors group cursor-pointer"
+                  onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.background = "var(--surface)")}
+                  onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.background = "transparent")}
                 >
-                  <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-base flex-shrink-0 ${accentMap[bundle.accentColor] ?? "bg-zinc-100 dark:bg-zinc-800 text-zinc-500"}`}>
+                  <div className="w-8 h-8 rounded-xl flex items-center justify-center text-base flex-shrink-0"
+                    style={{ background: "var(--accent-bg)", color: "var(--accent)" }}>
                     {bundle.emoji}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-[13px] font-semibold text-zinc-800 dark:text-zinc-200 group-hover:text-zinc-900 dark:group-hover:text-white leading-tight">
+                    <p className="text-[13px] font-semibold leading-tight" style={{ color: "var(--text)" }}>
                       {bundle.name}
                     </p>
-                    <p className="text-[11px] text-zinc-400 dark:text-zinc-500 truncate leading-tight mt-0.5">
+                    <p className="text-[11px] truncate leading-tight mt-0.5" style={{ color: "var(--muted)" }}>
                       {bundle.tagline}
                     </p>
                   </div>
                   <div className="text-right flex-shrink-0">
                     {fullyOwned ? (
-                      <span className="text-[11px] text-emerald-500 font-semibold">✓ {lang === "it" ? "Tuo" : "Owned"}</span>
+                      <span className="text-[11px] font-semibold" style={{ color: "var(--accent)" }}>✓ {lang === "it" ? "Tuo" : "Owned"}</span>
                     ) : (
                       <>
-                        <p className="text-[13px] font-bold text-zinc-800 dark:text-zinc-200">{formatPrice(bundle.price)}</p>
-                        <p className="text-[10px] text-zinc-400 line-through">{formatPrice(bundle.regularPrice)}</p>
+                        <p className="text-[13px] font-bold" style={{ color: "var(--text)" }}>{formatPrice(bundle.price)}</p>
+                        <p className="text-[10px] line-through" style={{ color: "var(--muted)" }}>{formatPrice(bundle.regularPrice)}</p>
                       </>
                     )}
                   </div>
@@ -268,8 +266,8 @@ function BundlesDropdown({ lang, purchasedIds }: { lang: "it" | "en"; purchasedI
             })}
           </div>
         </div>
-        <div className="px-5 py-2.5 border-t border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/50">
-          <p className="text-[11px] text-zinc-400 dark:text-zinc-500">
+        <div className="px-5 py-2.5" style={{ borderTop: "1px solid var(--border)", background: "var(--surface)" }}>
+          <p className="text-[11px]" style={{ color: "var(--muted)" }}>
             🎁 {lang === "it" ? "Ogni bundle ha accesso permanente + AI Studio incluso" : "Every bundle includes permanent access + AI Studio"}
           </p>
         </div>

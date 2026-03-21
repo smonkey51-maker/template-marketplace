@@ -23,7 +23,7 @@ function PromptThumbnail({ template, isPurchased, lang }: { template: Template; 
         <div className="font-mono text-[11px] text-[#1C1C1E] leading-relaxed line-clamp-4">
           {parts.map((part, i) =>
             part.startsWith("{{") ? (
-              <span key={i} className="bg-[#007AFF]/15 text-[#007AFF] rounded px-0.5 font-semibold">{part}</span>
+              <span key={i} className="rounded px-0.5 font-semibold" style={{ background: "var(--accent-bg)", color: "var(--accent)" }}>{part}</span>
             ) : <span key={i}>{part}</span>
           )}
         </div>

@@ -52,37 +52,6 @@ const CATEGORY_IMAGES: Record<string, string> = {
 
 const byId = Object.fromEntries(templates.map((tmpl) => [tmpl.id, tmpl]));
 
-// ── Accent colours per category ───────────────────────────────────────────────
-
-const SECTION_ACCENTS: Record<string, string> = {
-  "professionals":    "#3B82F6",
-  "lifestyle-finance":"#10B981",
-  "business":         "#F59E0B",
-  "startup":          "#8B5CF6",
-  "creative":         "#EC4899",
-  "copywriting-ai":   "#06B6D4",
-  "ai-productivity":  "#6366F1",
-  "hospitality":      "#EF4444",
-  "digital-product":  "#14B8A6",
-  "personal-brand":   "#A855F7",
-  "notion-workspace": "#9CA3AF",
-  "elearning":        "#6366F1",
-};
-
-const SECTION_ACCENTS_RGB: Record<string, string> = {
-  "professionals":    "59,130,246",
-  "lifestyle-finance":"16,185,129",
-  "business":         "245,158,11",
-  "startup":          "139,92,246",
-  "creative":         "236,72,153",
-  "copywriting-ai":   "6,182,212",
-  "ai-productivity":  "99,102,241",
-  "hospitality":      "239,68,68",
-  "digital-product":  "20,184,166",
-  "personal-brand":   "168,85,247",
-  "notion-workspace": "156,163,175",
-  "elearning":        "99,102,241",
-};
 
 // ── Scramble chars ────────────────────────────────────────────────────────────
 const SCRAMBLE_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -426,21 +395,7 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
 
   const handleQuickView = useCallback((id: string) => setQuickViewId(id), []);
 
-  // Dynamic accent colour when inside a category
-  useEffect(() => {
-    const root = document.documentElement;
-    if (openCategoryId && SECTION_ACCENTS[openCategoryId]) {
-      root.style.setProperty("--accent",     SECTION_ACCENTS[openCategoryId]);
-      root.style.setProperty("--accent-rgb", SECTION_ACCENTS_RGB[openCategoryId]);
-    } else {
-      root.style.removeProperty("--accent");
-      root.style.removeProperty("--accent-rgb");
-    }
-    return () => {
-      root.style.removeProperty("--accent");
-      root.style.removeProperty("--accent-rgb");
-    };
-  }, [openCategoryId]);
+  // Accent colour stays brand gold across all categories
 
   useEffect(() => {
     fetch("/api/purchases")
