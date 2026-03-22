@@ -631,7 +631,7 @@ function StudioContent() {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => copyToClipboard(activeOutput)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 bg-[#2C2C2E] hover:bg-[#3A3A3C] text-[13px] font-medium transition-all duration-200 active:scale-[0.97] ios-spring"
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-input hover:bg-surface text-[13px] font-medium transition-all duration-200 active:scale-[0.97] ios-spring"
                   >
                     {copied ? "✓ Copied!" : "Copy"}
                   </button>
@@ -645,7 +645,7 @@ function StudioContent() {
                       a.href = url; a.download = `template-${Date.now()}.${ext}`; a.click();
                       URL.revokeObjectURL(url);
                     }}
-                    className="flex items-center gap-1.5 px-3 py-1.5 bg-[#2C2C2E] hover:bg-[#3A3A3C] text-[13px] font-medium transition-all duration-200 active:scale-[0.97] ios-spring"
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-input hover:bg-surface text-[13px] font-medium transition-all duration-200 active:scale-[0.97] ios-spring"
                     aria-label={lang === "it" ? "Scarica file" : "Download file"}
                   >
                     <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden>
@@ -752,11 +752,11 @@ function StudioContent() {
                           {entry.label || "Untitled"}
                         </span>
                         <span className="text-[11px] text-muted shrink-0 flex items-center gap-2">
-                          <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium ${
-                            entry.category === "ui"
-                              ? "bg-accent/10 text-accent"
-                              : "bg-orange-100 text-orange-600 dark:bg-orange-950/50 dark:text-orange-400"
-                          }`}>
+                          <span className="px-1.5 py-0.5 rounded text-[10px] font-medium"
+                            style={entry.category === "ui"
+                              ? { background: "var(--accent-bg)", color: "var(--accent)" }
+                              : { background: "var(--terra-dim)", color: "var(--terra)" }
+                            }>
                             {entry.category.toUpperCase()}
                           </span>
                           {relativeTime(entry.timestamp)}

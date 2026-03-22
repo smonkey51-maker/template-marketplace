@@ -63,7 +63,9 @@ export default function WishlistPage() {
               </p>
               <button
                 onClick={() => ids.forEach((id) => toggle(id))}
-                className="text-[12px] text-muted hover:text-[#FF453A] transition-colors duration-200"
+                className="text-[12px] text-muted transition-colors duration-200"
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--terra)"; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = ""; }}
               >
                 {lang === "it" ? "Rimuovi tutti" : "Clear all"}
               </button>

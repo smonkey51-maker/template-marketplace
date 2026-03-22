@@ -61,7 +61,7 @@ export default function StudioAccessButton({ compact = false }: StudioAccessButt
           )}
         </button>
         {error && (
-          <p className="text-[#FF453A] text-[12px] anim-fade-in">{error}</p>
+          <p className="text-[12px] anim-fade-in" style={{ color: "var(--error)" }}>{error}</p>
         )}
       </div>
     );
@@ -88,7 +88,7 @@ export default function StudioAccessButton({ compact = false }: StudioAccessButt
       </button>
 
       {error && (
-        <p className="text-[#FF453A] text-[13px] anim-fade-in">{error}</p>
+        <p className="text-[13px] anim-fade-in" style={{ color: "var(--error)" }}>{error}</p>
       )}
     </div>
   );

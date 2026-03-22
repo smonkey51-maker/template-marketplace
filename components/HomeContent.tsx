@@ -80,7 +80,7 @@ const TESTIMONIALS = [
     quoteEn: "I launched my SaaS landing page in less than a day. The template was perfect and the AI adapted it to my brand in minutes.",
     rating: 5,
     initials: "MF",
-    accent: "from-amber-600 to-yellow-700",
+    accent: "from-[#9C7733] to-[#C8A96E]",
   },
   {
     nameIt: "Sara Neri", nameEn: "Sara Neri",
@@ -89,7 +89,7 @@ const TESTIMONIALS = [
     quoteEn: "I use TemplateLab for all my clients. I save hours of work and can deliver professional results at competitive prices.",
     rating: 5,
     initials: "SN",
-    accent: "from-orange-700 to-amber-800",
+    accent: "from-[#B5501F] to-[#C4622D]",
   },
   {
     nameIt: "Luca Moretti", nameEn: "Luca Moretti",
@@ -98,7 +98,7 @@ const TESTIMONIALS = [
     quoteEn: "The LinkedIn prompt templates tripled my engagement. Claude AI perfectly customizes them for each post.",
     rating: 5,
     initials: "LM",
-    accent: "from-stone-600 to-amber-700",
+    accent: "from-[#7A6B56] to-[#9C7733]",
   },
 ];
 
@@ -114,7 +114,7 @@ function TestimonialCard({
       {/* Stars */}
       <div className="flex gap-0.5">
         {Array.from({ length: testimonial.rating }).map((_, i) => (
-          <svg key={i} width="13" height="13" viewBox="0 0 10 10" fill="currentColor" className="text-amber-400" aria-hidden>
+          <svg key={i} width="13" height="13" viewBox="0 0 10 10" fill="currentColor" style={{ color: "var(--accent)" }} aria-hidden>
             <path d="M5 0l1.2 3.7H10L6.9 5.9l1.2 3.7L5 7.5l-3.1 2.1 1.2-3.7L0 3.7h3.8z"/>
           </svg>
         ))}
@@ -333,12 +333,12 @@ function NavDropdown({
 // ── Bundle scroll section ─────────────────────────────────────────────────────
 
 const BUNDLE_GRADIENTS: Record<string, { bg: string; glow: string; accent: string; badgeBg: string }> = {
-  blue:    { bg: "linear-gradient(145deg,#1e3a8a 0%,#0f172a 100%)", glow: "59,130,246",   accent: "#93c5fd", badgeBg: "rgba(59,130,246,0.22)" },
-  violet:  { bg: "linear-gradient(145deg,#4c1d95 0%,#0f0721 100%)", glow: "139,92,246",   accent: "#c4b5fd", badgeBg: "rgba(139,92,246,0.22)" },
-  emerald: { bg: "linear-gradient(145deg,#064e3b 0%,#022c22 100%)", glow: "16,185,129",   accent: "#6ee7b7", badgeBg: "rgba(16,185,129,0.22)" },
-  purple:  { bg: "linear-gradient(145deg,#581c87 0%,#1a0533 100%)", glow: "168,85,247",   accent: "#d8b4fe", badgeBg: "rgba(168,85,247,0.22)" },
-  amber:   { bg: "linear-gradient(145deg,#78350f 0%,#1c0a00 100%)", glow: "245,158,11",   accent: "#fcd34d", badgeBg: "rgba(245,158,11,0.22)" },
-  orange:  { bg: "linear-gradient(145deg,#7c2d12 0%,#1c0700 100%)", glow: "249,115,22",   accent: "#fed7aa", badgeBg: "rgba(249,115,22,0.22)" },
+  blue:    { bg: "linear-gradient(145deg,#3d2e14 0%,#0d0b08 100%)", glow: "200,169,110",  accent: "#C8A96E", badgeBg: "rgba(200,169,110,0.22)" },
+  violet:  { bg: "linear-gradient(145deg,#4a2510 0%,#0d0b08 100%)", glow: "196,98,45",    accent: "#C4622D", badgeBg: "rgba(196,98,45,0.22)" },
+  emerald: { bg: "linear-gradient(145deg,#2c3a1a 0%,#0d0b08 100%)", glow: "139,175,90",   accent: "#8BAF5A", badgeBg: "rgba(139,175,90,0.22)" },
+  purple:  { bg: "linear-gradient(145deg,#3d2e14 0%,#1a1408 100%)", glow: "156,119,51",   accent: "#9C7733", badgeBg: "rgba(156,119,51,0.22)" },
+  amber:   { bg: "linear-gradient(145deg,#78350f 0%,#1c0a00 100%)", glow: "200,169,110",  accent: "#C8A96E", badgeBg: "rgba(200,169,110,0.22)" },
+  orange:  { bg: "linear-gradient(145deg,#7c2d12 0%,#1c0700 100%)", glow: "196,98,45",    accent: "#C4622D", badgeBg: "rgba(196,98,45,0.22)" },
 };
 
 function BundleScrollCard({ bundle, purchasedIds, onBuy, lang }: {
@@ -538,31 +538,31 @@ const marqueeTemplates2 = ROW2_IDS.map((id) => tmplById[id]).filter(Boolean);
 
 // Category gradient for marquee cards
 const CARD_GRADIENTS: Record<string, string> = {
-  "hero-saas":                 "from-indigo-900 to-purple-900",
-  "restaurant-menu":           "from-red-900 to-orange-900",
-  "personal-finance-dashboard":"from-emerald-900 to-teal-900",
-  "saas-dashboard":            "from-slate-800 to-zinc-900",
-  "digital-resume":            "from-blue-900 to-indigo-900",
-  "cold-email-b2b":            "from-zinc-800 to-slate-900",
-  "hotel-booking":             "from-amber-900 to-yellow-900",
-  "creative-agency-portfolio": "from-pink-900 to-rose-900",
-  "ecommerce-product-page":    "from-stone-800 to-neutral-900",
-  "saas-pricing-full":         "from-violet-900 to-purple-900",
-  "pricing-table":             "from-sky-900 to-blue-900",
-  "ai-assistant-system-prompt":"from-zinc-900 to-slate-800",
-  "link-in-bio":               "from-fuchsia-900 to-pink-900",
-  "revenue-analytics":         "from-green-900 to-emerald-900",
-  "coffee-shop-landing":       "from-orange-900 to-amber-900",
-  "mobile-app-showcase":       "from-cyan-900 to-sky-900",
-  "airbnb-property-listing":   "from-teal-900 to-cyan-900",
-  "linkedin-prompt-pack":      "from-blue-800 to-indigo-900",
-  "invoice-html":              "from-gray-800 to-zinc-900",
-  "budget-tracker":            "from-lime-900 to-green-900",
+  "hero-saas":                 "from-[#2a2010] to-[#0d0b08]",
+  "restaurant-menu":           "from-[#3a1a0a] to-[#0d0b08]",
+  "personal-finance-dashboard":"from-[#1a2810] to-[#0d0b08]",
+  "saas-dashboard":            "from-[#1e1a16] to-[#0d0b08]",
+  "digital-resume":            "from-[#2a2010] to-[#161310]",
+  "cold-email-b2b":            "from-[#161310] to-[#0d0b08]",
+  "hotel-booking":             "from-[#3d2e14] to-[#0d0b08]",
+  "creative-agency-portfolio": "from-[#3a1a0a] to-[#161310]",
+  "ecommerce-product-page":    "from-[#1e1a16] to-[#0d0b08]",
+  "saas-pricing-full":         "from-[#2a2010] to-[#0d0b08]",
+  "pricing-table":             "from-[#3d2e14] to-[#161310]",
+  "ai-assistant-system-prompt":"from-[#161310] to-[#0d0b08]",
+  "link-in-bio":               "from-[#3a1a0a] to-[#0d0b08]",
+  "revenue-analytics":         "from-[#1a2810] to-[#0d0b08]",
+  "coffee-shop-landing":       "from-[#4a2510] to-[#0d0b08]",
+  "mobile-app-showcase":       "from-[#2a2010] to-[#161310]",
+  "airbnb-property-listing":   "from-[#1e1a16] to-[#0d0b08]",
+  "linkedin-prompt-pack":      "from-[#3d2e14] to-[#0d0b08]",
+  "invoice-html":              "from-[#1e1a16] to-[#0d0b08]",
+  "budget-tracker":            "from-[#1a2810] to-[#0d0b08]",
 };
 
 function MarqueeCard({ tmpl, lang }: { tmpl: Template; lang: "it" | "en" }) {
   const name = lang === "it" ? (templateTranslations[tmpl.id]?.name ?? tmpl.name) : tmpl.name;
-  const grad = CARD_GRADIENTS[tmpl.id] ?? "from-zinc-800 to-zinc-900";
+  const grad = CARD_GRADIENTS[tmpl.id] ?? "from-[#1e1a16] to-[#0d0b08]";
   return (
     <Link
       href={`/preview/${tmpl.id}`}
@@ -1099,7 +1099,7 @@ export default function HomeContent() {
             <p className="text-[10px] font-bold text-muted uppercase tracking-[0.18em] mb-3">
               {lang === "it" ? "Recensioni" : "Reviews"}
             </p>
-            <h2 className="text-[1.6rem] sm:text-[2rem] font-bold tracking-tight text-zinc-900 dark:text-white">
+            <h2 className="text-[1.6rem] sm:text-[2rem] font-bold tracking-tight text-theme">
               {lang === "it" ? "Amato dai professionisti" : "Loved by professionals"}
             </h2>
           </div>

@@ -12,7 +12,7 @@ export default function NotFound() {
       <div className="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden>
         <div
           className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[500px] h-[300px] rounded-full opacity-40"
-          style={{ background: "radial-gradient(ellipse, var(--glow-blue) 0%, transparent 70%)" }}
+          style={{ background: "radial-gradient(ellipse, var(--glow-gold) 0%, transparent 70%)" }}
         />
       </div>
 

@@ -541,8 +541,8 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
               </svg>
               {lang === "it" ? "Categorie" : "Categories"}
             </button>
-            <span className="text-zinc-300 dark:text-zinc-600">/</span>
-            <span className="text-[13px] font-semibold text-zinc-900 dark:text-zinc-100">
+            <span style={{ color: "var(--border)" }}>/</span>
+            <span className="text-[13px] font-semibold text-theme">
               {openSection.emoji} {openSectionMeta.label}
             </span>
             <span className="bg-accent/10 text-accent rounded-none px-2 py-0.5 text-[11px] font-bold">
@@ -594,11 +594,11 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
         <div key={`grid-${animKey}`} className={drillDirectionRef.current === "back" ? "anim-drill-back" : ""}>
           {/* Section label */}
           <div className="flex items-center gap-4 mb-6 px-1">
-            <div className="flex-1 h-px bg-zinc-200 dark:bg-zinc-800" />
+            <div className="flex-1 h-px" style={{ background: "var(--border)" }} />
             <span className="text-[10px] font-bold text-muted uppercase tracking-[0.18em] shrink-0">
               <SplitFlap to={templates.length} /> {lang === "it" ? "template disponibili" : "templates available"}
             </span>
-            <div className="flex-1 h-px bg-zinc-200 dark:bg-zinc-800" />
+            <div className="flex-1 h-px" style={{ background: "var(--border)" }} />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">

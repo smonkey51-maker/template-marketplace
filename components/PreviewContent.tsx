@@ -243,9 +243,9 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
       {template.videoUrl && (
         <div className="relative z-10 bg-page border-t border-theme px-4 py-4 flex items-center justify-between gap-3 max-w-2xl mx-auto w-full">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-[#FF453A]/10 border border-[#FF453A]/20 flex items-center justify-center shrink-0">
+            <div className="w-9 h-9 flex items-center justify-center shrink-0" style={{ background: "var(--terra-dim)", border: "1px solid rgba(var(--accent-rgb), 0.20)" }}>
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-                <path d="M3 2.5l9 4.5-9 4.5V2.5z" fill="#FF453A"/>
+                <path d="M3 2.5l9 4.5-9 4.5V2.5z" fill="var(--terra)"/>
               </svg>
             </div>
             <div>
@@ -261,9 +261,8 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
             href={template.videoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="shrink-0 flex items-center gap-1.5 px-3.5 py-2 bg-[#FF453A]/10 border border-[#FF453A]/20
-              text-[#FF453A] text-[12px] font-semibold
-              hover:bg-[#FF453A]/20 transition-colors duration-200"
+            className="shrink-0 flex items-center gap-1.5 px-3.5 py-2 text-[12px] font-semibold transition-colors duration-200"
+            style={{ background: "var(--terra-dim)", border: "1px solid rgba(var(--accent-rgb), 0.20)", color: "var(--terra)" }}
           >
             {lang === "it" ? "Guarda" : "Watch"}
             <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden>
@@ -296,7 +295,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
               <div className="flex items-center gap-2 flex-wrap mb-0.5">
                 <span className="text-[10px] font-bold text-muted uppercase tracking-widest">{categoryLabel}</span>
                 {template.downloads >= 700 && (
-                  <span className="text-[10px] font-bold text-[#FF9F0A] bg-[#FF9F0A]/10 border border-[#FF9F0A]/20 px-1.5 py-0.5">{t[lang].card.bestseller}</span>
+                  <span className="text-[10px] font-bold px-1.5 py-0.5" style={{ color: "var(--accent)", background: "var(--accent-bg)", border: "1px solid var(--accent-muted)" }}>{t[lang].card.bestseller}</span>
                 )}
               </div>
               <p className="text-[15px] font-bold text-theme leading-tight">{displayName}</p>

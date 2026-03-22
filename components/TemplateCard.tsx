@@ -74,7 +74,8 @@ function UIThumbnail({ template, isPurchased, lang }: { template: Template; isPu
 
 function PurchasedBadge({ lang }: { lang: Lang }) {
   return (
-    <span className="absolute bottom-3 left-3 z-10 flex items-center gap-1 bg-emerald-500/90 text-white rounded-none px-2.5 py-1 text-[11px] font-semibold shadow-sm backdrop-blur-sm">
+    <span className="absolute bottom-3 left-3 z-10 flex items-center gap-1 rounded-none px-2.5 py-1 text-[11px] font-semibold shadow-sm backdrop-blur-sm"
+      style={{ background: "var(--success)", color: "var(--bg)" }}>
       <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden>
         <path d="M2 6l2.8 3 5.2-5" stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
@@ -240,9 +241,12 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
               aria-label={saved ? (lang === "it" ? "Rimuovi dai salvati" : "Remove from saved") : (lang === "it" ? "Salva" : "Save")}
               className={`transition-all duration-100 p-1 ${
                 saved
-                  ? "text-[#FF453A] opacity-100"
-                  : "opacity-0 group-hover:opacity-100 text-muted hover:text-[#FF453A]"
+                  ? "opacity-100"
+                  : "opacity-0 group-hover:opacity-100 text-muted"
               }`}
+              style={saved ? { color: "var(--terra)" } : undefined}
+              onMouseEnter={(e) => { if (!saved) (e.currentTarget as HTMLElement).style.color = "var(--terra)"; }}
+              onMouseLeave={(e) => { if (!saved) (e.currentTarget as HTMLElement).style.color = ""; }}
             >
               <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden>
                 <path d="M7 12S1 8 1 4.5A3.5 3.5 0 017 2.1a3.5 3.5 0 016 2.4C13 8 7 12 7 12z"

@@ -26,13 +26,13 @@ const DOWNLOAD_META: Record<DownloadType, Meta> = {
     labelIt: "Scarica HTML",
     labelEn: "Download HTML",
     icon: <Icon d="M4 3h8l2 3-6 7-6-7 2-3zM8 13V6M5 6h6" />,
-    accent: "#0A84FF",
+    accent: "#C8A96E",
   },
   prompt: {
     labelIt: "Scarica TXT",
     labelEn: "Download TXT",
     icon: <Icon d="M4 4h8M4 8h6M4 12h5" />,
-    accent: "#5E5CE6",
+    accent: "#C4622D",
   },
   canva: {
     labelIt: "Apri in Canva",
@@ -220,7 +220,7 @@ export default function DownloadButton({
           )}
           {label}
         </button>
-        {error && <p className="text-[#FF453A] text-[11px]">{error}</p>}
+        {error && <p className="text-[11px]" style={{ color: "var(--error)" }}>{error}</p>}
         {showLangModal && (
           <LangModal
             onSelect={handleLangSelect}
@@ -248,7 +248,7 @@ export default function DownloadButton({
           </>
         )}
       </button>
-      {error && <p className="text-[#FF453A] text-[12px] text-center">{error}</p>}
+      {error && <p className="text-[12px] text-center" style={{ color: "var(--error)" }}>{error}</p>}
       {showLangModal && (
         <LangModal
           onSelect={handleLangSelect}

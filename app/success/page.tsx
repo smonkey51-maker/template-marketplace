@@ -155,7 +155,7 @@ export default function SuccessPage() {
       {/* Ambient glow */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden>
         <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full opacity-50"
-          style={{ background: "radial-gradient(ellipse, var(--glow-blue) 0%, transparent 70%)" }} />
+          style={{ background: "radial-gradient(ellipse, var(--glow-gold) 0%, transparent 70%)" }} />
       </div>
 
       <Suspense fallback={

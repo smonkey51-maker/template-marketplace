@@ -31,6 +31,20 @@ Prodotti isNew (basso volume, da monitorare):
 - therapist-profile: €7.99 — 267
 - law-firm-services: €8.99 — 198
 
+**Prezzi attuali dichiarati dal founder (EUR):**
+- UI templates: €6.99 – €19.99
+- Prompt templates: €6.99 – €16.99
+- Notion templates: €7.99 – €14.99
+- Bundles: €19.99 – €34.99
+
+**Benchmark di mercato ricercati (marzo 2026):**
+- UI/HTML template su Etsy: $8–$25, sweet spot $9.99–$14.99
+- UI/HTML template su Gumroad: $15–$49 (audience tecnica, prezzi più alti sostenibili)
+- AI prompt packs su Etsy: $5–$20, sweet spot $7–$12 per pack base, $15–$20 per pack specializzato
+- Notion templates su Etsy: $5–$39, sweet spot $10–$19 mid-tier, $25–$39 per sistemi CRM/business
+- Bundle (3-5 template): $10–$50, sweet spot $19–$29 su Etsy, $27–$49 su Gumroad
+- Free lead magnet: standard è free/pay-what-you-want su Gumroad, free listing su Etsy
+
 **Why:** L'utente vuole costruire una strategia di distribuzione multi-piattaforma (Etsy + Gumroad) usando quelle come top-of-funnel verso TemplateLab.
 
-**How to apply:** Quando suggerisci strategie per TemplateLab, considera sempre il funnel Etsy/Gumroad → TemplateLab come upgrade path. I prezzi su Gumroad/Etsy devono essere inferiori a quelli di TemplateLab per giustificare l'upgrade allo Studio AI.
+**How to apply:** Quando suggerisci strategie per TemplateLab, considera sempre il funnel Etsy/Gumroad → TemplateLab come upgrade path. I prezzi su Gumroad/Etsy devono essere inferiori a quelli di TemplateLab per giustificare l'upgrade allo Studio AI. I prezzi attuali del negozio sono competitivi ma con margine di aumento strategico sui bundle e Notion mid-tier.

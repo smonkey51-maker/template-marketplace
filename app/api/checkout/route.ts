@@ -31,6 +31,12 @@ export async function POST(req: NextRequest) {
     if (!bundle) {
       return NextResponse.json({ error: "Bundle non trovato" }, { status: 404 });
     }
+
+    // Free bundles skip Stripe entirely
+    if (bundle.price === 0) {
+      return NextResponse.json({ url: `${appUrl}/success?bundleId=${bundleId}&free=1` });
+    }
+
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       line_items: [{ price: bundle.stripePriceId, quantity: 1 }],
@@ -72,6 +78,11 @@ export async function POST(req: NextRequest) {
   const template = getTemplate(templateId);
   if (!template) {
     return NextResponse.json({ error: "Template non trovato" }, { status: 404 });
+  }
+
+  // Free templates skip Stripe entirely
+  if (template.price === 0) {
+    return NextResponse.json({ url: `${appUrl}/success?templateId=${templateId}&free=1` });
   }
 
   const session = await stripe.checkout.sessions.create({

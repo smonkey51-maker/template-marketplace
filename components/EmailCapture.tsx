@@ -63,7 +63,7 @@ export default function EmailCapture() {
         {/* Form */}
         <div className="w-full sm:w-auto shrink-0 flex flex-col items-center sm:items-end">
           {status === "success" ? (
-            <p className="text-[13px] text-emerald-500 font-medium">{c.success}</p>
+            <p className="text-[13px] font-medium" style={{ color: "var(--success)" }}>{c.success}</p>
           ) : (
             <form onSubmit={handleSubmit} className="flex gap-2">
               <input
@@ -87,7 +87,7 @@ export default function EmailCapture() {
             </form>
           )}
           {status === "error" && (
-            <p className="text-[11px] text-red-500 mt-1.5">{c.error}</p>
+            <p className="text-[11px] mt-1.5" style={{ color: "var(--error)" }}>{c.error}</p>
           )}
         </div>
       </div>

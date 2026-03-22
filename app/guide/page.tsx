@@ -15,11 +15,11 @@ export default function GuidePage() {
       <div className="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden>
         <div
           className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[900px] h-[600px] rounded-full opacity-50"
-          style={{ background: "radial-gradient(ellipse, var(--glow-blue) 0%, transparent 70%)" }}
+          style={{ background: "radial-gradient(ellipse, var(--glow-gold) 0%, transparent 70%)" }}
         />
         <div
           className="absolute top-[30%] right-[-5%] w-[400px] h-[400px] rounded-full"
-          style={{ background: "radial-gradient(ellipse, var(--glow-purple) 0%, transparent 70%)" }}
+          style={{ background: "radial-gradient(ellipse, var(--glow-terra) 0%, transparent 70%)" }}
         />
       </div>
 
@@ -169,15 +169,15 @@ export default function GuidePage() {
                     </div>
                   </div>
                   {/* Fake hero */}
-                  <div className="rounded-lg bg-gradient-to-br from-[#0A84FF]/20 to-[#5E5CE6]/20 p-4 text-center space-y-2">
+                  <div className="bg-gradient-to-br from-accent/20 to-terra/20 p-4 text-center space-y-2">
                     <div className="h-3.5 w-3/4 mx-auto bg-white/40 rounded-full" />
                     <div className="h-2.5 w-1/2 mx-auto bg-white/20 rounded-full" />
-                    <div className="h-6 w-24 mx-auto bg-accent rounded-lg mt-2" />
+                    <div className="h-6 w-24 mx-auto bg-accent mt-2" />
                   </div>
                   {/* Fake cards row */}
                   <div className="grid grid-cols-3 gap-1.5">
                     {[0, 1, 2].map((i) => (
-                      <div key={i} className="rounded-md bg-white/5 p-2 space-y-1.5">
+                      <div key={i} className="bg-white/5 p-2 space-y-1.5">
                         <div className="h-2 w-full bg-white/15 rounded-full" />
                         <div className="h-2 w-2/3 bg-white/10 rounded-full" />
                       </div>
@@ -235,11 +235,11 @@ export default function GuidePage() {
           <div className="bg-surface border border-theme p-8 sm:p-10 relative overflow-hidden">
             <div
               className="absolute inset-x-0 top-0 h-px"
-              style={{ background: "linear-gradient(90deg, transparent, rgba(10,132,255,0.4), transparent)" }}
+              style={{ background: "linear-gradient(90deg, transparent, var(--accent-muted), transparent)" }}
             />
             <div
               className="absolute -top-16 left-1/2 -translate-x-1/2 w-64 h-64 rounded-full pointer-events-none"
-              style={{ background: "radial-gradient(ellipse, rgba(10,132,255,0.07) 0%, transparent 70%)" }}
+              style={{ background: "radial-gradient(ellipse, var(--glow-gold) 0%, transparent 70%)" }}
             />
             <div className="relative">
               <p className="text-[13px] text-muted font-semibold uppercase tracking-widest mb-3">

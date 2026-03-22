@@ -26,7 +26,7 @@ export default function NewsletterAdminPage() {
     .split("\n")
     .filter(Boolean)
     .map((l, i) => (
-      <p key={i} style={{ margin: "0 0 14px", fontSize: 15, color: "#86868b", lineHeight: 1.7 }}>
+      <p key={i} style={{ margin: "0 0 14px", fontSize: 15, color: "var(--muted)", lineHeight: 1.7 }}>
         {l}
       </p>
     ));
@@ -60,7 +60,7 @@ export default function NewsletterAdminPage() {
     <div className="min-h-screen bg-page p-6 sm:p-10">
       <div className="max-w-5xl mx-auto">
         <div className="mb-8">
-          <p className="text-[11px] font-bold text-zinc-500 uppercase tracking-[0.2em] mb-1">Admin</p>
+          <p className="text-[11px] font-bold text-muted uppercase tracking-[0.2em] mb-1">Admin</p>
           <h1 className="text-2xl font-bold text-theme">Invia Newsletter</h1>
           {count !== null && (
             <p className="text-[13px] text-muted mt-1">
@@ -73,7 +73,7 @@ export default function NewsletterAdminPage() {
           {/* Form */}
           <div className="flex flex-col gap-4">
             <div>
-              <label className="block text-[12px] font-semibold text-zinc-400 mb-1.5">Oggetto email</label>
+              <label className="block text-[12px] font-semibold text-muted mb-1.5">Oggetto email</label>
               <input
                 type="text"
                 value={subject}
@@ -83,7 +83,7 @@ export default function NewsletterAdminPage() {
               />
             </div>
             <div>
-              <label className="block text-[12px] font-semibold text-zinc-400 mb-1.5">Titolo</label>
+              <label className="block text-[12px] font-semibold text-muted mb-1.5">Titolo</label>
               <input
                 type="text"
                 value={title}
@@ -93,8 +93,8 @@ export default function NewsletterAdminPage() {
               />
             </div>
             <div>
-              <label className="block text-[12px] font-semibold text-zinc-400 mb-1.5">
-                Corpo <span className="text-zinc-600 font-normal">(una riga = un paragrafo)</span>
+              <label className="block text-[12px] font-semibold text-muted mb-1.5">
+                Corpo <span className="text-muted font-normal">(una riga = un paragrafo)</span>
               </label>
               <textarea
                 value={body}
@@ -106,13 +106,13 @@ export default function NewsletterAdminPage() {
             </div>
 
             {status === "done" && result && (
-              <p className="text-[13px] text-emerald-500 font-medium">
+              <p className="text-[13px] font-medium" style={{ color: "var(--success)" }}>
                 Inviata a {result.sent}/{result.total} subscriber
                 {result.errors > 0 && ` · ${result.errors} errori`}
               </p>
             )}
             {status === "error" && (
-              <p className="text-[13px] text-red-500">Errore durante l&apos;invio. Riprova.</p>
+              <p className="text-[13px]" style={{ color: "var(--error)" }}>Errore durante l&apos;invio. Riprova.</p>
             )}
 
             <button
@@ -127,19 +127,18 @@ export default function NewsletterAdminPage() {
 
           {/* Preview */}
           <div>
-            <p className="text-[12px] font-semibold text-zinc-400 mb-3">Anteprima</p>
+            <p className="text-[12px] font-semibold text-muted mb-3">Anteprima</p>
             <div
               style={{
-                background: "#0a0a0a",
-                borderRadius: 16,
+                background: "var(--bg)",
                 overflow: "hidden",
-                border: "1px solid #2c2c2e",
+                border: "1px solid var(--border)",
               }}
             >
               {/* Header */}
               <div
                 style={{
-                  background: "linear-gradient(135deg,#0a84ff 0%,#5e5ce6 100%)",
+                  background: "linear-gradient(135deg, var(--accent) 0%, var(--terra) 100%)",
                   padding: "20px 24px",
                 }}
               >
@@ -147,7 +146,7 @@ export default function NewsletterAdminPage() {
                   TemplateLab
                 </p>
                 <p style={{ margin: "3px 0 0", fontSize: 12, color: "rgba(255,255,255,0.65)" }}>
-                  AI-Powered Template Marketplace
+                  Mercato del digitale artigianale
                 </p>
               </div>
               {/* Body */}
@@ -157,32 +156,32 @@ export default function NewsletterAdminPage() {
                     margin: "0 0 16px",
                     fontSize: 20,
                     fontWeight: 700,
-                    color: "#f5f5f7",
+                    color: "var(--text)",
                     letterSpacing: -0.3,
                   }}
                 >
-                  {title || <span style={{ color: "#48484a" }}>Titolo dell&apos;email</span>}
+                  {title || <span style={{ color: "var(--muted)" }}>Titolo dell&apos;email</span>}
                 </p>
                 {previewLines.length > 0 ? (
                   previewLines
                 ) : (
-                  <p style={{ fontSize: 14, color: "#48484a" }}>Il corpo apparirà qui…</p>
+                  <p style={{ fontSize: 14, color: "var(--muted)" }}>Il corpo apparirà qui…</p>
                 )}
-                <hr style={{ border: "none", borderTop: "1px solid #2c2c2e", margin: "20px 0" }} />
-                <p style={{ margin: 0, fontSize: 11, color: "#48484a", lineHeight: 1.7 }}>
+                <hr style={{ border: "none", borderTop: "1px solid var(--border)", margin: "20px 0" }} />
+                <p style={{ margin: 0, fontSize: 11, color: "var(--muted)", lineHeight: 1.7 }}>
                   support@templatelab.io · templatelab.io
                 </p>
               </div>
               {/* Footer */}
               <div
                 style={{
-                  background: "#111113",
+                  background: "var(--surface)",
                   padding: "12px 24px",
                   marginTop: 20,
                   textAlign: "center",
                 }}
               >
-                <p style={{ margin: 0, fontSize: 11, color: "#3a3a3c" }}>
+                <p style={{ margin: 0, fontSize: 11, color: "var(--muted)" }}>
                   © 2026 TemplateLab. Tutti i diritti riservati.
                 </p>
               </div>

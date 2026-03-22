@@ -17,9 +17,9 @@ export default function ThemeToggle() {
       <span className="absolute left-[6px] pointer-events-none transition-opacity duration-300"
         style={{ opacity: isDark ? 0.28 : 0 }}>
         <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden>
-          <circle cx="7" cy="7" r="2.8" fill="currentColor" className="text-amber-400"/>
+          <circle cx="7" cy="7" r="2.8" fill="currentColor" style={{ color: "var(--accent)" }}/>
           <path d="M7 1.5V3M7 11v1.5M1.5 7H3M11 7h1.5M3.4 3.4l1.06 1.06M9.54 9.54l1.06 1.06M3.4 10.6l1.06-1.06M9.54 4.46l1.06-1.06"
-            stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" className="text-amber-400"/>
+            stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" style={{ color: "var(--accent)" }}/>
         </svg>
       </span>
 
@@ -28,7 +28,7 @@ export default function ThemeToggle() {
         style={{ opacity: isDark ? 0 : 0.32 }}>
         <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden>
           <path d="M12.5 9A6 6 0 015 1.5a.5.5 0 00-.6.6A6 6 0 1013 9.6a.5.5 0 00-.5-.6z"
-            fill="currentColor" className="text-zinc-500"/>
+            fill="currentColor" className="text-muted"/>
         </svg>
       </span>
 
@@ -52,9 +52,9 @@ export default function ThemeToggle() {
         ) : (
           /* Sun on knob in light mode */
           <svg width="11" height="11" viewBox="0 0 14 14" fill="none" aria-hidden>
-            <circle cx="7" cy="7" r="2.8" fill="#FF9F0A"/>
+            <circle cx="7" cy="7" r="2.8" fill="var(--accent)"/>
             <path d="M7 1.5V3M7 11v1.5M1.5 7H3M11 7h1.5M3.4 3.4l1.06 1.06M9.54 9.54l1.06 1.06M3.4 10.6l1.06-1.06M9.54 4.46l1.06-1.06"
-              stroke="#FF9F0A" strokeWidth="1.3" strokeLinecap="round"/>
+              stroke="var(--accent)" strokeWidth="1.3" strokeLinecap="round"/>
           </svg>
         )}
       </span>
