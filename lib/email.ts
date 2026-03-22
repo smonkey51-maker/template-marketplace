@@ -22,7 +22,7 @@ export async function sendPurchaseEmail(params: PurchaseEmailParams) {
       ? "✦ Studio Access attivato — TemplateLab"
       : `Il tuo acquisto è pronto — ${itemName}`;
 
-  const accentColor = type === "studio" ? "#5E5CE6" : "#0A84FF";
+  const accentColor = type === "studio" ? "#C4622D" : "#C8A96E";
 
   const ctaBlock =
     type === "studio"
