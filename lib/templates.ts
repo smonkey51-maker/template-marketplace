@@ -134,7 +134,7 @@ export const templates: Template[] = [
     description:
       "Responsive 3-column blog post cards with author info and hover effects.",
     category: "ui",
-    price: 699,
+    price: 499,
     stripePriceId: "price_1TBixEBoWNgrJbiyhJfNG8k8",
     tags: ["blog", "cards", "grid", "articles"],
     downloads: 756,
@@ -193,7 +193,7 @@ export const templates: Template[] = [
     description:
       "Elegant Canva-style profile page for real estate agents with listings showcase and contact CTA.",
     category: "ui",
-    price: 1199,
+    price: 1299,
     stripePriceId: "price_1TBz4bBoWNgrJbiy53ZV2H24",
     tags: ["real estate", "agent", "profile", "canva", "listings"],
     downloads: 312,
@@ -321,7 +321,7 @@ export const templates: Template[] = [
     description:
       "Warm, professional Canva-style profile page for therapists with specializations and booking.",
     category: "ui",
-    price: 1099,
+    price: 999,
     stripePriceId: "price_1TBz4cBoWNgrJbiyl78g7arm",
     tags: ["therapist", "psychologist", "health", "canva", "booking"],
     downloads: 267,
@@ -381,7 +381,7 @@ export const templates: Template[] = [
     description:
       "Authoritative, trust-building services page for law firms with practice areas and CTA.",
     category: "ui",
-    price: 1399,
+    price: 1299,
     stripePriceId: "price_1TBz4dBoWNgrJbiyTRJrTvkK",
     tags: ["law", "legal", "firm", "canva", "professional"],
     downloads: 198,
@@ -444,7 +444,7 @@ export const templates: Template[] = [
     description:
       "Clean spreadsheet-style monthly budget tracker with income, expenses, and savings overview.",
     category: "ui",
-    price: 699,
+    price: 499,
     stripePriceId: "price_1TBz4eBoWNgrJbiyCYxFpTUr",
     tags: ["budget", "finance", "tracker", "spreadsheet", "personal"],
     downloads: 621,
@@ -605,7 +605,7 @@ export const templates: Template[] = [
     description:
       "MRR, churn, and growth metrics spreadsheet dashboard for small business owners.",
     category: "ui",
-    price: 1199,
+    price: 1299,
     stripePriceId: "price_1TBz4gBoWNgrJbiyKIPEVnxT",
     tags: ["revenue", "analytics", "mrr", "spreadsheet", "business"],
     downloads: 512,
@@ -712,7 +712,7 @@ export const templates: Template[] = [
     description:
       "Bold Framer-style agency portfolio with case studies grid and bold typography.",
     category: "ui",
-    price: 1099,
+    price: 999,
     stripePriceId: "price_1TBz4iBoWNgrJbiyKCR10XRH",
     tags: ["agency", "portfolio", "creative", "framer", "webflow"],
     downloads: 456,
@@ -776,7 +776,7 @@ export const templates: Template[] = [
     description:
       "Minimal Webflow-style profile for freelance developers and designers with skills and work.",
     category: "ui",
-    price: 899,
+    price: 799,
     stripePriceId: "price_1TBz4iBoWNgrJbiyzETQok5Q",
     tags: ["freelance", "developer", "portfolio", "webflow", "tech"],
     downloads: 389,
@@ -892,59 +892,6 @@ export const templates: Template[] = [
 </div>`,
   },
 
-  // ── Dashboard Templates ───────────────────────────────────────────────────
-  {
-    id: "dashboard-fusion-v3",
-    name: "Dashboard Fusion v3",
-    description: "Glassmorphism analytics dashboard with KPI widgets, sparklines, score ring, segmented controls and animated counters. Built in React/JSX.",
-    category: "ui",
-    price: 1999,
-    stripePriceId: "price_dashboard_fusion_v3", // ⚠️ PLACEHOLDER — run: npx tsx scripts/seed-stripe.ts to create a real Stripe Price
-    tags: ["dashboard", "analytics", "glassmorphism", "react", "jsx"],
-    downloads: 0,
-    editorsPick: true,
-    isNew: true,
-    downloadType: "html",
-    downloadUrl: "",
-    content: `## Dashboard Fusion v3 — Glassmorphism Analytics Dashboard
-
-Un dashboard analytics professionale costruito con React, con effetti glassmorphism avanzati, animazioni fluide e interazioni native iOS.
-
-### Componenti inclusi
-- **GlassSurface** — superficie vetro con blur 44px, saturate 180%, specular highlight che segue il cursore
-- **KpiWidget** — 6 KPI card con sparkline SVG animate, contatori animati, tilt 3D su hover
-- **ScoreRing** — cerchio SVG animato con glow colorato e score percentuale
-- **Sparkline** — grafico SVG con stroke-dashoffset draw-on animation, colore per trend
-- **SegControl** — segmented control glassmorphism con pill attivo animato
-- **BudgetChart** — barre di progresso con colori per campagna
-- **Toast** — notifiche floating con pulse dot
-- **FilterSheet** — bottom sheet mobile con toggle campagne e colori per iniziale
-
-### Effetti & Animazioni
-- Tilt 3D: \`perspective(700px) rotateX rotateY scale3d(1.025)\` su mouse move
-- Bounce counter: cubic-bezier easing + bounce on value change
-- Press scale: \`scale(.96)\` on press con spring release
-- Specular highlight: radial-gradient che segue il cursore su ogni GlassSurface
-- Range themes: colori accent cambiano per Oggi / 7 giorni / 30 giorni
-
-### Sistema CSS Variables
-\`\`\`css
---glass-fill, --glass-shadow, --glass-stroke, --glass-top-edge, --glass-bright
---spec-hot, --spec-mid (specular highlight)
---text-primary, --text-muted, --text-tertiary
---accent, --accent-bg, --green, --red, --divider
-\`\`\`
-
-### Dati inclusi
-- 6 campagne Google Ads con colori per iniziale (SD, FA, BR, IM, GP, UR)
-- Dati per 3 range temporali (Oggi, 7 giorni, 30 giorni)
-- Export CSV integrato
-- Live clock localizzato
-
-### Tech
-React 18, CSS custom properties, SVG animations, no dipendenze esterne`,
-  },
-
   // ── Prompt Templates ──────────────────────────────────────────────────────
   {
     id: "cold-email-b2b",
@@ -952,7 +899,7 @@ React 18, CSS custom properties, SVG animations, no dipendenze esterne`,
     description:
       "Dark CRM dashboard for email outreach campaigns with sequence tracking and reply analytics.",
     category: "ui",
-    price: 699,
+    price: 799,
     stripePriceId: "price_1TBixFBoWNgrJbiyzxGXK1Jo",
     tags: ["crm", "outreach", "email", "dashboard", "dark", "saas"],
     downloads: 2341,
@@ -1084,7 +1031,7 @@ React 18, CSS custom properties, SVG animations, no dipendenze esterne`,
     description:
       "Elegant minimal product detail page with gallery, variant selector, reviews, and trust badges.",
     category: "ui",
-    price: 699,
+    price: 799,
     stripePriceId: "price_1TBixFBoWNgrJbiyOlJPdvT0",
     tags: ["ecommerce", "product", "shop", "minimal", "cards"],
     downloads: 1876,
@@ -1172,7 +1119,7 @@ React 18, CSS custom properties, SVG animations, no dipendenze esterne`,
     description:
       "Modern dark AI assistant UI with sidebar conversation history, streaming messages, and model picker.",
     category: "ui",
-    price: 799,
+    price: 999,
     stripePriceId: "price_1TBixGBoWNgrJbiyioEK1MiF",
     tags: ["ai", "chat", "dark", "saas", "dashboard", "minimal"],
     downloads: 3102,
@@ -1379,7 +1326,7 @@ React 18, CSS custom properties, SVG animations, no dipendenze esterne`,
     description:
       "Warm, cozy landing page for coffee shops and cafés with menu highlights and loyalty program.",
     category: "ui",
-    price: 699,
+    price: 799,
     stripePriceId: "price_1TBz23BoWNgrJbiyqDLxdo1I",
     tags: ["coffee", "café", "food", "warm", "landing"],
     downloads: 291,
@@ -1711,7 +1658,7 @@ React 18, CSS custom properties, SVG animations, no dipendenze esterne`,
     description:
       "Clean minimal digital CV with skills, experience timeline, and contact card.",
     category: "ui",
-    price: 699,
+    price: 799,
     stripePriceId: "price_1TBz27BoWNgrJbiy4EzhrLu3",
     tags: ["cv", "resume", "portfolio", "minimal", "personal"],
     downloads: 891,
@@ -1799,7 +1746,7 @@ React 18, CSS custom properties, SVG animations, no dipendenze esterne`,
     description:
       "Minimal link-in-bio page for creators and influencers with social links and featured content.",
     category: "ui",
-    price: 599,
+    price: 499,
     stripePriceId: "price_1TBz28BoWNgrJbiy02owOzUD",
     tags: ["link in bio", "creator", "social", "minimal", "instagram"],
     downloads: 1204,
@@ -2995,7 +2942,7 @@ React 18, CSS custom properties, SVG animations, no dipendenze esterne`,
   {
     id: "notion-project-hub",
     name: "Notion Project Management Hub",
-    category: "prompt",
+    category: "ui",
     price: 1299,
     stripePriceId: "price_1TCIgABoWNgrJbiyUCgrGaoU",
     downloadType: "notion",
@@ -3005,190 +2952,581 @@ React 18, CSS custom properties, SVG animations, no dipendenze esterne`,
     description: "Complete Notion workspace for managing projects, tasks and deadlines with 5 pre-built views.",
     isNew: true,
     editorsPick: true,
-    content: `# Notion Project Management Hub
+    content: `<div style="font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;display:flex;height:100vh;background:#ffffff;color:#37352f;font-size:14px;line-height:1.5;overflow:hidden;">
 
-## Il tuo centro di comando per ogni progetto
+<!-- Sidebar -->
+<div style="width:240px;min-width:240px;background:#f7f7f5;border-right:1px solid #e9e9e7;display:flex;flex-direction:column;padding:8px 0;overflow-y:auto;">
+  <div style="padding:8px 12px 4px;">
+    <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:6px;cursor:pointer;background:#ebebea;">
+      <div style="width:24px;height:24px;background:#2f3437;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;">P</div>
+      <span style="font-size:13px;font-weight:600;color:#37352f;flex:1;">Project Hub</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9b9a97" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+  </div>
+  <div style="padding:4px 8px;">
+    <div style="padding:5px 8px;border-radius:6px;display:flex;align-items:center;gap:8px;cursor:pointer;color:#787774;font-size:13px;" onmouseover="this.style.background='#ebebea'" onmouseout="this.style.background='transparent'">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg> Cerca
+    </div>
+    <div style="padding:5px 8px;border-radius:6px;display:flex;align-items:center;gap:8px;cursor:pointer;color:#787774;font-size:13px;" onmouseover="this.style.background='#ebebea'" onmouseout="this.style.background='transparent'">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> Notifiche
+    </div>
+    <div style="padding:5px 8px;border-radius:6px;display:flex;align-items:center;gap:8px;cursor:pointer;color:#787774;font-size:13px;" onmouseover="this.style.background='#ebebea'" onmouseout="this.style.background='transparent'">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> Modelli
+    </div>
+  </div>
+  <div style="height:1px;background:#e9e9e7;margin:6px 12px;"></div>
+  <div style="padding:4px 8px;">
+    <div style="padding:2px 8px;font-size:11px;color:#9b9a97;font-weight:500;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px;">Workspace</div>
+    <div style="padding:5px 8px;border-radius:6px;display:flex;align-items:center;gap:8px;cursor:pointer;background:#e7e7e5;color:#37352f;font-size:13px;font-weight:500;">
+      <span>🏠</span> Home
+    </div>
+    <div style="padding:5px 8px;border-radius:6px;display:flex;align-items:center;gap:8px;cursor:pointer;color:#787774;font-size:13px;" onmouseover="this.style.background='#ebebea';this.style.color='#37352f'" onmouseout="this.style.background='transparent';this.style.color='#787774'">
+      <span>📁</span> Progetti
+    </div>
+    <div style="padding:5px 8px;border-radius:6px;display:flex;align-items:center;gap:8px;cursor:pointer;color:#787774;font-size:13px;" onmouseover="this.style.background='#ebebea';this.style.color='#37352f'" onmouseout="this.style.background='transparent';this.style.color='#787774'">
+      <span>✅</span> Tasks
+    </div>
+    <div style="padding:5px 8px;border-radius:6px;display:flex;align-items:center;gap:8px;cursor:pointer;color:#787774;font-size:13px;" onmouseover="this.style.background='#ebebea';this.style.color='#37352f'" onmouseout="this.style.background='transparent';this.style.color='#787774'">
+      <span>🏁</span> Milestones
+    </div>
+    <div style="padding:5px 8px;border-radius:6px;display:flex;align-items:center;gap:8px;cursor:pointer;color:#787774;font-size:13px;" onmouseover="this.style.background='#ebebea';this.style.color='#37352f'" onmouseout="this.style.background='transparent';this.style.color='#787774'">
+      <span>📅</span> Riunioni
+    </div>
+  </div>
+  <div style="height:1px;background:#e9e9e7;margin:6px 12px;"></div>
+  <div style="padding:4px 8px;">
+    <div style="padding:2px 8px;font-size:11px;color:#9b9a97;font-weight:500;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px;">Pagine Private</div>
+    <div style="padding:5px 8px;border-radius:6px;display:flex;align-items:center;gap:8px;cursor:pointer;color:#787774;font-size:13px;" onmouseover="this.style.background='#ebebea';this.style.color='#37352f'" onmouseout="this.style.background='transparent';this.style.color='#787774'">
+      <span>📝</span> Le mie note
+    </div>
+    <div style="padding:5px 8px;border-radius:6px;display:flex;align-items:center;gap:8px;cursor:pointer;color:#787774;font-size:13px;" onmouseover="this.style.background='#ebebea';this.style.color='#37352f'" onmouseout="this.style.background='transparent';this.style.color='#787774'">
+      <span>🗓️</span> Agenda
+    </div>
+    <div style="padding:5px 8px;border-radius:6px;display:flex;align-items:center;gap:8px;cursor:pointer;color:#787774;font-size:13px;" onmouseover="this.style.background='#ebebea';this.style.color='#37352f'" onmouseout="this.style.background='transparent';this.style.color='#787774'">
+      <span>📊</span> Report KPI
+    </div>
+  </div>
+  <div style="flex:1;"></div>
+  <div style="padding:8px 16px;border-top:1px solid #e9e9e7;">
+    <div style="display:flex;align-items:center;gap:8px;padding:6px 0;cursor:pointer;">
+      <div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:600;">MR</div>
+      <div style="flex:1;overflow:hidden;">
+        <div style="font-size:12px;font-weight:600;color:#37352f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Marco Rossi</div>
+        <div style="font-size:11px;color:#9b9a97;">Project Manager</div>
+      </div>
+    </div>
+  </div>
+</div>
 
-Questo workspace Notion a 4 database gestisce l'intero ciclo di vita dei tuoi progetti: dall'idea alla consegna finale. Include oltre 30 view pre-configurate, formule automatiche per priorità e scadenze, e una dashboard che ti mostra tutto ciò che conta in un colpo d'occhio. Progettato per team, freelancer e professionisti che non si accontentano di un semplice to-do list.
+<!-- Main Content -->
+<div style="flex:1;display:flex;flex-direction:column;overflow:hidden;">
 
----
+  <!-- Top Bar -->
+  <div style="padding:12px 24px 0;border-bottom:1px solid #e9e9e7;">
+    <div style="display:flex;align-items:center;gap:4px;margin-bottom:12px;">
+      <span style="color:#9b9a97;font-size:13px;">Project Hub</span>
+      <span style="color:#9b9a97;font-size:13px;">/</span>
+      <span style="color:#37352f;font-size:13px;font-weight:500;">Progetti</span>
+    </div>
+    <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:16px;">
+      <h1 style="font-size:28px;font-weight:700;color:#37352f;margin:0;line-height:1.2;">📁 Progetti</h1>
+    </div>
+    <!-- View Tabs -->
+    <div style="display:flex;align-items:center;gap:0;">
+      <div id="tab-table" onclick="showView('table')" style="padding:6px 14px;font-size:13px;font-weight:500;color:#37352f;border-bottom:2px solid #37352f;cursor:pointer;display:flex;align-items:center;gap:6px;">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg> Table
+      </div>
+      <div id="tab-board" onclick="showView('board')" style="padding:6px 14px;font-size:13px;font-weight:500;color:#9b9a97;border-bottom:2px solid transparent;cursor:pointer;display:flex;align-items:center;gap:6px;" onmouseover="if(currentView!=='board')this.style.color='#37352f'" onmouseout="if(currentView!=='board')this.style.color='#9b9a97'">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="5" height="18" rx="1"/><rect x="10" y="3" width="5" height="18" rx="1"/><rect x="17" y="3" width="4" height="18" rx="1"/></svg> Board
+      </div>
+      <div style="padding:6px 14px;font-size:13px;font-weight:500;color:#9b9a97;border-bottom:2px solid transparent;cursor:pointer;display:flex;align-items:center;gap:6px;" onmouseover="this.style.color='#37352f'" onmouseout="this.style.color='#9b9a97'">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg> Timeline
+      </div>
+      <div style="padding:6px 14px;font-size:13px;font-weight:500;color:#9b9a97;border-bottom:2px solid transparent;cursor:pointer;display:flex;align-items:center;gap:6px;" onmouseover="this.style.color='#37352f'" onmouseout="this.style.color='#9b9a97'">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg> Gallery
+      </div>
+      <div style="margin-left:auto;padding-bottom:6px;display:flex;align-items:center;gap:8px;">
+        <button style="padding:4px 10px;font-size:12px;border:1px solid #e9e9e7;border-radius:6px;background:#fff;color:#37352f;cursor:pointer;display:flex;align-items:center;gap:5px;" onmouseover="this.style.background='#f7f7f5'" onmouseout="this.style.background='#fff'">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="20" y2="12"/><line x1="12" y1="18" x2="20" y2="18"/></svg> Filtra
+        </button>
+        <button style="padding:4px 10px;font-size:12px;border:1px solid #e9e9e7;border-radius:6px;background:#fff;color:#37352f;cursor:pointer;display:flex;align-items:center;gap:5px;" onmouseover="this.style.background='#f7f7f5'" onmouseout="this.style.background='#fff'">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5h10M11 9H7m4 8h10M11 17H7m4-4h10M7 13H3"/></svg> Raggruppa
+        </button>
+        <button style="padding:4px 12px;font-size:12px;border:none;border-radius:6px;background:#37352f;color:#fff;cursor:pointer;display:flex;align-items:center;gap:5px;" onmouseover="this.style.background='#2f2f2d'" onmouseout="this.style.background='#37352f'">
+          + Nuovo
+        </button>
+      </div>
+    </div>
+  </div>
 
-## DATABASE 1: PROJECTS
+  <!-- Content Area -->
+  <div style="flex:1;overflow-y:auto;padding:16px 24px 32px;">
 
-Icona consigliata: 📁 | Cover: immagine astratta geometrica
+    <!-- TABLE VIEW -->
+    <div id="view-table" style="display:block;">
+      <table style="width:100%;border-collapse:collapse;table-layout:fixed;">
+        <colgroup>
+          <col style="width:280px;"/>
+          <col style="width:130px;"/>
+          <col style="width:120px;"/>
+          <col style="width:110px;"/>
+          <col style="width:130px;"/>
+          <col style="width:80px;"/>
+          <col style="width:110px;"/>
+        </colgroup>
+        <thead>
+          <tr style="border-bottom:1px solid #e9e9e7;">
+            <th style="text-align:left;padding:8px 12px;font-size:12px;font-weight:500;color:#9b9a97;font-weight:600;letter-spacing:.02em;">Nome</th>
+            <th style="text-align:left;padding:8px 10px;font-size:12px;font-weight:500;color:#9b9a97;font-weight:600;letter-spacing:.02em;">Stato</th>
+            <th style="text-align:left;padding:8px 10px;font-size:12px;font-weight:500;color:#9b9a97;font-weight:600;letter-spacing:.02em;">Priorità</th>
+            <th style="text-align:left;padding:8px 10px;font-size:12px;font-weight:500;color:#9b9a97;font-weight:600;letter-spacing:.02em;">Owner</th>
+            <th style="text-align:left;padding:8px 10px;font-size:12px;font-weight:500;color:#9b9a97;font-weight:600;letter-spacing:.02em;">Avanzamento</th>
+            <th style="text-align:left;padding:8px 10px;font-size:12px;font-weight:500;color:#9b9a97;font-weight:600;letter-spacing:.02em;">Health</th>
+            <th style="text-align:left;padding:8px 10px;font-size:12px;font-weight:500;color:#9b9a97;font-weight:600;letter-spacing:.02em;">Scadenza</th>
+          </tr>
+        </thead>
+        <tbody>
 
-### Proprietà
-- **Name** (Title) — nome del progetto
-- **Status** (Status) — Not Started / Planning / In Progress / Review / Completed / On Hold / Cancelled
-- **Priority** (Select) — 🔥 Critical / 🟠 High / 🟡 Medium / 🟢 Low
-- **Owner** (Person) — responsabile principale del progetto
-- **Team Members** (Person) — tutti i collaboratori
-- **Client** (Text) — nome del cliente o stakeholder
-- **Start Date** (Date)
-- **Due Date** (Date)
-- **Days Remaining** (Formula):
-  \`if(empty(prop("Due Date")), "Nessuna scadenza", if(dateBetween(prop("Due Date"), now(), "days") < 0, "⛔ " + toText(abs(dateBetween(prop("Due Date"), now(), "days"))) + " giorni di ritardo", if(dateBetween(prop("Due Date"), now(), "days") == 0, "🚨 Scade oggi", "✅ " + toText(dateBetween(prop("Due Date"), now(), "days")) + " giorni rimasti")))\`
-- **Progress %** (Rollup) — da database Tasks: percentuale task con Status = Done sul totale
-- **Health** (Formula):
-  \`if(prop("Progress %") == 100, "✅ Completato", if(dateBetween(prop("Due Date"), now(), "days") < 0, "🔴 In ritardo", if(dateBetween(prop("Due Date"), now(), "days") < 7 and prop("Progress %") < 80, "🟡 A rischio", "🟢 In linea")))\`
-- **Budget** (Number) — formato: Euro (€)
-- **Actual Spend** (Rollup) — somma da database Invoices/Expenses collegato
-- **Budget Remaining** (Formula): \`prop("Budget") - prop("Actual Spend")\`
-- **Category** (Multi-select) — Web / Design / Marketing / Sviluppo / Consulenza / Interno
-- **Notes** (Text) — note interne non visibili al cliente
+          <!-- Row 1 -->
+          <tr style="border-bottom:1px solid #f1f1ef;cursor:pointer;transition:background .1s;" onmouseover="this.style.background='#f9f9f8'" onmouseout="this.style.background='transparent'">
+            <td style="padding:10px 12px;font-size:13px;color:#37352f;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span>🛒</span>
+                <span>Redesign Sito E-commerce</span>
+              </div>
+            </td>
+            <td style="padding:10px 10px;">
+              <span style="background:#dbeafe;color:#1d4ed8;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:500;white-space:nowrap;">In Corso</span>
+            </td>
+            <td style="padding:10px 10px;font-size:13px;">🔥 Critica</td>
+            <td style="padding:10px 10px;">
+              <div style="display:flex;align-items:center;gap:-4px;">
+                <div title="Marco Rossi" style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:600;border:2px solid #fff;">MR</div>
+                <div title="Giulia Bianchi" style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#f093fb,#f5576c);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:600;border:2px solid #fff;margin-left:-6px;">GB</div>
+              </div>
+            </td>
+            <td style="padding:10px 10px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="flex:1;height:6px;background:#e9e9e7;border-radius:3px;overflow:hidden;max-width:80px;">
+                  <div style="width:72%;height:100%;background:#2383e2;border-radius:3px;"></div>
+                </div>
+                <span style="font-size:12px;color:#787774;white-space:nowrap;">72%</span>
+              </div>
+            </td>
+            <td style="padding:10px 10px;font-size:16px;">🟢</td>
+            <td style="padding:10px 10px;font-size:12px;color:#787774;white-space:nowrap;">15 apr 2026</td>
+          </tr>
 
-### Views da creare
-1. **All Projects** (Table) — ordinata per Due Date crescente, visibile: Name, Status, Priority, Owner, Progress %, Health
-2. **Kanban Board** (Board) — raggruppata per Status, card preview: Owner + Due Date + Priority + Progress %
-3. **Timeline** (Timeline) — date range: Start Date → Due Date, raggruppata per Owner, colori per Priority
-4. **My Projects** (Table) — filtro: Owner = Me o Team Members = Me, ordinata per Priority
-5. **Active Projects** (Gallery) — filtro: Status = In Progress o Planning, card con cover e Progress %
-6. **Overdue** (Table) — filtro: Due Date è nel passato AND Status ≠ Completed, colore rosso
-7. **This Month** (Calendar) — per Due Date, raggruppata per Owner
+          <!-- Row 2 -->
+          <tr style="border-bottom:1px solid #f1f1ef;cursor:pointer;" onmouseover="this.style.background='#f9f9f8'" onmouseout="this.style.background='transparent'">
+            <td style="padding:10px 12px;font-size:13px;color:#37352f;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+              <div style="display:flex;align-items:center;gap:8px;"><span>📱</span><span>App Mobile CRM</span></div>
+            </td>
+            <td style="padding:10px 10px;">
+              <span style="background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:500;white-space:nowrap;">Pianificazione</span>
+            </td>
+            <td style="padding:10px 10px;font-size:13px;">🟠 Alta</td>
+            <td style="padding:10px 10px;">
+              <div style="display:flex;align-items:center;">
+                <div title="Luca Ferrari" style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#4facfe,#00f2fe);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:600;border:2px solid #fff;">LF</div>
+              </div>
+            </td>
+            <td style="padding:10px 10px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="flex:1;height:6px;background:#e9e9e7;border-radius:3px;overflow:hidden;max-width:80px;">
+                  <div style="width:18%;height:100%;background:#2383e2;border-radius:3px;"></div>
+                </div>
+                <span style="font-size:12px;color:#787774;white-space:nowrap;">18%</span>
+              </div>
+            </td>
+            <td style="padding:10px 10px;font-size:16px;">🟡</td>
+            <td style="padding:10px 10px;font-size:12px;color:#787774;white-space:nowrap;">30 giu 2026</td>
+          </tr>
 
----
+          <!-- Row 3 -->
+          <tr style="border-bottom:1px solid #f1f1ef;cursor:pointer;" onmouseover="this.style.background='#f9f9f8'" onmouseout="this.style.background='transparent'">
+            <td style="padding:10px 12px;font-size:13px;color:#37352f;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+              <div style="display:flex;align-items:center;gap:8px;"><span>📣</span><span>Campagna Marketing Q2</span></div>
+            </td>
+            <td style="padding:10px 10px;">
+              <span style="background:#dbeafe;color:#1d4ed8;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:500;white-space:nowrap;">In Corso</span>
+            </td>
+            <td style="padding:10px 10px;font-size:13px;">🟠 Alta</td>
+            <td style="padding:10px 10px;">
+              <div style="display:flex;align-items:center;">
+                <div title="Giulia Bianchi" style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#f093fb,#f5576c);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:600;border:2px solid #fff;">GB</div>
+                <div title="Sara Conti" style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#43e97b,#38f9d7);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:600;border:2px solid #fff;margin-left:-6px;">SC</div>
+                <div title="Antonio Mele" style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#fa709a,#fee140);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:600;border:2px solid #fff;margin-left:-6px;">AM</div>
+              </div>
+            </td>
+            <td style="padding:10px 10px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="flex:1;height:6px;background:#e9e9e7;border-radius:3px;overflow:hidden;max-width:80px;">
+                  <div style="width:55%;height:100%;background:#2383e2;border-radius:3px;"></div>
+                </div>
+                <span style="font-size:12px;color:#787774;white-space:nowrap;">55%</span>
+              </div>
+            </td>
+            <td style="padding:10px 10px;font-size:16px;">🟢</td>
+            <td style="padding:10px 10px;font-size:12px;color:#787774;white-space:nowrap;">1 mag 2026</td>
+          </tr>
 
-## DATABASE 2: TASKS
+          <!-- Row 4 -->
+          <tr style="border-bottom:1px solid #f1f1ef;cursor:pointer;" onmouseover="this.style.background='#f9f9f8'" onmouseout="this.style.background='transparent'">
+            <td style="padding:10px 12px;font-size:13px;color:#37352f;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+              <div style="display:flex;align-items:center;gap:8px;"><span>🔒</span><span>Migrazione Cloud & Sicurezza</span></div>
+            </td>
+            <td style="padding:10px 10px;">
+              <span style="background:#d1fae5;color:#065f46;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:500;white-space:nowrap;">Completato</span>
+            </td>
+            <td style="padding:10px 10px;font-size:13px;">🔥 Critica</td>
+            <td style="padding:10px 10px;">
+              <div style="display:flex;align-items:center;">
+                <div title="Marco Rossi" style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:600;border:2px solid #fff;">MR</div>
+                <div title="Luca Ferrari" style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#4facfe,#00f2fe);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:600;border:2px solid #fff;margin-left:-6px;">LF</div>
+              </div>
+            </td>
+            <td style="padding:10px 10px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="flex:1;height:6px;background:#e9e9e7;border-radius:3px;overflow:hidden;max-width:80px;">
+                  <div style="width:100%;height:100%;background:#059669;border-radius:3px;"></div>
+                </div>
+                <span style="font-size:12px;color:#787774;white-space:nowrap;">100%</span>
+              </div>
+            </td>
+            <td style="padding:10px 10px;font-size:16px;">🟢</td>
+            <td style="padding:10px 10px;font-size:12px;color:#9b9a97;white-space:nowrap;text-decoration:line-through;">28 feb 2026</td>
+          </tr>
 
-Icona consigliata: ✅
+          <!-- Row 5 -->
+          <tr style="border-bottom:1px solid #f1f1ef;cursor:pointer;" onmouseover="this.style.background='#f9f9f8'" onmouseout="this.style.background='transparent'">
+            <td style="padding:10px 12px;font-size:13px;color:#37352f;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+              <div style="display:flex;align-items:center;gap:8px;"><span>📊</span><span>Dashboard Analytics Interna</span></div>
+            </td>
+            <td style="padding:10px 10px;">
+              <span style="background:#f3f4f6;color:#6b7280;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:500;white-space:nowrap;">In Attesa</span>
+            </td>
+            <td style="padding:10px 10px;font-size:13px;">🟡 Media</td>
+            <td style="padding:10px 10px;">
+              <div style="display:flex;align-items:center;">
+                <div title="Sara Conti" style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#43e97b,#38f9d7);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:600;border:2px solid #fff;">SC</div>
+              </div>
+            </td>
+            <td style="padding:10px 10px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="flex:1;height:6px;background:#e9e9e7;border-radius:3px;overflow:hidden;max-width:80px;">
+                  <div style="width:0%;height:100%;background:#2383e2;border-radius:3px;"></div>
+                </div>
+                <span style="font-size:12px;color:#787774;white-space:nowrap;">0%</span>
+              </div>
+            </td>
+            <td style="padding:10px 10px;font-size:16px;">🔴</td>
+            <td style="padding:10px 10px;font-size:12px;color:#ef4444;white-space:nowrap;">10 mar 2026</td>
+          </tr>
 
-### Proprietà
-- **Name** (Title) — descrizione del task
-- **Project** (Relation) → Projects (bidirezionale)
-- **Milestone** (Relation) → Milestones (bidirezionale)
-- **Status** (Status) — To Do / In Progress / Blocked / In Review / Done
-- **Priority** (Select) — 🔥 Urgent / 🟠 High / 🟡 Medium / 🟢 Low
-- **Assignee** (Person)
-- **Due Date** (Date)
-- **Estimated Hours** (Number)
-- **Actual Hours** (Number)
-- **Effort Variance** (Formula): \`if(empty(prop("Actual Hours")), "N/A", toText(prop("Actual Hours") - prop("Estimated Hours")) + "h")\`
-- **Blocked By** (Text) — descrizione del blocco se Status = Blocked
-- **Tags** (Multi-select) — Frontend / Backend / Design / Copy / QA / Meeting / Research
+          <!-- Row 6 -->
+          <tr style="border-bottom:1px solid #f1f1ef;cursor:pointer;" onmouseover="this.style.background='#f9f9f8'" onmouseout="this.style.background='transparent'">
+            <td style="padding:10px 12px;font-size:13px;color:#37352f;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+              <div style="display:flex;align-items:center;gap:8px;"><span>🤖</span><span>Integrazione AI Assistente Vendite</span></div>
+            </td>
+            <td style="padding:10px 10px;">
+              <span style="background:#dbeafe;color:#1d4ed8;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:500;white-space:nowrap;">In Corso</span>
+            </td>
+            <td style="padding:10px 10px;font-size:13px;">🟠 Alta</td>
+            <td style="padding:10px 10px;">
+              <div style="display:flex;align-items:center;">
+                <div title="Antonio Mele" style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#fa709a,#fee140);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:600;border:2px solid #fff;">AM</div>
+                <div title="Marco Rossi" style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:600;border:2px solid #fff;margin-left:-6px;">MR</div>
+              </div>
+            </td>
+            <td style="padding:10px 10px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="flex:1;height:6px;background:#e9e9e7;border-radius:3px;overflow:hidden;max-width:80px;">
+                  <div style="width:38%;height:100%;background:#2383e2;border-radius:3px;"></div>
+                </div>
+                <span style="font-size:12px;color:#787774;white-space:nowrap;">38%</span>
+              </div>
+            </td>
+            <td style="padding:10px 10px;font-size:16px;">🟡</td>
+            <td style="padding:10px 10px;font-size:12px;color:#787774;white-space:nowrap;">15 lug 2026</td>
+          </tr>
 
-### Views da creare
-1. **My Tasks** (Table) — filtro: Assignee = Me, ordinata per Due Date, raggruppata per Status
-2. **Today** (Table) — filtro: Due Date = Today AND Status ≠ Done
-3. **Board** (Board) — raggruppata per Status, card: Assignee + Due Date
-4. **By Project** (Table) — raggruppata per Project
-5. **Blocked** (Table) — filtro: Status = Blocked — revisione giornaliera!
-6. **Completed This Week** (Table) — filtro: Status = Done AND Due Date = questa settimana
+          <!-- Row 7 -->
+          <tr style="border-bottom:1px solid #f1f1ef;cursor:pointer;" onmouseover="this.style.background='#f9f9f8'" onmouseout="this.style.background='transparent'">
+            <td style="padding:10px 12px;font-size:13px;color:#37352f;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+              <div style="display:flex;align-items:center;gap:8px;"><span>🏢</span><span>Onboarding Nuovi Clienti</span></div>
+            </td>
+            <td style="padding:10px 10px;">
+              <span style="background:#d1fae5;color:#065f46;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:500;white-space:nowrap;">Completato</span>
+            </td>
+            <td style="padding:10px 10px;font-size:13px;">🟢 Bassa</td>
+            <td style="padding:10px 10px;">
+              <div style="display:flex;align-items:center;">
+                <div title="Giulia Bianchi" style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#f093fb,#f5576c);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:600;border:2px solid #fff;">GB</div>
+              </div>
+            </td>
+            <td style="padding:10px 10px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="flex:1;height:6px;background:#e9e9e7;border-radius:3px;overflow:hidden;max-width:80px;">
+                  <div style="width:100%;height:100%;background:#059669;border-radius:3px;"></div>
+                </div>
+                <span style="font-size:12px;color:#787774;white-space:nowrap;">100%</span>
+              </div>
+            </td>
+            <td style="padding:10px 10px;font-size:16px;">🟢</td>
+            <td style="padding:10px 10px;font-size:12px;color:#9b9a97;white-space:nowrap;text-decoration:line-through;">15 gen 2026</td>
+          </tr>
 
----
+          <!-- Row 8 -->
+          <tr style="border-bottom:1px solid #f1f1ef;cursor:pointer;" onmouseover="this.style.background='#f9f9f8'" onmouseout="this.style.background='transparent'">
+            <td style="padding:10px 12px;font-size:13px;color:#37352f;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+              <div style="display:flex;align-items:center;gap:8px;"><span>🌐</span><span>Portale Fornitori B2B</span></div>
+            </td>
+            <td style="padding:10px 10px;">
+              <span style="background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:500;white-space:nowrap;">Pianificazione</span>
+            </td>
+            <td style="padding:10px 10px;font-size:13px;">🟡 Media</td>
+            <td style="padding:10px 10px;">
+              <div style="display:flex;align-items:center;">
+                <div title="Luca Ferrari" style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#4facfe,#00f2fe);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:600;border:2px solid #fff;">LF</div>
+                <div title="Sara Conti" style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#43e97b,#38f9d7);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:600;border:2px solid #fff;margin-left:-6px;">SC</div>
+              </div>
+            </td>
+            <td style="padding:10px 10px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="flex:1;height:6px;background:#e9e9e7;border-radius:3px;overflow:hidden;max-width:80px;">
+                  <div style="width:8%;height:100%;background:#2383e2;border-radius:3px;"></div>
+                </div>
+                <span style="font-size:12px;color:#787774;white-space:nowrap;">8%</span>
+              </div>
+            </td>
+            <td style="padding:10px 10px;font-size:16px;">🟡</td>
+            <td style="padding:10px 10px;font-size:12px;color:#787774;white-space:nowrap;">31 ago 2026</td>
+          </tr>
 
-## DATABASE 3: MILESTONES
+          <!-- Add Row -->
+          <tr onmouseover="this.style.background='#f9f9f8'" onmouseout="this.style.background='transparent'">
+            <td colspan="7" style="padding:8px 12px;">
+              <span style="font-size:13px;color:#9b9a97;cursor:pointer;display:flex;align-items:center;gap:6px;" onmouseover="this.style.color='#37352f'" onmouseout="this.style.color='#9b9a97'">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Nuovo progetto
+              </span>
+            </td>
+          </tr>
 
-Icona consigliata: 🏁
+        </tbody>
+      </table>
 
-### Proprietà
-- **Name** (Title) — nome della milestone
-- **Project** (Relation) → Projects
-- **Due Date** (Date)
-- **Status** (Status) — Upcoming / In Progress / Completed / Delayed
-- **Deliverable** (Text) — cosa viene consegnato a questa milestone
-- **Tasks Count** (Rollup) — count da Tasks collegati
-- **Tasks Done** (Rollup) — count da Tasks con Status = Done
-- **Completion %** (Formula): \`if(prop("Tasks Count") == 0, 0, round(prop("Tasks Done") / prop("Tasks Count") * 100))\`
+      <!-- Summary Bar -->
+      <div style="margin-top:24px;padding:16px;background:#f7f7f5;border-radius:8px;border:1px solid #e9e9e7;display:flex;align-items:center;gap:32px;">
+        <div style="text-align:center;">
+          <div style="font-size:22px;font-weight:700;color:#37352f;">8</div>
+          <div style="font-size:11px;color:#9b9a97;margin-top:2px;">Totale Progetti</div>
+        </div>
+        <div style="width:1px;height:36px;background:#e9e9e7;"></div>
+        <div style="text-align:center;">
+          <div style="font-size:22px;font-weight:700;color:#1d4ed8;">3</div>
+          <div style="font-size:11px;color:#9b9a97;margin-top:2px;">In Corso</div>
+        </div>
+        <div style="width:1px;height:36px;background:#e9e9e7;"></div>
+        <div style="text-align:center;">
+          <div style="font-size:22px;font-weight:700;color:#059669;">2</div>
+          <div style="font-size:11px;color:#9b9a97;margin-top:2px;">Completati</div>
+        </div>
+        <div style="width:1px;height:36px;background:#e9e9e7;"></div>
+        <div style="text-align:center;">
+          <div style="font-size:22px;font-weight:700;color:#92400e;">2</div>
+          <div style="font-size:11px;color:#9b9a97;margin-top:2px;">Pianificazione</div>
+        </div>
+        <div style="width:1px;height:36px;background:#e9e9e7;"></div>
+        <div style="text-align:center;">
+          <div style="font-size:22px;font-weight:700;color:#6b7280;">1</div>
+          <div style="font-size:11px;color:#9b9a97;margin-top:2px;">In Attesa</div>
+        </div>
+        <div style="width:1px;height:36px;background:#e9e9e7;"></div>
+        <div style="flex:1;">
+          <div style="font-size:11px;color:#9b9a97;margin-bottom:6px;">Avanzamento Medio</div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="flex:1;height:8px;background:#e9e9e7;border-radius:4px;overflow:hidden;">
+              <div style="width:49%;height:100%;background:linear-gradient(90deg,#2383e2,#059669);border-radius:4px;"></div>
+            </div>
+            <span style="font-size:13px;font-weight:600;color:#37352f;">49%</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
-### Views
-1. **Timeline** (Timeline) — per Due Date, raggruppata per Project
-2. **By Project** (Table) — raggruppata per Project, filtro: Status ≠ Completed
+    <!-- BOARD VIEW -->
+    <div id="view-board" style="display:none;">
+      <div style="display:flex;gap:16px;padding:4px 0;min-height:420px;overflow-x:auto;">
 
----
+        <!-- To Do Column -->
+        <div style="min-width:240px;max-width:240px;display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 4px;">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="width:8px;height:8px;border-radius:50%;background:#9b9a97;"></div>
+              <span style="font-size:12px;font-weight:600;color:#787774;text-transform:uppercase;letter-spacing:.05em;">Da Fare</span>
+              <span style="font-size:11px;color:#9b9a97;background:#f1f1ef;padding:1px 6px;border-radius:10px;">3</span>
+            </div>
+          </div>
+          <div style="background:#f7f7f5;border:1px solid #e9e9e7;border-radius:8px;padding:10px 12px;cursor:pointer;" onmouseover="this.style.background='#f1f1ef'" onmouseout="this.style.background='#f7f7f5'">
+            <div style="font-size:13px;font-weight:500;color:#37352f;margin-bottom:8px;">Analisi competitiva SEO</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-size:11px;color:#9b9a97;">📣 Marketing Q2</span>
+              <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#f093fb,#f5576c);display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:600;">GB</div>
+            </div>
+          </div>
+          <div style="background:#f7f7f5;border:1px solid #e9e9e7;border-radius:8px;padding:10px 12px;cursor:pointer;" onmouseover="this.style.background='#f1f1ef'" onmouseout="this.style.background='#f7f7f5'">
+            <div style="font-size:13px;font-weight:500;color:#37352f;margin-bottom:8px;">Setup ambiente di staging</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-size:11px;color:#9b9a97;">🌐 Portale B2B</span>
+              <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#4facfe,#00f2fe);display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:600;">LF</div>
+            </div>
+          </div>
+          <div style="background:#f7f7f5;border:1px solid #e9e9e7;border-radius:8px;padding:10px 12px;cursor:pointer;" onmouseover="this.style.background='#f1f1ef'" onmouseout="this.style.background='#f7f7f5'">
+            <div style="font-size:13px;font-weight:500;color:#37352f;margin-bottom:4px;">Definire requisiti UX</div>
+            <div style="font-size:11px;color:#ef4444;margin-bottom:6px;">Scaduto: 10 mar</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-size:11px;color:#9b9a97;">📊 Dashboard</span>
+              <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#43e97b,#38f9d7);display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:600;">SC</div>
+            </div>
+          </div>
+          <div style="padding:8px 4px;border:1px dashed #d9d9d7;border-radius:8px;text-align:center;cursor:pointer;color:#9b9a97;font-size:12px;" onmouseover="this.style.background='#f7f7f5';this.style.color='#787774'" onmouseout="this.style.background='transparent';this.style.color='#9b9a97'">+ Aggiungi task</div>
+        </div>
 
-## DATABASE 4: MEETINGS
+        <!-- In Progress Column -->
+        <div style="min-width:240px;max-width:240px;display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 4px;">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="width:8px;height:8px;border-radius:50%;background:#2383e2;"></div>
+              <span style="font-size:12px;font-weight:600;color:#787774;text-transform:uppercase;letter-spacing:.05em;">In Corso</span>
+              <span style="font-size:11px;color:#9b9a97;background:#f1f1ef;padding:1px 6px;border-radius:10px;">4</span>
+            </div>
+          </div>
+          <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:10px 12px;cursor:pointer;" onmouseover="this.style.background='#dbeafe'" onmouseout="this.style.background='#eff6ff'">
+            <div style="font-size:13px;font-weight:500;color:#37352f;margin-bottom:4px;">Sviluppo checkout flow</div>
+            <div style="height:4px;background:#bfdbfe;border-radius:2px;margin-bottom:8px;overflow:hidden;"><div style="width:65%;height:100%;background:#2383e2;border-radius:2px;"></div></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-size:11px;color:#9b9a97;">🛒 E-commerce</span>
+              <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:600;">MR</div>
+            </div>
+          </div>
+          <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:10px 12px;cursor:pointer;" onmouseover="this.style.background='#dbeafe'" onmouseout="this.style.background='#eff6ff'">
+            <div style="font-size:13px;font-weight:500;color:#37352f;margin-bottom:4px;">API integration Salesforce</div>
+            <div style="height:4px;background:#bfdbfe;border-radius:2px;margin-bottom:8px;overflow:hidden;"><div style="width:40%;height:100%;background:#2383e2;border-radius:2px;"></div></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-size:11px;color:#9b9a97;">🤖 AI Assistente</span>
+              <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#fa709a,#fee140);display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:600;">AM</div>
+            </div>
+          </div>
+          <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:10px 12px;cursor:pointer;" onmouseover="this.style.background='#dbeafe'" onmouseout="this.style.background='#eff6ff'">
+            <div style="font-size:13px;font-weight:500;color:#37352f;margin-bottom:4px;">Social media calendar</div>
+            <div style="height:4px;background:#bfdbfe;border-radius:2px;margin-bottom:8px;overflow:hidden;"><div style="width:80%;height:100%;background:#2383e2;border-radius:2px;"></div></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-size:11px;color:#9b9a97;">📣 Marketing Q2</span>
+              <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#f093fb,#f5576c);display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:600;">GB</div>
+            </div>
+          </div>
+          <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:10px 12px;cursor:pointer;" onmouseover="this.style.background='#dbeafe'" onmouseout="this.style.background='#eff6ff'">
+            <div style="font-size:13px;font-weight:500;color:#37352f;margin-bottom:4px;">Prototipo UI schermata home</div>
+            <div style="height:4px;background:#bfdbfe;border-radius:2px;margin-bottom:8px;overflow:hidden;"><div style="width:55%;height:100%;background:#2383e2;border-radius:2px;"></div></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-size:11px;color:#9b9a97;">📱 App CRM</span>
+              <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#4facfe,#00f2fe);display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:600;">LF</div>
+            </div>
+          </div>
+          <div style="padding:8px 4px;border:1px dashed #bfdbfe;border-radius:8px;text-align:center;cursor:pointer;color:#9b9a97;font-size:12px;" onmouseover="this.style.background='#eff6ff';this.style.color='#787774'" onmouseout="this.style.background='transparent';this.style.color='#9b9a97'">+ Aggiungi task</div>
+        </div>
 
-Icona consigliata: 💬
+        <!-- In Review Column -->
+        <div style="min-width:240px;max-width:240px;display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 4px;">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="width:8px;height:8px;border-radius:50%;background:#f59e0b;"></div>
+              <span style="font-size:12px;font-weight:600;color:#787774;text-transform:uppercase;letter-spacing:.05em;">In Revisione</span>
+              <span style="font-size:11px;color:#9b9a97;background:#f1f1ef;padding:1px 6px;border-radius:10px;">2</span>
+            </div>
+          </div>
+          <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:10px 12px;cursor:pointer;" onmouseover="this.style.background='#fef3c7'" onmouseout="this.style.background='#fffbeb'">
+            <div style="font-size:13px;font-weight:500;color:#37352f;margin-bottom:4px;">Copy campagna email DEM</div>
+            <div style="font-size:11px;color:#92400e;margin-bottom:6px;">🔴 Feedback richiesto</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-size:11px;color:#9b9a97;">📣 Marketing Q2</span>
+              <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#43e97b,#38f9d7);display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:600;">SC</div>
+            </div>
+          </div>
+          <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:10px 12px;cursor:pointer;" onmouseover="this.style.background='#fef3c7'" onmouseout="this.style.background='#fffbeb'">
+            <div style="font-size:13px;font-weight:500;color:#37352f;margin-bottom:8px;">Test A/B landing page</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-size:11px;color:#9b9a97;">🛒 E-commerce</span>
+              <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:600;">MR</div>
+            </div>
+          </div>
+          <div style="padding:8px 4px;border:1px dashed #fde68a;border-radius:8px;text-align:center;cursor:pointer;color:#9b9a97;font-size:12px;" onmouseover="this.style.background='#fffbeb';this.style.color='#787774'" onmouseout="this.style.background='transparent';this.style.color='#9b9a97'">+ Aggiungi task</div>
+        </div>
 
-### Proprietà
-- **Subject** (Title)
-- **Project** (Relation) → Projects
-- **Date** (Date)
-- **Attendees** (Person)
-- **Type** (Select) — Kickoff / Standup / Review / Client Call / Retrospective
-- **Agenda** (Text)
-- **Action Items** (Text) — chi fa cosa entro quando
-- **Recording** (URL)
+        <!-- Done Column -->
+        <div style="min-width:240px;max-width:240px;display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 4px;">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="width:8px;height:8px;border-radius:50%;background:#059669;"></div>
+              <span style="font-size:12px;font-weight:600;color:#787774;text-transform:uppercase;letter-spacing:.05em;">Completato</span>
+              <span style="font-size:11px;color:#9b9a97;background:#f1f1ef;padding:1px 6px;border-radius:10px;">5</span>
+            </div>
+          </div>
+          <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px 12px;cursor:pointer;opacity:.85;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.85'">
+            <div style="font-size:13px;font-weight:500;color:#37352f;margin-bottom:4px;text-decoration:line-through;color:#9b9a97;">Audit sicurezza infrastruttura</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-size:11px;color:#9b9a97;">🔒 Cloud & Security</span>
+              <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:600;">MR</div>
+            </div>
+          </div>
+          <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px 12px;cursor:pointer;opacity:.85;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.85'">
+            <div style="font-size:13px;font-weight:500;color:#9b9a97;margin-bottom:4px;text-decoration:line-through;">Documentazione API REST</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-size:11px;color:#9b9a97;">🔒 Cloud & Security</span>
+              <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#4facfe,#00f2fe);display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:600;">LF</div>
+            </div>
+          </div>
+          <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px 12px;cursor:pointer;opacity:.85;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.85'">
+            <div style="font-size:13px;font-weight:500;color:#9b9a97;margin-bottom:4px;text-decoration:line-through;">Video tutorial onboarding</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-size:11px;color:#9b9a97;">🏢 Onboarding Clienti</span>
+              <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#f093fb,#f5576c);display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:600;">GB</div>
+            </div>
+          </div>
+          <div style="padding:8px 4px;border:1px dashed #bbf7d0;border-radius:8px;text-align:center;cursor:pointer;color:#9b9a97;font-size:12px;" onmouseover="this.style.background='#f0fdf4';this.style.color='#787774'" onmouseout="this.style.background='transparent';this.style.color='#9b9a97'">+ Aggiungi task</div>
+        </div>
 
----
+      </div>
+    </div>
 
-## FORMULE CHIAVE
+  </div>
+</div>
 
-### Days Remaining (in Projects):
-\`\`\`
-if(empty(prop("Due Date")), "Nessuna scadenza", if(dateBetween(prop("Due Date"), now(), "days") < 0, "⛔ " + toText(abs(dateBetween(prop("Due Date"), now(), "days"))) + " giorni di ritardo", if(dateBetween(prop("Due Date"), now(), "days") == 0, "🚨 Scade oggi", "✅ " + toText(dateBetween(prop("Due Date"), now(), "days")) + " giorni rimasti")))
-\`\`\`
+<script>
+var currentView = 'table';
+function showView(view) {
+  currentView = view;
+  document.getElementById('view-table').style.display = view === 'table' ? 'block' : 'none';
+  document.getElementById('view-board').style.display = view === 'board' ? 'block' : 'none';
+  var tabTable = document.getElementById('tab-table');
+  var tabBoard = document.getElementById('tab-board');
+  if (view === 'table') {
+    tabTable.style.color = '#37352f'; tabTable.style.borderBottomColor = '#37352f';
+    tabBoard.style.color = '#9b9a97'; tabBoard.style.borderBottomColor = 'transparent';
+  } else {
+    tabBoard.style.color = '#37352f'; tabBoard.style.borderBottomColor = '#37352f';
+    tabTable.style.color = '#9b9a97'; tabTable.style.borderBottomColor = 'transparent';
+  }
+}
+</script>
 
-### Health Score (in Projects):
-\`\`\`
-if(prop("Progress %") == 100, "✅ Completato", if(dateBetween(prop("Due Date"), now(), "days") < 0, "🔴 In ritardo", if(dateBetween(prop("Due Date"), now(), "days") < 7 and prop("Progress %") < 80, "🟡 A rischio", "🟢 In linea")))
-\`\`\`
-
----
-
-## DASHBOARD PRINCIPALE — HOME
-
-Crea una pagina "🏠 Project Hub" con queste sezioni:
-
-**Sezione 1 — Panoramica Attiva**
-Inserisci una linked view del database Projects con filtro Status = In Progress, layout Gallery, card con Progress % e Health.
-
-**Sezione 2 — I Miei Task di Oggi**
-Inserisci una linked view di Tasks con filtro: Assignee = Me AND Due Date = Today AND Status ≠ Done.
-
-**Sezione 3 — Scadenze Critiche**
-Linked view di Projects filtrata per: Days Remaining < 7 AND Status ≠ Completed, ordinata per Due Date.
-
-**Sezione 4 — Task Bloccati**
-Linked view di Tasks filtrata per Status = Blocked — da revisionare ogni giorno con il team.
-
-**Sezione 5 — Meeting di Oggi**
-Linked view di Meetings filtrata per Date = Today.
-
----
-
-## RELAZIONI E ROLLUP
-
-- **Projects → Tasks**: relazione bidirezionale. Rollup in Projects: Count(Tasks) totale e Count(Tasks dove Status=Done) per il Progress %
-- **Projects → Milestones**: relazione bidirezionale. Rollup: prossima milestone con Status ≠ Completed
-- **Projects → Meetings**: relazione per avere tutti i verbali in un click dalla pagina progetto
-- **Milestones → Tasks**: relazione bidirezionale per organizzare i task per fase
-
----
-
-## QUICK START (15 minuti)
-
-1. Duplica questo workspace nel tuo Notion tramite il link incluso
-2. Apri il database Projects e rinomina le opzioni Status/Priority con i tuoi valori
-3. Crea il tuo primo progetto: nome, date, owner, budget
-4. Aggiungi 3-5 Milestones con le fasi chiave del progetto
-5. Crea i Task per la prima milestone e assegnali ai collaboratori
-6. Personalizza la Home page aggiungendo le linked view sopra descritte
-7. Imposta i filtri della view "My Tasks" con il tuo nome e salva come default
-
----
-
-## BONUS: TEMPLATE BUTTON PER NUOVO PROGETTO
-
-Configura un template button nella pagina Projects che crea automaticamente:
-- La pagina progetto con tutte le proprietà vuote
-- 3 milestone standard: Kickoff, Delivery, Retrospective
-- 5 task iniziali: Brief, Planning, Execution, Review, Handoff
-
----
-
-## PRO TIPS
-
-- **Standup quotidiano**: apri la view "Board" del database Tasks ogni mattina con il team (5 minuti)
-- **Colori per priorità**: nella Timeline view, usa i colori per Priority (rosso=Critical, arancione=High) per un colpo d'occhio immediato
-- **Share timeline con clienti**: duplica la Timeline view, filtra solo le Milestones e condividi il link pubblico Notion con il cliente
-- **Formula Health come semaforo**: aggiungi la property Health come prima colonna in ogni view per identificare subito i progetti a rischio
-- **Automazione**: con Notion Automations (piano Plus), imposta una regola che cambia lo Status del Project a "Completed" quando il Progress % raggiunge 100%`,
+</div>`,
   },
   {
     id: "notion-freelancer-crm",
     name: "Notion Freelancer CRM",
-    category: "prompt",
+    category: "ui",
     price: 1299,
     stripePriceId: "price_1TCIgBBoWNgrJbiyTSZ5qOHG",
     downloadType: "notion",
@@ -3198,233 +3536,496 @@ Configura un template button nella pagina Projects che crea automaticamente:
     description: "Manage clients, projects, invoices and follow-ups in one Notion database.",
     isNew: true,
     editorsPick: false,
-    content: `# Notion Freelancer CRM
+    content: `<div style="font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; display: flex; height: 100vh; background: #fff; color: #37352f; overflow: hidden;">
 
-## Il CRM che ogni freelancer dovrebbe avere
+  <!-- Sidebar -->
+  <aside style="width: 240px; min-width: 240px; background: #f7f6f3; border-right: 1px solid #e8e8e5; display: flex; flex-direction: column; padding: 12px 0; overflow-y: auto;">
+    <div style="padding: 0 12px 12px; border-bottom: 1px solid #e8e8e5; margin-bottom: 8px;">
+      <div style="display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 6px; cursor: pointer;">
+        <div style="width: 28px; height: 28px; background: #2f3437; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 13px; font-weight: 700;">F</div>
+        <div>
+          <div style="font-size: 13px; font-weight: 600; color: #37352f;">Freelancer Hub</div>
+          <div style="font-size: 11px; color: #9b9a97;">Piano Pro</div>
+        </div>
+      </div>
+    </div>
+    <nav style="padding: 0 8px; flex: 1;">
+      <div style="margin-bottom: 4px;">
+        <a href="#" style="display: flex; align-items: center; gap: 8px; padding: 5px 8px; border-radius: 4px; background: #e8e7e4; color: #37352f; text-decoration: none; font-size: 13px; font-weight: 500;">
+          <span>📊</span> Business Dashboard
+        </a>
+      </div>
+      <div style="margin-top: 12px; margin-bottom: 4px; padding: 0 8px;">
+        <span style="font-size: 11px; font-weight: 600; color: #9b9a97; text-transform: uppercase; letter-spacing: 0.05em;">CRM</span>
+      </div>
+      <div style="margin-bottom: 2px;">
+        <a href="#" style="display: flex; align-items: center; gap: 8px; padding: 5px 8px; border-radius: 4px; color: #37352f; text-decoration: none; font-size: 13px;">
+          <span>👥</span> Clients
+        </a>
+      </div>
+      <div style="margin-bottom: 2px;">
+        <a href="#" style="display: flex; align-items: center; gap: 8px; padding: 5px 8px; border-radius: 4px; color: #37352f; text-decoration: none; font-size: 13px;">
+          <span>📁</span> Projects
+        </a>
+      </div>
+      <div style="margin-bottom: 2px;">
+        <a href="#" style="display: flex; align-items: center; gap: 8px; padding: 5px 8px; border-radius: 4px; color: #37352f; text-decoration: none; font-size: 13px;">
+          <span>⏱️</span> Time Log
+        </a>
+      </div>
+      <div style="margin-top: 12px; margin-bottom: 4px; padding: 0 8px;">
+        <span style="font-size: 11px; font-weight: 600; color: #9b9a97; text-transform: uppercase; letter-spacing: 0.05em;">Finanze</span>
+      </div>
+      <div style="margin-bottom: 2px;">
+        <a href="#" style="display: flex; align-items: center; gap: 8px; padding: 5px 8px; border-radius: 4px; color: #37352f; text-decoration: none; font-size: 13px;">
+          <span>🧾</span> Invoices
+        </a>
+      </div>
+      <div style="margin-bottom: 2px;">
+        <a href="#" style="display: flex; align-items: center; gap: 8px; padding: 5px 8px; border-radius: 4px; color: #37352f; text-decoration: none; font-size: 13px;">
+          <span>💼</span> Services
+        </a>
+      </div>
+      <div style="margin-bottom: 2px;">
+        <a href="#" style="display: flex; align-items: center; gap: 8px; padding: 5px 8px; border-radius: 4px; color: #37352f; text-decoration: none; font-size: 13px;">
+          <span>🎯</span> Leads
+        </a>
+      </div>
+    </nav>
+    <div style="padding: 8px 16px; border-top: 1px solid #e8e8e5; margin-top: 8px;">
+      <div style="font-size: 11px; color: #9b9a97;">Marco Bianchi</div>
+      <div style="font-size: 11px; color: #9b9a97;">marco@studiodesign.it</div>
+    </div>
+  </aside>
 
-Un sistema completo a 7 database per gestire ogni aspetto del tuo business freelance: lead, clienti, progetti, time tracking, fatture, pacchetti servizi e collaboratori. Smetti di perdere opportunità per mancanza di follow-up e inizia a conoscere il tuo fatturato in tempo reale.
+  <!-- Main Content -->
+  <main style="flex: 1; overflow-y: auto; display: flex; flex-direction: column;">
 
----
+    <!-- Top Bar -->
+    <div style="padding: 16px 32px 0; border-bottom: 1px solid #e8e8e5; position: sticky; top: 0; background: #fff; z-index: 10;">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+        <div>
+          <div style="font-size: 11px; color: #9b9a97; margin-bottom: 2px;">CRM</div>
+          <h1 style="font-size: 24px; font-weight: 700; color: #37352f; margin: 0;">Clients Pipeline</h1>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <button style="display: flex; align-items: center; gap: 6px; padding: 6px 12px; background: #fff; border: 1px solid #e8e8e5; border-radius: 6px; font-size: 13px; cursor: pointer; color: #37352f;">
+            🔍 Filtra
+          </button>
+          <button style="display: flex; align-items: center; gap: 6px; padding: 6px 12px; background: #37352f; border: none; border-radius: 6px; font-size: 13px; cursor: pointer; color: #fff; font-weight: 500;">
+            + New Client
+          </button>
+        </div>
+      </div>
+      <!-- Revenue Callout -->
+      <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 10px 16px; margin-bottom: 12px; display: flex; gap: 24px; align-items: center;">
+        <span style="font-size: 12px; font-weight: 600; color: #166534;">📈 Fatturato MTD: <strong>€12.450</strong></span>
+        <span style="color: #bbf7d0;">|</span>
+        <span style="font-size: 12px; color: #166534;">🎯 Obiettivo: <strong>€15.000</strong></span>
+        <span style="color: #bbf7d0;">|</span>
+        <span style="font-size: 12px; color: #b45309; font-weight: 600;">💰 Da incassare: <strong>€3.200</strong></span>
+        <div style="margin-left: auto;">
+          <div style="background: #bbf7d0; height: 6px; width: 180px; border-radius: 99px; overflow: hidden;">
+            <div style="background: #16a34a; height: 100%; width: 83%;"></div>
+          </div>
+          <div style="font-size: 10px; color: #166534; margin-top: 2px; text-align: right;">83% dell'obiettivo</div>
+        </div>
+      </div>
+      <!-- View Tabs -->
+      <div style="display: flex; gap: 0; margin-bottom: -1px;">
+        <button style="padding: 7px 14px; font-size: 13px; border: none; background: none; border-bottom: 2px solid #37352f; color: #37352f; font-weight: 600; cursor: pointer;">🗂 Pipeline</button>
+        <button style="padding: 7px 14px; font-size: 13px; border: none; background: none; border-bottom: 2px solid transparent; color: #9b9a97; cursor: pointer;">📋 Tabella</button>
+        <button style="padding: 7px 14px; font-size: 13px; border: none; background: none; border-bottom: 2px solid transparent; color: #9b9a97; cursor: pointer;">📆 Calendario</button>
+        <button style="padding: 7px 14px; font-size: 13px; border: none; background: none; border-bottom: 2px solid transparent; color: #9b9a97; cursor: pointer;">📊 Statistiche</button>
+      </div>
+    </div>
 
-## DATABASE 1: CLIENTS
+    <!-- Kanban Board -->
+    <div style="padding: 24px 32px; overflow-x: auto;">
+      <div style="display: flex; gap: 16px; min-width: max-content;">
 
-Icona: 👥 | Colore: Blu
+        <!-- Col: Lead -->
+        <div style="width: 240px; min-width: 240px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 13px;">🟡</span>
+              <span style="font-size: 13px; font-weight: 600; color: #37352f;">Lead</span>
+              <span style="background: #f1f0ef; color: #6b6b6b; font-size: 11px; padding: 1px 6px; border-radius: 99px; font-weight: 500;">3</span>
+            </div>
+            <button style="background: none; border: none; color: #9b9a97; font-size: 16px; cursor: pointer; line-height: 1;">+</button>
+          </div>
 
-### Proprietà
-- **Name** (Title) — nome azienda o cliente
-- **Status** (Select) — 🟡 Lead / 📞 In trattativa / 🟢 Active / 🔁 Retainer / 🔴 Churned / ⚫ Archived
-- **Lead Score** (Formula):
-  \`if(prop("Source") == "Referral", 3, if(prop("Source") == "LinkedIn", 2, 1)) + if(prop("Company Size") == "Large (50+)", 3, if(prop("Company Size") == "Medium (11-50)", 2, 1))\`
-- **Contact Name** (Text) — persona di riferimento
-- **Email** (Email)
-- **Phone** (Phone)
-- **Company Size** (Select) — Solo / Small (2-10) / Medium (11-50) / Large (50+)
-- **Industry** (Select) — Tech / E-commerce / Consulenza / Healthcare / Retail / Education / Altro
-- **Source** (Select) — Referral / LinkedIn / Cold Outreach / Upwork / Fiverr / Sito Web / Evento / Altro
-- **Total Revenue** (Rollup) — somma Amount da Invoices dove Status = Paid
-- **Open Revenue** (Rollup) — somma Amount da Invoices dove Status = Sent o Draft
-- **Active Projects** (Rollup) — count da Projects dove Status = Active o Review
-- **Last Contact** (Date)
-- **Next Follow-up** (Date)
-- **Days Since Contact** (Formula): \`if(empty(prop("Last Contact")), "Mai contattato", toText(dateBetween(now(), prop("Last Contact"), "days")) + " giorni fa")\`
-- **Notes** (Text)
-- **Tags** (Multi-select) — VIP / Referral Source / Long-term / Quick Pay / Problematic
+          <!-- Card 1 -->
+          <div style="background: #fff; border: 1px solid #e8e8e5; border-radius: 8px; padding: 12px; margin-bottom: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
+            <div style="font-size: 13px; font-weight: 600; color: #37352f; margin-bottom: 4px;">Officine Rossi Srl</div>
+            <div style="font-size: 12px; color: #9b9a97; margin-bottom: 8px;">Giulia Ferretti</div>
+            <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
+              <span style="background: #fef9c3; color: #92400e; font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 99px;">LinkedIn</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 12px; color: #37352f; font-weight: 500;">—</span>
+              <span style="font-size: 11px; color: #9b9a97;">📅 28 mar</span>
+            </div>
+          </div>
 
-### Views
-1. **Pipeline** (Board) — raggruppata per Status, card: Contact Name + Next Follow-up + Lead Score
-2. **All Clients** (Table) — ordinata per Total Revenue decrescente
-3. **Follow-up Urgenti** (Table) — filtro: Next Follow-up ≤ oggi + 3 giorni, ordinata per Next Follow-up
-4. **Lead Scoring** (Table) — filtro: Status = Lead o In trattativa, ordinata per Lead Score decrescente
-5. **Clienti Trascurati** (Table) — filtro: Status = Active AND Last Contact è più di 30 giorni fa
+          <!-- Card 2 -->
+          <div style="background: #fff; border: 1px solid #e8e8e5; border-radius: 8px; padding: 12px; margin-bottom: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
+            <div style="font-size: 13px; font-weight: 600; color: #37352f; margin-bottom: 4px;">Studi Legali Conti</div>
+            <div style="font-size: 12px; color: #9b9a97; margin-bottom: 8px;">Avv. Marco Conti</div>
+            <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
+              <span style="background: #dbeafe; color: #1e40af; font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 99px;">Referral</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 12px; color: #37352f; font-weight: 500;">—</span>
+              <span style="font-size: 11px; color: #9b9a97;">📅 25 mar</span>
+            </div>
+          </div>
 
----
+          <!-- Card 3 -->
+          <div style="background: #fff; border: 1px solid #e8e8e5; border-radius: 8px; padding: 12px; margin-bottom: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
+            <div style="font-size: 13px; font-weight: 600; color: #37352f; margin-bottom: 4px;">FoodTech Italia</div>
+            <div style="font-size: 12px; color: #9b9a97; margin-bottom: 8px;">Simone Gatti</div>
+            <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
+              <span style="background: #f3e8ff; color: #7c3aed; font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 99px;">Evento</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 12px; color: #37352f; font-weight: 500;">—</span>
+              <span style="font-size: 11px; color: #9b9a97;">📅 30 mar</span>
+            </div>
+          </div>
+        </div>
 
-## DATABASE 2: PROJECTS
+        <!-- Col: In trattativa -->
+        <div style="width: 240px; min-width: 240px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 13px;">📞</span>
+              <span style="font-size: 13px; font-weight: 600; color: #37352f;">In trattativa</span>
+              <span style="background: #f1f0ef; color: #6b6b6b; font-size: 11px; padding: 1px 6px; border-radius: 99px; font-weight: 500;">3</span>
+            </div>
+            <button style="background: none; border: none; color: #9b9a97; font-size: 16px; cursor: pointer; line-height: 1;">+</button>
+          </div>
 
-Icona: 💼
+          <!-- Card 4 -->
+          <div style="background: #fff; border: 1px solid #e8e8e5; border-radius: 8px; padding: 12px; margin-bottom: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
+            <div style="font-size: 13px; font-weight: 600; color: #37352f; margin-bottom: 4px;">Gruppo Moda Milano</div>
+            <div style="font-size: 12px; color: #9b9a97; margin-bottom: 8px;">Elena Colombo</div>
+            <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
+              <span style="background: #fef9c3; color: #92400e; font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 99px;">LinkedIn</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 12px; color: #37352f; font-weight: 500;">€3.500</span>
+              <span style="font-size: 11px; color: #9b9a97;">📅 24 mar</span>
+            </div>
+          </div>
 
-### Proprietà
-- **Name** (Title)
-- **Client** (Relation) → Clients (bidirezionale)
-- **Status** (Status) — Proposal / Negotiation / Active / In Review / Completed / Paused / Cancelled
-- **Start Date** (Date)
-- **End Date** (Date)
-- **Rate Type** (Select) — Hourly / Fixed Price / Retainer Mensile / Value-Based
-- **Rate** (Number) — tariffa oraria o importo fisso in €
-- **Hours Logged** (Rollup) — somma Hours da Time Log
-- **Invoiced Amount** (Rollup) — somma Amount da Invoices collegati
-- **Total Value** (Formula): \`if(prop("Rate Type") == "Hourly", prop("Rate") * prop("Hours Logged"), prop("Rate"))\`
-- **Margin** (Formula): \`prop("Total Value") - prop("Invoiced Amount")\`
-- **Service** (Relation) → Services (tipo di servizio erogato)
-- **Description** (Text)
-- **Contract URL** (URL) — link al contratto firmato
+          <!-- Card 5 -->
+          <div style="background: #fff; border: 1px solid #e8e8e5; border-radius: 8px; padding: 12px; margin-bottom: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
+            <div style="font-size: 13px; font-weight: 600; color: #37352f; margin-bottom: 4px;">FinEdge Consulting</div>
+            <div style="font-size: 12px; color: #9b9a97; margin-bottom: 8px;">Roberto Mantovani</div>
+            <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
+              <span style="background: #dbeafe; color: #1e40af; font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 99px;">Referral</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 12px; color: #37352f; font-weight: 500;">€5.200</span>
+              <span style="font-size: 11px; color: #9b9a97;">📅 23 mar</span>
+            </div>
+          </div>
 
-### Views
-1. **Active** (Table) — filtro: Status = Active o In Review
-2. **Pipeline** (Board) — raggruppata per Status
-3. **By Client** (Table) — raggruppata per Client
-4. **Revenue View** (Table) — visibile: Name, Client, Total Value, Invoiced Amount, Margin
+          <!-- Card 6 -->
+          <div style="background: #fff; border: 1px solid #e8e8e5; border-radius: 8px; padding: 12px; margin-bottom: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
+            <div style="font-size: 13px; font-weight: 600; color: #37352f; margin-bottom: 4px;">Digital Pulse Agency</div>
+            <div style="font-size: 12px; color: #9b9a97; margin-bottom: 8px;">Chiara Rizzo</div>
+            <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
+              <span style="background: #fee2e2; color: #991b1b; font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 99px;">Sito Web</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 12px; color: #37352f; font-weight: 500;">€2.800</span>
+              <span style="font-size: 11px; color: #9b9a97;">📅 27 mar</span>
+            </div>
+          </div>
+        </div>
 
----
+        <!-- Col: Active -->
+        <div style="width: 240px; min-width: 240px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 13px;">🟢</span>
+              <span style="font-size: 13px; font-weight: 600; color: #37352f;">Active</span>
+              <span style="background: #f1f0ef; color: #6b6b6b; font-size: 11px; padding: 1px 6px; border-radius: 99px; font-weight: 500;">4</span>
+            </div>
+            <button style="background: none; border: none; color: #9b9a97; font-size: 16px; cursor: pointer; line-height: 1;">+</button>
+          </div>
 
-## DATABASE 3: TIME LOG
+          <!-- Card 7 -->
+          <div style="background: #fff; border: 1px solid #e8e8e5; border-radius: 8px; padding: 12px; margin-bottom: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
+            <div style="font-size: 13px; font-weight: 600; color: #37352f; margin-bottom: 4px;">Nexo Tech Srl</div>
+            <div style="font-size: 12px; color: #9b9a97; margin-bottom: 8px;">Luca De Angelis</div>
+            <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
+              <span style="background: #dbeafe; color: #1e40af; font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 99px;">Referral</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 12px; color: #37352f; font-weight: 500;">€8.400</span>
+              <span style="font-size: 11px; color: #9b9a97;">📅 01 apr</span>
+            </div>
+          </div>
 
-Icona: ⏱️
+          <!-- Card 8 -->
+          <div style="background: #fff; border: 1px solid #e8e8e5; border-radius: 8px; padding: 12px; margin-bottom: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
+            <div style="font-size: 13px; font-weight: 600; color: #37352f; margin-bottom: 4px;">VivaFarm Bio</div>
+            <div style="font-size: 12px; color: #9b9a97; margin-bottom: 8px;">Paola Greco</div>
+            <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
+              <span style="background: #dcfce7; color: #166534; font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 99px;">Instagram</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 12px; color: #37352f; font-weight: 500;">€4.200</span>
+              <span style="font-size: 11px; color: #9b9a97;">📅 05 apr</span>
+            </div>
+          </div>
 
-### Proprietà
-- **Description** (Title) — cosa hai fatto
-- **Project** (Relation) → Projects
-- **Date** (Date)
-- **Hours** (Number) — con decimali (es. 1.5 = 1h 30min)
-- **Billable** (Checkbox) — ore fatturabili?
-- **Hourly Rate** (Number) — tariffa per questa sessione
-- **Amount** (Formula): \`if(prop("Billable"), prop("Hours") * prop("Hourly Rate"), 0)\`
+          <!-- Card 9 -->
+          <div style="background: #fff; border: 1px solid #e8e8e5; border-radius: 8px; padding: 12px; margin-bottom: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
+            <div style="font-size: 13px; font-weight: 600; color: #37352f; margin-bottom: 4px;">Architetti Fuori Studio</div>
+            <div style="font-size: 12px; color: #9b9a97; margin-bottom: 8px;">Filippo Martinelli</div>
+            <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
+              <span style="background: #f3e8ff; color: #7c3aed; font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 99px;">Evento</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 12px; color: #37352f; font-weight: 500;">€6.100</span>
+              <span style="font-size: 11px; color: #9b9a97;">📅 02 apr</span>
+            </div>
+          </div>
 
-### Views
-1. **This Week** — filtro: Date = questa settimana, ordinata per Date
-2. **By Project** — raggruppata per Project, con totale Hours
-3. **Unbilled** — filtro: Billable = true AND (nessuna fattura collegata)
+          <!-- Card 10 -->
+          <div style="background: #fff; border: 1px solid #e8e8e5; border-radius: 8px; padding: 12px; margin-bottom: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
+            <div style="font-size: 13px; font-weight: 600; color: #37352f; margin-bottom: 4px;">TurboLogistica SpA</div>
+            <div style="font-size: 12px; color: #9b9a97; margin-bottom: 8px;">Andrea Caruso</div>
+            <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
+              <span style="background: #fef9c3; color: #92400e; font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 99px;">LinkedIn</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 12px; color: #37352f; font-weight: 500;">€9.750</span>
+              <span style="font-size: 11px; color: #9b9a97;">📅 08 apr</span>
+            </div>
+          </div>
+        </div>
 
----
+        <!-- Col: Retainer -->
+        <div style="width: 240px; min-width: 240px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 13px;">🔁</span>
+              <span style="font-size: 13px; font-weight: 600; color: #37352f;">Retainer</span>
+              <span style="background: #f1f0ef; color: #6b6b6b; font-size: 11px; padding: 1px 6px; border-radius: 99px; font-weight: 500;">3</span>
+            </div>
+            <button style="background: none; border: none; color: #9b9a97; font-size: 16px; cursor: pointer; line-height: 1;">+</button>
+          </div>
 
-## DATABASE 4: INVOICES
+          <!-- Card 11 -->
+          <div style="background: #fff; border: 1px solid #e8e8e5; border-radius: 8px; padding: 12px; margin-bottom: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
+            <div style="font-size: 13px; font-weight: 600; color: #37352f; margin-bottom: 4px;">Medianova Studio</div>
+            <div style="font-size: 12px; color: #9b9a97; margin-bottom: 8px;">Sara Fontana</div>
+            <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
+              <span style="background: #dbeafe; color: #1e40af; font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 99px;">Referral</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 12px; color: #37352f; font-weight: 500;">€18.200</span>
+              <span style="font-size: 11px; color: #9b9a97;">📅 01 mag</span>
+            </div>
+          </div>
 
-Icona: 🧾
+          <!-- Card 12 -->
+          <div style="background: #fff; border: 1px solid #e8e8e5; border-radius: 8px; padding: 12px; margin-bottom: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
+            <div style="font-size: 13px; font-weight: 600; color: #37352f; margin-bottom: 4px;">EduKids Platform</div>
+            <div style="font-size: 12px; color: #9b9a97; margin-bottom: 8px;">Lorenzo Neri</div>
+            <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
+              <span style="background: #dcfce7; color: #166534; font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 99px;">Podcast</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 12px; color: #37352f; font-weight: 500;">€11.600</span>
+              <span style="font-size: 11px; color: #9b9a97;">📅 01 mag</span>
+            </div>
+          </div>
 
-### Proprietà
-- **Invoice #** (Title) — formato: INV-2026-001 (incrementa manualmente)
-- **Client** (Relation) → Clients
-- **Project** (Relation) → Projects
-- **Amount** (Number) — importo in € (IVA esclusa)
-- **VAT %** (Number) — aliquota IVA (es. 22)
-- **Total with VAT** (Formula): \`prop("Amount") * (1 + prop("VAT %") / 100)\`
-- **Status** (Select) — Draft / Sent / Paid / Overdue / Cancelled
-- **Issue Date** (Date)
-- **Due Date** (Date)
-- **Paid Date** (Date)
-- **Days Overdue** (Formula): \`if(prop("Status") == "Overdue", toText(dateBetween(now(), prop("Due Date"), "days")) + " giorni", "")\`
-- **Payment Method** (Select) — Bonifico Bancario / PayPal / Stripe / Satispay / Contanti / Altro
-- **Invoice URL** (URL) — link alla fattura PDF (Drive, Dropbox, ecc.)
-- **Notes** (Text)
+          <!-- Card 13 -->
+          <div style="background: #fff; border: 1px solid #e8e8e5; border-radius: 8px; padding: 12px; margin-bottom: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
+            <div style="font-size: 13px; font-weight: 600; color: #37352f; margin-bottom: 4px;">WellnessFirst Srl</div>
+            <div style="font-size: 12px; color: #9b9a97; margin-bottom: 8px;">Valentina Serra</div>
+            <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
+              <span style="background: #fee2e2; color: #991b1b; font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 99px;">Sito Web</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 12px; color: #37352f; font-weight: 500;">€9.000</span>
+              <span style="font-size: 11px; color: #9b9a97;">📅 15 mag</span>
+            </div>
+          </div>
+        </div>
 
-### Views
-1. **Da Incassare** (Table) — filtro: Status = Sent o Overdue, totale Amount visibile in fondo
-2. **Scadute** (Table) — filtro: Status = Overdue, ordinata per Due Date
-3. **This Month** (Table) — filtro: Issue Date = questo mese
-4. **Revenue Annuale** (Table) — filtro: Status = Paid, raggruppata per mese con Issue Date
-5. **By Client** (Table) — raggruppata per Client
+        <!-- Col: Churned -->
+        <div style="width: 240px; min-width: 240px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 13px;">🔴</span>
+              <span style="font-size: 13px; font-weight: 600; color: #37352f;">Churned</span>
+              <span style="background: #f1f0ef; color: #6b6b6b; font-size: 11px; padding: 1px 6px; border-radius: 99px; font-weight: 500;">2</span>
+            </div>
+            <button style="background: none; border: none; color: #9b9a97; font-size: 16px; cursor: pointer; line-height: 1;">+</button>
+          </div>
 
----
+          <!-- Card 14 -->
+          <div style="background: #fff; border: 1px solid #e8e8e5; border-radius: 8px; padding: 12px; margin-bottom: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.04); opacity: 0.65;">
+            <div style="font-size: 13px; font-weight: 600; color: #37352f; margin-bottom: 4px;">RetailMax Spa</div>
+            <div style="font-size: 12px; color: #9b9a97; margin-bottom: 8px;">Giorgio Esposito</div>
+            <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
+              <span style="background: #fef9c3; color: #92400e; font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 99px;">LinkedIn</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 12px; color: #37352f; font-weight: 500;">€2.400</span>
+              <span style="font-size: 11px; color: #9b9a97;">—</span>
+            </div>
+          </div>
 
-## DATABASE 5: SERVICES (Pacchetti)
+          <!-- Card 15 -->
+          <div style="background: #fff; border: 1px solid #e8e8e5; border-radius: 8px; padding: 12px; margin-bottom: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.04); opacity: 0.65;">
+            <div style="font-size: 13px; font-weight: 600; color: #37352f; margin-bottom: 4px;">StartupHub Torino</div>
+            <div style="font-size: 12px; color: #9b9a97; margin-bottom: 8px;">Marta Vitale</div>
+            <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
+              <span style="background: #f3e8ff; color: #7c3aed; font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 99px;">Evento</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 12px; color: #37352f; font-weight: 500;">€1.800</span>
+              <span style="font-size: 11px; color: #9b9a97;">—</span>
+            </div>
+          </div>
+        </div>
 
-Icona: 📦
+      </div>
+    </div>
 
-### Proprietà
-- **Name** (Title) — nome del pacchetto
-- **Description** (Text) — cosa include
-- **Price** (Number) — prezzo standard in €
-- **Type** (Select) — One-time / Retainer / Hourly / Custom
-- **Delivery Time** (Text) — es. "5 giorni lavorativi"
-- **Active** (Checkbox) — è attualmente offerto?
+    <!-- Divider -->
+    <div style="padding: 0 32px; margin-bottom: 8px;">
+      <div style="border-top: 1px solid #e8e8e5;"></div>
+    </div>
 
----
+    <!-- Invoices Section -->
+    <div style="padding: 0 32px 40px;">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+        <div>
+          <h2 style="font-size: 18px; font-weight: 700; color: #37352f; margin: 0 0 2px 0;">🧾 Invoices</h2>
+          <p style="font-size: 12px; color: #9b9a97; margin: 0;">Gestione fatture e pagamenti</p>
+        </div>
+        <button style="padding: 6px 12px; background: #fff; border: 1px solid #e8e8e5; border-radius: 6px; font-size: 13px; cursor: pointer; color: #37352f;">+ Nuova Fattura</button>
+      </div>
+      <div style="border: 1px solid #e8e8e5; border-radius: 8px; overflow: hidden;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+          <thead>
+            <tr style="background: #f7f6f3; border-bottom: 1px solid #e8e8e5;">
+              <th style="text-align: left; padding: 10px 16px; font-weight: 600; color: #6b6b6b; font-size: 12px;">#</th>
+              <th style="text-align: left; padding: 10px 16px; font-weight: 600; color: #6b6b6b; font-size: 12px;">Cliente</th>
+              <th style="text-align: right; padding: 10px 16px; font-weight: 600; color: #6b6b6b; font-size: 12px;">Importo (€)</th>
+              <th style="text-align: right; padding: 10px 16px; font-weight: 600; color: #6b6b6b; font-size: 12px;">IVA</th>
+              <th style="text-align: left; padding: 10px 16px; font-weight: 600; color: #6b6b6b; font-size: 12px;">Stato</th>
+              <th style="text-align: left; padding: 10px 16px; font-weight: 600; color: #6b6b6b; font-size: 12px;">Scadenza</th>
+              <th style="text-align: right; padding: 10px 16px; font-weight: 600; color: #6b6b6b; font-size: 12px;">GG Scaduta</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid #f0eeec;">
+              <td style="padding: 11px 16px; color: #9b9a97; font-family: monospace; font-size: 12px;">FT-2024-031</td>
+              <td style="padding: 11px 16px; font-weight: 500; color: #37352f;">Nexo Tech Srl</td>
+              <td style="padding: 11px 16px; text-align: right; font-weight: 600; color: #37352f;">2.800,00</td>
+              <td style="padding: 11px 16px; text-align: right; color: #9b9a97;">22%</td>
+              <td style="padding: 11px 16px;">
+                <span style="background: #dcfce7; color: #166534; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 99px;">Pagata</span>
+              </td>
+              <td style="padding: 11px 16px; color: #9b9a97;">15 mar 2024</td>
+              <td style="padding: 11px 16px; text-align: right; color: #9b9a97;">—</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #f0eeec;">
+              <td style="padding: 11px 16px; color: #9b9a97; font-family: monospace; font-size: 12px;">FT-2024-032</td>
+              <td style="padding: 11px 16px; font-weight: 500; color: #37352f;">Medianova Studio</td>
+              <td style="padding: 11px 16px; text-align: right; font-weight: 600; color: #37352f;">1.500,00</td>
+              <td style="padding: 11px 16px; text-align: right; color: #9b9a97;">22%</td>
+              <td style="padding: 11px 16px;">
+                <span style="background: #dcfce7; color: #166534; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 99px;">Pagata</span>
+              </td>
+              <td style="padding: 11px 16px; color: #9b9a97;">20 mar 2024</td>
+              <td style="padding: 11px 16px; text-align: right; color: #9b9a97;">—</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #f0eeec;">
+              <td style="padding: 11px 16px; color: #9b9a97; font-family: monospace; font-size: 12px;">FT-2024-033</td>
+              <td style="padding: 11px 16px; font-weight: 500; color: #37352f;">VivaFarm Bio</td>
+              <td style="padding: 11px 16px; text-align: right; font-weight: 600; color: #37352f;">900,00</td>
+              <td style="padding: 11px 16px; text-align: right; color: #9b9a97;">22%</td>
+              <td style="padding: 11px 16px;">
+                <span style="background: #dbeafe; color: #1e40af; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 99px;">Inviata</span>
+              </td>
+              <td style="padding: 11px 16px; color: #9b9a97;">30 mar 2024</td>
+              <td style="padding: 11px 16px; text-align: right; color: #9b9a97;">—</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #f0eeec; background: #fffbeb;">
+              <td style="padding: 11px 16px; color: #9b9a97; font-family: monospace; font-size: 12px;">FT-2024-030</td>
+              <td style="padding: 11px 16px; font-weight: 500; color: #37352f;">TurboLogistica SpA</td>
+              <td style="padding: 11px 16px; text-align: right; font-weight: 600; color: #37352f;">3.200,00</td>
+              <td style="padding: 11px 16px; text-align: right; color: #9b9a97;">22%</td>
+              <td style="padding: 11px 16px;">
+                <span style="background: #fef3c7; color: #92400e; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 99px;">Scaduta</span>
+              </td>
+              <td style="padding: 11px 16px; color: #b45309;">05 mar 2024</td>
+              <td style="padding: 11px 16px; text-align: right; color: #dc2626; font-weight: 600;">+17</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #f0eeec; background: #fff5f5;">
+              <td style="padding: 11px 16px; color: #9b9a97; font-family: monospace; font-size: 12px;">FT-2024-028</td>
+              <td style="padding: 11px 16px; font-weight: 500; color: #37352f;">Gruppo Moda Milano</td>
+              <td style="padding: 11px 16px; text-align: right; font-weight: 600; color: #37352f;">1.750,00</td>
+              <td style="padding: 11px 16px; text-align: right; color: #9b9a97;">22%</td>
+              <td style="padding: 11px 16px;">
+                <span style="background: #fee2e2; color: #991b1b; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 99px;">Scaduta</span>
+              </td>
+              <td style="padding: 11px 16px; color: #dc2626;">25 feb 2024</td>
+              <td style="padding: 11px 16px; text-align: right; color: #dc2626; font-weight: 600;">+25</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #f0eeec;">
+              <td style="padding: 11px 16px; color: #9b9a97; font-family: monospace; font-size: 12px;">FT-2024-034</td>
+              <td style="padding: 11px 16px; font-weight: 500; color: #37352f;">EduKids Platform</td>
+              <td style="padding: 11px 16px; text-align: right; font-weight: 600; color: #37352f;">1.500,00</td>
+              <td style="padding: 11px 16px; text-align: right; color: #9b9a97;">22%</td>
+              <td style="padding: 11px 16px;">
+                <span style="background: #f3f4f6; color: #6b7280; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 99px;">Bozza</span>
+              </td>
+              <td style="padding: 11px 16px; color: #9b9a97;">10 apr 2024</td>
+              <td style="padding: 11px 16px; text-align: right; color: #9b9a97;">—</td>
+            </tr>
+            <tr>
+              <td style="padding: 11px 16px; color: #9b9a97; font-family: monospace; font-size: 12px;">FT-2024-035</td>
+              <td style="padding: 11px 16px; font-weight: 500; color: #37352f;">WellnessFirst Srl</td>
+              <td style="padding: 11px 16px; text-align: right; font-weight: 600; color: #37352f;">2.250,00</td>
+              <td style="padding: 11px 16px; text-align: right; color: #9b9a97;">22%</td>
+              <td style="padding: 11px 16px;">
+                <span style="background: #f3f4f6; color: #6b7280; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 99px;">Bozza</span>
+              </td>
+              <td style="padding: 11px 16px; color: #9b9a97;">15 apr 2024</td>
+              <td style="padding: 11px 16px; text-align: right; color: #9b9a97;">—</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr style="background: #f7f6f3; border-top: 2px solid #e8e8e5;">
+              <td colspan="2" style="padding: 10px 16px; font-weight: 600; color: #37352f; font-size: 12px;">Totale (7 fatture)</td>
+              <td style="padding: 10px 16px; text-align: right; font-weight: 700; color: #37352f;">13.900,00</td>
+              <td colspan="4"></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
 
-## DATABASE 6: LEADS (Opportunità)
-
-Icona: 🎯
-
-### Proprietà
-- **Lead** (Title) — nome opportunità
-- **Company** (Text)
-- **Contact** (Email)
-- **Source** (Select) — Referral / LinkedIn / Cold DM / Evento / Sito Web
-- **Estimated Value** (Number) — valore stimato in €
-- **Status** (Select) — New / Contacted / Proposal Sent / Negotiating / Won / Lost
-- **Follow-up Date** (Date)
-- **Notes** (Text)
-- **Conversion** (Formula): \`if(prop("Status") == "Won", "✅ Convertito", if(prop("Status") == "Lost", "❌ Perso", "🔄 In corso"))\`
-
----
-
-## DASHBOARD REVENUE — HOME
-
-Crea una pagina "💼 Business Dashboard" con:
-
-**Callout superiore (aggiornato manualmente ogni mese):**
-Fatturato MTD: €___ | Obiettivo mese: €___ | Da incassare: €___ | Pipeline: €___
-
-**Sezione 1 — Fatture da incassare**
-Linked view: Invoices, filtro Status = Sent o Overdue
-
-**Sezione 2 — Follow-up urgenti**
-Linked view: Clients, filtro Next Follow-up ≤ +3 giorni
-
-**Sezione 3 — Progetti attivi**
-Linked view: Projects, filtro Status = Active, layout Board
-
-**Sezione 4 — Lead pipeline**
-Linked view: Leads, layout Board per Status
-
----
-
-## FORMULE CHIAVE
-
-### Lead Score (Clients):
-\`\`\`
-if(prop("Source") == "Referral", 3, if(prop("Source") == "LinkedIn", 2, 1)) + if(prop("Company Size") == "Large (50+)", 3, if(prop("Company Size") == "Medium (11-50)", 2, 1))
-\`\`\`
-
-### Days Since Contact (Clients):
-\`\`\`
-if(empty(prop("Last Contact")), "Mai contattato", toText(dateBetween(now(), prop("Last Contact"), "days")) + " giorni fa")
-\`\`\`
-
-### Total with VAT (Invoices):
-\`\`\`
-prop("Amount") * (1 + prop("VAT %") / 100)
-\`\`\`
-
----
-
-## WORKFLOW MENSILE CONSIGLIATO
-
-**Ogni lunedì mattina (15 min):**
-1. Apri "Follow-up Urgenti" — contatta tutti i lead con Next Follow-up scaduto
-2. Apri "Da Incassare" in Invoices — sollecita fatture non pagate
-3. Controlla "Clienti Trascurati" — manda un check-in ai clienti attivi non contattati da +30 giorni
-
-**Fine mese (30 min):**
-1. Emetti tutte le fatture Draft per i progetti del mese
-2. Aggiorna Total Revenue per ogni cliente
-3. Rivedi la pipeline Lead: archivia i persi, avanza i promettenti
-4. Calcola il fatturato del mese e aggiorna l'obiettivo mensile
-
----
-
-## QUICK START (20 minuti)
-
-1. Duplica il workspace nel tuo Notion
-2. Crea i tuoi pacchetti servizi nel database Services
-3. Aggiungi i tuoi 3-5 clienti attivi nel database Clients con Status = Active
-4. Crea le fatture aperte corrispondenti con Status = Sent
-5. Inizia a loggare le ore nel Time Log collegandole ai Projects
-6. Imposta un blocco di 15 minuti ogni lunedì per il CRM review
-
----
-
-## PRO TIPS
-
-- **Email template di follow-up**: crea una sezione nella pagina cliente con i tuoi template email di follow-up e proposta — copia e incolla in 10 secondi
-- **Formula Days Since Contact**: usa questa formula per non dimenticare mai un cliente attivo (regola: nessun cliente Active senza contatto da +30 giorni)
-- **Pipeline view come termometro**: la Board view dei Leads ti dice immediatamente dove sei nel mese rispetto agli obiettivi di fatturato
-- **Fattura con un click**: crea un Template Button nel database Invoices che pre-popola Issue Date = oggi, VAT = 22%, Status = Draft
-- **Automazione Notion**: con il piano Plus, crea un'automazione che aggiunge un tag "Follow-up Needed" al Client quando una fattura passa allo Status "Overdue"`,
+  </main>
+</div>`,
   },
   {
     id: "notion-content-calendar",
     name: "Notion Content Calendar",
-    category: "prompt",
+    category: "ui",
     price: 999,
     stripePriceId: "price_1TCIgCBoWNgrJbiyLKZj4e5L",
     downloadType: "notion",
@@ -3434,227 +4035,513 @@ prop("Amount") * (1 + prop("VAT %") / 100)
     description: "Plan, schedule and track content across all channels with status tracking.",
     isNew: true,
     editorsPick: true,
-    content: `# Notion Content Calendar
+    content: `<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        fontFamily: { inter: ['Inter', 'sans-serif'] },
+        colors: {
+          notion: {
+            bg: '#191919',
+            sidebar: '#202020',
+            hover: '#2d2d2d',
+            border: '#2f2f2f',
+            text: '#e3e3e3',
+            muted: '#9b9b9b',
+            accent: '#5865f2',
+          }
+        }
+      }
+    }
+  }
+</script>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #191919; color: #e3e3e3; margin: 0; }
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #3d3d3d; border-radius: 3px; }
+  .notion-icon { font-size: 14px; width: 18px; display: inline-block; text-align: center; }
+  .cal-cell { min-height: 100px; }
+  .card-chip { font-size: 10px; line-height: 1.2; padding: 3px 6px; border-radius: 4px; font-weight: 500; }
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+  .tab-active { background: #2d2d2d; color: #e3e3e3; }
+  .sidebar-item { display: flex; align-items: center; gap: 8px; padding: 5px 12px; border-radius: 5px; cursor: pointer; font-size: 13.5px; color: #9b9b9b; transition: background 0.12s; }
+  .sidebar-item:hover, .sidebar-item.active { background: #2d2d2d; color: #e3e3e3; }
+  .sidebar-item.active { color: #e3e3e3; }
+  .badge { font-size: 10px; background: #3d3d3d; color: #9b9b9b; border-radius: 10px; padding: 1px 7px; margin-left: auto; }
+  table { border-collapse: collapse; }
+  th, td { text-align: left; }
+</style>
 
-## Il sistema editoriale professionale in Notion
+<div class="flex h-screen overflow-hidden dark">
 
-Pianifica, produci e analizza i tuoi contenuti su 10 canali diversi da un unico hub. Include un Idea Hub per catturare ispirazioni ovunque, un workflow di produzione strutturato, tracker delle performance e template di scrittura pronti all'uso. Perfetto per creator, social media manager, marketer e team di comunicazione.
+  <!-- Sidebar -->
+  <aside style="width:220px;min-width:220px;background:#202020;border-right:1px solid #2f2f2f;" class="flex flex-col py-4 overflow-y-auto">
 
----
+    <!-- Workspace header -->
+    <div class="px-4 mb-4">
+      <div class="flex items-center gap-2 px-2 py-2 rounded-md hover:bg-[#2d2d2d] cursor-pointer">
+        <div style="width:26px;height:26px;background:linear-gradient(135deg,#7c3aed,#2563eb);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;">✦</div>
+        <div>
+          <div style="font-size:13px;font-weight:600;color:#e3e3e3;">TemplateLab</div>
+          <div style="font-size:10px;color:#6b6b6b;">Content Team</div>
+        </div>
+        <svg style="margin-left:auto;color:#6b6b6b;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+    </div>
 
-## DATABASE 1: CONTENT (Hub principale)
+    <!-- Nav -->
+    <div class="px-2 space-y-0.5">
+      <div style="font-size:11px;color:#5b5b5b;font-weight:600;letter-spacing:.06em;padding:4px 12px 6px;">WORKSPACE</div>
 
-Icona: 📝 | Cover: sfondo gradient viola/rosa
+      <div class="sidebar-item active">
+        <span class="notion-icon">📋</span> Content Hub
+        <span class="badge">29</span>
+      </div>
+      <div class="sidebar-item">
+        <span class="notion-icon">📅</span> Calendar
+      </div>
+      <div class="sidebar-item">
+        <span class="notion-icon">💡</span> Ideas
+        <span class="badge">12</span>
+      </div>
+      <div class="sidebar-item">
+        <span class="notion-icon">📊</span> Analytics
+      </div>
+      <div class="sidebar-item">
+        <span class="notion-icon">🗂️</span> Templates
+      </div>
+      <div class="sidebar-item">
+        <span class="notion-icon">📡</span> Channels
+      </div>
 
-### Proprietà
-- **Title** (Title) — titolo o headline del contenuto
-- **Status** (Status) — 💡 Idea / ✍️ Writing / 👀 In Review / 📅 Scheduled / ✅ Published / 🗃️ Archived
-- **Channel** (Multi-select) — LinkedIn / Instagram / Twitter/X / Blog / Newsletter / YouTube / TikTok / Podcast / Facebook / Pinterest
-- **Format** (Select) — Post Testo / Carosello / Reel / Story / Video Long-form / Thread / Newsletter / Articolo Blog / Podcast Episode / Infografica
-- **Content Pillar** (Select) — Education / Inspiration / Entertainment / Promotion / Behind the Scenes / Case Study / Community (personalizza con i tuoi pillar)
-- **Publish Date** (Date) — data e ora di pubblicazione
-- **Author** (Person)
-- **Hook** (Text) — prima frase/headline: deve fermare lo scroll
-- **Body Copy** (Text) — bozza del testo o link a Google Doc
-- **CTA** (Text) — call to action specifica (es. "Commenta qui sotto", "Link in bio")
-- **Visual Notes** (Text) — istruzioni per grafiche o video
-- **Hashtags** (Text) — set di hashtag per questo contenuto
-- **Goal** (Select) — Brand Awareness / Lead Generation / Engagement / Sales / Traffic / SEO / Community
-- **Target Audience** (Select) — Beginner / Intermediate / Advanced / Decision Maker / General
-- **Repurposed From** (Relation) → Content (auto-reference per tracking del repurposing)
-- **Repurpose Status** (Select) — Original / Repurposed / Can Repurpose / Repurposing In Progress
-- **Engagement** (Number) — like + commenti + condivisioni (aggiorna dopo 48h)
-- **Reach** (Number) — impressioni o visualizzazioni
-- **Clicks** (Number) — click sul link o CTA
-- **Saves** (Number) — salvataggi (ottimo indicatore per Instagram)
-- **Engagement Rate %** (Formula): \`if(prop("Reach") > 0, round(prop("Engagement") / prop("Reach") * 100 * 10) / 10, 0)\`
-- **Performance** (Formula): \`if(prop("Status") != "Published", "", if(prop("Engagement Rate %") > 5, "⭐ Top Performer", if(prop("Engagement Rate %") > 2, "📊 Nella media", "💤 Bassa performance")))\`
+      <div style="font-size:11px;color:#5b5b5b;font-weight:600;letter-spacing:.06em;padding:14px 12px 6px;">CANALI</div>
+      <div class="sidebar-item">
+        <span class="notion-icon">📸</span> Instagram
+      </div>
+      <div class="sidebar-item">
+        <span class="notion-icon">🐦</span> Twitter / X
+      </div>
+      <div class="sidebar-item">
+        <span class="notion-icon">📹</span> YouTube
+      </div>
+      <div class="sidebar-item">
+        <span class="notion-icon">📝</span> Blog
+      </div>
+      <div class="sidebar-item">
+        <span class="notion-icon">💼</span> LinkedIn
+      </div>
+    </div>
 
-### Views da creare
-1. **Calendario Editoriale** (Calendar) — per Publish Date, colori per Channel o Content Pillar
-2. **Pipeline di Produzione** (Board) — raggruppata per Status, card: Channel + Author + Publish Date
-3. **Idea Hub** (Gallery) — filtro: Status = Idea, ordinata per Created time decrescente, card con Hook
-4. **Questa Settimana** (Table) — filtro: Publish Date = questa settimana, raggruppata per giorno
-5. **Per Canale** (Table) — raggruppata per Channel, filtro: Status = Published o Scheduled
-6. **Analytics** (Table) — filtro: Status = Published, ordinata per Engagement Rate % decrescente
-7. **Da Riutilizzare** (Table) — filtro: Performance = Top Performer AND Repurpose Status = Can Repurpose
-8. **Backlog** (Table) — filtro: Status = Idea, ordinata per Content Pillar
+    <!-- Bottom -->
+    <div class="mt-auto px-2 pt-4 border-t border-[#2f2f2f]">
+      <div class="sidebar-item">
+        <span class="notion-icon">⚙️</span> Impostazioni
+      </div>
+      <div class="flex items-center gap-2 px-3 pt-3">
+        <div style="width:26px;height:26px;background:#374151;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#9ca3af;">MC</div>
+        <div>
+          <div style="font-size:12px;color:#e3e3e3;font-weight:500;">Marco C.</div>
+          <div style="font-size:10px;color:#6b6b6b;">Editor</div>
+        </div>
+      </div>
+    </div>
+  </aside>
 
----
+  <!-- Main -->
+  <main class="flex-1 flex flex-col overflow-hidden" style="background:#191919;">
 
-## DATABASE 2: CONTENT PILLARS
+    <!-- Top toolbar -->
+    <header style="border-bottom:1px solid #2f2f2f;padding:12px 24px;display:flex;align-items:center;gap:12px;flex-shrink:0;">
+      <div>
+        <div style="font-size:11px;color:#6b6b6b;margin-bottom:2px;">Content Hub /</div>
+        <div style="font-size:18px;font-weight:700;color:#e3e3e3;display:flex;align-items:center;gap:8px;">📋 Content Calendar</div>
+      </div>
 
-Icona: 🏛️
+      <!-- View tabs -->
+      <div style="margin-left:auto;display:flex;align-items:center;gap:4px;background:#242424;border:1px solid #2f2f2f;border-radius:7px;padding:3px;">
+        <button class="tab-active" style="font-size:12px;font-weight:500;padding:4px 12px;border-radius:5px;border:none;cursor:pointer;">📅 Calendar</button>
+        <button style="font-size:12px;color:#6b6b6b;padding:4px 12px;border-radius:5px;border:none;background:transparent;cursor:pointer;">🗃️ Board</button>
+        <button style="font-size:12px;color:#6b6b6b;padding:4px 12px;border-radius:5px;border:none;background:transparent;cursor:pointer;">☰ Table</button>
+        <button style="font-size:12px;color:#6b6b6b;padding:4px 12px;border-radius:5px;border:none;background:transparent;cursor:pointer;">🖼️ Gallery</button>
+      </div>
 
-### Proprietà
-- **Pillar** (Title) — nome del pillar editoriale
-- **Description** (Text) — di cosa tratta e perché è importante per il tuo brand
-- **Target Audience** (Text) — a chi si rivolge principalmente
-- **Goal** (Select) — Awareness / Trust / Conversion / Retention
-- **Color** (Select) — associa un colore per la visual identity
-- **Posts This Month** (Rollup) — count da Content dove Content Pillar = questo AND Publish Date = questo mese
-- **Avg Engagement** (Rollup) — media Engagement Rate % da Content pubblicato con questo pillar
+      <button style="font-size:12px;background:#5865f2;color:#fff;border:none;padding:6px 14px;border-radius:6px;cursor:pointer;font-weight:500;">+ Nuovo contenuto</button>
+    </header>
 
-### Pillar consigliati (personalizza con i tuoi)
-- Education: insegna qualcosa di utile al tuo pubblico
-- Inspiration: storie, trasformazioni, motivazione
-- Entertainment: contenuto leggero, umorismo, tendenze
-- Promotion: offerte, prodotti, servizi (max 20% del totale)
-- Behind the Scenes: il tuo processo, la tua vita, il team
+    <!-- Stats bar -->
+    <div style="background:#1f1f1f;border-bottom:1px solid #2f2f2f;padding:8px 24px;display:flex;align-items:center;gap:24px;flex-shrink:0;">
+      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#9b9b9b;">
+        <span class="status-dot" style="background:#4ade80;"></span>
+        <span style="color:#e3e3e3;font-weight:600;">Pubblicati:</span> 18
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#9b9b9b;">
+        <span class="status-dot" style="background:#facc15;"></span>
+        <span style="color:#e3e3e3;font-weight:600;">Schedulati:</span> 7
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#9b9b9b;">
+        <span class="status-dot" style="background:#60a5fa;"></span>
+        <span style="color:#e3e3e3;font-weight:600;">Bozze:</span> 4
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#9b9b9b;">
+        <span style="color:#e3e3e3;font-weight:600;">Engagement medio:</span> 4.2%
+      </div>
+      <div style="margin-left:auto;display:flex;align-items:center;gap:8px;">
+        <button style="font-size:11px;color:#9b9b9b;background:#2d2d2d;border:1px solid #3d3d3d;padding:4px 10px;border-radius:5px;cursor:pointer;">⟨ Feb</button>
+        <span style="font-size:13px;font-weight:600;color:#e3e3e3;">Marzo 2026</span>
+        <button style="font-size:11px;color:#9b9b9b;background:#2d2d2d;border:1px solid #3d3d3d;padding:4px 10px;border-radius:5px;cursor:pointer;">Apr ⟩</button>
+      </div>
+    </div>
 
----
+    <!-- Scrollable content -->
+    <div class="flex-1 overflow-y-auto" style="padding:20px 24px;">
 
-## DATABASE 3: ANALYTICS MENSILI
+      <!-- Calendar Grid -->
+      <div style="background:#1e1e1e;border:1px solid #2f2f2f;border-radius:10px;overflow:hidden;margin-bottom:28px;">
 
-Icona: 📊
+        <!-- Day headers -->
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);border-bottom:1px solid #2f2f2f;">
+          <div style="padding:8px 12px;font-size:11px;font-weight:600;color:#6b6b6b;letter-spacing:.05em;">LUN</div>
+          <div style="padding:8px 12px;font-size:11px;font-weight:600;color:#6b6b6b;letter-spacing:.05em;">MAR</div>
+          <div style="padding:8px 12px;font-size:11px;font-weight:600;color:#6b6b6b;letter-spacing:.05em;">MER</div>
+          <div style="padding:8px 12px;font-size:11px;font-weight:600;color:#6b6b6b;letter-spacing:.05em;">GIO</div>
+          <div style="padding:8px 12px;font-size:11px;font-weight:600;color:#6b6b6b;letter-spacing:.05em;">VEN</div>
+          <div style="padding:8px 12px;font-size:11px;font-weight:600;color:#5b5b5b;letter-spacing:.05em;">SAB</div>
+          <div style="padding:8px 12px;font-size:11px;font-weight:600;color:#5b5b5b;letter-spacing:.05em;">DOM</div>
+        </div>
 
-### Proprietà
-- **Month** (Title) — es. "Marzo 2026"
-- **Channel** (Select) — un record per ogni canale per mese
-- **Followers Start** (Number)
-- **Followers End** (Number)
-- **Follower Growth** (Formula): \`prop("Followers End") - prop("Followers Start")\`
-- **Growth %** (Formula): \`if(prop("Followers Start") > 0, round(prop("Follower Growth") / prop("Followers Start") * 100 * 10) / 10, 0)\`
-- **Posts Published** (Number)
-- **Total Reach** (Number)
-- **Total Engagement** (Number)
-- **Top Post** (Relation) → Content
-- **Notes** (Text)
+        <!-- Week 1: Mar starts Sunday → offset 6 from Mon -->
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);border-bottom:1px solid #2f2f2f;">
+          <!-- Mon 23 Feb (prev month) -->
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;background:#1a1a1a;">
+            <div style="font-size:11px;color:#3d3d3d;margin-bottom:4px;">23</div>
+          </div>
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;background:#1a1a1a;">
+            <div style="font-size:11px;color:#3d3d3d;margin-bottom:4px;">24</div>
+          </div>
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;background:#1a1a1a;">
+            <div style="font-size:11px;color:#3d3d3d;margin-bottom:4px;">25</div>
+          </div>
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;background:#1a1a1a;">
+            <div style="font-size:11px;color:#3d3d3d;margin-bottom:4px;">26</div>
+          </div>
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;background:#1a1a1a;">
+            <div style="font-size:11px;color:#3d3d3d;margin-bottom:4px;">27</div>
+          </div>
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;background:#1a1a1a;">
+            <div style="font-size:11px;color:#3d3d3d;margin-bottom:4px;">28</div>
+          </div>
+          <!-- Sun 1 Mar -->
+          <div class="cal-cell" style="padding:8px;">
+            <div style="font-size:11px;color:#9b9b9b;margin-bottom:4px;">1</div>
+            <div class="card-chip" style="background:#1e3a2f;color:#4ade80;margin-bottom:3px;">📝 Blog · <span style="font-size:9px;">✅</span></div>
+          </div>
+        </div>
 
----
+        <!-- Week 2: 2–8 -->
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);border-bottom:1px solid #2f2f2f;">
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;">
+            <div style="font-size:11px;color:#9b9b9b;margin-bottom:4px;">2</div>
+            <div class="card-chip" style="background:#1e2a4a;color:#60a5fa;margin-bottom:3px;">📸 IG Reel</div>
+            <div class="card-chip" style="background:#1e3a2f;color:#4ade80;margin-bottom:3px;">💼 LinkedIn</div>
+          </div>
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;">
+            <div style="font-size:11px;color:#9b9b9b;margin-bottom:4px;">3</div>
+          </div>
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;">
+            <div style="font-size:11px;color:#9b9b9b;margin-bottom:4px;">4</div>
+            <div class="card-chip" style="background:#2a2010;color:#facc15;margin-bottom:3px;">🐦 Thread</div>
+          </div>
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;">
+            <div style="font-size:11px;color:#9b9b9b;margin-bottom:4px;">5</div>
+            <div class="card-chip" style="background:#2a1a10;color:#fb923c;margin-bottom:3px;">📹 YouTube</div>
+          </div>
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;">
+            <div style="font-size:11px;color:#9b9b9b;margin-bottom:4px;">6</div>
+            <div class="card-chip" style="background:#1e3a2f;color:#4ade80;margin-bottom:3px;">📸 Carousel</div>
+          </div>
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;background:#1c1c1c;">
+            <div style="font-size:11px;color:#6b6b6b;margin-bottom:4px;">7</div>
+          </div>
+          <div class="cal-cell" style="padding:8px;background:#1c1c1c;">
+            <div style="font-size:11px;color:#6b6b6b;margin-bottom:4px;">8</div>
+          </div>
+        </div>
 
-## WORKFLOW DI PRODUZIONE SETTIMANALE
+        <!-- Week 3: 9–15 -->
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);border-bottom:1px solid #2f2f2f;">
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;">
+            <div style="font-size:11px;color:#9b9b9b;margin-bottom:4px;">9</div>
+            <div class="card-chip" style="background:#1e2a4a;color:#60a5fa;margin-bottom:3px;">📝 Blog Post</div>
+          </div>
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;">
+            <div style="font-size:11px;color:#9b9b9b;margin-bottom:4px;">10</div>
+            <div class="card-chip" style="background:#1e3a2f;color:#4ade80;margin-bottom:3px;">💼 Case Study</div>
+          </div>
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;">
+            <div style="font-size:11px;color:#9b9b9b;margin-bottom:4px;">11</div>
+            <div class="card-chip" style="background:#1e3a2f;color:#4ade80;margin-bottom:3px;">📸 Story</div>
+            <div class="card-chip" style="background:#2a2010;color:#facc15;margin-bottom:3px;">🐦 Tweet</div>
+          </div>
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;">
+            <div style="font-size:11px;color:#9b9b9b;margin-bottom:4px;">12</div>
+          </div>
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;">
+            <div style="font-size:11px;color:#9b9b9b;margin-bottom:4px;">13</div>
+            <div class="card-chip" style="background:#2a1a10;color:#fb923c;margin-bottom:3px;">📹 Tutorial</div>
+          </div>
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;background:#1c1c1c;">
+            <div style="font-size:11px;color:#6b6b6b;margin-bottom:4px;">14</div>
+          </div>
+          <div class="cal-cell" style="padding:8px;background:#1c1c1c;">
+            <div style="font-size:11px;color:#6b6b6b;margin-bottom:4px;">15</div>
+          </div>
+        </div>
 
-### Lunedì — Content Planning (30 min)
-- Apri "Idea Hub" e seleziona 5-7 contenuti da produrre questa settimana
-- Aggiorna il loro Status da "Idea" a "Writing"
-- Assegna le Publish Date basandoti sul calendario editoriale
-- Verifica che ogni pillar sia coperto almeno una volta
+        <!-- Week 4: 16–22 (today = 22) -->
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);border-bottom:1px solid #2f2f2f;">
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;">
+            <div style="font-size:11px;color:#9b9b9b;margin-bottom:4px;">16</div>
+            <div class="card-chip" style="background:#1e2a4a;color:#60a5fa;margin-bottom:3px;">📝 Newsletter</div>
+          </div>
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;">
+            <div style="font-size:11px;color:#9b9b9b;margin-bottom:4px;">17</div>
+            <div class="card-chip" style="background:#1e3a2f;color:#4ade80;margin-bottom:3px;">📸 Reel</div>
+          </div>
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;">
+            <div style="font-size:11px;color:#9b9b9b;margin-bottom:4px;">18</div>
+            <div class="card-chip" style="background:#1e3a2f;color:#4ade80;margin-bottom:3px;">💼 Post</div>
+          </div>
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;">
+            <div style="font-size:11px;color:#9b9b9b;margin-bottom:4px;">19</div>
+            <div class="card-chip" style="background:#2a2010;color:#facc15;margin-bottom:3px;">🐦 Thread</div>
+          </div>
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;">
+            <div style="font-size:11px;color:#9b9b9b;margin-bottom:4px;">20</div>
+            <div class="card-chip" style="background:#1e2a4a;color:#60a5fa;margin-bottom:3px;">📝 Blog</div>
+          </div>
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;background:#1c1c1c;">
+            <div style="font-size:11px;color:#6b6b6b;margin-bottom:4px;">21</div>
+          </div>
+          <!-- Today -->
+          <div class="cal-cell" style="padding:8px;border:2px solid #5865f2;border-radius:0;position:relative;">
+            <div style="font-size:11px;font-weight:700;color:#818cf8;margin-bottom:4px;">22 ●</div>
+            <div class="card-chip" style="background:#2d1f4d;color:#a78bfa;margin-bottom:3px;">📸 Workshop BTS</div>
+          </div>
+        </div>
 
-### Martedì-Giovedì — Creazione
-- Scrivi l'Hook per primo (è la cosa più importante)
-- Compila il campo Body Copy o crea una sub-page con il testo completo
-- Aggiungi visual notes per il designer o crea tu la grafica
-- Cambia Status a "In Review" quando il testo è pronto
+        <!-- Week 5: 23–29 -->
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);border-bottom:1px solid #2f2f2f;">
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;">
+            <div style="font-size:11px;color:#9b9b9b;margin-bottom:4px;">23</div>
+            <div class="card-chip" style="background:#2a1a10;color:#fb923c;margin-bottom:3px;">📹 YouTube</div>
+          </div>
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;">
+            <div style="font-size:11px;color:#9b9b9b;margin-bottom:4px;">24</div>
+            <div class="card-chip" style="background:#2a2010;color:#facc15;margin-bottom:3px;">💼 Articolo</div>
+          </div>
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;">
+            <div style="font-size:11px;color:#9b9b9b;margin-bottom:4px;">25</div>
+            <div class="card-chip" style="background:#1e2a4a;color:#60a5fa;margin-bottom:3px;">📸 Carosello</div>
+          </div>
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;">
+            <div style="font-size:11px;color:#9b9b9b;margin-bottom:4px;">26</div>
+            <div class="card-chip" style="background:#2a1a10;color:#fb923c;margin-bottom:3px;">📝 Guide</div>
+          </div>
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;">
+            <div style="font-size:11px;color:#9b9b9b;margin-bottom:4px;">27</div>
+            <div class="card-chip" style="background:#2a2010;color:#facc15;margin-bottom:3px;">🐦 Tweet</div>
+            <div class="card-chip" style="background:#1e3a2f;color:#4ade80;margin-bottom:3px;">📸 Story</div>
+          </div>
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;background:#1c1c1c;">
+            <div style="font-size:11px;color:#6b6b6b;margin-bottom:4px;">28</div>
+          </div>
+          <div class="cal-cell" style="padding:8px;background:#1c1c1c;">
+            <div style="font-size:11px;color:#6b6b6b;margin-bottom:4px;">29</div>
+          </div>
+        </div>
 
-### Venerdì — Review & Scheduling (1 ora)
-- Revisa tutti i contenuti in "In Review"
-- Approva e carica su Buffer / Later / Hootsuite / Publer
-- Aggiorna Status a "Scheduled" e verifica la Publish Date
-- Prepara i contenuti del weekend se necessario
+        <!-- Week 6: 30–31 + April filler -->
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);">
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;">
+            <div style="font-size:11px;color:#9b9b9b;margin-bottom:4px;">30</div>
+            <div class="card-chip" style="background:#2a2010;color:#facc15;margin-bottom:3px;">📹 Recap Mese</div>
+          </div>
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;">
+            <div style="font-size:11px;color:#9b9b9b;margin-bottom:4px;">31</div>
+            <div class="card-chip" style="background:#1e2a4a;color:#60a5fa;margin-bottom:3px;">📝 Newsletter</div>
+          </div>
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;background:#1a1a1a;">
+            <div style="font-size:11px;color:#3d3d3d;margin-bottom:4px;">1</div>
+          </div>
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;background:#1a1a1a;">
+            <div style="font-size:11px;color:#3d3d3d;margin-bottom:4px;">2</div>
+          </div>
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;background:#1a1a1a;">
+            <div style="font-size:11px;color:#3d3d3d;margin-bottom:4px;">3</div>
+          </div>
+          <div class="cal-cell" style="border-right:1px solid #2f2f2f;padding:8px;background:#1a1a1a;">
+            <div style="font-size:11px;color:#3d3d3d;margin-bottom:4px;">4</div>
+          </div>
+          <div class="cal-cell" style="padding:8px;background:#1a1a1a;">
+            <div style="font-size:11px;color:#3d3d3d;margin-bottom:4px;">5</div>
+          </div>
+        </div>
 
-### Domenica / Lunedì — Analytics (20 min)
-- Aggiorna Engagement, Reach, Clicks dei post pubblicati mercoledì-venerdì
-- Identifica i Top Performers
-- Aggiungi i contenuti top alla view "Da Riutilizzare"
-- Cattura nuove idee ispirate dai post con più engagement
+      </div><!-- /calendar -->
 
----
+      <!-- This Week Table -->
+      <div style="background:#1e1e1e;border:1px solid #2f2f2f;border-radius:10px;overflow:hidden;">
 
-## FORMULE CHIAVE
+        <div style="padding:14px 20px;border-bottom:1px solid #2f2f2f;display:flex;align-items:center;justify-content:space-between;">
+          <div style="font-size:14px;font-weight:600;color:#e3e3e3;">☰ Questa Settimana <span style="font-size:12px;font-weight:400;color:#6b6b6b;margin-left:6px;">16 – 22 marzo</span></div>
+          <button style="font-size:11px;color:#9b9b9b;background:#2d2d2d;border:1px solid #3d3d3d;padding:4px 10px;border-radius:5px;cursor:pointer;">+ Aggiungi riga</button>
+        </div>
 
-### Engagement Rate % (Content):
-\`\`\`
-if(prop("Reach") > 0, round(prop("Engagement") / prop("Reach") * 100 * 10) / 10, 0)
-\`\`\`
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;">
+            <thead>
+              <tr style="background:#1a1a1a;">
+                <th style="padding:8px 16px;font-size:11px;font-weight:600;color:#6b6b6b;letter-spacing:.05em;border-bottom:1px solid #2f2f2f;white-space:nowrap;">TITOLO</th>
+                <th style="padding:8px 12px;font-size:11px;font-weight:600;color:#6b6b6b;letter-spacing:.05em;border-bottom:1px solid #2f2f2f;white-space:nowrap;">CANALE</th>
+                <th style="padding:8px 12px;font-size:11px;font-weight:600;color:#6b6b6b;letter-spacing:.05em;border-bottom:1px solid #2f2f2f;white-space:nowrap;">TIPO</th>
+                <th style="padding:8px 12px;font-size:11px;font-weight:600;color:#6b6b6b;letter-spacing:.05em;border-bottom:1px solid #2f2f2f;white-space:nowrap;">STATO</th>
+                <th style="padding:8px 12px;font-size:11px;font-weight:600;color:#6b6b6b;letter-spacing:.05em;border-bottom:1px solid #2f2f2f;white-space:nowrap;">PUBBL.</th>
+                <th style="padding:8px 12px;font-size:11px;font-weight:600;color:#6b6b6b;letter-spacing:.05em;border-bottom:1px solid #2f2f2f;white-space:nowrap;">ENGAGEMENT</th>
+              </tr>
+            </thead>
+            <tbody>
 
-### Performance Label (Content):
-\`\`\`
-if(prop("Status") != "Published", "", if(prop("Engagement Rate %") > 5, "⭐ Top Performer", if(prop("Engagement Rate %") > 2, "📊 Nella media", "💤 Bassa performance")))
-\`\`\`
+              <!-- Row 1 -->
+              <tr style="border-bottom:1px solid #242424;" onmouseover="this.style.background='#242424'" onmouseout="this.style.background='transparent'">
+                <td style="padding:10px 16px;font-size:13px;color:#e3e3e3;white-space:nowrap;">5 Errori da Evitare nel Web Design</td>
+                <td style="padding:10px 12px;font-size:12px;color:#9b9b9b;">📝 Blog</td>
+                <td style="padding:10px 12px;"><span style="font-size:11px;background:#2d2d2d;color:#9b9b9b;padding:2px 8px;border-radius:10px;">Articolo</span></td>
+                <td style="padding:10px 12px;"><span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;color:#4ade80;"><span class="status-dot" style="background:#4ade80;"></span>Pubblicato</span></td>
+                <td style="padding:10px 12px;font-size:12px;color:#6b6b6b;">16 mar</td>
+                <td style="padding:10px 12px;font-size:12px;color:#a78bfa;font-weight:500;">6.1%</td>
+              </tr>
 
-### Follower Growth % (Analytics Mensili):
-\`\`\`
-if(prop("Followers Start") > 0, round(prop("Follower Growth") / prop("Followers Start") * 100 * 10) / 10, 0)
-\`\`\`
+              <!-- Row 2 -->
+              <tr style="border-bottom:1px solid #242424;" onmouseover="this.style.background='#242424'" onmouseout="this.style.background='transparent'">
+                <td style="padding:10px 16px;font-size:13px;color:#e3e3e3;white-space:nowrap;">Behind the Scenes: Workshop Milano</td>
+                <td style="padding:10px 12px;font-size:12px;color:#9b9b9b;">📸 Instagram</td>
+                <td style="padding:10px 12px;"><span style="font-size:11px;background:#2d2d2d;color:#9b9b9b;padding:2px 8px;border-radius:10px;">Reel</span></td>
+                <td style="padding:10px 12px;"><span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;color:#4ade80;"><span class="status-dot" style="background:#4ade80;"></span>Pubblicato</span></td>
+                <td style="padding:10px 12px;font-size:12px;color:#6b6b6b;">17 mar</td>
+                <td style="padding:10px 12px;font-size:12px;color:#a78bfa;font-weight:500;">8.4%</td>
+              </tr>
 
----
+              <!-- Row 3 -->
+              <tr style="border-bottom:1px solid #242424;" onmouseover="this.style.background='#242424'" onmouseout="this.style.background='transparent'">
+                <td style="padding:10px 16px;font-size:13px;color:#e3e3e3;white-space:nowrap;">Come Usare l'AI per la Tua Strategia Social</td>
+                <td style="padding:10px 12px;font-size:12px;color:#9b9b9b;">💼 LinkedIn</td>
+                <td style="padding:10px 12px;"><span style="font-size:11px;background:#2d2d2d;color:#9b9b9b;padding:2px 8px;border-radius:10px;">Post</span></td>
+                <td style="padding:10px 12px;"><span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;color:#4ade80;"><span class="status-dot" style="background:#4ade80;"></span>Pubblicato</span></td>
+                <td style="padding:10px 12px;font-size:12px;color:#6b6b6b;">18 mar</td>
+                <td style="padding:10px 12px;font-size:12px;color:#a78bfa;font-weight:500;">5.7%</td>
+              </tr>
 
-## TEMPLATE DI SCRITTURA RAPIDA
+              <!-- Row 4 -->
+              <tr style="border-bottom:1px solid #242424;" onmouseover="this.style.background='#242424'" onmouseout="this.style.background='transparent'">
+                <td style="padding:10px 16px;font-size:13px;color:#e3e3e3;white-space:nowrap;">Trend Design 2026: Quello che Devi Sapere</td>
+                <td style="padding:10px 12px;font-size:12px;color:#9b9b9b;">🐦 Twitter / X</td>
+                <td style="padding:10px 12px;"><span style="font-size:11px;background:#2d2d2d;color:#9b9b9b;padding:2px 8px;border-radius:10px;">Thread</span></td>
+                <td style="padding:10px 12px;"><span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;color:#facc15;"><span class="status-dot" style="background:#facc15;"></span>Schedulato</span></td>
+                <td style="padding:10px 12px;font-size:12px;color:#6b6b6b;">19 mar</td>
+                <td style="padding:10px 12px;font-size:12px;color:#5b5b5b;">—</td>
+              </tr>
 
-### Template Post LinkedIn (incolla come sub-page in ogni record):
-\`\`\`
-HOOK (prima riga — ferma lo scroll):
-[Affermazione controversa o domanda curiosa]
+              <!-- Row 5 -->
+              <tr style="border-bottom:1px solid #242424;" onmouseover="this.style.background='#242424'" onmouseout="this.style.background='transparent'">
+                <td style="padding:10px 16px;font-size:13px;color:#e3e3e3;white-space:nowrap;">Guida Completa a Tailwind CSS 4.0</td>
+                <td style="padding:10px 12px;font-size:12px;color:#9b9b9b;">📝 Blog</td>
+                <td style="padding:10px 12px;"><span style="font-size:11px;background:#2d2d2d;color:#9b9b9b;padding:2px 8px;border-radius:10px;">Articolo</span></td>
+                <td style="padding:10px 12px;"><span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;color:#facc15;"><span class="status-dot" style="background:#facc15;"></span>Schedulato</span></td>
+                <td style="padding:10px 12px;font-size:12px;color:#6b6b6b;">20 mar</td>
+                <td style="padding:10px 12px;font-size:12px;color:#5b5b5b;">—</td>
+              </tr>
 
-PROBLEMA:
-[Descrive il dolore che il tuo pubblico riconosce]
+              <!-- Row 6 -->
+              <tr style="border-bottom:1px solid #242424;" onmouseover="this.style.background='#242424'" onmouseout="this.style.background='transparent'">
+                <td style="padding:10px 16px;font-size:13px;color:#e3e3e3;white-space:nowrap;">Workshop Milano: Il Recap in 60 Secondi</td>
+                <td style="padding:10px 12px;font-size:12px;color:#9b9b9b;">📸 Instagram</td>
+                <td style="padding:10px 12px;"><span style="font-size:11px;background:#2d2d2d;color:#9b9b9b;padding:2px 8px;border-radius:10px;">Reel</span></td>
+                <td style="padding:10px 12px;"><span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;color:#fb923c;"><span class="status-dot" style="background:#fb923c;"></span>In Review</span></td>
+                <td style="padding:10px 12px;font-size:12px;color:#6b6b6b;">22 mar</td>
+                <td style="padding:10px 12px;font-size:12px;color:#5b5b5b;">—</td>
+              </tr>
 
-SOLUZIONE:
-[Il tuo approccio in 1-2 frasi]
+              <!-- Row 7 -->
+              <tr style="border-bottom:1px solid #242424;" onmouseover="this.style.background='#242424'" onmouseout="this.style.background='transparent'">
+                <td style="padding:10px 16px;font-size:13px;color:#e3e3e3;white-space:nowrap;">Da Freelance a Studio: La Mia Storia</td>
+                <td style="padding:10px 12px;font-size:12px;color:#9b9b9b;">📹 YouTube</td>
+                <td style="padding:10px 12px;"><span style="font-size:11px;background:#2d2d2d;color:#9b9b9b;padding:2px 8px;border-radius:10px;">Video</span></td>
+                <td style="padding:10px 12px;"><span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;color:#60a5fa;"><span class="status-dot" style="background:#60a5fa;"></span>Bozza</span></td>
+                <td style="padding:10px 12px;font-size:12px;color:#6b6b6b;">23 mar</td>
+                <td style="padding:10px 12px;font-size:12px;color:#5b5b5b;">—</td>
+              </tr>
 
-3 punti chiave:
-→ [Punto 1 con specificità]
-→ [Punto 2 con specificità]
-→ [Punto 3 con specificità]
+              <!-- Row 8 -->
+              <tr style="border-bottom:1px solid #242424;" onmouseover="this.style.background='#242424'" onmouseout="this.style.background='transparent'">
+                <td style="padding:10px 16px;font-size:13px;color:#e3e3e3;white-space:nowrap;">10 Tool Gratuiti per Designer nel 2026</td>
+                <td style="padding:10px 12px;font-size:12px;color:#9b9b9b;">💼 LinkedIn</td>
+                <td style="padding:10px 12px;"><span style="font-size:11px;background:#2d2d2d;color:#9b9b9b;padding:2px 8px;border-radius:10px;">Articolo</span></td>
+                <td style="padding:10px 12px;"><span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;color:#facc15;"><span class="status-dot" style="background:#facc15;"></span>Schedulato</span></td>
+                <td style="padding:10px 12px;font-size:12px;color:#6b6b6b;">24 mar</td>
+                <td style="padding:10px 12px;font-size:12px;color:#5b5b5b;">—</td>
+              </tr>
 
-CTA:
-[Domanda che invita al commento]
+              <!-- Row 9 -->
+              <tr style="border-bottom:1px solid #242424;" onmouseover="this.style.background='#242424'" onmouseout="this.style.background='transparent'">
+                <td style="padding:10px 16px;font-size:13px;color:#e3e3e3;white-space:nowrap;">Ottimizza il Tuo Portfolio in 5 Passi</td>
+                <td style="padding:10px 12px;font-size:12px;color:#9b9b9b;">📸 Instagram</td>
+                <td style="padding:10px 12px;"><span style="font-size:11px;background:#2d2d2d;color:#9b9b9b;padding:2px 8px;border-radius:10px;">Carosello</span></td>
+                <td style="padding:10px 12px;"><span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;color:#60a5fa;"><span class="status-dot" style="background:#60a5fa;"></span>Bozza</span></td>
+                <td style="padding:10px 12px;font-size:12px;color:#6b6b6b;">25 mar</td>
+                <td style="padding:10px 12px;font-size:12px;color:#5b5b5b;">—</td>
+              </tr>
 
-Hashtag: #[pillar] #[argomento] #[nicchia]
-\`\`\`
+              <!-- Row 10 -->
+              <tr onmouseover="this.style.background='#242424'" onmouseout="this.style.background='transparent'">
+                <td style="padding:10px 16px;font-size:13px;color:#e3e3e3;white-space:nowrap;">Recap Mensile: Marzo in Numeri</td>
+                <td style="padding:10px 12px;font-size:12px;color:#9b9b9b;">📹 YouTube</td>
+                <td style="padding:10px 12px;"><span style="font-size:11px;background:#2d2d2d;color:#9b9b9b;padding:2px 8px;border-radius:10px;">Video</span></td>
+                <td style="padding:10px 12px;"><span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;color:#60a5fa;"><span class="status-dot" style="background:#60a5fa;"></span>Bozza</span></td>
+                <td style="padding:10px 12px;font-size:12px;color:#6b6b6b;">30 mar</td>
+                <td style="padding:10px 12px;font-size:12px;color:#5b5b5b;">—</td>
+              </tr>
 
-### Template Newsletter:
-\`\`\`
-Oggetto: [Numero] + [Beneficio specifico] + [Curiosità]
-Preview text: [Amplia l'oggetto con dettaglio intrigante]
+            </tbody>
+          </table>
+        </div>
 
----
-Ciao [Nome],
+        <!-- Table footer -->
+        <div style="padding:10px 16px;border-top:1px solid #2f2f2f;display:flex;align-items:center;gap:8px;">
+          <button style="font-size:12px;color:#6b6b6b;background:transparent;border:none;cursor:pointer;padding:2px 4px;">+ Nuova riga</button>
+          <span style="font-size:11px;color:#3d3d3d;margin-left:auto;">10 elementi · ordinati per data</span>
+        </div>
 
-[Apertura personale — 2-3 righe max]
+      </div><!-- /table -->
 
-QUESTA SETTIMANA:
-→ [Titolo sezione 1]
-→ [Titolo sezione 2]
-→ [Titolo sezione 3]
+      <div style="height:32px;"></div>
 
-[Sezione 1]
-...
+    </div><!-- /scrollable content -->
 
-CTA principale:
-[Un'azione sola, chiara e motivata]
+  </main>
 
-A presto,
-[La tua firma]
-\`\`\`
-
----
-
-## SISTEMA DI REPURPOSING
-
-Ogni Top Performer può essere riciclato in 5 formati diversi:
-- Un thread su Twitter/X → post LinkedIn → newsletter section
-- Un video YouTube → 5 Reel clip → 3 caroselli Instagram
-- Un articolo blog → LinkedIn post → newsletter → thread → podcast episode
-
-Usa la relazione "Repurposed From" per tracciare l'origine di ogni contenuto e la view "Da Riutilizzare" per avere sempre una lista di contenuti ad alto potenziale pronti da reinterpretare.
-
----
-
-## QUICK START (15 minuti)
-
-1. Duplica il workspace nel tuo Notion
-2. Personalizza i Content Pillars nel database dedicato (3-5 pillar)
-3. Seleziona i canali su cui pubblichi (aggiorna le Multi-select options in Channel)
-4. Aggiungi 10-15 idee nella view "Idea Hub" per popolare il backlog
-5. Pianifica la prima settimana: assegna Publish Date a 5 contenuti
-6. Configura un blocco calendario fisso per il Content Planning del lunedì
-
----
-
-## PRO TIPS
-
-- **Ratio contenuti**: segui la regola 80/20: 80% contenuti di valore (Education, Inspiration, Entertainment) e 20% promozionali — controlla il ratio con il rollup per pillar
-- **Hook è tutto**: dedica il 50% del tempo di scrittura al campo Hook. Un buon hook vale 10 post mediocri
-- **Batch creation**: produci tutti i contenuti di una settimana in un unico blocco di 2-3 ore. Il context switching è il nemico della creatività
-- **Analytics domenicale**: non aspettare un mese per guardare i dati. Aggiorna Engagement ogni settimana e identifica pattern mentre sono freschi
-- **Calendario visivo**: nella Calendar view, usa il colore per Channel — a colpo d'occhio vedi se stai bilanciando i canali correttamente`,
+</div>
+`,
   },
   {
     id: "notion-finance-tracker",
     name: "Notion Personal Finance Tracker",
-    category: "prompt",
+    category: "ui",
     price: 1299,
     stripePriceId: "price_1TCIgDBoWNgrJbiyzQGqse0q",
     downloadType: "notion",
@@ -3664,214 +4551,381 @@ Usa la relazione "Repurposed From" per tracciare l'origine di ogni contenuto e l
     description: "Track income, expenses, savings goals and net worth in Notion.",
     isNew: true,
     editorsPick: false,
-    content: `# Notion Personal Finance Tracker
+    content: `<div class="flex h-screen bg-[#1f1f1f] font-[system-ui,-apple-system,sans-serif] text-[#e2e2e2] overflow-hidden">
 
-## Il tuo centro di controllo finanziario completo
+  <!-- Sidebar -->
+  <aside class="w-56 bg-[#191919] flex flex-col py-4 px-2 shrink-0 border-r border-white/5">
+    <!-- Workspace header -->
+    <div class="flex items-center gap-2 px-3 py-2 mb-4">
+      <div class="w-6 h-6 rounded bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-xs font-bold text-white">F</div>
+      <span class="text-sm font-semibold text-[#e2e2e2] truncate">Finance Dashboard</span>
+    </div>
 
-Un sistema a 5 database per avere una visione totale delle tue finanze personali: ogni transazione registrata, ogni budget monitorato, ogni obiettivo di risparmio tracciato, ogni investimento documentato. Aggiornato in 10 minuti al giorno, ti dà una fotografia precisa del tuo patrimonio netto in qualsiasi momento.
+    <!-- Nav items -->
+    <nav class="flex flex-col gap-0.5 text-sm">
+      <a href="#" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md bg-white/10 text-white font-medium">
+        <span class="text-base">📊</span> Dashboard
+      </a>
+      <a href="#" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md hover:bg-white/5 text-[#9b9b9b] transition-colors">
+        <span class="text-base">🔄</span> Transazioni
+      </a>
+      <a href="#" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md hover:bg-white/5 text-[#9b9b9b] transition-colors">
+        <span class="text-base">📋</span> Budget
+      </a>
+      <a href="#" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md hover:bg-white/5 text-[#9b9b9b] transition-colors">
+        <span class="text-base">🎯</span> Obiettivi
+      </a>
+      <a href="#" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md hover:bg-white/5 text-[#9b9b9b] transition-colors">
+        <span class="text-base">📈</span> Net Worth
+      </a>
+      <a href="#" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md hover:bg-white/5 text-[#9b9b9b] transition-colors">
+        <span class="text-base">📡</span> Abbonamenti
+      </a>
+    </nav>
 
----
+    <!-- Sidebar footer -->
+    <div class="mt-auto px-3">
+      <div class="flex items-center gap-2 py-2 mt-4 border-t border-white/5">
+        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-orange-400 to-pink-500 flex items-center justify-center text-xs font-bold text-white">M</div>
+        <span class="text-xs text-[#9b9b9b] truncate">Marco Bianchi</span>
+      </div>
+    </div>
+  </aside>
 
-## DATABASE 1: TRANSACTIONS
+  <!-- Main Content -->
+  <main class="flex-1 flex flex-col overflow-hidden">
 
-Icona: 💸 | Colore: Verde
+    <!-- Top toolbar -->
+    <header class="flex items-center justify-between px-8 py-3 border-b border-white/5 bg-[#1f1f1f] shrink-0">
+      <div class="flex items-center gap-1">
+        <button class="px-3 py-1.5 text-xs font-medium bg-white/10 text-white rounded-md">Dashboard</button>
+        <button class="px-3 py-1.5 text-xs font-medium text-[#9b9b9b] hover:bg-white/5 rounded-md transition-colors">Transazioni</button>
+        <button class="px-3 py-1.5 text-xs font-medium text-[#9b9b9b] hover:bg-white/5 rounded-md transition-colors">Budget</button>
+        <button class="px-3 py-1.5 text-xs font-medium text-[#9b9b9b] hover:bg-white/5 rounded-md transition-colors">Obiettivi</button>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="text-xs text-[#9b9b9b]">Marzo 2026</span>
+        <div class="w-px h-4 bg-white/10"></div>
+        <button class="text-xs text-[#9b9b9b] hover:text-white transition-colors">+ Nuova voce</button>
+      </div>
+    </header>
 
-### Proprietà
-- **Description** (Title) — breve descrizione della transazione
-- **Date** (Date)
-- **Amount** (Number) — sempre positivo (il Type distingue entrate/uscite)
-- **Type** (Select) — 📈 Income / 📉 Expense / 🔄 Transfer / 💹 Investment / 💰 Saving
-- **Category** (Select):
-  - Entrate: 💼 Stipendio / 🔧 Freelance / 📈 Dividendi / 🏠 Affitto Attivo / 🎁 Regalo / 🔙 Rimborso / Altro
-  - Uscite: 🏠 Affitto/Mutuo / 🛒 Spesa Alimentare / 🚗 Trasporti / ⛽ Carburante / 🍽️ Ristoranti / ☕ Bar & Caffè / 🎬 Intrattenimento / 🎮 Streaming/Software / 👗 Abbigliamento / 💊 Salute & Farmacia / 🏋️ Sport & Benessere / 📚 Formazione / ✈️ Viaggi / 🎁 Regali / 🔧 Casa & Riparazioni / 💅 Cura Personale / Altro
-- **Account** (Select) — Conto Principale / Conto Secondario / Carta Credito / Contanti / PayPal / Altro (personalizza con i tuoi conti)
-- **Recurring** (Checkbox) — spesa o entrata ricorrente ogni mese
-- **Needs vs Wants** (Select) — Need (necessario) / Want (piacere) / Investment (investimento in sé)
-- **Budget Category** (Relation) → Budgets — collega la transazione al budget corrispondente
-- **Notes** (Text)
+    <!-- Scrollable body -->
+    <div class="flex-1 overflow-y-auto px-8 py-6">
 
-### Views
-1. **Questo Mese** (Table) — filtro: Date = questo mese, raggruppata per Type, totale Amount in fondo
-2. **Per Categoria** (Table) — filtro: Type = Expense, raggruppata per Category, ordinata per Amount desc
-3. **Entrate** (Table) — filtro: Type = Income, ordinata per Date desc
-4. **Uscite Ricorrenti** (Table) — filtro: Recurring = true AND Type = Expense
-5. **Tutte le Transazioni** (Table) — ordinata per Date decrescente, nessun filtro
-6. **Needs vs Wants** (Table) — raggruppata per Needs vs Wants, filtro: Type = Expense
+      <!-- Page title -->
+      <div class="mb-6">
+        <h1 class="text-2xl font-bold text-white tracking-tight">Finance Dashboard</h1>
+        <p class="text-sm text-[#9b9b9b] mt-1">Riepilogo Marzo 2026</p>
+      </div>
 
----
+      <!-- Summary cards -->
+      <div class="grid grid-cols-4 gap-4 mb-8">
+        <div class="bg-[#2a2a2a] border border-white/5 rounded-xl p-4">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs text-[#9b9b9b] font-medium uppercase tracking-wide">Entrate</span>
+            <span class="text-xs bg-emerald-500/15 text-emerald-400 px-2 py-0.5 rounded-full font-medium">+8.2%</span>
+          </div>
+          <p class="text-2xl font-bold text-emerald-400">€4.850</p>
+          <p class="text-xs text-[#9b9b9b] mt-1">vs €4.482 feb</p>
+        </div>
+        <div class="bg-[#2a2a2a] border border-white/5 rounded-xl p-4">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs text-[#9b9b9b] font-medium uppercase tracking-wide">Uscite</span>
+            <span class="text-xs bg-red-500/15 text-red-400 px-2 py-0.5 rounded-full font-medium">+3.1%</span>
+          </div>
+          <p class="text-2xl font-bold text-red-400">€3.220</p>
+          <p class="text-xs text-[#9b9b9b] mt-1">vs €3.122 feb</p>
+        </div>
+        <div class="bg-[#2a2a2a] border border-white/5 rounded-xl p-4">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs text-[#9b9b9b] font-medium uppercase tracking-wide">Risparmi</span>
+            <span class="text-xs bg-sky-500/15 text-sky-400 px-2 py-0.5 rounded-full font-medium">33.6%</span>
+          </div>
+          <p class="text-2xl font-bold text-sky-400">€1.630</p>
+          <p class="text-xs text-[#9b9b9b] mt-1">tasso risparmio</p>
+        </div>
+        <div class="bg-[#2a2a2a] border border-white/5 rounded-xl p-4">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs text-[#9b9b9b] font-medium uppercase tracking-wide">Net Worth</span>
+            <span class="text-xs bg-violet-500/15 text-violet-400 px-2 py-0.5 rounded-full font-medium">+5.7%</span>
+          </div>
+          <p class="text-2xl font-bold text-violet-400">€28.450</p>
+          <p class="text-xs text-[#9b9b9b] mt-1">vs €26.916 feb</p>
+        </div>
+      </div>
 
-## DATABASE 2: BUDGETS
+      <!-- Budget + Savings row -->
+      <div class="grid grid-cols-2 gap-6 mb-8">
 
-Icona: 📊
+        <!-- Budget progress -->
+        <div class="bg-[#2a2a2a] border border-white/5 rounded-xl p-5">
+          <h2 class="text-sm font-semibold text-white mb-4">Budget mensile</h2>
+          <div class="flex flex-col gap-4">
 
-### Proprietà
-- **Category** (Title) — categoria di spesa (deve corrispondere alle categorie in Transactions)
-- **Monthly Budget** (Number) — budget mensile in €
-- **Spent This Month** (Rollup) — somma Amount da Transactions dove Category = questo AND Date = questo mese AND Type = Expense
-- **Remaining** (Formula): \`prop("Monthly Budget") - prop("Spent This Month")\`
-- **Percentage Used** (Formula): \`if(prop("Monthly Budget") > 0, round(prop("Spent This Month") / prop("Monthly Budget") * 100), 0)\`
-- **Status** (Formula): \`if(prop("Percentage Used") > 100, "🔴 Sforato di €" + toText(round(prop("Spent This Month") - prop("Monthly Budget"))), if(prop("Percentage Used") > 85, "🟡 Attenzione: " + toText(prop("Percentage Used")) + "%", "🟢 OK: " + toText(prop("Percentage Used")) + "%"))\`
-- **Annual Budget** (Formula): \`prop("Monthly Budget") * 12\`
-- **Priority** (Select) — Fisso (impossibile tagliare) / Essenziale / Discrezionale / Eliminabile
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="text-xs text-[#e2e2e2]">Affitto</span>
+                <span class="text-xs text-[#9b9b9b]">€900 / €900</span>
+              </div>
+              <div class="h-1.5 bg-white/10 rounded-full overflow-hidden">
+                <div class="h-full bg-red-400 rounded-full" style="width:100%"></div>
+              </div>
+              <p class="text-[10px] text-red-400 mt-1">Limite raggiunto</p>
+            </div>
 
-### Views
-1. **Budget Overview** (Table) — ordinata per Spent This Month desc — vista principale mensile
-2. **Sforamenti** (Table) — filtro: Percentage Used > 100
-3. **Discrezionali** (Table) — filtro: Priority = Discrezionale o Eliminabile — candidati ai tagli
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="text-xs text-[#e2e2e2]">Alimentari</span>
+                <span class="text-xs text-[#9b9b9b]">€342 / €400</span>
+              </div>
+              <div class="h-1.5 bg-white/10 rounded-full overflow-hidden">
+                <div class="h-full bg-amber-400 rounded-full" style="width:85%"></div>
+              </div>
+              <p class="text-[10px] text-[#9b9b9b] mt-1">€58 rimanenti</p>
+            </div>
 
----
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="text-xs text-[#e2e2e2]">Trasporti</span>
+                <span class="text-xs text-[#9b9b9b]">€118 / €200</span>
+              </div>
+              <div class="h-1.5 bg-white/10 rounded-full overflow-hidden">
+                <div class="h-full bg-emerald-400 rounded-full" style="width:59%"></div>
+              </div>
+              <p class="text-[10px] text-[#9b9b9b] mt-1">€82 rimanenti</p>
+            </div>
 
-## DATABASE 3: SAVINGS GOALS
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="text-xs text-[#e2e2e2]">Intrattenimento</span>
+                <span class="text-xs text-[#9b9b9b]">€145 / €150</span>
+              </div>
+              <div class="h-1.5 bg-white/10 rounded-full overflow-hidden">
+                <div class="h-full bg-amber-400 rounded-full" style="width:97%"></div>
+              </div>
+              <p class="text-[10px] text-amber-400 mt-1">Quasi al limite</p>
+            </div>
 
-Icona: 🎯
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="text-xs text-[#e2e2e2]">Salute & Sport</span>
+                <span class="text-xs text-[#9b9b9b]">€65 / €120</span>
+              </div>
+              <div class="h-1.5 bg-white/10 rounded-full overflow-hidden">
+                <div class="h-full bg-emerald-400 rounded-full" style="width:54%"></div>
+              </div>
+              <p class="text-[10px] text-[#9b9b9b] mt-1">€55 rimanenti</p>
+            </div>
 
-### Proprietà
-- **Goal** (Title) — nome dell'obiettivo
-- **Emoji** (Select) — 🏠 Casa / ✈️ Viaggio / 🚗 Auto / 💍 Matrimonio / 🎓 Formazione / 🏖️ Vacanza / 🚨 Fondo Emergenza / 🏦 Pensione / 🎁 Altro
-- **Target Amount** (Number) — importo obiettivo in €
-- **Current Amount** (Number) — aggiorna manualmente ogni primo del mese
-- **Monthly Contribution** (Number) — quanto risparmi al mese per questo obiettivo
-- **Target Date** (Date)
-- **Progress %** (Formula): \`if(prop("Target Amount") > 0, min(round(prop("Current Amount") / prop("Target Amount") * 100), 100), 0)\`
-- **Amount Remaining** (Formula): \`max(prop("Target Amount") - prop("Current Amount"), 0)\`
-- **Months to Goal** (Formula): \`if(prop("Monthly Contribution") > 0 and prop("Amount Remaining") > 0, ceil(prop("Amount Remaining") / prop("Monthly Contribution")), if(prop("Amount Remaining") == 0, 0, -1))\`
-- **On Track** (Formula): \`if(prop("Progress %") >= 100, "✅ Raggiunto!", if(empty(prop("Target Date")), "📅 Nessuna scadenza", if(prop("Months to Goal") <= dateBetween(prop("Target Date"), now(), "months"), "🟢 Nei tempi", "🔴 In ritardo")))\`
-- **Priority** (Select) — Alta / Media / Bassa
-- **Notes** (Text)
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="text-xs text-[#e2e2e2]">Shopping</span>
+                <span class="text-xs text-[#9b9b9b]">€210 / €250</span>
+              </div>
+              <div class="h-1.5 bg-white/10 rounded-full overflow-hidden">
+                <div class="h-full bg-amber-400 rounded-full" style="width:84%"></div>
+              </div>
+              <p class="text-[10px] text-[#9b9b9b] mt-1">€40 rimanenti</p>
+            </div>
 
-### Views
-1. **Goals Overview** (Gallery) — con Progress % e On Track — vista principale ispirazionale
-2. **On Track** (Table) — filtro: On Track = Nei tempi o Raggiunto
-3. **In Ritardo** (Table) — filtro: On Track = In ritardo — richiede revisione strategia
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="text-xs text-[#e2e2e2]">Ristoranti & Cibo</span>
+                <span class="text-xs text-[#9b9b9b]">€98 / €180</span>
+              </div>
+              <div class="h-1.5 bg-white/10 rounded-full overflow-hidden">
+                <div class="h-full bg-emerald-400 rounded-full" style="width:54%"></div>
+              </div>
+              <p class="text-[10px] text-[#9b9b9b] mt-1">€82 rimanenti</p>
+            </div>
 
----
+          </div>
+        </div>
 
-## DATABASE 4: INVESTMENTS
+        <!-- Savings goals -->
+        <div class="bg-[#2a2a2a] border border-white/5 rounded-xl p-5">
+          <h2 class="text-sm font-semibold text-white mb-4">Obiettivi di risparmio</h2>
+          <div class="flex flex-col gap-5">
 
-Icona: 📈
+            <div>
+              <div class="flex justify-between items-start mb-2">
+                <div>
+                  <p class="text-xs font-medium text-[#e2e2e2]">Fondo Emergenza</p>
+                  <p class="text-[10px] text-[#9b9b9b] mt-0.5">€7.200 / €10.000</p>
+                </div>
+                <span class="text-xs font-bold text-emerald-400">72%</span>
+              </div>
+              <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                <div class="h-full bg-emerald-400 rounded-full" style="width:72%"></div>
+              </div>
+              <p class="text-[10px] text-[#9b9b9b] mt-1.5">€2.800 al traguardo · obiettivo: Dic 2026</p>
+            </div>
 
-### Proprietà
-- **Asset** (Title) — nome dell'investimento
-- **Type** (Select) — ETF / Azione / Obbligazione / Crypto / Immobile / Fondo Pensione / Conto Deposito / Oro / Altro
-- **Platform** (Text) — dove è investito (es. Fineco, DEGIRO, Coinbase)
-- **Purchase Date** (Date)
-- **Purchase Price** (Number) — valore al momento dell'acquisto
-- **Current Value** (Number) — aggiorna mensilmente
-- **Units** (Number) — numero di quote/unità possedute
-- **Total Invested** (Number) — capitale investito totale
-- **Gain/Loss** (Formula): \`prop("Current Value") - prop("Total Invested")\`
-- **Return %** (Formula): \`if(prop("Total Invested") > 0, round(prop("Gain/Loss") / prop("Total Invested") * 100 * 10) / 10, 0)\`
-- **Notes** (Text)
+            <div>
+              <div class="flex justify-between items-start mb-2">
+                <div>
+                  <p class="text-xs font-medium text-[#e2e2e2]">Vacanza Giappone</p>
+                  <p class="text-[10px] text-[#9b9b9b] mt-0.5">€1.750 / €5.000</p>
+                </div>
+                <span class="text-xs font-bold text-sky-400">35%</span>
+              </div>
+              <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                <div class="h-full bg-sky-400 rounded-full" style="width:35%"></div>
+              </div>
+              <p class="text-[10px] text-[#9b9b9b] mt-1.5">€3.250 al traguardo · obiettivo: Set 2026</p>
+            </div>
 
----
+            <div>
+              <div class="flex justify-between items-start mb-2">
+                <div>
+                  <p class="text-xs font-medium text-[#e2e2e2]">MacBook Pro M4</p>
+                  <p class="text-[10px] text-[#9b9b9b] mt-0.5">€2.640 / €3.000</p>
+                </div>
+                <span class="text-xs font-bold text-violet-400">88%</span>
+              </div>
+              <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                <div class="h-full bg-violet-400 rounded-full" style="width:88%"></div>
+              </div>
+              <p class="text-[10px] text-[#9b9b9b] mt-1.5">€360 al traguardo · obiettivo: Apr 2026</p>
+            </div>
 
-## DATABASE 5: SUBSCRIPTIONS
+          </div>
 
-Icona: 🔄
+          <!-- Mini stat row -->
+          <div class="mt-6 pt-4 border-t border-white/5 grid grid-cols-3 gap-3 text-center">
+            <div>
+              <p class="text-sm font-bold text-white">€11.590</p>
+              <p class="text-[10px] text-[#9b9b9b] mt-0.5">Totale risparmiato</p>
+            </div>
+            <div>
+              <p class="text-sm font-bold text-white">3</p>
+              <p class="text-[10px] text-[#9b9b9b] mt-0.5">Obiettivi attivi</p>
+            </div>
+            <div>
+              <p class="text-sm font-bold text-white">€540</p>
+              <p class="text-[10px] text-[#9b9b9b] mt-0.5">Versato ce mese</p>
+            </div>
+          </div>
+        </div>
 
-### Proprietà
-- **Service** (Title) — nome del servizio
-- **Monthly Cost** (Number) — costo mensile in € (converti quelli annuali)
-- **Annual Cost** (Formula): \`prop("Monthly Cost") * 12\`
-- **Category** (Select) — Streaming / Software / Fitness / Cloud / News / Music / Gaming / Education / Altro
-- **Billing Cycle** (Select) — Mensile / Trimestrale / Annuale
-- **Next Renewal** (Date)
-- **Active** (Checkbox) — è ancora attivo e necessario?
-- **Necessity** (Select) — Indispensabile / Utile / Lusso / Da cancellare
-- **Notes** (Text)
+      </div>
 
-### Views
-1. **Tutti gli Abbonamenti** (Table) — ordinata per Monthly Cost desc, totale in fondo
-2. **Da Valutare** (Table) — filtro: Necessity = Lusso o Da cancellare
-3. **Rinnovi in arrivo** (Calendar) — per Next Renewal
+      <!-- Recent Transactions -->
+      <div class="bg-[#2a2a2a] border border-white/5 rounded-xl p-5">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-sm font-semibold text-white">Transazioni recenti</h2>
+          <button class="text-xs text-[#9b9b9b] hover:text-white transition-colors">Vedi tutte →</button>
+        </div>
 
----
+        <table class="w-full text-xs">
+          <thead>
+            <tr class="border-b border-white/5">
+              <th class="text-left text-[#9b9b9b] font-medium pb-2.5 pr-4">Data</th>
+              <th class="text-left text-[#9b9b9b] font-medium pb-2.5 pr-4">Descrizione</th>
+              <th class="text-left text-[#9b9b9b] font-medium pb-2.5 pr-4">Categoria</th>
+              <th class="text-right text-[#9b9b9b] font-medium pb-2.5 pr-4">Importo</th>
+              <th class="text-left text-[#9b9b9b] font-medium pb-2.5">Conto</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-white/5">
+            <tr class="hover:bg-white/[0.02] transition-colors">
+              <td class="py-3 pr-4 text-[#9b9b9b] whitespace-nowrap">27 mar</td>
+              <td class="py-3 pr-4 text-[#e2e2e2] font-medium">Stipendio Marzo</td>
+              <td class="py-3 pr-4"><span class="px-2 py-0.5 rounded-md bg-emerald-500/15 text-emerald-400 font-medium">Reddito</span></td>
+              <td class="py-3 pr-4 text-right font-semibold text-emerald-400">+€3.200</td>
+              <td class="py-3 text-[#9b9b9b]">Conto corrente</td>
+            </tr>
+            <tr class="hover:bg-white/[0.02] transition-colors">
+              <td class="py-3 pr-4 text-[#9b9b9b] whitespace-nowrap">27 mar</td>
+              <td class="py-3 pr-4 text-[#e2e2e2] font-medium">Freelance Progetto UI</td>
+              <td class="py-3 pr-4"><span class="px-2 py-0.5 rounded-md bg-emerald-500/15 text-emerald-400 font-medium">Reddito</span></td>
+              <td class="py-3 pr-4 text-right font-semibold text-emerald-400">+€1.650</td>
+              <td class="py-3 text-[#9b9b9b]">PayPal</td>
+            </tr>
+            <tr class="hover:bg-white/[0.02] transition-colors">
+              <td class="py-3 pr-4 text-[#9b9b9b] whitespace-nowrap">25 mar</td>
+              <td class="py-3 pr-4 text-[#e2e2e2] font-medium">Affitto Marzo</td>
+              <td class="py-3 pr-4"><span class="px-2 py-0.5 rounded-md bg-slate-500/20 text-slate-300 font-medium">Abitazione</span></td>
+              <td class="py-3 pr-4 text-right font-semibold text-red-400">-€900</td>
+              <td class="py-3 text-[#9b9b9b]">Conto corrente</td>
+            </tr>
+            <tr class="hover:bg-white/[0.02] transition-colors">
+              <td class="py-3 pr-4 text-[#9b9b9b] whitespace-nowrap">23 mar</td>
+              <td class="py-3 pr-4 text-[#e2e2e2] font-medium">Supermercato Esselunga</td>
+              <td class="py-3 pr-4"><span class="px-2 py-0.5 rounded-md bg-amber-500/15 text-amber-400 font-medium">Alimentari</span></td>
+              <td class="py-3 pr-4 text-right font-semibold text-red-400">-€87</td>
+              <td class="py-3 text-[#9b9b9b]">Carta debito</td>
+            </tr>
+            <tr class="hover:bg-white/[0.02] transition-colors">
+              <td class="py-3 pr-4 text-[#9b9b9b] whitespace-nowrap">22 mar</td>
+              <td class="py-3 pr-4 text-[#e2e2e2] font-medium">Palestra Virgin Active</td>
+              <td class="py-3 pr-4"><span class="px-2 py-0.5 rounded-md bg-rose-500/15 text-rose-400 font-medium">Salute</span></td>
+              <td class="py-3 pr-4 text-right font-semibold text-red-400">-€45</td>
+              <td class="py-3 text-[#9b9b9b]">Carta credito</td>
+            </tr>
+            <tr class="hover:bg-white/[0.02] transition-colors">
+              <td class="py-3 pr-4 text-[#9b9b9b] whitespace-nowrap">20 mar</td>
+              <td class="py-3 pr-4 text-[#e2e2e2] font-medium">Netflix Abbonamento</td>
+              <td class="py-3 pr-4"><span class="px-2 py-0.5 rounded-md bg-purple-500/15 text-purple-400 font-medium">Abbonamenti</span></td>
+              <td class="py-3 pr-4 text-right font-semibold text-red-400">-€17</td>
+              <td class="py-3 text-[#9b9b9b]">Carta credito</td>
+            </tr>
+            <tr class="hover:bg-white/[0.02] transition-colors">
+              <td class="py-3 pr-4 text-[#9b9b9b] whitespace-nowrap">19 mar</td>
+              <td class="py-3 pr-4 text-[#e2e2e2] font-medium">Trattoria da Luigi</td>
+              <td class="py-3 pr-4"><span class="px-2 py-0.5 rounded-md bg-orange-500/15 text-orange-400 font-medium">Ristoranti</span></td>
+              <td class="py-3 pr-4 text-right font-semibold text-red-400">-€38</td>
+              <td class="py-3 text-[#9b9b9b]">Carta credito</td>
+            </tr>
+            <tr class="hover:bg-white/[0.02] transition-colors">
+              <td class="py-3 pr-4 text-[#9b9b9b] whitespace-nowrap">17 mar</td>
+              <td class="py-3 pr-4 text-[#e2e2e2] font-medium">Spotify Premium</td>
+              <td class="py-3 pr-4"><span class="px-2 py-0.5 rounded-md bg-purple-500/15 text-purple-400 font-medium">Abbonamenti</span></td>
+              <td class="py-3 pr-4 text-right font-semibold text-red-400">-€11</td>
+              <td class="py-3 text-[#9b9b9b]">Carta credito</td>
+            </tr>
+            <tr class="hover:bg-white/[0.02] transition-colors">
+              <td class="py-3 pr-4 text-[#9b9b9b] whitespace-nowrap">15 mar</td>
+              <td class="py-3 pr-4 text-[#e2e2e2] font-medium">Zara – Giacca primavera</td>
+              <td class="py-3 pr-4"><span class="px-2 py-0.5 rounded-md bg-pink-500/15 text-pink-400 font-medium">Shopping</span></td>
+              <td class="py-3 pr-4 text-right font-semibold text-red-400">-€79</td>
+              <td class="py-3 text-[#9b9b9b]">Carta credito</td>
+            </tr>
+            <tr class="hover:bg-white/[0.02] transition-colors">
+              <td class="py-3 pr-4 text-[#9b9b9b] whitespace-nowrap">14 mar</td>
+              <td class="py-3 pr-4 text-[#e2e2e2] font-medium">Trenitalia Milano–Roma</td>
+              <td class="py-3 pr-4"><span class="px-2 py-0.5 rounded-md bg-sky-500/15 text-sky-400 font-medium">Trasporti</span></td>
+              <td class="py-3 pr-4 text-right font-semibold text-red-400">-€54</td>
+              <td class="py-3 text-[#9b9b9b]">Carta credito</td>
+            </tr>
+            <tr class="hover:bg-white/[0.02] transition-colors">
+              <td class="py-3 pr-4 text-[#9b9b9b] whitespace-nowrap">12 mar</td>
+              <td class="py-3 pr-4 text-[#e2e2e2] font-medium">Farmacia Comunale</td>
+              <td class="py-3 pr-4"><span class="px-2 py-0.5 rounded-md bg-rose-500/15 text-rose-400 font-medium">Salute</span></td>
+              <td class="py-3 pr-4 text-right font-semibold text-red-400">-€20</td>
+              <td class="py-3 text-[#9b9b9b]">Carta debito</td>
+            </tr>
+            <tr class="hover:bg-white/[0.02] transition-colors">
+              <td class="py-3 pr-4 text-[#9b9b9b] whitespace-nowrap">10 mar</td>
+              <td class="py-3 pr-4 text-[#e2e2e2] font-medium">Amazon – Libri e tech</td>
+              <td class="py-3 pr-4"><span class="px-2 py-0.5 rounded-md bg-pink-500/15 text-pink-400 font-medium">Shopping</span></td>
+              <td class="py-3 pr-4 text-right font-semibold text-red-400">-€131</td>
+              <td class="py-3 text-[#9b9b9b]">Carta credito</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-## FORMULE CHIAVE
-
-### Budget Status (Budgets):
-\`\`\`
-if(prop("Percentage Used") > 100, "🔴 Sforato di €" + toText(round(prop("Spent This Month") - prop("Monthly Budget"))), if(prop("Percentage Used") > 85, "🟡 Attenzione: " + toText(prop("Percentage Used")) + "%", "🟢 OK: " + toText(prop("Percentage Used")) + "%"))
-\`\`\`
-
-### On Track (Savings Goals):
-\`\`\`
-if(prop("Progress %") >= 100, "✅ Raggiunto!", if(empty(prop("Target Date")), "📅 Nessuna scadenza", if(prop("Months to Goal") <= dateBetween(prop("Target Date"), now(), "months"), "🟢 Nei tempi", "🔴 In ritardo")))
-\`\`\`
-
-### Return % (Investments):
-\`\`\`
-if(prop("Total Invested") > 0, round(prop("Gain/Loss") / prop("Total Invested") * 100 * 10) / 10, 0)
-\`\`\`
-
----
-
-## DASHBOARD MENSILE — HOME
-
-Crea una pagina "💰 Finance Dashboard" con queste sezioni:
-
-**Callout riepilogo del mese (aggiorna il primo di ogni mese):**
-Entrate: €___ | Uscite: €___ | Risparmio netto: €___ | Tasso di risparmio: ___%
-
-**Sezione 1 — Budget Status**
-Linked view: Budgets, ordinata per Percentage Used decrescente
-
-**Sezione 2 — Obiettivi di Risparmio**
-Linked view: Savings Goals, layout Gallery con Progress % e On Track
-
-**Sezione 3 — Transazioni recenti**
-Linked view: Transactions, filtro: Date = ultima settimana
-
-**Sezione 4 — Abbonamenti da valutare**
-Linked view: Subscriptions, filtro: Necessity = Da cancellare
-
-**Callout Patrimonio Netto (aggiorna trimestralmente):**
-Liquidità totale: €___ + Investimenti: €___ - Debiti: €___ = Patrimonio Netto: €___
-
----
-
-## QUICK START (20 minuti)
-
-1. Duplica il workspace nel tuo Notion
-2. Configura i tuoi account (banca, carte, contanti) nelle opzioni Select di Account
-3. Crea un record Budget per ogni categoria di spesa con il tuo budget realistico
-4. Inserisci tutti i tuoi abbonamenti attivi nel database Subscriptions
-5. Aggiungi 2-3 Savings Goals con il tuo obiettivo prioritario (es. fondo emergenza = 3 mesi di spese)
-6. Registra le ultime 10-15 transazioni per avere un benchmark immediato
-7. Segna un appuntamento fisso in calendario: 10 minuti ogni domenica sera per aggiornare le transazioni
-
----
-
-## WORKFLOW MENSILE
-
-**Ogni domenica sera (10 min):** registra le transazioni della settimana nel database Transactions.
-
-**Primo del mese (30 min):**
-- Rivedi il Budget Overview: quali categorie sono sforatre? Perché?
-- Aggiorna Current Amount in ogni Savings Goal
-- Aggiorna Current Value in ogni Investment
-- Calcola il saldo netto del mese: Entrate - Uscite totali
-- Identifica l'abbonamento da cancellare (ne hai sempre almeno uno!)
-
-**Trimestralmente (1 ora):**
-- Aggiorna il Patrimonio Netto nel callout della dashboard
-- Rivedi gli investimenti: Return %, ribilanciamento del portafoglio
-- Aumenta o riduci i budget in base all'andamento reale degli ultimi 3 mesi
-
----
-
-## PRO TIPS
-
-- **Regola 50/30/20**: usa i budget per applicare la regola classica: 50% needs (affitto, spesa, bollette), 30% wants (ristoranti, intrattenimento), 20% savings/investments. Il database Budgets ti mostra subito il ratio
-- **Tasso di risparmio come KPI principale**: calcola ogni mese (Risparmio Netto / Entrate Totali × 100). L'obiettivo è >20%. Tutto il resto è conseguenza
-- **Subscriptions audit trimestrale**: guarda il totale Annual Cost nel database Subscriptions — spesso supera €1.000/anno per servizi dimenticati
-- **Needs vs Wants**: questo campo in Transactions è rivelatore. Dopo 3 mesi vedrai esattamente dove vai a parare nei momenti di stress o noia
-- **Fondo emergenza come primo obiettivo**: crea un Savings Goal "🚨 Fondo Emergenza" con target = 3-6 mesi di spese mensili. Raggiungerlo prima di qualsiasi altro obiettivo`,
+    </div>
+  </main>
+</div>
+`,
   },
   {
     id: "notion-second-brain",
     name: "Notion Second Brain (PKM)",
-    category: "prompt",
+    category: "ui",
     price: 1499,
     stripePriceId: "price_1TCIgDBoWNgrJbiycUQ3W6EM",
     downloadType: "notion",
@@ -3881,310 +4935,433 @@ Liquidità totale: €___ + Investimenti: €___ - Debiti: €___ = Patrimonio N
     description: "Full personal knowledge management system: capture, organize and retrieve ideas.",
     isNew: true,
     editorsPick: true,
-    content: `# Notion Second Brain (PKM System)
-
-## Il tuo sistema di gestione della conoscenza personale
-
-Basato sul metodo Building a Second Brain (BASB) di Tiago Forte e sul framework PARA. Un sistema a 11 database che ti permette di catturare qualsiasi informazione, organizzarla sistematicamente e recuperarla nel momento esatto in cui ne hai bisogno. Include Area manager, Project tracker, Note vault, Book tracker, Habit tracker, Daily journal, Resource library, Contact database e molto altro.
-
----
-
-## IL FRAMEWORK PARA
-
-Prima di costruire il sistema, interiorizza la struttura fondamentale:
-
-**P — Projects** (Progetti con scadenza): tutto ciò su cui stai lavorando attivamente con un obiettivo definito e una fine prevista. Massimo 10-15 progetti attivi.
-
-**A — Areas** (Aree di responsabilità): aspetti della tua vita che richiedono attenzione continuativa ma senza scadenza. Esempi: Salute, Finanze, Relazioni, Carriera, Casa, Spiritualità.
-
-**R — Resources** (Risorse per argomento): tutto ciò che ti interessa o potrebbe essere utile in futuro, organizzato per argomento. Esempi: Marketing, AI, Cucina, Investimenti, Storia.
-
-**A — Archive** (Archivio): tutto ciò che non è più attivo ma vuoi conservare. Progetti completati, aree abbandonate, risorse non più rilevanti.
-
----
-
-## DATABASE 1: NOTES (Capture Inbox)
-
-Icona: 📥 — Il cuore del sistema. Tutto entra qui prima.
-
-### Proprietà
-- **Title** (Title) — titolo o prima frase della nota
-- **Status** (Select) — 📥 Inbox / 🔄 Processing / ✅ Filed / 🗑️ Discard
-- **Type** (Select) — 💡 Idea / 📖 Book Note / 🎥 Video Note / 🌐 Article / 💬 Quote / 🎧 Podcast Note / 📝 Meeting Note / 💭 Pensiero / 🔗 Resource / 📊 Research / ✉️ Email
-- **PARA** (Select) — Projects / Areas / Resources / Archive
-- **Source** (URL) — link originale (articolo, video, podcast)
-- **Author** (Text) — autore della fonte
-- **Tags** (Multi-select) — massimo 3 tag per nota (meno è meglio)
-- **Project** (Relation) → Projects
-- **Area** (Relation) → Areas
-- **Resource** (Relation) → Resources
-- **Created** (Created time) — automatico
-- **Last Reviewed** (Date)
-- **Actionable** (Checkbox) — questa nota richiede un'azione?
-- **Evergreen** (Checkbox) — nota di valore permanente da sviluppare nel tempo
-
-### Views
-1. **📥 Inbox** (Table) — filtro: Status = Inbox — svuota ogni settimana
-2. **🔄 Processing** (Table) — filtro: Status = Processing
-3. **🌱 Evergreen Notes** (Gallery) — filtro: Evergreen = true — le tue note più preziose
-4. **Per Tipo** (Table) — raggruppata per Type
-5. **Recenti** (Table) — ordinata per Created decrescente, nessun filtro
-6. **Azionabili** (Table) — filtro: Actionable = true AND Status ≠ Discard
-
----
-
-## DATABASE 2: PROJECTS
-
-Icona: 🚀
-
-### Proprietà
-- **Name** (Title)
-- **Status** (Status) — Active / Planning / On Hold / Completed / Cancelled
-- **Area** (Relation) → Areas — a quale area di vita appartiene?
-- **Goal** (Text) — risultato specifico e misurabile
-- **Due Date** (Date)
-- **Progress %** (Number) — aggiorna manualmente (0-100)
-- **Notes Count** (Rollup) — count da Notes collegate
-- **Why** (Text) — perché questo progetto è importante per te?
-- **Next Action** (Text) — prossimo passo fisico concreto
-
-### Views
-1. **Active Projects** (Board) — raggruppata per Area
-2. **By Due Date** (Table) — ordinata per Due Date crescente, filtro: Status = Active
-3. **Completed** (Table) — filtro: Status = Completed — fonte di orgoglio e apprendimento
-
----
-
-## DATABASE 3: AREAS
-
-Icona: 🗺️
-
-### Proprietà
-- **Name** (Title) — nome dell'area di responsabilità
-- **Emoji** (Select) — 💪 Salute / 💰 Finanze / 👨‍👩‍👧 Famiglia / 💼 Carriera / 🏠 Casa / 📚 Formazione / 🧘 Benessere / 🤝 Relazioni / 🌍 Community / 🎨 Creatività
-- **Standard** (Text) — qual è lo standard minimo per questa area? (es. "Dormire almeno 7h, allenarmi 3x/settimana")
-- **Current Status** (Select) — Thriving / Stable / Needs Attention / Crisis
-- **Active Projects** (Rollup) — count da Projects dove Status = Active
-- **Notes Count** (Rollup) — count da Notes collegate
-
-### Aree di vita consigliate (personalizza)
-- 💪 Salute & Fitness
-- 💰 Finanze & Investimenti
-- 💼 Carriera & Business
-- 📚 Apprendimento & Crescita
-- 👨‍👩‍👧 Famiglia & Relazioni
-- 🏠 Casa & Ambiente
-- 🧘 Benessere Mentale
-- 🤝 Community & Contributo
-
----
-
-## DATABASE 4: RESOURCES
-
-Icona: 📚
-
-### Proprietà
-- **Name** (Title) — nome del topic/argomento
-- **Type** (Select) — Topic / Skill / Tool / Framework / Person / Luogo
-- **Description** (Text) — perché questo argomento ti interessa
-- **Notes Count** (Rollup) — count da Notes dove PARA = Resources
-
-### Resources pre-configurate (personalizza)
-- 🤖 Intelligenza Artificiale
-- 📊 Marketing & Growth
-- 💻 Tecnologia & Programmazione
-- 🧠 Psicologia & Produttività
-- 💼 Business & Strategia
-- 🎨 Design & Creatività
-- 📈 Investimenti & Finanza personale
-- 🌍 Geopolitica & Storia
-- 🍳 Cucina & Salute
-
----
-
-## DATABASE 5: BOOK TRACKER
-
-Icona: 📖
-
-### Proprietà
-- **Title** (Title) — titolo del libro
-- **Author** (Text)
-- **Status** (Select) — 📋 Want to Read / 📖 Reading / ✅ Read / 🔁 Re-reading / ⏸️ On Hold
-- **Format** (Select) — Fisico / eBook / Audiolibro
-- **Start Date** (Date)
-- **Finish Date** (Date)
-- **Rating** (Select) — ⭐ / ⭐⭐ / ⭐⭐⭐ / ⭐⭐⭐⭐ / ⭐⭐⭐⭐⭐
-- **Genre** (Multi-select) — Saggistica / Narrativa / Business / Psicologia / Storia / Filosofia / Tecnico / Altro
-- **Key Takeaway** (Text) — l'idea principale in una frase
-- **Recommended By** (Text)
-- **Notes** (Relation) → Notes — le note prese durante la lettura
-- **Buy Link** (URL)
-
-### Views
-1. **Reading Now** (Gallery) — filtro: Status = Reading
-2. **To Read** (Table) — filtro: Status = Want to Read, ordinata per Rating (raccomandazioni)
-3. **Read** (Table) — filtro: Status = Read, ordinata per Finish Date desc
-4. **By Genre** (Table) — raggruppata per Genre, filtro: Status = Read
-
----
-
-## DATABASE 6: HABIT TRACKER
-
-Icona: ✅
-
-### Proprietà
-- **Habit** (Title) — nome dell'abitudine
-- **Category** (Select) — 💪 Salute / 🧠 Mente / 💼 Lavoro / 🤝 Relazioni / 🏠 Casa / 💰 Finanze
-- **Frequency** (Select) — Daily / Weekly / Monthly
-- **Target** (Number) — quante volte a settimana/mese
-- **Current Streak** (Number) — aggiorna manualmente
-- **Best Streak** (Number)
-- **Start Date** (Date)
-- **Cue** (Text) — il trigger dell'abitudine (es. "Dopo il caffè mattutino")
-- **Why** (Text) — perché questa abitudine è importante
-- **Active** (Checkbox)
-
----
-
-## DATABASE 7: DAILY JOURNAL
-
-Icona: 🌅
-
-### Proprietà
-- **Date** (Title) — es. "18 Marzo 2026"
-- **Day** (Date)
-- **Mood** (Select) — 😄 Ottimo / 😊 Bene / 😐 Nella media / 😕 Sotto / 😞 Male
-- **Energy** (Select) — ⚡⚡⚡ Alta / ⚡⚡ Media / ⚡ Bassa
-- **Gratitude** (Text) — 3 cose per cui sono grato
-- **Highlight of the Day** (Text) — il momento migliore del giorno
-- **Lessons Learned** (Text)
-- **Tomorrow's Priority** (Text) — una sola cosa più importante di domani
-
-### Template per entrata giornaliera:
-\`\`\`
-MATTINA (5 min):
-Come mi sento? [Mood + Energy]
-Sono grato per:
-1.
-2.
-3.
-L'unica cosa che renderebbe questa giornata un successo:
-
-SERA (5 min):
-Highlight della giornata:
-Cosa ho imparato:
-Priorità di domani:
-\`\`\`
-
----
-
-## DATABASE 8: CONTACTS
-
-Icona: 👤
-
-### Proprietà
-- **Name** (Title)
-- **Relationship** (Select) — Famiglia / Amico Intimo / Amico / Collega / Mentore / Network / Conoscente
-- **Company** (Text)
-- **Email** (Email)
-- **Phone** (Phone)
-- **How We Met** (Text)
-- **Last Contact** (Date)
-- **Notes** (Text) — interessi, dettagli personali, argomenti di conversazione
-- **Mutual Connections** (Relation) → Contacts (auto-reference)
-
----
-
-## SISTEMA DI CAPTURE — REGOLE D'ORO
-
-**Strumenti consigliati per catturare:**
-- Notion Web Clipper (Chrome/Firefox/Safari) — per articoli web
-- Notion Mobile — per pensieri on-the-go
-- Nota vocale → trascrivi in Notion la sera
-
-**Le 3 regole del capture:**
-1. Non organizzare durante il capture: tutto va in Inbox, sempre
-2. Cattura il perché, non solo il cosa: aggiungi sempre 1 riga con "Perché mi interessa questo?"
-3. Meno è meglio: cattura solo ciò che ti entusiasma o che userai, non tutto
-
----
-
-## TEMPLATE NOTA AVANZATO (sub-page in Notes)
-
-\`\`\`
-## Fonte
-Titolo originale: [titolo]
-URL: [link]
-Autore: [nome]
-Data lettura: [data]
-
-## Punti chiave (max 3)
-1. [Prima idea principale — in parole tue]
-2. [Seconda idea principale — in parole tue]
-3. [Terza idea principale — in parole tue]
-
-## Citazione da conservare
-> "[citazione testuale più significativa]"
-
-## Miei pensieri
-[Come si collega a ciò che so già? Cosa mi sorprende? Con cosa sono in disaccordo?]
-
-## Domande aperte
-- [Domanda che questa nota genera]
-
-## Connessioni con altre note
-- Collegata a: [nome nota correlata]
-- Simile a: [concetto simile]
-- Contraddice: [idea contraria]
-
-## Azioni
-- [ ] [Azione concreta se la nota è Actionable]
-\`\`\`
-
----
-
-## WORKFLOW — SISTEMA QUOTIDIANO
-
-**Mattina (5 min):** apri il Daily Journal, compila la sezione mattina, controlla le priorità del giorno.
-
-**Durante il giorno:** cattura tutto in Inbox senza organizzare. Usa Web Clipper per gli articoli, app mobile per i pensieri.
-
-**Sera (5 min):** completa il Daily Journal, aggiungi le abitudini completate nel Habit Tracker.
-
-**Weekly Review domenicale (45 min):**
-1. Svuota la Inbox: processa ogni nota (Filed, Discard o sviluppa)
-2. Rivedi i Projects attivi: aggiorna Progress %, identifica blocchi
-3. Controlla Areas: qualcuna è in "Needs Attention"?
-4. Scrivi 3 note Evergreen sviluppando idee dall'Inbox della settimana
-5. Aggiorna Current Streak in Habit Tracker
-
----
-
-## QUICK START (30 minuti)
-
-1. Duplica il workspace nel tuo Notion
-2. Configura le tue 6-8 Areas di vita nel database Areas
-3. Aggiungi i tuoi 3-5 Projects attivi con Goal e Due Date
-4. Crea i topic che ti interessano nel database Resources
-5. Aggiungi i libri in lettura e la lista "Want to Read"
-6. Configura 3-5 habits fondamentali nel Habit Tracker
-7. Scrivi la prima entrata nel Daily Journal
-8. Inizia a catturare: installa il Web Clipper e salva il prossimo articolo interessante in Inbox
-
----
-
-## PRO TIPS
-
-- **Non costruire il sistema perfetto subito**: inizia con Notes + Projects + Areas. Aggiungi gli altri database uno alla volta quando ne senti il bisogno reale
-- **Evergreen Notes sono il vero tesoro**: le note collegate tra loro, sviluppate nel tempo, diventano il tuo "libro non scritto". Ogni settimana ne sviluppa almeno 2-3 dall'Inbox
-- **La Inbox deve tornare a zero ogni settimana**: se accumuli più di 20-30 note non processate, il sistema smette di funzionare e diventa un altro posto dove le cose vanno a morire
-- **Tagging minimalista**: max 3 tag per nota. Il vero recupero delle informazioni avviene tramite search full-text di Notion, non tramite tag
-- **Book notes come multiplier**: prendere note strutturate dai libri (non sottolineare, ma riscrivere in tue parole) moltiplica la retention. Una nota da un libro vale più di 10 libri letti senza note`,
+    content: `<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  * { font-family: 'Inter', sans-serif; box-sizing: border-box; }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #3f3f3f; border-radius: 3px; }
+  .tag-pill { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: 9999px; font-size: 11px; font-weight: 500; }
+  .sidebar-item { display: flex; align-items: center; gap: 8px; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 14px; color: #9b9b9b; transition: background 0.1s; }
+  .sidebar-item:hover, .sidebar-item.active { background: #2a2a2a; color: #e3e3e3; }
+  .progress-bar { height: 4px; border-radius: 2px; background: #2a2a2a; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 2px; }
+  .card-hover { transition: background 0.15s; }
+  .card-hover:hover { background: #232323; }
+  .note-row { transition: background 0.1s; }
+  .note-row:hover { background: #1e1e1e; }
+</style>
+
+<div class="flex h-screen bg-[#191919] text-[#e3e3e3] overflow-hidden">
+
+  <!-- Sidebar -->
+  <aside class="w-56 flex-shrink-0 bg-[#161616] border-r border-[#2a2a2a] flex flex-col overflow-y-auto">
+    <div class="px-3 pt-4 pb-2">
+      <div class="flex items-center gap-2 px-2 py-2 rounded-md hover:bg-[#2a2a2a] cursor-pointer">
+        <span class="text-lg">🧠</span>
+        <div>
+          <p class="text-sm font-semibold text-[#e3e3e3] leading-tight">Second Brain</p>
+          <p class="text-[11px] text-[#6b6b6b]">PKM Workspace</p>
+        </div>
+      </div>
+    </div>
+    <div class="px-3 pb-2">
+      <div class="flex items-center gap-2 px-2 py-1.5 rounded-md bg-[#222222] border border-[#2e2e2e]">
+        <svg class="w-3.5 h-3.5 text-[#6b6b6b]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        <span class="text-[13px] text-[#6b6b6b]">Cerca...</span>
+        <span class="ml-auto text-[11px] text-[#444]">⌘K</span>
+      </div>
+    </div>
+    <div class="px-3 space-y-0.5">
+      <div class="sidebar-item active">🏠 <span>Second Brain Home</span></div>
+      <div class="sidebar-item">📥 <span>Inbox</span></div>
+      <div class="sidebar-item">📝 <span>Notes</span></div>
+    </div>
+    <div class="px-3 mt-4">
+      <p class="text-[11px] font-semibold text-[#555] uppercase tracking-wider px-2 mb-1">PARA</p>
+      <div class="space-y-0.5">
+        <div class="sidebar-item">📁 <span>Projects</span></div>
+        <div class="sidebar-item">🎯 <span>Areas</span></div>
+        <div class="sidebar-item">📚 <span>Resources</span></div>
+        <div class="sidebar-item">🗄️ <span>Archive</span></div>
+      </div>
+    </div>
+    <div class="px-3 mt-4">
+      <p class="text-[11px] font-semibold text-[#555] uppercase tracking-wider px-2 mb-1">RACCOGLITORI</p>
+      <div class="space-y-0.5">
+        <div class="sidebar-item">📖 <span>Reading List</span></div>
+        <div class="sidebar-item">💡 <span>Idee & Bozze</span></div>
+        <div class="sidebar-item">🔖 <span>Bookmarks</span></div>
+        <div class="sidebar-item">🗓️ <span>Daily Notes</span></div>
+        <div class="sidebar-item">🎓 <span>Corsi & Learning</span></div>
+      </div>
+    </div>
+    <div class="mt-auto px-3 pb-4 border-t border-[#2a2a2a] pt-3">
+      <div class="sidebar-item">⚙️ <span>Impostazioni</span></div>
+      <div class="sidebar-item">🗑️ <span>Cestino</span></div>
+    </div>
+  </aside>
+
+  <!-- Main Area -->
+  <main class="flex-1 flex flex-col overflow-hidden">
+    <header class="flex items-center justify-between px-6 py-3 border-b border-[#2a2a2a] bg-[#191919] flex-shrink-0">
+      <div class="flex items-center gap-1 text-[13px] text-[#6b6b6b]">
+        <span class="hover:text-[#e3e3e3] cursor-pointer transition">Second Brain Home</span>
+      </div>
+      <nav class="flex items-center gap-1">
+        <button class="px-3 py-1.5 text-[13px] bg-[#2a2a2a] text-[#e3e3e3] rounded-md font-medium">Home</button>
+        <button class="px-3 py-1.5 text-[13px] text-[#9b9b9b] hover:bg-[#2a2a2a] hover:text-[#e3e3e3] rounded-md transition">Notes</button>
+        <button class="px-3 py-1.5 text-[13px] text-[#9b9b9b] hover:bg-[#2a2a2a] hover:text-[#e3e3e3] rounded-md transition">Projects</button>
+        <button class="px-3 py-1.5 text-[13px] text-[#9b9b9b] hover:bg-[#2a2a2a] hover:text-[#e3e3e3] rounded-md transition">Resources</button>
+      </nav>
+      <div class="flex items-center gap-2">
+        <div class="flex items-center gap-1.5 px-3 py-1.5 bg-[#222] border border-[#2e2e2e] rounded-md">
+          <svg class="w-3.5 h-3.5 text-[#6b6b6b]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          <span class="text-[13px] text-[#6b6b6b]">Cerca nel workspace...</span>
+        </div>
+        <button class="text-[13px] text-[#9b9b9b] hover:text-[#e3e3e3] px-2 py-1.5">···</button>
+      </div>
+    </header>
+
+    <div class="flex-1 overflow-y-auto px-12 py-8 max-w-5xl mx-auto w-full">
+
+      <!-- Page title -->
+      <div class="mb-8">
+        <div class="text-5xl mb-3">🧠</div>
+        <h1 class="text-3xl font-bold text-[#e3e3e3] mb-1">Second Brain — Home</h1>
+        <p class="text-[14px] text-[#6b6b6b]">Il tuo sistema di gestione della conoscenza personale · PARA Method</p>
+      </div>
+
+      <!-- 1. Inbox -->
+      <section class="mb-10">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-[15px] font-semibold text-[#e3e3e3] flex items-center gap-2">📥 Inbox <span class="text-[11px] font-normal bg-[#2a2a2a] text-[#9b9b9b] px-2 py-0.5 rounded-full">5 elementi</span></h2>
+          <button class="text-[12px] text-[#6b6b6b] hover:text-[#e3e3e3] transition">+ Aggiungi</button>
+        </div>
+        <div class="border border-[#2a2a2a] rounded-lg overflow-hidden">
+          <div class="flex items-start gap-3 px-4 py-3 border-b border-[#2a2a2a] card-hover cursor-pointer">
+            <span class="text-base mt-0.5">💬</span>
+            <div class="flex-1 min-w-0">
+              <p class="text-[13px] text-[#e3e3e3] font-medium truncate">Idee per Side Project — App per tracciare abitudini</p>
+              <p class="text-[12px] text-[#6b6b6b] mt-0.5">Gamification + streak system. Ispirazione da Duolingo. Potrebbe usare AI per suggerire abitudini.</p>
+            </div>
+            <span class="text-[11px] text-[#555] flex-shrink-0 mt-1">Oggi</span>
+          </div>
+          <div class="flex items-start gap-3 px-4 py-3 border-b border-[#2a2a2a] card-hover cursor-pointer">
+            <span class="text-base mt-0.5">🔗</span>
+            <div class="flex-1 min-w-0">
+              <p class="text-[13px] text-[#e3e3e3] font-medium truncate">Link: "The AI-First Workflow" — a16z blog post</p>
+              <p class="text-[12px] text-[#6b6b6b] mt-0.5">https://a16z.com/ai-first-workflow — leggere stasera, rilevante per la strategia Q2.</p>
+            </div>
+            <span class="text-[11px] text-[#555] flex-shrink-0 mt-1">Ieri</span>
+          </div>
+          <div class="flex items-start gap-3 px-4 py-3 border-b border-[#2a2a2a] card-hover cursor-pointer">
+            <span class="text-base mt-0.5">📌</span>
+            <div class="flex-1 min-w-0">
+              <p class="text-[13px] text-[#e3e3e3] font-medium truncate">Chiamare il commercialista — scadenza F24 aprile</p>
+              <p class="text-[12px] text-[#6b6b6b] mt-0.5">Verificare contributi INPS freelance e detrazioni spese home office 2025.</p>
+            </div>
+            <span class="text-[11px] text-[#555] flex-shrink-0 mt-1">20 mar</span>
+          </div>
+          <div class="flex items-start gap-3 px-4 py-3 border-b border-[#2a2a2a] card-hover cursor-pointer">
+            <span class="text-base mt-0.5">💡</span>
+            <div class="flex-1 min-w-0">
+              <p class="text-[13px] text-[#e3e3e3] font-medium truncate">Newsletter tema: "Come usare l'AI per il PKM"</p>
+              <p class="text-[12px] text-[#6b6b6b] mt-0.5">Approccio pratico: Notion + ChatGPT + Readwise. Potenziale articolo da sviluppare.</p>
+            </div>
+            <span class="text-[11px] text-[#555] flex-shrink-0 mt-1">19 mar</span>
+          </div>
+          <div class="flex items-start gap-3 px-4 py-3 card-hover cursor-pointer">
+            <span class="text-base mt-0.5">📸</span>
+            <div class="flex-1 min-w-0">
+              <p class="text-[13px] text-[#e3e3e3] font-medium truncate">Citazione: "Your mind is for having ideas, not holding them" — GTD</p>
+              <p class="text-[12px] text-[#6b6b6b] mt-0.5">Da rielaborare per post LinkedIn. Collegare al concetto di Second Brain.</p>
+            </div>
+            <span class="text-[11px] text-[#555] flex-shrink-0 mt-1">18 mar</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Active Projects -->
+      <section class="mb-10">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-[15px] font-semibold text-[#e3e3e3] flex items-center gap-2">🔥 Progetti Attivi <span class="text-[11px] font-normal bg-[#2a2a2a] text-[#9b9b9b] px-2 py-0.5 rounded-full">4 progetti</span></h2>
+          <button class="text-[12px] text-[#6b6b6b] hover:text-[#e3e3e3] transition">Vedi tutti →</button>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="bg-[#1e1e1e] border border-[#2a2a2a] rounded-xl p-4 card-hover cursor-pointer">
+            <div class="flex items-start justify-between mb-3">
+              <span class="text-xl">🚀</span>
+              <span class="text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#1a3a2a] text-[#4ade80]">In corso</span>
+            </div>
+            <h3 class="text-[14px] font-semibold text-[#e3e3e3] mb-1">Lancio Newsletter Mensile</h3>
+            <p class="text-[12px] text-[#6b6b6b] mb-3">Prossima azione: scrivere bozza articolo principale per edizione aprile</p>
+            <div class="progress-bar mb-1.5"><div class="progress-fill bg-[#4ade80]" style="width:65%"></div></div>
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] text-[#555]">65% completato</span>
+              <span class="text-[11px] text-[#555]">Scadenza: 31 mar</span>
+            </div>
+          </div>
+          <div class="bg-[#1e1e1e] border border-[#2a2a2a] rounded-xl p-4 card-hover cursor-pointer">
+            <div class="flex items-start justify-between mb-3">
+              <span class="text-xl">💻</span>
+              <span class="text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#1a2a3a] text-[#60a5fa]">Pianificazione</span>
+            </div>
+            <h3 class="text-[14px] font-semibold text-[#e3e3e3] mb-1">App Habit Tracker</h3>
+            <p class="text-[12px] text-[#6b6b6b] mb-3">Prossima azione: definire MVP features e tech stack (React Native vs Flutter)</p>
+            <div class="progress-bar mb-1.5"><div class="progress-fill bg-[#60a5fa]" style="width:20%"></div></div>
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] text-[#555]">20% completato</span>
+              <span class="text-[11px] text-[#555]">Scadenza: Q2 2026</span>
+            </div>
+          </div>
+          <div class="bg-[#1e1e1e] border border-[#2a2a2a] rounded-xl p-4 card-hover cursor-pointer">
+            <div class="flex items-start justify-between mb-3">
+              <span class="text-xl">🎓</span>
+              <span class="text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#3a2a1a] text-[#fb923c]">In corso</span>
+            </div>
+            <h3 class="text-[14px] font-semibold text-[#e3e3e3] mb-1">Corso Online: Machine Learning</h3>
+            <p class="text-[12px] text-[#6b6b6b] mb-3">Prossima azione: completare modulo 4 — Neural Networks e backpropagation</p>
+            <div class="progress-bar mb-1.5"><div class="progress-fill bg-[#fb923c]" style="width:48%"></div></div>
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] text-[#555]">48% completato</span>
+              <span class="text-[11px] text-[#555]">Scadenza: 30 apr</span>
+            </div>
+          </div>
+          <div class="bg-[#1e1e1e] border border-[#2a2a2a] rounded-xl p-4 card-hover cursor-pointer">
+            <div class="flex items-start justify-between mb-3">
+              <span class="text-xl">✍️</span>
+              <span class="text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#2a1a3a] text-[#c084fc]">Revisione</span>
+            </div>
+            <h3 class="text-[14px] font-semibold text-[#e3e3e3] mb-1">Portfolio Personale v2</h3>
+            <p class="text-[12px] text-[#6b6b6b] mb-3">Prossima azione: revisione copy sezione About e aggiornamento case studies</p>
+            <div class="progress-bar mb-1.5"><div class="progress-fill bg-[#c084fc]" style="width:80%"></div></div>
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] text-[#555]">80% completato</span>
+              <span class="text-[11px] text-[#555]">Scadenza: 25 mar</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Areas of Responsibility -->
+      <section class="mb-10">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-[15px] font-semibold text-[#e3e3e3]">🎯 Aree di Responsabilità</h2>
+          <button class="text-[12px] text-[#6b6b6b] hover:text-[#e3e3e3] transition">Gestisci aree →</button>
+        </div>
+        <div class="grid grid-cols-3 gap-3">
+          <div class="bg-[#1e1e1e] border border-[#2a2a2a] rounded-xl p-4 card-hover cursor-pointer text-center">
+            <div class="text-2xl mb-2">💼</div>
+            <p class="text-[13px] font-semibold text-[#e3e3e3]">Carriera</p>
+            <p class="text-[11px] text-[#6b6b6b] mt-1">12 note · 3 progetti</p>
+          </div>
+          <div class="bg-[#1e1e1e] border border-[#2a2a2a] rounded-xl p-4 card-hover cursor-pointer text-center">
+            <div class="text-2xl mb-2">🏃</div>
+            <p class="text-[13px] font-semibold text-[#e3e3e3]">Salute</p>
+            <p class="text-[11px] text-[#6b6b6b] mt-1">8 note · 2 progetti</p>
+          </div>
+          <div class="bg-[#1e1e1e] border border-[#2a2a2a] rounded-xl p-4 card-hover cursor-pointer text-center">
+            <div class="text-2xl mb-2">💰</div>
+            <p class="text-[13px] font-semibold text-[#e3e3e3]">Finanze</p>
+            <p class="text-[11px] text-[#6b6b6b] mt-1">15 note · 1 progetto</p>
+          </div>
+          <div class="bg-[#1e1e1e] border border-[#2a2a2a] rounded-xl p-4 card-hover cursor-pointer text-center">
+            <div class="text-2xl mb-2">📖</div>
+            <p class="text-[13px] font-semibold text-[#e3e3e3]">Apprendimento</p>
+            <p class="text-[11px] text-[#6b6b6b] mt-1">24 note · 4 progetti</p>
+          </div>
+          <div class="bg-[#1e1e1e] border border-[#2a2a2a] rounded-xl p-4 card-hover cursor-pointer text-center">
+            <div class="text-2xl mb-2">❤️</div>
+            <p class="text-[13px] font-semibold text-[#e3e3e3]">Relazioni</p>
+            <p class="text-[11px] text-[#6b6b6b] mt-1">6 note · 0 progetti</p>
+          </div>
+          <div class="bg-[#1e1e1e] border border-[#2a2a2a] rounded-xl p-4 card-hover cursor-pointer text-center">
+            <div class="text-2xl mb-2">🏠</div>
+            <p class="text-[13px] font-semibold text-[#e3e3e3]">Casa</p>
+            <p class="text-[11px] text-[#6b6b6b] mt-1">5 note · 1 progetto</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Recent Notes -->
+      <section class="mb-10">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-[15px] font-semibold text-[#e3e3e3] flex items-center gap-2">🧠 Note Recenti <span class="text-[11px] font-normal bg-[#2a2a2a] text-[#9b9b9b] px-2 py-0.5 rounded-full">87 totali</span></h2>
+          <button class="text-[12px] text-[#6b6b6b] hover:text-[#e3e3e3] transition">Vedi tutte →</button>
+        </div>
+        <div class="border border-[#2a2a2a] rounded-lg overflow-hidden">
+          <div class="flex items-start gap-3 px-4 py-3 border-b border-[#2a2a2a] note-row cursor-pointer">
+            <span class="text-base mt-0.5 flex-shrink-0">📋</span>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 flex-wrap mb-1">
+                <p class="text-[13px] font-medium text-[#e3e3e3]">Appunti Riunione Team Q1 2026</p>
+                <span class="tag-pill bg-[#1a2a3a] text-[#60a5fa]">#business</span>
+                <span class="tag-pill bg-[#1a3a2a] text-[#4ade80]">#meeting</span>
+              </div>
+              <p class="text-[12px] text-[#6b6b6b] truncate">OKR del trimestre: +30% ricavi, lancio feature AI entro marzo. Azioni: Marco si occupa di...</p>
+            </div>
+            <span class="text-[11px] text-[#555] flex-shrink-0">Oggi</span>
+          </div>
+          <div class="flex items-start gap-3 px-4 py-3 border-b border-[#2a2a2a] note-row cursor-pointer">
+            <span class="text-base mt-0.5 flex-shrink-0">💡</span>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 flex-wrap mb-1">
+                <p class="text-[13px] font-medium text-[#e3e3e3]">Riassunto Libro: Atomic Habits</p>
+                <span class="tag-pill bg-[#2a1a3a] text-[#c084fc]">#produttività</span>
+                <span class="tag-pill bg-[#3a2a1a] text-[#fb923c]">#libri</span>
+              </div>
+              <p class="text-[12px] text-[#6b6b6b] truncate">Le 4 leggi del cambiamento comportamentale: renderlo ovvio, attraente, facile e soddisfacente...</p>
+            </div>
+            <span class="text-[11px] text-[#555] flex-shrink-0">Ieri</span>
+          </div>
+          <div class="flex items-start gap-3 px-4 py-3 border-b border-[#2a2a2a] note-row cursor-pointer">
+            <span class="text-base mt-0.5 flex-shrink-0">🤖</span>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 flex-wrap mb-1">
+                <p class="text-[13px] font-medium text-[#e3e3e3]">Prompt Engineering: tecniche avanzate per Claude</p>
+                <span class="tag-pill bg-[#1a3a3a] text-[#22d3ee]">#AI</span>
+                <span class="tag-pill bg-[#2a1a3a] text-[#c084fc]">#produttività</span>
+              </div>
+              <p class="text-[12px] text-[#6b6b6b] truncate">Chain-of-thought, few-shot examples, XML tagging per strutturare prompt complessi...</p>
+            </div>
+            <span class="text-[11px] text-[#555] flex-shrink-0">20 mar</span>
+          </div>
+          <div class="flex items-start gap-3 px-4 py-3 border-b border-[#2a2a2a] note-row cursor-pointer">
+            <span class="text-base mt-0.5 flex-shrink-0">🎨</span>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 flex-wrap mb-1">
+                <p class="text-[13px] font-medium text-[#e3e3e3]">Note sul Design System: token e componenti</p>
+                <span class="tag-pill bg-[#3a1a1a] text-[#f87171]">#design</span>
+                <span class="tag-pill bg-[#1a2a3a] text-[#60a5fa]">#business</span>
+              </div>
+              <p class="text-[12px] text-[#6b6b6b] truncate">Figma variables per colori semantici. Naming convention: color/primary/default...</p>
+            </div>
+            <span class="text-[11px] text-[#555] flex-shrink-0">19 mar</span>
+          </div>
+          <div class="flex items-start gap-3 px-4 py-3 border-b border-[#2a2a2a] note-row cursor-pointer">
+            <span class="text-base mt-0.5 flex-shrink-0">💰</span>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 flex-wrap mb-1">
+                <p class="text-[13px] font-medium text-[#e3e3e3]">Strategia di investimento 2026 — ETF e DCA</p>
+                <span class="tag-pill bg-[#1a3a2a] text-[#4ade80]">#finanze</span>
+                <span class="tag-pill bg-[#2a1a3a] text-[#c084fc]">#produttività</span>
+              </div>
+              <p class="text-[12px] text-[#6b6b6b] truncate">Allocazione: 60% MSCI World, 20% S&P500, 10% EM, 10% obbligazioni. DCA mensile il giorno 5...</p>
+            </div>
+            <span class="text-[11px] text-[#555] flex-shrink-0">18 mar</span>
+          </div>
+          <div class="flex items-start gap-3 px-4 py-3 border-b border-[#2a2a2a] note-row cursor-pointer">
+            <span class="text-base mt-0.5 flex-shrink-0">🏃</span>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 flex-wrap mb-1">
+                <p class="text-[13px] font-medium text-[#e3e3e3]">Piano di allenamento — Preparazione mezza maratona</p>
+                <span class="tag-pill bg-[#1a3a2a] text-[#4ade80]">#salute</span>
+                <span class="tag-pill bg-[#3a2a1a] text-[#fb923c]">#sport</span>
+              </div>
+              <p class="text-[12px] text-[#6b6b6b] truncate">16 settimane al via. Settimana 1: 3 uscite da 5km. Long run domenica 10km...</p>
+            </div>
+            <span class="text-[11px] text-[#555] flex-shrink-0">17 mar</span>
+          </div>
+          <div class="flex items-start gap-3 px-4 py-3 border-b border-[#2a2a2a] note-row cursor-pointer">
+            <span class="text-base mt-0.5 flex-shrink-0">🌐</span>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 flex-wrap mb-1">
+                <p class="text-[13px] font-medium text-[#e3e3e3]">Note da conferenza: UX Summit Milano 2026</p>
+                <span class="tag-pill bg-[#3a1a1a] text-[#f87171]">#design</span>
+                <span class="tag-pill bg-[#1a3a3a] text-[#22d3ee]">#AI</span>
+                <span class="tag-pill bg-[#1a2a3a] text-[#60a5fa]">#business</span>
+              </div>
+              <p class="text-[12px] text-[#6b6b6b] truncate">Talk di Giulia Rossi su "AI e UX writing": generare varianti di copy con AI, validare con A/B test...</p>
+            </div>
+            <span class="text-[11px] text-[#555] flex-shrink-0">15 mar</span>
+          </div>
+          <div class="flex items-start gap-3 px-4 py-3 note-row cursor-pointer">
+            <span class="text-base mt-0.5 flex-shrink-0">📊</span>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 flex-wrap mb-1">
+                <p class="text-[13px] font-medium text-[#e3e3e3]">Analisi competitor — Mercato SaaS B2B Italia</p>
+                <span class="tag-pill bg-[#1a2a3a] text-[#60a5fa]">#business</span>
+                <span class="tag-pill bg-[#3a1a1a] text-[#f87171]">#strategia</span>
+              </div>
+              <p class="text-[12px] text-[#6b6b6b] truncate">Analisi di 8 player principali. Gap di mercato: onboarding localizzato in italiano mancante nel 70%...</p>
+            </div>
+            <span class="text-[11px] text-[#555] flex-shrink-0">14 mar</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Reading List -->
+      <section class="mb-10">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-[15px] font-semibold text-[#e3e3e3] flex items-center gap-2">📖 Reading List <span class="text-[11px] font-normal bg-[#2a2a2a] text-[#9b9b9b] px-2 py-0.5 rounded-full">4 elementi</span></h2>
+          <button class="text-[12px] text-[#6b6b6b] hover:text-[#e3e3e3] transition">Vedi lista completa →</button>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="bg-[#1e1e1e] border border-[#2a2a2a] rounded-xl p-4 card-hover cursor-pointer flex gap-3">
+            <div class="w-10 h-14 bg-gradient-to-br from-[#1a3a2a] to-[#2a4a3a] rounded-md flex-shrink-0 flex items-center justify-center text-lg">📗</div>
+            <div class="flex-1 min-w-0">
+              <p class="text-[13px] font-semibold text-[#e3e3e3] leading-snug mb-0.5">Building a Second Brain</p>
+              <p class="text-[12px] text-[#6b6b6b] mb-2">Tiago Forte · Libro</p>
+              <span class="tag-pill bg-[#1a3a2a] text-[#4ade80] py-0.5">✓ Letto</span>
+            </div>
+          </div>
+          <div class="bg-[#1e1e1e] border border-[#2a2a2a] rounded-xl p-4 card-hover cursor-pointer flex gap-3">
+            <div class="w-10 h-14 bg-gradient-to-br from-[#1a2a3a] to-[#2a3a4a] rounded-md flex-shrink-0 flex items-center justify-center text-lg">📘</div>
+            <div class="flex-1 min-w-0">
+              <p class="text-[13px] font-semibold text-[#e3e3e3] leading-snug mb-0.5">Deep Work</p>
+              <p class="text-[12px] text-[#6b6b6b] mb-2">Cal Newport · Libro</p>
+              <span class="tag-pill bg-[#1a2a3a] text-[#60a5fa] py-0.5">📖 In lettura</span>
+            </div>
+          </div>
+          <div class="bg-[#1e1e1e] border border-[#2a2a2a] rounded-xl p-4 card-hover cursor-pointer flex gap-3">
+            <div class="w-10 h-14 bg-gradient-to-br from-[#2a2a1a] to-[#3a3a2a] rounded-md flex-shrink-0 flex items-center justify-center text-lg">📰</div>
+            <div class="flex-1 min-w-0">
+              <p class="text-[13px] font-semibold text-[#e3e3e3] leading-snug mb-0.5">Come l'AI sta ridefinendo il knowledge work</p>
+              <p class="text-[12px] text-[#6b6b6b] mb-2">Harvard Business Review · Articolo</p>
+              <span class="tag-pill bg-[#2a2a2a] text-[#9b9b9b] py-0.5">○ Da leggere</span>
+            </div>
+          </div>
+          <div class="bg-[#1e1e1e] border border-[#2a2a2a] rounded-xl p-4 card-hover cursor-pointer flex gap-3">
+            <div class="w-10 h-14 bg-gradient-to-br from-[#3a1a1a] to-[#4a2a2a] rounded-md flex-shrink-0 flex items-center justify-center text-lg">📙</div>
+            <div class="flex-1 min-w-0">
+              <p class="text-[13px] font-semibold text-[#e3e3e3] leading-snug mb-0.5">Il Metodo GTD per Professionisti Italiani</p>
+              <p class="text-[12px] text-[#6b6b6b] mb-2">Adattamento locale · Libro</p>
+              <span class="tag-pill bg-[#2a2a2a] text-[#9b9b9b] py-0.5">○ Da leggere</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tag cloud -->
+      <section class="mb-8">
+        <h2 class="text-[15px] font-semibold text-[#e3e3e3] mb-3">🏷️ Tag Frequenti</h2>
+        <div class="flex flex-wrap gap-2">
+          <span class="tag-pill bg-[#2a1a3a] text-[#c084fc] text-[12px] py-1 px-3">#produttività</span>
+          <span class="tag-pill bg-[#1a3a3a] text-[#22d3ee] text-[12px] py-1 px-3">#AI</span>
+          <span class="tag-pill bg-[#3a1a1a] text-[#f87171] text-[12px] py-1 px-3">#design</span>
+          <span class="tag-pill bg-[#1a2a3a] text-[#60a5fa] text-[12px] py-1 px-3">#business</span>
+          <span class="tag-pill bg-[#1a3a2a] text-[#4ade80] text-[12px] py-1 px-3">#finanze</span>
+          <span class="tag-pill bg-[#3a2a1a] text-[#fb923c] text-[12px] py-1 px-3">#libri</span>
+          <span class="tag-pill bg-[#1a3a2a] text-[#4ade80] text-[12px] py-1 px-3">#salute</span>
+          <span class="tag-pill bg-[#3a2a1a] text-[#fb923c] text-[12px] py-1 px-3">#sport</span>
+          <span class="tag-pill bg-[#2a1a3a] text-[#c084fc] text-[12px] py-1 px-3">#PKM</span>
+          <span class="tag-pill bg-[#1a3a3a] text-[#22d3ee] text-[12px] py-1 px-3">#meeting</span>
+          <span class="tag-pill bg-[#3a1a1a] text-[#f87171] text-[12px] py-1 px-3">#freelance</span>
+          <span class="tag-pill bg-[#1a2a3a] text-[#60a5fa] text-[12px] py-1 px-3">#strategia</span>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+`,
   },
   {
     id: "notion-job-tracker",
     name: "Notion Job Application Tracker",
-    category: "prompt",
+    category: "ui",
     price: 799,
     stripePriceId: "price_1TCIgEBoWNgrJbiys2bAQxkB",
     downloadType: "notion",
@@ -4194,282 +5371,481 @@ Data lettura: [data]
     description: "Track job applications, interviews and offers with a Kanban pipeline.",
     isNew: true,
     editorsPick: false,
-    content: `# Notion Job Application Tracker
-
-## La pipeline di ricerca lavoro che non ti fa perdere nessuna opportunità
-
-Un sistema completo a 3 database con 15+ proprietà per ogni candidatura, pipeline Kanban visiva, tracker dei colloqui con note strutturate, 5 template email pronti per follow-up e proposte, e un comparatore di offerte per fare la scelta giusta quando arrivano più proposte contemporaneamente.
-
----
-
-## DATABASE 1: APPLICATIONS
-
-Icona: 💼 | Vista principale: Kanban Pipeline
-
-### Proprietà
-- **Position** (Title) — titolo esatto del ruolo come appare nell'annuncio
-- **Company** (Text) — nome dell'azienda
-- **Status** (Status):
-  - 📋 Saved — annuncio salvato, non ancora candidato
-  - 📤 Applied — candidatura inviata
-  - 📞 Screening — primo contatto con HR o recruiter
-  - 🎯 Interview — colloquio in corso (1+ round)
-  - 🔄 Final Round — fase decisionale finale
-  - 🤝 Offer Received — offerta ricevuta
-  - ✅ Accepted — offerta accettata
-  - ❌ Rejected — risposta negativa
-  - 🚫 Withdrawn — ritirata da te
-  - 👻 Ghosted — nessuna risposta da +14 giorni
-- **Priority** (Select) — 🔥 Dream Job / ⭐ Top Choice / ✅ Interested / 💤 Maybe / ❓ Unclear
-- **Job URL** (URL) — link all'annuncio (salvalo subito: spesso scadono)
-- **Applied Date** (Date)
-- **Next Action Date** (Date) — quando fare il prossimo follow-up
-- **Days Since Applied** (Formula): \`if(empty(prop("Applied Date")), "Non ancora", toText(dateBetween(now(), prop("Applied Date"), "days")) + " giorni fa")\`
-- **Response Time** (Formula): \`if(empty(prop("Applied Date")), "", if(prop("Status") == "Rejected" or prop("Status") == "Screening" or prop("Status") == "Interview", toText(dateBetween(now(), prop("Applied Date"), "days")) + "g", "In attesa"))\`
-- **Salary Min** (Number) — minimo accettabile in € annui lordi
-- **Salary Max** (Number) — massimo indicato nell'annuncio
-- **Salary Midpoint** (Formula): \`if(prop("Salary Min") > 0 and prop("Salary Max") > 0, (prop("Salary Min") + prop("Salary Max")) / 2, 0)\`
-- **Location** (Text) — città o Remote / Hybrid / On-site
-- **Remote %** (Number) — percentuale di lavoro da remoto (0-100)
-- **Contract Type** (Select) — Tempo Indeterminato / Tempo Determinato / Partita IVA / Stage / Apprendistato
-- **Seniority** (Select) — Junior / Mid / Senior / Lead / Manager / Director / C-Level
-- **Company Size** (Select) — Startup (1-10) / Scaleup (11-50) / PMI (51-200) / Corporate (201-1000) / Enterprise (1000+)
-- **Industry** (Select) — Tech / Fintech / E-commerce / Consulenza / Media / Healthcare / Education / Retail / Altro
-- **Source** (Select) — LinkedIn / Indeed / Glassdoor / Sito Aziendale / Referral / Headhunter / Job Fair / Candidatura Spontanea / Altro
-- **Contact Name** (Text) — nome del recruiter o HR
-- **Contact Email** (Email)
-- **Contact LinkedIn** (URL) — profilo LinkedIn del recruiter
-- **Cover Letter** (Checkbox) — hai inviato la lettera di presentazione?
-- **Custom CV** (Checkbox) — hai personalizzato il CV per questo ruolo?
-- **Referral** (Text) — nome di chi ti ha riferito (se applicabile)
-- **Notes** (Text) — note interne
-- **Excitement Level** (Select) — 🔥🔥🔥 Super Excited / 🔥🔥 Excited / 🔥 Interested / 😐 Neutral
-- **Red Flags** (Text) — eventuali segnali negativi durante il processo
-
-### Views
-1. **Pipeline** (Board) — raggruppata per Status — la tua vista principale quotidiana
-2. **Follow-up Calendar** (Calendar) — per Next Action Date — non dimenticare mai un follow-up
-3. **Top Choices** (Gallery) — filtro: Priority = Dream Job o Top Choice, con cover azienda
-4. **Active** (Table) — filtro: Status ≠ Rejected, Withdrawn, Ghosted, Accepted, Saved
-5. **Salary Comparison** (Table) — filtro: Status = Offer Received o Final Round, visibile: Position, Company, Salary Midpoint, Remote %, Contract Type
-6. **Statistics** (Table) — tutte le candidature ordinate per Applied Date — per calcolare il tuo conversion rate
-
----
-
-## DATABASE 2: INTERVIEWS
-
-Icona: 🎤
-
-### Proprietà
-- **Interview** (Title) — formato: "NomeAzienda — Round N — Tipo" (es. "Acme Corp — Round 2 — Technical")
-- **Application** (Relation) → Applications (bidirezionale)
-- **Date** (Date) — data e ora
-- **Duration** (Number) — durata in minuti
-- **Format** (Select) — Video Call / In Person / Phone / Take-home Test / Case Study / Panel / Assessment Center
-- **Platform** (Text) — Zoom, Teams, Meet, sede fisica
-- **Interviewer Name** (Text)
-- **Interviewer Role** (Text) — es. "Senior Engineer", "HR Manager", "CTO"
-- **Interviewer LinkedIn** (URL)
-- **Round** (Number) — numero del round (1, 2, 3...)
-- **Topic** (Select) — Behavioral / Technical / Cultural Fit / Case Study / Presentation / Salary Negotiation / Final Decision
-- **Outcome** (Select) — Passed / Failed / Pending / Waiting / Withdrawn
-- **Follow-up Sent** (Checkbox) — email di ringraziamento inviata?
-- **My Performance** (Select) — ⭐⭐⭐⭐⭐ Eccellente / ⭐⭐⭐⭐ Bene / ⭐⭐⭐ Nella media / ⭐⭐ Sotto / ⭐ Male
-- **Questions Asked** (Text) — domande che ti hanno fatto
-- **My Best Answers** (Text) — le risposte che hanno funzionato
-- **Weak Points** (Text) — dove puoi migliorare per il prossimo round
-- **Next Steps** (Text) — cosa ti hanno detto alla fine
-
----
-
-## DATABASE 3: OFFERS COMPARISON
-
-Icona: ⚖️
-
-### Proprietà
-- **Offer** (Title) — nome dell'offerta
-- **Application** (Relation) → Applications
-- **Base Salary** (Number) — RAL in € annui
-- **Bonus** (Number) — bonus target annuo in €
-- **Stock/Equity** (Text) — opzioni, RSU, ESOP
-- **Benefits** (Text) — lista benefit (ticket, assicurazione, welfare, ecc.)
-- **Vacation Days** (Number) — giorni di ferie
-- **Remote Days/Week** (Number) — giorni di smart working a settimana
-- **Start Date** (Date)
-- **Deadline** (Date) — entro quando devi rispondere
-- **Total Compensation** (Formula): \`prop("Base Salary") + prop("Bonus")\`
-- **Score** (Number) — punteggio totale 1-10 (tua valutazione soggettiva)
-- **Pros** (Text)
-- **Cons** (Text)
-- **Gut Feeling** (Select) — 🤩 Sì assolutamente / 😊 Probabile sì / 🤔 Indeciso / 😬 Probabile no / ❌ No
-
----
-
-## 5 TEMPLATE EMAIL PRONTI
-
-### Email 1 — Follow-up dopo candidatura (dopo 7 giorni senza risposta):
-\`\`\`
-Oggetto: Follow-up — Candidatura per [Posizione] — [Tuo Nome]
-
-Buongiorno [Nome Recruiter],
-
-Le scrivo per verificare lo stato della mia candidatura per la posizione di [Posizione], inviata il [data].
-
-Sono molto interessato all'opportunità e a [cosa ti entusiasma dell'azienda in 1 frase].
-
-Resto a disposizione per qualsiasi informazione aggiuntiva.
-
-Cordiali saluti,
-[Tuo Nome]
-[LinkedIn] | [Email] | [Telefono]
-\`\`\`
-
-### Email 2 — Ringraziamento post-colloquio (entro 24 ore):
-\`\`\`
-Oggetto: Grazie per il colloquio — [Posizione] — [Tuo Nome]
-
-Buongiorno [Nome Intervistatore],
-
-La ringrazio per il tempo dedicatomi oggi. Ho trovato molto stimolante la conversazione, in particolare [dettaglio specifico discusso: es. "il vostro approccio alla product discovery"].
-
-Il ruolo di [Posizione] mi interessa ancora di più dopo aver capito meglio [aspetto specifico del ruolo o del team].
-
-Resto in attesa di sviluppi e sono disponibile per qualsiasi approfondimento.
-
-Cordiali saluti,
-[Tuo Nome]
-\`\`\`
-
-### Email 3 — Richiesta di feedback dopo rifiuto:
-\`\`\`
-Oggetto: Feedback sulla candidatura — [Posizione]
-
-Buongiorno [Nome],
-
-La ringrazio per avermi comunicato la decisione. Capisco e rispetto la vostra scelta.
-
-Se possibile, le sarei grato di un breve feedback su dove avrei potuto migliorare la mia candidatura o il mio profilo. Questo mi aiuterebbe a crescere professionalmente.
-
-La ringrazio in anticipo per la disponibilità.
-
-Cordiali saluti,
-[Tuo Nome]
-\`\`\`
-
-### Email 4 — Negoziazione stipendio:
-\`\`\`
-Oggetto: RE: Offerta [Posizione] — [Tuo Nome]
-
-Buongiorno [Nome],
-
-La ringrazio per l'offerta. Sono entusiasta dell'opportunità di unirmi a [Azienda].
-
-Dopo una valutazione attenta, sulla base della mia esperienza in [X, Y, Z] e del valore che posso portare al team, speravo in una RAL di circa €[importo]. Sarebbe possibile rivalutare questo aspetto?
-
-Resto aperto a discuterne e a trovare una soluzione che funzioni per entrambi.
-
-Cordiali saluti,
-[Tuo Nome]
-\`\`\`
-
-### Email 5 — Candidatura spontanea:
-\`\`\`
-Oggetto: Candidatura Spontanea — [Tuo Ruolo/Specializzazione] — [Tuo Nome]
-
-Buongiorno [Nome HR o Hiring Manager],
-
-Ho seguito con interesse [azienda] e il suo lavoro in [ambito specifico]. Sono [Tuo Ruolo] con [X anni] di esperienza in [competenze chiave].
-
-Ho contribuito a [risultato misurabile] e credo di poter portare valore al vostro team in particolare su [area specifica].
-
-Allego il mio CV e mi rendo disponibile per una call esplorativa di 15 minuti.
-
-Cordiali saluti,
-[Tuo Nome]
-[Portfolio/LinkedIn]
-\`\`\`
-
----
-
-## TEMPLATE PREPARAZIONE COLLOQUIO
-
-Crea questa sub-page per ogni colloquio nel database Interviews:
-
-\`\`\`
-PRIMA DEL COLLOQUIO
-
-Info logistiche:
-- Data/ora: [data] alle [ora]
-- Durata: [minuti]
-- Formato: [Video/In person/ecc.]
-- Link: [URL meeting o indirizzo]
-
-Ricerca azienda (compila almeno 24h prima):
-- Cosa fa: [prodotto/servizio in 2 righe]
-- Clienti: [chi compra da loro]
-- Competitor: [2-3 concorrenti]
-- Notizie recenti: [ultime novità, funding, lanci prodotto]
-- Perché voglio lavorarci: [DEVE essere specifico, non generico]
-
-Le mie risposte alle domande tipiche:
-1. "Parlami di te" — [versione 90 secondi]
-2. "Perché questa azienda?" — [risposta specifica]
-3. "Perché lasci il lavoro attuale?" — [versione positiva]
-4. "Maggiore punto di forza?" — [con esempio STAR]
-5. "Maggiore debolezza?" — [con piano di miglioramento]
-
-Le mie domande per loro (scegliene 3-4):
-- Come misura il successo in questo ruolo nei primi 90 giorni?
-- Qual è la sfida più grande che il team affronta ora?
-- Come è strutturata la crescita professionale?
-- Come descriveresti la cultura del team?
-- [Domanda specifica sul prodotto/progetto]
-
-DOPO IL COLLOQUIO
-
-Domande che mi hanno fatto:
--
-
-Le mie risposte (cosa ha funzionato):
--
-
-Cosa avrei potuto rispondere meglio:
--
-
-Impression generale sull'azienda:
--
-
-Next steps comunicati:
--
-
-Follow-up da inviare: [ ] Email ringraziamento entro 24h
-\`\`\`
-
----
-
-## QUICK START (20 minuti)
-
-1. Duplica il workspace nel tuo Notion
-2. Aggiungi tutte le candidature attive in Applications con il loro Status corrente
-3. Imposta il Next Action Date per ogni candidatura attiva (quando fare follow-up)
-4. Crea un record in Interviews per ogni colloquio passato e futuro
-5. Salva i 5 template email in una pagina dedicata nel tuo Notion per copia/incolla rapido
-6. Imposta un blocco calendario di 20 minuti ogni lunedì per aggiornare la pipeline
-
----
-
-## PRO TIPS
-
-- **Conversion rate tracking**: usa la view Statistics per calcolare il tuo tasso di successo (Applied → Screening, Screening → Interview, ecc.). Con i dati puoi capire dove ottimizzare: il CV, la lettera, le skills, o la preparazione al colloquio
-- **Personalizza sempre il CV**: la property Custom CV è il tuo reminder. Candidature con CV personalizzato hanno un tasso di risposta 3x superiore rispetto al CV generico
-- **Follow-up sistematico**: la view Calendar per Next Action Date è la feature più sottovalutata. La maggior parte delle offerte arriva a chi fa follow-up, non a chi aspetta
-- **Debriefing post-colloquio entro 2 ore**: compila il database Interviews immediatamente dopo, finché è fresco. Le note che scrivi subito sono 10x più dettagliate di quelle scritte il giorno dopo
-- **Negozia sempre**: usa il database Offers Comparison per confrontare le offerte in modo razionale prima di negoziare. Conoscere la tua BATNA (migliore alternativa) ti dà una leva enorme`,
+    content: `<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  * { font-family: 'Inter', sans-serif; box-sizing: border-box; }
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #3d3d3d; border-radius: 3px; }
+  .kanban-col { min-width: 220px; max-width: 220px; }
+  .card-hover:hover { background: #2a2a2a !important; }
+  .sidebar-item:hover { background: rgba(255,255,255,0.06); }
+  .sidebar-item.active { background: rgba(255,255,255,0.1); }
+  .tag { font-size: 11px; padding: 1px 7px; border-radius: 3px; font-weight: 500; }
+  .view-btn { font-size: 13px; padding: 4px 10px; border-radius: 4px; color: #9b9b9b; cursor: pointer; }
+  .view-btn.active, .view-btn:hover { background: rgba(255,255,255,0.08); color: #e2e2e2; }
+  .checklist-item input[type="checkbox"] { accent-color: #5e96f7; width:14px; height:14px; cursor:pointer; }
+</style>
+
+<div class="flex h-screen bg-[#191919] text-[#e2e2e2] overflow-hidden">
+
+  <!-- Sidebar -->
+  <aside class="w-56 bg-[#111111] flex flex-col py-3 border-r border-[#2d2d2d] shrink-0">
+    <div class="px-3 mb-3">
+      <div class="flex items-center gap-2 px-2 py-1.5 rounded-md sidebar-item cursor-pointer">
+        <div class="w-5 h-5 bg-gradient-to-br from-blue-500 to-purple-600 rounded flex items-center justify-center text-[10px] font-bold text-white">J</div>
+        <span class="text-sm font-semibold text-[#e2e2e2]">Job Tracker</span>
+        <span class="ml-auto text-[#555] text-xs">···</span>
+      </div>
+    </div>
+
+    <div class="px-2 mb-1">
+      <p class="text-[10px] font-semibold text-[#555] uppercase tracking-widest px-2 mb-1">Workspace</p>
+    </div>
+
+    <nav class="flex flex-col gap-0.5 px-2">
+      <div class="sidebar-item flex items-center gap-2 px-2 py-1.5 rounded-md cursor-pointer">
+        <span class="text-[15px]">🏠</span>
+        <span class="text-[13px] text-[#a0a0a0]">Job Tracker Home</span>
+      </div>
+      <div class="sidebar-item active flex items-center gap-2 px-2 py-1.5 rounded-md cursor-pointer">
+        <span class="text-[15px]">📋</span>
+        <span class="text-[13px] text-[#e2e2e2] font-medium">Applications</span>
+        <span class="ml-auto bg-blue-600 text-white text-[10px] font-bold px-1.5 rounded-full">24</span>
+      </div>
+      <div class="sidebar-item flex items-center gap-2 px-2 py-1.5 rounded-md cursor-pointer">
+        <span class="text-[15px]">🏢</span>
+        <span class="text-[13px] text-[#a0a0a0]">Companies</span>
+      </div>
+      <div class="sidebar-item flex items-center gap-2 px-2 py-1.5 rounded-md cursor-pointer">
+        <span class="text-[15px]">👤</span>
+        <span class="text-[13px] text-[#a0a0a0]">Contacts</span>
+      </div>
+      <div class="sidebar-item flex items-center gap-2 px-2 py-1.5 rounded-md cursor-pointer">
+        <span class="text-[15px]">📁</span>
+        <span class="text-[13px] text-[#a0a0a0]">Documents</span>
+      </div>
+      <div class="sidebar-item flex items-center gap-2 px-2 py-1.5 rounded-md cursor-pointer">
+        <span class="text-[15px]">🎯</span>
+        <span class="text-[13px] text-[#a0a0a0]">Interview Prep</span>
+      </div>
+    </nav>
+
+    <div class="mt-4 px-2">
+      <div class="h-px bg-[#2d2d2d] mb-3"></div>
+      <p class="text-[10px] font-semibold text-[#555] uppercase tracking-widest px-2 mb-1">Risorse</p>
+      <div class="sidebar-item flex items-center gap-2 px-2 py-1.5 rounded-md cursor-pointer">
+        <span class="text-[15px]">📊</span>
+        <span class="text-[13px] text-[#a0a0a0]">Statistiche</span>
+      </div>
+      <div class="sidebar-item flex items-center gap-2 px-2 py-1.5 rounded-md cursor-pointer">
+        <span class="text-[15px]">📅</span>
+        <span class="text-[13px] text-[#a0a0a0]">Calendario</span>
+      </div>
+    </div>
+
+    <div class="mt-auto px-3 py-3 border-t border-[#2d2d2d]">
+      <div class="flex items-center gap-2 cursor-pointer sidebar-item px-2 py-1.5 rounded-md">
+        <div class="w-6 h-6 bg-gradient-to-br from-orange-400 to-pink-500 rounded-full flex items-center justify-center text-[11px] font-bold text-white">M</div>
+        <div>
+          <p class="text-[12px] font-medium text-[#d0d0d0]">Marco Rossi</p>
+          <p class="text-[10px] text-[#666]">marco@email.com</p>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 flex flex-col overflow-hidden">
+
+    <!-- Top Bar -->
+    <header class="flex items-center justify-between px-6 py-3 border-b border-[#2d2d2d] shrink-0">
+      <div>
+        <div class="flex items-center gap-1.5 text-[12px] text-[#555] mb-1">
+          <span>Job Tracker</span><span>/</span><span class="text-[#888]">Applications</span>
+        </div>
+        <h1 class="text-[22px] font-bold text-[#e8e8e8] leading-tight">📋 Applications</h1>
+      </div>
+      <div class="flex items-center gap-2">
+        <button class="text-[12px] text-[#888] bg-[#252525] hover:bg-[#2f2f2f] px-3 py-1.5 rounded-md border border-[#333] transition-colors">+ Nuova Candidatura</button>
+        <button class="text-[12px] text-[#888] hover:text-[#bbb] px-2 py-1.5 rounded-md transition-colors">⋯</button>
+      </div>
+    </header>
+
+    <!-- Stats Bar -->
+    <div class="flex items-center gap-6 px-6 py-2.5 bg-[#161616] border-b border-[#2d2d2d] shrink-0">
+      <div class="flex items-center gap-1.5"><span class="text-[11px] text-[#666]">Candidature:</span><span class="text-[13px] font-semibold text-[#e2e2e2]">24</span></div>
+      <div class="w-px h-3 bg-[#333]"></div>
+      <div class="flex items-center gap-1.5"><span class="text-[11px] text-[#666]">In corso:</span><span class="text-[13px] font-semibold text-blue-400">8</span></div>
+      <div class="w-px h-3 bg-[#333]"></div>
+      <div class="flex items-center gap-1.5"><span class="text-[11px] text-[#666]">Colloqui:</span><span class="text-[13px] font-semibold text-purple-400">5</span></div>
+      <div class="w-px h-3 bg-[#333]"></div>
+      <div class="flex items-center gap-1.5"><span class="text-[11px] text-[#666]">Offerte:</span><span class="text-[13px] font-semibold text-green-400">1</span></div>
+      <div class="w-px h-3 bg-[#333]"></div>
+      <div class="flex items-center gap-1.5"><span class="text-[11px] text-[#666]">Tasso:</span><span class="text-[13px] font-semibold text-orange-400">33%</span></div>
+    </div>
+
+    <!-- View Toolbar -->
+    <div class="flex items-center gap-1 px-6 py-2 border-b border-[#2d2d2d] shrink-0">
+      <button class="view-btn active">▦ Board</button>
+      <button class="view-btn">☰ Table</button>
+      <button class="view-btn">📅 Calendar</button>
+      <div class="ml-auto flex items-center gap-2">
+        <button class="view-btn text-[12px]">🔽 Filter</button>
+        <button class="view-btn text-[12px]">↕ Sort</button>
+        <button class="view-btn text-[12px]">⋯ More</button>
+      </div>
+    </div>
+
+    <!-- Scrollable Body -->
+    <div class="flex-1 overflow-y-auto px-6 py-4" style="overflow-x:auto;">
+
+      <!-- Kanban Board -->
+      <div class="flex gap-3 pb-4" style="min-width: max-content;">
+
+        <!-- Saved -->
+        <div class="kanban-col flex flex-col gap-2">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-[12px] font-semibold text-[#888]">📋 Saved <span class="text-[#555] font-normal ml-1">3</span></span>
+            <button class="text-[#555] hover:text-[#aaa] text-lg leading-none">+</button>
+          </div>
+          <!-- Card -->
+          <div class="card-hover bg-[#1e1e1e] rounded-lg p-3 border border-[#2d2d2d] cursor-pointer transition-colors">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-7 h-7 rounded-full bg-emerald-600 flex items-center justify-center text-[12px] font-bold text-white shrink-0">S</div>
+              <div><p class="text-[12px] font-semibold text-[#e0e0e0]">Shopify</p><p class="text-[11px] text-[#777]">Backend Engineer</p></div>
+            </div>
+            <div class="flex flex-wrap gap-1 mb-2">
+              <span class="tag bg-blue-900/50 text-blue-300">Remote</span>
+            </div>
+            <p class="text-[11px] text-[#666]">€65k – €85k · Salvato 10 mar</p>
+          </div>
+          <!-- Card -->
+          <div class="card-hover bg-[#1e1e1e] rounded-lg p-3 border border-[#2d2d2d] cursor-pointer transition-colors">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-7 h-7 rounded-full bg-violet-700 flex items-center justify-center text-[12px] font-bold text-white shrink-0">T</div>
+              <div><p class="text-[12px] font-semibold text-[#e0e0e0]">Typeform</p><p class="text-[11px] text-[#777]">React Developer</p></div>
+            </div>
+            <div class="flex flex-wrap gap-1 mb-2">
+              <span class="tag bg-amber-900/50 text-amber-300">Hybrid</span>
+            </div>
+            <p class="text-[11px] text-[#666]">€55k – €70k · Salvato 12 mar</p>
+          </div>
+          <!-- Card -->
+          <div class="card-hover bg-[#1e1e1e] rounded-lg p-3 border border-[#2d2d2d] cursor-pointer transition-colors">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-7 h-7 rounded-full bg-rose-700 flex items-center justify-center text-[12px] font-bold text-white shrink-0">A</div>
+              <div><p class="text-[12px] font-semibold text-[#e0e0e0]">Algolia</p><p class="text-[11px] text-[#777]">Frontend Engineer</p></div>
+            </div>
+            <div class="flex flex-wrap gap-1 mb-2">
+              <span class="tag bg-blue-900/50 text-blue-300">Remote</span>
+            </div>
+            <p class="text-[11px] text-[#666]">€60k – €80k · Salvato 15 mar</p>
+          </div>
+        </div>
+
+        <!-- Applied -->
+        <div class="kanban-col flex flex-col gap-2">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-[12px] font-semibold text-[#888]">📨 Applied <span class="text-[#555] font-normal ml-1">5</span></span>
+            <button class="text-[#555] hover:text-[#aaa] text-lg leading-none">+</button>
+          </div>
+          <div class="card-hover bg-[#1e1e1e] rounded-lg p-3 border border-[#2d2d2d] cursor-pointer transition-colors">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-7 h-7 rounded-full bg-[#1DB954] flex items-center justify-center text-[12px] font-bold text-white shrink-0">S</div>
+              <div><p class="text-[12px] font-semibold text-[#e0e0e0]">Spotify</p><p class="text-[11px] text-[#777]">Senior Frontend</p></div>
+            </div>
+            <div class="flex flex-wrap gap-1 mb-2">
+              <span class="tag bg-amber-900/50 text-amber-300">Hybrid</span>
+              <span class="tag bg-[#333] text-[#888]">Svezia</span>
+            </div>
+            <p class="text-[11px] text-[#666]">€80k – €105k · Appl. 1 mar</p>
+          </div>
+          <div class="card-hover bg-[#1e1e1e] rounded-lg p-3 border border-[#2d2d2d] cursor-pointer transition-colors">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-7 h-7 rounded-full bg-purple-700 flex items-center justify-center text-[12px] font-bold text-white shrink-0">B</div>
+              <div><p class="text-[12px] font-semibold text-[#e0e0e0]">Bending Spoons</p><p class="text-[11px] text-[#777]">Product Designer</p></div>
+            </div>
+            <div class="flex flex-wrap gap-1 mb-2">
+              <span class="tag bg-orange-900/50 text-orange-300">On-site</span>
+              <span class="tag bg-[#333] text-[#888]">Milano</span>
+            </div>
+            <p class="text-[11px] text-[#666]">€55k – €75k · Appl. 3 mar</p>
+          </div>
+          <div class="card-hover bg-[#1e1e1e] rounded-lg p-3 border border-[#2d2d2d] cursor-pointer transition-colors">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-7 h-7 rounded-full bg-[#6772E5] flex items-center justify-center text-[12px] font-bold text-white shrink-0">S</div>
+              <div><p class="text-[12px] font-semibold text-[#e0e0e0]">Satispay</p><p class="text-[11px] text-[#777]">Mobile Developer</p></div>
+            </div>
+            <div class="flex flex-wrap gap-1 mb-2">
+              <span class="tag bg-amber-900/50 text-amber-300">Hybrid</span>
+              <span class="tag bg-[#333] text-[#888]">Milano</span>
+            </div>
+            <p class="text-[11px] text-[#666]">€50k – €70k · Appl. 5 mar</p>
+          </div>
+          <div class="card-hover bg-[#1e1e1e] rounded-lg p-3 border border-[#2d2d2d] cursor-pointer transition-colors">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-7 h-7 rounded-full bg-sky-700 flex items-center justify-center text-[12px] font-bold text-white shrink-0">L</div>
+              <div><p class="text-[12px] font-semibold text-[#e0e0e0]">Linear</p><p class="text-[11px] text-[#777]">UI Engineer</p></div>
+            </div>
+            <div class="flex flex-wrap gap-1 mb-2">
+              <span class="tag bg-blue-900/50 text-blue-300">Remote</span>
+            </div>
+            <p class="text-[11px] text-[#666]">€75k – €95k · Appl. 8 mar</p>
+          </div>
+          <div class="card-hover bg-[#1e1e1e] rounded-lg p-3 border border-[#2d2d2d] cursor-pointer transition-colors">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-7 h-7 rounded-full bg-cyan-700 flex items-center justify-center text-[12px] font-bold text-white shrink-0">D</div>
+              <div><p class="text-[12px] font-semibold text-[#e0e0e0]">Doctolib</p><p class="text-[11px] text-[#777]">Full Stack Dev</p></div>
+            </div>
+            <div class="flex flex-wrap gap-1 mb-2">
+              <span class="tag bg-amber-900/50 text-amber-300">Hybrid</span>
+              <span class="tag bg-[#333] text-[#888]">Parigi</span>
+            </div>
+            <p class="text-[11px] text-[#666]">€60k – €80k · Appl. 9 mar</p>
+          </div>
+        </div>
+
+        <!-- Phone Screen -->
+        <div class="kanban-col flex flex-col gap-2">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-[12px] font-semibold text-[#888]">📞 Phone Screen <span class="text-[#555] font-normal ml-1">3</span></span>
+            <button class="text-[#555] hover:text-[#aaa] text-lg leading-none">+</button>
+          </div>
+          <div class="card-hover bg-[#1e1e1e] rounded-lg p-3 border border-[#2d2d2d] cursor-pointer transition-colors">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-7 h-7 rounded-full bg-blue-700 flex items-center justify-center text-[12px] font-bold text-white shrink-0">S</div>
+              <div><p class="text-[12px] font-semibold text-[#e0e0e0]">Stripe</p><p class="text-[11px] text-[#777]">Full Stack Eng.</p></div>
+            </div>
+            <div class="flex flex-wrap gap-1 mb-2">
+              <span class="tag bg-blue-900/50 text-blue-300">Remote</span>
+              <span class="tag bg-[#333] text-[#888]">Irlanda</span>
+            </div>
+            <p class="text-[11px] text-[#666]">€90k – €120k · 📅 24 mar</p>
+          </div>
+          <div class="card-hover bg-[#1e1e1e] rounded-lg p-3 border border-[#2d2d2d] cursor-pointer transition-colors">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-7 h-7 rounded-full bg-red-700 flex items-center justify-center text-[12px] font-bold text-white shrink-0">N</div>
+              <div><p class="text-[12px] font-semibold text-[#e0e0e0]">Nexi Group</p><p class="text-[11px] text-[#777]">Cloud Engineer</p></div>
+            </div>
+            <div class="flex flex-wrap gap-1 mb-2">
+              <span class="tag bg-orange-900/50 text-orange-300">On-site</span>
+              <span class="tag bg-[#333] text-[#888]">Roma</span>
+            </div>
+            <p class="text-[11px] text-[#666]">€55k – €72k · 📅 25 mar</p>
+          </div>
+          <div class="card-hover bg-[#1e1e1e] rounded-lg p-3 border border-[#2d2d2d] cursor-pointer transition-colors">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-7 h-7 rounded-full bg-teal-700 flex items-center justify-center text-[12px] font-bold text-white shrink-0">F</div>
+              <div><p class="text-[12px] font-semibold text-[#e0e0e0]">Facile.it</p><p class="text-[11px] text-[#777]">DevOps Engineer</p></div>
+            </div>
+            <div class="flex flex-wrap gap-1 mb-2">
+              <span class="tag bg-amber-900/50 text-amber-300">Hybrid</span>
+              <span class="tag bg-[#333] text-[#888]">Milano</span>
+            </div>
+            <p class="text-[11px] text-[#666]">€52k – €68k · 📅 26 mar</p>
+          </div>
+        </div>
+
+        <!-- Technical -->
+        <div class="kanban-col flex flex-col gap-2">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-[12px] font-semibold text-[#888]">💻 Technical <span class="text-[#555] font-normal ml-1">2</span></span>
+            <button class="text-[#555] hover:text-[#aaa] text-lg leading-none">+</button>
+          </div>
+          <div class="card-hover bg-[#1e1e1e] rounded-lg p-3 border border-[#2d2d2d] cursor-pointer transition-colors">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-7 h-7 rounded-full bg-indigo-700 flex items-center justify-center text-[12px] font-bold text-white shrink-0">P</div>
+              <div><p class="text-[12px] font-semibold text-[#e0e0e0]">Prima.it</p><p class="text-[11px] text-[#777]">Senior React Dev</p></div>
+            </div>
+            <div class="flex flex-wrap gap-1 mb-2">
+              <span class="tag bg-blue-900/50 text-blue-300">Remote</span>
+            </div>
+            <p class="text-[11px] text-[#666]">€65k – €85k · 📅 27 mar</p>
+          </div>
+          <div class="card-hover bg-[#1e1e1e] rounded-lg p-3 border border-[#2d2d2d] cursor-pointer transition-colors">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-7 h-7 rounded-full bg-yellow-700 flex items-center justify-center text-[12px] font-bold text-white shrink-0">K</div>
+              <div><p class="text-[12px] font-semibold text-[#e0e0e0]">Klarna</p><p class="text-[11px] text-[#777]">iOS Developer</p></div>
+            </div>
+            <div class="flex flex-wrap gap-1 mb-2">
+              <span class="tag bg-amber-900/50 text-amber-300">Hybrid</span>
+              <span class="tag bg-[#333] text-[#888]">Svezia</span>
+            </div>
+            <p class="text-[11px] text-[#666]">€85k – €110k · 📅 28 mar</p>
+          </div>
+        </div>
+
+        <!-- Final Round -->
+        <div class="kanban-col flex flex-col gap-2">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-[12px] font-semibold text-[#888]">🤝 Final Round <span class="text-[#555] font-normal ml-1">2</span></span>
+            <button class="text-[#555] hover:text-[#aaa] text-lg leading-none">+</button>
+          </div>
+          <div class="card-hover bg-[#1e1e1e] rounded-lg p-3 border border-[#2d2d2d] cursor-pointer transition-colors border-l-2 border-l-purple-500">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-7 h-7 rounded-full bg-orange-600 flex items-center justify-center text-[12px] font-bold text-white shrink-0">C</div>
+              <div><p class="text-[12px] font-semibold text-[#e0e0e0]">Cortilia</p><p class="text-[11px] text-[#777]">CTO Office</p></div>
+            </div>
+            <div class="flex flex-wrap gap-1 mb-2">
+              <span class="tag bg-orange-900/50 text-orange-300">On-site</span>
+              <span class="tag bg-[#333] text-[#888]">Milano</span>
+            </div>
+            <p class="text-[11px] text-[#666]">€70k – €90k · 📅 29 mar</p>
+          </div>
+          <div class="card-hover bg-[#1e1e1e] rounded-lg p-3 border border-[#2d2d2d] cursor-pointer transition-colors border-l-2 border-l-purple-500">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-7 h-7 rounded-full bg-pink-700 flex items-center justify-center text-[12px] font-bold text-white shrink-0">A</div>
+              <div><p class="text-[12px] font-semibold text-[#e0e0e0]">Airbnb</p><p class="text-[11px] text-[#777]">Platform Eng.</p></div>
+            </div>
+            <div class="flex flex-wrap gap-1 mb-2">
+              <span class="tag bg-blue-900/50 text-blue-300">Remote</span>
+            </div>
+            <p class="text-[11px] text-[#666]">€110k – €140k · 📅 1 apr</p>
+          </div>
+        </div>
+
+        <!-- Offer -->
+        <div class="kanban-col flex flex-col gap-2">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-[12px] font-semibold text-[#888]">🎉 Offer <span class="text-[#555] font-normal ml-1">1</span></span>
+            <button class="text-[#555] hover:text-[#aaa] text-lg leading-none">+</button>
+          </div>
+          <div class="card-hover bg-[#1e1e1e] rounded-lg p-3 border border-[#2d2d2d] cursor-pointer transition-colors border-l-2 border-l-green-500">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-7 h-7 rounded-full bg-green-700 flex items-center justify-center text-[12px] font-bold text-white shrink-0">M</div>
+              <div><p class="text-[12px] font-semibold text-[#e0e0e0]">Musixmatch</p><p class="text-[11px] text-[#777]">Frontend Lead</p></div>
+            </div>
+            <div class="flex flex-wrap gap-1 mb-2">
+              <span class="tag bg-green-900/50 text-green-300">✓ Offerta ricevuta</span>
+            </div>
+            <p class="text-[11px] text-green-500 font-semibold">€82k · Scade 30 mar</p>
+          </div>
+        </div>
+
+        <!-- Rejected -->
+        <div class="kanban-col flex flex-col gap-2">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-[12px] font-semibold text-[#888]">❌ Rejected <span class="text-[#555] font-normal ml-1">4</span></span>
+          </div>
+          <div class="card-hover bg-[#1a1a1a] rounded-lg p-3 border border-[#252525] cursor-pointer transition-colors opacity-60">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-7 h-7 rounded-full bg-gray-600 flex items-center justify-center text-[12px] font-bold text-white shrink-0">G</div>
+              <div><p class="text-[12px] font-semibold text-[#888] line-through">Google</p><p class="text-[11px] text-[#555]">SWE L4</p></div>
+            </div>
+            <p class="text-[11px] text-[#555]">€100k+ · Rifiutato 14 mar</p>
+          </div>
+          <div class="card-hover bg-[#1a1a1a] rounded-lg p-3 border border-[#252525] cursor-pointer transition-colors opacity-60">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-7 h-7 rounded-full bg-gray-600 flex items-center justify-center text-[12px] font-bold text-white shrink-0">M</div>
+              <div><p class="text-[12px] font-semibold text-[#888] line-through">Meta</p><p class="text-[11px] text-[#555]">Frontend Dev</p></div>
+            </div>
+            <p class="text-[11px] text-[#555]">€120k+ · Rifiutato 16 mar</p>
+          </div>
+          <div class="card-hover bg-[#1a1a1a] rounded-lg p-3 border border-[#252525] cursor-pointer transition-colors opacity-60">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-7 h-7 rounded-full bg-gray-600 flex items-center justify-center text-[12px] font-bold text-white shrink-0">U</div>
+              <div><p class="text-[12px] font-semibold text-[#888] line-through">Uber</p><p class="text-[11px] text-[#555]">Staff Eng.</p></div>
+            </div>
+            <p class="text-[11px] text-[#555]">€115k+ · Rifiutato 18 mar</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Divider -->
+      <div class="flex items-center gap-3 my-6">
+        <div class="h-px flex-1 bg-[#2d2d2d]"></div>
+        <span class="text-[11px] text-[#555] font-semibold uppercase tracking-wider">Interview Prep & Prossimi Colloqui</span>
+        <div class="h-px flex-1 bg-[#2d2d2d]"></div>
+      </div>
+
+      <!-- Bottom Section: Prep + Upcoming -->
+      <div class="flex gap-5 pb-8" style="min-width:900px;">
+
+        <!-- Checklist -->
+        <div class="flex-1 bg-[#1e1e1e] rounded-xl border border-[#2d2d2d] p-4">
+          <h3 class="text-[14px] font-semibold text-[#d0d0d0] mb-3">🎯 Interview Prep Checklist</h3>
+          <div class="flex flex-col gap-2">
+            <label class="checklist-item flex items-center gap-2.5 cursor-pointer"><input type="checkbox" checked><span class="text-[13px] text-[#888] line-through">Rivedere algoritmi e strutture dati</span></label>
+            <label class="checklist-item flex items-center gap-2.5 cursor-pointer"><input type="checkbox" checked><span class="text-[13px] text-[#888] line-through">Preparare risposta "Parlami di te"</span></label>
+            <label class="checklist-item flex items-center gap-2.5 cursor-pointer"><input type="checkbox" checked><span class="text-[13px] text-[#888] line-through">Studiare tech stack di Stripe</span></label>
+            <label class="checklist-item flex items-center gap-2.5 cursor-pointer"><input type="checkbox"><span class="text-[13px] text-[#c0c0c0]">Preparare domande per l'intervistatore</span></label>
+            <label class="checklist-item flex items-center gap-2.5 cursor-pointer"><input type="checkbox"><span class="text-[13px] text-[#c0c0c0]">Esercitarsi su LeetCode (30 medium)</span></label>
+            <label class="checklist-item flex items-center gap-2.5 cursor-pointer"><input type="checkbox"><span class="text-[13px] text-[#c0c0c0]">Revisionare system design interview</span></label>
+            <label class="checklist-item flex items-center gap-2.5 cursor-pointer"><input type="checkbox"><span class="text-[13px] text-[#c0c0c0]">Mock interview con amico (React)</span></label>
+            <label class="checklist-item flex items-center gap-2.5 cursor-pointer"><input type="checkbox"><span class="text-[13px] text-[#c0c0c0]">Aggiornare portfolio con ultimi progetti</span></label>
+            <label class="checklist-item flex items-center gap-2.5 cursor-pointer"><input type="checkbox"><span class="text-[13px] text-[#c0c0c0]">Ricercare cultura aziendale Klarna</span></label>
+          </div>
+          <div class="mt-3 pt-3 border-t border-[#2d2d2d]">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-[11px] text-[#666]">Progresso</span>
+              <span class="text-[11px] text-[#888]">3 / 9</span>
+            </div>
+            <div class="w-full bg-[#2d2d2d] rounded-full h-1.5">
+              <div class="bg-blue-500 h-1.5 rounded-full" style="width:33%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Upcoming Interviews Table -->
+        <div class="flex-1 bg-[#1e1e1e] rounded-xl border border-[#2d2d2d] p-4">
+          <h3 class="text-[14px] font-semibold text-[#d0d0d0] mb-3">📅 Prossimi Colloqui</h3>
+          <table class="w-full text-[12px]">
+            <thead>
+              <tr class="border-b border-[#2d2d2d]">
+                <th class="text-left text-[#555] font-semibold pb-2 pr-3">Azienda</th>
+                <th class="text-left text-[#555] font-semibold pb-2 pr-3">Tipo</th>
+                <th class="text-left text-[#555] font-semibold pb-2 pr-3">Data</th>
+                <th class="text-left text-[#555] font-semibold pb-2">Stato</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-[#252525]">
+              <tr>
+                <td class="py-2 pr-3"><div class="flex items-center gap-1.5"><div class="w-4 h-4 rounded-full bg-blue-700 flex items-center justify-center text-[9px] font-bold text-white">S</div><span class="text-[#d0d0d0] font-medium">Stripe</span></div></td>
+                <td class="py-2 pr-3 text-[#888]">Phone Screen</td>
+                <td class="py-2 pr-3 text-[#888]">24 mar 10:00</td>
+                <td class="py-2"><span class="tag bg-blue-900/50 text-blue-300">Confermato</span></td>
+              </tr>
+              <tr>
+                <td class="py-2 pr-3"><div class="flex items-center gap-1.5"><div class="w-4 h-4 rounded-full bg-red-700 flex items-center justify-center text-[9px] font-bold text-white">N</div><span class="text-[#d0d0d0] font-medium">Nexi</span></div></td>
+                <td class="py-2 pr-3 text-[#888]">HR Interview</td>
+                <td class="py-2 pr-3 text-[#888]">25 mar 14:30</td>
+                <td class="py-2"><span class="tag bg-blue-900/50 text-blue-300">Confermato</span></td>
+              </tr>
+              <tr>
+                <td class="py-2 pr-3"><div class="flex items-center gap-1.5"><div class="w-4 h-4 rounded-full bg-teal-700 flex items-center justify-center text-[9px] font-bold text-white">F</div><span class="text-[#d0d0d0] font-medium">Facile.it</span></div></td>
+                <td class="py-2 pr-3 text-[#888]">Tecnico</td>
+                <td class="py-2 pr-3 text-[#888]">26 mar 11:00</td>
+                <td class="py-2"><span class="tag bg-amber-900/50 text-amber-300">Da conf.</span></td>
+              </tr>
+              <tr>
+                <td class="py-2 pr-3"><div class="flex items-center gap-1.5"><div class="w-4 h-4 rounded-full bg-indigo-700 flex items-center justify-center text-[9px] font-bold text-white">P</div><span class="text-[#d0d0d0] font-medium">Prima.it</span></div></td>
+                <td class="py-2 pr-3 text-[#888]">Live Coding</td>
+                <td class="py-2 pr-3 text-[#888]">27 mar 15:00</td>
+                <td class="py-2"><span class="tag bg-blue-900/50 text-blue-300">Confermato</span></td>
+              </tr>
+              <tr>
+                <td class="py-2 pr-3"><div class="flex items-center gap-1.5"><div class="w-4 h-4 rounded-full bg-yellow-700 flex items-center justify-center text-[9px] font-bold text-white">K</div><span class="text-[#d0d0d0] font-medium">Klarna</span></div></td>
+                <td class="py-2 pr-3 text-[#888]">System Design</td>
+                <td class="py-2 pr-3 text-[#888]">28 mar 09:30</td>
+                <td class="py-2"><span class="tag bg-purple-900/50 text-purple-300">Prep. needed</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</div>
+`,
   },
   {
     id: "notion-weekly-review",
     name: "Notion Weekly Review System",
-    category: "prompt",
+    category: "ui",
     price: 799,
     stripePriceId: "price_1TCIgFBoWNgrJbiySP8ORstl",
     downloadType: "notion",
@@ -4479,283 +5855,461 @@ Follow-up da inviare: [ ] Email ringraziamento entro 24h
     description: "Structured weekly and monthly review template to stay aligned with goals.",
     isNew: true,
     editorsPick: false,
-    content: `# Notion Weekly Review System
-
-## Il rituale settimanale che trasforma le intenzioni in risultati
-
-Un sistema completo a 3 database per la revisione settimanale, mensile e trimestrale. Collegato ai tuoi Goals e ai tuoi Projects (compatibile con il framework PARA), ti dà una visione a 360° su ciò che sta funzionando, dove stai perdendo energia, e cosa deve succedere la settimana prossima. 30 minuti ogni domenica che cambiano la traiettoria della tua vita.
-
----
-
-## DATABASE 1: WEEKLY REVIEWS
-
-Icona: 📅 | Ogni record = una settimana
-
-### Proprietà
-- **Week** (Title) — formato: "Week 12 | 17-23 Mar 2026"
-- **Week Start** (Date) — lunedì della settimana
-- **Week Number** (Formula): \`"Settimana " + toText(date(prop("Week Start")).week)\`
-- **Overall Rating** (Select) — ⭐⭐⭐⭐⭐ Eccezionale / ⭐⭐⭐⭐ Ottima / ⭐⭐⭐ Buona / ⭐⭐ Difficile / ⭐ Molto difficile
-- **Energy Level** (Select) — ⚡⚡⚡ Alta / ⚡⚡ Media / ⚡ Bassa
-- **Focus Level** (Select) — Alta / Media / Bassa
-- **Top Win** (Text) — il risultato più importante della settimana
-- **Top Challenge** (Text) — la sfida principale che hai affrontato
-- **Key Learning** (Text) — la cosa più importante imparata
-- **Biggest Time Waster** (Text) — cosa ha rubato tempo senza creare valore
-- **Next Week #1 Priority** (Text) — UNA sola priorità assoluta
-- **Goals Progress** (Relation) → Annual Goals — quali goal hai fatto avanzare
-- **Projects Progress** (Relation) → Projects (se hai il Project Hub)
-- **Mood Score** (Number) — da 1 a 10, quanto ti sei sentito bene nel complesso
-- **Health Score** (Number) — esercizio, sonno, alimentazione (1-10)
-- **Work Score** (Number) — produttività e impatto al lavoro (1-10)
-- **Relationships Score** (Number) — connessione con le persone care (1-10)
-
-### Views
-1. **All Reviews** (Table) — ordinata per Week Start decrescente — archivio completo
-2. **Timeline** (Timeline) — per Week Start, colori per Overall Rating
-3. **By Rating** (Table) — raggruppata per Overall Rating — pattern di settimane ottime vs difficili
-4. **Trend Scores** (Table) — visibile: Week, Mood Score, Health Score, Work Score, Relationships Score
-
----
-
-## DATABASE 2: ANNUAL GOALS
-
-Icona: 🎯
-
-### Proprietà
-- **Goal** (Title) — obiettivo in forma di outcome, non di attività
-- **Category** (Select) — 💼 Carriera / 💪 Salute / 💰 Finanze / 📚 Formazione / 👨‍👩‍👧 Relazioni / 🧘 Benessere / 🏠 Casa / 🎨 Creatività / 🌍 Contributo
-- **Year** (Number) — anno di riferimento (es. 2026)
-- **Why** (Text) — perché questo obiettivo è importante? Cosa cambia nella tua vita se lo raggiungi?
-- **Target** (Text) — obiettivo specifico e misurabile (chi / cosa / quanto / entro quando)
-- **Current Status** (Text) — dove sei ora rispetto al target
-- **Progress %** (Number) — 0-100, aggiorna mensile
-- **Milestones** (Text) — 3-5 traguardi intermedi
-- **Deadline** (Date)
-- **Quarter** (Select) — Q1 / Q2 / Q3 / Q4 (il trimestre in cui vuoi completarlo o fare un salto)
-- **Status** (Select) — 🔥 On Fire / 🟢 On Track / 🟡 Needs Attention / 🔴 Off Track / ✅ Achieved / ❌ Abandoned
-- **Weekly Reviews** (Relation) → Weekly Reviews — le review in cui hai avanzato su questo goal
-- **Key Actions** (Text) — le 3 azioni più importanti per questo goal
-
-### Views
-1. **Goals 2026** (Gallery) — filtro: Year = 2026, card con Category, Progress %, Status
-2. **By Quarter** (Table) — raggruppata per Quarter
-3. **Off Track** (Table) — filtro: Status = Off Track o Needs Attention — richiede azione immediata
-4. **Achieved** (Table) — filtro: Status = Achieved — celebra i successi!
-
----
-
-## DATABASE 3: QUARTERLY REVIEWS
-
-Icona: 🗓️
-
-### Proprietà
-- **Quarter** (Title) — es. "Q1 2026 — Gennaio/Marzo"
-- **Year** (Number)
-- **Quarter Number** (Select) — Q1 / Q2 / Q3 / Q4
-- **Overall Rating** (Select) — ⭐⭐⭐⭐⭐ / ⭐⭐⭐⭐ / ⭐⭐⭐ / ⭐⭐ / ⭐
-- **Goals Achieved** (Relation) → Annual Goals
-- **Top Achievement** (Text) — il più grande risultato del trimestre
-- **Top Lesson** (Text) — l'insegnamento più importante
-- **What Changed** (Text) — cosa è cambiato nella tua visione o priorità
-- **Next Quarter Focus** (Text) — le 3 priorità per il prossimo trimestre
-- **Energy Theme** (Text) — la parola o tema che descrive il trimestre
-
----
-
-## TEMPLATE WEEKLY REVIEW COMPLETO
-
-Crea un Template Button nel database Weekly Reviews che genera questa struttura:
-
-\`\`\`
----
-SEZIONE 1 — GUARDARE INDIETRO (15 min)
----
-
-COMPLETAMENTO
-Cosa ho completato questa settimana?
-- [ ]
-- [ ]
-- [ ]
-
-Cosa non ho completato? (Sii onesto sul perché)
-- Attività: [cosa], Motivo reale: [perché]
-
-WINS
-Il mio risultato più importante di questa settimana:
->
-
-SFIDE
-La sfida principale che ho affrontato:
->
-
-Come l'ho gestita:
->
-
-ENERGIA & BENESSERE
-- Energia generale: /10
-- Ore di sonno (media): h
-- Esercizio fisico: giorni su 7
-- Alimentazione: /10
-- Come si sono sentite le mie relazioni principali: /10
-
-TEMPO & FOCUS
-Dove ho investito la maggior parte del tempo?
-1.
-2.
-3.
-
-La mia più grande perdita di tempo:
->
-
----
-SEZIONE 2 — OBIETTIVI (10 min)
----
-
-Rivedi ogni Annual Goal. Per ognuno scrivi 1 riga:
-[Nome Goal] → [cosa hai fatto questa settimana] → [% progresso attuale]
-
-1.
-2.
-3.
-
----
-SEZIONE 3 — INBOX PROCESSING (5 min)
----
-
-- [ ] Email processata a zero
-- [ ] Note Notion spostate da Inbox a PARA
-- [ ] Calendario prossima settimana controllato
-- [ ] Task in sospeso rivisti
-- [ ] Desktop e Downloads puliti
-- [ ] Messaggi importanti (Slack, WhatsApp, SMS) risposti
-
----
-SEZIONE 4 — PIANIFICARE LA SETTIMANA (10 min)
----
-
-LA MIA UNICA PRIORITÀ ASSOLUTA:
-> [UNA sola cosa — se completassi solo questa, la settimana sarebbe un successo]
-
-Le altre 2 priorità importanti:
-1.
-2.
-
-Appuntamenti e scadenze fisse:
-- Lunedì:
-- Martedì:
-- Mercoledì:
-- Giovedì:
-- Venerdì:
-- Weekend:
-
-Una cosa che faccio per me stesso questa settimana:
->
-
----
-SEZIONE 5 — RIFLESSIONE (5 min)
----
-
-La lezione più importante di questa settimana:
->
-
-Una cosa che avrei potuto fare meglio:
->
-
-Tre cose per cui sono grato:
-1.
-2.
-3.
-
-Una parola che descrive come voglio che sia la settimana prossima:
->
-\`\`\`
-
----
-
-## TEMPLATE MONTHLY REVIEW
-
-Usa il primo weekend del mese per questa review più approfondita (60 min):
-
-\`\`\`
-MONTHLY REVIEW — [Mese] [Anno]
-
-BILANCIO DEL MESE
-Mese in una frase:
->
-
-Top 3 risultati:
-1.
-2.
-3.
-
-Top 3 lezioni imparate:
-1.
-2.
-3.
-
-OBIETTIVI MENSILI
-Goal 1: [nome] — Progresso: _% → questo mese: +_%
-Goal 2: [nome] — Progresso: _% → questo mese: +_%
-Goal 3: [nome] — Progresso: _% → questo mese: +_%
-
-AREE DI VITA (valuta 1-10 e scrivi 1 riga per ognuna)
-- Carriera: /10 →
-- Salute: /10 →
-- Finanze: /10 →
-- Relazioni: /10 →
-- Apprendimento: /10 →
-- Benessere: /10 →
-
-FOCUS DEL MESE PROSSIMO
-1 obiettivo principale:
->
-
-3 abitudini da mantenere:
-1.
-2.
-3.
-
-1 abitudine da aggiungere:
->
-
-1 cosa da eliminare:
->
-\`\`\`
-
----
-
-## QUICK START (10 minuti)
-
-1. Duplica il workspace nel tuo Notion
-2. Crea i tuoi Annual Goals per il 2026 (inizia con 3-5, max 7)
-3. Assegna Status, Category e Progress % iniziale a ogni goal
-4. Fai la tua prima Weekly Review usando il template completo sopra
-5. Imposta un promemoria sul telefono: "Weekly Review" ogni domenica alle 17:00
-6. Dopo 4 review, fai la tua prima Monthly Review
-
----
-
-## COLLEGAMENTO CON ALTRI SISTEMI
-
-- **Se hai il Second Brain**: collega le Weekly Reviews al database Areas e usa la review per aggiornare lo Status di ogni area
-- **Se hai il Project Hub**: collega Projects alla review per notare quali progetti avanzano e quali sono bloccati settimana dopo settimana
-- **Se hai il Finance Tracker**: usa la sezione rapida finanziaria per notare le spese della settimana
-
----
-
-## PRO TIPS
-
-- **L'unica priorità funziona**: scegliere UNA sola priorità assoluta per la settimana (non tre, non cinque — UNA) è la differenza tra chi fa review settimanali e chi ottiene risultati dalle review settimanali
-- **Trend di umore e energia**: dopo 8-10 settimane, guarda la colonna Mood Score e Energy Level insieme. Vedrai pattern (certi giorni/settimani sistematicamente peggiori) che non avresti mai notato senza i dati
-- **Non saltare la sezione Inbox**: svuotare la Inbox di Notion e processare le email ogni settimana sembra banale ma è il gesto che tiene il sistema vivo. Un sistema con Inbox piena è un sistema morto
-- **Celebra i Wins**: molte persone si concentrano sui fallimenti nella review settimanale. La sezione "Top Win" è obbligatoria — costringe il cervello a riconoscere i progressi reali
-- **Review trimestrale come bussola**: una volta al trimestre (Q1/Q2/Q3/Q4), fai la Quarterly Review. È il momento per aggiustare la rotta, non la navigazione settimanale`,
+    content: `<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        fontFamily: { inter: ['Inter', 'sans-serif'] },
+        colors: {
+          notion: {
+            bg: '#191919',
+            sidebar: '#161616',
+            hover: '#252525',
+            border: '#2e2e2e',
+            text: '#e6e6e6',
+            muted: '#999999',
+            accent: '#e8a87c',
+          }
+        }
+      }
+    }
+  }
+</script>
+<style>
+  body { font-family: 'Inter', sans-serif; background: #191919; color: #e6e6e6; margin: 0; }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #3a3a3a; border-radius: 3px; }
+  .dot-filled { background: #e8a87c; }
+  .dot-empty { background: #2e2e2e; }
+  .habit-check { color: #6dbd8a; }
+  .habit-x { color: #e06c75; }
+  .tag-high { background: rgba(224, 108, 117, 0.15); color: #e06c75; border: 1px solid rgba(224,108,117,0.3); }
+  .tag-mid  { background: rgba(232, 168, 124, 0.15); color: #e8a87c; border: 1px solid rgba(232,168,124,0.3); }
+  .tag-low  { background: rgba(109, 189, 138, 0.15); color: #6dbd8a; border: 1px solid rgba(109,189,138,0.3); }
+  .sidebar-item { display: flex; align-items: center; gap: 8px; padding: 5px 12px; border-radius: 4px; cursor: pointer; font-size: 13.5px; color: #999; transition: background 0.1s; }
+  .sidebar-item:hover, .sidebar-item.active { background: #252525; color: #e6e6e6; }
+  .sidebar-item.active { color: #e6e6e6; }
+  .section-title { font-size: 15px; font-weight: 600; color: #e6e6e6; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .card { background: #1f1f1f; border: 1px solid #2e2e2e; border-radius: 8px; padding: 20px; }
+  .past-card { background: #1f1f1f; border: 1px solid #2e2e2e; border-radius: 8px; padding: 16px; cursor: pointer; transition: border-color 0.15s, transform 0.15s; }
+  .past-card:hover { border-color: #e8a87c; transform: translateY(-2px); }
+</style>
+
+<div class="flex h-screen overflow-hidden dark" style="background:#191919;">
+
+  <!-- Sidebar -->
+  <aside style="width:220px;min-width:220px;background:#161616;border-right:1px solid #2e2e2e;display:flex;flex-direction:column;padding:16px 8px;overflow-y:auto;flex-shrink:0;">
+    <div style="padding:0 12px 16px;border-bottom:1px solid #2e2e2e;margin-bottom:8px;">
+      <div style="font-size:12px;font-weight:600;letter-spacing:.08em;color:#666;text-transform:uppercase;margin-bottom:2px;">Workspace</div>
+      <div style="font-size:14px;font-weight:600;color:#e6e6e6;">Nicolò · Life OS</div>
+    </div>
+    <div style="font-size:11px;font-weight:600;letter-spacing:.08em;color:#555;text-transform:uppercase;padding:8px 12px 4px;">Review System</div>
+    <div class="sidebar-item active">📋 Weekly Review</div>
+    <div class="sidebar-item">🎯 Goals</div>
+    <div class="sidebar-item">✅ Habits</div>
+    <div class="sidebar-item">📔 Journal</div>
+    <div style="font-size:11px;font-weight:600;letter-spacing:.08em;color:#555;text-transform:uppercase;padding:16px 12px 4px;">Archivio</div>
+    <div class="sidebar-item">📅 Monthly Review</div>
+    <div class="sidebar-item">🌍 Annual Review</div>
+    <div style="margin-top:auto;padding:12px 12px 0;border-top:1px solid #2e2e2e;">
+      <div style="font-size:11px;color:#555;">Ultima modifica</div>
+      <div style="font-size:12px;color:#777;">23 marzo 2026</div>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <main style="flex:1;overflow-y:auto;padding:40px 48px 60px;">
+
+    <!-- Page header -->
+    <div style="margin-bottom:8px;">
+      <span style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#666;">Weekly Review</span>
+    </div>
+    <h1 style="font-size:30px;font-weight:700;color:#e6e6e6;margin:0 0 4px;">📋 Settimana 12</h1>
+    <p style="font-size:15px;color:#777;margin:0 0 32px;">17 – 23 Marzo 2026 &nbsp;·&nbsp; <span style="color:#e8a87c;font-weight:500;">Punteggio globale: 4/5</span></p>
+
+    <!-- Divider -->
+    <div style="border-top:1px solid #2e2e2e;margin-bottom:32px;"></div>
+
+    <!-- Row 1: Retrospettiva + Scorecard -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;">
+
+      <!-- Retrospettiva -->
+      <div class="card">
+        <div class="section-title">🔙 Retrospettiva</div>
+
+        <div style="margin-bottom:14px;">
+          <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6dbd8a;margin-bottom:8px;">Wins</div>
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px;">
+            <li style="display:flex;align-items:flex-start;gap:8px;font-size:13.5px;color:#ccc;">
+              <span style="color:#6dbd8a;margin-top:1px;">▸</span>
+              Lanciato la prima versione del template marketplace in produzione
+            </li>
+            <li style="display:flex;align-items:flex-start;gap:8px;font-size:13.5px;color:#ccc;">
+              <span style="color:#6dbd8a;margin-top:1px;">▸</span>
+              Mantenuto la routine mattutina 6/7 giorni consecutivi
+            </li>
+            <li style="display:flex;align-items:flex-start;gap:8px;font-size:13.5px;color:#ccc;">
+              <span style="color:#6dbd8a;margin-top:1px;">▸</span>
+              Completata la lettura di "Atomic Habits" — messi in pratica 2 principi chiave
+            </li>
+          </ul>
+        </div>
+
+        <div style="margin-bottom:14px;">
+          <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#e06c75;margin-bottom:8px;">Sfide</div>
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px;">
+            <li style="display:flex;align-items:flex-start;gap:8px;font-size:13.5px;color:#ccc;">
+              <span style="color:#e06c75;margin-top:1px;">▸</span>
+              Gestione del tempo frammentata mercoledì e giovedì (troppe riunioni)
+            </li>
+            <li style="display:flex;align-items:flex-start;gap:8px;font-size:13.5px;color:#ccc;">
+              <span style="color:#e06c75;margin-top:1px;">▸</span>
+              Alimentazione fuori controllo nel weekend — mancanza di meal prep
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#999;margin-bottom:8px;">Lezione chiave</div>
+          <p style="font-size:13.5px;color:#bbb;line-height:1.6;margin:0;font-style:italic;">
+            "Proteggere i blocchi profondi di lavoro non è egoismo — è la condizione per dare il meglio. Imparare a dire no alle riunioni non urgenti è un'abilità da allenare come un muscolo."
+          </p>
+        </div>
+      </div>
+
+      <!-- Scorecard -->
+      <div class="card">
+        <div class="section-title">📊 Scorecard</div>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+
+          <!-- Area row -->
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div style="font-size:13.5px;color:#ccc;width:90px;">💼 Lavoro</div>
+            <div style="display:flex;gap:4px;">
+              <div style="width:12px;height:12px;border-radius:50%;background:#e8a87c;"></div>
+              <div style="width:12px;height:12px;border-radius:50%;background:#e8a87c;"></div>
+              <div style="width:12px;height:12px;border-radius:50%;background:#e8a87c;"></div>
+              <div style="width:12px;height:12px;border-radius:50%;background:#e8a87c;"></div>
+              <div style="width:12px;height:12px;border-radius:50%;background:#2e2e2e;"></div>
+            </div>
+            <div style="font-size:12px;color:#777;width:28px;text-align:right;">4/5</div>
+          </div>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div style="font-size:13.5px;color:#ccc;width:90px;">💪 Salute</div>
+            <div style="display:flex;gap:4px;">
+              <div style="width:12px;height:12px;border-radius:50%;background:#6dbd8a;"></div>
+              <div style="width:12px;height:12px;border-radius:50%;background:#6dbd8a;"></div>
+              <div style="width:12px;height:12px;border-radius:50%;background:#6dbd8a;"></div>
+              <div style="width:12px;height:12px;border-radius:50%;background:#2e2e2e;"></div>
+              <div style="width:12px;height:12px;border-radius:50%;background:#2e2e2e;"></div>
+            </div>
+            <div style="font-size:12px;color:#777;width:28px;text-align:right;">3/5</div>
+          </div>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div style="font-size:13.5px;color:#ccc;width:90px;">❤️ Relazioni</div>
+            <div style="display:flex;gap:4px;">
+              <div style="width:12px;height:12px;border-radius:50%;background:#c085f5;"></div>
+              <div style="width:12px;height:12px;border-radius:50%;background:#c085f5;"></div>
+              <div style="width:12px;height:12px;border-radius:50%;background:#c085f5;"></div>
+              <div style="width:12px;height:12px;border-radius:50%;background:#c085f5;"></div>
+              <div style="width:12px;height:12px;border-radius:50%;background:#2e2e2e;"></div>
+            </div>
+            <div style="font-size:12px;color:#777;width:28px;text-align:right;">4/5</div>
+          </div>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div style="font-size:13.5px;color:#ccc;width:90px;">📚 Crescita</div>
+            <div style="display:flex;gap:4px;">
+              <div style="width:12px;height:12px;border-radius:50%;background:#5bc4d4;"></div>
+              <div style="width:12px;height:12px;border-radius:50%;background:#5bc4d4;"></div>
+              <div style="width:12px;height:12px;border-radius:50%;background:#5bc4d4;"></div>
+              <div style="width:12px;height:12px;border-radius:50%;background:#5bc4d4;"></div>
+              <div style="width:12px;height:12px;border-radius:50%;background:#5bc4d4;"></div>
+            </div>
+            <div style="font-size:12px;color:#777;width:28px;text-align:right;">5/5</div>
+          </div>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div style="font-size:13.5px;color:#ccc;width:90px;">💰 Finanze</div>
+            <div style="display:flex;gap:4px;">
+              <div style="width:12px;height:12px;border-radius:50%;background:#e8a87c;"></div>
+              <div style="width:12px;height:12px;border-radius:50%;background:#e8a87c;"></div>
+              <div style="width:12px;height:12px;border-radius:50%;background:#e8a87c;"></div>
+              <div style="width:12px;height:12px;border-radius:50%;background:#2e2e2e;"></div>
+              <div style="width:12px;height:12px;border-radius:50%;background:#2e2e2e;"></div>
+            </div>
+            <div style="font-size:12px;color:#777;width:28px;text-align:right;">3/5</div>
+          </div>
+
+          <div style="border-top:1px solid #2e2e2e;padding-top:14px;display:flex;justify-content:space-between;align-items:center;">
+            <div style="font-size:13px;color:#999;">Media complessiva</div>
+            <div style="font-size:17px;font-weight:700;color:#e8a87c;">3.8 / 5</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2: Tasks completati / non completati -->
+    <div class="card" style="margin-bottom:20px;">
+      <div class="section-title">📋 Task della Settimana</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+
+        <div>
+          <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6dbd8a;margin-bottom:10px;">✅ Completati</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <label style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:#aaa;cursor:pointer;">
+              <span style="width:14px;height:14px;border-radius:3px;background:#6dbd8a;display:flex;align-items:center;justify-content:center;font-size:9px;color:#161616;flex-shrink:0;">✓</span>
+              Deploy versione 1.0 del marketplace
+            </label>
+            <label style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:#aaa;">
+              <span style="width:14px;height:14px;border-radius:3px;background:#6dbd8a;display:flex;align-items:center;justify-content:center;font-size:9px;color:#161616;flex-shrink:0;">✓</span>
+              Impostare webhook Stripe in produzione
+            </label>
+            <label style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:#aaa;">
+              <span style="width:14px;height:14px;border-radius:3px;background:#6dbd8a;display:flex;align-items:center;justify-content:center;font-size:9px;color:#161616;flex-shrink:0;">✓</span>
+              Scrivere 3 nuovi template UI
+            </label>
+            <label style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:#aaa;">
+              <span style="width:14px;height:14px;border-radius:3px;background:#6dbd8a;display:flex;align-items:center;justify-content:center;font-size:9px;color:#161616;flex-shrink:0;">✓</span>
+              Chiamata con mentor — strategia di crescita
+            </label>
+            <label style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:#aaa;">
+              <span style="width:14px;height:14px;border-radius:3px;background:#6dbd8a;display:flex;align-items:center;justify-content:center;font-size:9px;color:#161616;flex-shrink:0;">✓</span>
+              Allenamento × 4 sessioni in palestra
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#e06c75;margin-bottom:10px;">❌ Non Completati</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <label style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:#777;">
+              <span style="width:14px;height:14px;border-radius:3px;border:1px solid #e06c75;display:flex;align-items:center;justify-content:center;font-size:9px;color:#e06c75;flex-shrink:0;">✕</span>
+              Scrivere post LinkedIn sul lancio
+            </label>
+            <label style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:#777;">
+              <span style="width:14px;height:14px;border-radius:3px;border:1px solid #e06c75;display:flex;align-items:center;justify-content:center;font-size:9px;color:#e06c75;flex-shrink:0;">✕</span>
+              Meal prep domenicale
+            </label>
+            <label style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:#777;">
+              <span style="width:14px;height:14px;border-radius:3px;border:1px solid #e06c75;display:flex;align-items:center;justify-content:center;font-size:9px;color:#e06c75;flex-shrink:0;">✕</span>
+              Revisione budget mensile
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 3: Obiettivi prossima settimana -->
+    <div class="card" style="margin-bottom:20px;">
+      <div class="section-title">🎯 Obiettivi Prossima Settimana</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span class="tag-high" style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;">Alta</span>
+          <span style="font-size:13.5px;color:#ccc;">Scrivere e pubblicare 5 nuovi template (2 UI, 3 prompt)</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span class="tag-high" style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;">Alta</span>
+          <span style="font-size:13.5px;color:#ccc;">Lanciare campagna newsletter di onboarding (500 iscritti target)</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span class="tag-mid" style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;">Media</span>
+          <span style="font-size:13.5px;color:#ccc;">Meal prep domenica — preparare pasti per 5 giorni</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span class="tag-mid" style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;">Media</span>
+          <span style="font-size:13.5px;color:#ccc;">Pubblicare post LinkedIn sul lancio con risultati reali</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span class="tag-low" style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;">Bassa</span>
+          <span style="font-size:13.5px;color:#ccc;">Aggiornare Notion OS con nuove aree di vita Q2</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 4: Habit Tracker -->
+    <div class="card" style="margin-bottom:20px;">
+      <div class="section-title">📅 Habit Tracker — Settimana 12</div>
+      <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;min-width:520px;">
+          <thead>
+            <tr>
+              <th style="text-align:left;font-size:12px;color:#666;font-weight:500;padding:0 12px 10px 0;width:140px;">Abitudine</th>
+              <th style="text-align:center;font-size:11px;color:#666;font-weight:500;padding:0 8px 10px;width:42px;">Lun</th>
+              <th style="text-align:center;font-size:11px;color:#666;font-weight:500;padding:0 8px 10px;width:42px;">Mar</th>
+              <th style="text-align:center;font-size:11px;color:#666;font-weight:500;padding:0 8px 10px;width:42px;">Mer</th>
+              <th style="text-align:center;font-size:11px;color:#666;font-weight:500;padding:0 8px 10px;width:42px;">Gio</th>
+              <th style="text-align:center;font-size:11px;color:#666;font-weight:500;padding:0 8px 10px;width:42px;">Ven</th>
+              <th style="text-align:center;font-size:11px;color:#666;font-weight:500;padding:0 8px 10px;width:42px;">Sab</th>
+              <th style="text-align:center;font-size:11px;color:#666;font-weight:500;padding:0 8px 10px;width:42px;">Dom</th>
+              <th style="text-align:right;font-size:11px;color:#666;font-weight:500;padding:0 0 10px 12px;">Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-top:1px solid #2e2e2e;">
+              <td style="font-size:13px;color:#ccc;padding:9px 0;">🧘 Meditazione</td>
+              <td style="text-align:center;font-size:14px;color:#6dbd8a;padding:9px 8px;">✓</td>
+              <td style="text-align:center;font-size:14px;color:#6dbd8a;padding:9px 8px;">✓</td>
+              <td style="text-align:center;font-size:14px;color:#e06c75;padding:9px 8px;">✕</td>
+              <td style="text-align:center;font-size:14px;color:#6dbd8a;padding:9px 8px;">✓</td>
+              <td style="text-align:center;font-size:14px;color:#6dbd8a;padding:9px 8px;">✓</td>
+              <td style="text-align:center;font-size:14px;color:#6dbd8a;padding:9px 8px;">✓</td>
+              <td style="text-align:center;font-size:14px;color:#6dbd8a;padding:9px 8px;">✓</td>
+              <td style="text-align:right;font-size:12px;color:#e8a87c;font-weight:600;padding:9px 0;">6/7</td>
+            </tr>
+            <tr style="border-top:1px solid #2e2e2e;">
+              <td style="font-size:13px;color:#ccc;padding:9px 0;">🏋️ Esercizio</td>
+              <td style="text-align:center;font-size:14px;color:#6dbd8a;padding:9px 8px;">✓</td>
+              <td style="text-align:center;font-size:14px;color:#e06c75;padding:9px 8px;">✕</td>
+              <td style="text-align:center;font-size:14px;color:#6dbd8a;padding:9px 8px;">✓</td>
+              <td style="text-align:center;font-size:14px;color:#6dbd8a;padding:9px 8px;">✓</td>
+              <td style="text-align:center;font-size:14px;color:#e06c75;padding:9px 8px;">✕</td>
+              <td style="text-align:center;font-size:14px;color:#6dbd8a;padding:9px 8px;">✓</td>
+              <td style="text-align:center;font-size:14px;color:#e06c75;padding:9px 8px;">✕</td>
+              <td style="text-align:right;font-size:12px;color:#e8a87c;font-weight:600;padding:9px 0;">4/7</td>
+            </tr>
+            <tr style="border-top:1px solid #2e2e2e;">
+              <td style="font-size:13px;color:#ccc;padding:9px 0;">📖 Lettura</td>
+              <td style="text-align:center;font-size:14px;color:#6dbd8a;padding:9px 8px;">✓</td>
+              <td style="text-align:center;font-size:14px;color:#6dbd8a;padding:9px 8px;">✓</td>
+              <td style="text-align:center;font-size:14px;color:#6dbd8a;padding:9px 8px;">✓</td>
+              <td style="text-align:center;font-size:14px;color:#6dbd8a;padding:9px 8px;">✓</td>
+              <td style="text-align:center;font-size:14px;color:#6dbd8a;padding:9px 8px;">✓</td>
+              <td style="text-align:center;font-size:14px;color:#6dbd8a;padding:9px 8px;">✓</td>
+              <td style="text-align:center;font-size:14px;color:#6dbd8a;padding:9px 8px;">✓</td>
+              <td style="text-align:right;font-size:12px;color:#6dbd8a;font-weight:600;padding:9px 0;">7/7</td>
+            </tr>
+            <tr style="border-top:1px solid #2e2e2e;">
+              <td style="font-size:13px;color:#ccc;padding:9px 0;">✍️ Journaling</td>
+              <td style="text-align:center;font-size:14px;color:#6dbd8a;padding:9px 8px;">✓</td>
+              <td style="text-align:center;font-size:14px;color:#6dbd8a;padding:9px 8px;">✓</td>
+              <td style="text-align:center;font-size:14px;color:#e06c75;padding:9px 8px;">✕</td>
+              <td style="text-align:center;font-size:14px;color:#e06c75;padding:9px 8px;">✕</td>
+              <td style="text-align:center;font-size:14px;color:#6dbd8a;padding:9px 8px;">✓</td>
+              <td style="text-align:center;font-size:14px;color:#6dbd8a;padding:9px 8px;">✓</td>
+              <td style="text-align:center;font-size:14px;color:#6dbd8a;padding:9px 8px;">✓</td>
+              <td style="text-align:right;font-size:12px;color:#e8a87c;font-weight:600;padding:9px 0;">5/7</td>
+            </tr>
+            <tr style="border-top:1px solid #2e2e2e;">
+              <td style="font-size:13px;color:#ccc;padding:9px 0;">📵 No Social</td>
+              <td style="text-align:center;font-size:14px;color:#6dbd8a;padding:9px 8px;">✓</td>
+              <td style="text-align:center;font-size:14px;color:#6dbd8a;padding:9px 8px;">✓</td>
+              <td style="text-align:center;font-size:14px;color:#6dbd8a;padding:9px 8px;">✓</td>
+              <td style="text-align:center;font-size:14px;color:#e06c75;padding:9px 8px;">✕</td>
+              <td style="text-align:center;font-size:14px;color:#e06c75;padding:9px 8px;">✕</td>
+              <td style="text-align:center;font-size:14px;color:#e06c75;padding:9px 8px;">✕</td>
+              <td style="text-align:center;font-size:14px;color:#6dbd8a;padding:9px 8px;">✓</td>
+              <td style="text-align:right;font-size:12px;color:#e8a87c;font-weight:600;padding:9px 0;">4/7</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Row 5: Gratitudine + Note Libere -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;">
+
+      <!-- Gratitudine -->
+      <div class="card">
+        <div class="section-title">💭 Gratitudine</div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;gap:10px;align-items:flex-start;">
+            <span style="font-size:18px;line-height:1;">1.</span>
+            <p style="margin:0;font-size:13.5px;color:#bbb;line-height:1.6;">Sono grato per la community che si sta formando attorno al progetto — i primi utenti sono entusiasti e questo mi ricarica di energia.</p>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;">
+            <span style="font-size:18px;line-height:1;">2.</span>
+            <p style="margin:0;font-size:13.5px;color:#bbb;line-height:1.6;">Grato per la salute e la disciplina di svegliarmi presto ogni mattina — quella tranquillità alle 6:00 è un regalo.</p>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;">
+            <span style="font-size:18px;line-height:1;">3.</span>
+            <p style="margin:0;font-size:13.5px;color:#bbb;line-height:1.6;">Grato per le persone vicine che credono nel progetto anche quando io stesso dubito — la loro fiducia vale più di qualsiasi metrica.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Note Libere -->
+      <div class="card">
+        <div class="section-title">📝 Note Libere</div>
+        <div style="background:#191919;border:1px solid #2e2e2e;border-radius:6px;padding:14px;font-size:13.5px;color:#bbb;line-height:1.8;min-height:160px;">
+          <p style="margin:0 0 12px;">Questa settimana mi ha insegnato che la velocità di esecuzione è un vantaggio competitivo reale. Lanciare in fretta, iterare veloce — è l'unica strategia che ha senso in questa fase.</p>
+          <p style="margin:0 0 12px;">Ho iniziato a percepire la differenza tra le giornate con "protezione dei blocchi di lavoro" e quelle no. La frammentazione è il nemico silenzioso della produttività creativa.</p>
+          <p style="margin:0;color:#555;">Prossima settimana: implementare la "regola delle 2 riunioni" — massimo 2 call al giorno, tutte nel pomeriggio.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div style="border-top:1px solid #2e2e2e;margin:8px 0 28px;"></div>
+
+    <!-- Past weeks gallery -->
+    <div style="margin-bottom:12px;">
+      <div style="font-size:13px;font-weight:600;color:#666;letter-spacing:.06em;text-transform:uppercase;margin-bottom:16px;">Archivio Settimane Precedenti</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+
+        <div class="past-card">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+            <div>
+              <div style="font-size:12px;color:#666;margin-bottom:2px;">Settimana 11</div>
+              <div style="font-size:13.5px;font-weight:600;color:#ccc;">10 – 16 Marzo 2026</div>
+            </div>
+            <div style="background:rgba(232,168,124,0.15);color:#e8a87c;border:1px solid rgba(232,168,124,0.3);font-size:12px;font-weight:700;padding:3px 8px;border-radius:5px;">3.6</div>
+          </div>
+          <div style="font-size:12px;color:#666;line-height:1.5;">Focus: onboarding utenti. Settimana intensa, qualità del sonno bassa. Migliorata la disciplina nel journaling.</div>
+          <div style="margin-top:10px;display:flex;gap:3px;">
+            <div style="height:3px;border-radius:2px;background:#e8a87c;flex:3.6;"></div>
+            <div style="height:3px;border-radius:2px;background:#2e2e2e;flex:1.4;"></div>
+          </div>
+        </div>
+
+        <div class="past-card">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+            <div>
+              <div style="font-size:12px;color:#666;margin-bottom:2px;">Settimana 10</div>
+              <div style="font-size:13.5px;font-weight:600;color:#ccc;">3 – 9 Marzo 2026</div>
+            </div>
+            <div style="background:rgba(109,189,138,0.15);color:#6dbd8a;border:1px solid rgba(109,189,138,0.3);font-size:12px;font-weight:700;padding:3px 8px;border-radius:5px;">4.2</div>
+          </div>
+          <div style="font-size:12px;color:#666;line-height:1.5;">Settimana di picco creativo. Scritti 7 template in 5 giorni. Routine perfetta. La migliore settimana del Q1.</div>
+          <div style="margin-top:10px;display:flex;gap:3px;">
+            <div style="height:3px;border-radius:2px;background:#6dbd8a;flex:4.2;"></div>
+            <div style="height:3px;border-radius:2px;background:#2e2e2e;flex:0.8;"></div>
+          </div>
+        </div>
+
+        <div class="past-card">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+            <div>
+              <div style="font-size:12px;color:#666;margin-bottom:2px;">Settimana 9</div>
+              <div style="font-size:13.5px;font-weight:600;color:#ccc;">24 Feb – 2 Mar 2026</div>
+            </div>
+            <div style="background:rgba(224,108,117,0.12);color:#e06c75;border:1px solid rgba(224,108,117,0.3);font-size:12px;font-weight:700;padding:3px 8px;border-radius:5px;">2.9</div>
+          </div>
+          <div style="font-size:12px;color:#666;line-height:1.5;">Settimana difficile. Mal di testa cronico, poca concentrazione. Completate solo le priorità essenziali.</div>
+          <div style="margin-top:10px;display:flex;gap:3px;">
+            <div style="height:3px;border-radius:2px;background:#e06c75;flex:2.9;"></div>
+            <div style="height:3px;border-radius:2px;background:#2e2e2e;flex:2.1;"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+</div>
+`,
   },
   {
     id: "notion-client-portal",
     name: "Notion Client Portal",
-    category: "prompt",
+    category: "ui",
     price: 1299,
     stripePriceId: "price_1TCIgFBoWNgrJbiyGO4iJItH",
     downloadType: "notion",
@@ -4765,289 +6319,450 @@ FOCUS DEL MESE PROSSIMO
     description: "Shareable Notion workspace for client onboarding, deliverables and updates.",
     isNew: true,
     editorsPick: true,
-    content: `# Notion Client Portal
-
-## Il portale clienti che impressiona dal primo giorno
-
-Un workspace condivisibile con i tuoi clienti, strutturato come un prodotto professionale: onboarding guidato, milestone trasparente, deliverable con workflow di approvazione, document hub, communication log e feedback tracker. Ogni cliente che accede al tuo portale percepisce immediatamente la differenza rispetto alla concorrenza.
-
----
-
-## STRUTTURA DEL PORTALE
-
-Ogni portale cliente è una pagina Notion dedicata con questa architettura:
-
-\`\`\`
-📁 [Nome Cliente] | [Nome Progetto] Portal
-
-  🎯 Benvenuto & Overview del Progetto
-  📅 Timeline & Milestones
-  📦 Deliverables
-  💬 Communication Log
-  📄 Documents & Files
-  ✅ Onboarding Checklist
-  ❓ FAQ & Come Funziona
-  📊 Progress Dashboard
-\`\`\`
-
----
-
-## SEZIONE 1 — BENVENUTO & PROJECT OVERVIEW
-
-Struttura della pagina di benvenuto (visibile al cliente subito dopo l'accesso):
-
-\`\`\`
-# Benvenuto nel tuo portale, [Nome Cliente]!
-
-Questa è la tua area dedicata per il progetto [Nome Progetto].
-Qui trovi sempre: lo stato aggiornato del progetto, i file, le decisioni prese e i prossimi passi.
-
----
-
-IL PROGETTO IN UNA RIGA
-[Descrizione del progetto in una frase chiara e orientata al risultato]
-
-OBIETTIVI DEL PROGETTO
-1. [Obiettivo principale misurabile]
-2. [Obiettivo secondario]
-3. [Obiettivo terziario]
-
-COSA È INCLUSO
-✅ [Deliverable 1]
-✅ [Deliverable 2]
-✅ [Deliverable 3]
-✅ [Deliverable 4]
-
-COSA NON È INCLUSO (Scope)
-❌ [Fuori scope 1]
-❌ [Fuori scope 2]
-(Qualsiasi elemento fuori scope sarà preventivato separatamente)
-
-PERSONE COINVOLTE
-| Ruolo | Nome | Responsabilità |
-|-------|------|----------------|
-| Project Lead | [Tuo nome] | [Le tue responsabilità] |
-| Client Contact | [Nome cliente] | [Approvazioni, feedback, accessi] |
-| [Ruolo aggiuntivo] | [Nome] | [Scope] |
-
-CONTATTI RAPIDI
-- Email di progetto: [email]
-- Meeting ricorrente: [cadenza] — [link]
-- Canale preferito: [Slack / WhatsApp / Email]
-- Tempo di risposta garantito: [es. entro 24h nei giorni lavorativi]
-\`\`\`
-
----
-
-## DATABASE 1: MILESTONES
-
-Icona: 🏁 | Questo database è condiviso con il cliente
-
-### Proprietà
-- **Milestone** (Title) — nome della fase o traguardo
-- **Phase** (Select) — Discovery / Strategy / Design / Development / Content / Review / Testing / Launch / Handoff
-- **Status** (Status) — Upcoming / In Progress / Client Review / Completed / Delayed
-- **Owner** (Select) — [Tuo Nome] / [Nome Cliente] / Shared
-- **Due Date** (Date)
-- **Completed Date** (Date) — data effettiva di completamento
-- **Deliverable** (Text) — cosa viene consegnato a questa milestone
-- **Client Action Required** (Checkbox) — il cliente deve fare qualcosa per questa milestone
-- **Notes** (Text) — visibile al cliente
-
-### Views
-1. **Project Timeline** (Timeline) — per Due Date, colori per Status — la view da condividere con il cliente
-2. **Current Status** (Table) — raggruppata per Status
-3. **Client Actions** (Table) — filtro: Client Action Required = true AND Status ≠ Completed
-
-### Template milestone per progetto web (8 settimane):
-\`\`\`
-Week 1: Kickoff & Discovery (Owner: Shared)
-  → Deliverable: Brief approvato, accessi ricevuti
-
-Week 2-3: Strategy & Wireframes (Owner: Tuo nome)
-  → Deliverable: Architettura informativa + wireframe
-
-Week 4: Design Phase (Owner: Tuo nome)
-  → Deliverable: Mockup desktop e mobile
-
-Week 5: Client Review Round 1 (Owner: Cliente)
-  → Deliverable: Feedback consolidato scritto
-
-Week 6: Revisions (Owner: Tuo nome)
-  → Deliverable: Design revisionato approvato
-
-Week 7: Development & Content (Owner: Shared)
-  → Deliverable: Sito funzionante in staging
-
-Week 8: Testing & Launch (Owner: Tuo nome)
-  → Deliverable: Sito live + handoff materials
-\`\`\`
-
----
-
-## DATABASE 2: DELIVERABLES
-
-Icona: 📦 | Il cuore del portale — ogni consegna documentata
-
-### Proprietà
-- **Deliverable** (Title) — nome del deliverable
-- **Milestone** (Relation) → Milestones
-- **Status** (Status) — Working On It / Ready for Review / Changes Requested / Approved / Delivered
-- **Version** (Number) — numero di versione (incrementa ad ogni revisione)
-- **Due Date** (Date) — data di consegna prevista
-- **Delivered Date** (Date) — data di consegna effettiva
-- **File or Link** (URL) — link al file su Drive, Figma, Dropbox, ecc.
-- **Revision Round** (Number) — numero del giro di revisioni (default inclusi: 2)
-- **Client Feedback** (Text) — feedback scritto del cliente (visibile a entrambi)
-- **Approved** (Checkbox) — approvazione formale del cliente
-- **Approval Date** (Date) — quando il cliente ha approvato
-- **Internal Notes** (Text) — note interne non visibili al cliente
-
-### Views
-1. **Active Deliverables** (Table) — filtro: Status ≠ Delivered AND Approved ≠ true
-2. **Awaiting Client Review** (Table) — filtro: Status = Ready for Review — il cliente deve agire
-3. **Approved** (Table) — filtro: Approved = true — archivio degli approvati
-4. **All Deliverables** (Table) — nessun filtro, ordinata per Due Date
-
----
-
-## DATABASE 3: COMMUNICATION LOG
-
-Icona: 💬 | Ogni decisione documentata — nessun "ma non me lo avevi detto"
-
-### Proprietà
-- **Subject** (Title) — titolo della comunicazione
-- **Date** (Date)
-- **Type** (Select) — Meeting / Kickoff Call / Status Update / Decision / Email / Change Request / Feedback / Escalation
-- **Attendees** (Text) — chi era presente
-- **Summary** (Text) — riassunto in 3-5 punti
-- **Decisions Made** (Text) — decisioni prese e da chi (fondamentale per protezione legale)
-- **Action Items** (Text) — formato: "Chi fa Cosa entro Quando" (es. "[Cliente] invia le foto entro [data]")
-- **Recording Link** (URL) — link alla registrazione del meeting
-- **Follow-up Done** (Checkbox)
-
-### Views
-1. **Recent Communications** (Table) — ordinata per Date desc — le ultime 10 interazioni
-2. **Open Action Items** (Table) — filtro: Follow-up Done = false
-3. **Decisions Archive** (Table) — filtro: Type = Decision — archivio di tutte le decisioni formali
-
----
-
-## DATABASE 4: DOCUMENTS & FILES
-
-Icona: 📄 | Tutto in un posto, sempre trovabile
-
-### Proprietà
-- **Document** (Title) — nome del documento
-- **Type** (Select) — Contratto / NDA / Brief / Proposta / Fattura / Asset / Manuale / Presentazione / Altro
-- **Status** (Select) — Draft / Sent / Signed / Final / Archived
-- **Upload Date** (Date)
-- **Version** (Text) — es. "v1.0", "v2.3-final"
-- **File Link** (URL) — link al documento
-- **Accessible to Client** (Checkbox) — il cliente può vederlo?
-- **Notes** (Text)
-
----
-
-## ONBOARDING CHECKLIST COMPLETA
-
-Aggiungi questa pagina al portale nella sezione Onboarding:
-
-\`\`\`
-ONBOARDING CHECKLIST — [Nome Progetto]
-
-PRIMA DEL KICKOFF (il tuo lavoro)
-- [ ] Contratto firmato e archiviato
-- [ ] Acconto ricevuto e registrato
-- [ ] Portale creato e personalizzato con brand del cliente
-- [ ] Accesso al portale condiviso con il cliente
-- [ ] Kickoff call schedulato nel calendario di entrambi
-- [ ] Questionario pre-kickoff inviato al cliente
-
-DURANTE IL KICKOFF (con il cliente)
-- [ ] Obiettivi del progetto allineati e scritti
-- [ ] Timeline condivisa, approvata e nel portale
-- [ ] Scope confermato (incluso e non incluso)
-- [ ] Accessi necessari ricevuti: [lista accessi]
-- [ ] Canale di comunicazione preferito definito
-- [ ] Processo di feedback spiegato (scritto, max 48h)
-- [ ] Processo di approvazione spiegato (Approved checkbox)
-- [ ] Numero di revisioni incluse comunicato
-
-DURANTE IL PROGETTO (aggiornamento continuo)
-- [ ] Aggiornamento settimanale inviato (ogni venerdì)
-- [ ] Deliverables caricati con link funzionanti
-- [ ] Feedback del cliente documentato nel Communication Log
-- [ ] Decisioni chiave salvate come tipo "Decision" nel Communication Log
-
-CHIUSURA PROGETTO
-- [ ] Tutti i Deliverables approvati (Approved = true)
-- [ ] Fattura finale inviata
-- [ ] Handoff materials preparati e consegnati
-- [ ] Tutorial o formazione sull'uso del prodotto
-- [ ] Case study / testimonial richiesto (link form)
-- [ ] Referral program spiegato al cliente soddisfatto
-- [ ] Portale archiviato nella cartella clienti completati
-\`\`\`
-
----
-
-## SISTEMA DI FEEDBACK STRUTTURATO
-
-Aggiungi questa sezione al portale per raccogliere feedback in modo professionale:
-
-\`\`\`
-COME DARCI FEEDBACK
-
-Per mantenere il progetto fluido, ti chiediamo di seguire questo processo:
-
-1. SCRIVI il feedback nel campo "Client Feedback" del deliverable
-2. SII SPECIFICO: invece di "non mi piace", scrivi "il colore del pulsante è troppo scuro, vorrei qualcosa di più chiaro come [riferimento]"
-3. CONSOLIDA: raccogli tutto il feedback prima di inviarlo — non a pezzi nel corso dei giorni
-4. RISPETTA la deadline: il feedback entro [X] giorni garantisce il rispetto della timeline
-5. APPROVA formalmente: quando sei soddisfatto, clicca "Approved" nel deliverable
-\`\`\`
-
----
-
-## COME CONDIVIDERE IL PORTALE
-
-**Opzione 1 — Link pubblico (più semplice):**
-1. Apri la pagina principale del portale
-2. Clicca "Share" in alto a destra
-3. Attiva "Share to web"
-4. Seleziona permessi: "Can view" (lettura) o "Can comment" (commenti inline)
-5. Copia e invia il link al cliente
-
-**Opzione 2 — Invito diretto (raccomandato per progetti lunghi):**
-1. Invita il cliente con il suo indirizzo email
-2. Imposta permessi: "Can edit" solo per le sezioni dove deve agire (es. Feedback)
-3. Il cliente vede solo ciò che decidi tu (usa le nested page per nascondere sezioni interne)
-
-**Opzione 3 — Dominio personalizzato (massima professionalità):**
-Usa Notion.site o Super.so per pubblicare il portale con un URL personalizzato come: portal.tuodominio.com/[nomecliente]
-
----
-
-## QUICK START (30 minuti)
-
-1. Duplica il template master del portale
-2. Rinomina con il nome del cliente e del progetto
-3. Compila la sezione "Benvenuto & Project Overview" con i dettagli del progetto
-4. Crea le Milestones per tutte le fasi del progetto con le date
-5. Carica il contratto firmato nel database Documents
-6. Condividi il link con il cliente prima del kickoff call
-7. Mostra il portale al cliente durante il kickoff — spiega come funziona ogni sezione
-
----
-
-## PRO TIPS
-
-- **Il portale come strumento di vendita**: mostrare il portale ai prospect durante la proposta aumenta il tasso di chiusura. La professionalità del sistema comunica il valore prima ancora di iniziare
-- **Communication Log come protezione legale**: documentare ogni decisione con data, chi era presente e cosa è stato deciso ti protegge in caso di dispute su scope, revisioni o aspettative
-- **Deliverable con versione**: aumenta sempre il numero di versione ad ogni revisione. Questo rende visibile al cliente quante revisioni ha già usato e rende naturale la conversazione sulle revisioni aggiuntive a pagamento
-- **Weekly status update**: ogni venerdì aggiungi un record nel Communication Log di tipo "Status Update" con 3 punti: cosa è stato completato, cosa è in corso, cosa viene fatto la settimana prossima. Il cliente si sente aggiornato senza bisogno di chiedere
-- **Template per ogni tipo di progetto**: crea varianti del portale per i tuoi servizi principali (es. "Portal — Sito Web", "Portal — Social Media", "Portal — Branding"). Duplica e personalizza in 15 minuti invece di costruire da zero`,
+    content: `<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        fontFamily: { inter: ['Inter', 'sans-serif'] },
+        colors: {
+          notion: {
+            bg: '#191919',
+            sidebar: '#161616',
+            hover: '#252525',
+            border: '#2e2e2e',
+            text: '#e6e6e6',
+            muted: '#9b9b9b',
+            accent: '#5865f2',
+            tag: {
+              green: { bg: '#1b3a2d', text: '#4cc38a' },
+              yellow: { bg: '#3a2e1b', text: '#f0b429' },
+              blue: { bg: '#1b2a3a', text: '#60a5fa' },
+              red: { bg: '#3a1b1b', text: '#f87171' },
+            }
+          }
+        }
+      }
+    }
+  }
+</script>
+<style>
+  * { font-family: 'Inter', sans-serif; box-sizing: border-box; }
+  body { margin: 0; background: #191919; color: #e6e6e6; }
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #3a3a3a; border-radius: 3px; }
+  .sidebar-item { display: flex; align-items: center; gap: 8px; padding: 5px 12px; border-radius: 6px; cursor: pointer; font-size: 14px; color: #9b9b9b; transition: background 0.15s, color 0.15s; }
+  .sidebar-item:hover, .sidebar-item.active { background: #252525; color: #e6e6e6; }
+  .progress-bar-fill { background: linear-gradient(90deg, #5865f2, #818cf8); border-radius: 4px; height: 100%; transition: width 0.6s ease; }
+  .timeline-line { position: absolute; top: 14px; left: 0; right: 0; height: 2px; background: #2e2e2e; z-index: 0; }
+  .timeline-dot { position: relative; z-index: 1; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+  .faq-answer { display: none; }
+  .faq-item.open .faq-answer { display: block; }
+  .faq-item.open .faq-chevron { transform: rotate(90deg); }
+  .faq-chevron { transition: transform 0.2s ease; display: inline-block; }
+  .tag { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 500; }
+  .section-block { background: #202020; border: 1px solid #2e2e2e; border-radius: 10px; padding: 24px; margin-bottom: 20px; }
+  .section-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .comment-bubble { background: #252525; border: 1px solid #2e2e2e; border-radius: 10px; padding: 12px 16px; }
+  .comment-bubble.studio { border-left: 3px solid #5865f2; }
+  .comment-bubble.client { border-left: 3px solid #4cc38a; }
+  table { width: 100%; border-collapse: collapse; }
+  thead th { text-align: left; font-size: 12px; font-weight: 600; color: #9b9b9b; text-transform: uppercase; letter-spacing: 0.05em; padding: 8px 12px; border-bottom: 1px solid #2e2e2e; }
+  tbody td { padding: 10px 12px; border-bottom: 1px solid #252525; font-size: 14px; vertical-align: middle; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: #252525; }
+  .check-item { display: flex; align-items: center; gap: 10px; padding: 7px 0; font-size: 14px; }
+  .check-circle { width: 18px; height: 18px; border-radius: 50%; border: 2px solid #3a3a3a; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .check-circle.done { background: #5865f2; border-color: #5865f2; }
+  .download-link { color: #818cf8; text-decoration: none; font-size: 13px; display: inline-flex; align-items: center; gap: 4px; }
+  .download-link:hover { color: #a5b4fc; text-decoration: underline; }
+</style>
+
+<div class="flex h-screen overflow-hidden dark">
+
+  <!-- Sidebar -->
+  <aside style="width:240px;min-width:240px;background:#161616;border-right:1px solid #2e2e2e;display:flex;flex-direction:column;padding:16px 8px;overflow-y:auto;">
+
+    <!-- Workspace header -->
+    <div style="padding:8px 12px 16px;border-bottom:1px solid #2e2e2e;margin-bottom:12px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:32px;height:32px;background:linear-gradient(135deg,#5865f2,#818cf8);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🏢</div>
+        <div>
+          <div style="font-size:13px;font-weight:600;color:#e6e6e6;line-height:1.2;">Studio Creativo</div>
+          <div style="font-size:11px;color:#9b9b9b;">Client Portal</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nav -->
+    <nav style="display:flex;flex-direction:column;gap:2px;">
+      <div style="font-size:11px;font-weight:600;color:#9b9b9b;text-transform:uppercase;letter-spacing:0.07em;padding:6px 12px 4px;">Workspace</div>
+      <div class="sidebar-item active">
+        <span style="font-size:15px;">🏠</span><span>Client Portal</span>
+      </div>
+      <div class="sidebar-item">
+        <span style="font-size:15px;">🚀</span><span>Onboarding</span>
+      </div>
+      <div class="sidebar-item">
+        <span style="font-size:15px;">📦</span><span>Deliverables</span>
+      </div>
+      <div class="sidebar-item">
+        <span style="font-size:15px;">📅</span><span>Timeline</span>
+      </div>
+      <div class="sidebar-item">
+        <span style="font-size:15px;">🗂️</span><span>Files</span>
+      </div>
+      <div class="sidebar-item">
+        <span style="font-size:15px;">💬</span><span>Feedback</span>
+      </div>
+      <div class="sidebar-item">
+        <span style="font-size:15px;">❓</span><span>FAQ</span>
+      </div>
+    </nav>
+
+    <!-- Spacer -->
+    <div style="flex:1;"></div>
+
+    <!-- Footer info -->
+    <div style="padding:12px;background:#252525;border-radius:8px;margin-top:16px;">
+      <div style="font-size:11px;color:#9b9b9b;margin-bottom:4px;">Progetto attivo</div>
+      <div style="font-size:13px;font-weight:500;color:#e6e6e6;">Rebrand Cliente ABC</div>
+      <div style="margin-top:8px;height:4px;background:#2e2e2e;border-radius:2px;">
+        <div style="width:65%;height:100%;background:linear-gradient(90deg,#5865f2,#818cf8);border-radius:2px;"></div>
+      </div>
+      <div style="font-size:11px;color:#9b9b9b;margin-top:4px;">65% completato</div>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <main style="flex:1;overflow-y:auto;background:#191919;">
+
+    <!-- Top header -->
+    <header style="position:sticky;top:0;z-index:50;background:#191919;border-bottom:1px solid #2e2e2e;padding:0 32px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;height:52px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <!-- Logo placeholder -->
+          <div style="width:28px;height:28px;background:#252525;border:1px solid #2e2e2e;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#9b9b9b;">A</div>
+          <span style="font-size:14px;color:#9b9b9b;">Portal</span>
+          <span style="color:#3a3a3a;">—</span>
+          <span style="font-size:14px;font-weight:500;color:#e6e6e6;">Studio Creativo × Cliente ABC</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:12px;color:#9b9b9b;">Aggiornato: 22 Mar 2026</span>
+          <div style="width:28px;height:28px;background:linear-gradient(135deg,#4cc38a,#34d399);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;">C</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page content -->
+    <div style="max-width:900px;margin:0 auto;padding:32px 32px 64px;">
+
+      <!-- Page title -->
+      <div style="margin-bottom:28px;">
+        <h1 style="font-size:28px;font-weight:700;color:#e6e6e6;margin:0 0 6px;">Client Portal</h1>
+        <p style="font-size:14px;color:#9b9b9b;margin:0;">Benvenuto nel tuo spazio di lavoro condiviso. Qui trovi tutto il necessario per seguire l'avanzamento del progetto.</p>
+      </div>
+
+      <!-- 1. Stato Progetto -->
+      <div class="section-block">
+        <div class="section-title">🚀 Stato Progetto</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:20px;">
+          <div style="background:#252525;border-radius:8px;padding:14px;">
+            <div style="font-size:11px;color:#9b9b9b;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Fase attuale</div>
+            <div style="font-size:15px;font-weight:600;color:#e6e6e6;">Design in corso</div>
+          </div>
+          <div style="background:#252525;border-radius:8px;padding:14px;">
+            <div style="font-size:11px;color:#9b9b9b;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Prossima milestone</div>
+            <div style="font-size:15px;font-weight:600;color:#f0b429;">28 Mar — Mockup</div>
+          </div>
+          <div style="background:#252525;border-radius:8px;padding:14px;">
+            <div style="font-size:11px;color:#9b9b9b;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Completamento</div>
+            <div style="font-size:15px;font-weight:600;color:#5865f2;">65%</div>
+          </div>
+        </div>
+        <div style="margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:13px;color:#9b9b9b;">Avanzamento generale</span>
+          <span style="font-size:13px;font-weight:600;color:#818cf8;">65 / 100</span>
+        </div>
+        <div style="height:10px;background:#2e2e2e;border-radius:5px;overflow:hidden;">
+          <div class="progress-bar-fill" style="width:65%;"></div>
+        </div>
+        <div style="margin-top:12px;font-size:13px;color:#9b9b9b;">
+          <span style="color:#4cc38a;font-weight:500;">●</span> Presentazione Mockup — <strong style="color:#e6e6e6;">28 Marzo 2026</strong>
+        </div>
+      </div>
+
+      <!-- 2. Onboarding Checklist -->
+      <div class="section-block">
+        <div class="section-title">📋 Onboarding Checklist</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 32px;">
+          <div>
+            <div class="check-item">
+              <div class="check-circle done"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5L3.8 7.5L8.5 2" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <span style="color:#e6e6e6;">Brief compilato</span>
+            </div>
+            <div class="check-item">
+              <div class="check-circle done"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5L3.8 7.5L8.5 2" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <span style="color:#e6e6e6;">Brand assets ricevuti</span>
+            </div>
+            <div class="check-item">
+              <div class="check-circle done"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5L3.8 7.5L8.5 2" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <span style="color:#e6e6e6;">Accessi forniti</span>
+            </div>
+            <div class="check-item">
+              <div class="check-circle done"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5L3.8 7.5L8.5 2" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <span style="color:#e6e6e6;">Contratto firmato</span>
+            </div>
+          </div>
+          <div>
+            <div class="check-item">
+              <div class="check-circle done"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5L3.8 7.5L8.5 2" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <span style="color:#e6e6e6;">Pagamento anticipo</span>
+            </div>
+            <div class="check-item">
+              <div class="check-circle done"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5L3.8 7.5L8.5 2" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <span style="color:#e6e6e6;">Kickoff call</span>
+            </div>
+            <div class="check-item">
+              <div class="check-circle"></div>
+              <span style="color:#9b9b9b;">Questionario stile</span>
+              <span class="tag" style="background:#3a2e1b;color:#f0b429;margin-left:4px;">In attesa</span>
+            </div>
+            <div class="check-item">
+              <div class="check-circle"></div>
+              <span style="color:#9b9b9b;">Contenuti testi</span>
+              <span class="tag" style="background:#3a2e1b;color:#f0b429;margin-left:4px;">In attesa</span>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:14px;padding:10px 14px;background:#252525;border-radius:6px;font-size:13px;color:#9b9b9b;">
+          6 di 8 attività completate · <span style="color:#4cc38a;font-weight:500;">75%</span>
+        </div>
+      </div>
+
+      <!-- 3. Deliverables -->
+      <div class="section-block">
+        <div class="section-title">📦 Deliverables</div>
+        <div style="overflow-x:auto;border-radius:8px;border:1px solid #2e2e2e;">
+          <table>
+            <thead>
+              <tr style="background:#1e1e1e;">
+                <th>Deliverable</th>
+                <th>Stato</th>
+                <th>Scadenza</th>
+                <th>File</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-weight:500;">Logo & Brand Identity</td>
+                <td><span class="tag" style="background:#1b3a2d;color:#4cc38a;">● Completato</span></td>
+                <td style="color:#9b9b9b;">10 Mar 2026</td>
+                <td><a href="#" class="download-link">↓ brand-kit-v2.zip</a></td>
+              </tr>
+              <tr>
+                <td style="font-weight:500;">Wireframe UI</td>
+                <td><span class="tag" style="background:#1b3a2d;color:#4cc38a;">● Completato</span></td>
+                <td style="color:#9b9b9b;">18 Mar 2026</td>
+                <td><a href="#" class="download-link">↓ wireframes.fig</a></td>
+              </tr>
+              <tr>
+                <td style="font-weight:500;">Design Mockup Homepage</td>
+                <td><span class="tag" style="background:#1b2a3a;color:#60a5fa;">● In Corso</span></td>
+                <td style="color:#f0b429;">28 Mar 2026</td>
+                <td><span style="font-size:13px;color:#9b9b9b;">— in lavorazione</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight:500;">Design Mockup Pagine Interne</td>
+                <td><span class="tag" style="background:#2e2e2e;color:#9b9b9b;">○ Pending</span></td>
+                <td style="color:#9b9b9b;">10 Apr 2026</td>
+                <td><span style="font-size:13px;color:#9b9b9b;">—</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight:500;">Sviluppo Sito Web</td>
+                <td><span class="tag" style="background:#2e2e2e;color:#9b9b9b;">○ Pending</span></td>
+                <td style="color:#9b9b9b;">2 Mag 2026</td>
+                <td><span style="font-size:13px;color:#9b9b9b;">—</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight:500;">Style Guide Completa</td>
+                <td><span class="tag" style="background:#1b3a2d;color:#4cc38a;">● Completato</span></td>
+                <td style="color:#9b9b9b;">15 Mar 2026</td>
+                <td><a href="#" class="download-link">↓ style-guide.pdf</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 4. Timeline -->
+      <div class="section-block">
+        <div class="section-title">📅 Timeline Progetto</div>
+        <div style="position:relative;padding:20px 0 40px;">
+          <div class="timeline-line"></div>
+          <div style="display:flex;justify-content:space-between;position:relative;">
+
+            <div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:18%;">
+              <div class="timeline-dot" style="background:#4cc38a;color:#fff;">✓</div>
+              <div style="text-align:center;">
+                <div style="font-size:13px;font-weight:600;color:#4cc38a;">Kickoff</div>
+                <div style="font-size:11px;color:#9b9b9b;margin-top:2px;">1 Mar 2026</div>
+                <span class="tag" style="background:#1b3a2d;color:#4cc38a;margin-top:6px;font-size:10px;">Completato</span>
+              </div>
+            </div>
+
+            <div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:18%;">
+              <div class="timeline-dot" style="background:#4cc38a;color:#fff;">✓</div>
+              <div style="text-align:center;">
+                <div style="font-size:13px;font-weight:600;color:#4cc38a;">Wireframe</div>
+                <div style="font-size:11px;color:#9b9b9b;margin-top:2px;">18 Mar 2026</div>
+                <span class="tag" style="background:#1b3a2d;color:#4cc38a;margin-top:6px;font-size:10px;">Completato</span>
+              </div>
+            </div>
+
+            <div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:18%;">
+              <div class="timeline-dot" style="background:#5865f2;color:#fff;box-shadow:0 0 0 4px rgba(88,101,242,0.2);">→</div>
+              <div style="text-align:center;">
+                <div style="font-size:13px;font-weight:600;color:#818cf8;">Design</div>
+                <div style="font-size:11px;color:#9b9b9b;margin-top:2px;">28 Mar 2026</div>
+                <span class="tag" style="background:#1b2a3a;color:#60a5fa;margin-top:6px;font-size:10px;">In Corso</span>
+              </div>
+            </div>
+
+            <div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:18%;">
+              <div class="timeline-dot" style="background:#2e2e2e;color:#9b9b9b;border:2px solid #3a3a3a;">4</div>
+              <div style="text-align:center;">
+                <div style="font-size:13px;font-weight:600;color:#9b9b9b;">Sviluppo</div>
+                <div style="font-size:11px;color:#9b9b9b;margin-top:2px;">2 Mag 2026</div>
+                <span class="tag" style="background:#2e2e2e;color:#9b9b9b;margin-top:6px;font-size:10px;">Pending</span>
+              </div>
+            </div>
+
+            <div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:18%;">
+              <div class="timeline-dot" style="background:#2e2e2e;color:#9b9b9b;border:2px solid #3a3a3a;">🚀</div>
+              <div style="text-align:center;">
+                <div style="font-size:13px;font-weight:600;color:#9b9b9b;">Launch</div>
+                <div style="font-size:11px;color:#9b9b9b;margin-top:2px;">20 Mag 2026</div>
+                <span class="tag" style="background:#2e2e2e;color:#9b9b9b;margin-top:6px;font-size:10px;">Pending</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Feedback & Note -->
+      <div class="section-block">
+        <div class="section-title">💬 Feedback & Note</div>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+
+          <div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+              <div style="width:26px;height:26px;background:linear-gradient(135deg,#5865f2,#818cf8);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;">S</div>
+              <span style="font-size:13px;font-weight:600;color:#e6e6e6;">Studio Creativo</span>
+              <span style="font-size:11px;color:#9b9b9b;">18 Mar, 10:42</span>
+            </div>
+            <div class="comment-bubble studio">
+              <p style="margin:0;font-size:14px;line-height:1.6;">Ciao! Abbiamo completato i wireframe per tutte le pagine principali. Ho caricato il file Figma nella sezione Deliverables — puoi darci un feedback entro venerdì così possiamo procedere con il design visivo la settimana prossima.</p>
+            </div>
+          </div>
+
+          <div style="padding-left:32px;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+              <div style="width:26px;height:26px;background:linear-gradient(135deg,#4cc38a,#34d399);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;">C</div>
+              <span style="font-size:13px;font-weight:600;color:#e6e6e6;">Cliente ABC</span>
+              <span style="font-size:11px;color:#9b9b9b;">18 Mar, 15:20</span>
+            </div>
+            <div class="comment-bubble client">
+              <p style="margin:0;font-size:14px;line-height:1.6;">Ottimo lavoro! Ho guardato i wireframe — nel complesso sono molto soddisfatto. Un'unica nota: nella homepage, potremmo spostare la sezione "Testimonianze" più in alto, subito dopo l'hero? Penso che darebbe più credibilità immediatamente.</p>
+            </div>
+          </div>
+
+          <div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+              <div style="width:26px;height:26px;background:linear-gradient(135deg,#5865f2,#818cf8);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;">S</div>
+              <span style="font-size:13px;font-weight:600;color:#e6e6e6;">Studio Creativo</span>
+              <span style="font-size:11px;color:#9b9b9b;">19 Mar, 09:05</span>
+            </div>
+            <div class="comment-bubble studio">
+              <p style="margin:0;font-size:14px;line-height:1.6;">Ottima idea! Modifica assolutamente sensata. Aggiorneremo il layout e la sezione Testimonianze sarà nella nuova posizione già nei mockup definitivi. Stiamo anche preparando 3 varianti di palette colori da mostrarvi — le vedrete nel prossimo update entro il 28 Marzo.</p>
+            </div>
+          </div>
+
+          <div style="padding-left:32px;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+              <div style="width:26px;height:26px;background:linear-gradient(135deg,#4cc38a,#34d399);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;">C</div>
+              <span style="font-size:13px;font-weight:600;color:#e6e6e6;">Cliente ABC</span>
+              <span style="font-size:11px;color:#9b9b9b;">19 Mar, 11:30</span>
+            </div>
+            <div class="comment-bubble client">
+              <p style="margin:0;font-size:14px;line-height:1.6;">Perfetto, grazie mille per la rapidità! Non vediamo l'ora di vedere le varianti di colore. Preferiamo tonalità blu/navy con accenti dorati — in linea con il nostro brand attuale. A presto! 🎨</p>
+            </div>
+          </div>
+
+          <!-- Add comment -->
+          <div style="margin-top:8px;padding:12px;background:#252525;border:1px dashed #3a3a3a;border-radius:8px;display:flex;align-items:center;gap:10px;">
+            <div style="width:26px;height:26px;background:#2e2e2e;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#9b9b9b;flex-shrink:0;">+</div>
+            <span style="font-size:13px;color:#9b9b9b;">Aggiungi un commento…</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. FAQ -->
+      <div class="section-block">
+        <div class="section-title">❓ FAQ — Domande Frequenti</div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+
+          <div class="faq-item" style="border-radius:8px;overflow:hidden;border:1px solid #2e2e2e;">
+            <button onclick="this.closest('.faq-item').classList.toggle('open')" style="width:100%;background:transparent;border:none;cursor:pointer;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;color:#e6e6e6;">
+              <span style="font-size:14px;font-weight:500;text-align:left;">Con quale frequenza riceverò aggiornamenti sul progetto?</span>
+              <span class="faq-chevron" style="color:#9b9b9b;font-size:13px;flex-shrink:0;margin-left:12px;">▶</span>
+            </button>
+            <div class="faq-answer" style="padding:0 16px 14px;font-size:14px;color:#9b9b9b;line-height:1.65;">
+              Ti aggiorneremo ogni settimana via questo portale e via email ogni venerdì con un resoconto dell'avanzamento. Per questioni urgenti puoi scriverci direttamente nella sezione Feedback o via email a <span style="color:#818cf8;">studio@studiocreativo.it</span>.
+            </div>
+          </div>
+
+          <div class="faq-item" style="border-radius:8px;overflow:hidden;border:1px solid #2e2e2e;">
+            <button onclick="this.closest('.faq-item').classList.toggle('open')" style="width:100%;background:transparent;border:none;cursor:pointer;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;color:#e6e6e6;">
+              <span style="font-size:14px;font-weight:500;text-align:left;">Quante revisioni sono incluse nel pacchetto?</span>
+              <span class="faq-chevron" style="color:#9b9b9b;font-size:13px;flex-shrink:0;margin-left:12px;">▶</span>
+            </button>
+            <div class="faq-answer" style="padding:0 16px 14px;font-size:14px;color:#9b9b9b;line-height:1.65;">
+              Il pacchetto include <strong style="color:#e6e6e6;">2 round di revisione</strong> per ogni deliverable principale. Revisioni aggiuntive sono disponibili a €150/ora. Ti consigliamo di raccogliere tutti i feedback in un'unica sessione per ottimizzare i tempi.
+            </div>
+          </div>
+
+          <div class="faq-item" style="border-radius:8px;overflow:hidden;border:1px solid #2e2e2e;">
+            <button onclick="this.closest('.faq-item').classList.toggle('open')" style="width:100%;background:transparent;border:none;cursor:pointer;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;color:#e6e6e6;">
+              <span style="font-size:14px;font-weight:500;text-align:left;">Come vengono gestiti eventuali cambiamenti di scope?</span>
+              <span class="faq-chevron" style="color:#9b9b9b;font-size:13px;flex-shrink:0;margin-left:12px;">▶</span>
+            </button>
+            <div class="faq-answer" style="padding:0 16px 14px;font-size:14px;color:#9b9b9b;line-height:1.65;">
+              Qualsiasi modifica allo scope originale viene valutata e ti invieremo un preventivo aggiuntivo prima di procedere. Non apportiamo mai modifiche non concordate. Tutte le variazioni vengono documentate tramite una Change Request firmata da entrambe le parti.
+            </div>
+          </div>
+
+          <div class="faq-item" style="border-radius:8px;overflow:hidden;border:1px solid #2e2e2e;">
+            <button onclick="this.closest('.faq-item').classList.toggle('open')" style="width:100%;background:transparent;border:none;cursor:pointer;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;color:#e6e6e6;">
+              <span style="font-size:14px;font-weight:500;text-align:left;">Chi possiede i file sorgente al termine del progetto?</span>
+              <span class="faq-chevron" style="color:#9b9b9b;font-size:13px;flex-shrink:0;margin-left:12px;">▶</span>
+            </button>
+            <div class="faq-answer" style="padding:0 16px 14px;font-size:14px;color:#9b9b9b;line-height:1.65;">
+              Al saldo finale del progetto, tutti i file sorgente (Figma, codice sorgente, asset originali) vengono trasferiti interamente a te. Riceverai un archivio completo con tutti i materiali organizzati e documentati. I diritti d'autore passano a te al momento del pagamento finale.
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+`,
   },
 
   // ── E-learning & Corsi ────────────────────────────────────────────────────
@@ -5668,7 +7383,7 @@ P.S. Se preferisci farlo via video (anche con il telefono), ti mando uno script 
     description:
       "5-part onboarding email sequence for new students: from purchase confirmation to first quick win.",
     category: "prompt",
-    price: 1199,
+    price: 1299,
     stripePriceId: "price_1TD5Q9BoWNgrJbiyg4t1Uxfn",
     tags: ["elearning", "email", "onboarding", "sequence", "student retention"],
     downloads: 0,
