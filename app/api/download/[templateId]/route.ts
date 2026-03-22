@@ -72,9 +72,12 @@ export async function GET(
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
-  const purchases = await getUserPurchases(userId);
-  if (!purchases.includes(templateId)) {
-    return NextResponse.json({ error: "Not purchased" }, { status: 403 });
+  // Free templates (price=0) skip purchase check
+  if (template.price > 0) {
+    const purchases = await getUserPurchases(userId);
+    if (!purchases.includes(templateId)) {
+      return NextResponse.json({ error: "Not purchased" }, { status: 403 });
+    }
   }
 
   // Language preference from query string (defaults to "en")

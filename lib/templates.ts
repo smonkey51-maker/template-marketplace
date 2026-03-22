@@ -5870,6 +5870,131 @@ P.S. Nel prossimo mese aggiungerò [NUOVO CONTENUTO/MODULO BONUS]. Tutti gli isc
 - Completion rate Modulo 1 entro 7 giorni (benchmark: >50%)
 - Richieste di rimborso nella prima settimana (target: <5%)`,
   },
+  // ── Free Templates (Content Magnet Bundle) ────────────────────────────────
+  {
+    id: "free-email-optin",
+    name: "Email Opt-in Section",
+    description: "Minimal email capture section with value proposition, social proof counter, and animated gradient border.",
+    category: "ui" as TemplateCategory,
+    price: 0,
+    stripePriceId: "price_free_email_optin",
+    tags: ["free", "email", "optin", "lead capture", "newsletter", "landing"],
+    downloads: 0,
+    isNew: true,
+    content: `<section class="relative bg-[#050402] min-h-[480px] flex items-center justify-center px-4 py-16 overflow-hidden">
+  <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse at 50% 0%,rgba(200,169,110,0.12) 0%,transparent 60%)"></div>
+  <div class="relative max-w-lg w-full text-center">
+    <p class="text-[11px] font-bold uppercase tracking-[0.2em] mb-4" style="color:#C8A96E">Gratis · Nessuna carta richiesta</p>
+    <h2 class="text-3xl md:text-4xl font-black text-[#F2EBD9] leading-tight mb-3" style="letter-spacing:-0.02em">
+      Ricevi template<br/>pronti all'uso
+    </h2>
+    <p class="text-[15px] text-[#F2EBD9]/55 mb-8 max-w-md mx-auto leading-relaxed">
+      Iscriviti alla newsletter e ricevi subito 3 template premium gratis. Unisciti a 2.400+ professionisti.
+    </p>
+    <form class="flex gap-2 max-w-sm mx-auto">
+      <input type="email" placeholder="nome@email.com" class="flex-1 bg-[#F2EBD9]/6 border border-[#F2EBD9]/9 px-4 py-3 text-[14px] text-[#F2EBD9] placeholder:text-[#F2EBD9]/30 outline-none focus:border-[#C8A96E]/40 transition-colors" />
+      <button type="submit" class="px-6 py-3 font-bold text-[13px] transition-colors" style="background:#C8A96E;color:#050402">Iscriviti</button>
+    </form>
+    <p class="text-[11px] text-[#F2EBD9]/30 mt-4">Zero spam · Cancella quando vuoi</p>
+  </div>
+</section>`,
+  },
+  {
+    id: "free-testimonial-cards",
+    name: "Testimonial Cards Grid",
+    description: "3-column testimonial grid with star ratings, avatar initials, and editorial serif styling. Dark theme.",
+    category: "ui" as TemplateCategory,
+    price: 0,
+    stripePriceId: "price_free_testimonial_cards",
+    tags: ["free", "testimonials", "reviews", "social proof", "landing"],
+    downloads: 0,
+    isNew: true,
+    content: `<section class="bg-[#050402] px-4 py-16">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-10">
+      <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#C8A96E] mb-2">Recensioni</p>
+      <h2 class="text-2xl md:text-3xl font-black text-[#F2EBD9] tracking-tight">Amato dai professionisti</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="bg-[#F2EBD9]/4 border border-[#F2EBD9]/8 p-5">
+        <div class="flex gap-0.5 mb-3">${Array.from({length:5}).map(() => '<svg width="13" height="13" viewBox="0 0 10 10" fill="#C8A96E"><path d="M5 0l1.2 3.7H10L6.9 5.9l1.2 3.7L5 7.5l-3.1 2.1 1.2-3.7L0 3.7h3.8z"/></svg>').join('')}</div>
+        <p class="text-[13px] text-[#F2EBD9]/55 leading-relaxed mb-4">"Ho lanciato la landing del mio SaaS in meno di un giorno. Il template era perfetto."</p>
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 bg-gradient-to-br from-[#9C7733] to-[#C8A96E] flex items-center justify-center text-[11px] font-bold text-[#050402]">MF</div>
+          <div><p class="text-[12px] font-semibold text-[#F2EBD9]">Marco F.</p><p class="text-[11px] text-[#F2EBD9]/40">Founder</p></div>
+        </div>
+      </div>
+      <div class="bg-[#F2EBD9]/4 border border-[#F2EBD9]/8 p-5">
+        <div class="flex gap-0.5 mb-3">${Array.from({length:5}).map(() => '<svg width="13" height="13" viewBox="0 0 10 10" fill="#C8A96E"><path d="M5 0l1.2 3.7H10L6.9 5.9l1.2 3.7L5 7.5l-3.1 2.1 1.2-3.7L0 3.7h3.8z"/></svg>').join('')}</div>
+        <p class="text-[13px] text-[#F2EBD9]/55 leading-relaxed mb-4">"Risparmio ore di lavoro. Risultati professionali a prezzi competitivi per i miei clienti."</p>
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 bg-gradient-to-br from-[#B5501F] to-[#C4622D] flex items-center justify-center text-[11px] font-bold text-white">SN</div>
+          <div><p class="text-[12px] font-semibold text-[#F2EBD9]">Sara N.</p><p class="text-[11px] text-[#F2EBD9]/40">Designer</p></div>
+        </div>
+      </div>
+      <div class="bg-[#F2EBD9]/4 border border-[#F2EBD9]/8 p-5">
+        <div class="flex gap-0.5 mb-3">${Array.from({length:5}).map(() => '<svg width="13" height="13" viewBox="0 0 10 10" fill="#C8A96E"><path d="M5 0l1.2 3.7H10L6.9 5.9l1.2 3.7L5 7.5l-3.1 2.1 1.2-3.7L0 3.7h3.8z"/></svg>').join('')}</div>
+        <p class="text-[13px] text-[#F2EBD9]/55 leading-relaxed mb-4">"I prompt per LinkedIn hanno triplicato il mio engagement. Claude li personalizza perfettamente."</p>
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 bg-gradient-to-br from-[#7A6B56] to-[#9C7733] flex items-center justify-center text-[11px] font-bold text-[#F2EBD9]">LM</div>
+          <div><p class="text-[12px] font-semibold text-[#F2EBD9]">Luca M.</p><p class="text-[11px] text-[#F2EBD9]/40">Marketing</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>`,
+  },
+  {
+    id: "free-cold-intro-prompt",
+    name: "Cold Intro Email Prompt",
+    description: "AI prompt template for writing personalized cold introduction emails. Includes variables for company, role, and value proposition.",
+    category: "prompt" as TemplateCategory,
+    price: 0,
+    stripePriceId: "price_free_cold_intro_prompt",
+    tags: ["free", "email", "cold outreach", "sales", "ai prompt", "b2b"],
+    downloads: 0,
+    isNew: true,
+    content: `# Cold Intro Email — Prompt Template
+
+Sei un copywriter esperto in cold outreach B2B. Scrivi un'email di introduzione personalizzata seguendo queste regole:
+
+## Contesto
+- **Azienda mittente:** {{nome_azienda}}
+- **Ruolo mittente:** {{ruolo_mittente}}
+- **Azienda destinatario:** {{azienda_target}}
+- **Nome destinatario:** {{nome_destinatario}}
+- **Ruolo destinatario:** {{ruolo_target}}
+- **Proposta di valore:** {{valore_offerto}}
+- **Prova sociale (opzionale):** {{social_proof}}
+
+## Regole
+1. Oggetto email: max 6 parole, niente clickbait, specifico per il destinatario
+2. Prima riga: riferimento concreto all'azienda target (un loro post, prodotto, o dato pubblico)
+3. Corpo: max 4 frasi. Problema → soluzione → prova → CTA
+4. CTA finale: una domanda semplice con sì/no (es. "Ha senso parlarne 15 minuti?")
+5. Tono: diretto, rispettoso, zero formalità inutili
+6. NO allegati, NO link nel primo messaggio, NO "Mi permetto di contattarla"
+
+## Output richiesto
+Genera 3 varianti dell'email (A/B/C), ognuna con:
+- Oggetto
+- Corpo email
+- Nota: perché questa variante può funzionare
+
+## Esempio di output atteso
+
+**Variante A — Riferimento specifico**
+Oggetto: {{azienda_target}} + {{valore_offerto}} in 2 parole
+
+Ciao {{nome_destinatario}},
+
+Ho visto che [riferimento concreto]. [Problema comune]. Con {{nome_azienda}} abbiamo [risultato numerico] per [azienda simile].
+
+Ha senso parlarne 15 minuti questa settimana?
+
+{{nome_mittente}}
+{{ruolo_mittente}}, {{nome_azienda}}`,
+  },
 ];
 
 
@@ -5914,7 +6039,7 @@ export const bundles: Bundle[] = [
       "Risparmia €36 rispetto all'acquisto singolo",
     ],
     price: 2999,
-    regularPrice: 6595,
+    regularPrice: 5895,
     stripePriceId: "price_1TCExzBoWNgrJbiyVMKwMclb",
     emoji: "🚀",
     accentColor: "blue",
@@ -5933,7 +6058,7 @@ export const bundles: Bundle[] = [
       "Risparmia €31 rispetto all'acquisto singolo",
     ],
     price: 2299,
-    regularPrice: 5395,
+    regularPrice: 4495,
     stripePriceId: "price_1TCEy0BoWNgrJbiyV3JvPKLu",
     emoji: "✍️",
     accentColor: "violet",
@@ -5952,7 +6077,7 @@ export const bundles: Bundle[] = [
       "Risparmia €12 rispetto all'acquisto singolo",
     ],
     price: 1999,
-    regularPrice: 3195,
+    regularPrice: 3196,
     stripePriceId: "price_1TCEy1BoWNgrJbiyl3MIkjJA",
     emoji: "💼",
     accentColor: "emerald",
@@ -5971,7 +6096,7 @@ export const bundles: Bundle[] = [
       "Risparmia €22 rispetto all'acquisto singolo",
     ],
     price: 2999,
-    regularPrice: 5195,
+    regularPrice: 4996,
     stripePriceId: "price_1TCEy1BoWNgrJbiyKvC8QEdv",
     emoji: "🤖",
     accentColor: "purple",
@@ -5990,7 +6115,7 @@ export const bundles: Bundle[] = [
       "Risparmia €21 rispetto all'acquisto singolo",
     ],
     price: 1999,
-    regularPrice: 4095,
+    regularPrice: 4096,
     stripePriceId: "price_1TCEy2BoWNgrJbiyNuGtejM7",
     emoji: "🏪",
     accentColor: "amber",
@@ -6033,6 +6158,25 @@ export const bundles: Bundle[] = [
     emoji: "📓",
     accentColor: "emerald",
     tags: ["notion", "productivity", "pkm", "crm", "project management"],
+  },
+  {
+    id: "bundle-free-starter",
+    name: "Free Starter Kit",
+    tagline: "3 template gratis per iniziare subito",
+    description:
+      "Il kit di partenza perfetto: una sezione email opt-in, testimonial cards e un prompt per cold email. Scarica gratis e scopri la qualità TemplateLab.",
+    templateIds: ["free-email-optin", "free-testimonial-cards", "free-cold-intro-prompt"],
+    highlights: [
+      "3 template premium 100% gratuiti",
+      "2 sezioni UI + 1 prompt AI inclusi",
+      "Perfetto per testare prima di acquistare",
+    ],
+    price: 0,
+    regularPrice: 0,
+    stripePriceId: "price_free_starter_bundle",
+    emoji: "🎁",
+    accentColor: "amber",
+    tags: ["free", "starter", "content magnet", "lead magnet"],
   },
 ];
 

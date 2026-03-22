@@ -475,6 +475,9 @@ export const templateTranslations: Record<string, { name: string; description: s
   "digital-resume":           { name: "CV Digitale",                    description: "Curriculum vitae online con timeline esperienze, skill e portfolio." },
   "link-in-bio":              { name: "Link in Bio",                    description: "Pagina link in bio per creator con profilo social e link multipli." },
   "newsletter-landing":       { name: "Landing Newsletter",             description: "Pagina iscrizione newsletter con anteprima contenuti e CTA ottimizzata." },
+  "free-email-optin":         { name: "Sezione Email Opt-in",           description: "Sezione cattura email con proposta di valore, contatore social proof e bordo gradiente." },
+  "free-testimonial-cards":   { name: "Griglia Testimonianze",          description: "Griglia a 3 colonne con stelle, avatar e stile serif editoriale. Tema scuro." },
+  "free-cold-intro-prompt":   { name: "Prompt Email Introduzione",     description: "Template prompt AI per scrivere email di introduzione personalizzate con variabili azienda e ruolo." },
 };
 
 // Per la ricerca bilingue: mappa termini italiani → tag inglesi
