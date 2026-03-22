@@ -50,6 +50,14 @@
   --obsidian-3:     #EDE5D5;
   --obsidian-4:     #E3D9C6;
   --border-gold:    1px solid rgba(156,119,51,0.28);
+  /* Semantic state colors */
+  --success:        #6B8C42;
+  --success-dim:    rgba(107,140,66,0.12);
+  --error:          #B5501F;
+  --error-dim:      rgba(181,80,31,0.12);
+  /* Ambient glow — warm brand tones */
+  --glow-gold:      rgba(156,119,51,0.18);
+  --glow-terra:     rgba(181,80,31,0.12);
 }
 
 html.dark {
@@ -92,6 +100,14 @@ html.dark {
   --obsidian-3:     #161310;
   --obsidian-4:     #1e1a16;
   --border-gold:    1px solid rgba(200,169,110,0.28);
+  /* Semantic state colors — dark mode */
+  --success:        #8BAF5A;
+  --success-dim:    rgba(139,175,90,0.14);
+  --error:          #C4622D;
+  --error-dim:      rgba(196,98,45,0.14);
+  /* Ambient glow — warm brand tones */
+  --glow-gold:      rgba(200,169,110,0.12);
+  --glow-terra:     rgba(196,98,45,0.08);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -224,11 +240,6 @@ html::-webkit-scrollbar-track {
   }
   .modal-enter {
     animation: modal-in 0.26s cubic-bezier(0.32, 1.10, 0.64, 1) both;
-  }
-
-  /* ── Button base (glow removed) ────────── */
-  .btn-glow-blue {
-    transition: opacity 0.2s ease;
   }
 
   /* ── Gradient border animation ─────────── */

@@ -15,11 +15,11 @@ export default function GuidePage() {
       <div className="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden>
         <div
           className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[900px] h-[600px] rounded-full opacity-50"
-          style={{ background: "radial-gradient(ellipse, var(--glow-blue) 0%, transparent 70%)" }}
+          style={{ background: "radial-gradient(ellipse, var(--glow-gold) 0%, transparent 70%)" }}
         />
         <div
           className="absolute top-[30%] right-[-5%] w-[400px] h-[400px] rounded-full"
-          style={{ background: "radial-gradient(ellipse, var(--glow-purple) 0%, transparent 70%)" }}
+          style={{ background: "radial-gradient(ellipse, var(--glow-terra) 0%, transparent 70%)" }}
         />
       </div>
 

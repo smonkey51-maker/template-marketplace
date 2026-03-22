@@ -106,7 +106,7 @@ export default function NewsletterAdminPage() {
             </div>
 
             {status === "done" && result && (
-              <p className="text-[13px] text-emerald-500 font-medium">
+              <p className="text-[13px] font-medium" style={{ color: "var(--success)" }}>
                 Inviata a {result.sent}/{result.total} subscriber
                 {result.errors > 0 && ` · ${result.errors} errori`}
               </p>

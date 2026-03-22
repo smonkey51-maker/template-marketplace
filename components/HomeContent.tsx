@@ -114,7 +114,7 @@ function TestimonialCard({
       {/* Stars */}
       <div className="flex gap-0.5">
         {Array.from({ length: testimonial.rating }).map((_, i) => (
-          <svg key={i} width="13" height="13" viewBox="0 0 10 10" fill="currentColor" className="text-amber-400" aria-hidden>
+          <svg key={i} width="13" height="13" viewBox="0 0 10 10" fill="currentColor" style={{ color: "var(--accent)" }} aria-hidden>
             <path d="M5 0l1.2 3.7H10L6.9 5.9l1.2 3.7L5 7.5l-3.1 2.1 1.2-3.7L0 3.7h3.8z"/>
           </svg>
         ))}

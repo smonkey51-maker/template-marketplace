@@ -63,7 +63,7 @@ export default function EmailCapture() {
         {/* Form */}
         <div className="w-full sm:w-auto shrink-0 flex flex-col items-center sm:items-end">
           {status === "success" ? (
-            <p className="text-[13px] text-emerald-500 font-medium">{c.success}</p>
+            <p className="text-[13px] font-medium" style={{ color: "var(--success)" }}>{c.success}</p>
           ) : (
             <form onSubmit={handleSubmit} className="flex gap-2">
               <input

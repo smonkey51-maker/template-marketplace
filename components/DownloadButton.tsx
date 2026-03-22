@@ -220,7 +220,7 @@ export default function DownloadButton({
           )}
           {label}
         </button>
-        {error && <p className="text-[#FF453A] text-[11px]">{error}</p>}
+        {error && <p className="text-[11px]" style={{ color: "var(--error)" }}>{error}</p>}
         {showLangModal && (
           <LangModal
             onSelect={handleLangSelect}
@@ -248,7 +248,7 @@ export default function DownloadButton({
           </>
         )}
       </button>
-      {error && <p className="text-[#FF453A] text-[12px] text-center">{error}</p>}
+      {error && <p className="text-[12px] text-center" style={{ color: "var(--error)" }}>{error}</p>}
       {showLangModal && (
         <LangModal
           onSelect={handleLangSelect}
