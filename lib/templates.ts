@@ -899,7 +899,7 @@ export const templates: Template[] = [
     description: "Glassmorphism analytics dashboard with KPI widgets, sparklines, score ring, segmented controls and animated counters. Built in React/JSX.",
     category: "ui",
     price: 1999,
-    stripePriceId: "price_dashboard_fusion_v3",
+    stripePriceId: "price_dashboard_fusion_v3", // ⚠️ PLACEHOLDER — run: npx tsx scripts/seed-stripe.ts to create a real Stripe Price
     tags: ["dashboard", "analytics", "glassmorphism", "react", "jsx"],
     downloads: 0,
     editorsPick: true,
