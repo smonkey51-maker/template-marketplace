@@ -295,7 +295,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
               <div className="flex items-center gap-2 flex-wrap mb-0.5">
                 <span className="text-[10px] font-bold text-muted uppercase tracking-widest">{categoryLabel}</span>
                 {template.downloads >= 700 && (
-                  <span className="text-[10px] font-bold text-[#FF9F0A] bg-[#FF9F0A]/10 border border-[#FF9F0A]/20 px-1.5 py-0.5">{t[lang].card.bestseller}</span>
+                  <span className="text-[10px] font-bold px-1.5 py-0.5" style={{ color: "var(--accent)", background: "var(--accent-bg)", border: "1px solid var(--accent-muted)" }}>{t[lang].card.bestseller}</span>
                 )}
               </div>
               <p className="text-[15px] font-bold text-theme leading-tight">{displayName}</p>

@@ -87,7 +87,7 @@ export default function EmailCapture() {
             </form>
           )}
           {status === "error" && (
-            <p className="text-[11px] text-red-500 mt-1.5">{c.error}</p>
+            <p className="text-[11px] mt-1.5" style={{ color: "var(--error)" }}>{c.error}</p>
           )}
         </div>
       </div>
