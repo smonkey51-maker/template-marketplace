@@ -148,7 +148,8 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
   const editionNum = String(templates.findIndex((tt) => tt.id === template.id) + 1).padStart(3, "0");
 
   // Category strip color
-  const stripColor = template.category === "prompt" ? "var(--terra, #C4622D)" : "var(--accent)";
+  const isPromptType = (template.downloadType ?? (template.category === "ui" ? "html" : "prompt")) === "prompt";
+  const stripColor = isPromptType ? "var(--terra, #C4622D)" : "var(--accent)";
 
   return (
     <div

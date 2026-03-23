@@ -153,8 +153,8 @@ export default function DownloadButton({
   const meta = DOWNLOAD_META[downloadType];
   const label = lang === "it" ? meta.labelIt : meta.labelEn;
 
-  /* Downloads require lang choice only for file-based types */
-  const needsLangChoice = downloadType === "html" || downloadType === "prompt";
+  /* Only HTML downloads need lang choice — prompts are already in Italian */
+  const needsLangChoice = downloadType === "html";
 
   const executeDownload = async (dlLang: "it" | "en") => {
     setLoading(true);
@@ -181,7 +181,7 @@ export default function DownloadButton({
         const blob = await res.blob();
         const disposition = res.headers.get("content-disposition") ?? "";
         const filename =
-          disposition.match(/filename="(.+)"/)?.[1] ?? `${templateId}.txt`;
+          disposition.match(/filename="(.+)"/)?.[1] ?? `${templateId}.${downloadType === "html" ? "html" : "txt"}`;
         const objectUrl = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = objectUrl;
