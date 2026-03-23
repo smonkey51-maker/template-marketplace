@@ -16,9 +16,11 @@ export default function PreviewModal({ templateId, onClose }: {
     const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
     document.addEventListener("keydown", handler);
     document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
     return () => {
       document.removeEventListener("keydown", handler);
       document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
     };
   }, [onClose]);
 
@@ -52,7 +54,7 @@ export default function PreviewModal({ templateId, onClose }: {
           <button
             onClick={onClose}
             className="flex items-center gap-1.5 text-[12px] text-white/50 hover:text-white/90 transition-colors duration-200 font-medium"
-            aria-label="Chiudi anteprima"
+            aria-label={lang === "it" ? "Chiudi anteprima" : "Close preview"}
           >
             <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden>
               <path d="M2 2l10 10M12 2L2 12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>

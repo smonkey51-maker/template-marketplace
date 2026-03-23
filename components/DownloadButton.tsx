@@ -77,10 +77,12 @@ function LangModal({
   onSelect,
   onClose,
   loading,
+  siteLang,
 }: {
   onSelect: (lang: "it" | "en") => void;
   onClose: () => void;
   loading: boolean;
+  siteLang: "it" | "en";
 }) {
   return (
     <div
@@ -96,10 +98,12 @@ function LangModal({
         onClick={(e) => e.stopPropagation()}
       >
         <h3 className="text-theme text-[15px] font-semibold mb-1">
-          Lingua del template
+          {siteLang === "it" ? "Lingua del template" : "Template language"}
         </h3>
         <p className="text-muted text-[12px] mb-4 leading-relaxed">
-          Scegli in quale lingua vuoi scaricare il template.
+          {siteLang === "it"
+            ? "Scegli in quale lingua vuoi scaricare il template."
+            : "Choose which language to download the template in."}
         </p>
         <div className="flex gap-2">
           <button
@@ -123,7 +127,7 @@ function LangModal({
         </div>
         {loading && (
           <p className="text-muted text-[11px] text-center mt-3">
-            Preparazione in corso…
+            {siteLang === "it" ? "Preparazione in corso…" : "Preparing download…"}
           </p>
         )}
       </div>
@@ -224,8 +228,9 @@ export default function DownloadButton({
         {showLangModal && (
           <LangModal
             onSelect={handleLangSelect}
-            onClose={() => setShowLangModal(false)}
+            onClose={() => { setShowLangModal(false); setLoading(false); }}
             loading={loading}
+            siteLang={lang as "it" | "en"}
           />
         )}
       </div>
@@ -252,8 +257,9 @@ export default function DownloadButton({
       {showLangModal && (
         <LangModal
           onSelect={handleLangSelect}
-          onClose={() => setShowLangModal(false)}
+          onClose={() => { setShowLangModal(false); setLoading(false); }}
           loading={loading}
+          siteLang={lang as "it" | "en"}
         />
       )}
     </div>

@@ -72,7 +72,7 @@ export default function EmailCapture() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder={c.placeholder}
                 required
-                className="w-48 sm:w-56 bg-input border border-theme rounded-none px-3 py-2.5 text-[13px] text-theme placeholder:text-muted outline-none focus:border-accent transition-colors duration-200"
+                className="w-full sm:w-56 bg-input border border-theme rounded-none px-3 py-2.5 text-[13px] text-theme placeholder:text-muted outline-none focus:border-accent transition-colors duration-200"
               />
               <button
                 type="submit"

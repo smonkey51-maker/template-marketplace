@@ -416,24 +416,33 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
 
   // Search results (when query active)
   const searchResults = useMemo(() => {
-    const q = normalize(externalQuery.trim());
-    if (!q) return [];
-    const synonyms: string[] = SEARCH_SYNONYMS[q] ?? [];
+    const raw = normalize(externalQuery.trim());
+    if (!raw) return [];
+    // Split query into individual words for better matching
+    const words = raw.split(/\s+/).filter(Boolean);
+    if (words.length === 0) return [];
+
+    // Collect all synonym expansions for each word
+    const allTerms = new Set<string>(words);
+    for (const w of words) {
+      const syns = SEARCH_SYNONYMS[w];
+      if (syns) syns.forEach((s) => allTerms.add(normalize(s)));
+    }
+    const terms = Array.from(allTerms);
+
     return templates.filter((tmpl) => {
       const itName = templateTranslations[tmpl.id]?.name ?? "";
       const itDesc = templateTranslations[tmpl.id]?.description ?? "";
-      const matchesDirect =
-        normalize(tmpl.name).includes(q) ||
-        normalize(tmpl.description).includes(q) ||
-        normalize(itName).includes(q) ||
-        normalize(itDesc).includes(q) ||
-        tmpl.tags.some((tag) => normalize(tag).includes(q));
-      const matchesSynonym = synonyms.some((syn) =>
-        normalize(tmpl.name).includes(normalize(syn)) ||
-        normalize(tmpl.description).includes(normalize(syn)) ||
-        tmpl.tags.some((tag) => normalize(tag).includes(normalize(syn)))
-      );
-      return matchesDirect || matchesSynonym;
+      const haystack = [
+        normalize(tmpl.name),
+        normalize(tmpl.description),
+        normalize(itName),
+        normalize(itDesc),
+        ...tmpl.tags.map(normalize),
+      ].join(" ");
+
+      // Match if ANY search term (original words + synonyms) appears in haystack
+      return terms.some((term) => haystack.includes(term));
     }).sort((a, b) => b.downloads - a.downloads);
   }, [externalQuery]);
 

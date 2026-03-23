@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Global keyboard focus indicators (accessibility) ── */
+@layer components {
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}
+
 /* ═══════════════════════════════════════════════════════════
    THEME VARIABLES
    ═══════════════════════════════════════════════════════════ */

@@ -658,7 +658,7 @@ export default function HomeContent() {
   }, [router, lang, toast]);
 
   return (
-    <div className="min-h-screen bg-page relative overflow-x-hidden anim-page-enter">
+    <div className="min-h-screen bg-page relative overflow-x-hidden anim-page-enter pb-20 sm:pb-0">
       <ScrollProgressBar />
 
       {/* no ambient glow in hybrid — grain overlay handles warmth */}
@@ -727,7 +727,12 @@ export default function HomeContent() {
             <input
               type="text"
               value={query}
-              onChange={(e) => { setQuery(e.target.value); if (e.target.value) document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" }); }}
+              onChange={(e) => { setQuery(e.target.value); }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && (e.target as HTMLInputElement).value.trim()) {
+                  document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
               placeholder={lang === "it" ? "Cerca…" : "Search…"}
               className="pl-8 pr-3 py-1.5 text-[12px] outline-none w-32 focus:w-48 transition-all duration-200"
               style={{
@@ -804,14 +809,31 @@ export default function HomeContent() {
               defaultValue={query}
               onChange={(e) => {
                 setQuery(e.target.value);
-                if (e.target.value) {
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && (e.target as HTMLInputElement).value.trim()) {
                   setMobileMenuOpen(false);
                   setTimeout(() => document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" }), 150);
                 }
               }}
               placeholder={lang === "it" ? "Cerca template…" : "Search templates…"}
-              className="w-full bg-input border border-theme rounded-none pl-9 pr-3 py-2.5 text-[14px] text-theme placeholder:text-muted outline-none focus:border-accent transition-colors"
+              className="w-full bg-input border border-theme rounded-none pl-9 pr-9 py-2.5 text-[14px] text-theme placeholder:text-muted outline-none focus:border-accent transition-colors"
             />
+            {/* Search submit button */}
+            <button
+              onClick={() => {
+                if (query.trim()) {
+                  setMobileMenuOpen(false);
+                  setTimeout(() => document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" }), 150);
+                }
+              }}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-accent transition-colors"
+              aria-label={lang === "it" ? "Cerca" : "Search"}
+            >
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
           </div>
         </div>
 
@@ -923,21 +945,21 @@ export default function HomeContent() {
         className="relative z-10 border-b"
         style={{ borderColor: "var(--border)" }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-12 lg:gap-16 items-center py-16 sm:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-12 lg:gap-16 items-center py-10 sm:py-20">
 
           {/* Left: copy */}
           <div>
             {/* Eyebrow */}
-            <div className="inline-flex items-center gap-2.5 mb-7 text-[9px] tracking-[0.2em] uppercase font-medium" style={{ color: "var(--accent)" }}>
+            <div className="inline-flex items-center gap-2.5 mb-4 sm:mb-7 text-[9px] tracking-[0.2em] uppercase font-medium" style={{ color: "var(--accent)" }}>
               <span className="w-[5px] h-[5px] rounded-full flex-shrink-0" style={{ background: "var(--accent)" }} />
               {lang === "it" ? "Collezione Primavera 2026" : "Spring Collection 2026"}
             </div>
 
             {/* Headline */}
             <h1
-              className="font-dm-serif leading-[1.06] mb-7"
+              className="font-dm-serif leading-[1.06] mb-5 sm:mb-7"
               style={{
-                fontSize: "clamp(48px, 6vw, 82px)",
+                fontSize: "clamp(34px, 6vw, 82px)",
                 fontWeight: 400,
                 letterSpacing: "-0.025em",
                 color: "var(--text)",
@@ -958,14 +980,14 @@ export default function HomeContent() {
             </h1>
 
             {/* Sub */}
-            <p className="text-[14px] leading-[1.78] mb-10 max-w-[420px] font-light" style={{ color: "var(--muted)" }}>
+            <p className="text-[13px] sm:text-[14px] leading-[1.78] mb-7 sm:mb-10 max-w-[420px] font-light" style={{ color: "var(--muted)" }}>
               {lang === "it"
                 ? "Template professionali pronti all'uso, personalizzabili in pochi secondi con Claude AI."
                 : "Professional templates ready to use. Customize any design in seconds with Claude AI."}
             </p>
 
             {/* CTAs */}
-            <div className="flex items-center gap-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
               <a
                 href="#browse"
                 onClick={(e) => { e.preventDefault(); document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" }); }}
@@ -1068,11 +1090,11 @@ export default function HomeContent() {
 
       {/* ── Catalog header ── */}
       <div
-        className="relative z-10 border-b px-4 sm:px-8 py-[28px] flex items-baseline justify-between"
+        className="relative z-10 border-b px-4 sm:px-8 py-5 sm:py-[28px] flex items-baseline justify-between"
         style={{ borderColor: "var(--border)", background: "var(--bg)" }}
       >
         <h2
-          className="text-[28px] sm:text-[32px] italic"
+          className="text-[22px] sm:text-[32px] italic"
           style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--text)", fontWeight: 400 }}
         >
           {lang === "it" ? "Catalogo — Edizione Primavera" : "Catalog — Spring Edition"}
