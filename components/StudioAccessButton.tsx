@@ -47,10 +47,7 @@ export default function StudioAccessButton({ compact = false }: StudioAccessButt
         <button
           onClick={handleClick}
           disabled={loading}
-          className="px-4 py-2 font-bold text-[10px] uppercase tracking-[0.14em] disabled:opacity-60 transition-colors duration-200"
-          style={{ fontFamily: "var(--font-syne)", background: "var(--accent)", color: "var(--bg)" }}
-          onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--text)"; }}
-          onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--accent)"; }}
+          className="btn-brand btn-brand-sm"
         >
           {loading ? (
             <span className="flex items-center gap-2">
@@ -72,10 +69,8 @@ export default function StudioAccessButton({ compact = false }: StudioAccessButt
       <button
         onClick={handleClick}
         disabled={loading}
-        className="px-8 py-4 font-bold text-[10px] uppercase tracking-[0.14em] disabled:opacity-60 transition-colors duration-200"
-        style={{ fontFamily: "var(--font-syne)", background: "var(--accent)", color: "var(--bg)" }}
-        onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--text)"; }}
-        onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--accent)"; }}
+        className="btn-brand"
+        style={{ padding: "16px 32px" }}
       >
         {loading ? (
           <span className="flex items-center gap-2">

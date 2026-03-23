@@ -47,10 +47,7 @@ export default function WishlistPage() {
             </div>
             <Link
               href="/"
-              className="px-6 py-3 font-bold uppercase tracking-[0.12em] text-[10px] transition-colors duration-200 active:scale-[0.97] ios-spring"
-              style={{ fontFamily: "var(--font-syne)", background: "var(--accent)", color: "var(--bg)" }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--text)"; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--accent)"; }}
+              className="btn-brand"
             >
               {lang === "it" ? "Sfoglia template →" : "Browse templates →"}
             </Link>

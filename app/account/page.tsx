@@ -69,10 +69,7 @@ export default function AccountPage() {
           </div>
           <Link
             href="/studio"
-            className="px-4 py-2 font-bold uppercase tracking-[0.12em] text-[10px] transition-colors duration-200 active:scale-[0.97] ios-spring shrink-0"
-            style={{ fontFamily: "var(--font-syne)", background: "var(--accent)", color: "var(--bg)" }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--text)"; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--accent)"; }}
+            className="btn-brand btn-brand-sm shrink-0"
           >
             {t[lang].account.studioBtn}
           </Link>
@@ -108,10 +105,7 @@ export default function AccountPage() {
           ) : (
             <Link
               href="/#studio-access"
-              className="px-4 py-2 font-bold uppercase tracking-[0.12em] text-[10px] transition-colors duration-200 active:scale-[0.97] ios-spring shrink-0"
-            style={{ fontFamily: "var(--font-syne)", background: "var(--accent)", color: "var(--bg)" }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--text)"; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--accent)"; }}
+              className="btn-brand btn-brand-sm shrink-0"
             >
               {t[lang].account.activateCta}
             </Link>
@@ -132,10 +126,7 @@ export default function AccountPage() {
               <p className="text-[15px] text-muted">{t[lang].account.noTemplates}</p>
               <Link
                 href="/"
-                className="inline-block px-6 py-2.5 font-bold uppercase tracking-[0.12em] text-[10px] transition-colors duration-200 active:scale-[0.97] ios-spring"
-              style={{ fontFamily: "var(--font-syne)", background: "var(--accent)", color: "var(--bg)" }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--text)"; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--accent)"; }}
+                className="btn-brand"
               >
                 {t[lang].account.goToMarketplace}
               </Link>
@@ -175,10 +166,7 @@ export default function AccountPage() {
                     />
                     <Link
                       href={`/studio?templateId=${tmpl.id}`}
-                      className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.12em] transition-colors duration-200 active:scale-[0.97] ios-spring"
-                      style={{ fontFamily: "var(--font-syne)", background: "var(--accent)", color: "var(--bg)" }}
-                      onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--text)"; }}
-                      onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--accent)"; }}
+                      className="btn-brand btn-brand-sm"
                     >
                       {lang === "it" ? "Apri Studio" : "Open Studio"}
                     </Link>

@@ -10,7 +10,7 @@ export default function Footer() {
   const f = t[lang].footer;
 
   return (
-    <footer className="relative z-10 border-t" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
+    <footer className="relative z-10 border-t pb-20 sm:pb-0" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-8 py-10 sm:py-12">
         <div className="flex flex-col sm:flex-row items-start justify-between gap-8">
           {/* Brand */}

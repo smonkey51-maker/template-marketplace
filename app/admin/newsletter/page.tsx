@@ -118,8 +118,8 @@ export default function NewsletterAdminPage() {
             <button
               onClick={handleSend}
               disabled={!subject || !title || !body || status === "sending"}
-              className="w-full py-3 font-semibold text-[14px] transition-all disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.98]"
-              style={{ background: "var(--accent)", color: "var(--bg)" }}
+              className="btn-brand w-full justify-center text-[14px]"
+              style={{ padding: "12px 24px" }}
             >
               {status === "sending" ? "Invio in corso…" : `Invia a ${count ?? "?"} subscriber`}
             </button>

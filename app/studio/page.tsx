@@ -299,10 +299,8 @@ function StudioContent() {
                     if (data.requireAuth) { window.location.href = "/sign-in?redirect_url=/studio"; return; }
                     if (data.url) window.location.href = data.url;
                   }}
-                  className="px-6 py-3 font-bold text-[15px] transition-colors duration-200 active:scale-[0.97] ios-spring"
-                  style={{ background: "var(--accent)", color: "var(--bg)" }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--text)"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--accent)"; }}
+                  className="btn-brand text-[15px]"
+                  style={{ padding: "12px 24px" }}
                 >
                   {lang === "it" ? "€9.99/mese — Abbonati →" : "€9.99/mo — Subscribe →"}
                 </button>
@@ -451,10 +449,8 @@ function StudioContent() {
                 <button
                   onClick={handleGenerate}
                   disabled={genLoading || !genDescription.trim()}
-                  className="py-3.5 disabled:opacity-40 disabled:cursor-not-allowed font-bold text-[15px] transition-colors duration-200 flex items-center justify-center gap-2 active:scale-[0.97] ios-spring"
-                  style={{ background: "var(--accent)", color: "var(--bg)" }}
-                  onMouseEnter={(e) => { if (!e.currentTarget.disabled) (e.currentTarget as HTMLButtonElement).style.background = "var(--text)"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--accent)"; }}
+                  className="btn-brand w-full justify-center text-[15px] gap-2"
+                  style={{ padding: "14px 24px" }}
                 >
                   {genLoading ? (
                     <>
@@ -567,10 +563,8 @@ function StudioContent() {
                     !selectedTemplate ||
                     !customInstructions.trim()
                   }
-                  className="py-3.5 disabled:opacity-40 disabled:cursor-not-allowed font-bold text-[15px] transition-colors duration-200 flex items-center justify-center gap-2 active:scale-[0.97] ios-spring"
-                  style={{ background: "var(--accent)", color: "var(--bg)" }}
-                  onMouseEnter={(e) => { if (!e.currentTarget.disabled) (e.currentTarget as HTMLButtonElement).style.background = "var(--text)"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--accent)"; }}
+                  className="btn-brand w-full justify-center text-[15px] gap-2"
+                  style={{ padding: "14px 24px" }}
                 >
                   {customLoading ? (
                     <>
