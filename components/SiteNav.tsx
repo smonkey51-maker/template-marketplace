@@ -4,6 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { UserButton } from "@clerk/nextjs";
 import { useLang } from "@/components/LanguageProvider";
+import ThemeToggle from "@/components/ThemeToggle";
+import LanguageToggle from "@/components/LanguageToggle";
 
 const NAV_LINKS = [
   { href: "/",        labelIt: "Catalogo",  labelEn: "Catalog",   activeOn: [] },
@@ -101,6 +103,8 @@ export default function SiteNav({ title }: { title?: string }) {
           Studio Access
         </Link>
 
+        <LanguageToggle />
+        <ThemeToggle />
         <UserButton />
       </div>
     </nav>
