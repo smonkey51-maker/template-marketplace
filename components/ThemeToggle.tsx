@@ -37,7 +37,7 @@ export default function ThemeToggle() {
         className="relative z-10 w-[22px] h-[22px] flex items-center justify-center transition-transform duration-300"
         style={{
           transform: isDark ? "translateX(24px)" : "translateX(0px)",
-          backgroundColor: isDark ? "#1C1C1E" : "#FFFFFF",
+          backgroundColor: "var(--card-bg)",
           boxShadow: isDark
             ? "0 1px 3px rgba(0,0,0,0.5), 0 0 0 0.5px rgba(255,255,255,0.06)"
             : "0 1px 3px rgba(0,0,0,0.18), 0 0 0 0.5px rgba(0,0,0,0.04)",
