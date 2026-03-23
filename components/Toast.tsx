@@ -41,33 +41,36 @@ function ToastBubble({ toast: t, onDismiss }: { toast: ToastItem; onDismiss: () 
     return () => cancelAnimationFrame(show);
   }, []);
 
+  const accentVar = t.type === "error" ? "var(--error)" : "var(--accent)";
+
   const icon = t.type === "success" ? (
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-      <path d="M2 7l3.5 3.5L12 3" stroke="#C8A96E" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M2 7l3.5 3.5L12 3" stroke={accentVar} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   ) : t.type === "error" ? (
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-      <path d="M3 3l8 8M11 3L3 11" stroke="#C4622D" strokeWidth="1.8" strokeLinecap="round"/>
+      <path d="M3 3l8 8M11 3L3 11" stroke={accentVar} strokeWidth="1.8" strokeLinecap="round"/>
     </svg>
   ) : (
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-      <circle cx="7" cy="7" r="5.5" stroke="#C8A96E" strokeWidth="1.5"/>
-      <path d="M7 6.5v4M7 4.5v.5" stroke="#C8A96E" strokeWidth="1.5" strokeLinecap="round"/>
+      <circle cx="7" cy="7" r="5.5" stroke={accentVar} strokeWidth="1.5"/>
+      <path d="M7 6.5v4M7 4.5v.5" stroke={accentVar} strokeWidth="1.5" strokeLinecap="round"/>
     </svg>
   );
 
-  const accent = t.type === "success" ? "#C8A96E" : t.type === "error" ? "#C4622D" : "#C8A96E";
+  const accentRgb = t.type === "error" ? "var(--error)" : "var(--accent)";
 
   return (
     <div
       onClick={onDismiss}
-      className="pointer-events-auto cursor-pointer select-none flex items-center gap-3 pl-4 pr-5 py-3 text-[14px] font-medium text-white border"
+      className="pointer-events-auto cursor-pointer select-none flex items-center gap-3 pl-4 pr-5 py-3 text-[14px] font-medium border"
       style={{
-        background: "rgba(28,28,30,0.92)",
+        background: "var(--surface)",
+        color: "var(--text)",
         backdropFilter: "blur(20px)",
         WebkitBackdropFilter: "blur(20px)",
-        borderColor: `${accent}30`,
-        boxShadow: `0 4px 24px rgba(0,0,0,0.4), 0 0 0 1px ${accent}18`,
+        borderColor: `color-mix(in srgb, ${accentRgb} 19%, transparent)`,
+        boxShadow: `0 4px 24px rgba(0,0,0,0.4), 0 0 0 1px color-mix(in srgb, ${accentRgb} 9%, transparent)`,
         transition: "opacity 0.25s ease, transform 0.3s cubic-bezier(.34,1.2,.64,1)",
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0) scale(1)" : "translateY(12px) scale(0.96)",

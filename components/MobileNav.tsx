@@ -79,7 +79,7 @@ export default function MobileNav() {
     >
       {/* Top specular line */}
       <div className="absolute inset-x-8 top-0 h-px rounded-full"
-        style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent)" }} />
+        style={{ background: "var(--glass-top-edge)" }} />
 
       <div className="flex items-stretch" style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
         {tabs.map((tab) => (

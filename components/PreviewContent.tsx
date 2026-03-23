@@ -169,7 +169,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
             />
           ) : (
             /* Mobile: phone-frame bezel, iframe at real 390px viewport */
-            <div className="flex justify-center items-start pt-20 pb-10 px-4 bg-[#111113] min-h-screen">
+            <div className="flex justify-center items-start pt-20 pb-10 px-4 min-h-screen" style={{ background: "var(--surface)" }}>
               {/* Phone outer shell */}
               <div
                 className="relative shrink-0"
@@ -182,22 +182,22 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
                 <div
                   className="relative rounded-[48px] overflow-hidden"
                   style={{
-                    boxShadow: "0 0 0 10px #2C2C2E, 0 0 0 11px #3A3A3C, 0 40px 120px rgba(0,0,0,0.9), 0 8px 32px rgba(0,0,0,0.5)",
-                    background: "#1C1C1E",
+                    boxShadow: `0 0 0 10px var(--bezel-ring), 0 0 0 11px var(--bezel-ring-2), 0 40px 120px rgba(0,0,0,0.9), 0 8px 32px rgba(0,0,0,0.5)`,
+                    background: "var(--bezel-bg)",
                   }}
                 >
                   {/* Notch / Dynamic Island */}
-                  <div className="relative bg-black flex items-center justify-between px-6 pt-3 pb-2">
-                    <span className="text-white text-[11px] font-semibold opacity-80">9:41</span>
-                    <div className="absolute left-1/2 -translate-x-1/2 top-2.5 w-24 h-6 bg-black rounded-full border border-[#333]" />
+                  <div className="relative flex items-center justify-between px-6 pt-3 pb-2" style={{ background: "var(--bezel-notch-bg)" }}>
+                    <span className="text-[11px] font-semibold text-theme opacity-80">9:41</span>
+                    <div className="absolute left-1/2 -translate-x-1/2 top-2.5 w-24 h-6 rounded-full border" style={{ background: "var(--bezel-notch-bg)", borderColor: "var(--bezel-notch-border)" }} />
                     <div className="flex items-center gap-1 opacity-80">
-                      <svg width="15" height="10" viewBox="0 0 15 10" fill="white">
+                      <svg width="15" height="10" viewBox="0 0 15 10" fill="currentColor" className="text-theme">
                         <rect x="0" y="3" width="2.5" height="7" rx="0.5"/><rect x="3.5" y="2" width="2.5" height="8" rx="0.5"/><rect x="7" y="0.5" width="2.5" height="9.5" rx="0.5"/><rect x="10.5" y="0" width="3.5" height="10" rx="0.5" opacity="0.35"/>
                       </svg>
-                      <svg width="24" height="12" viewBox="0 0 24 12" fill="none">
-                        <rect x="0.5" y="0.5" width="20" height="11" rx="3.5" stroke="white" strokeOpacity="0.35"/>
-                        <rect x="1.5" y="1.5" width="16" height="9" rx="2.5" fill="white"/>
-                        <path d="M21.5 4v4a2 2 0 000-4z" fill="white" fillOpacity="0.4"/>
+                      <svg width="24" height="12" viewBox="0 0 24 12" fill="none" className="text-theme">
+                        <rect x="0.5" y="0.5" width="20" height="11" rx="3.5" stroke="currentColor" strokeOpacity="0.35"/>
+                        <rect x="1.5" y="1.5" width="16" height="9" rx="2.5" fill="currentColor"/>
+                        <path d="M21.5 4v4a2 2 0 000-4z" fill="currentColor" fillOpacity="0.4"/>
                       </svg>
                     </div>
                   </div>
@@ -219,21 +219,21 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
                   </div>
 
                   {/* Home indicator */}
-                  <div className="bg-black flex justify-center py-2">
-                    <div className="w-28 h-1 bg-white/30 rounded-full" />
+                  <div className="flex justify-center py-2" style={{ background: "var(--bezel-notch-bg)" }}>
+                    <div className="w-28 h-1 rounded-full" style={{ background: "var(--muted)" }} />
                   </div>
                 </div>
 
                 {/* Side buttons */}
-                <div className="absolute -left-[3px] top-24 w-[3px] h-8 bg-[#3A3A3C] rounded-l-sm" />
-                <div className="absolute -left-[3px] top-36 w-[3px] h-14 bg-[#3A3A3C] rounded-l-sm" />
-                <div className="absolute -left-[3px] top-52 w-[3px] h-14 bg-[#3A3A3C] rounded-l-sm" />
-                <div className="absolute -right-[3px] top-36 w-[3px] h-20 bg-[#3A3A3C] rounded-r-sm" />
+                <div className="absolute -left-[3px] top-24 w-[3px] h-8 rounded-l-sm" style={{ background: "var(--bezel-button)" }} />
+                <div className="absolute -left-[3px] top-36 w-[3px] h-14 rounded-l-sm" style={{ background: "var(--bezel-button)" }} />
+                <div className="absolute -left-[3px] top-52 w-[3px] h-14 rounded-l-sm" style={{ background: "var(--bezel-button)" }} />
+                <div className="absolute -right-[3px] top-36 w-[3px] h-20 rounded-r-sm" style={{ background: "var(--bezel-button)" }} />
               </div>
             </div>
           )
         ) : (
-          <div className="pt-16 pb-4 bg-gradient-to-b from-[#1C1C1E] to-[#2C2C2E] min-h-screen">
+          <div className="pt-16 pb-4 min-h-screen" style={{ background: `linear-gradient(to bottom, var(--surface), var(--bg))` }}>
             <PromptFullView content={template.content} />
           </div>
         )}
@@ -287,7 +287,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
         }}
       >
         <div className="absolute inset-x-8 top-0 h-px rounded-full"
-          style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent)" }} />
+          style={{ background: "var(--glass-top-edge)" }} />
 
         <div className="max-w-2xl mx-auto px-4 py-3 sm:py-4">
           <div className="flex items-center gap-3 mb-2.5">

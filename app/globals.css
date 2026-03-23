@@ -70,6 +70,27 @@
   /* Ambient glow — warm brand tones */
   --glow-gold:      rgba(156,119,51,0.18);
   --glow-terra:     rgba(181,80,31,0.12);
+  /* Platform brand colors (download buttons) */
+  --platform-canva:    #7B61FF;
+  --platform-excel:    #1D6F42;
+  --platform-sheets:   #0F9D58;
+  --platform-notion:   #6E6E6E;
+  --platform-webflow:  #4353FF;
+  --platform-framer:   #0055FF;
+  /* Phone bezel (preview) */
+  --bezel-bg:        #E8E4DE;
+  --bezel-ring:      #D4CFC7;
+  --bezel-ring-2:    #C8C3BA;
+  --bezel-button:    #C8C3BA;
+  --bezel-notch-bg:  #F5F2ED;
+  --bezel-notch-border: #D4CFC7;
+  /* Prompt viewer */
+  --prompt-bg:       #FFFEF7;
+  --prompt-header:   #F7F6EE;
+  --prompt-text:     #1C1610;
+  --prompt-label:    #8E8E93;
+  /* Modal skeleton */
+  --skeleton-bg:     #F2F2F7;
 }
 
 html.dark {
@@ -120,6 +141,27 @@ html.dark {
   /* Ambient glow — warm brand tones */
   --glow-gold:      rgba(200,169,110,0.12);
   --glow-terra:     rgba(196,98,45,0.08);
+  /* Platform brand colors (download buttons) */
+  --platform-canva:    #7B61FF;
+  --platform-excel:    #1D6F42;
+  --platform-sheets:   #0F9D58;
+  --platform-notion:   #787878;
+  --platform-webflow:  #4353FF;
+  --platform-framer:   #0055FF;
+  /* Phone bezel (preview) */
+  --bezel-bg:        #1C1C1E;
+  --bezel-ring:      #2C2C2E;
+  --bezel-ring-2:    #3A3A3C;
+  --bezel-button:    #3A3A3C;
+  --bezel-notch-bg:  #000000;
+  --bezel-notch-border: #333333;
+  /* Prompt viewer */
+  --prompt-bg:       #161310;
+  --prompt-header:   #1e1a16;
+  --prompt-text:     #F2EBD9;
+  --prompt-label:    rgba(242,235,217,0.45);
+  /* Modal skeleton */
+  --skeleton-bg:     #161310;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -322,12 +364,9 @@ html::-webkit-scrollbar-track {
    FOCUS VISIBLE — keyboard navigation
    ═══════════════════════════════════════════════════════════ */
 :focus-visible {
-  outline: 2px solid #09090B;
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 6px;
-}
-html.dark :focus-visible {
-  outline-color: #FFFFFF;
 }
 /* Remove default outline for mouse users */
 :focus:not(:focus-visible) {
@@ -548,7 +587,7 @@ body::after {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.28);
+    background: var(--spec-mid);
     pointer-events: none;
     animation: ripple-expand 0.55s ease-out forwards;
     transform-origin: 0 0;
