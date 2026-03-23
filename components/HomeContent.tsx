@@ -712,7 +712,7 @@ export default function HomeContent() {
                 onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text)")}
                 onMouseLeave={(e) => (e.currentTarget.style.color = "var(--muted)")}
               >
-                {lang === "it" ? l.it : l.en}
+                <span className="link-underline">{lang === "it" ? l.it : l.en}</span>
               </Link>
             ))}
           </div>
@@ -843,7 +843,7 @@ export default function HomeContent() {
             onClick={() => setMobileExpandTemplates((o) => !o)}
             className="w-full flex items-center justify-between px-3 py-3 rounded-none text-[14px] font-semibold text-theme hover:bg-card transition-colors"
           >
-            <span>{lang === "it" ? "Template" : "Templates"}</span>
+            <span className="link-underline">{lang === "it" ? "Template" : "Templates"}</span>
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
               className={`text-muted transition-transform duration-200 ${mobileExpandTemplates ? "rotate-180" : ""}`}>
               <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -872,7 +872,7 @@ export default function HomeContent() {
             onClick={() => setMobileExpandBundles((o) => !o)}
             className="w-full flex items-center justify-between px-3 py-3 rounded-none text-[14px] font-semibold text-theme hover:bg-card transition-colors"
           >
-            <span>{lang === "it" ? "Bundle" : "Bundles"}</span>
+            <span className="link-underline">{lang === "it" ? "Bundle" : "Bundles"}</span>
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
               className={`text-muted transition-transform duration-200 ${mobileExpandBundles ? "rotate-180" : ""}`}>
               <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -901,15 +901,15 @@ export default function HomeContent() {
           <div className="mt-1 pt-1 border-t border-theme/50 space-y-0.5">
             <Link href="/guide" onClick={() => setMobileMenuOpen(false)}
               className="flex items-center px-3 py-3 rounded-none hover:bg-card transition-colors">
-              <span className="text-[14px] font-medium text-theme">{t[lang].nav.guide}</span>
+              <span className="text-[14px] font-medium text-theme link-underline">{t[lang].nav.guide}</span>
             </Link>
             <Link href="/studio" onClick={() => setMobileMenuOpen(false)}
               className="flex items-center px-3 py-3 rounded-none hover:bg-card transition-colors">
-              <span className="text-[14px] font-medium text-theme">{t[lang].nav.studio}</span>
+              <span className="text-[14px] font-medium text-theme link-underline">{t[lang].nav.studio}</span>
             </Link>
             <Link href="/account" onClick={() => setMobileMenuOpen(false)}
               className="flex items-center px-3 py-3 rounded-none hover:bg-card transition-colors">
-              <span className="text-[14px] font-medium text-theme">{t[lang].nav.account}</span>
+              <span className="text-[14px] font-medium text-theme link-underline">{t[lang].nav.account}</span>
             </Link>
           </div>
 

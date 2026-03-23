@@ -63,7 +63,7 @@ export default function SiteNav({ title }: { title?: string }) {
                 onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text)")}
                 onMouseLeave={(e) => (e.currentTarget.style.color = isActive ? "var(--text)" : "var(--muted)")}
               >
-                {label}
+                <span className="link-underline">{label}</span>
               </Link>
             );
           })}
