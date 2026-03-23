@@ -1,31 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { getTemplate, getDownloadType } from "@/lib/templates";
-import { templateTranslations } from "@/lib/i18n";
 import { rateLimit } from "@/lib/rateLimit";
-
-function localiseHtml(html: string, lang: "it" | "en", templateId: string): string {
-  if (lang === "en") return html;
-  const replacements: [RegExp, string][] = [
-    [/\bStart for free\b/g, "Inizia gratis"],
-    [/\bGet started\b/g, "Inizia ora"],
-    [/\bWatch demo\b/g, "Guarda la demo"],
-    [/\bNo credit card required\b/g, "Nessuna carta richiesta"],
-    [/\bCancel anytime\b/g, "Disdici quando vuoi"],
-    [/\bLearn more\b/g, "Scopri di più"],
-    [/\bSign up\b/g, "Registrati"],
-    [/\bSign in\b/g, "Accedi"],
-    [/\bContact us\b/g, "Contattaci"],
-    [/\bSee all\b/g, "Vedi tutti"],
-    [/\bView all\b/g, "Vedi tutti"],
-    [/\bAdd to cart\b/g, "Aggiungi al carrello"],
-  ];
-  let result = html;
-  for (const [pattern, replacement] of replacements) {
-    result = result.replace(pattern, replacement);
-  }
-  return result;
-}
+import { localiseHtml, getDisplayName } from "@/lib/localise";
 
 export async function GET(req: NextRequest) {
   const sessionId = req.nextUrl.searchParams.get("session_id");
@@ -66,8 +43,7 @@ export async function GET(req: NextRequest) {
     if (downloadType === "html") {
       const body = localiseHtml(template.content, lang, templateId);
       const htmlLang = lang === "it" ? "it" : "en";
-      const tr = templateTranslations[templateId];
-      const displayName = lang === "it" && tr ? tr.name : template.name;
+      const displayName = getDisplayName(templateId, template.name, lang);
       const html = `<!DOCTYPE html>
 <html lang="${htmlLang}">
 <head>
@@ -89,7 +65,8 @@ export async function GET(req: NextRequest) {
     }
 
     if (downloadType === "prompt") {
-      return new NextResponse(template.content, {
+      const text = template.promptText ?? template.content;
+      return new NextResponse(text, {
         headers: {
           "Content-Type": "text/plain; charset=utf-8",
           "Content-Disposition": `attachment; filename="${template.id}.txt"`,
