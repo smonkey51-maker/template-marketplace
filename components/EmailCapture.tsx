@@ -49,8 +49,8 @@ export default function EmailCapture() {
   const c = copy[lang];
 
   return (
-    <section className="max-w-2xl mx-auto px-4 sm:px-6 py-10">
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+    <section className="max-w-2xl mx-auto px-4 sm:px-6 py-10 sm:py-12">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-5 sm:gap-6">
         {/* Text */}
         <div className="text-center sm:text-left">
           <p className="text-[10px] font-bold text-muted uppercase tracking-[0.2em] mb-1" style={{ fontFamily: "var(--font-syne)" }}>
@@ -65,19 +65,19 @@ export default function EmailCapture() {
           {status === "success" ? (
             <p className="text-[13px] font-medium" style={{ color: "var(--success)" }}>{c.success}</p>
           ) : (
-            <form onSubmit={handleSubmit} className="flex gap-2">
+            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder={c.placeholder}
                 required
-                className="w-full sm:w-56 bg-input border border-theme rounded-none px-3 py-2.5 text-[13px] text-theme placeholder:text-muted outline-none focus:border-accent transition-colors duration-200"
+                className="w-full sm:w-56 bg-input border border-theme rounded-none px-3 py-3 sm:py-2.5 text-[14px] sm:text-[13px] text-theme placeholder:text-muted outline-none focus:border-accent transition-colors duration-200"
               />
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="btn-brand btn-brand-sm whitespace-nowrap"
+                className="btn-brand btn-brand-sm whitespace-nowrap justify-center"
               >
                 {status === "loading" ? "…" : c.cta}
               </button>

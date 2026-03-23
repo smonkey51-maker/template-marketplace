@@ -658,7 +658,7 @@ export default function HomeContent() {
   }, [router, lang, toast]);
 
   return (
-    <div className="min-h-screen bg-page relative overflow-x-hidden anim-page-enter pb-20 sm:pb-0">
+    <div className="min-h-screen bg-page relative overflow-x-hidden anim-page-enter">
       <ScrollProgressBar />
 
       {/* no ambient glow in hybrid — grain overlay handles warmth */}
@@ -679,15 +679,16 @@ export default function HomeContent() {
             </span>
           </Link>
 
-          {/* Mobile hamburger */}
+          {/* Mobile spacer + hamburger */}
+          <div className="sm:hidden flex-1" />
           <button
             onClick={() => setMobileMenuOpen(true)}
-            className="sm:hidden flex items-center justify-center w-9 h-9"
+            className="sm:hidden flex items-center justify-center w-10 h-10 -mr-1"
             style={{ color: "var(--muted)" }}
             aria-label="Open menu"
             aria-expanded={mobileMenuOpen}
           >
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="none">
               <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
             </svg>
           </button>
@@ -911,6 +912,18 @@ export default function HomeContent() {
               <span className="text-[14px] font-medium text-theme">{t[lang].nav.account}</span>
             </Link>
           </div>
+
+          {/* Mobile Studio Access CTA */}
+          <div className="px-3 pt-3 pb-2 border-t border-theme/50">
+            <Link
+              href="/studio"
+              onClick={() => setMobileMenuOpen(false)}
+              className="btn-brand w-full justify-center text-[12px]"
+              style={{ padding: "14px 20px" }}
+            >
+              {lang === "it" ? "Inizia con Studio Access →" : "Start with Studio Access →"}
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -984,17 +997,17 @@ export default function HomeContent() {
             </p>
 
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-6">
               <a
                 href="#browse"
                 onClick={(e) => { e.preventDefault(); document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" }); }}
-                className="btn-brand gap-2"
+                className="btn-brand gap-2 justify-center sm:justify-start"
               >
                 {lang === "it" ? "Sfoglia il catalogo →" : "Browse catalog →"}
               </a>
               <Link
                 href="/studio"
-                className="text-[12px] flex items-center gap-1.5 transition-colors duration-200"
+                className="text-[13px] sm:text-[12px] flex items-center justify-center sm:justify-start gap-1.5 py-3 sm:py-0 border border-theme sm:border-0 transition-colors duration-200"
                 style={{ color: "var(--muted)", letterSpacing: "0.06em" }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text)")}
                 onMouseLeave={(e) => (e.currentTarget.style.color = "var(--muted)")}
@@ -1080,7 +1093,7 @@ export default function HomeContent() {
 
       {/* ── Catalog header ── */}
       <div
-        className="relative z-10 border-b px-4 sm:px-8 py-5 sm:py-[28px] flex items-baseline justify-between"
+        className="relative z-10 border-b px-4 sm:px-8 py-5 sm:py-[28px] flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-4"
         style={{ borderColor: "var(--border)", background: "var(--bg)" }}
       >
         <h2
@@ -1090,7 +1103,7 @@ export default function HomeContent() {
           {lang === "it" ? "Catalogo — Edizione Primavera" : "Catalog — Spring Edition"}
         </h2>
         <span
-          className="text-[10px] tracking-[0.14em] uppercase font-semibold hidden sm:block"
+          className="text-[10px] tracking-[0.14em] uppercase font-semibold"
           style={{ fontFamily: "var(--font-syne)", color: "var(--muted)" }}
         >
           {countedTemplates} {lang === "it" ? "template" : "templates"} · {bundles.length} bundle
@@ -1129,13 +1142,35 @@ export default function HomeContent() {
       </div>
 
       {/* ── Ornamental quote ── */}
-      <div className="relative z-10 border-t border-theme px-4 sm:px-6 py-10">
-        <div className="max-w-xl mx-auto text-center">
-          <p className="text-[11px] italic" style={{ color: "var(--muted)", opacity: 0.55, fontFamily: "var(--font-dm-serif), serif" }}>
-            {lang === "it"
-              ? <>&ldquo;Non c&rsquo;è niente di più definitivo di un template &lsquo;temporaneo&rsquo; che resterà in produzione per i prossimi otto anni.&rdquo;</>
-              : <>&ldquo;There&rsquo;s nothing more permanent than a &lsquo;temporary&rsquo; template that ends up in production for the next eight years.&rdquo;</>}
-          </p>
+      <div className="relative z-10 border-t border-theme px-4 sm:px-8 py-12 sm:py-16">
+        <div className="max-w-2xl mx-auto text-center">
+          {/* Decorative accent dot */}
+          <div className="flex justify-center mb-5">
+            <span className="w-[6px] h-[6px] rounded-full" style={{ background: "var(--accent)" }} />
+          </div>
+          {/* Quote */}
+          <blockquote>
+            <p
+              className="text-[15px] sm:text-[18px] italic leading-relaxed"
+              style={{
+                fontFamily: "var(--font-dm-serif), Georgia, serif",
+                color: "var(--text)",
+                opacity: 0.75,
+              }}
+            >
+              {lang === "it"
+                ? <>&ldquo;Non c&rsquo;è niente di più definitivo di un template &lsquo;temporaneo&rsquo; che resterà in produzione per i prossimi otto anni.&rdquo;</>
+                : <>&ldquo;There&rsquo;s nothing more permanent than a &lsquo;temporary&rsquo; template that ends up in production for the next eight years.&rdquo;</>}
+            </p>
+          </blockquote>
+          {/* Attribution line */}
+          <div className="mt-4 flex items-center justify-center gap-3">
+            <span className="w-8 h-px" style={{ background: "var(--accent)", opacity: 0.4 }} />
+            <span className="text-[10px] tracking-[0.18em] uppercase font-semibold" style={{ color: "var(--accent)", opacity: 0.7 }}>
+              {lang === "it" ? "Ogni developer, sempre" : "Every developer, always"}
+            </span>
+            <span className="w-8 h-px" style={{ background: "var(--accent)", opacity: 0.4 }} />
+          </div>
         </div>
       </div>
 
