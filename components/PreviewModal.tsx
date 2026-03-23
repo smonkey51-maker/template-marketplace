@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { getTemplate } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
 
@@ -11,33 +11,66 @@ export default function PreviewModal({ templateId, onClose }: {
   const { lang } = useLang();
   const template = getTemplate(templateId);
   const [iframeLoaded, setIframeLoaded] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
+
+  // Focus trap
+  const trapFocus = useCallback((e: KeyboardEvent) => {
+    if (e.key !== "Tab" || !modalRef.current) return;
+    const focusable = modalRef.current.querySelectorAll<HTMLElement>(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    if (focusable.length === 0) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }, []);
 
   useEffect(() => {
-    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    previousFocusRef.current = document.activeElement as HTMLElement;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      trapFocus(e);
+    };
     document.addEventListener("keydown", handler);
     document.body.style.overflow = "hidden";
     document.documentElement.style.overflow = "hidden";
+    // Focus the modal on open
+    setTimeout(() => modalRef.current?.focus(), 50);
     return () => {
       document.removeEventListener("keydown", handler);
       document.body.style.overflow = "";
       document.documentElement.style.overflow = "";
+      // Restore focus
+      previousFocusRef.current?.focus();
     };
-  }, [onClose]);
+  }, [onClose, trapFocus]);
 
   if (!template) return null;
 
   return (
     <div
       className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8"
-      onClick={onClose}
+      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/80 backdrop-blur-md" />
+      <div className="absolute inset-0 bg-black/80 backdrop-blur-md anim-fade-in" onClick={onClose} />
 
       {/* Modal */}
       <div
+        ref={modalRef}
+        tabIndex={-1}
+        role="dialog"
+        aria-modal="true"
+        aria-label={template.name}
         className="relative z-10 w-full max-w-5xl flex flex-col overflow-hidden
-          shadow-[0_32px_80px_rgba(0,0,0,0.6)] border border-theme anim-scale-in"
+          shadow-[0_32px_80px_rgba(0,0,0,0.6)] border border-theme anim-scale-in outline-none"
         style={{ height: "min(85vh, 780px)", background: "var(--surface)" }}
         onClick={(e) => e.stopPropagation()}
       >

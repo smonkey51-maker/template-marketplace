@@ -12,7 +12,7 @@ export default function NavButtons({ showMobileLinks = true }: { showMobileLinks
   const { lang } = useLang();
 
   return (
-    <div className="flex items-center gap-2 sm:gap-3">
+    <div className="flex items-center gap-2 sm:gap-3 shrink-0">
       {/* Mobile-only quick links */}
       {showMobileLinks && (
         <div className="flex sm:hidden items-center gap-1">

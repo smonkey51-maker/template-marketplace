@@ -116,8 +116,11 @@ function CategoryCard({
     return () => obs.disconnect();
   }, []);
 
-  // 3-D tilt
+  // 3-D tilt — respect reduced motion
+  const prefersReducedMotion = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (prefersReducedMotion) return;
     cancelAnimationFrame(frameRef.current);
     frameRef.current = requestAnimationFrame(() => {
       const el = cardRef.current;
@@ -130,6 +133,7 @@ function CategoryCard({
   };
 
   const handleMouseLeave = () => {
+    if (prefersReducedMotion) return;
     cancelAnimationFrame(frameRef.current);
     const el = cardRef.current;
     if (!el) return;
@@ -205,7 +209,7 @@ function CategoryCard({
 
         {/* Text content — bottom overlay */}
         <div className="absolute bottom-0 left-0 right-0 z-20 px-3.5 pb-3">
-          <p className="text-white/45 text-[9.5px] font-semibold uppercase tracking-[0.12em] mb-1.5 select-none">
+          <p className="text-white/60 text-[9.5px] font-semibold uppercase tracking-[0.12em] mb-1.5 select-none">
             {section.emoji}&nbsp;&nbsp;{sectionTemplates.length}&nbsp;{lang === "it" ? "template" : "templates"}
           </p>
           <div className="flex items-end justify-between gap-2">
@@ -213,13 +217,13 @@ function CategoryCard({
               <h3 className="text-white text-[13.5px] font-semibold leading-snug truncate">
                 <ScrambleText text={sectionMeta.label} />
               </h3>
-              <p className="text-white/38 text-[10.5px] leading-snug mt-0.5 truncate">
+              <p className="text-white/55 text-[10.5px] leading-snug mt-0.5 truncate">
                 {sectionMeta.subtitle}
               </p>
             </div>
             <svg
               width="14" height="14" viewBox="0 0 14 14" fill="none"
-              className="text-white/30 group-hover:text-white group-hover:translate-x-0.5 transition-all duration-150 flex-shrink-0 mb-1"
+              className="text-white/50 sm:text-white/30 group-hover:text-white group-hover:translate-x-0.5 transition-all duration-150 flex-shrink-0 mb-1"
             >
               <path d="M2 7h10M7 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
@@ -276,31 +280,33 @@ function SplitFlap({ to, duration = 1100 }: { to: number; duration?: number }) {
 
 function ScrambleText({ text }: { text: string }) {
   const [display, setDisplay] = useState(text);
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const frameRef = useRef(0);
+  const rafRef = useRef<number>(0);
+  const startRef = useRef(0);
+  const reducedMotion = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
   const scramble = () => {
-    frameRef.current = 0;
-    const totalFrames = Math.ceil(text.length * 2.5);
-    clearInterval(timerRef.current!);
-    timerRef.current = setInterval(() => {
-      frameRef.current++;
-      const revealed = Math.floor((frameRef.current / totalFrames) * text.length);
+    if (reducedMotion) return;
+    startRef.current = performance.now();
+    const duration = text.length * 2.5 * 35; // same total duration as before
+    const animate = (now: number) => {
+      const elapsed = now - startRef.current;
+      const progress = Math.min(elapsed / duration, 1);
+      const revealed = Math.floor(progress * text.length);
       setDisplay(
         text.split("").map((ch, i) => {
           if (i < revealed || ch === " " || ch === "&" || ch === "-") return ch;
           return SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
         }).join("")
       );
-      if (frameRef.current >= totalFrames) {
-        clearInterval(timerRef.current!);
-        setDisplay(text);
-      }
-    }, 35);
+      if (progress < 1) rafRef.current = requestAnimationFrame(animate);
+      else setDisplay(text);
+    };
+    cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(animate);
   };
 
-  const reset = () => { clearInterval(timerRef.current!); setDisplay(text); };
-  useEffect(() => () => clearInterval(timerRef.current!), []);
+  const reset = () => { cancelAnimationFrame(rafRef.current); setDisplay(text); };
+  useEffect(() => () => cancelAnimationFrame(rafRef.current), []);
 
   return <span onMouseEnter={scramble} onMouseLeave={reset}>{display}</span>;
 }
@@ -414,11 +420,14 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
     }
   }, [externalQuery]);
 
-  // Search results (when query active)
+  // Search filter state
+  const [searchTypeFilter, setSearchTypeFilter] = useState<"all" | "ui" | "prompt">("all");
+  const [searchSort, setSearchSort] = useState<"relevance" | "popular" | "price-asc" | "price-desc">("relevance");
+
+  // Search results with relevance scoring
   const searchResults = useMemo(() => {
     const raw = normalize(externalQuery.trim());
     if (!raw) return [];
-    // Split query into individual words for better matching
     const words = raw.split(/\s+/).filter(Boolean);
     if (words.length === 0) return [];
 
@@ -430,21 +439,53 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
     }
     const terms = Array.from(allTerms);
 
-    return templates.filter((tmpl) => {
+    // Score each template for relevance
+    const scored = templates.map((tmpl) => {
       const itName = templateTranslations[tmpl.id]?.name ?? "";
       const itDesc = templateTranslations[tmpl.id]?.description ?? "";
-      const haystack = [
-        normalize(tmpl.name),
-        normalize(tmpl.description),
-        normalize(itName),
-        normalize(itDesc),
-        ...tmpl.tags.map(normalize),
-      ].join(" ");
+      const nameNorm = normalize(tmpl.name);
+      const itNameNorm = normalize(itName);
+      const descNorm = normalize(tmpl.description);
+      const itDescNorm = normalize(itDesc);
+      const tagsNorm = tmpl.tags.map(normalize).join(" ");
+      const haystack = [nameNorm, descNorm, itNameNorm, itDescNorm, tagsNorm].join(" ");
 
-      // Match if ANY search term (original words + synonyms) appears in haystack
-      return terms.some((term) => haystack.includes(term));
-    }).sort((a, b) => b.downloads - a.downloads);
-  }, [externalQuery]);
+      let score = 0;
+      for (const term of terms) {
+        if (!haystack.includes(term)) continue;
+        // Exact name match = highest score
+        if (nameNorm === term || itNameNorm === term) score += 100;
+        // Name contains term
+        else if (nameNorm.includes(term) || itNameNorm.includes(term)) score += 50;
+        // Tags match
+        else if (tagsNorm.includes(term)) score += 20;
+        // Description match
+        else if (descNorm.includes(term) || itDescNorm.includes(term)) score += 10;
+      }
+      // Small bonus for popularity
+      score += Math.min(tmpl.downloads / 100, 5);
+      return { tmpl, score };
+    }).filter(({ score }) => score > 0);
+
+    // Apply type filter
+    const filtered = scored.filter(({ tmpl }) => {
+      if (searchTypeFilter === "all") return true;
+      return tmpl.category === searchTypeFilter;
+    });
+
+    // Sort
+    if (searchSort === "relevance") {
+      filtered.sort((a, b) => b.score - a.score);
+    } else if (searchSort === "popular") {
+      filtered.sort((a, b) => b.tmpl.downloads - a.tmpl.downloads);
+    } else if (searchSort === "price-asc") {
+      filtered.sort((a, b) => a.tmpl.price - b.tmpl.price);
+    } else {
+      filtered.sort((a, b) => b.tmpl.price - a.tmpl.price);
+    }
+
+    return filtered.map(({ tmpl }) => tmpl);
+  }, [externalQuery, searchTypeFilter, searchSort]);
 
   const isSearching = externalQuery.trim() !== "";
 
@@ -494,11 +535,47 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
       ══════════════════════════════════════════════════ */}
       {isSearching && (
         <div className="space-y-5">
-          {searchResults.length > 0 ? (
-            <>
-              <p className="text-[13px] text-muted font-medium px-1">
+          {/* Search toolbar: filters + sort */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 px-1">
+            <div className="flex items-center gap-2 flex-wrap">
+              <p className="text-[13px] text-muted font-medium">
                 {t[lang].search.found.replace("{{n}}", String(searchResults.length))}
               </p>
+              {/* Type filter chips */}
+              <div className="flex items-center gap-1 ml-2">
+                {(["all", "ui", "prompt"] as const).map((type) => (
+                  <button
+                    key={type}
+                    onClick={() => { setSearchTypeFilter(type); setVisibleCount(12); }}
+                    className={`px-2.5 py-1 text-[11px] font-semibold border transition-all duration-150 ${
+                      searchTypeFilter === type
+                        ? "border-accent/40 text-accent"
+                        : "border-theme text-muted hover:text-theme hover:border-accent/20"
+                    }`}
+                    style={searchTypeFilter === type ? { background: "var(--accent-bg)" } : undefined}
+                  >
+                    {type === "all" ? (lang === "it" ? "Tutti" : "All") :
+                     type === "ui" ? "UI" : "Prompt"}
+                  </button>
+                ))}
+              </div>
+            </div>
+            {/* Sort dropdown */}
+            <select
+              value={searchSort}
+              onChange={(e) => setSearchSort(e.target.value as typeof searchSort)}
+              className="text-[11px] font-medium text-muted bg-input border border-theme rounded-none px-2.5 py-1.5 outline-none focus:border-accent transition-colors"
+              style={{ color: "var(--muted)", background: "var(--input-bg)" }}
+            >
+              <option value="relevance">{lang === "it" ? "Più rilevanti" : "Most relevant"}</option>
+              <option value="popular">{lang === "it" ? "Più scaricati" : "Most popular"}</option>
+              <option value="price-asc">{lang === "it" ? "Prezzo ↑" : "Price ↑"}</option>
+              <option value="price-desc">{lang === "it" ? "Prezzo ↓" : "Price ↓"}</option>
+            </select>
+          </div>
+
+          {searchResults.length > 0 ? (
+            <>
               <div key={animKey} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
                 {loading
                   ? Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)
@@ -516,8 +593,8 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
                       className="px-6 py-2.5 glass border border-theme rounded-none text-[13px] font-semibold text-muted hover:text-theme hover:border-accent/30 transition-all duration-200 ios-spring"
                     >
                       {lang === "it"
-                        ? `Mostra altri ${Math.min(12, searchResults.length - visibleCount)} →`
-                        : `Show ${Math.min(12, searchResults.length - visibleCount)} more →`}
+                        ? `Mostra altri ${Math.min(12, searchResults.length - visibleCount)} di ${searchResults.length} →`
+                        : `Show ${Math.min(12, searchResults.length - visibleCount)} more of ${searchResults.length} →`}
                     </button>
                   </MagneticWrap>
                 </div>
@@ -586,12 +663,17 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
               {lang === "it" ? "Visti di recente" : "Recently viewed"}
             </span>
           </div>
-          <div className="flex gap-3 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-none">
-            {recentTemplates.map((tmpl) => (
-              <div key={tmpl.id} className="flex-shrink-0 w-[160px]">
-                <TemplateCard template={tmpl} purchasedIds={purchasedIds} onQuickView={handleQuickView} />
-              </div>
-            ))}
+          <div className="relative">
+            <div className="flex gap-3 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-none">
+              {recentTemplates.map((tmpl) => (
+                <div key={tmpl.id} className="flex-shrink-0 w-[160px]">
+                  <TemplateCard template={tmpl} purchasedIds={purchasedIds} onQuickView={handleQuickView} />
+                </div>
+              ))}
+            </div>
+            {/* Fade edges to signal horizontal scroll */}
+            <div className="absolute inset-y-0 right-0 w-12 pointer-events-none" style={{ background: "linear-gradient(to left, var(--bg), transparent)" }} />
+            <div className="absolute inset-y-0 left-0 w-6 pointer-events-none" style={{ background: "linear-gradient(to right, var(--bg), transparent)" }} />
           </div>
         </div>
       )}

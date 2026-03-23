@@ -72,8 +72,8 @@ export default function MobileNav() {
     <nav
       className="sm:hidden fixed bottom-0 inset-x-0 z-50 border-t border-theme"
       style={{
-        backdropFilter: "blur(40px) saturate(180%)",
-        WebkitBackdropFilter: "blur(40px) saturate(180%)",
+        backdropFilter: "blur(20px) saturate(160%)",
+        WebkitBackdropFilter: "blur(20px) saturate(160%)",
         backgroundColor: "var(--nav-bg)",
       }}
     >
@@ -81,12 +81,12 @@ export default function MobileNav() {
       <div className="absolute inset-x-8 top-0 h-px rounded-full"
         style={{ background: "var(--glass-top-edge)" }} />
 
-      <div className="flex items-stretch" style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
+      <div className="flex items-stretch" style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)", paddingLeft: "env(safe-area-inset-left, 0px)", paddingRight: "env(safe-area-inset-right, 0px)" }}>
         {tabs.map((tab) => (
           <Link
             key={tab.href}
             href={tab.href}
-            className={`relative flex-1 flex flex-col items-center justify-center gap-1 py-2.5 transition-opacity duration-200 active:opacity-60 ${
+            className={`relative flex-1 flex flex-col items-center justify-center gap-1.5 py-3 min-h-[48px] transition-all duration-200 active:scale-95 active:opacity-70 ${
               tab.active ? "" : "text-muted"
             }`}
             style={tab.active ? { color: "var(--accent)" } : undefined}
@@ -99,7 +99,7 @@ export default function MobileNav() {
                 </span>
               ) : null}
             </span>
-            <span className={`text-[9px] font-semibold leading-none ${tab.active ? "" : "text-muted"}`} style={tab.active ? { color: "var(--accent)" } : undefined}>
+            <span className={`text-[10px] font-semibold leading-none ${tab.active ? "" : "text-muted"}`} style={tab.active ? { color: "var(--accent)" } : undefined}>
               {tab.label}
             </span>
           </Link>
