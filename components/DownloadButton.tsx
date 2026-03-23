@@ -257,8 +257,9 @@ export default function DownloadButton({
       {showLangModal && (
         <LangModal
           onSelect={handleLangSelect}
-          onClose={() => setShowLangModal(false)}
+          onClose={() => { setShowLangModal(false); setLoading(false); }}
           loading={loading}
+          siteLang={lang as "it" | "en"}
         />
       )}
     </div>
