@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import Image from "next/image";
-import { templates, Template } from "@/lib/templates";
+import { templates, bundles, Template } from "@/lib/templates";
 import TemplateCard from "@/components/TemplateCard";
 import StudioAccessButton from "@/components/StudioAccessButton";
 import { useLang } from "@/components/LanguageProvider";
@@ -605,7 +605,7 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
           <div className="flex items-center gap-4 mb-6 px-1">
             <div className="flex-1 h-px" style={{ background: "var(--border)" }} />
             <span className="text-[10px] font-bold text-muted uppercase tracking-[0.18em] shrink-0">
-              <SplitFlap to={templates.length} /> {lang === "it" ? "template disponibili" : "templates available"}
+              <SplitFlap to={templates.length} /> {lang === "it" ? "template" : "templates"} · {bundles.length} bundle
             </span>
             <div className="flex-1 h-px" style={{ background: "var(--border)" }} />
           </div>
