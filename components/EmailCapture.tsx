@@ -77,9 +77,11 @@ export default function EmailCapture() {
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="btn-brand btn-brand-sm whitespace-nowrap justify-center"
+                className={`btn-brand btn-brand-sm whitespace-nowrap justify-center ${status === "loading" ? "btn-loading" : ""}`}
               >
-                {status === "loading" ? "…" : c.cta}
+                {status === "loading" ? (
+                  <span className="dots-loading"><span /><span /><span /></span>
+                ) : c.cta}
               </button>
             </form>
           )}

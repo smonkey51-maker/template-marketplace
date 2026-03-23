@@ -180,6 +180,7 @@ function TemplatesDropdown({ lang }: { lang: "it" | "en" }) {
               {CATEGORIES.map((cat) => (
                 <button
                   key={cat.id}
+                  role="menuitem"
                   onClick={() => {
                     const el = document.getElementById(`section-${cat.id}`);
                     if (el) { el.scrollIntoView({ behavior: "smooth", block: "start" }); }
@@ -188,9 +189,7 @@ function TemplatesDropdown({ lang }: { lang: "it" | "en" }) {
                       browse?.scrollIntoView({ behavior: "smooth" });
                     }
                   }}
-                  className="flex items-center gap-2 px-2.5 py-2 rounded-none text-left transition-colors"
-                  onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "var(--surface)")}
-                  onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "transparent")}
+                  className="flex items-center gap-2 px-2.5 py-2 rounded-none text-left transition-colors hover:bg-surface focus:bg-surface"
                 >
                   <span className="text-sm flex-shrink-0">{cat.emoji}</span>
                   <span className="text-[12px] font-medium leading-tight" style={{ color: "var(--text)", opacity: 0.8 }}>
@@ -235,9 +234,7 @@ function BundlesDropdown({ lang, purchasedIds }: { lang: "it" | "en"; purchasedI
                 <Link
                   key={bundle.id}
                   href={`/bundle/${bundle.id}`}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-none transition-colors group cursor-pointer"
-                  onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.background = "var(--surface)")}
-                  onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.background = "transparent")}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-none transition-colors group cursor-pointer hover:bg-surface focus:bg-surface"
                 >
                   <div className="w-8 h-8 rounded-none flex items-center justify-center text-base flex-shrink-0"
                     style={{ background: "var(--accent-bg)", color: "var(--accent)" }}>
@@ -291,14 +288,34 @@ function NavDropdown({
     function handleClick(e: MouseEvent) {
       if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
     }
+    function handleKey(e: KeyboardEvent) {
+      if (e.key === "Escape" && open) { setOpen(false); }
+    }
     document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
-  }, []);
+    document.addEventListener("keydown", handleKey);
+    return () => {
+      document.removeEventListener("mousedown", handleClick);
+      document.removeEventListener("keydown", handleKey);
+    };
+  }, [open]);
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      setOpen((o) => !o);
+    } else if (e.key === "ArrowDown" && !open) {
+      e.preventDefault();
+      setOpen(true);
+    }
+  };
 
   return (
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen((o) => !o)}
+        onKeyDown={handleKeyDown}
+        aria-expanded={open}
+        aria-haspopup="true"
         className={`flex items-center gap-1 text-[14px] px-3 py-1.5 rounded-none transition-colors duration-200 ${
           open
             ? "bg-surface text-theme"
@@ -315,6 +332,7 @@ function NavDropdown({
       </button>
       {/* Always rendered — animated with opacity + transform */}
       <div
+        role="menu"
         className="transition-all duration-[180ms] ease-out"
         style={{
           opacity: open ? 1 : 0,
@@ -707,10 +725,7 @@ export default function HomeContent() {
               { href: "/account", it: "Account",    en: "Account" },
             ].map((l) => (
               <Link key={l.href} href={l.href}
-                className="text-[11px] font-medium px-3 py-1.5 uppercase tracking-[0.1em] transition-colors duration-200"
-                style={{ color: "var(--muted)" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text)")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--muted)")}
+                className="text-[11px] font-medium px-3 py-1.5 uppercase tracking-[0.1em] transition-colors duration-200 text-muted hover:text-theme"
               >
                 <span className="link-underline">{lang === "it" ? l.it : l.en}</span>
               </Link>
@@ -734,8 +749,8 @@ export default function HomeContent() {
                   document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" });
                 }
               }}
-              placeholder={lang === "it" ? "Cerca…" : "Search…"}
-              className="pl-8 pr-3 py-1.5 text-[12px] outline-none w-28 focus:w-40 transition-all duration-200"
+              placeholder={lang === "it" ? "Cerca template, es. landing page…" : "Search templates, e.g. landing page…"}
+              className="pl-8 pr-3 py-1.5 text-[12px] outline-none w-32 focus:w-52 transition-all duration-200"
               style={{
                 background: "var(--input-bg)",
                 border: "1px solid var(--border)",

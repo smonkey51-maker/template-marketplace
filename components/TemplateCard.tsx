@@ -113,7 +113,10 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
   const cardRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<number>(0);
 
+  const prefersReducedMotion = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (prefersReducedMotion) return;
     cancelAnimationFrame(frameRef.current);
     frameRef.current = requestAnimationFrame(() => {
       const el = cardRef.current;
@@ -126,6 +129,7 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
   };
 
   const handleMouseLeave = () => {
+    if (prefersReducedMotion) return;
     cancelAnimationFrame(frameRef.current);
     const el = cardRef.current;
     if (!el) return;
@@ -202,9 +206,9 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
           ? <UIThumbnail template={template} isPurchased={isPurchased} lang={lang} />
           : <PromptThumbnail template={template} isPurchased={isPurchased} lang={lang} />
         }
-        {/* Hover CTA overlay */}
-        <div className="absolute inset-0 flex items-end justify-center pb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-100 pointer-events-none">
-          <span className="text-[12px] font-bold px-4 py-2 rounded-none shadow-sm"
+        {/* Hover CTA overlay — always visible on touch, hover on desktop */}
+        <div className="absolute inset-0 flex items-end justify-center pb-4 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-100 pointer-events-none">
+          <span className="text-[11px] sm:text-[12px] font-bold px-4 py-2 rounded-none shadow-sm"
             style={{ background: "var(--surface-2)", color: "var(--text)", backdropFilter: "blur(8px)" }}>
             {lang === "it" ? "Anteprima rapida →" : "Quick preview →"}
           </span>
@@ -249,16 +253,16 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
             <button
               onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggle(template.id); }}
               aria-label={saved ? (lang === "it" ? "Rimuovi dai salvati" : "Remove from saved") : (lang === "it" ? "Salva" : "Save")}
-              className={`transition-all duration-100 p-1 ${
+              className={`transition-all duration-100 p-2 -m-1 min-w-[44px] min-h-[44px] flex items-center justify-center ${
                 saved
                   ? "opacity-100"
-                  : "opacity-0 group-hover:opacity-100 text-muted"
+                  : "sm:opacity-0 sm:group-hover:opacity-100 text-muted"
               }`}
               style={saved ? { color: "var(--terra)" } : undefined}
               onMouseEnter={(e) => { if (!saved) (e.currentTarget as HTMLElement).style.color = "var(--terra)"; }}
               onMouseLeave={(e) => { if (!saved) (e.currentTarget as HTMLElement).style.color = ""; }}
             >
-              <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
                 <path d="M7 12S1 8 1 4.5A3.5 3.5 0 017 2.1a3.5 3.5 0 016 2.4C13 8 7 12 7 12z"
                   stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"
                   fill={saved ? "currentColor" : "none"} />
@@ -268,7 +272,7 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
             <button
               onClick={handleShare}
               aria-label={copied ? (lang === "it" ? "Link copiato" : "Link copied") : (lang === "it" ? "Copia link" : "Copy link")}
-              className={`opacity-0 group-hover:opacity-100 transition-all duration-100 p-1 -mr-0.5 text-muted hover:text-theme`}
+              className={`sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-100 p-2 -m-1 min-w-[44px] min-h-[44px] flex items-center justify-center text-muted hover:text-theme`}
             >
               {copied ? (
                 <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden>
