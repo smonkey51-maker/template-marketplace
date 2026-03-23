@@ -81,8 +81,8 @@ function SuccessContent() {
           </p>
           <Link
             href="/studio"
-            className="block w-full px-6 py-3.5 font-bold text-[15px] transition-colors duration-200 active:scale-[0.97] ios-spring"
-            style={{ background: "var(--accent)", color: "var(--bg)" }}
+            className="btn-brand w-full justify-center text-[15px]"
+            style={{ padding: "14px 24px" }}
           >
             {t[lang].success.openStudio}
           </Link>
@@ -104,8 +104,8 @@ function SuccessContent() {
               <>
                 <a
                   href={`/api/download-session?session_id=${sessionId}&templateId=${template.id}&lang=${lang}`}
-                  className="block w-full px-6 py-3.5 font-bold text-[15px] text-center transition-colors duration-200 active:scale-[0.97] ios-spring"
-                  style={{ background: "var(--accent)", color: "var(--bg)" }}
+                  className="btn-brand w-full justify-center text-[15px]"
+                  style={{ padding: "14px 24px" }}
                 >
                   {lang === "it" ? "Scarica il template" : "Download template"}
                 </a>
@@ -117,8 +117,8 @@ function SuccessContent() {
                   </p>
                   <Link
                     href={`/sign-up?redirect_url=/studio?templateId=${template.id}`}
-                    className="block w-full px-6 py-3 font-bold text-[14px] text-center transition-colors duration-200 active:scale-[0.97] ios-spring"
-                    style={{ background: "var(--accent)", color: "var(--bg)" }}
+                    className="btn-brand w-full justify-center text-[14px]"
+                    style={{ padding: "12px 24px" }}
                   >
                     {lang === "it" ? "Crea account gratuito →" : "Create free account →"}
                   </Link>
@@ -129,8 +129,8 @@ function SuccessContent() {
             {isSignedIn && template && (
               <Link
                 href={`/studio?templateId=${template.id}`}
-                className="block w-full px-6 py-3.5 font-bold text-[15px] transition-colors duration-200 active:scale-[0.97] ios-spring"
-                style={{ background: "var(--accent)", color: "var(--bg)" }}
+                className="btn-brand w-full justify-center text-[15px]"
+                style={{ padding: "14px 24px" }}
               >
                 {t[lang].success.customizeStudio}
               </Link>

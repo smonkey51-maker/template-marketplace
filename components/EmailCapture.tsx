@@ -77,10 +77,7 @@ export default function EmailCapture() {
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="px-4 py-2.5 font-bold uppercase tracking-[0.12em] rounded-none text-[10px] transition-colors duration-200 active:scale-[0.97] disabled:opacity-50 whitespace-nowrap"
-                style={{ fontFamily: "var(--font-syne)", background: "var(--accent)", color: "var(--bg)" }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--text)"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--accent)"; }}
+                className="btn-brand btn-brand-sm whitespace-nowrap"
               >
                 {status === "loading" ? "…" : c.cta}
               </button>

@@ -43,7 +43,7 @@ export default function SiteNav({ title }: { title?: string }) {
             className="text-[8px] tracking-[0.18em] uppercase leading-none hidden sm:block"
             style={{ color: "var(--accent)", opacity: 0.65, fontWeight: 500 }}
           >
-            Mercato del digitale artigianale
+            {lang === "it" ? "Mercato del digitale artigianale" : "Artisan digital marketplace"}
           </span>
         </Link>
 
@@ -85,20 +85,7 @@ export default function SiteNav({ title }: { title?: string }) {
         {/* Studio Access CTA */}
         <Link
           href="/studio"
-          className="hidden sm:inline-flex items-center mr-3 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.14em] transition-colors duration-200"
-          style={{
-            fontFamily: "var(--font-syne), sans-serif",
-            background: "var(--accent)",
-            color: "var(--bg)",
-          }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLAnchorElement).style.background = "var(--text)";
-            (e.currentTarget as HTMLAnchorElement).style.color = "var(--bg)";
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLAnchorElement).style.background = "var(--accent)";
-            (e.currentTarget as HTMLAnchorElement).style.color = "var(--bg)";
-          }}
+          className="hidden sm:inline-flex btn-brand btn-brand-sm mr-3"
         >
           Studio Access
         </Link>

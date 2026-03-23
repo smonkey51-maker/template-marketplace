@@ -752,10 +752,7 @@ export default function HomeContent() {
           {/* Studio Access CTA */}
           <Link
             href="/studio"
-            className="hidden sm:inline-flex items-center ml-2 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.14em] transition-colors duration-200"
-            style={{ fontFamily: "var(--font-syne)", background: "var(--accent)", color: "var(--bg)" }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--text)"; (e.currentTarget as HTMLAnchorElement).style.color = "var(--bg)"; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--accent)"; (e.currentTarget as HTMLAnchorElement).style.color = "var(--bg)"; }}
+            className="hidden sm:inline-flex btn-brand btn-brand-sm ml-2"
           >
             Studio Access
           </Link>
@@ -991,14 +988,7 @@ export default function HomeContent() {
               <a
                 href="#browse"
                 onClick={(e) => { e.preventDefault(); document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" }); }}
-                className="inline-flex items-center gap-2 px-7 py-[13px] text-[10px] font-bold uppercase tracking-[0.14em] transition-colors duration-200 active:opacity-80"
-                style={{
-                  fontFamily: "var(--font-syne)",
-                  background: "var(--accent)",
-                  color: "var(--bg)",
-                }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--text)"; (e.currentTarget as HTMLAnchorElement).style.color = "var(--bg)"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--accent)"; (e.currentTarget as HTMLAnchorElement).style.color = "var(--bg)"; }}
+                className="btn-brand gap-2"
               >
                 {lang === "it" ? "Sfoglia il catalogo →" : "Browse catalog →"}
               </a>

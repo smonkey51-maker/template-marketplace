@@ -103,10 +103,7 @@ export default function PreviewModal({ templateId, onClose }: {
           </div>
           <a
             href={`/preview/${template.id}`}
-            className="px-5 py-2.5 font-bold text-[13px] transition-colors duration-200 ios-spring active:scale-[0.97]"
-            style={{ background: "var(--accent)", color: "var(--bg)" }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--text)"; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--accent)"; }}
+            className="btn-brand btn-brand-sm text-[13px]"
           >
             {lang === "it" ? "Vedi dettagli →" : "View details →"}
           </a>

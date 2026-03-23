@@ -253,10 +253,8 @@ export default function GuidePage() {
               </p>
               <Link
                 href="/#browse"
-                className="inline-flex items-center gap-2 px-8 py-4 font-bold text-[15px] ios-spring transition-colors duration-200"
-                style={{ background: "var(--accent)", color: "var(--bg)" }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--text)"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--accent)"; }}
+                className="btn-brand gap-2 text-[15px]"
+                style={{ padding: "16px 32px" }}
               >
                 {t[lang].guide.ctaBtn}
               </Link>

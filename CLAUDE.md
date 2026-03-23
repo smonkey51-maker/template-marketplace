@@ -236,8 +236,28 @@ CustomCursor  (outside providers, fixed position)
 
 ### Fonts
 
-- **Syne** (`--font-syne`) — headings, display text
+- **Syne** (`--font-syne`) — headings, display text, CTA buttons
 - **Plus Jakarta Sans** (`--font-jakarta`) — body text
+- **DM Serif Display** (`--font-dm-serif`) — decorative accent text (prices, edition badges, editorial headings)
+
+### Brand Colors
+
+The brand uses a warm **gold/terra** palette — not bright orange:
+
+| Token | Light | Dark | Usage |
+|---|---|---|---|
+| `--accent` | `#9C7733` | `#C8A96E` | Primary gold accent |
+| `--terra` | `#B5501F` | `#C4622D` | Secondary warm accent |
+| `--bg` | `#FDFAF5` | `#050402` | Page background |
+| `--surface` | `#F5EFE3` | `#0d0b08` | Card/section background |
+| `--text` | `#1C1610` | `#F2EBD9` | Primary text |
+| `--muted` | `#7A6B56` | `rgba(242,235,217,0.55)` | Secondary text |
+
+### Design Tokens
+
+- **Border radius**: The design is intentionally **sharp-cornered** (`rounded-none` in Tailwind). Radius tokens `--r-sm` through `--r-xl` exist in `globals.css` for special use cases (phone bezels, pills) but are not the default.
+- **Shadows**: Use CSS custom properties `--shadow-sm`, `--shadow-md`, `--shadow-lg`, `--shadow-xl` defined in `globals.css`.
+- **Buttons**: All primary CTA buttons use the `.btn-brand` CSS class (gold background, ring animation on hover, shimmer sweep). Use `.btn-brand-sm` for compact variant. Defined in `globals.css`.
 
 ### Theme
 

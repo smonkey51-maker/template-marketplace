@@ -313,10 +313,8 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
             <button
               onClick={handleBuy}
               disabled={loading}
-              className="w-full active:scale-[0.97] font-bold px-6 py-3.5 transition-all duration-200 ios-spring disabled:opacity-50 text-[15px]"
-              style={{ background: "var(--accent)", color: "var(--bg)" }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--text)"; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--accent)"; }}
+              className="btn-brand w-full justify-center text-[15px]"
+              style={{ padding: "14px 24px" }}
             >
               {loading
                 ? t[lang].bundleDetail.loading

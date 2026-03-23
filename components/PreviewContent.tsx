@@ -331,12 +331,8 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
             <div className="flex gap-2">
               <Link
                 href={`/studio?templateId=${template.id}`}
-                className="flex-1 flex items-center justify-center gap-2 active:scale-[0.97]
-                  font-bold px-4 py-3 text-center
-                  transition-all duration-200 ios-spring text-[14px]"
-              style={{ background: "var(--accent)", color: "var(--bg)" }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--text)"; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--accent)"; }}
+                className="btn-brand flex-1 justify-center text-[14px]"
+                style={{ padding: "12px 16px" }}
               >
                 {t[lang].preview.openStudio}
               </Link>
@@ -352,13 +348,8 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
             <button
               onClick={handleBuy}
               disabled={loading}
-              className="w-full active:scale-[0.97]
-                font-bold px-6 py-3.5
-                transition-all duration-200 ios-spring
-                disabled:opacity-50 text-[15px]"
-              style={{ background: "var(--accent)", color: "var(--bg)" }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--text)"; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "var(--accent)"; }}
+              className="btn-brand w-full justify-center text-[15px]"
+              style={{ padding: "14px 24px" }}
             >
               {loading
                 ? t[lang].preview.loading
