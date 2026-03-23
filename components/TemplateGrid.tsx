@@ -306,7 +306,7 @@ function ScrambleText({ text }: { text: string }) {
   };
 
   const reset = () => { cancelAnimationFrame(rafRef.current); setDisplay(text); };
-  useEffect(() => () => cancelAnimationFrame(rafRef.current), []);
+  useEffect(() => { reset(); return () => cancelAnimationFrame(rafRef.current); }, [text]);
 
   return <span onMouseEnter={scramble} onMouseLeave={reset}>{display}</span>;
 }
@@ -383,7 +383,7 @@ function addRipple(e: React.MouseEvent<HTMLElement>) {
 
 // ── Main ──────────────────────────────────────────────────────────────────────
 
-export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: string }) {
+export default function TemplateGrid({ externalQuery = "", onClearSearch }: { externalQuery?: string; onClearSearch?: () => void }) {
   const { lang } = useLang();
   const { ids: recentIds } = useRecentlyViewed();
   const recentTemplates = useMemo(
@@ -462,8 +462,8 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
         // Description match
         else if (descNorm.includes(term) || itDescNorm.includes(term)) score += 10;
       }
-      // Small bonus for popularity
-      score += Math.min(tmpl.downloads / 100, 5);
+      // Tiny tiebreaker for popularity (max 2 points — won't override relevance)
+      score += Math.min(tmpl.downloads / 500, 2);
       return { tmpl, score };
     }).filter(({ score }) => score > 0);
 
@@ -534,7 +534,7 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
           VIEW 1 — Search results
       ══════════════════════════════════════════════════ */}
       {isSearching && (
-        <div className="space-y-5">
+        <div className="space-y-5" role="region" aria-live="polite" aria-label={lang === "it" ? "Risultati ricerca" : "Search results"}>
           {/* Search toolbar: filters + sort */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 px-1">
             <div className="flex items-center gap-2 flex-wrap">
@@ -605,6 +605,14 @@ export default function TemplateGrid({ externalQuery = "" }: { externalQuery?: s
               <span className="text-5xl">🔍</span>
               <p className="text-[17px] font-semibold text-theme">{t[lang].search.notFound}</p>
               <p className="text-[14px] text-muted">{t[lang].search.notFoundDesc}</p>
+              {onClearSearch && (
+                <button
+                  onClick={onClearSearch}
+                  className="mt-2 px-5 py-2 glass border border-theme rounded-none text-[13px] font-semibold text-muted hover:text-theme hover:border-accent/30 transition-all duration-200"
+                >
+                  {t[lang].search.resetCta} →
+                </button>
+              )}
             </div>
           )}
         </div>
