@@ -204,7 +204,7 @@ function TemplatesDropdown({ lang }: { lang: "it" | "en" }) {
         {/* Footer hint */}
         <div className="px-4 py-2.5 flex items-center justify-between" style={{ borderTop: "1px solid var(--border)", background: "var(--surface)" }}>
           <span className="text-[11px]" style={{ color: "var(--muted)" }}>
-            {templates.length} {lang === "it" ? "template disponibili" : "templates available"}
+            {templates.length} template · {bundles.length} bundle
           </span>
           <button
             onClick={() => document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" })}
@@ -1103,7 +1103,7 @@ export default function HomeContent() {
           className="text-[10px] tracking-[0.14em] uppercase font-semibold hidden sm:block"
           style={{ fontFamily: "var(--font-syne)", color: "var(--muted)" }}
         >
-          {countedTemplates} {lang === "it" ? "template disponibili" : "templates available"}
+          {countedTemplates} {lang === "it" ? "template" : "templates"} · {bundles.length} bundle
         </span>
       </div>
 
