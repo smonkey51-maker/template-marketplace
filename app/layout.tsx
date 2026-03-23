@@ -56,6 +56,12 @@ export const metadata: Metadata = {
       "Buy premium UI and prompt templates. Customize any template instantly with Claude AI.",
     images: ["/api/og"],
   },
+  alternates: {
+    languages: {
+      "it": SITE_URL,
+      "en": `${SITE_URL}?lang=en`,
+    },
+  },
 };
 
 export default function RootLayout({

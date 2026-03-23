@@ -37,6 +37,7 @@ function PromptThumbnail({ template, isPurchased, lang }: { template: Template; 
 function UIThumbnail({ template, isPurchased, lang }: { template: Template; isPurchased: boolean; lang: Lang }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const [iframeLoaded, setIframeLoaded] = useState(false);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -51,6 +52,12 @@ function UIThumbnail({ template, isPurchased, lang }: { template: Template; isPu
 
   return (
     <div ref={containerRef} className="relative h-48 overflow-hidden" style={{ background: "var(--surface)" }}>
+      {/* Loading skeleton */}
+      {(!visible || !iframeLoaded) && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+          <div className="w-5 h-5 rounded-full border-2 border-t-transparent animate-spin" style={{ borderColor: "var(--accent)", borderTopColor: "transparent" }} />
+        </div>
+      )}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{ transform: "scale(0.36)", transformOrigin: "top left", width: "278%", height: "278%" }}
@@ -60,8 +67,10 @@ function UIThumbnail({ template, isPurchased, lang }: { template: Template; isPu
             src={`/api/preview/${template.id}`}
             title={template.name}
             sandbox="allow-scripts"
+            loading="lazy"
             className="w-full border-0"
             style={{ height: "530px" }}
+            onLoad={() => setIframeLoaded(true)}
           />
         )}
       </div>
@@ -257,7 +266,7 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
             {/* Share button */}
             <button
               onClick={handleShare}
-              aria-label={copied ? "Link copiato" : "Copia link"}
+              aria-label={copied ? (lang === "it" ? "Link copiato" : "Link copied") : (lang === "it" ? "Copia link" : "Copy link")}
               className={`opacity-0 group-hover:opacity-100 transition-all duration-100 p-1 -mr-0.5 text-muted hover:text-theme`}
             >
               {copied ? (

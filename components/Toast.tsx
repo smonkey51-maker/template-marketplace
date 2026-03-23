@@ -74,7 +74,10 @@ function ToastBubble({ toast: t, onDismiss }: { toast: ToastItem; onDismiss: () 
       }}
     >
       <span className="flex-shrink-0">{icon}</span>
-      {t.message}
+      <span className="flex-1">{t.message}</span>
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden className="flex-shrink-0 opacity-40 ml-1">
+        <path d="M2 2l6 6M8 2L2 8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
+      </svg>
     </div>
   );
 }

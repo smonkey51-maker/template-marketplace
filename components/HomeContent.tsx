@@ -727,7 +727,12 @@ export default function HomeContent() {
             <input
               type="text"
               value={query}
-              onChange={(e) => { setQuery(e.target.value); if (e.target.value) document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" }); }}
+              onChange={(e) => { setQuery(e.target.value); }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && (e.target as HTMLInputElement).value.trim()) {
+                  document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
               placeholder={lang === "it" ? "Cerca…" : "Search…"}
               className="pl-8 pr-3 py-1.5 text-[12px] outline-none w-32 focus:w-48 transition-all duration-200"
               style={{

@@ -81,7 +81,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
     <div className="min-h-screen bg-page flex flex-col">
 
       {/* ── Floating back + save buttons ── */}
-      <div className="fixed top-4 left-4 z-50 flex items-center gap-2">
+      <div className="fixed z-50 flex items-center gap-2" style={{ top: "max(1rem, env(safe-area-inset-top, 1rem))", left: "max(1rem, env(safe-area-inset-left, 1rem))" }}>
         <button
           onClick={() => router.push("/")}
           className="flex items-center gap-1.5 px-3.5 py-2 border border-theme shadow-sm
@@ -117,7 +117,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
 
       {/* ── Mobile/Desktop toggle (UI only) ── */}
       {template.category === "ui" && (
-        <div className="fixed top-4 right-4 z-50 flex items-center gap-0.5 glass p-1 shadow-[0_4px_24px_rgba(0,0,0,0.12)]">
+        <div className="fixed z-50 flex items-center gap-0.5 glass p-1 shadow-[0_4px_24px_rgba(0,0,0,0.12)]" style={{ top: "max(1rem, env(safe-area-inset-top, 1rem))", right: "max(1rem, env(safe-area-inset-right, 1rem))" }}>
           <button
             onClick={() => setViewMode("desktop")}
             aria-pressed={viewMode === "desktop"}
