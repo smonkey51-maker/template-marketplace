@@ -735,7 +735,7 @@ export default function HomeContent() {
                 }
               }}
               placeholder={lang === "it" ? "Cerca…" : "Search…"}
-              className="pl-8 pr-3 py-1.5 text-[12px] outline-none w-32 focus:w-48 transition-all duration-200"
+              className="pl-8 pr-3 py-1.5 text-[12px] outline-none w-28 focus:w-40 transition-all duration-200"
               style={{
                 background: "var(--input-bg)",
                 border: "1px solid var(--border)",
@@ -750,10 +750,10 @@ export default function HomeContent() {
             )}
           </div>
 
-          {/* Studio Access CTA */}
+          {/* Studio Access CTA — hidden on tight viewports to make room for toggles */}
           <Link
             href="/studio"
-            className="hidden sm:inline-flex btn-brand btn-brand-sm ml-2"
+            className="hidden lg:inline-flex btn-brand btn-brand-sm ml-2"
           >
             Studio Access
           </Link>
