@@ -118,7 +118,7 @@ export default function PreviewModal({ templateId, onClose }: {
               <div className="max-w-2xl mx-auto font-mono text-[14px] leading-relaxed whitespace-pre-wrap" style={{ color: "var(--prompt-text)" }}>
                 {template.content.split(/({{[^}]+}})/g).map((part, i) =>
                   part.startsWith("{{") ? (
-                    <span key={i} className="inline-block bg-accent/10 text-accent rounded-[5px] px-1.5 py-0.5 font-semibold text-[13px]">{part}</span>
+                    <span key={i} className="inline-block bg-accent/10 text-accent rounded-none px-1.5 py-0.5 font-semibold text-[13px]">{part}</span>
                   ) : (
                     <span key={i}>{part}</span>
                   )

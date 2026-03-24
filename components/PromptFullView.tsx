@@ -16,7 +16,7 @@ export default function PromptFullView({ content }: { content: string }) {
             part.startsWith("{{") ? (
               <span
                 key={i}
-                className="inline-block rounded-[5px] px-1.5 py-0.5 font-semibold text-[13px] bg-accent/10 text-accent"
+                className="inline-block rounded-none px-1.5 py-0.5 font-semibold text-[13px] bg-accent/10 text-accent"
               >
                 {part}
               </span>

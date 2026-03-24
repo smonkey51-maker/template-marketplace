@@ -206,20 +206,20 @@ export default function GuidePage() {
                   <span className="ml-2 text-[10px] text-white/40 font-medium">Cold Email Template</span>
                 </div>
                 {/* Notes content */}
-                <div className="bg-[#FFFEF7] p-4">
-                  <p className="font-mono text-[10px] text-[#1C1C1E] leading-relaxed">
+                <div className="p-4" style={{ background: "var(--prompt-bg)" }}>
+                  <p className="font-mono text-[10px] leading-relaxed" style={{ color: "var(--prompt-text)" }}>
                     Sei un esperto di copywriting B2B.{" "}
                     <br />Scrivi una cold email per{" "}
-                    <span className="bg-accent/15 text-accent rounded px-0.5 font-semibold">{"{{nome_azienda}}"}</span>
+                    <span className="bg-accent/15 text-accent rounded-none px-0.5 font-semibold">{"{{nome_azienda}}"}</span>
                     , che vende{" "}
-                    <span className="bg-accent/15 text-accent rounded px-0.5 font-semibold">{"{{prodotto}}"}</span>
+                    <span className="bg-accent/15 text-accent rounded-none px-0.5 font-semibold">{"{{prodotto}}"}</span>
                     .
                     <br /><br />
                     Target:{" "}
-                    <span className="bg-accent/15 text-accent rounded px-0.5 font-semibold">{"{{target}}"}</span>
+                    <span className="bg-accent/15 text-accent rounded-none px-0.5 font-semibold">{"{{target}}"}</span>
                     <br />
                     Tono:{" "}
-                    <span className="bg-accent/15 text-accent rounded px-0.5 font-semibold">{"{{tono}}"}</span>
+                    <span className="bg-accent/15 text-accent rounded-none px-0.5 font-semibold">{"{{tono}}"}</span>
                   </p>
                 </div>
               </div>
