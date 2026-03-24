@@ -2,13 +2,36 @@
 
 import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import Image from "next/image";
-import { templates, bundles, Template } from "@/lib/templates";
+import { templates, bundles, Template, getDownloadType, DownloadType } from "@/lib/templates";
 import TemplateCard from "@/components/TemplateCard";
 import StudioAccessButton from "@/components/StudioAccessButton";
 import { useLang } from "@/components/LanguageProvider";
 import { t, SEARCH_SYNONYMS, templateTranslations } from "@/lib/i18n";
 import PreviewModal from "@/components/PreviewModal";
 import { useRecentlyViewed } from "@/lib/useRecentlyViewed";
+
+// ── Platform macro-categories ────────────────────────────────────────────────
+
+type PlatformFilter = "all" | DownloadType;
+
+const PLATFORMS: {
+  id: PlatformFilter;
+  label: { it: string; en: string };
+  icon: string;
+  color?: string;
+}[] = [
+  { id: "all",       label: { it: "Tutte",       en: "All" },        icon: "⊞" },
+  { id: "html",      label: { it: "HTML",        en: "HTML" },       icon: "🌐", color: "var(--accent)" },
+  { id: "shopify",   label: { it: "Shopify",     en: "Shopify" },    icon: "🛒", color: "var(--platform-shopify)" },
+  { id: "wordpress", label: { it: "WordPress",   en: "WordPress" },  icon: "📝", color: "var(--platform-wordpress)" },
+  { id: "notion",    label: { it: "Notion",      en: "Notion" },     icon: "📓", color: "var(--platform-notion)" },
+  { id: "prompt",    label: { it: "Prompt",      en: "Prompt" },     icon: "✍️", color: "var(--terra)" },
+  { id: "canva",     label: { it: "Canva",       en: "Canva" },      icon: "🎨", color: "var(--platform-canva)" },
+  { id: "webflow",   label: { it: "Webflow",     en: "Webflow" },    icon: "🔷", color: "var(--platform-webflow)" },
+  { id: "framer",    label: { it: "Framer",      en: "Framer" },     icon: "◆",  color: "var(--platform-framer)" },
+  { id: "excel",     label: { it: "Excel",       en: "Excel" },      icon: "📊", color: "var(--platform-excel)" },
+  { id: "sheets",    label: { it: "Sheets",      en: "Sheets" },     icon: "📋", color: "var(--platform-sheets)" },
+];
 
 // ── Section definitions ──────────────────────────────────────────────────────
 
@@ -31,6 +54,8 @@ const SECTIONS: {
   { id: "personal-brand",   emoji: "🪪", gradientFrom: "#2d0e4a", gradientTo: "#1e0933", ids: ["digital-resume", "link-in-bio", "newsletter-landing"] },
   { id: "notion-workspace", emoji: "📓", gradientFrom: "#1c1c1c", gradientTo: "#0f0f0f", ids: ["notion-project-hub", "notion-freelancer-crm", "notion-content-calendar", "notion-finance-tracker", "notion-second-brain", "notion-job-tracker", "notion-weekly-review", "notion-client-portal"] },
   { id: "elearning", emoji: "🎓", gradientFrom: "#1a3a5c", gradientTo: "#0d2240", ids: ["course-landing-page", "webinar-registration", "course-curriculum-builder", "student-success-story", "course-email-welcome"] },
+  { id: "shopify-ecommerce", emoji: "🛒", gradientFrom: "#2d4a1b", gradientTo: "#1a2e0d", ids: ["shopify-product-landing", "shopify-collection-grid", "shopify-announcement-bar"] },
+  { id: "wordpress-themes", emoji: "📝", gradientFrom: "#0d3b5c", gradientTo: "#06243a", ids: ["wordpress-business-theme", "wordpress-blog-theme", "wordpress-portfolio-theme"] },
 ];
 
 // ── Category cover images (Unsplash) ─────────────────────────────────────────
@@ -47,7 +72,9 @@ const CATEGORY_IMAGES: Record<string, string> = {
   "digital-product": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=280&fit=crop&q=80&auto=format",
   "personal-brand":  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=280&fit=crop&q=80&auto=format",
   "notion-workspace":"https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=600&h=280&fit=crop&q=80&auto=format",
-  "elearning":       "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&h=280&fit=crop&q=80&auto=format",
+  "elearning":           "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&h=280&fit=crop&q=80&auto=format",
+  "shopify-ecommerce":   "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=280&fit=crop&q=80&auto=format",
+  "wordpress-themes":    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=280&fit=crop&q=80&auto=format",
 };
 
 const byId = Object.fromEntries(templates.map((tmpl) => [tmpl.id, tmpl]));
@@ -396,6 +423,7 @@ export default function TemplateGrid({ externalQuery = "", onClearSearch }: { ex
   const [quickViewId, setQuickViewId] = useState<string | null>(null);
   const [visibleCount, setVisibleCount] = useState(12);
   const [animKey, setAnimKey] = useState(0);
+  const [platformFilter, setPlatformFilter] = useState<PlatformFilter>("all");
   const gridTopRef = useRef<HTMLDivElement>(null);
   const drillDirectionRef = useRef<"in" | "back">("in");
 
@@ -488,6 +516,30 @@ export default function TemplateGrid({ externalQuery = "", onClearSearch }: { ex
   }, [externalQuery, searchTypeFilter, searchSort]);
 
   const isSearching = externalQuery.trim() !== "";
+
+  // Platform-filtered sections — only show sections that have templates matching the selected platform
+  const filteredSections = useMemo(() => {
+    if (platformFilter === "all") return SECTIONS;
+    return SECTIONS.map((section) => {
+      const matchingIds = section.ids.filter((id) => {
+        const tmpl = byId[id];
+        if (!tmpl) return false;
+        return getDownloadType(tmpl) === platformFilter;
+      });
+      return { ...section, ids: matchingIds };
+    }).filter((section) => section.ids.length > 0);
+  }, [platformFilter]);
+
+  // Count templates per platform for badges
+  const platformCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const tmpl of templates) {
+      const dt = getDownloadType(tmpl);
+      counts[dt] = (counts[dt] || 0) + 1;
+    }
+    counts["all"] = templates.length;
+    return counts;
+  }, []);
 
   // Current category data
   const openSection = openCategoryId ? SECTIONS.find((s) => s.id === openCategoryId) : null;
@@ -704,31 +756,75 @@ export default function TemplateGrid({ externalQuery = "", onClearSearch }: { ex
       ══════════════════════════════════════════════════ */}
       {!isSearching && !openCategoryId && (
         <div key={`grid-${animKey}`} className={drillDirectionRef.current === "back" ? "anim-drill-back" : ""}>
+
+          {/* ── Platform filter bar ── */}
+          <div className="mb-6">
+            <p className="text-[10px] font-bold text-muted uppercase tracking-[0.15em] mb-3 px-1">
+              {lang === "it" ? "Filtra per piattaforma" : "Filter by platform"}
+            </p>
+            <div className="flex gap-1.5 overflow-x-auto pb-1 scrollbar-none -mx-1 px-1">
+              {PLATFORMS.filter((p) => p.id === "all" || (platformCounts[p.id] ?? 0) > 0).map((p) => {
+                const isActive = platformFilter === p.id;
+                const count = platformCounts[p.id] ?? 0;
+                return (
+                  <button
+                    key={p.id}
+                    onClick={() => { setPlatformFilter(p.id); setAnimKey((k) => k + 1); }}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-semibold border whitespace-nowrap transition-all duration-150 shrink-0 ${
+                      isActive
+                        ? "border-accent/40 text-accent"
+                        : "border-theme text-muted hover:text-theme hover:border-accent/20"
+                    }`}
+                    style={isActive ? { background: "var(--accent-bg)", borderColor: p.color ? `${p.color}44` : undefined, color: p.color || undefined } : undefined}
+                  >
+                    <span className="text-[13px]">{p.icon}</span>
+                    {p.label[lang]}
+                    {p.id !== "all" && <span className="text-[9px] opacity-60 ml-0.5">{count}</span>}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
           {/* Section label */}
           <div className="flex items-center gap-4 mb-6 px-1">
             <div className="flex-1 h-px" style={{ background: "var(--border)" }} />
             <span className="text-[10px] font-bold text-muted uppercase tracking-[0.18em] shrink-0">
-              <SplitFlap to={templates.length} /> {lang === "it" ? "template" : "templates"} · {bundles.length} bundle
+              {platformFilter === "all" ? (
+                <><SplitFlap to={templates.length} /> {lang === "it" ? "template" : "templates"} · {bundles.length} bundle</>
+              ) : (
+                <>{filteredSections.reduce((sum, s) => sum + s.ids.length, 0)} {platformFilter} {lang === "it" ? "template" : "templates"}</>
+              )}
             </span>
             <div className="flex-1 h-px" style={{ background: "var(--border)" }} />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-            {SECTIONS.map((section, i) => {
-              const sectionTemplates = section.ids.map((id) => byId[id]).filter(Boolean) as Template[];
-              if (sectionTemplates.length === 0) return null;
-              return (
-                <CategoryCard
-                  key={section.id}
-                  section={section}
-                  sectionTemplates={sectionTemplates}
-                  onClick={() => handleOpenCategory(section.id)}
-                  lang={lang}
-                  index={i}
-                />
-              );
-            })}
-          </div>
+          {filteredSections.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+              {filteredSections.map((section, i) => {
+                const sectionTemplates = section.ids.map((id) => byId[id]).filter(Boolean) as Template[];
+                if (sectionTemplates.length === 0) return null;
+                return (
+                  <CategoryCard
+                    key={section.id}
+                    section={section}
+                    sectionTemplates={sectionTemplates}
+                    onClick={() => handleOpenCategory(section.id)}
+                    lang={lang}
+                    index={i}
+                  />
+                );
+              })}
+            </div>
+          ) : (
+            <div className="py-12 text-center">
+              <p className="text-muted text-[13px]">
+                {lang === "it"
+                  ? "Nessun template per questa piattaforma ancora. Resta sintonizzato!"
+                  : "No templates for this platform yet. Stay tuned!"}
+              </p>
+            </div>
+          )}
         </div>
       )}
 

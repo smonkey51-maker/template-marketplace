@@ -77,6 +77,8 @@
   --platform-notion:   #6E6E6E;
   --platform-webflow:  #4353FF;
   --platform-framer:   #0055FF;
+  --platform-shopify:  #95BF47;
+  --platform-wordpress:#21759B;
   /* Phone bezel (preview) */
   --bezel-bg:        #E8E4DE;
   --bezel-ring:      #D4CFC7;
@@ -148,6 +150,8 @@ html.dark {
   --platform-notion:   #787878;
   --platform-webflow:  #4353FF;
   --platform-framer:   #0055FF;
+  --platform-shopify:  #95BF47;
+  --platform-wordpress:#21759B;
   /* Phone bezel (preview) */
   --bezel-bg:        #1C1C1E;
   --bezel-ring:      #2C2C2E;

@@ -1,13 +1,15 @@
 export type TemplateCategory = "ui" | "prompt";
 export type DownloadType =
-  | "html"     // UI template → .html file with Tailwind CDN
-  | "prompt"   // Prompt template → .txt file
-  | "canva"    // Canva edit link
-  | "excel"    // .xlsx file
-  | "sheets"   // Google Sheets /copy link
-  | "notion"   // Notion duplicate link
-  | "webflow"  // Webflow project link
-  | "framer";  // Framer project link
+  | "html"       // UI template → .html file with Tailwind CDN
+  | "prompt"     // Prompt template → .txt file
+  | "canva"      // Canva edit link
+  | "excel"      // .xlsx file
+  | "sheets"     // Google Sheets /copy link
+  | "notion"     // Notion duplicate link
+  | "webflow"    // Webflow project link
+  | "framer"     // Framer project link
+  | "shopify"    // Shopify Liquid theme → .zip download
+  | "wordpress"; // WordPress PHP theme → .zip download
 
 export interface Template {
   id: string;
@@ -7183,6 +7185,316 @@ function showView(view) {
     downloads: 0,
     isNew: true,
     content: `<div style="display:flex;height:100vh;font-family:system-ui,-apple-system,sans-serif;background:#f8fafc;overflow:hidden;"><div style="width:220px;min-width:220px;background:#1e1e2e;display:flex;flex-direction:column;overflow:hidden;"><div style="padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,0.08);"><div style="display:flex;align-items:center;gap:8px;"><div style="width:28px;height:28px;background:linear-gradient(135deg,#3B82F6,#8B5CF6);border-radius:7px;display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M2 8h8M2 12h5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></div><span style="color:#fff;font-size:14px;font-weight:700;letter-spacing:-0.3px;">OutreachAI</span></div></div><nav style="flex:1;padding:12px 10px;"><div style="margin-bottom:4px;"><div style="display:flex;align-items:center;gap:10px;padding:9px 12px;background:rgba(59,130,246,0.18);border-radius:7px;cursor:pointer;"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="1" y="1" width="5.5" height="5.5" rx="1.5" fill="#3B82F6"/><rect x="8.5" y="1" width="5.5" height="5.5" rx="1.5" fill="#3B82F6" opacity="0.6"/><rect x="1" y="8.5" width="5.5" height="5.5" rx="1.5" fill="#3B82F6" opacity="0.6"/><rect x="8.5" y="8.5" width="5.5" height="5.5" rx="1.5" fill="#3B82F6" opacity="0.3"/></svg><span style="color:#fff;font-size:13px;font-weight:600;">Campagne</span></div></div><div style="margin-bottom:4px;"><div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:7px;cursor:pointer;"><span style="color:#6b7280;font-size:13px;font-weight:500;">Contatti</span></div></div><div style="margin-bottom:4px;"><div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:7px;cursor:pointer;"><span style="color:#6b7280;font-size:13px;font-weight:500;">Template</span></div></div><div style="margin-bottom:4px;"><div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:7px;cursor:pointer;"><span style="color:#6b7280;font-size:13px;font-weight:500;">Analytics</span></div></div><div style="height:1px;background:rgba(255,255,255,0.06);margin:12px 4px;"></div><div style="padding:0 4px;margin-bottom:6px;"><span style="color:#4b5563;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;">Recenti</span></div><div style="padding:7px 12px;border-radius:6px;cursor:pointer;margin-bottom:2px;"><div style="color:#9ca3af;font-size:12px;">TechCorp — Intro</div></div><div style="padding:7px 12px;border-radius:6px;cursor:pointer;"><div style="color:#9ca3af;font-size:12px;">SaaS Leads Q1</div></div></nav><div style="padding:14px 20px;border-top:1px solid rgba(255,255,255,0.06);"><div style="display:flex;align-items:center;gap:6px;"><div style="width:6px;height:6px;background:#22c55e;border-radius:50%;"></div><span style="color:#4b5563;font-size:11px;font-weight:500;">Powered by AI</span></div></div></div><div style="flex:1;display:flex;flex-direction:column;overflow:hidden;"><div style="background:#fff;border-bottom:1px solid #e2e8f0;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;"><div><div style="display:flex;align-items:center;gap:8px;"><span style="color:#0f172a;font-size:15px;font-weight:700;">Campagna: TechCorp — Introduzione</span><span style="background:#dbeafe;color:#1d4ed8;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;">3 varianti generate</span></div><div style="color:#94a3b8;font-size:12px;margin-top:2px;">Creata il 23 marzo 2026 · Modello: Cold Intro Email Prompt</div></div><div style="display:flex;align-items:center;gap:8px;"><button style="padding:7px 16px;border:none;background:#3B82F6;border-radius:7px;font-size:12px;font-weight:600;color:#fff;cursor:pointer;">Esporta tutto</button></div></div><div style="flex:1;overflow-y:auto;padding:22px 28px;display:flex;flex-direction:column;gap:16px;"><div style="background:#f1f5f9;border-radius:10px;padding:14px 18px;"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;"><span style="color:#475569;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px;">Variabili di input</span><span style="color:#3B82F6;font-size:11px;font-weight:600;cursor:pointer;">Modifica</span></div><div style="display:flex;gap:12px;flex-wrap:wrap;"><div style="background:#fff;border:1px solid #e2e8f0;border-radius:7px;padding:7px 14px;"><span style="color:#94a3b8;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;display:block;">Azienda</span><span style="color:#0f172a;font-size:13px;font-weight:600;">DesignFlow</span></div><div style="background:#fff;border:1px solid #e2e8f0;border-radius:7px;padding:7px 14px;"><span style="color:#94a3b8;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;display:block;">Destinatario</span><span style="color:#0f172a;font-size:13px;font-weight:600;">Marco Bianchi, CTO</span></div><div style="background:#fff;border:1px solid #e2e8f0;border-radius:7px;padding:7px 14px;"><span style="color:#94a3b8;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;display:block;">Proposta di valore</span><span style="color:#0f172a;font-size:13px;font-weight:600;">Ridurre i tempi di deploy del 40%</span></div></div></div><div style="background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,0.07),0 0 0 1px #e2e8f0;overflow:hidden;"><div style="padding:14px 20px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between;"><div style="display:flex;align-items:center;gap:10px;"><div style="width:26px;height:26px;background:#eff6ff;border:1.5px solid #bfdbfe;border-radius:7px;display:flex;align-items:center;justify-content:center;"><span style="color:#1d4ed8;font-size:11px;font-weight:800;">A</span></div><div><span style="color:#0f172a;font-size:13px;font-weight:700;">Variante A</span><span style="color:#94a3b8;font-size:12px;margin-left:6px;">· Riferimento specifico</span></div></div><div style="display:flex;align-items:center;gap:8px;"><span style="background:#dcfce7;color:#15803d;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;">92% rilevanza</span><button style="padding:6px 14px;border:none;background:#3B82F6;border-radius:6px;font-size:11px;font-weight:600;color:#fff;cursor:pointer;">Usa questa</button></div></div><div style="padding:16px 20px;"><div style="margin-bottom:10px;"><span style="color:#94a3b8;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;">Oggetto</span><div style="color:#0f172a;font-size:13px;font-weight:600;margin-top:3px;background:#f8fafc;border-radius:6px;padding:8px 12px;border-left:3px solid #3B82F6;">DesignFlow + deploy in metà tempo</div></div><div><span style="color:#94a3b8;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;">Corpo email</span><div style="color:#334155;font-size:13px;line-height:1.65;margin-top:6px;"><p style="margin:0 0 7px;">Ciao Marco,</p><p style="margin:0 0 7px;">ho notato che DesignFlow sta scalando rapidamente il proprio team tecnico — complimenti per la crescita. Lavorando con aziende simili nel settore SaaS, abbiamo aiutato CTO come te a <strong style="color:#0f172a;">ridurre i cicli di deploy del 40%</strong> senza stravolgere il workflow esistente.</p><p style="margin:7px 0 0;color:#64748b;font-size:12px;">Sarebbe utile una chiamata di 15 minuti per capire se c'è margine anche per DesignFlow?</p></div></div></div></div><div style="background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,0.07),0 0 0 1px #e2e8f0;overflow:hidden;"><div style="padding:14px 20px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between;"><div style="display:flex;align-items:center;gap:10px;"><div style="width:26px;height:26px;background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:7px;display:flex;align-items:center;justify-content:center;"><span style="color:#15803d;font-size:11px;font-weight:800;">B</span></div><div><span style="color:#0f172a;font-size:13px;font-weight:700;">Variante B</span><span style="color:#94a3b8;font-size:12px;margin-left:6px;">· Social proof</span></div></div><div style="display:flex;align-items:center;gap:8px;"><span style="background:#dbeafe;color:#1d4ed8;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;">87% rilevanza</span><button style="padding:6px 14px;border:1px solid #e2e8f0;background:#fff;border-radius:6px;font-size:11px;font-weight:600;color:#475569;cursor:pointer;">Usa questa</button></div></div><div style="padding:16px 20px;"><div style="margin-bottom:10px;"><span style="color:#94a3b8;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;">Oggetto</span><div style="color:#0f172a;font-size:13px;font-weight:600;margin-top:3px;background:#f8fafc;border-radius:6px;padding:8px 12px;border-left:3px solid #22c55e;">Come Startup X ha dimezzato i deploy</div></div><div><span style="color:#94a3b8;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;">Corpo email</span><div style="color:#334155;font-size:13px;line-height:1.65;margin-top:6px;"><p style="margin:0 0 7px;">Salve Marco,</p><p style="margin:0 0 7px;">sei mesi fa Flowbit — una scale-up SaaS molto simile a DesignFlow — aveva lo stesso problema: pipeline di deploy lente. Dopo aver integrato la nostra soluzione, il loro team ha <strong style="color:#0f172a;">ridotto i tempi di deploy del 43%</strong> già nel primo mese.</p><p style="margin:0;color:#64748b;font-size:12px;">Potrei condividere il case study completo e capire se i numeri hanno senso anche per voi.</p></div></div></div></div><div style="background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,0.07),0 0 0 1px #e2e8f0;overflow:hidden;"><div style="padding:14px 20px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between;"><div style="display:flex;align-items:center;gap:10px;"><div style="width:26px;height:26px;background:#fefce8;border:1.5px solid #fde68a;border-radius:7px;display:flex;align-items:center;justify-content:center;"><span style="color:#a16207;font-size:11px;font-weight:800;">C</span></div><div><span style="color:#0f172a;font-size:13px;font-weight:700;">Variante C</span><span style="color:#94a3b8;font-size:12px;margin-left:6px;">· Domanda diretta</span></div></div><div style="display:flex;align-items:center;gap:8px;"><span style="background:#fef9c3;color:#a16207;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;">81% rilevanza</span><button style="padding:6px 14px;border:1px solid #e2e8f0;background:#fff;border-radius:6px;font-size:11px;font-weight:600;color:#475569;cursor:pointer;">Usa questa</button></div></div><div style="padding:16px 20px;"><div style="margin-bottom:10px;"><span style="color:#94a3b8;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;">Oggetto</span><div style="color:#0f172a;font-size:13px;font-weight:600;margin-top:3px;background:#f8fafc;border-radius:6px;padding:8px 12px;border-left:3px solid #f59e0b;">15 minuti per il vostro deploy?</div></div><div><span style="color:#94a3b8;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;">Corpo email</span><div style="color:#334155;font-size:13px;line-height:1.65;margin-top:6px;"><p style="margin:0 0 7px;">Marco, buongiorno.</p><p style="margin:0 0 7px;">Domanda diretta: quanto tempo perde il team di DesignFlow ogni settimana a causa di deploy lenti? Per molti CTO con cui parliamo la risposta è <strong style="color:#0f172a;">"troppo"</strong>.</p><p style="margin:0;color:#64748b;font-size:12px;">Le chiedo 15 minuti per mostrarle come abbiamo risolto questo problema per aziende simili. Disponibile giovedì o venerdì?</p></div></div></div></div></div></div></div>`,
+  },
+
+  // ── Shopify Templates ────────────────────────────────────────────────────────
+  {
+    id: "shopify-product-landing",
+    name: "Shopify Product Landing",
+    description: "High-converting Shopify product landing section with hero image, feature grid, and add-to-cart. Liquid-ready.",
+    category: "ui",
+    price: 1499,
+    stripePriceId: "price_1TCIgGBoWNgrJbiyShopProd1",
+    tags: ["shopify", "ecommerce", "product", "landing", "liquid"],
+    downloads: 312,
+    isNew: true,
+    downloadType: "shopify",
+    content: `<section class="relative min-h-screen bg-gradient-to-br from-emerald-950 via-gray-950 to-gray-900 flex items-center justify-center overflow-hidden">
+  <div class="absolute inset-0 opacity-[0.03]" style="background-image:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22><rect width=%2260%22 height=%2260%22 fill=%22none%22/><path d=%22M30 0v60M0 30h60%22 stroke=%22%23fff%22 stroke-width=%220.5%22/></svg>');background-size:60px 60px"></div>
+  <div class="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center relative z-10">
+    <div>
+      <span class="inline-flex items-center gap-2 px-3 py-1 text-xs font-semibold text-emerald-300 border border-emerald-500/30 bg-emerald-500/10 mb-6 tracking-wide uppercase">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1l1.76 3.57L13 5.24l-2.8 2.73.66 3.86L7 9.67 3.14 11.83l.66-3.86L1 5.24l4.24-.67L7 1z" fill="currentColor"/></svg>
+        Shopify Theme Section
+      </span>
+      <h1 class="text-4xl md:text-5xl font-extrabold text-white leading-tight mb-4">
+        Handcrafted<br/>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">Artisan Candles</span>
+      </h1>
+      <p class="text-lg text-white/60 mb-8 max-w-md">100% natural soy wax, hand-poured in small batches. Each candle burns for 60+ hours of pure tranquility.</p>
+      <div class="flex items-center gap-3 mb-6">
+        <span class="text-3xl font-bold text-white">€34.99</span>
+        <span class="text-lg text-white/40 line-through">€44.99</span>
+        <span class="bg-emerald-500/20 text-emerald-400 text-sm font-bold px-2.5 py-0.5">-22%</span>
+      </div>
+      <div class="flex gap-3">
+        <button class="px-8 py-3.5 bg-emerald-500 text-white font-bold hover:bg-emerald-400 transition">Add to Cart</button>
+        <button class="px-6 py-3.5 border border-white/20 text-white font-semibold hover:bg-white/5 transition">Learn More</button>
+      </div>
+      <div class="flex items-center gap-6 mt-8 text-sm text-white/40">
+        <span>Free shipping</span>
+        <span>·</span>
+        <span>30-day returns</span>
+        <span>·</span>
+        <span>Eco-friendly</span>
+      </div>
+    </div>
+    <div class="relative">
+      <div class="aspect-square bg-gradient-to-br from-emerald-900/40 to-gray-900/60 border border-white/10 flex items-center justify-center">
+        <div class="text-center">
+          <div class="text-6xl mb-4">🕯️</div>
+          <p class="text-white/30 text-sm">Product image</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-3 gap-2 mt-2">
+        <div class="aspect-square bg-white/5 border border-white/10 flex items-center justify-center text-2xl">🕯️</div>
+        <div class="aspect-square bg-white/5 border border-white/10 flex items-center justify-center text-2xl">📦</div>
+        <div class="aspect-square bg-white/5 border border-white/10 flex items-center justify-center text-2xl">🌿</div>
+      </div>
+    </div>
+  </div>
+</section>`,
+  },
+  {
+    id: "shopify-collection-grid",
+    name: "Shopify Collection Grid",
+    description: "Elegant product collection grid for Shopify with filtering, quick view, and animated hover cards. Liquid theme section.",
+    category: "ui",
+    price: 1299,
+    stripePriceId: "price_1TCIgGBoWNgrJbiyShopColl1",
+    tags: ["shopify", "ecommerce", "collection", "grid", "liquid", "filter"],
+    downloads: 187,
+    isNew: true,
+    downloadType: "shopify",
+    content: `<section class="min-h-screen bg-gradient-to-b from-gray-950 to-gray-900 py-16 px-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-3">Our Collection</h2>
+      <p class="text-white/50 max-w-lg mx-auto">Curated essentials for the modern home. Each piece designed with care and crafted with intention.</p>
+    </div>
+    <div class="flex items-center justify-center gap-2 mb-10 flex-wrap">
+      <button class="px-4 py-2 text-sm font-semibold bg-white text-gray-900">All</button>
+      <button class="px-4 py-2 text-sm font-semibold text-white/60 border border-white/10 hover:border-white/30 transition">Candles</button>
+      <button class="px-4 py-2 text-sm font-semibold text-white/60 border border-white/10 hover:border-white/30 transition">Diffusers</button>
+      <button class="px-4 py-2 text-sm font-semibold text-white/60 border border-white/10 hover:border-white/30 transition">Gift Sets</button>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="group border border-white/10 bg-white/[0.02] hover:bg-white/[0.05] transition-all duration-300">
+        <div class="aspect-[4/5] bg-gradient-to-br from-amber-900/20 to-gray-900/40 flex items-center justify-center relative overflow-hidden">
+          <span class="text-5xl group-hover:scale-110 transition-transform duration-500">🕯️</span>
+          <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><button class="bg-white text-gray-900 text-xs font-bold px-3 py-1.5">Quick View</button></div>
+        </div>
+        <div class="p-4">
+          <h3 class="text-white font-semibold text-sm">Amber &amp; Vanilla Candle</h3>
+          <p class="text-white/40 text-xs mt-1">Hand-poured soy wax · 60h burn</p>
+          <div class="flex items-center justify-between mt-3">
+            <span class="text-white font-bold">€29.99</span>
+            <button class="text-xs text-emerald-400 font-semibold">Add to Cart →</button>
+          </div>
+        </div>
+      </div>
+      <div class="group border border-white/10 bg-white/[0.02] hover:bg-white/[0.05] transition-all duration-300">
+        <div class="aspect-[4/5] bg-gradient-to-br from-rose-900/20 to-gray-900/40 flex items-center justify-center relative overflow-hidden">
+          <span class="text-5xl group-hover:scale-110 transition-transform duration-500">🌸</span>
+          <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><button class="bg-white text-gray-900 text-xs font-bold px-3 py-1.5">Quick View</button></div>
+        </div>
+        <div class="p-4">
+          <h3 class="text-white font-semibold text-sm">Rose Petal Reed Diffuser</h3>
+          <p class="text-white/40 text-xs mt-1">Natural essential oils · 90 days</p>
+          <div class="flex items-center justify-between mt-3">
+            <span class="text-white font-bold">€39.99</span>
+            <button class="text-xs text-emerald-400 font-semibold">Add to Cart →</button>
+          </div>
+        </div>
+      </div>
+      <div class="group border border-white/10 bg-white/[0.02] hover:bg-white/[0.05] transition-all duration-300">
+        <div class="aspect-[4/5] bg-gradient-to-br from-violet-900/20 to-gray-900/40 flex items-center justify-center relative overflow-hidden">
+          <span class="text-5xl group-hover:scale-110 transition-transform duration-500">🎁</span>
+          <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><button class="bg-white text-gray-900 text-xs font-bold px-3 py-1.5">Quick View</button></div>
+        </div>
+        <div class="p-4">
+          <h3 class="text-white font-semibold text-sm">Serenity Gift Set</h3>
+          <p class="text-white/40 text-xs mt-1">3 candles + diffuser · Gift box</p>
+          <div class="flex items-center justify-between mt-3">
+            <span class="text-white font-bold">€89.99</span>
+            <button class="text-xs text-emerald-400 font-semibold">Add to Cart →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>`,
+  },
+  {
+    id: "shopify-announcement-bar",
+    name: "Shopify Announcement Bar",
+    description: "Rotating announcement bar with countdown timer, free-shipping threshold, and slide-in animation. Drop-in Liquid section.",
+    category: "ui",
+    price: 499,
+    stripePriceId: "price_1TCIgGBoWNgrJbiyShopAnn1",
+    tags: ["shopify", "ecommerce", "announcement", "bar", "liquid", "countdown"],
+    downloads: 524,
+    isNew: true,
+    downloadType: "shopify",
+    content: `<div class="relative bg-gradient-to-r from-gray-950 via-emerald-950 to-gray-950 py-16 px-6">
+  <div class="max-w-4xl mx-auto text-center">
+    <p class="text-xs text-emerald-400/80 uppercase tracking-[0.2em] font-semibold mb-6">Shopify Announcement Bar Section</p>
+    <div class="space-y-6">
+      <div class="bg-emerald-600 py-2.5 px-4 flex items-center justify-center gap-3 text-white text-sm font-semibold">
+        <span>🚀 FLASH SALE — 30% OFF EVERYTHING</span>
+        <span class="text-white/60">|</span>
+        <span class="font-mono tabular-nums">02:14:37</span>
+        <span class="text-white/60">remaining</span>
+      </div>
+      <div class="bg-gray-900 border border-white/10 py-2.5 px-4 flex items-center justify-center gap-3 text-white text-sm">
+        <span>📦 Free shipping on orders over €50</span>
+        <span class="text-emerald-400 font-semibold">· You're €12 away!</span>
+      </div>
+      <div class="bg-gradient-to-r from-violet-600 to-fuchsia-600 py-2.5 px-4 flex items-center justify-center gap-3 text-white text-sm font-semibold overflow-hidden relative">
+        <span>New arrivals just dropped — Shop the Spring Collection →</span>
+      </div>
+    </div>
+    <p class="text-white/30 text-xs mt-8">Three announcement bar styles included. Auto-rotate, countdown timer, and free-shipping threshold built in.</p>
+  </div>
+</div>`,
+  },
+
+  // ── WordPress Templates ──────────────────────────────────────────────────────
+  {
+    id: "wordpress-business-theme",
+    name: "WordPress Business Theme",
+    description: "Complete WordPress business theme with hero, services, testimonials, and contact form. Clean PHP template hierarchy.",
+    category: "ui",
+    price: 1999,
+    stripePriceId: "price_1TCIgHBoWNgrJbiyWpBiz1",
+    tags: ["wordpress", "business", "theme", "php", "corporate", "services"],
+    downloads: 245,
+    isNew: true,
+    downloadType: "wordpress",
+    content: `<section class="min-h-screen bg-gradient-to-br from-blue-950 via-gray-950 to-gray-900 flex items-center justify-center overflow-hidden relative">
+  <div class="absolute inset-0 opacity-[0.03]" style="background-image:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2240%22><circle cx=%2220%22 cy=%2220%22 r=%221%22 fill=%22%23fff%22/></svg>');background-size:40px 40px"></div>
+  <div class="max-w-6xl mx-auto px-6 py-20 relative z-10">
+    <div class="text-center mb-16">
+      <span class="inline-flex items-center gap-2 px-3 py-1 text-xs font-semibold text-blue-300 border border-blue-500/30 bg-blue-500/10 mb-6 tracking-wide uppercase">WordPress Theme</span>
+      <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-4">
+        Build with <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Confidence</span>
+      </h1>
+      <p class="text-lg text-white/50 max-w-2xl mx-auto mb-8">A clean, modern WordPress theme built for businesses that mean business. Starter-ready with full template hierarchy.</p>
+      <div class="flex gap-3 justify-center">
+        <button class="px-8 py-3.5 bg-blue-600 text-white font-bold hover:bg-blue-500 transition">Get Started</button>
+        <button class="px-6 py-3.5 border border-white/20 text-white font-semibold hover:bg-white/5 transition">View Demo</button>
+      </div>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="border border-white/10 bg-white/[0.02] p-6">
+        <div class="w-10 h-10 bg-blue-500/20 flex items-center justify-center mb-4"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2L2 7l8 5 8-5-8-5zM2 13l8 5 8-5" stroke="#60A5FA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3 class="text-white font-bold mb-2">Services</h3>
+        <p class="text-white/40 text-sm">Custom post type for services with icon, description, and CTA. Sortable in admin.</p>
+      </div>
+      <div class="border border-white/10 bg-white/[0.02] p-6">
+        <div class="w-10 h-10 bg-blue-500/20 flex items-center justify-center mb-4"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM2 17a6 6 0 0112 0" stroke="#60A5FA" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <h3 class="text-white font-bold mb-2">Testimonials</h3>
+        <p class="text-white/40 text-sm">Client reviews with photo, name, company, and star rating. Carousel or grid layout.</p>
+      </div>
+      <div class="border border-white/10 bg-white/[0.02] p-6">
+        <div class="w-10 h-10 bg-blue-500/20 flex items-center justify-center mb-4"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="4" width="16" height="12" rx="2" stroke="#60A5FA" stroke-width="1.5"/><path d="M2 8h16" stroke="#60A5FA" stroke-width="1.5"/></svg></div>
+        <h3 class="text-white font-bold mb-2">Contact Form</h3>
+        <p class="text-white/40 text-sm">Built-in contact form with validation. No plugin required. Sends via wp_mail().</p>
+      </div>
+    </div>
+    <div class="mt-8 text-center">
+      <p class="text-white/25 text-xs">Includes: front-page.php · page.php · single.php · archive.php · functions.php · style.css · 3 custom post types</p>
+    </div>
+  </div>
+</section>`,
+  },
+  {
+    id: "wordpress-blog-theme",
+    name: "WordPress Blog Theme",
+    description: "Minimal typography-focused WordPress blog theme. Optimised for readability with custom post formats, sidebar widgets, and comment styling.",
+    category: "ui",
+    price: 1499,
+    stripePriceId: "price_1TCIgHBoWNgrJbiyWpBlog1",
+    tags: ["wordpress", "blog", "theme", "php", "minimal", "typography"],
+    downloads: 389,
+    isNew: true,
+    downloadType: "wordpress",
+    content: `<section class="min-h-screen bg-gradient-to-b from-stone-950 to-gray-950 py-16 px-6">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-16">
+      <span class="inline-flex items-center gap-2 px-3 py-1 text-xs font-semibold text-amber-300 border border-amber-500/30 bg-amber-500/10 mb-6 tracking-wide uppercase">WordPress Blog Theme</span>
+      <h1 class="text-4xl md:text-5xl font-serif text-white leading-tight mb-3">The Art of<br/>Thoughtful Writing</h1>
+      <p class="text-white/40 text-lg">A blog theme that puts your words first.</p>
+    </div>
+    <article class="border border-white/10 bg-white/[0.02] overflow-hidden">
+      <div class="aspect-[21/9] bg-gradient-to-br from-amber-900/20 to-gray-900/40 flex items-center justify-center">
+        <span class="text-4xl">📝</span>
+      </div>
+      <div class="p-8 md:p-12">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-amber-400 text-xs font-semibold uppercase tracking-wider">Design</span>
+          <span class="text-white/20">·</span>
+          <span class="text-white/30 text-xs">March 24, 2026</span>
+          <span class="text-white/20">·</span>
+          <span class="text-white/30 text-xs">5 min read</span>
+        </div>
+        <h2 class="text-2xl font-bold text-white mb-4">Why Minimalism Wins in Web Design</h2>
+        <p class="text-white/50 leading-relaxed mb-4">In an era of information overload, the most effective websites are those that embrace restraint. Every element must earn its place on the page — if it doesn't serve the reader, it doesn't belong.</p>
+        <p class="text-white/50 leading-relaxed">This theme is built on that principle. Clean typography, generous whitespace, and a reading experience that gets out of the way of your content.</p>
+        <div class="mt-8 pt-6 border-t border-white/10 flex items-center gap-4">
+          <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-lg">👤</div>
+          <div>
+            <p class="text-white text-sm font-semibold">Elena Rossi</p>
+            <p class="text-white/30 text-xs">Design Lead</p>
+          </div>
+        </div>
+      </div>
+    </article>
+    <div class="mt-6 text-center">
+      <p class="text-white/25 text-xs">Includes: index.php · single.php · page.php · comments.php · sidebar.php · functions.php · 3 post formats · Custom widgets</p>
+    </div>
+  </div>
+</section>`,
+  },
+  {
+    id: "wordpress-portfolio-theme",
+    name: "WordPress Portfolio Theme",
+    description: "Showcase portfolio theme for WordPress with filterable project grid, lightbox gallery, and client testimonials. CPT-based.",
+    category: "ui",
+    price: 1499,
+    stripePriceId: "price_1TCIgHBoWNgrJbiyWpPort1",
+    tags: ["wordpress", "portfolio", "theme", "php", "gallery", "creative"],
+    downloads: 156,
+    isNew: true,
+    downloadType: "wordpress",
+    content: `<section class="min-h-screen bg-gradient-to-br from-violet-950 via-gray-950 to-gray-900 py-16 px-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-12">
+      <span class="inline-flex items-center gap-2 px-3 py-1 text-xs font-semibold text-violet-300 border border-violet-500/30 bg-violet-500/10 mb-6 tracking-wide uppercase">WordPress Portfolio Theme</span>
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-3">Selected Work</h2>
+      <p class="text-white/40">A curated collection of my best projects.</p>
+    </div>
+    <div class="flex items-center justify-center gap-2 mb-10 flex-wrap">
+      <button class="px-4 py-2 text-sm font-semibold bg-white text-gray-900">All</button>
+      <button class="px-4 py-2 text-sm font-semibold text-white/60 border border-white/10 hover:border-white/30 transition">Branding</button>
+      <button class="px-4 py-2 text-sm font-semibold text-white/60 border border-white/10 hover:border-white/30 transition">Web Design</button>
+      <button class="px-4 py-2 text-sm font-semibold text-white/60 border border-white/10 hover:border-white/30 transition">Photography</button>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="group relative aspect-square bg-gradient-to-br from-violet-900/30 to-gray-900/50 border border-white/10 overflow-hidden cursor-pointer">
+        <div class="absolute inset-0 flex items-center justify-center"><span class="text-5xl group-hover:scale-110 transition-transform duration-500">🎨</span></div>
+        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+          <div class="text-center"><h3 class="text-white font-bold">Brand Identity</h3><p class="text-white/60 text-sm">Artisan Coffee Co.</p></div>
+        </div>
+      </div>
+      <div class="group relative aspect-square bg-gradient-to-br from-blue-900/30 to-gray-900/50 border border-white/10 overflow-hidden cursor-pointer">
+        <div class="absolute inset-0 flex items-center justify-center"><span class="text-5xl group-hover:scale-110 transition-transform duration-500">💻</span></div>
+        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+          <div class="text-center"><h3 class="text-white font-bold">Web Redesign</h3><p class="text-white/60 text-sm">TechFlow SaaS</p></div>
+        </div>
+      </div>
+      <div class="group relative aspect-square bg-gradient-to-br from-rose-900/30 to-gray-900/50 border border-white/10 overflow-hidden cursor-pointer">
+        <div class="absolute inset-0 flex items-center justify-center"><span class="text-5xl group-hover:scale-110 transition-transform duration-500">📸</span></div>
+        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+          <div class="text-center"><h3 class="text-white font-bold">Photo Series</h3><p class="text-white/60 text-sm">Urban Landscapes</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-8 text-center">
+      <p class="text-white/25 text-xs">Includes: front-page.php · archive-project.php · single-project.php · taxonomy-project_category.php · Lightbox gallery · functions.php</p>
+    </div>
+  </div>
+</section>`,
   },
 ];
 
