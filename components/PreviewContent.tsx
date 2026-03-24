@@ -9,7 +9,6 @@ import RelatedTemplates from "@/components/RelatedTemplates";
 
 import { useLang } from "@/components/LanguageProvider";
 import { t, templateTranslations } from "@/lib/i18n";
-import PromptFullView from "@/components/PromptFullView";
 import { useToast } from "@/components/Toast";
 import { useWishlist } from "@/lib/useWishlist";
 import { useRecentlyViewed } from "@/lib/useRecentlyViewed";
@@ -158,8 +157,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
 
       {/* ── Preview area ── */}
       <div className="flex-1" style={{ paddingBottom: "160px" }}>
-        {template.category === "ui" ? (
-          viewMode === "desktop" ? (
+        {viewMode === "desktop" ? (
             /* Desktop: full-width iframe */
             <iframe
               src={`/api/preview/${template.id}`}
@@ -232,12 +230,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
                 <div className="absolute -right-[3px] top-36 w-[3px] h-20 rounded-r-sm" style={{ background: "var(--bezel-button)" }} />
               </div>
             </div>
-          )
-        ) : (
-          <div className="pt-16 pb-4 min-h-screen" style={{ background: `linear-gradient(to bottom, var(--surface), var(--bg))` }}>
-            <PromptFullView content={template.content} />
-          </div>
-        )}
+          )}
       </div>
 
       {/* ── Video tutorial (if set) ── */}
