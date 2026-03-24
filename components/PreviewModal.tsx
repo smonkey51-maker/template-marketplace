@@ -60,7 +60,7 @@ export default function PreviewModal({ templateId, onClose }: {
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/80 backdrop-blur-md anim-fade-in" onClick={onClose} />
+      <div className="absolute inset-0 backdrop-blur-md anim-fade-in" style={{ background: "var(--overlay)" }} onClick={onClose} />
 
       {/* Modal */}
       <div

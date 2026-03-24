@@ -90,7 +90,7 @@ function LangModal({
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
       {/* backdrop */}
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
+      <div className="absolute inset-0 backdrop-blur-sm" style={{ background: "var(--overlay-light)" }} onClick={onClose} />
       {/* panel */}
       <div
         className="relative z-10 w-full max-w-xs border border-theme p-5 shadow-2xl"
