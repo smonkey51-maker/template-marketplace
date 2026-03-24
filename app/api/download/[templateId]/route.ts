@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getTemplate, getDownloadType } from "@/lib/templates";
 import { getUserPurchases } from "@/lib/purchases";
 import { localiseHtml, getDisplayName } from "@/lib/localise";
+import { buildShopifyZip, buildWordPressZip } from "@/lib/zip-templates";
 
 export async function GET(
   req: NextRequest,
@@ -64,6 +65,28 @@ export async function GET(
         headers: {
           "Content-Type": "text/plain; charset=utf-8",
           "Content-Disposition": `attachment; filename="${template.id}.txt"`,
+        },
+      });
+    }
+
+    case "shopify": {
+      const displayName = getDisplayName(templateId, template.name, lang);
+      const zip = buildShopifyZip(template, displayName);
+      return new NextResponse(Buffer.from(zip), {
+        headers: {
+          "Content-Type": "application/zip",
+          "Content-Disposition": `attachment; filename="${template.id}.zip"`,
+        },
+      });
+    }
+
+    case "wordpress": {
+      const displayName = getDisplayName(templateId, template.name, lang);
+      const zip = buildWordPressZip(template, displayName);
+      return new NextResponse(Buffer.from(zip), {
+        headers: {
+          "Content-Type": "application/zip",
+          "Content-Disposition": `attachment; filename="${template.id}.zip"`,
         },
       });
     }

@@ -103,6 +103,14 @@ export const t = {
         label: "E-learning & Corsi",
         subtitle: "Landing page corsi, webinar, curriculum AI, email onboarding",
       },
+      "shopify-ecommerce": {
+        label: "Shopify E-commerce",
+        subtitle: "Sezioni Liquid pronte per il tuo negozio Shopify",
+      },
+      "wordpress-themes": {
+        label: "Temi WordPress",
+        subtitle: "Temi PHP completi per WordPress: business, blog, portfolio",
+      },
     },
     card: {
       categoryUI: "UI Template",
@@ -322,6 +330,14 @@ export const t = {
         label: "Identity & Personal Brand",
         subtitle: "Digital resume, link in bio, newsletter landing",
       },
+      "shopify-ecommerce": {
+        label: "Shopify E-commerce",
+        subtitle: "Ready-to-use Liquid sections for your Shopify store",
+      },
+      "wordpress-themes": {
+        label: "WordPress Themes",
+        subtitle: "Complete PHP themes for WordPress: business, blog, portfolio",
+      },
     },
     card: {
       categoryUI: "UI Template",
@@ -478,6 +494,14 @@ export const templateTranslations: Record<string, { name: string; description: s
   "free-email-optin":         { name: "Sezione Email Opt-in",           description: "Sezione cattura email con proposta di valore, contatore social proof e bordo gradiente." },
   "free-testimonial-cards":   { name: "Griglia Testimonianze",          description: "Griglia a 3 colonne con stelle, avatar e stile serif editoriale. Tema scuro." },
   "free-cold-intro-prompt":   { name: "Generatore Email Introduzione",     description: "Gestore campagne outreach con varianti email AI, punteggio di rilevanza ed esportazione rapida." },
+  // Shopify templates
+  "shopify-product-landing":  { name: "Shopify Landing Prodotto",         description: "Sezione hero prodotto ad alta conversione con griglia feature e add-to-cart. Pronta per Liquid." },
+  "shopify-collection-grid":  { name: "Shopify Griglia Collezione",       description: "Griglia collezione prodotti elegante con filtri, quick view e card animate. Sezione tema Liquid." },
+  "shopify-announcement-bar": { name: "Shopify Barra Annunci",            description: "Barra annunci rotante con countdown, soglia spedizione gratuita e animazione slide-in." },
+  // WordPress templates
+  "wordpress-business-theme": { name: "Tema WordPress Business",          description: "Tema business WordPress completo con hero, servizi, testimonianze e form contatti. Template PHP pulito." },
+  "wordpress-blog-theme":     { name: "Tema WordPress Blog",              description: "Tema blog WordPress minimal focalizzato sulla tipografia. Post format personalizzati e sidebar widget." },
+  "wordpress-portfolio-theme":{ name: "Tema WordPress Portfolio",          description: "Tema portfolio WordPress con griglia progetti filtrabile, galleria lightbox e testimonianze clienti." },
 };
 
 // Per la ricerca bilingue: mappa termini italiani → tag inglesi
@@ -550,4 +574,9 @@ export const SEARCH_SYNONYMS: Record<string, string[]> = {
   "modello": ["template", "model"],
   "gratuito": ["free", "gratis"],
   "free": ["gratuito", "gratis"],
+  "shopify": ["shopify", "ecommerce", "liquid", "negozio", "store"],
+  "wordpress": ["wordpress", "php", "theme", "blog", "cms"],
+  "tema": ["theme", "wordpress", "shopify"],
+  "theme": ["tema", "wordpress", "shopify"],
+  "ecommerce": ["shopify", "negozio", "store", "product"],
 };

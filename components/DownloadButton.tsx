@@ -70,6 +70,18 @@ const DOWNLOAD_META: Record<DownloadType, Meta> = {
     icon: <Icon d="M4 2h8v6H8l4 6H4l4-6H4V2z" />,
     accent: "var(--platform-framer)",
   },
+  shopify: {
+    labelIt: "Scarica ZIP Shopify",
+    labelEn: "Download Shopify ZIP",
+    icon: <Icon d="M6 2l2 2v8l-2-2V2zM8 4l4-1v8l-4 1M4 5l2-1v8l-2 1V5z" />,
+    accent: "var(--platform-shopify)",
+  },
+  wordpress: {
+    labelIt: "Scarica ZIP WordPress",
+    labelEn: "Download WordPress ZIP",
+    icon: <Icon d="M8 2a6 6 0 100 12A6 6 0 008 2zM2 8h12M8 2c-2 2-2 10 0 12M8 2c2 2 2 10 0 12" />,
+    accent: "var(--platform-wordpress)",
+  },
 };
 
 /* ── Language picker modal ─────────────────────────────────────────── */
