@@ -56,7 +56,7 @@ export default function EmailCapture() {
           <p className="text-[10px] font-bold text-muted uppercase tracking-[0.2em] mb-1" style={{ fontFamily: "var(--font-syne)" }}>
             {c.label}
           </p>
-          <p className="text-[15px] font-semibold text-theme">{c.title}</p>
+          <p className="text-[15px] font-semibold text-theme" style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}>{c.title}</p>
           <p className="text-[13px] text-muted mt-0.5">{c.subtitle}</p>
         </div>
 

@@ -296,7 +296,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
               <p className="text-[12px] text-muted mt-0.5 line-clamp-1">{displayDesc}</p>
             </div>
             <div className="text-right shrink-0">
-              <p className="text-[22px] font-black leading-none" style={{ color: "var(--accent)" }}>{formatPrice(template.price)}</p>
+              <p className="text-[22px] leading-none price-gold">{formatPrice(template.price)}</p>
               <p className="text-[11px] text-muted mt-0.5">{t[lang].preview.oneTime}</p>
             </div>
           </div>

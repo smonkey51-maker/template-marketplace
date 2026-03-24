@@ -875,6 +875,7 @@ html.dark {
 .btn-brand:hover {
   background: var(--text);
   color: var(--bg);
+  box-shadow: 0 8px 24px rgba(var(--accent-rgb), 0.22);
 }
 
 .btn-brand:hover::before {

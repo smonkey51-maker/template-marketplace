@@ -29,7 +29,7 @@ export default function Footer() {
           {/* Links */}
           <div className="flex flex-col sm:flex-row gap-8 sm:gap-16">
             <div className="flex flex-col gap-2.5">
-              <p className="text-[9px] font-bold uppercase tracking-[0.2em] mb-0.5" style={{ color: "var(--muted)", opacity: 0.6 }}>Product</p>
+              <p className="text-[9px] font-bold uppercase tracking-[0.2em] mb-0.5" style={{ fontFamily: "var(--font-syne)", color: "var(--muted)", opacity: 0.6 }}>Product</p>
               {[
                 { href: "/#bundles", label: f.bundles },
                 { href: "/wishlist", label: f.saved },
@@ -45,12 +45,12 @@ export default function Footer() {
                   onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text)")}
                   onMouseLeave={(e) => (e.currentTarget.style.color = "var(--muted)")}
                 >
-                  {l.label}
+                  <span className="link-underline">{l.label}</span>
                 </Link>
               ))}
             </div>
             <div className="flex flex-col gap-2.5">
-              <p className="text-[9px] font-bold uppercase tracking-[0.2em] mb-0.5" style={{ color: "var(--muted)", opacity: 0.6 }}>Legal</p>
+              <p className="text-[9px] font-bold uppercase tracking-[0.2em] mb-0.5" style={{ fontFamily: "var(--font-syne)", color: "var(--muted)", opacity: 0.6 }}>Legal</p>
               {[
                 { href: "/privacy", label: f.privacy },
                 { href: "/terms",   label: f.terms },
@@ -63,7 +63,7 @@ export default function Footer() {
                   onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text)")}
                   onMouseLeave={(e) => (e.currentTarget.style.color = "var(--muted)")}
                 >
-                  {l.label}
+                  <span className="link-underline">{l.label}</span>
                 </Link>
               ))}
             </div>
