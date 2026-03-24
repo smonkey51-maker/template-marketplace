@@ -477,7 +477,7 @@ export const templateTranslations: Record<string, { name: string; description: s
   "newsletter-landing":       { name: "Landing Newsletter",             description: "Pagina iscrizione newsletter con anteprima contenuti e CTA ottimizzata." },
   "free-email-optin":         { name: "Sezione Email Opt-in",           description: "Sezione cattura email con proposta di valore, contatore social proof e bordo gradiente." },
   "free-testimonial-cards":   { name: "Griglia Testimonianze",          description: "Griglia a 3 colonne con stelle, avatar e stile serif editoriale. Tema scuro." },
-  "free-cold-intro-prompt":   { name: "Prompt Email Introduzione",     description: "Template prompt AI per scrivere email di introduzione personalizzate con variabili azienda e ruolo." },
+  "free-cold-intro-prompt":   { name: "Generatore Email Introduzione",     description: "Gestore campagne outreach con varianti email AI, punteggio di rilevanza ed esportazione rapida." },
 };
 
 // Per la ricerca bilingue: mappa termini italiani → tag inglesi
