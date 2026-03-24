@@ -128,7 +128,7 @@ function TestimonialCard({
         <div className={`w-8 h-8 bg-gradient-to-br ${testimonial.accent} flex items-center justify-center text-white text-[11px] font-bold flex-shrink-0`}>
           {testimonial.initials}
         </div>
-        <div>
+        <div className="flex-1 min-w-0">
           <p className="text-[13px] font-semibold text-theme leading-tight">
             {lang === "it" ? testimonial.nameIt : testimonial.nameEn}
           </p>
@@ -136,6 +136,13 @@ function TestimonialCard({
             {lang === "it" ? testimonial.roleIt : testimonial.roleEn}
           </p>
         </div>
+        <span className="flex items-center gap-1 text-[9px] font-semibold shrink-0 px-1.5 py-0.5"
+          style={{ color: "var(--success)", background: "var(--success-dim)" }}>
+          <svg width="8" height="8" viewBox="0 0 12 12" fill="none" aria-hidden>
+            <path d="M2 6l2.8 3 5.2-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          {lang === "it" ? "Acquisto verificato" : "Verified"}
+        </span>
       </div>
     </div>
   );

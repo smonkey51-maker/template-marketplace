@@ -580,9 +580,10 @@ export default function TemplateGrid({ externalQuery = "", onClearSearch }: { ex
                 {loading
                   ? Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)
                   : searchResults.slice(0, visibleCount).map((tmpl, i) => (
-                      <ScrollRevealCard key={tmpl.id} delay={i * 35}>
+                      <div key={tmpl.id} className="opacity-0"
+                        style={{ animation: "cardEntrance 0.4s ease forwards", animationDelay: `${Math.min(i * 40, 400)}ms` }}>
                         <TemplateCard template={tmpl} purchasedIds={purchasedIds} onQuickView={handleQuickView} />
-                      </ScrollRevealCard>
+                      </div>
                     ))}
               </div>
               {!loading && searchResults.length > visibleCount && (
@@ -601,18 +602,29 @@ export default function TemplateGrid({ externalQuery = "", onClearSearch }: { ex
               )}
             </>
           ) : (
-            <div className="py-24 flex flex-col items-center gap-4 text-center">
-              <span className="text-5xl">🔍</span>
+            <div className="py-16 flex flex-col items-center gap-4 text-center">
+              <p className="text-[32px]" style={{ color: "var(--muted)", opacity: 0.4 }}>—</p>
               <p className="text-[17px] font-semibold text-theme">{t[lang].search.notFound}</p>
               <p className="text-[14px] text-muted">{t[lang].search.notFoundDesc}</p>
               {onClearSearch && (
                 <button
                   onClick={onClearSearch}
-                  className="mt-2 px-5 py-2 glass border border-theme rounded-none text-[13px] font-semibold text-muted hover:text-theme hover:border-accent/30 transition-all duration-200"
+                  className="mt-2 btn-brand-sm"
                 >
                   {t[lang].search.resetCta} →
                 </button>
               )}
+              {/* Popular suggestions */}
+              <div className="mt-8 w-full max-w-3xl">
+                <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted mb-4">
+                  {lang === "it" ? "Più popolari" : "Most popular"}
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  {templates.sort((a, b) => b.downloads - a.downloads).slice(0, 3).map((tmpl) => (
+                    <TemplateCard key={tmpl.id} template={tmpl} purchasedIds={purchasedIds} onQuickView={handleQuickView} />
+                  ))}
+                </div>
+              </div>
             </div>
           )}
         </div>
@@ -649,9 +661,10 @@ export default function TemplateGrid({ externalQuery = "", onClearSearch }: { ex
             {loading
               ? Array.from({ length: openSectionTemplates.length || 3 }).map((_, i) => <SkeletonCard key={i} />)
               : openSectionTemplates.map((tmpl, i) => (
-                  <ScrollRevealCard key={tmpl.id} delay={i * 45}>
+                  <div key={tmpl.id} className="opacity-0"
+                    style={{ animation: "cardEntrance 0.4s ease forwards", animationDelay: `${Math.min(i * 45, 400)}ms` }}>
                     <TemplateCard template={tmpl} purchasedIds={purchasedIds} onQuickView={handleQuickView} />
-                  </ScrollRevealCard>
+                  </div>
                 ))}
           </div>
         </div>

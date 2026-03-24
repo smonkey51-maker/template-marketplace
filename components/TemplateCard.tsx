@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRef, useEffect, useState } from "react";
-import { Template, formatPrice, templates } from "@/lib/templates";
+import { Template, formatPrice, formatCount, templates, getDownloadType } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
 import { t, templateTranslations } from "@/lib/i18n";
 import { useWishlist } from "@/lib/useWishlist";
@@ -52,10 +52,17 @@ function UIThumbnail({ template, isPurchased, lang }: { template: Template; isPu
 
   return (
     <div ref={containerRef} className="relative h-48 overflow-hidden" style={{ background: "var(--surface)" }}>
-      {/* Loading skeleton */}
+      {/* Shimmer skeleton */}
       {(!visible || !iframeLoaded) && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
-          <div className="w-5 h-5 rounded-full border-2 border-t-transparent animate-spin" style={{ borderColor: "var(--accent)", borderTopColor: "transparent" }} />
+        <div className="absolute inset-0 flex flex-col p-4 gap-3" style={{ background: "var(--surface)" }}>
+          <div className="h-3 w-2/3 skeleton-shimmer" />
+          <div className="h-2 w-full skeleton-shimmer" />
+          <div className="h-2 w-5/6 skeleton-shimmer" />
+          <div className="flex-1" />
+          <div className="flex gap-2">
+            <div className="h-6 w-20 skeleton-shimmer" />
+            <div className="h-6 w-16 skeleton-shimmer" />
+          </div>
         </div>
       )}
       <div
@@ -152,7 +159,8 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
   const editionNum = String(templates.findIndex((tt) => tt.id === template.id) + 1).padStart(3, "0");
 
   // Category strip color
-  const isPromptType = (template.downloadType ?? (template.category === "ui" ? "html" : "prompt")) === "prompt";
+  const downloadType = getDownloadType(template);
+  const isPromptType = downloadType === "prompt";
   const stripColor = isPromptType ? "var(--terra, #C4622D)" : "var(--accent)";
 
   return (
@@ -169,7 +177,7 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
       className="glass relative overflow-hidden flex flex-col h-full active:opacity-90 block"
     >
       {/* Hybrid category color strip */}
-      <div className="h-[2px] w-full flex-shrink-0" style={{ background: stripColor }} />
+      <div className="h-[3px] w-full flex-shrink-0" style={{ background: stripColor }} />
 
       {/* Editor's Pick badge — gold */}
       {isEditorsPick && !isPurchased && (
@@ -216,11 +224,22 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
       </div>
 
       <div className="px-4 py-3.5 flex flex-col flex-1" style={{ borderTop: "1px solid var(--border)" }}>
-        {/* Category line */}
-        <div className="mb-1">
-          <span className="text-[9px] tracking-[0.14em] uppercase font-medium" style={{ color: "var(--muted)" }}>
+        {/* Category pill + platform badge */}
+        <div className="mb-1 flex items-center gap-1.5">
+          <span className="text-[9px] tracking-[0.12em] uppercase font-semibold px-1.5 py-[1px]"
+            style={{
+              background: isPromptType ? "var(--terra-dim)" : "var(--accent-bg)",
+              color: isPromptType ? "var(--terra)" : "var(--accent)",
+              border: `1px solid ${isPromptType ? "var(--terra-dim)" : "var(--accent-muted)"}`,
+            }}>
             {template.category === "ui" ? t[lang].card.categoryUI : t[lang].card.categoryPrompt}
           </span>
+          {downloadType !== "html" && downloadType !== "prompt" && (
+            <span className="text-[8px] font-bold uppercase tracking-wider px-1.5 py-[1px]"
+              style={{ background: `var(--platform-${downloadType})`, color: "white", opacity: 0.85 }}>
+              {downloadType}
+            </span>
+          )}
         </div>
 
         {/* Name */}
@@ -247,7 +266,7 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
               <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden>
                 <path d="M6 1v7M3 6l3 3 3-3M2 10h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              {template.downloads.toLocaleString(lang === "it" ? "it-IT" : "en-US")}
+              {formatCount(template.downloads)}
             </span>
             {/* Wishlist button */}
             <button
