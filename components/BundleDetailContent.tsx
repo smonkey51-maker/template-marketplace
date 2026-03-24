@@ -6,7 +6,6 @@ import Link from "next/link";
 import { getBundle, getTemplate, formatPrice } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
 import { t } from "@/lib/i18n";
-import PromptFullView from "@/components/PromptFullView";
 import { useToast } from "@/components/Toast";
 
 const BRAND_COLOR = {
@@ -187,24 +186,18 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
           {/* Preview area */}
           {activeTemplate && (
             <div className="border border-theme overflow-hidden bg-card">
-              {activeTemplate.category === "ui" ? (
-                <div className="relative">
-                  <iframe
-                    key={activeTemplateIdx}
-                    src={`/api/preview/${activeTemplate.id}`}
-                    title={activeTemplate.name}
-                    sandbox="allow-scripts"
-                    className="w-full border-0 block"
-                    style={{ height: "480px" }}
-                  />
-                  {/* Overlay to prevent interaction */}
-                  <div className="absolute inset-0 bg-transparent" />
-                </div>
-              ) : (
-                <div className="bg-gradient-to-b from-[#1C1C1E] to-[#2C2C2E] min-h-[320px]">
-                  <PromptFullView content={activeTemplate.content} />
-                </div>
-              )}
+              <div className="relative">
+                <iframe
+                  key={activeTemplateIdx}
+                  src={`/api/preview/${activeTemplate.id}`}
+                  title={activeTemplate.name}
+                  sandbox="allow-scripts"
+                  className="w-full border-0 block"
+                  style={{ height: "480px" }}
+                />
+                {/* Overlay to prevent interaction */}
+                <div className="absolute inset-0 bg-transparent" />
+              </div>
 
               {/* Template meta footer */}
               <div className="px-4 py-3 border-t border-theme flex items-center justify-between gap-3">

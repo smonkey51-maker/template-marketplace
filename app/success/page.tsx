@@ -68,7 +68,7 @@ function SuccessContent() {
         </div>
       </div>
 
-      <h1 className="text-[22px] font-bold mb-3 tracking-tight text-theme">{t[lang].success.title}</h1>
+      <h1 className="text-[22px] font-bold mb-3 tracking-tight text-theme" style={{ fontFamily: "var(--font-syne)" }}>{t[lang].success.title}</h1>
 
       {isStudioAccess ? (
         <>

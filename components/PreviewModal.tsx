@@ -60,7 +60,7 @@ export default function PreviewModal({ templateId, onClose }: {
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/80 backdrop-blur-md anim-fade-in" onClick={onClose} />
+      <div className="absolute inset-0 backdrop-blur-md anim-fade-in" style={{ background: "var(--overlay)" }} onClick={onClose} />
 
       {/* Modal */}
       <div
@@ -98,34 +98,20 @@ export default function PreviewModal({ templateId, onClose }: {
 
         {/* Content */}
         <div className="flex-1 overflow-hidden" style={{ background: "var(--card-bg)" }}>
-          {template.category === "ui" ? (
-            <div className="relative w-full h-full">
-              {!iframeLoaded && (
-                <div className="absolute inset-0 flex items-center justify-center" style={{ background: "var(--skeleton-bg)" }}>
-                  <div className="w-7 h-7 rounded-full border-2 border-t-transparent animate-spin" style={{ borderColor: "var(--accent)", borderTopColor: "transparent" }} />
-                </div>
-              )}
-              <iframe
-                src={`/api/preview/${template.id}`}
-                title={template.name}
-                sandbox="allow-scripts"
-                className="w-full h-full border-0 block"
-                onLoad={() => setIframeLoaded(true)}
-              />
-            </div>
-          ) : (
-            <div className="h-full overflow-y-auto p-4 sm:p-8" style={{ background: "var(--prompt-bg)" }}>
-              <div className="max-w-2xl mx-auto font-mono text-[14px] leading-relaxed whitespace-pre-wrap" style={{ color: "var(--prompt-text)" }}>
-                {template.content.split(/({{[^}]+}})/g).map((part, i) =>
-                  part.startsWith("{{") ? (
-                    <span key={i} className="inline-block bg-accent/10 text-accent rounded-[5px] px-1.5 py-0.5 font-semibold text-[13px]">{part}</span>
-                  ) : (
-                    <span key={i}>{part}</span>
-                  )
-                )}
+          <div className="relative w-full h-full">
+            {!iframeLoaded && (
+              <div className="absolute inset-0 flex items-center justify-center" style={{ background: "var(--skeleton-bg)" }}>
+                <div className="w-7 h-7 rounded-full border-2 border-t-transparent animate-spin" style={{ borderColor: "var(--accent)", borderTopColor: "transparent" }} />
               </div>
-            </div>
-          )}
+            )}
+            <iframe
+              src={`/api/preview/${template.id}`}
+              title={template.name}
+              sandbox="allow-scripts"
+              className="w-full h-full border-0 block"
+              onLoad={() => setIframeLoaded(true)}
+            />
+          </div>
         </div>
 
         {/* Footer CTA */}

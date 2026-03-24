@@ -69,11 +69,11 @@ function SkeletonCard() {
     <div className="bg-card border border-theme rounded-none overflow-hidden animate-pulse">
       <div className="h-48 bg-theme/5" />
       <div className="p-4 flex flex-col gap-2.5">
-        <div className="h-2 w-16 bg-theme/8 rounded-full" />
-        <div className="h-3.5 w-3/4 bg-theme/8 rounded-full" />
+        <div className="h-2 w-16 bg-theme/8" />
+        <div className="h-3.5 w-3/4 bg-theme/8" />
         <div className="mt-2 flex items-center justify-between">
-          <div className="h-3.5 w-10 bg-theme/8 rounded-full" />
-          <div className="h-2.5 w-12 bg-theme/8 rounded-full" />
+          <div className="h-3.5 w-10 bg-theme/8" />
+          <div className="h-2.5 w-12 bg-theme/8" />
         </div>
       </div>
     </div>

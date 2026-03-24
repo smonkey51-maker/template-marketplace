@@ -9,31 +9,6 @@ import { useWishlist } from "@/lib/useWishlist";
 
 type Lang = "it" | "en";
 
-function PromptThumbnail({ template, isPurchased, lang }: { template: Template; isPurchased: boolean; lang: Lang }) {
-  const preview = template.content.slice(0, 180);
-  const parts = preview.split(/({{[^}]+}})/g);
-  return (
-    <div className="relative h-48 overflow-hidden bg-gradient-to-br from-[#1C1C1E] to-[#2C2C2E] p-3 flex items-start">
-      <div className="w-full bg-[#FFFEF7] rounded-none shadow-lg p-3 overflow-hidden">
-        <div className="flex items-center gap-1.5 mb-2">
-          <div className="w-2 h-2 rounded-full bg-[#FF5F57]" />
-          <div className="w-2 h-2 rounded-full bg-[#FFBD2E]" />
-          <div className="w-2 h-2 rounded-full bg-[#28C840]" />
-        </div>
-        <div className="font-mono text-[11px] text-[#1C1C1E] leading-relaxed line-clamp-4">
-          {parts.map((part, i) =>
-            part.startsWith("{{") ? (
-              <span key={i} className="rounded px-0.5 font-semibold" style={{ background: "var(--accent-bg)", color: "var(--accent)" }}>{part}</span>
-            ) : <span key={i}>{part}</span>
-          )}
-        </div>
-      </div>
-      <div className="absolute inset-0 bg-gradient-to-t from-[#1C1C1E] via-[#1C1C1E]/10 to-transparent" />
-      {isPurchased && <PurchasedBadge lang={lang} />}
-    </div>
-  );
-}
-
 function UIThumbnail({ template, isPurchased, lang }: { template: Template; isPurchased: boolean; lang: Lang }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -210,10 +185,7 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
         className="relative"
         onClick={(e) => { if (onQuickView) { e.preventDefault(); e.stopPropagation(); onQuickView(template.id); } }}
       >
-        {template.category === "ui"
-          ? <UIThumbnail template={template} isPurchased={isPurchased} lang={lang} />
-          : <PromptThumbnail template={template} isPurchased={isPurchased} lang={lang} />
-        }
+        <UIThumbnail template={template} isPurchased={isPurchased} lang={lang} />
         {/* Hover CTA overlay — always visible on touch, hover on desktop */}
         <div className="absolute inset-0 flex items-end justify-center pb-4 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-100 pointer-events-none">
           <span className="text-[11px] sm:text-[12px] font-bold px-4 py-2 rounded-none shadow-sm"
