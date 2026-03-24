@@ -185,6 +185,29 @@ h1, h2, h3 {
 
 * { -webkit-tap-highlight-color: transparent; }
 
+/* ── Shimmer skeleton loader ── */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.skeleton-shimmer {
+  background: linear-gradient(90deg, var(--surface) 25%, var(--input-bg) 50%, var(--surface) 75%);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+/* ── Staggered card entrance ── */
+@keyframes cardEntrance {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  @keyframes cardEntrance {
+    from { opacity: 1; }
+    to   { opacity: 1; }
+  }
+}
+
 /* ═══════════════════════════════════════════════════════════
    SCROLLBAR — visible on page, hidden on inner elements
    ═══════════════════════════════════════════════════════════ */

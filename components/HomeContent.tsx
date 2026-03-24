@@ -128,7 +128,7 @@ function TestimonialCard({
         <div className={`w-8 h-8 bg-gradient-to-br ${testimonial.accent} flex items-center justify-center text-white text-[11px] font-bold flex-shrink-0`}>
           {testimonial.initials}
         </div>
-        <div>
+        <div className="flex-1 min-w-0">
           <p className="text-[13px] font-semibold text-theme leading-tight">
             {lang === "it" ? testimonial.nameIt : testimonial.nameEn}
           </p>
@@ -136,6 +136,13 @@ function TestimonialCard({
             {lang === "it" ? testimonial.roleIt : testimonial.roleEn}
           </p>
         </div>
+        <span className="flex items-center gap-1 text-[9px] font-semibold shrink-0 px-1.5 py-0.5"
+          style={{ color: "var(--success)", background: "var(--success-dim)" }}>
+          <svg width="8" height="8" viewBox="0 0 12 12" fill="none" aria-hidden>
+            <path d="M2 6l2.8 3 5.2-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          {lang === "it" ? "Acquisto verificato" : "Verified"}
+        </span>
       </div>
     </div>
   );
@@ -299,13 +306,40 @@ function NavDropdown({
     };
   }, [open]);
 
+  const focusMenuItems = (direction: "first" | "last" | "next" | "prev") => {
+    const items = ref.current?.querySelectorAll<HTMLElement>('[role="menuitem"], a, button:not([aria-haspopup])');
+    if (!items || items.length === 0) return;
+    const arr = Array.from(items).filter((el) => !el.closest('[aria-hidden="true"]'));
+    if (arr.length === 0) return;
+    const idx = arr.indexOf(document.activeElement as HTMLElement);
+    if (direction === "first") arr[0]?.focus();
+    else if (direction === "last") arr[arr.length - 1]?.focus();
+    else if (direction === "next") arr[Math.min(idx + 1, arr.length - 1)]?.focus();
+    else if (direction === "prev") arr[Math.max(idx - 1, 0)]?.focus();
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       setOpen((o) => !o);
-    } else if (e.key === "ArrowDown" && !open) {
+    } else if (e.key === "ArrowDown") {
       e.preventDefault();
-      setOpen(true);
+      if (!open) setOpen(true);
+      setTimeout(() => focusMenuItems("first"), 50);
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      if (!open) setOpen(true);
+      setTimeout(() => focusMenuItems("last"), 50);
+    }
+  };
+
+  const handleMenuKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      focusMenuItems("next");
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      focusMenuItems("prev");
     }
   };
 
@@ -333,6 +367,7 @@ function NavDropdown({
       {/* Always rendered — animated with opacity + transform */}
       <div
         role="menu"
+        onKeyDown={handleMenuKeyDown}
         className="transition-all duration-[180ms] ease-out"
         style={{
           opacity: open ? 1 : 0,
@@ -829,7 +864,7 @@ export default function HomeContent() {
                   setTimeout(() => document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" }), 150);
                 }
               }}
-              placeholder={lang === "it" ? "Cerca template…" : "Search templates…"}
+              placeholder={lang === "it" ? "Cerca template, es. landing page…" : "Search templates, e.g. landing page…"}
               className="w-full bg-input border border-theme rounded-none pl-9 pr-9 py-2.5 text-[14px] text-theme placeholder:text-muted outline-none focus:border-accent transition-colors"
             />
             {/* Search submit button */}
@@ -1127,7 +1162,7 @@ export default function HomeContent() {
 
       {/* ── Template Grid ── */}
       <div className="relative z-10">
-        <TemplateGrid externalQuery={query} />
+        <TemplateGrid externalQuery={query} onClearSearch={() => setQuery("")} />
       </div>
 
 

@@ -7063,534 +7063,39 @@ function showView(view) {
     id: "course-curriculum-builder",
     name: "AI Course Curriculum Builder",
     description:
-      "Structured AI prompt to generate a complete online course curriculum with modules, lessons, objectives and exercises.",
+      "Course management dashboard with structured modules, lessons, learning objectives and progress tracking.",
     category: "ui",
-    downloadType: "prompt",
     price: 999,
     stripePriceId: "price_1TD5Q8BoWNgrJbiyj4Lgskzb",
     tags: ["elearning", "course", "curriculum", "education", "course creation"],
     downloads: 0,
     isNew: true,
-    promptText: `# AI Course Curriculum Builder
-
-## Genera il curriculum completo del tuo corso online in minuti
-
-Questo prompt strutturato guida Claude (o qualsiasi LLM) a progettare un curriculum professionale per qualsiasi tipo di corso online: dalla struttura dei moduli agli obiettivi di apprendimento, dagli esercizi pratici ai materiali consigliati.
-
----
-
-## PROMPT PRINCIPALE
-
-\`\`\`
-Sei un instructional designer esperto con 15 anni di esperienza nella creazione di corsi online di successo su Udemy, Teachable e Kajabi. Il tuo compito è progettare un curriculum completo per un corso online.
-
-DETTAGLI DEL CORSO:
-- Argomento: [ES. "Machine Learning con Python per principianti"]
-- Pubblico target: [ES. "Sviluppatori junior con 1-2 anni di esperienza in Python che vogliono passare all'AI/ML"]
-- Livello: [Principiante / Intermedio / Avanzato]
-- Durata totale target: [ES. "8-10 ore di contenuto video"]
-- Formato: [Solo video / Video + Esercizi / Video + Progetto finale / Blended learning]
-- Obiettivo principale dello studente: [ES. "Essere in grado di costruire e deployare il primo modello ML in produzione"]
-- Tool/tecnologie coinvolte: [ES. "Python 3.11, scikit-learn, pandas, FastAPI, Docker"]
-
-Progetta il curriculum seguendo questa struttura:
-
-1. LEARNING OUTCOMES (3-5 obiettivi misurabili usando la tassonomia di Bloom)
-2. STRUTTURA DEI MODULI (6-10 moduli con titolo, descrizione e rationale didattico)
-3. PER OGNI MODULO:
-   - Titolo e obiettivo specifico del modulo
-   - 3-6 lezioni con titolo e tipo (concetto / demo live / esercizio / quiz)
-   - Durata stimata
-   - Prerequisiti del modulo
-   - Esercizio pratico o mini-progetto
-   - Risorse consigliate (libri, articoli, tool)
-4. PROGETTO CAPSTONE (descrizione del progetto finale che integra tutti i moduli)
-5. VALUTAZIONE E CERTIFICAZIONE (come misurare il progresso dello studente)
-6. SEQUENZA DI LANCIO (ordine di creazione consigliato dei contenuti)
-
-Usa un formato Markdown pulito e strutturato. Sii specifico e concreto — evita generalità.
-\`\`\`
-
----
-
-## VARIANTI SPECIALIZZATE
-
-### Per corsi tecnici / programmazione
-\`\`\`
-[Aggiungi al prompt principale]
-
-Per ogni lezione di tipo "demo live" includi:
-- Setup ambiente richiesto
-- Snippet di codice starter
-- Risultato atteso al termine
-- Errori comuni e come evitarli
-
-Per ogni esercizio includi:
-- Istruzioni dettagliate step-by-step
-- Criteri di completamento (definition of done)
-- Soluzione di riferimento (da non mostrare subito allo studente)
-\`\`\`
-
-### Per corsi soft skill / business
-\`\`\`
-[Aggiungi al prompt principale]
-
-Per ogni modulo includi:
-- Caso studio reale del settore
-- Role-play o scenario simulato
-- Template/framework scaricabile
-- Action item da implementare entro 48 ore
-
-Struttura le lezioni seguendo il modello: Teoria (20%) → Esempio (30%) → Pratica (50%)
-\`\`\`
-
-### Per corsi creativi (design, fotografia, musica)
-\`\`\`
-[Aggiungi al prompt principale]
-
-Per ogni lezione includi:
-- Brief creativo dell'esercizio
-- Criteri estetici di valutazione
-- Esempi di lavori eccellenti da analizzare
-- Feedback peer-to-peer: domande guida per la revisione tra studenti
-\`\`\`
-
----
-
-## PROMPT PER SINGOLA LEZIONE (dopo aver generato il curriculum)
-
-\`\`\`
-Sei un instructional designer. Basandoti su questo curriculum: [INCOLLA CURRICULUM]
-
-Sviluppa la lezione "[TITOLO LEZIONE]" del modulo "[TITOLO MODULO]" con questa struttura:
-
-SCRIPT DELLA LEZIONE:
-- Hook di apertura (30 secondi): cattura l'attenzione con una domanda, statistica o storia
-- Obiettivo dichiarato: "Al termine di questa lezione saprai/potrai..."
-- Contenuto principale (diviso in 3-4 blocchi di 3-5 minuti)
-- Recap visivo: bullet point dei concetti chiave
-- Transizione: anticipa la prossima lezione
-
-SLIDE DECK (10-15 slide):
-- Slide 1: Titolo + obiettivo
-- Slide 2-X: Una slide per concetto chiave (regola: max 30 parole per slide)
-- Penultima slide: Recap
-- Ultima slide: Esercizio o call to action
-
-QUIZ (3 domande a scelta multipla):
-- Domanda 1: comprensione (livello ricorda)
-- Domanda 2: applicazione (livello applica)
-- Domanda 3: analisi (livello analizza)
-Per ogni domanda: 4 opzioni, risposta corretta, spiegazione del perché le altre sono sbagliate
-\`\`\`
-
----
-
-## PROMPT PER LA PRICING PAGE DEL CORSO
-
-\`\`\`
-Crea il copy persuasivo per la sales page del corso "[NOME CORSO]" includendo:
-- Headline principale (formula: Risultato + Timeframe + Senza Obiezione principale)
-- 5 bullet point "Cosa imparerai" (formula: Verbo d'azione + Concetto + Beneficio concreto)
-- Sezione "Per chi è questo corso" (3 avatar ideali con nome, lavoro e obiettivo)
-- Sezione "Per chi NON è questo corso" (onestà che aumenta la fiducia)
-- 3 obiezioni principali + risposta per ognuna
-- Garanzia: come formularla per massimizzare le conversioni
-- CTA principale e secondaria
-- FAQ (8 domande con risposta)
-
-Tono: autorevole ma accessibile. Evita hype e superlativo. Parla ai risultati concreti.
-\`\`\`
-
----
-
-## COME USARE AL MEGLIO
-
-**Flusso consigliato:**
-1. Usa il Prompt Principale → ottieni il curriculum completo
-2. Revisiona e aggiusta la struttura dei moduli
-3. Usa il Prompt per Singola Lezione per sviluppare ogni lezione
-4. Usa il Prompt Pricing Page per scrivere la sales page
-5. Usa le varianti specializzate per arricchire esercizi e materiali
-
-**Tips per risultati migliori:**
-- Sii il più specifico possibile sul pubblico target: "sviluppatori con 2+ anni di React che vogliono aggiungere AI alle loro app" è meglio di "sviluppatori"
-- Specifica sempre i tool concreti — il prompt darà esempi molto più utili
-- Se il curriculum è troppo lungo, chiedi: "Riduci a 6 moduli mantenendo solo le lezioni essenziali per raggiungere l'obiettivo principale"
-- Chiedi sempre una seconda versione: "Ora crea una variante per studenti con meno tempo — massimo 4 ore di contenuto totale"`,
     content: `<div style="display:flex;height:800px;width:1200px;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f2f5;overflow:hidden;"><div style="width:240px;min-width:240px;background:#1e1e2e;display:flex;flex-direction:column;height:100%;overflow:hidden;"><div style="padding:24px 20px 20px;border-bottom:1px solid rgba(255,255,255,0.07);"><div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;"><div style="width:32px;height:32px;background:linear-gradient(135deg,#4F46E5,#7C3AED);border-radius:8px;display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M2 8h8M2 12h10" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg></div><span style="color:#fff;font-size:13px;font-weight:700;letter-spacing:0.3px;">CourseFlow</span></div><div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:12px;"><p style="color:rgba(255,255,255,0.45);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;margin:0 0 6px;">Corso attivo</p><p style="color:#fff;font-size:12px;font-weight:600;margin:0;line-height:1.4;">Machine Learning con Python</p><div style="display:flex;align-items:center;gap:6px;margin-top:8px;"><div style="height:3px;flex:1;background:rgba(255,255,255,0.12);border-radius:2px;overflow:hidden;"><div style="height:100%;width:34%;background:#4F46E5;border-radius:2px;"></div></div><span style="color:rgba(255,255,255,0.4);font-size:10px;">34%</span></div></div></div><nav style="flex:1;padding:16px 12px;overflow-y:auto;"><p style="color:rgba(255,255,255,0.3);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;margin:0 0 8px 8px;">Gestione</p><div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;background:rgba(79,70,229,0.18);border:1px solid rgba(79,70,229,0.3);margin-bottom:2px;cursor:pointer;"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1.5" fill="#4F46E5"/><rect x="9" y="1" width="6" height="6" rx="1.5" fill="rgba(79,70,229,0.4)"/><rect x="1" y="9" width="6" height="6" rx="1.5" fill="rgba(79,70,229,0.4)"/><rect x="9" y="9" width="6" height="6" rx="1.5" fill="rgba(79,70,229,0.4)"/></svg><span style="color:#818cf8;font-size:13px;font-weight:600;">Moduli</span></div><div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;margin-bottom:2px;cursor:pointer;"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="6" r="3" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/><path d="M2 14c0-3.314 2.686-5 6-5s6 1.686 6 5" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" stroke-linecap="round"/></svg><span style="color:rgba(255,255,255,0.45);font-size:13px;font-weight:500;">Studenti</span><span style="margin-left:auto;background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.5);font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;">48</span></div><div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;margin-bottom:2px;cursor:pointer;"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 12V8M6 12V5M10 12V7M14 12V3" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" stroke-linecap="round"/></svg><span style="color:rgba(255,255,255,0.45);font-size:13px;font-weight:500;">Analytics</span></div><div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;margin-bottom:2px;cursor:pointer;"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="2" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" stroke-linecap="round"/></svg><span style="color:rgba(255,255,255,0.45);font-size:13px;font-weight:500;">Impostazioni</span></div></nav><div style="padding:16px;border-top:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;gap:10px;"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#4F46E5,#06b6d4);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="color:#fff;font-size:12px;font-weight:700;">MR</span></div><div style="overflow:hidden;"><p style="color:#fff;font-size:12px;font-weight:600;margin:0;">Marco Rossi</p><p style="color:rgba(255,255,255,0.35);font-size:11px;margin:0;">Istruttore</p></div></div></div><div style="flex:1;display:flex;flex-direction:column;overflow:hidden;background:#f0f2f5;"><div style="background:#fff;border-bottom:1px solid #e5e7eb;padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;"><div style="display:flex;align-items:center;gap:8px;"><span style="color:#9ca3af;font-size:13px;">Corsi</span><span style="color:#9ca3af;font-size:13px;">›</span><span style="color:#9ca3af;font-size:13px;">Machine Learning con Python</span><span style="color:#9ca3af;font-size:13px;">›</span><span style="color:#1a1a2e;font-size:13px;font-weight:600;">Curriculum</span></div><div style="display:flex;align-items:center;gap:10px;"><div style="display:flex;align-items:center;gap:6px;background:#f0fdf4;border:1px solid #bbf7d0;padding:6px 12px;border-radius:6px;"><div style="width:6px;height:6px;background:#22c55e;border-radius:50%;"></div><span style="color:#15803d;font-size:12px;font-weight:600;">Pubblicato</span></div></div></div><div style="flex:1;overflow-y:auto;padding:28px;"><div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px;"><div><div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;"><h1 style="font-size:22px;font-weight:700;color:#1a1a2e;margin:0;">Curriculum del Corso</h1><div style="display:flex;align-items:center;gap:5px;background:linear-gradient(135deg,#ede9fe,#ddd6fe);border:1px solid #c4b5fd;padding:4px 10px;border-radius:20px;"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1l1.2 2.5L10 4l-2 2 .5 2.8L6 7.5 3.5 8.8 4 6 2 4l2.8-.5L6 1z" fill="#7C3AED"/></svg><span style="color:#6d28d9;font-size:11px;font-weight:700;">Generato con AI</span></div></div><p style="color:#6b7280;font-size:13px;margin:0;">4 moduli · 14 lezioni · circa 12 ore di contenuto</p></div></div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;"><div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px 16px;"><p style="color:#9ca3af;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px;margin:0 0 4px;">Moduli</p><p style="color:#1a1a2e;font-size:22px;font-weight:700;margin:0;">4</p></div><div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px 16px;"><p style="color:#9ca3af;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px;margin:0 0 4px;">Lezioni</p><p style="color:#1a1a2e;font-size:22px;font-weight:700;margin:0;">14</p></div><div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px 16px;"><p style="color:#9ca3af;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px;margin:0 0 4px;">Durata totale</p><p style="color:#1a1a2e;font-size:22px;font-weight:700;margin:0;">12h</p></div><div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px 16px;"><p style="color:#9ca3af;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px;margin:0 0 4px;">Livello</p><p style="color:#1a1a2e;font-size:22px;font-weight:700;margin:0;">Principiante</p></div></div><div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;margin-bottom:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.04);"><div style="display:flex;align-items:center;padding:16px 20px;border-left:4px solid #4F46E5;gap:14px;"><div style="width:32px;height:32px;background:#ede9fe;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="color:#4F46E5;font-size:13px;font-weight:700;">1</span></div><div style="flex:1;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:3px;"><span style="color:#1a1a2e;font-size:14px;font-weight:700;">Fondamenti di Python per ML</span><span style="background:#ede9fe;color:#6d28d9;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;">3 lezioni</span><span style="background:#f0f9ff;color:#0369a1;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;">2h 30min</span></div><p style="color:#9ca3af;font-size:12px;margin:0;">Ambiente di sviluppo, librerie fondamentali e strutture dati per il machine learning</p></div></div><div style="border-top:1px solid #f3f4f6;padding:4px 0;"><div style="display:flex;align-items:center;gap:12px;padding:12px 20px 12px 60px;border-bottom:1px solid #f9fafb;"><div style="width:26px;height:26px;background:#dcfce7;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5L5 9l4.5-6" stroke="#16a34a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div style="flex:1;"><p style="color:#374151;font-size:13px;font-weight:500;margin:0;">1.1 — Ambienti e librerie (Conda, pip, Jupyter)</p></div><span style="color:#9ca3af;font-size:12px;">45 min</span></div><div style="display:flex;align-items:center;gap:12px;padding:12px 20px 12px 60px;border-bottom:1px solid #f9fafb;"><div style="width:26px;height:26px;background:#dcfce7;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5L5 9l4.5-6" stroke="#16a34a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div style="flex:1;"><p style="color:#374151;font-size:13px;font-weight:500;margin:0;">1.2 — NumPy essentials: array e operazioni vettoriali</p></div><span style="color:#9ca3af;font-size:12px;">55 min</span></div><div style="display:flex;align-items:center;gap:12px;padding:12px 20px 12px 60px;"><div style="width:26px;height:26px;background:#fef3c7;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4" stroke="#d97706" stroke-width="1.5"/></svg></div><div style="flex:1;"><p style="color:#374151;font-size:13px;font-weight:500;margin:0;">1.3 — Pandas per i dati: DataFrame, pulizia e analisi esplorativa</p></div><span style="color:#9ca3af;font-size:12px;">50 min</span></div></div></div><div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;margin-bottom:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.04);"><div style="display:flex;align-items:center;padding:16px 20px;border-left:4px solid #06b6d4;gap:14px;"><div style="width:32px;height:32px;background:#ecfeff;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="color:#0891b2;font-size:13px;font-weight:700;">2</span></div><div style="flex:1;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:3px;"><span style="color:#1a1a2e;font-size:14px;font-weight:700;">Il Primo Modello ML</span><span style="background:#ecfeff;color:#0e7490;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;">3 lezioni</span><span style="background:#f0f9ff;color:#0369a1;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;">3h 15min</span></div><p style="color:#9ca3af;font-size:12px;margin:0;">Regressione lineare, classificazione con scikit-learn e visualizzazione dei risultati</p></div></div></div><div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;margin-bottom:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.04);"><div style="display:flex;align-items:center;padding:16px 20px;border-left:4px solid #f59e0b;gap:14px;"><div style="width:32px;height:32px;background:#fffbeb;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="color:#d97706;font-size:13px;font-weight:700;">3</span></div><div style="flex:1;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:3px;"><span style="color:#1a1a2e;font-size:14px;font-weight:700;">Training e Valutazione dei Modelli</span><span style="background:#fffbeb;color:#b45309;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;">4 lezioni</span><span style="background:#f0f9ff;color:#0369a1;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;">3h 00min</span></div><p style="color:#9ca3af;font-size:12px;margin:0;">Overfitting, cross-validation, metriche di valutazione e ottimizzazione degli iperparametri</p></div></div></div><div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;margin-bottom:16px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.04);"><div style="display:flex;align-items:center;padding:16px 20px;border-left:4px solid #10b981;gap:14px;"><div style="width:32px;height:32px;background:#ecfdf5;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="color:#059669;font-size:13px;font-weight:700;">4</span></div><div style="flex:1;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:3px;"><span style="color:#1a1a2e;font-size:14px;font-weight:700;">Deploy in Produzione</span><span style="background:#ecfdf5;color:#065f46;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;">4 lezioni</span><span style="background:#f0f9ff;color:#0369a1;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;">2h 45min</span></div><p style="color:#9ca3af;font-size:12px;margin:0;">Flask API, containerizzazione con Docker, deploy su cloud e monitoraggio del modello</p></div></div></div><div style="background:linear-gradient(135deg,#1e1e2e,#2d2b55);border-radius:10px;padding:20px 24px;display:flex;align-items:center;gap:20px;"><div style="width:48px;height:48px;background:linear-gradient(135deg,#4F46E5,#7C3AED);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2L13.5 8H20L14.5 12L17 18L11 14.5L5 18L7.5 12L2 8H8.5L11 2Z" fill="#fff" fill-opacity="0.9"/></svg></div><div style="flex:1;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;"><span style="color:#fff;font-size:15px;font-weight:700;">Progetto Capstone</span><span style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.8);font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;">Certificato</span></div><p style="color:rgba(255,255,255,0.55);font-size:12px;margin:0;">Costruisci un classificatore di immagini end-to-end: dal dataset grezzo al deploy su Heroku</p></div><div style="text-align:right;"><p style="color:rgba(255,255,255,0.4);font-size:10px;margin:0 0 2px;">Durata stimata</p><p style="color:#fff;font-size:14px;font-weight:700;margin:0;">8–12 ore</p></div></div></div></div></div>`,
   },
   {
     id: "student-success-story",
     name: "Student Success Story Template",
     description:
-      "AI prompt to write compelling student case studies and testimonials that convert visitors into buyers.",
+      "Case study editor and viewer with student profiles, metrics dashboard and social sharing tools.",
     category: "ui",
-    downloadType: "prompt",
     price: 799,
     stripePriceId: "price_1TD5Q9BoWNgrJbiyJGqgvhe0",
     tags: ["elearning", "testimonial", "case study", "social proof", "copywriting"],
     downloads: 0,
     isNew: true,
-    promptText: `# Student Success Story Template
-
-## Trasforma i risultati dei tuoi studenti in social proof che vende
-
-Un case study ben scritto vale più di qualsiasi copy pubblicitario. Questo template ti guida a raccogliere le informazioni giuste e a formattarle in storie che convertono.
-
----
-
-## QUESTIONARIO PER LO STUDENTE
-
-Prima di scrivere il case study, raccogli questi dati con un Google Form o Typeform:
-
-\`\`\`
-1. Come ti chiami e cosa facevi PRIMA del corso? (ruolo, azienda/settore, anni di esperienza)
-
-2. Qual era il tuo problema principale o obiettivo quando ti sei iscritto?
-
-3. Cosa ti ha convinto a scegliere questo corso rispetto ad altri?
-
-4. Descrivi un momento specifico del corso che ha fatto "click" per te.
-
-5. Qual è il risultato più concreto che hai ottenuto dopo il corso?
-   (es. nuovo lavoro, aumento di stipendio, progetto lanciato, cliente acquisito)
-
-6. Quanto tempo ci è voluto per ottenere quel risultato?
-
-7. C'è stato un ostacolo che pensavi fosse insormontabile prima del corso?
-   Come lo hai superato?
-
-8. Cosa diresti a qualcuno che sta valutando di iscriversi?
-
-9. Hai un numero concreto da condividere?
-   (es. "ho guadagnato €X in più", "ho risparmiato X ore a settimana", "ho aumentato le conversioni del X%")
-
-10. Possiamo usare nome, cognome, foto e ruolo attuale nella nostra marketing?
-\`\`\`
-
----
-
-## PROMPT PRINCIPALE — SCRIVI IL CASE STUDY
-
-\`\`\`
-Sei un copywriter specializzato in success story per corsi online. Il tuo copy è onesto, concreto e non esagerato.
-
-Scrivi un case study completo per il corso "[NOME CORSO]" basandoti su queste risposte dello studente:
-
-RISPOSTE STUDENTE:
-[INCOLLA LE RISPOSTE AL QUESTIONARIO]
-
-Struttura il case study così:
-
-1. HEADLINE (formula: [Nome] + risultato specifico + timeframe)
-   Esempio: "Come Giulia ha trovato lavoro come AI Engineer in 3 settimane dopo 8 anni come contabile"
-
-2. IL CONTESTO (3-4 righe)
-   Chi era lo studente prima. Situazione di partenza. Frustrazione principale.
-
-3. LA SVOLTA (3-4 righe)
-   Cosa lo ha portato a cercare una soluzione. Perché ha scelto questo corso.
-
-4. IL PERCORSO (5-6 righe)
-   Come ha affrontato il corso. Un momento specifico e memorabile. Come ha superato le difficoltà.
-
-5. I RISULTATI (con numeri concreti, in grassetto)
-   Risultati tangibili. Cambiamenti nella vita/carriera. Timeline precisa.
-
-6. LA CITAZIONE CHIAVE (1-2 frasi potenti, da usare come pull quote)
-   La frase più memorabile della storia.
-
-7. IL CONSIGLIO FINALE (1-2 righe)
-   Cosa direbbe a chi sta valutando il corso.
-
-Tono: autentico, specifico, realistico. Zero iperbole. Usa la prima persona per le citazioni.
-Lunghezza: 300-400 parole + citazione + headline
-\`\`\`
-
----
-
-## VERSIONI BREVI (per social media)
-
-### LinkedIn (1200 caratteri)
-\`\`\`
-Riscrivi questo case study in formato LinkedIn post:
-[INCOLLA CASE STUDY LUNGO]
-
-Struttura:
-- Riga 1: Fact/statistica sorprendente o domanda provocatoria (hook per "see more")
-- Righe 2-4: La storia in pillole
-- Righe 5-7: I risultati con numeri
-- Riga 8-9: La lezione universale applicabile a chi legge
-- CTA finale soft: link al corso o invito a commentare
-
-Max 1200 caratteri. Usa emoji sparingly (max 3). No hashtag nel testo.
-\`\`\`
-
-### Instagram Caption (300 caratteri)
-\`\`\`
-Scrivi una caption Instagram per questo case study:
-[INCOLLA CASE STUDY LUNGO]
-
-Struttura: Hook (riga 1) → Storia in 3 righe → Risultato → CTA + 5 hashtag rilevanti
-Max 300 caratteri prima del "more". Tono ispirazionale ma credibile.
-\`\`\`
-
-### Video Testimonial Script (60 secondi)
-\`\`\`
-Scrivi uno script per un video testimonial di 60 secondi basato su questo case study:
-[INCOLLA CASE STUDY LUNGO]
-
-Struttura:
-- 0-5 sec: Chi sono (nome, ruolo attuale)
-- 5-15 sec: Dov'ero prima (problema/situazione)
-- 15-35 sec: Il corso e la svolta (momento specifico)
-- 35-50 sec: I risultati (con numeri)
-- 50-60 sec: Raccomandazione diretta alla camera
-
-Scrivi in prima persona, linguaggio parlato, frasi brevi. Segna dove fare pause naturali.
-\`\`\`
-
----
-
-## EMAIL DI RICHIESTA TESTIMONIANZA
-
-\`\`\`
-Oggetto: [Nome], posso raccontare la tua storia? 🎓
-
-Ciao [Nome],
-
-Ho visto i tuoi progressi nel corso e devo dirti una cosa: sei esattamente il tipo di studente di cui vado più fiero.
-
-[Menzione specifica di un risultato o contributo dello studente]
-
-Volevo chiederti un favore: ti andrebbe di condividere la tua esperienza con chi sta valutando di iscriversi?
-
-Non ti chiedo un testo lungo — basta rispondere a 3-4 domande semplici (ci vogliono 10 minuti):
-👉 [LINK AL FORM]
-
-In cambio, ti offro:
-✅ 1 mese gratis di accesso alla community premium
-✅ Il tuo profilo LinkedIn menzionato nella nostra newsletter (30k iscritti)
-✅ Un certificato di "Alumni Featured" da aggiungere al CV
-
-La tua storia potrebbe aiutare qualcuno che si trova esattamente dove eri tu 6 mesi fa.
-
-Grazie mille,
-[Il tuo nome]
-
-P.S. Se preferisci farlo via video (anche con il telefono), ti mando uno script pronto — ancora più semplice!
-\`\`\``,
     content: `<div style="display:flex;height:100vh;font-family:system-ui,-apple-system,sans-serif;background:#f5f5f7;overflow:hidden;"><aside style="width:220px;min-width:220px;background:#1e1e2e;display:flex;flex-direction:column;overflow:hidden;"><div style="padding:24px 20px 20px;border-bottom:1px solid rgba(255,255,255,0.07);"><div style="display:flex;align-items:center;gap:9px;"><div style="width:30px;height:30px;background:#E67E22;border-radius:7px;display:flex;align-items:center;justify-content:center;"><span style="color:#fff;font-weight:800;font-size:14px;">S</span></div><span style="color:#fff;font-weight:700;font-size:16px;letter-spacing:-0.3px;">StoryLab</span></div></div><nav style="padding:16px 12px;flex:1;display:flex;flex-direction:column;gap:4px;"><div style="padding:9px 12px;border-radius:8px;background:rgba(230,126,34,0.15);border:1px solid rgba(230,126,34,0.25);cursor:pointer;"><div style="display:flex;align-items:center;gap:10px;"><svg width="15" height="15" fill="none" stroke="#E67E22" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span style="color:#E67E22;font-size:13px;font-weight:600;">Case Studies</span></div></div><div style="padding:9px 12px;border-radius:8px;cursor:pointer;"><div style="display:flex;align-items:center;gap:10px;"><svg width="15" height="15" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><span style="color:rgba(255,255,255,0.45);font-size:13px;font-weight:500;">Testimonianze</span></div></div><div style="padding:9px 12px;border-radius:8px;cursor:pointer;"><div style="display:flex;align-items:center;gap:10px;"><svg width="15" height="15" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="2" viewBox="0 0 24 24"><path d="M22 4s-2.5 1.5-7 4c-4.5 2.5-9 3-13 3"/></svg><span style="color:rgba(255,255,255,0.45);font-size:13px;font-weight:500;">Social Media</span></div></div><div style="padding:9px 12px;border-radius:8px;cursor:pointer;"><div style="display:flex;align-items:center;gap:10px;"><svg width="15" height="15" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg><span style="color:rgba(255,255,255,0.45);font-size:13px;font-weight:500;">Email</span></div></div></nav><div style="padding:16px 20px;border-top:1px solid rgba(255,255,255,0.07);"><div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:5px 10px;"><div style="width:6px;height:6px;background:#4ade80;border-radius:50%;box-shadow:0 0 6px #4ade80;"></div><span style="color:rgba(255,255,255,0.5);font-size:11px;font-weight:500;">Creato con AI</span></div></div></aside><main style="flex:1;overflow-y:auto;background:#fff;"><div style="display:flex;align-items:center;justify-content:space-between;padding:16px 32px;border-bottom:1px solid #f0f0f0;background:#fff;position:sticky;top:0;z-index:10;"><div style="display:flex;align-items:center;gap:8px;"><span style="color:#9ca3af;font-size:13px;">Case Studies</span><span style="color:#d1d5db;">›</span><span style="color:#374151;font-size:13px;font-weight:600;">Giulia Romano</span></div><div style="display:flex;align-items:center;gap:10px;"><button style="padding:8px 14px;border:1px solid #e5e7eb;border-radius:7px;background:#fff;color:#6b7280;font-size:13px;font-weight:500;cursor:pointer;">Anteprima</button><button style="padding:8px 18px;border:none;border-radius:7px;background:#16a34a;color:#fff;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 1px 4px rgba(22,163,74,0.3);">Pubblica</button></div></div><div style="max-width:720px;margin:0 auto;padding:40px 32px 60px;"><div style="margin-bottom:16px;"><span style="display:inline-block;background:#fff7ed;color:#E67E22;font-size:11px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;padding:4px 10px;border-radius:20px;border:1px solid rgba(230,126,34,0.2);">Case Study</span></div><h1 style="font-size:28px;font-weight:800;color:#111827;line-height:1.25;letter-spacing:-0.5px;margin:0 0 24px;">Come Giulia ha trovato lavoro come AI Engineer in 3 settimane</h1><div style="display:flex;align-items:center;gap:14px;padding:16px 20px;background:#f9fafb;border:1px solid #f0f0f0;border-radius:10px;margin-bottom:36px;"><div style="width:46px;height:46px;background:linear-gradient(135deg,#E67E22,#f59e0b);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="color:#fff;font-weight:700;font-size:15px;">GR</span></div><div><div style="font-weight:700;color:#111827;font-size:15px;">Giulia Romano</div><div style="color:#6b7280;font-size:13px;margin-top:2px;">Ex contabile → AI Engineer @ TechCorp</div></div></div><section style="margin-bottom:36px;"><h2 style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#E67E22;margin:0 0 12px;">Il Contesto</h2><div style="border-left:3px solid #f0f0f0;padding-left:18px;display:flex;flex-direction:column;gap:8px;"><p style="margin:0;color:#374151;font-size:15px;line-height:1.65;">Giulia lavorava da sei anni come contabile in uno studio professionale a Milano. Nonostante la stabilità economica, sentiva di non esprimere il suo pieno potenziale e desiderava un ruolo più vicino alla tecnologia.</p><p style="margin:0;color:#374151;font-size:15px;line-height:1.65;">Aveva iniziato a esplorare il mondo dell'intelligenza artificiale nel tempo libero, completando corsi online e sperimentando con Python e le API di OpenAI, senza però sapere come trasformare questa passione in una carriera concreta.</p><p style="margin:0;color:#374151;font-size:15px;line-height:1.65;">La svolta è arrivata quando ha deciso di seguire un percorso strutturato, con obiettivi misurabili e una strategia di networking mirata nel settore tech.</p></div></section><section style="margin-bottom:36px;"><h2 style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#E67E22;margin:0 0 16px;">I Risultati</h2><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;"><div style="padding:20px;border:1px solid #f0f0f0;border-radius:10px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,0.04);"><div style="font-size:26px;font-weight:800;color:#E67E22;letter-spacing:-1px;">+180%</div><div style="font-size:12px;color:#6b7280;margin-top:4px;font-weight:500;">aumento stipendio</div></div><div style="padding:20px;border:1px solid #f0f0f0;border-radius:10px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,0.04);"><div style="font-size:26px;font-weight:800;color:#E67E22;letter-spacing:-1px;">3 sett.</div><div style="font-size:12px;color:#6b7280;margin-top:4px;font-weight:500;">dalla ricerca all'offerta</div></div><div style="padding:20px;border:1px solid #f0f0f0;border-radius:10px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,0.04);"><div style="font-size:26px;font-weight:800;color:#E67E22;letter-spacing:-1px;">12</div><div style="font-size:12px;color:#6b7280;margin-top:4px;font-weight:500;">colloqui ottenuti</div></div></div></section><section style="margin-bottom:40px;"><h2 style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#E67E22;margin:0 0 16px;">La Citazione</h2><blockquote style="margin:0;padding:20px 24px;border-left:4px solid #E67E22;background:#fff7ed;border-radius:0 10px 10px 0;"><p style="margin:0 0 12px;color:#1f2937;font-size:16px;font-style:italic;line-height:1.7;">"Non avrei mai immaginato che la mia esperienza in contabilità potesse diventare un vantaggio nel mondo AI. Oggi sviluppo modelli per analisi finanziaria e ogni giorno mi sveglio entusiasta di andare al lavoro."</p><footer style="display:flex;align-items:center;gap:8px;"><div style="width:24px;height:24px;background:linear-gradient(135deg,#E67E22,#f59e0b);border-radius:50%;display:flex;align-items:center;justify-content:center;"><span style="color:#fff;font-size:10px;font-weight:700;">GR</span></div><cite style="font-style:normal;color:#E67E22;font-size:13px;font-weight:600;">Giulia Romano</cite><span style="color:#9ca3af;font-size:13px;">AI Engineer @ TechCorp</span></footer></blockquote></section><hr style="border:none;border-top:1px solid #f0f0f0;margin-bottom:32px;"><div><p style="color:#6b7280;font-size:13px;font-weight:500;margin:0 0 14px;">Condividi questa storia:</p><div style="display:flex;align-items:center;gap:10px;"><button style="display:flex;align-items:center;gap:8px;padding:9px 16px;border-radius:8px;border:1px solid #e5e7eb;background:#fff;color:#374151;font-size:13px;font-weight:500;cursor:pointer;">LinkedIn</button><button style="display:flex;align-items:center;gap:8px;padding:9px 16px;border-radius:8px;border:1px solid #e5e7eb;background:#fff;color:#374151;font-size:13px;font-weight:500;cursor:pointer;">Instagram</button><button style="display:flex;align-items:center;gap:8px;padding:9px 16px;border-radius:8px;border:1px solid #e5e7eb;background:#fff;color:#374151;font-size:13px;font-weight:500;cursor:pointer;">Email</button></div></div></div></main></div>`,
   },
   {
     id: "course-email-welcome",
     name: "Course Welcome Email Sequence",
     description:
-      "5-part onboarding email sequence for new students: from purchase confirmation to first quick win.",
+      "5-part onboarding email dashboard with timeline, engagement tracking and customizable email templates.",
     category: "ui",
-    downloadType: "prompt",
     price: 1299,
     stripePriceId: "price_1TD5Q9BoWNgrJbiyg4t1Uxfn",
     tags: ["elearning", "email", "onboarding", "sequence", "student retention"],
     downloads: 0,
     isNew: true,
-    promptText: `# Course Welcome Email Sequence
-
-## 5 email per trasformare un acquirente in uno studente attivo (e ridurre i rimborsi)
-
-Il 60% degli studenti che abbandonano un corso lo fa nella prima settimana. Questa sequenza di onboarding li accompagna nei momenti critici, aumenta l'engagement e riduce i chargeback.
-
----
-
-## SEQUENZA COMPLETA (5 EMAIL)
-
-### EMAIL 1 — Conferma Acquisto
-**Timing: Immediatamente dopo l'acquisto**
-
-\`\`\`
-OGGETTO: ✅ Benvenuto in [NOME CORSO], [NOME]!
-
-Ciao [NOME],
-
-Il tuo accesso è attivo. Benvenuto in [NOME CORSO].
-
-Prima di entrare nella piattaforma, voglio dirti una cosa importante:
-
-**Hai preso la decisione giusta.**
-
-Non perché voglio farti sentire bene — ma perché conosco già il tuo profilo. Hai [caratteristica del target] e vuoi [obiettivo del corso]. Questo corso è stato costruito esattamente per te.
-
-Cosa fare adesso:
-
-1. Accedi alla piattaforma → [LINK]
-2. Inizia dal Modulo 0: "Orientamento" (15 minuti — fondamentale)
-3. Unisciti alla community privata → [LINK SLACK/DISCORD]
-
-Una cosa sola per oggi: fai il login e guarda la prima lezione. Non devi finire il modulo. Non devi prendere appunti. Solo 15 minuti.
-
-I grandi risultati iniziano con piccoli passi.
-
-A presto,
-[NOME ISTRUTTORE]
-
-P.S. Hai 30 giorni di garanzia soddisfatti o rimborsati. Non devi preoccuparti di niente — concentrati solo sul corso.
-
----
-📧 Per supporto: [email supporto]
-🔗 Accedi al corso: [link]
-\`\`\`
-
----
-
-### EMAIL 2 — Il Tuo Piano di Studio
-**Timing: Giorno 1 (24 ore dopo l'acquisto)**
-
-\`\`\`
-OGGETTO: Il piano di studio personalizzato per te, [NOME]
-
-Ciao [NOME],
-
-Ieri hai fatto il primo passo. Oggi ti aiuto a non perderti.
-
-Il corso è strutturato in [N] moduli. Se lo affronti "come viene", rischi di sentirti sopraffatto o di saltare parti fondamentali.
-
-Ecco il piano che raccomando in base al tuo obiettivo ([OBIETTIVO PRINCIPALE]):
-
-**Piano A — 30 minuti al giorno (completi in 6 settimane)**
-- Lun/Mer/Ven: 1 lezione + esercizio
-- Mar/Gio: review e pratica
-- Sab: mini-progetto del modulo
-- Dom: riposo (il cervello consolida di notte)
-
-**Piano B — Weekend intensivo (completi in 4 weekend)**
-- Sabato: 3 ore (modulo completo)
-- Domenica: 2 ore (esercizi + progetto)
-
-Scegli il piano che si adatta alla tua vita. Non esiste quello giusto — esiste quello che riesci a rispettare.
-
-Una cosa che NON devi fare: guardare le lezioni passive senza fare gli esercizi. Il 90% dell'apprendimento avviene mentre *fai*, non mentre *guardi*.
-
-Hai già scelto il tuo piano? Rispondimi con "Piano A" o "Piano B" — voglio sapere come ti sta andando tra una settimana.
-
-[NOME ISTRUTTORE]
-\`\`\`
-
----
-
-### EMAIL 3 — Il Primo Quick Win
-**Timing: Giorno 3**
-
-\`\`\`
-OGGETTO: Fai QUESTO oggi (richiede 20 minuti)
-
-Ciao [NOME],
-
-Sono passati 3 giorni. Voglio darti un successo rapido.
-
-Anche se non hai ancora aperto il corso (succede — nessun giudizio), questo esercizio ti mostrerà che sei già capace di più di quanto pensi.
-
-**L'esercizio dei 20 minuti:**
-
-[INSERISCI QUI UN ESERCIZIO PRATICO E BREVE DEL MODULO 1 — es. "Apri il terminale e scrivi questo codice... vedrai questo output... hai appena fatto X!"]
-
-Perché funziona: quando il cervello vede un risultato concreto, la motivazione aumenta. Non stai imparando "in astratto" — stai già *facendo*.
-
-Prova adesso e dimmi come va.
-
-[NOME ISTRUTTORE]
-
-P.S. Se sei bloccato su qualsiasi setup tecnico, rispondimi a questa email. Risolviamo insieme in 5 minuti.
-\`\`\`
-
----
-
-### EMAIL 4 — Supera il Momento Difficile
-**Timing: Giorno 7**
-
-\`\`\`
-OGGETTO: Ti dico una cosa che nessun corso ti dirà mai
-
-Ciao [NOME],
-
-Siamo alla fine della prima settimana.
-
-Statisticamente, questa è la settimana in cui il 40% degli studenti rallenta o si ferma. Non perché il corso sia troppo difficile — ma per un motivo molto più semplice: la vita.
-
-Riunioni a sorpresa. Famiglia. Stanchezza. Il solito "comincio domani".
-
-Se è quello che è successo anche a te: normale. Aspettato. Umano.
-
-Ecco cosa fare adesso:
-
-**Non recuperare tutto. Riparti da dove eri.**
-
-Apri la piattaforma. Vai all'ultima lezione che hai guardato. Clicca play. Solo quello.
-
-Ogni grande cambiamento si costruisce così: fermata, ripartenza, fermata, ripartenza. Non è un fallimento — è il processo.
-
-Una cosa che mi ha aiutato: rendere il corso *impossibile* da dimenticare. Aggiungi "[NOME CORSO] — 20 min" nel tuo calendario per 3 volte a settimana. Non "quando hai voglia" — in agenda, come una riunione.
-
-Sei a un modulo da qualcosa che cambierà il tuo modo di lavorare.
-
-[NOME ISTRUTTORE]
-\`\`\`
-
----
-
-### EMAIL 5 — Community & Prossimi Passi
-**Timing: Giorno 14**
-
-\`\`\`
-OGGETTO: Hai fatto 2 settimane — ecco cosa viene dopo
-
-Ciao [NOME],
-
-Due settimane. Come stai andando?
-
-Se hai completato almeno 2 moduli: ottimo lavoro. Sei nel top 30% degli studenti più attivi.
-
-Se sei indietro: nessun problema. Il corso non scade. Hai accesso a vita.
-
-**Tre risorse che forse non hai ancora esplorato:**
-
-1. **La Community** → [LINK]
-   350+ studenti attivi. Ogni giorno qualcuno posta il proprio progetto e riceve feedback. Anche tu puoi farlo — anche se sei "solo all'inizio".
-
-2. **Le sessioni live mensili** → [LINK CALENDARIO]
-   Ogni primo mercoledì del mese faccio una sessione Q&A di 60 minuti. La prossima è il [DATA]. Porta le tue domande.
-
-3. **Il Progetto Capstone**
-   Inizia a pensarci già dal Modulo 3. Gli studenti che finiscono il progetto trovano lavoro/clienti 3x più velocemente di chi non lo fa.
-
-Un'ultima cosa: se il corso ti sta dando valore, ti chiedo un piccolo favore. Lascia una recensione sulla piattaforma. Non per me — ma per il prossimo studente che è esattamente dove eri tu due settimane fa.
-
-Grazie per fidarti del percorso.
-
-[NOME ISTRUTTORE]
-
-P.S. Nel prossimo mese aggiungerò [NUOVO CONTENUTO/MODULO BONUS]. Tutti gli iscritti attuali lo riceveranno gratis.
-\`\`\`
-
----
-
-## COME IMPLEMENTARE LA SEQUENZA
-
-**Strumenti consigliati:**
-- **Semplice**: Kit.com o MailerLite — automation visuale, free fino a 1.000 iscritti
-- **Avanzato**: ActiveCampaign — segmentazione per comportamento (ha aperto? ha cliccato?)
-- **Integrato**: Kajabi o Teachable — la sequenza si attiva automaticamente all'iscrizione
-
-**Personalizzazioni consigliate:**
-- Aggiungi un tag "Piano A" / "Piano B" basato sulla risposta all'Email 2
-- Se lo studente apre tutte le email ma non accede alla piattaforma → invia un'email extra con supporto diretto
-- Se lo studente completa il Modulo 1 entro 3 giorni → invia un'email di congratulazioni non prevista (sorpresa positiva)
-
-**KPI da monitorare:**
-- Open rate (benchmark: >40% per corsi online)
-- Click rate sulla piattaforma (benchmark: >15%)
-- Completion rate Modulo 1 entro 7 giorni (benchmark: >50%)
-- Richieste di rimborso nella prima settimana (target: <5%)`,
     content: `<div style="display:flex;height:800px;width:1200px;font-family:system-ui,-apple-system,sans-serif;overflow:hidden;"><div style="width:240px;min-width:240px;background:#1e1e2e;display:flex;flex-direction:column;height:100%;color:#cdd6f4;"><div style="padding:24px 20px 20px;border-bottom:1px solid #313244;"><div style="display:flex;align-items:center;gap:10px;"><div style="width:32px;height:32px;background:linear-gradient(135deg,#10B981,#059669);border-radius:8px;display:flex;align-items:center;justify-content:center;"><span style="color:#fff;font-size:16px;font-weight:800;">A</span></div><span style="font-size:18px;font-weight:700;color:#cdd6f4;letter-spacing:-0.3px;">AutoMail</span></div></div><nav style="padding:16px 12px;flex:1;"><div style="margin-bottom:4px;"><div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;background:#313244;color:#10B981;cursor:pointer;"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg><span style="font-size:14px;font-weight:600;">Sequenze</span></div></div><div style="margin-bottom:4px;"><div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;color:#6c7086;cursor:pointer;"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><span style="font-size:14px;font-weight:500;">Contatti</span></div></div><div style="margin-bottom:4px;"><div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;color:#6c7086;cursor:pointer;"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span style="font-size:14px;font-weight:500;">Analytics</span></div></div></nav><div style="padding:16px 20px;border-top:1px solid #313244;"><div style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:#1a2e25;border-radius:8px;border:1px solid #1a3d2b;"><div style="width:8px;height:8px;border-radius:50%;background:#10B981;box-shadow:0 0 6px #10B981;flex-shrink:0;"></div><div><div style="font-size:11px;font-weight:600;color:#10B981;">Sequenza attiva</div><div style="font-size:10px;color:#4a5568;margin-top:1px;">847 iscritti</div></div></div></div></div><div style="flex:1;background:#f8f9fa;display:flex;flex-direction:column;overflow:hidden;"><div style="background:#fff;border-bottom:1px solid #e5e7eb;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;"><div><div style="font-size:11px;color:#9ca3af;text-transform:uppercase;letter-spacing:0.6px;font-weight:600;margin-bottom:2px;">Sequenza email</div><div style="font-size:18px;font-weight:700;color:#111827;letter-spacing:-0.3px;">Onboarding Nuovo Studente</div></div><div style="display:flex;align-items:center;gap:10px;"><div style="display:flex;align-items:center;gap:6px;padding:5px 12px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:20px;"><div style="width:7px;height:7px;border-radius:50%;background:#10B981;"></div><span style="font-size:12px;font-weight:600;color:#059669;">Attiva</span></div><div style="padding:5px 12px;background:#f3f4f6;border-radius:20px;font-size:12px;font-weight:600;color:#6b7280;">5 email</div></div></div><div style="flex:1;display:flex;overflow:hidden;"><div style="flex:1;overflow-y:auto;padding:24px 24px 24px 32px;"><div style="display:flex;gap:16px;margin-bottom:24px;"><div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px 18px;flex:1;text-align:center;"><div style="font-size:22px;font-weight:800;color:#111827;">847</div><div style="font-size:11px;color:#9ca3af;margin-top:2px;">Iscritti totali</div></div><div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px 18px;flex:1;text-align:center;"><div style="font-size:22px;font-weight:800;color:#10B981;">59.6%</div><div style="font-size:11px;color:#9ca3af;margin-top:2px;">Open rate medio</div></div><div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px 18px;flex:1;text-align:center;"><div style="font-size:22px;font-weight:800;color:#3b82f6;">18.4%</div><div style="font-size:11px;color:#9ca3af;margin-top:2px;">Click rate medio</div></div></div><div style="position:relative;display:flex;gap:0;margin-bottom:0;"><div style="display:flex;flex-direction:column;align-items:center;width:40px;flex-shrink:0;"><div style="width:14px;height:14px;border-radius:50%;background:#10B981;border:2px solid #fff;box-shadow:0 0 0 2px #10B981;z-index:1;margin-top:20px;flex-shrink:0;"></div><div style="width:2px;flex:1;border-left:2px dashed #d1d5db;margin-top:4px;"></div></div><div style="flex:1;background:#fff;border:1px solid #e5e7eb;border-left:4px solid #10B981;border-radius:10px;padding:14px 16px;margin-left:8px;margin-top:12px;box-shadow:0 1px 4px rgba(0,0,0,0.06);"><div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;"><div><div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;"><span style="font-size:14px;">✅</span><span style="font-size:14px;font-weight:700;color:#111827;">Benvenuto</span><span style="font-size:10px;padding:2px 8px;background:#f0fdf4;color:#059669;border-radius:10px;font-weight:600;border:1px solid #bbf7d0;">Inviata</span></div><div style="font-size:12px;color:#6b7280;">Oggetto: "Benvenuto nel corso, [Nome]!"</div></div><div style="text-align:right;flex-shrink:0;margin-left:12px;"><div style="font-size:11px;color:#9ca3af;">Timing</div><div style="font-size:13px;font-weight:700;color:#374151;">Immediata</div></div></div><div style="display:flex;gap:16px;"><div style="flex:1;"><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#6b7280;">Open rate</span><span style="font-size:11px;font-weight:700;color:#10B981;">78%</span></div><div style="height:5px;background:#e5e7eb;border-radius:3px;overflow:hidden;"><div style="height:100%;width:78%;background:#10B981;border-radius:3px;"></div></div></div><div style="flex:1;"><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#6b7280;">Click rate</span><span style="font-size:11px;font-weight:700;color:#3b82f6;">24%</span></div><div style="height:5px;background:#e5e7eb;border-radius:3px;overflow:hidden;"><div style="height:100%;width:24%;background:#3b82f6;border-radius:3px;"></div></div></div></div></div></div><div style="position:relative;display:flex;gap:0;"><div style="display:flex;flex-direction:column;align-items:center;width:40px;flex-shrink:0;"><div style="width:2px;border-left:2px dashed #d1d5db;height:12px;"></div><div style="width:14px;height:14px;border-radius:50%;background:#10B981;border:2px solid #fff;box-shadow:0 0 0 2px #10B981;z-index:1;flex-shrink:0;"></div><div style="width:2px;flex:1;border-left:2px dashed #d1d5db;margin-top:4px;"></div></div><div style="flex:1;background:#fff;border:1px solid #e5e7eb;border-left:4px solid #10B981;border-radius:10px;padding:14px 16px;margin-left:8px;box-shadow:0 1px 4px rgba(0,0,0,0.06);"><div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;"><div><div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;"><span style="font-size:14px;">📋</span><span style="font-size:14px;font-weight:700;color:#111827;">Piano di Studio</span><span style="font-size:10px;padding:2px 8px;background:#f0fdf4;color:#059669;border-radius:10px;font-weight:600;border:1px solid #bbf7d0;">Inviata</span></div><div style="font-size:12px;color:#6b7280;">Oggetto: "Il tuo piano personalizzato è pronto"</div></div><div style="text-align:right;flex-shrink:0;margin-left:12px;"><div style="font-size:11px;color:#9ca3af;">Timing</div><div style="font-size:13px;font-weight:700;color:#374151;">+24 ore</div></div></div><div style="display:flex;gap:16px;"><div style="flex:1;"><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#6b7280;">Open rate</span><span style="font-size:11px;font-weight:700;color:#10B981;">65%</span></div><div style="height:5px;background:#e5e7eb;border-radius:3px;overflow:hidden;"><div style="height:100%;width:65%;background:#10B981;border-radius:3px;"></div></div></div><div style="flex:1;"><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#6b7280;">Click rate</span><span style="font-size:11px;font-weight:700;color:#3b82f6;">19%</span></div><div style="height:5px;background:#e5e7eb;border-radius:3px;overflow:hidden;"><div style="height:100%;width:19%;background:#3b82f6;border-radius:3px;"></div></div></div></div></div></div><div style="position:relative;display:flex;gap:0;"><div style="display:flex;flex-direction:column;align-items:center;width:40px;flex-shrink:0;"><div style="width:2px;border-left:2px dashed #d1d5db;height:12px;"></div><div style="width:14px;height:14px;border-radius:50%;background:#10B981;border:2px solid #fff;box-shadow:0 0 0 2px #10B981;z-index:1;flex-shrink:0;"></div><div style="width:2px;flex:1;border-left:2px dashed #d1d5db;margin-top:4px;"></div></div><div style="flex:1;background:#fff;border:1px solid #e5e7eb;border-left:4px solid #10B981;border-radius:10px;padding:14px 16px;margin-left:8px;box-shadow:0 1px 4px rgba(0,0,0,0.06);"><div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;"><div><div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;"><span style="font-size:14px;">🎯</span><span style="font-size:14px;font-weight:700;color:#111827;">Quick Win</span><span style="font-size:10px;padding:2px 8px;background:#f0fdf4;color:#059669;border-radius:10px;font-weight:600;border:1px solid #bbf7d0;">Inviata</span></div><div style="font-size:12px;color:#6b7280;">Oggetto: "Completa questo esercizio in 10 min"</div></div><div style="text-align:right;flex-shrink:0;margin-left:12px;"><div style="font-size:11px;color:#9ca3af;">Timing</div><div style="font-size:13px;font-weight:700;color:#374151;">+3 giorni</div></div></div><div style="display:flex;gap:16px;"><div style="flex:1;"><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#6b7280;">Open rate</span><span style="font-size:11px;font-weight:700;color:#10B981;">58%</span></div><div style="height:5px;background:#e5e7eb;border-radius:3px;overflow:hidden;"><div style="height:100%;width:58%;background:#10B981;border-radius:3px;"></div></div></div><div style="flex:1;"><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#6b7280;">Click rate</span><span style="font-size:11px;font-weight:700;color:#3b82f6;">21%</span></div><div style="height:5px;background:#e5e7eb;border-radius:3px;overflow:hidden;"><div style="height:100%;width:21%;background:#3b82f6;border-radius:3px;"></div></div></div></div></div></div><div style="position:relative;display:flex;gap:0;"><div style="display:flex;flex-direction:column;align-items:center;width:40px;flex-shrink:0;"><div style="width:2px;border-left:2px dashed #d1d5db;height:12px;"></div><div style="width:14px;height:14px;border-radius:50%;background:#f59e0b;border:2px solid #fff;box-shadow:0 0 0 2px #f59e0b;z-index:1;flex-shrink:0;"></div><div style="width:2px;flex:1;border-left:2px dashed #d1d5db;margin-top:4px;"></div></div><div style="flex:1;background:#fff;border:1px solid #e5e7eb;border-left:4px solid #f59e0b;border-radius:10px;padding:14px 16px;margin-left:8px;box-shadow:0 1px 4px rgba(0,0,0,0.06);"><div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;"><div><div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;"><span style="font-size:14px;">💪</span><span style="font-size:14px;font-weight:700;color:#111827;">Supera il Blocco</span><span style="font-size:10px;padding:2px 8px;background:#fffbeb;color:#d97706;border-radius:10px;font-weight:600;border:1px solid #fde68a;">In corso</span></div><div style="font-size:12px;color:#6b7280;">Oggetto: "Bloccato? Ecco come superare ogni ostacolo"</div></div><div style="text-align:right;flex-shrink:0;margin-left:12px;"><div style="font-size:11px;color:#9ca3af;">Timing</div><div style="font-size:13px;font-weight:700;color:#374151;">+7 giorni</div></div></div><div style="display:flex;gap:16px;"><div style="flex:1;"><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#6b7280;">Open rate</span><span style="font-size:11px;font-weight:700;color:#f59e0b;">52%</span></div><div style="height:5px;background:#e5e7eb;border-radius:3px;overflow:hidden;"><div style="height:100%;width:52%;background:#f59e0b;border-radius:3px;"></div></div></div><div style="flex:1;"><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#6b7280;">Click rate</span><span style="font-size:11px;font-weight:700;color:#3b82f6;">15%</span></div><div style="height:5px;background:#e5e7eb;border-radius:3px;overflow:hidden;"><div style="height:100%;width:15%;background:#3b82f6;border-radius:3px;"></div></div></div></div></div></div><div style="position:relative;display:flex;gap:0;margin-bottom:24px;"><div style="display:flex;flex-direction:column;align-items:center;width:40px;flex-shrink:0;"><div style="width:2px;border-left:2px dashed #d1d5db;height:12px;"></div><div style="width:14px;height:14px;border-radius:50%;background:#3b82f6;border:2px solid #fff;box-shadow:0 0 0 2px #3b82f6;z-index:1;flex-shrink:0;"></div></div><div style="flex:1;background:#fff;border:1px solid #e5e7eb;border-left:4px solid #3b82f6;border-radius:10px;padding:14px 16px;margin-left:8px;box-shadow:0 1px 4px rgba(0,0,0,0.06);"><div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;"><div><div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;"><span style="font-size:14px;">🤝</span><span style="font-size:14px;font-weight:700;color:#111827;">Community</span><span style="font-size:10px;padding:2px 8px;background:#eff6ff;color:#3b82f6;border-radius:10px;font-weight:600;border:1px solid #bfdbfe;">Programmata</span></div><div style="font-size:12px;color:#6b7280;">Oggetto: "Unisciti alla community esclusiva"</div></div><div style="text-align:right;flex-shrink:0;margin-left:12px;"><div style="font-size:11px;color:#9ca3af;">Timing</div><div style="font-size:13px;font-weight:700;color:#374151;">+14 giorni</div></div></div><div style="display:flex;gap:16px;"><div style="flex:1;"><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#6b7280;">Open rate stimato</span><span style="font-size:11px;font-weight:700;color:#3b82f6;">45%</span></div><div style="height:5px;background:#e5e7eb;border-radius:3px;overflow:hidden;"><div style="height:100%;width:45%;background:#3b82f6;border-radius:3px;opacity:0.6;"></div></div></div><div style="flex:1;"><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#6b7280;">Click rate stimato</span><span style="font-size:11px;font-weight:700;color:#3b82f6;">12%</span></div><div style="height:5px;background:#e5e7eb;border-radius:3px;overflow:hidden;"><div style="height:100%;width:12%;background:#3b82f6;border-radius:3px;opacity:0.6;"></div></div></div></div></div></div></div><div style="width:220px;min-width:220px;background:#fff;border-left:1px solid #e5e7eb;display:flex;flex-direction:column;overflow:hidden;"><div style="padding:14px 16px;border-bottom:1px solid #e5e7eb;background:#f9fafb;"><div style="font-size:11px;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:0.5px;">Anteprima — Email 1</div></div><div style="flex:1;overflow-y:auto;padding:12px;"><div style="background:#f3f4f6;border-radius:6px;padding:8px 10px;margin-bottom:10px;"><div style="font-size:9px;color:#9ca3af;margin-bottom:2px;">Da:</div><div style="font-size:10px;font-weight:600;color:#374151;">Marco — TemplateLab</div><div style="font-size:9px;color:#9ca3af;margin-top:4px;margin-bottom:2px;">Oggetto:</div><div style="font-size:10px;font-weight:700;color:#111827;">Benvenuto nel corso, Giulia!</div></div><div style="border:1px solid #e5e7eb;border-radius:6px;overflow:hidden;"><div style="background:linear-gradient(135deg,#059669,#10B981);padding:16px 12px;text-align:center;"><div style="font-size:11px;font-weight:800;color:#fff;">TemplateLab</div><div style="font-size:8px;color:#a7f3d0;margin-top:2px;">Academy</div></div><div style="padding:12px 10px;background:#fff;"><div style="font-size:10px;font-weight:700;color:#111827;margin-bottom:6px;">Ciao Giulia,</div><div style="font-size:9px;color:#4b5563;line-height:1.5;margin-bottom:8px;">Benvenuta ufficialmente nel corso!</div><div style="text-align:center;margin-bottom:10px;"><div style="display:inline-block;background:#10B981;color:#fff;font-size:9px;font-weight:700;padding:7px 14px;border-radius:5px;">Inizia Subito →</div></div></div><div style="padding:8px 10px;background:#f9fafb;border-top:1px solid #e5e7eb;text-align:center;"><div style="font-size:8px;color:#9ca3af;">© 2024 TemplateLab Academy</div></div></div></div></div></div></div>`,
   },
   // ── Free Templates (Content Magnet Bundle) ────────────────────────────────
@@ -7669,55 +7174,14 @@ P.S. Nel prossimo mese aggiungerò [NUOVO CONTENUTO/MODULO BONUS]. Tutti gli isc
   },
   {
     id: "free-cold-intro-prompt",
-    name: "Cold Intro Email Prompt",
-    description: "AI prompt template for writing personalized cold introduction emails. Includes variables for company, role, and value proposition.",
+    name: "Cold Intro Email Generator",
+    description: "Outreach campaign manager with AI-generated email variants, relevance scoring and one-click export.",
     category: "ui" as TemplateCategory,
-    downloadType: "prompt" as DownloadType,
     price: 0,
     stripePriceId: "price_free_cold_intro_prompt",
     tags: ["free", "email", "cold outreach", "sales", "ai prompt", "b2b"],
     downloads: 0,
     isNew: true,
-    promptText: `# Cold Intro Email — Prompt Template
-
-Sei un copywriter esperto in cold outreach B2B. Scrivi un'email di introduzione personalizzata seguendo queste regole:
-
-## Contesto
-- **Azienda mittente:** {{nome_azienda}}
-- **Ruolo mittente:** {{ruolo_mittente}}
-- **Azienda destinatario:** {{azienda_target}}
-- **Nome destinatario:** {{nome_destinatario}}
-- **Ruolo destinatario:** {{ruolo_target}}
-- **Proposta di valore:** {{valore_offerto}}
-- **Prova sociale (opzionale):** {{social_proof}}
-
-## Regole
-1. Oggetto email: max 6 parole, niente clickbait, specifico per il destinatario
-2. Prima riga: riferimento concreto all'azienda target (un loro post, prodotto, o dato pubblico)
-3. Corpo: max 4 frasi. Problema → soluzione → prova → CTA
-4. CTA finale: una domanda semplice con sì/no (es. "Ha senso parlarne 15 minuti?")
-5. Tono: diretto, rispettoso, zero formalità inutili
-6. NO allegati, NO link nel primo messaggio, NO "Mi permetto di contattarla"
-
-## Output richiesto
-Genera 3 varianti dell'email (A/B/C), ognuna con:
-- Oggetto
-- Corpo email
-- Nota: perché questa variante può funzionare
-
-## Esempio di output atteso
-
-**Variante A — Riferimento specifico**
-Oggetto: {{azienda_target}} + {{valore_offerto}} in 2 parole
-
-Ciao {{nome_destinatario}},
-
-Ho visto che [riferimento concreto]. [Problema comune]. Con {{nome_azienda}} abbiamo [risultato numerico] per [azienda simile].
-
-Ha senso parlarne 15 minuti questa settimana?
-
-{{nome_mittente}}
-{{ruolo_mittente}}, {{nome_azienda}}`,
     content: `<div style="display:flex;height:100vh;font-family:system-ui,-apple-system,sans-serif;background:#f8fafc;overflow:hidden;"><div style="width:220px;min-width:220px;background:#1e1e2e;display:flex;flex-direction:column;overflow:hidden;"><div style="padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,0.08);"><div style="display:flex;align-items:center;gap:8px;"><div style="width:28px;height:28px;background:linear-gradient(135deg,#3B82F6,#8B5CF6);border-radius:7px;display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M2 8h8M2 12h5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></div><span style="color:#fff;font-size:14px;font-weight:700;letter-spacing:-0.3px;">OutreachAI</span></div></div><nav style="flex:1;padding:12px 10px;"><div style="margin-bottom:4px;"><div style="display:flex;align-items:center;gap:10px;padding:9px 12px;background:rgba(59,130,246,0.18);border-radius:7px;cursor:pointer;"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="1" y="1" width="5.5" height="5.5" rx="1.5" fill="#3B82F6"/><rect x="8.5" y="1" width="5.5" height="5.5" rx="1.5" fill="#3B82F6" opacity="0.6"/><rect x="1" y="8.5" width="5.5" height="5.5" rx="1.5" fill="#3B82F6" opacity="0.6"/><rect x="8.5" y="8.5" width="5.5" height="5.5" rx="1.5" fill="#3B82F6" opacity="0.3"/></svg><span style="color:#fff;font-size:13px;font-weight:600;">Campagne</span></div></div><div style="margin-bottom:4px;"><div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:7px;cursor:pointer;"><span style="color:#6b7280;font-size:13px;font-weight:500;">Contatti</span></div></div><div style="margin-bottom:4px;"><div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:7px;cursor:pointer;"><span style="color:#6b7280;font-size:13px;font-weight:500;">Template</span></div></div><div style="margin-bottom:4px;"><div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:7px;cursor:pointer;"><span style="color:#6b7280;font-size:13px;font-weight:500;">Analytics</span></div></div><div style="height:1px;background:rgba(255,255,255,0.06);margin:12px 4px;"></div><div style="padding:0 4px;margin-bottom:6px;"><span style="color:#4b5563;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;">Recenti</span></div><div style="padding:7px 12px;border-radius:6px;cursor:pointer;margin-bottom:2px;"><div style="color:#9ca3af;font-size:12px;">TechCorp — Intro</div></div><div style="padding:7px 12px;border-radius:6px;cursor:pointer;"><div style="color:#9ca3af;font-size:12px;">SaaS Leads Q1</div></div></nav><div style="padding:14px 20px;border-top:1px solid rgba(255,255,255,0.06);"><div style="display:flex;align-items:center;gap:6px;"><div style="width:6px;height:6px;background:#22c55e;border-radius:50%;"></div><span style="color:#4b5563;font-size:11px;font-weight:500;">Powered by AI</span></div></div></div><div style="flex:1;display:flex;flex-direction:column;overflow:hidden;"><div style="background:#fff;border-bottom:1px solid #e2e8f0;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;"><div><div style="display:flex;align-items:center;gap:8px;"><span style="color:#0f172a;font-size:15px;font-weight:700;">Campagna: TechCorp — Introduzione</span><span style="background:#dbeafe;color:#1d4ed8;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;">3 varianti generate</span></div><div style="color:#94a3b8;font-size:12px;margin-top:2px;">Creata il 23 marzo 2026 · Modello: Cold Intro Email Prompt</div></div><div style="display:flex;align-items:center;gap:8px;"><button style="padding:7px 16px;border:none;background:#3B82F6;border-radius:7px;font-size:12px;font-weight:600;color:#fff;cursor:pointer;">Esporta tutto</button></div></div><div style="flex:1;overflow-y:auto;padding:22px 28px;display:flex;flex-direction:column;gap:16px;"><div style="background:#f1f5f9;border-radius:10px;padding:14px 18px;"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;"><span style="color:#475569;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px;">Variabili di input</span><span style="color:#3B82F6;font-size:11px;font-weight:600;cursor:pointer;">Modifica</span></div><div style="display:flex;gap:12px;flex-wrap:wrap;"><div style="background:#fff;border:1px solid #e2e8f0;border-radius:7px;padding:7px 14px;"><span style="color:#94a3b8;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;display:block;">Azienda</span><span style="color:#0f172a;font-size:13px;font-weight:600;">DesignFlow</span></div><div style="background:#fff;border:1px solid #e2e8f0;border-radius:7px;padding:7px 14px;"><span style="color:#94a3b8;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;display:block;">Destinatario</span><span style="color:#0f172a;font-size:13px;font-weight:600;">Marco Bianchi, CTO</span></div><div style="background:#fff;border:1px solid #e2e8f0;border-radius:7px;padding:7px 14px;"><span style="color:#94a3b8;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;display:block;">Proposta di valore</span><span style="color:#0f172a;font-size:13px;font-weight:600;">Ridurre i tempi di deploy del 40%</span></div></div></div><div style="background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,0.07),0 0 0 1px #e2e8f0;overflow:hidden;"><div style="padding:14px 20px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between;"><div style="display:flex;align-items:center;gap:10px;"><div style="width:26px;height:26px;background:#eff6ff;border:1.5px solid #bfdbfe;border-radius:7px;display:flex;align-items:center;justify-content:center;"><span style="color:#1d4ed8;font-size:11px;font-weight:800;">A</span></div><div><span style="color:#0f172a;font-size:13px;font-weight:700;">Variante A</span><span style="color:#94a3b8;font-size:12px;margin-left:6px;">· Riferimento specifico</span></div></div><div style="display:flex;align-items:center;gap:8px;"><span style="background:#dcfce7;color:#15803d;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;">92% rilevanza</span><button style="padding:6px 14px;border:none;background:#3B82F6;border-radius:6px;font-size:11px;font-weight:600;color:#fff;cursor:pointer;">Usa questa</button></div></div><div style="padding:16px 20px;"><div style="margin-bottom:10px;"><span style="color:#94a3b8;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;">Oggetto</span><div style="color:#0f172a;font-size:13px;font-weight:600;margin-top:3px;background:#f8fafc;border-radius:6px;padding:8px 12px;border-left:3px solid #3B82F6;">DesignFlow + deploy in metà tempo</div></div><div><span style="color:#94a3b8;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;">Corpo email</span><div style="color:#334155;font-size:13px;line-height:1.65;margin-top:6px;"><p style="margin:0 0 7px;">Ciao Marco,</p><p style="margin:0 0 7px;">ho notato che DesignFlow sta scalando rapidamente il proprio team tecnico — complimenti per la crescita. Lavorando con aziende simili nel settore SaaS, abbiamo aiutato CTO come te a <strong style="color:#0f172a;">ridurre i cicli di deploy del 40%</strong> senza stravolgere il workflow esistente.</p><p style="margin:7px 0 0;color:#64748b;font-size:12px;">Sarebbe utile una chiamata di 15 minuti per capire se c'è margine anche per DesignFlow?</p></div></div></div></div><div style="background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,0.07),0 0 0 1px #e2e8f0;overflow:hidden;"><div style="padding:14px 20px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between;"><div style="display:flex;align-items:center;gap:10px;"><div style="width:26px;height:26px;background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:7px;display:flex;align-items:center;justify-content:center;"><span style="color:#15803d;font-size:11px;font-weight:800;">B</span></div><div><span style="color:#0f172a;font-size:13px;font-weight:700;">Variante B</span><span style="color:#94a3b8;font-size:12px;margin-left:6px;">· Social proof</span></div></div><div style="display:flex;align-items:center;gap:8px;"><span style="background:#dbeafe;color:#1d4ed8;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;">87% rilevanza</span><button style="padding:6px 14px;border:1px solid #e2e8f0;background:#fff;border-radius:6px;font-size:11px;font-weight:600;color:#475569;cursor:pointer;">Usa questa</button></div></div><div style="padding:16px 20px;"><div style="margin-bottom:10px;"><span style="color:#94a3b8;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;">Oggetto</span><div style="color:#0f172a;font-size:13px;font-weight:600;margin-top:3px;background:#f8fafc;border-radius:6px;padding:8px 12px;border-left:3px solid #22c55e;">Come Startup X ha dimezzato i deploy</div></div><div><span style="color:#94a3b8;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;">Corpo email</span><div style="color:#334155;font-size:13px;line-height:1.65;margin-top:6px;"><p style="margin:0 0 7px;">Salve Marco,</p><p style="margin:0 0 7px;">sei mesi fa Flowbit — una scale-up SaaS molto simile a DesignFlow — aveva lo stesso problema: pipeline di deploy lente. Dopo aver integrato la nostra soluzione, il loro team ha <strong style="color:#0f172a;">ridotto i tempi di deploy del 43%</strong> già nel primo mese.</p><p style="margin:0;color:#64748b;font-size:12px;">Potrei condividere il case study completo e capire se i numeri hanno senso anche per voi.</p></div></div></div></div><div style="background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,0.07),0 0 0 1px #e2e8f0;overflow:hidden;"><div style="padding:14px 20px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between;"><div style="display:flex;align-items:center;gap:10px;"><div style="width:26px;height:26px;background:#fefce8;border:1.5px solid #fde68a;border-radius:7px;display:flex;align-items:center;justify-content:center;"><span style="color:#a16207;font-size:11px;font-weight:800;">C</span></div><div><span style="color:#0f172a;font-size:13px;font-weight:700;">Variante C</span><span style="color:#94a3b8;font-size:12px;margin-left:6px;">· Domanda diretta</span></div></div><div style="display:flex;align-items:center;gap:8px;"><span style="background:#fef9c3;color:#a16207;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;">81% rilevanza</span><button style="padding:6px 14px;border:1px solid #e2e8f0;background:#fff;border-radius:6px;font-size:11px;font-weight:600;color:#475569;cursor:pointer;">Usa questa</button></div></div><div style="padding:16px 20px;"><div style="margin-bottom:10px;"><span style="color:#94a3b8;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;">Oggetto</span><div style="color:#0f172a;font-size:13px;font-weight:600;margin-top:3px;background:#f8fafc;border-radius:6px;padding:8px 12px;border-left:3px solid #f59e0b;">15 minuti per il vostro deploy?</div></div><div><span style="color:#94a3b8;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;">Corpo email</span><div style="color:#334155;font-size:13px;line-height:1.65;margin-top:6px;"><p style="margin:0 0 7px;">Marco, buongiorno.</p><p style="margin:0 0 7px;">Domanda diretta: quanto tempo perde il team di DesignFlow ogni settimana a causa di deploy lenti? Per molti CTO con cui parliamo la risposta è <strong style="color:#0f172a;">"troppo"</strong>.</p><p style="margin:0;color:#64748b;font-size:12px;">Le chiedo 15 minuti per mostrarle come abbiamo risolto questo problema per aziende simili. Disponibile giovedì o venerdì?</p></div></div></div></div></div></div></div>`,
   },
 ];
@@ -7729,6 +7193,14 @@ export function getTemplate(id: string): Template | undefined {
 
 export function formatPrice(cents: number): string {
   return `€${(cents / 100).toFixed(2)}`;
+}
+
+/** Abbreviated count: 1240 → "1.2k", 14500 → "15k" */
+export function formatCount(n: number): string {
+  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
+  if (n >= 10_000) return `${Math.round(n / 1_000)}k`;
+  if (n >= 1_000) return `${(n / 1_000).toFixed(1)}k`;
+  return String(n);
 }
 
 // ── Bundles ────────────────────────────────────────────────────────────────

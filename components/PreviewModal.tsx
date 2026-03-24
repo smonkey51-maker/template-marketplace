@@ -114,7 +114,7 @@ export default function PreviewModal({ templateId, onClose }: {
               />
             </div>
           ) : (
-            <div className="h-full overflow-y-auto p-8" style={{ background: "var(--prompt-bg)" }}>
+            <div className="h-full overflow-y-auto p-4 sm:p-8" style={{ background: "var(--prompt-bg)" }}>
               <div className="max-w-2xl mx-auto font-mono text-[14px] leading-relaxed whitespace-pre-wrap" style={{ color: "var(--prompt-text)" }}>
                 {template.content.split(/({{[^}]+}})/g).map((part, i) =>
                   part.startsWith("{{") ? (
