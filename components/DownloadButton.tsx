@@ -4,13 +4,14 @@ import { useState } from "react";
 import { DownloadType } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
 
-type Variant = "full" | "compact";
+type Variant = "full" | "compact" | "prominent";
 
 interface Meta {
   labelIt: string;
   labelEn: string;
   icon: React.ReactNode;
   accent: string;
+  format: string;
 }
 
 function Icon({ d, viewBox = "0 0 16 16" }: { d: string; viewBox?: string }) {
@@ -21,60 +22,78 @@ function Icon({ d, viewBox = "0 0 16 16" }: { d: string; viewBox?: string }) {
   );
 }
 
+function DownloadArrow({ size = 18 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 18 18" fill="none" aria-hidden>
+      <path d="M9 3v9M5 9l4 4 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M3 15h12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+    </svg>
+  );
+}
+
 const DOWNLOAD_META: Record<DownloadType, Meta> = {
   html: {
     labelIt: "Scarica HTML",
     labelEn: "Download HTML",
     icon: <Icon d="M4 3h8l2 3-6 7-6-7 2-3zM8 13V6M5 6h6" />,
     accent: "var(--accent)",
+    format: ".html",
   },
   canva: {
     labelIt: "Apri in Canva",
     labelEn: "Open in Canva",
     icon: <Icon d="M8 2a6 6 0 100 12A6 6 0 008 2zM5.5 8a2.5 2.5 0 005 0" />,
     accent: "var(--platform-canva)",
+    format: "Canva",
   },
   excel: {
     labelIt: "Scarica Excel",
     labelEn: "Download Excel",
     icon: <Icon d="M3 3h10v10H3zM3 8h10M8 3v10M5.5 5.5l5 5M10.5 5.5l-5 5" />,
     accent: "var(--platform-excel)",
+    format: ".xlsx",
   },
   sheets: {
     labelIt: "Apri Google Sheets",
     labelEn: "Open Google Sheets",
     icon: <Icon d="M4 2h8v12H4zM4 6h8M4 10h8M8 2v12" />,
     accent: "var(--platform-sheets)",
+    format: "Sheets",
   },
   notion: {
     labelIt: "Duplica su Notion",
     labelEn: "Duplicate on Notion",
     icon: <Icon d="M4 4h8M4 8h8M4 12h5" />,
     accent: "var(--platform-notion)",
+    format: "Notion",
   },
   webflow: {
     labelIt: "Apri su Webflow",
     labelEn: "Open in Webflow",
     icon: <Icon d="M2 8l3-5 3 4 2-2 4 3" />,
     accent: "var(--platform-webflow)",
+    format: "Webflow",
   },
   framer: {
     labelIt: "Apri su Framer",
     labelEn: "Open in Framer",
     icon: <Icon d="M4 2h8v6H8l4 6H4l4-6H4V2z" />,
     accent: "var(--platform-framer)",
+    format: "Framer",
   },
   shopify: {
-    labelIt: "Scarica ZIP Shopify",
-    labelEn: "Download Shopify ZIP",
+    labelIt: "Scarica Shopify",
+    labelEn: "Download Shopify",
     icon: <Icon d="M6 2l2 2v8l-2-2V2zM8 4l4-1v8l-4 1M4 5l2-1v8l-2 1V5z" />,
     accent: "var(--platform-shopify)",
+    format: ".zip",
   },
   wordpress: {
-    labelIt: "Scarica ZIP WordPress",
-    labelEn: "Download WordPress ZIP",
+    labelIt: "Scarica WordPress",
+    labelEn: "Download WordPress",
     icon: <Icon d="M8 2a6 6 0 100 12A6 6 0 008 2zM2 8h12M8 2c-2 2-2 10 0 12M8 2c2 2 2 10 0 12" />,
     accent: "var(--platform-wordpress)",
+    format: ".zip",
   },
 };
 
@@ -146,10 +165,13 @@ export default function DownloadButton({
   templateId,
   downloadType,
   variant = "full",
+  sessionId,
 }: {
   templateId: string;
   downloadType: DownloadType;
   variant?: Variant;
+  /** Pass for guest (unauthenticated) downloads via Stripe session */
+  sessionId?: string;
 }) {
   const { lang } = useLang();
   const [loading, setLoading] = useState(false);
@@ -166,7 +188,9 @@ export default function DownloadButton({
     setLoading(true);
     setError("");
     try {
-      const url = `/api/download/${templateId}?lang=${dlLang}`;
+      const url = sessionId
+        ? `/api/download-session?session_id=${sessionId}&templateId=${templateId}&lang=${dlLang}`
+        : `/api/download/${templateId}?lang=${dlLang}`;
       const res = await fetch(url);
 
       if (!res.ok) {
@@ -215,6 +239,57 @@ export default function DownloadButton({
     executeDownload(dlLang);
   };
 
+  const spinner = (size: number) => (
+    <span className={`w-${size} h-${size} border-2 border-muted border-t-transparent rounded-full animate-spin`}
+      style={{ width: size * 4, height: size * 4 }} />
+  );
+
+  const modal = showLangModal ? (
+    <LangModal
+      onSelect={handleLangSelect}
+      onClose={() => { setShowLangModal(false); setLoading(false); }}
+      loading={loading}
+      siteLang={lang as "it" | "en"}
+    />
+  ) : null;
+
+  /* ── Prominent variant — large, eye-catching download card ─────── */
+  if (variant === "prominent") {
+    return (
+      <div className="flex flex-col gap-1.5">
+        <button
+          onClick={handleClick}
+          disabled={loading}
+          className="group relative w-full flex items-center gap-4 px-5 py-4 border-2 transition-all duration-200 active:scale-[0.98] disabled:opacity-50"
+          style={{
+            background: "var(--accent)",
+            borderColor: "var(--accent)",
+            color: "var(--bg)",
+          }}
+        >
+          <span className="flex items-center justify-center w-10 h-10 shrink-0"
+            style={{ background: "rgba(0,0,0,0.15)" }}>
+            {loading ? spinner(4) : <DownloadArrow size={20} />}
+          </span>
+          <span className="flex flex-col items-start text-left flex-1 min-w-0">
+            <span className="text-[15px] font-bold truncate" style={{ fontFamily: "var(--font-syne)" }}>
+              {lang === "it" ? "Scarica il template" : "Download template"}
+            </span>
+            <span className="text-[12px] opacity-75">
+              {label} — {meta.format}
+            </span>
+          </span>
+          <span className="text-[11px] font-bold uppercase tracking-wider opacity-60 shrink-0 hidden sm:block">
+            {downloadType.toUpperCase()}
+          </span>
+        </button>
+        {error && <p className="text-[12px] text-center" style={{ color: "var(--error)" }}>{error}</p>}
+        {modal}
+      </div>
+    );
+  }
+
+  /* ── Compact variant ────────────────────────────────────────────── */
   if (variant === "compact") {
     return (
       <div className="flex flex-col items-start gap-1">
@@ -224,25 +299,19 @@ export default function DownloadButton({
           className="btn-brand btn-brand-sm text-[12px] disabled:opacity-50"
         >
           {loading ? (
-            <span className="w-3 h-3 border-2 border-muted border-t-transparent rounded-full animate-spin" />
+            spinner(3)
           ) : (
-            <span className="flex-shrink-0 text-muted">{meta.icon}</span>
+            <span className="flex-shrink-0">{meta.icon}</span>
           )}
           {label}
         </button>
         {error && <p className="text-[11px]" style={{ color: "var(--error)" }}>{error}</p>}
-        {showLangModal && (
-          <LangModal
-            onSelect={handleLangSelect}
-            onClose={() => { setShowLangModal(false); setLoading(false); }}
-            loading={loading}
-            siteLang={lang as "it" | "en"}
-          />
-        )}
+        {modal}
       </div>
     );
   }
 
+  /* ── Full variant (default) ─────────────────────────────────────── */
   return (
     <div className="flex flex-col gap-1">
       <button
@@ -251,7 +320,7 @@ export default function DownloadButton({
         className="btn-brand w-full justify-center text-[14px] disabled:opacity-50"
       >
         {loading ? (
-          <span className="w-4 h-4 border-2 border-muted border-t-transparent rounded-full animate-spin" />
+          spinner(4)
         ) : (
           <>
             <span className="flex-shrink-0">{meta.icon}</span>
@@ -260,14 +329,7 @@ export default function DownloadButton({
         )}
       </button>
       {error && <p className="text-[12px] text-center" style={{ color: "var(--error)" }}>{error}</p>}
-      {showLangModal && (
-        <LangModal
-          onSelect={handleLangSelect}
-          onClose={() => { setShowLangModal(false); setLoading(false); }}
-          loading={loading}
-          siteLang={lang as "it" | "en"}
-        />
-      )}
+      {modal}
     </div>
   );
 }

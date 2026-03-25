@@ -330,21 +330,18 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
           {purchasesLoading ? (
             <div className="w-full h-[50px] bg-theme/10 animate-pulse" />
           ) : isPurchased ? (
-            <div className="flex gap-2">
+            <div className="flex flex-col gap-2">
+              <DownloadButton
+                templateId={template.id}
+                downloadType={getDownloadType(template)}
+                variant="prominent"
+              />
               <Link
                 href={`/studio?templateId=${template.id}`}
-                className="btn-brand flex-1 justify-center text-[14px]"
-                style={{ padding: "12px 16px" }}
+                className="block w-full px-5 py-3 glass-subtle font-bold text-[14px] text-theme text-center transition-all duration-200 active:scale-[0.97] ios-spring"
               >
                 {t[lang].preview.openStudio}
               </Link>
-              <div className="flex-1">
-                <DownloadButton
-                  templateId={template.id}
-                  downloadType={getDownloadType(template)}
-                  variant="full"
-                />
-              </div>
             </div>
           ) : (
             <button
