@@ -195,9 +195,14 @@ export default function DownloadButton({
 
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
+        const isNotConfigured = res.status === 404 && data.error?.toLowerCase().includes("not configured");
         setError(
-          data.error ??
-            (lang === "it" ? "Download non disponibile" : "Download not available")
+          isNotConfigured
+            ? (lang === "it"
+                ? "Link non ancora configurato — contatta il supporto"
+                : "Link not configured yet — contact support")
+            : (data.error ??
+                (lang === "it" ? "Download non disponibile" : "Download not available"))
         );
         return;
       }

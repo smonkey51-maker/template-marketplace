@@ -6,16 +6,26 @@ import { useLang } from "@/components/LanguageProvider";
 import { templateTranslations } from "@/lib/i18n";
 
 function getRelated(current: Template, count = 3): Template[] {
-  return templates
+  const scored = templates
     .filter((t) => t.id !== current.id)
     .map((t) => {
       const overlap = t.tags.filter((tag) => current.tags.includes(tag)).length;
-      const sameCategory = t.category === current.category ? 1 : 0;
-      return { template: t, score: overlap * 2 + sameCategory };
+      const sameCategory = t.category === current.category ? 2 : 0;
+      const sameDlType = t.downloadType === current.downloadType ? 1 : 0;
+      return { template: t, score: overlap * 3 + sameCategory + sameDlType };
     })
-    .sort((a, b) => b.score - a.score)
-    .slice(0, count)
-    .map((x) => x.template);
+    .sort((a, b) => b.score - a.score);
+
+  // Prefer templates with actual relevance (score > 0), fallback to same category
+  const relevant = scored.filter((x) => x.score > 0).slice(0, count);
+  if (relevant.length === count) return relevant.map((x) => x.template);
+
+  // Backfill with same-category templates if not enough relevant ones
+  const sameCategory = scored
+    .filter((x) => x.template.category === current.category && x.score === 0)
+    .slice(0, count - relevant.length);
+
+  return [...relevant, ...sameCategory].slice(0, count).map((x) => x.template);
 }
 
 export default function RelatedTemplates({ currentTemplate }: { currentTemplate: Template }) {

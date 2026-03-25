@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { getTemplate, formatPrice, formatCount, getDownloadType } from "@/lib/templates";
 import DownloadButton from "@/components/DownloadButton";
@@ -12,6 +12,94 @@ import { t, templateTranslations } from "@/lib/i18n";
 import { useToast } from "@/components/Toast";
 import { useWishlist } from "@/lib/useWishlist";
 import { useRecentlyViewed } from "@/lib/useRecentlyViewed";
+
+/** Responsive phone mockup: scales down the 390px iframe to fit narrow viewports */
+function PhoneFrame({ templateId, templateName }: { templateId: string; templateName: string }) {
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const obs = new ResizeObserver(([entry]) => {
+      const available = entry.contentRect.width;
+      setScale(available < 390 ? available / 390 : 1);
+    });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  const PHONE_W = 390;
+  const PHONE_H = 844; // approximate full frame height
+
+  return (
+    /* Outer wrapper: actual rendered size after scaling */
+    <div
+      ref={wrapRef}
+      style={{
+        width: "390px",
+        maxWidth: "calc(100vw - 32px)",
+        height: `${PHONE_H * scale}px`,
+        flexShrink: 0,
+      }}
+    >
+      {/* Inner wrapper: always 390px, scaled down via transform */}
+      <div
+        style={{
+          width: `${PHONE_W}px`,
+          transformOrigin: "top left",
+          transform: scale < 1 ? `scale(${scale})` : undefined,
+        }}
+      >
+        {/* Bezel ring */}
+        <div
+          className="relative rounded-[48px] overflow-hidden"
+          style={{
+            boxShadow: `0 0 0 10px var(--bezel-ring), 0 0 0 11px var(--bezel-ring-2), 0 40px 120px rgba(0,0,0,0.9), 0 8px 32px rgba(0,0,0,0.5)`,
+            background: "var(--bezel-bg)",
+          }}
+        >
+          {/* Notch / Dynamic Island */}
+          <div className="relative flex items-center justify-between px-6 pt-3 pb-2" style={{ background: "var(--bezel-notch-bg)" }}>
+            <span className="text-[11px] font-semibold text-theme opacity-80">9:41</span>
+            <div className="absolute left-1/2 -translate-x-1/2 top-2.5 w-24 h-6 rounded-full border" style={{ background: "var(--bezel-notch-bg)", borderColor: "var(--bezel-notch-border)" }} />
+            <div className="flex items-center gap-1 opacity-80">
+              <svg width="15" height="10" viewBox="0 0 15 10" fill="currentColor" className="text-theme">
+                <rect x="0" y="3" width="2.5" height="7" rx="0.5"/><rect x="3.5" y="2" width="2.5" height="8" rx="0.5"/><rect x="7" y="0.5" width="2.5" height="9.5" rx="0.5"/><rect x="10.5" y="0" width="3.5" height="10" rx="0.5" opacity="0.35"/>
+              </svg>
+              <svg width="24" height="12" viewBox="0 0 24 12" fill="none" className="text-theme">
+                <rect x="0.5" y="0.5" width="20" height="11" rx="3.5" stroke="currentColor" strokeOpacity="0.35"/>
+                <rect x="1.5" y="1.5" width="16" height="9" rx="2.5" fill="currentColor"/>
+                <path d="M21.5 4v4a2 2 0 000-4z" fill="currentColor" fillOpacity="0.4"/>
+              </svg>
+            </div>
+          </div>
+
+          {/* Iframe — always 390px wide so mobile breakpoints fire correctly */}
+          <div style={{ overflow: "hidden" }}>
+            <iframe
+              src={`/api/preview/${templateId}`}
+              title={templateName}
+              sandbox="allow-scripts"
+              style={{ width: "390px", height: "780px", border: "none", display: "block" }}
+            />
+          </div>
+
+          {/* Home indicator */}
+          <div className="flex justify-center py-2" style={{ background: "var(--bezel-notch-bg)" }}>
+            <div className="w-28 h-1 rounded-full" style={{ background: "var(--muted)" }} />
+          </div>
+        </div>
+
+        {/* Side buttons */}
+        <div className="absolute -left-[3px] top-24 w-[3px] h-8 rounded-l-sm" style={{ background: "var(--bezel-button)" }} />
+        <div className="absolute -left-[3px] top-36 w-[3px] h-14 rounded-l-sm" style={{ background: "var(--bezel-button)" }} />
+        <div className="absolute -left-[3px] top-52 w-[3px] h-14 rounded-l-sm" style={{ background: "var(--bezel-button)" }} />
+        <div className="absolute -right-[3px] top-36 w-[3px] h-20 rounded-r-sm" style={{ background: "var(--bezel-button)" }} />
+      </div>
+    </div>
+  );
+}
 
 export default function PreviewContent({ templateId }: { templateId: string }) {
   const router = useRouter();
@@ -167,68 +255,10 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
               style={{ height: "100vh", minHeight: "600px" }}
             />
           ) : (
-            /* Mobile: phone-frame bezel, iframe at real 390px viewport */
+            /* Mobile: phone-frame bezel, iframe scaled to fit available width */
             <div className="flex justify-center items-start pt-20 pb-10 px-4 min-h-screen" style={{ background: "var(--surface)" }}>
-              {/* Phone outer shell */}
-              <div
-                className="relative shrink-0"
-                style={{
-                  width: "390px",
-                  maxWidth: "calc(100vw - 32px)",
-                }}
-              >
-                {/* Bezel ring */}
-                <div
-                  className="relative rounded-[48px] overflow-hidden"
-                  style={{
-                    boxShadow: `0 0 0 10px var(--bezel-ring), 0 0 0 11px var(--bezel-ring-2), 0 40px 120px rgba(0,0,0,0.9), 0 8px 32px rgba(0,0,0,0.5)`,
-                    background: "var(--bezel-bg)",
-                  }}
-                >
-                  {/* Notch / Dynamic Island */}
-                  <div className="relative flex items-center justify-between px-6 pt-3 pb-2" style={{ background: "var(--bezel-notch-bg)" }}>
-                    <span className="text-[11px] font-semibold text-theme opacity-80">9:41</span>
-                    <div className="absolute left-1/2 -translate-x-1/2 top-2.5 w-24 h-6 rounded-full border" style={{ background: "var(--bezel-notch-bg)", borderColor: "var(--bezel-notch-border)" }} />
-                    <div className="flex items-center gap-1 opacity-80">
-                      <svg width="15" height="10" viewBox="0 0 15 10" fill="currentColor" className="text-theme">
-                        <rect x="0" y="3" width="2.5" height="7" rx="0.5"/><rect x="3.5" y="2" width="2.5" height="8" rx="0.5"/><rect x="7" y="0.5" width="2.5" height="9.5" rx="0.5"/><rect x="10.5" y="0" width="3.5" height="10" rx="0.5" opacity="0.35"/>
-                      </svg>
-                      <svg width="24" height="12" viewBox="0 0 24 12" fill="none" className="text-theme">
-                        <rect x="0.5" y="0.5" width="20" height="11" rx="3.5" stroke="currentColor" strokeOpacity="0.35"/>
-                        <rect x="1.5" y="1.5" width="16" height="9" rx="2.5" fill="currentColor"/>
-                        <path d="M21.5 4v4a2 2 0 000-4z" fill="currentColor" fillOpacity="0.4"/>
-                      </svg>
-                    </div>
-                  </div>
-
-                  {/* Iframe — 390px wide = real mobile viewport */}
-                  <div style={{ overflow: "hidden" }}>
-                    <iframe
-                      src={`/api/preview/${template.id}`}
-                      title={template.name}
-                      sandbox="allow-scripts"
-                      style={{
-                        width: "390px",
-                        height: "780px",
-                        border: "none",
-                        display: "block",
-                        maxWidth: "390px",
-                      }}
-                    />
-                  </div>
-
-                  {/* Home indicator */}
-                  <div className="flex justify-center py-2" style={{ background: "var(--bezel-notch-bg)" }}>
-                    <div className="w-28 h-1 rounded-full" style={{ background: "var(--muted)" }} />
-                  </div>
-                </div>
-
-                {/* Side buttons */}
-                <div className="absolute -left-[3px] top-24 w-[3px] h-8 rounded-l-sm" style={{ background: "var(--bezel-button)" }} />
-                <div className="absolute -left-[3px] top-36 w-[3px] h-14 rounded-l-sm" style={{ background: "var(--bezel-button)" }} />
-                <div className="absolute -left-[3px] top-52 w-[3px] h-14 rounded-l-sm" style={{ background: "var(--bezel-button)" }} />
-                <div className="absolute -right-[3px] top-36 w-[3px] h-20 rounded-r-sm" style={{ background: "var(--bezel-button)" }} />
-              </div>
+              {/* Phone outer shell — scales down on narrow viewports */}
+              <PhoneFrame templateId={template.id} templateName={template.name} />
             </div>
           )}
       </div>
@@ -267,7 +297,8 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
       )}
 
       {/* ── Related templates ── */}
-      <div className="relative z-10 bg-page border-t border-theme">
+      {/* pb-48 ensures content isn't hidden behind the fixed bottom CTA bar */}
+      <div className="relative z-10 bg-page border-t border-theme pb-48">
         <RelatedTemplates currentTemplate={template} />
       </div>
 

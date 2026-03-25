@@ -89,10 +89,10 @@ export async function GET(req: NextRequest) {
 
       // External link types (Canva, Notion, etc.)
       default: {
-        if (template.downloadUrl) {
+        if (template.downloadUrl && template.downloadUrl.trim() !== "") {
           return NextResponse.json({ url: template.downloadUrl });
         }
-        return NextResponse.json({ error: "Download link not configured" }, { status: 404 });
+        return NextResponse.json({ error: "Download link not configured yet" }, { status: 404 });
       }
     }
   } catch {

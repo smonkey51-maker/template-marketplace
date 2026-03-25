@@ -22,7 +22,9 @@ export default function AccountPage() {
       .catch(() => {});
   }, []);
 
-  const hasStudioAccess = purchasedIds.includes("studio-access");
+  const hasStudioAccess =
+    purchasedIds.includes("studio-access") ||
+    purchasedIds.includes("studio-access-lifetime");
   const purchasedTemplates = purchasedIds
     .filter((id) => id !== "studio-access")
     .map((id) => getTemplate(id))
