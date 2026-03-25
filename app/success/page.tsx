@@ -107,7 +107,7 @@ function SuccessContent() {
                 templateId={template.id}
                 downloadType={downloadType}
                 variant="prominent"
-                sessionId={!isSignedIn ? sessionId : undefined}
+                sessionId={sessionId}
               />
             )}
 
