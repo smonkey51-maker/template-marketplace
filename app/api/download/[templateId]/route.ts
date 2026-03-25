@@ -9,37 +9,38 @@ export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ templateId: string }> }
 ) {
-  const { userId } = await auth();
-  if (!userId) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  const { templateId } = await params;
-  const template = getTemplate(templateId);
-  if (!template) {
-    return NextResponse.json({ error: "Not found" }, { status: 404 });
-  }
-
-  // Free templates (price=0) skip purchase check
-  if (template.price > 0) {
-    const purchases = await getUserPurchases(userId);
-    if (!purchases.includes(templateId)) {
-      return NextResponse.json({ error: "Not purchased" }, { status: 403 });
+  try {
+    const { userId } = await auth();
+    if (!userId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-  }
 
-  // Language preference from query string (defaults to "en")
-  const lang = (req.nextUrl.searchParams.get("lang") ?? "en") as "it" | "en";
+    const { templateId } = await params;
+    const template = getTemplate(templateId);
+    if (!template) {
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
+    }
 
-  const downloadType = getDownloadType(template);
+    // Free templates (price=0) skip purchase check
+    if (template.price > 0) {
+      const purchases = await getUserPurchases(userId);
+      if (!purchases.includes(templateId)) {
+        return NextResponse.json({ error: "Not purchased" }, { status: 403 });
+      }
+    }
 
-  switch (downloadType) {
-    case "html": {
-      const body = localiseHtml(template.content, lang, templateId);
-      const htmlLang = lang === "it" ? "it" : "en";
-      const displayName = getDisplayName(templateId, template.name, lang);
+    // Language preference from query string (defaults to "en")
+    const lang = (req.nextUrl.searchParams.get("lang") ?? "en") as "it" | "en";
 
-      const html = `<!DOCTYPE html>
+    const downloadType = getDownloadType(template);
+
+    switch (downloadType) {
+      case "html": {
+        const body = localiseHtml(template.content, lang, templateId);
+        const htmlLang = lang === "it" ? "it" : "en";
+        const displayName = getDisplayName(templateId, template.name, lang);
+
+        const html = `<!DOCTYPE html>
 <html lang="${htmlLang}">
 <head>
   <meta charset="UTF-8"/>
@@ -51,50 +52,63 @@ export async function GET(
 <body>${body}
 </body>
 </html>`;
-      return new NextResponse(html, {
-        headers: {
-          "Content-Type": "text/html; charset=utf-8",
-          "Content-Disposition": `attachment; filename="${template.id}-${lang}.html"`,
-        },
-      });
-    }
-
-    case "shopify": {
-      const displayName = getDisplayName(templateId, template.name, lang);
-      const zip = buildShopifyZip(template, displayName);
-      return new NextResponse(Buffer.from(zip), {
-        headers: {
-          "Content-Type": "application/zip",
-          "Content-Disposition": `attachment; filename="${template.id}.zip"`,
-        },
-      });
-    }
-
-    case "wordpress": {
-      const displayName = getDisplayName(templateId, template.name, lang);
-      const zip = buildWordPressZip(template, displayName);
-      return new NextResponse(Buffer.from(zip), {
-        headers: {
-          "Content-Type": "application/zip",
-          "Content-Disposition": `attachment; filename="${template.id}.zip"`,
-        },
-      });
-    }
-
-    // External-link types → return JSON with the URL so the client can open it
-    case "canva":
-    case "excel":
-    case "sheets":
-    case "notion":
-    case "webflow":
-    case "framer": {
-      if (template.downloadUrl) {
-        return NextResponse.json({ url: template.downloadUrl });
+        return new NextResponse(html, {
+          headers: {
+            "Content-Type": "text/html; charset=utf-8",
+            "Content-Disposition": `attachment; filename="${template.id}-${lang}.html"`,
+          },
+        });
       }
-      return NextResponse.json(
-        { error: "Download link not configured yet" },
-        { status: 404 }
-      );
+
+      case "shopify": {
+        const displayName = getDisplayName(templateId, template.name, lang);
+        const zip = buildShopifyZip(template, displayName);
+        return new NextResponse(Buffer.from(zip), {
+          headers: {
+            "Content-Type": "application/zip",
+            "Content-Disposition": `attachment; filename="${template.id}.zip"`,
+          },
+        });
+      }
+
+      case "wordpress": {
+        const displayName = getDisplayName(templateId, template.name, lang);
+        const zip = buildWordPressZip(template, displayName);
+        return new NextResponse(Buffer.from(zip), {
+          headers: {
+            "Content-Type": "application/zip",
+            "Content-Disposition": `attachment; filename="${template.id}.zip"`,
+          },
+        });
+      }
+
+      // External-link types → return JSON with the URL so the client can open it
+      case "canva":
+      case "excel":
+      case "sheets":
+      case "notion":
+      case "webflow":
+      case "framer": {
+        if (template.downloadUrl) {
+          return NextResponse.json({ url: template.downloadUrl });
+        }
+        return NextResponse.json(
+          { error: "Download link not configured yet" },
+          { status: 404 }
+        );
+      }
+
+      default:
+        return NextResponse.json(
+          { error: `Unsupported download type: ${downloadType}` },
+          { status: 400 }
+        );
     }
+  } catch (err) {
+    console.error("[download] Error:", err);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }
