@@ -75,13 +75,19 @@ function StudioContent() {
 
   // Purchased templates
   const [purchasedIds, setPurchasedIds] = useState<string[]>([]);
-  const hasStudioAccess = purchasedIds.includes("studio-access");
+  const [purchasesLoaded, setPurchasesLoaded] = useState(false);
+  const hasStudioAccess =
+    purchasedIds.includes("studio-access") ||
+    purchasedIds.includes("studio-access-lifetime");
 
   useEffect(() => {
     fetch("/api/purchases")
       .then((r) => r.json())
-      .then((data) => setPurchasedIds(data.templateIds ?? []))
-      .catch(() => {});
+      .then((data) => {
+        setPurchasedIds(data.templateIds ?? []);
+        setPurchasesLoaded(true);
+      })
+      .catch(() => setPurchasesLoaded(true));
   }, []);
 
   const [copied, setCopied] = useState(false);
@@ -469,13 +475,20 @@ function StudioContent() {
                 {/* Template picker */}
                 <div>
                   <label className="text-[11px] font-semibold text-muted uppercase tracking-widest mb-2 block px-1">
-                    Select a template to customize
+                    {lang === "it" ? "Seleziona un template da personalizzare" : "Select a template to customize"}
+                    {hasStudioAccess && (
+                      <span className="ml-2 normal-case tracking-normal font-normal text-accent">
+                        {lang === "it" ? "— tutti disponibili con Studio Access" : "— all unlocked with Studio Access"}
+                      </span>
+                    )}
                   </label>
-                  {purchasedIds.length === 0 ? (
+                  {!purchasesLoaded ? (
+                    <div className="w-full h-12 bg-surface animate-pulse" />
+                  ) : !hasStudioAccess && purchasedIds.filter(id => id !== "studio-access" && id !== "studio-access-lifetime").length === 0 ? (
                     <div className="bg-surface border border-theme px-4 py-6 text-center text-[15px] text-muted">
-                      Non hai ancora acquistato nessun template.{" "}
+                      {lang === "it" ? "Non hai ancora acquistato nessun template." : "You haven't purchased any templates yet."}{" "}
                       <Link href="/" className="text-accent hover:underline">
-                        Vai al marketplace →
+                        {lang === "it" ? "Vai al marketplace →" : "Go to marketplace →"}
                       </Link>
                     </div>
                   ) : (
@@ -484,10 +497,12 @@ function StudioContent() {
                       onChange={(e) => setSelectedId(e.target.value)}
                       className="w-full bg-input border border-theme px-4 py-3 text-[15px] text-theme focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all duration-200"
                     >
-                      <option value="">— Choose a template —</option>
+                      <option value="">— {lang === "it" ? "Scegli un template" : "Choose a template"} —</option>
                       {["ui", "prompt"].map((cat) => {
                         const group = templates.filter(
-                          (t) => t.category === cat && purchasedIds.includes(t.id)
+                          (t) =>
+                            t.category === cat &&
+                            (hasStudioAccess || purchasedIds.includes(t.id))
                         );
                         if (group.length === 0) return null;
                         return (
@@ -631,12 +646,22 @@ function StudioContent() {
                   </button>
                   <button
                     onClick={() => {
-                      const ext = activeCategory === "ui" ? "html" : "txt";
-                      const mime = activeCategory === "ui" ? "text/html" : "text/plain";
+                      // Determine file format from selected template's download type
+                      const dlType = tab === "customize"
+                        ? (selectedTemplate?.downloadType ?? (activeCategory === "ui" ? "html" : "prompt"))
+                        : (activeCategory === "ui" ? "html" : "prompt");
+                      const isHtmlOutput = activeCategory === "ui" ||
+                        !["notion","canva","excel","sheets","webflow","framer","shopify","wordpress"].includes(dlType as string);
+                      const ext = isHtmlOutput ? "html" : "txt";
+                      const mime = isHtmlOutput ? "text/html" : "text/plain";
                       const blob = new Blob([activeOutput], { type: mime });
                       const url = URL.createObjectURL(blob);
                       const a = document.createElement("a");
-                      a.href = url; a.download = `template-${Date.now()}.${ext}`; a.click();
+                      a.href = url;
+                      a.download = selectedTemplate
+                        ? `${selectedTemplate.id}-custom-${Date.now()}.${ext}`
+                        : `template-${Date.now()}.${ext}`;
+                      a.click();
                       URL.revokeObjectURL(url);
                     }}
                     className="flex items-center gap-1.5 px-3 py-1.5 bg-input hover:bg-surface text-[13px] font-medium transition-all duration-200 active:scale-[0.97] ios-spring"
@@ -646,7 +671,27 @@ function StudioContent() {
                       <path d="M7 1v8M4 7l3 3 3-3M2 12h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                     {lang === "it" ? "Scarica" : "Download"}
+                    {tab === "customize" && selectedTemplate?.downloadType && selectedTemplate.downloadType !== "html" && (
+                      <span className="text-[10px] opacity-60 ml-0.5">
+                        .{activeCategory === "ui" ? "html" : "txt"}
+                      </span>
+                    )}
                   </button>
+                  {/* For external-type templates, also offer the original link */}
+                  {tab === "customize" && selectedTemplate?.downloadUrl && (
+                    <a
+                      href={selectedTemplate.downloadUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 px-3 py-1.5 bg-input hover:bg-surface text-[13px] font-medium transition-all duration-200 active:scale-[0.97] ios-spring"
+                      title={lang === "it" ? "Apri template originale" : "Open original template"}
+                    >
+                      <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden>
+                        <path d="M1 11L11 1M11 1H5M11 1v6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                      {selectedTemplate.downloadType?.charAt(0).toUpperCase()}{selectedTemplate.downloadType?.slice(1)}
+                    </a>
+                  )}
                 </div>
               )}
             </div>

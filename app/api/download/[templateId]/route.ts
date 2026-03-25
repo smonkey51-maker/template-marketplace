@@ -89,7 +89,7 @@ export async function GET(
       case "notion":
       case "webflow":
       case "framer": {
-        if (template.downloadUrl) {
+        if (template.downloadUrl && template.downloadUrl.trim() !== "") {
           return NextResponse.json({ url: template.downloadUrl });
         }
         return NextResponse.json(
