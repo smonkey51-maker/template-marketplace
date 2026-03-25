@@ -79,9 +79,9 @@ export async function POST(req: NextRequest) {
             ? null
             : getTemplate(templateId);
           const isStudio = templateId === "studio-access" || templateId === "studio-access-lifetime";
-          const downloadUrl = tmpl && (tmpl.category === "ui" || !tmpl.downloadUrl)
+          const downloadUrl = tmpl
             ? `${process.env.NEXT_PUBLIC_SITE_URL}/api/download-session?session_id=${session.id}&templateId=${templateId}&lang=it`
-            : tmpl?.downloadUrl ?? undefined;
+            : undefined;
           await sendPurchaseEmail({
             to: guestEmail,
             type: isStudio ? "studio" : "template",
