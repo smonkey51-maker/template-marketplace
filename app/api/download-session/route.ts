@@ -3,6 +3,7 @@ import Stripe from "stripe";
 import { getTemplate, getDownloadType } from "@/lib/templates";
 import { rateLimit } from "@/lib/rateLimit";
 import { localiseHtml, getDisplayName } from "@/lib/localise";
+import { buildShopifyZip, buildWordPressZip } from "@/lib/zip-templates";
 
 export async function GET(req: NextRequest) {
   const sessionId = req.nextUrl.searchParams.get("session_id");
@@ -40,11 +41,13 @@ export async function GET(req: NextRequest) {
 
     const downloadType = getDownloadType(template);
 
-    if (downloadType === "html") {
-      const body = localiseHtml(template.content, lang, templateId);
-      const htmlLang = lang === "it" ? "it" : "en";
-      const displayName = getDisplayName(templateId, template.name, lang);
-      const html = `<!DOCTYPE html>
+    const displayName = getDisplayName(templateId, template.name, lang);
+
+    switch (downloadType) {
+      case "html": {
+        const body = localiseHtml(template.content, lang, templateId);
+        const htmlLang = lang === "it" ? "it" : "en";
+        const html = `<!DOCTYPE html>
 <html lang="${htmlLang}">
 <head>
   <meta charset="UTF-8"/>
@@ -56,19 +59,42 @@ export async function GET(req: NextRequest) {
 <body>${body}
 </body>
 </html>`;
-      return new NextResponse(html, {
-        headers: {
-          "Content-Type": "text/html; charset=utf-8",
-          "Content-Disposition": `attachment; filename="${template.id}-${lang}.html"`,
-        },
-      });
-    }
+        return new NextResponse(html, {
+          headers: {
+            "Content-Type": "text/html; charset=utf-8",
+            "Content-Disposition": `attachment; filename="${template.id}-${lang}.html"`,
+          },
+        });
+      }
 
-    // External link types (Canva, Notion, etc.)
-    if (template.downloadUrl) {
-      return NextResponse.json({ url: template.downloadUrl });
+      case "shopify": {
+        const zip = buildShopifyZip(template, displayName);
+        return new NextResponse(Buffer.from(zip), {
+          headers: {
+            "Content-Type": "application/zip",
+            "Content-Disposition": `attachment; filename="${template.id}.zip"`,
+          },
+        });
+      }
+
+      case "wordpress": {
+        const zip = buildWordPressZip(template, displayName);
+        return new NextResponse(Buffer.from(zip), {
+          headers: {
+            "Content-Type": "application/zip",
+            "Content-Disposition": `attachment; filename="${template.id}.zip"`,
+          },
+        });
+      }
+
+      // External link types (Canva, Notion, etc.)
+      default: {
+        if (template.downloadUrl) {
+          return NextResponse.json({ url: template.downloadUrl });
+        }
+        return NextResponse.json({ error: "Download link not configured" }, { status: 404 });
+      }
     }
-    return NextResponse.json({ error: "Download link not configured" }, { status: 404 });
   } catch {
     return NextResponse.json({ error: "Invalid session" }, { status: 400 });
   }

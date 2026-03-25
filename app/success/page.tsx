@@ -125,15 +125,23 @@ function SuccessContent() {
                 </div>
               </>
             )}
-            {/* Authenticated user: studio customization link */}
+            {/* Authenticated user: download + studio customization */}
             {isSignedIn && template && (
-              <Link
-                href={`/studio?templateId=${template.id}`}
-                className="btn-brand w-full justify-center text-[15px]"
-                style={{ padding: "14px 24px" }}
-              >
-                {t[lang].success.customizeStudio}
-              </Link>
+              <>
+                <a
+                  href={`/api/download/${template.id}?lang=${lang}`}
+                  className="btn-brand w-full justify-center text-[15px]"
+                  style={{ padding: "14px 24px" }}
+                >
+                  {lang === "it" ? "Scarica il template" : "Download template"}
+                </a>
+                <Link
+                  href={`/studio?templateId=${template.id}`}
+                  className="block w-full px-6 py-3.5 glass-subtle font-bold text-[15px] text-theme text-center transition-all duration-200 active:scale-[0.97] ios-spring"
+                >
+                  {t[lang].success.customizeStudio}
+                </Link>
+              </>
             )}
             <Link
               href="/"
