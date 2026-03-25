@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "npm run export-templates && next build",
     "start": "next start",
-    "export-templates": "npx tsx scripts/export-for-marketplace.ts"
+    "export-templates": "npx tsx scripts/export-for-marketplace.ts",
+    "ensure-stripe": "npx tsx scripts/ensure-stripe-prices.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.39.0",
