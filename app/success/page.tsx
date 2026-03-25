@@ -4,7 +4,8 @@ import Link from "next/link";
 import { Suspense, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
-import { getTemplate } from "@/lib/templates";
+import { getTemplate, getDownloadType } from "@/lib/templates";
+import DownloadButton from "@/components/DownloadButton";
 import { useLang } from "@/components/LanguageProvider";
 import { t } from "@/lib/i18n";
 
@@ -54,9 +55,10 @@ function SuccessContent() {
 
   const isStudioAccess = templateId === "studio-access";
   const template = templateId && !isStudioAccess ? getTemplate(templateId) : null;
+  const downloadType = template ? getDownloadType(template) : "html";
 
   return (
-    <div className="relative z-10 bg-surface border border-theme p-8 max-w-sm w-full mx-auto text-center shadow-[0_8px_40px_rgba(0,0,0,0.12)]">
+    <div className="relative z-10 bg-surface border border-theme p-8 max-w-md w-full mx-auto text-center shadow-[0_8px_40px_rgba(0,0,0,0.12)]">
       {/* Top glint */}
       <div className="absolute inset-x-8 top-0 h-px rounded-full"
         style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)" }} />
@@ -99,53 +101,44 @@ function SuccessContent() {
             {t[lang].success.subtitleTemplate}
           </p>
           <div className="flex flex-col gap-3">
-            {/* Guest: show direct download + sign-up prompt */}
-            {!isSignedIn && template && sessionId && (
-              <>
-                <a
-                  href={`/api/download-session?session_id=${sessionId}&templateId=${template.id}&lang=${lang}`}
-                  className="btn-brand w-full justify-center text-[15px]"
-                  style={{ padding: "14px 24px" }}
-                >
-                  {lang === "it" ? "Scarica il template" : "Download template"}
-                </a>
-                <div className="px-1 py-3 border-t border-theme/50">
-                  <p className="text-[12px] text-muted mb-2">
-                    {lang === "it"
-                      ? "Crea un account per personalizzare con AI e accedere ai tuoi acquisti dal tuo profilo."
-                      : "Create an account to customize with AI and access your purchases from your profile."}
-                  </p>
-                  <Link
-                    href={`/sign-up?redirect_url=/studio?templateId=${template.id}`}
-                    className="btn-brand w-full justify-center text-[14px]"
-                    style={{ padding: "12px 24px" }}
-                  >
-                    {lang === "it" ? "Crea account gratuito →" : "Create free account →"}
-                  </Link>
-                </div>
-              </>
+            {/* Download — prominent for both guest and authenticated */}
+            {template && (
+              <DownloadButton
+                templateId={template.id}
+                downloadType={downloadType}
+                variant="prominent"
+                sessionId={sessionId}
+              />
             )}
-            {/* Authenticated user: download + studio customization */}
-            {isSignedIn && template && (
-              <>
-                <a
-                  href={`/api/download/${template.id}?lang=${lang}`}
-                  className="btn-brand w-full justify-center text-[15px]"
-                  style={{ padding: "14px 24px" }}
-                >
-                  {lang === "it" ? "Scarica il template" : "Download template"}
-                </a>
+
+            {/* Guest: sign-up prompt */}
+            {!isSignedIn && template && (
+              <div className="px-1 py-3 border-t border-theme/50">
+                <p className="text-[12px] text-muted mb-2">
+                  {lang === "it"
+                    ? "Crea un account per personalizzare con AI e accedere ai tuoi acquisti dal tuo profilo."
+                    : "Create an account to customize with AI and access your purchases from your profile."}
+                </p>
                 <Link
-                  href={`/studio?templateId=${template.id}`}
-                  className="block w-full px-6 py-3.5 glass-subtle font-bold text-[15px] text-theme text-center transition-all duration-200 active:scale-[0.97] ios-spring"
+                  href={`/sign-up?redirect_url=/account`}
+                  className="block w-full px-5 py-3 glass-subtle font-bold text-[14px] text-theme text-center transition-all duration-200 active:scale-[0.97] ios-spring"
                 >
-                  {t[lang].success.customizeStudio}
+                  {lang === "it" ? "Crea account gratuito →" : "Create free account →"}
                 </Link>
-              </>
+              </div>
+            )}
+            {/* Authenticated: studio link */}
+            {isSignedIn && template && (
+              <Link
+                href={`/studio?templateId=${template.id}`}
+                className="block w-full px-6 py-3.5 glass-subtle font-bold text-[15px] text-theme text-center transition-all duration-200 active:scale-[0.97] ios-spring"
+              >
+                {t[lang].success.customizeStudio}
+              </Link>
             )}
             <Link
               href="/"
-              className="block w-full px-6 py-3.5 glass-subtle font-bold text-[15px] text-theme text-center transition-all duration-200 active:scale-[0.97] ios-spring"
+              className="block w-full px-6 py-3 text-[14px] text-muted text-center transition-all duration-200 hover:text-theme"
             >
               {t[lang].success.backToMarketplace}
             </Link>
@@ -167,7 +160,7 @@ export default function SuccessPage() {
       </div>
 
       <Suspense fallback={
-        <div className="relative z-10 bg-surface border border-theme p-8 max-w-sm w-full mx-auto text-center">
+        <div className="relative z-10 bg-surface border border-theme p-8 max-w-md w-full mx-auto text-center">
           <div className="w-8 h-8 rounded-full border-2 border-t-transparent animate-spin mx-auto" style={{ borderColor: "var(--accent)", borderTopColor: "transparent" }} />
         </div>
       }>

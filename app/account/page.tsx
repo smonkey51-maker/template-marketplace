@@ -4,10 +4,10 @@ import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
 import { useEffect, useState } from "react";
-import { templates, getTemplate, formatPrice, getDownloadType } from "@/lib/templates";
+import { getTemplate, formatPrice, getDownloadType } from "@/lib/templates";
 import DownloadButton from "@/components/DownloadButton";
 import { useLang } from "@/components/LanguageProvider";
-import { t } from "@/lib/i18n";
+import { t, templateTranslations } from "@/lib/i18n";
 
 export default function AccountPage() {
   const { user, isLoaded } = useUser();
@@ -112,14 +112,21 @@ export default function AccountPage() {
           )}
         </div>
 
-        {/* Purchased templates */}
+        {/* ── Purchased templates — purchase history ─────────────────── */}
         <div>
-          <h2 className="text-[13px] font-semibold text-muted uppercase tracking-widest mb-3 px-1">
-            {t[lang].account.myTemplates}{" "}
+          <div className="flex items-center justify-between mb-4 px-1">
+            <h2 className="text-[13px] font-semibold text-muted uppercase tracking-widest">
+              {t[lang].account.myTemplates}{" "}
+              {purchasedTemplates.length > 0 && (
+                <span className="normal-case tracking-normal text-muted">({purchasedTemplates.length})</span>
+              )}
+            </h2>
             {purchasedTemplates.length > 0 && (
-              <span className="normal-case tracking-normal text-muted">({purchasedTemplates.length})</span>
+              <span className="text-[11px] text-muted">
+                {lang === "it" ? "Clicca per scaricare nel formato nativo" : "Click to download in native format"}
+              </span>
             )}
-          </h2>
+          </div>
 
           {purchasedTemplates.length === 0 ? (
             <div className="bg-surface border border-theme p-10 text-center flex flex-col items-center gap-4">
@@ -132,47 +139,69 @@ export default function AccountPage() {
               </Link>
             </div>
           ) : (
-            <div className="bg-surface overflow-hidden">
-              {purchasedTemplates.map((tmpl, index) => (
-                <div
-                  key={tmpl.id}
-                  className={`flex items-center gap-4 px-5 py-4 active:bg-white/[0.05] transition-colors duration-150 ${
-                    index > 0 ? "border-t border-theme" : ""
-                  }`}
-                >
-                  <div className="w-11 h-11 flex items-center justify-center shrink-0 bg-accent/10">
-                    {tmpl.category === "ui" ? (
-                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
-                        <rect x="1.5" y="3.5" width="17" height="12" rx="2" stroke="var(--accent)" strokeWidth="1.5"/>
-                        <path d="M5 16.5v1.5M15 16.5v1.5M4 18h12" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round"/>
-                        <path d="M5 7h4M5 10h7" stroke="var(--accent)" strokeWidth="1.3" strokeLinecap="round" opacity="0.5"/>
-                      </svg>
-                    ) : (
-                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
-                        <rect x="3.5" y="1.5" width="13" height="17" rx="2" stroke="var(--accent)" strokeWidth="1.5"/>
-                        <path d="M7 6h6M7 9.5h6M7 13h4" stroke="var(--accent)" strokeWidth="1.3" strokeLinecap="round"/>
-                      </svg>
-                    )}
+            <div className="flex flex-col gap-3">
+              {purchasedTemplates.map((tmpl) => {
+                const dlType = getDownloadType(tmpl);
+                const displayName = lang === "it"
+                  ? (templateTranslations[tmpl.id]?.name ?? tmpl.name)
+                  : tmpl.name;
+                const meta = DOWNLOAD_META_LABELS[dlType];
+
+                return (
+                  <div
+                    key={tmpl.id}
+                    className="bg-surface border border-theme overflow-hidden"
+                  >
+                    {/* Template info row */}
+                    <div className="flex items-center gap-4 px-5 py-4">
+                      {/* Platform icon */}
+                      <div className="w-11 h-11 flex items-center justify-center shrink-0"
+                        style={{ background: "var(--accent-bg)" }}>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
+                          <rect x="1.5" y="3.5" width="17" height="12" rx="2" stroke="var(--accent)" strokeWidth="1.5"/>
+                          <path d="M5 16.5v1.5M15 16.5v1.5M4 18h12" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round"/>
+                          <path d="M5 7h4M5 10h7" stroke="var(--accent)" strokeWidth="1.3" strokeLinecap="round" opacity="0.5"/>
+                        </svg>
+                      </div>
+                      {/* Name + format badge */}
+                      <div className="flex-1 min-w-0">
+                        <p className="font-semibold text-theme text-[15px] truncate">{displayName}</p>
+                        <div className="flex items-center gap-2 mt-0.5">
+                          <span className="text-[12px] text-muted">{formatPrice(tmpl.price)}</span>
+                          <span className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-[1px]"
+                            style={{ background: meta.bg, color: meta.color }}>
+                            {meta.badge}
+                          </span>
+                        </div>
+                      </div>
+                      {/* Actions */}
+                      <div className="flex items-center gap-2 shrink-0">
+                        <Link
+                          href={`/preview/${tmpl.id}`}
+                          className="hidden sm:flex items-center gap-1 px-3 py-2 text-[12px] text-muted border border-theme hover:border-accent hover:text-theme transition-colors"
+                        >
+                          {lang === "it" ? "Anteprima" : "Preview"}
+                        </Link>
+                        <Link
+                          href={`/studio?templateId=${tmpl.id}`}
+                          className="hidden sm:flex items-center gap-1 px-3 py-2 text-[12px] text-muted border border-theme hover:border-accent hover:text-theme transition-colors"
+                        >
+                          {lang === "it" ? "Studio" : "Studio"}
+                        </Link>
+                      </div>
+                    </div>
+                    {/* Download bar — always visible, prominent */}
+                    <div className="border-t border-theme px-5 py-3"
+                      style={{ background: "var(--card-bg)" }}>
+                      <DownloadButton
+                        templateId={tmpl.id}
+                        downloadType={dlType}
+                        variant="prominent"
+                      />
+                    </div>
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-theme text-[15px] truncate">{tmpl.name}</p>
-                    <p className="text-[13px] text-muted">{formatPrice(tmpl.price)}</p>
-                  </div>
-                  <div className="flex items-center gap-2 shrink-0">
-                    <DownloadButton
-                      templateId={tmpl.id}
-                      downloadType={getDownloadType(tmpl)}
-                      variant="compact"
-                    />
-                    <Link
-                      href={`/studio?templateId=${tmpl.id}`}
-                      className="btn-brand btn-brand-sm"
-                    >
-                      {lang === "it" ? "Apri Studio" : "Open Studio"}
-                    </Link>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>
@@ -202,3 +231,16 @@ export default function AccountPage() {
     </div>
   );
 }
+
+/* Badge metadata per download type */
+const DOWNLOAD_META_LABELS: Record<string, { badge: string; bg: string; color: string }> = {
+  html:      { badge: "HTML",      bg: "var(--accent-bg)",        color: "var(--accent)" },
+  shopify:   { badge: "Shopify",   bg: "var(--platform-shopify)", color: "white" },
+  wordpress: { badge: "WordPress", bg: "var(--platform-wordpress)", color: "white" },
+  notion:    { badge: "Notion",    bg: "var(--platform-notion)",  color: "white" },
+  canva:     { badge: "Canva",     bg: "var(--platform-canva)",   color: "white" },
+  excel:     { badge: "Excel",     bg: "var(--platform-excel)",   color: "white" },
+  sheets:    { badge: "Sheets",    bg: "var(--platform-sheets)",  color: "white" },
+  webflow:   { badge: "Webflow",   bg: "var(--platform-webflow)", color: "white" },
+  framer:    { badge: "Framer",    bg: "var(--platform-framer)",  color: "white" },
+};
