@@ -51,7 +51,7 @@ export default async function PreviewPage(
         url: `${SITE_URL}/preview/${templateId}`,
         image: `${SITE_URL}/api/og?id=${templateId}`,
         brand: { "@type": "Brand", name: "TemplateLab" },
-        category: template.category === "ui" ? "UI Template" : "Prompt Template",
+        category: "UI Template",
         offers: {
           "@type": "Offer",
           price: (template.price / 100).toFixed(2),

@@ -72,8 +72,8 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
     );
   }
 
-  const downloadType = template.downloadType ?? (template.category === "ui" ? "html" : "prompt");
-  const categoryLabel = downloadType === "prompt" ? t[lang].card.categoryPrompt : t[lang].card.categoryUI;
+  const downloadType = template.downloadType ?? "html";
+  const categoryLabel = t[lang].card.categoryUI;
   const displayName = lang === "it" ? (templateTranslations[template.id]?.name ?? template.name) : template.name;
   const displayDesc = lang === "it" ? (templateTranslations[template.id]?.description ?? template.description) : template.description;
 

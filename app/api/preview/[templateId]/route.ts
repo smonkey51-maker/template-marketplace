@@ -8,7 +8,7 @@ export async function GET(
   const { templateId } = await params;
   const template = getTemplate(templateId);
 
-  if (!template || template.category !== "ui") {
+  if (!template) {
     return new NextResponse("Not found", { status: 404 });
   }
 

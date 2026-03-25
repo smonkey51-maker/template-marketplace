@@ -28,12 +28,6 @@ const DOWNLOAD_META: Record<DownloadType, Meta> = {
     icon: <Icon d="M4 3h8l2 3-6 7-6-7 2-3zM8 13V6M5 6h6" />,
     accent: "var(--accent)",
   },
-  prompt: {
-    labelIt: "Scarica TXT",
-    labelEn: "Download TXT",
-    icon: <Icon d="M4 4h8M4 8h6M4 12h5" />,
-    accent: "var(--terra)",
-  },
   canva: {
     labelIt: "Apri in Canva",
     labelEn: "Open in Canva",
@@ -165,7 +159,7 @@ export default function DownloadButton({
   const meta = DOWNLOAD_META[downloadType];
   const label = lang === "it" ? meta.labelIt : meta.labelEn;
 
-  /* Only HTML downloads need lang choice — prompts are already in Italian */
+  /* Only HTML downloads need lang choice */
   const needsLangChoice = downloadType === "html";
 
   const executeDownload = async (dlLang: "it" | "en") => {
@@ -193,7 +187,7 @@ export default function DownloadButton({
         const blob = await res.blob();
         const disposition = res.headers.get("content-disposition") ?? "";
         const filename =
-          disposition.match(/filename="(.+)"/)?.[1] ?? `${templateId}.${downloadType === "html" ? "html" : "txt"}`;
+          disposition.match(/filename="(.+)"/)?.[1] ?? `${templateId}.html`;
         const objectUrl = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = objectUrl;
