@@ -135,8 +135,7 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
 
   // Category strip color
   const downloadType = getDownloadType(template);
-  const isPromptType = downloadType === "prompt";
-  const stripColor = isPromptType ? "var(--terra, #C4622D)" : "var(--accent)";
+  const stripColor = "var(--accent)";
 
   return (
     <div
@@ -200,13 +199,13 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
         <div className="mb-1 flex items-center gap-1.5">
           <span className="text-[9px] tracking-[0.12em] uppercase font-semibold px-1.5 py-[1px]"
             style={{
-              background: isPromptType ? "var(--terra-dim)" : "var(--accent-bg)",
-              color: isPromptType ? "var(--terra)" : "var(--accent)",
-              border: `1px solid ${isPromptType ? "var(--terra-dim)" : "var(--accent-muted)"}`,
+              background: "var(--accent-bg)",
+              color: "var(--accent)",
+              border: "1px solid var(--accent-muted)",
             }}>
-            {template.category === "ui" ? t[lang].card.categoryUI : t[lang].card.categoryPrompt}
+            {t[lang].card.categoryUI}
           </span>
-          {downloadType !== "html" && downloadType !== "prompt" && (
+          {downloadType !== "html" && (
             <span className="text-[8px] font-bold uppercase tracking-wider px-1.5 py-[1px]"
               style={{ background: `var(--platform-${downloadType})`, color: "white", opacity: 0.85 }}>
               {downloadType}

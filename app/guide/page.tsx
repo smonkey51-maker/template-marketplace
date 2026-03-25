@@ -75,31 +75,6 @@ export default function GuidePage() {
               </div>
             </div>
 
-            {/* Prompt Template */}
-            <div className="bg-surface border border-theme p-6 flex flex-col gap-4">
-              <div className="w-12 h-12 bg-accent/10 flex items-center justify-center">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden>
-                  <rect x="4" y="2" width="16" height="20" rx="2" stroke="var(--accent)" strokeWidth="1.7"/>
-                  <path d="M8 8h8M8 12h8M8 16h5" stroke="var(--accent)" strokeWidth="1.4" strokeLinecap="round"/>
-                </svg>
-              </div>
-              <div>
-                <h2 className="text-[18px] font-bold text-theme mb-2">{t[lang].guide.promptTitle}</h2>
-                <p className="text-[14px] text-muted leading-relaxed">
-                  {t[lang].guide.promptDesc}
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-2 mt-auto">
-                {["Claude AI", "ChatGPT", "Copy & Paste"].map((tag) => (
-                  <span
-                    key={tag}
-                    className="glass-subtle px-3 py-1 text-[11px] font-semibold text-muted"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
           </div>
         </section>
 
@@ -120,21 +95,6 @@ export default function GuidePage() {
           </div>
         </section>
 
-        {/* ── Sezione 3: Come usare un Prompt Template ── */}
-        <section className="anim-fade-up delay-225">
-          <p className="text-[11px] font-bold text-muted uppercase tracking-[0.2em] mb-6">
-            {t[lang].guide.sectionPromptUse}
-          </p>
-          <div className="bg-surface border border-theme p-6 sm:p-8">
-            <StepList
-              steps={[
-                { title: t[lang].guide.promptStep1Title, desc: t[lang].guide.promptStep1Desc },
-                { title: t[lang].guide.promptStep2Title, desc: t[lang].guide.promptStep2Desc },
-                { title: t[lang].guide.promptStep3Title, desc: t[lang].guide.promptStep3Desc },
-              ]}
-            />
-          </div>
-        </section>
 
         {/* ── Sezione 4: Demo visiva ── */}
         <section className="anim-fade-up delay-300">
@@ -190,43 +150,6 @@ export default function GuidePage() {
               </p>
             </div>
 
-            {/* Prompt Template mock */}
-            <div className="bg-surface border border-theme p-5 flex flex-col gap-4">
-              <div className="flex items-center gap-2">
-                <span className="text-[13px] font-bold text-theme">{t[lang].guide.promptTitle}</span>
-                <span className="glass-subtle px-2 py-0.5 text-[11px] font-semibold text-accent">AI</span>
-              </div>
-              {/* macOS Notes style */}
-              <div className="overflow-hidden border border-theme/50 bg-[#1C1C1E]">
-                {/* Title bar */}
-                <div className="flex items-center gap-1.5 px-3 py-2 bg-[#2C2C2E] border-b border-white/5">
-                  <div className="w-2 h-2 rounded-full bg-[#FF5F57]" />
-                  <div className="w-2 h-2 rounded-full bg-[#FFBD2E]" />
-                  <div className="w-2 h-2 rounded-full bg-[#28C840]" />
-                  <span className="ml-2 text-[10px] text-white/40 font-medium">Cold Email Template</span>
-                </div>
-                {/* Notes content */}
-                <div className="p-4" style={{ background: "var(--prompt-bg)" }}>
-                  <p className="font-mono text-[10px] leading-relaxed" style={{ color: "var(--prompt-text)" }}>
-                    Sei un esperto di copywriting B2B.{" "}
-                    <br />Scrivi una cold email per{" "}
-                    <span className="bg-accent/15 text-accent rounded-none px-0.5 font-semibold">{"{{nome_azienda}}"}</span>
-                    , che vende{" "}
-                    <span className="bg-accent/15 text-accent rounded-none px-0.5 font-semibold">{"{{prodotto}}"}</span>
-                    .
-                    <br /><br />
-                    Target:{" "}
-                    <span className="bg-accent/15 text-accent rounded-none px-0.5 font-semibold">{"{{target}}"}</span>
-                    <br />
-                    Tono:{" "}
-                    <span className="bg-accent/15 text-accent rounded-none px-0.5 font-semibold">{"{{tono}}"}</span>
-                  </p>
-                </div>
-              </div>
-              <p className="text-[12px] text-muted leading-relaxed">
-                {t[lang].guide.demoPromptDesc}
-              </p>
-            </div>
           </div>
         </section>
 

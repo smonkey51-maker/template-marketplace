@@ -36,7 +36,7 @@ const ETSY_TYPES: DownloadType[] = ["canva", "notion", "excel", "sheets"];
 
 // Tutte le sottocartelle di gumroad
 const GUMROAD_SUBDIRS: DownloadType[] = [
-  "html", "prompt", "canva", "notion", "excel", "sheets", "webflow", "framer",
+  "html", "canva", "notion", "excel", "sheets", "webflow", "framer",
 ];
 
 function ensureDir(...parts: string[]) {
@@ -111,14 +111,6 @@ export function runExport(silent = false): void {
       fs.writeFileSync(path.join(dest, filename), tailwindHtml(tmpl.name, tmpl.content), "utf-8");
       gumroadPath = `gumroad/html/${filename}`;
       console.log(`  ✅ html     → ${gumroadPath}`);
-
-    } else if (dlType === "prompt") {
-      const filename = `${tmpl.id}.txt`;
-      const dest = path.join(gumroadDir, "prompt");
-      ensureDir(dest);
-      fs.writeFileSync(path.join(dest, filename), tmpl.content, "utf-8");
-      gumroadPath = `gumroad/prompt/${filename}`;
-      console.log(`  ✅ prompt   → ${gumroadPath}`);
 
     } else {
       // canva, notion, excel, sheets, webflow, framer

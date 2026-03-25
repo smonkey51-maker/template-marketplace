@@ -64,16 +64,6 @@ export async function GET(req: NextRequest) {
       });
     }
 
-    if (downloadType === "prompt") {
-      const text = template.promptText ?? template.content;
-      return new NextResponse(text, {
-        headers: {
-          "Content-Type": "text/plain; charset=utf-8",
-          "Content-Disposition": `attachment; filename="${template.id}.txt"`,
-        },
-      });
-    }
-
     // External link types (Canva, Notion, etc.)
     if (template.downloadUrl) {
       return NextResponse.json({ url: template.downloadUrl });

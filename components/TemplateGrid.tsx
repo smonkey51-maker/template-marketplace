@@ -25,7 +25,6 @@ const PLATFORMS: {
   { id: "shopify",   label: { it: "Shopify",     en: "Shopify" },    icon: "🛒", color: "var(--platform-shopify)" },
   { id: "wordpress", label: { it: "WordPress",   en: "WordPress" },  icon: "📝", color: "var(--platform-wordpress)" },
   { id: "notion",    label: { it: "Notion",      en: "Notion" },     icon: "📓", color: "var(--platform-notion)" },
-  { id: "prompt",    label: { it: "Prompt",      en: "Prompt" },     icon: "✍️", color: "var(--terra)" },
   { id: "canva",     label: { it: "Canva",       en: "Canva" },      icon: "🎨", color: "var(--platform-canva)" },
   { id: "webflow",   label: { it: "Webflow",     en: "Webflow" },    icon: "🔷", color: "var(--platform-webflow)" },
   { id: "framer",    label: { it: "Framer",      en: "Framer" },     icon: "◆",  color: "var(--platform-framer)" },

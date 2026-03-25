@@ -1,7 +1,6 @@
-export type TemplateCategory = "ui" | "prompt";
+export type TemplateCategory = "ui";
 export type DownloadType =
   | "html"       // UI template → .html file with Tailwind CDN
-  | "prompt"     // Prompt template → .txt file
   | "canva"      // Canva edit link
   | "excel"      // .xlsx file
   | "sheets"     // Google Sheets /copy link
@@ -21,9 +20,7 @@ export interface Template {
   tags: string[];
   downloads: number;
   content: string;
-  /** Raw prompt text for download — used when content is an HTML preview for prompt-type templates */
-  promptText?: string;
-  /** Defaults to "html" for ui templates, "prompt" for prompt templates */
+  /** Override download type (defaults to "html") */
   downloadType?: DownloadType;
   /** Required for canva / excel / sheets / notion / webflow / framer */
   downloadUrl?: string;
@@ -33,9 +30,9 @@ export interface Template {
   isNew?: boolean;
 }
 
-/** Returns the effective download type, falling back to category-based default */
+/** Returns the effective download type, falling back to "html" */
 export function getDownloadType(template: Template): DownloadType {
-  return template.downloadType ?? (template.category === "ui" ? "html" : "prompt");
+  return template.downloadType ?? "html";
 }
 
 export const templates: Template[] = [
@@ -896,7 +893,7 @@ export const templates: Template[] = [
 </div>`,
   },
 
-  // ── Prompt Templates ──────────────────────────────────────────────────────
+  // ── CRM / E-commerce / AI Interface Templates ───────────────────────────
   {
     id: "cold-email-b2b",
     name: "B2B Outreach CRM",

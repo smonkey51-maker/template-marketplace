@@ -59,16 +59,6 @@ export async function GET(
       });
     }
 
-    case "prompt": {
-      const text = template.promptText ?? template.content;
-      return new NextResponse(text, {
-        headers: {
-          "Content-Type": "text/plain; charset=utf-8",
-          "Content-Disposition": `attachment; filename="${template.id}.txt"`,
-        },
-      });
-    }
-
     case "shopify": {
       const displayName = getDisplayName(templateId, template.name, lang);
       const zip = buildShopifyZip(template, displayName);
