@@ -82,10 +82,10 @@ export default function SiteNav({ title }: { title?: string }) {
         {/* Spacer */}
         <div className="hidden sm:flex flex-1" />
 
-        {/* Studio Access CTA */}
+        {/* Studio Access CTA — only lg+ to avoid cramping at narrow desktop */}
         <Link
           href="/studio"
-          className="hidden sm:inline-flex btn-brand btn-brand-sm mr-3"
+          className="hidden lg:inline-flex btn-brand btn-brand-sm mr-3"
         >
           Studio Access
         </Link>
