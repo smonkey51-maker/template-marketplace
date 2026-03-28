@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, Suspense } from "react";
 import { useRouter } from "next/navigation";
 import { templates, bundles, formatPrice, Template } from "@/lib/templates";
 import TemplateGrid from "@/components/TemplateGrid";
@@ -800,7 +800,9 @@ export default function HomeContent() {
 
       {/* ── Template Grid ── */}
       <div className="relative z-10">
-        <TemplateGrid externalQuery={query} onClearSearch={() => setQuery("")} />
+        <Suspense fallback={null}>
+          <TemplateGrid externalQuery={query} onClearSearch={() => setQuery("")} />
+        </Suspense>
       </div>
 
 
