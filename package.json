@@ -7,7 +7,9 @@
     "build": "npm run export-templates && next build",
     "start": "next start",
     "export-templates": "npx tsx scripts/export-for-marketplace.ts",
-    "ensure-stripe": "npx tsx scripts/ensure-stripe-prices.ts"
+    "ensure-stripe": "npx tsx scripts/ensure-stripe-prices.ts",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.39.0",
@@ -23,12 +25,18 @@
     "stripe": "^20.4.1"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^6.0.1",
     "autoprefixer": "^10.4.20",
+    "jsdom": "^29.0.1",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.17",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.1.2"
   }
 }

@@ -89,6 +89,8 @@ export default function MobileNav() {
           <Link
             key={tab.href}
             href={tab.href}
+            aria-label={tab.label}
+            aria-current={tab.active ? "page" : undefined}
             className={`relative flex-1 flex flex-col items-center justify-center gap-1.5 py-3 min-h-[48px] transition-all duration-200 active:scale-95 active:opacity-70 ${
               tab.active ? "" : "text-muted"
             }`}
