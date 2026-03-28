@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { getTemplate, formatPrice, formatCount, getDownloadType } from "@/lib/templates";
 import DownloadButton from "@/components/DownloadButton";
@@ -76,12 +76,13 @@ function PhoneFrame({ templateId, templateName }: { templateId: string; template
           </div>
 
           {/* Iframe — always 390px wide so mobile breakpoints fire correctly */}
-          <div style={{ overflow: "hidden" }}>
+          <div style={{ height: "780px", overflowY: "scroll", WebkitOverflowScrolling: "touch" } as React.CSSProperties}>
             <iframe
               src={`/api/preview/${templateId}`}
               title={templateName}
               sandbox="allow-scripts"
-              style={{ width: "390px", height: "780px", border: "none", display: "block" }}
+              scrolling="yes"
+              style={{ width: "390px", height: "100%", border: "none", display: "block" }}
             />
           </div>
 
