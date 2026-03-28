@@ -12,27 +12,15 @@ import EmailCapture from "@/components/EmailCapture";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import { useToast } from "@/components/Toast";
+import ScrollProgressBar from "@/components/home/ScrollProgressBar";
+import TemplatesDropdown from "@/components/home/TemplatesDropdown";
+import BundlesDropdown from "@/components/home/BundlesDropdown";
+import HeroSection from "@/components/home/HeroSection";
+import TestimonialsSection from "@/components/home/TestimonialsSection";
+import CTASection from "@/components/home/CTASection";
+import { CATEGORIES, BUNDLE_GRADIENTS } from "@/lib/homeData";
 
-// ── Scroll progress bar ───────────────────────────────────────────────────────
-function ScrollProgressBar() {
-  const [width, setWidth] = useState(0);
-  useEffect(() => {
-    function update() {
-      const el = document.documentElement;
-      const total = el.scrollHeight - el.clientHeight;
-      setWidth(total > 0 ? (el.scrollTop / total) * 100 : 0);
-    }
-    window.addEventListener("scroll", update, { passive: true });
-    return () => window.removeEventListener("scroll", update);
-  }, []);
-  return (
-    <div className="fixed top-0 left-0 right-0 h-[2px] z-[100] pointer-events-none">
-      <div style={{ width: `${width}%`, height: "100%", background: "linear-gradient(to right, var(--gold-mid), var(--accent), var(--terra))", transition: "width 0.1s linear" }} />
-    </div>
-  );
-}
-
-// ── Count-up hook ─────────────────────────────────────────────────────────────
+// ── Count-up hook (local — only used in this file) ───────────────────────────
 function useCountUp(target: number, duration = 900) {
   const [value, setValue] = useState(0);
   useEffect(() => {
@@ -50,235 +38,10 @@ function useCountUp(target: number, duration = 900) {
 }
 
 // ── Dropdown nav ────────────────────────────────────────────────────────────
-
-const CATEGORIES = [
-  { id: "professionals",    emoji: "🏢", labelIt: "Professionisti",          labelEn: "Professionals" },
-  { id: "lifestyle-finance",emoji: "🏡", labelIt: "Lifestyle & Finanza",     labelEn: "Lifestyle & Finance" },
-  { id: "business",         emoji: "🛍️", labelIt: "Business",               labelEn: "Business" },
-  { id: "startup",          emoji: "🚀", labelIt: "Startup & Lancio",        labelEn: "Startup & Launch" },
-  { id: "creative",         emoji: "🎨", labelIt: "Agenzie & Freelance",     labelEn: "Agencies & Freelance" },
-  { id: "copywriting-ai",   emoji: "✍️", labelIt: "Copywriting & AI",        labelEn: "Copywriting & AI" },
-  { id: "ai-productivity",  emoji: "🤖", labelIt: "AI & Produttività",       labelEn: "AI & Productivity" },
-  { id: "hospitality",      emoji: "🍽️", labelIt: "Ristorazione",           labelEn: "Hospitality" },
-  { id: "digital-product",  emoji: "📱", labelIt: "App & Prodotto digitale", labelEn: "App & Digital" },
-  { id: "personal-brand",   emoji: "🪪", labelIt: "Personal Brand",          labelEn: "Personal Brand" },
-  { id: "notion-workspace", emoji: "📓", labelIt: "Notion Workspace",        labelEn: "Notion Workspace" },
-  { id: "elearning",        emoji: "🎓", labelIt: "E-learning & Corsi",      labelEn: "E-learning & Courses" },
-];
-
-const STEPS = [
-  { n: "01", icon: "🔍", titleIt: "Scegli un template",    titleEn: "Choose a template",    descIt: "Anteprima completa prima di acquistare.", descEn: "Full preview before buying." },
-  { n: "02", icon: "⚡", titleIt: "Acquista in un click",  titleEn: "Buy in one click",      descIt: "Pagamento sicuro con Stripe.",            descEn: "Secure Stripe payment." },
-  { n: "03", icon: "🤖", titleIt: "Personalizza con AI",   titleEn: "Customize with AI",     descIt: "Claude AI applica le tue modifiche.",     descEn: "Claude AI applies your changes." },
-];
-
-const TESTIMONIALS = [
-  {
-    nameIt: "Marco Ferretti", nameEn: "Marco Ferretti",
-    roleIt: "Founder @ StartupMilano", roleEn: "Founder @ StartupMilano",
-    quoteIt: "Ho lanciato la landing page del mio SaaS in meno di un giorno. Il template era perfetto e l'AI lo ha adattato al mio brand in pochi minuti.",
-    quoteEn: "I launched my SaaS landing page in less than a day. The template was perfect and the AI adapted it to my brand in minutes.",
-    rating: 5,
-    initials: "MF",
-    accent: "from-[#9C7733] to-[#C8A96E]",
-  },
-  {
-    nameIt: "Sara Neri", nameEn: "Sara Neri",
-    roleIt: "Freelance Designer", roleEn: "Freelance Designer",
-    quoteIt: "Uso TemplateLab per tutti i miei clienti. Risparmio ore di lavoro e posso offrire risultati professionali a prezzi competitivi.",
-    quoteEn: "I use TemplateLab for all my clients. I save hours of work and can deliver professional results at competitive prices.",
-    rating: 5,
-    initials: "SN",
-    accent: "from-[#B5501F] to-[#C4622D]",
-  },
-  {
-    nameIt: "Luca Moretti", nameEn: "Luca Moretti",
-    roleIt: "Marketing Manager", roleEn: "Marketing Manager",
-    quoteIt: "I prompt template per LinkedIn hanno triplicato il mio engagement. Claude AI li personalizza perfettamente per ogni post.",
-    quoteEn: "The LinkedIn prompt templates tripled my engagement. Claude AI perfectly customizes them for each post.",
-    rating: 5,
-    initials: "LM",
-    accent: "from-[#7A6B56] to-[#9C7733]",
-  },
-];
-
-function TestimonialCard({
-  testimonial,
-  lang,
-}: {
-  testimonial: (typeof TESTIMONIALS)[number];
-  lang: "it" | "en";
-}) {
-  return (
-    <div className="glass-subtle rounded-none p-5 flex flex-col gap-3.5">
-      {/* Stars */}
-      <div className="flex gap-0.5">
-        {Array.from({ length: testimonial.rating }).map((_, i) => (
-          <svg key={i} width="13" height="13" viewBox="0 0 10 10" fill="currentColor" style={{ color: "var(--accent)" }} aria-hidden>
-            <path d="M5 0l1.2 3.7H10L6.9 5.9l1.2 3.7L5 7.5l-3.1 2.1 1.2-3.7L0 3.7h3.8z"/>
-          </svg>
-        ))}
-      </div>
-      {/* Quote */}
-      <p className="text-[13px] text-muted leading-relaxed flex-1">
-        &ldquo;{lang === "it" ? testimonial.quoteIt : testimonial.quoteEn}&rdquo;
-      </p>
-      {/* Author */}
-      <div className="flex items-center gap-2.5 pt-3 border-t border-theme">
-        <div className={`w-8 h-8 bg-gradient-to-br ${testimonial.accent} flex items-center justify-center text-white text-[11px] font-bold flex-shrink-0`}>
-          {testimonial.initials}
-        </div>
-        <div className="flex-1 min-w-0">
-          <p className="text-[13px] font-semibold text-theme leading-tight">
-            {lang === "it" ? testimonial.nameIt : testimonial.nameEn}
-          </p>
-          <p className="text-[11px] text-muted leading-tight">
-            {lang === "it" ? testimonial.roleIt : testimonial.roleEn}
-          </p>
-        </div>
-        <span className="flex items-center gap-1 text-[9px] font-semibold shrink-0 px-1.5 py-0.5"
-          style={{ color: "var(--success)", background: "var(--success-dim)" }}>
-          <svg width="8" height="8" viewBox="0 0 12 12" fill="none" aria-hidden>
-            <path d="M2 6l2.8 3 5.2-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-          {lang === "it" ? "Acquisto verificato" : "Verified"}
-        </span>
-      </div>
-    </div>
-  );
-}
-
-function TemplatesDropdown({ lang }: { lang: "it" | "en" }) {
-  return (
-    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-50 w-[580px] max-w-[calc(100vw-2rem)]">
-      <div className="border border-theme rounded-none shadow-2xl overflow-hidden" style={{ background: "var(--bg)" }}>
-        <div className="grid grid-cols-[180px_1fr]">
-          {/* Left: steps */}
-          <div className="p-4" style={{ background: "var(--surface)", borderRight: "1px solid var(--border)" }}>
-            <p className="text-[9px] font-black uppercase tracking-[0.2em] mb-3 px-1" style={{ color: "var(--muted)" }}>
-              {lang === "it" ? "Come funziona" : "How it works"}
-            </p>
-            <div className="flex flex-col gap-1">
-              {STEPS.map((s) => (
-                <div key={s.n} className="flex items-start gap-2.5 px-2 py-2.5 rounded-none">
-                  <div className="w-7 h-7 rounded-none flex items-center justify-center text-sm flex-shrink-0 shadow-sm border"
-                    style={{ background: "var(--card-bg)", borderColor: "var(--border)" }}>
-                    {s.icon}
-                  </div>
-                  <div>
-                    <p className="text-[11px] font-bold mb-0.5" style={{ color: "var(--muted)" }}>{s.n}</p>
-                    <p className="text-[12px] font-semibold leading-tight" style={{ color: "var(--text)" }}>
-                      {lang === "it" ? s.titleIt : s.titleEn}
-                    </p>
-                    <p className="text-[11px] mt-0.5 leading-tight" style={{ color: "var(--muted)" }}>
-                      {lang === "it" ? s.descIt : s.descEn}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          {/* Right: categories */}
-          <div className="p-4">
-            <p className="text-[9px] font-black uppercase tracking-[0.2em] mb-3 px-1" style={{ color: "var(--muted)" }}>
-              {lang === "it" ? "Categorie" : "Categories"}
-            </p>
-            <div className="grid grid-cols-2 gap-0.5">
-              {CATEGORIES.map((cat) => (
-                <button
-                  key={cat.id}
-                  role="menuitem"
-                  onClick={() => {
-                    const el = document.getElementById(`section-${cat.id}`);
-                    if (el) { el.scrollIntoView({ behavior: "smooth", block: "start" }); }
-                    else {
-                      const browse = document.getElementById("browse");
-                      browse?.scrollIntoView({ behavior: "smooth" });
-                    }
-                  }}
-                  className="flex items-center gap-2 px-2.5 py-2 rounded-none text-left transition-colors hover:bg-surface focus:bg-surface"
-                >
-                  <span className="text-sm flex-shrink-0">{cat.emoji}</span>
-                  <span className="text-[12px] font-medium leading-tight" style={{ color: "var(--text)", opacity: 0.8 }}>
-                    {lang === "it" ? cat.labelIt : cat.labelEn}
-                  </span>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-        {/* Footer hint */}
-        <div className="px-4 py-2.5 flex items-center justify-between" style={{ borderTop: "1px solid var(--border)", background: "var(--surface)" }}>
-          <span className="text-[11px]" style={{ color: "var(--muted)" }}>
-            {templates.length} template · {bundles.length} bundle
-          </span>
-          <button
-            onClick={() => document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" })}
-            className="text-[11px] font-semibold transition-colors"
-            style={{ color: "var(--accent)" }}
-          >
-            {lang === "it" ? "Vedi tutti →" : "Browse all →"}
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function BundlesDropdown({ lang, purchasedIds }: { lang: "it" | "en"; purchasedIds: string[] }) {
-  return (
-    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-50 w-[440px] max-w-[calc(100vw-2rem)]">
-      <div className="border border-theme rounded-none shadow-2xl overflow-hidden" style={{ background: "var(--bg)" }}>
-        <div className="p-3">
-          <p className="text-[9px] font-black uppercase tracking-[0.2em] mb-2 px-2" style={{ color: "var(--muted)" }}>
-            {lang === "it" ? "Bundle — risparmia fino al 55%" : "Bundles — save up to 55%"}
-          </p>
-          <div className="space-y-0.5">
-            {bundles.map((bundle) => {
-              const ownedCount = bundle.templateIds.filter((id) => purchasedIds.includes(id)).length;
-              const fullyOwned = ownedCount === bundle.templateIds.length;
-              return (
-                <Link
-                  key={bundle.id}
-                  href={`/bundle/${bundle.id}`}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-none transition-colors group cursor-pointer hover:bg-surface focus:bg-surface"
-                >
-                  <div className="w-8 h-8 rounded-none flex items-center justify-center text-base flex-shrink-0"
-                    style={{ background: "var(--accent-bg)", color: "var(--accent)" }}>
-                    {bundle.emoji}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-[13px] font-semibold leading-tight" style={{ color: "var(--text)" }}>
-                      {bundle.name}
-                    </p>
-                    <p className="text-[11px] truncate leading-tight mt-0.5" style={{ color: "var(--muted)" }}>
-                      {bundle.tagline}
-                    </p>
-                  </div>
-                  <div className="text-right flex-shrink-0">
-                    {fullyOwned ? (
-                      <span className="text-[11px] font-semibold" style={{ color: "var(--accent)" }}>✓ {lang === "it" ? "Tuo" : "Owned"}</span>
-                    ) : (
-                      <>
-                        <p className="text-[13px] font-bold" style={{ color: "var(--text)" }}>{formatPrice(bundle.price)}</p>
-                        <p className="text-[10px] line-through" style={{ color: "var(--muted)" }}>{formatPrice(bundle.regularPrice)}</p>
-                      </>
-                    )}
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-        <div className="px-5 py-2.5" style={{ borderTop: "1px solid var(--border)", background: "var(--surface)" }}>
-          <p className="text-[11px]" style={{ color: "var(--muted)" }}>
-            🎁 {lang === "it" ? "Ogni bundle ha accesso permanente + AI Studio incluso" : "Every bundle includes permanent access + AI Studio"}
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
+// CATEGORIES, STEPS, TESTIMONIALS, BUNDLE_GRADIENTS → imported from @/lib/homeData
+// TestimonialCard → imported from @/components/home/TestimonialCard
+// TemplatesDropdown → imported from @/components/home/TemplatesDropdown
+// BundlesDropdown → imported from @/components/home/BundlesDropdown
 
 // ── NavDropdown wrapper ──────────────────────────────────────────────────────
 function NavDropdown({
@@ -384,15 +147,7 @@ function NavDropdown({
 }
 
 // ── Bundle scroll section ─────────────────────────────────────────────────────
-
-const BUNDLE_GRADIENTS: Record<string, { bg: string; glow: string; accent: string; badgeBg: string }> = {
-  blue:    { bg: "linear-gradient(145deg,#3d2e14 0%,#0d0b08 100%)", glow: "200,169,110",  accent: "#C8A96E", badgeBg: "rgba(200,169,110,0.22)" },
-  violet:  { bg: "linear-gradient(145deg,#4a2510 0%,#0d0b08 100%)", glow: "196,98,45",    accent: "#C4622D", badgeBg: "rgba(196,98,45,0.22)" },
-  emerald: { bg: "linear-gradient(145deg,#2c3a1a 0%,#0d0b08 100%)", glow: "139,175,90",   accent: "#8BAF5A", badgeBg: "rgba(139,175,90,0.22)" },
-  purple:  { bg: "linear-gradient(145deg,#3d2e14 0%,#1a1408 100%)", glow: "156,119,51",   accent: "#9C7733", badgeBg: "rgba(156,119,51,0.22)" },
-  amber:   { bg: "linear-gradient(145deg,#78350f 0%,#1c0a00 100%)", glow: "200,169,110",  accent: "#C8A96E", badgeBg: "rgba(200,169,110,0.22)" },
-  orange:  { bg: "linear-gradient(145deg,#7c2d12 0%,#1c0700 100%)", glow: "196,98,45",    accent: "#C4622D", badgeBg: "rgba(196,98,45,0.22)" },
-};
+// BUNDLE_GRADIENTS → imported from @/lib/homeData
 
 function BundleScrollCard({ bundle, purchasedIds, onBuy, lang }: {
   bundle: typeof bundles[number];
@@ -1001,124 +756,7 @@ export default function HomeContent() {
       {/* ═══════════════════════════════════════════
           HYBRID HERO — 2 col
       ═══════════════════════════════════════════ */}
-      <section
-        className="relative z-10 border-b"
-        style={{ borderColor: "var(--border)" }}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-12 lg:gap-16 items-center py-10 sm:py-20">
-
-          {/* Left: copy */}
-          <div>
-            {/* Eyebrow */}
-            <div className="inline-flex items-center gap-2.5 mb-4 sm:mb-7 text-[9px] tracking-[0.2em] uppercase font-medium" style={{ color: "var(--accent)" }}>
-              <span className="w-[5px] h-[5px] rounded-full flex-shrink-0" style={{ background: "var(--accent)" }} />
-              {lang === "it" ? "Collezione Primavera 2026" : "Spring Collection 2026"}
-            </div>
-
-            {/* Headline */}
-            <h1
-              className="font-dm-serif leading-[1.06] mb-5 sm:mb-7"
-              style={{
-                fontSize: "clamp(34px, 6vw, 82px)",
-                fontWeight: 400,
-                letterSpacing: "-0.025em",
-                color: "var(--text)",
-                fontFamily: "var(--font-dm-serif), Georgia, serif",
-              }}
-            >
-              {lang === "it" ? (
-                <>
-                  Template premium,<br />
-                  <em style={{ fontStyle: "italic", color: "var(--terra, #C4622D)" }}>plasmati con cura.</em>
-                </>
-              ) : (
-                <>
-                  Premium templates,<br />
-                  <em style={{ fontStyle: "italic", color: "var(--terra, #C4622D)" }}>crafted with care.</em>
-                </>
-              )}
-            </h1>
-
-            {/* Sub */}
-            <p className="text-[13px] sm:text-[14px] leading-[1.78] mb-7 sm:mb-10 max-w-[420px] font-light" style={{ color: "var(--muted)" }}>
-              {lang === "it"
-                ? "Template professionali pronti all'uso, personalizzabili in pochi secondi con Claude AI."
-                : "Professional templates ready to use. Customize any design in seconds with Claude AI."}
-            </p>
-
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-6">
-              <a
-                href="#browse"
-                onClick={(e) => { e.preventDefault(); document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" }); }}
-                className="btn-brand gap-2 justify-center sm:justify-start"
-              >
-                {lang === "it" ? "Sfoglia il catalogo →" : "Browse catalog →"}
-              </a>
-              <Link
-                href="/studio"
-                className="text-[13px] sm:text-[12px] flex items-center justify-center sm:justify-start gap-1.5 py-3 sm:py-0 border border-theme sm:border-0 transition-colors duration-200"
-                style={{ color: "var(--muted)", letterSpacing: "0.06em" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text)")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--muted)")}
-              >
-                {lang === "it" ? "Prova l'AI Studio" : "Try AI Studio"}
-                <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              </Link>
-            </div>
-          </div>
-
-          {/* Right: catalog shelf widget */}
-          <div className="hidden lg:block border" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
-            {/* Header */}
-            <div className="flex items-center justify-between px-[22px] py-[14px] border-b" style={{ borderColor: "var(--border)", background: "var(--card-bg)" }}>
-              <span className="font-dm-serif text-[13px] italic" style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--muted)" }}>
-                {lang === "it" ? "Selezionati questa settimana" : "Selected this week"}
-              </span>
-              <span className="text-[9px] tracking-[0.18em] uppercase font-semibold" style={{ fontFamily: "var(--font-syne)", color: "var(--accent)", opacity: 0.75 }}>
-                {countedTemplates} {lang === "it" ? "pezzi" : "pieces"}
-              </span>
-            </div>
-            {/* Shelf items — top templates */}
-            {[
-              { num: "001", name: "SaaS Hero Section",       cat: lang === "it" ? "UI · Pick" : "UI · Pick",      price: "€ 12,99", featured: true,  id: "hero-saas" },
-              { num: "002", name: "Pricing Table 3-Tier",    cat: "UI",                                             price: "€ 9,99",  featured: false, id: "pricing-table" },
-              { num: "018", name: "LinkedIn Growth Kit",     cat: "Prompt",                                         price: "€ 7,99",  featured: false, id: "linkedin-prompt-pack" },
-              { num: "031", name: "Portfolio Agency Dark",   cat: lang === "it" ? "UI · Nuovo" : "UI · New",        price: "€ 14,99", featured: false, id: "creative-agency-portfolio" },
-              { num: "044", name: "E-learning Landing",      cat: "UI",                                             price: "€ 10,99", featured: false, id: "elearning-landing" },
-            ].map((item) => (
-              <Link
-                key={item.num}
-                href={`/preview/${item.id}`}
-                className="flex items-center gap-3 px-[22px] py-[13px] border-b transition-colors duration-150 last:border-0"
-                style={{
-                  borderColor: "var(--border)",
-                  background: item.featured ? "var(--accent-bg)" : "transparent",
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = "var(--cream-08, var(--input-bg))")}
-                onMouseLeave={(e) => (e.currentTarget.style.background = item.featured ? "var(--accent-bg)" : "transparent")}
-              >
-                <span
-                  className="w-[44px] flex-shrink-0 text-[11px] italic"
-                  style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--accent)", opacity: item.featured ? 1 : 0.55 }}
-                >
-                  N° {item.num}
-                </span>
-                <span className="flex-1 text-[13px] font-normal truncate" style={{ color: "var(--text)" }}>
-                  {item.name}
-                </span>
-                <span className="text-[9px] tracking-[0.12em] uppercase font-medium mr-3 hidden sm:block"
-                  style={{ color: item.featured ? "var(--accent)" : "var(--muted)", opacity: item.featured ? 0.9 : 0.7 }}>
-                  {item.cat}
-                </span>
-                <span className="text-[15px] italic flex-shrink-0" style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--accent)" }}>
-                  {item.price}
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      <HeroSection lang={lang} countedTemplates={countedTemplates} query={query} setQuery={setQuery} />
 
       {/* ── Marquee strip — kept below hero ── */}
       <div
@@ -1168,61 +806,15 @@ export default function HomeContent() {
 
 
       {/* ── Testimonials — da aggiungere quando ci saranno utenti reali ── */}
-      {/* <div className="relative z-10 border-t border-theme px-4 sm:px-6 py-14">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-8">
-            <p className="text-[10px] font-bold text-muted uppercase tracking-[0.18em] mb-3">
-              {lang === "it" ? "Recensioni" : "Reviews"}
-            </p>
-            <h2 className="text-[1.6rem] sm:text-[2rem] font-bold tracking-tight text-theme">
-              {lang === "it" ? "Amato dai professionisti" : "Loved by professionals"}
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {TESTIMONIALS.map((testimonial, i) => (
-              <TestimonialCard key={i} testimonial={testimonial} lang={lang} />
-            ))}
-          </div>
-        </div>
-      </div> */}
+      {/* <TestimonialsSection lang={lang} /> */}
 
       {/* ── Newsletter — subtle ── */}
       <div className="relative z-10 border-t border-theme">
         <EmailCapture />
       </div>
 
-      {/* ── Ornamental quote ── */}
-      <div className="relative z-10 border-t border-theme px-4 sm:px-8 py-12 sm:py-16">
-        <div className="max-w-2xl mx-auto text-center">
-          {/* Decorative accent dot */}
-          <div className="flex justify-center mb-5">
-            <span className="w-[6px] h-[6px] rounded-full" style={{ background: "var(--accent)" }} />
-          </div>
-          {/* Quote */}
-          <blockquote>
-            <p
-              className="text-[15px] sm:text-[18px] italic leading-relaxed"
-              style={{
-                fontFamily: "var(--font-dm-serif), Georgia, serif",
-                color: "var(--text)",
-                opacity: 0.75,
-              }}
-            >
-              {lang === "it"
-                ? <>&ldquo;Non c&rsquo;è niente di più definitivo di un template &lsquo;temporaneo&rsquo; che resterà in produzione per i prossimi otto anni.&rdquo;</>
-                : <>&ldquo;There&rsquo;s nothing more permanent than a &lsquo;temporary&rsquo; template that ends up in production for the next eight years.&rdquo;</>}
-            </p>
-          </blockquote>
-          {/* Attribution line */}
-          <div className="mt-4 flex items-center justify-center gap-3">
-            <span className="w-8 h-px" style={{ background: "var(--accent)", opacity: 0.4 }} />
-            <span className="text-[10px] tracking-[0.18em] uppercase font-semibold" style={{ color: "var(--accent)", opacity: 0.7 }}>
-              {lang === "it" ? "Ogni developer, sempre" : "Every developer, always"}
-            </span>
-            <span className="w-8 h-px" style={{ background: "var(--accent)", opacity: 0.4 }} />
-          </div>
-        </div>
-      </div>
+      {/* ── Ornamental quote / CTA ── */}
+      <CTASection lang={lang} />
 
       {/* ── Footer ── */}
       <Footer />

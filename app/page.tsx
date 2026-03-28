@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import HomeContent from "@/components/HomeContent";
+import { templates } from "@/lib/templates";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://templatelab.io";
 
 export const metadata: Metadata = {
   title: "TemplateLab — Template UI e Prompt AI pronti all'uso",
@@ -21,5 +24,44 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <HomeContent />;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "TemplateLab",
+    url: SITE_URL,
+    description: "Template UI e Prompt AI pronti all'uso",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: `${SITE_URL}/?q={search_term_string}`,
+      "query-input": "required name=search_term_string",
+    },
+  };
+
+  const itemListLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Template TemplateLab",
+    url: SITE_URL,
+    numberOfItems: templates.length,
+    itemListElement: templates.slice(0, 50).map((tmpl, idx) => ({
+      "@type": "ListItem",
+      position: idx + 1,
+      url: `${SITE_URL}/preview/${tmpl.id}`,
+      name: tmpl.name,
+    })),
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListLd) }}
+      />
+      <HomeContent />
+    </>
+  );
 }

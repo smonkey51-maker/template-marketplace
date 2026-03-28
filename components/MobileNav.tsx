@@ -1,11 +1,14 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useWishlist } from "@/lib/useWishlist";
 import { useLang } from "@/components/LanguageProvider";
 
 export default function MobileNav() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
   const pathname = usePathname();
   const { ids } = useWishlist();
   const { lang } = useLang();
@@ -70,7 +73,7 @@ export default function MobileNav() {
 
   return (
     <nav
-      className="sm:hidden fixed bottom-0 inset-x-0 z-50 border-t border-theme"
+      className={`sm:hidden fixed bottom-0 inset-x-0 z-50 border-t border-theme transition-transform duration-300 ease-out ${mounted ? "translate-y-0" : "translate-y-full"}`}
       style={{
         backdropFilter: "blur(20px) saturate(160%)",
         WebkitBackdropFilter: "blur(20px) saturate(160%)",
