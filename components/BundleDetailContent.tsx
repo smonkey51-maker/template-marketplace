@@ -306,6 +306,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
             <button
               onClick={handleBuy}
               disabled={loading}
+              aria-label={`${t[lang].bundleDetail.buyNow.replace("{{price}}", formatPrice(bundle.price))} — ${bundle.name}`}
               className="btn-brand w-full justify-center text-[15px]"
               style={{ padding: "14px 24px" }}
             >

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { getTemplate, templates, formatPrice } from "@/lib/templates";
 import PreviewContent from "@/components/PreviewContent";
+import ReviewSection from "@/components/ReviewSection";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://templatelab.io";
 
@@ -60,14 +62,6 @@ export default async function PreviewPage(
           url: `${SITE_URL}/preview/${templateId}`,
           priceValidUntil: "2027-12-31",
         },
-        // TODO: replace with real data when reviews are collected
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: "5.0",
-          reviewCount: "1",
-          bestRating: "5",
-          worstRating: "1",
-        },
         keywords: template.tags.join(", "),
       }
     : null;
@@ -81,6 +75,12 @@ export default async function PreviewPage(
         />
       )}
       <PreviewContent templateId={templateId} />
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10 border-t border-theme">
+        <h2 className="text-[15px] font-bold text-theme mb-6">Recensioni</h2>
+        <Suspense fallback={<div className="h-20 animate-pulse bg-theme/5" />}>
+          <ReviewSection templateId={templateId} />
+        </Suspense>
+      </div>
     </>
   );
 }
