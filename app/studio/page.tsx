@@ -82,7 +82,7 @@ function StudioContent() {
       body: Record<string, unknown>,
       setOutput: (v: string | ((prev: string) => string)) => void,
       setLoading: (v: boolean) => void,
-      historyMeta: { label: string; category: "ui" | "prompt"; tab: Tab }
+      historyMeta: { label: string; category: "ui" | "prompt"; tab: Tab; input?: string; templateId?: string }
     ) => {
       abortRef.current?.abort();
       const controller = new AbortController();
@@ -122,18 +122,33 @@ function StudioContent() {
 
         // Save to history
         if (result.trim()) {
-          const entry: HistoryEntry = {
+          const baseEntry = {
             id: Math.random().toString(36).slice(2),
             output: result,
             label: historyMeta.label.slice(0, 60),
             category: historyMeta.category,
             tab: historyMeta.tab,
             timestamp: Date.now(),
+            input: historyMeta.input,
+            templateId: historyMeta.templateId,
           };
           if (historyMeta.tab === "generate") {
-            setGenHistory((h) => [entry, ...h].slice(0, 50));
+            setGenHistory((h) => [baseEntry, ...h].slice(0, 50));
           } else {
-            setCustomHistory((h) => [entry, ...h].slice(0, 50));
+            setCustomHistory((h) => {
+              // If re-customizing same template, carry over previous output as a version
+              const prev = historyMeta.templateId
+                ? h.find((e) => e.templateId === historyMeta.templateId)
+                : null;
+              const versions: HistoryEntry["versions"] = prev
+                ? [...(prev.versions ?? []), { timestamp: prev.timestamp, output: prev.output }]
+                : [];
+              const entry: HistoryEntry = { ...baseEntry, versions };
+              const filtered = historyMeta.templateId
+                ? h.filter((e) => e.templateId !== historyMeta.templateId)
+                : h;
+              return [entry, ...filtered].slice(0, 50);
+            });
           }
         }
 
@@ -164,7 +179,7 @@ function StudioContent() {
       { category: genCategory, description: enhancedDesc, style: genStyle },
       setGenOutput,
       setGenLoading,
-      { label: genDescription, category: genCategory, tab: "generate" }
+      { label: genDescription, category: genCategory, tab: "generate", input: genDescription }
     );
   };
 
@@ -179,7 +194,7 @@ function StudioContent() {
       },
       setCustomOutput,
       setCustomLoading,
-      { label: customInstructions, category: selectedTemplate.category, tab: "customize" }
+      { label: customInstructions, category: selectedTemplate.category, tab: "customize", input: customInstructions, templateId: selectedId }
     );
   };
 
@@ -345,6 +360,16 @@ function StudioContent() {
                 customHistory={customHistory}
                 activeTab={tab}
                 onSelectEntry={handleHistorySelect}
+                onRestoreVersion={(output) => {
+                  if (tab === "generate") setGenOutput(output);
+                  else setCustomOutput(output);
+                  setShowHistory(false);
+                  if (output.trim().startsWith("<") || output.includes("<div") || output.includes("<section")) {
+                    setOutputView("preview");
+                  } else {
+                    setOutputView("code");
+                  }
+                }}
                 onClose={() => setShowHistory(false)}
                 lang={lang}
               />
