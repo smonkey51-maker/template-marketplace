@@ -7,70 +7,82 @@ import SiteNav from "@/components/SiteNav";
 
 export default function GuidePage() {
   const { lang } = useLang();
+  const g = t[lang].guide;
 
   return (
     <div className="min-h-screen bg-page relative overflow-x-hidden">
 
-      {/* ── Ambient background orbs ── */}
+      {/* Ambient background */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden>
         <div
           className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[900px] h-[600px] rounded-full opacity-50"
           style={{ background: "radial-gradient(ellipse, var(--glow-gold) 0%, transparent 70%)" }}
         />
         <div
-          className="absolute top-[30%] right-[-5%] w-[400px] h-[400px] rounded-full"
+          className="absolute top-[40%] right-[-5%] w-[400px] h-[400px] rounded-full"
           style={{ background: "radial-gradient(ellipse, var(--glow-terra) 0%, transparent 70%)" }}
         />
       </div>
 
-      <SiteNav title={t[lang].guide.pageTitle} />
+      <SiteNav title={g.pageTitle} />
 
-      {/* ── Content ── */}
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 py-12 flex flex-col gap-16">
+      <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 py-12 flex flex-col gap-14">
 
         {/* ── Hero ── */}
         <section className="text-center anim-fade-up delay-0">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 text-[12px] font-semibold glass-subtle text-accent mb-6 select-none">
-            <span className="w-1.5 h-1.5 bg-accent" />
-            {t[lang].guide.badge}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 text-[11px] font-semibold glass-subtle mb-6 select-none" style={{ color: "var(--accent)" }}>
+            <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--accent)" }} />
+            {g.badge}
           </div>
-          <h1 className="text-[2rem] sm:text-[2.8rem] font-black tracking-[-0.03em] leading-[1.1] text-theme mb-4">
-            {t[lang].guide.title}
+          <h1 className="text-[2rem] sm:text-[2.6rem] font-black tracking-[-0.03em] leading-[1.1] text-theme mb-4">
+            {g.title}
           </h1>
-          <p className="text-[16px] sm:text-[18px] text-muted max-w-lg mx-auto leading-relaxed">
-            {t[lang].guide.subtitle}
+          <p className="text-[16px] text-muted max-w-md mx-auto leading-relaxed">
+            {g.subtitle}
           </p>
         </section>
 
-        {/* ── Sezione 1: Due tipi di template ── */}
+        {/* ── 1. Tipi di template ── */}
         <section className="anim-fade-up delay-75">
-          <p className="text-[11px] font-bold text-muted uppercase tracking-[0.2em] mb-6 text-center">
-            {t[lang].guide.sectionTypes}
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <SectionLabel>{g.sectionTypes}</SectionLabel>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+
             {/* UI Template */}
             <div className="bg-surface border border-theme p-6 flex flex-col gap-4">
-              <div className="w-12 h-12 bg-accent/10 flex items-center justify-center">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <div className="w-10 h-10 flex items-center justify-center" style={{ background: "var(--accent-bg)" }} aria-hidden>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
                   <rect x="2" y="4" width="20" height="14" rx="2" stroke="var(--accent)" strokeWidth="1.7"/>
                   <path d="M8 18v2M16 18v2M6 20h12" stroke="var(--accent)" strokeWidth="1.7" strokeLinecap="round"/>
                   <path d="M6 8h5M6 11.5h8" stroke="var(--accent)" strokeWidth="1.4" strokeLinecap="round" opacity="0.5"/>
                 </svg>
               </div>
               <div>
-                <h2 className="text-[18px] font-bold text-theme mb-2">{t[lang].guide.uiTitle}</h2>
-                <p className="text-[14px] text-muted leading-relaxed">
-                  {t[lang].guide.uiDesc}
-                </p>
+                <h2 className="text-[16px] font-bold text-theme mb-1.5">{g.uiTitle}</h2>
+                <p className="text-[13px] text-muted leading-relaxed">{g.uiDesc}</p>
               </div>
-              <div className="flex flex-wrap gap-2 mt-auto">
-                {["HTML", "Tailwind CSS", "Copy & Paste"].map((tag) => (
-                  <span
-                    key={tag}
-                    className="glass-subtle px-3 py-1 text-[11px] font-semibold text-muted"
-                  >
-                    {tag}
-                  </span>
+              <div className="flex flex-wrap gap-1.5 mt-auto pt-2">
+                {g.uiTags.map((tag: string) => (
+                  <span key={tag} className="glass-subtle px-2.5 py-1 text-[11px] font-semibold text-muted">{tag}</span>
+                ))}
+              </div>
+            </div>
+
+            {/* Prompt Template */}
+            <div className="bg-surface border border-theme p-6 flex flex-col gap-4">
+              <div className="w-10 h-10 flex items-center justify-center" style={{ background: "var(--accent-bg)" }} aria-hidden>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 6h16M4 10h10M4 14h12M4 18h7" stroke="var(--accent)" strokeWidth="1.7" strokeLinecap="round"/>
+                  <circle cx="19" cy="17" r="3.5" stroke="var(--accent)" strokeWidth="1.4"/>
+                  <path d="M21.5 19.5l1.5 1.5" stroke="var(--accent)" strokeWidth="1.4" strokeLinecap="round"/>
+                </svg>
+              </div>
+              <div>
+                <h2 className="text-[16px] font-bold text-theme mb-1.5">{g.promptTitle}</h2>
+                <p className="text-[13px] text-muted leading-relaxed">{g.promptDesc}</p>
+              </div>
+              <div className="flex flex-wrap gap-1.5 mt-auto pt-2">
+                {g.promptTags.map((tag: string) => (
+                  <span key={tag} className="glass-subtle px-2.5 py-1 text-[11px] font-semibold text-muted">{tag}</span>
                 ))}
               </div>
             </div>
@@ -78,82 +90,73 @@ export default function GuidePage() {
           </div>
         </section>
 
-        {/* ── Sezione 2: Come installare un UI Template ── */}
+        {/* ── 2. Il flusso ── */}
         <section className="anim-fade-up delay-150">
-          <p className="text-[11px] font-bold text-muted uppercase tracking-[0.2em] mb-6">
-            {t[lang].guide.sectionInstall}
-          </p>
-          <div className="bg-surface border border-theme p-6 sm:p-8">
-            <StepList
-              steps={[
-                { title: t[lang].guide.installStep1Title, desc: t[lang].guide.installStep1Desc },
-                { title: t[lang].guide.installStep2Title, desc: t[lang].guide.installStep2Desc },
-                { title: t[lang].guide.installStep3Title, desc: t[lang].guide.installStep3Desc },
-                { title: t[lang].guide.installStep4Title, desc: t[lang].guide.installStep4Desc },
-              ]}
-            />
+          <SectionLabel>{g.sectionFlow}</SectionLabel>
+          <div className="mt-6 bg-surface border border-theme p-6 sm:p-8">
+            <StepList steps={[
+              { title: g.flowStep1Title, desc: g.flowStep1Desc },
+              { title: g.flowStep2Title, desc: g.flowStep2Desc },
+              { title: g.flowStep3Title, desc: g.flowStep3Desc },
+              { title: g.flowStep4Title, desc: g.flowStep4Desc },
+            ]} />
           </div>
         </section>
 
+        {/* ── 3. AI Studio ── */}
+        <section className="anim-fade-up delay-150">
+          <SectionLabel>{g.sectionStudio}</SectionLabel>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
 
-        {/* ── Sezione 4: Demo visiva ── */}
-        <section className="anim-fade-up delay-300">
-          <p className="text-[11px] font-bold text-muted uppercase tracking-[0.2em] mb-6 text-center">
-            {t[lang].guide.sectionDemo}
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Personalizza */}
+            <div className="bg-surface border border-theme p-6 flex flex-col gap-3">
+              <div className="flex items-start justify-between gap-2">
+                <h3 className="text-[15px] font-bold text-theme">{g.studioCustomTitle}</h3>
+                <span className="shrink-0 text-[10px] font-bold px-2 py-0.5 border" style={{ color: "var(--success)", borderColor: "var(--success)", background: "var(--success-dim)" }}>
+                  {g.studioCustomBadge}
+                </span>
+              </div>
+              <p className="text-[13px] text-muted leading-relaxed">{g.studioCustomDesc}</p>
+            </div>
 
-            {/* UI Template mock */}
-            <div className="bg-surface border border-theme p-5 flex flex-col gap-4">
-              <div className="flex items-center gap-2">
-                <span className="text-[13px] font-bold text-theme">{t[lang].guide.uiTitle}</span>
-                <span className="glass-subtle px-2 py-0.5 text-[11px] font-semibold text-accent">HTML</span>
+            {/* Genera */}
+            <div className="bg-surface border border-theme p-6 flex flex-col gap-3">
+              <div className="flex items-start justify-between gap-2">
+                <h3 className="text-[15px] font-bold text-theme">{g.studioGenTitle}</h3>
+                <span className="shrink-0 text-[10px] font-bold px-2 py-0.5 border" style={{ color: "var(--accent)", borderColor: "var(--accent)", background: "var(--accent-bg)" }}>
+                  {g.studioGenBadge}
+                </span>
               </div>
-              {/* Mini HTML mockup */}
-              <div className="overflow-hidden border border-theme/50 bg-[#0F0F10]">
-                {/* Fake browser bar */}
-                <div className="flex items-center gap-1.5 px-3 py-2 bg-[#1C1C1E] border-b border-white/5">
-                  <div className="w-2 h-2 rounded-full bg-[#FF5F57]" />
-                  <div className="w-2 h-2 rounded-full bg-[#FFBD2E]" />
-                  <div className="w-2 h-2 rounded-full bg-[#28C840]" />
-                  <div className="ml-2 flex-1 h-3.5 bg-white/8 rounded-full" />
-                </div>
-                {/* Fake page content */}
-                <div className="p-4 space-y-3">
-                  {/* Fake nav */}
-                  <div className="flex items-center justify-between mb-1">
-                    <div className="h-3 w-16 bg-accent/70" />
-                    <div className="flex gap-2">
-                      <div className="h-2.5 w-8 bg-white/15 rounded-full" />
-                      <div className="h-2.5 w-8 bg-white/15 rounded-full" />
-                    </div>
-                  </div>
-                  {/* Fake hero */}
-                  <div className="bg-gradient-to-br from-accent/20 to-terra/20 p-4 text-center space-y-2">
-                    <div className="h-3.5 w-3/4 mx-auto bg-white/40 rounded-full" />
-                    <div className="h-2.5 w-1/2 mx-auto bg-white/20 rounded-full" />
-                    <div className="h-6 w-24 mx-auto bg-accent mt-2" />
-                  </div>
-                  {/* Fake cards row */}
-                  <div className="grid grid-cols-3 gap-1.5">
-                    {[0, 1, 2].map((i) => (
-                      <div key={i} className="bg-white/5 p-2 space-y-1.5">
-                        <div className="h-2 w-full bg-white/15 rounded-full" />
-                        <div className="h-2 w-2/3 bg-white/10 rounded-full" />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-              <p className="text-[12px] text-muted leading-relaxed">
-                {t[lang].guide.demoUIDesc}
-              </p>
+              <p className="text-[13px] text-muted leading-relaxed">{g.studioGenDesc}</p>
             </div>
 
           </div>
         </section>
 
-        {/* ── CTA finale ── */}
+        {/* ── 4. Bundle ── */}
+        <section className="anim-fade-up delay-225">
+          <SectionLabel>{g.sectionBundles}</SectionLabel>
+          <div className="mt-6 bg-surface border border-theme p-6 flex flex-col sm:flex-row sm:items-center gap-5">
+            <div className="w-10 h-10 shrink-0 flex items-center justify-center" style={{ background: "var(--accent-bg)" }} aria-hidden>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <rect x="3" y="8" width="18" height="13" rx="1" stroke="var(--accent)" strokeWidth="1.7"/>
+                <path d="M8 8V6a4 4 0 018 0v2" stroke="var(--accent)" strokeWidth="1.7" strokeLinecap="round"/>
+                <path d="M9 13h6M9 16h4" stroke="var(--accent)" strokeWidth="1.4" strokeLinecap="round" opacity="0.6"/>
+              </svg>
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-1">
+                <h3 className="text-[15px] font-bold text-theme">{g.bundleTitle}</h3>
+                <span className="text-[10px] font-bold px-2 py-0.5 border" style={{ color: "var(--terra)", borderColor: "var(--terra)", background: "var(--terra-dim)" }}>
+                  {g.bundleBadge}
+                </span>
+              </div>
+              <p className="text-[13px] text-muted leading-relaxed">{g.bundleDesc}</p>
+            </div>
+          </div>
+        </section>
+
+        {/* ── CTA ── */}
         <section className="anim-fade-up delay-300 text-center pb-8">
           <div className="bg-surface border border-theme p-8 sm:p-10 relative overflow-hidden">
             <div
@@ -165,21 +168,17 @@ export default function GuidePage() {
               style={{ background: "radial-gradient(ellipse, var(--glow-gold) 0%, transparent 70%)" }}
             />
             <div className="relative">
-              <p className="text-[13px] text-muted font-semibold uppercase tracking-widest mb-3">
-                {t[lang].guide.ctaLabel}
+              <p className="text-[11px] font-bold text-muted uppercase tracking-[0.2em] mb-3">
+                {g.ctaLabel}
               </p>
               <h2 className="text-[1.6rem] sm:text-[2rem] font-black tracking-[-0.03em] text-theme mb-3">
-                {t[lang].guide.ctaTitle}
+                {g.ctaTitle}
               </h2>
-              <p className="text-[15px] text-muted mb-7 max-w-md mx-auto leading-relaxed">
-                {t[lang].guide.ctaSubtitle}
+              <p className="text-[14px] text-muted mb-7 max-w-sm mx-auto leading-relaxed">
+                {g.ctaSubtitle}
               </p>
-              <Link
-                href="/#browse"
-                className="btn-brand gap-2 text-[15px]"
-                style={{ padding: "16px 32px" }}
-              >
-                {t[lang].guide.ctaBtn}
+              <Link href="/#browse" className="btn-brand" style={{ padding: "14px 32px" }}>
+                {g.ctaBtn}
               </Link>
             </div>
           </div>
@@ -190,30 +189,34 @@ export default function GuidePage() {
   );
 }
 
-/* ── Step list component (internal) ── */
-function StepList({
-  steps,
-}: {
-  steps: { title: string; desc: string }[];
-}) {
+/* ── Sezione label ── */
+function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-col gap-0">
+    <p className="text-[10px] font-bold uppercase tracking-[0.22em]" style={{ color: "var(--muted)" }}>
+      {children}
+    </p>
+  );
+}
+
+/* ── Step list ── */
+function StepList({ steps }: { steps: { title: string; desc: string }[] }) {
+  return (
+    <div className="flex flex-col">
       {steps.map((step, i) => (
         <div key={i} className="flex gap-4">
-          {/* Left: number + connector line */}
           <div className="flex flex-col items-center shrink-0">
-            <div className="w-8 h-8 bg-accent/10 text-accent font-black text-sm flex items-center justify-center shrink-0">
+            <div
+              className="w-7 h-7 text-[12px] font-black flex items-center justify-center shrink-0"
+              style={{ background: "var(--accent-bg)", color: "var(--accent)" }}
+            >
               {i + 1}
             </div>
             {i < steps.length - 1 && (
-              <div className="w-px bg-theme flex-1 min-h-[24px] my-1 opacity-30" />
+              <div className="w-px flex-1 min-h-[20px] my-1" style={{ background: "var(--border)" }} />
             )}
           </div>
-          {/* Right: content */}
-          <div className="pt-0.5 flex-1"
-            style={{ paddingBottom: i < steps.length - 1 ? "24px" : "0" }}
-          >
-            <h3 className="text-[15px] font-bold text-theme mb-1">{step.title}</h3>
+          <div className="flex-1 pt-0.5" style={{ paddingBottom: i < steps.length - 1 ? "20px" : "0" }}>
+            <h3 className="text-[14px] font-bold text-theme mb-0.5">{step.title}</h3>
             <p className="text-[13px] text-muted leading-relaxed">{step.desc}</p>
           </div>
         </div>
