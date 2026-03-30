@@ -37,13 +37,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ url: `${appUrl}/success?bundleId=${bundleId}&free=1` });
     }
 
+    const bundleMeta = { userId, bundleId, templateIds: bundle.templateIds.join(",") };
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       line_items: [{ price: bundle.stripePriceId, quantity: 1 }],
       success_url: `${appUrl}/success?bundleId=${bundleId}&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${appUrl}/`,
-      payment_intent_data: { metadata: { userId, bundleId, templateIds: bundle.templateIds.join(",") } },
-      metadata: { userId, bundleId, templateIds: bundle.templateIds.join(",") },
+      payment_intent_data: { metadata: bundleMeta },
+      metadata: bundleMeta,
     });
     return NextResponse.json({ url: session.url });
   }
@@ -85,15 +86,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ url: `${appUrl}/success?templateId=${templateId}&free=1` });
   }
 
+  const templateMeta = { templateId, ...(userId ? { userId } : {}) };
   const session = await stripe.checkout.sessions.create({
     mode: "payment",
     line_items: [{ price: template.stripePriceId, quantity: 1 }],
     success_url: `${appUrl}/success?templateId=${templateId}&session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${appUrl}/preview/${templateId}`,
-    payment_intent_data: {
-      metadata: { templateId, ...(userId ? { userId } : {}) },
-    },
-    metadata: { templateId, ...(userId ? { userId } : {}) },
+    payment_intent_data: { metadata: templateMeta },
+    metadata: templateMeta,
   });
 
   return NextResponse.json({ url: session.url });

@@ -1,5 +1,13 @@
 import { createClient } from "@supabase/supabase-js";
 
+export function hasStudioAccess(purchasedIds: string[]): boolean {
+  return purchasedIds.includes("studio-access") || purchasedIds.includes("studio-access-lifetime");
+}
+
+export function isStudioProduct(templateId: string): boolean {
+  return templateId === "studio-access" || templateId === "studio-access-lifetime";
+}
+
 export async function getUserPurchases(userId: string): Promise<string[]> {
   const supabase = createClient(
     process.env.SUPABASE_URL!,

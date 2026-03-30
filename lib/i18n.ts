@@ -558,3 +558,22 @@ export const SEARCH_SYNONYMS: Record<string, string[]> = {
   "theme": ["tema", "wordpress", "shopify"],
   "ecommerce": ["shopify", "negozio", "store", "product"],
 };
+
+
+/** Returns the localized name for a template (falls back to EN name). */
+export function getLocalizedName(
+  template: { id: string; name: string },
+  lang: Lang
+): string {
+  return lang === "it" ? (templateTranslations[template.id]?.name ?? template.name) : template.name;
+}
+
+/** Returns the localized description for a template (falls back to EN description). */
+export function getLocalizedDesc(
+  template: { id: string; description: string },
+  lang: Lang
+): string {
+  return lang === "it"
+    ? (templateTranslations[template.id]?.description ?? template.description)
+    : template.description;
+}

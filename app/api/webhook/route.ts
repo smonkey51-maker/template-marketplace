@@ -3,6 +3,7 @@ import Stripe from "stripe";
 import { createClient } from "@supabase/supabase-js";
 import { getBundle, getTemplate } from "@/lib/templates";
 import { sendPurchaseEmail } from "@/lib/email";
+import { isStudioProduct } from "@/lib/purchases";
 
 export async function POST(req: NextRequest) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
@@ -75,10 +76,8 @@ export async function POST(req: NextRequest) {
       } else {
         console.log(`✅ Acquisto salvato — userId: ${effectiveUserId}, templateId: ${templateId}`);
         if (guestEmail) {
-          const tmpl = templateId === "studio-access" || templateId === "studio-access-lifetime"
-            ? null
-            : getTemplate(templateId);
-          const isStudio = templateId === "studio-access" || templateId === "studio-access-lifetime";
+          const isStudio = isStudioProduct(templateId);
+          const tmpl = isStudio ? null : getTemplate(templateId);
           const downloadUrl = tmpl
             ? `${process.env.NEXT_PUBLIC_SITE_URL}/api/download-session?session_id=${session.id}&templateId=${templateId}&lang=it`
             : undefined;

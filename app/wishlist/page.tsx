@@ -6,19 +6,12 @@ import { getTemplate } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
 import TemplateCard from "@/components/TemplateCard";
 import SiteNav from "@/components/SiteNav";
-import { useEffect, useState } from "react";
+import { usePurchases } from "@/lib/usePurchases";
 
 export default function WishlistPage() {
   const { ids, toggle } = useWishlist();
   const { lang } = useLang();
-  const [purchasedIds, setPurchasedIds] = useState<string[]>([]);
-
-  useEffect(() => {
-    fetch("/api/purchases")
-      .then((r) => r.ok ? r.json() : { templateIds: [] })
-      .then((d) => setPurchasedIds(d.templateIds ?? []))
-      .catch((e) => console.error("[WishlistPage] fetch purchases:", e));
-  }, []);
+  const { purchasedIds } = usePurchases();
 
   const saved = ids.map((id) => getTemplate(id)).filter(Boolean);
 

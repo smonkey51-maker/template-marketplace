@@ -7,7 +7,8 @@ import { templates, bundles, formatPrice, Template } from "@/lib/templates";
 import TemplateGrid from "@/components/TemplateGrid";
 import NavButtons from "@/components/NavButtons";
 import { useLang } from "@/components/LanguageProvider";
-import { t, templateTranslations } from "@/lib/i18n";
+import { t } from "@/lib/i18n";
+import { usePurchases } from "@/lib/usePurchases";
 import EmailCapture from "@/components/EmailCapture";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -417,7 +418,7 @@ export default function HomeContent() {
   // Shared search query — lifted so hero search bar drives TemplateGrid
   const [query, setQuery] = useState("");
 
-  const [purchasedIds, setPurchasedIds] = useState<string[]>([]);
+  const { purchasedIds } = usePurchases();
   const [marqueePaused, setMarqueePaused] = useState(false);
   const toast = useToast();
 
@@ -439,13 +440,6 @@ export default function HomeContent() {
     function onKey(e: KeyboardEvent) { if (e.key === "Escape") setMobileMenuOpen(false); }
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, []);
-
-  useEffect(() => {
-    fetch("/api/purchases")
-      .then((r) => r.ok ? r.json() : { templateIds: [] })
-      .then((data) => setPurchasedIds(data.templateIds ?? []))
-      .catch((e) => console.error("[HomeContent] fetch purchases:", e));
   }, []);
 
   const handleBundleBuy = useCallback(async (bundleId: string) => {

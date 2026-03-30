@@ -8,10 +8,11 @@ import DownloadButton from "@/components/DownloadButton";
 import RelatedTemplates from "@/components/RelatedTemplates";
 
 import { useLang } from "@/components/LanguageProvider";
-import { t, templateTranslations } from "@/lib/i18n";
+import { t, getLocalizedName, getLocalizedDesc } from "@/lib/i18n";
 import { useToast } from "@/components/Toast";
 import { useWishlist } from "@/lib/useWishlist";
 import { useRecentlyViewed } from "@/lib/useRecentlyViewed";
+import { usePurchases } from "@/lib/usePurchases";
 
 /** Responsive phone mockup: scales down the 390px iframe to fit narrow viewports */
 function PhoneFrame({ templateId, templateName }: { templateId: string; templateName: string }) {
@@ -106,8 +107,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
   const router = useRouter();
 
   const { lang } = useLang();
-  const [purchasedIds, setPurchasedIds] = useState<string[]>([]);
-  const [purchasesLoading, setPurchasesLoading] = useState(true);
+  const { purchasedIds, loading: purchasesLoading } = usePurchases();
   const [loading, setLoading] = useState(false);
   const toast = useToast();
   const { toggle, isWishlisted } = useWishlist();
@@ -120,14 +120,6 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
   useEffect(() => {
     if (templateId) track(templateId);
   }, [templateId, track]);
-
-  useEffect(() => {
-    fetch("/api/purchases")
-      .then((r) => r.ok ? r.json() : { templateIds: [] })
-      .then((d) => setPurchasedIds(d.templateIds ?? []))
-      .catch((e) => console.error("[PreviewContent] fetch purchases:", e))
-      .finally(() => setPurchasesLoading(false));
-  }, []);
 
   const isPurchased = purchasedIds.includes(templateId);
 
@@ -163,8 +155,10 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
 
   const downloadType = template.downloadType ?? "html";
   const categoryLabel = t[lang].card.categoryUI;
-  const displayName = lang === "it" ? (templateTranslations[template.id]?.name ?? template.name) : template.name;
-  const displayDesc = lang === "it" ? (templateTranslations[template.id]?.description ?? template.description) : template.description;
+  const displayName = getLocalizedName(template, lang);
+  const displayDesc = getLocalizedDesc(template, lang);
+  const activeToggleStyle = { background: "var(--accent)", color: "var(--bg)" };
+  const terraDimStyle = { background: "var(--terra-dim)", border: "1px solid rgba(var(--accent-rgb), 0.20)" };
 
   return (
     <div className="min-h-screen bg-page flex flex-col">
@@ -216,7 +210,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
                 ? "shadow-sm"
                 : "text-muted hover:text-theme"
             }`}
-            style={viewMode === "desktop" ? { background: "var(--accent)", color: "var(--bg)" } : undefined}
+            style={viewMode === "desktop" ? activeToggleStyle : undefined}
           >
             <svg width="15" height="11" viewBox="0 0 15 11" fill="none" aria-hidden>
               <rect x="0.6" y="0.6" width="13.8" height="8.3" rx="1.4" stroke="currentColor" strokeWidth="1.2"/>
@@ -233,7 +227,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
                 ? "shadow-sm"
                 : "text-muted hover:text-theme"
             }`}
-            style={viewMode === "mobile" ? { background: "var(--accent)", color: "var(--bg)" } : undefined}
+            style={viewMode === "mobile" ? activeToggleStyle : undefined}
           >
             <svg width="8" height="13" viewBox="0 0 8 13" fill="none">
               <rect x="0.6" y="0.6" width="6.8" height="11.8" rx="1.8" stroke="currentColor" strokeWidth="1.2"/>
@@ -268,7 +262,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
       {template.videoUrl && (
         <div className="relative z-10 bg-page border-t border-theme px-4 py-4 flex items-center justify-between gap-3 max-w-2xl mx-auto w-full">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 flex items-center justify-center shrink-0" style={{ background: "var(--terra-dim)", border: "1px solid rgba(var(--accent-rgb), 0.20)" }}>
+            <div className="w-9 h-9 flex items-center justify-center shrink-0" style={terraDimStyle}>
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
                 <path d="M3 2.5l9 4.5-9 4.5V2.5z" fill="var(--terra)"/>
               </svg>
@@ -287,7 +281,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
             target="_blank"
             rel="noopener noreferrer"
             className="shrink-0 flex items-center gap-1.5 px-3.5 py-2 text-[12px] font-semibold transition-colors duration-200"
-            style={{ background: "var(--terra-dim)", border: "1px solid rgba(var(--accent-rgb), 0.20)", color: "var(--terra)" }}
+            style={{ ...terraDimStyle, color: "var(--terra)" }}
           >
             {lang === "it" ? "Guarda" : "Watch"}
             <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden>

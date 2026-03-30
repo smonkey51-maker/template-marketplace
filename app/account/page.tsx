@@ -3,28 +3,21 @@
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { usePurchases } from "@/lib/usePurchases";
+import { hasStudioAccess } from "@/lib/purchases";
 import { getTemplate, formatPrice, getDownloadType } from "@/lib/templates";
 import DownloadButton from "@/components/DownloadButton";
 import { useLang } from "@/components/LanguageProvider";
-import { t, templateTranslations } from "@/lib/i18n";
+import { t, getLocalizedName } from "@/lib/i18n";
 
 export default function AccountPage() {
   const { user, isLoaded } = useUser();
   const { lang } = useLang();
-  const [purchasedIds, setPurchasedIds] = useState<string[]>([]);
+  const { purchasedIds } = usePurchases();
   const [portalLoading, setPortalLoading] = useState(false);
 
-  useEffect(() => {
-    fetch("/api/purchases")
-      .then((r) => r.json())
-      .then((d) => setPurchasedIds(d.templateIds ?? []))
-      .catch((e) => console.error("[AccountPage] fetch purchases:", e));
-  }, []);
-
-  const hasStudioAccess =
-    purchasedIds.includes("studio-access") ||
-    purchasedIds.includes("studio-access-lifetime");
+  const studioAccess = hasStudioAccess(purchasedIds);
   const purchasedTemplates = purchasedIds
     .filter((id) => id !== "studio-access")
     .map((id) => getTemplate(id))
@@ -79,24 +72,24 @@ export default function AccountPage() {
 
         {/* Studio Access */}
         <div className={`border p-6 flex items-center justify-between gap-4 ${
-          hasStudioAccess
+          studioAccess
             ? "bg-accent/10 border-accent/25"
             : "border-theme"
-        }`} style={!hasStudioAccess ? { background: "var(--card-bg)" } : undefined}>
+        }`} style={!studioAccess ? { background: "var(--card-bg)" } : undefined}>
           <div className="flex items-center gap-4">
             <div className={`w-12 h-12 flex items-center justify-center text-2xl ${
-              hasStudioAccess ? "bg-accent/20 text-accent" : "bg-card text-theme"
+              studioAccess ? "bg-accent/20 text-accent" : "bg-card text-theme"
             }`}>
               ✦
             </div>
             <div>
               <p className="font-bold text-theme text-[17px]">{t[lang].account.studioAccessTitle}</p>
               <p className="text-[13px] text-muted">
-                {hasStudioAccess ? t[lang].account.studioAccessActive : t[lang].account.studioAccessInactive}
+                {studioAccess ? t[lang].account.studioAccessActive : t[lang].account.studioAccessInactive}
               </p>
             </div>
           </div>
-          {hasStudioAccess ? (
+          {studioAccess ? (
             <button
               onClick={openPortal}
               disabled={portalLoading}
@@ -144,9 +137,7 @@ export default function AccountPage() {
             <div className="flex flex-col gap-3">
               {purchasedTemplates.map((tmpl) => {
                 const dlType = getDownloadType(tmpl);
-                const displayName = lang === "it"
-                  ? (templateTranslations[tmpl.id]?.name ?? tmpl.name)
-                  : tmpl.name;
+                const displayName = getLocalizedName(tmpl, lang);
                 const meta = DOWNLOAD_META_LABELS[dlType];
 
                 return (
