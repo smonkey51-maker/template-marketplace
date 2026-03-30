@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback, useRef } from "react";
+import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import { usePurchases } from "@/lib/usePurchases";
 import { useSearchParams, useRouter } from "next/navigation";
 import { templates, bundles, Template, getDownloadType } from "@/lib/templates";
