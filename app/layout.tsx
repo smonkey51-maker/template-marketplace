@@ -6,7 +6,6 @@ import LanguageProvider from "@/components/LanguageProvider";
 import { PostHogProvider } from "@/components/PostHogProvider";
 import { ToastProvider } from "@/components/Toast";
 import MobileNav from "@/components/MobileNav";
-import CustomCursor from "@/components/CustomCursor";
 import "./globals.css";
 
 const syne = Syne({
@@ -76,7 +75,6 @@ export default function RootLayout({
           <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[9999] focus:px-4 focus:py-2 focus:text-[13px] focus:font-bold" style={{ background: "var(--accent)", color: "var(--bg)" }}>
             Skip to content
           </a>
-          <CustomCursor />
           <PostHogProvider><ThemeProvider><LanguageProvider><ToastProvider><div id="main-content">{children}</div><MobileNav /></ToastProvider></LanguageProvider></ThemeProvider></PostHogProvider>
         </body>
       </html>

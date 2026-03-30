@@ -181,6 +181,16 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   background-color: var(--bg);
+  background-image:
+    repeating-linear-gradient(
+      -52deg,
+      transparent 28px,
+      rgba(var(--accent-rgb), 0.018) 28.5px,
+      transparent 29px
+    ),
+    radial-gradient(ellipse 80% 50% at 0% 0%, rgba(var(--accent-rgb), 0.05) 0%, transparent 65%),
+    radial-gradient(ellipse 70% 60% at 100% 100%, rgba(var(--accent-rgb), 0.03) 0%, transparent 60%);
+  background-attachment: fixed;
   color: var(--text);
   transition: background-color 0.22s cubic-bezier(0.4,0,0.2,1),
               color 0.22s cubic-bezier(0.4,0,0.2,1);
@@ -431,20 +441,6 @@ html::-webkit-scrollbar-track {
   }
 }
 
-/* ═══════════════════════════════════════════════════════════
-   GRAIN / NOISE OVERLAY
-   ═══════════════════════════════════════════════════════════ */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 99990;
-  opacity: 0.014;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 160px 160px;
-}
 
 /* ═══════════════════════════════════════════════════════════
    CUSTOM CURSOR
@@ -879,27 +875,10 @@ html.dark {
   isolation: isolate;
 }
 
-/* Shimmer sweep — contained within button (overflow: hidden) */
-.btn-brand::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 28%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
-  animation: shimmer-sweep 3.8s ease-in-out infinite;
-  animation-delay: 2s;
-  pointer-events: none;
-}
 
 .btn-brand:hover {
   background: var(--text);
   color: var(--bg);
-  /* Ring effect via box-shadow so overflow:hidden doesn't clip it */
-  box-shadow:
-    0 8px 24px rgba(var(--accent-rgb), 0.22),
-    0 0 0 2px rgba(var(--accent-rgb), 0.55);
 }
 
 .btn-brand:active {

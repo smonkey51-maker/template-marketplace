@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { useRef, useEffect, useState } from "react";
-import { Template, formatPrice, formatCount, templates, getDownloadType } from "@/lib/templates";
+import { Template, formatPrice, getDownloadType } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
-import { t, templateTranslations } from "@/lib/i18n";
+import { templateTranslations } from "@/lib/i18n";
 import { useWishlist } from "@/lib/useWishlist";
 
 type Lang = "it" | "en";
@@ -179,63 +179,17 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
   const { lang } = useLang();
   const { toggle, isWishlisted } = useWishlist();
   const isPurchased = purchasedIds.includes(template.id);
-  const isBestseller = template.downloads >= 700;
-  const isEditorsPick = template.editorsPick === true;
-  const isNew = template.isNew === true;
   const displayName = lang === "it" ? (templateTranslations[template.id]?.name ?? template.name) : template.name;
   const displayDesc = lang === "it" ? (templateTranslations[template.id]?.description ?? template.description) : template.description;
   const saved = isWishlisted(template.id);
-
-  const [copied, setCopied] = useState(false);
-
-
-  const handleShare = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const url = `${window.location.origin}/preview/${template.id}`;
-    navigator.clipboard.writeText(url).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1800);
-    });
-  };
-
-  const editionNum = String(templates.findIndex((tt) => tt.id === template.id) + 1).padStart(3, "0");
-  const downloadType = getDownloadType(template);
 
   return (
     <div className="group relative h-full transition-opacity duration-200 hover:opacity-90">
       <Link
         href={`/preview/${template.id}`}
         aria-label={displayName}
-        className="glass relative overflow-hidden flex flex-col h-full active:opacity-90 block"
+        className="bg-card border border-theme relative overflow-hidden flex flex-col h-full active:opacity-90 block"
       >
-        {/* Top accent strip */}
-        <div className="h-[2px] w-full flex-shrink-0" style={{ background: "var(--accent)" }} />
-
-        {/* Badges */}
-        {isEditorsPick && !isPurchased && (
-          <div className="absolute top-3 right-3 z-20 text-[8px] font-bold uppercase tracking-[0.14em] px-2 py-[3px]"
-            style={{ fontFamily: "var(--font-syne)", background: "var(--accent)", color: "var(--bg)" }}>
-            {t[lang].card.editorsPick}
-          </div>
-        )}
-        {isNew && !isPurchased && !isEditorsPick && (
-          <div className="absolute top-3 right-3 z-20 text-[8px] font-bold uppercase tracking-[0.14em] px-2 py-[3px]"
-            style={{ fontFamily: "var(--font-syne)", background: "var(--terra, #C4622D)", color: "white" }}>
-            {t[lang].card.isNew}
-          </div>
-        )}
-        {isBestseller && !isPurchased && !isEditorsPick && !isNew && (
-          <div className="absolute top-3 right-3 z-20 text-[8px] font-bold uppercase tracking-[0.14em] px-2 py-[3px]"
-            style={{ background: "var(--input-bg)", color: "var(--muted)", border: "1px solid var(--border)" }}>
-            Hot
-          </div>
-        )}
-        {/* Edition badge */}
-        <div className="absolute top-3 left-3 z-20 text-[11px] italic px-1.5 py-0.5"
-          style={{ fontFamily: "var(--font-dm-serif), serif", color: "white", opacity: 0.8, background: "rgba(0,0,0,0.35)", backdropFilter: "blur(4px)" }}>
-          N° {editionNum}
-        </div>
 
         {/* Thumbnail */}
         <div
@@ -243,101 +197,41 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
           onClick={(e) => { if (onQuickView) { e.preventDefault(); e.stopPropagation(); onQuickView(template.id); } }}
         >
           <UIThumbnail template={template} isPurchased={isPurchased} lang={lang} />
-          {/* Quick-preview hint */}
-          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none">
-            <span className="flex items-center gap-1.5 text-[11px] font-bold px-4 py-2 shadow-lg"
-              style={{ background: "rgba(0,0,0,0.65)", color: "white", backdropFilter: "blur(8px)" }}>
-              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden>
-                <circle cx="6.5" cy="6.5" r="4.5" stroke="white" strokeWidth="1.4"/>
-                <path d="M10 10l2.5 2.5" stroke="white" strokeWidth="1.4" strokeLinecap="round"/>
-              </svg>
-              {lang === "it" ? "Anteprima →" : "Preview →"}
-            </span>
-          </div>
+          {/* Hover veil */}
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/[0.05] transition-colors duration-300 pointer-events-none" />
         </div>
 
         {/* Card body */}
-        <div className="px-4 py-3.5 flex flex-col flex-1" style={{ borderTop: "1px solid var(--border)" }}>
-          {/* Category pill + platform badge */}
-          <div className="mb-1.5 flex items-center gap-1.5">
-            <span className="text-[9px] tracking-[0.12em] uppercase font-semibold px-1.5 py-[1px]"
-              style={{ background: "var(--accent-bg)", color: "var(--accent)", border: "1px solid var(--accent-muted)" }}>
-              {t[lang].card.categoryUI}
-            </span>
-            {downloadType !== "html" && (
-              <span className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-[2px]"
-                style={{ background: `var(--platform-${downloadType})`, color: "white" }}>
-                {downloadType}
-              </span>
-            )}
-          </div>
-
+        <div className="px-4 py-4 flex flex-col flex-1" style={{ borderTop: "1px solid var(--border)" }}>
           {/* Name */}
-          <h3 className="text-[14px] font-bold leading-snug mb-1 tracking-[-0.01em]"
+          <h3 className="text-[13px] font-semibold leading-snug mb-1.5 tracking-[-0.01em]"
             style={{ fontFamily: "var(--font-syne)", color: "var(--text)" }}>
             {displayName}
           </h3>
 
           {/* Description */}
-          <p className="text-[12px] font-light leading-snug line-clamp-1 flex-1" style={{ color: "var(--muted)" }}>
+          <p className="text-[11px] font-light leading-relaxed line-clamp-2 flex-1" style={{ color: "var(--muted)" }}>
             {displayDesc}
           </p>
 
-          {/* Price + actions row */}
-          <div className="mt-2.5 pt-2.5 flex items-center justify-between" style={{ borderTop: "1px solid var(--border)" }}>
-            <span className="text-[20px] italic" style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--accent)" }}>
+          {/* Price + wishlist */}
+          <div className="mt-3 pt-3 flex items-center justify-between" style={{ borderTop: "1px solid var(--border)" }}>
+            <span className="text-[18px] italic" style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--accent)" }}>
               {formatPrice(template.price)}
             </span>
-            <div className="flex items-center gap-1">
-              <span className="text-[11px] text-muted flex items-center gap-1 mr-1">
-                <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden>
-                  <path d="M6 1v7M3 6l3 3 3-3M2 10h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                {formatCount(template.downloads)}
-              </span>
-              {/* Wishlist */}
-              <button
-                onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggle(template.id); }}
-                aria-label={saved ? (lang === "it" ? "Rimuovi dai salvati" : "Remove") : (lang === "it" ? "Salva" : "Save")}
-                className={`p-2 -m-1 min-w-[36px] min-h-[36px] flex items-center justify-center transition-all duration-150 ${
-                  saved ? "opacity-100" : "sm:opacity-0 sm:group-hover:opacity-100 text-muted"
-                }`}
-                style={saved ? { color: "var(--terra)" } : undefined}
-                onMouseEnter={(e) => { if (!saved) (e.currentTarget as HTMLElement).style.color = "var(--terra)"; }}
-                onMouseLeave={(e) => { if (!saved) (e.currentTarget as HTMLElement).style.color = ""; }}
-              >
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-                  <path d="M7 12S1 8 1 4.5A3.5 3.5 0 017 2.1a3.5 3.5 0 016 2.4C13 8 7 12 7 12z"
-                    stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"
-                    fill={saved ? "currentColor" : "none"} />
-                </svg>
-              </button>
-              {/* Share */}
-              <button
-                onClick={handleShare}
-                aria-label={copied ? (lang === "it" ? "Copiato!" : "Copied!") : (lang === "it" ? "Copia link" : "Copy link")}
-                title={copied ? (lang === "it" ? "Copiato!" : "Copied!") : (lang === "it" ? "Copia link" : "Copy link")}
-                className="p-2 -m-1 min-w-[36px] min-h-[36px] flex items-center justify-center opacity-60 sm:opacity-0 sm:group-hover:opacity-100 hover:opacity-100 transition-all duration-150 text-muted hover:text-theme"
-              >
-                {copied ? (
-                  <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden>
-                    <path d="M2 7l3.5 3.5L12 3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                ) : (
-                  <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden>
-                    <circle cx="11" cy="3" r="1.8" stroke="currentColor" strokeWidth="1.4"/>
-                    <circle cx="3" cy="7" r="1.8" stroke="currentColor" strokeWidth="1.4"/>
-                    <circle cx="11" cy="11" r="1.8" stroke="currentColor" strokeWidth="1.4"/>
-                    <path d="M4.7 6.1l4.6-2.3M4.7 7.9l4.6 2.3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
-                  </svg>
-                )}
-              </button>
-              {/* Arrow hint */}
-              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden
-                className="text-muted opacity-0 group-hover:opacity-50 group-hover:translate-x-0.5 transition-all duration-150">
-                <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <button
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggle(template.id); }}
+              aria-label={saved ? (lang === "it" ? "Rimuovi dai salvati" : "Remove from saved") : (lang === "it" ? "Salva" : "Save")}
+              className={`transition-colors duration-200 p-1 ${
+                saved ? "text-[var(--terra)]" : "text-muted hover:text-[var(--terra)] opacity-0 group-hover:opacity-100"
+              }`}
+            >
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden>
+                <path d="M7 12S1 8 1 4.5A3.5 3.5 0 017 2.1a3.5 3.5 0 016 2.4C13 8 7 12 7 12z"
+                  stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round"
+                  fill={saved ? "currentColor" : "none"} />
               </svg>
-            </div>
+            </button>
           </div>
         </div>
       </Link>

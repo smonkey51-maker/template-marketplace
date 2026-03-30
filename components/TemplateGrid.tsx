@@ -260,7 +260,7 @@ export default function TemplateGrid({ externalQuery = "", onClearSearch }: { ex
 
           {searchResults.length > 0 ? (
             <>
-              <div key={animKey} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+              <div key={animKey} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 sm:gap-9">
                 {loading
                   ? Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)
                   : searchResults.slice(0, visibleCount).map((tmpl, i) => (
@@ -303,7 +303,7 @@ export default function TemplateGrid({ externalQuery = "", onClearSearch }: { ex
                 <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted mb-4">
                   {lang === "it" ? "Più popolari" : "Most popular"}
                 </p>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-7">
                   {templates.sort((a, b) => b.downloads - a.downloads).slice(0, 3).map((tmpl) => (
                     <TemplateCard key={tmpl.id} template={tmpl} purchasedIds={purchasedIds} onQuickView={handleQuickView} />
                   ))}
@@ -341,7 +341,7 @@ export default function TemplateGrid({ externalQuery = "", onClearSearch }: { ex
           </div>
 
           {/* Template cards */}
-          <div key={animKey} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+          <div key={animKey} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 sm:gap-9">
             {loading
               ? Array.from({ length: openSectionTemplates.length || 3 }).map((_, i) => <SkeletonCard key={i} />)
               : openSectionTemplates.map((tmpl, i) => (
@@ -467,11 +467,11 @@ export default function TemplateGrid({ externalQuery = "", onClearSearch }: { ex
               </div>
 
               {loading ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-7 sm:gap-9">
                   {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
                 </div>
               ) : filteredSections.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-7 sm:gap-9">
                   {filteredSections.map((section, i) => {
                     const sectionTemplates = section.ids.map((id) => byId[id]).filter(Boolean) as Template[];
                     if (sectionTemplates.length === 0) return null;

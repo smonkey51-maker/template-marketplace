@@ -114,26 +114,21 @@ export default function HeroSection({
           </div>
           {/* Shelf items — top templates */}
           {[
-            { num: "001", name: "SaaS Hero Section",       cat: lang === "it" ? "UI · Pick" : "UI · Pick",      price: "€ 12,99", featured: true,  id: "hero-saas" },
-            { num: "002", name: "Pricing Table 3-Tier",    cat: "UI",                                             price: "€ 9,99",  featured: false, id: "pricing-table" },
-            { num: "018", name: "LinkedIn Growth Kit",     cat: "Prompt",                                         price: "€ 7,99",  featured: false, id: "linkedin-prompt-pack" },
-            { num: "031", name: "Portfolio Agency Dark",   cat: lang === "it" ? "UI · Nuovo" : "UI · New",        price: "€ 14,99", featured: false, id: "creative-agency-portfolio" },
-            { num: "044", name: "E-learning Landing",      cat: "UI",                                             price: "€ 10,99", featured: false, id: "elearning-landing" },
+            { num: "001", name: "SaaS Hero Section",    cat: "UI",     price: "€ 12,99", id: "hero-saas" },
+            { num: "002", name: "Pricing Table 3-Tier", cat: "UI",     price: "€ 9,99",  id: "pricing-table" },
+            { num: "018", name: "LinkedIn Growth Kit",  cat: "Prompt", price: "€ 7,99",  id: "linkedin-prompt-pack" },
           ].map((item) => (
             <Link
               key={item.num}
               href={`/preview/${item.id}`}
-              className="flex items-center gap-3 px-[22px] py-[13px] border-b transition-colors duration-150 last:border-0"
-              style={{
-                borderColor: "var(--border)",
-                background: item.featured ? "var(--accent-bg)" : "transparent",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = "var(--cream-08, var(--input-bg))")}
-              onMouseLeave={(e) => (e.currentTarget.style.background = item.featured ? "var(--accent-bg)" : "transparent")}
+              className="flex items-center gap-3 px-[22px] py-[14px] border-b transition-colors duration-200 last:border-0"
+              style={{ borderColor: "var(--border)", background: "transparent" }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "var(--input-bg)")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
             >
               <span
                 className="w-[44px] flex-shrink-0 text-[11px] italic"
-                style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--accent)", opacity: item.featured ? 1 : 0.55 }}
+                style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--accent)", opacity: 0.6 }}
               >
                 N° {item.num}
               </span>
@@ -141,7 +136,7 @@ export default function HeroSection({
                 {item.name}
               </span>
               <span className="text-[9px] tracking-[0.12em] uppercase font-medium mr-3 hidden sm:block"
-                style={{ color: item.featured ? "var(--accent)" : "var(--muted)", opacity: item.featured ? 0.9 : 0.7 }}>
+                style={{ color: "var(--muted)", opacity: 0.65 }}>
                 {item.cat}
               </span>
               <span className="text-[15px] italic flex-shrink-0" style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--accent)" }}>

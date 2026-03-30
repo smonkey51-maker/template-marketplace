@@ -11,9 +11,7 @@ import { t, getLocalizedName } from "@/lib/i18n";
 import { usePurchases } from "@/lib/usePurchases";
 import EmailCapture from "@/components/EmailCapture";
 import Footer from "@/components/Footer";
-import ScrollToTop from "@/components/ScrollToTop";
 import { useToast } from "@/components/Toast";
-import ScrollProgressBar from "@/components/home/ScrollProgressBar";
 import TemplatesDropdown from "@/components/home/TemplatesDropdown";
 import BundlesDropdown from "@/components/home/BundlesDropdown";
 import HeroSection from "@/components/home/HeroSection";
@@ -461,8 +459,6 @@ export default function HomeContent() {
 
   return (
     <div className="min-h-screen bg-page relative overflow-x-hidden anim-page-enter">
-      <ScrollProgressBar />
-
       {/* no ambient glow in hybrid — grain overlay handles warmth */}
 
       {/* ── Hybrid Nav ── */}
@@ -768,8 +764,6 @@ export default function HomeContent() {
 
       {/* ── Footer ── */}
       <Footer />
-
-      <ScrollToTop />
     </div>
   );
 }
