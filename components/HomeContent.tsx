@@ -445,7 +445,7 @@ export default function HomeContent() {
     fetch("/api/purchases")
       .then((r) => r.ok ? r.json() : { templateIds: [] })
       .then((data) => setPurchasedIds(data.templateIds ?? []))
-      .catch(() => {});
+      .catch((e) => console.error("[HomeContent] fetch purchases:", e));
   }, []);
 
   const handleBundleBuy = useCallback(async (bundleId: string) => {

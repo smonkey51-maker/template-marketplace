@@ -17,7 +17,7 @@ export default function WishlistPage() {
     fetch("/api/purchases")
       .then((r) => r.ok ? r.json() : { templateIds: [] })
       .then((d) => setPurchasedIds(d.templateIds ?? []))
-      .catch(() => {});
+      .catch((e) => console.error("[WishlistPage] fetch purchases:", e));
   }, []);
 
   const saved = ids.map((id) => getTemplate(id)).filter(Boolean);

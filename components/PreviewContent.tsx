@@ -125,7 +125,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
     fetch("/api/purchases")
       .then((r) => r.ok ? r.json() : { templateIds: [] })
       .then((d) => setPurchasedIds(d.templateIds ?? []))
-      .catch(() => {})
+      .catch((e) => console.error("[PreviewContent] fetch purchases:", e))
       .finally(() => setPurchasesLoading(false));
   }, []);
 

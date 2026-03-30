@@ -35,7 +35,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
     fetch("/api/purchases")
       .then((r) => r.ok ? r.json() : { templateIds: [] })
       .then((d) => setPurchasedIds(d.templateIds ?? []))
-      .catch(() => {})
+      .catch((e) => console.error("[BundleDetailContent] fetch purchases:", e))
       .finally(() => setPurchasesLoading(false));
   }, []);
 

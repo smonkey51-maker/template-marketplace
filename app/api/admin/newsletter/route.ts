@@ -6,6 +6,10 @@ import { sendNewsletterEmail } from "@/lib/email";
 const ADMIN_USER_ID = process.env.ADMIN_USER_ID;
 
 export async function GET() {
+  if (!ADMIN_USER_ID) {
+    console.error("[admin/newsletter] ADMIN_USER_ID env var is not set");
+    return NextResponse.json({ error: "Server misconfigured" }, { status: 500 });
+  }
   const { userId } = await auth();
   if (!userId || userId !== ADMIN_USER_ID) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -24,6 +28,10 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
+  if (!ADMIN_USER_ID) {
+    console.error("[admin/newsletter] ADMIN_USER_ID env var is not set");
+    return NextResponse.json({ error: "Server misconfigured" }, { status: 500 });
+  }
   const { userId } = await auth();
   if (!userId || userId !== ADMIN_USER_ID) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

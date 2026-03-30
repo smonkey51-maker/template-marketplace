@@ -71,7 +71,7 @@ export default function TemplateGrid({ externalQuery = "", onClearSearch }: { ex
     fetch("/api/purchases")
       .then((r) => { if (!r.ok) throw new Error(); return r.json(); })
       .then((data) => setPurchasedIds(data.templateIds ?? []))
-      .catch(() => setPurchasedIds([]))
+      .catch((e) => { console.error("[TemplateGrid] fetch purchases:", e); setPurchasedIds([]); })
       .finally(() => setLoading(false));
   }, []);
 

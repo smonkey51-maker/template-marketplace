@@ -19,7 +19,7 @@ export default function AccountPage() {
     fetch("/api/purchases")
       .then((r) => r.json())
       .then((d) => setPurchasedIds(d.templateIds ?? []))
-      .catch(() => {});
+      .catch((e) => console.error("[AccountPage] fetch purchases:", e));
   }, []);
 
   const hasStudioAccess =
