@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useCallback, Suspense, useEffect } from "react";
-import { isHTMLOutput } from "@/lib/studioUtils";
+import { isHTMLOutput, useLocalStorageHistory } from "@/lib/studioUtils";
 import { hasStudioAccess } from "@/lib/purchases";
 import { useSearchParams } from "next/navigation";
 import { getTemplate } from "@/lib/templates";
@@ -39,12 +39,8 @@ function StudioContent() {
   });
   const [showHistory, setShowHistory] = useState(false);
 
-  useEffect(() => {
-    try { localStorage.setItem("tl_gen_history", JSON.stringify(genHistory.slice(0, 50))); } catch (e) { console.error('[studio]', e); }
-  }, [genHistory]);
-  useEffect(() => {
-    try { localStorage.setItem("tl_custom_history", JSON.stringify(customHistory.slice(0, 50))); } catch (e) { console.error('[studio]', e); }
-  }, [customHistory]);
+  useLocalStorageHistory("tl_gen_history", genHistory, 50);
+  useLocalStorageHistory("tl_custom_history", customHistory, 50);
 
   // Customize state
   const [selectedId, setSelectedId] = useState(initialTemplateId);
