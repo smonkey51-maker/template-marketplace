@@ -1,23 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect, useCallback, useRef, Suspense } from "react";
-import { useRouter } from "next/navigation";
-import { templates, bundles, formatPrice, Template } from "@/lib/templates";
+import { useState, useEffect, useRef, Suspense } from "react";
+import { templates, bundles, formatPrice } from "@/lib/templates";
 import TemplateGrid from "@/components/TemplateGrid";
 import NavButtons from "@/components/NavButtons";
 import { useLang } from "@/components/LanguageProvider";
-import { t, getLocalizedName } from "@/lib/i18n";
+import { t } from "@/lib/i18n";
 import { usePurchases } from "@/lib/usePurchases";
 import EmailCapture from "@/components/EmailCapture";
 import Footer from "@/components/Footer";
-import { useToast } from "@/components/Toast";
 import TemplatesDropdown from "@/components/home/TemplatesDropdown";
 import BundlesDropdown from "@/components/home/BundlesDropdown";
 import HeroSection from "@/components/home/HeroSection";
 import TestimonialsSection from "@/components/home/TestimonialsSection";
 import CTASection from "@/components/home/CTASection";
-import { CATEGORIES, BUNDLE_GRADIENTS } from "@/lib/homeData";
+import { CATEGORIES } from "@/lib/homeData";
 
 // ── Count-up hook (local — only used in this file) ───────────────────────────
 function useCountUp(target: number, duration = 900) {
@@ -145,280 +143,15 @@ function NavDropdown({
   );
 }
 
-// ── Bundle scroll section ─────────────────────────────────────────────────────
-// BUNDLE_GRADIENTS → imported from @/lib/homeData
-
-function BundleScrollCard({ bundle, purchasedIds, onBuy, lang }: {
-  bundle: typeof bundles[number];
-  purchasedIds: string[];
-  onBuy: (id: string) => Promise<void>;
-  lang: "it" | "en";
-}) {
-  const router = useRouter();
-  const [loading, setLoading] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
-  const rafRef = useRef<number>(0);
-  const g = BUNDLE_GRADIENTS[bundle.accentColor] ?? BUNDLE_GRADIENTS.blue;
-  const savings = bundle.regularPrice - bundle.price;
-  const savingsPct = Math.round((savings / bundle.regularPrice) * 100);
-  const isOwned = bundle.templateIds.every((id) => purchasedIds.includes(id));
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    cancelAnimationFrame(rafRef.current);
-    rafRef.current = requestAnimationFrame(() => {
-      const el = cardRef.current;
-      if (!el) return;
-      const r = el.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - 0.5;
-      const y = (e.clientY - r.top) / r.height - 0.5;
-      el.style.transform = `perspective(900px) rotateX(${(-y * 5).toFixed(1)}deg) rotateY(${(x * 5).toFixed(1)}deg) scale3d(1.02,1.02,1.02)`;
-    });
-  };
-  const handleMouseLeave = () => {
-    cancelAnimationFrame(rafRef.current);
-    const el = cardRef.current;
-    if (!el) return;
-    el.style.transition = "transform .5s cubic-bezier(.34,1.2,.64,1)";
-    el.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)";
-    setTimeout(() => { if (el) el.style.transition = ""; }, 500);
-  };
-
-  return (
-    <div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      onClick={() => router.push(`/bundle/${bundle.id}`)}
-      className="flex-shrink-0 w-[290px] sm:w-[330px] rounded-none overflow-hidden cursor-pointer flex flex-col"
-      style={{ scrollSnapAlign: "start", willChange: "transform", background: g.bg, boxShadow: `0 8px 40px rgba(${g.glow},0.18), 0 2px 10px rgba(0,0,0,0.4)` }}
-    >
-      {/* Card body */}
-      <div className="flex-1 px-5 pt-6 pb-4 relative">
-        {/* Glow spot */}
-        <div className="absolute top-0 right-0 w-40 h-40 rounded-full pointer-events-none" style={{ background: `radial-gradient(circle, rgba(${g.glow},0.18) 0%, transparent 70%)`, transform: "translate(30%,-30%)" }} />
-        {/* Discount badge */}
-        <span className="absolute top-4 right-4 text-[11px] font-black rounded-none px-2.5 py-1 border" style={{ background: g.badgeBg, color: g.accent, borderColor: `rgba(${g.glow},0.4)` }}>
-          –{savingsPct}%
-        </span>
-        {/* Emoji */}
-        <div className="text-4xl mb-4">{bundle.emoji}</div>
-        {/* Name & tagline */}
-        <h3 className="text-[17px] font-black text-white leading-tight mb-1.5">{bundle.name}</h3>
-        <p className="text-[12px] leading-snug" style={{ color: g.accent }}>{bundle.tagline}</p>
-        {/* Template count chips */}
-        <div className="flex items-center gap-1.5 mt-4 flex-wrap">
-          {Array.from({ length: Math.min(bundle.templateIds.length, 5) }).map((_, i) => (
-            <div key={i} className="w-6 h-6 rounded-none border border-white/15 bg-white/8 flex items-center justify-center text-[9px] text-white/50 font-bold">{i + 1}</div>
-          ))}
-          <span className="text-[11px] text-white/35 ml-0.5">{bundle.templateIds.length} template</span>
-        </div>
-      </div>
-
-      {/* Bottom CTA */}
-      <div className="px-5 pb-5 pt-4 bg-black/25 relative">
-        <div className="absolute top-0 inset-x-0 h-px" style={{ background: `linear-gradient(90deg,transparent,rgba(${g.glow},0.4),transparent)` }} />
-        <div className="flex items-end justify-between mb-3">
-          <div>
-            <p className="text-[22px] font-black text-white leading-none">{formatPrice(bundle.price)}</p>
-            <p className="text-[11px] text-white/35 line-through mt-0.5">{formatPrice(bundle.regularPrice)}</p>
-          </div>
-          <p className="text-[11px] font-bold mb-0.5" style={{ color: g.accent }}>
-            {lang === "it" ? `Risparmi ${formatPrice(savings)}` : `Save ${formatPrice(savings)}`}
-          </p>
-        </div>
-        {isOwned ? (
-          <div className="w-full py-2.5 rounded-none text-center text-[13px] font-bold text-white/40 bg-white/5 border border-white/10">
-            {lang === "it" ? "✓ Già acquistato" : "✓ Already owned"}
-          </div>
-        ) : (
-          <button
-            onClick={async (e) => { e.stopPropagation(); setLoading(true); try { await onBuy(bundle.id); } finally { setLoading(false); } }}
-            disabled={loading}
-            className="w-full py-2.5 rounded-none text-[13px] font-bold text-white transition-opacity duration-200 active:scale-[0.97] disabled:opacity-50 border"
-            style={{ background: `rgba(${g.glow},0.3)`, borderColor: `rgba(${g.glow},0.5)` }}
-          >
-            {loading ? "…" : lang === "it" ? `Acquista — ${formatPrice(bundle.price)}` : `Buy — ${formatPrice(bundle.price)}`}
-          </button>
-        )}
-      </div>
-    </div>
-  );
-}
-
-function BundleShowcase({ lang, purchasedIds, onBuy }: { lang: "it" | "en"; purchasedIds: string[]; onBuy: (id: string) => Promise<void> }) {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [activeIdx, setActiveIdx] = useState(0);
-
-  const scroll = (dir: "prev" | "next") => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const cardW = window.innerWidth < 640 ? 290 + 16 : 330 + 16;
-    el.scrollBy({ left: dir === "next" ? cardW : -cardW, behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const handler = () => {
-      const cardW = window.innerWidth < 640 ? 290 + 16 : 330 + 16;
-      setActiveIdx(Math.min(Math.round(el.scrollLeft / cardW), bundles.length - 1));
-    };
-    el.addEventListener("scroll", handler, { passive: true });
-    return () => el.removeEventListener("scroll", handler);
-  }, []);
-
-  return (
-    <div className="relative z-10 border-t border-theme py-12 overflow-hidden">
-      {/* Header */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 mb-7 flex items-end justify-between gap-4">
-        <div>
-          <p className="text-[10px] font-black text-muted uppercase tracking-[0.2em] mb-2">Bundle</p>
-          <h2 className="text-[1.5rem] sm:text-[1.9rem] font-extrabold tracking-tight text-theme">
-            {lang === "it" ? "Risparmia di più, crea di più" : "Save more, build more"}
-          </h2>
-          <p className="text-[13px] text-muted mt-1.5">
-            {lang === "it" ? "Fino al 55% di sconto rispetto all'acquisto singolo." : "Up to 55% off vs. buying individually."}
-          </p>
-        </div>
-        <div className="hidden sm:flex items-center gap-2 shrink-0">
-          <button onClick={() => scroll("prev")} aria-label="Precedente" className="w-9 h-9 flex items-center justify-center rounded-none border border-theme bg-card hover:bg-surface text-muted hover:text-theme transition-colors">
-            <svg width="7" height="12" viewBox="0 0 7 12" fill="none"><path d="M6 1L1 6l5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          </button>
-          <button onClick={() => scroll("next")} aria-label="Successivo" className="w-9 h-9 flex items-center justify-center rounded-none border border-theme bg-card hover:bg-surface text-muted hover:text-theme transition-colors">
-            <svg width="7" height="12" viewBox="0 0 7 12" fill="none"><path d="M1 1l5 5-5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          </button>
-        </div>
-      </div>
-
-      {/* Scroll rail */}
-      <div
-        ref={scrollRef}
-        className="flex gap-4 overflow-x-auto px-4 sm:px-6 pb-3"
-        style={{ scrollSnapType: "x mandatory", scrollbarWidth: "none", msOverflowStyle: "none" } as React.CSSProperties}
-      >
-        {bundles.map((bundle) => (
-          <BundleScrollCard key={bundle.id} bundle={bundle} purchasedIds={purchasedIds} onBuy={onBuy} lang={lang} />
-        ))}
-        {/* Trailing spacer so last card doesn't hug the edge */}
-        <div className="flex-shrink-0 w-4 sm:w-6" />
-      </div>
-
-      {/* Dot indicators */}
-      <div className="flex items-center justify-center gap-2 mt-5">
-        {bundles.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => {
-              const el = scrollRef.current;
-              if (!el) return;
-              const cardW = window.innerWidth < 640 ? 290 + 16 : 330 + 16;
-              el.scrollTo({ left: i * cardW, behavior: "smooth" });
-              setActiveIdx(i);
-            }}
-            className={`rounded-full transition-all duration-300 ${i === activeIdx ? "w-5 h-1.5" : "w-1.5 h-1.5"}`}
-            style={{ background: i === activeIdx ? "var(--text)" : "var(--border)" }}
-            aria-label={`Bundle ${i + 1}`}
-          />
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ── Marquee template cards ────────────────────────────────────────────────────
-
-// Carefully picked template IDs for the two marquee rows
-const ROW1_IDS = [
-  "hero-saas", "restaurant-menu", "personal-finance-dashboard", "saas-dashboard",
-  "digital-resume", "cold-email-b2b", "hotel-booking", "creative-agency-portfolio",
-  "ecommerce-product-page", "saas-pricing-full",
-];
-const ROW2_IDS = [
-  "pricing-table", "ai-assistant-system-prompt", "link-in-bio", "revenue-analytics",
-  "coffee-shop-landing", "mobile-app-showcase", "airbnb-property-listing",
-  "linkedin-prompt-pack", "invoice-html", "budget-tracker",
-];
-
-const tmplById = Object.fromEntries(templates.map((t) => [t.id, t]));
-const marqueeTemplates = ROW1_IDS.map((id) => tmplById[id]).filter(Boolean);
-const marqueeTemplates2 = ROW2_IDS.map((id) => tmplById[id]).filter(Boolean);
-
-// Category gradient for marquee cards
-const CARD_GRADIENTS: Record<string, string> = {
-  "hero-saas":                 "from-[#2a2010] to-[#0d0b08]",
-  "restaurant-menu":           "from-[#3a1a0a] to-[#0d0b08]",
-  "personal-finance-dashboard":"from-[#1a2810] to-[#0d0b08]",
-  "saas-dashboard":            "from-[#1e1a16] to-[#0d0b08]",
-  "digital-resume":            "from-[#2a2010] to-[#161310]",
-  "cold-email-b2b":            "from-[#161310] to-[#0d0b08]",
-  "hotel-booking":             "from-[#3d2e14] to-[#0d0b08]",
-  "creative-agency-portfolio": "from-[#3a1a0a] to-[#161310]",
-  "ecommerce-product-page":    "from-[#1e1a16] to-[#0d0b08]",
-  "saas-pricing-full":         "from-[#2a2010] to-[#0d0b08]",
-  "pricing-table":             "from-[#3d2e14] to-[#161310]",
-  "ai-assistant-system-prompt":"from-[#161310] to-[#0d0b08]",
-  "link-in-bio":               "from-[#3a1a0a] to-[#0d0b08]",
-  "revenue-analytics":         "from-[#1a2810] to-[#0d0b08]",
-  "coffee-shop-landing":       "from-[#4a2510] to-[#0d0b08]",
-  "mobile-app-showcase":       "from-[#2a2010] to-[#161310]",
-  "airbnb-property-listing":   "from-[#1e1a16] to-[#0d0b08]",
-  "linkedin-prompt-pack":      "from-[#3d2e14] to-[#0d0b08]",
-  "invoice-html":              "from-[#1e1a16] to-[#0d0b08]",
-  "budget-tracker":            "from-[#1a2810] to-[#0d0b08]",
-};
-
-function MarqueeCard({ tmpl, lang }: { tmpl: Template; lang: "it" | "en" }) {
-  const name = getLocalizedName(tmpl, lang);
-  const grad = CARD_GRADIENTS[tmpl.id] ?? "from-[#1e1a16] to-[#0d0b08]";
-  return (
-    <Link
-      href={`/preview/${tmpl.id}`}
-      className={`flex-shrink-0 w-[200px] h-[120px] rounded-none bg-gradient-to-br ${grad} overflow-hidden relative group cursor-pointer`}
-      style={{ boxShadow: "0 4px 16px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.07)" }}
-      tabIndex={-1}
-    >
-      {/* Subtle grid pattern */}
-      <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,1) 1px,transparent 1px)", backgroundSize: "20px 20px" }} />
-
-      {/* Browser chrome bar */}
-      <div className="absolute top-0 left-0 right-0 h-[22px] flex items-center px-2.5 gap-1.5" style={{ background: "rgba(0,0,0,0.28)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-        <div className="flex gap-[3px]">
-          <div className="w-[5px] h-[5px] rounded-full bg-[#FF5F57] opacity-75" />
-          <div className="w-[5px] h-[5px] rounded-full bg-[#FFBD2E] opacity-75" />
-          <div className="w-[5px] h-[5px] rounded-full bg-[#28C840] opacity-75" />
-        </div>
-        <span className="ml-auto text-[7px] font-semibold text-white/25 uppercase tracking-[0.1em]">
-          {tmpl.category === "ui" ? "UI" : "AI"}
-        </span>
-      </div>
-
-      {/* Top-edge specular line */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
-
-      {/* Label */}
-      <div className="absolute bottom-0 left-0 right-0 px-2.5 pt-4 pb-2.5" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.3) 60%, transparent 100%)" }}>
-        <p className="text-white text-[11px] font-semibold leading-tight truncate">{name}</p>
-        <p className="text-white/40 text-[9px] mt-0.5 font-medium">{formatPrice(tmpl.price)}</p>
-      </div>
-
-      {/* Hover overlay */}
-      <div className="absolute inset-0 bg-white/0 group-hover:bg-white/[0.05] transition-colors duration-300" />
-    </Link>
-  );
-}
-
 // ── Main component ────────────────────────────────────────────────────────────
 export default function HomeContent() {
   const { lang } = useLang();
-  const router = useRouter();
   const animatedTemplates = templates.length;
 
   // Shared search query — lifted so hero search bar drives TemplateGrid
   const [query, setQuery] = useState("");
 
   const { purchasedIds } = usePurchases();
-  const [marqueePaused, setMarqueePaused] = useState(false);
-  const toast = useToast();
 
   // Mobile menu state
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -439,23 +172,6 @@ export default function HomeContent() {
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, []);
-
-  const handleBundleBuy = useCallback(async (bundleId: string) => {
-    try {
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ bundleId }),
-      });
-      if (!res.ok) throw new Error("checkout_failed");
-      const data = await res.json();
-      if (data.requireAuth) { window.location.href = "/sign-in?redirect_url=/"; return; }
-      if (data.url) router.push(data.url);
-      else throw new Error("no_url");
-    } catch {
-      toast(lang === "it" ? "Errore durante il checkout. Riprova." : "Checkout failed. Please try again.", "error");
-    }
-  }, [router, lang, toast]);
 
   return (
     <div className="min-h-screen bg-page relative overflow-x-hidden anim-page-enter">
