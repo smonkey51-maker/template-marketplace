@@ -452,8 +452,6 @@ html::-webkit-scrollbar-track {
   .ticker-animate { animation: none !important; }
   /* Ripple */
   .ripple-dot { animation: none !important; opacity: 0 !important; }
-  /* Cursor trail */
-  .cursor-trail, .cursor-dot, .cursor-ring { display: none !important; }
   /* Gradient border spin */
   .gradient-border-spin::before { animation: none !important; }
 }
