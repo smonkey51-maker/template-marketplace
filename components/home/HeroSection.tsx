@@ -80,31 +80,22 @@ export default function HeroSection({
           </div>
 
           {/* Stats row */}
-          <div className="flex items-center gap-6 mt-8 pt-7" style={{ borderTop: "1px solid var(--border)" }}>
+          <div className="flex items-center gap-8 mt-10 pt-8" style={{ borderTop: "1px solid var(--border)" }}>
             <div>
-              <p className="text-[22px] italic leading-none mb-1" style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--accent)" }}>
+              <p className="text-[26px] italic leading-none mb-1.5" style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--accent)" }}>
                 {TOTAL_DOWNLOADS.toLocaleString("it-IT")}+
               </p>
-              <p className="text-[9px] font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--muted)" }}>
+              <p className="text-[9px] font-medium uppercase tracking-[0.18em]" style={{ color: "var(--muted)" }}>
                 {lang === "it" ? "download totali" : "total downloads"}
               </p>
             </div>
-            <div className="w-px h-8 flex-shrink-0" style={{ background: "var(--border)" }} />
+            <div className="w-px h-10 flex-shrink-0" style={{ background: "var(--border)" }} />
             <div>
-              <p className="text-[22px] italic leading-none mb-1" style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--terra, #C4622D)" }}>
+              <p className="text-[26px] italic leading-none mb-1.5" style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--terra, #C4622D)" }}>
                 {countedTemplates}
               </p>
-              <p className="text-[9px] font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--muted)" }}>
-                template
-              </p>
-            </div>
-            <div className="w-px h-8 flex-shrink-0" style={{ background: "var(--border)" }} />
-            <div>
-              <p className="text-[22px] italic leading-none mb-1" style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--accent)" }}>
-                AI
-              </p>
-              <p className="text-[9px] font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--muted)" }}>
-                {lang === "it" ? "powered" : "powered"}
+              <p className="text-[9px] font-medium uppercase tracking-[0.18em]" style={{ color: "var(--muted)" }}>
+                {lang === "it" ? "template disponibili" : "templates available"}
               </p>
             </div>
           </div>

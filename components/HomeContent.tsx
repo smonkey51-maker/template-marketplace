@@ -17,7 +17,6 @@ import ScrollProgressBar from "@/components/home/ScrollProgressBar";
 import TemplatesDropdown from "@/components/home/TemplatesDropdown";
 import BundlesDropdown from "@/components/home/BundlesDropdown";
 import HeroSection from "@/components/home/HeroSection";
-import HowItWorksSection from "@/components/home/HowItWorksSection";
 import TestimonialsSection from "@/components/home/TestimonialsSection";
 import CTASection from "@/components/home/CTASection";
 import { CATEGORIES, BUNDLE_GRADIENTS } from "@/lib/homeData";
@@ -473,12 +472,9 @@ export default function HomeContent() {
       >
         <div className="max-w-7xl mx-auto flex items-center h-[60px] gap-3">
           {/* Logo */}
-          <Link href="/" className="shrink-0 flex flex-col gap-0.5 mr-4 hover:opacity-80 transition-opacity">
+          <Link href="/" className="shrink-0 mr-6 hover:opacity-70 transition-opacity">
             <span className="text-[15px] leading-none tracking-[0.06em] uppercase" style={{ fontFamily: "var(--font-syne)", fontWeight: 800, color: "var(--text)" }}>
               Template<span style={{ color: "var(--accent)" }}>Lab</span>
-            </span>
-            <span className="hidden sm:block text-[8px] tracking-[0.18em] uppercase leading-none" style={{ color: "var(--accent)", opacity: 0.65, fontWeight: 500 }}>
-              {lang === "it" ? "Mercato del digitale artigianale" : "Artisan digital marketplace"}
             </span>
           </Link>
 
@@ -728,59 +724,13 @@ export default function HomeContent() {
       </div>
 
       {/* ═══════════════════════════════════════════
-          HYBRID TICKER
-      ═══════════════════════════════════════════ */}
-      <div className="border-b overflow-hidden py-[9px]" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
-        <div className="flex gap-[72px] white-space-nowrap ticker-animate" style={{ width: "max-content", whiteSpace: "nowrap" }}>
-          {[
-            "UI Template", "Prompt Pack", lang === "it" ? "Personalizzabili con Claude AI" : "Customize with Claude AI",
-            `N° ${countedTemplates} ${lang === "it" ? "pezzi in catalogo" : "templates available"}`,
-            "Editor's Pick", "Startup · SaaS · Portfolio",
-            "UI Template", "Prompt Pack", lang === "it" ? "Personalizzabili con Claude AI" : "Customize with Claude AI",
-            `N° ${countedTemplates} ${lang === "it" ? "pezzi in catalogo" : "templates available"}`,
-            "Editor's Pick", "Startup · SaaS · Portfolio",
-          ].map((item, i) => (
-            <span key={i} className="text-[9px] tracking-[0.22em] uppercase" style={{ color: "var(--muted)" }}>
-              {item}
-              <span className="mx-[10px]" style={{ color: "var(--accent)" }}>✦</span>
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* ═══════════════════════════════════════════
-          HYBRID HERO — 2 col
+          HERO
       ═══════════════════════════════════════════ */}
       <HeroSection lang={lang} countedTemplates={countedTemplates} query={query} setQuery={setQuery} />
 
-      {/* ── Come funziona — 3 step ── */}
-      <HowItWorksSection lang={lang} />
-
-      {/* ── Marquee strip — kept below hero ── */}
-      <div
-        className="relative overflow-hidden border-b py-3"
-        style={{ borderColor: "var(--border)", background: "var(--surface)" }}
-        onMouseEnter={() => setMarqueePaused(true)}
-        onMouseLeave={() => setMarqueePaused(false)}
-      >
-        <div className="absolute left-0 top-0 bottom-0 w-16 z-10 pointer-events-none" style={{ background: "linear-gradient(to right, var(--surface), transparent)" }} />
-        <div className="absolute right-0 top-0 bottom-0 w-16 z-10 pointer-events-none" style={{ background: "linear-gradient(to left, var(--surface), transparent)" }} />
-        <div className="flex gap-3 mb-2.5" style={{ animation: "marquee-left 32s linear infinite", animationPlayState: marqueePaused ? "paused" : "running", width: "max-content" }}>
-          {[...marqueeTemplates, ...marqueeTemplates].map((tmpl, i) => (
-            <MarqueeCard key={`r1-${i}`} tmpl={tmpl} lang={lang} />
-          ))}
-        </div>
-        <div className="flex gap-3" style={{ animation: "marquee-right 28s linear infinite", animationPlayState: marqueePaused ? "paused" : "running", width: "max-content" }}>
-          {[...marqueeTemplates2, ...marqueeTemplates2].map((tmpl, i) => (
-            <MarqueeCard key={`r2-${i}`} tmpl={tmpl} lang={lang} />
-          ))}
-        </div>
-      </div>
-
       {/* ── Catalog header ── */}
       <div
-        className="relative z-10 border-b px-4 sm:px-8 py-5 sm:py-[28px] flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-4"
-        style={{ borderColor: "var(--border)", background: "var(--bg)" }}
+        className="relative z-10 px-4 sm:px-8 pt-16 pb-6 flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-4"
       >
         <h2
           className="text-[22px] sm:text-[32px] italic"

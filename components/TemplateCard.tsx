@@ -188,33 +188,6 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
 
   const [copied, setCopied] = useState(false);
 
-  const cardRef = useRef<HTMLDivElement>(null);
-  const frameRef = useRef<number>(0);
-
-  const prefersReducedMotion = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (prefersReducedMotion) return;
-    cancelAnimationFrame(frameRef.current);
-    frameRef.current = requestAnimationFrame(() => {
-      const el = cardRef.current;
-      if (!el) return;
-      const r = el.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - 0.5;
-      const y = (e.clientY - r.top) / r.height - 0.5;
-      el.style.transform = `perspective(700px) rotateX(${(-y * 6).toFixed(1)}deg) rotateY(${(x * 6).toFixed(1)}deg) scale3d(1.02,1.02,1.02)`;
-    });
-  };
-
-  const handleMouseLeave = () => {
-    if (prefersReducedMotion) return;
-    cancelAnimationFrame(frameRef.current);
-    const el = cardRef.current;
-    if (!el) return;
-    el.style.transition = "transform .5s cubic-bezier(.34,1.2,.64,1)";
-    el.style.transform = "perspective(700px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)";
-    setTimeout(() => { if (el) el.style.transition = ""; }, 500);
-  };
 
   const handleShare = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -230,13 +203,7 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
   const downloadType = getDownloadType(template);
 
   return (
-    <div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className="group relative h-full transition-[transform,box-shadow] duration-150"
-      style={{ willChange: "transform" }}
-    >
+    <div className="group relative h-full transition-opacity duration-200 hover:opacity-90">
       <Link
         href={`/preview/${template.id}`}
         aria-label={displayName}
