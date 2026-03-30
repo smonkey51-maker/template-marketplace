@@ -6,6 +6,7 @@ import LanguageProvider from "@/components/LanguageProvider";
 import { PostHogProvider } from "@/components/PostHogProvider";
 import { ToastProvider } from "@/components/Toast";
 import MobileNav from "@/components/MobileNav";
+import CustomCursor from "@/components/CustomCursor";
 import "./globals.css";
 
 const syne = Syne({
@@ -76,6 +77,7 @@ export default function RootLayout({
             Skip to content
           </a>
           <PostHogProvider><ThemeProvider><LanguageProvider><ToastProvider><div id="main-content">{children}</div><MobileNav /></ToastProvider></LanguageProvider></ThemeProvider></PostHogProvider>
+          <CustomCursor />
         </body>
       </html>
     </ClerkProvider>
