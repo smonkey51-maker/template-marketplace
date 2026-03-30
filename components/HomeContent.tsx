@@ -17,6 +17,7 @@ import ScrollProgressBar from "@/components/home/ScrollProgressBar";
 import TemplatesDropdown from "@/components/home/TemplatesDropdown";
 import BundlesDropdown from "@/components/home/BundlesDropdown";
 import HeroSection from "@/components/home/HeroSection";
+import HowItWorksSection from "@/components/home/HowItWorksSection";
 import TestimonialsSection from "@/components/home/TestimonialsSection";
 import CTASection from "@/components/home/CTASection";
 import { CATEGORIES, BUNDLE_GRADIENTS } from "@/lib/homeData";
@@ -751,6 +752,9 @@ export default function HomeContent() {
           HYBRID HERO — 2 col
       ═══════════════════════════════════════════ */}
       <HeroSection lang={lang} countedTemplates={countedTemplates} query={query} setQuery={setQuery} />
+
+      {/* ── Come funziona — 3 step ── */}
+      <HowItWorksSection lang={lang} />
 
       {/* ── Marquee strip — kept below hero ── */}
       <div
