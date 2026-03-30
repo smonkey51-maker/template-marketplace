@@ -7,7 +7,7 @@ import { templates, bundles, formatPrice, Template } from "@/lib/templates";
 import TemplateGrid from "@/components/TemplateGrid";
 import NavButtons from "@/components/NavButtons";
 import { useLang } from "@/components/LanguageProvider";
-import { t } from "@/lib/i18n";
+import { t, getLocalizedName } from "@/lib/i18n";
 import { usePurchases } from "@/lib/usePurchases";
 import EmailCapture from "@/components/EmailCapture";
 import Footer from "@/components/Footer";
@@ -370,7 +370,7 @@ const CARD_GRADIENTS: Record<string, string> = {
 };
 
 function MarqueeCard({ tmpl, lang }: { tmpl: Template; lang: "it" | "en" }) {
-  const name = lang === "it" ? (templateTranslations[tmpl.id]?.name ?? tmpl.name) : tmpl.name;
+  const name = getLocalizedName(tmpl, lang);
   const grad = CARD_GRADIENTS[tmpl.id] ?? "from-[#1e1a16] to-[#0d0b08]";
   return (
     <Link
