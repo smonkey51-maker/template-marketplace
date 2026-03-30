@@ -15,10 +15,16 @@ export default function HowItWorksSection({ lang }: { lang: "it" | "en" }) {
           </h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          {STEPS.map((step) => (
-            <div key={step.n} className="flex flex-col items-center text-center gap-3 p-6 border border-theme">
-              <div className="w-12 h-12 flex items-center justify-center text-2xl border border-theme"
-                style={{ background: "var(--card-bg)" }}>
+          {STEPS.map((step, i) => (
+            <div
+              key={step.n}
+              className={`flex flex-col items-center text-center gap-3 p-6 border border-theme transition-all duration-300 ease-premium hover:border-[var(--accent)] hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(var(--accent-rgb),0.08)] anim-fade-up delay-${i === 0 ? "0" : i === 1 ? "150" : "300"}`}
+            >
+              <div
+                className="w-12 h-12 flex items-center justify-center text-2xl border border-theme transition-colors duration-300"
+                style={{ background: "var(--card-bg)" }}
+                aria-hidden="true"
+              >
                 {step.icon}
               </div>
               <p className="text-[11px] font-bold" style={{ color: "var(--muted)" }}>{step.n}</p>

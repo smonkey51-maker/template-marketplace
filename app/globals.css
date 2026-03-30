@@ -180,6 +180,7 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  scrollbar-gutter: stable;
   background-color: var(--bg);
   background-image:
     repeating-linear-gradient(
@@ -212,6 +213,9 @@ h1, h2, h3 {
   background: linear-gradient(90deg, var(--surface) 25%, var(--input-bg) 50%, var(--surface) 75%);
   background-size: 800px 100%;
   animation: shimmer 1.4s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-shimmer { animation: none; background: var(--surface); }
 }
 
 /* ── Staggered card entrance ── */
@@ -421,6 +425,7 @@ html::-webkit-scrollbar-track {
   .anim-fade-up,
   .anim-fade-in,
   .anim-scale-in,
+  .anim-fade-up-slow,
   .sheet-enter,
   .modal-enter {
     animation: none !important;
@@ -439,6 +444,18 @@ html::-webkit-scrollbar-track {
   .animate-spin {
     animation: none !important;
   }
+  /* Card tilt — disable 3D on reduced-motion */
+  .card-tilt { transform-style: flat !important; }
+  .card-tilt:hover { transform: none !important; }
+  .card-tilt:active { transform: scale(0.98) !important; }
+  /* Ticker marquee */
+  .ticker-animate { animation: none !important; }
+  /* Ripple */
+  .ripple-dot { animation: none !important; opacity: 0 !important; }
+  /* Cursor trail */
+  .cursor-trail, .cursor-dot, .cursor-ring { display: none !important; }
+  /* Gradient border spin */
+  .gradient-border-spin::before { animation: none !important; }
 }
 
 
@@ -654,7 +671,7 @@ html::-webkit-scrollbar-track {
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
     animation: shimmer-sweep 3.8s ease-in-out infinite;
-    animation-delay: 2s;
+    animation-delay: 0.5s;
     pointer-events: none;
     border-radius: inherit;
   }
@@ -779,6 +796,8 @@ html::-webkit-scrollbar-track {
 @media (prefers-reduced-motion: reduce) {
   .split-flap-char { animation: none; }
   .scroll-reveal    { opacity: 1; transform: none; transition: none; }
+  .shimmer-span     { animation: none !important; }
+  .check-path       { stroke-dashoffset: 0 !important; animation: none !important; }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -888,6 +907,16 @@ html.dark {
 .btn-brand:disabled {
   opacity: 0.55;
   pointer-events: none;
+}
+
+.btn-brand:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.btn-ghost:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 /* Compact variant — smaller padding */

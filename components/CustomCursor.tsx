@@ -30,22 +30,14 @@ export default function CustomCursor() {
       dot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
     };
 
-    const onEnter = () => ring.classList.add("cursor-ring--hover");
-    const onLeave = () => ring.classList.remove("cursor-ring--hover");
-
-    const attachHoverListeners = () => {
-      document
-        .querySelectorAll("a, button, [role='button'], input, select, textarea, label")
-        .forEach((el) => {
-          el.addEventListener("mouseenter", onEnter);
-          el.addEventListener("mouseleave", onLeave);
-        });
+    const INTERACTIVE = "a, button, [role='button'], input, select, textarea, label, [role='menuitem']";
+    const onMouseOver = (e: MouseEvent) => {
+      if ((e.target as Element).closest(INTERACTIVE)) {
+        ring.classList.add("cursor-ring--hover");
+      } else {
+        ring.classList.remove("cursor-ring--hover");
+      }
     };
-
-    attachHoverListeners();
-
-    const observer = new MutationObserver(attachHoverListeners);
-    observer.observe(document.body, { childList: true, subtree: true });
 
     const animate = () => {
       // Ring lerp
@@ -70,12 +62,13 @@ export default function CustomCursor() {
     };
 
     document.addEventListener("mousemove", onMouseMove);
+    document.addEventListener("mouseover", onMouseOver);
     raf = requestAnimationFrame(animate);
 
     return () => {
       document.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mouseover", onMouseOver);
       cancelAnimationFrame(raf);
-      observer.disconnect();
     };
   }, []);
 

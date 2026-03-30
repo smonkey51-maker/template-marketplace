@@ -13,10 +13,15 @@ export default function ScrollToTop() {
 
   if (!visible) return null;
 
+  const scrollToTop = () => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reduced ? "instant" : "smooth" });
+  };
+
   return (
     <button
-      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      aria-label="Scroll to top"
+      onClick={scrollToTop}
+      aria-label="Back to top"
       className="fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-40 w-11 h-11 flex items-center justify-center
         glass shadow-[0_4px_20px_rgba(0,0,0,0.2)]
         text-muted hover:text-theme hover:scale-110 active:scale-95

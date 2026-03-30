@@ -22,7 +22,9 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
     <ToastContext.Provider value={{ toast }}>
       {children}
       <div
+        role="status"
         aria-live="polite"
+        aria-atomic="false"
         className="fixed bottom-6 inset-x-0 z-[300] flex flex-col items-center gap-2.5 pointer-events-none px-4"
       >
         {toasts.map((t) => (
@@ -35,11 +37,13 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
 
 function ToastBubble({ toast: t, onDismiss }: { toast: ToastItem; onDismiss: () => void }) {
   const [visible, setVisible] = useState(false);
+  const reduced = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   useEffect(() => {
+    if (reduced) { setVisible(true); return; }
     const show = requestAnimationFrame(() => setVisible(true));
     return () => cancelAnimationFrame(show);
-  }, []);
+  }, [reduced]);
 
   const accentVar = t.type === "error" ? "var(--error)" : "var(--accent)";
 
@@ -71,9 +75,9 @@ function ToastBubble({ toast: t, onDismiss }: { toast: ToastItem; onDismiss: () 
         WebkitBackdropFilter: "blur(20px)",
         borderColor: `color-mix(in srgb, ${accentRgb} 19%, transparent)`,
         boxShadow: `0 4px 24px rgba(0,0,0,0.4), 0 0 0 1px color-mix(in srgb, ${accentRgb} 9%, transparent)`,
-        transition: "opacity 0.25s ease, transform 0.3s cubic-bezier(.34,1.2,.64,1)",
+        transition: reduced ? "none" : "opacity 0.25s ease, transform 0.3s cubic-bezier(.34,1.2,.64,1)",
         opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0) scale(1)" : "translateY(12px) scale(0.96)",
+        transform: (visible || reduced) ? "translateY(0) scale(1)" : "translateY(12px) scale(0.96)",
       }}
     >
       <span className="flex-shrink-0">{icon}</span>

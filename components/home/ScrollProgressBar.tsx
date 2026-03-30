@@ -14,8 +14,15 @@ export default function ScrollProgressBar() {
     return () => window.removeEventListener("scroll", update);
   }, []);
   return (
-    <div className="fixed top-0 left-0 right-0 h-[2px] z-[100] pointer-events-none">
-      <div style={{ width: `${width}%`, height: "100%", background: "linear-gradient(to right, var(--gold-mid), var(--accent), var(--terra))", transition: "width 0.1s linear" }} />
+    <div
+      className="fixed top-0 left-0 right-0 h-[2px] z-[100] pointer-events-none"
+      role="progressbar"
+      aria-label="Scroll progress"
+      aria-valuenow={Math.round(width)}
+      aria-valuemin={0}
+      aria-valuemax={100}
+    >
+      <div style={{ width: `${width}%`, height: "100%", background: "linear-gradient(to right, var(--gold-mid), var(--accent), var(--terra))", transition: "width 0.15s ease-out" }} />
     </div>
   );
 }

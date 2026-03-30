@@ -30,7 +30,10 @@ export default function BundleCard({
   const cardRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<number>(0);
 
+  const prefersReduced = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (prefersReduced) return;
     cancelAnimationFrame(frameRef.current);
     frameRef.current = requestAnimationFrame(() => {
       const el = cardRef.current;
@@ -43,6 +46,7 @@ export default function BundleCard({
   };
 
   const handleMouseLeave = () => {
+    if (prefersReduced) return;
     cancelAnimationFrame(frameRef.current);
     const el = cardRef.current;
     if (!el) return;
