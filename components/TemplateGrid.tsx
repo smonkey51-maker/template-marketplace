@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback, useRef } from "react";
+import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import { usePurchases } from "@/lib/usePurchases";
 import { useSearchParams, useRouter } from "next/navigation";
 import { templates, bundles, Template, getDownloadType } from "@/lib/templates";
@@ -389,78 +389,128 @@ export default function TemplateGrid({ externalQuery = "", onClearSearch }: { ex
       {!isSearching && !openCategoryId && (
         <div key={`grid-${animKey}`} className={drillDirectionRef.current === "back" ? "anim-drill-back" : ""}>
 
-          {/* ── Platform filter bar ── */}
-          <div className="mb-6">
-            <p className="text-[10px] font-bold text-muted uppercase tracking-[0.15em] mb-3 px-1">
-              {lang === "it" ? "Filtra per piattaforma" : "Filter by platform"}
-            </p>
-            <div className="flex gap-1.5 overflow-x-auto pb-1 scrollbar-none -mx-1 px-1">
-              {PLATFORMS.filter((p) => p.id === "all" || (platformCounts[p.id] ?? 0) > 0).map((p) => {
-                const isActive = platformFilter === p.id;
-                const count = platformCounts[p.id] ?? 0;
-                return (
-                  <button
-                    key={p.id}
-                    onClick={() => { setPlatformFilter(p.id); setAnimKey((k) => k + 1); }}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-semibold border whitespace-nowrap transition-all duration-150 shrink-0 ${
-                      isActive
-                        ? "border-accent/40 text-accent"
-                        : "border-theme text-muted hover:text-theme hover:border-accent/20"
-                    }`}
-                    style={isActive ? { background: "var(--accent-bg)", borderColor: p.color ? `${p.color}44` : undefined, color: p.color || undefined } : undefined}
-                  >
-                    <span className="text-[13px]">{p.icon}</span>
-                    {p.label[lang]}
-                    {p.id !== "all" && <span className="text-[9px] opacity-60 ml-0.5">{count}</span>}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
+          {/* ── Desktop: sidebar + main layout ── */}
+          <div className="lg:flex lg:gap-8 lg:items-start">
 
-          {/* Section label */}
-          <div className="flex items-center gap-4 mb-6 px-1">
-            <div className="flex-1 h-px" style={{ background: "var(--border)" }} />
-            <span className="text-[10px] font-bold text-muted uppercase tracking-[0.18em] shrink-0">
-              {platformFilter === "all" ? (
-                <><SplitFlap to={templates.length} /> {lang === "it" ? "template" : "templates"} · {bundles.length} bundle</>
-              ) : (
-                <>{filteredSections.reduce((sum, s) => sum + s.ids.length, 0)} {platformFilter} {lang === "it" ? "template" : "templates"}</>
-              )}
-            </span>
-            <div className="flex-1 h-px" style={{ background: "var(--border)" }} />
-          </div>
-
-          {loading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-              {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
-            </div>
-          ) : filteredSections.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-              {filteredSections.map((section, i) => {
-                const sectionTemplates = section.ids.map((id) => byId[id]).filter(Boolean) as Template[];
-                if (sectionTemplates.length === 0) return null;
-                return (
-                  <CategoryCard
-                    key={section.id}
-                    section={section}
-                    sectionTemplates={sectionTemplates}
-                    onClick={() => handleOpenCategory(section.id)}
-                    lang={lang}
-                    index={i}
-                  />
-                );
-              })}
-            </div>
-          ) : (
-            <div className="py-12 text-center">
-              <p className="text-muted text-[13px]">
-                {lang === "it"
-                  ? "Nessun template per questa piattaforma ancora. Resta sintonizzato!"
-                  : "No templates for this platform yet. Stay tuned!"}
+            {/* ── Sidebar: platform filters (lg+) ── */}
+            <aside className="hidden lg:block w-44 shrink-0 sticky top-20 self-start">
+              <p className="text-[10px] font-bold text-muted uppercase tracking-[0.15em] mb-3">
+                {lang === "it" ? "Piattaforma" : "Platform"}
               </p>
+              <div className="flex flex-col gap-1">
+                {PLATFORMS.filter((p) => p.id === "all" || (platformCounts[p.id] ?? 0) > 0).map((p) => {
+                  const isActive = platformFilter === p.id;
+                  const count = platformCounts[p.id] ?? 0;
+                  return (
+                    <button
+                      key={p.id}
+                      onClick={() => { setPlatformFilter(p.id); setAnimKey((k) => k + 1); }}
+                      className={`flex items-center gap-2 px-3 py-2 text-[11px] font-semibold border w-full text-left transition-all duration-150 ${
+                        isActive
+                          ? "border-accent/40 text-accent"
+                          : "border-theme text-muted hover:text-theme hover:border-accent/20"
+                      }`}
+                      style={isActive ? { background: "var(--accent-bg)", borderColor: p.color ? `${p.color}44` : undefined, color: p.color || undefined } : undefined}
+                    >
+                      <span className="text-[13px] shrink-0">{p.icon}</span>
+                      <span className="flex-1 truncate">{p.label[lang]}</span>
+                      {p.id !== "all" && <span className="text-[9px] opacity-50 shrink-0">{count}</span>}
+                    </button>
+                  );
+                })}
+              </div>
+            </aside>
+
+            {/* ── Main content ── */}
+            <div className="flex-1 min-w-0">
+
+              {/* ── Mobile platform filter bar (hidden lg+) ── */}
+              <div className="mb-6 lg:hidden">
+                <p className="text-[10px] font-bold text-muted uppercase tracking-[0.15em] mb-3 px-1">
+                  {lang === "it" ? "Filtra per piattaforma" : "Filter by platform"}
+                </p>
+                <div className="flex gap-1.5 overflow-x-auto pb-1 scrollbar-none -mx-1 px-1">
+                  {PLATFORMS.filter((p) => p.id === "all" || (platformCounts[p.id] ?? 0) > 0).map((p) => {
+                    const isActive = platformFilter === p.id;
+                    const count = platformCounts[p.id] ?? 0;
+                    return (
+                      <button
+                        key={p.id}
+                        onClick={() => { setPlatformFilter(p.id); setAnimKey((k) => k + 1); }}
+                        className={`flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-semibold border whitespace-nowrap transition-all duration-150 shrink-0 ${
+                          isActive
+                            ? "border-accent/40 text-accent"
+                            : "border-theme text-muted hover:text-theme hover:border-accent/20"
+                        }`}
+                        style={isActive ? { background: "var(--accent-bg)", borderColor: p.color ? `${p.color}44` : undefined, color: p.color || undefined } : undefined}
+                      >
+                        <span className="text-[13px]">{p.icon}</span>
+                        {p.label[lang]}
+                        {p.id !== "all" && <span className="text-[9px] opacity-60 ml-0.5">{count}</span>}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Section label */}
+              <div className="flex items-center gap-4 mb-6 px-1">
+                <div className="flex-1 h-px" style={{ background: "var(--border)" }} />
+                <span className="text-[10px] font-bold text-muted uppercase tracking-[0.18em] shrink-0">
+                  {platformFilter === "all" ? (
+                    <><SplitFlap to={templates.length} /> {lang === "it" ? "template" : "templates"} · {bundles.length} bundle</>
+                  ) : (
+                    <>{filteredSections.reduce((sum, s) => sum + s.ids.length, 0)} {platformFilter} {lang === "it" ? "template" : "templates"}</>
+                  )}
+                </span>
+                <div className="flex-1 h-px" style={{ background: "var(--border)" }} />
+              </div>
+
+              {loading ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5">
+                  {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
+                </div>
+              ) : filteredSections.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5">
+                  {filteredSections.map((section, i) => {
+                    const sectionTemplates = section.ids.map((id) => byId[id]).filter(Boolean) as Template[];
+                    if (sectionTemplates.length === 0) return null;
+                    return (
+                      <CategoryCard
+                        key={section.id}
+                        section={section}
+                        sectionTemplates={sectionTemplates}
+                        onClick={() => handleOpenCategory(section.id)}
+                        lang={lang}
+                        index={i}
+                      />
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="py-16 flex flex-col items-center gap-5 text-center">
+                  <div className="w-12 h-12 flex items-center justify-center border border-theme text-2xl"
+                    style={{ background: "var(--card-bg)" }}>
+                    🔍
+                  </div>
+                  <div>
+                    <p className="text-[15px] font-semibold text-theme mb-1.5">
+                      {lang === "it" ? "Nessun template per questa piattaforma" : "No templates for this platform yet"}
+                    </p>
+                    <p className="text-[13px] text-muted max-w-[280px]">
+                      {lang === "it"
+                        ? "Crea il tuo template personalizzato con l'AI Studio."
+                        : "Create your custom template with AI Studio."}
+                    </p>
+                  </div>
+                  <a href="/studio" className="btn-brand-sm">
+                    {lang === "it" ? "Apri AI Studio →" : "Open AI Studio →"}
+                  </a>
+                </div>
+              )}
+
             </div>
-          )}
+          </div>
         </div>
       )}
 

@@ -298,7 +298,7 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
               {t[lang].card.categoryUI}
             </span>
             {downloadType !== "html" && (
-              <span className="text-[8px] font-bold uppercase tracking-wider px-1.5 py-[1px]"
+              <span className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-[2px]"
                 style={{ background: `var(--platform-${downloadType})`, color: "white" }}>
                 {downloadType}
               </span>
@@ -348,8 +348,9 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
               {/* Share */}
               <button
                 onClick={handleShare}
-                aria-label={copied ? "Copied" : "Share"}
-                className="p-2 -m-1 min-w-[36px] min-h-[36px] flex items-center justify-center sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-150 text-muted hover:text-theme"
+                aria-label={copied ? (lang === "it" ? "Copiato!" : "Copied!") : (lang === "it" ? "Copia link" : "Copy link")}
+                title={copied ? (lang === "it" ? "Copiato!" : "Copied!") : (lang === "it" ? "Copia link" : "Copy link")}
+                className="p-2 -m-1 min-w-[36px] min-h-[36px] flex items-center justify-center opacity-60 sm:opacity-0 sm:group-hover:opacity-100 hover:opacity-100 transition-all duration-150 text-muted hover:text-theme"
               >
                 {copied ? (
                   <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden>

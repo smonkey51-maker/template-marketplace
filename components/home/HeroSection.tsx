@@ -1,6 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { templates } from "@/lib/templates";
+
+const TOTAL_DOWNLOADS = templates.reduce((sum, t) => sum + (t.downloads || 0), 0);
 
 export default function HeroSection({
   lang,
@@ -42,12 +45,12 @@ export default function HeroSection({
             {lang === "it" ? (
               <>
                 Template premium,<br />
-                <em style={{ fontStyle: "italic", color: "var(--terra, #C4622D)" }}>plasmati con cura.</em>
+                <em className="hero-em-animate" style={{ fontStyle: "italic", color: "var(--terra, #C4622D)" }}>plasmati con cura.</em>
               </>
             ) : (
               <>
                 Premium templates,<br />
-                <em style={{ fontStyle: "italic", color: "var(--terra, #C4622D)" }}>crafted with care.</em>
+                <em className="hero-em-animate" style={{ fontStyle: "italic", color: "var(--terra, #C4622D)" }}>crafted with care.</em>
               </>
             )}
           </h1>
@@ -78,6 +81,36 @@ export default function HeroSection({
               {lang === "it" ? "Prova l'AI Studio" : "Try AI Studio"}
               <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </Link>
+          </div>
+
+          {/* Stats row */}
+          <div className="flex items-center gap-6 mt-8 pt-7" style={{ borderTop: "1px solid var(--border)" }}>
+            <div>
+              <p className="text-[22px] italic leading-none mb-1" style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--accent)" }}>
+                {TOTAL_DOWNLOADS.toLocaleString("it-IT")}+
+              </p>
+              <p className="text-[9px] font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--muted)" }}>
+                {lang === "it" ? "download totali" : "total downloads"}
+              </p>
+            </div>
+            <div className="w-px h-8 flex-shrink-0" style={{ background: "var(--border)" }} />
+            <div>
+              <p className="text-[22px] italic leading-none mb-1" style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--terra, #C4622D)" }}>
+                {countedTemplates}
+              </p>
+              <p className="text-[9px] font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--muted)" }}>
+                template
+              </p>
+            </div>
+            <div className="w-px h-8 flex-shrink-0" style={{ background: "var(--border)" }} />
+            <div>
+              <p className="text-[22px] italic leading-none mb-1" style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--accent)" }}>
+                AI
+              </p>
+              <p className="text-[9px] font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--muted)" }}>
+                {lang === "it" ? "powered" : "powered"}
+              </p>
+            </div>
           </div>
         </div>
 
