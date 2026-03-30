@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useRef, useCallback, Suspense, useEffect } from "react";
+import { isHTMLOutput, useLocalStorageHistory } from "@/lib/studioUtils";
+import { hasStudioAccess } from "@/lib/purchases";
 import { useSearchParams } from "next/navigation";
 import { getTemplate } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
@@ -37,12 +39,8 @@ function StudioContent() {
   });
   const [showHistory, setShowHistory] = useState(false);
 
-  useEffect(() => {
-    try { localStorage.setItem("tl_gen_history", JSON.stringify(genHistory.slice(0, 50))); } catch (e) { console.error('[studio]', e); }
-  }, [genHistory]);
-  useEffect(() => {
-    try { localStorage.setItem("tl_custom_history", JSON.stringify(customHistory.slice(0, 50))); } catch (e) { console.error('[studio]', e); }
-  }, [customHistory]);
+  useLocalStorageHistory("tl_gen_history", genHistory, 50);
+  useLocalStorageHistory("tl_custom_history", customHistory, 50);
 
   // Customize state
   const [selectedId, setSelectedId] = useState(initialTemplateId);
@@ -53,9 +51,7 @@ function StudioContent() {
   // Purchased templates
   const [purchasedIds, setPurchasedIds] = useState<string[]>([]);
   const [purchasesLoaded, setPurchasesLoaded] = useState(false);
-  const hasStudioAccess =
-    purchasedIds.includes("studio-access") ||
-    purchasedIds.includes("studio-access-lifetime");
+  const studioAccess = hasStudioAccess(purchasedIds);
 
   useEffect(() => {
     fetch("/api/purchases")
@@ -153,9 +149,7 @@ function StudioContent() {
         }
 
         // Auto-switch to preview for UI output after streaming completes
-        if (result.trim().startsWith("<") || result.includes("<div") || result.includes("<section")) {
-          setOutputView("preview");
-        }
+        if (isHTMLOutput(result)) setOutputView("preview");
       } catch (err) {
         if ((err as Error).name !== "AbortError") {
           setOutput(`Error: ${(err as Error).message}`);
@@ -214,11 +208,7 @@ function StudioContent() {
     if (tab === "generate") setGenOutput(entry.output);
     else setCustomOutput(entry.output);
     setShowHistory(false);
-    if (entry.output.trim().startsWith("<") || entry.output.includes("<div") || entry.output.includes("<section")) {
-      setOutputView("preview");
-    } else {
-      setOutputView("code");
-    }
+    setOutputView(isHTMLOutput(entry.output) ? "preview" : "code");
   };
 
   const activeHistory = tab === "generate" ? genHistory : customHistory;
@@ -245,11 +235,11 @@ function StudioContent() {
                 <button
                   key={t}
                   onClick={() => setTab(t)}
-                  disabled={t === "generate" && !hasStudioAccess}
+                  disabled={t === "generate" && !studioAccess}
                   className={`flex-1 py-2 text-[15px] font-medium capitalize transition-all duration-200 ${
                     tab === t
                       ? "bg-surface text-theme shadow-sm"
-                      : t === "generate" && !hasStudioAccess
+                      : t === "generate" && !studioAccess
                       ? "text-muted cursor-not-allowed"
                       : "text-muted hover:text-theme"
                   }`}
@@ -271,7 +261,7 @@ function StudioContent() {
                         {lang === "it" ? "Personalizza" : "Customize"}
                       </>
                     )}
-                    {t === "generate" && !hasStudioAccess && (
+                    {t === "generate" && !studioAccess && (
                       <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden className="opacity-50">
                         <rect x="2" y="4.5" width="7" height="5" rx="1" stroke="currentColor" strokeWidth="1.3"/>
                         <path d="M3.5 4.5V3a2 2 0 014 0v1.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
@@ -296,7 +286,7 @@ function StudioContent() {
                 setGenTone={setGenTone}
                 genOutput={genOutput}
                 genLoading={genLoading}
-                hasStudioAccess={hasStudioAccess}
+                hasStudioAccess={studioAccess}
                 onGenerate={handleGenerate}
                 lang={lang}
               />
@@ -312,7 +302,7 @@ function StudioContent() {
                 customLoading={customLoading}
                 purchasedIds={purchasedIds}
                 purchasesLoaded={purchasesLoaded}
-                hasStudioAccess={hasStudioAccess}
+                hasStudioAccess={studioAccess}
                 onCustomize={handleCustomize}
                 lang={lang}
               />
@@ -364,7 +354,7 @@ function StudioContent() {
                   if (tab === "generate") setGenOutput(output);
                   else setCustomOutput(output);
                   setShowHistory(false);
-                  if (output.trim().startsWith("<") || output.includes("<div") || output.includes("<section")) {
+                  if (isHTMLOutput(output)) {
                     setOutputView("preview");
                   } else {
                     setOutputView("code");

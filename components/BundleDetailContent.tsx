@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { usePurchases } from "@/lib/usePurchases";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { getBundle, getTemplate, formatPrice } from "@/lib/templates";
@@ -23,21 +24,12 @@ const COLOR_MAP: Record<string, typeof BRAND_COLOR> = {
 export default function BundleDetailContent({ bundleId }: { bundleId: string }) {
   const router = useRouter();
   const { lang } = useLang();
-  const [purchasedIds, setPurchasedIds] = useState<string[]>([]);
-  const [purchasesLoading, setPurchasesLoading] = useState(true);
+  const { purchasedIds, loading: purchasesLoading } = usePurchases();
   const [loading, setLoading] = useState(false);
   const [activeTemplateIdx, setActiveTemplateIdx] = useState(0);
   const toast = useToast();
 
   const bundle = getBundle(bundleId);
-
-  useEffect(() => {
-    fetch("/api/purchases")
-      .then((r) => r.ok ? r.json() : { templateIds: [] })
-      .then((d) => setPurchasedIds(d.templateIds ?? []))
-      .catch(() => {})
-      .finally(() => setPurchasesLoading(false));
-  }, []);
 
   if (!bundle) {
     return (

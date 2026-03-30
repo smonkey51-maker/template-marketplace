@@ -16,7 +16,7 @@ export default function NewsletterAdminPage() {
     fetch("/api/admin/newsletter")
       .then((r) => r.json())
       .then((d) => setCount(d.count ?? null))
-      .catch(() => {});
+      .catch((e) => console.error("[NewsletterAdmin] fetch count:", e));
   }, []);
 
   if (!isLoaded) return null;

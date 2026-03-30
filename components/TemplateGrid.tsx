@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect, useMemo, useCallback, useRef } from "react";
+import { useState, useMemo, useCallback, useRef } from "react";
+import { usePurchases } from "@/lib/usePurchases";
 import { useSearchParams, useRouter } from "next/navigation";
 import { templates, bundles, Template, getDownloadType } from "@/lib/templates";
 import TemplateCard from "@/components/TemplateCard";
@@ -53,8 +54,7 @@ export default function TemplateGrid({ externalQuery = "", onClearSearch }: { ex
     () => recentIds.map((id) => byId[id]).filter(Boolean) as Template[],
     [recentIds]
   );
-  const [purchasedIds, setPurchasedIds] = useState<string[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { purchasedIds, loading } = usePurchases();
   const [openCategoryId, setOpenCategoryId] = useState<string | null>(() => searchParams.get("category"));
   const [quickViewId, setQuickViewId] = useState<string | null>(null);
   const [visibleCount, setVisibleCount] = useState(12);
@@ -64,16 +64,6 @@ export default function TemplateGrid({ externalQuery = "", onClearSearch }: { ex
   const drillDirectionRef = useRef<"in" | "back">("in");
 
   const handleQuickView = useCallback((id: string) => setQuickViewId(id), []);
-
-  // Accent colour stays brand gold across all categories
-
-  useEffect(() => {
-    fetch("/api/purchases")
-      .then((r) => { if (!r.ok) throw new Error(); return r.json(); })
-      .then((data) => setPurchasedIds(data.templateIds ?? []))
-      .catch(() => setPurchasedIds([]))
-      .finally(() => setLoading(false));
-  }, []);
 
   // Reset when query changes (from hero)
   useEffect(() => {
