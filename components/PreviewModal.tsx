@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef, useCallback } from "react";
+import { createPortal } from "react-dom";
 import { getTemplate } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
 
@@ -54,7 +55,7 @@ export default function PreviewModal({ templateId, onClose }: {
 
   if (!template) return null;
 
-  return (
+  return createPortal(
     <div
       className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8"
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
@@ -128,6 +129,7 @@ export default function PreviewModal({ templateId, onClose }: {
           </a>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
