@@ -29,6 +29,8 @@
   --card-bg:     #FDFAF5;
   --card-border: rgba(28,22,16,0.10);
   --input-bg:    rgba(28,22,16,0.05);
+  --btn-ghost-border:       rgba(28,22,16,0.18);
+  --btn-ghost-border-hover: rgba(28,22,16,0.72);
   /* Border radius tokens */
   --r-sm: 10px;
   --r-md: 16px;
@@ -107,6 +109,8 @@ html.dark {
   --card-bg:     #0d0b08;
   --card-border: rgba(242,235,217,0.09);
   --input-bg:    rgba(242,235,217,0.06);
+  --btn-ghost-border:       rgba(242,235,217,0.22);
+  --btn-ghost-border-hover: rgba(242,235,217,0.80);
   /* Glassmorphism tokens — obsidian */
   --glass-fill:     rgba(242,235,217,0.04);
   --glass-shadow:   0 4px 32px rgba(0,0,0,0.5), 0 1px 0 rgba(242,235,217,0.06) inset;
@@ -915,4 +919,67 @@ html.dark {
 @media (prefers-reduced-motion: reduce) {
   .btn-brand::before { display: none; }
   .btn-brand::after  { animation: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BTN-GHOST — outline/border CTA (wearebrand.io style)
+   Sharp corners to match design system
+   ═══════════════════════════════════════════════════════════ */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-syne), sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  border: 1px solid var(--btn-ghost-border);
+  background: transparent;
+  color: var(--text);
+  padding: 11px 24px;
+  transition: border-color 0.22s cubic-bezier(0.22,1,0.36,1),
+              background    0.22s cubic-bezier(0.22,1,0.36,1),
+              color         0.22s ease;
+}
+.btn-ghost:hover {
+  border-color: var(--btn-ghost-border-hover);
+  background: var(--input-bg);
+}
+.btn-ghost:active {
+  transform: scale(0.97);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LABEL-SECTION — editorial uppercase section tag
+   ═══════════════════════════════════════════════════════════ */
+.label-section {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-syne), sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  color: var(--muted);
+}
+.label-section::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.45;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ANIM-FADE-UP-SLOW — cinematic hero entrance (longer)
+   ═══════════════════════════════════════════════════════════ */
+@layer utilities {
+  .anim-fade-up-slow {
+    animation: fade-up 0.72s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .delay-500 { animation-delay: 500ms; }
+  .delay-600 { animation-delay: 600ms; }
 }

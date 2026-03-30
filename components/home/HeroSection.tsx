@@ -21,23 +21,22 @@ export default function HeroSection({
       className="relative z-10 border-b"
       style={{ borderColor: "var(--border)" }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-12 lg:gap-16 items-center py-10 sm:py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-12 lg:gap-20 items-center py-14 sm:py-28">
 
         {/* Left: copy */}
         <div>
           {/* Eyebrow */}
-          <div className="inline-flex items-center gap-2.5 mb-4 sm:mb-7 text-[9px] tracking-[0.2em] uppercase font-medium" style={{ color: "var(--accent)" }}>
-            <span className="w-[5px] h-[5px] rounded-full flex-shrink-0" style={{ background: "var(--accent)" }} />
+          <div className="label-section mb-5 sm:mb-8" style={{ color: "var(--accent)" }}>
             {lang === "it" ? "Collezione Primavera 2026" : "Spring Collection 2026"}
           </div>
 
           {/* Headline */}
           <h1
-            className="font-dm-serif leading-[1.06] mb-5 sm:mb-7"
+            className="font-dm-serif leading-[1.04] mb-5 sm:mb-7"
             style={{
-              fontSize: "clamp(34px, 6vw, 82px)",
+              fontSize: "clamp(42px, 6.5vw, 102px)",
               fontWeight: 400,
-              letterSpacing: "-0.025em",
+              letterSpacing: "-0.04em",
               color: "var(--text)",
               fontFamily: "var(--font-dm-serif), Georgia, serif",
             }}
@@ -73,10 +72,7 @@ export default function HeroSection({
             </a>
             <Link
               href="/studio"
-              className="text-[13px] sm:text-[12px] flex items-center justify-center sm:justify-start gap-1.5 py-3 sm:py-0 border border-theme sm:border-0 transition-colors duration-200"
-              style={{ color: "var(--muted)", letterSpacing: "0.06em" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text)")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--muted)")}
+              className="btn-ghost gap-1.5 justify-center sm:justify-start"
             >
               {lang === "it" ? "Prova l'AI Studio" : "Try AI Studio"}
               <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
