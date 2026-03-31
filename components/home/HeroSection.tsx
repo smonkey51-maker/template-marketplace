@@ -92,6 +92,9 @@ export default function HeroSection({
           </div>
         </div>
       </div>
+
+      {/* Gradient fade to page background */}
+      <div className="hero-fade" aria-hidden="true" />
     </section>
   );
 }
