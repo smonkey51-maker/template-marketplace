@@ -448,7 +448,7 @@ export default function HomeContent() {
           className="text-[22px] sm:text-[32px] italic"
           style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--text)", fontWeight: 400 }}
         >
-          {lang === "it" ? "Catalogo — Edizione Primavera" : "Catalog — Spring Edition"}
+          {lang === "it" ? "Catalogo" : "Catalog"}
         </h2>
         <span
           className="text-[10px] tracking-[0.14em] uppercase font-semibold"

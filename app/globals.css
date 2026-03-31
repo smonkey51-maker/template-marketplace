@@ -98,29 +98,35 @@
 }
 
 html.dark {
-  /* ── Hybrid obsidian palette ── */
-  --bg:          #050402;
-  --surface:     #0d0b08;
-  --surface-2:   rgba(13,11,8,0.96);
-  --text:        #F2EBD9;
-  --muted:       rgba(242,235,217,0.55);
-  --border:      rgba(242,235,217,0.09);
-  --nav-bg:      rgba(5,4,2,0.93);
-  --card-bg:     #0d0b08;
-  --card-border: rgba(242,235,217,0.09);
-  --input-bg:    rgba(242,235,217,0.06);
-  --btn-ghost-border:       rgba(242,235,217,0.22);
-  --btn-ghost-border-hover: rgba(242,235,217,0.80);
-  /* Glassmorphism tokens — obsidian */
-  --glass-fill:     rgba(242,235,217,0.04);
-  --glass-shadow:   0 4px 32px rgba(0,0,0,0.5), 0 1px 0 rgba(242,235,217,0.06) inset;
-  --glass-stroke:   rgba(242,235,217,0.09);
-  --glass-top-edge: linear-gradient(90deg, transparent, rgba(242,235,217,0.08) 20%, rgba(242,235,217,0.08) 80%, transparent);
+  /* ── Dark palette: #212121 bg / #E8E8E8 text ──
+     WCAG contrast checks (bg #212121, lum≈0.015):
+       --text  #E8E8E8      → 12.97:1  ✅ AAA
+       --muted rgba(232,232,232,0.55) → eff. #8e8e8e → 5.0:1  ✅ AA
+       --accent #C8A96E     → 7.32:1  ✅ AAA
+       --success #8BAF5A    → 5.1:1   ✅ AA
+  ── */
+  --bg:          #212121;
+  --surface:     #2a2a2a;
+  --surface-2:   rgba(42,42,42,0.96);
+  --text:        #E8E8E8;
+  --muted:       rgba(232,232,232,0.55);
+  --border:      rgba(232,232,232,0.09);
+  --nav-bg:      rgba(33,33,33,0.93);
+  --card-bg:     #2a2a2a;
+  --card-border: rgba(232,232,232,0.09);
+  --input-bg:    rgba(232,232,232,0.06);
+  --btn-ghost-border:       rgba(232,232,232,0.22);
+  --btn-ghost-border-hover: rgba(232,232,232,0.80);
+  /* Glassmorphism tokens */
+  --glass-fill:     rgba(232,232,232,0.04);
+  --glass-shadow:   0 4px 32px rgba(0,0,0,0.5), 0 1px 0 rgba(232,232,232,0.06) inset;
+  --glass-stroke:   rgba(232,232,232,0.09);
+  --glass-top-edge: linear-gradient(90deg, transparent, rgba(232,232,232,0.08) 20%, rgba(232,232,232,0.08) 80%, transparent);
   --glass-bright:   1.05;
-  --spec-hot:       rgba(242,235,217,0.08);
-  --spec-mid:       rgba(242,235,217,0.03);
-  --divider:        rgba(242,235,217,0.08);
-  /* Gold accent — replaces purple */
+  --spec-hot:       rgba(232,232,232,0.08);
+  --spec-mid:       rgba(232,232,232,0.03);
+  --divider:        rgba(232,232,232,0.08);
+  /* Gold accent */
   --accent:         #C8A96E;
   --accent-bg:      rgba(200,169,110,0.12);
   --accent-rgb:     200, 169, 110;
@@ -131,20 +137,20 @@ html.dark {
   --gold-mid:       rgba(200,169,110,0.35);
   --terra:          #C4622D;
   --terra-dim:      rgba(196,98,45,0.15);
-  --cream:          #F2EBD9;
-  --cream-60:       rgba(242,235,217,0.6);
-  --cream-30:       rgba(242,235,217,0.3);
-  --cream-08:       rgba(242,235,217,0.08);
-  --obsidian-2:     #0d0b08;
-  --obsidian-3:     #161310;
-  --obsidian-4:     #1e1a16;
+  --cream:          #E8E8E8;
+  --cream-60:       rgba(232,232,232,0.6);
+  --cream-30:       rgba(232,232,232,0.3);
+  --cream-08:       rgba(232,232,232,0.08);
+  --obsidian-2:     #2a2a2a;
+  --obsidian-3:     #333333;
+  --obsidian-4:     #3d3d3d;
   --border-gold:    1px solid rgba(200,169,110,0.28);
-  /* Semantic state colors — dark mode */
+  /* Semantic state colors */
   --success:        #8BAF5A;
   --success-dim:    rgba(139,175,90,0.14);
   --error:          #C4622D;
   --error-dim:      rgba(196,98,45,0.14);
-  /* Ambient glow — warm brand tones */
+  /* Ambient glow */
   --glow-gold:      rgba(200,169,110,0.12);
   --glow-terra:     rgba(196,98,45,0.08);
   /* Platform brand colors (download buttons) */
@@ -164,12 +170,12 @@ html.dark {
   --bezel-notch-bg:  #000000;
   --bezel-notch-border: #333333;
   /* Prompt viewer */
-  --prompt-bg:       #161310;
-  --prompt-header:   #1e1a16;
-  --prompt-text:     #F2EBD9;
-  --prompt-label:    rgba(242,235,217,0.45);
+  --prompt-bg:       #2a2a2a;
+  --prompt-header:   #333333;
+  --prompt-text:     #E8E8E8;
+  --prompt-label:    rgba(232,232,232,0.60);
   /* Modal skeleton */
-  --skeleton-bg:     #161310;
+  --skeleton-bg:     #2a2a2a;
 }
 
 /* ═══════════════════════════════════════════════════════════
