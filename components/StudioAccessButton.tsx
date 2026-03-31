@@ -47,7 +47,7 @@ export default function StudioAccessButton({ compact = false }: StudioAccessButt
         <button
           onClick={handleClick}
           disabled={loading}
-          className="btn-brand btn-brand-sm"
+          className="btn-brand btn-brand-sm whitespace-nowrap"
         >
           {loading ? (
             <span className="flex items-center gap-2">
