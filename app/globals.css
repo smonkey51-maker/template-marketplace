@@ -1075,8 +1075,8 @@ html.dark body::before {
 
 /* Gold price text */
 .price-gold {
-  font-family: var(--font-gatsunaga);
-  font-style: italic;
+  font-family: var(--font-jakarta), sans-serif;
+  font-weight: 600;
   color: var(--gold, #C8A96E);
 }
 
