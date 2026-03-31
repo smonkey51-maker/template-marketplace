@@ -1,9 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { templates } from "@/lib/templates";
-
-const TOTAL_DOWNLOADS = templates.reduce((sum, t) => sum + (t.downloads || 0), 0);
 
 export default function HeroSection({
   lang,
@@ -75,20 +72,20 @@ export default function HeroSection({
         {/* Stats row */}
         <div className="flex items-center gap-8 mt-10 pt-8" style={{ borderTop: "1px solid var(--border)" }}>
           <div>
-            <p className="text-[26px] italic leading-none mb-1.5" style={{ fontFamily: "var(--font-gatsunaga)", color: "var(--accent)" }}>
-              {TOTAL_DOWNLOADS.toLocaleString("it-IT")}+
-            </p>
-            <p className="text-[9px] font-medium uppercase tracking-[0.18em]" style={{ color: "var(--muted)" }}>
-              {lang === "it" ? "download totali" : "total downloads"}
-            </p>
-          </div>
-          <div className="w-px h-10 flex-shrink-0" style={{ background: "var(--border)" }} />
-          <div>
             <p className="text-[26px] italic leading-none mb-1.5" style={{ fontFamily: "var(--font-gatsunaga)", color: "var(--terra, #C4622D)" }}>
               {countedTemplates}
             </p>
             <p className="text-[9px] font-medium uppercase tracking-[0.18em]" style={{ color: "var(--muted)" }}>
               {lang === "it" ? "template disponibili" : "templates available"}
+            </p>
+          </div>
+          <div className="w-px h-10 flex-shrink-0" style={{ background: "var(--border)" }} />
+          <div>
+            <p className="text-[26px] italic leading-none mb-1.5" style={{ fontFamily: "var(--font-gatsunaga)", color: "var(--accent)" }}>
+              8
+            </p>
+            <p className="text-[9px] font-medium uppercase tracking-[0.18em]" style={{ color: "var(--muted)" }}>
+              {lang === "it" ? "bundle" : "bundles"}
             </p>
           </div>
         </div>
