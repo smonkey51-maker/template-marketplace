@@ -659,16 +659,16 @@ html::-webkit-scrollbar-track {
   to   { stroke-dashoffset: 0;  opacity: 1;   }
 }
 
-/* Hero italic headline animation */
-@keyframes hero-em-glow {
-  0%, 100% { opacity: 1; text-shadow: none; }
-  50%       { opacity: 0.85; text-shadow: 0 0 28px var(--terra, #C4622D); }
+/* Hero title reveal */
+@keyframes hero-title-reveal {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-.hero-em-animate {
-  animation: hero-em-glow 4s ease-in-out infinite;
+.hero-title-reveal {
+  animation: hero-title-reveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-em-animate { animation: none; }
+  .hero-title-reveal { animation: none; }
 }
 
 /* Ripple */
