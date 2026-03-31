@@ -94,10 +94,10 @@ export default function SiteNav({ title }: { title?: string }) {
           </span>
         </div>
 
-        {/* Studio Access CTA — only lg+ to avoid cramping at narrow desktop */}
+        {/* Studio Access CTA — xl+ only, below that the nav is too crowded */}
         <Link
           href="/studio"
-          className="hidden lg:inline-flex btn-brand shrink-0 mr-3"
+          className="hidden xl:inline-flex btn-brand shrink-0 mr-3"
           style={{ fontSize: "8px", padding: "7px 13px" }}
         >
           Studio

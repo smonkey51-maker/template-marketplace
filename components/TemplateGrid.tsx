@@ -509,20 +509,20 @@ export default function TemplateGrid({ externalQuery = "", onClearSearch }: { ex
                         <div className="flex items-stretch gap-4 mb-8">
                           {/* Vertical kanji bar */}
                           <div className="flex flex-col items-center gap-1 shrink-0 py-1" aria-hidden="true">
-                            <div className="w-px flex-1" style={{ background: "linear-gradient(to bottom, var(--accent), transparent)", opacity: 0.3 }} />
-                            <span className="tategaki" style={{ opacity: 0.5, fontSize: "13px" }}>{pillar.kanji}</span>
-                            <div className="w-px flex-1" style={{ background: "linear-gradient(to top, var(--accent), transparent)", opacity: 0.3 }} />
+                            <div className="pillar-bar w-px flex-1" style={{ background: "linear-gradient(to bottom, var(--accent), transparent)" }} />
+                            <span className="tategaki pillar-tategaki">{pillar.kanji}</span>
+                            <div className="pillar-bar w-px flex-1" style={{ background: "linear-gradient(to top, var(--accent), transparent)" }} />
                           </div>
                           {/* Text */}
                           <div className="flex flex-col justify-center gap-1">
-                            <span style={{ fontFamily: "var(--font-gatsunaga)", fontSize: "20px", color: "var(--accent)", opacity: 0.75, lineHeight: 1.1 }}>
-                              {pillar.nameIt}
+                            <span className="pillar-name" style={{ fontFamily: "var(--font-gatsunaga)", fontSize: "20px", color: "var(--accent)", lineHeight: 1.1 }}>
+                              {lang === "it" ? pillar.nameIt : pillar.nameEn}
                             </span>
                             <span className="text-[11px] font-light tracking-[0.06em]" style={{ color: "var(--muted)" }}>
                               {lang === "it" ? pillar.subtitleIt : pillar.subtitleEn}
                             </span>
                           </div>
-                          <div className="flex-1 h-px self-center ml-2" style={{ background: "linear-gradient(to right, var(--accent), transparent)", opacity: 0.2 }} />
+                          <div className="pillar-line flex-1 h-px self-center ml-2" style={{ background: "linear-gradient(to right, var(--accent), transparent)" }} />
                         </div>
 
                         {/* Tatami grid — first card wider (featured) */}
