@@ -21,11 +21,11 @@ export default function HeroSection({
 
         {/* Headline */}
         <h1
-          className="font-gatsunaga leading-[1.04] mb-5 sm:mb-7"
+          className="hero-title-reveal leading-[1.08] mb-5 sm:mb-7"
           style={{
-            fontSize: "clamp(58px, 9vw, 136px)",
+            fontSize: "clamp(52px, 8.5vw, 128px)",
             fontWeight: 800,
-            letterSpacing: "-0.04em",
+            letterSpacing: "-0.035em",
             color: "var(--text)",
             fontFamily: "var(--font-montserrat), sans-serif",
           }}
@@ -33,12 +33,12 @@ export default function HeroSection({
           {lang === "it" ? (
             <>
               Template premium,<br />
-              <em className="hero-em-animate" style={{ fontStyle: "italic", color: "var(--terra, #C4622D)" }}>plasmati con cura.</em>
+              <em style={{ fontStyle: "italic", color: "var(--terra, #C4622D)" }}>plasmati con cura.</em>
             </>
           ) : (
             <>
               Premium templates,<br />
-              <em className="hero-em-animate" style={{ fontStyle: "italic", color: "var(--terra, #C4622D)" }}>crafted with care.</em>
+              <em style={{ fontStyle: "italic", color: "var(--terra, #C4622D)" }}>crafted with care.</em>
             </>
           )}
         </h1>
