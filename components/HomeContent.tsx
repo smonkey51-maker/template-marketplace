@@ -186,7 +186,7 @@ export default function HomeContent() {
           {/* Logo */}
           <Link href="/" className="shrink-0 mr-6 hover:opacity-70 transition-opacity">
             <span className="text-[15px] leading-none tracking-[0.06em] uppercase" style={{ fontFamily: "var(--font-syne)", fontWeight: 800, color: "var(--text)" }}>
-              Template<span style={{ color: "var(--accent)" }}>Lab</span>
+              For<span style={{ color: "var(--accent)" }}>ma</span>
             </span>
           </Link>
 

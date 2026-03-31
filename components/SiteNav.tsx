@@ -37,7 +37,7 @@ export default function SiteNav({ title }: { title?: string }) {
               color: "var(--text)",
             }}
           >
-            Template<span style={{ color: "var(--accent)" }}>Lab</span>
+            For<span style={{ color: "var(--accent)" }}>ma</span>
           </span>
           <span
             className="text-[8px] tracking-[0.18em] uppercase leading-none hidden sm:block"

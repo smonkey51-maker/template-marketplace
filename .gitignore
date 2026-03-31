@@ -16,3 +16,7 @@ out/
 
 # Template export generato da export-templates
 exports/
+
+# Progetti secondari — repo embedded, non parte di Forma
+claude-setup/
+flutter-craft/

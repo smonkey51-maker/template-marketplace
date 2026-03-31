@@ -19,7 +19,7 @@ export default function Footer() {
               className="text-[15px] leading-none tracking-[0.06em] uppercase select-none"
               style={{ fontFamily: "var(--font-syne)", fontWeight: 800, color: "var(--text)" }}
             >
-              Template<span style={{ color: "var(--accent)" }}>Lab</span>
+              For<span style={{ color: "var(--accent)" }}>ma</span>
             </span>
             <p className="text-[11px] font-light max-w-[200px] leading-relaxed mt-1" style={{ color: "var(--muted)" }}>
               {f.tagline}
