@@ -2,7 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Cormorant Garamond — calligraphic zen display font (Google Fonts, free) ── */
+/* ── Slingday — display font (local, /public/fonts/Slingday.otf) ── */
+@font-face {
+  font-family: 'Slingday';
+  src: url('/fonts/Slingday.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* ── Global keyboard focus indicators (accessibility) ── */
 @layer components {
@@ -97,8 +104,8 @@
   --prompt-label:    #8E8E93;
   /* Modal skeleton */
   --skeleton-bg:     #F2F2F7;
-  /* Cormorant Garamond — calligraphic zen display, loaded via next/font/google */
-  --font-gatsunaga:  var(--font-cormorant), var(--font-dm-serif), 'Georgia', serif;
+  /* Slingday — display font for headings/accents */
+  --font-gatsunaga:  'Slingday', var(--font-cormorant), var(--font-dm-serif), 'Georgia', serif;
 }
 
 html.dark {

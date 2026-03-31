@@ -15,8 +15,7 @@ export default function HeroSection({
 }) {
   return (
     <section
-      className="relative z-10 border-b"
-      style={{ borderColor: "var(--border)" }}
+      className="relative z-10"
     >
       <div className="max-w-4xl mx-auto px-4 sm:px-8 flex flex-col items-center text-center py-14 sm:py-28">
 
