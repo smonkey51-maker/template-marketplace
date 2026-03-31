@@ -207,6 +207,19 @@ html {
               color 0.22s cubic-bezier(0.4,0,0.2,1);
 }
 
+/* ── Dark mode: Seigaiha (青海波) — Japanese wave/scale pattern ──
+   Tile 80×40 px, overlapping arcs in hinoki amber on sumi-e black.
+   Replaces the diagonal stripes of light mode.
+── */
+html.dark {
+  background-image:
+    url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='40'><circle cx='40' cy='40' r='40' fill='none' stroke='%23C8915A' stroke-width='0.7' stroke-opacity='0.08'/><circle cx='0' cy='40' r='40' fill='none' stroke='%23C8915A' stroke-width='0.7' stroke-opacity='0.08'/><circle cx='80' cy='40' r='40' fill='none' stroke='%23C8915A' stroke-width='0.7' stroke-opacity='0.08'/><circle cx='40' cy='0' r='40' fill='none' stroke='%23C8915A' stroke-width='0.7' stroke-opacity='0.08'/></svg>"),
+    radial-gradient(ellipse 80% 50% at 0% 0%,   rgba(200,145,90,0.04) 0%, transparent 65%),
+    radial-gradient(ellipse 70% 60% at 100% 100%, rgba(200,145,90,0.02) 0%, transparent 60%);
+  background-size: 80px 40px, 100% 100%, 100% 100%;
+  background-repeat: repeat, no-repeat, no-repeat;
+}
+
 /* Display font for headings */
 h1, h2, h3 {
   font-family: var(--font-syne), var(--font-geist), system-ui, sans-serif;
@@ -816,6 +829,78 @@ html::-webkit-scrollbar-track {
 .font-dm-serif,
 .font-gatsunaga {
   font-family: var(--font-gatsunaga);
+}
+
+/* ── Zen Divider (禅) ──
+   Centered ornament with tapered accent lines — Japanese scroll aesthetic.
+   Usage: <div class="zen-divider" aria-hidden="true"><span>◇</span></div>
+── */
+.zen-divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  margin: 2.5rem 0;
+  opacity: 0.45;
+}
+.zen-divider::before,
+.zen-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+}
+.zen-divider::before {
+  background: linear-gradient(to right, transparent, var(--accent));
+}
+.zen-divider::after {
+  background: linear-gradient(to left, transparent, var(--accent));
+}
+.zen-divider span {
+  font-size: 9px;
+  color: var(--accent);
+  flex-shrink: 0;
+  line-height: 1;
+  transform: rotate(0deg);
+  display: inline-block;
+}
+
+/* ── Hanko seal (判子) ──
+   Square Japanese seal motif for decorative use.
+   Usage: <div class="hanko-seal" aria-hidden="true">印</div>
+── */
+.hanko-seal {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-gatsunaga);
+  font-size: 13px;
+  color: var(--accent);
+  opacity: 0.55;
+  transform: rotate(-3deg);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  flex-shrink: 0;
+}
+.hanko-seal:hover {
+  opacity: 0.8;
+  transform: rotate(0deg);
+}
+
+/* ── Kanji step numbers ── */
+.kanji-num {
+  font-family: var(--font-gatsunaga);
+  font-size: 28px;
+  line-height: 1;
+  color: var(--accent);
+  opacity: 0.25;
+  letter-spacing: -0.02em;
+  transition: opacity 0.3s ease;
+}
+.kanji-num:hover,
+*:hover > .kanji-num {
+  opacity: 0.45;
 }
 
 /* Warm grain overlay on dark bg */

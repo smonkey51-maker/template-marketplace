@@ -440,9 +440,14 @@ export default function HomeContent() {
       ═══════════════════════════════════════════ */}
       <HeroSection lang={lang} countedTemplates={countedTemplates} query={query} setQuery={setQuery} />
 
+      {/* ── Zen divider ── */}
+      <div className="relative z-10 px-4 sm:px-8">
+        <div className="zen-divider" aria-hidden="true"><span>◇</span></div>
+      </div>
+
       {/* ── Catalog header ── */}
       <div
-        className="relative z-10 px-4 sm:px-8 pt-16 pb-6 flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-4"
+        className="relative z-10 px-4 sm:px-8 pt-4 pb-6 flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-4"
       >
         <h2
           className="text-[22px] sm:text-[32px] italic"

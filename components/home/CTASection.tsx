@@ -4,9 +4,9 @@ export default function CTASection({ lang }: { lang: "it" | "en" }) {
   return (
     <div className="relative z-10 border-t border-theme px-4 sm:px-8 py-12 sm:py-16">
       <div className="max-w-2xl mx-auto text-center">
-        {/* Decorative accent dot */}
-        <div className="flex justify-center mb-5">
-          <span className="w-[6px] h-[6px] rounded-full" style={{ background: "var(--accent)" }} />
+        {/* Hanko seal — Japanese ink stamp */}
+        <div className="flex justify-center mb-6">
+          <div className="hanko-seal" aria-hidden="true">印</div>
         </div>
         {/* Quote */}
         <blockquote>

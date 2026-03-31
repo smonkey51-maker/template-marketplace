@@ -70,8 +70,11 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Zen divider */}
+        <div className="zen-divider mt-8" aria-hidden="true"><span>◇</span></div>
+
         {/* Bottom bar */}
-        <div className="mt-8 pt-6 flex items-center justify-between gap-4 flex-wrap" style={{ borderTop: "1px solid var(--border)" }}>
+        <div className="flex items-center justify-between gap-4 flex-wrap">
           <p className="text-[11px] font-light" style={{ color: "var(--muted)", opacity: 0.7 }}>{f.copyright}</p>
           <div className="flex items-center gap-4">
             <LanguageToggle />
