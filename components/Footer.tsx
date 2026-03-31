@@ -35,9 +35,6 @@ export default function Footer() {
             >
               For<span style={{ color: "var(--accent)" }}>ma</span>
             </span>
-            <p className="text-[11px] font-light max-w-[200px] leading-relaxed mt-1 relative z-10" style={{ color: "var(--muted)" }}>
-              {f.tagline}
-            </p>
           </div>
 
           {/* Links */}
