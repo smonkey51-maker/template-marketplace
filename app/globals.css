@@ -1028,6 +1028,28 @@ html::-webkit-scrollbar-track {
   transform: rotate(0deg);
 }
 
+/* ── Ink line (墨線) — asymmetric brush-stroke underline beneath section h2 ──
+   Left-anchored gradient fading right: evokes a single sumi-e brush mark.
+   Usage: <h2 class="ink-line">…</h2>
+── */
+.ink-line {
+  position: relative;
+  display: inline-block;
+}
+.ink-line::after {
+  content: '';
+  position: absolute;
+  bottom: -7px;
+  left: 0;
+  width: 38%;
+  height: 1px;
+  background: linear-gradient(to right, var(--accent), transparent);
+  opacity: 0.5;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ink-line::after { opacity: 0.35; }
+}
+
 /* ── Kanji step numbers ── */
 .kanji-num {
   font-family: var(--font-gatsunaga);

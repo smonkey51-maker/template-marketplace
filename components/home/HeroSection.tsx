@@ -81,7 +81,7 @@ export default function HeroSection({
               {lang === "it" ? "template disponibili" : "templates available"}
             </p>
           </div>
-          <div className="w-px h-10 flex-shrink-0" style={{ background: "var(--border)" }} />
+          <span className="select-none text-[9px]" style={{ color: "var(--accent)", opacity: 0.3 }}>◇</span>
           <div>
             <p className="text-[26px] leading-none mb-1.5" style={{ fontFamily: "var(--font-jakarta), sans-serif", fontWeight: 700, color: "var(--accent)" }}>
               8
