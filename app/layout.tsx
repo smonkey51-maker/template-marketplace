@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
-import { Syne, DM_Serif_Display, Plus_Jakarta_Sans, Cormorant_Garamond } from "next/font/google";
+import { Montserrat, DM_Serif_Display, Plus_Jakarta_Sans, Cormorant_Garamond } from "next/font/google";
 import ThemeProvider from "@/components/ThemeProvider";
 import LanguageProvider from "@/components/LanguageProvider";
 import { PostHogProvider } from "@/components/PostHogProvider";
@@ -9,10 +9,10 @@ import MobileNav from "@/components/MobileNav";
 import CustomCursor from "@/components/CustomCursor";
 import "./globals.css";
 
-const syne = Syne({
+const montserrat = Montserrat({
   subsets: ["latin"],
-  variable: "--font-syne",
-  weight: ["400", "600", "700", "800"],
+  variable: "--font-montserrat",
+  weight: ["400", "500", "600", "700", "800", "900"],
   display: "swap",
 });
 
@@ -81,7 +81,7 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="it" className={`dark ${syne.variable} ${jakarta.variable} ${dmSerif.variable} ${cormorant.variable}`}>
+      <html lang="it" className={`dark ${montserrat.variable} ${jakarta.variable} ${dmSerif.variable} ${cormorant.variable}`}>
         <body className="bg-page text-theme antialiased min-h-screen">
           <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[9999] focus:px-4 focus:py-2 focus:text-[13px] focus:font-bold" style={{ background: "var(--accent)", color: "var(--bg)" }}>
             Skip to content

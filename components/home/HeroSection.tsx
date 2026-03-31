@@ -24,10 +24,10 @@ export default function HeroSection({
           className="font-gatsunaga leading-[1.04] mb-5 sm:mb-7"
           style={{
             fontSize: "clamp(58px, 9vw, 136px)",
-            fontWeight: 400,
+            fontWeight: 800,
             letterSpacing: "-0.04em",
             color: "var(--text)",
-            fontFamily: "var(--font-gatsunaga)",
+            fontFamily: "var(--font-montserrat), sans-serif",
           }}
         >
           {lang === "it" ? (
@@ -71,7 +71,7 @@ export default function HeroSection({
         {/* Stats row */}
         <div className="flex items-center gap-8 mt-10 pt-8" style={{ borderTop: "1px solid var(--border)" }}>
           <div>
-            <p className="text-[26px] italic leading-none mb-1.5" style={{ fontFamily: "var(--font-gatsunaga)", color: "var(--terra, #C4622D)" }}>
+            <p className="text-[26px] leading-none mb-1.5" style={{ fontFamily: "var(--font-jakarta), sans-serif", fontWeight: 700, color: "var(--terra, #C4622D)" }}>
               {countedTemplates}
             </p>
             <p className="text-[9px] font-medium uppercase tracking-[0.18em]" style={{ color: "var(--muted)" }}>
@@ -80,7 +80,7 @@ export default function HeroSection({
           </div>
           <div className="w-px h-10 flex-shrink-0" style={{ background: "var(--border)" }} />
           <div>
-            <p className="text-[26px] italic leading-none mb-1.5" style={{ fontFamily: "var(--font-gatsunaga)", color: "var(--accent)" }}>
+            <p className="text-[26px] leading-none mb-1.5" style={{ fontFamily: "var(--font-jakarta), sans-serif", fontWeight: 700, color: "var(--accent)" }}>
               8
             </p>
             <p className="text-[9px] font-medium uppercase tracking-[0.18em]" style={{ color: "var(--muted)" }}>

@@ -108,7 +108,7 @@
   /* Modal skeleton */
   --skeleton-bg:     #F2F2F7;
   /* Slingday — primary font for the entire site */
-  --font-gatsunaga:  'Slingday', var(--font-cormorant), var(--font-dm-serif), 'Georgia', serif;
+  --font-gatsunaga:  var(--font-montserrat), 'Slingday', 'Georgia', serif;
 }
 
 /* ── Font pairing: Slingday (h1–h3 + .font-gatsunaga) + Jakarta (everything else) ──
@@ -123,18 +123,19 @@ body {
   letter-spacing: 0.005em;
 }
 
-/* Nav labels, buttons, badges, section labels: Jakarta */
+/* Map legacy --font-syne → Montserrat for any residual references */
 html {
-  --font-syne:      var(--font-jakarta), -apple-system, sans-serif !important;
-  --font-dm-serif:  'Slingday', serif !important;
-  --font-cormorant: 'Slingday', serif !important;
+  --font-syne:      var(--font-montserrat), sans-serif !important;
+  --font-dm-serif:  var(--font-montserrat), serif !important;
+  --font-cormorant: var(--font-montserrat), serif !important;
 }
 
-/* Only h1–h3 and explicit display classes use Slingday */
+/* h1–h3: Montserrat Bold */
 h1, h2, h3 {
-  font-family: 'Slingday', serif;
+  font-family: var(--font-montserrat), sans-serif;
+  font-weight: 700;
   line-height: 1.15;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 /* h4–h6 and all smaller: Jakarta */

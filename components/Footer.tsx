@@ -14,14 +14,28 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-8 py-10 sm:py-12">
         <div className="flex flex-col sm:flex-row items-start justify-between gap-8">
           {/* Brand */}
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 relative">
+            {/* Kanji watermark 形 = katachi = "forma" */}
             <span
-              className="text-[15px] leading-none tracking-[0.06em] uppercase select-none"
-              style={{ fontFamily: "var(--font-syne)", fontWeight: 800, color: "var(--text)" }}
+              aria-hidden="true"
+              className="absolute -top-4 -left-2 select-none pointer-events-none"
+              style={{
+                fontFamily: "var(--font-montserrat), serif",
+                fontSize: "72px",
+                fontWeight: 900,
+                color: "var(--accent)",
+                opacity: 0.04,
+                lineHeight: 1,
+                letterSpacing: "-0.04em",
+              }}
+            >形</span>
+            <span
+              className="text-[15px] leading-none tracking-[0.06em] uppercase select-none relative z-10"
+              style={{ fontFamily: "var(--font-montserrat)", fontWeight: 800, color: "var(--text)" }}
             >
               For<span style={{ color: "var(--accent)" }}>ma</span>
             </span>
-            <p className="text-[11px] font-light max-w-[200px] leading-relaxed mt-1" style={{ color: "var(--muted)" }}>
+            <p className="text-[11px] font-light max-w-[200px] leading-relaxed mt-1 relative z-10" style={{ color: "var(--muted)" }}>
               {f.tagline}
             </p>
           </div>
@@ -29,7 +43,7 @@ export default function Footer() {
           {/* Links */}
           <div className="flex flex-col sm:flex-row gap-8 sm:gap-16">
             <div className="flex flex-col gap-2.5">
-              <p className="text-[9px] font-bold uppercase tracking-[0.2em] mb-0.5" style={{ fontFamily: "var(--font-syne)", color: "var(--muted)", opacity: 0.6 }}>Product</p>
+              <p className="text-[9px] font-bold uppercase tracking-[0.2em] mb-0.5" style={{ fontFamily: "var(--font-montserrat)", color: "var(--muted)", opacity: 0.6 }}>Product</p>
               {[
                 { href: "/#bundles", label: f.bundles },
                 { href: "/wishlist", label: f.saved },
@@ -50,7 +64,7 @@ export default function Footer() {
               ))}
             </div>
             <div className="flex flex-col gap-2.5">
-              <p className="text-[9px] font-bold uppercase tracking-[0.2em] mb-0.5" style={{ fontFamily: "var(--font-syne)", color: "var(--muted)", opacity: 0.6 }}>Legal</p>
+              <p className="text-[9px] font-bold uppercase tracking-[0.2em] mb-0.5" style={{ fontFamily: "var(--font-montserrat)", color: "var(--muted)", opacity: 0.6 }}>Legal</p>
               {[
                 { href: "/privacy", label: f.privacy },
                 { href: "/terms",   label: f.terms },
@@ -80,7 +94,7 @@ export default function Footer() {
             <LanguageToggle />
             <span className="text-[10px] font-medium flex items-center gap-1.5" style={{ color: "var(--muted)", opacity: 0.7 }}>
               Powered by
-              <span style={{ color: "var(--accent)", fontFamily: "var(--font-syne)", fontWeight: 600 }}>Claude AI</span>
+              <span style={{ color: "var(--accent)", fontFamily: "var(--font-montserrat)", fontWeight: 600 }}>Claude AI</span>
             </span>
           </div>
         </div>

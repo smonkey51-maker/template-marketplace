@@ -32,7 +32,7 @@ export default function SiteNav({ title }: { title?: string }) {
           <span
             className="text-[15px] leading-none tracking-[0.06em] uppercase"
             style={{
-              fontFamily: "var(--font-syne), sans-serif",
+              fontFamily: "var(--font-montserrat), sans-serif",
               fontWeight: 800,
               color: "var(--text)",
             }}
