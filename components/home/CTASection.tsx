@@ -13,7 +13,7 @@ export default function CTASection({ lang }: { lang: "it" | "en" }) {
           <p
             className="text-[15px] sm:text-[18px] italic leading-relaxed"
             style={{
-              fontFamily: "var(--font-gatsunaga)",
+              fontFamily: "var(--font-jakarta), sans-serif",
               color: "var(--text)",
               opacity: 0.75,
             }}
