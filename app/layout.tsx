@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
-import { Syne, DM_Serif_Display, Plus_Jakarta_Sans } from "next/font/google";
+import { Syne, DM_Serif_Display, Plus_Jakarta_Sans, Cormorant_Garamond } from "next/font/google";
 import ThemeProvider from "@/components/ThemeProvider";
 import LanguageProvider from "@/components/LanguageProvider";
 import { PostHogProvider } from "@/components/PostHogProvider";
@@ -20,6 +20,16 @@ const dmSerif = DM_Serif_Display({
   subsets: ["latin"],
   variable: "--font-dm-serif",
   weight: ["400"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
+// Cormorant Garamond — calligraphic high-contrast serif, zen editorial aesthetic
+// Replaces Gatsunaga (paid). Same brush-like stroke contrast, free on Google Fonts.
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  variable: "--font-cormorant",
+  weight: ["300", "400", "500", "600", "700"],
   style: ["normal", "italic"],
   display: "swap",
 });
@@ -71,7 +81,7 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="it" className={`dark ${syne.variable} ${jakarta.variable} ${dmSerif.variable}`}>
+      <html lang="it" className={`dark ${syne.variable} ${jakarta.variable} ${dmSerif.variable} ${cormorant.variable}`}>
         <body className="bg-page text-theme antialiased min-h-screen">
           <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[9999] focus:px-4 focus:py-2 focus:text-[13px] focus:font-bold" style={{ background: "var(--accent)", color: "var(--bg)" }}>
             Skip to content

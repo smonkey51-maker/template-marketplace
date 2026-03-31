@@ -2,18 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Gatsunaga display font (Japanese brush aesthetic) ──
-   Drop Gatsunaga-Normal.woff2 + Gatsunaga-Normal.ttf into /public/fonts/
-   Falls back to DM Serif Display if files are not present.
-── */
-@font-face {
-  font-family: 'Gatsunaga';
-  src: url('/fonts/Gatsunaga-Normal.woff2') format('woff2'),
-       url('/fonts/Gatsunaga-Normal.ttf')   format('truetype');
-  font-weight: 400;
-  font-style:  normal;
-  font-display: swap;
-}
+/* ── Cormorant Garamond — calligraphic zen display font (Google Fonts, free) ── */
 
 /* ── Global keyboard focus indicators (accessibility) ── */
 @layer components {
@@ -108,8 +97,8 @@
   --prompt-label:    #8E8E93;
   /* Modal skeleton */
   --skeleton-bg:     #F2F2F7;
-  /* Gatsunaga display font — falls back to DM Serif if file not placed */
-  --font-gatsunaga:  'Gatsunaga', var(--font-dm-serif), 'Georgia', serif;
+  /* Cormorant Garamond — calligraphic zen display, loaded via next/font/google */
+  --font-gatsunaga:  var(--font-cormorant), var(--font-dm-serif), 'Georgia', serif;
 }
 
 html.dark {
