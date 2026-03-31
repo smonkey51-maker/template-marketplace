@@ -2,6 +2,7 @@
 
 import { templates, bundles } from "@/lib/templates";
 import { CATEGORIES, STEPS } from "@/lib/homeData";
+import { PILLARS } from "@/lib/gridData";
 
 export default function TemplatesDropdown({ lang }: { lang: "it" | "en" }) {
   return (
@@ -33,33 +34,42 @@ export default function TemplatesDropdown({ lang }: { lang: "it" | "en" }) {
               ))}
             </div>
           </div>
-          {/* Right: categories */}
-          <div className="p-4">
-            <p className="text-[9px] font-black uppercase tracking-[0.2em] mb-3 px-1" style={{ color: "var(--muted)" }}>
-              {lang === "it" ? "Categorie" : "Categories"}
-            </p>
-            <div className="grid grid-cols-2 gap-0.5">
-              {CATEGORIES.map((cat) => (
-                <button
-                  key={cat.id}
-                  role="menuitem"
-                  onClick={() => {
-                    const el = document.getElementById(`section-${cat.id}`);
-                    if (el) { el.scrollIntoView({ behavior: "smooth", block: "start" }); }
-                    else {
-                      const browse = document.getElementById("browse");
-                      browse?.scrollIntoView({ behavior: "smooth" });
-                    }
-                  }}
-                  className="flex items-center gap-2 px-2.5 py-2 rounded-none text-left transition-colors hover:bg-surface focus:bg-surface"
-                >
-                  <span className="text-sm flex-shrink-0">{cat.emoji}</span>
-                  <span className="text-[12px] font-medium leading-tight" style={{ color: "var(--text)", opacity: 0.8 }}>
-                    {lang === "it" ? cat.labelIt : cat.labelEn}
-                  </span>
-                </button>
-              ))}
-            </div>
+          {/* Right: categories grouped by pillar */}
+          <div className="p-4 overflow-y-auto max-h-[420px]">
+            {PILLARS.map((pillar) => {
+              const cats = CATEGORIES.filter((c) => c.pillar === pillar.id);
+              return (
+                <div key={pillar.id} className="mb-4 last:mb-0">
+                  <div className="flex items-center gap-2 mb-1.5 px-1">
+                    <span style={{ fontFamily: "var(--font-gatsunaga)", fontSize: "13px", color: "var(--accent)", opacity: 0.6 }}>
+                      {pillar.kanji}
+                    </span>
+                    <span className="text-[9px] font-black uppercase tracking-[0.18em]" style={{ color: "var(--muted)" }}>
+                      {pillar.nameIt}
+                    </span>
+                  </div>
+                  <div className="flex flex-col gap-0">
+                    {cats.map((cat) => (
+                      <button
+                        key={cat.id}
+                        role="menuitem"
+                        onClick={() => {
+                          const el = document.getElementById(`section-${cat.id}`);
+                          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                          else document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" });
+                        }}
+                        className="flex items-center gap-2 px-2.5 py-1.5 rounded-none text-left transition-colors hover:bg-surface focus:bg-surface"
+                      >
+                        <span className="text-xs flex-shrink-0">{cat.emoji}</span>
+                        <span className="text-[11px] font-medium leading-tight" style={{ color: "var(--text)", opacity: 0.8 }}>
+                          {lang === "it" ? cat.labelIt : cat.labelEn}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
         {/* Footer hint */}

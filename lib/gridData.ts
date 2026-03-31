@@ -1,5 +1,51 @@
 import { DownloadType } from "@/lib/templates";
 
+// ── Philosophy pillars (Filosofia giapponese) ────────────────────────────────
+
+export type PillarId = "shokunin" | "kaizen" | "omotenashi" | "ikigai";
+
+export const PILLARS: {
+  id: PillarId;
+  kanji: string;
+  nameIt: string;
+  nameEn: string;
+  subtitleIt: string;
+  subtitleEn: string;
+}[] = [
+  {
+    id: "shokunin",
+    kanji: "職人",
+    nameIt: "Shokunin",
+    nameEn: "Shokunin",
+    subtitleIt: "La Via dell'Artigiano",
+    subtitleEn: "The Craftsman's Way",
+  },
+  {
+    id: "kaizen",
+    kanji: "改善",
+    nameIt: "Kaizen",
+    nameEn: "Kaizen",
+    subtitleIt: "Il Miglioramento Continuo",
+    subtitleEn: "Continuous Improvement",
+  },
+  {
+    id: "omotenashi",
+    kanji: "おもてなし",
+    nameIt: "Omotenashi",
+    nameEn: "Omotenashi",
+    subtitleIt: "L'Arte dell'Ospitalità",
+    subtitleEn: "The Art of Hospitality",
+  },
+  {
+    id: "ikigai",
+    kanji: "生き甲斐",
+    nameIt: "Ikigai",
+    nameEn: "Ikigai",
+    subtitleIt: "La Ragione di Vita",
+    subtitleEn: "Reason for Being",
+  },
+];
+
 // ── Platform macro-categories ────────────────────────────────────────────────
 
 export type PlatformFilter = "all" | DownloadType;
@@ -30,21 +76,26 @@ export const SECTIONS: {
   gradientFrom: string;
   gradientTo: string;
   ids: string[];
+  pillar: PillarId;
 }[] = [
-  { id: "professionals",    emoji: "🏢", gradientFrom: "#1e3a5f", gradientTo: "#0f2a47", ids: ["real-estate-agent", "therapist-profile", "law-firm-services", "personal-trainer-profile", "ai-tech-portfolio"] },
-  { id: "lifestyle-finance",emoji: "🏡", gradientFrom: "#0d3b2e", gradientTo: "#052a1f", ids: ["airbnb-property-listing", "budget-tracker", "personal-finance-dashboard", "adhd-focus-tracker"] },
-  { id: "business",         emoji: "🛍️", gradientFrom: "#3b2000", gradientTo: "#2a1600", ids: ["artisan-product-catalog", "revenue-analytics", "pricing-table", "ecommerce-product-page", "invoice-html"] },
-  { id: "startup",          emoji: "🚀", gradientFrom: "#2d1b69", gradientTo: "#1a0e47", ids: ["saas-landing-dark", "startup-product-launch", "hero-saas", "waiting-list-page", "saas-pricing-full"] },
-  { id: "creative",         emoji: "🎨", gradientFrom: "#4a0d2e", gradientTo: "#330920", ids: ["creative-agency-portfolio", "freelance-tech-profile", "blog-card-grid"] },
-  { id: "copywriting-ai",   emoji: "✍️", gradientFrom: "#0d2b4a", gradientTo: "#061c35", ids: ["cold-email-b2b", "product-description-ecom", "ai-assistant-system-prompt", "linkedin-prompt-pack", "youtube-script-pack"] },
-  { id: "ai-productivity",  emoji: "🤖", gradientFrom: "#1a1a2e", gradientTo: "#0d0d1f", ids: ["claude-projects-pack", "ai-workflow-pack"] },
-  { id: "hospitality",      emoji: "🍽️", gradientFrom: "#3b0a0a", gradientTo: "#2a0606", ids: ["restaurant-menu", "coffee-shop-landing", "hotel-booking"] },
-  { id: "digital-product",  emoji: "📱", gradientFrom: "#003b4a", gradientTo: "#002535", ids: ["mobile-app-showcase", "feature-showcase", "saas-dashboard"] },
-  { id: "personal-brand",   emoji: "🪪", gradientFrom: "#2d0e4a", gradientTo: "#1e0933", ids: ["digital-resume", "link-in-bio", "newsletter-landing"] },
-  { id: "notion-workspace", emoji: "📓", gradientFrom: "#1c1c1c", gradientTo: "#0f0f0f", ids: ["notion-project-hub", "notion-freelancer-crm", "notion-content-calendar", "notion-finance-tracker", "notion-second-brain", "notion-job-tracker", "notion-weekly-review", "notion-client-portal"] },
-  { id: "elearning", emoji: "🎓", gradientFrom: "#1a3a5c", gradientTo: "#0d2240", ids: ["course-landing-page", "webinar-registration", "course-curriculum-builder", "student-success-story", "course-email-welcome"] },
-  { id: "shopify-ecommerce", emoji: "🛒", gradientFrom: "#2d4a1b", gradientTo: "#1a2e0d", ids: ["shopify-product-landing", "shopify-collection-grid", "shopify-announcement-bar"] },
-  { id: "wordpress-themes", emoji: "📝", gradientFrom: "#0d3b5c", gradientTo: "#06243a", ids: ["wordpress-business-theme", "wordpress-blog-theme", "wordpress-portfolio-theme"] },
+  // ── 職人 Shokunin ──
+  { id: "creative",          pillar: "shokunin", emoji: "🎨", gradientFrom: "#4a0d2e", gradientTo: "#330920", ids: ["creative-agency-portfolio", "freelance-tech-profile", "blog-card-grid"] },
+  { id: "copywriting-ai",    pillar: "shokunin", emoji: "✍️", gradientFrom: "#0d2b4a", gradientTo: "#061c35", ids: ["cold-email-b2b", "product-description-ecom", "ai-assistant-system-prompt", "linkedin-prompt-pack", "youtube-script-pack"] },
+  { id: "personal-brand",    pillar: "shokunin", emoji: "🪪", gradientFrom: "#2d0e4a", gradientTo: "#1e0933", ids: ["digital-resume", "link-in-bio", "newsletter-landing"] },
+  { id: "wordpress-themes",  pillar: "shokunin", emoji: "📝", gradientFrom: "#0d3b5c", gradientTo: "#06243a", ids: ["wordpress-business-theme", "wordpress-blog-theme", "wordpress-portfolio-theme"] },
+  { id: "shopify-ecommerce", pillar: "shokunin", emoji: "🛒", gradientFrom: "#2d4a1b", gradientTo: "#1a2e0d", ids: ["shopify-product-landing", "shopify-collection-grid", "shopify-announcement-bar"] },
+  // ── 改善 Kaizen ──
+  { id: "startup",           pillar: "kaizen",   emoji: "🚀", gradientFrom: "#2d1b69", gradientTo: "#1a0e47", ids: ["saas-landing-dark", "startup-product-launch", "hero-saas", "waiting-list-page", "saas-pricing-full"] },
+  { id: "digital-product",   pillar: "kaizen",   emoji: "📱", gradientFrom: "#003b4a", gradientTo: "#002535", ids: ["mobile-app-showcase", "feature-showcase", "saas-dashboard"] },
+  { id: "ai-productivity",   pillar: "kaizen",   emoji: "🤖", gradientFrom: "#1a1a2e", gradientTo: "#0d0d1f", ids: ["claude-projects-pack", "ai-workflow-pack"] },
+  { id: "notion-workspace",  pillar: "kaizen",   emoji: "📓", gradientFrom: "#1c1c1c", gradientTo: "#0f0f0f", ids: ["notion-project-hub", "notion-freelancer-crm", "notion-content-calendar", "notion-finance-tracker", "notion-second-brain", "notion-job-tracker", "notion-weekly-review", "notion-client-portal"] },
+  { id: "elearning",         pillar: "kaizen",   emoji: "🎓", gradientFrom: "#1a3a5c", gradientTo: "#0d2240", ids: ["course-landing-page", "webinar-registration", "course-curriculum-builder", "student-success-story", "course-email-welcome"] },
+  // ── おもてなし Omotenashi ──
+  { id: "professionals",     pillar: "omotenashi", emoji: "🏢", gradientFrom: "#1e3a5f", gradientTo: "#0f2a47", ids: ["real-estate-agent", "therapist-profile", "law-firm-services", "personal-trainer-profile", "ai-tech-portfolio"] },
+  { id: "business",          pillar: "omotenashi", emoji: "🛍️", gradientFrom: "#3b2000", gradientTo: "#2a1600", ids: ["artisan-product-catalog", "revenue-analytics", "pricing-table", "ecommerce-product-page", "invoice-html"] },
+  { id: "hospitality",       pillar: "omotenashi", emoji: "🍽️", gradientFrom: "#3b0a0a", gradientTo: "#2a0606", ids: ["restaurant-menu", "coffee-shop-landing", "hotel-booking"] },
+  // ── 生き甲斐 Ikigai ──
+  { id: "lifestyle-finance", pillar: "ikigai",   emoji: "🏡", gradientFrom: "#0d3b2e", gradientTo: "#052a1f", ids: ["airbnb-property-listing", "budget-tracker", "personal-finance-dashboard", "adhd-focus-tracker"] },
 ];
 
 // ── Category cover images (Unsplash) ─────────────────────────────────────────

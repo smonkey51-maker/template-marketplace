@@ -10,7 +10,7 @@ import { useLang } from "@/components/LanguageProvider";
 import { t, SEARCH_SYNONYMS, templateTranslations } from "@/lib/i18n";
 import PreviewModal from "@/components/PreviewModal";
 import { useRecentlyViewed } from "@/lib/useRecentlyViewed";
-import { PLATFORMS, SECTIONS, PlatformFilter } from "@/lib/gridData";
+import { PLATFORMS, SECTIONS, PILLARS, PlatformFilter } from "@/lib/gridData";
 import CategoryCard from "@/components/grid/CategoryCard";
 import SplitFlap from "@/components/grid/SplitFlapCounter";
 import ScrambleText from "@/components/grid/ScrambleText";
@@ -471,19 +471,55 @@ export default function TemplateGrid({ externalQuery = "", onClearSearch }: { ex
                   {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
                 </div>
               ) : filteredSections.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-7 sm:gap-9">
-                  {filteredSections.map((section, i) => {
-                    const sectionTemplates = section.ids.map((id) => byId[id]).filter(Boolean) as Template[];
-                    if (sectionTemplates.length === 0) return null;
+                <div className="flex flex-col gap-14">
+                  {PILLARS.map((pillar) => {
+                    const pillarSections = filteredSections.filter((s) => s.pillar === pillar.id);
+                    const validSections = pillarSections.filter((s) =>
+                      s.ids.some((id) => byId[id])
+                    );
+                    if (validSections.length === 0) return null;
                     return (
-                      <CategoryCard
-                        key={section.id}
-                        section={section}
-                        sectionTemplates={sectionTemplates}
-                        onClick={() => handleOpenCategory(section.id)}
-                        lang={lang}
-                        index={i}
-                      />
+                      <div key={pillar.id}>
+                        {/* Pillar header */}
+                        <div className="flex items-center gap-5 mb-7">
+                          <div className="flex flex-col items-center gap-0.5 shrink-0" aria-hidden="true">
+                            <span style={{
+                              fontFamily: "var(--font-gatsunaga)",
+                              fontSize: "22px",
+                              color: "var(--accent)",
+                              opacity: 0.55,
+                              lineHeight: 1,
+                            }}>
+                              {pillar.kanji}
+                            </span>
+                          </div>
+                          <div className="flex flex-col gap-0.5">
+                            <span className="text-[13px] font-bold tracking-[0.08em] uppercase" style={{ color: "var(--accent)", fontFamily: "var(--font-gatsunaga)" }}>
+                              {pillar.nameIt}
+                            </span>
+                            <span className="text-[11px] font-light tracking-[0.04em]" style={{ color: "var(--muted)" }}>
+                              {lang === "it" ? pillar.subtitleIt : pillar.subtitleEn}
+                            </span>
+                          </div>
+                          <div className="flex-1 h-px ml-2" style={{ background: "linear-gradient(to right, var(--accent), transparent)", opacity: 0.25 }} />
+                        </div>
+                        {/* Category cards */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-7 sm:gap-9">
+                          {validSections.map((section, i) => {
+                            const sectionTemplates = section.ids.map((id) => byId[id]).filter(Boolean) as Template[];
+                            return (
+                              <CategoryCard
+                                key={section.id}
+                                section={section}
+                                sectionTemplates={sectionTemplates}
+                                onClick={() => handleOpenCategory(section.id)}
+                                lang={lang}
+                                index={i}
+                              />
+                            );
+                          })}
+                        </div>
+                      </div>
                     );
                   })}
                 </div>

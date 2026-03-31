@@ -2,18 +2,24 @@
 // Shared constants used across HomeContent sub-components.
 
 export const CATEGORIES = [
-  { id: "professionals",    emoji: "🏢", labelIt: "Professionisti",          labelEn: "Professionals" },
-  { id: "lifestyle-finance",emoji: "🏡", labelIt: "Lifestyle & Finanza",     labelEn: "Lifestyle & Finance" },
-  { id: "business",         emoji: "🛍️", labelIt: "Business",               labelEn: "Business" },
-  { id: "startup",          emoji: "🚀", labelIt: "Startup & Lancio",        labelEn: "Startup & Launch" },
-  { id: "creative",         emoji: "🎨", labelIt: "Agenzie & Freelance",     labelEn: "Agencies & Freelance" },
-  { id: "copywriting-ai",   emoji: "✍️", labelIt: "Copywriting & AI",        labelEn: "Copywriting & AI" },
-  { id: "ai-productivity",  emoji: "🤖", labelIt: "AI & Produttività",       labelEn: "AI & Productivity" },
-  { id: "hospitality",      emoji: "🍽️", labelIt: "Ristorazione",           labelEn: "Hospitality" },
-  { id: "digital-product",  emoji: "📱", labelIt: "App & Prodotto digitale", labelEn: "App & Digital" },
-  { id: "personal-brand",   emoji: "🪪", labelIt: "Personal Brand",          labelEn: "Personal Brand" },
-  { id: "notion-workspace", emoji: "📓", labelIt: "Notion Workspace",        labelEn: "Notion Workspace" },
-  { id: "elearning",        emoji: "🎓", labelIt: "E-learning & Corsi",      labelEn: "E-learning & Courses" },
+  // 職人 Shokunin
+  { id: "creative",          pillar: "shokunin",   emoji: "🎨", labelIt: "Agenzie & Freelance",     labelEn: "Agencies & Freelance" },
+  { id: "copywriting-ai",    pillar: "shokunin",   emoji: "✍️", labelIt: "Copywriting & AI Prompt", labelEn: "Copywriting & AI Prompt" },
+  { id: "personal-brand",    pillar: "shokunin",   emoji: "🪪", labelIt: "Identità & Personal Brand",labelEn: "Identity & Personal Brand" },
+  { id: "wordpress-themes",  pillar: "shokunin",   emoji: "📝", labelIt: "Temi WordPress",           labelEn: "WordPress Themes" },
+  { id: "shopify-ecommerce", pillar: "shokunin",   emoji: "🛒", labelIt: "Shopify E-commerce",       labelEn: "Shopify E-commerce" },
+  // 改善 Kaizen
+  { id: "startup",           pillar: "kaizen",     emoji: "🚀", labelIt: "Startup & Lancio prodotto",labelEn: "Startup & Product Launch" },
+  { id: "digital-product",   pillar: "kaizen",     emoji: "📱", labelIt: "App & Prodotto Digitale",  labelEn: "App & Digital Product" },
+  { id: "ai-productivity",   pillar: "kaizen",     emoji: "🤖", labelIt: "AI & Produttività",        labelEn: "AI & Productivity" },
+  { id: "notion-workspace",  pillar: "kaizen",     emoji: "📓", labelIt: "Notion Workspace",         labelEn: "Notion Workspace" },
+  { id: "elearning",         pillar: "kaizen",     emoji: "🎓", labelIt: "E-learning & Corsi",       labelEn: "E-learning & Courses" },
+  // おもてなし Omotenashi
+  { id: "professionals",     pillar: "omotenashi", emoji: "🏢", labelIt: "Professionisti",           labelEn: "Professionals" },
+  { id: "business",          pillar: "omotenashi", emoji: "🛍️", labelIt: "Imprenditori & Business", labelEn: "Entrepreneurs & Business" },
+  { id: "hospitality",       pillar: "omotenashi", emoji: "🍽️", labelIt: "Ristorazione & Hospitality",labelEn: "Food & Hospitality" },
+  // 生き甲斐 Ikigai
+  { id: "lifestyle-finance", pillar: "ikigai",     emoji: "🏡", labelIt: "Lifestyle & Finanza personale", labelEn: "Lifestyle & Personal Finance" },
 ];
 
 export const STEPS = [
