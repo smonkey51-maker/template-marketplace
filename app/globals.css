@@ -1115,6 +1115,7 @@ html.dark {
   position: relative;
   display: inline-flex;
   align-items: center;
+  white-space: nowrap;
   font-family: var(--font-syne), sans-serif;
   font-weight: 700;
   font-size: 10px;
