@@ -23,7 +23,7 @@ export default function HeroSection({
         <h1
           className="font-gatsunaga leading-[1.04] mb-5 sm:mb-7"
           style={{
-            fontSize: "clamp(42px, 6.5vw, 102px)",
+            fontSize: "clamp(58px, 9vw, 136px)",
             fontWeight: 400,
             letterSpacing: "-0.04em",
             color: "var(--text)",

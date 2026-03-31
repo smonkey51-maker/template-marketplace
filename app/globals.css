@@ -104,8 +104,35 @@
   --prompt-label:    #8E8E93;
   /* Modal skeleton */
   --skeleton-bg:     #F2F2F7;
-  /* Slingday — display font for headings/accents */
+  /* Slingday — primary font for the entire site */
   --font-gatsunaga:  'Slingday', var(--font-cormorant), var(--font-dm-serif), 'Georgia', serif;
+}
+
+/* ── Force Slingday on every font variable (overrides next/font class injection) ── */
+html {
+  --font-syne:      'Slingday', sans-serif !important;
+  --font-dm-serif:  'Slingday', serif !important;
+  --font-cormorant: 'Slingday', serif !important;
+  --font-jakarta:   'Slingday', sans-serif !important;
+}
+
+/* ── Global body defaults for Slingday readability ── */
+body {
+  font-family: 'Slingday', sans-serif;
+  letter-spacing: 0.025em;
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+/* Small text — bump up minimum size so Slingday remains legible */
+p, span, a, li, label, input, button, td, th {
+  font-size: max(0.85em, 13px);
+}
+
+/* Tiny uppercase labels — widen tracking for legibility */
+.text-\[9px\], .text-\[10px\], .text-\[11px\] {
+  letter-spacing: 0.06em;
+  font-size: 12px !important;
 }
 
 html.dark {
