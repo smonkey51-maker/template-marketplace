@@ -440,27 +440,16 @@ export default function HomeContent() {
       ═══════════════════════════════════════════ */}
       <HeroSection lang={lang} countedTemplates={countedTemplates} query={query} setQuery={setQuery} />
 
-      {/* ── Zen divider ── */}
+      {/* ── Zen divider + mon-ring ── */}
       <div className="relative z-10 px-4 sm:px-8">
         <div className="zen-divider" aria-hidden="true"><span>◇</span></div>
       </div>
 
-      {/* ── Catalog header ── */}
-      <div
-        className="relative z-10 px-4 sm:px-8 pt-4 pb-6 flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-4"
-      >
-        <h2
-          className="text-[22px] sm:text-[32px] italic"
-          style={{ fontFamily: "var(--font-gatsunaga)", color: "var(--text)", fontWeight: 400 }}
-        >
-          {lang === "it" ? "Catalogo" : "Catalog"}
-        </h2>
-        <span
-          className="text-[10px] tracking-[0.14em] uppercase font-semibold"
-          style={{ fontFamily: "var(--font-syne)", color: "var(--muted)" }}
-        >
-          {countedTemplates} {lang === "it" ? "template" : "templates"} · {bundles.length} bundle
-        </span>
+      {/* ── Mon ring section marker ── */}
+      <div className="relative z-10 flex items-center justify-center gap-6 py-2 px-4 sm:px-8" aria-hidden="true">
+        <div className="torii-accent" />
+        <div className="mon-ring">◆</div>
+        <div className="torii-accent" style={{ transform: "scaleX(-1)" }} />
       </div>
 
       {/* ── Template Grid ── */}

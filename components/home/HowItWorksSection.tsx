@@ -9,6 +9,11 @@ export default function HowItWorksSection({ lang }: { lang: "it" | "en" }) {
     <div className="relative z-10 border-t border-theme px-4 sm:px-6 py-14">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-10">
+          <div className="flex items-center justify-center gap-4 mb-5" aria-hidden="true">
+            <span className="tategaki">道</span>
+            <div className="torii-accent" />
+            <span className="tategaki">法</span>
+          </div>
           <p className="text-[10px] font-bold text-muted uppercase tracking-[0.18em] mb-3">
             {lang === "it" ? "Come funziona" : "How it works"}
           </p>

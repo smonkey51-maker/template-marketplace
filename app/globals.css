@@ -28,14 +28,14 @@
    ═══════════════════════════════════════════════════════════ */
 :root {
   /* ── Light mode: Japandi / Zen — washi paper, hinoki wood ── */
-  --bg:          rgba(250,247,240,0.68);
-  --surface:     rgba(242,234,216,0.78);
-  --surface-2:   rgba(242,234,216,0.90);
+  --bg:          rgba(250,247,240,0.52);
+  --surface:     rgba(242,234,216,0.62);
+  --surface-2:   rgba(242,234,216,0.80);
   --text:        #1C1814;
   --muted:       #6B5848;
   --border:      rgba(28,24,20,0.10);
   --nav-bg:      rgba(250,247,240,0.90);
-  --card-bg:     rgba(250,247,240,0.78);
+  --card-bg:     rgba(250,247,240,0.62);
   --card-border: rgba(28,24,20,0.10);
   --input-bg:    rgba(28,24,20,0.05);
   --btn-ghost-border:       rgba(28,24,20,0.18);
@@ -148,14 +148,14 @@ html.dark {
        --accent #C8915A         → 6.7:1   ✅ AAA
        --success #7AAF4A        → 5.4:1   ✅ AA
   ── */
-  --bg:          rgba(20,16,12,0.72);
-  --surface:     rgba(30,26,20,0.82);
-  --surface-2:   rgba(30,26,20,0.92);
+  --bg:          rgba(20,16,12,0.55);
+  --surface:     rgba(30,26,20,0.65);
+  --surface-2:   rgba(30,26,20,0.80);
   --text:        #EDE8DC;
   --muted:       rgba(237,232,220,0.55);
   --border:      rgba(237,232,220,0.09);
   --nav-bg:      rgba(28,24,20,0.93);
-  --card-bg:     rgba(30,26,20,0.82);
+  --card-bg:     rgba(30,26,20,0.65);
   --card-border: rgba(237,232,220,0.09);
   --input-bg:    rgba(237,232,220,0.06);
   --btn-ghost-border:       rgba(237,232,220,0.22);
@@ -233,7 +233,7 @@ html {
   background-color: var(--bg);
   background-image:
     radial-gradient(ellipse 80% 50% at 0% 0%, rgba(var(--accent-rgb), 0.05) 0%, transparent 65%),
-    linear-gradient(rgba(250,247,240,0.62), rgba(250,247,240,0.62)),
+    linear-gradient(rgba(250,247,240,0.42), rgba(250,247,240,0.42)),
     url('/bg-dark.jpg');
   background-size: 100% 100%, 100% 100%, cover;
   background-repeat: no-repeat, no-repeat, no-repeat;
@@ -248,7 +248,7 @@ html {
 html.dark {
   background-image:
     url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='40'><circle cx='40' cy='40' r='40' fill='none' stroke='%23C8915A' stroke-width='0.7' stroke-opacity='0.06'/><circle cx='0' cy='40' r='40' fill='none' stroke='%23C8915A' stroke-width='0.7' stroke-opacity='0.06'/><circle cx='80' cy='40' r='40' fill='none' stroke='%23C8915A' stroke-width='0.7' stroke-opacity='0.06'/><circle cx='40' cy='0' r='40' fill='none' stroke='%23C8915A' stroke-width='0.7' stroke-opacity='0.06'/></svg>"),
-    linear-gradient(rgba(14,10,6,0.60), rgba(14,10,6,0.60)),
+    linear-gradient(rgba(14,10,6,0.42), rgba(14,10,6,0.42)),
     url('/bg-dark.jpg');
   background-size: 80px 40px, 100% 100%, cover;
   background-repeat: repeat, no-repeat, no-repeat;
@@ -899,6 +899,90 @@ html::-webkit-scrollbar-track {
   transform: rotate(0deg);
   display: inline-block;
 }
+
+/* ── Mon ring (家紋) ──
+   Thin circle with inner diamond — Japanese family crest motif.
+   Usage: <div class="mon-ring" aria-hidden="true">◆</div>
+── */
+.mon-ring {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 7px;
+  color: var(--accent);
+  opacity: 0.38;
+  flex-shrink: 0;
+}
+
+/* ── Tategaki (縦書き) — vertical kanji side label ──
+   Usage: <span class="tategaki" aria-hidden="true">品</span>
+── */
+.tategaki {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: var(--font-gatsunaga);
+  font-size: 11px;
+  color: var(--accent);
+  opacity: 0.28;
+  letter-spacing: 0.25em;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* ── Ma divider (間) — "negative space" variant of zen-divider ──
+   Shorter lines, slightly different symbol for section variety.
+   Usage: <div class="ma-divider" aria-hidden="true"><span>間</span></div>
+── */
+.ma-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin: 1.8rem 0;
+  opacity: 0.32;
+}
+.ma-divider::before,
+.ma-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+}
+.ma-divider::before { background: linear-gradient(to right, transparent, var(--accent)); }
+.ma-divider::after  { background: linear-gradient(to left,  transparent, var(--accent)); }
+.ma-divider span {
+  font-family: var(--font-gatsunaga);
+  font-size: 11px;
+  color: var(--accent);
+  flex-shrink: 0;
+  line-height: 1;
+  display: inline-block;
+  opacity: 0.85;
+}
+
+/* ── Torii accent (鳥居) — two stacked horizontal marks ──
+   Evokes the gate crossbeam — used above hero text or section tops.
+   Usage: <div class="torii-accent" aria-hidden="true"></div>
+── */
+.torii-accent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  opacity: 0.30;
+}
+.torii-accent::before,
+.torii-accent::after {
+  content: '';
+  display: block;
+  height: 1px;
+  background: var(--accent);
+}
+.torii-accent::before { width: 48px; }
+.torii-accent::after  { width: 32px; }
 
 /* ── Hanko seal (判子) ──
    Square Japanese seal motif for decorative use.

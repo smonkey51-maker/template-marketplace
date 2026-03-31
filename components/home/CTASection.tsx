@@ -23,8 +23,10 @@ export default function CTASection({ lang }: { lang: "it" | "en" }) {
               : <>&ldquo;There&rsquo;s nothing more permanent than a &lsquo;temporary&rsquo; template that ends up in production for the next eight years.&rdquo;</>}
           </p>
         </blockquote>
+        {/* Ma divider */}
+        <div className="ma-divider mt-6" aria-hidden="true"><span>間</span></div>
         {/* Attribution line */}
-        <div className="mt-4 flex items-center justify-center gap-3">
+        <div className="flex items-center justify-center gap-3">
           <span className="w-8 h-px" style={{ background: "var(--accent)", opacity: 0.4 }} />
           <span className="text-[10px] tracking-[0.18em] uppercase font-semibold" style={{ color: "var(--accent)", opacity: 0.7 }}>
             {lang === "it" ? "Ogni developer, sempre" : "Every developer, always"}
