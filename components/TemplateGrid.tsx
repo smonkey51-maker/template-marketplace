@@ -471,8 +471,8 @@ export default function TemplateGrid({ externalQuery = "", onClearSearch }: { ex
                   {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
                 </div>
               ) : filteredSections.length > 0 ? (
-                <div className="flex flex-col gap-14">
-                  {PILLARS.map((pillar) => {
+                <div className="flex flex-col gap-20">
+                  {PILLARS.map((pillar, pillarIdx) => {
                     const pillarSections = filteredSections.filter((s) => s.pillar === pillar.id);
                     const validSections = pillarSections.filter((s) =>
                       s.ids.some((id) => byId[id])
@@ -480,42 +480,47 @@ export default function TemplateGrid({ externalQuery = "", onClearSearch }: { ex
                     if (validSections.length === 0) return null;
                     return (
                       <div key={pillar.id}>
-                        {/* Pillar header */}
-                        <div className="flex items-center gap-5 mb-7">
-                          <div className="flex flex-col items-center gap-0.5 shrink-0" aria-hidden="true">
-                            <span style={{
-                              fontFamily: "var(--font-gatsunaga)",
-                              fontSize: "22px",
-                              color: "var(--accent)",
-                              opacity: 0.55,
-                              lineHeight: 1,
-                            }}>
-                              {pillar.kanji}
-                            </span>
+                        {/* Ma divider between pillars */}
+                        {pillarIdx > 0 && (
+                          <div className="ma-divider mb-10" aria-hidden="true"><span>{pillar.kanji[0]}</span></div>
+                        )}
+
+                        {/* Pillar header — tategaki style */}
+                        <div className="flex items-stretch gap-4 mb-8">
+                          {/* Vertical kanji bar */}
+                          <div className="flex flex-col items-center gap-1 shrink-0 py-1" aria-hidden="true">
+                            <div className="w-px flex-1" style={{ background: "linear-gradient(to bottom, var(--accent), transparent)", opacity: 0.3 }} />
+                            <span className="tategaki" style={{ opacity: 0.5, fontSize: "13px" }}>{pillar.kanji}</span>
+                            <div className="w-px flex-1" style={{ background: "linear-gradient(to top, var(--accent), transparent)", opacity: 0.3 }} />
                           </div>
-                          <div className="flex flex-col gap-0.5">
-                            <span className="text-[13px] font-bold tracking-[0.08em] uppercase" style={{ color: "var(--accent)", fontFamily: "var(--font-gatsunaga)" }}>
+                          {/* Text */}
+                          <div className="flex flex-col justify-center gap-1">
+                            <span style={{ fontFamily: "var(--font-gatsunaga)", fontSize: "20px", color: "var(--accent)", opacity: 0.75, lineHeight: 1.1 }}>
                               {pillar.nameIt}
                             </span>
-                            <span className="text-[11px] font-light tracking-[0.04em]" style={{ color: "var(--muted)" }}>
+                            <span className="text-[11px] font-light tracking-[0.06em]" style={{ color: "var(--muted)" }}>
                               {lang === "it" ? pillar.subtitleIt : pillar.subtitleEn}
                             </span>
                           </div>
-                          <div className="flex-1 h-px ml-2" style={{ background: "linear-gradient(to right, var(--accent), transparent)", opacity: 0.25 }} />
+                          <div className="flex-1 h-px self-center ml-2" style={{ background: "linear-gradient(to right, var(--accent), transparent)", opacity: 0.2 }} />
                         </div>
-                        {/* Category cards */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-7 sm:gap-9">
+
+                        {/* Tatami grid — first card wider (featured) */}
+                        <div className="grid grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
                           {validSections.map((section, i) => {
                             const sectionTemplates = section.ids.map((id) => byId[id]).filter(Boolean) as Template[];
+                            const isFeatured = i === 0;
                             return (
-                              <CategoryCard
-                                key={section.id}
-                                section={section}
-                                sectionTemplates={sectionTemplates}
-                                onClick={() => handleOpenCategory(section.id)}
-                                lang={lang}
-                                index={i}
-                              />
+                              <div key={section.id} className={isFeatured ? "col-span-2 xl:col-span-2" : "col-span-1"}>
+                                <CategoryCard
+                                  section={section}
+                                  sectionTemplates={sectionTemplates}
+                                  onClick={() => handleOpenCategory(section.id)}
+                                  lang={lang}
+                                  index={i}
+                                  featured={isFeatured}
+                                />
+                              </div>
                             );
                           })}
                         </div>

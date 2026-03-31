@@ -28,14 +28,14 @@
    ═══════════════════════════════════════════════════════════ */
 :root {
   /* ── Light mode: Japandi / Zen — washi paper, hinoki wood ── */
-  --bg:          rgba(250,247,240,0.52);
-  --surface:     rgba(242,234,216,0.62);
-  --surface-2:   rgba(242,234,216,0.80);
+  --bg:          rgba(250,247,240,0.38);
+  --surface:     rgba(242,234,216,0.48);
+  --surface-2:   rgba(242,234,216,0.70);
   --text:        #1C1814;
   --muted:       #6B5848;
   --border:      rgba(28,24,20,0.10);
   --nav-bg:      rgba(250,247,240,0.90);
-  --card-bg:     rgba(250,247,240,0.62);
+  --card-bg:     rgba(250,247,240,0.48);
   --card-border: rgba(28,24,20,0.10);
   --input-bg:    rgba(28,24,20,0.05);
   --btn-ghost-border:       rgba(28,24,20,0.18);
@@ -233,7 +233,7 @@ html {
   background-color: var(--bg);
   background-image:
     radial-gradient(ellipse 80% 50% at 0% 0%, rgba(var(--accent-rgb), 0.05) 0%, transparent 65%),
-    linear-gradient(rgba(250,247,240,0.42), rgba(250,247,240,0.42)),
+    linear-gradient(rgba(250,247,240,0.24), rgba(250,247,240,0.24)),
     url('/bg-dark.jpg');
   background-size: 100% 100%, 100% 100%, cover;
   background-repeat: no-repeat, no-repeat, no-repeat;
@@ -898,6 +898,22 @@ html::-webkit-scrollbar-track {
   line-height: 1;
   transform: rotate(0deg);
   display: inline-block;
+}
+
+/* ── Shoji inner frame (障子) ──
+   Thin inset border appears on hover — evokes shoji screen wooden grid.
+── */
+.shoji-card::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(255,255,255,0);
+  pointer-events: none;
+  transition: border-color 0.35s ease;
+  z-index: 40;
+}
+.shoji-card:hover::after {
+  border-color: rgba(255,255,255,0.18);
 }
 
 /* ── Mon ring (家紋) ──

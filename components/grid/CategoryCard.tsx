@@ -9,6 +9,8 @@ import ScrambleText from "@/components/grid/ScrambleText";
 
 type Lang = "it" | "en";
 
+const KANJI_NUMS = ["一","二","三","四","五","六","七","八","九","十","十一","十二","十三","十四","十五"];
+
 export function addRipple(e: React.MouseEvent<HTMLElement>) {
   const el = e.currentTarget;
   const rect = el.getBoundingClientRect();
@@ -26,12 +28,14 @@ export default function CategoryCard({
   onClick,
   lang,
   index,
+  featured = false,
 }: {
   section: (typeof SECTIONS)[number];
   sectionTemplates: Template[];
   onClick: () => void;
   lang: Lang;
   index: number;
+  featured?: boolean;
 }) {
   const cardRef   = useRef<HTMLDivElement>(null);
   const revealRef = useRef<HTMLDivElement>(null);
@@ -94,8 +98,8 @@ export default function CategoryCard({
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         onClick={(e) => { addRipple(e); onClick(); }}
-        className="group relative rounded-none overflow-hidden cursor-pointer border border-white/10 dark:border-white/8"
-        style={{ willChange: "transform", height: "172px" }}
+        className="shoji-card group relative rounded-none overflow-hidden cursor-pointer border border-white/10 dark:border-white/8"
+        style={{ willChange: "transform", height: featured ? "220px" : "172px" }}
       >
         {/* Background — Unsplash image or gradient fallback */}
         {imgSrc ? (
@@ -138,9 +142,17 @@ export default function CategoryCard({
           style={{ background: "var(--glass-top-edge)" }}
         />
 
-        {/* Index — top right */}
-        <span className="absolute top-3 right-3.5 z-20 text-[9px] font-bold text-white/20 tabular-nums select-none tracking-wider">
-          {String(index + 1).padStart(2, "0")}
+        {/* Kanji index — top right */}
+        <span
+          className="absolute top-2.5 right-3 z-20 select-none"
+          style={{
+            fontFamily: "var(--font-gatsunaga)",
+            fontSize: featured ? "18px" : "14px",
+            color: "rgba(255,255,255,0.22)",
+            lineHeight: 1,
+          }}
+        >
+          {KANJI_NUMS[index] ?? String(index + 1)}
         </span>
 
         {/* Text content — bottom overlay */}
