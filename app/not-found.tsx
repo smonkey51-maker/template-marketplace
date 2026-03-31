@@ -36,7 +36,7 @@ export default function NotFound() {
         {/* 404 number */}
         <p
           className="text-[100px] sm:text-[120px] leading-none tracking-tighter select-none"
-          style={{ fontFamily: "var(--font-dm-serif), serif", fontStyle: "italic", fontWeight: 400, color: "var(--accent)" }}
+          style={{ fontFamily: "var(--font-gatsunaga)", fontStyle: "italic", fontWeight: 400, color: "var(--accent)" }}
         >
           404
         </p>

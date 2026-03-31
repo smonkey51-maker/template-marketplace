@@ -15,6 +15,10 @@ const config: Config = {
         "ios-red":        "#FF453A",
         "ios-blue-alt":   "#007AFF",
       },
+      fontFamily: {
+        "gatsunaga": ["var(--font-gatsunaga)"],
+        "dm-serif":  ["var(--font-dm-serif)", "Georgia", "serif"],
+      },
     },
   },
   plugins: [],

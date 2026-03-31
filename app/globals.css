@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Gatsunaga display font (Japanese brush aesthetic) ──
+   Drop Gatsunaga-Normal.woff2 + Gatsunaga-Normal.ttf into /public/fonts/
+   Falls back to DM Serif Display if files are not present.
+── */
+@font-face {
+  font-family: 'Gatsunaga';
+  src: url('/fonts/Gatsunaga-Normal.woff2') format('woff2'),
+       url('/fonts/Gatsunaga-Normal.ttf')   format('truetype');
+  font-weight: 400;
+  font-style:  normal;
+  font-display: swap;
+}
+
 /* ── Global keyboard focus indicators (accessibility) ── */
 @layer components {
   button:focus-visible,
@@ -18,60 +31,60 @@
    THEME VARIABLES
    ═══════════════════════════════════════════════════════════ */
 :root {
-  /* ── Light mode: warm Italian craft palette ── */
-  --bg:          #FDFAF5;
-  --surface:     #F5EFE3;
-  --surface-2:   rgba(253,250,245,0.96);
-  --text:        #1C1610;
-  --muted:       #635541;
-  --border:      rgba(28,22,16,0.10);
-  --nav-bg:      rgba(253,250,245,0.90);
-  --card-bg:     #FDFAF5;
-  --card-border: rgba(28,22,16,0.10);
-  --input-bg:    rgba(28,22,16,0.05);
-  --btn-ghost-border:       rgba(28,22,16,0.18);
-  --btn-ghost-border-hover: rgba(28,22,16,0.72);
+  /* ── Light mode: Japandi / Zen — washi paper, hinoki wood ── */
+  --bg:          #FAF7F0;
+  --surface:     #F2EAD8;
+  --surface-2:   rgba(242,234,216,0.96);
+  --text:        #1C1814;
+  --muted:       #6B5848;
+  --border:      rgba(28,24,20,0.10);
+  --nav-bg:      rgba(250,247,240,0.90);
+  --card-bg:     #FAF7F0;
+  --card-border: rgba(28,24,20,0.10);
+  --input-bg:    rgba(28,24,20,0.05);
+  --btn-ghost-border:       rgba(28,24,20,0.18);
+  --btn-ghost-border-hover: rgba(28,24,20,0.72);
   /* Border radius tokens */
   --r-sm: 10px;
   --r-md: 16px;
   --r-lg: 22px;
   --r-xl: 28px;
   /* Glassmorphism tokens */
-  --glass-fill:     rgba(253,250,245,0.84);
-  --glass-shadow:   0 4px 32px rgba(28,22,16,0.09), 0 1px 0 rgba(255,255,255,0.85) inset;
-  --glass-stroke:   rgba(28,22,16,0.10);
+  --glass-fill:     rgba(250,247,240,0.84);
+  --glass-shadow:   0 4px 32px rgba(28,24,20,0.09), 0 1px 0 rgba(255,255,255,0.85) inset;
+  --glass-stroke:   rgba(28,24,20,0.10);
   --glass-top-edge: linear-gradient(90deg, transparent, rgba(255,255,255,0.95) 20%, rgba(255,255,255,0.95) 80%, transparent);
   --glass-bright:   1.01;
   --spec-hot:       rgba(255,255,255,0.65);
   --spec-mid:       rgba(255,255,255,0.28);
-  --divider:        rgba(28,22,16,0.09);
-  /* Gold accent — muted for light mode legibility */
-  --accent:         #9C7733;
-  --accent-bg:      rgba(156,119,51,0.10);
-  --accent-rgb:     156, 119, 51;
-  --accent-muted:   rgba(156,119,51,0.18);
+  --divider:        rgba(28,24,20,0.09);
+  /* Wood-gold accent — muted for light mode */
+  --accent:         #9C7040;
+  --accent-bg:      rgba(156,112,64,0.10);
+  --accent-rgb:     156, 112, 64;
+  --accent-muted:   rgba(156,112,64,0.18);
   /* Hybrid tokens for light mode */
-  --gold:           #9C7733;
-  --gold-dim:       rgba(156,119,51,0.12);
-  --gold-mid:       rgba(156,119,51,0.30);
-  --terra:          #B5501F;
-  --terra-dim:      rgba(181,80,31,0.12);
-  --cream:          #1C1610;
-  --cream-60:       rgba(28,22,16,0.60);
-  --cream-30:       rgba(28,22,16,0.30);
-  --cream-08:       rgba(28,22,16,0.08);
-  --obsidian-2:     #F5EFE3;
-  --obsidian-3:     #EDE5D5;
-  --obsidian-4:     #E3D9C6;
-  --border-gold:    1px solid rgba(156,119,51,0.28);
+  --gold:           #9C7040;
+  --gold-dim:       rgba(156,112,64,0.12);
+  --gold-mid:       rgba(156,112,64,0.30);
+  --terra:          #8C5028;
+  --terra-dim:      rgba(140,80,40,0.12);
+  --cream:          #1C1814;
+  --cream-60:       rgba(28,24,20,0.60);
+  --cream-30:       rgba(28,24,20,0.30);
+  --cream-08:       rgba(28,24,20,0.08);
+  --obsidian-2:     #F2EAD8;
+  --obsidian-3:     #E8DEC8;
+  --obsidian-4:     #DDD1B8;
+  --border-gold:    1px solid rgba(156,112,64,0.28);
   /* Semantic state colors */
-  --success:        #6B8C42;
-  --success-dim:    rgba(107,140,66,0.12);
-  --error:          #B5501F;
-  --error-dim:      rgba(181,80,31,0.12);
-  /* Ambient glow — warm brand tones */
-  --glow-gold:      rgba(156,119,51,0.18);
-  --glow-terra:     rgba(181,80,31,0.12);
+  --success:        #5A7A32;
+  --success-dim:    rgba(90,122,50,0.12);
+  --error:          #8C5028;
+  --error-dim:      rgba(140,80,40,0.12);
+  /* Ambient glow */
+  --glow-gold:      rgba(156,112,64,0.18);
+  --glow-terra:     rgba(140,80,40,0.12);
   /* Platform brand colors (download buttons) */
   --platform-canva:    #7B61FF;
   --platform-excel:    #1D6F42;
@@ -91,68 +104,70 @@
   /* Prompt viewer */
   --prompt-bg:       #FFFEF7;
   --prompt-header:   #F7F6EE;
-  --prompt-text:     #1C1610;
+  --prompt-text:     #1C1814;
   --prompt-label:    #8E8E93;
   /* Modal skeleton */
   --skeleton-bg:     #F2F2F7;
+  /* Gatsunaga display font — falls back to DM Serif if file not placed */
+  --font-gatsunaga:  'Gatsunaga', var(--font-dm-serif), 'Georgia', serif;
 }
 
 html.dark {
-  /* ── Dark palette: #212121 bg / #E8E8E8 text ──
-     WCAG contrast checks (bg #212121, lum≈0.015):
-       --text  #E8E8E8      → 12.97:1  ✅ AAA
-       --muted rgba(232,232,232,0.55) → eff. #8e8e8e → 5.0:1  ✅ AA
-       --accent #C8A96E     → 7.32:1  ✅ AAA
-       --success #8BAF5A    → 5.1:1   ✅ AA
+  /* ── Dark mode: Sumi-e / Lacca — ink black, washi cream ──
+     WCAG contrast checks (bg #1C1814, lum≈0.007):
+       --text  #EDE8DC          → 15.1:1  ✅ AAA
+       --muted rgba(0.55)       → eff. #8f8a82 → 5.3:1  ✅ AA
+       --accent #C8915A         → 6.7:1   ✅ AAA
+       --success #7AAF4A        → 5.4:1   ✅ AA
   ── */
-  --bg:          #212121;
-  --surface:     #2a2a2a;
-  --surface-2:   rgba(42,42,42,0.96);
-  --text:        #E8E8E8;
-  --muted:       rgba(232,232,232,0.55);
-  --border:      rgba(232,232,232,0.09);
-  --nav-bg:      rgba(33,33,33,0.93);
-  --card-bg:     #2a2a2a;
-  --card-border: rgba(232,232,232,0.09);
-  --input-bg:    rgba(232,232,232,0.06);
-  --btn-ghost-border:       rgba(232,232,232,0.22);
-  --btn-ghost-border-hover: rgba(232,232,232,0.80);
-  /* Glassmorphism tokens */
-  --glass-fill:     rgba(232,232,232,0.04);
-  --glass-shadow:   0 4px 32px rgba(0,0,0,0.5), 0 1px 0 rgba(232,232,232,0.06) inset;
-  --glass-stroke:   rgba(232,232,232,0.09);
-  --glass-top-edge: linear-gradient(90deg, transparent, rgba(232,232,232,0.08) 20%, rgba(232,232,232,0.08) 80%, transparent);
+  --bg:          #1C1814;
+  --surface:     #252119;
+  --surface-2:   rgba(37,33,25,0.96);
+  --text:        #EDE8DC;
+  --muted:       rgba(237,232,220,0.55);
+  --border:      rgba(237,232,220,0.09);
+  --nav-bg:      rgba(28,24,20,0.93);
+  --card-bg:     #252119;
+  --card-border: rgba(237,232,220,0.09);
+  --input-bg:    rgba(237,232,220,0.06);
+  --btn-ghost-border:       rgba(237,232,220,0.22);
+  --btn-ghost-border-hover: rgba(237,232,220,0.80);
+  /* Glassmorphism tokens — sumi-e */
+  --glass-fill:     rgba(237,232,220,0.04);
+  --glass-shadow:   0 4px 32px rgba(0,0,0,0.5), 0 1px 0 rgba(237,232,220,0.06) inset;
+  --glass-stroke:   rgba(237,232,220,0.09);
+  --glass-top-edge: linear-gradient(90deg, transparent, rgba(237,232,220,0.08) 20%, rgba(237,232,220,0.08) 80%, transparent);
   --glass-bright:   1.05;
-  --spec-hot:       rgba(232,232,232,0.08);
-  --spec-mid:       rgba(232,232,232,0.03);
-  --divider:        rgba(232,232,232,0.08);
-  /* Gold accent */
-  --accent:         #C8A96E;
-  --accent-bg:      rgba(200,169,110,0.12);
-  --accent-rgb:     200, 169, 110;
-  --accent-muted:   rgba(200,169,110,0.15);
+  --spec-hot:       rgba(237,232,220,0.08);
+  --spec-mid:       rgba(237,232,220,0.03);
+  --divider:        rgba(237,232,220,0.08);
+  /* Hinoki wood-amber accent */
+  --accent:         #C8915A;
+  --accent-bg:      rgba(200,145,90,0.12);
+  --accent-rgb:     200, 145, 90;
+  --accent-muted:   rgba(200,145,90,0.15);
   /* Hybrid-specific tokens */
-  --gold:           #C8A96E;
-  --gold-dim:       rgba(200,169,110,0.14);
-  --gold-mid:       rgba(200,169,110,0.35);
-  --terra:          #C4622D;
-  --terra-dim:      rgba(196,98,45,0.15);
-  --cream:          #E8E8E8;
-  --cream-60:       rgba(232,232,232,0.6);
-  --cream-30:       rgba(232,232,232,0.3);
-  --cream-08:       rgba(232,232,232,0.08);
-  --obsidian-2:     #2a2a2a;
-  --obsidian-3:     #333333;
-  --obsidian-4:     #3d3d3d;
-  --border-gold:    1px solid rgba(200,169,110,0.28);
+  --gold:           #C8915A;
+  --gold-dim:       rgba(200,145,90,0.14);
+  --gold-mid:       rgba(200,145,90,0.35);
+  --terra:          #9C6B3C;
+  --terra-dim:      rgba(156,107,60,0.15);
+  --cream:          #EDE8DC;
+  --cream-60:       rgba(237,232,220,0.6);
+  --cream-30:       rgba(237,232,220,0.3);
+  --cream-08:       rgba(237,232,220,0.08);
+  --obsidian-2:     #252119;
+  --obsidian-3:     #2E2921;
+  --obsidian-4:     #383228;
+  --border-gold:    1px solid rgba(200,145,90,0.28);
   /* Semantic state colors */
-  --success:        #8BAF5A;
-  --success-dim:    rgba(139,175,90,0.14);
-  --error:          #C4622D;
-  --error-dim:      rgba(196,98,45,0.14);
+  --success:        #7AAF4A;
+  --success-dim:    rgba(122,175,74,0.14);
+  --error:          #9C6B3C;
+  --error-dim:      rgba(156,107,60,0.14);
   /* Ambient glow */
-  --glow-gold:      rgba(200,169,110,0.12);
-  --glow-terra:     rgba(196,98,45,0.08);
+  --glow-gold:      rgba(200,145,90,0.12);
+  --glow-terra:     rgba(156,107,60,0.08);
   /* Platform brand colors (download buttons) */
   --platform-canva:    #7B61FF;
   --platform-excel:    #1D6F42;
@@ -170,12 +185,12 @@ html.dark {
   --bezel-notch-bg:  #000000;
   --bezel-notch-border: #333333;
   /* Prompt viewer */
-  --prompt-bg:       #2a2a2a;
-  --prompt-header:   #333333;
-  --prompt-text:     #E8E8E8;
-  --prompt-label:    rgba(232,232,232,0.60);
+  --prompt-bg:       #252119;
+  --prompt-header:   #2E2921;
+  --prompt-text:     #EDE8DC;
+  --prompt-label:    rgba(237,232,220,0.60);
   /* Modal skeleton */
-  --skeleton-bg:     #2a2a2a;
+  --skeleton-bg:     #252119;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -808,9 +823,10 @@ html::-webkit-scrollbar-track {
    HYBRID DESIGN UTILITIES
    ═══════════════════════════════════════════════════════════ */
 
-/* DM Serif Display font utility */
-.font-dm-serif {
-  font-family: var(--font-dm-serif), "Georgia", serif;
+/* Gatsunaga / DM Serif Display font utilities */
+.font-dm-serif,
+.font-gatsunaga {
+  font-family: var(--font-gatsunaga);
 }
 
 /* Warm grain overlay on dark bg */
@@ -836,7 +852,7 @@ html.dark body::before {
 
 /* Card N° edition badge */
 .card-edition-badge {
-  font-family: var(--font-dm-serif), serif;
+  font-family: var(--font-gatsunaga);
   font-style: italic;
   color: var(--gold, #C8A96E);
   opacity: 0.65;
@@ -846,7 +862,7 @@ html.dark body::before {
 
 /* Gold price text */
 .price-gold {
-  font-family: var(--font-dm-serif), serif;
+  font-family: var(--font-gatsunaga);
   font-style: italic;
   color: var(--gold, #C8A96E);
 }

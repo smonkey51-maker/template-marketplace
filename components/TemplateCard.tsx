@@ -216,7 +216,7 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
 
           {/* Price + wishlist */}
           <div className="mt-3 pt-3 flex items-center justify-between" style={{ borderTop: "1px solid var(--border)" }}>
-            <span className="text-[18px] italic" style={{ fontFamily: "var(--font-dm-serif), serif", color: "var(--accent)" }}>
+            <span className="text-[18px] italic" style={{ fontFamily: "var(--font-gatsunaga)", color: "var(--accent)" }}>
               {formatPrice(template.price)}
             </span>
             <button
