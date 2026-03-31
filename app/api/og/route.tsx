@@ -35,7 +35,7 @@ export async function GET(req: NextRequest) {
           {/* Brand */}
           <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "48px" }}>
             <div style={{ fontSize: "18px", fontWeight: 700, color: "#C8A96E", letterSpacing: "0.08em", textTransform: "uppercase" }}>
-              TemplateLab
+              Forma
             </div>
             <div style={{ width: "1px", height: "18px", background: "rgba(255,255,255,0.15)" }} />
             <div style={{ fontSize: "14px", color: "rgba(255,255,255,0.35)", fontWeight: 500 }}>
@@ -95,7 +95,7 @@ export async function GET(req: NextRequest) {
 
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "20px", position: "relative", padding: "0 80px" }}>
           <div style={{ fontSize: "20px", fontWeight: 700, color: "#C8A96E", letterSpacing: "0.08em", textTransform: "uppercase" }}>
-            TemplateLab
+            Forma
           </div>
           <div style={{ fontSize: "60px", fontWeight: 900, color: "#FFFFFF", textAlign: "center", letterSpacing: "-0.03em", lineHeight: 1.08 }}>
             Template premium,{"\n"}personalizzati con AI

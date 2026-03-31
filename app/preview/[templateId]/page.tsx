@@ -4,7 +4,7 @@ import { getTemplate, templates, formatPrice } from "@/lib/templates";
 import PreviewContent from "@/components/PreviewContent";
 import ReviewSection from "@/components/ReviewSection";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://templatelab.io";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://forma.design";
 
 export async function generateStaticParams() {
   return templates.map((t) => ({ templateId: t.id }));
@@ -23,7 +23,7 @@ export async function generateMetadata(
     description: template.description,
     alternates: { canonical: canonicalUrl },
     openGraph: {
-      title: `${template.name} — TemplateLab`,
+      title: `${template.name} — Forma`,
       description: template.description,
       type: "website",
       url: canonicalUrl,
@@ -31,7 +31,7 @@ export async function generateMetadata(
     },
     twitter: {
       card: "summary_large_image",
-      title: `${template.name} — TemplateLab`,
+      title: `${template.name} — Forma`,
       description: template.description,
       images: [ogImage],
     },
@@ -52,7 +52,7 @@ export default async function PreviewPage(
         description: template.description,
         url: `${SITE_URL}/preview/${templateId}`,
         image: `${SITE_URL}/api/og?id=${templateId}`,
-        brand: { "@type": "Brand", name: "TemplateLab" },
+        brand: { "@type": "Brand", name: "Forma" },
         category: "UI Template",
         offers: {
           "@type": "Offer",

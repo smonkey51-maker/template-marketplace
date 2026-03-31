@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 
-const FROM = process.env.RESEND_FROM ?? "TemplateLab <noreply@templatelab.io>";
+const FROM = process.env.RESEND_FROM ?? "Forma <noreply@forma.design>";
 
 type PurchaseEmailParams = {
   to: string;
@@ -19,14 +19,14 @@ export async function sendPurchaseEmail(params: PurchaseEmailParams) {
 
   const subject =
     type === "studio"
-      ? "✦ Studio Access attivato — TemplateLab"
+      ? "✦ Studio Access attivato — Forma"
       : `Il tuo acquisto è pronto — ${itemName}`;
 
   const accentColor = type === "studio" ? "#C4622D" : "#C8A96E";
 
   const ctaBlock =
     type === "studio"
-      ? `<a href="https://templatelab.io/studio" style="display:inline-block;background:${accentColor};color:#fff;font-weight:700;font-size:15px;padding:14px 28px;border-radius:14px;text-decoration:none;margin-top:8px;">Apri AI Studio →</a>`
+      ? `<a href="https://forma.design/studio" style="display:inline-block;background:${accentColor};color:#fff;font-weight:700;font-size:15px;padding:14px 28px;border-radius:14px;text-decoration:none;margin-top:8px;">Apri AI Studio →</a>`
       : downloadUrl
       ? `<a href="${downloadUrl}" style="display:inline-block;background:${accentColor};color:#fff;font-weight:700;font-size:15px;padding:14px 28px;border-radius:14px;text-decoration:none;margin-top:8px;">⬇ Scarica il template</a>`
       : previewUrl
@@ -54,7 +54,7 @@ export async function sendPurchaseEmail(params: PurchaseEmailParams) {
       <table width="560" cellpadding="0" cellspacing="0" role="presentation" style="background:#1c1c1e;border-radius:24px;overflow:hidden;max-width:100%;">
         <!-- Header -->
         <tr><td style="background:linear-gradient(135deg,#0a84ff 0%,#5e5ce6 100%);padding:28px 36px;">
-          <p style="margin:0;font-size:20px;font-weight:800;color:#fff;letter-spacing:-0.5px;">TemplateLab</p>
+          <p style="margin:0;font-size:20px;font-weight:800;color:#fff;letter-spacing:-0.5px;">Forma</p>
           <p style="margin:4px 0 0;font-size:13px;color:rgba(255,255,255,0.65);">AI-Powered Template Marketplace</p>
         </td></tr>
         <!-- Body -->
@@ -64,14 +64,14 @@ export async function sendPurchaseEmail(params: PurchaseEmailParams) {
           ${ctaBlock}
           <hr style="border:none;border-top:1px solid #2c2c2e;margin:28px 0;"/>
           <p style="margin:0;font-size:12px;color:#48484a;line-height:1.7;">
-            Hai domande? Scrivici a <a href="mailto:support@templatelab.io" style="color:#0a84ff;text-decoration:none;">support@templatelab.io</a><br/>
-            <a href="https://templatelab.io/account" style="color:#48484a;">Vedi i tuoi acquisti</a> &nbsp;·&nbsp;
-            <a href="https://templatelab.io" style="color:#48484a;">Marketplace</a>
+            Hai domande? Scrivici a <a href="mailto:support@forma.design" style="color:#0a84ff;text-decoration:none;">support@forma.design</a><br/>
+            <a href="https://forma.design/account" style="color:#48484a;">Vedi i tuoi acquisti</a> &nbsp;·&nbsp;
+            <a href="https://forma.design" style="color:#48484a;">Marketplace</a>
           </p>
         </td></tr>
         <!-- Footer -->
         <tr><td style="background:#111113;padding:16px 36px;text-align:center;">
-          <p style="margin:0;font-size:11px;color:#3a3a3c;">© 2026 TemplateLab. Tutti i diritti riservati.</p>
+          <p style="margin:0;font-size:11px;color:#3a3a3c;">© 2026 Forma. Tutti i diritti riservati.</p>
         </td></tr>
       </table>
     </td></tr>
@@ -98,7 +98,7 @@ export function buildNewsletterHtml(title: string, body: string): string {
     <tr><td align="center" style="padding:40px 16px;">
       <table width="560" cellpadding="0" cellspacing="0" role="presentation" style="background:#1c1c1e;border-radius:24px;overflow:hidden;max-width:100%;">
         <tr><td style="background:linear-gradient(135deg,#0a84ff 0%,#5e5ce6 100%);padding:28px 36px;">
-          <p style="margin:0;font-size:20px;font-weight:800;color:#fff;letter-spacing:-0.5px;">TemplateLab</p>
+          <p style="margin:0;font-size:20px;font-weight:800;color:#fff;letter-spacing:-0.5px;">Forma</p>
           <p style="margin:4px 0 0;font-size:13px;color:rgba(255,255,255,0.65);">AI-Powered Template Marketplace</p>
         </td></tr>
         <tr><td style="padding:32px 36px;">
@@ -106,12 +106,12 @@ export function buildNewsletterHtml(title: string, body: string): string {
           ${lines}
           <hr style="border:none;border-top:1px solid #2c2c2e;margin:28px 0;"/>
           <p style="margin:0;font-size:12px;color:#48484a;line-height:1.7;">
-            Hai domande? Scrivici a <a href="mailto:support@templatelab.io" style="color:#0a84ff;text-decoration:none;">support@templatelab.io</a><br/>
-            <a href="https://templatelab.io" style="color:#48484a;">Visita il Marketplace</a>
+            Hai domande? Scrivici a <a href="mailto:support@forma.design" style="color:#0a84ff;text-decoration:none;">support@forma.design</a><br/>
+            <a href="https://forma.design" style="color:#48484a;">Visita il Marketplace</a>
           </p>
         </td></tr>
         <tr><td style="background:#111113;padding:16px 36px;text-align:center;">
-          <p style="margin:0;font-size:11px;color:#3a3a3c;">© 2026 TemplateLab. Tutti i diritti riservati.</p>
+          <p style="margin:0;font-size:11px;color:#3a3a3c;">© 2026 Forma. Tutti i diritti riservati.</p>
         </td></tr>
       </table>
     </td></tr>

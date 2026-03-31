@@ -79,7 +79,7 @@ ${url}
 Apri il link nel browser per aprire / duplicare il template.
 
 💡 Vuoi personalizzarlo con AI?
-   Visita TemplateLab per usare lo Studio AI integrato.
+   Visita Forma per usare lo Studio AI integrato.
 `;
 }
 
@@ -90,7 +90,7 @@ export function runExport(silent = false): void {
   const etsyDir = path.join(OUT, "etsy");
 
   const indexRows: string[] = [
-    "# TemplateLab — Export per Gumroad / Etsy",
+    "# Forma — Export per Gumroad / Etsy",
     "",
     `Generato: ${new Date().toLocaleString("it-IT")}`,
     "",
@@ -149,7 +149,7 @@ export function runExport(silent = false): void {
     "  I template HTML puri sono fuori scope per Etsy.",
     "",
     "**Suggerimento descrizione**: aggiungi sempre:",
-    "> *Personalizza questo template con AI su TemplateLab — studio AI integrato, nessun abbonamento.*",
+    "> *Personalizza questo template con AI su Forma — studio AI integrato, nessun abbonamento.*",
   );
 
   fs.writeFileSync(path.join(OUT, "_INDEX.md"), indexRows.join("\n"), "utf-8");

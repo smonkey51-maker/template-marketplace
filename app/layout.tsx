@@ -41,27 +41,27 @@ const jakarta = Plus_Jakarta_Sans({
   display: "swap",
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://templatelab.io";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://forma.design";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "TemplateLab — AI-Powered Template Marketplace",
-    template: "%s — TemplateLab",
+    default: "Forma — AI-Powered Template Marketplace",
+    template: "%s — Forma",
   },
   description:
     "Buy premium UI and prompt templates. Customize any template instantly with Claude AI. No code required.",
   openGraph: {
     type: "website",
-    siteName: "TemplateLab",
-    title: "TemplateLab — AI-Powered Template Marketplace",
+    siteName: "Forma",
+    title: "Forma — AI-Powered Template Marketplace",
     description:
       "Buy premium UI and prompt templates. Customize any template instantly with Claude AI.",
-    images: [{ url: "/api/og", width: 1200, height: 630, alt: "TemplateLab" }],
+    images: [{ url: "/api/og", width: 1200, height: 630, alt: "Forma" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "TemplateLab — AI-Powered Template Marketplace",
+    title: "Forma — AI-Powered Template Marketplace",
     description:
       "Buy premium UI and prompt templates. Customize any template instantly with Claude AI.",
     images: ["/api/og"],

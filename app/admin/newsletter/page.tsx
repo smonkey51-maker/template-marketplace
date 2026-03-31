@@ -78,7 +78,7 @@ export default function NewsletterAdminPage() {
                 type="text"
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
-                placeholder="es. Nuovi template disponibili su TemplateLab"
+                placeholder="es. Nuovi template disponibili su Forma"
                 className="w-full bg-input border border-theme px-3 py-2.5 text-[13px] text-theme placeholder:text-muted outline-none focus:border-accent/50 transition-colors"
               />
             </div>
@@ -143,7 +143,7 @@ export default function NewsletterAdminPage() {
                 }}
               >
                 <p style={{ margin: 0, fontSize: 16, fontWeight: 800, color: "#fff" }}>
-                  TemplateLab
+                  Forma
                 </p>
                 <p style={{ margin: "3px 0 0", fontSize: 12, color: "rgba(255,255,255,0.65)" }}>
                   Mercato del digitale artigianale
@@ -169,7 +169,7 @@ export default function NewsletterAdminPage() {
                 )}
                 <hr style={{ border: "none", borderTop: "1px solid var(--border)", margin: "20px 0" }} />
                 <p style={{ margin: 0, fontSize: 11, color: "var(--muted)", lineHeight: 1.7 }}>
-                  support@templatelab.io · templatelab.io
+                  support@forma.design · forma.design
                 </p>
               </div>
               {/* Footer */}
@@ -182,7 +182,7 @@ export default function NewsletterAdminPage() {
                 }}
               >
                 <p style={{ margin: 0, fontSize: 11, color: "var(--muted)" }}>
-                  © 2026 TemplateLab. Tutti i diritti riservati.
+                  © 2026 Forma. Tutti i diritti riservati.
                 </p>
               </div>
             </div>

@@ -2,22 +2,22 @@ import type { Metadata } from "next";
 import HomeContent from "@/components/HomeContent";
 import { templates } from "@/lib/templates";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://templatelab.io";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://forma.design";
 
 export const metadata: Metadata = {
-  title: "TemplateLab — Template UI e Prompt AI pronti all'uso",
+  title: "Forma — Template UI e Prompt AI pronti all'uso",
   description:
     "Scarica template HTML/UI e prompt AI professionali. Personalizzali con lo Studio AI integrato. Acquisto unico, nessun abbonamento.",
   openGraph: {
-    title: "TemplateLab — Template UI e Prompt AI pronti all'uso",
+    title: "Forma — Template UI e Prompt AI pronti all'uso",
     description:
       "Scarica template HTML/UI e prompt AI professionali. Personalizzali con lo Studio AI integrato.",
     type: "website",
-    images: [{ url: "/api/og", width: 1200, height: 630, alt: "TemplateLab" }],
+    images: [{ url: "/api/og", width: 1200, height: 630, alt: "Forma" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "TemplateLab — Template UI e Prompt AI pronti all'uso",
+    title: "Forma — Template UI e Prompt AI pronti all'uso",
     description: "Scarica template HTML/UI e prompt AI professionali.",
     images: ["/api/og"],
   },
@@ -27,7 +27,7 @@ export default function Page() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "TemplateLab",
+    name: "Forma",
     url: SITE_URL,
     description: "Template UI e Prompt AI pronti all'uso",
     potentialAction: {
@@ -40,7 +40,7 @@ export default function Page() {
   const itemListLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Template TemplateLab",
+    name: "Template Forma",
     url: SITE_URL,
     numberOfItems: templates.length,
     itemListElement: templates.slice(0, 50).map((tmpl, idx) => ({

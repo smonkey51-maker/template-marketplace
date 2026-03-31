@@ -15,11 +15,11 @@ export async function register() {
 
   // Esportazione iniziale all'avvio (solo in sviluppo)
   try {
-    console.log("\n📦 [TemplateLab] Generazione exports/...");
+    console.log("\n📦 [Forma] Generazione exports/...");
     runExport();
-    console.log("📦 [TemplateLab] exports/ aggiornato.\n");
+    console.log("📦 [Forma] exports/ aggiornato.\n");
   } catch (err) {
-    console.error("❌ [TemplateLab] Errore durante l'export iniziale:", err);
+    console.error("❌ [Forma] Errore durante l'export iniziale:", err);
   }
 
   // Watcher su lib/templates.ts — rigenera al salvataggio
@@ -29,15 +29,15 @@ export async function register() {
   watch(templatesPath, () => {
     if (debounceTimer) clearTimeout(debounceTimer);
     debounceTimer = setTimeout(() => {
-      console.log("\n🔄 [TemplateLab] templates.ts modificato — rigenero exports/...");
+      console.log("\n🔄 [Forma] templates.ts modificato — rigenero exports/...");
       try {
         runExport();
-        console.log("✅ [TemplateLab] exports/ aggiornato.\n");
+        console.log("✅ [Forma] exports/ aggiornato.\n");
       } catch (err) {
-        console.error("❌ [TemplateLab] Errore durante l'export:", err);
+        console.error("❌ [Forma] Errore durante l'export:", err);
       }
     }, 300);
   });
 
-  console.log("👁️  [TemplateLab] Watcher attivo su lib/templates.ts\n");
+  console.log("👁️  [Forma] Watcher attivo su lib/templates.ts\n");
 }

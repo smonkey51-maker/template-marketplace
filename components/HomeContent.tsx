@@ -290,7 +290,7 @@ export default function HomeContent() {
         {/* Panel header */}
         <div className="flex items-center justify-between px-4 py-3.5 border-b border-theme">
           <span className="text-[17px] font-bold tracking-tight text-theme">
-            TemplateLab
+            Forma
           </span>
           <button
             onClick={() => setMobileMenuOpen(false)}

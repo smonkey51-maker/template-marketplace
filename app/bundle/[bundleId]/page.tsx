@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getBundle, bundles, formatPrice } from "@/lib/templates";
 import BundleDetailContent from "@/components/BundleDetailContent";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://templatelab.io";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://forma.design";
 
 export async function generateStaticParams() {
   return bundles.map((b) => ({ bundleId: b.id }));
@@ -21,14 +21,14 @@ export async function generateMetadata(
     description: `${bundle.tagline}. ${bundle.highlights.join(" · ")}`,
     alternates: { canonical: canonicalUrl },
     openGraph: {
-      title: `${bundle.name} — TemplateLab`,
+      title: `${bundle.name} — Forma`,
       description: `${bundle.tagline}. ${formatPrice(bundle.price)} invece di ${formatPrice(bundle.regularPrice)}. Risparmia ${formatPrice(savings)}.`,
       type: "website",
       url: canonicalUrl,
     },
     twitter: {
       card: "summary_large_image",
-      title: `${bundle.name} — TemplateLab`,
+      title: `${bundle.name} — Forma`,
       description: bundle.tagline,
     },
   };
@@ -47,7 +47,7 @@ export default async function BundlePage(
         name: bundle.name,
         description: bundle.description,
         url: `${SITE_URL}/bundle/${bundleId}`,
-        brand: { "@type": "Brand", name: "TemplateLab" },
+        brand: { "@type": "Brand", name: "Forma" },
         offers: {
           "@type": "Offer",
           price: (bundle.price / 100).toFixed(2),

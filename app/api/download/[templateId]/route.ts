@@ -45,7 +45,7 @@ export async function GET(
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>${displayName} — TemplateLab</title>
+  <title>${displayName} — Forma</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>body { margin: 0; }</style>
 </head>

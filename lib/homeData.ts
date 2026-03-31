@@ -35,8 +35,8 @@ export const TESTIMONIALS = [
   {
     nameIt: "Sara Neri", nameEn: "Sara Neri",
     roleIt: "Freelance Designer", roleEn: "Freelance Designer",
-    quoteIt: "Uso TemplateLab per tutti i miei clienti. Risparmio ore di lavoro e posso offrire risultati professionali a prezzi competitivi.",
-    quoteEn: "I use TemplateLab for all my clients. I save hours of work and can deliver professional results at competitive prices.",
+    quoteIt: "Uso Forma per tutti i miei clienti. Risparmio ore di lavoro e posso offrire risultati professionali a prezzi competitivi.",
+    quoteEn: "I use Forma for all my clients. I save hours of work and can deliver professional results at competitive prices.",
     rating: 5,
     initials: "SN",
     accent: "from-[#B5501F] to-[#C4622D]",
