@@ -104,11 +104,8 @@ export default function BundleCard({
         {/* USP bullets */}
         <div className="space-y-1.5">
           {bundle.highlights.map((h, i) => (
-            <div key={i} className="flex items-start gap-2">
-              <span className="mt-0.5 w-4 h-4 rounded-none flex items-center justify-center text-[9px] shrink-0 border"
-                style={{ background: "var(--accent-bg)", color: "var(--accent)", borderColor: "var(--border)" }}>
-                ✓
-              </span>
+            <div key={i} className="flex items-start gap-2.5">
+              <span className="mt-0.5 text-[9px] shrink-0 select-none" style={{ color: "var(--accent)", opacity: 0.65 }}>◇</span>
               <span className="text-[12px] leading-snug" style={{ color: "var(--text)", opacity: 0.8 }}>{h}</span>
             </div>
           ))}

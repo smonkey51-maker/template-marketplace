@@ -16,7 +16,7 @@ export default function TestimonialsSection({ lang }: { lang: "it" | "en" }) {
           <p className="text-[10px] font-bold text-muted uppercase tracking-[0.18em] mb-3">
             {lang === "it" ? "Recensioni" : "Reviews"}
           </p>
-          <h2 className="text-[1.6rem] sm:text-[2rem] font-bold tracking-tight text-theme">
+          <h2 className="ink-line text-[1.6rem] sm:text-[2rem] font-bold tracking-tight text-theme">
             {lang === "it" ? "Amato dai professionisti" : "Loved by professionals"}
           </h2>
         </div>
