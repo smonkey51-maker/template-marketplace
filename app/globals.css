@@ -3,12 +3,15 @@
 @tailwind utilities;
 
 /* ── Slingday — display font (local, /public/fonts/Slingday.otf) ── */
+/* unicode-range excludes ASCII digits (0–9) → they fall back to Jakarta Sans */
 @font-face {
   font-family: 'Slingday';
   src: url('/fonts/Slingday.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
+  /* Exclude ASCII digits U+0030–U+0039 → fall back to Jakarta Sans */
+  unicode-range: U+0020-002F, U+003A-FFFF;
 }
 
 /* ── Global keyboard focus indicators (accessibility) ── */

@@ -392,61 +392,109 @@ export default function TemplateGrid({ externalQuery = "", onClearSearch }: { ex
           {/* ── Desktop: sidebar + main layout ── */}
           <div className="lg:flex lg:gap-8 lg:items-start">
 
-            {/* ── Sidebar: platform filters (lg+) ── */}
-            <aside className="hidden lg:block w-44 shrink-0 sticky top-20 self-start">
-              <p className="text-[10px] font-bold text-muted uppercase tracking-[0.15em] mb-3">
-                {lang === "it" ? "Piattaforma" : "Platform"}
-              </p>
-              <div className="flex flex-col gap-1">
+            {/* ── Sidebar: platform filters (lg+) — tanzaku style ── */}
+            <aside className="hidden lg:block w-40 shrink-0 sticky top-20 self-start">
+              {/* Tategaki header */}
+              <div className="flex items-center gap-2 mb-4">
+                <div className="flex flex-col items-center gap-1" aria-hidden="true">
+                  <div className="w-px h-4" style={{ background: "linear-gradient(to bottom, transparent, var(--accent))", opacity: 0.4 }} />
+                  <span style={{ fontFamily: "var(--font-gatsunaga)", fontSize: "11px", color: "var(--accent)", opacity: 0.55, writingMode: "vertical-rl", letterSpacing: "0.1em" }}>台</span>
+                  <div className="w-px h-4" style={{ background: "linear-gradient(to top, transparent, var(--accent))", opacity: 0.4 }} />
+                </div>
+                <p className="text-[9px] font-black uppercase tracking-[0.2em]" style={{ color: "var(--muted)" }}>
+                  {lang === "it" ? "Piattaforma" : "Platform"}
+                </p>
+              </div>
+              <div className="flex flex-col gap-0.5">
                 {PLATFORMS.filter((p) => p.id === "all" || (platformCounts[p.id] ?? 0) > 0).map((p) => {
                   const isActive = platformFilter === p.id;
                   const count = platformCounts[p.id] ?? 0;
+                  const kanji: Record<string, string> = { all: "全", html: "網", shopify: "商", wordpress: "文", notion: "念", canva: "画", webflow: "流", framer: "枠", excel: "算", sheets: "表" };
                   return (
                     <button
                       key={p.id}
                       onClick={() => { setPlatformFilter(p.id); setAnimKey((k) => k + 1); }}
-                      className={`flex items-center gap-2 px-3 py-2 text-[11px] font-semibold border w-full text-left transition-all duration-150 ${
-                        isActive
-                          ? "border-accent/40 text-accent"
-                          : "border-theme text-muted hover:text-theme hover:border-accent/20"
-                      }`}
-                      style={isActive ? { background: "var(--accent-bg)", borderColor: p.color ? `${p.color}44` : undefined, color: p.color || undefined } : undefined}
+                      className="flex items-center gap-2.5 py-2 pr-2 w-full text-left transition-all duration-150 group relative"
+                      style={{ paddingLeft: "10px", borderLeft: isActive ? "2px solid var(--accent)" : "2px solid transparent" }}
                     >
-                      <span className="text-[13px] shrink-0">{p.icon}</span>
-                      <span className="flex-1 truncate">{p.label[lang]}</span>
-                      {p.id !== "all" && <span className="text-[9px] opacity-50 shrink-0">{count}</span>}
+                      {/* Background tint when active */}
+                      {isActive && (
+                        <div className="absolute inset-0 pointer-events-none" style={{ background: "var(--accent-bg)", opacity: 0.7 }} />
+                      )}
+                      {/* Kanji mark */}
+                      <span
+                        className="shrink-0 relative z-10"
+                        style={{
+                          fontFamily: "var(--font-gatsunaga)",
+                          fontSize: "12px",
+                          opacity: isActive ? 0.9 : 0.35,
+                          color: isActive ? "var(--accent)" : "var(--text)",
+                          lineHeight: 1,
+                          transition: "opacity 0.15s",
+                        }}
+                      >
+                        {kanji[p.id] ?? p.icon}
+                      </span>
+                      {/* Label */}
+                      <span
+                        className="flex-1 truncate text-[11px] font-medium relative z-10 transition-colors duration-150"
+                        style={{ color: isActive ? "var(--accent)" : "var(--muted)" }}
+                      >
+                        {p.label[lang]}
+                      </span>
+                      {/* Count */}
+                      {p.id !== "all" && (
+                        <span
+                          className="text-[9px] shrink-0 relative z-10 tabular-nums"
+                          style={{ color: isActive ? "var(--accent)" : "var(--muted)", opacity: isActive ? 0.8 : 0.45 }}
+                        >
+                          {count}
+                        </span>
+                      )}
                     </button>
                   );
                 })}
               </div>
+              {/* Bottom fade line */}
+              <div className="mt-4 h-px" style={{ background: "linear-gradient(to right, var(--accent), transparent)", opacity: 0.18 }} />
             </aside>
 
             {/* ── Main content ── */}
             <div className="flex-1 min-w-0">
 
-              {/* ── Mobile platform filter bar (hidden lg+) ── */}
+              {/* ── Mobile platform filter bar (hidden lg+) — tanzaku chips ── */}
               <div className="mb-6 lg:hidden">
-                <p className="text-[10px] font-bold text-muted uppercase tracking-[0.15em] mb-3 px-1">
-                  {lang === "it" ? "Filtra per piattaforma" : "Filter by platform"}
-                </p>
-                <div className="flex gap-1.5 overflow-x-auto pb-1 scrollbar-none -mx-1 px-1">
+                <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none -mx-1 px-1">
                   {PLATFORMS.filter((p) => p.id === "all" || (platformCounts[p.id] ?? 0) > 0).map((p) => {
                     const isActive = platformFilter === p.id;
-                    const count = platformCounts[p.id] ?? 0;
+                    const kanji: Record<string, string> = { all: "全", html: "網", shopify: "商", wordpress: "文", notion: "念", canva: "画", webflow: "流", framer: "枠", excel: "算", sheets: "表" };
                     return (
                       <button
                         key={p.id}
                         onClick={() => { setPlatformFilter(p.id); setAnimKey((k) => k + 1); }}
-                        className={`flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-semibold border whitespace-nowrap transition-all duration-150 shrink-0 ${
-                          isActive
-                            ? "border-accent/40 text-accent"
-                            : "border-theme text-muted hover:text-theme hover:border-accent/20"
-                        }`}
-                        style={isActive ? { background: "var(--accent-bg)", borderColor: p.color ? `${p.color}44` : undefined, color: p.color || undefined } : undefined}
+                        className="flex items-center gap-1.5 px-2.5 py-1.5 whitespace-nowrap transition-all duration-150 shrink-0 relative"
+                        style={{
+                          borderBottom: isActive ? "2px solid var(--accent)" : "2px solid transparent",
+                          background: isActive ? "var(--accent-bg)" : "transparent",
+                        }}
                       >
-                        <span className="text-[13px]">{p.icon}</span>
-                        {p.label[lang]}
-                        {p.id !== "all" && <span className="text-[9px] opacity-60 ml-0.5">{count}</span>}
+                        <span
+                          style={{
+                            fontFamily: "var(--font-gatsunaga)",
+                            fontSize: "11px",
+                            opacity: isActive ? 0.9 : 0.3,
+                            color: isActive ? "var(--accent)" : "var(--text)",
+                            lineHeight: 1,
+                          }}
+                        >
+                          {kanji[p.id] ?? p.icon}
+                        </span>
+                        <span
+                          className="text-[11px] font-medium"
+                          style={{ color: isActive ? "var(--accent)" : "var(--muted)" }}
+                        >
+                          {p.label[lang]}
+                        </span>
                       </button>
                     );
                   })}
