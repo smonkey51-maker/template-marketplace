@@ -354,34 +354,6 @@ export default function TemplateGrid({ externalQuery = "", onClearSearch }: { ex
         </div>
       )}
 
-      {/* ══════════════════════════════════════════════════
-          Recently viewed (default view only, no search)
-      ══════════════════════════════════════════════════ */}
-      {!isSearching && !openCategoryId && recentTemplates.length > 0 && (
-        <div className="mb-10">
-          <div className="flex items-center gap-3 mb-4 px-1">
-            <svg width="13" height="13" viewBox="0 0 14 14" fill="none" className="text-muted" aria-hidden>
-              <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.4"/>
-              <path d="M7 4v3.5l2 1.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            <span className="text-[11px] font-bold text-muted uppercase tracking-[0.15em]">
-              {lang === "it" ? "Visti di recente" : "Recently viewed"}
-            </span>
-          </div>
-          <div className="relative">
-            <div className="flex gap-3 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-none">
-              {recentTemplates.map((tmpl) => (
-                <div key={tmpl.id} className="flex-shrink-0 w-[160px]">
-                  <TemplateCard template={tmpl} purchasedIds={purchasedIds} onQuickView={handleQuickView} />
-                </div>
-              ))}
-            </div>
-            {/* Fade edges to signal horizontal scroll */}
-            <div className="absolute inset-y-0 right-0 w-12 pointer-events-none" style={{ background: "linear-gradient(to left, var(--bg), transparent)" }} />
-            <div className="absolute inset-y-0 left-0 w-6 pointer-events-none" style={{ background: "linear-gradient(to right, var(--bg), transparent)" }} />
-          </div>
-        </div>
-      )}
 
       {/* ══════════════════════════════════════════════════
           VIEW 3 — Category cards grid (default)
