@@ -108,47 +108,30 @@
   --font-gatsunaga:  'Slingday', var(--font-cormorant), var(--font-dm-serif), 'Georgia', serif;
 }
 
-/* ── Slingday site-wide: override all font CSS vars ── */
+/* ── Font pairing: Slingday (display) + Jakarta Sans (body) ──
+   --font-syne / --font-dm-serif / --font-cormorant → Slingday  (headings, brand, CTA)
+   --font-jakarta                                   → Jakarta   (body, labels, inputs)
+── */
 html {
   --font-syne:      'Slingday', sans-serif !important;
   --font-dm-serif:  'Slingday', serif !important;
   --font-cormorant: 'Slingday', serif !important;
-  --font-jakarta:   'Slingday', sans-serif !important;
+  /* --font-jakarta keeps its real value (Plus Jakarta Sans) */
 }
 
-/* ── Body: readable defaults for Slingday ── */
+/* Body: Jakarta for comfortable reading */
 body {
-  font-family: 'Slingday', sans-serif;
-  font-size: 16px;
-  line-height: 1.85;
-  letter-spacing: 0.015em;
+  font-family: var(--font-jakarta), -apple-system, sans-serif;
+  font-size: 15px;
+  line-height: 1.75;
+  letter-spacing: 0.005em;
 }
 
-/* Headings: tighter tracking, larger size steps */
+/* Headings: Slingday for display impact */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Slingday', serif;
   line-height: 1.15;
   letter-spacing: -0.01em;
-}
-
-/* Paragraphs: comfortable reading size */
-p {
-  font-size: 15px;
-  line-height: 1.85;
-}
-
-/* Tiny uppercase labels: lift to 12px + wide tracking */
-[class*="text-[9px]"],
-[class*="text-[10px]"],
-[class*="text-[11px]"] {
-  font-size: 12px !important;
-  letter-spacing: 0.12em !important;
-}
-
-/* Small text labels: minimum 13px */
-[class*="text-[12px]"],
-[class*="text-[13px]"] {
-  font-size: 14px !important;
 }
 
 html.dark {
