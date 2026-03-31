@@ -108,18 +108,11 @@
   --font-gatsunaga:  'Slingday', var(--font-cormorant), var(--font-dm-serif), 'Georgia', serif;
 }
 
-/* ── Font pairing: Slingday (display) + Jakarta Sans (body) ──
-   --font-syne / --font-dm-serif / --font-cormorant → Slingday  (headings, brand, CTA)
-   --font-jakarta                                   → Jakarta   (body, labels, inputs)
+/* ── Font pairing: Slingday (h1–h3 + .font-gatsunaga) + Jakarta (everything else) ──
+   Small/medium text always uses Jakarta for readability.
 ── */
-html {
-  --font-syne:      'Slingday', sans-serif !important;
-  --font-dm-serif:  'Slingday', serif !important;
-  --font-cormorant: 'Slingday', serif !important;
-  /* --font-jakarta keeps its real value (Plus Jakarta Sans) */
-}
 
-/* Body: Jakarta for comfortable reading */
+/* Body + all default text: Jakarta */
 body {
   font-family: var(--font-jakarta), -apple-system, sans-serif;
   font-size: 15px;
@@ -127,11 +120,24 @@ body {
   letter-spacing: 0.005em;
 }
 
-/* Headings: Slingday for display impact */
-h1, h2, h3, h4, h5, h6 {
+/* Nav labels, buttons, badges, section labels: Jakarta */
+html {
+  --font-syne:      var(--font-jakarta), -apple-system, sans-serif !important;
+  --font-dm-serif:  'Slingday', serif !important;
+  --font-cormorant: 'Slingday', serif !important;
+}
+
+/* Only h1–h3 and explicit display classes use Slingday */
+h1, h2, h3 {
   font-family: 'Slingday', serif;
   line-height: 1.15;
   letter-spacing: -0.01em;
+}
+
+/* h4–h6 and all smaller: Jakarta */
+h4, h5, h6 {
+  font-family: var(--font-jakarta), sans-serif;
+  line-height: 1.4;
 }
 
 html.dark {
