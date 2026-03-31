@@ -108,7 +108,7 @@
   --font-gatsunaga:  'Slingday', var(--font-cormorant), var(--font-dm-serif), 'Georgia', serif;
 }
 
-/* ── Force Slingday on every font variable (overrides next/font class injection) ── */
+/* ── Slingday site-wide: override all font CSS vars ── */
 html {
   --font-syne:      'Slingday', sans-serif !important;
   --font-dm-serif:  'Slingday', serif !important;
@@ -116,23 +116,39 @@ html {
   --font-jakarta:   'Slingday', sans-serif !important;
 }
 
-/* ── Global body defaults for Slingday readability ── */
+/* ── Body: readable defaults for Slingday ── */
 body {
   font-family: 'Slingday', sans-serif;
-  letter-spacing: 0.025em;
+  font-size: 16px;
+  line-height: 1.85;
+  letter-spacing: 0.015em;
+}
+
+/* Headings: tighter tracking, larger size steps */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Slingday', serif;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+/* Paragraphs: comfortable reading size */
+p {
   font-size: 15px;
-  line-height: 1.75;
+  line-height: 1.85;
 }
 
-/* Small text — bump up minimum size so Slingday remains legible */
-p, span, a, li, label, input, button, td, th {
-  font-size: max(0.85em, 13px);
-}
-
-/* Tiny uppercase labels — widen tracking for legibility */
-.text-\[9px\], .text-\[10px\], .text-\[11px\] {
-  letter-spacing: 0.06em;
+/* Tiny uppercase labels: lift to 12px + wide tracking */
+[class*="text-[9px]"],
+[class*="text-[10px]"],
+[class*="text-[11px]"] {
   font-size: 12px !important;
+  letter-spacing: 0.12em !important;
+}
+
+/* Small text labels: minimum 13px */
+[class*="text-[12px]"],
+[class*="text-[13px]"] {
+  font-size: 14px !important;
 }
 
 html.dark {
@@ -143,14 +159,14 @@ html.dark {
        --accent #C8915A         → 6.7:1   ✅ AAA
        --success #7AAF4A        → 5.4:1   ✅ AA
   ── */
-  --bg:          #1C1814;
-  --surface:     #252119;
-  --surface-2:   rgba(37,33,25,0.96);
+  --bg:          rgba(20,16,12,0.72);
+  --surface:     rgba(30,26,20,0.82);
+  --surface-2:   rgba(30,26,20,0.92);
   --text:        #EDE8DC;
   --muted:       rgba(237,232,220,0.55);
   --border:      rgba(237,232,220,0.09);
   --nav-bg:      rgba(28,24,20,0.93);
-  --card-bg:     #252119;
+  --card-bg:     rgba(30,26,20,0.82);
   --card-border: rgba(237,232,220,0.09);
   --input-bg:    rgba(237,232,220,0.06);
   --btn-ghost-border:       rgba(237,232,220,0.22);
@@ -241,17 +257,16 @@ html {
               color 0.22s cubic-bezier(0.4,0,0.2,1);
 }
 
-/* ── Dark mode: Seigaiha (青海波) — Japanese wave/scale pattern ──
-   Tile 80×40 px, overlapping arcs in hinoki amber on sumi-e black.
-   Replaces the diagonal stripes of light mode.
-── */
+/* ── Dark mode: photo background (Japanese garden) + seigaiha overlay ── */
 html.dark {
   background-image:
-    url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='40'><circle cx='40' cy='40' r='40' fill='none' stroke='%23C8915A' stroke-width='0.7' stroke-opacity='0.08'/><circle cx='0' cy='40' r='40' fill='none' stroke='%23C8915A' stroke-width='0.7' stroke-opacity='0.08'/><circle cx='80' cy='40' r='40' fill='none' stroke='%23C8915A' stroke-width='0.7' stroke-opacity='0.08'/><circle cx='40' cy='0' r='40' fill='none' stroke='%23C8915A' stroke-width='0.7' stroke-opacity='0.08'/></svg>"),
-    radial-gradient(ellipse 80% 50% at 0% 0%,   rgba(200,145,90,0.04) 0%, transparent 65%),
-    radial-gradient(ellipse 70% 60% at 100% 100%, rgba(200,145,90,0.02) 0%, transparent 60%);
-  background-size: 80px 40px, 100% 100%, 100% 100%;
+    url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='40'><circle cx='40' cy='40' r='40' fill='none' stroke='%23C8915A' stroke-width='0.7' stroke-opacity='0.06'/><circle cx='0' cy='40' r='40' fill='none' stroke='%23C8915A' stroke-width='0.7' stroke-opacity='0.06'/><circle cx='80' cy='40' r='40' fill='none' stroke='%23C8915A' stroke-width='0.7' stroke-opacity='0.06'/><circle cx='40' cy='0' r='40' fill='none' stroke='%23C8915A' stroke-width='0.7' stroke-opacity='0.06'/></svg>"),
+    linear-gradient(rgba(14,10,6,0.78), rgba(14,10,6,0.78)),
+    url('/bg-dark.jpg');
+  background-size: 80px 40px, 100% 100%, cover;
   background-repeat: repeat, no-repeat, no-repeat;
+  background-position: top left, center, center;
+  background-attachment: local, fixed, fixed;
 }
 
 /* Display font for headings */
