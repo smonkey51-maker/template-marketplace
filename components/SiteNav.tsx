@@ -100,7 +100,7 @@ export default function SiteNav({ title }: { title?: string }) {
           className="hidden lg:inline-flex btn-brand shrink-0 mr-3"
           style={{ fontSize: "8px", padding: "7px 13px" }}
         >
-          Studio Access
+          Studio
         </Link>
 
         <LanguageToggle />
