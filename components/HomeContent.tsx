@@ -227,9 +227,10 @@ export default function HomeContent() {
 
           <div className="flex-1" />
 
-          {/* Desktop search */}
-          <div className="hidden sm:flex items-center relative">
-            <svg className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" width="13" height="13" viewBox="0 0 20 20" fill="none" style={{ color: "var(--muted)" }}>
+          {/* Desktop search — minimal underline style */}
+          <div className="hidden sm:flex items-center relative group">
+            <svg className="absolute left-0 top-1/2 -translate-y-1/2 pointer-events-none transition-colors duration-200" width="13" height="13" viewBox="0 0 20 20" fill="none"
+              style={{ color: query ? "var(--accent)" : "var(--muted)" }}>
               <circle cx="8.5" cy="8.5" r="5.75" stroke="currentColor" strokeWidth="1.7"/>
               <path d="M13 13l4 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/>
             </svg>
@@ -242,18 +243,18 @@ export default function HomeContent() {
                   document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" });
                 }
               }}
-              placeholder={lang === "it" ? "Cerca template, es. landing page…" : "Search templates, e.g. landing page…"}
-              className="pl-8 pr-3 py-1.5 text-[12px] outline-none w-32 focus:w-52 transition-all duration-200"
+              placeholder={lang === "it" ? "Cerca…" : "Search…"}
+              className="pl-5 pr-5 py-1 text-[12px] outline-none w-28 focus:w-48 transition-all duration-300"
               style={{
-                background: "var(--input-bg)",
-                border: "1px solid var(--border)",
+                background: "transparent",
+                borderBottom: "1px solid var(--border)",
                 color: "var(--text)",
                 caretColor: "var(--accent)",
               }}
             />
             {query && (
-              <button onClick={() => setQuery("")} className="absolute right-2.5 top-1/2 -translate-y-1/2" style={{ color: "var(--muted)" }}>
-                <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2L2 10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg>
+              <button onClick={() => setQuery("")} className="absolute right-0 top-1/2 -translate-y-1/2" style={{ color: "var(--muted)" }}>
+                <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2L2 10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg>
               </button>
             )}
           </div>
