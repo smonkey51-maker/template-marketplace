@@ -12,6 +12,7 @@ import GeneratePanel from "@/components/studio/GeneratePanel";
 import CustomizePanel from "@/components/studio/CustomizePanel";
 import OutputPreview from "@/components/studio/OutputPreview";
 import HistoryPanel from "@/components/studio/HistoryPanel";
+import AIUsageBanner from "@/components/studio/AIUsageBanner";
 
 function StudioContent() {
   const searchParams = useSearchParams();
@@ -66,6 +67,7 @@ function StudioContent() {
   const [copied, setCopied] = useState(false);
   const [outputView, setOutputView] = useState<"code" | "preview">("code");
   const [showTimeoutHint, setShowTimeoutHint] = useState(false);
+  const [limitError, setLimitError] = useState<string | null>(null);
   const abortRef = useRef<AbortController | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -100,9 +102,15 @@ function StudioContent() {
 
         if (!res.ok || !res.body) {
           const err = await res.text();
+          if (res.status === 403) {
+            setLimitError(err);
+            return;
+          }
           setOutput(`Error: ${err}`);
           return;
         }
+
+        setLimitError(null);
 
         const reader = res.body.getReader();
         const decoder = new TextDecoder();
@@ -217,6 +225,22 @@ function StudioContent() {
     <div className="min-h-screen flex flex-col bg-page relative">
 
       <SiteNav title="AI Studio" />
+
+      <AIUsageBanner />
+
+      {limitError && (
+        <div className="max-w-7xl mx-auto w-full px-6 pt-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 px-4 py-3 bg-terra/10 border border-terra/30 text-[13px]">
+            <span className="text-terra flex-1">{limitError}</span>
+            <a
+              href="/bundle/studio-access"
+              className="shrink-0 px-3 py-1.5 bg-accent text-white text-[12px] font-semibold uppercase tracking-wide hover:bg-accent/90 transition-colors"
+            >
+              Upgrade to Studio
+            </a>
+          </div>
+        </div>
+      )}
 
       <div className="flex-1 max-w-7xl mx-auto w-full px-6 py-10 relative z-10">
         <div className="mb-8">
