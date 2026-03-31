@@ -99,7 +99,7 @@ export default function SiteNav({ title }: { title?: string }) {
           href="/studio"
           className="hidden lg:inline-flex btn-brand btn-brand-sm mr-3"
         >
-          Studio Access
+          <span className="whitespace-nowrap">Studio Access</span>
         </Link>
 
         <LanguageToggle />
