@@ -881,8 +881,9 @@ html::-webkit-scrollbar-track {
   gap: 14px;
   width: 100%;
   margin: 2.5rem 0;
-  opacity: 0.45;
+  opacity: 0.60;
 }
+html.dark .zen-divider { opacity: 0.45; }
 .zen-divider::before,
 .zen-divider::after {
   content: '';
@@ -947,11 +948,12 @@ html::-webkit-scrollbar-track {
   font-family: var(--font-gatsunaga);
   font-size: 11px;
   color: var(--accent);
-  opacity: 0.28;
+  opacity: 0.50;
   letter-spacing: 0.25em;
   user-select: none;
   pointer-events: none;
 }
+html.dark .tategaki { opacity: 0.28; }
 
 /* ── Ma divider (間) — "negative space" variant of zen-divider ──
    Shorter lines, slightly different symbol for section variety.
@@ -963,8 +965,9 @@ html::-webkit-scrollbar-track {
   gap: 12px;
   width: 100%;
   margin: 1.8rem 0;
-  opacity: 0.32;
+  opacity: 0.55;
 }
+html.dark .ma-divider { opacity: 0.32; }
 .ma-divider::before,
 .ma-divider::after {
   content: '';
@@ -1027,6 +1030,19 @@ html::-webkit-scrollbar-track {
   opacity: 0.8;
   transform: rotate(0deg);
 }
+
+/* ── Pillar header — theme-adaptive opacities ── */
+.pillar-name { opacity: 0.92; }
+html.dark .pillar-name { opacity: 0.75; }
+
+.pillar-bar { opacity: 0.50; }
+html.dark .pillar-bar { opacity: 0.30; }
+
+.pillar-line { opacity: 0.38; }
+html.dark .pillar-line { opacity: 0.20; }
+
+.pillar-tategaki { opacity: 0.65 !important; font-size: 13px; }
+html.dark .pillar-tategaki { opacity: 0.50 !important; }
 
 /* ── Ink line (墨線) — asymmetric brush-stroke underline beneath section h2 ──
    Left-anchored gradient fading right: evokes a single sumi-e brush mark.
