@@ -19,6 +19,9 @@ export default function HeroSection({
     >
       <div className="max-w-4xl mx-auto px-4 sm:px-8 flex flex-col items-center text-center py-14 sm:py-28">
 
+        {/* Torii ornament — above headline */}
+        <div className="torii-accent mb-8" aria-hidden="true" />
+
         {/* Headline */}
         <h1
           className="hero-title-reveal leading-[1.08] mb-5 sm:mb-7"

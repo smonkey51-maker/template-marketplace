@@ -29,7 +29,6 @@ export default function EmailCapture() {
     it: {
       label: "Newsletter",
       title: "Nuovi template in anteprima",
-      subtitle: "I nuovi arrivi, in anteprima.",
       placeholder: "La tua email",
       cta: "Iscriviti",
       success: "Sei dentro. Ti aggiungiamo alla lista ✓",
@@ -38,7 +37,6 @@ export default function EmailCapture() {
     en: {
       label: "Newsletter",
       title: "New templates, first",
-      subtitle: "New arrivals, before everyone else.",
       placeholder: "Your email",
       cta: "Subscribe",
       success: "You're in. We'll keep you posted ✓",
@@ -57,7 +55,6 @@ export default function EmailCapture() {
             {c.label}
           </p>
           <p className="text-[15px] font-semibold text-theme" style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}>{c.title}</p>
-          <p className="text-[13px] text-muted mt-0.5">{c.subtitle}</p>
         </div>
 
         {/* Form */}

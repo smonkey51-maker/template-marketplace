@@ -224,7 +224,7 @@ export const t = {
       owned: "{{n}}/{{total}} template già posseduti",
     },
     footer: {
-      tagline: "Template UI e Prompt AI pronti all'uso.",
+      tagline: "Design per chi costruisce.",
       bundles: "Bundle",
       saved: "Salvati",
       guide: "Guida",
@@ -458,7 +458,7 @@ export const t = {
       owned: "{{n}}/{{total}} templates already owned",
     },
     footer: {
-      tagline: "UI templates and AI prompts, ready to use.",
+      tagline: "Design for those who build.",
       bundles: "Bundles",
       saved: "Saved",
       guide: "Guide",
