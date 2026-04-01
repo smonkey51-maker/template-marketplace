@@ -17,7 +17,6 @@ import HeroSection from "@/components/home/HeroSection";
 import TestimonialsSection from "@/components/home/TestimonialsSection";
 import CTASection from "@/components/home/CTASection";
 import { CATEGORIES } from "@/lib/homeData";
-import BundleCard from "@/components/BundleCard";
 
 // ── Count-up hook (local — only used in this file) ───────────────────────────
 function useCountUp(target: number, duration = 900) {
@@ -473,6 +472,96 @@ export default function HomeContent() {
       ═══════════════════════════════════════════ */}
       <HeroSection lang={lang} countedTemplates={countedTemplates} query={query} setQuery={setQuery} />
 
+      {/* ── Free Starter Kit — banner prominente ── */}
+      {(() => {
+        const freeBundle = bundles.find((b) => b.id === "bundle-free-starter");
+        if (!freeBundle) return null;
+        return (
+          <section className="relative z-10 border-t border-theme px-4 sm:px-8 py-10 sm:py-14 overflow-hidden">
+            {/* Glow di sfondo */}
+            <div className="absolute inset-0 pointer-events-none"
+              style={{ background: "radial-gradient(ellipse 70% 80% at 50% 50%, rgba(156,119,51,0.07), transparent)" }} />
+            <div className="absolute top-0 inset-x-0 h-px pointer-events-none"
+              style={{ background: "linear-gradient(90deg,transparent,rgba(200,169,110,0.4),transparent)" }} />
+
+            <div className="max-w-7xl mx-auto">
+              <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center lg:items-start">
+
+                {/* Left — copy principale */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="text-3xl">{freeBundle.emoji}</span>
+                    <span className="inline-flex items-center gap-1.5 bg-accent/15 border border-accent/30 text-accent text-[10px] font-black uppercase tracking-widest px-2.5 py-1">
+                      {lang === "it" ? "Gratis · Zero costi" : "Free · Zero cost"}
+                    </span>
+                  </div>
+
+                  <h2 className="text-[26px] sm:text-[34px] font-black text-theme leading-tight tracking-tight mb-3">
+                    {freeBundle.name}
+                  </h2>
+                  <p className="text-[14px] text-muted leading-relaxed mb-6 max-w-xl">
+                    {freeBundle.description}
+                  </p>
+
+                  {/* Template pills */}
+                  <div className="flex flex-wrap gap-1.5 mb-7">
+                    {freeBundle.templateIds.map((id) => {
+                      const tmpl = getTemplate(id);
+                      return (
+                        <span key={id}
+                          className="text-[11px] px-2.5 py-1 border text-muted/80"
+                          style={{ background: "var(--input-bg)", borderColor: "var(--border)" }}>
+                          {tmpl?.name ?? id}
+                        </span>
+                      );
+                    })}
+                  </div>
+
+                  <button
+                    onClick={() => handleBundleBuy(freeBundle.id)}
+                    className="btn-brand text-[14px]"
+                    style={{ padding: "12px 28px" }}
+                  >
+                    {lang === "it" ? "Scarica il kit gratis →" : "Download the free kit →"}
+                  </button>
+                </div>
+
+                {/* Right — highlights + numero template */}
+                <div className="w-full lg:w-auto lg:shrink-0 lg:w-64 border border-accent/25 p-5 sm:p-6 relative"
+                  style={{ background: "linear-gradient(135deg,rgba(156,119,51,0.06) 0%,rgba(13,11,8,0) 60%)" }}>
+                  <div className="absolute top-0 inset-x-0 h-px"
+                    style={{ background: "linear-gradient(90deg,transparent,rgba(200,169,110,0.4),transparent)" }} />
+
+                  <p className="text-[10px] font-black uppercase tracking-widest text-muted/50 mb-4">
+                    {lang === "it" ? "Cosa ottieni" : "What you get"}
+                  </p>
+
+                  <div className="space-y-3 mb-5">
+                    {freeBundle.highlights.map((h, i) => (
+                      <div key={i} className="flex items-start gap-2.5">
+                        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" className="shrink-0 mt-0.5" aria-hidden>
+                          <path d="M2 6.5l3.5 3.5 5.5-6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ color: "var(--accent)" }}/>
+                        </svg>
+                        <span className="text-[12px] text-theme/80 leading-snug">{h}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="border-t border-accent/15 pt-4 flex items-baseline gap-2">
+                    <span className="text-[28px] font-black leading-none"
+                      style={{ color: "var(--accent)", fontFamily: "var(--font-dm-serif)" }}>
+                      {lang === "it" ? "Gratis" : "Free"}
+                    </span>
+                    <span className="text-[12px] text-muted line-through">€19.99</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+        );
+      })()}
+
       {/* ── Zen divider + mon-ring ── */}
       <div className="relative z-10 px-4 sm:px-8">
         <div className="zen-divider" aria-hidden="true"><span>◇</span></div>
@@ -497,106 +586,7 @@ export default function HomeContent() {
       {/* ── Testimonials — da aggiungere quando ci saranno utenti reali ── */}
       {/* <TestimonialsSection lang={lang} /> */}
 
-      {/* ═══════════════════════════════════════════════════════════
-          BUNDLES SECTION
-          Free Starter Kit shown as a featured highlight above the grid.
-          Paid bundle cards render without scroll-reveal animation.
-      ═══════════════════════════════════════════════════════════ */}
-      <section className="relative z-10 border-t border-theme px-4 sm:px-8 py-16 sm:py-20">
-        <div className="max-w-7xl mx-auto">
-
-          {/* Section header */}
-          <div className="mb-10 sm:mb-12">
-            <p className="label-section mb-4">
-              {lang === "it" ? "Risparmia di più" : "Save More"}
-            </p>
-            <h2 className="text-[22px] sm:text-[28px] font-black tracking-tight leading-none text-theme ink-line">
-              {lang === "it" ? "Bundle esclusivi" : "Exclusive Bundles"}
-            </h2>
-            <p className="mt-4 text-[13px] text-muted max-w-md leading-relaxed">
-              {lang === "it"
-                ? "Collezioni curate di template. Acquista insieme e risparmia fino al 50%."
-                : "Curated template collections. Buy together and save up to 50%."}
-            </p>
-          </div>
-
-          {/* ── Free Starter Kit — featured highlight ── */}
-          {(() => {
-            const freeBundle = bundles.find((b) => b.id === "bundle-free-starter");
-            if (!freeBundle) return null;
-            return (
-              <div className="mb-8 relative overflow-hidden border border-accent/50"
-                style={{ background: "linear-gradient(135deg,rgba(156,119,51,0.07) 0%,rgba(13,11,8,0) 55%)" }}>
-                {/* Top shimmer */}
-                <div className="absolute top-0 inset-x-0 h-px pointer-events-none"
-                  style={{ background: "linear-gradient(90deg,transparent,rgba(200,169,110,0.55),transparent)" }} />
-
-                <div className="flex flex-col sm:flex-row gap-0">
-                  {/* Left: content */}
-                  <div className="flex-1 p-5 sm:p-6">
-                    <div className="flex items-center gap-2 mb-3">
-                      <span className="text-2xl">{freeBundle.emoji}</span>
-                      <span className="inline-flex items-center gap-1.5 bg-accent/15 border border-accent/30 text-accent text-[10px] font-black uppercase tracking-widest px-2.5 py-1">
-                        {lang === "it" ? "100% Gratuito" : "100% Free"}
-                      </span>
-                    </div>
-                    <h3 className="text-[18px] sm:text-[20px] font-black text-theme leading-tight tracking-tight mb-1">
-                      {freeBundle.name}
-                    </h3>
-                    <p className="text-[12px] text-muted leading-relaxed mb-4 max-w-lg">{freeBundle.description}</p>
-
-                    {/* Pills */}
-                    <div className="flex flex-wrap gap-1.5 mb-5">
-                      {freeBundle.templateIds.map((id) => {
-                        const tmpl = getTemplate(id);
-                        return (
-                          <span key={id} className="text-[10px] px-2 py-0.5 border text-muted/70"
-                            style={{ background: "var(--input-bg)", borderColor: "var(--border)" }}>
-                            {tmpl?.name ?? id}
-                          </span>
-                        );
-                      })}
-                    </div>
-
-                    <button
-                      onClick={(e) => { e.stopPropagation(); handleBundleBuy(freeBundle.id); }}
-                      className="btn-brand-sm"
-                    >
-                      {lang === "it" ? "Scarica gratis →" : "Download free →"}
-                    </button>
-                  </div>
-
-                  {/* Right: highlights */}
-                  <div className="sm:w-56 shrink-0 border-t sm:border-t-0 sm:border-l border-accent/20 p-5 sm:p-6 flex flex-col justify-center gap-3">
-                    {freeBundle.highlights.map((h, i) => (
-                      <div key={i} className="flex items-start gap-2.5">
-                        <span className="mt-0.5 shrink-0" style={{ color: "var(--accent)" }}>
-                          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
-                            <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
-                        </span>
-                        <span className="text-[12px] text-theme/80 leading-snug">{h}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            );
-          })()}
-
-          {/* Bundle card grid — 1 col on mobile, up to 3 on wide screens. No scroll-reveal: cards appear instantly */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-            {bundles.filter((b) => b.id !== "bundle-free-starter").map((bundle) => (
-              <BundleCard
-                key={bundle.id}
-                bundle={bundle}
-                purchasedIds={purchasedIds}
-                onBuy={handleBundleBuy}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Bundle esclusivi rimossi dall'homepage — visibili su /bundle/:id */}
 
       {/* ── Newsletter — subtle ── */}
       <div className="relative z-10 border-t border-theme">
