@@ -8,8 +8,12 @@ import ReviewSection from "@/components/ReviewSection";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://forma.design";
 
 export async function generateStaticParams() {
-  const templates = await getAllTemplates();
-  return templates.map((t) => ({ templateId: t.id }));
+  try {
+    const templates = await getAllTemplates();
+    return templates.map((t) => ({ templateId: t.id }));
+  } catch {
+    return [];
+  }
 }
 
 export async function generateMetadata(

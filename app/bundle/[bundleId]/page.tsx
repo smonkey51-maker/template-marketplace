@@ -6,8 +6,12 @@ import BundleDetailContent from "@/components/BundleDetailContent";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://forma.design";
 
 export async function generateStaticParams() {
-  const bundles = await getAllBundles();
-  return bundles.map((b) => ({ bundleId: b.id }));
+  try {
+    const bundles = await getAllBundles();
+    return bundles.map((b) => ({ bundleId: b.id }));
+  } catch {
+    return [];
+  }
 }
 
 export async function generateMetadata(

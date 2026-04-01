@@ -58,7 +58,5 @@ export default withSentryConfig(nextConfig, {
   silent: !process.env.SENTRY_AUTH_TOKEN,
   authToken: process.env.SENTRY_AUTH_TOKEN,
 
-  // Disable Sentry build plugin entirely if DSN is not configured
-  disableLogger: true,
   widenClientFileUpload: true,
 });
