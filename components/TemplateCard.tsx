@@ -83,7 +83,7 @@ function UIThumbnail({ template, isPurchased, lang }: { template: Template; isPu
   }, []);
 
   return (
-    <div ref={containerRef} className="relative h-48 overflow-hidden" style={{ background: platformData.from }}>
+    <div ref={containerRef} className="relative h-52 overflow-hidden" style={{ background: platformData.from }}>
 
       {/* For external platforms: elegant branded poster instead of raw iframe grid */}
       {isExternal ? (
@@ -197,8 +197,13 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
           onClick={(e) => { if (onQuickView) { e.preventDefault(); e.stopPropagation(); onQuickView(template.id); } }}
         >
           <UIThumbnail template={template} isPurchased={isPurchased} lang={lang} />
-          {/* Hover veil */}
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/[0.05] transition-colors duration-300 pointer-events-none" />
+          {/* Hover overlay — quick view label (Mobbin-style) */}
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-250 pointer-events-none flex items-center justify-center">
+            <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-[11px] font-bold uppercase tracking-widest text-white/90 border border-white/30 px-3 py-1.5"
+              style={{ background: "rgba(0,0,0,0.45)", backdropFilter: "blur(4px)" }}>
+              {lang === "it" ? "Anteprima" : "Preview"}
+            </span>
+          </div>
         </div>
 
         {/* Card body */}
@@ -209,8 +214,8 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
             {displayName}
           </h3>
 
-          {/* Description */}
-          <p className="text-[11px] font-light leading-relaxed line-clamp-2 flex-1" style={{ color: "var(--muted)" }}>
+          {/* Description — one line only, visual is the protagonist */}
+          <p className="text-[11px] font-light leading-snug line-clamp-1 flex-1 opacity-70" style={{ color: "var(--muted)" }}>
             {displayDesc}
           </p>
 
