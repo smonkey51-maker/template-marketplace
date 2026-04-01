@@ -218,6 +218,99 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
           )}
         </div>
 
+        {/* ── Featured Product Spotlight (free bundles only) ── */}
+        {bundle.featuredProductId && bundle.price === 0 && (() => {
+          const featured = getTemplate(bundle.featuredProductId);
+          if (!featured) return null;
+          const owned = purchasedIds.includes(featured.id);
+          return (
+            <div className="mb-8 border border-accent/40 relative overflow-hidden"
+              style={{ background: "linear-gradient(135deg, rgba(156,119,51,0.08) 0%, rgba(13,11,8,0) 60%)" }}>
+              {/* Top shimmer line */}
+              <div className="absolute top-0 inset-x-0 h-px"
+                style={{ background: "linear-gradient(90deg,transparent,rgba(200,169,110,0.6),transparent)" }} />
+
+              <div className="p-5 sm:p-6">
+                {/* Badge */}
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="inline-flex items-center gap-1.5 bg-accent/15 border border-accent/30 text-accent text-[10px] font-black uppercase tracking-widest px-2.5 py-1">
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden>
+                      <path d="M5 1l1.2 2.4L9 3.8l-2 1.9.5 2.8L5 7.2 2.5 8.5l.5-2.8L1 3.8l2.8-.4L5 1z" fill="currentColor"/>
+                    </svg>
+                    Il nostro prodotto più forte
+                  </span>
+                  <span className="text-[10px] text-muted/60 font-medium">
+                    {lang === "it" ? `${featured.downloads.toLocaleString("it-IT")} download` : `${featured.downloads.toLocaleString()} downloads`}
+                  </span>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-5 sm:gap-6 items-start">
+                  {/* Preview */}
+                  <div className="w-full sm:w-[220px] shrink-0 border border-accent/20 overflow-hidden bg-card" style={{ height: "130px" }}>
+                    <div className="relative" style={{ height: "130px" }}>
+                      <iframe
+                        src={`/api/preview/${featured.id}`}
+                        title={featured.name}
+                        sandbox="allow-scripts"
+                        className="w-full border-0 block"
+                        style={{ height: "360px", transform: "scale(0.36)", transformOrigin: "top left", width: "611px", pointerEvents: "none" }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Info */}
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-[18px] sm:text-[20px] font-black text-theme leading-tight tracking-tight mb-1">
+                      {featured.name}
+                    </h3>
+                    <p className="text-[13px] text-muted leading-relaxed mb-4">{featured.description}</p>
+
+                    {/* Stats row */}
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="flex items-center gap-1.5 text-[12px] text-muted/80">
+                        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden>
+                          <path d="M6.5 1.5L8 4.6l3.4.5-2.5 2.4.6 3.4L6.5 9.3 3.5 11l.6-3.4L1.6 5.1l3.4-.5L6.5 1.5z" fill="currentColor" className="text-accent"/>
+                        </svg>
+                        <span>{lang === "it" ? "Più scaricato" : "Top downloaded"}</span>
+                      </div>
+                      <span className="text-muted/30">·</span>
+                      <span className="text-[12px] text-muted/80">
+                        {lang === "it" ? "Solo" : "Only"}{" "}
+                        <span className="font-black text-accent text-[14px]" style={{ fontFamily: "var(--font-dm-serif)" }}>
+                          {(featured.price / 100).toFixed(2).replace(".", ",")}€
+                        </span>
+                      </span>
+                      <span className="text-muted/30">·</span>
+                      <span className="text-[12px] text-muted/80">UI Template</span>
+                    </div>
+
+                    <div className="flex items-center gap-3 flex-wrap">
+                      {owned ? (
+                        <span className="text-[12px] font-bold text-accent bg-accent/10 border border-accent/20 px-3 py-1.5">
+                          {t[lang].bundleDetail.alreadyOwned}
+                        </span>
+                      ) : (
+                        <Link
+                          href={`/preview/${featured.id}`}
+                          className="btn-brand-sm"
+                        >
+                          {lang === "it" ? "Scopri il template →" : "Explore template →"}
+                        </Link>
+                      )}
+                      <Link
+                        href={`/preview/${featured.id}`}
+                        className="text-[12px] text-muted/60 hover:text-muted transition-colors underline underline-offset-2"
+                      >
+                        {lang === "it" ? "Anteprima completa" : "Full preview"}
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })()}
+
         {/* ── Price breakdown ── */}
         <div className="glass-subtle border border-theme p-5 mb-4">
           <h2 className="text-[13px] font-black text-muted/60 uppercase tracking-widest mb-4">
