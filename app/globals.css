@@ -837,6 +837,33 @@ html::-webkit-scrollbar-track {
   transform: translateY(0);
 }
 
+/* ── Bundle card scroll-reveal — deeper lift, slower fade for premium feel ──
+   20 px rise over 600 ms with a custom ease that starts slow and glides in.
+   The stagger delay is applied via inline style at the call site.
+── */
+.scroll-reveal-bundle {
+  opacity: 0;
+  /* Start 20 px below final position */
+  transform: translateY(20px);
+  /* cubic-bezier(0.22, 1, 0.36, 1) is a deceleration curve:
+     fast exit from eased-in start, then glides to rest — matches the brand's
+     "ease-premium" token but stretched to 600 ms for a more cinematic entrance. */
+  transition:
+    opacity  600ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.scroll-reveal-bundle.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal-bundle {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 /* ═══════════════════════════════════════════════════════════
    CURSOR TRAIL
    ═══════════════════════════════════════════════════════════ */

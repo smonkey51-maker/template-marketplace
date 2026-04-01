@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect, useRef, Suspense } from "react";
+import { useState, useEffect, useRef, Suspense, useCallback } from "react";
 import { templates, bundles, formatPrice } from "@/lib/templates";
 import TemplateGrid from "@/components/TemplateGrid";
 import NavButtons from "@/components/NavButtons";
 import { useLang } from "@/components/LanguageProvider";
 import { t } from "@/lib/i18n";
 import { usePurchases } from "@/lib/usePurchases";
+import { useToast } from "@/components/Toast";
 import EmailCapture from "@/components/EmailCapture";
 import Footer from "@/components/Footer";
 import TemplatesDropdown from "@/components/home/TemplatesDropdown";
@@ -16,6 +17,8 @@ import HeroSection from "@/components/home/HeroSection";
 import TestimonialsSection from "@/components/home/TestimonialsSection";
 import CTASection from "@/components/home/CTASection";
 import { CATEGORIES } from "@/lib/homeData";
+import BundleCard from "@/components/BundleCard";
+import ScrollRevealCard from "@/components/grid/ScrollRevealCard";
 
 // ── Count-up hook (local — only used in this file) ───────────────────────────
 function useCountUp(target: number, duration = 900) {
@@ -159,6 +162,29 @@ export default function HomeContent() {
   const [mobileExpandBundles, setMobileExpandBundles] = useState(false);
 
   const countedTemplates = useCountUp(animatedTemplates);
+  const { toast } = useToast();
+
+  // Bundle checkout handler — shared across all bundle cards in the homepage section
+  const handleBundleBuy = useCallback(async (bundleId: string) => {
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ bundleId }),
+      });
+      if (!res.ok) throw new Error("checkout_failed");
+      const data = await res.json();
+      if (data.url) window.location.href = data.url;
+      else throw new Error("no_url");
+    } catch {
+      toast(
+        lang === "it"
+          ? "Errore durante il checkout. Riprova più tardi."
+          : "Checkout failed. Please try again.",
+        "error"
+      );
+    }
+  }, [lang, toast]);
 
   // Lock body scroll when mobile menu open
   useEffect(() => {
@@ -464,6 +490,59 @@ export default function HomeContent() {
 
       {/* ── Testimonials — da aggiungere quando ci saranno utenti reali ── */}
       {/* <TestimonialsSection lang={lang} /> */}
+
+      {/* ═══════════════════════════════════════════════════════════
+          BUNDLES SECTION
+          Cards animate in one-by-one via Intersection Observer as the
+          user scrolls down. Each card is wrapped in ScrollRevealCard
+          with a 100 ms delay increment so they stagger naturally.
+      ═══════════════════════════════════════════════════════════ */}
+      <section className="relative z-10 border-t border-theme px-4 sm:px-8 py-16 sm:py-20">
+        <div className="max-w-7xl mx-auto">
+
+          {/* Section header */}
+          <div className="mb-10 sm:mb-12">
+            <p className="label-section mb-4">
+              {lang === "it" ? "Risparmia di più" : "Save More"}
+            </p>
+            <h2 className="text-[22px] sm:text-[28px] font-black tracking-tight leading-none text-theme ink-line">
+              {lang === "it" ? "Bundle esclusivi" : "Exclusive Bundles"}
+            </h2>
+            <p className="mt-4 text-[13px] text-muted max-w-md leading-relaxed">
+              {lang === "it"
+                ? "Collezioni curate di template. Acquista insieme e risparmia fino al 50%."
+                : "Curated template collections. Buy together and save up to 50%."}
+            </p>
+          </div>
+
+          {/* Bundle card grid — 1 col on mobile, up to 3 on wide screens */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+            {bundles.map((bundle, index) => (
+              /*
+               * ScrollRevealCard wraps each card with an IntersectionObserver.
+               * Once 8% of the card enters the viewport the observer fires once,
+               * adds .visible, and immediately disconnects — so the animation
+               * only ever plays once regardless of subsequent scroll direction.
+               *
+               * Stagger: 100 ms × card index keeps the cascade short enough to
+               * feel lively (cards 0-2 fire within 200 ms of each other) but
+               * spread enough that the eye can follow the sequence.
+               */
+              <ScrollRevealCard
+                key={bundle.id}
+                className="scroll-reveal-bundle"
+                delay={index * 100}
+              >
+                <BundleCard
+                  bundle={bundle}
+                  purchasedIds={purchasedIds}
+                  onBuy={handleBundleBuy}
+                />
+              </ScrollRevealCard>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* ── Newsletter — subtle ── */}
       <div className="relative z-10 border-t border-theme">

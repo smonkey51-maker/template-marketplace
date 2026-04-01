@@ -2,7 +2,16 @@
 
 import { useRef, useState, useEffect } from "react";
 
-export default function ScrollRevealCard({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+export default function ScrollRevealCard({
+  children,
+  delay = 0,
+  className = "scroll-reveal",
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  /** Base CSS class that owns the hidden→visible transition. Defaults to "scroll-reveal". */
+  className?: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -18,7 +27,11 @@ export default function ScrollRevealCard({ children, delay = 0 }: { children: Re
   }, []);
 
   return (
-    <div ref={ref} className={`scroll-reveal${visible ? " visible" : ""}`} style={{ transitionDelay: `${delay}ms` }}>
+    <div
+      ref={ref}
+      className={`${className}${visible ? " visible" : ""}`}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
       {children}
     </div>
   );
