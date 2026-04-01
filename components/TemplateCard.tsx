@@ -222,7 +222,7 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
           {/* Price + wishlist */}
           <div className="mt-3 pt-3 flex items-center justify-between" style={{ borderTop: "1px solid var(--border)" }}>
             <span className="text-[18px]" style={{ fontFamily: "var(--font-jakarta), sans-serif", fontWeight: 600, color: "var(--accent)" }}>
-              {formatPrice(template.price)}
+              {template.price === 0 ? (lang === "it" ? "Gratis" : "Free") : formatPrice(template.price)}
             </span>
             <button
               onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggle(template.id); }}

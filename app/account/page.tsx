@@ -14,7 +14,7 @@ import { t, getLocalizedName } from "@/lib/i18n";
 export default function AccountPage() {
   const { user, isLoaded } = useUser();
   const { lang } = useLang();
-  const { purchasedIds } = usePurchases();
+  const { purchasedIds, loading: purchasesLoading } = usePurchases();
   const [portalLoading, setPortalLoading] = useState(false);
 
   const studioAccess = hasStudioAccess(purchasedIds);
@@ -123,15 +123,25 @@ export default function AccountPage() {
             )}
           </div>
 
-          {purchasedTemplates.length === 0 ? (
+          {purchasesLoading ? (
+            <div className="flex flex-col gap-3">
+              {[0, 1, 2].map((i) => (
+                <div key={i} className="bg-surface border border-theme overflow-hidden animate-pulse">
+                  <div className="flex items-center gap-4 px-5 py-4">
+                    <div className="w-11 h-11 shrink-0" style={{ background: "var(--card-bg)" }} />
+                    <div className="flex-1 space-y-2">
+                      <div className="h-4 w-2/5 rounded" style={{ background: "var(--card-bg)" }} />
+                      <div className="h-3 w-1/4 rounded" style={{ background: "var(--card-bg)" }} />
+                    </div>
+                  </div>
+                  <div className="border-t border-theme px-5 py-3 h-14" style={{ background: "var(--card-bg)" }} />
+                </div>
+              ))}
+            </div>
+          ) : purchasedTemplates.length === 0 ? (
             <div className="bg-surface border border-theme p-10 text-center flex flex-col items-center gap-4">
               <p className="text-[15px] text-muted">{t[lang].account.noTemplates}</p>
-              <Link
-                href="/"
-                className="btn-brand"
-              >
-                {t[lang].account.goToMarketplace}
-              </Link>
+              <Link href="/" className="btn-brand">{t[lang].account.goToMarketplace}</Link>
             </div>
           ) : (
             <div className="flex flex-col gap-3">
@@ -160,7 +170,11 @@ export default function AccountPage() {
                       <div className="flex-1 min-w-0">
                         <p className="font-semibold text-theme text-[15px] truncate">{displayName}</p>
                         <div className="flex items-center gap-2 mt-0.5">
-                          <span className="text-[12px] text-muted">{formatPrice(tmpl.price)}</span>
+                          <span className="text-[12px] text-muted">
+                            {tmpl.price === 0
+                              ? (lang === "it" ? "Gratis" : "Free")
+                              : formatPrice(tmpl.price)}
+                          </span>
                           <span className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-[1px]"
                             style={{ background: meta.bg, color: meta.color }}>
                             {meta.badge}
