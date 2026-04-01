@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { Suspense, useRef } from "react";
+import { Suspense, useRef, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
-import { getTemplate, getDownloadType } from "@/lib/templates";
+import { getTemplate, getBundle, getDownloadType } from "@/lib/templates";
 import DownloadButton from "@/components/DownloadButton";
 import { useLang } from "@/components/LanguageProvider";
 import { t } from "@/lib/i18n";
@@ -50,12 +50,82 @@ function SuccessContent() {
   const searchParams = useSearchParams();
   const templateId = searchParams.get("templateId") ?? undefined;
   const sessionId = searchParams.get("session_id") ?? undefined;
+  const bundleId = searchParams.get("bundleId") ?? undefined;
+  const isFree = searchParams.get("free") === "1";
   const { isSignedIn } = useUser();
   const { lang } = useLang();
 
+  // Record free bundle/template purchases in Supabase (Stripe webhook never fires for free items)
+  useEffect(() => {
+    if (!isFree || !isSignedIn) return;
+    const payload = bundleId ? { bundleId } : templateId ? { templateId } : null;
+    if (!payload) return;
+    fetch("/api/record-free-purchase", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    })
+      .then((r) => r.json())
+      .catch(() => {}); // non-blocking — UI still works
+  }, [isFree, isSignedIn, bundleId, templateId]);
+
   const isStudioAccess = templateId === "studio-access";
   const template = templateId && !isStudioAccess ? getTemplate(templateId) : null;
+  const bundle = bundleId ? getBundle(bundleId) : null;
   const downloadType = template ? getDownloadType(template) : "html";
+
+  // ── Free bundle success ──────────────────────────────────────────────────
+  if (bundle && isFree) {
+    return (
+      <div className="relative z-10 bg-surface border border-theme p-8 max-w-md w-full mx-auto text-center shadow-[0_8px_40px_rgba(0,0,0,0.12)]">
+        <div className="absolute inset-x-8 top-0 h-px rounded-full"
+          style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)" }} />
+
+        <div className="flex justify-center mb-6">
+          <div className="w-20 h-20 bg-accent/15 flex items-center justify-center text-4xl">
+            {bundle.emoji}
+          </div>
+        </div>
+
+        <h1 className="text-[22px] font-bold mb-2 tracking-tight text-theme" style={{ fontFamily: "var(--font-syne)" }}>
+          {lang === "it" ? "Kit scaricato!" : "Kit downloaded!"}
+        </h1>
+        <p className="text-[14px] text-muted mb-1">
+          {lang === "it" ? "Hai sbloccato il" : "You've unlocked the"}{" "}
+          <span className="font-semibold text-theme">{bundle.name}</span>
+        </p>
+        <p className="text-[12px] text-muted mb-6">
+          {lang === "it"
+            ? `${bundle.templateIds.length} template ora disponibili nel tuo account.`
+            : `${bundle.templateIds.length} templates now available in your account.`}
+        </p>
+
+        <div className="flex flex-col gap-3">
+          <Link
+            href="/account"
+            className="btn-brand w-full justify-center text-[14px]"
+            style={{ padding: "13px 24px" }}
+          >
+            {lang === "it" ? "Vedi i tuoi template →" : "View your templates →"}
+          </Link>
+          {isSignedIn && (
+            <Link
+              href="/studio"
+              className="block w-full px-6 py-3.5 glass-subtle font-bold text-[14px] text-theme text-center transition-all duration-200 active:scale-[0.97] ios-spring"
+            >
+              {lang === "it" ? "Personalizza con AI Studio →" : "Customize with AI Studio →"}
+            </Link>
+          )}
+          <Link
+            href="/"
+            className="block w-full px-6 py-3 text-[13px] text-muted text-center transition-all duration-200 hover:text-theme"
+          >
+            {lang === "it" ? "Torna al marketplace" : "Back to marketplace"}
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative z-10 bg-surface border border-theme p-8 max-w-md w-full mx-auto text-center shadow-[0_8px_40px_rgba(0,0,0,0.12)]">
