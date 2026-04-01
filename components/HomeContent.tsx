@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect, useRef, Suspense, useCallback } from "react";
-import { templates, bundles, formatPrice } from "@/lib/templates";
+import { templates, bundles, formatPrice, getTemplate } from "@/lib/templates";
 import TemplateGrid from "@/components/TemplateGrid";
 import NavButtons from "@/components/NavButtons";
 import { useLang } from "@/components/LanguageProvider";
@@ -18,7 +18,6 @@ import TestimonialsSection from "@/components/home/TestimonialsSection";
 import CTASection from "@/components/home/CTASection";
 import { CATEGORIES } from "@/lib/homeData";
 import BundleCard from "@/components/BundleCard";
-import ScrollRevealCard from "@/components/grid/ScrollRevealCard";
 
 // ── Count-up hook (local — only used in this file) ───────────────────────────
 function useCountUp(target: number, duration = 900) {
@@ -172,6 +171,13 @@ export default function HomeContent() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ bundleId }),
       });
+      if (res.status === 401) {
+        const data = await res.json().catch(() => ({}));
+        if (data.requireAuth) {
+          window.location.href = `/sign-in?redirect_url=${encodeURIComponent(window.location.pathname)}`;
+          return;
+        }
+      }
       if (!res.ok) throw new Error("checkout_failed");
       const data = await res.json();
       if (data.url) window.location.href = data.url;
@@ -493,9 +499,8 @@ export default function HomeContent() {
 
       {/* ═══════════════════════════════════════════════════════════
           BUNDLES SECTION
-          Cards animate in one-by-one via Intersection Observer as the
-          user scrolls down. Each card is wrapped in ScrollRevealCard
-          with a 100 ms delay increment so they stagger naturally.
+          Free Starter Kit shown as a featured highlight above the grid.
+          Paid bundle cards render without scroll-reveal animation.
       ═══════════════════════════════════════════════════════════ */}
       <section className="relative z-10 border-t border-theme px-4 sm:px-8 py-16 sm:py-20">
         <div className="max-w-7xl mx-auto">
@@ -515,30 +520,79 @@ export default function HomeContent() {
             </p>
           </div>
 
-          {/* Bundle card grid — 1 col on mobile, up to 3 on wide screens */}
+          {/* ── Free Starter Kit — featured highlight ── */}
+          {(() => {
+            const freeBundle = bundles.find((b) => b.id === "bundle-free-starter");
+            if (!freeBundle) return null;
+            return (
+              <div className="mb-8 relative overflow-hidden border border-accent/50"
+                style={{ background: "linear-gradient(135deg,rgba(156,119,51,0.07) 0%,rgba(13,11,8,0) 55%)" }}>
+                {/* Top shimmer */}
+                <div className="absolute top-0 inset-x-0 h-px pointer-events-none"
+                  style={{ background: "linear-gradient(90deg,transparent,rgba(200,169,110,0.55),transparent)" }} />
+
+                <div className="flex flex-col sm:flex-row gap-0">
+                  {/* Left: content */}
+                  <div className="flex-1 p-5 sm:p-6">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="text-2xl">{freeBundle.emoji}</span>
+                      <span className="inline-flex items-center gap-1.5 bg-accent/15 border border-accent/30 text-accent text-[10px] font-black uppercase tracking-widest px-2.5 py-1">
+                        {lang === "it" ? "100% Gratuito" : "100% Free"}
+                      </span>
+                    </div>
+                    <h3 className="text-[18px] sm:text-[20px] font-black text-theme leading-tight tracking-tight mb-1">
+                      {freeBundle.name}
+                    </h3>
+                    <p className="text-[12px] text-muted leading-relaxed mb-4 max-w-lg">{freeBundle.description}</p>
+
+                    {/* Pills */}
+                    <div className="flex flex-wrap gap-1.5 mb-5">
+                      {freeBundle.templateIds.map((id) => {
+                        const tmpl = getTemplate(id);
+                        return (
+                          <span key={id} className="text-[10px] px-2 py-0.5 border text-muted/70"
+                            style={{ background: "var(--input-bg)", borderColor: "var(--border)" }}>
+                            {tmpl?.name ?? id}
+                          </span>
+                        );
+                      })}
+                    </div>
+
+                    <button
+                      onClick={(e) => { e.stopPropagation(); handleBundleBuy(freeBundle.id); }}
+                      className="btn-brand-sm"
+                    >
+                      {lang === "it" ? "Scarica gratis →" : "Download free →"}
+                    </button>
+                  </div>
+
+                  {/* Right: highlights */}
+                  <div className="sm:w-56 shrink-0 border-t sm:border-t-0 sm:border-l border-accent/20 p-5 sm:p-6 flex flex-col justify-center gap-3">
+                    {freeBundle.highlights.map((h, i) => (
+                      <div key={i} className="flex items-start gap-2.5">
+                        <span className="mt-0.5 shrink-0" style={{ color: "var(--accent)" }}>
+                          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
+                            <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </span>
+                        <span className="text-[12px] text-theme/80 leading-snug">{h}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            );
+          })()}
+
+          {/* Bundle card grid — 1 col on mobile, up to 3 on wide screens. No scroll-reveal: cards appear instantly */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-            {bundles.map((bundle, index) => (
-              /*
-               * ScrollRevealCard wraps each card with an IntersectionObserver.
-               * Once 8% of the card enters the viewport the observer fires once,
-               * adds .visible, and immediately disconnects — so the animation
-               * only ever plays once regardless of subsequent scroll direction.
-               *
-               * Stagger: 100 ms × card index keeps the cascade short enough to
-               * feel lively (cards 0-2 fire within 200 ms of each other) but
-               * spread enough that the eye can follow the sequence.
-               */
-              <ScrollRevealCard
+            {bundles.filter((b) => b.id !== "bundle-free-starter").map((bundle) => (
+              <BundleCard
                 key={bundle.id}
-                className="scroll-reveal-bundle"
-                delay={index * 100}
-              >
-                <BundleCard
-                  bundle={bundle}
-                  purchasedIds={purchasedIds}
-                  onBuy={handleBundleBuy}
-                />
-              </ScrollRevealCard>
+                bundle={bundle}
+                purchasedIds={purchasedIds}
+                onBuy={handleBundleBuy}
+              />
             ))}
           </div>
         </div>
