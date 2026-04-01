@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { getTemplate, templates, formatPrice } from "@/lib/templates";
+import { formatPrice } from "@/lib/templates";
+import { getTemplateFromDb, getAllTemplates } from "@/lib/templatesDb";
 import PreviewContent from "@/components/PreviewContent";
 import ReviewSection from "@/components/ReviewSection";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://forma.design";
 
 export async function generateStaticParams() {
+  const templates = await getAllTemplates();
   return templates.map((t) => ({ templateId: t.id }));
 }
 
@@ -14,7 +16,7 @@ export async function generateMetadata(
   { params }: { params: Promise<{ templateId: string }> }
 ): Promise<Metadata> {
   const { templateId } = await params;
-  const template = getTemplate(templateId);
+  const template = await getTemplateFromDb(templateId);
   if (!template) return { title: "Template not found" };
   const ogImage = `/api/og?id=${templateId}`;
   const canonicalUrl = `${SITE_URL}/preview/${templateId}`;
@@ -42,7 +44,7 @@ export default async function PreviewPage(
   { params }: { params: Promise<{ templateId: string }> }
 ) {
   const { templateId } = await params;
-  const template = getTemplate(templateId);
+  const template = await getTemplateFromDb(templateId);
 
   const jsonLd = template
     ? {
@@ -54,13 +56,13 @@ export default async function PreviewPage(
         image: `${SITE_URL}/api/og?id=${templateId}`,
         brand: { "@type": "Brand", name: "Forma" },
         category: "UI Template",
+        seller: { "@type": "Organization", name: "Forma", url: SITE_URL },
         offers: {
           "@type": "Offer",
           price: (template.price / 100).toFixed(2),
           priceCurrency: "EUR",
           availability: "https://schema.org/InStock",
           url: `${SITE_URL}/preview/${templateId}`,
-          priceValidUntil: "2027-12-31",
         },
         keywords: template.tags.join(", "),
       }

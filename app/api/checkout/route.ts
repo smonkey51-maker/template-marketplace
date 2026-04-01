@@ -1,7 +1,8 @@
 import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
-import { getTemplate, getBundle } from "@/lib/templates";
+import { getTemplateFromDb, getBundleFromDb } from "@/lib/templatesDb";
+import { checkoutSchema } from "@/lib/schemas";
 
 const STUDIO_ACCESS_PRICE_ID = "price_1TBruJBoWNgrJbiy6Ry5WGB2";
 
@@ -15,8 +16,11 @@ export async function POST(req: NextRequest) {
     userId = authResult.userId;
   } catch { /* guest checkout */ }
 
-  const body = await req.json();
-  const { templateId, bundleId } = body;
+  const parsed = checkoutSchema.safeParse(await req.json());
+  if (!parsed.success) {
+    return NextResponse.json({ error: parsed.error.issues[0]?.message ?? "Invalid input" }, { status: 400 });
+  }
+  const { templateId, bundleId } = parsed.data;
   const requestOrigin =
     req.headers.get("origin") ??
     req.headers.get("referer")?.match(/^https?:\/\/[^/]+/)?.[0];
@@ -27,7 +31,7 @@ export async function POST(req: NextRequest) {
     if (!userId) {
       return NextResponse.json({ error: "Login required for bundles", requireAuth: true }, { status: 401 });
     }
-    const bundle = getBundle(bundleId);
+    const bundle = await getBundleFromDb(bundleId);
     if (!bundle) {
       return NextResponse.json({ error: "Bundle non trovato" }, { status: 404 });
     }
@@ -76,7 +80,7 @@ export async function POST(req: NextRequest) {
   }
 
   // ── Single template — guest checkout allowed ───────────────────────────────
-  const template = getTemplate(templateId);
+  const template = await getTemplateFromDb(templateId as string);
   if (!template) {
     return NextResponse.json({ error: "Template non trovato" }, { status: 404 });
   }
@@ -86,7 +90,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ url: `${appUrl}/success?templateId=${templateId}&free=1` });
   }
 
-  const templateMeta = { templateId, ...(userId ? { userId } : {}) };
+  const templateMeta = { templateId: templateId as string, ...(userId ? { userId } : {}) };
   const session = await stripe.checkout.sessions.create({
     mode: "payment",
     line_items: [{ price: template.stripePriceId, quantity: 1 }],

@@ -13,6 +13,9 @@ const store = new Map<string, number[]>();
  * Current limits (configured in api/generate and api/customize routes):
  *   - /api/generate:  10 requests / 60 s per IP
  *   - /api/customize: 20 requests / 60 s per IP
+ *
+ * @deprecated In production use `rateLimitRedis` from lib/rateLimitRedis.ts
+ * which is backed by Upstash Redis and works across all server instances.
  */
 export function rateLimit(
   key: string,

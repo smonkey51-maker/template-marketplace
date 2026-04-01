@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { createClient } from "@supabase/supabase-js";
-import { getBundle, getTemplate } from "@/lib/templates";
+import { getTemplateFromDb, getBundleFromDb } from "@/lib/templatesDb";
 import { sendPurchaseEmail } from "@/lib/email";
 import { isStudioProduct } from "@/lib/purchases";
 
@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
 
     if (bundleId && userId) {
       // Bundle purchase: always requires auth
-      const bundle = getBundle(bundleId);
+      const bundle = await getBundleFromDb(bundleId);
       const ids = bundle?.templateIds ?? (templateIds ? templateIds.split(",").filter(Boolean) : []);
       const rows = ids.map((tid) => ({
         user_id: userId,
@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
             type: "bundle",
             itemName: bundle.name,
             previewUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/`,
-            bundleTemplates: ids.map((tid) => getTemplate(tid)?.name ?? tid),
+            bundleTemplates: await Promise.all(ids.map(async (tid) => (await getTemplateFromDb(tid))?.name ?? tid)),
           }).catch(console.error);
         }
       }
@@ -77,7 +77,7 @@ export async function POST(req: NextRequest) {
         console.log(`✅ Acquisto salvato — userId: ${effectiveUserId}, templateId: ${templateId}`);
         if (guestEmail) {
           const isStudio = isStudioProduct(templateId);
-          const tmpl = isStudio ? null : getTemplate(templateId);
+          const tmpl = isStudio ? null : await getTemplateFromDb(templateId);
           const downloadUrl = tmpl
             ? `${process.env.NEXT_PUBLIC_SITE_URL}/api/download-session?session_id=${session.id}&templateId=${templateId}&lang=it`
             : undefined;

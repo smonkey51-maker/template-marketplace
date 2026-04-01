@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { withSentryConfig } from "@sentry/nextjs";
 
 const nextConfig: NextConfig = {
   compiler: {
@@ -48,4 +49,16 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withSentryConfig(nextConfig, {
+  // Sentry org/project — fill in after creating the project on sentry.io
+  org: process.env.SENTRY_ORG ?? "",
+  project: process.env.SENTRY_PROJECT ?? "",
+
+  // Only upload source maps when SENTRY_AUTH_TOKEN is set (CI / Vercel)
+  silent: !process.env.SENTRY_AUTH_TOKEN,
+  authToken: process.env.SENTRY_AUTH_TOKEN,
+
+  // Disable Sentry build plugin entirely if DSN is not configured
+  disableLogger: true,
+  widenClientFileUpload: true,
+});

@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
-import { getBundle, bundles, formatPrice } from "@/lib/templates";
+import { formatPrice } from "@/lib/templates";
+import { getBundleFromDb, getAllBundles } from "@/lib/templatesDb";
 import BundleDetailContent from "@/components/BundleDetailContent";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://forma.design";
 
 export async function generateStaticParams() {
+  const bundles = await getAllBundles();
   return bundles.map((b) => ({ bundleId: b.id }));
 }
 
@@ -12,7 +14,7 @@ export async function generateMetadata(
   { params }: { params: Promise<{ bundleId: string }> }
 ): Promise<Metadata> {
   const { bundleId } = await params;
-  const bundle = getBundle(bundleId);
+  const bundle = await getBundleFromDb(bundleId);
   if (!bundle) return { title: "Bundle not found" };
   const canonicalUrl = `${SITE_URL}/bundle/${bundleId}`;
   const savings = bundle.regularPrice - bundle.price;
@@ -38,7 +40,7 @@ export default async function BundlePage(
   { params }: { params: Promise<{ bundleId: string }> }
 ) {
   const { bundleId } = await params;
-  const bundle = getBundle(bundleId);
+  const bundle = await getBundleFromDb(bundleId);
 
   const jsonLd = bundle
     ? {
@@ -48,13 +50,13 @@ export default async function BundlePage(
         description: bundle.description,
         url: `${SITE_URL}/bundle/${bundleId}`,
         brand: { "@type": "Brand", name: "Forma" },
+        seller: { "@type": "Organization", name: "Forma", url: SITE_URL },
         offers: {
           "@type": "Offer",
           price: (bundle.price / 100).toFixed(2),
           priceCurrency: "EUR",
           availability: "https://schema.org/InStock",
           url: `${SITE_URL}/bundle/${bundleId}`,
-          priceValidUntil: "2027-12-31",
         },
         keywords: bundle.tags.join(", "),
       }

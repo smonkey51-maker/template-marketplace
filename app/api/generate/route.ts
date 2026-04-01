@@ -1,16 +1,17 @@
 import { anthropic } from "@/lib/claude";
 import { NextRequest } from "next/server";
-import { rateLimit } from "@/lib/rateLimit";
 import { auth } from "@clerk/nextjs/server";
 import { checkAIPermission } from "@/lib/aiPermissions";
 import { recordAIUsage } from "@/lib/aiCost";
 import { getUserPreferences, buildMemoryContext } from "@/lib/userMemory";
+import { generateSchema } from "@/lib/schemas";
+import { rateLimitRedis } from "@/lib/rateLimitRedis";
 
 const MODEL = "claude-opus-4-6";
 
 export async function POST(req: NextRequest) {
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
-  if (!rateLimit(`generate:${ip}`, 10, 60_000)) {
+  if (!(await rateLimitRedis(`generate:${ip}`, 10, 60_000))) {
     return new Response("Too many requests. Please wait a moment.", { status: 429 });
   }
 
@@ -30,11 +31,11 @@ export async function POST(req: NextRequest) {
       return new Response("Server configuration error: missing API key", { status: 500 });
     }
 
-    const { category, description, style, templateId } = await req.json();
-
-    if (!description?.trim()) {
-      return new Response("Description is required", { status: 400 });
+    const parsed = generateSchema.safeParse(await req.json());
+    if (!parsed.success) {
+      return new Response(parsed.error.issues[0]?.message ?? "Invalid input", { status: 400 });
     }
+    const { category, description, style, templateId } = parsed.data;
 
     const isUI = category === "ui";
 

@@ -9,6 +9,7 @@ export default defineConfig({
     setupFiles: ["./vitest.setup.ts"],
     globals: true,
     typecheck: { tsconfig: "./tsconfig.test.json" },
+    exclude: ["**/node_modules/**", "**/e2e/**", "**/*.spec.ts"],
     alias: {
       "@": resolve(__dirname, "."),
     },

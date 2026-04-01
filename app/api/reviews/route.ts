@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { createClient } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
+import { reviewSchema } from "@/lib/schemas";
 
 function getSupabase() {
   return createClient(
@@ -38,9 +39,11 @@ export async function POST(req: NextRequest) {
   const { userId } = await auth();
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const { templateId, rating, comment } = await req.json();
-  if (!templateId || !rating) return NextResponse.json({ error: "Missing fields" }, { status: 400 });
-  if (rating < 1 || rating > 5) return NextResponse.json({ error: "Rating must be 1-5" }, { status: 400 });
+  const parsed = reviewSchema.safeParse(await req.json());
+  if (!parsed.success) {
+    return NextResponse.json({ error: parsed.error.issues[0]?.message ?? "Invalid input" }, { status: 400 });
+  }
+  const { templateId, rating, comment } = parsed.data;
 
   // Verify user has purchased the template
   const { data: purchase } = await supabase

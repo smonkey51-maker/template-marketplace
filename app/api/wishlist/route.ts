@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { createClient } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
+import { wishlistSchema } from "@/lib/schemas";
 
 function getSupabase() {
   return createClient(
@@ -32,8 +33,11 @@ export async function POST(req: NextRequest) {
   const { userId } = await auth();
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const { templateId } = await req.json();
-  if (!templateId) return NextResponse.json({ error: "Missing templateId" }, { status: 400 });
+  const parsed = wishlistSchema.safeParse(await req.json());
+  if (!parsed.success) {
+    return NextResponse.json({ error: parsed.error.issues[0]?.message ?? "Invalid input" }, { status: 400 });
+  }
+  const { templateId } = parsed.data;
 
   // Check if exists
   const { data: existing } = await supabase

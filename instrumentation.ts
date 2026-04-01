@@ -6,6 +6,13 @@
  * automaticamente senza dover fare nulla.
  */
 export async function register() {
+  // Sentry: initialise for the current runtime
+  if (process.env.NEXT_RUNTIME === "nodejs") {
+    await import("./sentry.server.config");
+  } else if (process.env.NEXT_RUNTIME === "edge") {
+    await import("./sentry.edge.config");
+  }
+
   if (process.env.NEXT_RUNTIME !== "nodejs") return;
   if (process.env.NODE_ENV !== "development") return;
 
@@ -41,3 +48,11 @@ export async function register() {
 
   console.log("👁️  [Forma] Watcher attivo su lib/templates.ts\n");
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const onRequestError = async (...args: any[]) => {
+  if (!process.env.NEXT_PUBLIC_SENTRY_DSN) return;
+  const { captureRequestError } = await import("@sentry/nextjs");
+  // @ts-expect-error — Sentry types vary by version
+  captureRequestError(...args);
+};
