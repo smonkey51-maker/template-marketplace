@@ -162,7 +162,7 @@ export default function HomeContent() {
   const [mobileExpandBundles, setMobileExpandBundles] = useState(false);
 
   const countedTemplates = useCountUp(animatedTemplates);
-  const { toast } = useToast();
+  const toast = useToast();
 
   // Bundle checkout handler — shared across all bundle cards in the homepage section
   const handleBundleBuy = useCallback(async (bundleId: string) => {
