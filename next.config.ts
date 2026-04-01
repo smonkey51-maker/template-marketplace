@@ -51,8 +51,8 @@ const nextConfig: NextConfig = {
 
 export default withSentryConfig(nextConfig, {
   // Sentry org/project — fill in after creating the project on sentry.io
-  org: process.env.SENTRY_ORG ?? "",
-  project: process.env.SENTRY_PROJECT ?? "",
+  org: process.env.SENTRY_ORG ?? "freelance",
+  project: process.env.SENTRY_PROJECT ?? "template-marketplace",
 
   // Only upload source maps when SENTRY_AUTH_TOKEN is set (CI / Vercel)
   silent: !process.env.SENTRY_AUTH_TOKEN,
