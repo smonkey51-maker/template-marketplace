@@ -7184,6 +7184,116 @@ function showView(view) {
     content: `<div style="display:flex;height:100vh;font-family:system-ui,-apple-system,sans-serif;background:#f8fafc;overflow:hidden;"><div style="width:220px;min-width:220px;background:#1e1e2e;display:flex;flex-direction:column;overflow:hidden;"><div style="padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,0.08);"><div style="display:flex;align-items:center;gap:8px;"><div style="width:28px;height:28px;background:linear-gradient(135deg,#3B82F6,#8B5CF6);border-radius:7px;display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M2 8h8M2 12h5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></div><span style="color:#fff;font-size:14px;font-weight:700;letter-spacing:-0.3px;">OutreachAI</span></div></div><nav style="flex:1;padding:12px 10px;"><div style="margin-bottom:4px;"><div style="display:flex;align-items:center;gap:10px;padding:9px 12px;background:rgba(59,130,246,0.18);border-radius:7px;cursor:pointer;"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="1" y="1" width="5.5" height="5.5" rx="1.5" fill="#3B82F6"/><rect x="8.5" y="1" width="5.5" height="5.5" rx="1.5" fill="#3B82F6" opacity="0.6"/><rect x="1" y="8.5" width="5.5" height="5.5" rx="1.5" fill="#3B82F6" opacity="0.6"/><rect x="8.5" y="8.5" width="5.5" height="5.5" rx="1.5" fill="#3B82F6" opacity="0.3"/></svg><span style="color:#fff;font-size:13px;font-weight:600;">Campagne</span></div></div><div style="margin-bottom:4px;"><div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:7px;cursor:pointer;"><span style="color:#6b7280;font-size:13px;font-weight:500;">Contatti</span></div></div><div style="margin-bottom:4px;"><div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:7px;cursor:pointer;"><span style="color:#6b7280;font-size:13px;font-weight:500;">Template</span></div></div><div style="margin-bottom:4px;"><div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:7px;cursor:pointer;"><span style="color:#6b7280;font-size:13px;font-weight:500;">Analytics</span></div></div><div style="height:1px;background:rgba(255,255,255,0.06);margin:12px 4px;"></div><div style="padding:0 4px;margin-bottom:6px;"><span style="color:#4b5563;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;">Recenti</span></div><div style="padding:7px 12px;border-radius:6px;cursor:pointer;margin-bottom:2px;"><div style="color:#9ca3af;font-size:12px;">TechCorp — Intro</div></div><div style="padding:7px 12px;border-radius:6px;cursor:pointer;"><div style="color:#9ca3af;font-size:12px;">SaaS Leads Q1</div></div></nav><div style="padding:14px 20px;border-top:1px solid rgba(255,255,255,0.06);"><div style="display:flex;align-items:center;gap:6px;"><div style="width:6px;height:6px;background:#22c55e;border-radius:50%;"></div><span style="color:#4b5563;font-size:11px;font-weight:500;">Powered by AI</span></div></div></div><div style="flex:1;display:flex;flex-direction:column;overflow:hidden;"><div style="background:#fff;border-bottom:1px solid #e2e8f0;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;"><div><div style="display:flex;align-items:center;gap:8px;"><span style="color:#0f172a;font-size:15px;font-weight:700;">Campagna: TechCorp — Introduzione</span><span style="background:#dbeafe;color:#1d4ed8;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;">3 varianti generate</span></div><div style="color:#94a3b8;font-size:12px;margin-top:2px;">Creata il 23 marzo 2026 · Modello: Cold Intro Email Prompt</div></div><div style="display:flex;align-items:center;gap:8px;"><button style="padding:7px 16px;border:none;background:#3B82F6;border-radius:7px;font-size:12px;font-weight:600;color:#fff;cursor:pointer;">Esporta tutto</button></div></div><div style="flex:1;overflow-y:auto;padding:22px 28px;display:flex;flex-direction:column;gap:16px;"><div style="background:#f1f5f9;border-radius:10px;padding:14px 18px;"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;"><span style="color:#475569;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px;">Variabili di input</span><span style="color:#3B82F6;font-size:11px;font-weight:600;cursor:pointer;">Modifica</span></div><div style="display:flex;gap:12px;flex-wrap:wrap;"><div style="background:#fff;border:1px solid #e2e8f0;border-radius:7px;padding:7px 14px;"><span style="color:#94a3b8;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;display:block;">Azienda</span><span style="color:#0f172a;font-size:13px;font-weight:600;">DesignFlow</span></div><div style="background:#fff;border:1px solid #e2e8f0;border-radius:7px;padding:7px 14px;"><span style="color:#94a3b8;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;display:block;">Destinatario</span><span style="color:#0f172a;font-size:13px;font-weight:600;">Marco Bianchi, CTO</span></div><div style="background:#fff;border:1px solid #e2e8f0;border-radius:7px;padding:7px 14px;"><span style="color:#94a3b8;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;display:block;">Proposta di valore</span><span style="color:#0f172a;font-size:13px;font-weight:600;">Ridurre i tempi di deploy del 40%</span></div></div></div><div style="background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,0.07),0 0 0 1px #e2e8f0;overflow:hidden;"><div style="padding:14px 20px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between;"><div style="display:flex;align-items:center;gap:10px;"><div style="width:26px;height:26px;background:#eff6ff;border:1.5px solid #bfdbfe;border-radius:7px;display:flex;align-items:center;justify-content:center;"><span style="color:#1d4ed8;font-size:11px;font-weight:800;">A</span></div><div><span style="color:#0f172a;font-size:13px;font-weight:700;">Variante A</span><span style="color:#94a3b8;font-size:12px;margin-left:6px;">· Riferimento specifico</span></div></div><div style="display:flex;align-items:center;gap:8px;"><span style="background:#dcfce7;color:#15803d;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;">92% rilevanza</span><button style="padding:6px 14px;border:none;background:#3B82F6;border-radius:6px;font-size:11px;font-weight:600;color:#fff;cursor:pointer;">Usa questa</button></div></div><div style="padding:16px 20px;"><div style="margin-bottom:10px;"><span style="color:#94a3b8;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;">Oggetto</span><div style="color:#0f172a;font-size:13px;font-weight:600;margin-top:3px;background:#f8fafc;border-radius:6px;padding:8px 12px;border-left:3px solid #3B82F6;">DesignFlow + deploy in metà tempo</div></div><div><span style="color:#94a3b8;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;">Corpo email</span><div style="color:#334155;font-size:13px;line-height:1.65;margin-top:6px;"><p style="margin:0 0 7px;">Ciao Marco,</p><p style="margin:0 0 7px;">ho notato che DesignFlow sta scalando rapidamente il proprio team tecnico — complimenti per la crescita. Lavorando con aziende simili nel settore SaaS, abbiamo aiutato CTO come te a <strong style="color:#0f172a;">ridurre i cicli di deploy del 40%</strong> senza stravolgere il workflow esistente.</p><p style="margin:7px 0 0;color:#64748b;font-size:12px;">Sarebbe utile una chiamata di 15 minuti per capire se c'è margine anche per DesignFlow?</p></div></div></div></div><div style="background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,0.07),0 0 0 1px #e2e8f0;overflow:hidden;"><div style="padding:14px 20px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between;"><div style="display:flex;align-items:center;gap:10px;"><div style="width:26px;height:26px;background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:7px;display:flex;align-items:center;justify-content:center;"><span style="color:#15803d;font-size:11px;font-weight:800;">B</span></div><div><span style="color:#0f172a;font-size:13px;font-weight:700;">Variante B</span><span style="color:#94a3b8;font-size:12px;margin-left:6px;">· Social proof</span></div></div><div style="display:flex;align-items:center;gap:8px;"><span style="background:#dbeafe;color:#1d4ed8;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;">87% rilevanza</span><button style="padding:6px 14px;border:1px solid #e2e8f0;background:#fff;border-radius:6px;font-size:11px;font-weight:600;color:#475569;cursor:pointer;">Usa questa</button></div></div><div style="padding:16px 20px;"><div style="margin-bottom:10px;"><span style="color:#94a3b8;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;">Oggetto</span><div style="color:#0f172a;font-size:13px;font-weight:600;margin-top:3px;background:#f8fafc;border-radius:6px;padding:8px 12px;border-left:3px solid #22c55e;">Come Startup X ha dimezzato i deploy</div></div><div><span style="color:#94a3b8;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;">Corpo email</span><div style="color:#334155;font-size:13px;line-height:1.65;margin-top:6px;"><p style="margin:0 0 7px;">Salve Marco,</p><p style="margin:0 0 7px;">sei mesi fa Flowbit — una scale-up SaaS molto simile a DesignFlow — aveva lo stesso problema: pipeline di deploy lente. Dopo aver integrato la nostra soluzione, il loro team ha <strong style="color:#0f172a;">ridotto i tempi di deploy del 43%</strong> già nel primo mese.</p><p style="margin:0;color:#64748b;font-size:12px;">Potrei condividere il case study completo e capire se i numeri hanno senso anche per voi.</p></div></div></div></div><div style="background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,0.07),0 0 0 1px #e2e8f0;overflow:hidden;"><div style="padding:14px 20px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between;"><div style="display:flex;align-items:center;gap:10px;"><div style="width:26px;height:26px;background:#fefce8;border:1.5px solid #fde68a;border-radius:7px;display:flex;align-items:center;justify-content:center;"><span style="color:#a16207;font-size:11px;font-weight:800;">C</span></div><div><span style="color:#0f172a;font-size:13px;font-weight:700;">Variante C</span><span style="color:#94a3b8;font-size:12px;margin-left:6px;">· Domanda diretta</span></div></div><div style="display:flex;align-items:center;gap:8px;"><span style="background:#fef9c3;color:#a16207;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;">81% rilevanza</span><button style="padding:6px 14px;border:1px solid #e2e8f0;background:#fff;border-radius:6px;font-size:11px;font-weight:600;color:#475569;cursor:pointer;">Usa questa</button></div></div><div style="padding:16px 20px;"><div style="margin-bottom:10px;"><span style="color:#94a3b8;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;">Oggetto</span><div style="color:#0f172a;font-size:13px;font-weight:600;margin-top:3px;background:#f8fafc;border-radius:6px;padding:8px 12px;border-left:3px solid #f59e0b;">15 minuti per il vostro deploy?</div></div><div><span style="color:#94a3b8;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;">Corpo email</span><div style="color:#334155;font-size:13px;line-height:1.65;margin-top:6px;"><p style="margin:0 0 7px;">Marco, buongiorno.</p><p style="margin:0 0 7px;">Domanda diretta: quanto tempo perde il team di DesignFlow ogni settimana a causa di deploy lenti? Per molti CTO con cui parliamo la risposta è <strong style="color:#0f172a;">"troppo"</strong>.</p><p style="margin:0;color:#64748b;font-size:12px;">Le chiedo 15 minuti per mostrarle come abbiamo risolto questo problema per aziende simili. Disponibile giovedì o venerdì?</p></div></div></div></div></div></div></div>`,
   },
 
+  {
+    id: "free-hero-section",
+    name: "Hero Section Minimalista",
+    description: "Hero section dark con headline impattante, CTA doppio e badge di disponibilità. Pronto all'uso, zero dipendenze.",
+    category: "ui" as TemplateCategory,
+    price: 0,
+    stripePriceId: "price_free_hero_section",
+    tags: ["free", "hero", "landing", "dark", "cta", "starter"],
+    downloads: 0,
+    isNew: true,
+    content: `<section style="min-height:100vh;background:#0A0A0B;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;padding:40px 24px;position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% -10%,rgba(200,169,110,0.12),transparent);pointer-events:none;"></div>
+  <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(200,169,110,0.3),transparent);"></div>
+  <div style="max-width:680px;width:100%;text-align:center;position:relative;z-index:1;">
+    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:5px 14px;margin-bottom:32px;">
+      <span style="width:6px;height:6px;border-radius:50%;background:#10b981;box-shadow:0 0 8px #10b981;flex-shrink:0;"></span>
+      <span style="font-size:12px;color:rgba(255,255,255,0.5);font-weight:500;letter-spacing:0.3px;">Disponibile ora · Gratis</span>
+    </div>
+    <h1 style="font-size:clamp(2.4rem,6vw,4rem);font-weight:800;color:#F2EBD9;line-height:1.08;letter-spacing:-0.04em;margin:0 0 20px;">
+      Il tuo prossimo<br><span style="background:linear-gradient(135deg,#C8A96E,#9C7733);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">grande lancio</span>
+    </h1>
+    <p style="font-size:17px;color:rgba(242,235,217,0.45);line-height:1.65;margin:0 auto 36px;max-width:480px;font-weight:400;">Template pronti all'uso. Zero configurazione. Risultati professionali da subito — senza sprecare ore in design.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:32px;">
+      <button style="background:linear-gradient(135deg,#C8A96E,#9C7733);color:#0A0A0B;border:none;padding:14px 28px;font-size:14px;font-weight:800;cursor:pointer;letter-spacing:0.01em;border-radius:0;">Inizia gratis →</button>
+      <button style="background:transparent;color:rgba(242,235,217,0.65);border:1px solid rgba(242,235,217,0.15);padding:14px 24px;font-size:14px;font-weight:500;cursor:pointer;border-radius:0;">Vedi demo</button>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;">
+      <span style="font-size:12px;color:rgba(242,235,217,0.25);display:flex;align-items:center;gap:6px;">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#C8A96E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Nessuna carta di credito
+      </span>
+      <span style="color:rgba(242,235,217,0.1);">·</span>
+      <span style="font-size:12px;color:rgba(242,235,217,0.25);display:flex;align-items:center;gap:6px;">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#C8A96E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Zero spam
+      </span>
+      <span style="color:rgba(242,235,217,0.1);">·</span>
+      <span style="font-size:12px;color:rgba(242,235,217,0.25);display:flex;align-items:center;gap:6px;">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#C8A96E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Cancella quando vuoi
+      </span>
+    </div>
+  </div>
+</section>`,
+  },
+  {
+    id: "free-feature-grid",
+    name: "Feature Grid con Icone",
+    description: "Griglia 3-colonne per presentare feature di prodotto. Dark theme, icone SVG inline, hover animato. Ideale per SaaS e landing page.",
+    category: "ui" as TemplateCategory,
+    price: 0,
+    stripePriceId: "price_free_feature_grid",
+    tags: ["free", "features", "grid", "saas", "dark", "icons", "starter"],
+    downloads: 0,
+    isNew: true,
+    content: `<section style="background:#0A0A0B;padding:80px 24px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+  <div style="max-width:900px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:56px;">
+      <span style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#9C7733;background:rgba(156,119,51,0.1);border:1px solid rgba(156,119,51,0.25);padding:5px 14px;margin-bottom:16px;">Funzionalità</span>
+      <h2 style="font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;color:#F2EBD9;line-height:1.1;letter-spacing:-0.03em;margin:0 0 14px;">Tutto ciò di cui hai bisogno,<br>niente di superfluo</h2>
+      <p style="font-size:16px;color:rgba(242,235,217,0.4);max-width:440px;margin:0 auto;line-height:1.6;">Ogni feature è pensata per farti risparmiare tempo e consegnare lavoro professionale.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(242,235,217,0.08);">
+      <div style="background:#0d0b08;padding:28px 24px;transition:background 0.2s;" onmouseenter="this.style.background='#111009'" onmouseleave="this.style.background='#0d0b08'">
+        <div style="width:40px;height:40px;background:rgba(156,119,51,0.1);border:1px solid rgba(156,119,51,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2l2.4 4.8L18 7.6l-4 3.9.9 5.5L10 14.4l-4.9 2.6.9-5.5L2 7.6l5.6-.8L10 2z" fill="#C8A96E"/></svg>
+        </div>
+        <h3 style="font-size:15px;font-weight:700;color:#F2EBD9;margin:0 0 8px;letter-spacing:-0.01em;">Design premium</h3>
+        <p style="font-size:13px;color:rgba(242,235,217,0.4);line-height:1.6;margin:0;">Ogni template è curato nei minimi dettagli per fare un'impressione duratura.</p>
+      </div>
+      <div style="background:#0d0b08;padding:28px 24px;" onmouseenter="this.style.background='#111009'" onmouseleave="this.style.background='#0d0b08'">
+        <div style="width:40px;height:40px;background:rgba(156,119,51,0.1);border:1px solid rgba(156,119,51,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="#C8A96E" stroke-width="1.8"/><path d="M7 10l2 2 4-4" stroke="#C8A96E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 style="font-size:15px;font-weight:700;color:#F2EBD9;margin:0 0 8px;letter-spacing:-0.01em;">Pronto in minuti</h3>
+        <p style="font-size:13px;color:rgba(242,235,217,0.4);line-height:1.6;margin:0;">Scarica, personalizza, pubblica. Nessun setup complicato, zero dipendenze.</p>
+      </div>
+      <div style="background:#0d0b08;padding:28px 24px;" onmouseenter="this.style.background='#111009'" onmouseleave="this.style.background='#0d0b08'">
+        <div style="width:40px;height:40px;background:rgba(156,119,51,0.1);border:1px solid rgba(156,119,51,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="6" height="6" rx="1" fill="#C8A96E" opacity="0.7"/><rect x="11" y="3" width="6" height="6" rx="1" fill="#C8A96E"/><rect x="3" y="11" width="6" height="6" rx="1" fill="#C8A96E"/><rect x="11" y="11" width="6" height="6" rx="1" fill="#C8A96E" opacity="0.5"/></svg>
+        </div>
+        <h3 style="font-size:15px;font-weight:700;color:#F2EBD9;margin:0 0 8px;letter-spacing:-0.01em;">Modulare</h3>
+        <p style="font-size:13px;color:rgba(242,235,217,0.4);line-height:1.6;margin:0;">Combina i blocchi come vuoi. Ogni sezione è autonoma e riusabile.</p>
+      </div>
+      <div style="background:#0d0b08;padding:28px 24px;" onmouseenter="this.style.background='#111009'" onmouseleave="this.style.background='#0d0b08'">
+        <div style="width:40px;height:40px;background:rgba(156,119,51,0.1);border:1px solid rgba(156,119,51,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 3v3M10 14v3M3 10h3M14 10h3" stroke="#C8A96E" stroke-width="1.8" stroke-linecap="round"/><circle cx="10" cy="10" r="3" stroke="#C8A96E" stroke-width="1.8"/></svg>
+        </div>
+        <h3 style="font-size:15px;font-weight:700;color:#F2EBD9;margin:0 0 8px;letter-spacing:-0.01em;">AI-ready</h3>
+        <p style="font-size:13px;color:rgba(242,235,217,0.4);line-height:1.6;margin:0;">Personalizza con Claude AI direttamente dallo Studio integrato in pochi click.</p>
+      </div>
+      <div style="background:#0d0b08;padding:28px 24px;" onmouseenter="this.style.background='#111009'" onmouseleave="this.style.background='#0d0b08'">
+        <div style="width:40px;height:40px;background:rgba(156,119,51,0.1);border:1px solid rgba(156,119,51,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10c0-3.3 2.7-6 6-6s6 2.7 6 6-2.7 6-6 6" stroke="#C8A96E" stroke-width="1.8" stroke-linecap="round"/><path d="M10 7v3l2 2" stroke="#C8A96E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 style="font-size:15px;font-weight:700;color:#F2EBD9;margin:0 0 8px;letter-spacing:-0.01em;">Aggiornamenti inclusi</h3>
+        <p style="font-size:13px;color:rgba(242,235,217,0.4);line-height:1.6;margin:0;">Nuovi template e miglioramenti ogni mese, senza costi aggiuntivi.</p>
+      </div>
+      <div style="background:#0d0b08;padding:28px 24px;" onmouseenter="this.style.background='#111009'" onmouseleave="this.style.background='#0d0b08'">
+        <div style="width:40px;height:40px;background:rgba(156,119,51,0.1);border:1px solid rgba(156,119,51,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 7v6l7 5 7-5V7l-7-5z" stroke="#C8A96E" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 style="font-size:15px;font-weight:700;color:#F2EBD9;margin:0 0 8px;letter-spacing:-0.01em;">Qualità garantita</h3>
+        <p style="font-size:13px;color:rgba(242,235,217,0.4);line-height:1.6;margin:0;">Ogni template è testato su browser moderni. Codice pulito, accessibile, manutenibile.</p>
+      </div>
+    </div>
+  </div>
+</section>`,
+  },
+
   // ── Shopify Templates ────────────────────────────────────────────────────────
   {
     id: "shopify-product-landing",
@@ -7529,6 +7639,8 @@ export interface Bundle {
   emoji: string;
   accentColor: string; // Tailwind color class prefix, e.g. "blue"
   tags: string[];
+  /** Optional: ID of the single template to spotlight on the bundle detail page */
+  featuredProductId?: string;
 }
 
 export const bundles: Bundle[] = [
@@ -7668,13 +7780,19 @@ export const bundles: Bundle[] = [
   {
     id: "bundle-free-starter",
     name: "Free Starter Kit",
-    tagline: "3 template gratis per iniziare subito",
+    tagline: "5 template gratis per iniziare subito",
     description:
-      "Il kit di partenza perfetto: una sezione email opt-in, testimonial cards e un prompt per cold email. Scarica gratis e scopri la qualità Forma.",
-    templateIds: ["free-email-optin", "free-testimonial-cards", "free-cold-intro-prompt"],
+      "Il kit di partenza completo: hero section, feature grid, email opt-in, testimonial cards e un generatore di cold email AI. Cinque template pronti all'uso, zero costi — scopri la qualità Forma prima di acquistare.",
+    templateIds: [
+      "free-hero-section",
+      "free-feature-grid",
+      "free-email-optin",
+      "free-testimonial-cards",
+      "free-cold-intro-prompt",
+    ],
     highlights: [
-      "3 template premium 100% gratuiti",
-      "2 sezioni UI + 1 prompt AI inclusi",
+      "5 template premium 100% gratuiti",
+      "4 sezioni UI + 1 tool AI inclusi",
       "Perfetto per testare prima di acquistare",
     ],
     price: 0,
@@ -7683,6 +7801,7 @@ export const bundles: Bundle[] = [
     emoji: "🎁",
     accentColor: "amber",
     tags: ["free", "starter", "content magnet", "lead magnet"],
+    featuredProductId: "ai-assistant-system-prompt",
   },
 ];
 
