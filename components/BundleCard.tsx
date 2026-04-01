@@ -17,8 +17,9 @@ export default function BundleCard({
 }) {
   const { lang } = useLang();
   const router = useRouter();
+  const isFree = bundle.price === 0;
   const savings = bundle.regularPrice - bundle.price;
-  const savingsPct = Math.round((savings / bundle.regularPrice) * 100);
+  const savingsPct = bundle.regularPrice > 0 ? Math.round((savings / bundle.regularPrice) * 100) : 0;
 
   const ownedCount = bundle.templateIds.filter((id) => purchasedIds.includes(id)).length;
   const isFullyOwned = ownedCount === bundle.templateIds.length;
@@ -81,11 +82,18 @@ export default function BundleCard({
       {/* Specular top edge highlight */}
       <div className="absolute top-0 left-[8%] right-[8%] h-px pointer-events-none z-10" style={{ background: 'var(--glass-top-edge)' }} />
 
-      {/* Savings badge */}
-      <div className="absolute top-3 right-3 z-10 border rounded-none px-2.5 py-1 text-[10px] font-black transition-transform duration-300 group-hover:scale-110"
-        style={{ background: "var(--accent-bg)", color: "var(--accent)", borderColor: "var(--border)" }}>
-        –{savingsPct}%
-      </div>
+      {/* Savings badge — hidden for free bundles (avoids NaN) */}
+      {isFree ? (
+        <div className="absolute top-3 right-3 z-10 border rounded-none px-2.5 py-1 text-[10px] font-black transition-transform duration-300 group-hover:scale-110"
+          style={{ background: "var(--accent-bg)", color: "var(--accent)", borderColor: "var(--accent)" }}>
+          GRATIS
+        </div>
+      ) : (
+        <div className="absolute top-3 right-3 z-10 border rounded-none px-2.5 py-1 text-[10px] font-black transition-transform duration-300 group-hover:scale-110"
+          style={{ background: "var(--accent-bg)", color: "var(--accent)", borderColor: "var(--border)" }}>
+          –{savingsPct}%
+        </div>
+      )}
 
       {/* Header */}
       <div className="px-5 pt-5 pb-4 border-b border-theme" style={{ background: "var(--surface)" }}>
@@ -141,14 +149,20 @@ export default function BundleCard({
       <div className="px-5 pt-3 pb-5 border-t border-theme">
         <div className="flex items-center justify-between mb-3">
           <div>
-            <span className="text-[20px] font-black" style={{ color: "var(--text)" }}>{formatPrice(bundle.price)}</span>
-            <span className="text-[12px] text-muted line-through ml-2">{formatPrice(bundle.regularPrice)}</span>
-          </div>
-          <div className="text-right">
-            <span className="text-[11px] text-muted">
-              {t[lang].bundleCard.save} <strong style={{ color: "var(--accent)" }}>{formatPrice(savings)}</strong>
+            <span className="text-[20px] font-black" style={{ color: isFree ? "var(--accent)" : "var(--text)" }}>
+              {isFree ? (lang === "it" ? "Gratis" : "Free") : formatPrice(bundle.price)}
             </span>
+            {!isFree && (
+              <span className="text-[12px] text-muted line-through ml-2">{formatPrice(bundle.regularPrice)}</span>
+            )}
           </div>
+          {!isFree && (
+            <div className="text-right">
+              <span className="text-[11px] text-muted">
+                {t[lang].bundleCard.save} <strong style={{ color: "var(--accent)" }}>{formatPrice(savings)}</strong>
+              </span>
+            </div>
+          )}
         </div>
 
         {isFullyOwned ? (
@@ -164,12 +178,14 @@ export default function BundleCard({
             onClick={handleBuy}
             disabled={loading}
             className="w-full py-3 rounded-none text-[13px] font-bold transition-opacity duration-200 active:scale-[0.97] disabled:opacity-60"
-            style={{ background: "var(--text)", color: "var(--bg)" }}
+            style={{ background: isFree ? "var(--accent)" : "var(--text)", color: isFree ? "#0A0A0B" : "var(--bg)" }}
             onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "0.85")}
             onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "1")}
           >
             {loading
               ? t[lang].bundleCard.loading
+              : isFree
+              ? (lang === "it" ? "Scarica gratis →" : "Download free →")
               : t[lang].bundleCard.buyBundle.replace("{{price}}", formatPrice(bundle.price))}
           </button>
         )}

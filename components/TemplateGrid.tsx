@@ -499,7 +499,12 @@ export default function TemplateGrid({ externalQuery = "", onClearSearch }: { ex
                     );
                     if (validSections.length === 0) return null;
                     return (
-                      <div key={pillar.id}>
+                      <ScrollRevealCard
+                        key={pillar.id}
+                        className="scroll-reveal"
+                        delay={pillarIdx * 80}
+                      >
+                      <div>
                         {/* Ma divider between pillars */}
                         {pillarIdx > 0 && (
                           <div className="ma-divider mb-10" aria-hidden="true"><span>{pillar.kanji[0]}</span></div>
@@ -545,6 +550,7 @@ export default function TemplateGrid({ externalQuery = "", onClearSearch }: { ex
                           })}
                         </div>
                       </div>
+                      </ScrollRevealCard>
                     );
                   })}
                 </div>
