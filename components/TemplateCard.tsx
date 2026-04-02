@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 import { Template, formatPrice, getDownloadType } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
 import { templateTranslations } from "@/lib/i18n";
@@ -170,6 +170,34 @@ function PurchasedBadge({ lang }: { lang: Lang }) {
   );
 }
 
+/* ── Spotlight hook — tracks mouse relative to card, outputs a CSS radial gradient ── */
+function useSpotlight() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [style, setStyle] = useState<React.CSSProperties>({});
+  const prefersReduced = useRef(
+    typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+
+  const onMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    if (prefersReduced.current) return;
+    const el = ref.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setStyle({
+      background: `radial-gradient(circle at ${x}% ${y}%, var(--glow-gold) 0%, transparent 65%)`,
+      opacity: 1,
+    });
+  }, []);
+
+  const onMouseLeave = useCallback(() => {
+    setStyle({ opacity: 0 });
+  }, []);
+
+  return { ref, spotlightStyle: style, onMouseMove, onMouseLeave };
+}
+
 /* ── Main card ──────────────────────────────────────────────────────── */
 export default function TemplateCard({ template, purchasedIds, onQuickView }: {
   template: Template;
@@ -182,9 +210,21 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
   const displayName = lang === "it" ? (templateTranslations[template.id]?.name ?? template.name) : template.name;
   const displayDesc = lang === "it" ? (templateTranslations[template.id]?.description ?? template.description) : template.description;
   const saved = isWishlisted(template.id);
+  const { ref: spotlightRef, spotlightStyle, onMouseMove, onMouseLeave } = useSpotlight();
 
   return (
-    <div className="group relative h-full transition-opacity duration-200 hover:opacity-90">
+    <div
+      ref={spotlightRef}
+      className="group relative h-full transition-opacity duration-200 hover:opacity-90"
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+    >
+      {/* Spotlight overlay — rendered outside the Link to avoid z-index conflicts */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-10 transition-opacity duration-300"
+        style={spotlightStyle}
+      />
       <Link
         href={`/preview/${template.id}`}
         aria-label={displayName}
