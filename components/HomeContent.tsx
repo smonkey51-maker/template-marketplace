@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, useEffect, useRef, Suspense, useCallback } from "react";
 import { templates, bundles, formatPrice, getTemplate } from "@/lib/templates";
+import { templateTranslations } from "@/lib/i18n";
 import TemplateGrid from "@/components/TemplateGrid";
 import NavButtons from "@/components/NavButtons";
 import { useLang } from "@/components/LanguageProvider";
@@ -512,18 +513,23 @@ export default function HomeContent() {
                     {freeBundle.name}
                   </h2>
                   <p className="text-[14px] text-muted leading-relaxed mb-6 max-w-xl">
-                    {freeBundle.description}
+                    {lang === "it"
+                      ? freeBundle.description
+                      : "The complete starter pack: hero section, feature grid, email opt-in, testimonial cards and a cold email AI generator. Five ready-to-use templates, zero cost — discover Forma quality before buying."}
                   </p>
 
                   {/* Template pills */}
                   <div className="flex flex-wrap gap-1.5 mb-7">
                     {freeBundle.templateIds.map((id) => {
                       const tmpl = getTemplate(id);
+                      const pillName = lang === "it"
+                        ? (templateTranslations[id]?.name ?? tmpl?.name ?? id)
+                        : (tmpl?.name ?? id);
                       return (
                         <span key={id}
                           className="text-[11px] px-2.5 py-1 border text-muted/80"
                           style={{ background: "var(--input-bg)", borderColor: "var(--border)" }}>
-                          {tmpl?.name ?? id}
+                          {pillName}
                         </span>
                       );
                     })}
@@ -552,7 +558,11 @@ export default function HomeContent() {
                   </p>
 
                   <div className="space-y-3 mb-5">
-                    {freeBundle.highlights.map((h, i) => (
+                    {(lang === "it" ? freeBundle.highlights : [
+                      "5 premium templates 100% free",
+                      "4 UI sections + 1 AI tool included",
+                      "Perfect for testing before purchasing",
+                    ]).map((h, i) => (
                       <div key={i} className="flex items-start gap-2.5">
                         <svg width="13" height="13" viewBox="0 0 13 13" fill="none" className="shrink-0 mt-0.5" aria-hidden>
                           <path d="M2 6.5l3.5 3.5 5.5-6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ color: "var(--accent)" }}/>

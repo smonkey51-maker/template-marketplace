@@ -505,9 +505,11 @@ export const templateTranslations: Record<string, { name: string; description: s
   "digital-resume":           { name: "CV Digitale",                    description: "Curriculum vitae online con timeline esperienze, skill e portfolio." },
   "link-in-bio":              { name: "Link in Bio",                    description: "Pagina link in bio per creator con profilo social e link multipli." },
   "newsletter-landing":       { name: "Landing Newsletter",             description: "Pagina iscrizione newsletter con anteprima contenuti e CTA ottimizzata." },
+  "free-hero-section":        { name: "Hero Section Minimalista",       description: "Hero section dark con headline impattante, CTA doppio e badge disponibilità. Zero dipendenze." },
+  "free-feature-grid":        { name: "Feature Grid con Icone",         description: "Griglia 3-colonne per feature di prodotto. Dark theme, icone SVG, hover animato." },
   "free-email-optin":         { name: "Sezione Email Opt-in",           description: "Sezione cattura email con proposta di valore, contatore social proof e bordo gradiente." },
   "free-testimonial-cards":   { name: "Griglia Testimonianze",          description: "Griglia a 3 colonne con stelle, avatar e stile serif editoriale. Tema scuro." },
-  "free-cold-intro-prompt":   { name: "Generatore Email Introduzione",     description: "Gestore campagne outreach con varianti email AI, punteggio di rilevanza ed esportazione rapida." },
+  "free-cold-intro-prompt":   { name: "Generatore Email Introduzione",  description: "Gestore campagne outreach con varianti email AI, punteggio di rilevanza ed esportazione rapida." },
   // Shopify templates
   "shopify-product-landing":  { name: "Shopify Landing Prodotto",         description: "Sezione hero prodotto ad alta conversione con griglia feature e add-to-cart. Pronta per Liquid." },
   "shopify-collection-grid":  { name: "Shopify Griglia Collezione",       description: "Griglia collezione prodotti elegante con filtri, quick view e card animate. Sezione tema Liquid." },

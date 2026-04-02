@@ -7186,7 +7186,7 @@ function showView(view) {
 
   {
     id: "free-hero-section",
-    name: "Hero Section Minimalista",
+    name: "Minimalist Hero Section",
     description: "Hero section dark con headline impattante, CTA doppio e badge di disponibilità. Pronto all'uso, zero dipendenze.",
     category: "ui" as TemplateCategory,
     price: 0,
@@ -7231,7 +7231,7 @@ function showView(view) {
   },
   {
     id: "free-feature-grid",
-    name: "Feature Grid con Icone",
+    name: "Feature Grid with Icons",
     description: "Griglia 3-colonne per presentare feature di prodotto. Dark theme, icone SVG inline, hover animato. Ideale per SaaS e landing page.",
     category: "ui" as TemplateCategory,
     price: 0,
