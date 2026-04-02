@@ -35,13 +35,13 @@ export default function HeroSection({
         >
           {lang === "it" ? (
             <>
-              Template premium,<br />
-              <em style={{ fontStyle: "italic", color: "var(--terra, #C4622D)" }}>plasmati con cura.</em>
+              dai <em style={{ fontStyle: "normal", color: "var(--accent)" }}>FORMA</em><br />
+              alle tue necessità.
             </>
           ) : (
             <>
-              Premium templates,<br />
-              <em style={{ fontStyle: "italic", color: "var(--terra, #C4622D)" }}>crafted with care.</em>
+              Give <em style={{ fontStyle: "normal", color: "var(--accent)" }}>FORMA</em><br />
+              to your vision.
             </>
           )}
         </h1>
