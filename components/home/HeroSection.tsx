@@ -35,7 +35,7 @@ export default function HeroSection({
         >
           {lang === "it" ? (
             <>
-              dai <em style={{ fontStyle: "normal", color: "var(--accent)" }}>FORMA</em><br />
+              Dai <em style={{ fontStyle: "normal", color: "var(--accent)" }}>FORMA</em><br />
               alla tua visione.
             </>
           ) : (
