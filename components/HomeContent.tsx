@@ -17,6 +17,7 @@ import HeroSection from "@/components/home/HeroSection";
 import TestimonialsSection from "@/components/home/TestimonialsSection";
 import CTASection from "@/components/home/CTASection";
 import { CATEGORIES } from "@/lib/homeData";
+import ScrollRevealCard from "@/components/grid/ScrollRevealCard";
 
 // ── Count-up hook (local — only used in this file) ───────────────────────────
 function useCountUp(target: number, duration = 900) {
@@ -205,16 +206,6 @@ export default function HomeContent() {
     function onScroll() { setNavScrolled(window.scrollY > 60); }
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  // Reveal observer — adds `.visible` to every `.reveal` element as it enters viewport
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add("visible"); }),
-      { threshold: 0.1 }
-    );
-    document.querySelectorAll<Element>(".reveal").forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
   }, []);
 
   // Close mobile menu on Escape
@@ -509,7 +500,7 @@ export default function HomeContent() {
               <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center lg:items-start">
 
                 {/* Left — copy principale */}
-                <div className="reveal flex-1 min-w-0">
+                <ScrollRevealCard className="reveal flex-1 min-w-0" delay={0}>
                   <div className="flex items-center gap-3 mb-4">
                     <span className="text-3xl">{freeBundle.emoji}</span>
                     <span className="inline-flex items-center gap-1.5 bg-accent/15 border border-accent/30 text-accent text-[10px] font-black uppercase tracking-widest px-2.5 py-1">
@@ -545,11 +536,14 @@ export default function HomeContent() {
                   >
                     {lang === "it" ? "Scarica il kit gratis →" : "Download the free kit →"}
                   </button>
-                </div>
+                </ScrollRevealCard>
 
                 {/* Right — highlights + numero template */}
-                <div className="reveal reveal-delay-1 w-full lg:w-auto lg:shrink-0 lg:w-64 border border-accent/25 p-5 sm:p-6 relative"
-                  style={{ background: "linear-gradient(135deg,rgba(156,119,51,0.06) 0%,rgba(13,11,8,0) 60%)" }}>
+                <ScrollRevealCard
+                  className="reveal w-full lg:w-auto lg:shrink-0 lg:w-64 border border-accent/25 p-5 sm:p-6 relative"
+                  delay={120}
+                  style={{ background: "linear-gradient(135deg,rgba(156,119,51,0.06) 0%,rgba(13,11,8,0) 60%)" }}
+                >
                   <div className="absolute top-0 inset-x-0 h-px"
                     style={{ background: "linear-gradient(90deg,transparent,rgba(200,169,110,0.4),transparent)" }} />
 
@@ -575,7 +569,7 @@ export default function HomeContent() {
                     </span>
                     <span className="text-[12px] text-muted line-through">€19.99</span>
                   </div>
-                </div>
+                </ScrollRevealCard>
 
               </div>
             </div>

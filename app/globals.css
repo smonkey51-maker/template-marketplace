@@ -875,11 +875,11 @@ html::-webkit-scrollbar-track {
   from { opacity: 0; transform: translateY(24px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-.fade-up-0 { animation: fadeUp 0.8s ease both; }
-.fade-up-1 { animation: fadeUp 0.8s 0.10s ease both; }
-.fade-up-2 { animation: fadeUp 0.8s 0.20s ease both; }
-.fade-up-3 { animation: fadeUp 0.8s 0.30s ease both; }
-.fade-up-4 { animation: fadeUp 0.8s 0.40s ease both; }
+.fade-up-0 { animation: fadeUp 0.8s ease 0s    both; will-change: opacity, transform; }
+.fade-up-1 { animation: fadeUp 0.8s ease 0.10s both; will-change: opacity, transform; }
+.fade-up-2 { animation: fadeUp 0.8s ease 0.20s both; will-change: opacity, transform; }
+.fade-up-3 { animation: fadeUp 0.8s ease 0.30s both; will-change: opacity, transform; }
+.fade-up-4 { animation: fadeUp 0.8s ease 0.40s both; will-change: opacity, transform; }
 
 /* ── blink — pulsing indicator dot ── */
 @keyframes blink { 50% { opacity: 0; } }
@@ -893,8 +893,9 @@ html::-webkit-scrollbar-track {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.6s ease, transform 0.6s ease;
+  will-change: opacity, transform;
 }
-.reveal.visible      { opacity: 1; transform: translateY(0); }
+.reveal.visible      { opacity: 1; transform: translateY(0); will-change: auto; }
 .reveal-delay-1      { transition-delay: 0.1s; }
 .reveal-delay-2      { transition-delay: 0.2s; }
 .reveal-delay-3      { transition-delay: 0.3s; }
