@@ -188,7 +188,7 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
       <Link
         href={`/preview/${template.id}`}
         aria-label={displayName}
-        className="shoji-card bg-card border border-theme relative overflow-hidden flex flex-col h-full active:opacity-90 block"
+        className="shoji-card card-sweep bg-card border border-theme relative overflow-hidden flex flex-col h-full active:opacity-90 block"
       >
 
         {/* Thumbnail */}
