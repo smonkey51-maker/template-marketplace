@@ -17,16 +17,16 @@ export default function HeroSection({
     <section
       className="relative z-10"
     >
-      <div className="max-w-4xl mx-auto px-4 sm:px-8 flex flex-col items-center text-center py-14 sm:py-28">
+      <div className="max-w-4xl mx-auto px-4 sm:px-8 flex flex-col items-center text-center py-8 sm:py-24">
 
         {/* Torii ornament — above headline */}
-        <div className="torii-accent mb-8" aria-hidden="true" />
+        <div className="torii-accent mb-8 fade-up-0" aria-hidden="true" />
 
         {/* Headline */}
         <h1
-          className="hero-title-reveal leading-[1.08] mb-5 sm:mb-7"
+          className="fade-up-1 leading-[1.08] mb-5 sm:mb-7"
           style={{
-            fontSize: "clamp(52px, 8.5vw, 128px)",
+            fontSize: "clamp(38px, 8.5vw, 128px)",
             fontWeight: 800,
             letterSpacing: "-0.035em",
             color: "var(--text)",
@@ -47,14 +47,14 @@ export default function HeroSection({
         </h1>
 
         {/* Sub */}
-        <p className="text-[13px] sm:text-[14px] leading-[1.78] mb-7 sm:mb-10 max-w-[420px] font-light" style={{ color: "var(--muted)" }}>
+        <p className="fade-up-2 text-[12px] sm:text-[14px] leading-[1.78] mb-5 sm:mb-10 max-w-[420px] font-light" style={{ color: "var(--muted)" }}>
           {lang === "it"
             ? "Template professionali pronti all'uso, personalizzabili in pochi secondi con Claude AI."
             : "Professional templates ready to use. Customize any design in seconds with Claude AI."}
         </p>
 
         {/* CTAs */}
-        <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+        <div className="fade-up-3 flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
           <a
             href="#browse"
             onClick={(e) => { e.preventDefault(); document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" }); }}
@@ -72,7 +72,7 @@ export default function HeroSection({
         </div>
 
         {/* Stats row */}
-        <div className="flex items-center gap-8 mt-10 pt-8" style={{ borderTop: "1px solid var(--border)" }}>
+        <div className="fade-up-4 flex items-center gap-8 mt-6 sm:mt-10 pt-6 sm:pt-8" style={{ borderTop: "1px solid var(--border)" }}>
           <div>
             <p className="text-[26px] leading-none mb-1.5" style={{ fontFamily: "var(--font-jakarta), sans-serif", fontWeight: 700, color: "var(--terra, #C4622D)" }}>
               {countedTemplates}

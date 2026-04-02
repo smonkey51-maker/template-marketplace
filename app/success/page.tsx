@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Suspense, useRef, useEffect } from "react";
+import { Suspense, useRef, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 import { getTemplate, getBundle, getDownloadType } from "@/lib/templates";
@@ -54,19 +54,21 @@ function SuccessContent() {
   const isFree = searchParams.get("free") === "1";
   const { isSignedIn } = useUser();
   const { lang } = useLang();
+  const [recording, setRecording] = useState(isFree && !!isSignedIn);
 
   // Record free bundle/template purchases in Supabase (Stripe webhook never fires for free items)
   useEffect(() => {
-    if (!isFree || !isSignedIn) return;
+    if (!isFree || !isSignedIn) { setRecording(false); return; }
     const payload = bundleId ? { bundleId } : templateId ? { templateId } : null;
-    if (!payload) return;
+    if (!payload) { setRecording(false); return; }
+    setRecording(true);
     fetch("/api/record-free-purchase", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     })
-      .then((r) => r.json())
-      .catch(() => {}); // non-blocking — UI still works
+      .catch(() => {})
+      .finally(() => setRecording(false));
   }, [isFree, isSignedIn, bundleId, templateId]);
 
   const isStudioAccess = templateId === "studio-access";
@@ -103,10 +105,13 @@ function SuccessContent() {
         <div className="flex flex-col gap-3">
           <Link
             href="/account"
-            className="btn-brand w-full justify-center text-[14px]"
+            className={`btn-brand w-full justify-center text-[14px] ${recording ? "opacity-60 pointer-events-none" : ""}`}
             style={{ padding: "13px 24px" }}
+            aria-disabled={recording}
           >
-            {lang === "it" ? "Vedi i tuoi template →" : "View your templates →"}
+            {recording
+              ? (lang === "it" ? "Salvataggio…" : "Saving…")
+              : (lang === "it" ? "Vedi i tuoi template →" : "View your templates →")}
           </Link>
           {isSignedIn && (
             <Link

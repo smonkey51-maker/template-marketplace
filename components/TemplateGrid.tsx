@@ -504,7 +504,7 @@ export default function TemplateGrid({ externalQuery = "", onClearSearch }: { ex
                         className="scroll-reveal"
                         delay={pillarIdx * 80}
                       >
-                      <div>
+                      <div id={pillar.id}>
                         {/* Ma divider between pillars */}
                         {pillarIdx > 0 && (
                           <div className="ma-divider mb-10" aria-hidden="true"><span>{pillar.kanji[0]}</span></div>

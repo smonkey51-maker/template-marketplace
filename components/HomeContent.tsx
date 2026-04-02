@@ -154,6 +154,9 @@ export default function HomeContent() {
 
   const { purchasedIds } = usePurchases();
 
+  // Nav scroll shrink (BuildForWho-style: compact at scrollY > 60)
+  const [navScrolled, setNavScrolled] = useState(false);
+
   // Mobile menu state
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileExpandTemplates, setMobileExpandTemplates] = useState(false);
@@ -197,6 +200,23 @@ export default function HomeContent() {
     return () => { document.body.style.overflow = ""; };
   }, [mobileMenuOpen]);
 
+  // Nav scroll shrink listener
+  useEffect(() => {
+    function onScroll() { setNavScrolled(window.scrollY > 60); }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Reveal observer — adds `.visible` to every `.reveal` element as it enters viewport
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add("visible"); }),
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll<Element>(".reveal").forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   // Close mobile menu on Escape
   useEffect(() => {
     function onKey(e: KeyboardEvent) { if (e.key === "Escape") setMobileMenuOpen(false); }
@@ -210,10 +230,11 @@ export default function HomeContent() {
 
       {/* ── Hybrid Nav ── */}
       <nav
-        className="sticky top-0 z-50 border-b backdrop-blur-[14px] px-4 sm:px-8"
+        className="sticky top-0 z-50 border-b backdrop-blur-[14px] px-4 sm:px-8 transition-all duration-300"
         style={{ background: "var(--nav-bg)", borderColor: "var(--border)" }}
       >
-        <div className="max-w-7xl mx-auto flex items-center h-[60px] gap-3">
+        <div className="max-w-7xl mx-auto flex items-center gap-3 transition-all duration-300"
+          style={{ height: navScrolled ? "50px" : "60px" }}>
           {/* Logo */}
           <Link href="/" className="shrink-0 mr-6 hover:opacity-70 transition-opacity">
             <span className="text-[15px] leading-none tracking-[0.06em] uppercase" style={{ fontFamily: "var(--font-syne)", fontWeight: 800, color: "var(--text)" }}>
@@ -488,7 +509,7 @@ export default function HomeContent() {
               <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center lg:items-start">
 
                 {/* Left — copy principale */}
-                <div className="flex-1 min-w-0">
+                <div className="reveal flex-1 min-w-0">
                   <div className="flex items-center gap-3 mb-4">
                     <span className="text-3xl">{freeBundle.emoji}</span>
                     <span className="inline-flex items-center gap-1.5 bg-accent/15 border border-accent/30 text-accent text-[10px] font-black uppercase tracking-widest px-2.5 py-1">
@@ -527,7 +548,7 @@ export default function HomeContent() {
                 </div>
 
                 {/* Right — highlights + numero template */}
-                <div className="w-full lg:w-auto lg:shrink-0 lg:w-64 border border-accent/25 p-5 sm:p-6 relative"
+                <div className="reveal reveal-delay-1 w-full lg:w-auto lg:shrink-0 lg:w-64 border border-accent/25 p-5 sm:p-6 relative"
                   style={{ background: "linear-gradient(135deg,rgba(156,119,51,0.06) 0%,rgba(13,11,8,0) 60%)" }}>
                   <div className="absolute top-0 inset-x-0 h-px"
                     style={{ background: "linear-gradient(90deg,transparent,rgba(200,169,110,0.4),transparent)" }} />
