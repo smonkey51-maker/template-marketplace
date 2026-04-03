@@ -31,14 +31,14 @@
    ═══════════════════════════════════════════════════════════ */
 :root {
   /* ── Light mode: Japandi / Zen — washi paper, hinoki wood ── */
-  --bg:          #FAF7F0;
-  --surface:     rgba(242,234,216,0.48);
-  --surface-2:   rgba(242,234,216,0.70);
-  --text:        #1C1814;
-  --muted:       #6B5848;
-  --border:      rgba(28,24,20,0.10);
-  --nav-bg:      rgba(250,247,240,0.90);
-  --card-bg:     rgba(250,247,240,0.48);
+  --bg:          rgba(250,247,240,0.38);
+  --surface:     rgba(242,234,216,0.92);
+  --surface-2:   rgba(234,224,204,0.97);
+  --text:        #0A0805;
+  --muted:       #4A3828;
+  --border:      rgba(28,24,20,0.14);
+  --nav-bg:      rgba(250,247,240,0.96);
+  --card-bg:     rgba(250,247,240,0.93);
   --card-border: rgba(28,24,20,0.10);
   --input-bg:    rgba(28,24,20,0.05);
   --btn-ghost-border:       rgba(28,24,20,0.18);
@@ -107,6 +107,8 @@
   --prompt-label:    #8E8E93;
   /* Modal skeleton */
   --skeleton-bg:     #F2F2F7;
+  /* Pillar heading — dark ochre/gold for light mode readability */
+  --pillar-name-color: #7A5220;
   /* Slingday — primary font for the entire site */
   --font-gatsunaga:  var(--font-montserrat), 'Slingday', 'Georgia', serif;
 }
@@ -223,6 +225,8 @@ html.dark {
   --prompt-label:    rgba(237,232,220,0.60);
   /* Modal skeleton */
   --skeleton-bg:     #252119;
+  /* Pillar heading — gold accent in dark mode */
+  --pillar-name-color: var(--accent);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -237,7 +241,7 @@ html {
   background-color: var(--bg);
   background-image:
     radial-gradient(ellipse 80% 50% at 0% 0%, rgba(var(--accent-rgb), 0.06) 0%, transparent 65%),
-    linear-gradient(rgba(250,247,240,0.82), rgba(250,247,240,0.82)),
+    linear-gradient(rgba(250,247,240,0.08), rgba(250,247,240,0.08)),
     url('/bg-dark.jpg');
   background-size: 100% 100%, 100% 100%, cover;
   background-repeat: no-repeat, no-repeat, no-repeat;

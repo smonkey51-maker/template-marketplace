@@ -520,7 +520,7 @@ export default function TemplateGrid({ externalQuery = "", onClearSearch }: { ex
                           </div>
                           {/* Text */}
                           <div className="flex flex-col justify-center gap-1">
-                            <span className="pillar-name" style={{ fontFamily: "var(--font-gatsunaga)", fontSize: "20px", color: "var(--accent)", lineHeight: 1.1 }}>
+                            <span className="pillar-name" style={{ fontFamily: "var(--font-gatsunaga)", fontSize: "20px", color: "var(--pillar-name-color)", lineHeight: 1.1 }}>
                               {lang === "it" ? pillar.nameIt : pillar.nameEn}
                             </span>
                             <span className="text-[11px] font-light tracking-[0.06em]" style={{ color: "var(--muted)" }}>
