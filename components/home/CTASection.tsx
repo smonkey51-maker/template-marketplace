@@ -11,11 +11,11 @@ export default function CTASection({ lang }: { lang: "it" | "en" }) {
         {/* Quote */}
         <blockquote>
           <p
-            className="text-[15px] sm:text-[18px] leading-relaxed"
+            className="text-[16px] sm:text-[20px] leading-relaxed italic"
             style={{
-              fontFamily: "var(--font-jakarta), sans-serif",
+              fontFamily: "var(--font-dm-serif), serif",
               color: "var(--text)",
-              opacity: 0.75,
+              opacity: 0.88,
             }}
           >
             {lang === "it"

@@ -17,7 +17,7 @@ export default function HeroSection({
     <section
       className="relative z-10"
     >
-      <div className="max-w-4xl mx-auto px-4 sm:px-8 flex flex-col items-center text-center py-8 sm:py-24">
+      <div className="max-w-4xl mx-auto px-4 sm:px-8 flex flex-col items-center text-center py-10 sm:py-20">
 
         {/* Torii ornament — above headline */}
         <div className="torii-accent mb-8 fade-up-0" aria-hidden="true" />
@@ -47,7 +47,7 @@ export default function HeroSection({
         </h1>
 
         {/* Sub */}
-        <p className="fade-up-2 text-[12px] sm:text-[14px] leading-[1.78] mb-5 sm:mb-10 max-w-[420px] font-light" style={{ color: "var(--muted)" }}>
+        <p className="fade-up-2 text-[13px] sm:text-[15px] leading-[1.78] mb-5 sm:mb-10 max-w-[400px] font-light" style={{ color: "var(--muted)" }}>
           {lang === "it"
             ? "Template professionali pronti all'uso, personalizzabili in pochi secondi con Claude AI."
             : "Professional templates ready to use. Customize any design in seconds with Claude AI."}
@@ -72,9 +72,9 @@ export default function HeroSection({
         </div>
 
         {/* Stats row */}
-        <div className="fade-up-4 flex items-center gap-8 mt-6 sm:mt-10 pt-6 sm:pt-8" style={{ borderTop: "1px solid var(--border)" }}>
+        <div className="fade-up-4 flex items-center gap-10 mt-6 sm:mt-10 pt-6 sm:pt-8" style={{ borderTop: "1px solid var(--border)" }}>
           <div>
-            <p className="text-[26px] leading-none mb-1.5" style={{ fontFamily: "var(--font-jakarta), sans-serif", fontWeight: 700, color: "var(--terra, #C4622D)" }}>
+            <p className="text-[28px] leading-none mb-1.5" style={{ fontFamily: "var(--font-dm-serif), serif", fontWeight: 400, color: "var(--terra, #C4622D)" }}>
               {countedTemplates}
             </p>
             <p className="text-[9px] font-medium uppercase tracking-[0.18em]" style={{ color: "var(--muted)" }}>
@@ -83,7 +83,7 @@ export default function HeroSection({
           </div>
           <span className="select-none text-[9px]" style={{ color: "var(--accent)", opacity: 0.3 }}>◇</span>
           <div>
-            <p className="text-[26px] leading-none mb-1.5" style={{ fontFamily: "var(--font-jakarta), sans-serif", fontWeight: 700, color: "var(--accent)" }}>
+            <p className="text-[28px] leading-none mb-1.5" style={{ fontFamily: "var(--font-dm-serif), serif", fontWeight: 400, color: "var(--accent)" }}>
               8
             </p>
             <p className="text-[9px] font-medium uppercase tracking-[0.18em]" style={{ color: "var(--muted)" }}>

@@ -104,7 +104,7 @@ export default function BundleCard({
             <p className="text-[11px] font-semibold mt-0.5" style={{ color: "var(--muted)" }}>{bundle.tagline}</p>
           </div>
         </div>
-        <p className="text-[12px] leading-snug" style={{ color: "var(--muted)" }}>{bundle.description}</p>
+        <p className="text-[12px] leading-relaxed" style={{ color: "var(--muted)" }}>{bundle.description}</p>
       </div>
 
       {/* Highlights + template pills */}
@@ -113,7 +113,7 @@ export default function BundleCard({
         <div className="space-y-1.5">
           {bundle.highlights.map((h, i) => (
             <div key={i} className="flex items-start gap-2.5">
-              <span className="mt-0.5 text-[9px] shrink-0 select-none" style={{ color: "var(--accent)", opacity: 0.65 }}>◇</span>
+              <span className="mt-0.5 text-[8px] shrink-0 select-none" style={{ color: "var(--accent)", opacity: 0.45 }}>◇</span>
               <span className="text-[12px] leading-snug" style={{ color: "var(--text)", opacity: 0.8 }}>{h}</span>
             </div>
           ))}
@@ -130,7 +130,7 @@ export default function BundleCard({
               return (
                 <span
                   key={tmpl!.id}
-                  className="text-[10px] px-2 py-0.5 rounded-none border leading-snug transition-colors duration-200"
+                  className="text-[10px] px-2.5 py-1 rounded-none border leading-snug transition-colors duration-200"
                   style={{
                     background: owned ? "var(--accent-bg)" : "var(--input-bg)",
                     color: owned ? "var(--accent)" : "var(--muted)",
@@ -149,7 +149,7 @@ export default function BundleCard({
       <div className="px-5 pt-3 pb-5 border-t border-theme">
         <div className="flex items-center justify-between mb-3">
           <div>
-            <span className="text-[20px] font-black" style={{ color: isFree ? "var(--accent)" : "var(--text)" }}>
+            <span className="text-[22px]" style={{ fontFamily: "var(--font-dm-serif), serif", color: isFree ? "var(--accent)" : "var(--text)" }}>
               {isFree ? (lang === "it" ? "Gratis" : "Free") : formatPrice(bundle.price)}
             </span>
             {!isFree && (
@@ -200,7 +200,7 @@ export default function BundleCard({
 
         <button
           onClick={(e) => { e.stopPropagation(); router.push(`/bundle/${bundle.id}`); }}
-          className="w-full mt-2 text-[11px] font-semibold hover:opacity-70 transition-opacity text-center"
+          className="w-full mt-2 text-[12px] font-semibold hover:opacity-70 transition-opacity text-center"
           style={{ color: "var(--muted)" }}
         >
           {t[lang].bundleCard.seeDetails}
