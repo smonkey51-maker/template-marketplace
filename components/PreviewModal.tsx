@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef, useCallback } from "react";
 import { createPortal } from "react-dom";
-import { getTemplate } from "@/lib/templates";
+import { getTemplate, formatPrice } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
 
 export default function PreviewModal({ templateId, onClose }: {
@@ -116,14 +116,19 @@ export default function PreviewModal({ templateId, onClose }: {
         </div>
 
         {/* Footer CTA */}
-        <div className="flex items-center justify-between px-5 py-3.5 border-t border-theme shrink-0" style={{ background: "var(--prompt-header)" }}>
-          <div>
-            <p className="text-[13px] font-bold text-theme leading-tight">{template.name}</p>
-            <p className="text-[11px] text-muted mt-0.5">{lang === "it" ? "Acquisto una tantum" : "One-time purchase"}</p>
+        <div className="flex items-center justify-between px-5 py-3.5 border-t border-theme shrink-0 gap-3" style={{ background: "var(--prompt-header)" }}>
+          <div className="min-w-0">
+            <p className="text-[13px] font-bold text-theme leading-tight truncate">{template.name}</p>
+            <div className="flex items-center gap-2 mt-0.5">
+              <span className="text-[18px] leading-none price-gold" style={{ fontFamily: "var(--font-dm-serif)" }}>
+                {template.price === 0 ? (lang === "it" ? "Gratis" : "Free") : formatPrice(template.price)}
+              </span>
+              <span className="text-[10px] text-muted">{lang === "it" ? "una tantum" : "one-time"}</span>
+            </div>
           </div>
           <a
             href={`/preview/${template.id}`}
-            className="btn-brand btn-brand-sm text-[13px]"
+            className="btn-brand btn-brand-sm text-[13px] shrink-0"
           >
             {lang === "it" ? "Vedi dettagli →" : "View details →"}
           </a>

@@ -310,21 +310,24 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
           style={{ background: "var(--glass-top-edge)" }} />
 
         <div className="max-w-2xl mx-auto px-4 py-3 sm:py-4">
-          <div className="flex items-center gap-3 mb-2.5">
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 flex-wrap mb-0.5">
-                <span className="text-[10px] font-bold text-muted uppercase tracking-widest">{categoryLabel}</span>
-                {template.downloads >= 700 && (
-                  <span className="text-[10px] font-bold px-1.5 py-0.5" style={{ color: "var(--accent)", background: "var(--accent-bg)", border: "1px solid var(--accent-muted)" }}>{t[lang].card.bestseller}</span>
-                )}
-              </div>
-              <p className="text-[15px] font-bold text-theme leading-tight">{displayName}</p>
-              <p className="text-[12px] text-muted mt-0.5 line-clamp-1">{displayDesc}</p>
+          {/* Price — hero element, immediately visible */}
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-baseline gap-2">
+              <span className="price-gold leading-none" style={{ fontFamily: "var(--font-dm-serif)", fontSize: "28px" }}>
+                {template.price === 0 ? (lang === "it" ? "Gratis" : "Free") : formatPrice(template.price)}
+              </span>
+              <span className="text-[11px] text-muted">{t[lang].preview.oneTime}</span>
             </div>
-            <div className="text-right shrink-0">
-              <p className="text-[22px] leading-none price-gold">{formatPrice(template.price)}</p>
-              <p className="text-[11px] text-muted mt-0.5">{t[lang].preview.oneTime}</p>
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] font-bold text-muted uppercase tracking-widest">{categoryLabel}</span>
+              {template.downloads >= 700 && (
+                <span className="text-[10px] font-bold px-1.5 py-0.5" style={{ color: "var(--accent)", background: "var(--accent-bg)", border: "1px solid var(--accent-muted)" }}>{t[lang].card.bestseller}</span>
+              )}
             </div>
+          </div>
+          <div className="mb-2.5">
+            <p className="text-[15px] font-bold text-theme leading-tight">{displayName}</p>
+            <p className="text-[12px] text-muted mt-0.5 line-clamp-1">{displayDesc}</p>
           </div>
 
           <div className="flex gap-1.5 flex-wrap mb-2.5">
