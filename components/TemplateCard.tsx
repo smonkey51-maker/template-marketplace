@@ -366,6 +366,26 @@ function UIThumbnail({ template, isPurchased, lang }: { template: Template; isPu
           background: "linear-gradient(to bottom, transparent 20%, rgba(0,0,0,0.18) 55%, rgba(0,0,0,0.72) 100%)",
         }} />
 
+      {/* Platform badge — top-left */}
+      <div className="absolute top-2 left-2 z-20 flex items-center gap-1 px-1.5 py-0.5"
+        style={{ background: "rgba(0,0,0,0.48)", backdropFilter: "blur(6px)", border: "1px solid rgba(255,255,255,0.12)" }}>
+        <span className="text-[9px] font-bold uppercase tracking-[0.14em] text-white/90">{platformData.label}</span>
+      </div>
+
+      {/* isNew / editorsPick badge — top-right */}
+      {(template.isNew || template.editorsPick) && (
+        <div className="absolute top-2 right-2 z-20 px-1.5 py-0.5"
+          style={{
+            background: template.editorsPick ? "var(--accent)" : "rgba(0,0,0,0.48)",
+            backdropFilter: "blur(6px)",
+            border: template.editorsPick ? "none" : "1px solid rgba(255,255,255,0.18)",
+          }}>
+          <span className="text-[9px] font-bold uppercase tracking-[0.14em] text-white/95">
+            {template.editorsPick ? (lang === "it" ? "✦ Staff" : "✦ Staff Pick") : (lang === "it" ? "Nuovo" : "New")}
+          </span>
+        </div>
+      )}
+
       {/* Purchased badge */}
       {isPurchased && <PurchasedBadge lang={lang} />}
     </div>
@@ -420,16 +440,26 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
 }) {
   const { lang } = useLang();
   const { toggle, isWishlisted } = useWishlist();
+  const [heartPopping, setHeartPopping] = useState(false);
   const isPurchased = purchasedIds.includes(template.id);
   const displayName = lang === "it" ? (templateTranslations[template.id]?.name ?? template.name) : template.name;
   const displayDesc = lang === "it" ? (templateTranslations[template.id]?.description ?? template.description) : template.description;
   const saved = isWishlisted(template.id);
   const { ref: spotlightRef, spotlightStyle, onMouseMove, onMouseLeave } = useSpotlight();
 
+  const handleWishlist = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggle(template.id);
+    setHeartPopping(true);
+    setTimeout(() => setHeartPopping(false), 400);
+  }, [toggle, template.id]);
+
   return (
     <div
       ref={spotlightRef}
-      className="group relative h-full transition-opacity duration-200 hover:opacity-90"
+      className="group relative h-full transition-all duration-300 ease-premium hover:-translate-y-0.5"
+      style={{ "--card-hover-shadow": "0 16px 48px rgba(0,0,0,0.22)" } as React.CSSProperties}
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
     >
@@ -442,7 +472,7 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
       <Link
         href={`/preview/${template.id}`}
         aria-label={displayName}
-        className="shoji-card card-sweep bg-card border border-theme relative overflow-hidden flex flex-col h-full active:opacity-90 block"
+        className="shoji-card card-sweep bg-card border border-theme relative overflow-hidden flex flex-col h-full active:opacity-90 block transition-shadow duration-300 group-hover:shadow-[0_16px_48px_rgba(0,0,0,0.22)]"
       >
 
         {/* Thumbnail */}
@@ -479,11 +509,12 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
               {template.price === 0 ? (lang === "it" ? "Gratis" : "Free") : formatPrice(template.price)}
             </span>
             <button
-              onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggle(template.id); }}
+              onClick={handleWishlist}
               aria-label={saved ? (lang === "it" ? "Rimuovi dai salvati" : "Remove from saved") : (lang === "it" ? "Salva" : "Save")}
-              className={`transition-colors duration-200 p-1 ${
+              className={`p-1 transition-colors duration-200 ${
                 saved ? "text-[var(--terra)]" : "text-muted hover:text-[var(--terra)] opacity-0 group-hover:opacity-100"
               }`}
+              style={heartPopping ? { animation: "heart-pop 0.35s cubic-bezier(0.34,1.56,0.64,1) both" } : undefined}
             >
               <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden>
                 <path d="M7 12S1 8 1 4.5A3.5 3.5 0 017 2.1a3.5 3.5 0 016 2.4C13 8 7 12 7 12z"

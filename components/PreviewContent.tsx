@@ -299,7 +299,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
 
       {/* ── Fixed bottom CTA bar ── */}
       <div
-        className="fixed bottom-0 inset-x-0 z-50 border-t border-theme"
+        className="fixed bottom-0 inset-x-0 z-50 border-t border-theme cta-bar-enter"
         style={{
           backdropFilter: "blur(40px) saturate(200%)",
           WebkitBackdropFilter: "blur(40px) saturate(200%)",

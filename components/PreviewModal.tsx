@@ -116,22 +116,45 @@ export default function PreviewModal({ templateId, onClose }: {
         </div>
 
         {/* Footer CTA */}
-        <div className="flex items-center justify-between px-5 py-3.5 border-t border-theme shrink-0 gap-3" style={{ background: "var(--prompt-header)" }}>
-          <div className="min-w-0">
-            <p className="text-[13px] font-bold text-theme leading-tight truncate">{template.name}</p>
-            <div className="flex items-center gap-2 mt-0.5">
-              <span className="text-[18px] leading-none price-gold" style={{ fontFamily: "var(--font-dm-serif)" }}>
-                {template.price === 0 ? (lang === "it" ? "Gratis" : "Free") : formatPrice(template.price)}
-              </span>
-              <span className="text-[10px] text-muted">{lang === "it" ? "una tantum" : "one-time"}</span>
+        <div className="border-t border-theme shrink-0" style={{ background: "var(--prompt-header)" }}>
+          {/* Tags row */}
+          {template.tags.length > 0 && (
+            <div className="flex items-center gap-1.5 px-5 pt-2.5 pb-0 flex-wrap">
+              {template.tags.slice(0, 5).map((tag) => (
+                <a
+                  key={tag}
+                  href={`/?q=${encodeURIComponent(tag)}`}
+                  className="text-[9px] font-semibold uppercase tracking-[0.12em] px-1.5 py-0.5 transition-colors duration-150"
+                  style={{
+                    color: "var(--muted)",
+                    border: "1px solid var(--border)",
+                    background: "var(--input-bg)",
+                  }}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {tag}
+                </a>
+              ))}
             </div>
+          )}
+          {/* Name + price + CTA */}
+          <div className="flex items-center justify-between px-5 py-3 gap-3">
+            <div className="min-w-0">
+              <p className="text-[13px] font-bold text-theme leading-tight truncate">{template.name}</p>
+              <div className="flex items-center gap-2 mt-0.5">
+                <span className="text-[18px] leading-none price-gold" style={{ fontFamily: "var(--font-dm-serif)" }}>
+                  {template.price === 0 ? (lang === "it" ? "Gratis" : "Free") : formatPrice(template.price)}
+                </span>
+                <span className="text-[10px] text-muted">{lang === "it" ? "una tantum" : "one-time"}</span>
+              </div>
+            </div>
+            <a
+              href={`/preview/${template.id}`}
+              className="btn-brand btn-brand-sm text-[13px] shrink-0"
+            >
+              {lang === "it" ? "Vedi dettagli →" : "View details →"}
+            </a>
           </div>
-          <a
-            href={`/preview/${template.id}`}
-            className="btn-brand btn-brand-sm text-[13px] shrink-0"
-          >
-            {lang === "it" ? "Vedi dettagli →" : "View details →"}
-          </a>
         </div>
       </div>
     </div>,

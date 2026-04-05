@@ -461,6 +461,29 @@ html::-webkit-scrollbar-track {
   to { --angle: 360deg; }
 }
 
+/* ── Heart pop — wishlist spring animation ── */
+@keyframes heart-pop {
+  0%   { transform: scale(1); }
+  35%  { transform: scale(1.45); }
+  65%  { transform: scale(0.85); }
+  100% { transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  @keyframes heart-pop { from { transform: scale(1); } to { transform: scale(1); } }
+}
+
+/* ── CTA bar slide-up entrance (preview page) ── */
+@keyframes cta-slide-up {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+.cta-bar-enter {
+  animation: cta-slide-up 0.42s cubic-bezier(0.32, 1.10, 0.64, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cta-bar-enter { animation: none; }
+}
+
 @keyframes pulse-ring {
   0%   { transform: scale(1);    opacity: 0.5; }
   100% { transform: scale(1.8);  opacity: 0; }
