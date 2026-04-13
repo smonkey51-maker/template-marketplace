@@ -56,11 +56,12 @@ export default function CategoryCard({
     return () => obs.disconnect();
   }, []);
 
-  // 3-D tilt — respect reduced motion
+  // 3-D tilt — respect reduced motion and hover capability
   const prefersReducedMotion = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+  const supportsHover        = typeof window !== "undefined" && window.matchMedia?.("(hover: hover)").matches;
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (prefersReducedMotion) return;
+    if (prefersReducedMotion || !supportsHover) return;
     cancelAnimationFrame(frameRef.current);
     frameRef.current = requestAnimationFrame(() => {
       const el = cardRef.current;
