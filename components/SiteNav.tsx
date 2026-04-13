@@ -40,7 +40,7 @@ export default function SiteNav({ title }: { title?: string }) {
             For<span style={{ color: "var(--accent)" }}>ma</span>
           </span>
           <span
-            className="text-[8px] tracking-[0.18em] uppercase leading-none hidden sm:block"
+            className="text-[10px] tracking-[0.14em] uppercase leading-none hidden sm:block"
             style={{ color: "var(--accent)", opacity: 0.65, fontWeight: 500 }}
           >
             {lang === "it" ? "Mercato del digitale artigianale" : "Artisan digital marketplace"}
@@ -56,12 +56,7 @@ export default function SiteNav({ title }: { title?: string }) {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-[11px] font-medium px-3 py-1.5 transition-all duration-200 uppercase tracking-[0.1em]"
-                style={{
-                  color: isActive ? "var(--text)" : "var(--muted)",
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text)")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = isActive ? "var(--text)" : "var(--muted)")}
+                className={`text-[11px] font-medium px-3 py-1.5 uppercase tracking-[0.1em] link-muted${isActive ? " nav-active" : ""}`}
               >
                 <span className="link-underline">{label}</span>
               </Link>
@@ -88,7 +83,7 @@ export default function SiteNav({ title }: { title?: string }) {
           <svg width="8" height="8" viewBox="0 0 10 10" fill="none" aria-hidden>
             <path d="M5 1l1.1 2.3L9 4l-2 1.8.5 2.5L5 7.2 2.5 8.3 3 5.8 1 4l2.9-.7L5 1z" fill="currentColor"/>
           </svg>
-          <span className="text-[9px] font-bold uppercase tracking-[0.12em]"
+          <span className="text-[10px] font-bold uppercase tracking-[0.12em]"
             style={{ fontFamily: "var(--font-syne)", color: "var(--accent)" }}>
             Claude AI
           </span>
@@ -98,7 +93,7 @@ export default function SiteNav({ title }: { title?: string }) {
         <Link
           href="/studio"
           className="hidden xl:inline-flex btn-brand shrink-0 mr-3"
-          style={{ fontSize: "8px", padding: "7px 13px" }}
+          style={{ fontSize: "9px", padding: "7px 14px" }}
         >
           Studio
         </Link>

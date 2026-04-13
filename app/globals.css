@@ -125,11 +125,10 @@ body {
   letter-spacing: 0.005em;
 }
 
-/* Map legacy --font-syne → Montserrat for any residual references */
+/* --font-syne → Montserrat (Syne not loaded; kept for legacy references in .btn-brand etc.) */
 html {
-  --font-syne:      var(--font-montserrat), sans-serif !important;
-  --font-dm-serif:  var(--font-montserrat), serif !important;
-  --font-cormorant: var(--font-montserrat), serif !important;
+  --font-syne: var(--font-montserrat), sans-serif;
+  /* --font-dm-serif and --font-cormorant resolve to their actual loaded fonts (DM Serif Display, Cormorant Garamond) */
 }
 
 /* h1–h3: Montserrat Bold */
@@ -627,6 +626,28 @@ html::-webkit-scrollbar-track {
   width: 100%;
 }
 
+/* ── CSS-driven link color (replaces JS onMouseEnter/Leave) ──
+   Use .link-muted for any link that should be muted at rest and text on hover.
+   Add .nav-active for the currently active nav item.
+── */
+.link-muted {
+  color: var(--muted);
+  transition: color 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.link-muted:hover,
+.link-muted:focus-visible {
+  color: var(--text);
+}
+.nav-active {
+  color: var(--text);
+}
+/* Active underline — always visible for active nav items */
+.nav-active .link-underline::after {
+  width: 100%;
+  background: var(--accent);
+  opacity: 0.75;
+}
+
 /* ═══════════════════════════════════════════════════════════
    CARD TILT (3-D perspective on hover)
    ═══════════════════════════════════════════════════════════ */
@@ -634,8 +655,10 @@ html::-webkit-scrollbar-track {
   transform-style: preserve-3d;
   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
 }
-.card-tilt:hover {
-  transform: perspective(800px) rotateX(2deg) rotateY(-1.5deg) translateY(-4px);
+@media (hover: hover) {
+  .card-tilt:hover {
+    transform: perspective(800px) rotateX(2deg) rotateY(-1.5deg) translateY(-4px);
+  }
 }
 .card-tilt:active {
   transform: scale(0.98);
@@ -897,16 +920,12 @@ html::-webkit-scrollbar-track {
    card border sweep, nav compact, ticker pause.
    ═══════════════════════════════════════════════════════════ */
 
-/* ── fadeUp — hero entrance stagger ── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.fade-up-0 { animation: fadeUp 0.8s ease 0s    both; will-change: opacity, transform; }
-.fade-up-1 { animation: fadeUp 0.8s ease 0.10s both; will-change: opacity, transform; }
-.fade-up-2 { animation: fadeUp 0.8s ease 0.20s both; will-change: opacity, transform; }
-.fade-up-3 { animation: fadeUp 0.8s ease 0.30s both; will-change: opacity, transform; }
-.fade-up-4 { animation: fadeUp 0.8s ease 0.40s both; will-change: opacity, transform; }
+/* ── fade-up stagger — hero entrance (uses canonical fade-up keyframe) ── */
+.fade-up-0 { animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0s    both; will-change: opacity, transform; }
+.fade-up-1 { animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.10s both; will-change: opacity, transform; }
+.fade-up-2 { animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.20s both; will-change: opacity, transform; }
+.fade-up-3 { animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.30s both; will-change: opacity, transform; }
+.fade-up-4 { animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.40s both; will-change: opacity, transform; }
 
 /* ── blink — pulsing indicator dot ── */
 @keyframes blink { 50% { opacity: 0; } }
@@ -1024,7 +1043,7 @@ html.dark .zen-divider { opacity: 0.45; }
   background: linear-gradient(to left, transparent, var(--accent));
 }
 .zen-divider span {
-  font-size: 9px;
+  font-size: 10px;
   color: var(--accent);
   flex-shrink: 0;
   line-height: 1;
@@ -1062,7 +1081,7 @@ html.dark .zen-divider { opacity: 0.45; }
   justify-content: center;
   font-size: 7px;
   color: var(--accent);
-  opacity: 0.38;
+  opacity: 0.50;
   flex-shrink: 0;
 }
 
@@ -1122,7 +1141,7 @@ html.dark .ma-divider { opacity: 0.32; }
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  opacity: 0.30;
+  opacity: 0.45;
 }
 .torii-accent::before,
 .torii-accent::after {
@@ -1199,22 +1218,22 @@ html.dark .pillar-tategaki { opacity: 0.50 !important; }
   font-size: 28px;
   line-height: 1;
   color: var(--accent);
-  opacity: 0.25;
+  opacity: 0.35;
   letter-spacing: -0.02em;
   transition: opacity 0.3s ease;
 }
 .kanji-num:hover,
 *:hover > .kanji-num {
-  opacity: 0.45;
+  opacity: 0.55;
 }
 
-/* Warm grain overlay on dark bg */
+/* Warm grain overlay on dark bg — z-index below modals/toasts */
 html.dark body::before {
   content: '';
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 9000;
+  z-index: 1000;
   opacity: 0.022;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 180px 180px;
@@ -1375,10 +1394,10 @@ html.dark {
   align-items: center;
   gap: 10px;
   font-family: var(--font-syne), sans-serif;
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.22em;
   color: var(--muted);
 }
 .label-section::before {
