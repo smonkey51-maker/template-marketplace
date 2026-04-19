@@ -229,6 +229,48 @@ html.dark {
 }
 
 /* ═══════════════════════════════════════════════════════════
+   DESIGN TOKENS — motion, space, elevation
+   ═══════════════════════════════════════════════════════════ */
+:root {
+  /* Motion — 6 easings ispirati a Vision OS / iOS spring system */
+  --ease-glide:   cubic-bezier(0.22, 1, 0.36, 1);        /* generic smooth */
+  --ease-snap:    cubic-bezier(0.32, 1.10, 0.64, 1);     /* gentle spring */
+  --ease-bounce:  cubic-bezier(0.34, 1.56, 0.64, 1);     /* overshoot */
+  --ease-brisk:   cubic-bezier(0.45, 0, 0.15, 1);        /* fast out, slow in */
+  --ease-fluid:   cubic-bezier(0.4,  0, 0.2, 1);         /* material standard */
+  --ease-linger:  cubic-bezier(0.16, 1, 0.3, 1);         /* very slow end */
+  /* Durations — 4pt-ish scale */
+  --t-xs: 120ms;
+  --t-sm: 200ms;
+  --t-md: 320ms;
+  --t-lg: 520ms;
+  --t-xl: 820ms;
+  /* Spacing scale — 4pt grid */
+  --s-1:  4px;
+  --s-2:  8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+  --s-9: 96px;
+  /* Elevation — 5-step shadow scale (respect theme) */
+  --elev-1: 0 1px 2px rgba(0,0,0,0.05), 0 1px 1px rgba(0,0,0,0.03);
+  --elev-2: 0 2px 6px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
+  --elev-3: 0 8px 24px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.04);
+  --elev-4: 0 20px 50px rgba(0,0,0,0.14), 0 4px 12px rgba(0,0,0,0.06);
+  --elev-5: 0 40px 100px rgba(0,0,0,0.22), 0 8px 24px rgba(0,0,0,0.08);
+}
+html.dark {
+  --elev-1: 0 1px 2px rgba(0,0,0,0.40), 0 1px 1px rgba(0,0,0,0.24);
+  --elev-2: 0 2px 6px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.30);
+  --elev-3: 0 8px 24px rgba(0,0,0,0.60), 0 2px 6px rgba(0,0,0,0.35);
+  --elev-4: 0 20px 50px rgba(0,0,0,0.70), 0 4px 12px rgba(0,0,0,0.40);
+  --elev-5: 0 40px 100px rgba(0,0,0,0.85), 0 8px 24px rgba(0,0,0,0.45);
+}
+
+/* ═══════════════════════════════════════════════════════════
    GLOBAL TRANSITIONS & FONT
    ═══════════════════════════════════════════════════════════ */
 html {
@@ -426,6 +468,245 @@ html::-webkit-scrollbar-track {
     initial-value: 0deg;
     inherits: false;
   }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DISPLAY TYPE — Fraunces editorial hero
+   ═══════════════════════════════════════════════════════════ */
+.display-serif {
+  font-family: var(--font-fraunces), "DM Serif Display", Georgia, serif;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+}
+.display-serif em {
+  font-style: italic;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  color: var(--accent);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SPLIT-TEXT REVEAL — hero headline stagger
+   ═══════════════════════════════════════════════════════════ */
+.split-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+.split-word > span {
+  display: inline-block;
+  transform: translateY(108%);
+  animation: split-rise var(--t-xl) var(--ease-linger) forwards;
+}
+.split-word:nth-child(1) > span { animation-delay: 60ms; }
+.split-word:nth-child(2) > span { animation-delay: 160ms; }
+.split-word:nth-child(3) > span { animation-delay: 260ms; }
+.split-word:nth-child(4) > span { animation-delay: 360ms; }
+.split-word:nth-child(5) > span { animation-delay: 460ms; }
+.split-word:nth-child(6) > span { animation-delay: 560ms; }
+.split-word:nth-child(7) > span { animation-delay: 660ms; }
+@keyframes split-rise {
+  from { transform: translateY(108%); }
+  to   { transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .split-word > span { animation: none; transform: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MAGNETIC BUTTON — subtle attraction on hover
+   ═══════════════════════════════════════════════════════════ */
+.magnetic {
+  transition: transform var(--t-md) var(--ease-snap);
+  will-change: transform;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SCROLL-LINKED NAV — blur progression
+   ═══════════════════════════════════════════════════════════ */
+.nav-scrolled {
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  background: color-mix(in oklab, var(--nav-bg) 92%, var(--accent) 8%);
+  box-shadow: var(--elev-2);
+}
+.nav-default {
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   COMMAND PALETTE — Cmd+K overlay
+   ═══════════════════════════════════════════════════════════ */
+.cmdk-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: color-mix(in oklab, var(--bg) 70%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: fade-in var(--t-sm) var(--ease-glide) forwards;
+}
+.cmdk-panel {
+  position: fixed;
+  left: 50%;
+  top: 14vh;
+  transform: translateX(-50%);
+  width: min(640px, calc(100vw - 32px));
+  z-index: 101;
+  background: var(--surface-2);
+  border: 1px solid var(--accent-muted);
+  box-shadow: var(--elev-5);
+  animation: cmdk-pop var(--t-md) var(--ease-snap) forwards;
+}
+@keyframes cmdk-pop {
+  from { opacity: 0; transform: translateX(-50%) translateY(-12px) scale(0.96); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+}
+.cmdk-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: background var(--t-xs) var(--ease-glide), color var(--t-xs) var(--ease-glide);
+  color: var(--text);
+  border-left: 2px solid transparent;
+}
+.cmdk-item[data-active="true"],
+.cmdk-item:hover {
+  background: var(--accent-bg);
+  border-left-color: var(--accent);
+}
+.cmdk-kbd {
+  font-family: var(--font-montserrat), sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 2px 6px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  background: var(--input-bg);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   WAX SEAL — price stamp on cards
+   ═══════════════════════════════════════════════════════════ */
+.wax-seal {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 30%, color-mix(in oklab, var(--accent) 80%, white 20%), var(--accent) 60%, color-mix(in oklab, var(--accent) 85%, black 15%) 100%);
+  color: color-mix(in oklab, var(--bg) 95%, white 5%);
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,0.3),
+    inset 0 -2px 4px rgba(0,0,0,0.25),
+    var(--elev-3);
+  font-family: var(--font-fraunces), serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: -0.01em;
+  transform: rotate(-6deg);
+  transition: transform var(--t-md) var(--ease-bounce);
+}
+.wax-seal::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  border: 1px dashed rgba(255,255,255,0.35);
+  pointer-events: none;
+}
+.card-tilt:hover .wax-seal {
+  transform: rotate(0deg) scale(1.06);
+}
+@media (prefers-reduced-motion: reduce) {
+  .wax-seal, .card-tilt:hover .wax-seal { transform: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MASONRY FEATURED — homepage grid
+   ═══════════════════════════════════════════════════════════ */
+.masonry-featured {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+@media (max-width: 640px) {
+  .masonry-featured { grid-column: span 1; grid-row: span 1; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SHINE SWEEP — hover light pass on cards
+   ═══════════════════════════════════════════════════════════ */
+.shine-sweep {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.shine-sweep::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255,255,255,0.10) 48%,
+    rgba(255,255,255,0.18) 50%,
+    rgba(255,255,255,0.10) 52%,
+    transparent 70%
+  );
+  transform: translateX(-120%);
+  transition: transform var(--t-xl) var(--ease-glide);
+  pointer-events: none;
+  z-index: 1;
+}
+.shine-sweep:hover::after { transform: translateX(120%); }
+@media (prefers-reduced-motion: reduce) {
+  .shine-sweep::after { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ORBITING THUMBS — hero ambient mini-previews
+   ═══════════════════════════════════════════════════════════ */
+.orbit-layer {
+  position: absolute;
+  inset: -80px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.55;
+  mask-image: radial-gradient(ellipse at center, transparent 0%, transparent 35%, rgba(0,0,0,0.4) 55%, rgba(0,0,0,0.9) 85%);
+  -webkit-mask-image: radial-gradient(ellipse at center, transparent 0%, transparent 35%, rgba(0,0,0,0.4) 55%, rgba(0,0,0,0.9) 85%);
+}
+.orbit-thumb {
+  position: absolute;
+  width: 88px;
+  height: 88px;
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
+  box-shadow: var(--elev-3);
+  overflow: hidden;
+  animation: orbit-drift 18s ease-in-out infinite alternate;
+  will-change: transform;
+}
+.orbit-thumb:nth-child(1) { top: 8%;  left: 6%;  animation-delay: -1s; }
+.orbit-thumb:nth-child(2) { top: 12%; right: 4%; animation-delay: -4s; }
+.orbit-thumb:nth-child(3) { top: 46%; left: 2%;  animation-delay: -7s; width: 72px; height: 72px; }
+.orbit-thumb:nth-child(4) { top: 52%; right: 6%; animation-delay: -10s; width: 72px; height: 72px; }
+.orbit-thumb:nth-child(5) { bottom: 8%; left: 14%; animation-delay: -13s; }
+.orbit-thumb:nth-child(6) { bottom: 12%; right: 12%; animation-delay: -16s; }
+@keyframes orbit-drift {
+  0%   { transform: translate(0, 0) rotate(-2deg); }
+  50%  { transform: translate(8px, -10px) rotate(0deg); }
+  100% { transform: translate(-6px, 6px) rotate(2deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .orbit-thumb { animation: none; }
 }
 
 /* ═══════════════════════════════════════════════════════════

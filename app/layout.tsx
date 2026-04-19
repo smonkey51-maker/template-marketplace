@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
-import { Montserrat, DM_Serif_Display, Plus_Jakarta_Sans, Cormorant_Garamond } from "next/font/google";
+import { Montserrat, DM_Serif_Display, Plus_Jakarta_Sans, Cormorant_Garamond, Fraunces } from "next/font/google";
 import ThemeProvider from "@/components/ThemeProvider";
 import LanguageProvider from "@/components/LanguageProvider";
 import { PostHogProvider } from "@/components/PostHogProvider";
@@ -8,6 +8,7 @@ import { ToastProvider } from "@/components/Toast";
 import MobileNav from "@/components/MobileNav";
 import CustomCursor from "@/components/CustomCursor";
 import PageTransition from "@/components/PageTransition";
+import CommandPalette from "@/components/CommandPalette";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -40,6 +41,18 @@ const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
   weight: ["300", "400", "500", "600", "700", "800"],
   display: "swap",
+});
+
+// Fraunces — variable display serif, editorial magazine feel.
+// Used only for hero/display headlines (h1, .display-serif). Tuned with higher
+// optical size + soft axis for a more calligraphic Japandi tone.
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-fraunces",
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+  axes: ["SOFT", "opsz"],
 });
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://forma.design";
@@ -82,12 +95,12 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="it" className={`dark ${montserrat.variable} ${jakarta.variable} ${dmSerif.variable} ${cormorant.variable}`}>
+      <html lang="it" className={`dark ${montserrat.variable} ${jakarta.variable} ${dmSerif.variable} ${cormorant.variable} ${fraunces.variable}`}>
         <body className="bg-page text-theme antialiased min-h-screen">
           <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[9999] focus:px-4 focus:py-2 focus:text-[13px] focus:font-bold" style={{ background: "var(--accent)", color: "var(--bg)" }}>
             Skip to content
           </a>
-          <PostHogProvider><ThemeProvider><LanguageProvider><ToastProvider><PageTransition><div id="main-content">{children}</div></PageTransition><MobileNav /></ToastProvider></LanguageProvider></ThemeProvider></PostHogProvider>
+          <PostHogProvider><ThemeProvider><LanguageProvider><ToastProvider><PageTransition><div id="main-content">{children}</div></PageTransition><MobileNav /><CommandPalette /></ToastProvider></LanguageProvider></ThemeProvider></PostHogProvider>
           <CustomCursor />
         </body>
       </html>
