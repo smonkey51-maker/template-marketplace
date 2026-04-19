@@ -472,7 +472,7 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
       <Link
         href={`/preview/${template.id}`}
         aria-label={displayName}
-        className="shoji-card card-sweep bg-card border border-theme relative overflow-hidden flex flex-col h-full active:opacity-90 block transition-shadow duration-300 group-hover:shadow-[0_16px_48px_rgba(0,0,0,0.22)]"
+        className="shoji-card card-sweep card-tilt shine-sweep bg-card border border-theme relative overflow-hidden flex flex-col h-full active:opacity-90 block transition-shadow duration-300 group-hover:shadow-[0_16px_48px_rgba(0,0,0,0.22)]"
       >
 
         {/* Thumbnail */}
@@ -505,7 +505,7 @@ export default function TemplateCard({ template, purchasedIds, onQuickView }: {
 
           {/* Price + wishlist */}
           <div className="mt-3 pt-3 flex items-center justify-between" style={{ borderTop: "1px solid var(--border)" }}>
-            <span className="text-[18px]" style={{ fontFamily: "var(--font-jakarta), sans-serif", fontWeight: 600, color: "var(--accent)" }}>
+            <span className="display-serif text-[22px] leading-none" style={{ color: "var(--accent)" }}>
               {template.price === 0 ? (lang === "it" ? "Gratis" : "Free") : formatPrice(template.price)}
             </span>
             <button

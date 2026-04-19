@@ -14,11 +14,21 @@ export default function HowItWorksSection({ lang }: { lang: "it" | "en" }) {
             <div className="torii-accent" />
             <span className="tategaki">法</span>
           </div>
-          <p className="text-[10px] font-bold text-muted uppercase tracking-[0.18em] mb-3">
+          <p className="text-[10px] font-bold text-muted uppercase tracking-[0.22em] mb-4">
             {lang === "it" ? "Come funziona" : "How it works"}
           </p>
-          <h2 className="ink-line text-[1.6rem] sm:text-[2rem] font-bold tracking-tight text-theme">
-            {lang === "it" ? "Tre passi per il tuo template" : "Three steps to your template"}
+          <h2
+            className="display-serif tracking-tight"
+            style={{
+              fontSize: "clamp(28px, 4vw, 44px)",
+              color: "var(--text)",
+            }}
+          >
+            {lang === "it" ? (
+              <>Tre passi per il tuo <em>template</em></>
+            ) : (
+              <>Three steps to your <em>template</em></>
+            )}
           </h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">

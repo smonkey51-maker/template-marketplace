@@ -89,8 +89,8 @@ function SuccessContent() {
           </div>
         </div>
 
-        <h1 className="text-[22px] font-bold mb-2 tracking-tight text-theme" style={{ fontFamily: "var(--font-syne)" }}>
-          {lang === "it" ? "Kit scaricato!" : "Kit downloaded!"}
+        <h1 className="display-serif text-[28px] mb-3 tracking-tight text-theme">
+          {lang === "it" ? (<>Kit <em>scaricato</em></>) : (<>Kit <em>downloaded</em></>)}
         </h1>
         <p className="text-[14px] text-muted mb-1">
           {lang === "it" ? "Hai sbloccato il" : "You've unlocked the"}{" "}
@@ -145,7 +145,7 @@ function SuccessContent() {
         </div>
       </div>
 
-      <h1 className="text-[22px] font-bold mb-3 tracking-tight text-theme" style={{ fontFamily: "var(--font-syne)" }}>{t[lang].success.title}</h1>
+      <h1 className="display-serif text-[30px] mb-3 tracking-tight text-theme">{t[lang].success.title}</h1>
 
       {isStudioAccess ? (
         <>

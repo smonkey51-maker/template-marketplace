@@ -10,7 +10,6 @@ import { useLang } from "@/components/LanguageProvider";
 import { t } from "@/lib/i18n";
 import { usePurchases } from "@/lib/usePurchases";
 import { useToast } from "@/components/Toast";
-import EmailCapture from "@/components/EmailCapture";
 import Footer from "@/components/Footer";
 import TemplatesDropdown from "@/components/home/TemplatesDropdown";
 import BundlesDropdown from "@/components/home/BundlesDropdown";
@@ -613,10 +612,7 @@ export default function HomeContent() {
 
       {/* Bundle esclusivi rimossi dall'homepage — visibili su /bundle/:id */}
 
-      {/* ── Newsletter — subtle ── */}
-      <div className="relative z-10 border-t border-theme">
-        <EmailCapture />
-      </div>
+      {/* Newsletter moved into Footer for editorial layout */}
 
       {/* ── Ornamental quote / CTA ── */}
       <CTASection lang={lang} />
