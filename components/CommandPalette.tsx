@@ -88,14 +88,14 @@ export default function CommandPalette() {
     const list = templates
       .filter((tpl) => {
         if (!q) return true;
-        const tr = templateTranslations[tpl.id]?.[lang];
+        const tr = lang === "it" ? templateTranslations[tpl.id] : undefined;
         const name = (tr?.name ?? tpl.name).toLowerCase();
         const desc = (tr?.description ?? tpl.description).toLowerCase();
         return name.includes(q) || desc.includes(q) || tpl.id.toLowerCase().includes(q);
       })
       .slice(0, q ? 12 : 6)
       .map<PaletteItem>((tpl) => {
-        const tr = templateTranslations[tpl.id]?.[lang];
+        const tr = lang === "it" ? templateTranslations[tpl.id] : undefined;
         return {
           kind: "template",
           id: tpl.id,
