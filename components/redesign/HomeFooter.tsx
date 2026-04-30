@@ -134,7 +134,7 @@ export default function HomeFooter() {
           </p>
         </div>
         <div style={{ maxWidth: "420px" }}>
-          <EmailCapture lang={lang} />
+          <EmailCapture />
         </div>
       </div>
 
