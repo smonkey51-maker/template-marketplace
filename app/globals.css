@@ -1866,3 +1866,42 @@ html.forma-v2 {
 .forma-fade-in {
   animation: forma-fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+
+/* ── Forma v2 theming CSS vars (light/dark) ── */
+:root {
+  --forma-bg: #F5F0E8;
+  --forma-bg-alt: #FAF7F0;
+  --forma-bg-dark-section: #1A1815;
+  --forma-text: #1A1815;
+  --forma-text-muted: #4A4642;
+  --forma-text-accent: #8B6F47;
+  --forma-border: rgba(26,24,21,0.12);
+  --forma-border-card: rgba(26,24,21,0.16);
+}
+.dark {
+  --forma-bg: #1A1815;
+  --forma-bg-alt: #0D0C0A;
+  --forma-bg-dark-section: #111009;
+  --forma-text: #F5F0E8;
+  --forma-text-muted: rgba(245,240,232,0.60);
+  --forma-text-accent: #8B6F47;
+  --forma-border: rgba(245,240,232,0.12);
+  --forma-border-card: rgba(245,240,232,0.16);
+}
+
+/* Compact mode overrides */
+.forma-compact .forma-v2-section {
+  min-height: auto !important;
+  padding-top: clamp(56px, 10vw, 96px) !important;
+  padding-bottom: clamp(48px, 8vw, 80px) !important;
+}
+.forma-compact .forma-section-grid {
+  grid-template-columns: 1fr !important;
+  gap: 32px !important;
+}
+
+/* Mobile: always single column */
+@media (max-width: 768px) {
+  .forma-section-grid { grid-template-columns: 1fr !important; }
+  .forma-v2-section { padding-left: 6vw !important; padding-right: 6vw !important; }
+}
