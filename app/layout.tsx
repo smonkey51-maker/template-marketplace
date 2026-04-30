@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
-import { Montserrat, DM_Serif_Display, Plus_Jakarta_Sans, Cormorant_Garamond, Fraunces } from "next/font/google";
+import { Montserrat, DM_Serif_Display, Plus_Jakarta_Sans, Cormorant_Garamond, Fraunces, Inter } from "next/font/google";
 import ThemeProvider from "@/components/ThemeProvider";
 import LanguageProvider from "@/components/LanguageProvider";
 import { PostHogProvider } from "@/components/PostHogProvider";
@@ -40,6 +40,13 @@ const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-jakarta",
   weight: ["300", "400", "500", "600", "700", "800"],
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  weight: ["300", "400", "500"],
   display: "swap",
 });
 
@@ -94,7 +101,7 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="it" className={`${montserrat.variable} ${jakarta.variable} ${dmSerif.variable} ${cormorant.variable} ${fraunces.variable}`}>
+      <html lang="it" className={`${montserrat.variable} ${jakarta.variable} ${dmSerif.variable} ${cormorant.variable} ${fraunces.variable} ${inter.variable}`}>
         <body className="bg-page text-theme antialiased min-h-screen">
           <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[9999] focus:px-4 focus:py-2 focus:text-[13px] focus:font-bold" style={{ background: "var(--accent)", color: "var(--bg)" }}>
             Skip to content
