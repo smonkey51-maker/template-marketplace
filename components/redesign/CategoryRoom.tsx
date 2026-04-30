@@ -63,7 +63,7 @@ export default function CategoryRoom({ category, sectionIndex, featuredId }: Cat
       className="forma-snap forma-v2-section"
       style={{
         minHeight: "100svh",
-        background: "var(--forma-bg)",
+        background: "var(--bg)",
         borderTop: "1px solid var(--forma-border)",
         position: "relative",
         display: "flex",

@@ -40,7 +40,7 @@ export default function Manifesto() {
     <section
       ref={ref}
       style={{
-        background: "var(--forma-bg)",
+        background: "var(--bg)",
         padding: "clamp(100px, 16vw, 180px) 8vw",
         position: "relative",
       }}

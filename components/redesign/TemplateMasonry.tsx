@@ -178,7 +178,7 @@ export default function TemplateMasonry() {
     <section
       id="templates"
       style={{
-        background: "var(--forma-bg)",
+        background: "var(--bg)",
         borderTop: "1px solid var(--forma-border)",
         padding: "clamp(80px, 12vw, 140px) 8vw clamp(60px, 8vw, 100px)",
         position: "relative",

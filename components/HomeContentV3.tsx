@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { LayoutProvider, useLayoutMode } from "@/components/redesign/LayoutContext";
-import Nav from "@/components/redesign/Nav";
+import SiteNav from "@/components/SiteNav";
 import Hero from "@/components/redesign/Hero";
 import Manifesto from "@/components/redesign/Manifesto";
 import CategoryRoom from "@/components/redesign/CategoryRoom";
@@ -27,9 +27,9 @@ function HomeV3Inner() {
   }, [mode]);
 
   return (
-    <div style={{ background: "var(--forma-bg)", minHeight: "100vh", transition: "background 0.3s ease" }}>
+    <div className="min-h-screen">
       <div className="forma-grain" aria-hidden />
-      <Nav />
+      <SiteNav />
       <main id="main-content">
         <Hero />
         <Manifesto />

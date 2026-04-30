@@ -32,7 +32,7 @@ export default function Hero() {
       className="forma-snap forma-v2-section"
       style={{
         minHeight: "100svh",
-        background: "var(--forma-bg)",
+        background: "transparent",
         position: "relative",
         overflow: "hidden",
         display: "flex",

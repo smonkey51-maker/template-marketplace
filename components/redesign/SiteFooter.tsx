@@ -86,7 +86,7 @@ export default function SiteFooter() {
   return (
     <footer
       style={{
-        background: "var(--forma-bg)",
+        background: "var(--bg)",
         borderTop: "1px solid var(--forma-border)",
         padding: "clamp(64px, 8vw, 96px) 8vw clamp(40px, 5vw, 56px)",
       }}
