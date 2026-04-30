@@ -16,7 +16,7 @@ export default function NewsTicker() {
     <div
       style={{
         borderBottom: "1px solid var(--forma-border)",
-        background: "var(--forma-text)", // inverted — dark strip
+        background: "var(--forma-bg-dark-section)", // deepest dark canvas color
         overflow: "hidden",
         position: "relative",
         height: "28px",
@@ -33,7 +33,7 @@ export default function NewsTicker() {
           top: 0,
           bottom: 0,
           width: "40px",
-          background: "linear-gradient(to right, var(--forma-text), transparent)",
+          background: "linear-gradient(to right, var(--forma-bg-dark-section), transparent)",
           zIndex: 2,
         }}
       />
@@ -45,7 +45,7 @@ export default function NewsTicker() {
           top: 0,
           bottom: 0,
           width: "40px",
-          background: "linear-gradient(to left, var(--forma-text), transparent)",
+          background: "linear-gradient(to left, var(--forma-bg-dark-section), transparent)",
           zIndex: 2,
         }}
       />

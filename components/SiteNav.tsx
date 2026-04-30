@@ -125,7 +125,7 @@ export default function SiteNav({ title }: { title?: string }) {
 
         {/* Claude AI trust badge */}
         <div className="hidden md:flex items-center gap-1.5 mr-3 px-2.5 py-1 border"
-          style={{ borderColor: "var(--accent-muted, rgba(156,119,51,0.3))", background: "var(--accent-bg)" }}>
+          style={{ borderColor: "var(--accent-muted, rgba(196,154,60,0.25))", background: "var(--accent-bg)" }}>
           <svg width="8" height="8" viewBox="0 0 10 10" fill="none" aria-hidden>
             <path d="M5 1l1.1 2.3L9 4l-2 1.8.5 2.5L5 7.2 2.5 8.3 3 5.8 1 4l2.9-.7L5 1z" fill="currentColor"/>
           </svg>
