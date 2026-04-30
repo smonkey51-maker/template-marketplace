@@ -9,6 +9,8 @@ import MobileNav from "@/components/MobileNav";
 import CustomCursor from "@/components/CustomCursor";
 import PageTransition from "@/components/PageTransition";
 import CommandPalette from "@/components/CommandPalette";
+import { ViewModeProvider, ViewModeWrapper } from "@/components/ViewModeProvider";
+import ViewModeToggle from "@/components/ViewModeToggle";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -106,7 +108,7 @@ export default function RootLayout({
           <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[9999] focus:px-4 focus:py-2 focus:text-[13px] focus:font-bold" style={{ background: "var(--accent)", color: "var(--bg)" }}>
             Skip to content
           </a>
-          <PostHogProvider><ThemeProvider><LanguageProvider><ToastProvider><PageTransition><div id="main-content">{children}</div></PageTransition><MobileNav /><CommandPalette /></ToastProvider></LanguageProvider></ThemeProvider></PostHogProvider>
+          <ViewModeProvider><PostHogProvider><ThemeProvider><LanguageProvider><ToastProvider><ViewModeWrapper><PageTransition><div id="main-content">{children}</div></PageTransition><MobileNav /><CommandPalette /></ViewModeWrapper><ViewModeToggle /></ToastProvider></LanguageProvider></ThemeProvider></PostHogProvider></ViewModeProvider>
           <CustomCursor />
         </body>
       </html>
