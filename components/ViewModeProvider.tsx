@@ -44,7 +44,7 @@ export function ViewModeWrapper({ children }: { children: ReactNode }) {
   if (viewMode !== "mobile") return <>{children}</>;
 
   return (
-    <div style={{ background: "var(--bg-outer, #0a0804)", minHeight: "100vh" }}>
+    <div style={{ background: "var(--bg-outer, #050302)", minHeight: "100vh" }}>
       <div
         style={{
           maxWidth: "390px",

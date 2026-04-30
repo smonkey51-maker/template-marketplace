@@ -9,6 +9,14 @@ import { templates, formatPrice, getDownloadType } from "@/lib/templates";
 const EASE = [0.16, 1, 0.3, 1] as const;
 const PREVIEW_COUNT = 6;
 
+const CATS = [
+  { key: "all",    labelIt: "Tutti",   labelEn: "All" },
+  { key: "html",   labelIt: "UI",      labelEn: "UI" },
+  { key: "notion", labelIt: "Notion",  labelEn: "Notion" },
+  { key: "prompt", labelIt: "Prompt",  labelEn: "Prompt" },
+  { key: "canva",  labelIt: "Canva",   labelEn: "Canva" },
+];
+
 function categoryLabel(tmpl: (typeof templates)[number], lang: "it" | "en"): string {
   const dt = getDownloadType(tmpl);
   const map: Record<string, { it: string; en: string }> = {
@@ -129,14 +137,23 @@ function TemplateCard({ tmpl, index, lang }: CardProps) {
 export default function TemplateMasonry() {
   const { lang } = useLang();
   const [expanded, setExpanded] = useState(false);
+  const [activeCategory, setActiveCategory] = useState<string>("all");
+  const [sortOrder, setSortOrder] = useState<"default" | "price-asc" | "price-desc">("default");
   const headRef = useRef<HTMLDivElement>(null);
   const inView = useInView(headRef, { once: true, margin: "-60px" });
 
-  const sorted = [...templates].sort((a, b) => {
-    if (a.price > 0 && b.price === 0) return -1;
-    if (a.price === 0 && b.price > 0) return 1;
-    return 0;
-  });
+  const sorted = [...templates]
+    .filter(
+      (t) => activeCategory === "all" || getDownloadType(t) === activeCategory
+    )
+    .sort((a, b) => {
+      if (sortOrder === "price-asc") return a.price - b.price;
+      if (sortOrder === "price-desc") return b.price - a.price;
+      // default: paid first
+      if (a.price > 0 && b.price === 0) return -1;
+      if (a.price === 0 && b.price > 0) return 1;
+      return 0;
+    });
 
   const visible = expanded ? sorted : sorted.slice(0, PREVIEW_COUNT);
 
@@ -165,7 +182,7 @@ export default function TemplateMasonry() {
           opacity: 0.3,
         }}
       >
-        07
+        08
       </span>
 
       {/* Header */}

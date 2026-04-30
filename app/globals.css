@@ -30,60 +30,57 @@
    THEME VARIABLES
    ═══════════════════════════════════════════════════════════ */
 :root {
-  /* ── Light mode: Japandi / Zen — washi paper, hinoki wood ── */
-  --bg:          rgba(250,247,240,0.38);
-  --surface:     rgba(242,234,216,0.92);
-  --surface-2:   rgba(234,224,204,0.97);
-  --text:        #0A0805;
-  --muted:       #4A3828;
-  --border:      rgba(28,24,20,0.14);
-  --nav-bg:      rgba(250,247,240,0.96);
-  --card-bg:     rgba(250,247,240,0.93);
-  --card-border: rgba(28,24,20,0.10);
-  --input-bg:    rgba(28,24,20,0.05);
-  --btn-ghost-border:       rgba(28,24,20,0.18);
-  --btn-ghost-border-hover: rgba(28,24,20,0.72);
+  /* ── Light mode: warm parchment — Caravaggio candlelight ── */
+  --bg:          rgba(245,236,216,0.38);
+  --surface:     rgba(238,224,196,0.92);
+  --surface-2:   rgba(230,212,180,0.97);
+  --text:        #1A0E06;
+  --muted:       rgba(26,14,6,0.55);
+  --border:      rgba(26,14,6,0.12);
+  --nav-bg:      rgba(245,236,216,0.96);
+  --card-bg:     rgba(245,236,216,0.95);
+  --card-border: rgba(26,14,6,0.10);
+  --input-bg:    rgba(26,14,6,0.05);
+  --btn-ghost-border:       rgba(26,14,6,0.18);
+  --btn-ghost-border-hover: rgba(26,14,6,0.72);
   /* Border radius tokens */
-  --r-sm: 10px;
-  --r-md: 16px;
-  --r-lg: 22px;
-  --r-xl: 28px;
+  --r-sm: 10px; --r-md: 16px; --r-lg: 22px; --r-xl: 28px;
   /* Glassmorphism tokens */
-  --glass-fill:     rgba(250,247,240,0.84);
-  --glass-shadow:   0 4px 32px rgba(28,24,20,0.09), 0 1px 0 rgba(255,255,255,0.85) inset;
-  --glass-stroke:   rgba(28,24,20,0.10);
-  --glass-top-edge: linear-gradient(90deg, transparent, rgba(255,255,255,0.95) 20%, rgba(255,255,255,0.95) 80%, transparent);
+  --glass-fill:     rgba(245,236,216,0.88);
+  --glass-shadow:   0 4px 32px rgba(26,14,6,0.12), 0 1px 0 rgba(255,248,230,0.9) inset;
+  --glass-stroke:   rgba(26,14,6,0.10);
+  --glass-top-edge: linear-gradient(90deg, transparent, rgba(255,248,230,0.95) 20%, rgba(255,248,230,0.95) 80%, transparent);
   --glass-bright:   1.01;
-  --spec-hot:       rgba(255,255,255,0.65);
-  --spec-mid:       rgba(255,255,255,0.28);
-  --divider:        rgba(28,24,20,0.09);
-  /* Wood-gold accent — muted for light mode */
-  --accent:         #9C7040;
-  --accent-bg:      rgba(156,112,64,0.10);
-  --accent-rgb:     156, 112, 64;
-  --accent-muted:   rgba(156,112,64,0.18);
-  /* Hybrid tokens for light mode */
-  --gold:           #9C7040;
-  --gold-dim:       rgba(156,112,64,0.12);
-  --gold-mid:       rgba(156,112,64,0.30);
-  --terra:          #8C5028;
-  --terra-dim:      rgba(140,80,40,0.12);
-  --cream:          #1C1814;
-  --cream-60:       rgba(28,24,20,0.60);
-  --cream-30:       rgba(28,24,20,0.30);
-  --cream-08:       rgba(28,24,20,0.08);
-  --obsidian-2:     #F2EAD8;
-  --obsidian-3:     #E8DEC8;
-  --obsidian-4:     #DDD1B8;
-  --border-gold:    1px solid rgba(156,112,64,0.28);
+  --spec-hot:       rgba(255,248,230,0.65);
+  --spec-mid:       rgba(255,248,230,0.28);
+  --divider:        rgba(26,14,6,0.09);
+  /* Candlelight gold accent */
+  --accent:         #9C6E20;
+  --accent-bg:      rgba(156,110,32,0.10);
+  --accent-rgb:     156, 110, 32;
+  --accent-muted:   rgba(156,110,32,0.18);
+  /* Caravaggio palette tokens */
+  --gold:           #9C6E20;
+  --gold-dim:       rgba(156,110,32,0.12);
+  --gold-mid:       rgba(156,110,32,0.30);
+  --terra:          #7A1C2E;
+  --terra-dim:      rgba(122,28,46,0.12);
+  --cream:          #F2E8D0;
+  --cream-60:       rgba(242,232,208,0.60);
+  --cream-30:       rgba(242,232,208,0.30);
+  --cream-08:       rgba(242,232,208,0.08);
+  --obsidian-2:     #EEE0C4;
+  --obsidian-3:     #E6D5B0;
+  --obsidian-4:     #DDD1B8; /* unused, keep for compat */
+  --border-gold:    1px solid rgba(156,110,32,0.28);
   /* Semantic state colors */
   --success:        #5A7A32;
   --success-dim:    rgba(90,122,50,0.12);
-  --error:          #8C5028;
-  --error-dim:      rgba(140,80,40,0.12);
+  --error:          #7A1C2E;
+  --error-dim:      rgba(122,28,46,0.12);
   /* Ambient glow */
-  --glow-gold:      rgba(156,112,64,0.18);
-  --glow-terra:     rgba(140,80,40,0.12);
+  --glow-gold:      rgba(156,110,32,0.18);
+  --glow-terra:     rgba(122,28,46,0.12);
   /* Platform brand colors (download buttons) */
   --platform-canva:    #7B61FF;
   --platform-excel:    #1D6F42;
@@ -107,8 +104,20 @@
   --prompt-label:    #8E8E93;
   /* Modal skeleton */
   --skeleton-bg:     #F2F2F7;
-  /* Pillar heading — dark ochre/gold for light mode readability */
+  /* Pillar heading */
   --pillar-name-color: #7A5220;
+  /* Forma tokens — light */
+  --forma-bg:              var(--bg);
+  --forma-bg-alt:          var(--surface);
+  --forma-bg-dark-section: #F0E4CC;
+  --forma-text:            var(--text);
+  --forma-text-muted:      var(--muted);
+  --forma-text-accent:     var(--accent);
+  --forma-border:          var(--border);
+  --forma-border-card:     var(--card-border);
+  --forma-accent-sabi:     var(--terra);
+  --forma-kinari:          #1A0E06;
+  --bg-outer:              #F0E4CC;
   /* Slingday — primary font for the entire site */
   --font-gatsunaga:  var(--font-montserrat), 'Slingday', 'Georgia', serif;
 }
@@ -146,61 +155,55 @@ h4, h5, h6 {
 }
 
 html.dark {
-  /* ── Dark mode: Sumi-e / Lacca — ink black, washi cream ──
-     WCAG contrast checks (bg #1C1814, lum≈0.007):
-       --text  #EDE8DC          → 15.1:1  ✅ AAA
-       --muted rgba(0.55)       → eff. #8f8a82 → 5.3:1  ✅ AA
-       --accent #C8915A         → 6.7:1   ✅ AAA
-       --success #7AAF4A        → 5.4:1   ✅ AA
-  ── */
-  --bg:          rgba(20,16,12,0.55);
-  --surface:     rgba(30,26,20,0.65);
-  --surface-2:   rgba(30,26,20,0.80);
-  --text:        #EDE8DC;
-  --muted:       rgba(237,232,220,0.55);
-  --border:      rgba(237,232,220,0.09);
-  --nav-bg:      rgba(28,24,20,0.93);
-  --card-bg:     rgba(30,26,20,0.65);
-  --card-border: rgba(237,232,220,0.09);
-  --input-bg:    rgba(237,232,220,0.06);
-  --btn-ghost-border:       rgba(237,232,220,0.22);
-  --btn-ghost-border-hover: rgba(237,232,220,0.80);
-  /* Glassmorphism tokens — sumi-e */
-  --glass-fill:     rgba(237,232,220,0.04);
-  --glass-shadow:   0 4px 32px rgba(0,0,0,0.5), 0 1px 0 rgba(237,232,220,0.06) inset;
-  --glass-stroke:   rgba(237,232,220,0.09);
-  --glass-top-edge: linear-gradient(90deg, transparent, rgba(237,232,220,0.08) 20%, rgba(237,232,220,0.08) 80%, transparent);
-  --glass-bright:   1.05;
-  --spec-hot:       rgba(237,232,220,0.08);
-  --spec-mid:       rgba(237,232,220,0.03);
-  --divider:        rgba(237,232,220,0.08);
-  /* Hinoki wood-amber accent */
-  --accent:         #C8915A;
-  --accent-bg:      rgba(200,145,90,0.12);
-  --accent-rgb:     200, 145, 90;
-  --accent-muted:   rgba(200,145,90,0.15);
-  /* Hybrid-specific tokens */
-  --gold:           #C8915A;
-  --gold-dim:       rgba(200,145,90,0.14);
-  --gold-mid:       rgba(200,145,90,0.35);
-  --terra:          #9C6B3C;
-  --terra-dim:      rgba(156,107,60,0.15);
-  --cream:          #EDE8DC;
-  --cream-60:       rgba(237,232,220,0.6);
-  --cream-30:       rgba(237,232,220,0.3);
-  --cream-08:       rgba(237,232,220,0.08);
-  --obsidian-2:     #252119;
-  --obsidian-3:     #2E2921;
-  --obsidian-4:     #383228;
-  --border-gold:    1px solid rgba(200,145,90,0.28);
+  /* ── Dark mode: Caravaggio tenebrism — warm darkness, candlelight gold ── */
+  --bg:          rgba(13,9,6,0.38);
+  --surface:     rgba(26,18,9,0.92);
+  --surface-2:   rgba(34,21,8,0.97);
+  --text:        #F2E8D0;
+  --muted:       rgba(242,232,208,0.50);
+  --border:      rgba(242,232,208,0.09);
+  --nav-bg:      rgba(10,7,4,0.96);
+  --card-bg:     rgba(18,12,6,0.95);
+  --card-border: rgba(196,154,60,0.14);
+  --input-bg:    rgba(242,232,208,0.05);
+  --btn-ghost-border:       rgba(242,232,208,0.18);
+  --btn-ghost-border-hover: rgba(242,232,208,0.70);
+  /* Glassmorphism tokens — tenebrism */
+  --glass-fill:     rgba(18,12,6,0.88);
+  --glass-shadow:   0 4px 32px rgba(0,0,0,0.55), 0 1px 0 rgba(196,154,60,0.07) inset;
+  --glass-stroke:   rgba(196,154,60,0.10);
+  --glass-top-edge: linear-gradient(90deg, transparent, rgba(196,154,60,0.14) 20%, rgba(196,154,60,0.14) 80%, transparent);
+  --glass-bright:   1.0;
+  --spec-hot:       rgba(196,154,60,0.18);
+  --spec-mid:       rgba(196,154,60,0.09);
+  --divider:        rgba(242,232,208,0.08);
+  /* Candlelight gold accent */
+  --accent:         #C49A3C;
+  --accent-bg:      rgba(196,154,60,0.12);
+  --accent-rgb:     196, 154, 60;
+  --accent-muted:   rgba(196,154,60,0.20);
+  /* Caravaggio palette tokens */
+  --gold:           #C49A3C;
+  --gold-dim:       rgba(196,154,60,0.12);
+  --gold-mid:       rgba(196,154,60,0.28);
+  --terra:          #8B2635;
+  --terra-dim:      rgba(139,38,53,0.15);
+  --cream:          #F2E8D0;
+  --cream-60:       rgba(242,232,208,0.60);
+  --cream-30:       rgba(242,232,208,0.30);
+  --cream-08:       rgba(242,232,208,0.08);
+  --obsidian-2:     #1A1209;
+  --obsidian-3:     #120C06;
+  --obsidian-4:     #0D0906;
+  --border-gold:    1px solid rgba(196,154,60,0.22);
   /* Semantic state colors */
-  --success:        #7AAF4A;
-  --success-dim:    rgba(122,175,74,0.14);
-  --error:          #9C6B3C;
-  --error-dim:      rgba(156,107,60,0.14);
+  --success:        #5A7A32;
+  --success-dim:    rgba(90,122,50,0.12);
+  --error:          #8B2635;
+  --error-dim:      rgba(139,38,53,0.15);
   /* Ambient glow */
-  --glow-gold:      rgba(200,145,90,0.12);
-  --glow-terra:     rgba(156,107,60,0.08);
+  --glow-gold:      rgba(196,154,60,0.22);
+  --glow-terra:     rgba(139,38,53,0.16);
   /* Platform brand colors (download buttons) */
   --platform-canva:    #7B61FF;
   --platform-excel:    #1D6F42;
@@ -211,21 +214,21 @@ html.dark {
   --platform-shopify:  #95BF47;
   --platform-wordpress:#21759B;
   /* Phone bezel (preview) */
-  --bezel-bg:        #1C1C1E;
-  --bezel-ring:      #2C2C2E;
-  --bezel-ring-2:    #3A3A3C;
-  --bezel-button:    #3A3A3C;
-  --bezel-notch-bg:  #000000;
-  --bezel-notch-border: #333333;
+  --bezel-bg:        #1A1209;
+  --bezel-ring:      #221508;
+  --bezel-ring-2:    #2A1A0A;
+  --bezel-button:    #1A1209;
+  --bezel-notch-bg:  #120C06;
+  --bezel-notch-border: #221508;
   /* Prompt viewer */
-  --prompt-bg:       #252119;
-  --prompt-header:   #2E2921;
-  --prompt-text:     #EDE8DC;
-  --prompt-label:    rgba(237,232,220,0.60);
+  --prompt-bg:       #120C06;
+  --prompt-header:   #1A1209;
+  --prompt-text:     #F2E8D0;
+  --prompt-label:    rgba(242,232,208,0.45);
   /* Modal skeleton */
-  --skeleton-bg:     #252119;
-  /* Pillar heading — gold accent in dark mode */
-  --pillar-name-color: var(--accent);
+  --skeleton-bg:     #221508;
+  /* Pillar heading — candlelight gold in dark mode */
+  --pillar-name-color: #C49A3C;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -280,29 +283,22 @@ html {
   text-rendering: optimizeLegibility;
   scrollbar-gutter: stable;
   background-color: var(--bg);
-  background-image:
-    radial-gradient(ellipse 80% 50% at 0% 0%, rgba(var(--accent-rgb), 0.06) 0%, transparent 65%),
-    linear-gradient(rgba(250,247,240,0.68), rgba(250,247,240,0.68)),
-    url('/bg-dark.jpg');
-  background-size: 100% 100%, 100% 100%, cover;
-  background-repeat: no-repeat, no-repeat, no-repeat;
-  background-position: center, center, center;
-  background-attachment: fixed, fixed, fixed;
   color: var(--text);
   transition: background-color 0.22s cubic-bezier(0.4,0,0.2,1),
               color 0.22s cubic-bezier(0.4,0,0.2,1);
 }
 
-/* ── Dark mode: photo background (Japanese garden) + seigaiha overlay ── */
+/* ── Dark mode: Caravaggio tenebrism — light emerges from warm darkness ── */
 html.dark {
+  background-color: #0D0906;
   background-image:
-    url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='40'><circle cx='40' cy='40' r='40' fill='none' stroke='%23C8915A' stroke-width='0.7' stroke-opacity='0.09'/><circle cx='0' cy='40' r='40' fill='none' stroke='%23C8915A' stroke-width='0.7' stroke-opacity='0.09'/><circle cx='80' cy='40' r='40' fill='none' stroke='%23C8915A' stroke-width='0.7' stroke-opacity='0.09'/><circle cx='40' cy='0' r='40' fill='none' stroke='%23C8915A' stroke-width='0.7' stroke-opacity='0.09'/></svg>"),
-    linear-gradient(rgba(14,10,6,0.42), rgba(14,10,6,0.42)),
-    url('/bg-dark.jpg');
-  background-size: 80px 40px, 100% 100%, cover;
-  background-repeat: repeat, no-repeat, no-repeat;
-  background-position: top left, center, center;
-  background-attachment: local, fixed, fixed;
+    radial-gradient(ellipse at 50% 0%, rgba(196,154,60,0.05) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 90%, rgba(139,38,53,0.04) 0%, transparent 45%);
+  background-attachment: fixed;
+}
+html:not(.dark) {
+  background-color: #F5ECD8;
+  background-image: none;
 }
 
 * { -webkit-tap-highlight-color: transparent; }
@@ -1711,17 +1707,16 @@ html.dark {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   FORMA V2 — Wabi-sabi editorial palette
-   Palette: Sumi / Tsuchi / Kinari / Sabi / Sumi-dim
+   FORMA V2 — legacy named tokens (kept for component compat)
    ═══════════════════════════════════════════════════════════ */
 :root {
-  --sumi:      #1A1815;
-  --tsuchi:    #8B6F47;
-  --kinari:    #F5F0E8;
-  --sabi:      #A0522D;
-  --sumi-dim:  #4A4642;
-  --border-sumi: rgba(26, 24, 21, 0.14);
-  --border-sumi-strong: rgba(26, 24, 21, 0.22);
+  --sumi:      #1A0E06;
+  --tsuchi:    #9C6E20;
+  --kinari:    #F2E8D0;
+  --sabi:      #7A1C2E;
+  --sumi-dim:  #4A3020;
+  --border-sumi: rgba(26, 14, 6, 0.14);
+  --border-sumi-strong: rgba(26, 14, 6, 0.22);
 }
 
 /* ── Forma v2 typography helpers ── */
@@ -1785,30 +1780,19 @@ html.forma-v2 {
   animation: forma-fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* ── Forma v2 theming CSS vars (light/dark) ── */
-:root {
-  --forma-bg: #F5F0E8;
-  --forma-bg-alt: #FAF7F0;
-  --forma-bg-dark-section: #1A1815;
-  --forma-text: #1A1815;
-  --forma-text-muted: #4A4642;
-  --forma-text-accent: #8B6F47;
-  --forma-border: rgba(26,24,21,0.12);
-  --forma-border-card: rgba(26,24,21,0.16);
-  --forma-accent-sabi: #A0522D;
-  --forma-kinari: #F5F0E8;
-}
+/* ── Forma v2 theming CSS vars — defined in :root and .dark above ── */
 .dark {
-  --forma-bg: #1A1815;
-  --forma-bg-alt: #0D0C0A;
-  --forma-bg-dark-section: #111009;
-  --forma-text: #F5F0E8;
-  --forma-text-muted: rgba(245,240,232,0.60);
-  --forma-text-accent: #C8A46E;   /* was #8B6F47 — now warm gold, readable on dark */
-  --forma-border: rgba(245,240,232,0.12);
-  --forma-border-card: rgba(245,240,232,0.16);
-  --forma-accent-sabi: #C4622D;   /* slightly warmer terra on dark bg */
-  --forma-kinari: #F5F0E8;        /* stays same: warm white used as text on dark sections */
+  --forma-bg:              var(--bg);
+  --forma-bg-alt:          rgba(26,18,9,0.95);
+  --forma-bg-dark-section: #080503;
+  --forma-text:            var(--text);
+  --forma-text-muted:      var(--muted);
+  --forma-text-accent:     var(--accent);
+  --forma-border:          var(--border);
+  --forma-border-card:     var(--card-border);
+  --forma-accent-sabi:     var(--terra);
+  --forma-kinari:          #F8F0DC;
+  --bg-outer:              #050302;
 }
 
 /* Compact mode overrides */
@@ -1827,4 +1811,22 @@ html.forma-v2 {
   .forma-section-grid { grid-template-columns: 1fr !important; }
   .forma-editorial-grid { grid-template-columns: 1fr !important; }
   .forma-v2-section { padding-left: 6vw !important; padding-right: 6vw !important; }
+}
+
+/* ── Forma masthead — responsive letter-spacing for mobile ── */
+@media (max-width: 639px) {
+  .forma-masthead {
+    letter-spacing: 0.18em !important;
+    padding-right: 0.18em !important;
+  }
+}
+
+/* ── News ticker animation ── */
+@keyframes forma-ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .forma-ticker-track { animation: none !important; }
 }

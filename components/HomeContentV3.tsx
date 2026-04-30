@@ -5,6 +5,8 @@ import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
 import { LayoutProvider, useLayoutMode } from "@/components/redesign/LayoutContext";
 import Hero from "@/components/redesign/Hero";
+import NewsTicker from "@/components/redesign/NewsTicker";
+import Sommario from "@/components/redesign/Sommario";
 import Manifesto from "@/components/redesign/Manifesto";
 import CategoryRoom from "@/components/redesign/CategoryRoom";
 import AIStudio from "@/components/redesign/AIStudio";
@@ -151,10 +153,12 @@ function HomeV3Inner() {
       {/* ── Main content — no SiteNav rendered here ───────────────────────────── */}
       <main id="main-content">
         <Hero />
+        <NewsTicker />
+        <Sommario />
         <Manifesto />
-        <CategoryRoom category="ui" sectionIndex={3} featuredId="hero-saas" />
-        <CategoryRoom category="notion" sectionIndex={4} featuredId="notion-project-hub" />
-        <CategoryRoom category="prompts" sectionIndex={5} featuredId="linkedin-prompt-pack" />
+        <CategoryRoom category="ui" sectionIndex={4} featuredId="hero-saas" />
+        <CategoryRoom category="notion" sectionIndex={5} featuredId="notion-project-hub" />
+        <CategoryRoom category="prompts" sectionIndex={6} featuredId="linkedin-prompt-pack" />
         <AIStudio />
         <TemplateMasonry />
       </main>

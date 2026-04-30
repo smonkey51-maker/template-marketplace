@@ -63,7 +63,7 @@ export default function Manifesto() {
           opacity: 0.35,
         }}
       >
-        02
+        03
       </span>
 
       {/* The manifesto sentence — left-aligned, generous leading */}
@@ -105,18 +105,12 @@ export default function Manifesto() {
         </motion.p>
       </div>
 
-      {/* Bottom separator — straight */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: 0,
-          left: "8vw",
-          right: "8vw",
-          height: "1px",
-          background: "var(--forma-text)",
-          opacity: 0.12,
-        }}
-      />
+      {/* Folio line */}
+      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, borderTop: "1px solid var(--forma-border)", padding: "8px 8vw", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <span style={{ fontFamily: "monospace", fontSize: "8px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--forma-text)", opacity: 0.3 }}>FORMA</span>
+        <span style={{ fontFamily: "monospace", fontSize: "8px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--forma-text)", opacity: 0.3 }}>{lang === "it" ? "Editoriale" : "Editorial"}</span>
+        <span style={{ fontFamily: "monospace", fontSize: "8px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--forma-text)", opacity: 0.3 }}>Pag. 3</span>
+      </div>
     </section>
   );
 }
