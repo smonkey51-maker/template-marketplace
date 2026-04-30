@@ -1825,5 +1825,6 @@ html.forma-v2 {
 /* Mobile: always single column */
 @media (max-width: 768px) {
   .forma-section-grid { grid-template-columns: 1fr !important; }
+  .forma-editorial-grid { grid-template-columns: 1fr !important; }
   .forma-v2-section { padding-left: 6vw !important; padding-right: 6vw !important; }
 }
