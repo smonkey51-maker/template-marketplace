@@ -56,7 +56,7 @@ function TypingBlock({ lines, active }: { lines: string[]; active: boolean }) {
         fontFamily: "'SF Mono', 'Fira Code', monospace",
         fontSize: "11px",
         lineHeight: "1.75",
-        color: "#8B6F47",
+        color: "var(--forma-text-accent)",
         padding: "20px 24px",
         minHeight: "200px",
         overflowX: "auto",
@@ -75,7 +75,7 @@ function TypingBlock({ lines, active }: { lines: string[]; active: boolean }) {
           <span style={{ color: "#4A4642", opacity: 0.3, minWidth: "24px", marginRight: "12px", textAlign: "right" }}>
             {count + 1}
           </span>
-          <span className="cursor-blink" style={{ color: "#8B6F47" }}>▌</span>
+          <span className="cursor-blink" style={{ color: "var(--forma-text-accent)" }}>▌</span>
         </div>
       )}
     </div>
@@ -120,7 +120,7 @@ export default function AIStudio() {
           fontSize: "11px",
           fontWeight: 300,
           letterSpacing: "0.04em",
-          color: "#F5F0E8",
+          color: "var(--forma-kinari)",
           opacity: 0.25,
         }}
       >
@@ -150,7 +150,7 @@ export default function AIStudio() {
               fontWeight: 300,
               letterSpacing: "0.12em",
               textTransform: "uppercase",
-              color: "#8B6F47",
+              color: "var(--forma-text-accent)",
               marginBottom: "clamp(16px, 2vw, 24px)",
             }}
           >
@@ -167,7 +167,7 @@ export default function AIStudio() {
               fontWeight: 400,
               lineHeight: 1.05,
               letterSpacing: "0.01em",
-              color: "#F5F0E8",
+              color: "var(--forma-kinari)",
               marginBottom: "clamp(20px, 2.5vw, 32px)",
             }}
           >
@@ -233,7 +233,7 @@ export default function AIStudio() {
                     width: "4px",
                     height: "4px",
                     borderRadius: "50%",
-                    background: "#A0522D",
+                    background: "var(--forma-accent-sabi)",
                     marginTop: "6px",
                     flexShrink: 0,
                   }}
@@ -257,7 +257,7 @@ export default function AIStudio() {
                 fontWeight: 400,
                 letterSpacing: "0.08em",
                 textTransform: "uppercase",
-                color: "#F5F0E8",
+                color: "var(--forma-kinari)",
                 border: "1px solid rgba(245,240,232,0.3)",
                 padding: "12px 28px",
                 textDecoration: "none",
@@ -379,7 +379,7 @@ export default function AIStudio() {
                         width: "5px",
                         height: "5px",
                         borderRadius: "50%",
-                        background: "#8B6F47",
+                        background: "var(--forma-text-accent)",
                         display: "inline-block",
                       }}
                     />
@@ -387,7 +387,7 @@ export default function AIStudio() {
                       style={{
                         fontFamily: "monospace",
                         fontSize: "9px",
-                        color: "#8B6F47",
+                        color: "var(--forma-text-accent)",
                         letterSpacing: "0.06em",
                       }}
                     >

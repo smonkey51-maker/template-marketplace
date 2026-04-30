@@ -79,6 +79,19 @@ export default function Nav() {
             }}
           >
             Forma
+            <span
+              aria-hidden
+              style={{
+                fontFamily: "serif",
+                fontSize: "8px",
+                color: "var(--forma-accent-sabi)",
+                marginLeft: "6px",
+                verticalAlign: "super",
+                opacity: 0.7,
+              }}
+            >
+              ·
+            </span>
           </Link>
 
           {/* Desktop nav */}

@@ -1,10 +1,8 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
-import Link from "next/link";
+import { motion, useInView } from "framer-motion";
 import { useLang } from "@/components/LanguageProvider";
-import { templates, formatPrice } from "@/lib/templates";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -12,8 +10,8 @@ export type RoomCategory = "ui" | "notion" | "prompts";
 
 interface CategoryRoomProps {
   category: RoomCategory;
-  sectionIndex: number; // 03, 04, 05
-  featuredId: string;
+  sectionIndex: number;
+  featuredId?: string; // kept for API compat, unused
 }
 
 const ROOM_DATA: Record<RoomCategory, { nameIt: string; nameEn: string; descIt: string; descEn: string; tagline: string }> = {
@@ -40,269 +38,169 @@ const ROOM_DATA: Record<RoomCategory, { nameIt: string; nameEn: string; descIt: 
   },
 };
 
-export default function CategoryRoom({ category, sectionIndex, featuredId }: CategoryRoomProps) {
+export default function CategoryRoom({ category, sectionIndex }: CategoryRoomProps) {
   const { lang } = useLang();
-  const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(contentRef, { once: true, margin: "-100px" });
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-  const cardY = useTransform(scrollYProgress, [0, 1], [-20, 20]);
+  const inView = useInView(contentRef, { once: true, margin: "-80px" });
 
   const data = ROOM_DATA[category];
-  const featured = templates.find((t) => t.id === featuredId) ?? templates[0];
   const sectionNum = String(sectionIndex).padStart(2, "0");
 
   return (
     <section
       id={`category-${category}`}
-      ref={sectionRef}
       className="forma-snap forma-v2-section"
       style={{
         minHeight: "100svh",
-        background: "var(--forma-bg)",
+        background: "var(--bg)",
         borderTop: "1px solid var(--forma-border)",
         position: "relative",
         display: "flex",
         alignItems: "center",
-        padding: "clamp(80px, 10vw, 120px) 8vw",
+        justifyContent: "center",
+        padding: "clamp(80px, 10vw, 120px) clamp(24px, 8vw, 120px)",
       }}
     >
-      {/* Section number — absolute left margin */}
+      {/* Section number — absolute top-left */}
       <span
         aria-hidden
         style={{
           position: "absolute",
           top: "clamp(80px, 10vw, 120px)",
-          left: "calc(8vw - 0px)",
+          left: "clamp(24px, 8vw, 120px)",
           fontFamily: "monospace",
           fontSize: "11px",
           fontWeight: 300,
           letterSpacing: "0.04em",
           color: "var(--forma-text)",
-          opacity: 0.35,
+          opacity: 0.3,
         }}
       >
         {sectionNum}
       </span>
 
+      {/* Centered editorial content */}
       <div
         ref={contentRef}
-        className="forma-section-grid"
         style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "6vw",
-          alignItems: "center",
+          textAlign: "center",
+          maxWidth: "820px",
           width: "100%",
-          maxWidth: "1200px",
         }}
       >
-        {/* ── Left: category info ── */}
-        <div>
-          {/* Tagline / platform */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.6, ease: EASE }}
+        {/* Tagline */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6, ease: EASE }}
+          style={{
+            fontFamily: "monospace",
+            fontSize: "10px",
+            fontWeight: 300,
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            color: "var(--forma-text-accent)",
+            marginBottom: "clamp(20px, 3vw, 32px)",
+          }}
+        >
+          {data.tagline}
+        </motion.p>
+
+        {/* Big display heading */}
+        <motion.h2
+          initial={{ opacity: 0, y: 32 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 1.0, delay: 0.08, ease: EASE }}
+          style={{
+            fontFamily: "var(--font-cormorant), 'Cormorant Garamond', Georgia, serif",
+            fontSize: "clamp(56px, 10vw, 120px)",
+            fontWeight: 400,
+            lineHeight: 0.95,
+            letterSpacing: "-0.01em",
+            color: "var(--forma-text)",
+            marginBottom: "clamp(28px, 4vw, 48px)",
+          }}
+        >
+          {lang === "it" ? data.nameIt : data.nameEn}
+        </motion.h2>
+
+        {/* Separator */}
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={inView ? { scaleX: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
+          style={{
+            height: "1px",
+            background: "var(--forma-text)",
+            opacity: 0.12,
+            transformOrigin: "center",
+            maxWidth: "360px",
+            margin: "0 auto clamp(24px, 3.5vw, 40px)",
+          }}
+        />
+
+        {/* Description */}
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.28, ease: EASE }}
+          style={{
+            fontFamily: "var(--font-inter), var(--font-jakarta), sans-serif",
+            fontSize: "clamp(13px, 1.3vw, 15px)",
+            fontWeight: 300,
+            lineHeight: 1.8,
+            color: "var(--forma-text-muted)",
+            maxWidth: "440px",
+            margin: "0 auto clamp(28px, 4vw, 48px)",
+          }}
+        >
+          {lang === "it" ? data.descIt : data.descEn}
+        </motion.p>
+
+        {/* Price + CTA */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.7, delay: 0.38, ease: EASE }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "40px",
+            flexWrap: "wrap",
+          }}
+        >
+          <span
             style={{
-              fontFamily: "monospace",
-              fontSize: "10px",
+              fontFamily: "var(--font-inter), sans-serif",
+              fontSize: "12px",
               fontWeight: 300,
-              letterSpacing: "0.12em",
+              letterSpacing: "0.04em",
+              color: "var(--forma-text-muted)",
+            }}
+          >
+            {lang === "it" ? "da €19 — acquisto unico" : "from €19 — one-time purchase"}
+          </span>
+          <button
+            onClick={() => document.getElementById("templates")?.scrollIntoView({ behavior: "smooth" })}
+            style={{
+              fontFamily: "var(--font-inter), sans-serif",
+              fontSize: "11px",
+              fontWeight: 400,
+              letterSpacing: "0.10em",
               textTransform: "uppercase",
               color: "var(--forma-text-accent)",
-              marginBottom: "clamp(16px, 2vw, 24px)",
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+              padding: 0,
+              transition: "color 0.2s ease",
             }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--forma-accent-sabi)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--forma-text-accent)"; }}
           >
-            {data.tagline}
-          </motion.p>
-
-          {/* Category name */}
-          <motion.h2
-            initial={{ opacity: 0, y: 28 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.9, delay: 0.08, ease: EASE }}
-            style={{
-              fontFamily: "var(--font-cormorant), 'Cormorant Garamond', Georgia, serif",
-              fontSize: "clamp(44px, 7vw, 88px)",
-              fontWeight: 400,
-              lineHeight: 1.0,
-              letterSpacing: "0.01em",
-              color: "var(--forma-text)",
-              marginBottom: "clamp(20px, 2.5vw, 32px)",
-            }}
-          >
-            {lang === "it" ? data.nameIt : data.nameEn}
-          </motion.h2>
-
-          {/* Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
-            style={{
-              fontFamily: "var(--font-inter), var(--font-jakarta), sans-serif",
-              fontSize: "clamp(14px, 1.4vw, 16px)",
-              fontWeight: 300,
-              lineHeight: 1.75,
-              color: "var(--forma-text-muted)",
-              maxWidth: "380px",
-              marginBottom: "clamp(28px, 3.5vw, 44px)",
-            }}
-          >
-            {lang === "it" ? data.descIt : data.descEn}
-          </motion.p>
-
-          {/* Separator line */}
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={inView ? { scaleX: 1 } : {}}
-            transition={{ duration: 0.7, delay: 0.3, ease: EASE }}
-            style={{
-              height: "1px",
-              background: "var(--forma-text)",
-              opacity: 0.15,
-              transformOrigin: "left",
-              maxWidth: "380px",
-              marginBottom: "clamp(20px, 2.5vw, 32px)",
-            }}
-          />
-
-          {/* Price + CTA */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.7, delay: 0.4, ease: EASE }}
-            style={{ display: "flex", alignItems: "center", gap: "32px" }}
-          >
-            <span
-              style={{
-                fontFamily: "var(--font-inter), sans-serif",
-                fontSize: "13px",
-                fontWeight: 300,
-                letterSpacing: "0.04em",
-                color: "var(--forma-text-muted)",
-              }}
-            >
-              {lang === "it" ? "da €19 — acquisto unico" : "from €19 — one-time purchase"}
-            </span>
-            <button
-              onClick={() => document.getElementById("templates")?.scrollIntoView({ behavior: "smooth" })}
-              style={{
-                fontFamily: "var(--font-inter), sans-serif",
-                fontSize: "11px",
-                fontWeight: 400,
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
-                color: "var(--forma-text-accent)",
-                background: "transparent",
-                border: "none",
-                cursor: "pointer",
-                padding: 0,
-                transition: "color 0.2s ease",
-              }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#A0522D"; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--forma-text-accent)"; }}
-            >
-              {lang === "it" ? "Tutti i template →" : "All templates →"}
-            </button>
-          </motion.div>
-        </div>
-
-        {/* ── Right: featured template, positioned slightly off-axis ── */}
-        <motion.div
-          style={{ y: cardY }}
-          initial={{ opacity: 0, x: 20 }}
-          animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.9, delay: 0.15, ease: EASE }}
-          className="hidden md:block"
-        >
-          {/* Card positioned slightly right with left void */}
-          <div style={{ paddingLeft: "8%" }}>
-            <div
-              style={{
-                border: "1px solid var(--forma-border-card)",
-                background: "var(--forma-bg-alt)",
-                borderRadius: "2px",
-                overflow: "hidden",
-                maxWidth: "340px",
-              }}
-            >
-              {/* Preview */}
-              <div
-                style={{
-                  height: "200px",
-                  background: "#ffffff",
-                  overflow: "hidden",
-                  borderBottom: "1px solid var(--forma-border)",
-                  position: "relative",
-                }}
-              >
-                <iframe
-                  src={`/api/preview/${featured.id}`}
-                  title={featured.name}
-                  aria-hidden="true"
-                  style={{
-                    width: "160%",
-                    height: "160%",
-                    border: "none",
-                    transformOrigin: "top left",
-                    transform: "scale(0.625)",
-                    pointerEvents: "none",
-                  }}
-                />
-              </div>
-
-              {/* Meta */}
-              <div style={{ padding: "16px 18px" }}>
-                <p
-                  style={{
-                    fontFamily: "var(--font-cormorant), Georgia, serif",
-                    fontSize: "17px",
-                    fontWeight: 400,
-                    color: "var(--forma-text)",
-                    marginBottom: "8px",
-                    letterSpacing: "0.01em",
-                  }}
-                >
-                  {featured.name}
-                </p>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span
-                    style={{
-                      fontFamily: "var(--font-inter), sans-serif",
-                      fontSize: "12px",
-                      fontWeight: 300,
-                      color: "var(--forma-text-muted)",
-                    }}
-                  >
-                    {formatPrice(featured.price)}
-                  </span>
-                  <Link
-                    href={`/preview/${featured.id}`}
-                    style={{
-                      fontFamily: "var(--font-inter), sans-serif",
-                      fontSize: "10px",
-                      fontWeight: 400,
-                      letterSpacing: "0.08em",
-                      textTransform: "uppercase",
-                      color: "#8B6F47",
-                      textDecoration: "none",
-                      transition: "color 0.2s ease",
-                    }}
-                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#A0522D"; }}
-                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "#8B6F47"; }}
-                  >
-                    {lang === "it" ? "Anteprima →" : "Preview →"}
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
+            {lang === "it" ? "Esplora il catalogo →" : "Browse catalog →"}
+          </button>
         </motion.div>
       </div>
     </section>

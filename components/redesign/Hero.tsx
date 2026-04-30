@@ -1,29 +1,101 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
+import { UserButton } from "@clerk/nextjs";
 import { useLang } from "@/components/LanguageProvider";
-import { templates, formatPrice } from "@/lib/templates";
+import ThemeToggle from "@/components/ThemeToggle";
+import LanguageToggle from "@/components/LanguageToggle";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
+
+// ── Hairline components ────────────────────────────────────────────────────────
+
+function DoubleHairline() {
+  return (
+    <div style={{ padding: "0 0" }}>
+      <div style={{ height: "2px", background: "var(--forma-text)", opacity: 0.85 }} />
+      <div style={{ height: "3px" }} />
+      <div style={{ height: "0.5px", background: "var(--forma-text)", opacity: 0.3 }} />
+    </div>
+  );
+}
+
+function SingleHairline() {
+  return (
+    <div style={{ height: "0.5px", background: "var(--forma-text)", opacity: 0.15 }} />
+  );
+}
+
+// ── Dot separator ──────────────────────────────────────────────────────────────
+
+function Dot() {
+  return (
+    <span
+      aria-hidden
+      style={{ opacity: 0.3, margin: "0 12px", userSelect: "none" }}
+    >
+      ·
+    </span>
+  );
+}
+
+// ── Shared nav link style ──────────────────────────────────────────────────────
+
+const navLinkBase: React.CSSProperties = {
+  fontFamily: "monospace",
+  fontSize: "9px",
+  letterSpacing: "0.14em",
+  textTransform: "uppercase",
+  color: "var(--forma-text-muted)",
+  textDecoration: "none",
+  transition: "color 0.18s ease",
+  whiteSpace: "nowrap",
+};
+
+function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <Link
+      href={href}
+      style={navLinkBase}
+      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--forma-text)"; }}
+      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--forma-text-muted)"; }}
+    >
+      {children}
+    </Link>
+  );
+}
+
+// ── Main Hero ─────────────────────────────────────────────────────────────────
 
 export default function Hero() {
   const { lang } = useLang();
   const [mounted, setMounted] = useState(false);
+  const [isMac, setIsMac] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
-  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => {
+    setMounted(true);
+    setIsMac(/Mac|iPod|iPhone|iPad/.test(navigator.platform));
+  }, []);
 
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-  // Subtle parallax: card drifts up slightly on scroll
-  const cardY = useTransform(scrollYProgress, [0, 1], [0, -40]);
+  const openPalette = () => {
+    const evt = new KeyboardEvent("keydown", {
+      key: "k",
+      metaKey: isMac,
+      ctrlKey: !isMac,
+      bubbles: true,
+    });
+    window.dispatchEvent(evt);
+  };
 
-  // Pick the featured template (editor's pick or first)
-  const featured = templates.find((t) => t.editorsPick) ?? templates[0];
+  // Formatted date: "30 APR 2026"
+  const now = new Date();
+  const dateStr = now
+    .toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" })
+    .toUpperCase()
+    .replace(/\./g, "");
 
   return (
     <section
@@ -32,313 +104,474 @@ export default function Hero() {
       className="forma-snap forma-v2-section"
       style={{
         minHeight: "100svh",
-        background: "var(--forma-bg)",
+        background: "transparent",
         position: "relative",
         overflow: "hidden",
         display: "flex",
-        alignItems: "center",
-        padding: "clamp(80px, 10vw, 120px) 8vw",
+        flexDirection: "column",
       }}
     >
-      {/* Section number 01 */}
-      <span
-        aria-hidden
-        style={{
-          position: "absolute",
-          top: "clamp(80px, 10vh, 100px)",
-          left: "8vw",
-          fontFamily: "monospace",
-          fontSize: "11px",
-          fontWeight: 300,
-          letterSpacing: "0.04em",
-          color: "var(--forma-text)",
-          opacity: 0.35,
-        }}
-      >
-        01
-      </span>
-
-      {/* ── Main layout: text left, template card right ── */}
-      <div
-        className="forma-section-grid"
-        style={{
-          width: "100%",
-          display: "grid",
-          gridTemplateColumns: "minmax(0, 1.1fr) minmax(0, 0.9fr)",
-          gap: "4vw",
-          alignItems: "center",
-        }}
-      >
-        {/* ── Left: giant "Forma" + tagline + CTA ── */}
-        <div>
-          {/* Eyebrow */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={mounted ? { opacity: 1 } : {}}
-            transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
-            style={{
-              fontFamily: "var(--font-inter), var(--font-jakarta), sans-serif",
-              fontSize: "11px",
-              fontWeight: 300,
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-              color: "var(--forma-text-accent)",
-              marginBottom: "clamp(16px, 2.5vw, 28px)",
-            }}
-          >
-            {lang === "it" ? "Marketplace di template digitali" : "Digital template marketplace"}
-          </motion.p>
-
-          {/* "Forma" — the logotype-headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 32 }}
-            animate={mounted ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 1.0, delay: 0.15, ease: EASE }}
-            style={{
-              fontFamily: "var(--font-cormorant), 'Cormorant Garamond', Georgia, serif",
-              fontSize: "clamp(80px, 16vw, 200px)",
-              fontWeight: 400,
-              letterSpacing: "0.02em",
-              lineHeight: 0.92,
-              color: "var(--forma-text)",
-              margin: 0,
-            }}
-          >
-            Forma
-          </motion.h1>
-
-          {/* Tagline */}
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={mounted ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.35, ease: EASE }}
-            style={{
-              fontFamily: "var(--font-inter), var(--font-jakarta), sans-serif",
-              fontSize: "clamp(14px, 1.4vw, 17px)",
-              fontWeight: 300,
-              lineHeight: 1.7,
-              color: "var(--forma-text-muted)",
-              marginTop: "clamp(20px, 2.5vw, 32px)",
-              maxWidth: "420px",
-            }}
-          >
-            {lang === "it"
-              ? "Template come oggetti curati. Ogni file è un gesto preciso, non una soluzione generica."
-              : "Templates as curated objects. Every file is a precise gesture, not a generic solution."}
-          </motion.p>
-
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={mounted ? { opacity: 1 } : {}}
-            transition={{ duration: 0.7, delay: 0.55, ease: EASE }}
-            style={{
-              marginTop: "clamp(28px, 3.5vw, 48px)",
-              display: "flex",
-              gap: "24px",
-              flexWrap: "wrap",
-              alignItems: "center",
-            }}
-          >
-            <button
-              onClick={() => document.getElementById("templates")?.scrollIntoView({ behavior: "smooth" })}
-              style={{
-                fontFamily: "var(--font-inter), var(--font-jakarta), sans-serif",
-                fontSize: "12px",
-                fontWeight: 400,
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
-                color: "var(--forma-bg)",
-                background: "var(--forma-text)",
-                border: "1px solid var(--forma-text)",
-                padding: "12px 28px",
-                cursor: "pointer",
-                transition: "background 0.2s ease, color 0.2s ease",
-                borderRadius: "2px",
-              }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.background = "var(--forma-text-muted)";
-                el.style.borderColor = "var(--forma-text-muted)";
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.background = "var(--forma-text)";
-                el.style.borderColor = "var(--forma-text)";
-              }}
-            >
-              {lang === "it" ? "Sfoglia" : "Browse"}
-            </button>
-
-            <Link
-              href="/studio"
-              style={{
-                fontFamily: "var(--font-inter), var(--font-jakarta), sans-serif",
-                fontSize: "12px",
-                fontWeight: 300,
-                letterSpacing: "0.06em",
-                color: "var(--forma-text-muted)",
-                textDecoration: "none",
-                transition: "color 0.2s ease",
-              }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--forma-text)"; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--forma-text-muted)"; }}
-            >
-              AI Studio →
-            </Link>
-          </motion.div>
-        </div>
-
-        {/* ── Right: featured template card, off-center via self-alignment ── */}
-        <motion.div
-          style={{ y: cardY, alignSelf: "center", paddingTop: "clamp(0px, 4vw, 40px)" }}
-          initial={{ opacity: 0, x: 24 }}
-          animate={mounted ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.9, delay: 0.4, ease: EASE }}
-          className="hidden md:block"
-        >
-          {/* The card takes up ~60% of the right column, leaving void to the right */}
-          <div style={{ maxWidth: "360px" }}>
-            {/* Thin label above */}
-            <p
-              style={{
-                fontFamily: "var(--font-inter), sans-serif",
-                fontSize: "10px",
-                fontWeight: 300,
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                color: "var(--forma-text-accent)",
-                marginBottom: "12px",
-              }}
-            >
-              {lang === "it" ? "In evidenza" : "Featured"}
-            </p>
-
-            {/* Card */}
-            <div
-              style={{
-                border: "1px solid var(--forma-border-card)",
-                background: "var(--forma-bg-alt)",
-                overflow: "hidden",
-                borderRadius: "2px",
-              }}
-            >
-              {/* Preview */}
-              <div
-                style={{
-                  height: "220px",
-                  background: "#ffffff",
-                  overflow: "hidden",
-                  position: "relative",
-                  borderBottom: "1px solid var(--forma-border)",
-                }}
-              >
-                <iframe
-                  src={`/api/preview/${featured.id}`}
-                  title={featured.name}
-                  aria-hidden="true"
-                  style={{
-                    width: "160%",
-                    height: "160%",
-                    border: "none",
-                    transformOrigin: "top left",
-                    transform: "scale(0.625)",
-                    pointerEvents: "none",
-                  }}
-                />
-              </div>
-
-              {/* Card meta */}
-              <div style={{ padding: "16px 20px" }}>
-                <p
-                  style={{
-                    fontFamily: "var(--font-cormorant), Georgia, serif",
-                    fontSize: "18px",
-                    fontWeight: 400,
-                    letterSpacing: "0.01em",
-                    color: "var(--forma-text)",
-                    marginBottom: "4px",
-                  }}
-                >
-                  {featured.name}
-                </p>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    marginTop: "10px",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontFamily: "var(--font-inter), sans-serif",
-                      fontSize: "13px",
-                      fontWeight: 300,
-                      color: "var(--forma-text-muted)",
-                    }}
-                  >
-                    {formatPrice(featured.price)}
-                  </span>
-                  <Link
-                    href={`/preview/${featured.id}`}
-                    style={{
-                      fontFamily: "var(--font-inter), sans-serif",
-                      fontSize: "11px",
-                      fontWeight: 400,
-                      letterSpacing: "0.06em",
-                      textTransform: "uppercase",
-                      color: "var(--forma-text-accent)",
-                      textDecoration: "none",
-                      transition: "color 0.2s ease",
-                    }}
-                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#A0522D"; }}
-                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--forma-text-accent)"; }}
-                  >
-                    {lang === "it" ? "Vedi →" : "View →"}
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      </div>
-
-      {/* Bottom scroll cue */}
+      {/* ── A) Info bar ──────────────────────────────────────────────────────── */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={mounted ? { opacity: 1 } : {}}
-        transition={{ delay: 1.2, duration: 0.8 }}
+        transition={{ duration: 0.5, delay: 0.05, ease: EASE }}
         style={{
-          position: "absolute",
-          bottom: "32px",
-          left: "8vw",
           display: "flex",
           alignItems: "center",
-          gap: "12px",
+          justifyContent: "space-between",
+          padding: "12px 8vw",
+          flexWrap: "wrap",
+          gap: "8px",
         }}
-        aria-hidden
       >
-        <div
-          style={{
-            width: "1px",
-            height: "40px",
-            background: "var(--forma-text)",
-            opacity: 0.25,
-          }}
-        />
+        {/* Left: date */}
         <span
           style={{
-            fontFamily: "var(--font-inter), sans-serif",
-            fontSize: "10px",
-            fontWeight: 300,
-            letterSpacing: "0.12em",
+            fontFamily: "monospace",
+            fontSize: "9px",
+            letterSpacing: "0.14em",
             textTransform: "uppercase",
             color: "var(--forma-text-muted)",
             opacity: 0.6,
           }}
         >
-          {lang === "it" ? "Scorri" : "Scroll"}
+          {dateStr}
+        </span>
+
+        {/* Center: subtitle */}
+        <span
+          style={{
+            fontFamily: "monospace",
+            fontSize: "9px",
+            letterSpacing: "0.14em",
+            textTransform: "uppercase",
+            color: "var(--forma-text-muted)",
+            opacity: 0.6,
+            textAlign: "center",
+          }}
+        >
+          {lang === "it"
+            ? "Marketplace di template digitali"
+            : "Digital template marketplace"}
+        </span>
+
+        {/* Right: controls */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "12px",
+          }}
+        >
+          <ThemeToggle />
+          <LanguageToggle />
+          <UserButton />
+        </div>
+      </motion.div>
+
+      {/* ── B) Double hairline ───────────────────────────────────────────────── */}
+      <DoubleHairline />
+
+      {/* ── C) FORMA masthead ────────────────────────────────────────────────── */}
+      <div
+        style={{
+          textAlign: "center",
+          padding: "clamp(24px,4vw,48px) 0",
+          position: "relative",
+        }}
+      >
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={mounted ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 1.0, delay: 0.2, ease: EASE }}
+          style={{
+            fontFamily: "var(--font-cormorant), 'Cormorant Garamond', Georgia, serif",
+            fontSize: "clamp(72px, 16vw, 210px)",
+            fontWeight: 300,
+            letterSpacing: "0.38em",
+            lineHeight: 1,
+            textAlign: "center",
+            color: "var(--forma-text)",
+            textTransform: "uppercase",
+            margin: 0,
+            paddingRight: "0.38em", // compensate for trailing letter-spacing
+          }}
+        >
+          Forma
+        </motion.h1>
+      </div>
+
+      {/* ── D) Double hairline ───────────────────────────────────────────────── */}
+      <DoubleHairline />
+
+      {/* ── E) Nav links row ─────────────────────────────────────────────────── */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={mounted ? { opacity: 1 } : {}}
+        transition={{ duration: 0.6, delay: 0.35, ease: EASE }}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "10px 8vw",
+          flexWrap: "wrap",
+          gap: "8px",
+        }}
+      >
+        {/* Left: page links */}
+        <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
+          <NavLink href="/">
+            {lang === "it" ? "Catalogo" : "Catalog"} →
+          </NavLink>
+          <Dot />
+          <NavLink href="/guide">
+            {lang === "it" ? "Guida" : "Guide"} →
+          </NavLink>
+          <Dot />
+          <NavLink href="/studio">AI Studio →</NavLink>
+          <Dot />
+          <NavLink href="/account">Account →</NavLink>
+        </div>
+
+        {/* Right: search + Studio CTA */}
+        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+          {/* Search / command palette trigger */}
+          <button
+            type="button"
+            onClick={openPalette}
+            aria-label={lang === "it" ? "Apri palette comandi" : "Open command palette"}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "6px",
+              background: "transparent",
+              border: "none",
+              padding: 0,
+              cursor: "pointer",
+            }}
+          >
+            <span style={navLinkBase}>
+              {lang === "it" ? "Cerca" : "Search"}
+            </span>
+            <span
+              style={{
+                fontFamily: "monospace",
+                fontSize: "8px",
+                letterSpacing: "0.06em",
+                color: "var(--forma-text-muted)",
+                border: "1px solid var(--forma-border)",
+                padding: "1px 5px",
+                opacity: 0.55,
+                userSelect: "none",
+              }}
+            >
+              {isMac ? "⌘K" : "Ctrl K"}
+            </span>
+          </button>
+
+          {/* Studio CTA */}
+          <Link
+            href="/studio"
+            style={{
+              fontFamily: "monospace",
+              fontSize: "9px",
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              color: "var(--forma-text-accent)",
+              border: "1px solid var(--forma-text-accent)",
+              padding: "4px 10px",
+              textDecoration: "none",
+              background: "transparent",
+              transition: "background 0.18s ease, color 0.18s ease",
+              whiteSpace: "nowrap",
+            }}
+            onMouseEnter={(e) => {
+              const el = e.currentTarget as HTMLElement;
+              el.style.background = "var(--forma-text-accent)";
+              el.style.color = "var(--forma-bg)";
+            }}
+            onMouseLeave={(e) => {
+              const el = e.currentTarget as HTMLElement;
+              el.style.background = "transparent";
+              el.style.color = "var(--forma-text-accent)";
+            }}
+          >
+            Studio →
+          </Link>
+        </div>
+      </motion.div>
+
+      {/* ── F) Single hairline ───────────────────────────────────────────────── */}
+      <SingleHairline />
+
+      {/* ── G) Editorial content area ────────────────────────────────────────── */}
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        animate={mounted ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.9, delay: 0.5, ease: EASE }}
+        style={{
+          flex: 1,
+          display: "flex",
+          alignItems: "center",
+          padding: "clamp(32px,5vw,60px) 8vw clamp(48px,6vw,80px)",
+        }}
+      >
+        <div
+          style={{
+            width: "100%",
+            display: "grid",
+            gridTemplateColumns: "1fr 1.2fr",
+            gap: "clamp(32px, 4vw, 64px)",
+            alignItems: "start",
+          }}
+          className="forma-editorial-grid"
+        >
+          {/* Left column */}
+          <div>
+            {/* Eyebrow */}
+            <p
+              style={{
+                fontFamily: "monospace",
+                fontSize: "9px",
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "var(--forma-text-accent)",
+                marginBottom: "16px",
+                margin: "0 0 16px 0",
+              }}
+            >
+              {lang === "it" ? "Edizione digitale · Vol. I" : "Digital edition · Vol. I"}
+            </p>
+
+            {/* Editorial headline */}
+            <h2
+              style={{
+                fontFamily: "var(--font-cormorant), 'Cormorant Garamond', Georgia, serif",
+                fontSize: "clamp(32px, 4.5vw, 52px)",
+                fontWeight: 400,
+                lineHeight: 1.15,
+                color: "var(--forma-text)",
+                margin: "0 0 clamp(14px, 1.5vw, 20px) 0",
+              }}
+            >
+              {lang === "it"
+                ? "Template come oggetti curati."
+                : "Templates as curated objects."}
+            </h2>
+
+            {/* Tagline */}
+            <p
+              style={{
+                fontFamily: "var(--font-inter), var(--font-jakarta), sans-serif",
+                fontSize: "clamp(13px, 1.2vw, 15px)",
+                fontWeight: 300,
+                lineHeight: 1.8,
+                color: "var(--forma-text-muted)",
+                maxWidth: "360px",
+                margin: 0,
+              }}
+            >
+              {lang === "it"
+                ? "Ogni file è un gesto preciso, non una soluzione generica."
+                : "Every file is a precise gesture, not a generic solution."}
+            </p>
+
+            {/* CTAs */}
+            <div
+              style={{
+                marginTop: "clamp(24px, 3vw, 36px)",
+                display: "flex",
+                alignItems: "center",
+                flexWrap: "wrap",
+                gap: "0",
+              }}
+            >
+              <button
+                onClick={() =>
+                  document.getElementById("templates")?.scrollIntoView({ behavior: "smooth" })
+                }
+                style={{
+                  fontFamily: "monospace",
+                  fontSize: "10px",
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  color: "var(--forma-bg)",
+                  background: "var(--forma-text)",
+                  border: "1px solid var(--forma-text)",
+                  padding: "10px 24px",
+                  cursor: "pointer",
+                  borderRadius: 0,
+                  transition: "background 0.18s ease, color 0.18s ease",
+                }}
+                onMouseEnter={(e) => {
+                  const el = e.currentTarget as HTMLElement;
+                  el.style.background = "var(--forma-text-muted)";
+                  el.style.borderColor = "var(--forma-text-muted)";
+                }}
+                onMouseLeave={(e) => {
+                  const el = e.currentTarget as HTMLElement;
+                  el.style.background = "var(--forma-text)";
+                  el.style.borderColor = "var(--forma-text)";
+                }}
+              >
+                {lang === "it" ? "Sfoglia" : "Browse"}
+              </button>
+
+              <Link
+                href="/studio"
+                style={{
+                  fontFamily: "monospace",
+                  fontSize: "10px",
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  color: "var(--forma-text-accent)",
+                  textDecoration: "none",
+                  marginLeft: "24px",
+                  transition: "opacity 0.18s ease",
+                }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.opacity = "0.7"; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.opacity = "1"; }}
+              >
+                AI Studio →
+              </Link>
+            </div>
+          </div>
+
+          {/* Right column — desktop only */}
+          <div
+            className="hidden md:block"
+            style={{
+              position: "relative",
+              paddingLeft: "clamp(24px, 3vw, 48px)",
+              borderLeft: "1px solid var(--forma-border)",
+            }}
+          >
+            {/* Stats column */}
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              {/* Stat 1 */}
+              <div style={{ paddingBottom: "clamp(16px, 2vw, 28px)" }}>
+                <div
+                  style={{
+                    fontFamily: "var(--font-cormorant), 'Cormorant Garamond', Georgia, serif",
+                    fontSize: "48px",
+                    fontWeight: 300,
+                    lineHeight: 1,
+                    color: "var(--forma-text)",
+                    marginBottom: "6px",
+                  }}
+                >
+                  40+
+                </div>
+                <div
+                  style={{
+                    fontFamily: "monospace",
+                    fontSize: "9px",
+                    letterSpacing: "0.14em",
+                    textTransform: "uppercase",
+                    color: "var(--forma-text-muted)",
+                  }}
+                >
+                  {lang === "it" ? "template nel catalogo" : "templates in catalog"}
+                </div>
+              </div>
+
+              <div style={{ height: "1px", background: "var(--forma-border)", opacity: 1 }} />
+
+              {/* Stat 2 */}
+              <div style={{ padding: "clamp(16px, 2vw, 28px) 0" }}>
+                <div
+                  style={{
+                    fontFamily: "var(--font-cormorant), 'Cormorant Garamond', Georgia, serif",
+                    fontSize: "48px",
+                    fontWeight: 300,
+                    lineHeight: 1,
+                    color: "var(--forma-text)",
+                    marginBottom: "6px",
+                  }}
+                >
+                  3
+                </div>
+                <div
+                  style={{
+                    fontFamily: "monospace",
+                    fontSize: "9px",
+                    letterSpacing: "0.14em",
+                    textTransform: "uppercase",
+                    color: "var(--forma-text-muted)",
+                  }}
+                >
+                  {lang === "it" ? "categorie" : "categories"}
+                </div>
+              </div>
+
+              <div style={{ height: "1px", background: "var(--forma-border)", opacity: 1 }} />
+
+              {/* Stat 3 */}
+              <div style={{ paddingTop: "clamp(16px, 2vw, 28px)" }}>
+                <div
+                  style={{
+                    fontFamily: "var(--font-cormorant), 'Cormorant Garamond', Georgia, serif",
+                    fontSize: "48px",
+                    fontWeight: 300,
+                    lineHeight: 1,
+                    color: "var(--forma-text)",
+                    marginBottom: "6px",
+                  }}
+                >
+                  €19
+                </div>
+                <div
+                  style={{
+                    fontFamily: "monospace",
+                    fontSize: "9px",
+                    letterSpacing: "0.14em",
+                    textTransform: "uppercase",
+                    color: "var(--forma-text-muted)",
+                  }}
+                >
+                  {lang === "it" ? "da · acquisto unico" : "from · one-time purchase"}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* ── H) Scroll cue ────────────────────────────────────────────────────── */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={mounted ? { opacity: 1 } : {}}
+        transition={{ delay: 1.2, duration: 0.8 }}
+        aria-hidden
+        style={{
+          position: "absolute",
+          bottom: "24px",
+          left: "8vw",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+          gap: "8px",
+          opacity: 0.4,
+        }}
+      >
+        <div
+          style={{
+            width: "1px",
+            height: "32px",
+            background: "var(--forma-text)",
+          }}
+        />
+        <span
+          style={{
+            fontFamily: "monospace",
+            fontSize: "9px",
+            letterSpacing: "0.14em",
+            textTransform: "uppercase",
+            color: "var(--forma-text-muted)",
+          }}
+        >
+          {lang === "it" ? "scorri" : "scroll"}
         </span>
       </motion.div>
     </section>

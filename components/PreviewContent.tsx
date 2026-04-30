@@ -200,40 +200,50 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
 
       {/* ── Mobile/Desktop toggle (UI only) ── */}
       {template.category === "ui" && (
-        <div className="fixed z-50 flex items-center gap-0.5 glass p-1 shadow-[0_4px_24px_rgba(0,0,0,0.12)]" style={{ top: "max(1rem, env(safe-area-inset-top, 1rem))", right: "max(1rem, env(safe-area-inset-right, 1rem))" }}>
+        <div
+          className="fixed z-50 flex items-center border"
+          style={{
+            top: "max(1rem, env(safe-area-inset-top, 1rem))",
+            left: "50%",
+            transform: "translateX(-50%)",
+            background: "var(--nav-bg)",
+            borderColor: "var(--border)",
+            backdropFilter: "blur(16px) saturate(160%)",
+            WebkitBackdropFilter: "blur(16px) saturate(160%)",
+            boxShadow: "0 4px 24px rgba(0,0,0,0.18)",
+            padding: "3px",
+            gap: "2px",
+          }}
+        >
           <button
             onClick={() => setViewMode("desktop")}
             aria-pressed={viewMode === "desktop"}
             aria-label="Desktop preview"
-            className={`flex items-center gap-1.5 px-3 py-1.5 text-[12px] font-semibold transition-all duration-200 ${
-              viewMode === "desktop"
-                ? "shadow-sm"
-                : "text-muted hover:text-theme"
-            }`}
-            style={viewMode === "desktop" ? activeToggleStyle : undefined}
+            className="flex items-center gap-2 px-4 py-2 text-[12px] font-semibold tracking-wide uppercase transition-all duration-200"
+            style={viewMode === "desktop"
+              ? { background: "var(--accent)", color: "var(--bg)" }
+              : { color: "var(--muted)" }}
           >
-            <svg width="15" height="11" viewBox="0 0 15 11" fill="none" aria-hidden>
-              <rect x="0.6" y="0.6" width="13.8" height="8.3" rx="1.4" stroke="currentColor" strokeWidth="1.2"/>
-              <path d="M4.5 10.5h6M7.5 8.9v1.6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+            <svg width="14" height="10" viewBox="0 0 15 11" fill="none" aria-hidden>
+              <rect x="0.6" y="0.6" width="13.8" height="8.3" rx="1.4" stroke="currentColor" strokeWidth="1.4"/>
+              <path d="M4.5 10.5h6M7.5 8.9v1.6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
             </svg>
-            <span className="hidden sm:inline">Desktop</span>
+            Desktop
           </button>
           <button
             onClick={() => setViewMode("mobile")}
             aria-pressed={viewMode === "mobile"}
             aria-label="Mobile preview"
-            className={`flex items-center gap-1.5 px-3 py-1.5 text-[12px] font-semibold transition-all duration-200 ${
-              viewMode === "mobile"
-                ? "shadow-sm"
-                : "text-muted hover:text-theme"
-            }`}
-            style={viewMode === "mobile" ? activeToggleStyle : undefined}
+            className="flex items-center gap-2 px-4 py-2 text-[12px] font-semibold tracking-wide uppercase transition-all duration-200"
+            style={viewMode === "mobile"
+              ? { background: "var(--accent)", color: "var(--bg)" }
+              : { color: "var(--muted)" }}
           >
-            <svg width="8" height="13" viewBox="0 0 8 13" fill="none">
-              <rect x="0.6" y="0.6" width="6.8" height="11.8" rx="1.8" stroke="currentColor" strokeWidth="1.2"/>
+            <svg width="7" height="12" viewBox="0 0 8 13" fill="none" aria-hidden>
+              <rect x="0.6" y="0.6" width="6.8" height="11.8" rx="1.8" stroke="currentColor" strokeWidth="1.4"/>
               <circle cx="4" cy="10.2" r="0.7" fill="currentColor"/>
             </svg>
-            <span className="hidden sm:inline">Mobile</span>
+            Mobile
           </button>
         </div>
       )}

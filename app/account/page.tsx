@@ -49,6 +49,16 @@ export default function AccountPage() {
 
       <div className="relative z-10 max-w-4xl mx-auto px-6 py-12 flex flex-col gap-8">
 
+        {/* Editorial page header */}
+        <div style={{ paddingBottom: "clamp(32px, 4vw, 48px)", borderBottom: "1px solid var(--border)", marginBottom: "clamp(32px, 4vw, 48px)" }}>
+          <p style={{ fontFamily: "monospace", fontSize: "10px", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--accent)", marginBottom: "12px" }}>
+            {lang === "it" ? "Il tuo account" : "Your account"}
+          </p>
+          <h1 style={{ fontFamily: "var(--font-cormorant), 'Cormorant Garamond', serif", fontSize: "clamp(36px, 5vw, 56px)", fontWeight: 400, letterSpacing: "0.01em", lineHeight: 1.1, color: "var(--text)", margin: 0 }}>
+            {user?.firstName ? (lang === "it" ? `Ciao, ${user.firstName}` : `Hello, ${user.firstName}`) : (lang === "it" ? "Il mio spazio" : "My space")}
+          </h1>
+        </div>
+
         {/* Profile card */}
         <div className="bg-surface border border-theme p-6 flex items-center gap-5">
           <div className="w-16 h-16 flex items-center justify-center text-2xl font-bold shrink-0" style={{ background: "var(--accent)", color: "var(--bg)" }}>
@@ -110,7 +120,7 @@ export default function AccountPage() {
         {/* ── Purchased templates — purchase history ─────────────────── */}
         <div>
           <div className="flex items-center justify-between mb-4 px-1">
-            <h2 className="text-[13px] font-semibold text-muted uppercase tracking-widest">
+            <h2 className="text-[10px] font-normal uppercase tracking-[0.18em]" style={{ fontFamily: "monospace", color: "var(--accent)" }}>
               {t[lang].account.myTemplates}{" "}
               {purchasedTemplates.length > 0 && (
                 <span className="normal-case tracking-normal text-muted">({purchasedTemplates.length})</span>
@@ -215,7 +225,7 @@ export default function AccountPage() {
 
         {/* Account section */}
         <div>
-          <h3 className="text-[13px] font-semibold text-muted uppercase tracking-widest mb-3 px-1">{t[lang].account.accountSection}</h3>
+          <h3 className="text-[10px] font-normal uppercase tracking-[0.18em] mb-4 px-1" style={{ fontFamily: "monospace", color: "var(--accent)" }}>{t[lang].account.accountSection}</h3>
           <div className="bg-surface border border-theme overflow-hidden">
             <button
               onClick={openPortal}

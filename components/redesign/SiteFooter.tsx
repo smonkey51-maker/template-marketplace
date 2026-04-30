@@ -86,7 +86,7 @@ export default function SiteFooter() {
   return (
     <footer
       style={{
-        background: "var(--forma-bg)",
+        background: "var(--bg)",
         borderTop: "1px solid var(--forma-border)",
         padding: "clamp(64px, 8vw, 96px) 8vw clamp(40px, 5vw, 56px)",
       }}
@@ -138,7 +138,7 @@ export default function SiteFooter() {
               fontWeight: 300,
               letterSpacing: "0.08em",
               textTransform: "uppercase",
-              color: "#8B6F47",
+              color: "var(--forma-text-accent)",
               opacity: 0.8,
             }}
           >

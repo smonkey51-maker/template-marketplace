@@ -1,3 +1,4 @@
+// Legacy component — superseded by HomeContentV3
 "use client";
 
 import Link from "next/link";
