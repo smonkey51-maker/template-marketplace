@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { useLang } from "@/components/LanguageProvider";
 import { templates } from "@/lib/templates";
@@ -46,18 +46,8 @@ function AnimatedHeadline({ lines }: { lines: string[][] }) {
 export default function Hero() {
   const { lang } = useLang();
   const [mounted, setMounted] = useState(false);
-  const containerRef = useRef<HTMLElement>(null);
 
   useEffect(() => { setMounted(true); }, []);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
-  const previewY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
-  const previewOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-
-  const heroTemplate = templates.find((t) => t.editorsPick) ?? templates[0];
 
   const headlineIt = [["Design che"], ["prende forma."]];
   const headlineEn = [["Design that"], ["takes shape."]];
@@ -65,7 +55,6 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      ref={containerRef}
       style={{
         minHeight: "100svh",
         display: "flex",
@@ -265,151 +254,6 @@ export default function Hero() {
           ))}
         </motion.div>
       </div>
-
-      {/* ── Hero template preview window ── */}
-      <motion.div
-        initial={{ opacity: 0, y: 48 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, delay: 0.7, ease }}
-        style={{
-          position: "relative",
-          zIndex: 1,
-          width: "100%",
-          maxWidth: "860px",
-          marginTop: "clamp(48px, 8vh, 80px)",
-          y: previewY,
-          opacity: previewOpacity,
-        }}
-      >
-        {/* Browser chrome */}
-        <div
-          style={{
-            border: "1px solid var(--apple-border)",
-            boxShadow: "var(--apple-shadow-elevated)",
-            background: "var(--apple-surface)",
-            overflow: "hidden",
-          }}
-        >
-          {/* Toolbar */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-              padding: "10px 16px",
-              background: "var(--apple-bg-alt)",
-              borderBottom: "1px solid var(--apple-divider)",
-            }}
-          >
-            <div style={{ display: "flex", gap: "6px" }}>
-              {["#FF5F57", "#FFBD2E", "#27C840"].map((c) => (
-                <div
-                  key={c}
-                  style={{ width: "11px", height: "11px", borderRadius: "50%", background: c }}
-                />
-              ))}
-            </div>
-            <div
-              style={{
-                flex: 1,
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <div
-                style={{
-                  padding: "3px 12px",
-                  fontSize: "11px",
-                  color: "var(--apple-text-tertiary)",
-                  background: "var(--apple-surface)",
-                  border: "1px solid var(--apple-divider)",
-                  maxWidth: "260px",
-                  width: "100%",
-                  textAlign: "center",
-                  letterSpacing: "-0.01em",
-                }}
-              >
-                forma.design/preview/{heroTemplate.id}
-              </div>
-            </div>
-          </div>
-
-          {/* Preview iframe */}
-          <div
-            style={{
-              width: "100%",
-              height: "clamp(280px, 38vw, 420px)",
-              overflow: "hidden",
-              background: "#ffffff",
-              position: "relative",
-            }}
-          >
-            <iframe
-              src={`/api/preview/${heroTemplate.id}`}
-              title={heroTemplate.name}
-              aria-hidden="true"
-              style={{
-                width: "143%",
-                height: "143%",
-                border: "none",
-                transformOrigin: "top left",
-                transform: "scale(0.7)",
-                pointerEvents: "none",
-              }}
-            />
-          </div>
-        </div>
-
-        {/* Caption */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginTop: "12px",
-            padding: "0 4px",
-          }}
-        >
-          <span
-            style={{
-              fontSize: "12px",
-              color: "var(--apple-text-tertiary)",
-              letterSpacing: "-0.01em",
-            }}
-          >
-            {heroTemplate.name}
-            {heroTemplate.editorsPick && (
-              <span
-                style={{
-                  marginLeft: "8px",
-                  fontSize: "10px",
-                  fontWeight: 600,
-                  letterSpacing: "0.06em",
-                  textTransform: "uppercase",
-                  color: "var(--accent)",
-                  padding: "2px 6px",
-                  border: "1px solid var(--accent)",
-                  opacity: 0.85,
-                }}
-              >
-                {lang === "it" ? "Scelta della redazione" : "Editor's pick"}
-              </span>
-            )}
-          </span>
-          <Link
-            href={`/preview/${heroTemplate.id}`}
-            style={{
-              fontSize: "12px",
-              fontWeight: 600,
-              color: "var(--accent)",
-              textDecoration: "none",
-              letterSpacing: "-0.01em",
-            }}
-          >
-            {lang === "it" ? "Vedi dettagli →" : "View details →"}
-          </Link>
-        </div>
-      </motion.div>
 
       {/* Scroll cue */}
       <motion.div
