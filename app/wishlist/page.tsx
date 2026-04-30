@@ -6,6 +6,7 @@ import { getTemplate } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
 import TemplateCard from "@/components/TemplateCard";
 import SiteNav from "@/components/SiteNav";
+import Footer from "@/components/Footer";
 import { usePurchases } from "@/lib/usePurchases";
 
 export default function WishlistPage() {
@@ -70,6 +71,7 @@ export default function WishlistPage() {
           </>
         )}
       </div>
+      <Footer />
     </div>
   );
 }
