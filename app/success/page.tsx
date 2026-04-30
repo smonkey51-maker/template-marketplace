@@ -9,7 +9,7 @@ import DownloadButton from "@/components/DownloadButton";
 import { useLang } from "@/components/LanguageProvider";
 import { t } from "@/lib/i18n";
 
-const CONFETTI_COLORS = ["#C8A96E", "#9C7733", "#D4B98A", "#6B5528", "#E8D5B0", "#A88445", "#7A6035"];
+const CONFETTI_COLORS = ["#C8A96E", "#C49A3C", "#D4B98A", "#8B2635", "#F2E8D0", "#C49A3C", "#7A5220"];
 
 function Confetti() {
   const pieces = useRef(
