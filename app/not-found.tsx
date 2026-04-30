@@ -36,12 +36,12 @@ export default function NotFound() {
         {/* 404 number */}
         <p
           className="text-[100px] sm:text-[120px] leading-none tracking-tighter select-none"
-          style={{ fontFamily: "var(--font-gatsunaga)", fontStyle: "italic", fontWeight: 400, color: "var(--accent)" }}
+          style={{ fontFamily: "var(--font-cormorant), 'Cormorant Garamond', Georgia, serif", fontStyle: "italic", fontWeight: 300, color: "var(--accent)", letterSpacing: "-0.02em" }}
         >
           404
         </p>
 
-        <h1 className="text-[22px] font-bold text-theme mt-2 mb-3 tracking-tight" style={{ fontFamily: "var(--font-syne)" }}>
+        <h1 className="text-[20px] font-semibold text-theme mt-2 mb-3 tracking-tight">
           {lang === "it" ? "Pagina non trovata" : "Page not found"}
         </h1>
 
@@ -74,7 +74,7 @@ export default function NotFound() {
 
         {/* Suggested popular templates */}
         <div className="mb-8">
-          <p className="text-[10px] font-bold text-muted uppercase tracking-[0.18em] mb-4" style={{ fontFamily: "var(--font-syne)" }}>
+          <p className="text-[10px] font-normal uppercase tracking-[0.18em] mb-4" style={{ fontFamily: "monospace", color: "var(--accent)" }}>
             {lang === "it" ? "Template popolari" : "Popular templates"}
           </p>
           <div className="flex flex-col sm:flex-row gap-2 justify-center">

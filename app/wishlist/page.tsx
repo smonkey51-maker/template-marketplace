@@ -21,6 +21,14 @@ export default function WishlistPage() {
       <SiteNav title={lang === "it" ? "Salvati" : "Saved"} />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10">
+        <div style={{ paddingBottom: "clamp(24px, 3vw, 36px)", borderBottom: "1px solid var(--border)", marginBottom: "clamp(32px, 4vw, 48px)" }}>
+          <p style={{ fontFamily: "monospace", fontSize: "10px", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--accent)", marginBottom: "12px" }}>
+            {lang === "it" ? "Collezione personale" : "Personal collection"}
+          </p>
+          <h1 style={{ fontFamily: "var(--font-cormorant), 'Cormorant Garamond', serif", fontSize: "clamp(36px, 5vw, 56px)", fontWeight: 400, letterSpacing: "0.01em", lineHeight: 1.1, color: "var(--text)", margin: 0 }}>
+            {lang === "it" ? "Salvati" : "Wishlist"}
+          </h1>
+        </div>
         {saved.length === 0 ? (
           <div className="flex flex-col items-center gap-5 py-24 text-center">
             <div className="w-16 h-16 bg-accent/10 flex items-center justify-center">
