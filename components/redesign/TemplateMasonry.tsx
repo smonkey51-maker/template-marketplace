@@ -51,7 +51,7 @@ function TemplateCard({ tmpl, index, lang }: TemplateCardProps) {
       transition={{ duration: 0.7, delay: (index % 4) * 0.06, ease: EASE }}
       style={{
         breakInside: "avoid",
-        marginBottom: "clamp(32px, 4vw, 48px)",
+        marginBottom: "clamp(10px, 1.2vw, 14px)",
       }}
     >
       <Link
@@ -104,7 +104,7 @@ function TemplateCard({ tmpl, index, lang }: TemplateCardProps) {
           </div>
 
           {/* Meta */}
-          <div style={{ padding: "14px 16px" }}>
+          <div style={{ padding: "10px 14px 12px" }}>
             <div
               style={{
                 display: "flex",
@@ -246,8 +246,8 @@ export default function TemplateMasonry() {
       {/* Masonry grid via CSS columns */}
       <div
         style={{
-          columns: "clamp(280px, 30vw, 360px)",
-          columnGap: "clamp(24px, 3vw, 48px)",
+          columns: "clamp(240px, 26vw, 320px)",
+          columnGap: "clamp(10px, 1.2vw, 14px)",
         }}
       >
         {sorted.map((tmpl, i) => (
