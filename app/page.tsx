@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import HomeContentV2 from "@/components/HomeContentV2";
+import HomeContentV3 from "@/components/HomeContentV3";
 import { templates } from "@/lib/templates";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://forma.design";
@@ -61,7 +61,7 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListLd) }}
       />
-      <HomeContentV2 />
+      <HomeContentV3 />
     </>
   );
 }
