@@ -1,0 +1,32 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: 16px 16px 12px; background: #14100C; font-family: 'Plus Jakarta Sans', sans-serif; }
+  .grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+  .swatch { display: flex; flex-direction: column; gap: 4px; }
+  .chip { height: 48px; border-radius: 2px; }
+  .label { font-size: 9px; letter-spacing: 0.08em; color: rgba(237,232,220,0.5); text-transform: uppercase; }
+  .val { font-size: 9px; color: rgba(237,232,220,0.3); font-family: 'SF Mono', monospace; }
+  .section-label { font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #C8915A; margin-bottom: 8px; }
+  .row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-bottom: 12px; }
+</style>
+</head>
+<body class="dark">
+<div class="section-label">Semantic States</div>
+<div class="row">
+  <div class="swatch"><div class="chip" style="background:#7AAF4A"></div><div class="label">success</div><div class="val">#7AAF4A</div></div>
+  <div class="swatch"><div class="chip" style="background:rgba(122,175,74,0.14)"></div><div class="label">success-dim</div></div>
+  <div class="swatch"><div class="chip" style="background:#9C6B3C"></div><div class="label">error</div><div class="val">#9C6B3C</div></div>
+  <div class="swatch"><div class="chip" style="background:rgba(156,107,60,0.14)"></div><div class="label">error-dim</div></div>
+  <div class="swatch"><div class="chip" style="background:rgba(200,145,90,0.12)"></div><div class="label">glow-gold</div></div>
+  <div class="swatch"><div class="chip" style="background:rgba(237,232,220,0.04); border:1px solid rgba(237,232,220,0.09)"></div><div class="label">glass-fill</div></div>
+</div>
+<div class="section-label">Platform Colors</div>
+<div class="row">
+  <div class="swatch"><div class="chip" style="background:#7B61FF"></div><div class="label">canva</div></div>
+  <div class="swatch"><div class="chip" style="background:#1D6F42"></div><div class="label">excel</div></div>
+  <div class="swatch"><div class="chip" style="background:#0F9D58"></div><div class="label">sheets</div></div>
+  <div class="swatch"><div class="chip" style="background:#4353FF"></div><div class="label">webflow</div></div>
+  <div class="swatch"><div class="chip" style="background:#0055FF"></div><div class="label">framer</div></div>
+  <div class="swatch"><div class="chip" style="background:#6E6E6E"></div><div class="label">notion</div></div>
+</div>
+</body></html>

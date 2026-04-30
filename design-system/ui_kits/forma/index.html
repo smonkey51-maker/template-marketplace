@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Forma — AI-Powered Template Marketplace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=Cormorant+Garamond:ital,wght@1,300;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,400&display=swap" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+html, body, #root { margin: 0; padding: 0; height: 100%; }
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: #0E0B07;
+  color: #EDE8DC;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+#root { display: flex; flex-direction: column; height: 100vh; }
+::-webkit-scrollbar { width: 2px; }
+::-webkit-scrollbar-thumb { background: rgba(200,145,90,0.4); }
+::-webkit-scrollbar-track { background: transparent; }
+@keyframes fadeUp   { from { transform:translateY(14px); } to { transform:translateY(0); } }
+@keyframes fadeIn   { from { } to { } }
+@keyframes spinRing { to { transform: rotate(360deg); } }
+@keyframes shimmer  { 0%{background-position:-400px 0} 100%{background-position:400px 0} }
+@keyframes pulse    { 0%,100%{opacity:.5;transform:scale(1)} 50%{opacity:.8;transform:scale(1.08)} }
+@keyframes drift1   { 0%,100%{transform:translate(0,0) rotate(-1deg)} 50%{transform:translate(6px,-12px) rotate(1deg)} }
+@keyframes drift2   { 0%,100%{transform:translate(0,0) rotate(1deg)} 50%{transform:translate(-8px,-8px) rotate(-1deg)} }
+@keyframes drift3   { 0%,100%{transform:translate(0,0)} 50%{transform:translate(4px,-16px)} }
+@keyframes heartPop { 0%{transform:scale(1)} 35%{transform:scale(1.5)} 65%{transform:scale(.85)} 100%{transform:scale(1)} }
+.screen-enter { animation: fadeUp .32s cubic-bezier(.22,1,.36,1) forwards; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const C = {
+  accent:    '#C8915A',
+  accentRgb: '200,145,90',
+  terra:     '#9C6B3C',
+  text:      '#EDE8DC',
+  muted:     'rgba(237,232,220,.55)',
+  mutedDim:  'rgba(237,232,220,.35)',
+  bg:        '#0E0B07',
+  surface:   'rgba(28,22,16,.9)',
+  surface2:  'rgba(36,30,22,.95)',
+  card:      'rgba(24,19,13,.85)',
+  border:    'rgba(237,232,220,.07)',
+  borderGold:'rgba(200,145,90,.25)',
+  inputBg:   'rgba(237,232,220,.05)',
+  navBg:     'rgba(14,11,7,.92)',
+  success:   '#7AAF4A',
+  obsidian2: '#1E1A14',
+};
+const F = {
+  heading:   "'Montserrat',sans-serif",
+  body:      "'Plus Jakarta Sans',sans-serif",
+  display:   "'Fraunces',serif",
+  editorial: "'Cormorant Garamond',serif",
+};
+const SEIGAIHA = `url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='30'><circle cx='30' cy='30' r='30' fill='none' stroke='%23C8915A' stroke-width='.6' stroke-opacity='.07'/><circle cx='0' cy='30' r='30' fill='none' stroke='%23C8915A' stroke-width='.6' stroke-opacity='.07'/><circle cx='60' cy='30' r='30' fill='none' stroke='%23C8915A' stroke-width='.6' stroke-opacity='.07'/><circle cx='30' cy='0' r='30' fill='none' stroke='%23C8915A' stroke-width='.6' stroke-opacity='.07'/></svg>")`;
+
+const TEMPLATES = [
+  { id:'t1', name:'SaaS Dashboard', desc:'Admin panel con dark mode', price:1999, type:'html', tag:'UI',     isNew:true },
+  { id:'t2', name:'Pitch Deck Pro', desc:'20 slide per investitori',    price:1499, type:'canva',   tag:'Canva',  pick:true  },
+  { id:'t3', name:'Budget Planner', desc:'Tracker spese annuale',       price:0,    type:'sheets',  tag:'Sheets' },
+  { id:'t4', name:'Landing Page Kit',desc:'Hero, pricing, CTA',        price:2499, type:'html',    tag:'UI',     isNew:true },
+  { id:'t5', name:'Prompt Pack AI', desc:'50 prompt per Claude',        price:999,  type:'notion',  tag:'Prompt' },
+  { id:'t6', name:'Portfolio Minimal',desc:'Single-page portfolio',     price:1299, type:'html',    tag:'UI'     },
+  { id:'t7', name:'E-commerce Kit', desc:'Product listing + checkout',  price:2999, type:'webflow', tag:'Webflow',pick:true  },
+  { id:'t8', name:'Notion HQ',      desc:'Workspace produttività',      price:1499, type:'notion',  tag:'Notion' },
+];
+const PLAT = {
+  html:    { color:'#C8915A', label:'HTML'    },
+  canva:   { color:'#7B61FF', label:'Canva'   },
+  sheets:  { color:'#0F9D58', label:'Sheets'  },
+  notion:  { color:'#888',    label:'Notion'  },
+  webflow: { color:'#4353FF', label:'Webflow' },
+  framer:  { color:'#0055FF', label:'Framer'  },
+};
+const fmt = c => c === 0 ? 'Gratis' : `€${(c/100).toFixed(2)}`;
+
+/* ── CARD MOCK THUMBNAILS ── */
+function CardThumb({ t, hovered }) {
+  const p = PLAT[t.type] || PLAT.html;
+  const bars = [
+    { top:14, left:14, w:'55%', h:8,  op:.18 },
+    { top:28, left:14, w:'75%', h:5,  op:.1  },
+    { top:38, left:14, w:'45%', h:5,  op:.08 },
+  ];
+  // colored block bottom-left
+  return (
+    <div style={{ position:'relative', height:148, overflow:'hidden', background:`linear-gradient(150deg,${p.color}18,rgba(14,11,7,.8))` }}>
+      {bars.map((b,i) => <div key={i} style={{ position:'absolute', top:b.top, left:b.left, width:b.w, height:b.h, background:C.text, opacity:b.op }} />)}
+      <div style={{ position:'absolute', bottom:12, left:12, width:28, height:28, background:`${p.color}33`, border:`1px solid ${p.color}55` }} />
+      {/* gradient overlay */}
+      <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom,transparent 30%,rgba(8,5,2,.85) 100%)' }} />
+      {/* platform badge */}
+      <div style={{ position:'absolute', top:8, left:8, background:'rgba(0,0,0,.55)', backdropFilter:'blur(6px)', border:'1px solid rgba(255,255,255,.1)', padding:'2px 7px' }}>
+        <span style={{ fontFamily:F.heading, fontSize:8, fontWeight:700, letterSpacing:'.14em', textTransform:'uppercase', color:'rgba(255,255,255,.82)' }}>{p.label}</span>
+      </div>
+      {t.pick && <div style={{ position:'absolute', top:8, right:8, background:C.accent, padding:'2px 7px' }}><span style={{ fontFamily:F.heading, fontSize:8, fontWeight:700, letterSpacing:'.1em', textTransform:'uppercase', color:'#0d0a06' }}>✦ Staff</span></div>}
+      {t.isNew && !t.pick && <div style={{ position:'absolute', top:8, right:8, background:'rgba(0,0,0,.5)', border:'1px solid rgba(255,255,255,.15)', padding:'2px 7px' }}><span style={{ fontFamily:F.heading, fontSize:8, fontWeight:700, letterSpacing:'.1em', textTransform:'uppercase', color:'rgba(255,255,255,.85)' }}>Nuovo</span></div>}
+      {t.id === 't3' && <div style={{ position:'absolute', bottom:8, left:8, background:C.success, padding:'2px 8px', display:'flex', alignItems:'center', gap:4 }}><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M2 6l2.8 3 5.2-5" stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg><span style={{ fontFamily:F.body, fontSize:9, fontWeight:600, color:'#0d0a06' }}>Acquistato</span></div>}
+      {/* hover overlay */}
+      <div style={{ position:'absolute', inset:0, background:hovered?'rgba(0,0,0,.32)':'rgba(0,0,0,0)', transition:'background .25s', display:'flex', alignItems:'center', justifyContent:'center' }}>
+        {hovered && <span style={{ fontFamily:F.heading, fontSize:9, fontWeight:700, textTransform:'uppercase', letterSpacing:'.16em', color:'rgba(255,255,255,.9)', background:'rgba(0,0,0,.5)', padding:'5px 12px', border:'1px solid rgba(255,255,255,.22)', backdropFilter:'blur(4px)' }}>Preview</span>}
+      </div>
+    </div>
+  );
+}
+
+function TemplateCard({ t, onClick }) {
+  const [hov, setHov] = React.useState(false);
+  const [liked, setLiked] = React.useState(false);
+  const [pop, setPop] = React.useState(false);
+  const toggleLike = e => { e.stopPropagation(); setLiked(v=>!v); setPop(true); setTimeout(()=>setPop(false),380); };
+  return (
+    <div onClick={()=>onClick(t)} onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}
+      style={{ position:'relative', background:C.card, border:`1px solid ${hov?C.borderGold:C.border}`, cursor:'pointer', display:'flex', flexDirection:'column',
+        transition:`transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s ease,border-color .2s`,
+        transform:hov?'translateY(-4px)':'none',
+        boxShadow:hov?'0 20px 60px rgba(0,0,0,.6)':'0 2px 10px rgba(0,0,0,.3)',
+      }}>
+      {/* gold sweep */}
+      <div style={{ position:'absolute', top:0, left:0, right:0, height:2, background:`linear-gradient(90deg,${C.accent},${C.terra})`, transform:hov?'scaleX(1)':'scaleX(0)', transformOrigin:'left', transition:'transform .32s cubic-bezier(.22,1,.36,1)', zIndex:5 }} />
+      <CardThumb t={t} hovered={hov} />
+      <div style={{ padding:'12px 14px 14px', borderTop:`1px solid ${C.border}`, flex:1, display:'flex', flexDirection:'column' }}>
+        <h3 style={{ fontFamily:F.heading, fontSize:13, fontWeight:600, letterSpacing:'-.01em', color:C.text, margin:'0 0 4px' }}>{t.name}</h3>
+        <p style={{ fontFamily:F.body, fontSize:11, color:C.muted, margin:0, lineHeight:1.5, flex:1 }}>{t.desc}</p>
+        <div style={{ marginTop:10, paddingTop:10, borderTop:`1px solid ${C.border}`, display:'flex', alignItems:'center', justifyContent:'space-between' }}>
+          <span style={{ fontFamily:F.display, fontSize:20, color:C.accent, lineHeight:1, fontStyle:'italic' }}>{fmt(t.price)}</span>
+          <button onClick={toggleLike} style={{ background:'none', border:'none', padding:2, cursor:'pointer', color:liked?C.terra:C.mutedDim, transition:'color .2s', animation:pop?'heartPop .38s cubic-bezier(.34,1.56,.64,1) both':'none' }}>
+            <svg width="13" height="13" viewBox="0 0 14 14" fill={liked?'currentColor':'none'}><path d="M7 12S1 8 1 4.5A3.5 3.5 0 017 2.1a3.5 3.5 0 016 2.4C13 8 7 12 7 12z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── NAV ── */
+function Nav({ screen, go }) {
+  const links = [['home','Catalogo'],['preview','Template'],['studio','AI Studio'],['account','Account']];
+  return (
+    <nav style={{ flexShrink:0, display:'flex', alignItems:'center', gap:4, padding:'10px 28px', background:C.navBg, borderBottom:`1px solid ${C.border}`, backdropFilter:'blur(24px)', zIndex:100 }}>
+      <div onClick={()=>go('home')} style={{ marginRight:20, cursor:'pointer', flexShrink:0 }}>
+        <div style={{ fontFamily:F.heading, fontWeight:800, fontSize:16, letterSpacing:'.06em', textTransform:'uppercase', color:C.text, lineHeight:1 }}>
+          For<span style={{ color:C.accent }}>ma</span>
+        </div>
+        <div style={{ fontFamily:F.heading, fontSize:9, letterSpacing:'.14em', textTransform:'uppercase', color:C.accent, fontWeight:500, marginTop:2, opacity:.85 }}>
+          Artisan digital marketplace
+        </div>
+      </div>
+      {links.map(([id,label]) => {
+        const active = screen===id;
+        return (
+          <button key={id} onClick={()=>go(id)} style={{ fontFamily:F.heading, fontSize:10, fontWeight:500, textTransform:'uppercase', letterSpacing:'.1em', color:active?C.text:C.muted, background:'none', border:'none', cursor:'pointer', padding:'6px 12px', position:'relative', transition:'color .2s' }}>
+            {label}
+            {active && <span style={{ position:'absolute', bottom:1, left:'50%', transform:'translateX(-50%)', width:4, height:4, borderRadius:'50%', background:C.accent, boxShadow:`0 0 8px ${C.accent}` }} />}
+          </button>
+        );
+      })}
+      <div style={{ flex:1 }} />
+      {/* search */}
+      <div style={{ display:'flex', alignItems:'center', gap:7, padding:'5px 10px', border:`1px solid ${C.border}`, background:C.inputBg, marginRight:8 }}>
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.8" style={{ color:C.muted }}/><path d="M20 20l-3.5-3.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" style={{ color:C.muted }}/></svg>
+        <span style={{ fontFamily:F.heading, fontSize:10, letterSpacing:'.1em', color:C.muted }}>Cerca</span>
+        <span style={{ fontFamily:F.heading, fontSize:8, fontWeight:700, padding:'1px 5px', border:`1px solid ${C.border}`, background:'rgba(237,232,220,.03)', color:C.muted }}>⌘K</span>
+      </div>
+      {/* Claude badge */}
+      <div style={{ display:'flex', alignItems:'center', gap:5, padding:'4px 9px', border:`1px solid ${C.borderGold}`, background:'rgba(200,145,90,.09)', marginRight:8 }}>
+        <svg width="8" height="8" viewBox="0 0 10 10" fill="none"><path d="M5 1l1.1 2.3L9 4l-2 1.8.5 2.5L5 7.2 2.5 8.3 3 5.8 1 4l2.9-.7L5 1z" fill={C.accent}/></svg>
+        <span style={{ fontFamily:F.heading, fontSize:9, fontWeight:700, letterSpacing:'.12em', textTransform:'uppercase', color:C.accent }}>Claude AI</span>
+      </div>
+      <button onClick={()=>go('studio')} style={{ fontFamily:F.heading, fontWeight:700, fontSize:9, textTransform:'uppercase', letterSpacing:'.14em', background:C.accent, color:'#0d0a06', padding:'7px 16px', border:'none', cursor:'pointer', marginRight:10, transition:'background .2s' }}>Studio</button>
+      <div onClick={()=>go('account')} style={{ width:28, height:28, borderRadius:'50%', background:'rgba(200,145,90,.2)', border:`1px solid ${C.borderGold}`, cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center', fontFamily:F.display, fontSize:13, color:C.accent }}>形</div>
+    </nav>
+  );
+}
+
+/* ── HOME SCREEN ── */
+function HomeScreen({ go, setTpl }) {
+  const [filter, setFilter] = React.useState('Tutti');
+  const filters = ['Tutti','UI','Prompt','Canva','Notion','Sheets','Webflow'];
+  const shown = filter==='Tutti' ? TEMPLATES : TEMPLATES.filter(t => t.tag===filter);
+  const click = t => { setTpl(t); go('preview'); };
+
+  return (
+    <div>
+      {/* ─ HERO ─ */}
+      <section style={{ position:'relative', overflow:'hidden', padding:'90px 32px 80px', textAlign:'center', borderBottom:`1px solid ${C.border}`, backgroundImage:SEIGAIHA, backgroundSize:'60px 30px' }}>
+        <div style={{ position:'absolute', top:'20%', left:'50%', transform:'translateX(-50%)', width:700, height:350, background:`radial-gradient(ellipse, rgba(${C.accentRgb},.13) 0%, transparent 70%)`, pointerEvents:'none', animation:'pulse 6s ease-in-out infinite' }} />
+
+        {/* Torii accent */}
+        <div style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:4, opacity:.4, marginBottom:24 }}>
+          <div style={{ height:1, width:52, background:C.accent }} />
+          <div style={{ height:1, width:34, background:C.accent }} />
+        </div>
+
+        <div style={{ fontFamily:F.heading, fontSize:10, fontWeight:700, letterSpacing:'.22em', textTransform:'uppercase', color:C.accent, marginBottom:20, animation:'none' }}>
+          AI-Powered Template Marketplace
+        </div>
+
+        <h1 style={{ fontFamily:F.display, fontStyle:'italic', fontSize:'clamp(44px,6.5vw,84px)', fontWeight:400, letterSpacing:'-.035em', lineHeight:1.0, color:C.text, margin:'0 0 24px', animation:'none' }}>
+          Template <em style={{ color:C.accent }}>artigianali</em><br/>per ogni piattaforma
+        </h1>
+
+        <p style={{ fontFamily:F.body, fontSize:16, color:C.muted, maxWidth:500, margin:'0 auto 40px', lineHeight:1.75, animation:'none' }}>
+          Acquista, personalizza e scarica template UI e prompt. Modifica qualsiasi design con Claude AI in pochi secondi.
+        </p>
+
+        <div style={{ display:'flex', gap:12, justifyContent:'center', animation:'none' }}>
+          <button onClick={()=>{}} style={{ fontFamily:F.heading, fontWeight:700, fontSize:10, textTransform:'uppercase', letterSpacing:'.14em', background:C.accent, color:'#0d0a06', padding:'14px 36px', border:'none', cursor:'pointer', position:'relative', overflow:'hidden', transition:'background .22s' }}>
+            Sfoglia Catalogo
+          </button>
+          <button onClick={()=>go('studio')} style={{ fontFamily:F.heading, fontWeight:700, fontSize:10, textTransform:'uppercase', letterSpacing:'.14em', background:'transparent', color:C.text, padding:'14px 32px', border:`1px solid rgba(237,232,220,.2)`, cursor:'pointer', transition:'border-color .2s' }}>
+            AI Studio →
+          </button>
+        </div>
+
+        {/* stats */}
+        <div style={{ display:'flex', justifyContent:'center', gap:0, marginTop:56, paddingTop:32, borderTop:`1px solid ${C.border}`, animation:'none' }}>
+          {[['120+','Template'],['4.9★','Rating'],['Claude','Powered']].map(([v,l],i) => (
+            <div key={l} style={{ textAlign:'center', padding:'0 40px', borderRight:i<2?`1px solid ${C.border}`:'none' }}>
+              <div style={{ fontFamily:F.display, fontStyle:'italic', fontSize:28, color:C.accent, lineHeight:1 }}>{v}</div>
+              <div style={{ fontFamily:F.heading, fontSize:9, fontWeight:700, letterSpacing:'.18em', textTransform:'uppercase', color:C.muted, marginTop:5 }}>{l}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* floating kanji watermark */}
+        <div aria-hidden style={{ position:'absolute', right:'4%', top:'10%', fontFamily:F.display, fontSize:220, fontWeight:300, color:C.accent, opacity:.04, lineHeight:1, pointerEvents:'none', transform:'rotate(-8deg)', userSelect:'none' }}>形</div>
+      </section>
+
+      {/* ─ FILTER BAR ─ */}
+      <div style={{ padding:'14px 28px', borderBottom:`1px solid ${C.border}`, display:'flex', gap:6, alignItems:'center', background:C.surface, flexWrap:'wrap' }}>
+        {filters.map(f => (
+          <button key={f} onClick={()=>setFilter(f)} style={{ fontFamily:F.heading, fontSize:9, fontWeight:700, textTransform:'uppercase', letterSpacing:'.1em', padding:'5px 14px', border:`1px solid ${filter===f?C.borderGold:C.border}`, background:filter===f?'rgba(200,145,90,.1)':'transparent', color:filter===f?C.accent:C.muted, cursor:'pointer', transition:'all .18s', whiteSpace:'nowrap' }}>{f}</button>
+        ))}
+        <span style={{ flex:1 }} />
+        <span style={{ fontFamily:F.body, fontSize:11, color:C.muted }}>{shown.length} template</span>
+      </div>
+
+      {/* ─ GRID ─ */}
+      <div style={{ padding:'28px 28px 0' }}>
+        <div style={{ fontFamily:F.heading, fontSize:9, fontWeight:700, letterSpacing:'.2em', textTransform:'uppercase', color:C.accent, marginBottom:16 }}>
+          {filter==='Tutti' ? 'Tutti i Template' : filter}
+        </div>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(220px,1fr))', gap:16 }}>
+          {shown.map(t => <TemplateCard key={t.id} t={t} onClick={click} />)}
+        </div>
+      </div>
+
+      {/* ─ BUNDLES BAND ─ */}
+      <section style={{ margin:'48px 28px 0', padding:'36px', background:C.surface, border:`1px solid ${C.border}`, position:'relative', overflow:'hidden' }}>
+        <div style={{ position:'absolute', top:0, left:0, right:0, height:2, background:`linear-gradient(90deg,${C.accent},${C.terra})` }} />
+        <div style={{ fontFamily:F.heading, fontSize:9, fontWeight:700, letterSpacing:'.2em', textTransform:'uppercase', color:C.accent, marginBottom:6 }}>Bundle</div>
+        <h2 style={{ fontFamily:F.heading, fontWeight:700, fontSize:26, letterSpacing:'-.02em', color:C.text, margin:'0 0 24px' }}>Più valore, insieme</h2>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(280px,1fr))', gap:14 }}>
+          {[{name:'Founder Kit',desc:'Landing + Pitch Deck + Prompt Pack',price:'€39',n:3},{name:'Designer Pack',desc:'Dashboard + Portfolio + E-commerce',price:'€59',n:3}].map(b=>(
+            <div key={b.name} style={{ border:`1px solid ${C.borderGold}`, padding:'22px', background:C.card, cursor:'pointer', position:'relative' }}>
+              <div style={{ fontFamily:F.heading, fontSize:9, fontWeight:700, letterSpacing:'.15em', textTransform:'uppercase', color:C.accent, marginBottom:4 }}>{b.n} Template</div>
+              <div style={{ fontFamily:F.heading, fontWeight:700, fontSize:17, letterSpacing:'-.01em', color:C.text, marginBottom:6 }}>{b.name}</div>
+              <div style={{ fontFamily:F.body, fontSize:12, color:C.muted, marginBottom:16 }}>{b.desc}</div>
+              <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between' }}>
+                <span style={{ fontFamily:F.display, fontStyle:'italic', fontSize:24, color:C.accent }}>{b.price}</span>
+                <button style={{ fontFamily:F.heading, fontWeight:700, fontSize:9, textTransform:'uppercase', letterSpacing:'.12em', background:C.accent, color:'#0d0a06', padding:'8px 16px', border:'none', cursor:'pointer' }}>Acquista</button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ─ NEWSLETTER ─ */}
+      <section style={{ margin:'0 28px', padding:'40px', textAlign:'center', borderBottom:`1px solid ${C.border}` }}>
+        <div style={{ fontFamily:F.heading, fontSize:9, fontWeight:700, letterSpacing:'.2em', textTransform:'uppercase', color:C.accent, marginBottom:8 }}>Newsletter</div>
+        <h3 style={{ fontFamily:F.heading, fontWeight:700, fontSize:22, color:C.text, margin:'0 0 8px' }}>Nuovi template ogni settimana</h3>
+        <p style={{ fontFamily:F.body, fontSize:13, color:C.muted, marginBottom:20 }}>Ricevi una notifica quando escono nuovi template. Niente spam.</p>
+        <div style={{ display:'flex', maxWidth:380, margin:'0 auto' }}>
+          <input placeholder="tuo@email.com" style={{ flex:1, background:C.inputBg, border:`1px solid ${C.border}`, borderRight:'none', color:C.text, fontFamily:F.body, fontSize:13, padding:'10px 14px', outline:'none' }} />
+          <button style={{ fontFamily:F.heading, fontWeight:700, fontSize:9, textTransform:'uppercase', letterSpacing:'.14em', background:C.accent, color:'#0d0a06', padding:'10px 20px', border:'none', cursor:'pointer', flexShrink:0 }}>Iscriviti</button>
+        </div>
+      </section>
+
+      {/* ─ FOOTER ─ */}
+      <footer style={{ position:'relative', background:C.surface, borderTop:`1px solid ${C.border}`, padding:'48px 28px 32px', overflow:'hidden' }}>
+        <div aria-hidden style={{ position:'absolute', fontFamily:F.display, fontSize:340, fontWeight:300, color:C.accent, opacity:.04, lineHeight:.8, letterSpacing:'-.05em', bottom:'-8%', right:'-2%', transform:'rotate(-6deg)', pointerEvents:'none' }}>形</div>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:32, maxWidth:1100, margin:'0 auto' }}>
+          <div>
+            <div style={{ fontFamily:F.heading, fontWeight:800, fontSize:18, letterSpacing:'.04em', textTransform:'uppercase', color:C.text, marginBottom:8 }}>For<span style={{ color:C.accent }}>ma</span></div>
+            <p style={{ fontFamily:F.body, fontSize:12, color:C.muted, lineHeight:1.7, maxWidth:200 }}>Template premium e prompt AI, curati come piccoli oggetti artigianali.</p>
+          </div>
+          {[['Prodotto',['Template','Bundle','AI Studio','Wishlist','Guida']],['Legale',['Privacy','Termini']],['Filosofia',['「Kanso」semplicità','「Shizen」naturalezza','「Seijaku」quiete']]].map(([title,items])=>(
+            <div key={title}>
+              <div style={{ fontFamily:F.heading, fontSize:9, fontWeight:700, letterSpacing:'.2em', textTransform:'uppercase', color:C.accent, marginBottom:12 }}>{title}</div>
+              {items.map(i=><div key={i} style={{ fontFamily:F.body, fontSize:12, color:C.muted, marginBottom:6, cursor:'pointer', fontStyle:title==='Filosofia'?'italic':undefined }}>{i}</div>)}
+            </div>
+          ))}
+        </div>
+        <div style={{ display:'flex', alignItems:'center', gap:14, maxWidth:1100, margin:'32px auto 0', opacity:.4 }}>
+          <div style={{ flex:1, height:1, background:`linear-gradient(to right,transparent,${C.accent})` }} />
+          <span style={{ fontSize:10, color:C.accent }}>◇</span>
+          <div style={{ flex:1, height:1, background:`linear-gradient(to left,transparent,${C.accent})` }} />
+        </div>
+        <div style={{ maxWidth:1100, margin:'16px auto 0', display:'flex', justifyContent:'space-between' }}>
+          <p style={{ fontFamily:F.body, fontSize:11, color:C.muted }}>© 2025 Forma. Tutti i diritti riservati.</p>
+          <span style={{ fontFamily:F.body, fontSize:10, color:C.muted }}>Powered by <span style={{ color:C.accent, fontFamily:F.heading, fontWeight:600 }}>Claude AI</span></span>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+/* ── PREVIEW SCREEN ── */
+function PreviewScreen({ tpl, go }) {
+  const t = tpl || TEMPLATES[0];
+  const p = PLAT[t.type] || PLAT.html;
+  const [tab, setTab] = React.useState('preview');
+  const [buying, setBuying] = React.useState(false);
+  const [bought, setBought] = React.useState(t.id==='t3');
+
+  const buy = () => { if(bought) return; setBuying(true); setTimeout(()=>{ setBuying(false); setBought(true); },1400); };
+
+  const mockHtml = `<style>@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Plus Jakarta Sans',sans-serif;background:#0d0a06;color:#EDE8DC}.hero{padding:70px 40px;border-bottom:1px solid rgba(237,232,220,.08)}.lbl{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#C8915A;margin-bottom:12px;font-weight:700}h1{font-size:48px;font-weight:700;letter-spacing:-.03em;line-height:1.05;margin-bottom:16px}h1 span{color:#C8915A}p{font-size:15px;color:rgba(237,232,220,.6);max-width:500px;margin:0 0 28px;line-height:1.7}.btn{display:inline-block;background:#C8915A;color:#0d0a06;padding:12px 28px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.14em}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(237,232,220,.07);margin:0}.feat{padding:30px;background:#0d0a06}.fn{font-size:32px;color:rgba(200,145,90,.2);font-weight:700;line-height:1;margin-bottom:10px}.ft{font-size:14px;font-weight:600;margin-bottom:6px}.fd{font-size:12px;color:rgba(237,232,220,.5);line-height:1.6}</style><div class="hero"><div class="lbl">SaaS Platform</div><h1>Ship faster,<br><span>grow smarter</span></h1><p>Dashboard template per team SaaS moderni. Design curato, completamente responsive.</p><span class="btn">Inizia →</span></div><div class="grid"><div class="feat"><div class="fn">01</div><div class="ft">Analytics</div><p class="fd">Metriche in tempo reale e KPI tracking</p></div><div class="feat"><div class="fn">02</div><div class="ft">Dark Mode</div><p class="fd">Tema chiaro e scuro completo</p></div><div class="feat"><div class="fn">03</div><div class="ft">Responsive</div><p class="fd">Mobile-first, funziona su tutti gli schermi</p></div></div>`;
+
+  return (
+    <div style={{ display:'flex', flexDirection:'column', height:'100%' }}>
+      {/* breadcrumb */}
+      <div style={{ padding:'10px 28px', borderBottom:`1px solid ${C.border}`, display:'flex', alignItems:'center', gap:8, background:C.surface, flexShrink:0 }}>
+        <button onClick={()=>go('home')} style={{ background:'none', border:'none', fontFamily:F.body, fontSize:12, color:C.muted, cursor:'pointer', padding:0 }}>Catalogo</button>
+        <span style={{ color:C.muted }}>›</span>
+        <span style={{ fontFamily:F.body, fontSize:12, color:C.text }}>{t.name}</span>
+      </div>
+
+      <div style={{ display:'flex', flex:1, overflow:'hidden' }}>
+        {/* main */}
+        <div style={{ flex:1, display:'flex', flexDirection:'column', overflow:'hidden' }}>
+          <div style={{ display:'flex', borderBottom:`1px solid ${C.border}`, padding:'0 28px', flexShrink:0, background:C.surface }}>
+            {['preview','dettagli'].map(tb=>(
+              <button key={tb} onClick={()=>setTab(tb)} style={{ fontFamily:F.heading, fontSize:9, fontWeight:600, textTransform:'uppercase', letterSpacing:'.1em', padding:'11px 16px', background:'none', border:'none', cursor:'pointer', color:tab===tb?C.text:C.muted, borderBottom:tab===tb?`2px solid ${C.accent}`:'2px solid transparent', marginBottom:-1 }}>{tb}</button>
+            ))}
+          </div>
+          <div style={{ flex:1, overflow:'auto' }}>
+            {tab==='preview' && (
+              <div>
+                <div style={{ display:'flex', justifyContent:'center', gap:6, padding:'10px', borderBottom:`1px solid ${C.border}`, background:C.surface }}>
+                  {[['🖥','Desktop'],['📱','Mobile']].map(([ic,lb])=>(
+                    <button key={lb} style={{ fontFamily:F.heading, fontSize:9, fontWeight:600, letterSpacing:'.08em', textTransform:'uppercase', background:lb==='Desktop'?C.inputBg:'none', border:`1px solid ${lb==='Desktop'?C.borderGold:C.border}`, color:lb==='Desktop'?C.accent:C.muted, padding:'4px 10px', cursor:'pointer' }}>{ic} {lb}</button>
+                  ))}
+                </div>
+                <div style={{ background:'#0a0804', margin:20, border:`1px solid ${C.border}` }}>
+                  <div dangerouslySetInnerHTML={{ __html:mockHtml }} style={{ pointerEvents:'none' }} />
+                </div>
+              </div>
+            )}
+            {tab==='dettagli' && (
+              <div style={{ padding:'28px', maxWidth:680 }}>
+                <div style={{ fontFamily:F.heading, fontSize:9, fontWeight:700, letterSpacing:'.2em', textTransform:'uppercase', color:C.accent, marginBottom:8 }}>Descrizione</div>
+                <p style={{ fontFamily:F.body, fontSize:14, color:C.text, lineHeight:1.8, marginBottom:24 }}>Template dashboard responsive e production-ready. Include dark mode, grafici placeholder, nav laterale e supporto mobile completo.</p>
+                <div style={{ fontFamily:F.heading, fontSize:9, fontWeight:700, letterSpacing:'.2em', textTransform:'uppercase', color:C.accent, marginBottom:12 }}>Cosa include</div>
+                {['File HTML singolo, zero dipendenze','Modalità chiara e scura','Responsive — mobile + tablet + desktop','Personalizzazione AI via Studio','6 mesi di aggiornamenti gratuiti'].map(it=>(
+                  <div key={it} style={{ display:'flex', alignItems:'center', gap:10, marginBottom:8 }}>
+                    <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l2.8 3 5.2-5" stroke={C.success} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    <span style={{ fontFamily:F.body, fontSize:13, color:C.text }}>{it}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* sidebar */}
+        <div style={{ width:270, flexShrink:0, borderLeft:`1px solid ${C.border}`, padding:'24px', display:'flex', flexDirection:'column', gap:16, background:C.surface, overflowY:'auto' }}>
+          <div style={{ display:'flex', alignItems:'flex-start', justifyContent:'space-between' }}>
+            <div>
+              <div style={{ fontFamily:F.heading, fontSize:9, fontWeight:700, letterSpacing:'.15em', textTransform:'uppercase', color:C.accent, marginBottom:4 }}>{p.label}</div>
+              <div style={{ fontFamily:F.heading, fontWeight:700, fontSize:17, letterSpacing:'-.01em', color:C.text }}>{t.name}</div>
+            </div>
+            {/* wax seal */}
+            <div style={{ position:'relative', width:52, height:52, borderRadius:'50%', background:`radial-gradient(circle at 35% 30%,#d4a070,${C.accent} 60%,#9a6030 100%)`, display:'flex', alignItems:'center', justifyContent:'center', color:'#0d0a06', fontFamily:F.display, fontStyle:'italic', fontWeight:600, fontSize:13, transform:'rotate(-6deg)', boxShadow:'inset 0 1px 1px rgba(255,255,255,.3),0 8px 24px rgba(0,0,0,.6)', flexShrink:0 }}>
+              <div style={{ position:'absolute', inset:3, borderRadius:'50%', border:'1px dashed rgba(255,255,255,.35)' }} />
+              {fmt(t.price)}
+            </div>
+          </div>
+          {/* stars */}
+          <div style={{ display:'flex', alignItems:'center', gap:6 }}>
+            <div style={{ display:'flex', gap:2 }}>
+              {[1,2,3,4,5].map(i=><svg key={i} width="11" height="11" viewBox="0 0 12 12" fill={i<=4?C.accent:'none'}><path d="M6 1l1.2 2.6 2.8.4-2 2 .5 2.8L6 7.6l-2.5 1.2.5-2.8-2-2 2.8-.4z" stroke={C.accent} strokeWidth=".8" strokeLinejoin="round"/></svg>)}
+            </div>
+            <span style={{ fontFamily:F.body, fontSize:11, color:C.muted }}>4.8 (32 recensioni)</span>
+          </div>
+          <button onClick={buy} style={{ fontFamily:F.heading, fontWeight:700, fontSize:11, textTransform:'uppercase', letterSpacing:'.14em', background:bought?C.success:C.accent, color:'#0d0a06', padding:'14px', border:'none', cursor:bought?'default':'pointer', transition:`background .3s` }}>
+            {buying?'…':bought?'↓ Scarica Template':t.price===0?'Ottieni Gratis':`Acquista — ${fmt(t.price)}`}
+          </button>
+          <button style={{ fontFamily:F.heading, fontWeight:600, fontSize:9, textTransform:'uppercase', letterSpacing:'.12em', background:'transparent', color:C.text, padding:'10px', border:`1px solid rgba(237,232,220,.18)`, cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center', gap:6 }}>
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1l1.1 2.3L9 4l-2 1.8.5 2.5L5 7.2 2.5 8.3 3 5.8 1 4l2.9-.7L5 1z" fill={C.accent}/></svg>
+            Personalizza con AI
+          </button>
+          <div style={{ borderTop:`1px solid ${C.border}`, paddingTop:14, display:'flex', flexDirection:'column', gap:8 }}>
+            {[['Formato',p.label],['Consegna','Immediata'],['Licenza','Uso singolo'],['Aggiornamenti','6 mesi gratuiti']].map(([k,v])=>(
+              <div key={k} style={{ display:'flex', justifyContent:'space-between' }}>
+                <span style={{ fontFamily:F.body, fontSize:11, color:C.muted }}>{k}</span>
+                <span style={{ fontFamily:F.body, fontSize:11, color:C.text }}>{v}</span>
+              </div>
+            ))}
+          </div>
+          {/* Related */}
+          <div style={{ borderTop:`1px solid ${C.border}`, paddingTop:16 }}>
+            <div style={{ fontFamily:F.heading, fontSize:9, fontWeight:700, letterSpacing:'.18em', textTransform:'uppercase', color:C.accent, marginBottom:12 }}>Correlati</div>
+            {TEMPLATES.filter(x=>x.id!==t.id).slice(0,3).map(r=>(
+              <div key={r.id} onClick={()=>{}} style={{ display:'flex', alignItems:'center', gap:10, padding:'8px 0', borderBottom:`1px solid ${C.border}`, cursor:'pointer' }}>
+                <div style={{ width:36, height:36, background:`${(PLAT[r.type]||PLAT.html).color}22`, border:`1px solid ${(PLAT[r.type]||PLAT.html).color}44`, flexShrink:0 }} />
+                <div style={{ flex:1, minWidth:0 }}>
+                  <div style={{ fontFamily:F.heading, fontWeight:600, fontSize:11, color:C.text, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{r.name}</div>
+                  <div style={{ fontFamily:F.display, fontStyle:'italic', fontSize:13, color:C.accent }}>{fmt(r.price)}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── STUDIO SCREEN ── */
+const EXAMPLES = [
+  'Landing page minimalista per una app di meditazione con gradienti morbidi',
+  'Dashboard SaaS dark mode con sidebar e grafici interattivi',
+  'Pagina prodotto e-commerce con carrello sticky e galleria immagini',
+  'Portfolio personale con hero full-bleed e griglia progetti',
+];
+
+function StudioScreen({ go }) {
+  const [prompt, setPrompt] = React.useState('');
+  const [generating, setGenerating] = React.useState(false);
+  const [done, setDone] = React.useState(false);
+  const [dots, setDots] = React.useState('');
+
+  React.useEffect(()=>{
+    if(!generating) return;
+    const iv = setInterval(()=>setDots(d=>d.length>=3?'':d+'.'),400);
+    return ()=>clearInterval(iv);
+  },[generating]);
+
+  const generate = () => {
+    if(!prompt.trim()||generating) return;
+    setGenerating(true); setDone(false);
+    setTimeout(()=>{ setGenerating(false); setDone(true); },2800);
+  };
+
+  const resultHtml = `<style>@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Plus Jakarta Sans',sans-serif;background:#0d0a06;color:#EDE8DC}.h{padding:70px 40px;text-align:center;border-bottom:1px solid rgba(237,232,220,.07)}.badge{display:inline-block;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#C8915A;padding:3px 12px;border:1px solid rgba(200,145,90,.3);margin-bottom:18px}h1{font-size:46px;font-weight:700;letter-spacing:-.03em;line-height:1.06;margin-bottom:16px}h1 em{color:#C8915A;font-style:normal}p{font-size:15px;color:rgba(237,232,220,.6);max-width:460px;margin:0 auto 30px;line-height:1.7}.btns{display:flex;gap:12px;justify-content:center}.b1{background:#C8915A;color:#0d0a06;padding:12px 28px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;border:none}.b2{background:none;border:1px solid rgba(237,232,220,.2);color:#EDE8DC;padding:12px 28px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.14em}.feat{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(237,232,220,.07)}.f{padding:30px;background:#0d0a06}.fn{font-size:34px;color:rgba(200,145,90,.2);font-weight:700;line-height:1;margin-bottom:10px}.ft{font-size:15px;font-weight:600;margin-bottom:6px}.fd{font-size:12px;color:rgba(237,232,220,.5);line-height:1.55}</style><div class="h"><div class="badge">✦ Generato da Claude AI</div><h1>Design che <em>parla</em><br>da solo</h1><p>Una landing page bella e responsive generata dal tuo prompt. Completamente personalizzabile, zero dipendenze.</p><div class="btns"><button class="b1">Inizia Ora</button><button class="b2">Scopri →</button></div></div><div class="feat"><div class="f"><div class="fn">01</div><div class="ft">Responsive</div><p class="fd">Perfetto su ogni schermo, dal mobile al 4K.</p></div><div class="f"><div class="fn">02</div><div class="ft">Dark Mode</div><p class="fd">Design dark-first, elegante in ogni ambiente.</p></div><div class="f"><div class="fn">03</div><div class="ft">Zero Dipendenze</div><p class="fd">HTML e CSS puri — nessun framework.</p></div></div>`;
+
+  const panel = { background:C.card, border:`1px solid ${C.border}`, padding:'20px', display:'flex', flexDirection:'column', gap:12 };
+
+  return (
+    <div>
+      {/* header */}
+      <div style={{ background:C.surface, borderBottom:`1px solid ${C.border}`, padding:'28px 28px', display:'flex', alignItems:'center', justifyContent:'space-between', gap:16, flexWrap:'wrap' }}>
+        <div>
+          <div style={{ fontFamily:F.heading, fontSize:9, fontWeight:700, letterSpacing:'.2em', textTransform:'uppercase', color:C.accent, marginBottom:6, display:'flex', alignItems:'center', gap:6 }}>
+            <svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M5 1l1.1 2.3L9 4l-2 1.8.5 2.5L5 7.2 2.5 8.3 3 5.8 1 4l2.9-.7L5 1z" fill={C.accent}/></svg>
+            AI Studio — Powered by Claude
+          </div>
+          <h1 style={{ fontFamily:F.heading, fontWeight:700, fontSize:24, letterSpacing:'-.02em', color:C.text, margin:0 }}>Genera e personalizza template</h1>
+        </div>
+        <p style={{ fontFamily:F.body, fontSize:13, color:C.muted, maxWidth:320, lineHeight:1.6, margin:0 }}>Descrivi quello che vuoi e Claude costruirà un template HTML production-ready istantaneamente.</p>
+      </div>
+
+      <div style={{ padding:'24px 28px', display:'grid', gridTemplateColumns:'1fr 1fr', gap:20 }}>
+        {/* left */}
+        <div style={{ display:'flex', flexDirection:'column', gap:14 }}>
+          <div style={panel}>
+            <div style={{ fontFamily:F.heading, fontSize:9, fontWeight:700, letterSpacing:'.2em', textTransform:'uppercase', color:C.accent }}>Descrivi il tuo template</div>
+            <textarea value={prompt} onChange={e=>setPrompt(e.target.value)} placeholder="Es. Una landing page SaaS minimalista con hero scuro, cards feature e sezione prezzi…" rows={5}
+              style={{ background:C.inputBg, border:`1px solid ${C.border}`, color:C.text, fontFamily:F.body, fontSize:13, padding:'12px', outline:'none', resize:'vertical', lineHeight:1.7, transition:'border-color .2s' }}
+              onFocus={e=>e.target.style.borderColor='rgba(200,145,90,.5)'}
+              onBlur={e=>e.target.style.borderColor=C.border} />
+            <div style={{ display:'flex', gap:8 }}>
+              {[['Categoria',['UI','Landing','Dashboard','Portfolio']],['Stile',['Minimal','Editorial','Bold','Playful']]].map(([l,opts])=>(
+                <div key={l} style={{ flex:1, display:'flex', flexDirection:'column', gap:3 }}>
+                  <span style={{ fontFamily:F.heading, fontSize:8, fontWeight:700, letterSpacing:'.15em', textTransform:'uppercase', color:C.muted }}>{l}</span>
+                  <select style={{ background:C.inputBg, border:`1px solid ${C.border}`, color:C.text, fontFamily:F.body, fontSize:12, padding:'6px 8px', outline:'none' }}>
+                    {opts.map(o=><option key={o}>{o}</option>)}
+                  </select>
+                </div>
+              ))}
+            </div>
+            <button onClick={generate} disabled={!prompt.trim()||generating} style={{ fontFamily:F.heading, fontWeight:700, fontSize:10, textTransform:'uppercase', letterSpacing:'.14em', background:(!prompt.trim()||generating)?'rgba(200,145,90,.3)':C.accent, color:'#0d0a06', padding:'13px', border:'none', cursor:(!prompt.trim()||generating)?'not-allowed':'pointer', display:'flex', alignItems:'center', justifyContent:'center', gap:8, transition:'background .2s' }}>
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1l1.1 2.3L9 4l-2 1.8.5 2.5L5 7.2 2.5 8.3 3 5.8 1 4l2.9-.7L5 1z" fill="#0d0a06"/></svg>
+              {generating?`Generazione in corso${dots}`:'Genera Template'}
+            </button>
+          </div>
+          {/* examples */}
+          <div style={panel}>
+            <div style={{ fontFamily:F.heading, fontSize:9, fontWeight:700, letterSpacing:'.2em', textTransform:'uppercase', color:C.accent }}>Prova un esempio</div>
+            {EXAMPLES.map((ex,i)=>(
+              <button key={i} onClick={()=>setPrompt(ex)} style={{ background:'none', border:`1px solid ${C.border}`, color:C.muted, fontFamily:F.body, fontSize:12, padding:'9px 12px', textAlign:'left', cursor:'pointer', lineHeight:1.5, transition:'border-color .18s,color .18s' }}
+                onMouseEnter={e=>{e.currentTarget.style.borderColor=C.borderGold;e.currentTarget.style.color=C.text}}
+                onMouseLeave={e=>{e.currentTarget.style.borderColor=C.border;e.currentTarget.style.color=C.muted}}>
+                {ex}
+              </button>
+            ))}
+          </div>
+        </div>
+        {/* right */}
+        <div style={panel}>
+          <div style={{ fontFamily:F.heading, fontSize:9, fontWeight:700, letterSpacing:'.2em', textTransform:'uppercase', color:C.accent }}>Anteprima</div>
+          <div style={{ flex:1, background:'#0a0804', border:`1px solid ${C.border}`, minHeight:380, position:'relative', overflow:'hidden' }}>
+            {!generating && !done && (
+              <div style={{ position:'absolute', inset:0, display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', gap:12 }}>
+                <svg width="32" height="32" viewBox="0 0 10 10" fill="none" style={{ opacity:.25 }}><path d="M5 1l1.1 2.3L9 4l-2 1.8.5 2.5L5 7.2 2.5 8.3 3 5.8 1 4l2.9-.7L5 1z" fill={C.accent}/></svg>
+                <span style={{ fontFamily:F.body, fontSize:12, color:C.muted }}>L'anteprima apparirà qui</span>
+              </div>
+            )}
+            {generating && (
+              <div style={{ position:'absolute', inset:0, display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', gap:16 }}>
+                <div style={{ width:44, height:44, border:`2px solid rgba(200,145,90,.2)`, borderTopColor:C.accent, borderRadius:'50%', animation:'spinRing .7s linear infinite' }} />
+                <span style={{ fontFamily:F.heading, fontSize:9, fontWeight:600, letterSpacing:'.18em', textTransform:'uppercase', color:C.accent }}>Claude sta pensando{dots}</span>
+              </div>
+            )}
+            {done && !generating && <div dangerouslySetInnerHTML={{ __html:resultHtml }} style={{ pointerEvents:'none' }} />}
+          </div>
+          {done && (
+            <div style={{ display:'flex', gap:8 }}>
+              <button style={{ flex:1, fontFamily:F.heading, fontWeight:700, fontSize:9, textTransform:'uppercase', letterSpacing:'.14em', background:C.accent, color:'#0d0a06', padding:'10px', border:'none', cursor:'pointer' }}>↓ Scarica</button>
+              <button onClick={()=>{setDone(false);setPrompt('');}} style={{ fontFamily:F.heading, fontWeight:600, fontSize:9, textTransform:'uppercase', letterSpacing:'.1em', background:'none', color:C.text, padding:'10px 14px', border:`1px solid ${C.border}`, cursor:'pointer' }}>Nuovo</button>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── ACCOUNT SCREEN ── */
+function AccountScreen() {
+  const [tab, setTab] = React.useState('acquisti');
+  const purchases = [TEMPLATES[0],TEMPLATES[2],TEMPLATES[4]].map((t,i)=>({ ...t, date:['28 Apr 2025','14 Mar 2025','2 Feb 2025'][i] }));
+
+  return (
+    <div>
+      {/* header band */}
+      <div style={{ background:C.surface, borderBottom:`1px solid ${C.border}`, padding:'28px 28px', display:'flex', alignItems:'center', gap:18 }}>
+        <div style={{ width:52, height:52, borderRadius:'50%', background:'rgba(200,145,90,.18)', border:`1px solid ${C.borderGold}`, display:'flex', alignItems:'center', justifyContent:'center', fontFamily:F.display, fontSize:22, color:C.accent, flexShrink:0 }}>形</div>
+        <div>
+          <div style={{ fontFamily:F.heading, fontWeight:700, fontSize:18, color:C.text }}>Marco Rossi</div>
+          <div style={{ fontFamily:F.body, fontSize:12, color:C.muted, marginTop:2 }}>marco@example.com · Membro dal 2024</div>
+        </div>
+        <div style={{ flex:1 }} />
+        <div style={{ padding:'10px 16px', border:`1px solid ${C.borderGold}`, background:'rgba(200,145,90,.08)' }}>
+          <div style={{ fontFamily:F.heading, fontSize:8, fontWeight:700, letterSpacing:'.15em', textTransform:'uppercase', color:C.accent, marginBottom:2 }}>Studio Access</div>
+          <div style={{ fontFamily:F.body, fontSize:11, color:C.muted }}>Attivo — Mensile</div>
+        </div>
+      </div>
+
+      <div style={{ padding:'0 28px', maxWidth:860, margin:'0 auto' }}>
+        <div style={{ display:'flex', borderBottom:`1px solid ${C.border}`, marginBottom:24 }}>
+          {[['acquisti','I miei Template'],['studio','Studio Access'],['impostazioni','Impostazioni']].map(([id,l])=>(
+            <button key={id} onClick={()=>setTab(id)} style={{ fontFamily:F.heading, fontSize:9, fontWeight:600, textTransform:'uppercase', letterSpacing:'.1em', padding:'11px 16px', background:'none', border:'none', cursor:'pointer', color:tab===id?C.text:C.muted, borderBottom:tab===id?`2px solid ${C.accent}`:'2px solid transparent', marginBottom:-1 }}>{l}</button>
+          ))}
+        </div>
+
+        {tab==='acquisti' && (
+          <div>
+            <div style={{ fontFamily:F.heading, fontSize:9, fontWeight:700, letterSpacing:'.2em', textTransform:'uppercase', color:C.accent, marginBottom:16 }}>{purchases.length} template acquistati</div>
+            {purchases.map(p=>(
+              <div key={p.id} style={{ display:'flex', alignItems:'center', gap:14, padding:'14px 0', borderBottom:`1px solid ${C.border}` }}>
+                <div style={{ width:38, height:38, background:`${(PLAT[p.type]||PLAT.html).color}22`, border:`1px solid ${(PLAT[p.type]||PLAT.html).color}44`, flexShrink:0, display:'flex', alignItems:'center', justifyContent:'center' }}>
+                  <span style={{ fontFamily:F.heading, fontSize:8, fontWeight:700, textTransform:'uppercase', letterSpacing:'.08em', color:(PLAT[p.type]||PLAT.html).color }}>{(p.type||'html').slice(0,3).toUpperCase()}</span>
+                </div>
+                <div style={{ flex:1 }}>
+                  <div style={{ fontFamily:F.heading, fontWeight:600, fontSize:13, color:C.text }}>{p.name}</div>
+                  <div style={{ fontFamily:F.body, fontSize:11, color:C.muted, marginTop:2 }}>Acquistato il {p.date}</div>
+                </div>
+                <span style={{ fontFamily:F.display, fontStyle:'italic', fontSize:16, color:C.accent }}>{fmt(p.price)}</span>
+                <button style={{ fontFamily:F.heading, fontWeight:700, fontSize:9, textTransform:'uppercase', letterSpacing:'.1em', background:C.accent, color:'#0d0a06', padding:'6px 14px', border:'none', cursor:'pointer' }}>↓ Scarica</button>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {tab==='studio' && (
+          <div style={{ display:'flex', flexDirection:'column', gap:14, maxWidth:560 }}>
+            <div style={{ border:`1px solid ${C.borderGold}`, background:'rgba(200,145,90,.05)', padding:'22px', position:'relative' }}>
+              <div style={{ position:'absolute', top:0, left:0, right:0, height:2, background:`linear-gradient(90deg,${C.accent},${C.terra})` }} />
+              <div style={{ fontFamily:F.heading, fontSize:9, fontWeight:700, letterSpacing:'.18em', textTransform:'uppercase', color:C.accent, marginBottom:6 }}>Piano Attivo</div>
+              <div style={{ fontFamily:F.heading, fontWeight:700, fontSize:19, color:C.text, marginBottom:4 }}>Studio Access — Mensile</div>
+              <div style={{ fontFamily:F.body, fontSize:13, color:C.muted, marginBottom:16 }}>Rinnovo 28 Mag 2025 · €9.99/mese</div>
+              <div style={{ display:'flex', gap:8 }}>
+                <button style={{ fontFamily:F.heading, fontWeight:700, fontSize:9, textTransform:'uppercase', letterSpacing:'.12em', background:C.accent, color:'#0d0a06', padding:'8px 16px', border:'none', cursor:'pointer' }}>Gestisci</button>
+                <button style={{ fontFamily:F.heading, fontWeight:600, fontSize:9, textTransform:'uppercase', letterSpacing:'.1em', background:'none', color:C.muted, padding:'8px 16px', border:`1px solid ${C.border}`, cursor:'pointer' }}>Cancella</button>
+              </div>
+            </div>
+            <div style={{ border:`1px solid ${C.border}`, padding:'22px' }}>
+              <div style={{ fontFamily:F.heading, fontSize:9, fontWeight:700, letterSpacing:'.18em', textTransform:'uppercase', color:C.accent, marginBottom:14 }}>Utilizzo questo mese</div>
+              {[['Template Generati','18','/ illimitati'],['Template Personalizzati','34','/ illimitati'],['Token AI Usati','142k','/ 500k']].map(([l,v,lim])=>(
+                <div key={l} style={{ display:'flex', alignItems:'center', gap:12, marginBottom:10 }}>
+                  <span style={{ fontFamily:F.body, fontSize:12, color:C.muted, flex:1 }}>{l}</span>
+                  <span style={{ fontFamily:F.heading, fontWeight:700, fontSize:14, color:C.text }}>{v}</span>
+                  <span style={{ fontFamily:F.body, fontSize:11, color:C.muted }}>{lim}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {tab==='impostazioni' && (
+          <div style={{ display:'flex', flexDirection:'column', gap:18, maxWidth:440 }}>
+            {[['Nome','Marco Rossi'],['Email','marco@example.com']].map(([l,v])=>(
+              <div key={l} style={{ display:'flex', flexDirection:'column', gap:4 }}>
+                <span style={{ fontFamily:F.heading, fontSize:9, fontWeight:700, letterSpacing:'.15em', textTransform:'uppercase', color:C.muted }}>{l}</span>
+                <input defaultValue={v} style={{ background:C.inputBg, border:`1px solid ${C.border}`, color:C.text, fontFamily:F.body, fontSize:13, padding:'9px 12px', outline:'none', width:'100%' }} />
+              </div>
+            ))}
+            <button style={{ fontFamily:F.heading, fontWeight:700, fontSize:10, textTransform:'uppercase', letterSpacing:'.14em', background:C.accent, color:'#0d0a06', padding:'11px 24px', border:'none', cursor:'pointer', alignSelf:'flex-start' }}>Salva Modifiche</button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ── APP SHELL ── */
+function App() {
+  const [screen, setScreen] = React.useState('home');
+  const [tpl, setTpl] = React.useState(null);
+  const scrollRef = React.useRef(null);
+
+  const go = s => {
+    setScreen(s);
+    if(scrollRef.current) scrollRef.current.scrollTop = 0;
+  };
+
+  const screens = {
+    home:    <HomeScreen go={go} setTpl={setTpl} />,
+    preview: <PreviewScreen tpl={tpl||TEMPLATES[0]} go={go} />,
+    studio:  <StudioScreen go={go} />,
+    account: <AccountScreen />,
+  };
+
+  return (
+    <div style={{ display:'flex', flexDirection:'column', height:'100vh' }}>
+      <Nav screen={screen} go={go} />
+      <div ref={scrollRef} style={{ flex:1, overflowY:'auto' }}>
+        <div key={screen} className="screen-enter">
+          {screens[screen]||screens.home}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
