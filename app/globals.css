@@ -493,6 +493,8 @@ html::-webkit-scrollbar-track {
   display: inline-block;
   overflow: hidden;
   vertical-align: bottom;
+  padding-bottom: 0.15em;
+  margin-bottom: -0.15em;
 }
 .split-word > span {
   display: inline-block;
