@@ -18,7 +18,7 @@ const WavySep = () => (
   >
     <path
       d="M0 2 C80 1.2 160 2.8 240 2 C320 1.2 400 2.9 480 2 C560 1.1 640 2.7 720 2 C800 1.3 880 2.6 960 2 C1040 1.4 1120 2.5 1200 2"
-      stroke="#1A1815"
+      stroke="var(--forma-text)"
       strokeWidth="0.7"
       fill="none"
       opacity="0.18"
@@ -40,7 +40,7 @@ export default function Manifesto() {
     <section
       ref={ref}
       style={{
-        background: "#F5F0E8",
+        background: "var(--forma-bg)",
         padding: "clamp(100px, 16vw, 180px) 8vw",
         position: "relative",
       }}
@@ -59,7 +59,7 @@ export default function Manifesto() {
           fontSize: "11px",
           fontWeight: 300,
           letterSpacing: "0.04em",
-          color: "#1A1815",
+          color: "var(--forma-text)",
           opacity: 0.35,
         }}
       >
@@ -78,7 +78,7 @@ export default function Manifesto() {
             fontWeight: 400,
             lineHeight: 1.3,
             letterSpacing: "0.01em",
-            color: "#1A1815",
+            color: "var(--forma-text)",
             margin: 0,
           }}
         >
@@ -112,7 +112,7 @@ export default function Manifesto() {
           left: "8vw",
           right: "8vw",
           height: "1px",
-          background: "#1A1815",
+          background: "var(--forma-text)",
           opacity: 0.12,
         }}
       />

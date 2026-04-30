@@ -60,11 +60,11 @@ export default function CategoryRoom({ category, sectionIndex, featuredId }: Cat
     <section
       id={`category-${category}`}
       ref={sectionRef}
-      className="forma-snap"
+      className="forma-snap forma-v2-section"
       style={{
         minHeight: "100svh",
-        background: "#F5F0E8",
-        borderTop: "1px solid rgba(26,24,21,0.12)",
+        background: "var(--forma-bg)",
+        borderTop: "1px solid var(--forma-border)",
         position: "relative",
         display: "flex",
         alignItems: "center",
@@ -82,7 +82,7 @@ export default function CategoryRoom({ category, sectionIndex, featuredId }: Cat
           fontSize: "11px",
           fontWeight: 300,
           letterSpacing: "0.04em",
-          color: "#1A1815",
+          color: "var(--forma-text)",
           opacity: 0.35,
         }}
       >
@@ -91,6 +91,7 @@ export default function CategoryRoom({ category, sectionIndex, featuredId }: Cat
 
       <div
         ref={contentRef}
+        className="forma-section-grid"
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
@@ -113,7 +114,7 @@ export default function CategoryRoom({ category, sectionIndex, featuredId }: Cat
               fontWeight: 300,
               letterSpacing: "0.12em",
               textTransform: "uppercase",
-              color: "#8B6F47",
+              color: "var(--forma-text-accent)",
               marginBottom: "clamp(16px, 2vw, 24px)",
             }}
           >
@@ -131,7 +132,7 @@ export default function CategoryRoom({ category, sectionIndex, featuredId }: Cat
               fontWeight: 400,
               lineHeight: 1.0,
               letterSpacing: "0.01em",
-              color: "#1A1815",
+              color: "var(--forma-text)",
               marginBottom: "clamp(20px, 2.5vw, 32px)",
             }}
           >
@@ -148,7 +149,7 @@ export default function CategoryRoom({ category, sectionIndex, featuredId }: Cat
               fontSize: "clamp(14px, 1.4vw, 16px)",
               fontWeight: 300,
               lineHeight: 1.75,
-              color: "#4A4642",
+              color: "var(--forma-text-muted)",
               maxWidth: "380px",
               marginBottom: "clamp(28px, 3.5vw, 44px)",
             }}
@@ -163,7 +164,7 @@ export default function CategoryRoom({ category, sectionIndex, featuredId }: Cat
             transition={{ duration: 0.7, delay: 0.3, ease: EASE }}
             style={{
               height: "1px",
-              background: "#1A1815",
+              background: "var(--forma-text)",
               opacity: 0.15,
               transformOrigin: "left",
               maxWidth: "380px",
@@ -184,7 +185,7 @@ export default function CategoryRoom({ category, sectionIndex, featuredId }: Cat
                 fontSize: "13px",
                 fontWeight: 300,
                 letterSpacing: "0.04em",
-                color: "#4A4642",
+                color: "var(--forma-text-muted)",
               }}
             >
               {lang === "it" ? "da €19 — acquisto unico" : "from €19 — one-time purchase"}
@@ -197,7 +198,7 @@ export default function CategoryRoom({ category, sectionIndex, featuredId }: Cat
                 fontWeight: 400,
                 letterSpacing: "0.08em",
                 textTransform: "uppercase",
-                color: "#8B6F47",
+                color: "var(--forma-text-accent)",
                 background: "transparent",
                 border: "none",
                 cursor: "pointer",
@@ -205,7 +206,7 @@ export default function CategoryRoom({ category, sectionIndex, featuredId }: Cat
                 transition: "color 0.2s ease",
               }}
               onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#A0522D"; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "#8B6F47"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--forma-text-accent)"; }}
             >
               {lang === "it" ? "Tutti i template →" : "All templates →"}
             </button>
@@ -224,8 +225,8 @@ export default function CategoryRoom({ category, sectionIndex, featuredId }: Cat
           <div style={{ paddingLeft: "8%" }}>
             <div
               style={{
-                border: "1px solid rgba(26,24,21,0.16)",
-                background: "#FAF7F0",
+                border: "1px solid var(--forma-border-card)",
+                background: "var(--forma-bg-alt)",
                 borderRadius: "2px",
                 overflow: "hidden",
                 maxWidth: "340px",
@@ -237,7 +238,7 @@ export default function CategoryRoom({ category, sectionIndex, featuredId }: Cat
                   height: "200px",
                   background: "#ffffff",
                   overflow: "hidden",
-                  borderBottom: "1px solid rgba(26,24,21,0.08)",
+                  borderBottom: "1px solid var(--forma-border)",
                   position: "relative",
                 }}
               >
@@ -263,7 +264,7 @@ export default function CategoryRoom({ category, sectionIndex, featuredId }: Cat
                     fontFamily: "var(--font-cormorant), Georgia, serif",
                     fontSize: "17px",
                     fontWeight: 400,
-                    color: "#1A1815",
+                    color: "var(--forma-text)",
                     marginBottom: "8px",
                     letterSpacing: "0.01em",
                   }}
@@ -276,7 +277,7 @@ export default function CategoryRoom({ category, sectionIndex, featuredId }: Cat
                       fontFamily: "var(--font-inter), sans-serif",
                       fontSize: "12px",
                       fontWeight: 300,
-                      color: "#4A4642",
+                      color: "var(--forma-text-muted)",
                     }}
                   >
                     {formatPrice(featured.price)}

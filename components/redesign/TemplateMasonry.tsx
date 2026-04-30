@@ -60,14 +60,14 @@ function TemplateCard({ tmpl, index, lang }: TemplateCardProps) {
       >
         <div
           style={{
-            border: "1px solid rgba(26,24,21,0.14)",
-            background: "#FAF7F0",
+            border: "1px solid var(--forma-border-card)",
+            background: "var(--forma-bg-alt)",
             borderRadius: "2px",
             overflow: "hidden",
             transition: "border-color 0.25s ease",
           }}
-          onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(26,24,21,0.35)"; }}
-          onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(26,24,21,0.14)"; }}
+          onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "var(--forma-text-muted)"; }}
+          onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "var(--forma-border-card)"; }}
         >
           {/* Preview area */}
           <div
@@ -76,7 +76,7 @@ function TemplateCard({ tmpl, index, lang }: TemplateCardProps) {
               background: "#ffffff",
               overflow: "hidden",
               position: "relative",
-              borderBottom: "1px solid rgba(26,24,21,0.08)",
+              borderBottom: "1px solid var(--forma-border)",
             }}
           >
             <iframe
@@ -125,7 +125,7 @@ function TemplateCard({ tmpl, index, lang }: TemplateCardProps) {
                     fontSize: "16px",
                     fontWeight: 400,
                     letterSpacing: "0.01em",
-                    color: "#1A1815",
+                    color: "var(--forma-text)",
                     overflow: "hidden",
                     textOverflow: "ellipsis",
                     whiteSpace: "nowrap",
@@ -139,7 +139,7 @@ function TemplateCard({ tmpl, index, lang }: TemplateCardProps) {
                   fontFamily: "var(--font-inter), sans-serif",
                   fontSize: "12px",
                   fontWeight: 300,
-                  color: "#4A4642",
+                  color: "var(--forma-text-muted)",
                   flexShrink: 0,
                   marginTop: "14px",
                 }}
@@ -170,8 +170,8 @@ export default function TemplateMasonry() {
     <section
       id="templates"
       style={{
-        background: "#F5F0E8",
-        borderTop: "1px solid rgba(26,24,21,0.12)",
+        background: "var(--forma-bg)",
+        borderTop: "1px solid var(--forma-border)",
         padding: "clamp(80px, 12vw, 140px) 8vw clamp(60px, 8vw, 100px)",
         position: "relative",
       }}
@@ -187,7 +187,7 @@ export default function TemplateMasonry() {
           fontSize: "11px",
           fontWeight: 300,
           letterSpacing: "0.04em",
-          color: "#1A1815",
+          color: "var(--forma-text)",
           opacity: 0.35,
         }}
       >
@@ -227,7 +227,7 @@ export default function TemplateMasonry() {
             fontSize: "clamp(32px, 4.5vw, 52px)",
             fontWeight: 400,
             letterSpacing: "0.01em",
-            color: "#1A1815",
+            color: "var(--forma-text)",
             lineHeight: 1.1,
           }}
         >
