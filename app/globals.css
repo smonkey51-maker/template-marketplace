@@ -305,11 +305,6 @@ html.dark {
   background-attachment: local, fixed, fixed;
 }
 
-/* Display font for headings */
-h1, h2, h3 {
-  font-family: var(--font-syne), var(--font-geist), system-ui, sans-serif;
-}
-
 * { -webkit-tap-highlight-color: transparent; }
 
 /* ── Shimmer skeleton loader ── */
@@ -1704,83 +1699,6 @@ html.dark {
   }
   .delay-500 { animation-delay: 500ms; }
   .delay-600 { animation-delay: 600ms; }
-}
-
-/* ═══════════════════════════════════════════════════════════
-   APPLE-INSPIRED REDESIGN TOKENS
-   Editorial monochrome palette — light-first, dark via .dark
-   ═══════════════════════════════════════════════════════════ */
-:root {
-  --apple-bg:              #FBFBFD;
-  --apple-bg-alt:          #F5F5F7;
-  --apple-surface:         #FFFFFF;
-  --apple-surface-alt:     #F5F5F7;
-  --apple-text:            #1D1D1F;
-  --apple-text-secondary:  #6E6E73;
-  --apple-text-tertiary:   #A1A1A6;
-  --apple-divider:         rgba(0, 0, 0, 0.08);
-  --apple-border:          rgba(0, 0, 0, 0.14);
-  --apple-shadow-card:     0 2px 16px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
-  --apple-shadow-elevated: 0 8px 40px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06);
-  --apple-nav-bg:          rgba(251,251,253,0.82);
-}
-
-html.dark {
-  --apple-bg:              #000000;
-  --apple-bg-alt:          #111111;
-  --apple-surface:         #1C1C1E;
-  --apple-surface-alt:     #2C2C2E;
-  --apple-text:            #F5F5F7;
-  --apple-text-secondary:  #86868B;
-  --apple-text-tertiary:   #636366;
-  --apple-divider:         rgba(255, 255, 255, 0.10);
-  --apple-border:          rgba(255, 255, 255, 0.16);
-  --apple-shadow-card:     0 2px 16px rgba(0,0,0,0.40), 0 1px 4px rgba(0,0,0,0.30);
-  --apple-shadow-elevated: 0 8px 40px rgba(0,0,0,0.50), 0 2px 8px rgba(0,0,0,0.40);
-  --apple-nav-bg:          rgba(0,0,0,0.82);
-}
-
-/* ── Apple typography helpers ── */
-.apple-headline {
-  font-family: var(--font-montserrat), -apple-system, "SF Pro Display", system-ui, sans-serif;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.05;
-  color: var(--apple-text);
-}
-
-.apple-subhead {
-  font-family: var(--font-jakarta), -apple-system, system-ui, sans-serif;
-  font-weight: 400;
-  line-height: 1.6;
-  color: var(--apple-text-secondary);
-}
-
-.apple-eyebrow {
-  font-family: var(--font-jakarta), -apple-system, system-ui, sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.10em;
-  text-transform: uppercase;
-  color: var(--apple-text-secondary);
-}
-
-/* ── Scroll snap helpers ── */
-.snap-y-proximity {
-  scroll-snap-type: y proximity;
-}
-.snap-start {
-  scroll-snap-align: start;
-}
-.snap-center {
-  scroll-snap-align: center;
-}
-
-/* ── Apple-style section separator ── */
-.apple-section-sep {
-  width: 100%;
-  height: 1px;
-  background: var(--apple-divider);
 }
 
 /* ── Typing cursor blink ── */

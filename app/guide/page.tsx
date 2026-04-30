@@ -30,11 +30,10 @@ export default function GuidePage() {
 
         {/* ── Hero ── */}
         <section className="text-center anim-fade-up delay-0">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 text-[11px] font-semibold glass-subtle mb-6 select-none" style={{ color: "var(--accent)" }}>
-            <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--accent)" }} />
+          <p style={{ fontFamily: "monospace", fontSize: "10px", fontWeight: 400, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--accent)", marginBottom: "20px" }}>
             {g.badge}
-          </div>
-          <h1 className="text-[2rem] sm:text-[2.6rem] font-black tracking-[-0.03em] leading-[1.1] text-theme mb-4">
+          </p>
+          <h1 className="text-[2rem] sm:text-[2.6rem] leading-[1.1] text-theme mb-4" style={{ fontFamily: "var(--font-cormorant), 'Cormorant Garamond', Georgia, serif", fontWeight: 400, letterSpacing: "0.01em", lineHeight: 1.1 }}>
             {g.title}
           </h1>
           <p className="text-[16px] text-muted max-w-md mx-auto leading-relaxed">
@@ -57,7 +56,7 @@ export default function GuidePage() {
                 </svg>
               </div>
               <div>
-                <h2 className="text-[16px] font-bold text-theme mb-1.5">{g.uiTitle}</h2>
+                <h2 className="text-[16px] font-semibold text-theme mb-1.5" style={{ fontFamily: "var(--font-cormorant), serif", fontSize: "18px", fontWeight: 500 }}>{g.uiTitle}</h2>
                 <p className="text-[13px] text-muted leading-relaxed">{g.uiDesc}</p>
               </div>
               <div className="flex flex-wrap gap-1.5 mt-auto pt-2">
@@ -77,7 +76,7 @@ export default function GuidePage() {
                 </svg>
               </div>
               <div>
-                <h2 className="text-[16px] font-bold text-theme mb-1.5">{g.promptTitle}</h2>
+                <h2 className="text-[16px] font-semibold text-theme mb-1.5" style={{ fontFamily: "var(--font-cormorant), serif", fontSize: "18px", fontWeight: 500 }}>{g.promptTitle}</h2>
                 <p className="text-[13px] text-muted leading-relaxed">{g.promptDesc}</p>
               </div>
               <div className="flex flex-wrap gap-1.5 mt-auto pt-2">
@@ -171,7 +170,7 @@ export default function GuidePage() {
               <p className="text-[11px] font-bold text-muted uppercase tracking-[0.2em] mb-3">
                 {g.ctaLabel}
               </p>
-              <h2 className="text-[1.6rem] sm:text-[2rem] font-black tracking-[-0.03em] text-theme mb-3">
+              <h2 className="text-[1.6rem] sm:text-[2rem] text-theme mb-3" style={{ fontFamily: "var(--font-cormorant), 'Cormorant Garamond', Georgia, serif", fontWeight: 400, letterSpacing: "0.01em", lineHeight: 1.1 }}>
                 {g.ctaTitle}
               </h2>
               <p className="text-[14px] text-muted mb-7 max-w-sm mx-auto leading-relaxed">
@@ -192,7 +191,7 @@ export default function GuidePage() {
 /* ── Sezione label ── */
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-[10px] font-bold uppercase tracking-[0.22em]" style={{ color: "var(--muted)" }}>
+    <p className="text-[10px] font-normal uppercase tracking-[0.18em]" style={{ fontFamily: "monospace", color: "var(--accent)" }}>
       {children}
     </p>
   );
