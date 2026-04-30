@@ -29,14 +29,15 @@ export default function Hero() {
     <section
       id="hero"
       ref={sectionRef}
-      className="forma-snap"
+      className="forma-snap forma-v2-section"
       style={{
         minHeight: "100svh",
-        background: "#F5F0E8",
+        background: "var(--forma-bg)",
         position: "relative",
         overflow: "hidden",
         display: "flex",
         alignItems: "center",
+        padding: "clamp(80px, 10vw, 120px) 8vw",
       }}
     >
       {/* Section number 01 */}
@@ -50,7 +51,7 @@ export default function Hero() {
           fontSize: "11px",
           fontWeight: 300,
           letterSpacing: "0.04em",
-          color: "#1A1815",
+          color: "var(--forma-text)",
           opacity: 0.35,
         }}
       >
@@ -59,9 +60,9 @@ export default function Hero() {
 
       {/* ── Main layout: text left, template card right ── */}
       <div
+        className="forma-section-grid"
         style={{
           width: "100%",
-          padding: "0 8vw",
           display: "grid",
           gridTemplateColumns: "minmax(0, 1.1fr) minmax(0, 0.9fr)",
           gap: "4vw",
@@ -81,7 +82,7 @@ export default function Hero() {
               fontWeight: 300,
               letterSpacing: "0.14em",
               textTransform: "uppercase",
-              color: "#8B6F47",
+              color: "var(--forma-text-accent)",
               marginBottom: "clamp(16px, 2.5vw, 28px)",
             }}
           >
@@ -95,11 +96,11 @@ export default function Hero() {
             transition={{ duration: 1.0, delay: 0.15, ease: EASE }}
             style={{
               fontFamily: "var(--font-cormorant), 'Cormorant Garamond', Georgia, serif",
-              fontSize: "clamp(100px, 16vw, 200px)",
+              fontSize: "clamp(80px, 16vw, 200px)",
               fontWeight: 400,
               letterSpacing: "0.02em",
               lineHeight: 0.92,
-              color: "#1A1815",
+              color: "var(--forma-text)",
               margin: 0,
             }}
           >
@@ -116,7 +117,7 @@ export default function Hero() {
               fontSize: "clamp(14px, 1.4vw, 17px)",
               fontWeight: 300,
               lineHeight: 1.7,
-              color: "#4A4642",
+              color: "var(--forma-text-muted)",
               marginTop: "clamp(20px, 2.5vw, 32px)",
               maxWidth: "420px",
             }}
@@ -147,9 +148,9 @@ export default function Hero() {
                 fontWeight: 400,
                 letterSpacing: "0.08em",
                 textTransform: "uppercase",
-                color: "#F5F0E8",
-                background: "#1A1815",
-                border: "1px solid #1A1815",
+                color: "var(--forma-bg)",
+                background: "var(--forma-text)",
+                border: "1px solid var(--forma-text)",
                 padding: "12px 28px",
                 cursor: "pointer",
                 transition: "background 0.2s ease, color 0.2s ease",
@@ -157,13 +158,13 @@ export default function Hero() {
               }}
               onMouseEnter={(e) => {
                 const el = e.currentTarget as HTMLElement;
-                el.style.background = "#4A4642";
-                el.style.borderColor = "#4A4642";
+                el.style.background = "var(--forma-text-muted)";
+                el.style.borderColor = "var(--forma-text-muted)";
               }}
               onMouseLeave={(e) => {
                 const el = e.currentTarget as HTMLElement;
-                el.style.background = "#1A1815";
-                el.style.borderColor = "#1A1815";
+                el.style.background = "var(--forma-text)";
+                el.style.borderColor = "var(--forma-text)";
               }}
             >
               {lang === "it" ? "Sfoglia" : "Browse"}
@@ -176,12 +177,12 @@ export default function Hero() {
                 fontSize: "12px",
                 fontWeight: 300,
                 letterSpacing: "0.06em",
-                color: "#4A4642",
+                color: "var(--forma-text-muted)",
                 textDecoration: "none",
                 transition: "color 0.2s ease",
               }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#1A1815"; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "#4A4642"; }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--forma-text)"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--forma-text-muted)"; }}
             >
               AI Studio →
             </Link>
@@ -206,7 +207,7 @@ export default function Hero() {
                 fontWeight: 300,
                 letterSpacing: "0.12em",
                 textTransform: "uppercase",
-                color: "#8B6F47",
+                color: "var(--forma-text-accent)",
                 marginBottom: "12px",
               }}
             >
@@ -216,8 +217,8 @@ export default function Hero() {
             {/* Card */}
             <div
               style={{
-                border: "1px solid rgba(26,24,21,0.18)",
-                background: "#FAF7F0",
+                border: "1px solid var(--forma-border-card)",
+                background: "var(--forma-bg-alt)",
                 overflow: "hidden",
                 borderRadius: "2px",
               }}
@@ -229,7 +230,7 @@ export default function Hero() {
                   background: "#ffffff",
                   overflow: "hidden",
                   position: "relative",
-                  borderBottom: "1px solid rgba(26,24,21,0.10)",
+                  borderBottom: "1px solid var(--forma-border)",
                 }}
               >
                 <iframe
@@ -255,7 +256,7 @@ export default function Hero() {
                     fontSize: "18px",
                     fontWeight: 400,
                     letterSpacing: "0.01em",
-                    color: "#1A1815",
+                    color: "var(--forma-text)",
                     marginBottom: "4px",
                   }}
                 >
@@ -274,7 +275,7 @@ export default function Hero() {
                       fontFamily: "var(--font-inter), sans-serif",
                       fontSize: "13px",
                       fontWeight: 300,
-                      color: "#4A4642",
+                      color: "var(--forma-text-muted)",
                     }}
                   >
                     {formatPrice(featured.price)}
@@ -287,12 +288,12 @@ export default function Hero() {
                       fontWeight: 400,
                       letterSpacing: "0.06em",
                       textTransform: "uppercase",
-                      color: "#8B6F47",
+                      color: "var(--forma-text-accent)",
                       textDecoration: "none",
                       transition: "color 0.2s ease",
                     }}
                     onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#A0522D"; }}
-                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "#8B6F47"; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--forma-text-accent)"; }}
                   >
                     {lang === "it" ? "Vedi →" : "View →"}
                   </Link>
@@ -322,7 +323,7 @@ export default function Hero() {
           style={{
             width: "1px",
             height: "40px",
-            background: "#1A1815",
+            background: "var(--forma-text)",
             opacity: 0.25,
           }}
         />
@@ -333,7 +334,7 @@ export default function Hero() {
             fontWeight: 300,
             letterSpacing: "0.12em",
             textTransform: "uppercase",
-            color: "#4A4642",
+            color: "var(--forma-text-muted)",
             opacity: 0.6,
           }}
         >

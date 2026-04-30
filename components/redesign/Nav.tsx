@@ -3,11 +3,15 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useLang } from "@/components/LanguageProvider";
+import { useLayoutMode } from "@/components/redesign/LayoutContext";
+import { useTheme } from "@/components/ThemeProvider";
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { lang, toggle: toggleLang } = useLang();
+  const { mode, toggle: toggleLayout } = useLayoutMode();
+  const { theme, toggle: toggleTheme } = useTheme();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -31,10 +35,10 @@ export default function Nav() {
   ];
 
   const navBg = scrolled
-    ? "rgba(245,240,232,0.90)"
+    ? "color-mix(in srgb, var(--forma-bg) 90%, transparent)"
     : "transparent";
   const navBorder = scrolled
-    ? "1px solid rgba(26,24,21,0.10)"
+    ? "1px solid var(--forma-border)"
     : "1px solid transparent";
 
   return (
@@ -70,7 +74,7 @@ export default function Nav() {
               fontSize: "22px",
               fontWeight: 400,
               letterSpacing: "0.04em",
-              color: "#1A1815",
+              color: "var(--forma-text)",
               textDecoration: "none",
             }}
           >
@@ -92,15 +96,15 @@ export default function Nav() {
                     fontSize: "12px",
                     fontWeight: 300,
                     letterSpacing: "0.06em",
-                    color: "#4A4642",
+                    color: "var(--forma-text-muted)",
                     background: "transparent",
                     border: "none",
                     cursor: "pointer",
                     padding: 0,
                     transition: "color 0.2s ease",
                   }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#1A1815"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "#4A4642"; }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--forma-text)"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--forma-text-muted)"; }}
                 >
                   {label}
                 </button>
@@ -113,12 +117,12 @@ export default function Nav() {
                     fontSize: "12px",
                     fontWeight: 300,
                     letterSpacing: "0.06em",
-                    color: "#4A4642",
+                    color: "var(--forma-text-muted)",
                     textDecoration: "none",
                     transition: "color 0.2s ease",
                   }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#1A1815"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "#4A4642"; }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--forma-text)"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--forma-text-muted)"; }}
                 >
                   {label}
                 </Link>
@@ -126,8 +130,35 @@ export default function Nav() {
             )}
           </nav>
 
-          {/* Right: lang toggle + mobile trigger */}
-          <div style={{ display: "flex", alignItems: "center", gap: "24px" }}>
+          {/* Right: layout toggle + lang toggle + theme toggle + mobile trigger */}
+          <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+            {/* Layout toggle */}
+            <button
+              onClick={toggleLayout}
+              aria-label={mode === "editorial" ? "Vista compatta" : "Vista editoriale"}
+              title={mode === "editorial" ? "Vista compatta" : "Vista editoriale"}
+              className="hidden md:block"
+              style={{
+                fontFamily: "var(--font-inter), sans-serif",
+                fontSize: "11px",
+                fontWeight: 400,
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                color: "var(--forma-text-muted)",
+                background: "transparent",
+                border: "1px solid var(--forma-border-card)",
+                padding: "4px 8px",
+                cursor: "pointer",
+                borderRadius: "2px",
+                transition: "all 0.2s ease",
+              }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "var(--forma-text)"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "var(--forma-border-card)"; }}
+            >
+              {mode === "editorial" ? "⊟" : "⊞"}
+            </button>
+
+            {/* Lang toggle */}
             <button
               onClick={toggleLang}
               aria-label="Cambia lingua"
@@ -137,17 +168,39 @@ export default function Nav() {
                 fontWeight: 400,
                 letterSpacing: "0.10em",
                 textTransform: "uppercase",
-                color: "#4A4642",
+                color: "var(--forma-text-muted)",
                 background: "transparent",
                 border: "none",
                 cursor: "pointer",
                 transition: "color 0.2s ease",
                 padding: 0,
               }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#1A1815"; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "#4A4642"; }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--forma-text)"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--forma-text-muted)"; }}
             >
               {lang === "it" ? "EN" : "IT"}
+            </button>
+
+            {/* Dark mode toggle */}
+            <button
+              onClick={toggleTheme}
+              aria-label={theme === "dark" ? "Modalità chiara" : "Modalità scura"}
+              title={theme === "dark" ? "Modalità chiara" : "Modalità scura"}
+              style={{
+                fontFamily: "var(--font-inter), sans-serif",
+                fontSize: "14px",
+                color: "var(--forma-text-muted)",
+                background: "transparent",
+                border: "none",
+                cursor: "pointer",
+                padding: "2px 0",
+                lineHeight: 1,
+                transition: "color 0.2s ease",
+              }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--forma-text)"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--forma-text-muted)"; }}
+            >
+              {theme === "dark" ? "○" : "●"}
             </button>
 
             {/* Mobile hamburger */}
@@ -159,7 +212,7 @@ export default function Nav() {
                 background: "transparent",
                 border: "none",
                 cursor: "pointer",
-                color: "#1A1815",
+                color: "var(--forma-text)",
                 display: "flex",
                 flexDirection: "column",
                 gap: "5px",
@@ -171,7 +224,7 @@ export default function Nav() {
                   display: "block",
                   width: "20px",
                   height: "1px",
-                  background: "#1A1815",
+                  background: "var(--forma-text)",
                   transition: "transform 0.25s ease, opacity 0.25s ease",
                   transform: mobileOpen ? "translateY(6px) rotate(45deg)" : "none",
                 }}
@@ -181,7 +234,7 @@ export default function Nav() {
                   display: "block",
                   width: "20px",
                   height: "1px",
-                  background: "#1A1815",
+                  background: "var(--forma-text)",
                   transition: "opacity 0.25s ease",
                   opacity: mobileOpen ? 0 : 1,
                 }}
@@ -191,7 +244,7 @@ export default function Nav() {
                   display: "block",
                   width: "20px",
                   height: "1px",
-                  background: "#1A1815",
+                  background: "var(--forma-text)",
                   transition: "transform 0.25s ease, opacity 0.25s ease",
                   transform: mobileOpen ? "translateY(-6px) rotate(-45deg)" : "none",
                 }}
@@ -209,7 +262,7 @@ export default function Nav() {
             position: "fixed",
             inset: 0,
             zIndex: 99,
-            background: "#F5F0E8",
+            background: "var(--forma-bg)",
             padding: "100px 8vw 48px",
             display: "flex",
             flexDirection: "column",
@@ -219,7 +272,7 @@ export default function Nav() {
           {links.map(({ label, id, href }, i) => (
             <div key={label}>
               {i > 0 && (
-                <div style={{ height: "1px", background: "#1A1815", opacity: 0.1 }} />
+                <div style={{ height: "1px", background: "var(--forma-text)", opacity: 0.1 }} />
               )}
               {id ? (
                 <button
@@ -233,7 +286,7 @@ export default function Nav() {
                     fontSize: "32px",
                     fontWeight: 400,
                     letterSpacing: "0.02em",
-                    color: "#1A1815",
+                    color: "var(--forma-text)",
                     background: "transparent",
                     border: "none",
                     cursor: "pointer",
@@ -252,7 +305,7 @@ export default function Nav() {
                     fontSize: "32px",
                     fontWeight: 400,
                     letterSpacing: "0.02em",
-                    color: "#1A1815",
+                    color: "var(--forma-text)",
                     textDecoration: "none",
                   }}
                 >
@@ -262,7 +315,7 @@ export default function Nav() {
             </div>
           ))}
 
-          <div style={{ marginTop: "auto" }}>
+          <div style={{ marginTop: "auto", display: "flex", flexDirection: "column", gap: "16px" }}>
             <button
               onClick={() => { toggleLang(); setMobileOpen(false); }}
               style={{
@@ -271,13 +324,33 @@ export default function Nav() {
                 fontWeight: 400,
                 letterSpacing: "0.12em",
                 textTransform: "uppercase",
-                color: "#4A4642",
+                color: "var(--forma-text-muted)",
                 background: "transparent",
                 border: "none",
                 cursor: "pointer",
+                textAlign: "left",
               }}
             >
               {lang === "it" ? "Switch to English" : "Passa all'italiano"}
+            </button>
+            <button
+              onClick={() => { toggleTheme(); setMobileOpen(false); }}
+              style={{
+                fontFamily: "var(--font-inter), sans-serif",
+                fontSize: "11px",
+                fontWeight: 400,
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                color: "var(--forma-text-muted)",
+                background: "transparent",
+                border: "none",
+                cursor: "pointer",
+                textAlign: "left",
+              }}
+            >
+              {theme === "dark"
+                ? (lang === "it" ? "Modalità chiara" : "Light mode")
+                : (lang === "it" ? "Modalità scura" : "Dark mode")}
             </button>
           </div>
         </div>
