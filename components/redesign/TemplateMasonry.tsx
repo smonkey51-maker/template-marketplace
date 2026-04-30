@@ -182,7 +182,7 @@ export default function TemplateMasonry() {
           opacity: 0.3,
         }}
       >
-        07
+        08
       </span>
 
       {/* Header */}

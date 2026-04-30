@@ -203,6 +203,15 @@ export default function CategoryRoom({ category, sectionIndex }: CategoryRoomPro
           </button>
         </motion.div>
       </div>
+
+      {/* Folio line */}
+      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, borderTop: "1px solid var(--forma-border)", padding: "8px clamp(24px,8vw,120px)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <span style={{ fontFamily: "monospace", fontSize: "8px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--forma-text)", opacity: 0.3 }}>FORMA</span>
+        <span style={{ fontFamily: "monospace", fontSize: "8px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--forma-text)", opacity: 0.3 }}>
+          {`Sezione ${String(sectionIndex).padStart(2, "0")} · ${lang === "it" ? data.nameIt : data.nameEn}`}
+        </span>
+        <span style={{ fontFamily: "monospace", fontSize: "8px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--forma-text)", opacity: 0.3 }}>Pag. {sectionIndex}</span>
+      </div>
     </section>
   );
 }
