@@ -63,7 +63,7 @@ export default function CategoryRoom({ category, sectionIndex, featuredId }: Cat
       className="forma-snap forma-v2-section"
       style={{
         minHeight: "100svh",
-        background: "var(--forma-bg)",
+        background: "var(--bg)",
         borderTop: "1px solid var(--forma-border)",
         position: "relative",
         display: "flex",
@@ -205,7 +205,7 @@ export default function CategoryRoom({ category, sectionIndex, featuredId }: Cat
                 padding: 0,
                 transition: "color 0.2s ease",
               }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#A0522D"; }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--forma-accent-sabi)"; }}
               onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--forma-text-accent)"; }}
             >
               {lang === "it" ? "Tutti i template →" : "All templates →"}
@@ -290,12 +290,12 @@ export default function CategoryRoom({ category, sectionIndex, featuredId }: Cat
                       fontWeight: 400,
                       letterSpacing: "0.08em",
                       textTransform: "uppercase",
-                      color: "#8B6F47",
+                      color: "var(--forma-text-accent)",
                       textDecoration: "none",
                       transition: "color 0.2s ease",
                     }}
-                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#A0522D"; }}
-                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "#8B6F47"; }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--forma-accent-sabi)"; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--forma-text-accent)"; }}
                   >
                     {lang === "it" ? "Anteprima →" : "Preview →"}
                   </Link>

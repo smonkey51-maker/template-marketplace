@@ -32,7 +32,7 @@ export default function Hero() {
       className="forma-snap forma-v2-section"
       style={{
         minHeight: "100svh",
-        background: "var(--forma-bg)",
+        background: "transparent",
         position: "relative",
         overflow: "hidden",
         display: "flex",
@@ -292,7 +292,7 @@ export default function Hero() {
                       textDecoration: "none",
                       transition: "color 0.2s ease",
                     }}
-                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#A0522D"; }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--forma-accent-sabi)"; }}
                     onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--forma-text-accent)"; }}
                   >
                     {lang === "it" ? "Vedi →" : "View →"}
