@@ -73,7 +73,7 @@ export default function SiteFooter() {
     fontSize: "13px",
     fontWeight: 300 as const,
     letterSpacing: "0.02em",
-    color: "#4A4642",
+    color: "var(--forma-text-muted)",
     textDecoration: "none",
     transition: "color 0.2s ease",
     background: "transparent",
@@ -86,8 +86,8 @@ export default function SiteFooter() {
   return (
     <footer
       style={{
-        background: "#F5F0E8",
-        borderTop: "1px solid rgba(26,24,21,0.12)",
+        background: "var(--forma-bg)",
+        borderTop: "1px solid var(--forma-border)",
         padding: "clamp(64px, 8vw, 96px) 8vw clamp(40px, 5vw, 56px)",
       }}
     >
@@ -108,7 +108,7 @@ export default function SiteFooter() {
               fontSize: "28px",
               fontWeight: 400,
               letterSpacing: "0.04em",
-              color: "#1A1815",
+              color: "var(--forma-text)",
               textDecoration: "none",
               display: "block",
               marginBottom: "16px",
@@ -122,7 +122,7 @@ export default function SiteFooter() {
               fontSize: "13px",
               fontWeight: 300,
               lineHeight: 1.7,
-              color: "#4A4642",
+              color: "var(--forma-text-muted)",
               maxWidth: "220px",
               marginBottom: "24px",
             }}
@@ -156,7 +156,7 @@ export default function SiteFooter() {
                 fontWeight: 300,
                 letterSpacing: "0.10em",
                 textTransform: "uppercase",
-                color: "#1A1815",
+                color: "var(--forma-text)",
                 opacity: 0.5,
                 marginBottom: "20px",
               }}
@@ -181,8 +181,8 @@ export default function SiteFooter() {
                         document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
                       }
                       style={linkStyle}
-                      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#1A1815"; }}
-                      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "#4A4642"; }}
+                      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--forma-text)"; }}
+                      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--forma-text-muted)"; }}
                     >
                       {label}
                     </button>
@@ -190,8 +190,8 @@ export default function SiteFooter() {
                     <Link
                       href={href!}
                       style={linkStyle}
-                      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#1A1815"; }}
-                      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "#4A4642"; }}
+                      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--forma-text)"; }}
+                      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--forma-text-muted)"; }}
                     >
                       {label}
                     </Link>
@@ -208,7 +208,7 @@ export default function SiteFooter() {
         style={{
           marginTop: "clamp(40px, 5vw, 64px)",
           paddingTop: "clamp(20px, 2.5vw, 28px)",
-          borderTop: "1px solid rgba(26,24,21,0.10)",
+          borderTop: "1px solid var(--forma-border)",
           display: "flex",
           flexWrap: "wrap",
           alignItems: "center",
@@ -222,7 +222,7 @@ export default function SiteFooter() {
             fontSize: "11px",
             fontWeight: 300,
             letterSpacing: "0.04em",
-            color: "#4A4642",
+            color: "var(--forma-text-muted)",
             opacity: 0.7,
           }}
         >
@@ -238,7 +238,7 @@ export default function SiteFooter() {
             fontWeight: 400,
             letterSpacing: "0.10em",
             textTransform: "uppercase",
-            color: "#4A4642",
+            color: "var(--forma-text-muted)",
             opacity: 0.7,
             background: "transparent",
             border: "none",

@@ -99,10 +99,10 @@ export default function AIStudio() {
     <section
       id="studio"
       ref={sectionRef}
-      className="forma-snap"
+      className="forma-snap forma-v2-section"
       style={{
         minHeight: "100svh",
-        background: "#1A1815",
+        background: "var(--forma-bg-dark-section)",
         position: "relative",
         display: "flex",
         alignItems: "center",
@@ -128,6 +128,7 @@ export default function AIStudio() {
       </span>
 
       <div
+        className="forma-section-grid"
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
