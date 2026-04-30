@@ -296,7 +296,7 @@ html {
 /* ── Dark mode: photo background (Japanese garden) + seigaiha overlay ── */
 html.dark {
   background-image:
-    url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='40'><circle cx='40' cy='40' r='40' fill='none' stroke='%23C8915A' stroke-width='0.7' stroke-opacity='0.06'/><circle cx='0' cy='40' r='40' fill='none' stroke='%23C8915A' stroke-width='0.7' stroke-opacity='0.06'/><circle cx='80' cy='40' r='40' fill='none' stroke='%23C8915A' stroke-width='0.7' stroke-opacity='0.06'/><circle cx='40' cy='0' r='40' fill='none' stroke='%23C8915A' stroke-width='0.7' stroke-opacity='0.06'/></svg>"),
+    url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='40'><circle cx='40' cy='40' r='40' fill='none' stroke='%23C8915A' stroke-width='0.7' stroke-opacity='0.09'/><circle cx='0' cy='40' r='40' fill='none' stroke='%23C8915A' stroke-width='0.7' stroke-opacity='0.09'/><circle cx='80' cy='40' r='40' fill='none' stroke='%23C8915A' stroke-width='0.7' stroke-opacity='0.09'/><circle cx='40' cy='0' r='40' fill='none' stroke='%23C8915A' stroke-width='0.7' stroke-opacity='0.09'/></svg>"),
     linear-gradient(rgba(14,10,6,0.42), rgba(14,10,6,0.42)),
     url('/bg-dark.jpg');
   background-size: 80px 40px, 100% 100%, cover;
@@ -1877,6 +1877,8 @@ html.forma-v2 {
   --forma-text-accent: #8B6F47;
   --forma-border: rgba(26,24,21,0.12);
   --forma-border-card: rgba(26,24,21,0.16);
+  --forma-accent-sabi: #A0522D;
+  --forma-kinari: #F5F0E8;
 }
 .dark {
   --forma-bg: #1A1815;
@@ -1884,9 +1886,11 @@ html.forma-v2 {
   --forma-bg-dark-section: #111009;
   --forma-text: #F5F0E8;
   --forma-text-muted: rgba(245,240,232,0.60);
-  --forma-text-accent: #8B6F47;
+  --forma-text-accent: #C8A46E;   /* was #8B6F47 — now warm gold, readable on dark */
   --forma-border: rgba(245,240,232,0.12);
   --forma-border-card: rgba(245,240,232,0.16);
+  --forma-accent-sabi: #C4622D;   /* slightly warmer terra on dark bg */
+  --forma-kinari: #F5F0E8;        /* stays same: warm white used as text on dark sections */
 }
 
 /* Compact mode overrides */

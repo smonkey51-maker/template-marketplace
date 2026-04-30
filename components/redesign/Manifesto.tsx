@@ -91,12 +91,13 @@ export default function Manifesto() {
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.5, ease: EASE }}
           style={{
-            fontFamily: "var(--font-inter), var(--font-jakarta), sans-serif",
+            fontFamily: "var(--font-cormorant), 'Cormorant Garamond', Georgia, serif",
+            fontStyle: "italic",
             fontSize: "11px",
             fontWeight: 300,
             letterSpacing: "0.10em",
             textTransform: "uppercase",
-            color: "#8B6F47",
+            color: "var(--forma-text-accent)",
             marginTop: "clamp(28px, 3vw, 40px)",
           }}
         >

@@ -64,10 +64,18 @@ function TemplateCard({ tmpl, index, lang }: TemplateCardProps) {
             background: "var(--forma-bg-alt)",
             borderRadius: "2px",
             overflow: "hidden",
-            transition: "border-color 0.25s ease",
+            transition: "border-color 0.28s ease, transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s ease",
           }}
-          onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "var(--forma-text-muted)"; }}
-          onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "var(--forma-border-card)"; }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLElement).style.borderColor = "var(--forma-text-muted)";
+            (e.currentTarget as HTMLElement).style.transform = "translateY(-3px)";
+            (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 32px rgba(26,24,21,0.10)";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLElement).style.borderColor = "var(--forma-border-card)";
+            (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
+            (e.currentTarget as HTMLElement).style.boxShadow = "none";
+          }}
         >
           {/* Preview area */}
           <div
@@ -113,7 +121,7 @@ function TemplateCard({ tmpl, index, lang }: TemplateCardProps) {
                     fontWeight: 300,
                     letterSpacing: "0.10em",
                     textTransform: "uppercase",
-                    color: "#8B6F47",
+                    color: "var(--forma-text-accent)",
                     marginBottom: "4px",
                   }}
                 >
@@ -212,7 +220,7 @@ export default function TemplateMasonry() {
             fontWeight: 300,
             letterSpacing: "0.12em",
             textTransform: "uppercase",
-            color: "#8B6F47",
+            color: "var(--forma-text-accent)",
             marginBottom: "12px",
           }}
         >

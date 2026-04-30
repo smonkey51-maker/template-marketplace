@@ -138,7 +138,7 @@ export default function SiteFooter() {
               fontWeight: 300,
               letterSpacing: "0.08em",
               textTransform: "uppercase",
-              color: "#8B6F47",
+              color: "var(--forma-text-accent)",
               opacity: 0.8,
             }}
           >
