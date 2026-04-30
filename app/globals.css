@@ -1828,3 +1828,21 @@ html.forma-v2 {
   .forma-editorial-grid { grid-template-columns: 1fr !important; }
   .forma-v2-section { padding-left: 6vw !important; padding-right: 6vw !important; }
 }
+
+/* ── Forma masthead — responsive letter-spacing for mobile ── */
+@media (max-width: 639px) {
+  .forma-masthead {
+    letter-spacing: 0.18em !important;
+    padding-right: 0.18em !important;
+  }
+}
+
+/* ── News ticker animation ── */
+@keyframes forma-ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .forma-ticker-track { animation: none !important; }
+}
