@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
 import { templates, formatPrice } from "@/lib/templates";
+import { TemplatePreview } from "@/components/TemplatePreview";
 
 export const metadata: Metadata = {
   title: "FORMA — Template come oggetti curati.",
@@ -28,36 +29,6 @@ const CATEGORIES = [
   { label: "Shopify / WP", desc: "Temi e layout per e-commerce e blog.",         count: "6" },
   { label: "App & Mobile", desc: "Schermate, showcase e prototipi mobile.",     count: "3+" },
 ];
-
-function PreviewMock({ downloadType, tags }: { downloadType?: string; tags: string[] }) {
-  const dt = downloadType ?? "html";
-  const tagsStr = tags.join(" ").toLowerCase();
-  if (dt === "notion") return (
-    <div className="fn-preview fn-p-crm" style={{ height: 180 }}>
-      {[0, 1, 2, 3].map(i => (
-        <div className="fn-row" key={i}>
-          <div className={`fn-cell${i === 1 ? " fn-goldcell" : ""}`} />
-          <div className="fn-cell" /><div className="fn-cell" />
-        </div>
-      ))}
-    </div>
-  );
-  if (tagsStr.includes("mobile") || tagsStr.includes("ios")) return (
-    <div className="fn-preview fn-p-app" style={{ height: 180 }}>
-      <div className="fn-phone">
-        <div className="gold" /><div /><div /><div className="gold" />
-      </div>
-    </div>
-  );
-  return (
-    <div className="fn-preview fn-p-web" style={{ height: 180 }}>
-      <div className="fn-window">
-        <div className="fn-line gold" /><div className="fn-line" />
-        <div className="fn-line" /><div className="fn-line gold" />
-      </div>
-    </div>
-  );
-}
 
 export default function Page() {
   const featured = FEATURED_IDS
@@ -100,23 +71,23 @@ export default function Page() {
         {/* ── Featured templates ── */}
         <div className="fn-featured">
           <div className="fn-kicker" style={{ marginBottom: 10 }}>Editor&apos;s pick</div>
-          <h2 style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontWeight: 300, fontSize: "clamp(36px,4vw,56px)", margin: "0 0 6px", color: "#f5ecd8" }}>
+          <h2 style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontWeight: 300, fontSize: "clamp(36px,4vw,56px)", margin: "0 0 6px", color: "#eaeaea" }}>
             Template in evidenza
           </h2>
-          <p style={{ color: "#8a8278", fontSize: 16, marginBottom: 40 }}>
+          <p style={{ color: "#8a8a8a", fontSize: 16, marginBottom: 40 }}>
             I più scaricati, selezionati dalla redazione.
           </p>
           <div className="fn-featured-grid">
             {featured.map(item => (
               <article key={item.id} className="fn-card">
-                <PreviewMock downloadType={item.downloadType} tags={item.tags} />
+                <TemplatePreview id={item.id} height={180} />
                 <div className="fn-body">
                   <span className="fn-badge">{item.downloadType?.toUpperCase() ?? "HTML"}</span>
                   <h3 style={{ marginTop: 12 }}>{item.name}</h3>
                   <p>{item.description.length > 90 ? item.description.slice(0, 90) + "…" : item.description}</p>
                   <div className="fn-meta">
                     <span>{item.tags.slice(0, 2).join(" · ")}</span>
-                    <b style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: 22, fontWeight: 400, color: "#f5ecd8" }}>
+                    <b style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: 22, fontWeight: 400, color: "#eaeaea" }}>
                       {formatPrice(item.price)}
                     </b>
                   </div>
@@ -130,29 +101,29 @@ export default function Page() {
         </div>
 
         {/* ── Categories strip ── */}
-        <div style={{ borderTop: "1px solid rgba(242,232,208,.12)", padding: "64px 36px" }}>
+        <div style={{ borderTop: "1px solid rgba(234,234,234,.10)", padding: "64px 36px" }}>
           <div style={{ maxWidth: 1220, margin: "0 auto" }}>
             <div className="fn-kicker" style={{ marginBottom: 10 }}>Formato</div>
-            <h2 style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontWeight: 300, fontSize: "clamp(32px,4vw,52px)", margin: "0 0 36px", color: "#f5ecd8" }}>
+            <h2 style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontWeight: 300, fontSize: "clamp(32px,4vw,52px)", margin: "0 0 36px", color: "#eaeaea" }}>
               Ogni struttura ha il suo formato.
             </h2>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 1, background: "rgba(242,232,208,.10)" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 1, background: "rgba(234,234,234,.08)" }}>
               {CATEGORIES.map(cat => (
                 <Link
                   key={cat.label}
                   href="/catalogo"
                   style={{
                     textDecoration: "none", display: "block", padding: "30px 24px",
-                    background: "linear-gradient(160deg, rgba(255,248,230,.04), rgba(255,248,230,.01))",
+                    background: "#0f0f0f",
                   }}
                 >
-                  <div style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: 26, fontWeight: 300, color: "#f5ecd8", marginBottom: 8 }}>
+                  <div style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: 26, fontWeight: 300, color: "#eaeaea", marginBottom: 8 }}>
                     {cat.label}
                   </div>
-                  <div style={{ color: "#8a8278", fontSize: 13, lineHeight: 1.55, marginBottom: 16 }}>
+                  <div style={{ color: "#8a8a8a", fontSize: 13, lineHeight: 1.55, marginBottom: 16 }}>
                     {cat.desc}
                   </div>
-                  <div style={{ color: "#c99a52", fontSize: 10, textTransform: "uppercase", letterSpacing: ".18em" }}>
+                  <div style={{ color: "#D4AF37", fontSize: 10, textTransform: "uppercase", letterSpacing: ".18em" }}>
                     {cat.count} template →
                   </div>
                 </Link>
@@ -162,13 +133,13 @@ export default function Page() {
         </div>
 
         {/* ── AI Studio callout ── */}
-        <div style={{ borderTop: "1px solid rgba(242,232,208,.12)", padding: "72px 36px" }}>
+        <div style={{ borderTop: "1px solid rgba(234,234,234,.10)", padding: "72px 36px" }}>
           <div style={{ maxWidth: 820, margin: "0 auto", textAlign: "center" }}>
             <div className="fn-kicker" style={{ marginBottom: 14 }}>Intelligenza artificiale</div>
-            <h2 style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontWeight: 300, fontSize: "clamp(34px,5vw,60px)", margin: "0 0 18px", color: "#f5ecd8" }}>
+            <h2 style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontWeight: 300, fontSize: "clamp(34px,5vw,60px)", margin: "0 0 18px", color: "#eaeaea" }}>
               Descrivi. FORMA costruisce.
             </h2>
-            <p style={{ color: "#8a8278", fontSize: 17, lineHeight: 1.65, maxWidth: 580, margin: "0 auto 36px" }}>
+            <p style={{ color: "#8a8a8a", fontSize: 17, lineHeight: 1.65, maxWidth: 580, margin: "0 auto 36px" }}>
               L&apos;AI Studio genera strutture su misura a partire da un&apos;idea.
               Prompt → template → download in pochi secondi.
             </p>

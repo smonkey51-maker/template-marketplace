@@ -4,8 +4,9 @@ import Link from "next/link";
 import { useState } from "react";
 import { UserButton } from "@clerk/nextjs";
 import { copy, type Lang } from "@/lib/formaCopy";
+import { FormaLogoAnimated } from "@/components/FormaLogo";
 
-export default function SiteNav({ title }: { title?: string }) {
+export default function SiteNav() {
   const [lang, setLang] = useState<Lang>("it");
   const t = (k: keyof typeof copy.it) => copy[lang][k];
 
@@ -26,8 +27,10 @@ export default function SiteNav({ title }: { title?: string }) {
 
       <div className="fn-topline" />
 
-      {/* Logo hero */}
-      <Link href="/" className="fn-logo-hero">FORMA</Link>
+      {/* SVG logo — animated on each page load */}
+      <Link href="/" className="fn-logo-hero" aria-label="FORMA home">
+        <FormaLogoAnimated className="fn-logo-svg" />
+      </Link>
 
       {/* Navbar */}
       <nav className="fn-navbar">

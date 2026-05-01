@@ -24,7 +24,7 @@ export default function GuidePage() {
         />
       </div>
 
-      <SiteNav title={g.pageTitle} />
+      <SiteNav />
 
       <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 py-12 flex flex-col gap-14">
 

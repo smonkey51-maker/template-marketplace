@@ -18,7 +18,7 @@ export default function WishlistPage() {
 
   return (
     <div className="min-h-screen bg-page pb-24">
-      <SiteNav title={lang === "it" ? "Salvati" : "Saved"} />
+      <SiteNav />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10">
         <div style={{ paddingBottom: "clamp(24px, 3vw, 36px)", borderBottom: "1px solid var(--border)", marginBottom: "clamp(32px, 4vw, 48px)" }}>

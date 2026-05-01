@@ -33,7 +33,7 @@ export default function BrandPage() {
     <div className="fp-page">
       {/* Nav */}
       <nav className="fp-nav">
-        <FormaLogoStatic width={120} />
+        <div style={{ width: 120 }}><FormaLogoStatic /></div>
         <div className="fp-lang">
           <button onClick={() => setLang("it")} className={lang === "it" ? "active" : ""}>IT</button>
           <button onClick={() => setLang("en")} className={lang === "en" ? "active" : ""}>EN</button>
