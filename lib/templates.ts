@@ -48,29 +48,105 @@ export const templates: Template[] = [
     tags: ["hero", "saas", "landing", "gradient"],
     downloads: 1423,
     editorsPick: true,
-    content: `<section class="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white/10 text-white backdrop-blur-sm border border-white/20 mb-6">
-      🚀 Now in public beta
-    </span>
-    <h1 class="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6">
-      Build faster with<br/>
-      <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-cyan-300">
-        AI-powered tools
-      </span>
-    </h1>
-    <p class="text-xl text-white/70 max-w-2xl mx-auto mb-8">
-      Ship your product in days, not months. Join 10,000+ developers who trust our platform.
-    </p>
-    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <button class="px-8 py-4 bg-white text-indigo-900 font-bold rounded-xl hover:bg-white/90 transition">
-        Start for free
-      </button>
-      <button class="px-8 py-4 bg-white/10 text-white font-bold rounded-xl border border-white/20 hover:bg-white/20 transition backdrop-blur-sm">
-        Watch demo →
-      </button>
+    content: `<style>
+body { background: #030712; color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; margin: 0; }
+.glow-purple { box-shadow: 0 0 80px rgba(99,102,241,.3), 0 0 160px rgba(99,102,241,.15); }
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+.float { animation: float 5s ease-in-out infinite; }
+@keyframes pulse2 { 0%,100%{opacity:1} 50%{opacity:.4} }
+.pulse2 { animation: pulse2 2s ease-in-out infinite; }
+</style>
+
+<!-- HERO -->
+<section style="min-height:100vh;background:#030712;position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% -15%, rgba(99,102,241,.4) 0%, transparent 55%);pointer-events:none;"></div>
+  <div style="max-width:1100px;margin:0 auto;padding:80px 24px 60px;text-align:center;position:relative;">
+    <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:999px;background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.25);color:#a5b4fc;font-size:13px;margin-bottom:32px;">
+      <span class="pulse2" style="width:8px;height:8px;border-radius:50%;background:#818cf8;display:inline-block;"></span>
+      Now in public beta — 50,000+ developers signed up
     </div>
-    <p class="mt-8 text-white/40 text-sm">No credit card required · Free tier available · Cancel anytime</p>
+    <h1 style="font-size:clamp(44px,7vw,88px);font-weight:900;line-height:1.0;letter-spacing:-2px;margin:0 0 24px;">
+      <span style="color:#f8fafc;">Ship your SaaS</span><br>
+      <span style="background:linear-gradient(135deg,#818cf8,#a78bfa,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">10x faster</span>
+    </h1>
+    <p style="font-size:20px;color:#94a3b8;max-width:600px;margin:0 auto 40px;line-height:1.65;">
+      The developer platform that goes from idea to production in days, not months. Infrastructure, auth, payments — all included.
+    </p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:16px;">
+      <button class="glow-purple" style="padding:16px 36px;background:#4f46e5;color:#fff;border:none;border-radius:12px;font-size:17px;font-weight:700;cursor:pointer;">Start for free</button>
+      <button style="padding:16px 36px;background:rgba(255,255,255,.06);color:#fff;border:1px solid rgba(255,255,255,.12);border-radius:12px;font-size:17px;font-weight:600;cursor:pointer;backdrop-filter:blur(8px);">Watch demo →</button>
+    </div>
+    <p style="color:#475569;font-size:14px;">No credit card required · 14-day free trial · Cancel anytime</p>
+
+    <!-- Dashboard mockup -->
+    <div class="float" style="margin-top:64px;border-radius:16px;border:1px solid rgba(255,255,255,.08);overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.8);">
+      <div style="background:#0f172a;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:8px;">
+        <div style="display:flex;gap:6px;"><div style="width:12px;height:12px;border-radius:50%;background:#ef4444;opacity:.7;"></div><div style="width:12px;height:12px;border-radius:50%;background:#eab308;opacity:.7;"></div><div style="width:12px;height:12px;border-radius:50%;background:#22c55e;opacity:.7;"></div></div>
+        <div style="flex:1;background:rgba(255,255,255,.05);border-radius:6px;height:22px;margin:0 12px;display:flex;align-items:center;padding:0 10px;"><span style="font-size:11px;color:#475569;">app.yourproduct.com/dashboard</span></div>
+      </div>
+      <div style="background:#0d1117;padding:24px;">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;">
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:16px;"><div style="font-size:28px;font-weight:800;color:#fff;">124k</div><div style="font-size:12px;color:#64748b;margin-top:4px;">Active users</div></div>
+          <div style="background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.2);border-radius:12px;padding:16px;"><div style="font-size:28px;font-weight:800;color:#a5b4fc;">€48.2k</div><div style="font-size:12px;color:#64748b;margin-top:4px;">MRR</div></div>
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:16px;"><div style="font-size:28px;font-weight:800;color:#fff;">98.9%</div><div style="font-size:12px;color:#64748b;margin-top:4px;">Uptime</div></div>
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:16px;"><div style="font-size:28px;font-weight:800;color:#fff;">4.2ms</div><div style="font-size:12px;color:#64748b;margin-top:4px;">Avg latency</div></div>
+        </div>
+        <div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:12px;height:120px;display:flex;align-items:flex-end;padding:16px;gap:6px;overflow:hidden;">
+          <div style="flex:1;background:rgba(99,102,241,.5);border-radius:3px 3px 0 0;height:45%;"></div>
+          <div style="flex:1;background:rgba(99,102,241,.5);border-radius:3px 3px 0 0;height:62%;"></div>
+          <div style="flex:1;background:rgba(99,102,241,.5);border-radius:3px 3px 0 0;height:48%;"></div>
+          <div style="flex:1;background:rgba(99,102,241,.5);border-radius:3px 3px 0 0;height:80%;"></div>
+          <div style="flex:1;background:rgba(99,102,241,.5);border-radius:3px 3px 0 0;height:55%;"></div>
+          <div style="flex:1;background:rgba(167,139,250,.7);border-radius:3px 3px 0 0;height:95%;"></div>
+          <div style="flex:1;background:rgba(99,102,241,.5);border-radius:3px 3px 0 0;height:75%;"></div>
+          <div style="flex:1;background:rgba(99,102,241,.5);border-radius:3px 3px 0 0;height:100%;"></div>
+          <div style="flex:1;background:rgba(99,102,241,.5);border-radius:3px 3px 0 0;height:85%;"></div>
+          <div style="flex:1;background:rgba(99,102,241,.5);border-radius:3px 3px 0 0;height:70%;"></div>
+          <div style="flex:1;background:rgba(167,139,250,.8);border-radius:3px 3px 0 0;height:90%;"></div>
+          <div style="flex:1;background:rgba(99,102,241,.5);border-radius:3px 3px 0 0;height:88%;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section style="background:#030712;padding:96px 24px;border-top:1px solid rgba(255,255,255,.05);">
+  <div style="max-width:1100px;margin:0 auto;">
+    <p style="color:#818cf8;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.18em;text-align:center;margin-bottom:16px;">Platform features</p>
+    <h2 style="font-size:clamp(32px,5vw,52px);font-weight:900;color:#fff;text-align:center;margin:0 0 16px;letter-spacing:-1px;">Everything you need to ship</h2>
+    <p style="font-size:18px;color:#64748b;text-align:center;max-width:520px;margin:0 auto 64px;line-height:1.6;">All the tools developers love, wrapped in a DX that actually makes you faster.</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+      <div style="padding:28px;border-radius:16px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);transition:border-color .2s;"><div style="font-size:28px;margin-bottom:16px;">⚡</div><h3 style="font-size:18px;font-weight:700;color:#f1f5f9;margin:0 0 10px;">Instant deploys</h3><p style="font-size:14px;color:#64748b;line-height:1.65;margin:0;">Push to Git and your changes are live in under 30 seconds. Zero config.</p></div>
+      <div style="padding:28px;border-radius:16px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);"><div style="font-size:28px;margin-bottom:16px;">🤖</div><h3 style="font-size:18px;font-weight:700;color:#f1f5f9;margin:0 0 10px;">AI code generation</h3><p style="font-size:14px;color:#64748b;line-height:1.65;margin:0;">Describe what you want. Our AI writes production-ready code instantly.</p></div>
+      <div style="padding:28px;border-radius:16px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);"><div style="font-size:28px;margin-bottom:16px;">📊</div><h3 style="font-size:18px;font-weight:700;color:#f1f5f9;margin:0 0 10px;">Real-time analytics</h3><p style="font-size:14px;color:#64748b;line-height:1.65;margin:0;">Monitor every request, track errors, understand users. Built-in observability.</p></div>
+      <div style="padding:28px;border-radius:16px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);"><div style="font-size:28px;margin-bottom:16px;">🔐</div><h3 style="font-size:18px;font-weight:700;color:#f1f5f9;margin:0 0 10px;">Enterprise security</h3><p style="font-size:14px;color:#64748b;line-height:1.65;margin:0;">SOC2 Type II, end-to-end encryption, SSO and audit logs built in.</p></div>
+      <div style="padding:28px;border-radius:16px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);"><div style="font-size:28px;margin-bottom:16px;">🌐</div><h3 style="font-size:18px;font-weight:700;color:#f1f5f9;margin:0 0 10px;">Global edge network</h3><p style="font-size:14px;color:#64748b;line-height:1.65;margin:0;">Deploy to 80+ regions. Sub-10ms latency for 99.9% of your users worldwide.</p></div>
+      <div style="padding:28px;border-radius:16px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);"><div style="font-size:28px;margin-bottom:16px;">💰</div><h3 style="font-size:18px;font-weight:700;color:#f1f5f9;margin:0 0 10px;">Pay as you grow</h3><p style="font-size:14px;color:#64748b;line-height:1.65;margin:0;">Start free, scale as you grow. No upfront costs, no surprise bills.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section style="background:#030712;padding:80px 24px;border-top:1px solid rgba(255,255,255,.05);">
+  <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center;">
+    <div><div style="font-size:40px;font-weight:900;color:#fff;margin-bottom:8px;">50k+</div><div style="font-size:14px;color:#64748b;">Developers</div></div>
+    <div><div style="font-size:40px;font-weight:900;color:#818cf8;margin-bottom:8px;">2B+</div><div style="font-size:14px;color:#64748b;">API req/month</div></div>
+    <div><div style="font-size:40px;font-weight:900;color:#fff;margin-bottom:8px;">99.99%</div><div style="font-size:14px;color:#64748b;">Uptime SLA</div></div>
+    <div><div style="font-size:40px;font-weight:900;color:#fff;margin-bottom:8px;">4.9★</div><div style="font-size:14px;color:#64748b;">G2 rating</div></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="background:#030712;padding:96px 24px;border-top:1px solid rgba(255,255,255,.05);">
+  <div style="max-width:700px;margin:0 auto;text-align:center;">
+    <div style="display:inline-block;padding:5px 14px;border-radius:999px;background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.2);color:#a5b4fc;font-size:13px;margin-bottom:24px;">Ready to start?</div>
+    <h2 style="font-size:clamp(36px,5vw,56px);font-weight:900;color:#fff;letter-spacing:-1.5px;margin:0 0 20px;">Start shipping today</h2>
+    <p style="font-size:18px;color:#64748b;margin-bottom:40px;line-height:1.6;">Join 50,000+ developers building with our platform.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <button style="padding:18px 40px;background:#4f46e5;color:#fff;border:none;border-radius:12px;font-size:17px;font-weight:700;cursor:pointer;">Get started free</button>
+      <button style="padding:18px 40px;background:transparent;color:#94a3b8;border:1px solid rgba(255,255,255,.12);border-radius:12px;font-size:17px;font-weight:600;cursor:pointer;">Talk to sales</button>
+    </div>
   </div>
 </section>`,
   },
@@ -657,55 +733,73 @@ export const templates: Template[] = [
     tags: ["saas", "landing", "dark", "framer", "conversion"],
     downloads: 728,
     editorsPick: true,
-    content: `<div class="min-h-screen bg-black text-white overflow-hidden font-sans">
-  <!-- Gradient Orbs -->
-  <div class="fixed inset-0 pointer-events-none">
-    <div class="absolute top-0 left-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl"></div>
-    <div class="absolute top-20 right-1/4 w-80 h-80 bg-blue-600/20 rounded-full blur-3xl"></div>
+    content: `<style>
+body { background: #060606; color: #eaeaea; font-family: system-ui, sans-serif; margin: 0; }
+@keyframes fade-up { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+.fade-up { animation: fade-up .8s ease forwards; }
+.fade-up-2 { animation: fade-up .8s .2s ease both; }
+.fade-up-3 { animation: fade-up .8s .4s ease both; }
+</style>
+
+<!-- NAV -->
+<nav style="position:sticky;top:0;z-index:50;border-bottom:1px solid rgba(234,234,234,.08);background:rgba(6,6,6,.9);backdrop-filter:blur(12px);padding:16px 40px;display:flex;justify-content:space-between;align-items:center;">
+  <div style="font-size:20px;font-weight:800;letter-spacing:-.5px;color:#eaeaea;">forma<span style="color:#D4AF37;">.</span></div>
+  <div style="display:flex;gap:32px;font-size:13px;color:#8a8a8a;text-transform:uppercase;letter-spacing:.14em;">
+    <a href="#" style="color:inherit;text-decoration:none;">Product</a>
+    <a href="#" style="color:inherit;text-decoration:none;">Pricing</a>
+    <a href="#" style="color:inherit;text-decoration:none;">Docs</a>
   </div>
-  <!-- Nav -->
-  <nav class="relative z-10 flex items-center justify-between px-8 py-5 max-w-6xl mx-auto">
-    <div class="flex items-center gap-2 font-bold text-lg">⚡ NovaSaaS</div>
-    <div class="hidden md:flex gap-6 text-sm text-gray-400">
-      <a class="hover:text-white transition">Features</a>
-      <a class="hover:text-white transition">Pricing</a>
-      <a class="hover:text-white transition">Docs</a>
-      <a class="hover:text-white transition">Blog</a>
+  <button style="padding:10px 22px;background:linear-gradient(135deg,#D4AF37,#B8962E);color:#060606;border:none;border-radius:0;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.14em;cursor:pointer;">Get started</button>
+</nav>
+
+<!-- HERO -->
+<section style="min-height:88vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 40px;position:relative;overflow:hidden;">
+  <div style="position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(212,175,55,.08),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;"></div>
+  <div class="fade-up">
+    <span style="font-size:11px;text-transform:uppercase;letter-spacing:.28em;color:#D4AF37;font-weight:600;">Template marketplace</span>
+  </div>
+  <h1 class="fade-up-2" style="font-size:clamp(52px,9vw,120px);font-weight:300;line-height:1.0;letter-spacing:-3px;margin:24px 0;color:#eaeaea;">
+    Template come<br><em style="font-style:italic;color:rgba(234,234,234,.55);">oggetti curati.</em>
+  </h1>
+  <p class="fade-up-3" style="font-size:19px;color:#8a8a8a;max-width:560px;line-height:1.7;margin-bottom:48px;">
+    Ogni file è un gesto preciso, non una soluzione generica. HTML, Notion, Shopify — crafted for professionals.
+  </p>
+  <div class="fade-up-3" style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
+    <button style="padding:16px 36px;background:linear-gradient(135deg,#D4AF37,#B8962E);color:#060606;border:none;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.18em;cursor:pointer;">Sfoglia catalogo</button>
+    <button style="padding:16px 36px;background:transparent;color:#8a8a8a;border:1px solid rgba(234,234,234,.14);font-size:12px;text-transform:uppercase;letter-spacing:.18em;cursor:pointer;">AI Studio →</button>
+  </div>
+</section>
+
+<!-- FEATURES STRIP -->
+<section style="border-top:1px solid rgba(234,234,234,.08);padding:64px 40px;">
+  <div style="max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(234,234,234,.08);">
+    <div style="padding:40px 32px;background:#060606;">
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:#D4AF37;margin-bottom:16px;">01</div>
+      <h3 style="font-size:24px;font-weight:300;color:#eaeaea;margin:0 0 12px;">Qualità editoriale</h3>
+      <p style="font-size:14px;color:#8a8a8a;line-height:1.7;margin:0;">Ogni template è curato come un oggetto di design — non generato, non casuale.</p>
     </div>
-    <div class="flex gap-3">
-      <button class="text-sm text-gray-300 hover:text-white transition px-4 py-2">Log in</button>
-      <button class="text-sm bg-white text-black font-bold px-4 py-2 rounded-lg hover:bg-gray-100 transition">Get started free</button>
+    <div style="padding:40px 32px;background:#060606;">
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:#D4AF37;margin-bottom:16px;">02</div>
+      <h3 style="font-size:24px;font-weight:300;color:#eaeaea;margin:0 0 12px;">Pronti all'uso</h3>
+      <p style="font-size:14px;color:#8a8a8a;line-height:1.7;margin:0;">Nessun setup, nessuna dipendenza. Apri, modifica, pubblica in minuti.</p>
     </div>
-  </nav>
-  <!-- Hero -->
-  <div class="relative z-10 text-center pt-16 pb-20 px-6 max-w-4xl mx-auto">
-    <div class="inline-flex items-center gap-2 border border-white/10 bg-white/5 text-gray-300 px-4 py-2 rounded-full text-sm mb-8 backdrop-blur-sm">
-      <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> Now with AI autopilot
-    </div>
-    <h1 class="text-5xl md:text-7xl font-black leading-tight mb-6">
-      The fastest way to<br/>
-      <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">build & ship</span>
-    </h1>
-    <p class="text-gray-400 text-xl max-w-2xl mx-auto mb-10">Stop wrestling with infrastructure. NovaSaaS handles auth, payments, AI, and deploy in one unified platform.</p>
-    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <button class="px-8 py-4 bg-white text-black font-bold rounded-xl hover:bg-gray-100 transition text-lg">Start building free →</button>
-      <button class="px-8 py-4 border border-white/20 text-white font-semibold rounded-xl hover:bg-white/5 transition backdrop-blur-sm">Watch 2-min demo</button>
-    </div>
-    <div class="mt-12 flex items-center justify-center gap-6 text-sm text-gray-500">
-      <span>✓ No credit card</span>
-      <span>✓ Deploy in 60s</span>
-      <span>✓ 10,000 users free</span>
+    <div style="padding:40px 32px;background:#060606;">
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:#D4AF37;margin-bottom:16px;">03</div>
+      <h3 style="font-size:24px;font-weight:300;color:#eaeaea;margin:0 0 12px;">AI Studio incluso</h3>
+      <p style="font-size:14px;color:#8a8a8a;line-height:1.7;margin:0;">Personalizza ogni template in secondi con Claude AI. Nessun codice richiesto.</p>
     </div>
   </div>
-  <!-- Feature Pills -->
-  <div class="relative z-10 flex flex-wrap justify-center gap-3 px-6 pb-16 max-w-3xl mx-auto">
-    <div class="bg-white/5 border border-white/10 px-4 py-2 rounded-full text-sm text-gray-300 backdrop-blur-sm">🔐 Auth in 5 mins</div>
-    <div class="bg-white/5 border border-white/10 px-4 py-2 rounded-full text-sm text-gray-300 backdrop-blur-sm">💳 Stripe built-in</div>
-    <div class="bg-white/5 border border-white/10 px-4 py-2 rounded-full text-sm text-gray-300 backdrop-blur-sm">🤖 AI components</div>
-    <div class="bg-white/5 border border-white/10 px-4 py-2 rounded-full text-sm text-gray-300 backdrop-blur-sm">🚀 Edge deploy</div>
-    <div class="bg-white/5 border border-white/10 px-4 py-2 rounded-full text-sm text-gray-300 backdrop-blur-sm">📊 Analytics</div>
+</section>
+
+<!-- NUMBERS -->
+<section style="padding:80px 40px;border-top:1px solid rgba(234,234,234,.08);">
+  <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:40px;text-align:center;">
+    <div><div style="font-size:48px;font-weight:300;color:#eaeaea;line-height:1;">40+</div><div style="font-size:11px;color:#8a8a8a;text-transform:uppercase;letter-spacing:.18em;margin-top:8px;">Template</div></div>
+    <div><div style="font-size:48px;font-weight:300;color:#D4AF37;line-height:1;">4</div><div style="font-size:11px;color:#8a8a8a;text-transform:uppercase;letter-spacing:.18em;margin-top:8px;">Formati</div></div>
+    <div><div style="font-size:48px;font-weight:300;color:#eaeaea;line-height:1;">€4.99</div><div style="font-size:11px;color:#8a8a8a;text-transform:uppercase;letter-spacing:.18em;margin-top:8px;">Da</div></div>
+    <div><div style="font-size:48px;font-weight:300;color:#eaeaea;line-height:1;">∞</div><div style="font-size:11px;color:#8a8a8a;text-transform:uppercase;letter-spacing:.18em;margin-top:8px;">Download</div></div>
   </div>
-</div>`,
+</section>`,
   },
   {
     id: "creative-agency-portfolio",
@@ -717,59 +811,104 @@ export const templates: Template[] = [
     stripePriceId: "price_1TBz4iBoWNgrJbiyKCR10XRH",
     tags: ["agency", "portfolio", "creative", "framer", "webflow"],
     downloads: 456,
-    content: `<div class="min-h-screen bg-zinc-950 text-white font-sans">
-  <!-- Nav -->
-  <nav class="flex items-center justify-between px-8 py-6 border-b border-zinc-800">
-    <div class="font-black text-2xl tracking-tight">FORMA<span class="text-[#0A84FF]">.</span></div>
-    <div class="hidden md:flex gap-8 text-sm text-zinc-400">
-      <a class="hover:text-white transition">Work</a>
-      <a class="hover:text-white transition">About</a>
-      <a class="hover:text-white transition">Services</a>
-      <a class="hover:text-white transition">Contact</a>
-    </div>
-    <button class="border border-yellow-400 text-[#0A84FF] px-5 py-2 text-sm font-bold hover:bg-yellow-400 hover:text-black transition rounded">Start a project</button>
-  </nav>
-  <!-- Hero -->
-  <div class="px-8 pt-20 pb-12 max-w-6xl mx-auto">
-    <div class="text-xs tracking-widest text-zinc-500 mb-6 uppercase">Design & Brand Studio · Milano, IT</div>
-    <h1 class="text-7xl md:text-8xl font-black leading-none mb-6 tracking-tighter">
-      We craft<br/>
-      <span class="text-[#0A84FF]">bold</span> brands<br/>
-      <span class="text-zinc-600">that last.</span>
-    </h1>
-    <div class="flex items-center gap-8 mt-10">
-      <p class="text-zinc-400 max-w-xs leading-relaxed">Strategic design for forward-thinking companies. From identity to digital, we build experiences that convert.</p>
-      <div class="flex gap-8 text-center ml-auto">
-        <div><div class="text-3xl font-black text-[#0A84FF]">120+</div><div class="text-zinc-500 text-xs mt-1">Projects</div></div>
-        <div><div class="text-3xl font-black text-[#0A84FF]">8yr</div><div class="text-zinc-500 text-xs mt-1">Experience</div></div>
-        <div><div class="text-3xl font-black text-[#0A84FF]">4.9★</div><div class="text-zinc-500 text-xs mt-1">Clutch</div></div>
+    content: `<style>
+body { background: #0a0a0a; color: #f0f0f0; font-family: system-ui, sans-serif; margin: 0; }
+.work-item:hover .work-overlay { opacity: 1; }
+.work-overlay { opacity: 0; transition: opacity .3s; }
+</style>
+
+<nav style="position:sticky;top:0;z-index:50;background:rgba(10,10,10,.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.06);padding:20px 48px;display:flex;justify-content:space-between;align-items:center;">
+  <div style="font-size:22px;font-weight:900;letter-spacing:-1px;color:#fff;">STUDIO<span style="color:#f59e0b;">_</span></div>
+  <div style="display:flex;gap:32px;font-size:12px;color:#888;text-transform:uppercase;letter-spacing:.16em;">
+    <a href="#" style="color:inherit;text-decoration:none;">Work</a>
+    <a href="#" style="color:inherit;text-decoration:none;">About</a>
+    <a href="#" style="color:inherit;text-decoration:none;">Services</a>
+    <a href="#" style="color:inherit;text-decoration:none;">Contact</a>
+  </div>
+  <button style="padding:12px 24px;background:#fff;color:#0a0a0a;font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.14em;border:none;cursor:pointer;">Start a project</button>
+</nav>
+
+<!-- HERO -->
+<section style="padding:100px 48px 80px;max-width:1200px;margin:0 auto;">
+  <div style="font-size:12px;text-transform:uppercase;letter-spacing:.28em;color:#f59e0b;margin-bottom:24px;font-weight:600;">Creative agency · Est. 2018</div>
+  <h1 style="font-size:clamp(56px,9vw,120px);font-weight:900;line-height:.97;letter-spacing:-3px;margin:0 0 48px;">
+    We design<br>
+    <span style="color:rgba(255,255,255,.25);">brands that</span><br>
+    move people.
+  </h1>
+  <div style="display:flex;gap:48px;align-items:center;flex-wrap:wrap;">
+    <p style="font-size:18px;color:#888;max-width:480px;line-height:1.65;margin:0;">Brand identity, digital experiences, and campaign strategy for companies that refuse to be invisible.</p>
+    <button style="padding:18px 40px;background:#f59e0b;color:#0a0a0a;font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.16em;border:none;cursor:pointer;flex-shrink:0;">View our work →</button>
+  </div>
+</section>
+
+<!-- WORK GRID -->
+<section style="padding:40px 48px 80px;max-width:1200px;margin:0 auto;">
+  <div style="font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:#f59e0b;margin-bottom:32px;font-weight:600;">Selected work — 2023/24</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;">
+    <div class="work-item" style="position:relative;aspect-ratio:4/3;background:linear-gradient(135deg,#1a1a2e,#16213e);overflow:hidden;cursor:pointer;">
+      <div style="position:absolute;inset:0;background:linear-gradient(135deg,#667eea,#764ba2);opacity:.8;"></div>
+      <div class="work-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,.7);display:flex;flex-direction:column;justify-content:flex-end;padding:24px;">
+        <div style="font-size:11px;color:#f59e0b;text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;">Brand Identity</div>
+        <div style="font-size:20px;font-weight:700;color:#fff;">Nexora Finance</div>
       </div>
+      <div style="position:absolute;bottom:20px;left:20px;"><div style="font-size:13px;color:rgba(255,255,255,.6);">Brand Identity</div><div style="font-size:18px;font-weight:700;color:#fff;margin-top:4px;">Nexora Finance</div></div>
+    </div>
+    <div class="work-item" style="position:relative;aspect-ratio:4/3;background:linear-gradient(135deg,#f9a825,#e65100);overflow:hidden;cursor:pointer;">
+      <div class="work-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,.7);display:flex;flex-direction:column;justify-content:flex-end;padding:24px;">
+        <div style="font-size:11px;color:#f59e0b;text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;">Web Design</div>
+        <div style="font-size:20px;font-weight:700;color:#fff;">Solari Energy</div>
+      </div>
+      <div style="position:absolute;bottom:20px;left:20px;"><div style="font-size:13px;color:rgba(255,255,255,.6);">Web Design</div><div style="font-size:18px;font-weight:700;color:#fff;margin-top:4px;">Solari Energy</div></div>
+    </div>
+    <div class="work-item" style="position:relative;aspect-ratio:4/3;background:linear-gradient(135deg,#1a1a1a,#333);overflow:hidden;cursor:pointer;">
+      <div style="position:absolute;inset:0;background:linear-gradient(135deg,#00b4d8,#0077b6);opacity:.7;"></div>
+      <div class="work-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,.7);display:flex;flex-direction:column;justify-content:flex-end;padding:24px;">
+        <div style="font-size:11px;color:#f59e0b;text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;">Campaign</div>
+        <div style="font-size:20px;font-weight:700;color:#fff;">Aqua Wellness</div>
+      </div>
+      <div style="position:absolute;bottom:20px;left:20px;"><div style="font-size:13px;color:rgba(255,255,255,.6);">Campaign</div><div style="font-size:18px;font-weight:700;color:#fff;margin-top:4px;">Aqua Wellness</div></div>
+    </div>
+    <div class="work-item" style="position:relative;aspect-ratio:4/3;background:linear-gradient(135deg,#2d1b69,#11998e);overflow:hidden;cursor:pointer;">
+      <div class="work-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,.7);display:flex;flex-direction:column;justify-content:flex-end;padding:24px;">
+        <div style="font-size:11px;color:#f59e0b;text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;">App Design</div>
+        <div style="font-size:20px;font-weight:700;color:#fff;">Kode Platform</div>
+      </div>
+      <div style="position:absolute;bottom:20px;left:20px;"><div style="font-size:13px;color:rgba(255,255,255,.6);">App Design</div><div style="font-size:18px;font-weight:700;color:#fff;margin-top:4px;">Kode Platform</div></div>
+    </div>
+    <div class="work-item" style="position:relative;aspect-ratio:4/3;background:linear-gradient(135deg,#c94b4b,#4b134f);overflow:hidden;cursor:pointer;">
+      <div class="work-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,.7);display:flex;flex-direction:column;justify-content:flex-end;padding:24px;">
+        <div style="font-size:11px;color:#f59e0b;text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;">Photography</div>
+        <div style="font-size:20px;font-weight:700;color:#fff;">Villa Rosso</div>
+      </div>
+      <div style="position:absolute;bottom:20px;left:20px;"><div style="font-size:13px;color:rgba(255,255,255,.6);">Photography</div><div style="font-size:18px;font-weight:700;color:#fff;margin-top:4px;">Villa Rosso</div></div>
+    </div>
+    <div class="work-item" style="position:relative;aspect-ratio:4/3;background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);overflow:hidden;cursor:pointer;">
+      <div class="work-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,.7);display:flex;flex-direction:column;justify-content:flex-end;padding:24px;">
+        <div style="font-size:11px;color:#f59e0b;text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;">Motion</div>
+        <div style="font-size:20px;font-weight:700;color:#fff;">Arctic Sound</div>
+      </div>
+      <div style="position:absolute;bottom:20px;left:20px;"><div style="font-size:13px;color:rgba(255,255,255,.6);">Motion</div><div style="font-size:18px;font-weight:700;color:#fff;margin-top:4px;">Arctic Sound</div></div>
     </div>
   </div>
-  <!-- Portfolio Grid -->
-  <div class="px-8 pb-20 max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-4">
-    <div class="group relative col-span-2 bg-gradient-to-br from-yellow-400 to-blue-500 rounded-2xl h-64 overflow-hidden cursor-pointer">
-      <div class="absolute inset-0 flex items-center justify-center text-7xl opacity-30">🎨</div>
-      <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/60"><div class="font-bold text-lg">Nuvola — Brand Identity</div><div class="text-white/60 text-sm">Branding · Strategy</div></div>
-    </div>
-    <div class="group relative bg-gradient-to-br from-violet-500 to-purple-700 rounded-2xl h-64 overflow-hidden cursor-pointer">
-      <div class="absolute inset-0 flex items-center justify-center text-7xl opacity-30">📱</div>
-      <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60"><div class="font-bold">Finora App</div><div class="text-white/60 text-sm">UX/UI</div></div>
-    </div>
-    <div class="group relative bg-gradient-to-br from-emerald-400 to-teal-600 rounded-2xl h-48 overflow-hidden cursor-pointer">
-      <div class="absolute inset-0 flex items-center justify-center text-5xl opacity-30">🛍️</div>
-      <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60"><div class="font-bold text-sm">Moda Store</div><div class="text-white/60 text-xs">E-commerce</div></div>
-    </div>
-    <div class="group relative bg-gradient-to-br from-rose-400 to-pink-600 rounded-2xl h-48 overflow-hidden cursor-pointer">
-      <div class="absolute inset-0 flex items-center justify-center text-5xl opacity-30">🏢</div>
-      <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60"><div class="font-bold text-sm">Corp Rebrand</div><div class="text-white/60 text-xs">Identity</div></div>
-    </div>
-    <div class="group relative bg-gradient-to-br from-sky-400 to-blue-600 rounded-2xl h-48 overflow-hidden cursor-pointer">
-      <div class="absolute inset-0 flex items-center justify-center text-5xl opacity-30">🚀</div>
-      <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60"><div class="font-bold text-sm">Launchpad</div><div class="text-white/60 text-xs">Web · Brand</div></div>
-    </div>
+</section>
+
+<!-- SERVICES -->
+<section style="padding:80px 48px;border-top:1px solid rgba(255,255,255,.06);max-width:1200px;margin:0 auto;">
+  <div style="font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:#f59e0b;margin-bottom:40px;font-weight:600;">What we do</div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.06);">
+    <div style="padding:32px 24px;background:#0a0a0a;"><div style="font-size:32px;margin-bottom:16px;">●</div><h3 style="font-size:16px;font-weight:700;color:#fff;margin:0 0 10px;text-transform:uppercase;letter-spacing:.08em;">Brand Strategy</h3><p style="font-size:13px;color:#888;line-height:1.65;margin:0;">Identity systems that resonate and endure.</p></div>
+    <div style="padding:32px 24px;background:#0a0a0a;"><div style="font-size:32px;margin-bottom:16px;">◆</div><h3 style="font-size:16px;font-weight:700;color:#fff;margin:0 0 10px;text-transform:uppercase;letter-spacing:.08em;">Digital Design</h3><p style="font-size:13px;color:#888;line-height:1.65;margin:0;">Web and mobile experiences that convert.</p></div>
+    <div style="padding:32px 24px;background:#0a0a0a;"><div style="font-size:32px;margin-bottom:16px;">▲</div><h3 style="font-size:16px;font-weight:700;color:#fff;margin:0 0 10px;text-transform:uppercase;letter-spacing:.08em;">Campaigns</h3><p style="font-size:13px;color:#888;line-height:1.65;margin:0;">Integrated campaigns with measurable ROI.</p></div>
+    <div style="padding:32px 24px;background:#0a0a0a;"><div style="font-size:32px;margin-bottom:16px;">■</div><h3 style="font-size:16px;font-weight:700;color:#fff;margin:0 0 10px;text-transform:uppercase;letter-spacing:.08em;">Motion</h3><p style="font-size:13px;color:#888;line-height:1.65;margin:0;">Animation and video that stops the scroll.</p></div>
   </div>
-</div>`,
+</section>
+
+<!-- CTA -->
+<section style="padding:96px 48px;text-align:center;background:linear-gradient(180deg,#0a0a0a,#111);">
+  <h2 style="font-size:clamp(48px,7vw,96px);font-weight:900;letter-spacing:-3px;margin:0 0 24px;line-height:.97;">Let's build<br><em style="color:rgba(255,255,255,.3);font-style:italic;">something great.</em></h2>
+  <button style="padding:20px 48px;background:#f59e0b;color:#0a0a0a;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:.16em;border:none;cursor:pointer;margin-top:16px;">Start a project</button>
+</section>`,
   },
   {
     id: "freelance-tech-profile",
@@ -1262,64 +1401,89 @@ export const templates: Template[] = [
     stripePriceId: "price_1TBz23BoWNgrJbiyyFk0vJBh",
     tags: ["restaurant", "menu", "food", "dark", "luxury"],
     downloads: 344,
-    content: `<div class="min-h-screen bg-[#0d0d0d] text-white font-sans">
-  <style>@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');</style>
-  <!-- Header -->
-  <div class="relative overflow-hidden bg-gradient-to-b from-[#1a1008] to-[#0d0d0d] px-8 py-14 text-center border-b border-amber-900/30">
-    <div class="absolute inset-0 opacity-5" style="background-image:radial-gradient(circle,#d97706 1px,transparent 1px);background-size:24px 24px"></div>
-    <p class="text-amber-400 text-xs tracking-[0.3em] uppercase mb-3">Ristorante</p>
-    <h1 class="text-5xl font-bold text-amber-100 mb-2" style="font-family:'Playfair Display',serif">Oro & Fuoco</h1>
-    <p class="text-amber-600 text-sm tracking-widest">Milano · Dal 1987</p>
-    <div class="flex justify-center gap-6 mt-6 text-xs text-amber-700">
-      <span>Lun–Sab 19:00–23:30</span><span class="text-amber-800">·</span><span>+39 02 1234567</span>
+    content: `<style>
+body { background: #0c0a08; color: #f0ead8; font-family: Georgia, serif; margin: 0; }
+.menu-item:hover { background: rgba(212,175,55,.04); }
+</style>
+
+<!-- HERO -->
+<section style="min-height:100vh;background:linear-gradient(170deg,#0c0a08 0%,#1a1208 60%,#0c0a08 100%);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;padding:80px 40px;">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(212,175,55,.08),transparent 60%);pointer-events:none;"></div>
+  <div style="font-size:11px;text-transform:uppercase;letter-spacing:.32em;color:#D4AF37;margin-bottom:24px;font-weight:600;">Ristorante · Dal 1987</div>
+  <h1 style="font-size:clamp(52px,10vw,112px);font-weight:400;line-height:1.0;margin:0 0 24px;color:#f0ead8;letter-spacing:-.5px;">Osteria<br><em style="font-style:italic;color:rgba(240,234,216,.6);">della Rovere</em></h1>
+  <div style="width:80px;height:1px;background:linear-gradient(90deg,transparent,#D4AF37,transparent);margin:20px auto;"></div>
+  <p style="font-size:18px;color:rgba(240,234,216,.55);max-width:480px;line-height:1.7;margin-bottom:48px;">Cucina toscana di stagione. Ingredienti selezionati dai produttori locali, ricette tramandate da generazioni.</p>
+  <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
+    <button style="padding:16px 36px;background:linear-gradient(135deg,#D4AF37,#B8962E);color:#0c0a08;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.18em;border:none;cursor:pointer;font-family:Georgia,serif;">Prenota un tavolo</button>
+    <button style="padding:16px 36px;background:transparent;color:rgba(240,234,216,.6);border:1px solid rgba(212,175,55,.3);font-size:13px;text-transform:uppercase;letter-spacing:.18em;cursor:pointer;font-family:Georgia,serif;">Scopri il menù</button>
+  </div>
+</section>
+
+<!-- MENU -->
+<section style="max-width:800px;margin:0 auto;padding:80px 40px;">
+  <div style="text-align:center;margin-bottom:64px;">
+    <div style="font-size:11px;text-transform:uppercase;letter-spacing:.28em;color:#D4AF37;margin-bottom:16px;">Il menù</div>
+    <h2 style="font-size:clamp(36px,5vw,60px);font-weight:400;color:#f0ead8;margin:0;">Stagione autunnale</h2>
+  </div>
+
+  <!-- Antipasti -->
+  <div style="margin-bottom:56px;">
+    <h3 style="font-size:14px;text-transform:uppercase;letter-spacing:.24em;color:#D4AF37;border-bottom:1px solid rgba(212,175,55,.2);padding-bottom:12px;margin-bottom:24px;">Antipasti</h3>
+    <div class="menu-item" style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(240,234,216,.06);transition:background .2s;">
+      <div><div style="font-size:17px;color:#f0ead8;margin-bottom:4px;">Crostini al fegatino</div><div style="font-size:13px;color:rgba(240,234,216,.45);font-style:italic;">Pane toscano, fegatini di pollo, capperi, acciughe</div></div>
+      <div style="font-size:18px;color:#D4AF37;font-weight:400;flex-shrink:0;margin-left:24px;">€9</div>
+    </div>
+    <div class="menu-item" style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(240,234,216,.06);transition:background .2s;">
+      <div><div style="font-size:17px;color:#f0ead8;margin-bottom:4px;">Burrata di bufala</div><div style="font-size:13px;color:rgba(240,234,216,.45);font-style:italic;">Pomodori confit, basilico, olio extravergine Frantoio</div></div>
+      <div style="font-size:18px;color:#D4AF37;flex-shrink:0;margin-left:24px;">€13</div>
+    </div>
+    <div class="menu-item" style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(240,234,216,.06);transition:background .2s;">
+      <div><div style="font-size:17px;color:#f0ead8;margin-bottom:4px;">Tagliere di salumi</div><div style="font-size:13px;color:rgba(240,234,216,.45);font-style:italic;">Finocchiona DOP, lardo di Colonnata, miele di castagno</div></div>
+      <div style="font-size:18px;color:#D4AF37;flex-shrink:0;margin-left:24px;">€18</div>
     </div>
   </div>
-  <!-- Chef's Special -->
-  <div class="max-w-4xl mx-auto px-6 py-10">
-    <div class="flex items-center gap-4 mb-6"><div class="flex-1 h-px bg-amber-900/40"></div><p class="text-amber-500 text-xs tracking-[0.25em] uppercase">Chef's Selection</p><div class="flex-1 h-px bg-amber-900/40"></div></div>
-    <div class="bg-gradient-to-r from-amber-950/60 to-[#0d0d0d] border border-amber-800/40 rounded-2xl p-6 mb-10 relative overflow-hidden">
-      <div class="absolute top-0 right-0 bg-amber-500 text-black text-[10px] font-bold px-3 py-1 rounded-bl-xl tracking-widest">SPECIALE</div>
-      <div class="flex items-start gap-5">
-        <div class="w-16 h-16 rounded-xl bg-amber-900/30 flex items-center justify-center text-3xl shrink-0">🥩</div>
-        <div class="flex-1">
-          <h3 class="text-lg font-bold text-amber-100 mb-1">Filetto al Tartufo Nero</h3>
-          <p class="text-amber-700 text-sm leading-relaxed">Controfiletto di Fassona piemontese, riduzione di Barolo, lamelle di tartufo nero d'Acqualagna, purè al burro di Normandia.</p>
-          <div class="flex items-center justify-between mt-3">
-            <div class="flex gap-2"><span class="text-[10px] bg-amber-900/50 text-amber-400 px-2 py-0.5 rounded-full">Senza glutine</span><span class="text-[10px] bg-amber-900/50 text-amber-400 px-2 py-0.5 rounded-full">Signature</span></div>
-            <span class="text-amber-400 font-bold text-lg">€42</span>
-          </div>
-        </div>
-      </div>
+
+  <!-- Primi -->
+  <div style="margin-bottom:56px;">
+    <h3 style="font-size:14px;text-transform:uppercase;letter-spacing:.24em;color:#D4AF37;border-bottom:1px solid rgba(212,175,55,.2);padding-bottom:12px;margin-bottom:24px;">Primi</h3>
+    <div class="menu-item" style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(240,234,216,.06);transition:background .2s;">
+      <div><div style="font-size:17px;color:#f0ead8;margin-bottom:4px;">Pappardelle al cinghiale</div><div style="font-size:13px;color:rgba(240,234,216,.45);font-style:italic;">Pasta all'uovo, ragù di cinghiale, tartufo nero</div></div>
+      <div style="font-size:18px;color:#D4AF37;flex-shrink:0;margin-left:24px;">€19</div>
     </div>
-    <!-- Menu Sections -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <!-- Antipasti -->
-      <div>
-        <div class="flex items-center gap-3 mb-4"><div class="w-7 h-7 rounded-lg bg-amber-900/40 flex items-center justify-center text-sm">🌿</div><h2 class="text-sm font-bold text-amber-400 uppercase tracking-widest">Antipasti</h2></div>
-        <div class="space-y-4">
-          <div class="flex justify-between items-start border-b border-white/5 pb-3"><div><p class="text-white font-medium text-sm">Carpaccio di Manzo</p><p class="text-white/40 text-xs mt-0.5">Rucola, grana, capperi, limone</p></div><span class="text-amber-400 font-bold text-sm ml-4">€18</span></div>
-          <div class="flex justify-between items-start border-b border-white/5 pb-3"><div><p class="text-white font-medium text-sm">Burrata Pugliese</p><p class="text-white/40 text-xs mt-0.5">Pomodorini confit, basilico fresco</p></div><span class="text-amber-400 font-bold text-sm ml-4">€16</span></div>
-          <div class="flex justify-between items-start"><div><p class="text-white font-medium text-sm">Frittura di Gamberi</p><p class="text-white/40 text-xs mt-0.5">Gamberi rossi, salsa tartara</p></div><span class="text-amber-400 font-bold text-sm ml-4">€22</span></div>
-        </div>
-      </div>
-      <!-- Primi -->
-      <div>
-        <div class="flex items-center gap-3 mb-4"><div class="w-7 h-7 rounded-lg bg-amber-900/40 flex items-center justify-center text-sm">🍝</div><h2 class="text-sm font-bold text-amber-400 uppercase tracking-widest">Primi Piatti</h2></div>
-        <div class="space-y-4">
-          <div class="flex justify-between items-start border-b border-white/5 pb-3"><div><p class="text-white font-medium text-sm">Tagliolini al Caviale</p><p class="text-white/40 text-xs mt-0.5">Pasta fresca, burro, caviale Beluga</p></div><span class="text-amber-400 font-bold text-sm ml-4">€38</span></div>
-          <div class="flex justify-between items-start border-b border-white/5 pb-3"><div><p class="text-white font-medium text-sm">Risotto Mantecato</p><p class="text-white/40 text-xs mt-0.5">Carnaroli, zafferano DOP, osso buco</p></div><span class="text-amber-400 font-bold text-sm ml-4">€28</span></div>
-          <div class="flex justify-between items-start"><div><p class="text-white font-medium text-sm">Paccheri all'Astice</p><p class="text-white/40 text-xs mt-0.5">Astice bretone, pomodorini, bisque</p></div><span class="text-amber-400 font-bold text-sm ml-4">€34</span></div>
-        </div>
-      </div>
+    <div class="menu-item" style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(240,234,216,.06);transition:background .2s;">
+      <div><div style="font-size:17px;color:#f0ead8;margin-bottom:4px;">Ribollita della tradizione</div><div style="font-size:13px;color:rgba(240,234,216,.45);font-style:italic;">Pane raffermo, fagioli bianchi, cavolo nero, pomodoro</div></div>
+      <div style="font-size:18px;color:#D4AF37;flex-shrink:0;margin-left:24px;">€14</div>
     </div>
-    <!-- Reserve CTA -->
-    <div class="mt-10 bg-gradient-to-r from-amber-950/80 to-amber-900/20 border border-amber-800/40 rounded-2xl p-6 text-center">
-      <p class="text-amber-200 font-bold text-lg mb-1">Prenota il tuo tavolo</p>
-      <p class="text-amber-700 text-sm mb-4">Disponibilità limitata · Dress code richiesto</p>
-      <button class="bg-amber-500 hover:bg-amber-400 text-black font-bold px-8 py-3 rounded-xl text-sm transition">Prenota ora →</button>
+    <div class="menu-item" style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(240,234,216,.06);transition:background .2s;">
+      <div><div style="font-size:17px;color:#f0ead8;margin-bottom:4px;">Risotto ai funghi porcini</div><div style="font-size:13px;color:rgba(240,234,216,.45);font-style:italic;">Riso Carnaroli, porcini freschi, Parmigiano Reggiano 36 mesi</div></div>
+      <div style="font-size:18px;color:#D4AF37;flex-shrink:0;margin-left:24px;">€22</div>
     </div>
   </div>
-</div>`,
+
+  <!-- Dolci -->
+  <div>
+    <h3 style="font-size:14px;text-transform:uppercase;letter-spacing:.24em;color:#D4AF37;border-bottom:1px solid rgba(212,175,55,.2);padding-bottom:12px;margin-bottom:24px;">Dolci</h3>
+    <div class="menu-item" style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(240,234,216,.06);transition:background .2s;">
+      <div><div style="font-size:17px;color:#f0ead8;margin-bottom:4px;">Cantucci e Vin Santo</div><div style="font-size:13px;color:rgba(240,234,216,.45);font-style:italic;">Biscotti di Prato, Vin Santo del Chianti Classico</div></div>
+      <div style="font-size:18px;color:#D4AF37;flex-shrink:0;margin-left:24px;">€9</div>
+    </div>
+    <div class="menu-item" style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(240,234,216,.06);transition:background .2s;">
+      <div><div style="font-size:17px;color:#f0ead8;margin-bottom:4px;">Torta della nonna</div><div style="font-size:13px;color:rgba(240,234,216,.45);font-style:italic;">Crema pasticcera, pinoli, zucchero a velo</div></div>
+      <div style="font-size:18px;color:#D4AF37;flex-shrink:0;margin-left:24px;">€8</div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVATION CTA -->
+<section style="padding:80px 40px;text-align:center;border-top:1px solid rgba(212,175,55,.12);background:linear-gradient(180deg,#0c0a08,#111007);">
+  <div style="font-size:11px;text-transform:uppercase;letter-spacing:.28em;color:#D4AF37;margin-bottom:20px;">Prenota</div>
+  <h2 style="font-size:clamp(32px,5vw,56px);font-weight:400;color:#f0ead8;margin:0 0 16px;">Riserva il tuo tavolo</h2>
+  <p style="font-size:16px;color:rgba(240,234,216,.5);margin-bottom:36px;">Aperto dal martedì alla domenica, pranzo e cena. Chiuso il lunedì.</p>
+  <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+    <button style="padding:16px 36px;background:linear-gradient(135deg,#D4AF37,#B8962E);color:#0c0a08;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.16em;border:none;cursor:pointer;font-family:Georgia,serif;">Prenota ora</button>
+    <a href="tel:+390551234567" style="padding:16px 36px;background:transparent;color:rgba(240,234,216,.6);border:1px solid rgba(212,175,55,.25);font-size:13px;text-transform:uppercase;letter-spacing:.16em;text-decoration:none;display:inline-block;font-family:Georgia,serif;">+39 055 123 4567</a>
+  </div>
+</section>`,
   },
   {
     id: "coffee-shop-landing",
@@ -1664,79 +1828,120 @@ export const templates: Template[] = [
     tags: ["cv", "resume", "portfolio", "minimal", "personal"],
     downloads: 891,
     editorsPick: true,
-    content: `<div class="min-h-screen bg-white font-sans">
-  <div class="max-w-3xl mx-auto px-6 py-12">
-    <!-- Header -->
-    <div class="flex flex-col md:flex-row items-start md:items-center gap-6 mb-10 pb-8 border-b border-gray-100">
-      <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#0A84FF] to-[#5E5CE6] flex items-center justify-center text-3xl font-black text-white shrink-0">LM</div>
-      <div class="flex-1">
-        <h1 class="text-3xl font-black text-gray-900 tracking-tight">Luca Marchetti</h1>
-        <p class="text-[#0A84FF] font-semibold mt-0.5">Senior Product Designer</p>
-        <div class="flex flex-wrap gap-3 mt-3 text-xs text-gray-500">
-          <span>📍 Milano, Italy</span><span>✉️ luca@marchetti.io</span><span>🌐 marchetti.io</span>
+    content: `<style>
+body { background: #f8f9fa; color: #111; font-family: system-ui, -apple-system, sans-serif; margin: 0; }
+.skill-bar { height: 4px; background: #e2e8f0; border-radius: 2px; overflow: hidden; }
+.skill-fill { height: 100%; background: linear-gradient(90deg,#3b82f6,#8b5cf6); border-radius: 2px; }
+</style>
+
+<!-- HEADER -->
+<header style="background:#fff;border-bottom:1px solid #e2e8f0;padding:40px 60px;">
+  <div style="max-width:1000px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:32px;flex-wrap:wrap;">
+    <div>
+      <h1 style="font-size:clamp(36px,5vw,60px);font-weight:800;letter-spacing:-1.5px;margin:0 0 8px;color:#0f172a;">Marco Rossetti</h1>
+      <div style="font-size:18px;color:#3b82f6;font-weight:600;margin-bottom:12px;">Senior Product Designer</div>
+      <p style="font-size:15px;color:#64748b;max-width:480px;line-height:1.65;margin:0;">Crafting digital products used by millions. Specialized in B2B SaaS, fintech, and design systems. 8+ years of experience.</p>
+    </div>
+    <div style="text-align:right;flex-shrink:0;">
+      <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#8b5cf6);margin:0 0 12px auto;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800;color:#fff;">M</div>
+      <div style="font-size:13px;color:#64748b;line-height:1.8;">marco@rossetti.design<br>milano, IT · Remote OK</div>
+    </div>
+  </div>
+</header>
+
+<div style="max-width:1000px;margin:0 auto;padding:48px 60px;display:grid;grid-template-columns:2fr 1fr;gap:56px;">
+  <!-- LEFT: Experience + Projects -->
+  <div>
+    <!-- Experience -->
+    <div style="margin-bottom:48px;">
+      <h2 style="font-size:12px;text-transform:uppercase;letter-spacing:.2em;color:#3b82f6;margin:0 0 28px;font-weight:700;">Experience</h2>
+      
+      <div style="margin-bottom:32px;padding-bottom:32px;border-bottom:1px solid #f1f5f9;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
+          <div>
+            <div style="font-size:18px;font-weight:700;color:#0f172a;">Lead Product Designer</div>
+            <div style="font-size:14px;color:#3b82f6;font-weight:600;">Revolut · London / Remote</div>
+          </div>
+          <div style="font-size:13px;color:#94a3b8;font-weight:500;background:#f1f5f9;padding:4px 10px;border-radius:20px;white-space:nowrap;">2021 – Present</div>
+        </div>
+        <p style="font-size:14px;color:#475569;line-height:1.7;margin:0 0 12px;">Led the redesign of the core banking product used by 35M users. Established the design system adopted by 40+ engineers. Increased key conversion metric by 23%.</p>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <span style="font-size:12px;background:#eff6ff;color:#3b82f6;padding:4px 10px;border-radius:20px;font-weight:500;">Figma</span>
+          <span style="font-size:12px;background:#eff6ff;color:#3b82f6;padding:4px 10px;border-radius:20px;font-weight:500;">Design Systems</span>
+          <span style="font-size:12px;background:#eff6ff;color:#3b82f6;padding:4px 10px;border-radius:20px;font-weight:500;">User Research</span>
         </div>
       </div>
-      <div class="flex flex-col gap-2 shrink-0">
-        <button class="bg-[#0A84FF] text-white font-bold px-5 py-2.5 rounded-xl text-sm hover:bg-[#409CFF] transition">Download CV</button>
-        <button class="border border-gray-200 text-gray-600 font-medium px-5 py-2.5 rounded-xl text-sm hover:bg-gray-50 transition">Contattami</button>
+      
+      <div style="margin-bottom:32px;padding-bottom:32px;border-bottom:1px solid #f1f5f9;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
+          <div>
+            <div style="font-size:18px;font-weight:700;color:#0f172a;">Senior UX Designer</div>
+            <div style="font-size:14px;color:#8b5cf6;font-weight:600;">Spotify · Stockholm</div>
+          </div>
+          <div style="font-size:13px;color:#94a3b8;font-weight:500;background:#f1f5f9;padding:4px 10px;border-radius:20px;white-space:nowrap;">2018 – 2021</div>
+        </div>
+        <p style="font-size:14px;color:#475569;line-height:1.7;margin:0 0 12px;">Owned the podcast discovery and playlist creation flows. Shipped features to 400M+ users across iOS, Android, and web. Ran weekly design critiques for a team of 12.</p>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <span style="font-size:12px;background:#f5f3ff;color:#8b5cf6;padding:4px 10px;border-radius:20px;font-weight:500;">Mobile</span>
+          <span style="font-size:12px;background:#f5f3ff;color:#8b5cf6;padding:4px 10px;border-radius:20px;font-weight:500;">A/B Testing</span>
+          <span style="font-size:12px;background:#f5f3ff;color:#8b5cf6;padding:4px 10px;border-radius:20px;font-weight:500;">Prototyping</span>
+        </div>
+      </div>
+      
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
+          <div>
+            <div style="font-size:18px;font-weight:700;color:#0f172a;">UX Designer</div>
+            <div style="font-size:14px;color:#10b981;font-weight:600;">N26 · Berlin</div>
+          </div>
+          <div style="font-size:13px;color:#94a3b8;font-weight:500;background:#f1f5f9;padding:4px 10px;border-radius:20px;white-space:nowrap;">2016 – 2018</div>
+        </div>
+        <p style="font-size:14px;color:#475569;line-height:1.7;margin:0;">Designed onboarding and KYC flows reducing drop-off rate by 31%. First design hire, helped grow team from 1 to 8 designers.</p>
       </div>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <!-- Main column -->
-      <div class="md:col-span-2 space-y-8">
-        <!-- About -->
-        <div>
-          <h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">About</h2>
-          <p class="text-gray-600 text-sm leading-relaxed">Product Designer con 8+ anni di esperienza nel creare interfacce digitali che uniscono estetica e funzionalità. Specializzato in design systems, UX research e prototipazione ad alta fedeltà.</p>
+
+    <!-- Projects -->
+    <div>
+      <h2 style="font-size:12px;text-transform:uppercase;letter-spacing:.2em;color:#3b82f6;margin:0 0 28px;font-weight:700;">Selected projects</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div style="border:1px solid #e2e8f0;border-radius:12px;padding:20px;background:#fff;">
+          <div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#3b82f6,#2563eb);margin-bottom:14px;"></div>
+          <div style="font-size:15px;font-weight:700;color:#0f172a;margin-bottom:6px;">FinFlow Dashboard</div>
+          <p style="font-size:13px;color:#64748b;line-height:1.6;margin:0;">B2B fintech platform for SMEs. Reduced cognitive load by 40%.</p>
         </div>
-        <!-- Experience -->
-        <div>
-          <h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Esperienza</h2>
-          <div class="space-y-5">
-            <div class="flex gap-4">
-              <div class="flex flex-col items-center"><div class="w-9 h-9 rounded-xl bg-[#0A84FF]/10 flex items-center justify-center text-base shrink-0">🏢</div><div class="w-px flex-1 bg-gray-100 my-2"></div></div>
-              <div class="pb-2"><p class="font-bold text-gray-900 text-sm">Lead Product Designer</p><p class="text-[#0A84FF] text-xs font-medium">Factorial · 2022 – oggi</p><p class="text-gray-500 text-xs mt-1 leading-relaxed">Design system da zero, ridotto il tempo di sviluppo del 40%. Team di 4 designer.</p></div>
-            </div>
-            <div class="flex gap-4">
-              <div class="flex flex-col items-center"><div class="w-9 h-9 rounded-xl bg-purple-50 flex items-center justify-center text-base shrink-0">🎨</div><div class="w-px flex-1 bg-gray-100 my-2"></div></div>
-              <div class="pb-2"><p class="font-bold text-gray-900 text-sm">Senior UX Designer</p><p class="text-purple-600 text-xs font-medium">Bending Spoons · 2019 – 2022</p><p class="text-gray-500 text-xs mt-1 leading-relaxed">Redesign completo di Elytra (4M utenti). App featured nell'App Store 3 volte.</p></div>
-            </div>
-            <div class="flex gap-4">
-              <div class="flex flex-col items-center"><div class="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center text-base shrink-0">🚀</div></div>
-              <div><p class="font-bold text-gray-900 text-sm">Product Designer</p><p class="text-emerald-600 text-xs font-medium">Satispay · 2017 – 2019</p><p class="text-gray-500 text-xs mt-1 leading-relaxed">Interfacce per il pagamento mobile. 0 → 2M utenti attivi.</p></div>
-            </div>
-          </div>
+        <div style="border:1px solid #e2e8f0;border-radius:12px;padding:20px;background:#fff;">
+          <div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#8b5cf6,#7c3aed);margin-bottom:14px;"></div>
+          <div style="font-size:15px;font-weight:700;color:#0f172a;margin-bottom:6px;">Atlas Design System</div>
+          <p style="font-size:13px;color:#64748b;line-height:1.6;margin:0;">500+ components, used by 6 product teams at Revolut.</p>
         </div>
       </div>
-      <!-- Side column -->
-      <div class="space-y-6">
-        <!-- Skills -->
-        <div>
-          <h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Skills</h2>
-          <div class="space-y-2">
-            <div><div class="flex justify-between text-xs mb-1"><span class="text-gray-700 font-medium">Figma / Framer</span><span class="text-gray-400">Expert</span></div><div class="h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-[#0A84FF] rounded-full" style="width:95%"></div></div></div>
-            <div><div class="flex justify-between text-xs mb-1"><span class="text-gray-700 font-medium">Design Systems</span><span class="text-gray-400">Expert</span></div><div class="h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-[#0A84FF] rounded-full" style="width:90%"></div></div></div>
-            <div><div class="flex justify-between text-xs mb-1"><span class="text-gray-700 font-medium">UX Research</span><span class="text-gray-400">Advanced</span></div><div class="h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-purple-500 rounded-full" style="width:80%"></div></div></div>
-            <div><div class="flex justify-between text-xs mb-1"><span class="text-gray-700 font-medium">React / CSS</span><span class="text-gray-400">Intermediate</span></div><div class="h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-emerald-500 rounded-full" style="width:65%"></div></div></div>
-          </div>
-        </div>
-        <!-- Tools -->
-        <div>
-          <h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Tools</h2>
-          <div class="flex flex-wrap gap-2">
-            <span class="text-xs bg-gray-50 border border-gray-200 text-gray-600 px-2.5 py-1 rounded-lg">Figma</span>
-            <span class="text-xs bg-gray-50 border border-gray-200 text-gray-600 px-2.5 py-1 rounded-lg">Framer</span>
-            <span class="text-xs bg-gray-50 border border-gray-200 text-gray-600 px-2.5 py-1 rounded-lg">Notion</span>
-            <span class="text-xs bg-gray-50 border border-gray-200 text-gray-600 px-2.5 py-1 rounded-lg">Linear</span>
-            <span class="text-xs bg-gray-50 border border-gray-200 text-gray-600 px-2.5 py-1 rounded-lg">Lottie</span>
-          </div>
-        </div>
-        <!-- Education -->
-        <div>
-          <h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Formazione</h2>
-          <div class="bg-gray-50 rounded-xl p-3"><p class="font-semibold text-gray-800 text-sm">Comunicazione Visiva</p><p class="text-gray-500 text-xs mt-0.5">Politecnico di Milano · 2017</p></div>
-        </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Skills + Education + Contact -->
+  <div>
+    <div style="margin-bottom:40px;">
+      <h2 style="font-size:12px;text-transform:uppercase;letter-spacing:.2em;color:#3b82f6;margin:0 0 24px;font-weight:700;">Skills</h2>
+      <div style="display:grid;gap:14px;">
+        <div><div style="display:flex;justify-content:space-between;font-size:14px;color:#374151;margin-bottom:6px;"><span>Product Design</span><span style="color:#94a3b8;">Expert</span></div><div class="skill-bar"><div class="skill-fill" style="width:95%;"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:14px;color:#374151;margin-bottom:6px;"><span>Figma / Sketch</span><span style="color:#94a3b8;">Expert</span></div><div class="skill-bar"><div class="skill-fill" style="width:98%;"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:14px;color:#374151;margin-bottom:6px;"><span>Design Systems</span><span style="color:#94a3b8;">Expert</span></div><div class="skill-bar"><div class="skill-fill" style="width:90%;"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:14px;color:#374151;margin-bottom:6px;"><span>User Research</span><span style="color:#94a3b8;">Advanced</span></div><div class="skill-bar"><div class="skill-fill" style="width:85%;"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:14px;color:#374151;margin-bottom:6px;"><span>HTML / CSS</span><span style="color:#94a3b8;">Advanced</span></div><div class="skill-bar"><div class="skill-fill" style="width:75%;"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:14px;color:#374151;margin-bottom:6px;"><span>Motion Design</span><span style="color:#94a3b8;">Intermediate</span></div><div class="skill-bar"><div class="skill-fill" style="width:65%;"></div></div></div>
       </div>
+    </div>
+
+    <div style="margin-bottom:40px;">
+      <h2 style="font-size:12px;text-transform:uppercase;letter-spacing:.2em;color:#3b82f6;margin:0 0 20px;font-weight:700;">Education</h2>
+      <div style="margin-bottom:16px;"><div style="font-size:15px;font-weight:700;color:#0f172a;">MSc Interaction Design</div><div style="font-size:13px;color:#64748b;">Politecnico di Milano · 2016</div></div>
+      <div><div style="font-size:15px;font-weight:700;color:#0f172a;">BSc Communication Design</div><div style="font-size:13px;color:#64748b;">NABA Milan · 2014</div></div>
+    </div>
+
+    <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:12px;padding:20px;">
+      <h2 style="font-size:12px;text-transform:uppercase;letter-spacing:.2em;color:#0ea5e9;margin:0 0 14px;font-weight:700;">Available for work</h2>
+      <p style="font-size:13px;color:#0369a1;line-height:1.65;margin:0 0 14px;">Open to senior roles and design leadership positions. Remote-first preferred.</p>
+      <button style="width:100%;padding:11px 0;background:#0ea5e9;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;">Get in touch →</button>
     </div>
   </div>
 </div>`,
@@ -1864,73 +2069,72 @@ export const templates: Template[] = [
     tags: ["waitlist", "coming soon", "launch", "email capture", "startup"],
     downloads: 124,
     isNew: true,
-    content: `<div class="min-h-screen flex flex-col items-center justify-center px-4 py-16 font-sans" style="background:linear-gradient(135deg,#0a0015 0%,#120028 50%,#0a001e 100%)">
-  <!-- Ambient glow -->
-  <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full opacity-20 pointer-events-none" style="background:radial-gradient(ellipse,#7c3aed,transparent 70%)"></div>
-  <div class="relative z-10 text-center max-w-2xl w-full">
-    <!-- Logo -->
-    <div class="flex justify-center mb-10">
-      <div class="flex items-center gap-3 bg-white/5 border border-white/10 rounded-2xl px-5 py-2.5">
-        <div class="w-7 h-7 rounded-lg bg-violet-500 flex items-center justify-center text-sm font-black text-white">V</div>
-        <span class="text-white font-bold text-lg tracking-tight">Vault</span>
-      </div>
-    </div>
+    content: `<style>
+body { background: #030712; color: #f0f6ff; font-family: system-ui, sans-serif; margin: 0; }
+.input-glow:focus { box-shadow: 0 0 0 3px rgba(99,102,241,.35); outline: none; }
+@keyframes ripple { 0%{transform:scale(1);opacity:.6} 100%{transform:scale(2.5);opacity:0} }
+.ripple { animation: ripple 2.5s ease-out infinite; }
+@keyframes counter { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+.counter-in { animation: counter .5s ease forwards; }
+</style>
+
+<!-- MAIN -->
+<section style="min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px;position:relative;overflow:hidden;">
+  
+  <!-- Background glow -->
+  <div style="position:absolute;width:800px;height:800px;border-radius:50%;border:1px solid rgba(99,102,241,.08);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;"></div>
+  <div class="ripple" style="position:absolute;width:500px;height:500px;border-radius:50%;border:1px solid rgba(99,102,241,.12);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;"></div>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(99,102,241,.18),transparent 60%);pointer-events:none;"></div>
+
+  <div style="position:relative;max-width:640px;width:100%;">
     <!-- Badge -->
-    <div class="inline-flex items-center gap-2 bg-violet-500/10 border border-violet-500/20 text-violet-300 px-4 py-1.5 rounded-full text-xs font-semibold mb-6 tracking-wide">
-      <span class="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse"></span>
-      Lancio previsto — Q3 2025
+    <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:999px;background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.2);color:#a5b4fc;font-size:13px;margin-bottom:32px;letter-spacing:.06em;">
+      <span style="width:7px;height:7px;border-radius:50%;background:#818cf8;"></span>
+      Launching Q2 2025 · Private beta
     </div>
-    <!-- Headline -->
-    <h1 class="text-4xl md:text-6xl font-black text-white leading-tight mb-5 tracking-tight">
-      Qualcosa di<br/>
-      <span style="background:linear-gradient(90deg,#a78bfa,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent">straordinario</span><br/>
-      sta arrivando.
-    </h1>
-    <p class="text-white/50 text-lg max-w-md mx-auto mb-10 leading-relaxed">
-      Il tuo nuovo strumento per gestire, condividere e monetizzare i tuoi asset digitali in un click.
+
+    <!-- Logo / Brand -->
+    <div style="font-size:clamp(56px,10vw,96px);font-weight:900;letter-spacing:-3px;color:#fff;line-height:.97;margin-bottom:24px;">
+      Prism<span style="color:#818cf8;">.</span>
+    </div>
+    
+    <p style="font-size:20px;color:#64748b;line-height:1.65;max-width:480px;margin:0 auto 12px;">
+      The design tool that thinks with you.
     </p>
-    <!-- Countdown -->
-    <div class="flex justify-center gap-4 mb-10">
-      <div class="bg-white/5 border border-white/10 rounded-2xl px-5 py-4 min-w-[72px] text-center">
-        <div class="text-3xl font-black text-white">47</div>
-        <div class="text-white/30 text-xs mt-1 uppercase tracking-widest">Giorni</div>
+    <p style="font-size:16px;color:#475569;line-height:1.65;max-width:420px;margin:0 auto 48px;">
+      AI-native, real-time collaboration, zero design debt. Join the waitlist and get early access.
+    </p>
+
+    <!-- Waitlist form -->
+    <form style="display:flex;gap:0;max-width:440px;margin:0 auto 32px;border-radius:12px;overflow:hidden;border:1px solid rgba(99,102,241,.25);">
+      <input class="input-glow" type="email" placeholder="Enter your email address" style="flex:1;padding:16px 20px;background:rgba(255,255,255,.04);border:none;color:#f0f6ff;font-size:15px;font-family:inherit;min-width:0;"/>
+      <button type="submit" style="padding:16px 24px;background:linear-gradient(135deg,#6366f1,#7c3aed);color:#fff;border:none;font-weight:700;font-size:14px;cursor:pointer;white-space:nowrap;">Join waitlist</button>
+    </form>
+    
+    <p style="font-size:13px;color:#334155;margin-bottom:64px;">
+      No spam. Unsubscribe anytime. <span style="color:#475569;">2,847 people already joined.</span>
+    </p>
+
+    <!-- Feature teasers -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.05);border-radius:16px;overflow:hidden;text-align:left;">
+      <div style="padding:24px 20px;background:rgba(255,255,255,.02);">
+        <div style="font-size:24px;margin-bottom:12px;">🧠</div>
+        <h3 style="font-size:14px;font-weight:700;color:#cbd5e1;margin:0 0 6px;">AI Co-designer</h3>
+        <p style="font-size:12px;color:#475569;line-height:1.6;margin:0;">Describe changes in plain English. Prism applies them instantly.</p>
       </div>
-      <div class="bg-white/5 border border-white/10 rounded-2xl px-5 py-4 min-w-[72px] text-center">
-        <div class="text-3xl font-black text-white">12</div>
-        <div class="text-white/30 text-xs mt-1 uppercase tracking-widest">Ore</div>
+      <div style="padding:24px 20px;background:rgba(255,255,255,.02);">
+        <div style="font-size:24px;margin-bottom:12px;">⚡</div>
+        <h3 style="font-size:14px;font-weight:700;color:#cbd5e1;margin:0 0 6px;">Real-time Collab</h3>
+        <p style="font-size:12px;color:#475569;line-height:1.6;margin:0;">Work with your team, see cursors, leave comments, ship together.</p>
       </div>
-      <div class="bg-white/5 border border-white/10 rounded-2xl px-5 py-4 min-w-[72px] text-center">
-        <div class="text-3xl font-black text-white">34</div>
-        <div class="text-white/30 text-xs mt-1 uppercase tracking-widest">Min</div>
+      <div style="padding:24px 20px;background:rgba(255,255,255,.02);">
+        <div style="font-size:24px;margin-bottom:12px;">🎯</div>
+        <h3 style="font-size:14px;font-weight:700;color:#cbd5e1;margin:0 0 6px;">Zero Design Debt</h3>
+        <p style="font-size:12px;color:#475569;line-height:1.6;margin:0;">Auto-enforced design system. Consistency by default, not by discipline.</p>
       </div>
-      <div class="bg-white/5 border border-white/10 rounded-2xl px-5 py-4 min-w-[72px] text-center">
-        <div class="text-3xl font-black text-white">08</div>
-        <div class="text-white/30 text-xs mt-1 uppercase tracking-widest">Sec</div>
-      </div>
-    </div>
-    <!-- Email Form -->
-    <div class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-6">
-      <input type="email" placeholder="La tua email" class="flex-1 bg-white/5 border border-white/10 focus:border-violet-500 text-white placeholder-white/30 px-5 py-3.5 rounded-2xl outline-none text-sm transition"/>
-      <button class="bg-violet-600 hover:bg-violet-500 transition text-white font-bold px-6 py-3.5 rounded-2xl text-sm whitespace-nowrap shadow-[0_4px_20px_rgba(124,58,237,0.4)]">Unisciti alla lista →</button>
-    </div>
-    <!-- Social proof -->
-    <div class="flex items-center justify-center gap-3 mb-10">
-      <div class="flex -space-x-2">
-        <div class="w-7 h-7 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 border-2 border-[#0a0015]"></div>
-        <div class="w-7 h-7 rounded-full bg-gradient-to-br from-violet-400 to-purple-500 border-2 border-[#0a0015]"></div>
-        <div class="w-7 h-7 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 border-2 border-[#0a0015]"></div>
-        <div class="w-7 h-7 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 border-2 border-[#0a0015]"></div>
-      </div>
-      <span class="text-white/40 text-sm"><strong class="text-white/70">1.847</strong> persone già in lista</span>
-    </div>
-    <!-- Features teaser -->
-    <div class="grid grid-cols-3 gap-4 border-t border-white/5 pt-8">
-      <div class="text-center"><div class="text-2xl mb-2">⚡</div><p class="text-white/50 text-xs leading-relaxed">Setup in 60 secondi</p></div>
-      <div class="text-center"><div class="text-2xl mb-2">🔒</div><p class="text-white/50 text-xs leading-relaxed">Privacy by design</p></div>
-      <div class="text-center"><div class="text-2xl mb-2">🚀</div><p class="text-white/50 text-xs leading-relaxed">Early access gratuito</p></div>
     </div>
   </div>
-</div>`,
+</section>`,
   },
   {
     id: "saas-pricing-full",
