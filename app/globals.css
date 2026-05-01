@@ -2495,6 +2495,20 @@ html:not(.dark) .fn-bg::after { opacity: 0.04; mix-blend-mode: multiply; }
   .fn-simple h1 { font-size: clamp(40px, 12vw, 56px); }
 }
 
+/* ── Footer ── */
+.fn-footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 56px;
+}
+@media (max-width: 900px) {
+  .fn-footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+}
+@media (max-width: 600px) {
+  .fn-footer-grid { grid-template-columns: 1fr; gap: 32px; margin-bottom: 36px; }
+}
+
 /* ── Homepage hero layout ── */
 .fn-home-hero {
   display: grid;

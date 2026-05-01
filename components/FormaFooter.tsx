@@ -33,7 +33,7 @@ export function FormaFooter() {
       <div style={{ maxWidth: 1220, margin: "0 auto" }}>
 
         {/* Top row: logo + cols */}
-        <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: 48, marginBottom: 56 }}>
+        <div className="fn-footer-grid">
 
           {/* Brand col */}
           <div>
