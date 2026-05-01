@@ -160,48 +160,204 @@ body { background: #030712; color: #f8fafc; font-family: system-ui, -apple-syste
     stripePriceId: "price_1TBixDBoWNgrJbiyjst5ntr3",
     tags: ["pricing", "saas", "cards", "table"],
     downloads: 987,
-    content: `<div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-4 py-16">
-  <!-- Starter -->
-  <div class="rounded-2xl border border-gray-200 p-8 bg-white">
-    <h3 class="text-lg font-semibold text-gray-900">Starter</h3>
-    <p class="mt-4 text-4xl font-bold text-gray-900">$9<span class="text-lg text-gray-500">/mo</span></p>
-    <ul class="mt-6 space-y-3 text-sm text-gray-600">
-      <li>✅ 100 AI generations</li>
-      <li>✅ 5 projects</li>
-      <li>✅ Email support</li>
-    </ul>
-    <button class="mt-8 w-full py-3 rounded-xl border-2 border-indigo-600 text-indigo-600 font-semibold hover:bg-indigo-50 transition">
-      Get started
-    </button>
-  </div>
-  <!-- Pro (highlighted) -->
-  <div class="rounded-2xl border-2 border-indigo-600 p-8 bg-indigo-600 text-white scale-105 shadow-2xl">
-    <div class="flex justify-between items-center">
-      <h3 class="text-lg font-semibold">Pro</h3>
-      <span class="text-xs font-bold bg-white/20 px-2 py-1 rounded-full">POPULAR</span>
+    content: `<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#050508;color:#f0f0f5;min-height:100vh}
+.wrap{max-width:1100px;margin:0 auto;padding:0 28px}
+/* Nav */
+nav{display:flex;align-items:center;justify-content:space-between;padding:22px 28px;max-width:1100px;margin:0 auto}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;letter-spacing:-.4px}
+.logo-dot{width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6)}
+.nav-links{display:flex;align-items:center;gap:28px;font-size:13.5px;color:rgba(240,240,245,.5)}
+.nav-btn{background:rgba(99,102,241,.15);border:1px solid rgba(99,102,241,.3);color:#818cf8;padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:.2s}
+.nav-btn:hover{background:rgba(99,102,241,.25)}
+/* Hero */
+.hero{text-align:center;padding:64px 20px 40px}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.2);color:#a5b4fc;padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;letter-spacing:.05em;margin-bottom:24px}
+.hero h1{font-size:clamp(36px,5vw,58px);font-weight:900;letter-spacing:-1.5px;line-height:1.08;margin-bottom:16px}
+.hero h1 span{background:linear-gradient(135deg,#818cf8,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:rgba(240,240,245,.5);font-size:17px;max-width:480px;margin:0 auto 36px;line-height:1.65}
+/* Toggle */
+.toggle-wrap{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:52px}
+.toggle-label{font-size:13px;color:rgba(240,240,245,.5)}
+.toggle-pill{width:48px;height:26px;background:rgba(99,102,241,.3);border-radius:13px;position:relative;cursor:pointer;border:1px solid rgba(99,102,241,.2)}
+.toggle-pill::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;background:#818cf8;border-radius:50%;transition:.2s}
+.save-badge{background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.25);color:#34d399;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700}
+/* Cards */
+.cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;max-width:980px;margin:0 auto 64px;align-items:center}
+.card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:32px 28px;position:relative;transition:.25s}
+.card.featured{background:linear-gradient(145deg,rgba(99,102,241,.12),rgba(139,92,246,.08));border-color:rgba(99,102,241,.35);transform:scale(1.04);box-shadow:0 0 60px rgba(99,102,241,.15)}
+.plan-name{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(240,240,245,.45);margin-bottom:6px}
+.featured .plan-name{color:#a5b4fc}
+.price-row{display:flex;align-items:flex-end;gap:4px;margin-bottom:8px}
+.price-val{font-size:52px;font-weight:900;letter-spacing:-2px;line-height:1}
+.price-mo{font-size:14px;color:rgba(240,240,245,.4);padding-bottom:10px}
+.price-billed{font-size:12px;color:rgba(240,240,245,.35);margin-bottom:28px}
+.popular-tag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,#6366f1,#8b5cf6);color:#fff;padding:4px 16px;border-radius:12px;font-size:11px;font-weight:700;letter-spacing:.06em;white-space:nowrap}
+.feature-list{list-style:none;display:flex;flex-direction:column;gap:11px;margin-bottom:32px;font-size:13.5px}
+.feature-list li{display:flex;align-items:flex-start;gap:9px;color:rgba(240,240,245,.65)}
+.check{width:18px;height:18px;background:rgba(99,102,241,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;shrink:0;flex-shrink:0;color:#818cf8;margin-top:1px}
+.featured .check{background:rgba(99,102,241,.25);color:#c4b5fd}
+.dash{width:18px;height:18px;display:flex;align-items:center;justify-content:center;color:rgba(240,240,245,.2);font-size:12px;flex-shrink:0;margin-top:1px}
+.btn-card{width:100%;padding:13px;border-radius:12px;font-weight:700;font-size:14px;cursor:pointer;transition:.2s;border:0}
+.btn-outline{background:transparent;border:1px solid rgba(255,255,255,.12);color:rgba(240,240,245,.7)}
+.btn-outline:hover{border-color:rgba(99,102,241,.4);color:#a5b4fc}
+.btn-primary{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;box-shadow:0 4px 20px rgba(99,102,241,.35)}
+.btn-primary:hover{opacity:.9;transform:translateY(-1px)}
+/* Compare */
+.compare{max-width:880px;margin:0 auto 64px}
+.compare h2{font-size:22px;font-weight:800;letter-spacing:-.5px;margin-bottom:24px;text-align:center;color:rgba(240,240,245,.8)}
+.compare-table{width:100%;border-collapse:collapse;font-size:13px}
+.compare-table th{padding:12px 18px;text-align:left;color:rgba(240,240,245,.35);font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:11px;border-bottom:1px solid rgba(255,255,255,.05)}
+.compare-table th:nth-child(2),.compare-table th:nth-child(3),.compare-table th:nth-child(4){text-align:center}
+.compare-table td{padding:12px 18px;border-bottom:1px solid rgba(255,255,255,.04);color:rgba(240,240,245,.7)}
+.compare-table td:nth-child(2),.compare-table td:nth-child(3),.compare-table td:nth-child(4){text-align:center}
+.compare-table tr:last-child td{border:none}
+.col-hi{color:#a5b4fc}
+.yes{color:#34d399}
+.no{color:rgba(240,240,245,.2)}
+/* FAQ */
+.faq{max-width:640px;margin:0 auto 64px}
+.faq h2{font-size:22px;font-weight:800;letter-spacing:-.5px;margin-bottom:28px;text-align:center}
+.faq-item{border-bottom:1px solid rgba(255,255,255,.06);padding:20px 0}
+.faq-q{font-size:14px;font-weight:700;color:rgba(240,240,245,.85);margin-bottom:8px}
+.faq-a{font-size:13px;color:rgba(240,240,245,.45);line-height:1.65}
+/* CTA */
+.cta{text-align:center;padding:64px 20px;border-top:1px solid rgba(255,255,255,.05)}
+.cta h2{font-size:32px;font-weight:900;letter-spacing:-.8px;margin-bottom:12px}
+.cta p{color:rgba(240,240,245,.45);font-size:15px;margin-bottom:28px}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,.12);color:rgba(240,240,245,.7);padding:12px 24px;border-radius:10px;font-weight:600;font-size:14px;cursor:pointer}
+.btn-solid{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;padding:12px 28px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;border:0;box-shadow:0 4px 20px rgba(99,102,241,.35)}
+</style>
+
+<nav>
+  <div class="logo"><div class="logo-dot"></div>Nexus</div>
+  <div class="nav-links"><span>Features</span><span>Docs</span><span>Blog</span><span>Status</span></div>
+  <button class="nav-btn">Log in</button>
+</nav>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="hero-badge">💡 Simple, transparent pricing</div>
+    <h1>Plans that <span>scale with you</span></h1>
+    <p>From solo builders to enterprise teams — every plan includes the core features you need to ship faster.</p>
+    <div class="toggle-wrap">
+      <span class="toggle-label">Monthly</span>
+      <div class="toggle-pill"></div>
+      <span class="toggle-label">Annual</span>
+      <span class="save-badge">Save 30%</span>
     </div>
-    <p class="mt-4 text-4xl font-bold">$29<span class="text-lg text-white/70">/mo</span></p>
-    <ul class="mt-6 space-y-3 text-sm text-white/80">
-      <li>✅ Unlimited generations</li>
-      <li>✅ 50 projects</li>
-      <li>✅ Priority support</li>
-    </ul>
-    <button class="mt-8 w-full py-3 rounded-xl bg-white text-indigo-600 font-semibold hover:bg-white/90 transition">
-      Get started
-    </button>
   </div>
-  <!-- Enterprise -->
-  <div class="rounded-2xl border border-gray-200 p-8 bg-white">
-    <h3 class="text-lg font-semibold text-gray-900">Enterprise</h3>
-    <p class="mt-4 text-4xl font-bold text-gray-900">$99<span class="text-lg text-gray-500">/mo</span></p>
-    <ul class="mt-6 space-y-3 text-sm text-gray-600">
-      <li>✅ Unlimited everything</li>
-      <li>✅ Custom integrations</li>
-      <li>✅ Dedicated support</li>
-    </ul>
-    <button class="mt-8 w-full py-3 rounded-xl border-2 border-indigo-600 text-indigo-600 font-semibold hover:bg-indigo-50 transition">
-      Contact sales
-    </button>
+
+  <div class="cards">
+    <!-- Starter -->
+    <div class="card">
+      <div class="plan-name">Starter</div>
+      <div class="price-row"><span class="price-val">$9</span><span class="price-mo">/mo</span></div>
+      <div class="price-billed">Billed monthly · $108/yr</div>
+      <ul class="feature-list">
+        <li><span class="check">✓</span>Up to 3 projects</li>
+        <li><span class="check">✓</span>5,000 API calls/month</li>
+        <li><span class="check">✓</span>Community support</li>
+        <li><span class="check">✓</span>Basic analytics</li>
+        <li><span class="dash">—</span>Custom domains</li>
+        <li><span class="dash">—</span>Team seats</li>
+        <li><span class="dash">—</span>Priority support</li>
+      </ul>
+      <button class="btn-card btn-outline">Get started free</button>
+    </div>
+
+    <!-- Pro (featured) -->
+    <div class="card featured">
+      <div class="popular-tag">MOST POPULAR</div>
+      <div class="plan-name">Pro</div>
+      <div class="price-row"><span class="price-val">$29</span><span class="price-mo">/mo</span></div>
+      <div class="price-billed">Billed monthly · $348/yr</div>
+      <ul class="feature-list">
+        <li><span class="check">✓</span>Unlimited projects</li>
+        <li><span class="check">✓</span>100,000 API calls/month</li>
+        <li><span class="check">✓</span>Priority email support</li>
+        <li><span class="check">✓</span>Advanced analytics</li>
+        <li><span class="check">✓</span>5 custom domains</li>
+        <li><span class="check">✓</span>Up to 5 team seats</li>
+        <li><span class="dash">—</span>Dedicated account mgr</li>
+      </ul>
+      <button class="btn-card btn-primary">Start Pro trial →</button>
+    </div>
+
+    <!-- Enterprise -->
+    <div class="card">
+      <div class="plan-name">Enterprise</div>
+      <div class="price-row"><span class="price-val">$99</span><span class="price-mo">/mo</span></div>
+      <div class="price-billed">Billed monthly · custom annual</div>
+      <ul class="feature-list">
+        <li><span class="check">✓</span>Unlimited projects</li>
+        <li><span class="check">✓</span>Unlimited API calls</li>
+        <li><span class="check">✓</span>24/7 phone + chat</li>
+        <li><span class="check">✓</span>Custom analytics + export</li>
+        <li><span class="check">✓</span>Unlimited custom domains</li>
+        <li><span class="check">✓</span>Unlimited team seats</li>
+        <li><span class="check">✓</span>Dedicated account mgr</li>
+      </ul>
+      <button class="btn-card btn-outline">Contact sales</button>
+    </div>
+  </div>
+
+  <!-- Compare -->
+  <div class="compare">
+    <h2>Compare plans</h2>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Starter</th>
+          <th class="col-hi">Pro</th>
+          <th>Enterprise</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Projects</td><td>3</td><td class="col-hi">Unlimited</td><td>Unlimited</td></tr>
+        <tr><td>API calls / month</td><td>5K</td><td class="col-hi">100K</td><td>Unlimited</td></tr>
+        <tr><td>Custom domains</td><td class="no">✗</td><td class="col-hi yes">✓ 5</td><td class="yes">✓ Unlimited</td></tr>
+        <tr><td>Team seats</td><td class="no">✗</td><td class="col-hi yes">✓ 5</td><td class="yes">✓ Unlimited</td></tr>
+        <tr><td>Analytics dashboard</td><td>Basic</td><td class="col-hi">Advanced</td><td>Custom</td></tr>
+        <tr><td>Support</td><td>Community</td><td class="col-hi">Priority email</td><td>24/7 phone + chat</td></tr>
+        <tr><td>SSO / SAML</td><td class="no">✗</td><td class="no">✗</td><td class="yes">✓</td></tr>
+        <tr><td>SLA guarantee</td><td class="no">✗</td><td class="no">✗</td><td class="yes">✓ 99.99%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item">
+      <div class="faq-q">Can I change plans at any time?</div>
+      <div class="faq-a">Yes — you can upgrade, downgrade, or cancel at any time. Upgrades take effect immediately; downgrades at the end of the billing cycle.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Is there a free trial?</div>
+      <div class="faq-a">Every paid plan starts with a 14-day free trial, no credit card required. After the trial, you're billed on your chosen cycle.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What happens when I exceed API call limits?</div>
+      <div class="faq-a">You'll receive an email warning at 80% usage. Exceeding limits pauses new calls until the next cycle — or you can upgrade instantly.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Do you offer discounts for startups?</div>
+      <div class="faq-a">Yes — we offer 50% off for early-stage startups (&lt;$1M ARR). Apply through our startup program page.</div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta">
+    <h2>Ready to build?</h2>
+    <p>Join 12,000+ teams already using Nexus to ship faster. No credit card required.</p>
+    <div class="cta-btns">
+      <button class="btn-ghost">View documentation</button>
+      <button class="btn-solid">Start free trial →</button>
+    </div>
   </div>
 </div>`,
   },
@@ -986,50 +1142,202 @@ body { background: #0a0a0a; color: #f0f0f0; font-family: system-ui, sans-serif; 
     stripePriceId: "price_1TBz4jBoWNgrJbiy6sGjzcNh",
     tags: ["startup", "launch", "waitlist", "framer", "product"],
     downloads: 615,
-    content: `<div class="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white font-sans overflow-hidden">
-  <!-- Ambient Glow -->
-  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
-  <!-- Nav -->
-  <nav class="relative z-10 flex items-center justify-between px-8 py-5 max-w-5xl mx-auto">
-    <div class="flex items-center gap-2.5"><div class="w-7 h-7 bg-indigo-500 rounded-lg"></div><span class="font-bold text-lg">Orbit</span></div>
-    <button class="text-sm bg-indigo-600 hover:bg-indigo-500 transition px-4 py-2 rounded-lg font-medium">Join waitlist →</button>
-  </nav>
-  <!-- Hero -->
-  <div class="relative z-10 text-center pt-20 pb-16 px-6 max-w-4xl mx-auto">
-    <div class="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 px-4 py-1.5 rounded-full text-xs font-medium mb-8">
-      🚀 Launching Q2 2025 — 2,400 on waitlist
-    </div>
-    <h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight tracking-tight">
-      Your entire workflow,<br/>
-      <span class="bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">one place.</span>
-    </h1>
-    <p class="text-slate-400 text-xl max-w-xl mx-auto mb-10 leading-relaxed">Orbit connects your tools, automates your busywork, and gives your team back 10 hours per week.</p>
-    <!-- Waitlist Form -->
-    <div class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-      <input type="email" placeholder="Enter your email" class="flex-1 bg-white/5 border border-white/10 text-white placeholder-slate-500 px-4 py-3 rounded-xl focus:outline-none focus:border-indigo-500 text-sm"/>
-      <button class="bg-indigo-600 hover:bg-indigo-500 transition text-white font-bold px-6 py-3 rounded-xl text-sm whitespace-nowrap">Get early access</button>
-    </div>
-    <p class="text-slate-600 text-xs mt-3">Join 2,400+ early adopters · First month free for waitlist</p>
+    content: `<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#050508;color:#f0f0f8;overflow-x:hidden}
+/* Glow layers */
+.glow-t{position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:900px;height:500px;background:radial-gradient(ellipse,rgba(99,102,241,.14) 0%,transparent 70%);pointer-events:none;z-index:0}
+.glow-bl{position:fixed;bottom:-100px;left:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(139,92,246,.08),transparent 70%);pointer-events:none;z-index:0}
+/* Nav */
+nav{position:relative;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:22px 48px;max-width:1200px;margin:0 auto}
+.nav-logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:18px;letter-spacing:-.4px}
+.nl-icon{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:15px}
+.nav-links{display:flex;align-items:center;gap:28px;font-size:13.5px;color:rgba(240,240,248,.45)}
+.nav-cta{background:rgba(99,102,241,.15);border:1px solid rgba(99,102,241,.3);color:#a5b4fc;padding:9px 20px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;transition:.2s}
+.nav-cta:hover{background:rgba(99,102,241,.28)}
+/* Hero */
+.hero{position:relative;z-index:1;text-align:center;padding:80px 20px 60px;max-width:900px;margin:0 auto}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.2);color:#a5b4fc;padding:7px 18px;border-radius:20px;font-size:12px;font-weight:700;letter-spacing:.05em;margin-bottom:28px;animation:fadeUp .5s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.hero h1{font-size:clamp(42px,7vw,80px);font-weight:900;letter-spacing:-2.5px;line-height:1.04;margin-bottom:20px;animation:fadeUp .5s .1s ease both}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,#818cf8 30%,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:18px;color:rgba(240,240,248,.5);max-width:520px;margin:0 auto 36px;line-height:1.7;animation:fadeUp .5s .2s ease both}
+/* Waitlist form */
+.wl-form{display:flex;gap:10px;max-width:440px;margin:0 auto 16px;animation:fadeUp .5s .3s ease both}
+.wl-input{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#f0f0f8;padding:13px 18px;border-radius:11px;font-size:14px;outline:none;transition:.2s}
+.wl-input::placeholder{color:rgba(240,240,248,.3)}
+.wl-input:focus{border-color:rgba(99,102,241,.5);background:rgba(99,102,241,.06)}
+.wl-btn{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;padding:13px 22px;border-radius:11px;font-weight:800;font-size:14px;white-space:nowrap;cursor:pointer;border:0;transition:.2s;box-shadow:0 4px 24px rgba(99,102,241,.3)}
+.wl-btn:hover{opacity:.9;transform:translateY(-1px)}
+.wl-note{font-size:12px;color:rgba(240,240,248,.3);animation:fadeUp .5s .4s ease both}
+/* Social proof bar */
+.sp-bar{display:flex;align-items:center;justify-content:center;gap:24px;margin-top:8px;padding:20px 0;animation:fadeUp .5s .5s ease both}
+.sp-item{text-align:center}
+.sp-val{font-size:26px;font-weight:900;letter-spacing:-1px}
+.sp-val span{font-size:13px;font-weight:600;color:#818cf8}
+.sp-label{font-size:11px;color:rgba(240,240,248,.35);text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+.sp-div{width:1px;height:36px;background:rgba(255,255,255,.08)}
+/* App preview */
+.preview-wrap{position:relative;z-index:1;max-width:880px;margin:0 auto 80px;padding:0 24px}
+.preview-chrome{background:#111118;border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.04);animation:fadeUp .6s .4s ease both}
+.chrome-bar{height:36px;background:#1a1a24;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;padding:0 14px;gap:7px}
+.cb-dot{width:9px;height:9px;border-radius:50%}
+.chrome-content{padding:28px}
+.mock-dash{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
+.mock-kpi{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:16px}
+.mock-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(240,240,248,.3);margin-bottom:8px}
+.mock-val{font-size:22px;font-weight:900;letter-spacing:-1px}
+.mock-chart{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:16px;grid-column:span 2}
+.mock-bars{display:flex;align-items:flex-end;gap:6px;height:64px;margin-top:10px}
+.mb{flex:1;border-radius:4px 4px 0 0;background:rgba(99,102,241,.25)}
+.mb.hi{background:linear-gradient(to top,#6366f1,#818cf8)}
+.mock-activity{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:16px}
+.act-row{display:flex;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:11px;color:rgba(240,240,248,.5)}
+.act-row:last-child{border:none}
+.act-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+/* Features */
+.features{position:relative;z-index:1;max-width:1100px;margin:0 auto 80px;padding:0 24px}
+.section-label{font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:#818cf8;font-weight:700;text-align:center;margin-bottom:16px}
+.section-h2{font-size:clamp(28px,4vw,44px);font-weight:900;letter-spacing:-1.2px;text-align:center;margin-bottom:8px}
+.section-p{text-align:center;color:rgba(240,240,248,.45);font-size:16px;max-width:480px;margin:0 auto 48px}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.feat-card{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:28px;transition:.25s}
+.feat-card:hover{background:rgba(99,102,241,.06);border-color:rgba(99,102,241,.25);transform:translateY(-3px)}
+.feat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:18px}
+.fi-1{background:rgba(99,102,241,.15)}
+.fi-2{background:rgba(139,92,246,.15)}
+.fi-3{background:rgba(236,72,153,.15)}
+.fi-4{background:rgba(20,184,166,.15)}
+.fi-5{background:rgba(245,158,11,.15)}
+.fi-6{background:rgba(59,130,246,.15)}
+.feat-h{font-size:15px;font-weight:800;letter-spacing:-.3px;margin-bottom:8px}
+.feat-p{font-size:13px;color:rgba(240,240,248,.45);line-height:1.65}
+/* Testimonials strip */
+.testimonials{position:relative;z-index:1;max-width:1100px;margin:0 auto 80px;padding:0 24px}
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.test-card{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:24px}
+.test-stars{color:#fbbf24;font-size:13px;margin-bottom:12px}
+.test-q{font-size:13.5px;color:rgba(240,240,248,.7);line-height:1.65;margin-bottom:16px;font-style:italic}
+.test-author{display:flex;align-items:center;gap:10px}
+.test-av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.test-name{font-size:12.5px;font-weight:700;color:rgba(240,240,248,.8)}
+.test-role{font-size:11px;color:rgba(240,240,248,.35)}
+/* CTA */
+.cta{position:relative;z-index:1;text-align:center;padding:80px 20px;border-top:1px solid rgba(255,255,255,.05)}
+.cta h2{font-size:clamp(30px,5vw,52px);font-weight:900;letter-spacing:-1.5px;margin-bottom:16px}
+.cta p{color:rgba(240,240,248,.45);font-size:16px;margin-bottom:36px;max-width:400px;margin-left:auto;margin-right:auto}
+footer{text-align:center;padding:28px;color:rgba(240,240,248,.2);font-size:12px;border-top:1px solid rgba(255,255,255,.04)}
+</style>
+
+<div class="glow-t"></div>
+<div class="glow-bl"></div>
+
+<nav>
+  <div class="nav-logo"><div class="nl-icon">🚀</div>Orbit</div>
+  <div class="nav-links"><span>Features</span><span>Pricing</span><span>Blog</span></div>
+  <button class="nav-cta">Join waitlist →</button>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">🎉 2,847 teams on waitlist — Launching Q3 2025</div>
+  <h1>Your entire workflow,<br/><em>one place.</em></h1>
+  <p>Orbit connects your tools, automates your busywork, and gives your team back 10 hours every week.</p>
+  <div class="wl-form">
+    <input class="wl-input" type="email" placeholder="Enter your work email"/>
+    <button class="wl-btn">Get early access →</button>
   </div>
-  <!-- Feature Grid -->
-  <div class="relative z-10 max-w-5xl mx-auto px-8 pb-20 grid grid-cols-1 md:grid-cols-3 gap-4">
-    <div class="bg-white/3 border border-white/8 rounded-2xl p-6 hover:border-indigo-500/30 transition">
-      <div class="text-3xl mb-3">⚡</div>
-      <h3 class="font-bold text-white mb-2">Instant automation</h3>
-      <p class="text-slate-500 text-sm leading-relaxed">Connect any tool and automate repetitive tasks with no-code workflows in minutes.</p>
+  <div class="wl-note">Join 2,847 early adopters · No credit card · First month free</div>
+  <div class="sp-bar">
+    <div class="sp-item"><div class="sp-val">2,847<span>+</span></div><div class="sp-label">Waitlist</div></div>
+    <div class="sp-div"></div>
+    <div class="sp-item"><div class="sp-val">10<span>h</span></div><div class="sp-label">Saved / week</div></div>
+    <div class="sp-div"></div>
+    <div class="sp-item"><div class="sp-val">4.9<span>★</span></div><div class="sp-label">Beta rating</div></div>
+    <div class="sp-div"></div>
+    <div class="sp-item"><div class="sp-val">62<span>+</span></div><div class="sp-label">Integrations</div></div>
+  </div>
+</div>
+
+<div class="preview-wrap">
+  <div class="preview-chrome">
+    <div class="chrome-bar">
+      <div class="cb-dot" style="background:#ff5f57"></div>
+      <div class="cb-dot" style="background:#ffbd2e"></div>
+      <div class="cb-dot" style="background:#28ca41"></div>
     </div>
-    <div class="bg-white/3 border border-white/8 rounded-2xl p-6 hover:border-indigo-500/30 transition">
-      <div class="text-3xl mb-3">🤝</div>
-      <h3 class="font-bold text-white mb-2">Team sync</h3>
-      <p class="text-slate-500 text-sm leading-relaxed">Real-time collaboration with shared workspaces, comments, and role-based access.</p>
-    </div>
-    <div class="bg-white/3 border border-white/8 rounded-2xl p-6 hover:border-indigo-500/30 transition">
-      <div class="text-3xl mb-3">📊</div>
-      <h3 class="font-bold text-white mb-2">Smart analytics</h3>
-      <p class="text-slate-500 text-sm leading-relaxed">See exactly where time is lost and get AI-powered suggestions to fix it.</p>
+    <div class="chrome-content">
+      <div class="mock-dash">
+        <div class="mock-kpi"><div class="mock-label">Automations</div><div class="mock-val" style="color:#818cf8">247</div></div>
+        <div class="mock-kpi"><div class="mock-label">Hours saved</div><div class="mock-val" style="color:#34d399">10.4h</div></div>
+        <div class="mock-kpi"><div class="mock-label">Active users</div><div class="mock-val">1,847</div></div>
+        <div class="mock-chart">
+          <div class="mock-label">Automation runs · last 7 days</div>
+          <div class="mock-bars">
+            <div class="mb" style="height:55%"></div>
+            <div class="mb" style="height:72%"></div>
+            <div class="mb" style="height:60%"></div>
+            <div class="mb" style="height:85%"></div>
+            <div class="mb" style="height:70%"></div>
+            <div class="mb" style="height:92%"></div>
+            <div class="mb hi" style="height:100%"></div>
+          </div>
+        </div>
+        <div class="mock-activity">
+          <div class="mock-label">Recent activity</div>
+          <div class="act-row"><div class="act-dot" style="background:#34d399"></div>Slack → Notion sync</div>
+          <div class="act-row"><div class="act-dot" style="background:#818cf8"></div>Email sequence sent</div>
+          <div class="act-row"><div class="act-dot" style="background:#fbbf24"></div>Report generated</div>
+          <div class="act-row"><div class="act-dot" style="background:#34d399"></div>New lead captured</div>
+        </div>
+      </div>
     </div>
   </div>
-</div>`,
+</div>
+
+<div class="features">
+  <div class="section-label">Why Orbit</div>
+  <h2 class="section-h2">Everything your team needs</h2>
+  <p class="section-p">Powerful workflows, smart integrations, and AI-powered automation — all in one place.</p>
+  <div class="feat-grid">
+    <div class="feat-card"><div class="feat-icon fi-1">⚡</div><div class="feat-h">Instant automation</div><div class="feat-p">Build no-code workflows in minutes. Connect any tool and automate repetitive tasks without engineering help.</div></div>
+    <div class="feat-card"><div class="feat-icon fi-2">🤝</div><div class="feat-h">Team sync</div><div class="feat-p">Real-time collaboration with shared workspaces, threaded comments, and granular role-based access control.</div></div>
+    <div class="feat-card"><div class="feat-icon fi-3">🧠</div><div class="feat-h">AI suggestions</div><div class="feat-p">Orbit learns your patterns and proactively suggests automations — saving time you didn't know you were wasting.</div></div>
+    <div class="feat-card"><div class="feat-icon fi-4">📊</div><div class="feat-h">Smart analytics</div><div class="feat-p">See exactly where time is lost with workflow-level analytics, bottleneck detection, and ROI dashboards.</div></div>
+    <div class="feat-card"><div class="feat-icon fi-5">🔗</div><div class="feat-h">62+ integrations</div><div class="feat-p">Slack, Notion, Jira, Linear, HubSpot, Airtable, GitHub, Zapier, Salesforce — and growing every week.</div></div>
+    <div class="feat-card"><div class="feat-icon fi-6">🔒</div><div class="feat-h">Enterprise-grade security</div><div class="feat-p">SOC 2 Type II certified, GDPR compliant, SSO/SAML, end-to-end encryption, and 99.99% SLA uptime guarantee.</div></div>
+  </div>
+</div>
+
+<div class="testimonials">
+  <div class="test-grid">
+    <div class="test-card">
+      <div class="test-stars">★★★★★</div>
+      <div class="test-q">"Orbit replaced 4 separate tools for us. Onboarding took one afternoon and the team was fully automated within a week."</div>
+      <div class="test-author"><div class="test-av" style="background:rgba(99,102,241,.2);color:#818cf8">S</div><div><div class="test-name">Sara Bianchi</div><div class="test-role">Head of Ops, PixelForge</div></div></div>
+    </div>
+    <div class="test-card">
+      <div class="test-stars">★★★★★</div>
+      <div class="test-q">"We save 12 hours a week per person. The AI suggestions alone paid back the subscription in the first month."</div>
+      <div class="test-author"><div class="test-av" style="background:rgba(139,92,246,.2);color:#c084fc">M</div><div><div class="test-name">Marco Esposito</div><div class="test-role">CTO, LaunchBase</div></div></div>
+    </div>
+    <div class="test-card">
+      <div class="test-stars">★★★★★</div>
+      <div class="test-q">"Finally a tool that actually works the way we think. The integrations are rock-solid and support is incredibly fast."</div>
+      <div class="test-author"><div class="test-av" style="background:rgba(236,72,153,.2);color:#f472b6">L</div><div><div class="test-name">Laura Chen</div><div class="test-role">PM, DevStudio</div></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <h2>Ready to save 10h/week?</h2>
+  <p>Join 2,847 teams on the waitlist. First month free for early adopters.</p>
+  <div class="wl-form" style="justify-content:center">
+    <input class="wl-input" type="email" placeholder="your@company.com"/>
+    <button class="wl-btn">Join waitlist →</button>
+  </div>
+</div>
+
+<footer>© 2025 Orbit Inc. · Privacy · Terms · Status</footer>`,
   },
 
   // ── CRM / E-commerce / AI Interface Templates ───────────────────────────
@@ -1635,58 +1943,236 @@ body { background: #0c0a08; color: #f0ead8; font-family: Georgia, serif; margin:
     stripePriceId: "price_1TBz25BoWNgrJbiy9Lsn21ma",
     tags: ["app", "mobile", "ios", "showcase", "download"],
     downloads: 412,
-    content: `<div class="min-h-screen bg-gradient-to-b from-[#0a0a1a] via-[#0d0d20] to-[#060610] font-sans text-white">
-  <!-- App Header -->
-  <div class="max-w-3xl mx-auto px-6 pt-12 pb-8">
-    <div class="flex items-start gap-5">
-      <div class="w-20 h-20 rounded-[22px] bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-4xl shadow-[0_8px_32px_rgba(139,92,246,0.4)] shrink-0">🎯</div>
-      <div class="flex-1">
-        <h1 class="text-2xl font-bold">FocusFlow</h1>
-        <p class="text-white/50 text-sm mt-0.5">Productivity & Focus Timer</p>
-        <div class="flex items-center gap-3 mt-2">
-          <div class="flex items-center gap-1"><span class="text-yellow-400 text-sm">★★★★★</span><span class="text-white/40 text-xs ml-1">4.9</span></div>
-          <span class="text-white/20">·</span>
-          <span class="text-white/40 text-xs">12.4K ratings</span>
-          <span class="text-white/20">·</span>
-          <span class="text-white/40 text-xs">Gratis</span>
+    content: `<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#08080f;color:#f0f0f8;overflow-x:hidden}
+/* Ambient */
+.amb{position:fixed;top:-150px;right:-150px;width:600px;height:600px;background:radial-gradient(circle,rgba(124,58,237,.1),transparent 70%);pointer-events:none;z-index:0}
+.amb2{position:fixed;bottom:-100px;left:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(59,130,246,.06),transparent 70%);pointer-events:none;z-index:0}
+/* Nav */
+nav{position:relative;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:20px 40px;max-width:1100px;margin:0 auto}
+.nav-logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:17px;letter-spacing:-.3px}
+.nl-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#7c3aed,#3b82f6);display:flex;align-items:center;justify-content:center;font-size:18px}
+.nav-badge{background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.25);color:#a78bfa;padding:4px 12px;border-radius:8px;font-size:11px;font-weight:700;letter-spacing:.06em}
+.dl-badge{background:linear-gradient(135deg,#7c3aed,#3b82f6);color:#fff;padding:9px 20px;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;border:0;transition:.2s;box-shadow:0 4px 20px rgba(124,58,237,.3)}
+.dl-badge:hover{opacity:.9}
+/* Hero */
+.hero{position:relative;z-index:1;display:grid;grid-template-columns:1fr 400px;gap:60px;align-items:center;max-width:1100px;margin:0 auto;padding:60px 40px 80px}
+.hero-left{}
+.app-icon{width:72px;height:72px;border-radius:18px;background:linear-gradient(135deg,#7c3aed,#3b82f6);display:flex;align-items:center;justify-content:center;font-size:36px;margin-bottom:20px;box-shadow:0 12px 40px rgba(124,58,237,.4)}
+.app-rating{display:flex;align-items:center;gap:8px;margin-bottom:20px}
+.stars{color:#fbbf24;font-size:15px;letter-spacing:1px}
+.rating-val{font-weight:800;font-size:14px}
+.rating-count{font-size:12px;color:rgba(240,240,248,.35)}
+.hero h1{font-size:clamp(34px,4.5vw,54px);font-weight:900;letter-spacing:-1.8px;line-height:1.08;margin-bottom:14px}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,#a78bfa,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:rgba(240,240,248,.5);font-size:16px;line-height:1.7;margin-bottom:28px;max-width:420px}
+.dl-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px}
+.dl-btn{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:12px 20px;border-radius:12px;cursor:pointer;transition:.2s}
+.dl-btn:hover{background:rgba(255,255,255,.1);border-color:rgba(124,58,237,.4)}
+.dl-btn-icon{font-size:22px}
+.dl-btn-text .line1{font-size:10px;color:rgba(240,240,248,.4);text-transform:uppercase;letter-spacing:.06em}
+.dl-btn-text .line2{font-size:14px;font-weight:800;letter-spacing:-.2px}
+/* Stats */
+.stats{display:flex;gap:28px;flex-wrap:wrap}
+.stat-item{text-align:left}
+.stat-val{font-size:24px;font-weight:900;letter-spacing:-1px}
+.stat-label{font-size:11px;color:rgba(240,240,248,.35);text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+/* Phone mockup */
+.phone-area{position:relative;display:flex;align-items:center;justify-content:center}
+.phone{width:240px;background:#111120;border-radius:36px;border:2px solid rgba(255,255,255,.1);box-shadow:0 40px 80px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.04),inset 0 0 0 1px rgba(255,255,255,.04);overflow:hidden;position:relative;margin:0 auto}
+.phone-notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:90px;height:24px;background:#111120;border-radius:0 0 16px 16px;z-index:10}
+.phone-screen{background:linear-gradient(160deg,#1a0a40,#0a1a40);padding:32px 16px 20px;min-height:480px}
+.app-status{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;font-size:10px;color:rgba(240,240,248,.5)}
+.timer-circle{width:120px;height:120px;border-radius:50%;border:4px solid rgba(124,58,237,.3);display:flex;align-items:center;justify-content:center;flex-direction:column;margin:0 auto 20px;position:relative;background:rgba(124,58,237,.06)}
+.timer-inner{text-align:center}
+.timer-time{font-size:28px;font-weight:900;letter-spacing:-1px;color:#a78bfa}
+.timer-label{font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:rgba(240,240,248,.35);margin-top:2px}
+.timer-ring{position:absolute;inset:-4px;border-radius:50%;background:conic-gradient(#7c3aed 65%,transparent 0%);mask:radial-gradient(circle at center, transparent 47px, black 48px)}
+.mode-pills{display:flex;gap:6px;justify-content:center;margin-bottom:16px}
+.mpill{padding:5px 12px;border-radius:8px;font-size:10px;font-weight:700;cursor:pointer}
+.mpill.active{background:rgba(124,58,237,.25);color:#a78bfa}
+.mpill.inactive{color:rgba(240,240,248,.3)}
+.prog-bars{display:flex;flex-direction:column;gap:8px}
+.prog-row{display:flex;align-items:center;gap:8px;font-size:10px;color:rgba(240,240,248,.5)}
+.prog-track{flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;border-radius:3px}
+/* Screenshots row */
+.screenshots{position:relative;z-index:1;max-width:1100px;margin:0 auto 80px;padding:0 40px}
+.screenshots h2{font-size:20px;font-weight:800;letter-spacing:-.5px;color:rgba(240,240,248,.6);margin-bottom:24px;text-transform:uppercase;letter-spacing:.08em;font-size:11px}
+.screens-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.screen-card{background:#14141e;border:1px solid rgba(255,255,255,.06);border-radius:16px;overflow:hidden}
+.screen-img{height:120px;display:flex;align-items:center;justify-content:center;font-size:36px;flex-direction:column;gap:6px}
+.screen-label{padding:12px;font-size:12px;font-weight:700;color:rgba(240,240,248,.7);border-top:1px solid rgba(255,255,255,.04)}
+.screen-sub{padding:0 12px 12px;font-size:11px;color:rgba(240,240,248,.35)}
+/* Features */
+.features{position:relative;z-index:1;max-width:1100px;margin:0 auto 80px;padding:0 40px}
+.features h2{font-size:clamp(26px,4vw,38px);font-weight:900;letter-spacing:-1px;margin-bottom:8px}
+.features p{color:rgba(240,240,248,.45);font-size:15px;margin-bottom:36px}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.feat-item{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05);border-radius:14px;padding:24px;transition:.2s}
+.feat-item:hover{background:rgba(124,58,237,.06);border-color:rgba(124,58,237,.2)}
+.feat-ico{font-size:24px;margin-bottom:14px}
+.feat-h{font-size:14px;font-weight:800;margin-bottom:6px}
+.feat-p{font-size:12.5px;color:rgba(240,240,248,.45);line-height:1.6}
+/* Reviews */
+.reviews{position:relative;z-index:1;max-width:1100px;margin:0 auto 80px;padding:0 40px}
+.rev-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.rev-header h2{font-size:22px;font-weight:800;letter-spacing:-.5px}
+.rev-overall{text-align:right}
+.rev-num{font-size:42px;font-weight:900;letter-spacing:-2px}
+.rev-stars{color:#fbbf24;font-size:16px}
+.rev-count{font-size:12px;color:rgba(240,240,248,.35)}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.rev-card{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05);border-radius:14px;padding:20px}
+.rc-stars{color:#fbbf24;font-size:12px;margin-bottom:10px}
+.rc-q{font-size:13px;color:rgba(240,240,248,.65);line-height:1.6;margin-bottom:14px}
+.rc-author{display:flex;align-items:center;gap:8px}
+.rc-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.rc-name{font-size:12px;font-weight:700}
+.rc-date{font-size:11px;color:rgba(240,240,248,.3)}
+/* CTA */
+.cta{position:relative;z-index:1;text-align:center;padding:64px 20px;border-top:1px solid rgba(255,255,255,.05);max-width:600px;margin:0 auto}
+.cta h2{font-size:36px;font-weight:900;letter-spacing:-1.2px;margin-bottom:12px}
+.cta p{color:rgba(240,240,248,.45);font-size:15px;margin-bottom:28px}
+footer{text-align:center;padding:24px;color:rgba(240,240,248,.2);font-size:12px;border-top:1px solid rgba(255,255,255,.04)}
+</style>
+
+<div class="amb"></div><div class="amb2"></div>
+
+<nav>
+  <div class="nav-logo"><div class="nl-icon">🎯</div>FocusFlow</div>
+  <div class="nav-badge">FREE APP</div>
+  <button class="dl-badge">Download now →</button>
+</nav>
+
+<div class="hero">
+  <div class="hero-left">
+    <div class="app-icon">🎯</div>
+    <div class="app-rating">
+      <span class="stars">★★★★★</span>
+      <span class="rating-val">4.9</span>
+      <span class="rating-count">· 12,400 ratings</span>
+    </div>
+    <h1>Focus deeper.<br/>Achieve <em>more.</em></h1>
+    <p>The Pomodoro-powered focus app that tracks your productivity, blocks distractions, and helps you build lasting deep work habits.</p>
+    <div class="dl-btns">
+      <div class="dl-btn">
+        <div class="dl-btn-icon">🍎</div>
+        <div class="dl-btn-text">
+          <div class="line1">Download on the</div>
+          <div class="line2">App Store</div>
         </div>
       </div>
-      <button class="bg-[#0A84FF] hover:bg-[#409CFF] text-white font-bold px-5 py-2.5 rounded-xl text-sm transition shrink-0">Scarica</button>
+      <div class="dl-btn">
+        <div class="dl-btn-icon">▶</div>
+        <div class="dl-btn-text">
+          <div class="line1">Get it on</div>
+          <div class="line2">Google Play</div>
+        </div>
+      </div>
     </div>
-    <!-- Stats Bar -->
-    <div class="grid grid-cols-3 gap-4 mt-8 border-t border-white/5 pt-8">
-      <div class="text-center"><div class="text-2xl font-black text-white">#1</div><div class="text-white/40 text-xs mt-1">Produttività</div></div>
-      <div class="text-center border-x border-white/5"><div class="text-2xl font-black text-white">500K+</div><div class="text-white/40 text-xs mt-1">Download</div></div>
-      <div class="text-center"><div class="text-2xl font-black text-white">4.9</div><div class="text-white/40 text-xs mt-1">Valutazione</div></div>
-    </div>
-  </div>
-  <!-- Screenshots -->
-  <div class="px-6 py-4 max-w-3xl mx-auto">
-    <div class="flex gap-4 overflow-x-auto pb-4" style="scrollbar-width:none">
-      <div class="shrink-0 w-36 h-64 rounded-2xl bg-gradient-to-b from-violet-900/80 to-indigo-900/80 border border-white/10 overflow-hidden relative">
-        <div class="absolute top-0 inset-x-0 h-1.5 bg-white/5 rounded-t-2xl"></div>
-        <div class="p-4 text-center mt-4"><div class="text-4xl mb-2">⏱️</div><div class="text-xs font-bold text-white">Focus Mode</div><div class="text-[10px] text-white/40 mt-1">25:00</div><div class="mt-4 w-16 h-16 rounded-full border-4 border-violet-400 flex items-center justify-center text-violet-300 text-2xl mx-auto">▶</div></div>
-      </div>
-      <div class="shrink-0 w-36 h-64 rounded-2xl bg-gradient-to-b from-emerald-900/80 to-teal-900/80 border border-white/10 overflow-hidden relative">
-        <div class="p-4 text-center mt-4"><div class="text-4xl mb-2">📊</div><div class="text-xs font-bold text-white">Stats</div><div class="mt-3 space-y-2"><div class="h-2 bg-emerald-500/30 rounded-full"><div class="h-full bg-emerald-400 rounded-full" style="width:78%"></div></div><div class="h-2 bg-emerald-500/30 rounded-full"><div class="h-full bg-teal-400 rounded-full" style="width:55%"></div></div><div class="h-2 bg-emerald-500/30 rounded-full"><div class="h-full bg-emerald-300 rounded-full" style="width:90%"></div></div></div></div>
-      </div>
-      <div class="shrink-0 w-36 h-64 rounded-2xl bg-gradient-to-b from-amber-900/80 to-orange-900/80 border border-white/10 overflow-hidden relative">
-        <div class="p-4 text-center mt-4"><div class="text-4xl mb-2">🏆</div><div class="text-xs font-bold text-white">Streak</div><div class="text-[10px] text-white/40 mt-1">14 giorni 🔥</div><div class="grid grid-cols-7 gap-1 mt-3">${Array(21).fill(0).map((_, i) => `<div class="h-4 rounded-sm ${i < 14 ? 'bg-amber-400' : 'bg-amber-900/50'}"></div>`).join('')}</div></div>
-      </div>
-      <div class="shrink-0 w-36 h-64 rounded-2xl bg-gradient-to-b from-pink-900/80 to-rose-900/80 border border-white/10 overflow-hidden relative">
-        <div class="p-4 text-center mt-4"><div class="text-4xl mb-2">🎵</div><div class="text-xs font-bold text-white">Focus Music</div><div class="mt-3 space-y-2 text-left"><div class="bg-pink-900/50 rounded-lg p-2 text-[10px] text-pink-200">Lo-fi Beats ▶</div><div class="bg-pink-900/50 rounded-lg p-2 text-[10px] text-pink-200">Nature Sounds</div><div class="bg-pink-900/50 rounded-lg p-2 text-[10px] text-pink-200">White Noise</div></div></div>
-      </div>
+    <div class="stats">
+      <div class="stat-item"><div class="stat-val">#1</div><div class="stat-label">Productivity</div></div>
+      <div class="stat-item"><div class="stat-val">500K+</div><div class="stat-label">Downloads</div></div>
+      <div class="stat-item"><div class="stat-val">4.9★</div><div class="stat-label">Rating</div></div>
+      <div class="stat-item"><div class="stat-val">Free</div><div class="stat-label">To start</div></div>
     </div>
   </div>
-  <!-- Features -->
-  <div class="max-w-3xl mx-auto px-6 py-6">
-    <h2 class="text-white/60 text-xs font-bold uppercase tracking-widest mb-4">Funzionalità</h2>
-    <div class="grid grid-cols-1 gap-3">
-      <div class="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-4 flex items-center gap-4"><div class="w-10 h-10 rounded-xl bg-violet-500/20 flex items-center justify-center text-xl shrink-0">🍅</div><div><p class="font-semibold text-sm">Tecnica Pomodoro</p><p class="text-white/40 text-xs mt-0.5">Sessioni da 25 minuti con pause guidate</p></div></div>
-      <div class="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-4 flex items-center gap-4"><div class="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center text-xl shrink-0">📈</div><div><p class="font-semibold text-sm">Analisi produttività</p><p class="text-white/40 text-xs mt-0.5">Grafici settimanali e trend mensili</p></div></div>
+  <div class="phone-area">
+    <div class="phone">
+      <div class="phone-notch"></div>
+      <div class="phone-screen">
+        <div class="app-status"><span>9:41</span><span>●●●</span></div>
+        <div style="text-align:center;margin-bottom:12px;font-size:11px;color:rgba(240,240,248,.4);text-transform:uppercase;letter-spacing:.1em;font-weight:700">Focus Session</div>
+        <div class="timer-circle">
+          <div class="timer-ring"></div>
+          <div class="timer-inner">
+            <div class="timer-time">16:42</div>
+            <div class="timer-label">remaining</div>
+          </div>
+        </div>
+        <div class="mode-pills">
+          <div class="mpill active">Focus</div>
+          <div class="mpill inactive">Break</div>
+          <div class="mpill inactive">Long</div>
+        </div>
+        <div style="font-size:10px;color:rgba(240,240,248,.3);text-align:center;margin-bottom:12px">Session 2 of 4 · Today's streak: 🔥14</div>
+        <div class="prog-bars">
+          <div class="prog-row"><span style="width:52px">Deep Work</span><div class="prog-track"><div class="prog-fill" style="width:78%;background:linear-gradient(to right,#7c3aed,#a78bfa)"></div></div><span>78%</span></div>
+          <div class="prog-row"><span style="width:52px">Email</span><div class="prog-track"><div class="prog-fill" style="width:35%;background:rgba(248,113,113,.6)"></div></div><span>35%</span></div>
+          <div class="prog-row"><span style="width:52px">Planning</span><div class="prog-track"><div class="prog-fill" style="width:55%;background:rgba(52,211,153,.6)"></div></div><span>55%</span></div>
+        </div>
+      </div>
     </div>
   </div>
-</div>`,
+</div>
+
+<div class="screenshots">
+  <h2>App screenshots</h2>
+  <div class="screens-row">
+    <div class="screen-card">
+      <div class="screen-img" style="background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(59,130,246,.15))">⏱️<span style="font-size:12px;color:rgba(240,240,248,.5)">Timer</span></div>
+      <div class="screen-label">Focus Timer</div>
+      <div class="screen-sub">Pomodoro sessions</div>
+    </div>
+    <div class="screen-card">
+      <div class="screen-img" style="background:linear-gradient(135deg,rgba(16,185,129,.15),rgba(5,150,105,.15))">📊<span style="font-size:12px;color:rgba(240,240,248,.5)">Stats</span></div>
+      <div class="screen-label">Analytics</div>
+      <div class="screen-sub">Weekly progress</div>
+    </div>
+    <div class="screen-card">
+      <div class="screen-img" style="background:linear-gradient(135deg,rgba(245,158,11,.15),rgba(239,68,68,.15))">🏆<span style="font-size:12px;color:rgba(240,240,248,.5)">Streak</span></div>
+      <div class="screen-label">Habit Streaks</div>
+      <div class="screen-sub">Build consistency</div>
+    </div>
+    <div class="screen-card">
+      <div class="screen-img" style="background:linear-gradient(135deg,rgba(236,72,153,.15),rgba(124,58,237,.15))">🎵<span style="font-size:12px;color:rgba(240,240,248,.5)">Music</span></div>
+      <div class="screen-label">Focus Sounds</div>
+      <div class="screen-sub">Lo-fi & white noise</div>
+    </div>
+  </div>
+</div>
+
+<div class="features">
+  <h2>Built for serious focus</h2>
+  <p>Every feature is designed to help you enter flow state faster and stay there longer.</p>
+  <div class="feat-grid">
+    <div class="feat-item"><div class="feat-ico">🍅</div><div class="feat-h">Pomodoro technique</div><div class="feat-p">Research-backed 25-minute focus sessions with guided breaks to prevent burnout and maintain peak performance.</div></div>
+    <div class="feat-item"><div class="feat-ico">📈</div><div class="feat-h">Productivity analytics</div><div class="feat-p">See exactly where your focus goes. Daily, weekly, and monthly reports with task-level breakdown.</div></div>
+    <div class="feat-item"><div class="feat-ico">🔇</div><div class="feat-h">Distraction blocking</div><div class="feat-p">Block websites and apps during focus sessions. Works across iOS and Android with no extra setup.</div></div>
+    <div class="feat-item"><div class="feat-ico">🏆</div><div class="feat-h">Habit streaks</div><div class="feat-p">Build momentum with daily streak tracking. Visual calendar shows your consistency over time.</div></div>
+    <div class="feat-item"><div class="feat-ico">🎵</div><div class="feat-h">Focus soundscapes</div><div class="feat-p">20+ curated lo-fi playlists, white noise, and nature sounds. Proven to improve concentration by 15%.</div></div>
+    <div class="feat-item"><div class="feat-ico">☁️</div><div class="feat-h">iCloud sync</div><div class="feat-p">Your focus history, tasks, and settings sync seamlessly across all your Apple and Android devices.</div></div>
+  </div>
+</div>
+
+<div class="reviews">
+  <div class="rev-header">
+    <h2>What users say</h2>
+    <div class="rev-overall">
+      <div class="rev-num">4.9</div>
+      <div class="rev-stars">★★★★★</div>
+      <div class="rev-count">12,400 ratings</div>
+    </div>
+  </div>
+  <div class="rev-grid">
+    <div class="rev-card"><div class="rc-stars">★★★★★</div><div class="rc-q">"Best focus app I've ever used. Replaced 3 separate apps. The streak tracking keeps me incredibly motivated."</div><div class="rc-author"><div class="rc-av" style="background:rgba(124,58,237,.2);color:#a78bfa">A</div><div><div class="rc-name">Alex T.</div><div class="rc-date">April 2025</div></div></div></div>
+    <div class="rev-card"><div class="rc-stars">★★★★★</div><div class="rc-q">"I went from 2h of real work per day to 6h. The distraction blocking feature is a game-changer for remote work."</div><div class="rc-author"><div class="rc-av" style="background:rgba(59,130,246,.2);color:#60a5fa">M</div><div><div class="rc-name">Maria K.</div><div class="rc-date">March 2025</div></div></div></div>
+    <div class="rev-card"><div class="rc-stars">★★★★★</div><div class="rc-q">"Clean UI, zero bloat, works perfectly. The weekly analytics helped me understand I was wasting 3h/day on email."</div><div class="rc-author"><div class="rc-av" style="background:rgba(16,185,129,.2);color:#34d399">D</div><div><div class="rc-name">David R.</div><div class="rc-date">April 2025</div></div></div></div>
+  </div>
+</div>
+
+<div class="cta">
+  <h2>Start focusing today</h2>
+  <p>Free to download. No subscription required to get started. Join 500K+ focused creators.</p>
+  <div class="dl-btns" style="justify-content:center">
+    <div class="dl-btn"><div class="dl-btn-icon">🍎</div><div class="dl-btn-text"><div class="line1">Download on the</div><div class="line2">App Store</div></div></div>
+    <div class="dl-btn"><div class="dl-btn-icon">▶</div><div class="dl-btn-text"><div class="line1">Get it on</div><div class="line2">Google Play</div></div></div>
+  </div>
+</div>
+
+<footer>© 2025 FocusFlow · Privacy Policy · Terms of Service · Support</footer>`,
   },
   {
     id: "feature-showcase",
@@ -1764,51 +2250,259 @@ body { background: #0c0a08; color: #f0ead8; font-family: Georgia, serif; margin:
     stripePriceId: "price_1TBz26BoWNgrJbiyAaT2x1l1",
     tags: ["dashboard", "analytics", "saas", "dark", "minimal"],
     downloads: 672,
-    content: `<div class="min-h-screen bg-[#0e0e12] text-white font-sans flex">
-  <!-- Sidebar -->
-  <div class="hidden md:flex flex-col w-16 bg-[#16161c] border-r border-white/[0.06] items-center py-5 gap-5 shrink-0">
-    <div class="w-8 h-8 rounded-lg bg-[#0A84FF] flex items-center justify-center text-sm font-black">N</div>
-    <div class="flex-1 flex flex-col gap-3 mt-4">
-      <div class="w-9 h-9 rounded-xl bg-[#0A84FF]/15 flex items-center justify-center text-base cursor-pointer">📊</div>
-      <div class="w-9 h-9 rounded-xl hover:bg-white/5 flex items-center justify-center text-base cursor-pointer opacity-50">👤</div>
-      <div class="w-9 h-9 rounded-xl hover:bg-white/5 flex items-center justify-center text-base cursor-pointer opacity-50">💬</div>
-      <div class="w-9 h-9 rounded-xl hover:bg-white/5 flex items-center justify-center text-base cursor-pointer opacity-50">⚙️</div>
+    content: `<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0c0c10;color:#e8e8f0;min-height:100vh;display:flex;overflow:hidden}
+/* Sidebar */
+.sidebar{width:220px;background:#111118;border-right:1px solid rgba(255,255,255,.05);display:flex;flex-direction:column;height:100vh;flex-shrink:0}
+.sidebar-logo{display:flex;align-items:center;gap:10px;padding:22px 18px;border-bottom:1px solid rgba(255,255,255,.04)}
+.logo-mark{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff}
+.logo-name{font-weight:800;font-size:15px;letter-spacing:-.3px}
+.sidebar-section{padding:20px 12px 8px;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(232,232,240,.25);font-weight:700}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;margin:2px 0;cursor:pointer;transition:.15s;font-size:13.5px;color:rgba(232,232,240,.55)}
+.nav-item:hover{background:rgba(255,255,255,.04);color:rgba(232,232,240,.8)}
+.nav-item.active{background:rgba(99,102,241,.12);color:#818cf8;font-weight:600}
+.nav-item .ni{font-size:16px;width:20px;text-align:center}
+.sidebar-bottom{margin-top:auto;padding:16px 12px;border-top:1px solid rgba(255,255,255,.04)}
+.user-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;cursor:pointer}
+.user-row:hover{background:rgba(255,255,255,.04)}
+.avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.user-info .name{font-size:12.5px;font-weight:600;color:rgba(232,232,240,.85)}
+.user-info .role{font-size:11px;color:rgba(232,232,240,.35)}
+/* Main */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.topbar{height:52px;border-bottom:1px solid rgba(255,255,255,.04);display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex-shrink:0}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px}
+.bc-inactive{color:rgba(232,232,240,.3)}
+.bc-sep{color:rgba(232,232,240,.2);font-size:11px}
+.bc-active{color:rgba(232,232,240,.85);font-weight:600}
+.topbar-right{display:flex;align-items:center;gap:12px}
+.date-range{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:6px 12px;font-size:12px;color:rgba(232,232,240,.5);display:flex;align-items:center;gap:6px}
+.notif-btn{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;position:relative}
+.notif-dot{position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:#ef4444;border:1px solid #0c0c10}
+/* Content */
+.content{flex:1;overflow-y:auto;padding:24px}
+.page-title{font-size:20px;font-weight:800;letter-spacing:-.4px;margin-bottom:4px}
+.page-sub{font-size:13px;color:rgba(232,232,240,.4);margin-bottom:24px}
+/* KPI row */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.kpi-card{background:#14141c;border:1px solid rgba(255,255,255,.05);border-radius:14px;padding:18px 20px}
+.kpi-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:rgba(232,232,240,.35);font-weight:600;margin-bottom:10px}
+.kpi-val{font-size:28px;font-weight:900;letter-spacing:-1px;line-height:1;margin-bottom:6px}
+.kpi-change{font-size:12px;display:flex;align-items:center;gap:5px}
+.up{color:#34d399}.down{color:#f87171}.flat{color:rgba(232,232,240,.3)}
+/* Charts row */
+.charts-grid{display:grid;grid-template-columns:1.7fr 1fr;gap:14px;margin-bottom:24px}
+.chart-card{background:#14141c;border:1px solid rgba(255,255,255,.05);border-radius:14px;padding:20px}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.card-title{font-size:13.5px;font-weight:700}
+.card-meta{font-size:11px;color:rgba(232,232,240,.35)}
+/* Bar chart */
+.bar-chart{display:flex;align-items:flex-end;gap:8px;height:110px}
+.bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px}
+.bar{border-radius:5px 5px 0 0;transition:.3s;min-height:4px}
+.bar-label{font-size:10px;color:rgba(232,232,240,.3)}
+/* Donut */
+.donut-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;height:110px;gap:16px}
+.donut{position:relative;width:88px;height:88px}
+.donut svg{transform:rotate(-90deg)}
+.donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.donut-pct{font-size:18px;font-weight:900;letter-spacing:-1px}
+.donut-sub{font-size:9px;color:rgba(232,232,240,.35);text-transform:uppercase;letter-spacing:.06em}
+.donut-legend{display:flex;flex-direction:column;gap:6px;width:100%}
+.leg-row{display:flex;align-items:center;justify-content:space-between;font-size:11px}
+.leg-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.leg-name{color:rgba(232,232,240,.5);flex:1;margin-left:6px}
+.leg-pct{color:rgba(232,232,240,.75);font-weight:600}
+/* Bottom row */
+.bottom-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:14px}
+/* Table */
+.table-card{background:#14141c;border:1px solid rgba(255,255,255,.05);border-radius:14px;padding:20px}
+.data-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.data-table th{text-align:left;padding:8px 10px;color:rgba(232,232,240,.3);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.04)}
+.data-table td{padding:10px 10px;border-bottom:1px solid rgba(255,255,255,.03);color:rgba(232,232,240,.75)}
+.data-table tr:last-child td{border:none}
+.status-pill{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:6px;font-size:11px;font-weight:600}
+.s-active{background:rgba(52,211,153,.1);color:#34d399}
+.s-trial{background:rgba(99,102,241,.1);color:#818cf8}
+.s-churned{background:rgba(248,113,113,.1);color:#f87171}
+/* Feed */
+.feed-card{background:#14141c;border:1px solid rgba(255,255,255,.05);border-radius:14px;padding:20px}
+.feed-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.03)}
+.feed-item:last-child{border:none;padding-bottom:0}
+.feed-icon{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.fi-green{background:rgba(52,211,153,.12)}
+.fi-blue{background:rgba(99,102,241,.12)}
+.fi-amber{background:rgba(245,158,11,.12)}
+.fi-red{background:rgba(248,113,113,.12)}
+.feed-body .title{font-size:12.5px;font-weight:600;color:rgba(232,232,240,.85);margin-bottom:3px}
+.feed-body .sub{font-size:11px;color:rgba(232,232,240,.35)}
+.feed-time{font-size:10.5px;color:rgba(232,232,240,.25);margin-left:auto;flex-shrink:0;padding-top:2px}
+</style>
+
+<div class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">N</div>
+    <div class="logo-name">Nexus</div>
+  </div>
+  <div class="sidebar-section">Overview</div>
+  <div class="nav-item active"><span class="ni">📊</span>Dashboard</div>
+  <div class="nav-item"><span class="ni">📈</span>Analytics</div>
+  <div class="nav-item"><span class="ni">👥</span>Customers</div>
+  <div class="nav-item"><span class="ni">💳</span>Revenue</div>
+  <div class="sidebar-section">Product</div>
+  <div class="nav-item"><span class="ni">🚀</span>Features</div>
+  <div class="nav-item"><span class="ni">🔔</span>Notifications</div>
+  <div class="nav-item"><span class="ni">🗂</span>Segments</div>
+  <div class="sidebar-section">Settings</div>
+  <div class="nav-item"><span class="ni">⚙️</span>Settings</div>
+  <div class="nav-item"><span class="ni">🔑</span>API Keys</div>
+  <div class="sidebar-bottom">
+    <div class="user-row">
+      <div class="avatar">M</div>
+      <div class="user-info">
+        <div class="name">Marco Ricci</div>
+        <div class="role">Admin</div>
+      </div>
     </div>
   </div>
-  <!-- Main -->
-  <div class="flex-1 overflow-hidden">
-    <!-- Top Bar -->
-    <div class="h-12 border-b border-white/[0.06] flex items-center justify-between px-6">
-      <div class="flex items-center gap-2"><span class="text-white/30 text-xs">Dashboard</span><span class="text-white/20 text-xs">/</span><span class="text-white text-xs font-semibold">Overview</span></div>
-      <div class="flex items-center gap-3"><div class="bg-white/5 border border-white/[0.08] rounded-lg px-3 py-1.5 text-xs text-white/40">Apr 2025 ▾</div><div class="w-7 h-7 rounded-full bg-[#0A84FF] flex items-center justify-center text-xs font-bold">M</div></div>
+</div>
+
+<div class="main">
+  <div class="topbar">
+    <div class="breadcrumb">
+      <span class="bc-inactive">Nexus</span>
+      <span class="bc-sep">/</span>
+      <span class="bc-active">Overview</span>
     </div>
-    <!-- Content -->
-    <div class="p-5 space-y-4 overflow-y-auto" style="max-height:calc(100vh - 48px)">
-      <!-- KPIs -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <div class="bg-[#16161c] border border-white/[0.06] rounded-2xl p-4"><div class="text-white/40 text-xs mb-2">MRR</div><div class="text-xl font-black">€28.4K</div><div class="text-emerald-400 text-xs mt-1">↑ +12% vs last month</div></div>
-        <div class="bg-[#16161c] border border-white/[0.06] rounded-2xl p-4"><div class="text-white/40 text-xs mb-2">Active Users</div><div class="text-xl font-black">1,847</div><div class="text-emerald-400 text-xs mt-1">↑ +5.3%</div></div>
-        <div class="bg-[#16161c] border border-white/[0.06] rounded-2xl p-4"><div class="text-white/40 text-xs mb-2">Churn Rate</div><div class="text-xl font-black">2.1%</div><div class="text-emerald-400 text-xs mt-1">↓ -0.4%</div></div>
-        <div class="bg-[#16161c] border border-white/[0.06] rounded-2xl p-4"><div class="text-white/40 text-xs mb-2">NPS Score</div><div class="text-xl font-black">71</div><div class="text-white/30 text-xs mt-1">→ Stable</div></div>
+    <div class="topbar-right">
+      <div class="date-range">📅 Apr 1 – Apr 30, 2025</div>
+      <div class="notif-btn">🔔<div class="notif-dot"></div></div>
+      <div class="avatar" style="width:30px;height:30px;font-size:12px">M</div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="page-title">Good morning, Marco 👋</div>
+    <div class="page-sub">Here's what's happening with your product today.</div>
+
+    <!-- KPIs -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">MRR</div>
+        <div class="kpi-val">€28,450</div>
+        <div class="kpi-change"><span class="up">↑ +12.4%</span><span style="color:rgba(232,232,240,.3)">vs last month</span></div>
       </div>
-      <!-- Chart + Feed -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-        <div class="md:col-span-2 bg-[#16161c] border border-white/[0.06] rounded-2xl p-5">
-          <div class="flex items-center justify-between mb-4"><h3 class="font-semibold text-sm">Revenue Trend</h3><span class="text-white/30 text-xs">Ultimi 7 giorni</span></div>
-          <!-- Fake bar chart -->
-          <div class="flex items-end gap-2 h-24">
-            ${[60, 75, 55, 85, 70, 90, 100].map((h, i) => `<div class="flex-1 rounded-t-md transition" style="height:${h}%;background:${i === 6 ? 'linear-gradient(to top,#0A84FF,#5E5CE6)' : 'rgba(10,132,255,0.15)'}"></div>`).join('')}
-          </div>
-          <div class="flex justify-between mt-2 text-white/20 text-[10px]"><span>Lun</span><span>Mar</span><span>Mer</span><span>Gio</span><span>Ven</span><span>Sab</span><span>Dom</span></div>
+      <div class="kpi-card">
+        <div class="kpi-label">Active users</div>
+        <div class="kpi-val">1,847</div>
+        <div class="kpi-change"><span class="up">↑ +5.3%</span><span style="color:rgba(232,232,240,.3)">vs last month</span></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Churn rate</div>
+        <div class="kpi-val">2.1%</div>
+        <div class="kpi-change"><span class="up">↓ -0.4%</span><span style="color:rgba(232,232,240,.3)">improving</span></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">NPS score</div>
+        <div class="kpi-val">71</div>
+        <div class="kpi-change"><span class="flat">→ Stable</span><span style="color:rgba(232,232,240,.3)">no change</span></div>
+      </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="charts-grid">
+      <div class="chart-card">
+        <div class="card-header">
+          <div class="card-title">Revenue trend</div>
+          <div class="card-meta">Last 7 days</div>
         </div>
-        <div class="bg-[#16161c] border border-white/[0.06] rounded-2xl p-5">
-          <h3 class="font-semibold text-sm mb-4">Activity</h3>
-          <div class="space-y-3">
-            <div class="flex items-start gap-2.5"><div class="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-xs shrink-0">↑</div><div class="text-xs"><p class="text-white/70">New signup</p><p class="text-white/30 text-[10px]">marco@mail.it · 2m fa</p></div></div>
-            <div class="flex items-start gap-2.5"><div class="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center text-xs shrink-0">💳</div><div class="text-xs"><p class="text-white/70">Payment received</p><p class="text-white/30 text-[10px]">€299 · Pro Plan · 8m fa</p></div></div>
-            <div class="flex items-start gap-2.5"><div class="w-6 h-6 rounded-full bg-amber-500/20 flex items-center justify-center text-xs shrink-0">⚠</div><div class="text-xs"><p class="text-white/70">Trial expiring</p><p class="text-white/30 text-[10px]">3 accounts · tomorrow</p></div></div>
-            <div class="flex items-start gap-2.5"><div class="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-xs shrink-0">↑</div><div class="text-xs"><p class="text-white/70">Upgrade Pro→Enterprise</p><p class="text-white/30 text-[10px]">acme corp · 1h fa</p></div></div>
+        <div class="bar-chart" id="barChart">
+          <div class="bar-wrap"><div class="bar" style="height:62%;background:rgba(99,102,241,.25)"></div><div class="bar-label">Mon</div></div>
+          <div class="bar-wrap"><div class="bar" style="height:75%;background:rgba(99,102,241,.25)"></div><div class="bar-label">Tue</div></div>
+          <div class="bar-wrap"><div class="bar" style="height:55%;background:rgba(99,102,241,.25)"></div><div class="bar-label">Wed</div></div>
+          <div class="bar-wrap"><div class="bar" style="height:88%;background:rgba(99,102,241,.25)"></div><div class="bar-label">Thu</div></div>
+          <div class="bar-wrap"><div class="bar" style="height:72%;background:rgba(99,102,241,.25)"></div><div class="bar-label">Fri</div></div>
+          <div class="bar-wrap"><div class="bar" style="height:90%;background:rgba(99,102,241,.25)"></div><div class="bar-label">Sat</div></div>
+          <div class="bar-wrap"><div class="bar" style="height:100%;background:linear-gradient(to top,#6366f1,#8b5cf6)"></div><div class="bar-label">Sun</div></div>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="card-header">
+          <div class="card-title">Plan distribution</div>
+          <div class="card-meta">Active subscriptions</div>
+        </div>
+        <div class="donut-wrap">
+          <div class="donut">
+            <svg width="88" height="88" viewBox="0 0 88 88">
+              <circle cx="44" cy="44" r="34" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="12"/>
+              <circle cx="44" cy="44" r="34" fill="none" stroke="#6366f1" stroke-width="12" stroke-dasharray="134 80" stroke-dashoffset="0"/>
+              <circle cx="44" cy="44" r="34" fill="none" stroke="#8b5cf6" stroke-width="12" stroke-dasharray="50 164" stroke-dashoffset="-134"/>
+              <circle cx="44" cy="44" r="34" fill="none" stroke="#34d399" stroke-width="12" stroke-dasharray="30 184" stroke-dashoffset="-184"/>
+            </svg>
+            <div class="donut-center">
+              <div class="donut-pct">1,847</div>
+              <div class="donut-sub">total</div>
+            </div>
           </div>
+          <div class="donut-legend">
+            <div class="leg-row"><div class="leg-dot" style="background:#6366f1"></div><span class="leg-name">Pro</span><span class="leg-pct">62%</span></div>
+            <div class="leg-row"><div class="leg-dot" style="background:#8b5cf6"></div><span class="leg-name">Starter</span><span class="leg-pct">24%</span></div>
+            <div class="leg-row"><div class="leg-dot" style="background:#34d399"></div><span class="leg-name">Enterprise</span><span class="leg-pct">14%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom row -->
+    <div class="bottom-grid">
+      <div class="table-card">
+        <div class="card-header">
+          <div class="card-title">Recent accounts</div>
+          <div class="card-meta" style="color:#818cf8;cursor:pointer;font-size:12px">View all →</div>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr><th>Company</th><th>Plan</th><th>MRR</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Acme Corp</td><td>Enterprise</td><td>€2,400</td><td><span class="status-pill s-active">● Active</span></td></tr>
+            <tr><td>PixelForge</td><td>Pro</td><td>€290</td><td><span class="status-pill s-active">● Active</span></td></tr>
+            <tr><td>LaunchBase</td><td>Pro</td><td>€290</td><td><span class="status-pill s-trial">◌ Trial</span></td></tr>
+            <tr><td>DevStudio</td><td>Starter</td><td>€90</td><td><span class="status-pill s-active">● Active</span></td></tr>
+            <tr><td>NovaSaaS</td><td>Pro</td><td>€290</td><td><span class="status-pill s-churned">✕ Churned</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="feed-card">
+        <div class="card-header">
+          <div class="card-title">Live activity</div>
+          <div class="card-meta">Last 2 hours</div>
+        </div>
+        <div class="feed-item">
+          <div class="feed-icon fi-green">↑</div>
+          <div class="feed-body"><div class="title">New signup</div><div class="sub">marco@nexus.io · Pro plan</div></div>
+          <div class="feed-time">2m ago</div>
+        </div>
+        <div class="feed-item">
+          <div class="feed-icon fi-blue">💳</div>
+          <div class="feed-body"><div class="title">Payment received</div><div class="sub">€290 · PixelForge · Pro</div></div>
+          <div class="feed-time">8m ago</div>
+        </div>
+        <div class="feed-item">
+          <div class="feed-icon fi-amber">⚠</div>
+          <div class="feed-body"><div class="title">Trial expiring</div><div class="sub">3 accounts expire tomorrow</div></div>
+          <div class="feed-time">31m ago</div>
+        </div>
+        <div class="feed-item">
+          <div class="feed-icon fi-green">🚀</div>
+          <div class="feed-body"><div class="title">Upgrade: Pro → Enterprise</div><div class="sub">Acme Corp · +€2,110 MRR</div></div>
+          <div class="feed-time">1h ago</div>
+        </div>
+        <div class="feed-item">
+          <div class="feed-icon fi-red">✕</div>
+          <div class="feed-body"><div class="title">Cancellation request</div><div class="sub">NovaSaaS · downgrade</div></div>
+          <div class="feed-time">2h ago</div>
         </div>
       </div>
     </div>
