@@ -794,43 +794,297 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:22px 2
     stripePriceId: "price_1TBz4fBoWNgrJbiy7LMgcESo",
     tags: ["artisan", "catalog", "inventory", "spreadsheet", "small business"],
     downloads: 334,
-    content: `<div class="min-h-screen bg-amber-50 p-6 font-sans text-sm">
-  <div class="max-w-4xl mx-auto">
-    <div class="flex items-center justify-between mb-6">
-      <div><h1 class="text-2xl font-bold text-amber-900">🏺 Bottega Ceramica</h1><p class="text-amber-600 text-xs">Catalogo Prodotti · Spring 2025</p></div>
-      <div class="text-right"><div class="text-sm font-semibold text-gray-700">24 products · €4,820 inventory value</div><div class="text-xs text-gray-400 mt-0.5">Last updated: March 17</div></div>
-    </div>
-    <!-- Filters Row -->
-    <div class="flex gap-2 mb-4 flex-wrap">
-      <span class="bg-amber-800 text-white px-3 py-1 rounded-full text-xs font-medium cursor-pointer">All (24)</span>
-      <span class="bg-white text-amber-700 border border-amber-200 px-3 py-1 rounded-full text-xs cursor-pointer hover:bg-amber-50">Vases (8)</span>
-      <span class="bg-white text-amber-700 border border-amber-200 px-3 py-1 rounded-full text-xs cursor-pointer hover:bg-amber-50">Bowls (9)</span>
-      <span class="bg-white text-amber-700 border border-amber-200 px-3 py-1 rounded-full text-xs cursor-pointer hover:bg-amber-50">Plates (7)</span>
-    </div>
-    <!-- Table -->
-    <div class="bg-white rounded-2xl shadow-sm border border-amber-200 overflow-hidden">
-      <table class="w-full text-sm">
-        <thead class="bg-amber-100 text-amber-800 text-xs uppercase">
-          <tr>
-            <th class="px-4 py-3 text-left">Product</th>
-            <th class="px-4 py-3 text-left">Category</th>
-            <th class="px-4 py-3 text-right">Cost</th>
-            <th class="px-4 py-3 text-right">Price</th>
-            <th class="px-4 py-3 text-right">Margin</th>
-            <th class="px-4 py-3 text-center">Stock</th>
-            <th class="px-4 py-3 text-center">Status</th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-amber-50">
-          <tr class="hover:bg-amber-50"><td class="px-4 py-3 font-medium text-gray-800">🏺 Vaso Toscano Grande</td><td class="px-4 py-3 text-gray-500">Vase</td><td class="px-4 py-3 text-right text-gray-400">€18</td><td class="px-4 py-3 text-right font-bold text-amber-800">€65</td><td class="px-4 py-3 text-right text-green-600">72%</td><td class="px-4 py-3 text-center">12</td><td class="px-4 py-3 text-center"><span class="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-xs">Active</span></td></tr>
-          <tr class="hover:bg-amber-50"><td class="px-4 py-3 font-medium text-gray-800">🍜 Ciotola Maiolica</td><td class="px-4 py-3 text-gray-500">Bowl</td><td class="px-4 py-3 text-right text-gray-400">€12</td><td class="px-4 py-3 text-right font-bold text-amber-800">€40</td><td class="px-4 py-3 text-right text-green-600">70%</td><td class="px-4 py-3 text-center">3</td><td class="px-4 py-3 text-center"><span class="bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full text-xs">Low stock</span></td></tr>
-          <tr class="hover:bg-amber-50"><td class="px-4 py-3 font-medium text-gray-800">🍽️ Piatto Deruta</td><td class="px-4 py-3 text-gray-500">Plate</td><td class="px-4 py-3 text-right text-gray-400">€15</td><td class="px-4 py-3 text-right font-bold text-amber-800">€55</td><td class="px-4 py-3 text-right text-green-600">73%</td><td class="px-4 py-3 text-center">0</td><td class="px-4 py-3 text-center"><span class="bg-red-100 text-red-700 px-2 py-0.5 rounded-full text-xs">Out of stock</span></td></tr>
-          <tr class="hover:bg-amber-50"><td class="px-4 py-3 font-medium text-gray-800">🫙 Brocca Rustica</td><td class="px-4 py-3 text-gray-500">Vase</td><td class="px-4 py-3 text-right text-gray-400">€22</td><td class="px-4 py-3 text-right font-bold text-amber-800">€80</td><td class="px-4 py-3 text-right text-green-600">73%</td><td class="px-4 py-3 text-center">7</td><td class="px-4 py-3 text-center"><span class="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-xs">Active</span></td></tr>
-        </tbody>
-      </table>
+    content: `<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Georgia,sans-serif;background:#f9f4ed;color:#1a0e06;min-height:100vh}
+/* Nav */
+nav{display:flex;align-items:center;justify-content:space-between;padding:20px 48px;border-bottom:1px solid rgba(26,14,6,.08);background:rgba(249,244,237,.95);position:sticky;top:0;z-index:10;backdrop-filter:blur(12px)}
+.nav-logo{display:flex;align-items:center;gap:12px}
+.logo-mark{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#8b4513,#c4822a);display:flex;align-items:center;justify-content:center;font-size:16px}
+.logo-name{font-size:17px;font-weight:800;letter-spacing:-.3px;color:#1a0e06}
+.logo-sub{font-size:11px;color:rgba(26,14,6,.45);text-transform:uppercase;letter-spacing:.1em;margin-top:1px}
+.nav-links{display:flex;align-items:center;gap:28px;font-size:13px;color:rgba(26,14,6,.5)}
+.nav-links a{text-decoration:none;color:inherit;transition:.15s}
+.nav-links a:hover{color:#8b4513}
+.nav-cta{background:#1a0e06;color:#f9f4ed;padding:10px 22px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;border:0;transition:.2s}
+.nav-cta:hover{background:#2d1a0a}
+/* Hero */
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1200px;margin:0 auto;padding:72px 48px 80px}
+.hero-left{}
+.hero-tag{display:inline-flex;align-items:center;gap:7px;background:rgba(139,69,19,.08);border:1px solid rgba(139,69,19,.18);color:#8b4513;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:22px}
+.hero h1{font-size:clamp(36px,4vw,58px);font-weight:900;letter-spacing:-1.5px;line-height:1.06;margin-bottom:16px;color:#1a0e06}
+.hero h1 em{font-style:italic;color:#8b4513}
+.hero p{color:rgba(26,14,6,.55);font-size:16px;line-height:1.7;margin-bottom:28px;max-width:420px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn-dark{background:#1a0e06;color:#f9f4ed;padding:13px 24px;border-radius:9px;font-weight:700;font-size:13px;cursor:pointer;border:0;transition:.2s}
+.btn-dark:hover{background:#2d1a0a}
+.btn-outline{background:transparent;border:2px solid rgba(26,14,6,.15);color:#1a0e06;padding:12px 22px;border-radius:9px;font-weight:600;font-size:13px;cursor:pointer;transition:.2s}
+.btn-outline:hover{border-color:rgba(26,14,6,.4)}
+.hero-right{position:relative}
+.hero-img{background:linear-gradient(145deg,#d4924a 0%,#8b4513 50%,#5c2d0a 100%);border-radius:20px;height:380px;display:flex;align-items:center;justify-content:center;font-size:80px;box-shadow:0 24px 60px rgba(26,14,6,.2)}
+.hero-badge{position:absolute;bottom:-16px;left:-16px;background:#1a0e06;color:#f9f4ed;padding:12px 18px;border-radius:12px;box-shadow:0 8px 24px rgba(26,14,6,.25)}
+.hb-val{font-size:22px;font-weight:900;letter-spacing:-1px}
+.hb-label{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:rgba(249,244,237,.5);margin-top:2px}
+/* Stats */
+.stats{max-width:1200px;margin:0 auto 72px;padding:0 48px}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid rgba(26,14,6,.1);border-radius:14px;overflow:hidden}
+.stat{padding:24px;border-right:1px solid rgba(26,14,6,.08);text-align:center}
+.stat:last-child{border:none}
+.stat-val{font-size:30px;font-weight:900;letter-spacing:-1px;color:#8b4513;margin-bottom:5px}
+.stat-label{font-size:11px;color:rgba(26,14,6,.45);text-transform:uppercase;letter-spacing:.08em}
+/* Products */
+.products{max-width:1200px;margin:0 auto 72px;padding:0 48px}
+.products-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px}
+.products-header h2{font-size:28px;font-weight:900;letter-spacing:-.8px}
+.filter-row{display:flex;gap:8px;flex-wrap:wrap}
+.filter-btn{padding:7px 16px;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;transition:.15s;background:transparent;border:1px solid rgba(26,14,6,.15);color:rgba(26,14,6,.6)}
+.filter-btn.active{background:#1a0e06;color:#f9f4ed;border-color:#1a0e06}
+.filter-btn:hover:not(.active){border-color:rgba(139,69,19,.4);color:#8b4513}
+.products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.product-card{background:#fff;border:1px solid rgba(26,14,6,.07);border-radius:16px;overflow:hidden;transition:.25s;cursor:pointer}
+.product-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(26,14,6,.12)}
+.product-img{height:200px;display:flex;align-items:center;justify-content:center;font-size:56px;position:relative}
+.pc-i1{background:linear-gradient(145deg,#e8d5b7,#c4a46a)}
+.pc-i2{background:linear-gradient(145deg,#b8cfb8,#7a9e7a)}
+.pc-i3{background:linear-gradient(145deg,#c4a8c4,#8b6b8b)}
+.pc-i4{background:linear-gradient(145deg,#d4b896,#a07850)}
+.pc-i5{background:linear-gradient(145deg,#b8d4d4,#6a9e9e)}
+.pc-i6{background:linear-gradient(145deg,#d4c4a8,#a08060)}
+.product-badge{position:absolute;top:12px;left:12px;background:#1a0e06;color:#f9f4ed;padding:4px 10px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.product-body{padding:18px}
+.product-cat{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:rgba(26,14,6,.4);font-weight:700;margin-bottom:6px}
+.product-name{font-size:16px;font-weight:800;letter-spacing:-.3px;margin-bottom:6px}
+.product-desc{font-size:12.5px;color:rgba(26,14,6,.5);line-height:1.5;margin-bottom:12px}
+.product-footer{display:flex;align-items:center;justify-content:space-between}
+.product-price{font-size:20px;font-weight:900;letter-spacing:-.5px;color:#8b4513}
+.product-add{background:#1a0e06;color:#f9f4ed;padding:7px 16px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;border:0;transition:.15s}
+.product-add:hover{background:#2d1a0a}
+/* Process */
+.process{max-width:1200px;margin:0 auto 72px;padding:0 48px}
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.step-card{text-align:center;padding:28px 20px;background:#fff;border:1px solid rgba(26,14,6,.07);border-radius:16px}
+.step-num{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:rgba(26,14,6,.3);margin-bottom:14px}
+.step-icon{font-size:32px;margin-bottom:14px}
+.step-h{font-size:14px;font-weight:800;margin-bottom:8px}
+.step-p{font-size:12.5px;color:rgba(26,14,6,.45);line-height:1.55}
+/* Materials */
+.materials{max-width:1200px;margin:0 auto 72px;padding:48px;background:#1a0e06;border-radius:20px;color:#f9f4ed}
+.materials-header{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-bottom:40px}
+.materials h2{font-size:clamp(26px,3.5vw,40px);font-weight:900;letter-spacing:-1.2px}
+.materials p{color:rgba(249,244,237,.5);font-size:15px;line-height:1.7}
+.mat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.mat-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:22px}
+.mat-icon{font-size:24px;margin-bottom:12px}
+.mat-h{font-size:14px;font-weight:800;margin-bottom:6px}
+.mat-p{font-size:12px;color:rgba(249,244,237,.45);line-height:1.55}
+/* Reviews */
+.reviews{max-width:1200px;margin:0 auto 72px;padding:0 48px}
+.reviews h2{font-size:28px;font-weight:900;letter-spacing:-.8px;margin-bottom:28px}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.review-card{background:#fff;border:1px solid rgba(26,14,6,.07);border-radius:14px;padding:22px}
+.rev-stars{color:#c4822a;font-size:13px;margin-bottom:10px}
+.rev-q{font-size:13.5px;color:rgba(26,14,6,.65);line-height:1.6;margin-bottom:14px;font-style:italic}
+.rev-author{display:flex;align-items:center;gap:9px}
+.rev-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+.rev-name{font-size:12.5px;font-weight:700}
+.rev-loc{font-size:11px;color:rgba(26,14,6,.4)}
+/* CTA */
+.cta{max-width:1200px;margin:0 auto;padding:0 48px 80px;text-align:center}
+.cta h2{font-size:clamp(28px,4vw,46px);font-weight:900;letter-spacing:-1.2px;margin-bottom:12px}
+.cta p{color:rgba(26,14,6,.5);font-size:16px;margin-bottom:32px}
+footer{text-align:center;padding:28px;color:rgba(26,14,6,.3);font-size:12px;border-top:1px solid rgba(26,14,6,.08);margin-top:20px}
+</style>
+
+<nav>
+  <div class="nav-logo">
+    <div class="logo-mark">🏺</div>
+    <div>
+      <div class="logo-name">Bottega Ceramica</div>
+      <div class="logo-sub">Artigianato dal 1982</div>
     </div>
   </div>
-</div>`,
+  <div class="nav-links">
+    <a href="#">Catalogo</a>
+    <a href="#">La nostra storia</a>
+    <a href="#">Materiali</a>
+    <a href="#">Contatti</a>
+  </div>
+  <button class="nav-cta">Shop now</button>
+</nav>
+
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">✦ Primavera 2025 — Nuova collezione</div>
+    <h1>Ogni pezzo,<br/><em>unico di mano.</em></h1>
+    <p>Ceramiche artigianali lavorate a mano in Toscana. Ogni oggetto porta il segno del suo creatore — imperfezioni comprese, perché la perfezione è nell'autenticità.</p>
+    <div class="hero-btns">
+      <button class="btn-dark">Scopri il catalogo →</button>
+      <button class="btn-outline">La nostra storia</button>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img">🏺</div>
+    <div class="hero-badge">
+      <div class="hb-val">40+</div>
+      <div class="hb-label">Anni di artigianato</div>
+    </div>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stats-row">
+    <div class="stat"><div class="stat-val">1982</div><div class="stat-label">Anno fondazione</div></div>
+    <div class="stat"><div class="stat-val">3,400+</div><div class="stat-label">Pezzi venduti</div></div>
+    <div class="stat"><div class="stat-val">28</div><div class="stat-label">Paesi spediti</div></div>
+    <div class="stat"><div class="stat-val">100%</div><div class="stat-label">Fatto a mano</div></div>
+  </div>
+</div>
+
+<div class="products">
+  <div class="products-header">
+    <h2>Collezione Primavera</h2>
+    <div class="filter-row">
+      <button class="filter-btn active">Tutti</button>
+      <button class="filter-btn">Vasi</button>
+      <button class="filter-btn">Piatti</button>
+      <button class="filter-btn">Decorazioni</button>
+      <button class="filter-btn">Tazze</button>
+    </div>
+  </div>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-img pc-i1"><span>🏺</span><div class="product-badge">Bestseller</div></div>
+      <div class="product-body">
+        <div class="product-cat">Vasi · Argilla rossa</div>
+        <div class="product-name">Vaso Toscano Grande</div>
+        <div class="product-desc">Tornito a mano, ingobbio bianco, cottura al forno a legna a 1240°C. Dimensioni: H 38cm × Ø 22cm.</div>
+        <div class="product-footer"><div class="product-price">€145</div><button class="product-add">Aggiungi →</button></div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img pc-i2"><span>🌿</span><div class="product-badge">Nuovo</div></div>
+      <div class="product-body">
+        <div class="product-cat">Decorazioni · Terraglia</div>
+        <div class="product-name">Set Erbe Aromatiche</div>
+        <div class="product-desc">Tre vasi coordinati per basilico, rosmarino e salvia. Verniciatura naturale con ossidi di rame.</div>
+        <div class="product-footer"><div class="product-price">€78</div><button class="product-add">Aggiungi →</button></div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img pc-i3"><span>🍽</span></div>
+      <div class="product-body">
+        <div class="product-cat">Piatti · Maiolica</div>
+        <div class="product-name">Piatto Dipinto Floreale</div>
+        <div class="product-desc">Dipinto a mano con motivi floreali tradizionali toscani. Ø 28cm. Da collezione e da uso quotidiano.</div>
+        <div class="product-footer"><div class="product-price">€95</div><button class="product-add">Aggiungi →</button></div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img pc-i4"><span>☕</span><div class="product-badge">Collezione</div></div>
+      <div class="product-body">
+        <div class="product-cat">Tazze · Gres</div>
+        <div class="product-name">Set Tazze Rustiche (6 pz)</div>
+        <div class="product-desc">Gres chamottato, smalto reattivo, effetto unico su ogni pezzo. Per caffè o tisane. Lavabile in lavastoviglie.</div>
+        <div class="product-footer"><div class="product-price">€180</div><button class="product-add">Aggiungi →</button></div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img pc-i5"><span>🫙</span></div>
+      <div class="product-body">
+        <div class="product-cat">Contenitori · Argilla bianca</div>
+        <div class="product-name">Barattolo Ermetico Artigianale</div>
+        <div class="product-desc">Per farina, pasta o spezie. Chiusura ermetica in legno di noce. Capacità 1,2L. Personalizzabile.</div>
+        <div class="product-footer"><div class="product-price">€65</div><button class="product-add">Aggiungi →</button></div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img pc-i6"><span>🕯</span><div class="product-badge">Limited</div></div>
+      <div class="product-body">
+        <div class="product-cat">Decorazioni · Gres bianco</div>
+        <div class="product-name">Portacandele Texture</div>
+        <div class="product-desc">Texture impressa a mano con foglie di felce. Ogni pezzo è irripetibile. Include candela di soia.</div>
+        <div class="product-footer"><div class="product-price">€55</div><button class="product-add">Aggiungi →</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="process">
+  <div style="text-align:center;margin-bottom:36px">
+    <div style="font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:#8b4513;font-weight:700;margin-bottom:10px">Il nostro processo</div>
+    <h2 style="font-size:28px;font-weight:900;letter-spacing:-.8px">Dalla terra alle tue mani</h2>
+  </div>
+  <div class="process-grid">
+    <div class="step-card">
+      <div class="step-num">01</div>
+      <div class="step-icon">🌍</div>
+      <div class="step-h">Argilla locale</div>
+      <div class="step-p">Selezioniamo argilla dalla Val d'Arno, la stessa usata dai maestri rinascimentali. Nessun additivo industriale.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">02</div>
+      <div class="step-icon">🤲</div>
+      <div class="step-h">Tornitura a mano</div>
+      <div class="step-p">Ogni pezzo è centrato e tornito manualmente. Un artigiano lavora circa 40 minuti su ogni vaso medio.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">03</div>
+      <div class="step-icon">🎨</div>
+      <div class="step-h">Decorazione</div>
+      <div class="step-p">Ingobbi, ossidi e smalti applicati a pennello. Disegni ispirati alla tradizione toscana e al paesaggio locale.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">04</div>
+      <div class="step-icon">🔥</div>
+      <div class="step-h">Cottura a legna</div>
+      <div class="step-p">Forno a legna di faggio, 36 ore di cottura a 1240°C. Il processo conferisce quel carattere unico impossibile da replicare industrialmente.</div>
+    </div>
+  </div>
+</div>
+
+<div class="materials">
+  <div class="materials-header">
+    <div>
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:rgba(249,244,237,.4);font-weight:700;margin-bottom:12px">Materiali certificati</div>
+      <h2>Qualità che si sente al tatto</h2>
+    </div>
+    <p>Usiamo solo materiali naturali e certificati food-safe. Ogni lotto è testato da laboratori indipendenti. Nessun piombo, nessun cadmio.</p>
+  </div>
+  <div class="mat-grid">
+    <div class="mat-card"><div class="mat-icon">🌱</div><div class="mat-h">100% naturale</div><div class="mat-p">Argilla, smalti e pigmenti di origine minerale. Zero plastiche, zero additivi sintetici in tutta la filiera.</div></div>
+    <div class="mat-card"><div class="mat-icon">✅</div><div class="mat-h">Food-safe certificato</div><div class="mat-p">Tutti i nostri smalti sono certificati per contatto alimentare secondo le normative EU. Testati ogni stagione.</div></div>
+    <div class="mat-card"><div class="mat-icon">♻️</div><div class="mat-h">Processo sostenibile</div><div class="mat-p">Legna da filiere certificate, recupero dell'acqua di lavorazione, scarti riutilizzati come sgrassante per nuova argilla.</div></div>
+  </div>
+</div>
+
+<div class="reviews">
+  <h2>Clienti soddisfatti</h2>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="rev-stars">★★★★★</div>
+      <div class="rev-q">"Il vaso che ho ordinato è ancora più bello dal vivo. Si vede il lavoro artigianale in ogni dettaglio. Regalato a mia madre, piange ogni volta che lo guarda."</div>
+      <div class="rev-author"><div class="rev-av" style="background:#e8d5b7;color:#8b4513">A</div><div><div class="rev-name">Alessia R.</div><div class="rev-loc">Firenze</div></div></div>
+    </div>
+    <div class="review-card">
+      <div class="rev-stars">★★★★★</div>
+      <div class="rev-q">"Ho comprato un set di tazze e sono perfette. Ogni tazza è leggermente diversa — è questo che le rende speciali. Spedizione velocissima, imballo impeccabile."</div>
+      <div class="rev-author"><div class="rev-av" style="background:#b8cfb8;color:#3a6b3a">M</div><div><div class="rev-name">Marco S.</div><div class="rev-loc">Milano</div></div></div>
+    </div>
+    <div class="review-card">
+      <div class="rev-stars">★★★★★</div>
+      <div class="rev-q">"Ho scoperto questa bottega per caso e non mi sono mai pentita. La qualità è straordinaria per il prezzo. La prossima volta vengono direttamente a visitarla."</div>
+      <div class="rev-author"><div class="rev-av" style="background:#c4a8c4;color:#7a3a7a">L</div><div><div class="rev-name">Laura F.</div><div class="rev-loc">Roma</div></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <h2>Porta un pezzo di Toscana a casa</h2>
+  <p>Spedizione gratuita sopra €150 · Consegna in 5-7 giorni · Reso gratuito entro 30 giorni</p>
+  <button class="btn-dark" style="padding:15px 32px;font-size:14px;border-radius:10px">Scopri il catalogo completo →</button>
+</div>
+
+<footer>© 2025 Bottega Ceramica · Artigianato toscano dal 1982 · P.IVA 01234567890</footer>`,
   },
   {
     id: "revenue-analytics",
