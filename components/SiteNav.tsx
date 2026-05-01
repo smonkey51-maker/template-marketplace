@@ -7,6 +7,7 @@ import { UserButton } from "@clerk/nextjs";
 import { useLang } from "@/components/LanguageProvider";
 import ThemeToggle from "@/components/ThemeToggle";
 import LanguageToggle from "@/components/LanguageToggle";
+import { FormaLogoStatic } from "@/components/FormaLogo";
 
 const NAV_LINKS = [
   { href: "/",        labelIt: "Catalogo",  labelEn: "Catalog",   activeOn: [] },
@@ -44,22 +45,28 @@ export default function SiteNav({ title }: { title?: string }) {
     >
       <div className="max-w-7xl mx-auto flex items-center gap-1">
         {/* Logo */}
-        <Link href="/" className="shrink-0 mr-4 hover:opacity-80 transition-opacity flex flex-col gap-0.5">
+        <Link
+          href="/"
+          className="shrink-0 mr-4 flex flex-col gap-0.5"
+          style={{
+            transition: "transform 0.4s ease, filter 0.4s ease",
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLAnchorElement).style.transform = "scale(1.03)";
+            (e.currentTarget as HTMLAnchorElement).style.filter = "drop-shadow(0 0 10px rgba(212,175,55,0.4))";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLAnchorElement).style.transform = "scale(1)";
+            (e.currentTarget as HTMLAnchorElement).style.filter = "none";
+          }}
+          aria-label="Forma — home"
+        >
+          <FormaLogoStatic width={90} />
           <span
-            className="text-[15px] leading-none tracking-[0.06em] uppercase"
-            style={{
-              fontFamily: "var(--font-montserrat), sans-serif",
-              fontWeight: 800,
-              color: "var(--text)",
-            }}
+            className={`text-[9px] tracking-[0.18em] uppercase leading-none hidden sm:block transition-opacity duration-300 ${scrolled ? "opacity-0 h-0 overflow-hidden" : "opacity-55 h-auto"}`}
+            style={{ color: "var(--accent)", fontWeight: 500, fontFamily: "var(--font-montserrat), sans-serif" }}
           >
-            For<span style={{ color: "var(--accent)" }}>ma</span>
-          </span>
-          <span
-            className={`text-[10px] tracking-[0.14em] uppercase leading-none hidden sm:block transition-opacity duration-300 ${scrolled ? "opacity-0 h-0" : "opacity-65 h-auto"}`}
-            style={{ color: "var(--accent)", fontWeight: 500 }}
-          >
-            {lang === "it" ? "Mercato del digitale artigianale" : "Artisan digital marketplace"}
+            {lang === "it" ? "Mercato digitale artigianale" : "Artisan digital marketplace"}
           </span>
         </Link>
 
