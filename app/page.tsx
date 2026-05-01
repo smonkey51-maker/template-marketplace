@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
-import { templates, formatPrice } from "@/lib/templates";
-import { TemplatePreview } from "@/components/TemplatePreview";
+import { HomeContent } from "@/components/HomeContent";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "FORMA — Template come oggetti curati.",
@@ -21,134 +20,12 @@ export const metadata: Metadata = {
   },
 };
 
-const FEATURED_IDS = ["hero-saas", "cold-email-b2b", "notion-project-hub"];
-
-const CATEGORIES = [
-  { label: "HTML & Web",   desc: "Landing page, SaaS, portfolio, dashboard.",  count: "25+" },
-  { label: "Notion",       desc: "CRM, tracker, second brain, client portal.",  count: "8" },
-  { label: "Shopify / WP", desc: "Temi e layout per e-commerce e blog.",         count: "6" },
-  { label: "App & Mobile", desc: "Schermate, showcase e prototipi mobile.",     count: "3+" },
-];
-
 export default function Page() {
-  const featured = FEATURED_IDS
-    .map(id => templates.find(t => t.id === id))
-    .filter((t): t is typeof templates[number] => Boolean(t));
-  const totalCount = templates.filter(t => !t.id.startsWith("free-")).length;
-
   return (
     <div className="fn-bg">
       <div className="fn-shell">
         <SiteNav />
-
-        {/* ── Hero ── */}
-        <main className="fn-hero">
-          <section>
-            <div className="fn-kicker">Edizione digitale · Vol. I</div>
-            <h1>Template come<br />oggetti curati.</h1>
-            <p>Ogni file è un gesto preciso,<br />non una soluzione generica.</p>
-            <div className="fn-actions">
-              <Link className="fn-btn primary" href="/catalogo">Sfoglia il catalogo</Link>
-              <Link className="fn-btn gold" href="/ai-studio">AI Studio →</Link>
-            </div>
-          </section>
-          <aside className="fn-stats">
-            <div className="fn-stat">
-              <b>{totalCount}+</b>
-              <span>Template nel catalogo</span>
-            </div>
-            <div className="fn-stat">
-              <b>4</b>
-              <span>Formati supportati</span>
-            </div>
-            <div className="fn-stat">
-              <b>€4,99</b>
-              <span>Da · Acquisto unico</span>
-            </div>
-          </aside>
-        </main>
-
-        {/* ── Featured templates ── */}
-        <div className="fn-featured">
-          <div className="fn-kicker" style={{ marginBottom: 10 }}>Editor&apos;s pick</div>
-          <h2 style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontWeight: 300, fontSize: "clamp(36px,4vw,56px)", margin: "0 0 6px", color: "#eaeaea" }}>
-            Template in evidenza
-          </h2>
-          <p style={{ color: "#8a8a8a", fontSize: 16, marginBottom: 40 }}>
-            I più scaricati, selezionati dalla redazione.
-          </p>
-          <div className="fn-featured-grid">
-            {featured.map(item => (
-              <article key={item.id} className="fn-card">
-                <TemplatePreview id={item.id} height={180} />
-                <div className="fn-body">
-                  <span className="fn-badge">{item.downloadType?.toUpperCase() ?? "HTML"}</span>
-                  <h3 style={{ marginTop: 12 }}>{item.name}</h3>
-                  <p>{item.description.length > 90 ? item.description.slice(0, 90) + "…" : item.description}</p>
-                  <div className="fn-meta">
-                    <span>{item.tags.slice(0, 2).join(" · ")}</span>
-                    <b style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: 22, fontWeight: 400, color: "#eaeaea" }}>
-                      {formatPrice(item.price)}
-                    </b>
-                  </div>
-                  <Link href={`/templates/${item.id}`} className="fn-btn primary" style={{ fontSize: 11 }}>
-                    Dettagli →
-                  </Link>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-
-        {/* ── Categories strip ── */}
-        <div style={{ borderTop: "1px solid rgba(234,234,234,.10)", padding: "64px 36px" }}>
-          <div style={{ maxWidth: 1220, margin: "0 auto" }}>
-            <div className="fn-kicker" style={{ marginBottom: 10 }}>Formato</div>
-            <h2 style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontWeight: 300, fontSize: "clamp(32px,4vw,52px)", margin: "0 0 36px", color: "#eaeaea" }}>
-              Ogni struttura ha il suo formato.
-            </h2>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 1, background: "rgba(234,234,234,.08)" }}>
-              {CATEGORIES.map(cat => (
-                <Link
-                  key={cat.label}
-                  href="/catalogo"
-                  style={{
-                    textDecoration: "none", display: "block", padding: "30px 24px",
-                    background: "#0f0f0f",
-                  }}
-                >
-                  <div style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: 26, fontWeight: 300, color: "#eaeaea", marginBottom: 8 }}>
-                    {cat.label}
-                  </div>
-                  <div style={{ color: "#8a8a8a", fontSize: 13, lineHeight: 1.55, marginBottom: 16 }}>
-                    {cat.desc}
-                  </div>
-                  <div style={{ color: "#D4AF37", fontSize: 10, textTransform: "uppercase", letterSpacing: ".18em" }}>
-                    {cat.count} template →
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* ── AI Studio callout ── */}
-        <div style={{ borderTop: "1px solid rgba(234,234,234,.10)", padding: "72px 36px" }}>
-          <div style={{ maxWidth: 820, margin: "0 auto", textAlign: "center" }}>
-            <div className="fn-kicker" style={{ marginBottom: 14 }}>Intelligenza artificiale</div>
-            <h2 style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontWeight: 300, fontSize: "clamp(34px,5vw,60px)", margin: "0 0 18px", color: "#eaeaea" }}>
-              Descrivi. FORMA costruisce.
-            </h2>
-            <p style={{ color: "#8a8a8a", fontSize: 17, lineHeight: 1.65, maxWidth: 580, margin: "0 auto 36px" }}>
-              L&apos;AI Studio genera strutture su misura a partire da un&apos;idea.
-              Prompt → template → download in pochi secondi.
-            </p>
-            <Link className="fn-btn primary" href="/ai-studio" style={{ fontSize: 12 }}>
-              Apri AI Studio →
-            </Link>
-          </div>
-        </div>
-
+        <HomeContent />
         <footer className="fn-footer">
           <span>FORMA</span>
           <span>

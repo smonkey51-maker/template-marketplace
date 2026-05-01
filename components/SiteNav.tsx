@@ -1,25 +1,27 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
 import { UserButton } from "@clerk/nextjs";
-import { copy, type Lang } from "@/lib/formaCopy";
+import { copy } from "@/lib/formaCopy";
+import { useLang } from "@/components/LanguageProvider";
 import { FormaLogoAnimated } from "@/components/FormaLogo";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export default function SiteNav() {
-  const [lang, setLang] = useState<Lang>("it");
+  const { lang, toggle } = useLang();
   const t = (k: keyof typeof copy.it) => copy[lang][k];
 
   return (
     <>
       {/* Utility bar */}
       <div className="fn-utility">
-        <span>01 May 2026</span>
-        <span>Marketplace di template digitali</span>
+        <span>{t("date")}</span>
+        <span>{t("tagline")}</span>
         <div className="fn-right">
+          <ThemeToggle />
           <div className="fn-lang">
-            <button className={lang === "it" ? "active" : ""} onClick={() => setLang("it")}>IT</button>
-            <button className={lang === "en" ? "active" : ""} onClick={() => setLang("en")}>EN</button>
+            <button className={lang === "it" ? "active" : ""} onClick={() => lang === "en" && toggle()}>IT</button>
+            <button className={lang === "en" ? "active" : ""} onClick={() => lang === "it" && toggle()}>EN</button>
           </div>
           <UserButton />
         </div>
@@ -27,7 +29,7 @@ export default function SiteNav() {
 
       <div className="fn-topline" />
 
-      {/* SVG logo — animated on each page load */}
+      {/* SVG logo */}
       <Link href="/" className="fn-logo-hero" aria-label="FORMA home">
         <FormaLogoAnimated className="fn-logo-svg" />
       </Link>
