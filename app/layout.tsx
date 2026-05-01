@@ -66,24 +66,24 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://forma.design";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "FORMA — Arte, in tasca.",
+    default: "FORMA — Template come oggetti curati.",
     template: "%s — FORMA",
   },
   description:
-    "Template multipiattaforma pronti all'uso: Notion, Web, Mobile e Pitch. Personalizza in pochi minuti, pubblica con una qualità che si vede.",
+    "Template digitali pronti all'uso: HTML, Notion, Shopify, WordPress. Ogni file è un gesto preciso, non una soluzione generica.",
   openGraph: {
     type: "website",
     siteName: "FORMA",
-    title: "FORMA — Infrastructure for Digital Structure",
+    title: "FORMA — Template come oggetti curati.",
     description:
-      "FORMA turns scattered initiatives into modular projects, visible flows and decision-ready systems.",
-    images: [{ url: "/api/og", width: 1200, height: 630, alt: "Forma" }],
+      "Template digitali pronti all'uso: HTML, Notion, Shopify, WordPress. Ogni file è un gesto preciso, non una soluzione generica.",
+    images: [{ url: "/api/og", width: 1200, height: 630, alt: "FORMA" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "FORMA — Infrastructure for Digital Structure",
+    title: "FORMA — Template come oggetti curati.",
     description:
-      "FORMA turns scattered initiatives into modular projects, visible flows and decision-ready systems.",
+      "Template digitali pronti all'uso: HTML, Notion, Shopify, WordPress. Ogni file è un gesto preciso, non una soluzione generica.",
     images: ["/api/og"],
   },
   alternates: {
