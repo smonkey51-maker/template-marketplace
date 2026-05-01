@@ -37,7 +37,7 @@ export function HomeContent() {
   return (
     <>
       {/* ── Hero: text left, live template preview right ── */}
-      <main style={{ display: "grid", gridTemplateColumns: "1fr 1fr", alignItems: "center", maxWidth: 1220, margin: "0 auto", padding: "72px 36px 60px", gap: 56 }}>
+      <main className="fn-home-hero">
         <section>
           <div className="fn-kicker" style={{ marginBottom: 16 }}>{t("heroKicker")}</div>
           <h1 style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontWeight: 300, fontSize: "clamp(44px,5.5vw,78px)", lineHeight: 1.02, margin: "0 0 20px", color: "var(--text)" }}>

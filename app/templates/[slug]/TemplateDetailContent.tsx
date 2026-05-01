@@ -62,7 +62,7 @@ export function TemplateDetailContent({ item, related }: { item: TemplateMeta; r
 
   return (
     <>
-      <main style={{ maxWidth: 1160, margin: "0 auto", padding: "32px 36px 80px" }}>
+      <main style={{ maxWidth: 1160, margin: "0 auto", padding: "32px clamp(16px, 3vw, 36px) 80px" }}>
 
         {/* Breadcrumb */}
         <nav style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: ".18em", color: "var(--muted)", marginBottom: 32, display: "flex", gap: 10, alignItems: "center" }}>
@@ -73,7 +73,7 @@ export function TemplateDetailContent({ item, related }: { item: TemplateMeta; r
           <span style={{ color: "#D4AF37" }}>{item.name}</span>
         </nav>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1.3fr 0.7fr", gap: 32, alignItems: "start" }}>
+        <div className="fn-tpl-layout">
 
           {/* LEFT: preview + details */}
           <section>
@@ -230,7 +230,7 @@ export function TemplateDetailContent({ item, related }: { item: TemplateMeta; r
             <h2 style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: ".22em", color: "#D4AF37", marginBottom: 32, fontWeight: 600 }}>
               {t("relatedTemplates")}
             </h2>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 1, background: "var(--fn-border, rgba(234,234,234,.08))" }}>
+            <div className="fn-tpl-related">
               {related.map(rel => (
                 <Link key={rel.id} href={`/templates/${rel.id}`} style={{ textDecoration: "none", background: "var(--surface)", display: "flex", flexDirection: "column" }}>
                   <TemplatePreview id={rel.id} height={160} />
