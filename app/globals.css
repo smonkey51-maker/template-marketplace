@@ -30,15 +30,15 @@
    THEME VARIABLES
    ═══════════════════════════════════════════════════════════ */
 :root {
-  /* ── Light mode: warm parchment — Caravaggio candlelight ── */
-  --bg:          rgba(245,236,216,0.38);
-  --surface:     rgba(238,224,196,0.92);
-  --surface-2:   rgba(230,212,180,0.97);
-  --text:        #1A0E06;
+  /* ── Light mode: soft warm neutral ── */
+  --bg:          #FDFAF5;
+  --surface:     #F5EFE3;
+  --surface-2:   #EDE5D4;
+  --text:        #1C1610;
   --muted:       rgba(26,14,6,0.55);
   --border:      rgba(26,14,6,0.12);
-  --nav-bg:      rgba(245,236,216,0.96);
-  --card-bg:     rgba(245,236,216,0.95);
+  --nav-bg:      rgba(253,250,245,0.96);
+  --card-bg:     rgba(253,250,245,0.95);
   --card-border: rgba(26,14,6,0.10);
   --input-bg:    rgba(26,14,6,0.05);
   --btn-ghost-border:       rgba(26,14,6,0.18);
@@ -46,23 +46,24 @@
   /* Border radius tokens */
   --r-sm: 10px; --r-md: 16px; --r-lg: 22px; --r-xl: 28px;
   /* Glassmorphism tokens */
-  --glass-fill:     rgba(245,236,216,0.88);
+  --glass-fill:     rgba(253,250,245,0.88);
   --glass-shadow:   0 4px 32px rgba(26,14,6,0.12), 0 1px 0 rgba(255,248,230,0.9) inset;
   --glass-stroke:   rgba(26,14,6,0.10);
   --glass-top-edge: linear-gradient(90deg, transparent, rgba(255,248,230,0.95) 20%, rgba(255,248,230,0.95) 80%, transparent);
   --glass-bright:   1.01;
-  --spec-hot:       rgba(255,248,230,0.65);
-  --spec-mid:       rgba(255,248,230,0.28);
+  --spec-hot:       rgba(212,175,55,0.65);
+  --spec-mid:       rgba(212,175,55,0.28);
   --divider:        rgba(26,14,6,0.09);
-  /* Candlelight gold accent */
-  --accent:         #9C6E20;
-  --accent-bg:      rgba(156,110,32,0.10);
-  --accent-rgb:     156, 110, 32;
-  --accent-muted:   rgba(156,110,32,0.18);
-  /* Caravaggio palette tokens */
-  --gold:           #9C6E20;
-  --gold-dim:       rgba(156,110,32,0.12);
-  --gold-mid:       rgba(156,110,32,0.30);
+  /* FORMA gold accent */
+  --accent:         #D4AF37;
+  --gold:           #D4AF37;
+  --gold-soft:      #B8962E;
+  --accent-bg:      rgba(212,175,55,0.10);
+  --accent-rgb:     212, 175, 55;
+  --accent-muted:   rgba(212,175,55,0.18);
+  /* Palette tokens */
+  --gold-dim:       rgba(212,175,55,0.12);
+  --gold-mid:       rgba(212,175,55,0.30);
   --terra:          #7A1C2E;
   --terra-dim:      rgba(122,28,46,0.12);
   --cream:          #F2E8D0;
@@ -72,14 +73,14 @@
   --obsidian-2:     #EEE0C4;
   --obsidian-3:     #E6D5B0;
   --obsidian-4:     #DDD1B8; /* unused, keep for compat */
-  --border-gold:    1px solid rgba(156,110,32,0.28);
+  --border-gold:    1px solid rgba(212,175,55,0.28);
   /* Semantic state colors */
   --success:        #5A7A32;
   --success-dim:    rgba(90,122,50,0.12);
   --error:          #7A1C2E;
   --error-dim:      rgba(122,28,46,0.12);
   /* Ambient glow */
-  --glow-gold:      rgba(156,110,32,0.18);
+  --glow-gold:      rgba(212,175,55,0.18);
   --glow-terra:     rgba(122,28,46,0.12);
   /* Platform brand colors (download buttons) */
   --platform-canva:    #7B61FF;
@@ -105,7 +106,7 @@
   /* Modal skeleton */
   --skeleton-bg:     #F2F2F7;
   /* Pillar heading */
-  --pillar-name-color: #7A5220;
+  --pillar-name-color: #B8962E;
   /* Forma tokens — light */
   --forma-bg:              var(--bg);
   --forma-bg-alt:          var(--surface);
@@ -116,10 +117,17 @@
   --forma-border:          var(--border);
   --forma-border-card:     var(--card-border);
   --forma-accent-sabi:     var(--terra);
-  --forma-kinari:          #1A0E06;
+  --forma-kinari:          #1C1610;
   --bg-outer:              #F0E4CC;
   /* Slingday — primary font for the entire site */
   --font-gatsunaga:  var(--font-montserrat), 'Slingday', 'Georgia', serif;
+  /* FORMA spacing scale */
+  --sp-1:  8px;
+  --sp-2: 16px;
+  --sp-3: 24px;
+  --sp-4: 40px;
+  --sp-5: 64px;
+  --sp-6: 120px;
 }
 
 /* ── Font pairing: Slingday (h1–h3 + .font-gatsunaga) + Jakarta (everything else) ──
@@ -155,54 +163,55 @@ h4, h5, h6 {
 }
 
 html.dark {
-  /* ── Dark mode: Caravaggio tenebrism — warm darkness, candlelight gold ── */
-  --bg:          rgba(13,9,6,0.38);
-  --surface:     rgba(26,18,9,0.92);
-  --surface-2:   rgba(34,21,8,0.97);
-  --text:        #F2E8D0;
-  --muted:       rgba(242,232,208,0.50);
-  --border:      rgba(242,232,208,0.09);
-  --nav-bg:      rgba(10,7,4,0.96);
-  --card-bg:     rgba(18,12,6,0.95);
-  --card-border: rgba(196,154,60,0.14);
-  --input-bg:    rgba(242,232,208,0.05);
-  --btn-ghost-border:       rgba(242,232,208,0.18);
-  --btn-ghost-border-hover: rgba(242,232,208,0.70);
-  /* Glassmorphism tokens — tenebrism */
-  --glass-fill:     rgba(18,12,6,0.88);
-  --glass-shadow:   0 4px 32px rgba(0,0,0,0.55), 0 1px 0 rgba(196,154,60,0.07) inset;
-  --glass-stroke:   rgba(196,154,60,0.10);
-  --glass-top-edge: linear-gradient(90deg, transparent, rgba(196,154,60,0.14) 20%, rgba(196,154,60,0.14) 80%, transparent);
+  /* ── Dark mode: FORMA — near-black with pure gold accent ── */
+  --bg:          #060606;
+  --surface:     #0f0f0f;
+  --surface-2:   #1a1a1a;
+  --text:        #eaeaea;
+  --muted:       #8a8a8a;
+  --border:      rgba(234,234,234,0.09);
+  --nav-bg:      rgba(6,6,6,0.96);
+  --card-bg:     rgba(15,15,15,0.95);
+  --card-border: rgba(212,175,55,0.14);
+  --input-bg:    rgba(234,234,234,0.05);
+  --btn-ghost-border:       rgba(234,234,234,0.18);
+  --btn-ghost-border-hover: rgba(234,234,234,0.70);
+  /* Glassmorphism tokens — dark */
+  --glass-fill:     rgba(15,15,15,0.88);
+  --glass-shadow:   0 4px 32px rgba(0,0,0,0.55), 0 1px 0 rgba(212,175,55,0.07) inset;
+  --glass-stroke:   rgba(212,175,55,0.10);
+  --glass-top-edge: linear-gradient(90deg, transparent, rgba(212,175,55,0.14) 20%, rgba(212,175,55,0.14) 80%, transparent);
   --glass-bright:   1.0;
-  --spec-hot:       rgba(196,154,60,0.18);
-  --spec-mid:       rgba(196,154,60,0.09);
-  --divider:        rgba(242,232,208,0.08);
-  /* Candlelight gold accent */
-  --accent:         #C49A3C;
-  --accent-bg:      rgba(196,154,60,0.12);
-  --accent-rgb:     196, 154, 60;
-  --accent-muted:   rgba(196,154,60,0.20);
-  /* Caravaggio palette tokens */
-  --gold:           #C49A3C;
-  --gold-dim:       rgba(196,154,60,0.12);
-  --gold-mid:       rgba(196,154,60,0.28);
+  --spec-hot:       rgba(212,175,55,0.18);
+  --spec-mid:       rgba(212,175,55,0.09);
+  --divider:        rgba(234,234,234,0.08);
+  /* FORMA gold accent */
+  --accent:         #D4AF37;
+  --gold:           #D4AF37;
+  --gold-soft:      #B8962E;
+  --accent-bg:      rgba(212,175,55,0.12);
+  --accent-rgb:     212, 175, 55;
+  --accent-muted:   rgba(212,175,55,0.20);
+  /* Palette tokens */
+  --gold-dim:       rgba(212,175,55,0.12);
+  --gold-mid:       rgba(212,175,55,0.28);
   --terra:          #8B2635;
   --terra-dim:      rgba(139,38,53,0.15);
-  --cream:          #F2E8D0;
-  --cream-60:       rgba(242,232,208,0.60);
-  --cream-30:       rgba(242,232,208,0.30);
-  --cream-08:       rgba(242,232,208,0.08);
-  --obsidian-2:     #1A1209;
-  --obsidian-3:     #120C06;
-  --obsidian-4:     #0D0906;
-  --border-gold:    1px solid rgba(196,154,60,0.22);
+  --cream:          #eaeaea;
+  --cream-60:       rgba(234,234,234,0.60);
+  --cream-30:       rgba(234,234,234,0.30);
+  --cream-08:       rgba(234,234,234,0.08);
+  --obsidian-2:     #141414;
+  --obsidian-3:     #0d0d0d;
+  --obsidian-4:     #080808;
+  --border-gold:    1px solid rgba(212,175,55,0.22);
   /* Semantic state colors */
   --success:        #5A7A32;
   --success-dim:    rgba(90,122,50,0.12);
   --error:          #8B2635;
   --error-dim:      rgba(139,38,53,0.15);
   /* Ambient glow */
-  --glow-gold:      rgba(196,154,60,0.22);
+  --glow-gold:      rgba(212,175,55,0.22);
   --glow-terra:     rgba(139,38,53,0.16);
   /* Platform brand colors (download buttons) */
   --platform-canva:    #7B61FF;
@@ -214,21 +223,21 @@ html.dark {
   --platform-shopify:  #95BF47;
   --platform-wordpress:#21759B;
   /* Phone bezel (preview) */
-  --bezel-bg:        #1A1209;
-  --bezel-ring:      #221508;
-  --bezel-ring-2:    #2A1A0A;
-  --bezel-button:    #1A1209;
-  --bezel-notch-bg:  #120C06;
-  --bezel-notch-border: #221508;
+  --bezel-bg:        #141414;
+  --bezel-ring:      #1e1e1e;
+  --bezel-ring-2:    #282828;
+  --bezel-button:    #141414;
+  --bezel-notch-bg:  #0d0d0d;
+  --bezel-notch-border: #1e1e1e;
   /* Prompt viewer */
-  --prompt-bg:       #120C06;
-  --prompt-header:   #1A1209;
-  --prompt-text:     #F2E8D0;
-  --prompt-label:    rgba(242,232,208,0.45);
+  --prompt-bg:       #0d0d0d;
+  --prompt-header:   #141414;
+  --prompt-text:     #eaeaea;
+  --prompt-label:    rgba(234,234,234,0.45);
   /* Modal skeleton */
-  --skeleton-bg:     #221508;
-  /* Pillar heading — candlelight gold in dark mode */
-  --pillar-name-color: #C49A3C;
+  --skeleton-bg:     #1e1e1e;
+  /* Pillar heading — FORMA gold in dark mode */
+  --pillar-name-color: #D4AF37;
 }
 
 /* ═══════════════════════════════════════════════════════════

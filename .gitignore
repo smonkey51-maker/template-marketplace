@@ -20,3 +20,6 @@ exports/
 # Progetti secondari — repo embedded, non parte di Forma
 claude-setup/
 flutter-craft/
+
+# Claude Code agent memory — stato interno, non committare
+.claude/agent-memory/
