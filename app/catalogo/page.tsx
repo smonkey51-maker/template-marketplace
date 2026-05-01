@@ -5,6 +5,7 @@ import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
 import { useLang } from "@/components/LanguageProvider";
 import { copy } from "@/lib/formaCopy";
+import { FormaFooter } from "@/components/FormaFooter";
 import { templatesMeta, formatPrice, type TemplateMeta } from "@/lib/templates";
 import { TemplatePreview } from "@/components/TemplatePreview";
 
@@ -133,14 +134,7 @@ export default function CatalogoPage() {
             </div>
           )}
         </section>
-
-        <footer className="fn-footer">
-          <span>FORMA</span>
-          <span>
-            <Link href="/">{t("footerHome")}</Link> · <Link href="/catalogo">{t("catalogo")}</Link> ·{" "}
-            <Link href="/guida">{t("guida")}</Link> · <Link href="/account">{t("account")}</Link>
-          </span>
-        </footer>
+        <FormaFooter />
       </div>
     </div>
   );

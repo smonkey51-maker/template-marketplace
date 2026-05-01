@@ -4,6 +4,7 @@ import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
 import { useLang } from "@/components/LanguageProvider";
 import { copy } from "@/lib/formaCopy";
+import { FormaFooter } from "@/components/FormaFooter";
 
 export default function GuidaPage() {
   const { lang } = useLang();
@@ -79,11 +80,7 @@ export default function GuidaPage() {
             <Link className="fn-btn" href="/ai-studio">{t("guideCta2")}</Link>
           </div>
         </main>
-
-        <footer className="fn-footer">
-          <span>FORMA</span>
-          <span><Link href="/">{t("footerHome")}</Link> · <Link href="/catalogo">{t("catalogo")}</Link></span>
-        </footer>
+        <FormaFooter />
       </div>
     </div>
   );
