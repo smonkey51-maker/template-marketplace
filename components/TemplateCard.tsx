@@ -19,7 +19,7 @@ const PLATFORM_COLORS: Record<string, { from: string; to: string; label: string 
   framer:    { from: "#0055FF", to: "#0033aa",   label: "Framer" },
   shopify:   { from: "#95BF47", to: "#5a7a1e",   label: "Shopify" },
   wordpress: { from: "#21759B", to: "#0e4a6e",   label: "WordPress" },
-  html:      { from: "#9C7733", to: "#5c4219",   label: "HTML" },
+  html:      { from: "#C49A3C", to: "#7A5220",   label: "HTML" },
 };
 
 /* ── Platform icon set ──────────────────────────────────────────────── */

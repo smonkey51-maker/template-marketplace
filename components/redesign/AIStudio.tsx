@@ -283,7 +283,7 @@ export default function AIStudio() {
           <div
             style={{
               border: "1px solid rgba(245,240,232,0.10)",
-              background: "#111009",
+              background: "var(--forma-bg-dark-section)",
               borderRadius: "2px",
               overflow: "hidden",
             }}

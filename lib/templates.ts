@@ -7614,6 +7614,14 @@ export function formatPrice(cents: number): string {
   return `€${(cents / 100).toFixed(2)}`;
 }
 
+/** Lightweight template record — no inline HTML/prompt content. Use in catalog listings. */
+export type TemplateMeta = Omit<Template, "content">;
+
+/** All templates without their content strings — safe for client-side catalog imports. */
+export const templatesMeta: TemplateMeta[] = templates.map(
+  ({ content: _c, ...meta }) => meta
+);
+
 /** Abbreviated count: 1240 → "1.2k", 14500 → "15k" */
 export function formatCount(n: number): string {
   if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;

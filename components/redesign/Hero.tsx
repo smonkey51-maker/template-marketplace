@@ -120,7 +120,7 @@ export default function Hero() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "12px 8vw",
+          padding: "8px clamp(16px, 8vw, 120px)",
           flexWrap: "wrap",
           gap: "8px",
         }}
@@ -139,8 +139,9 @@ export default function Hero() {
           {dateStr}
         </span>
 
-        {/* Center: subtitle */}
+        {/* Center: subtitle — hidden on mobile to prevent wrapping */}
         <span
+          className="hidden sm:block"
           style={{
             fontFamily: "monospace",
             fontSize: "9px",
@@ -182,12 +183,13 @@ export default function Hero() {
         }}
       >
         <motion.h1
+          className="forma-masthead"
           initial={{ opacity: 0, y: 20 }}
           animate={mounted ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1.0, delay: 0.2, ease: EASE }}
           style={{
             fontFamily: "var(--font-cormorant), 'Cormorant Garamond', Georgia, serif",
-            fontSize: "clamp(72px, 16vw, 210px)",
+            fontSize: "clamp(44px, 11vw, 210px)",
             fontWeight: 300,
             letterSpacing: "0.38em",
             lineHeight: 1,
@@ -205,13 +207,13 @@ export default function Hero() {
       {/* ── D) Double hairline ───────────────────────────────────────────────── */}
       <DoubleHairline />
 
-      {/* ── E) Nav links row ─────────────────────────────────────────────────── */}
+      {/* ── E) Nav links row — hidden on mobile (MobileNav drawer handles mobile nav) */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={mounted ? { opacity: 1 } : {}}
         transition={{ duration: 0.6, delay: 0.35, ease: EASE }}
+        className="hidden sm:flex"
         style={{
-          display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
           padding: "10px 8vw",
@@ -538,17 +540,17 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      {/* ── H) Scroll cue ────────────────────────────────────────────────────── */}
+      {/* ── H) Scroll cue — hidden on mobile to avoid layout clutter ─────────── */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={mounted ? { opacity: 1 } : {}}
         transition={{ delay: 1.2, duration: 0.8 }}
         aria-hidden
+        className="hidden sm:flex"
         style={{
           position: "absolute",
           bottom: "24px",
           left: "8vw",
-          display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
           gap: "8px",

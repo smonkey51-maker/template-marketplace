@@ -9,8 +9,6 @@ import MobileNav from "@/components/MobileNav";
 import CustomCursor from "@/components/CustomCursor";
 import PageTransition from "@/components/PageTransition";
 import CommandPalette from "@/components/CommandPalette";
-import { ViewModeProvider, ViewModeWrapper } from "@/components/ViewModeProvider";
-import ViewModeToggle from "@/components/ViewModeToggle";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -68,24 +66,24 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://forma.design";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Forma — AI-Powered Template Marketplace",
-    template: "%s — Forma",
+    default: "FORMA — Template come oggetti curati.",
+    template: "%s — FORMA",
   },
   description:
-    "Buy premium UI and prompt templates. Customize any template instantly with Claude AI. No code required.",
+    "Template digitali pronti all'uso: HTML, Notion, Shopify, WordPress. Ogni file è un gesto preciso, non una soluzione generica.",
   openGraph: {
     type: "website",
-    siteName: "Forma",
-    title: "Forma — AI-Powered Template Marketplace",
+    siteName: "FORMA",
+    title: "FORMA — Template come oggetti curati.",
     description:
-      "Buy premium UI and prompt templates. Customize any template instantly with Claude AI.",
-    images: [{ url: "/api/og", width: 1200, height: 630, alt: "Forma" }],
+      "Template digitali pronti all'uso: HTML, Notion, Shopify, WordPress. Ogni file è un gesto preciso, non una soluzione generica.",
+    images: [{ url: "/api/og", width: 1200, height: 630, alt: "FORMA" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Forma — AI-Powered Template Marketplace",
+    title: "FORMA — Template come oggetti curati.",
     description:
-      "Buy premium UI and prompt templates. Customize any template instantly with Claude AI.",
+      "Template digitali pronti all'uso: HTML, Notion, Shopify, WordPress. Ogni file è un gesto preciso, non una soluzione generica.",
     images: ["/api/og"],
   },
   alternates: {
@@ -108,7 +106,7 @@ export default function RootLayout({
           <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[9999] focus:px-4 focus:py-2 focus:text-[13px] focus:font-bold" style={{ background: "var(--accent)", color: "var(--bg)" }}>
             Skip to content
           </a>
-          <ViewModeProvider><PostHogProvider><ThemeProvider><LanguageProvider><ToastProvider><ViewModeWrapper><PageTransition><div id="main-content">{children}</div></PageTransition><MobileNav /><CommandPalette /></ViewModeWrapper><ViewModeToggle /></ToastProvider></LanguageProvider></ThemeProvider></PostHogProvider></ViewModeProvider>
+          <PostHogProvider><ThemeProvider><LanguageProvider><ToastProvider><PageTransition><div id="main-content">{children}</div></PageTransition><MobileNav /><CommandPalette /></ToastProvider></LanguageProvider></ThemeProvider></PostHogProvider>
           <CustomCursor />
         </body>
       </html>
