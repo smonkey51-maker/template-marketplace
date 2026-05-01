@@ -64,7 +64,7 @@ export default function MarketplacePage() {
     <div className="fp-app-shell">
       {/* Sidebar */}
       <aside className="fp-sidebar">
-        <FormaLogoStatic width={120} />
+        <div style={{ width: 120 }}><FormaLogoStatic /></div>
         <div style={{ height: 32 }} />
         {FILTERS.map(x => (
           <div

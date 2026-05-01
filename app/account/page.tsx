@@ -45,7 +45,7 @@ export default function AccountPage() {
   return (
     <div className="min-h-screen bg-page relative">
 
-      <SiteNav title={t[lang].account.title} />
+      <SiteNav />
 
       <div className="relative z-10 max-w-4xl mx-auto px-6 py-12 flex flex-col gap-8">
 

@@ -3,8 +3,10 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
-import { copy, type Lang } from "@/lib/formaCopy";
+import { useLang } from "@/components/LanguageProvider";
+import { copy } from "@/lib/formaCopy";
 import { templatesMeta, formatPrice, type TemplateMeta } from "@/lib/templates";
+import { TemplatePreview } from "@/components/TemplatePreview";
 
 type FilterKey = "All" | "Web" | "Notion" | "App" | "Shop";
 
@@ -17,16 +19,6 @@ function getFilterKey(t: TemplateMeta): FilterKey {
   return "Web";
 }
 
-function getPreviewType(t: TemplateMeta): "crm" | "web" | "app" | "deck" {
-  const dt = t.downloadType ?? "html";
-  if (dt === "notion") return "crm";
-  const tags = t.tags.join(" ").toLowerCase();
-  const name = t.name.toLowerCase();
-  if (tags.includes("mobile") || tags.includes("ios") || name.includes("mobile app") || name.includes("mobile-app")) return "app";
-  if (tags.includes("deck") || tags.includes("pitch") || tags.includes("presentation")) return "deck";
-  return "web";
-}
-
 function getPlatformLabel(t: TemplateMeta): string {
   const dt = t.downloadType ?? "html";
   const labels: Record<string, string> = {
@@ -37,61 +29,21 @@ function getPlatformLabel(t: TemplateMeta): string {
   return labels[dt] ?? "HTML";
 }
 
-function PreviewMock({ type }: { type: "crm" | "web" | "app" | "deck" }) {
-  if (type === "crm") return (
-    <div className="fn-preview fn-p-crm">
-      {[0, 1, 2, 3, 4].map(i => (
-        <div className="fn-row" key={i}>
-          <div className={`fn-cell${i === 1 ? " fn-goldcell" : ""}`} />
-          <div className="fn-cell" />
-          <div className="fn-cell" />
-        </div>
-      ))}
-    </div>
-  );
-  if (type === "web") return (
-    <div className="fn-preview fn-p-web">
-      <div className="fn-window">
-        <div className="fn-line gold" /><div className="fn-line" />
-        <div className="fn-line" /><div className="fn-line gold" />
-      </div>
-    </div>
-  );
-  if (type === "app") return (
-    <div className="fn-preview fn-p-app">
-      <div className="fn-phone">
-        <div className="gold" /><div /><div /><div className="gold" />
-      </div>
-    </div>
-  );
-  return (
-    <div className="fn-preview fn-p-deck">
-      {[1, 2, 3].map(i => (
-        <div className="fn-slide" key={i}>
-          <b>0{i}</b>
-          <div className="fn-line" /><div className="fn-line gold" />
-        </div>
-      ))}
-    </div>
-  );
-}
-
-const FILTERS: { key: FilterKey; labelIt: string; labelEn: string }[] = [
-  { key: "All",    labelIt: "Tutti",  labelEn: "All" },
-  { key: "Web",    labelIt: "Web",    labelEn: "Web" },
-  { key: "Notion", labelIt: "Notion", labelEn: "Notion" },
-  { key: "App",    labelIt: "App",    labelEn: "App" },
-  { key: "Shop",   labelIt: "Shop",   labelEn: "Shop" },
-];
-
 const PAID_TEMPLATES = templatesMeta.filter(t => !t.id.startsWith("free-"));
 
 export default function CatalogoPage() {
-  const [lang, setLang]     = useState<Lang>("it");
-  const [q, setQ]           = useState("");
+  const { lang } = useLang();
+  const t = (k: keyof typeof copy.it) => copy[lang][k];
+  const [q, setQ] = useState("");
   const [filter, setFilter] = useState<FilterKey>("All");
 
-  const t = (k: keyof typeof copy.it) => copy[lang][k];
+  const FILTERS: { key: FilterKey; label: string }[] = [
+    { key: "All",    label: t("all") },
+    { key: "Web",    label: "Web" },
+    { key: "Notion", label: "Notion" },
+    { key: "App",    label: "App" },
+    { key: "Shop",   label: "Shop" },
+  ];
 
   const filtered = useMemo(
     () => PAID_TEMPLATES.filter(x =>
@@ -108,13 +60,11 @@ export default function CatalogoPage() {
 
         <section className="fn-section">
           <div className="fn-kicker">{t("browseAll")}</div>
-          <h2 style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontWeight: 300, fontSize: "clamp(42px,5vw,72px)", margin: "0 0 6px", color: "#f5ecd8" }}>
+          <h2 style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontWeight: 300, fontSize: "clamp(42px,5vw,72px)", margin: "0 0 6px", color: "var(--text)" }}>
             {t("templates")}
           </h2>
-          <p style={{ color: "#9a8f80", fontSize: 17, marginBottom: 32 }}>
-            {lang === "it"
-              ? `${filtered.length} template pronti all'uso — HTML, Notion, Shopify, WordPress`
-              : `${filtered.length} ready-to-use templates — HTML, Notion, Shopify, WordPress`}
+          <p style={{ color: "var(--muted)", fontSize: 17, marginBottom: 32 }}>
+            {filtered.length} {lang === "it" ? "template pronti all'uso — HTML, Notion, Shopify, WordPress" : "ready-to-use templates — HTML, Notion, Shopify, WordPress"}
           </p>
 
           <div className="fn-toolbar">
@@ -124,43 +74,39 @@ export default function CatalogoPage() {
               onChange={e => setQ(e.target.value)}
               placeholder={t("searchPlaceholder")}
             />
-            <div className="fn-lang" style={{ alignSelf: "center" }}>
-              <button className={lang === "it" ? "active" : ""} onClick={() => setLang("it")}>IT</button>
-              <button className={lang === "en" ? "active" : ""} onClick={() => setLang("en")}>EN</button>
-            </div>
           </div>
 
           <div className="fn-chips">
-            {FILTERS.map(({ key, labelIt, labelEn }) => (
+            {FILTERS.map(({ key, label }) => (
               <button
                 key={key}
                 className={`fn-chip${filter === key ? " active" : ""}`}
                 onClick={() => setFilter(key)}
               >
-                {lang === "it" ? labelIt : labelEn}
+                {label}
               </button>
             ))}
           </div>
 
           {filtered.length === 0 ? (
-            <div style={{ padding: "60px 0", textAlign: "center", color: "#9a8f80" }}>
-              {lang === "it" ? "Nessun template trovato." : "No templates found."}
+            <div style={{ padding: "60px 0", textAlign: "center", color: "var(--muted)" }}>
+              {t("noResults")}
             </div>
           ) : (
             <div className="fn-grid">
               {filtered.map(item => (
                 <article className="fn-card" key={item.id}>
-                  <PreviewMock type={getPreviewType(item)} />
+                  <TemplatePreview id={item.id} />
                   <div className="fn-body">
                     <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 14, flexWrap: "wrap" }}>
                       <span className="fn-badge">{getPlatformLabel(item)}</span>
                       {item.editorsPick && (
-                        <span className="fn-badge" style={{ background: "transparent", border: "1px solid #c99a52", color: "#c99a52" }}>
+                        <span className="fn-badge" style={{ background: "transparent", border: "1px solid rgba(212,175,55,.5)", color: "#D4AF37" }}>
                           ★ Editor
                         </span>
                       )}
                       {item.isNew && (
-                        <span className="fn-badge" style={{ background: "transparent", border: "1px solid rgba(255,255,255,.25)", color: "#f5ecd8" }}>
+                        <span className="fn-badge" style={{ background: "transparent", border: "1px solid rgba(234,234,234,.25)", color: "var(--text)" }}>
                           New
                         </span>
                       )}
@@ -168,22 +114,18 @@ export default function CatalogoPage() {
                     <h3 style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontWeight: 400, fontSize: 26, margin: "0 0 8px", lineHeight: 1.2 }}>
                       {item.name}
                     </h3>
-                    <p style={{ color: "#9a8f80", fontSize: 14, lineHeight: 1.55, margin: "0 0 16px" }}>
+                    <p style={{ color: "var(--muted)", fontSize: 14, lineHeight: 1.55, margin: "0 0 16px" }}>
                       {item.description}
                     </p>
                     <div className="fn-meta">
                       <span>{item.tags.slice(0, 2).join(" · ")}</span>
-                      <b style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: 22, fontWeight: 400, color: "#f5ecd8" }}>
+                      <b style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: 22, fontWeight: 400, color: "var(--text)" }}>
                         {formatPrice(item.price)}
                       </b>
                     </div>
                     <div className="fn-card-actions" style={{ marginTop: 18 }}>
-                      <Link href={`/templates/${item.id}`} className="fn-btn primary">
-                        {t("details")}
-                      </Link>
-                      <Link href={`/preview/${item.id}`} className="fn-btn">
-                        {t("download")}
-                      </Link>
+                      <Link href={`/templates/${item.id}`} className="fn-btn primary">{t("details")}</Link>
+                      <Link href={`/preview/${item.id}`} className="fn-btn">{t("download")}</Link>
                     </div>
                   </div>
                 </article>
@@ -195,8 +137,8 @@ export default function CatalogoPage() {
         <footer className="fn-footer">
           <span>FORMA</span>
           <span>
-            <Link href="/">Home</Link> · <Link href="/catalogo">Catalogo</Link> ·{" "}
-            <Link href="/guida">Guida</Link> · <Link href="/account">Account</Link>
+            <Link href="/">{t("footerHome")}</Link> · <Link href="/catalogo">{t("catalogo")}</Link> ·{" "}
+            <Link href="/guida">{t("guida")}</Link> · <Link href="/account">{t("account")}</Link>
           </span>
         </footer>
       </div>

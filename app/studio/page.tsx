@@ -224,7 +224,7 @@ function StudioContent() {
   return (
     <div className="min-h-screen flex flex-col bg-page relative">
 
-      <SiteNav title="AI Studio" />
+      <SiteNav />
 
       <AIUsageBanner />
 
