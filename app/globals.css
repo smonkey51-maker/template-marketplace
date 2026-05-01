@@ -2254,3 +2254,172 @@ html.forma-v2 {
   .fp-hero { padding-top: 60px; }
   .fp-nav { padding: 18px; }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   FORMA NAV INTEGRATED — editorial magazine system (v3)
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Background — deep editorial gradient + grid overlay ── */
+.fn-bg {
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(5,5,5,.52), rgba(5,5,5,.72)),
+    radial-gradient(circle at 25% 20%, rgba(160,30,70,.55), transparent 26%),
+    radial-gradient(circle at 80% 45%, rgba(20,65,105,.42), transparent 36%),
+    linear-gradient(120deg, #170b12, #08101b 55%, #050505);
+  position: relative; overflow: hidden;
+}
+.fn-bg::before {
+  content: ""; position: absolute; inset: 0; opacity: .18;
+  background-image:
+    linear-gradient(rgba(247,240,229,.28) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(247,240,229,.28) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+.fn-bg::after {
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 12% 38%, rgba(210,50,92,.38), transparent 17%),
+    radial-gradient(circle at 70% 28%, rgba(255,255,255,.08), transparent 18%);
+  filter: blur(18px); opacity: .6;
+}
+.fn-shell { position: relative; z-index: 2; min-height: 100vh; }
+
+/* ── Utility bar ── */
+.fn-topline, .fn-midline { height: 1px; background: rgba(247,240,229,.45); width: 100%; }
+.fn-utility {
+  height: 42px; display: grid; grid-template-columns: 1fr auto 1fr;
+  align-items: center; padding: 0 36px;
+  font-size: 10px; text-transform: uppercase; letter-spacing: .24em; color: #9a9387;
+}
+.fn-utility .fn-right { justify-self: end; display: flex; gap: 8px; align-items: center; }
+
+/* ── Logo hero ── */
+.fn-logo-hero {
+  font-family: Georgia, serif; font-size: clamp(74px,11vw,150px);
+  letter-spacing: .28em; text-align: center; font-weight: 400;
+  line-height: 1.05; margin: 52px auto; color: #f4eadc;
+  display: block; text-decoration: none;
+  transition: opacity .3s;
+}
+.fn-logo-hero:hover { opacity: .8; }
+
+/* ── Navbar ── */
+.fn-navbar {
+  height: 62px; display: grid; grid-template-columns: 1fr auto 1fr;
+  align-items: center; padding: 0 36px;
+  border-top: 1px solid rgba(247,240,229,.45);
+  border-bottom: 1px solid rgba(247,240,229,.45);
+  text-transform: uppercase; font-size: 10px; letter-spacing: .22em; color: #9a9387;
+}
+.fn-nav-left, .fn-nav-right { display: flex; gap: 24px; align-items: center; }
+.fn-nav-right { justify-self: end; }
+.fn-nav-left a:hover, .fn-nav-right a:hover { color: #f7f0e5; }
+.fn-drop::after { content: " +"; color: #c99a52; }
+.fn-kbd { border: 1px solid rgba(255,255,255,.18); padding: 4px 7px; color: #bdb5aa; margin-left: 7px; }
+.fn-outline { border: 1px solid #c99a52; padding: 10px 16px; color: #f7f0e5; transition: background .2s; }
+.fn-outline:hover { background: rgba(201,154,82,.1); }
+
+/* IT/EN toggle (sharp, editorial) */
+.fn-lang { display: flex; border: 1px solid rgba(255,255,255,.18); padding: 2px; background: rgba(0,0,0,.25); }
+.fn-lang button { border: 0; background: transparent; color: #9a9387; font-size: 11px; padding: 5px 8px; cursor: pointer; font: inherit; transition: background .15s, color .15s; }
+.fn-lang .active { background: #c99a52; color: #111; }
+
+/* ── Hero ── */
+.fn-hero {
+  display: grid; grid-template-columns: 1fr 330px; gap: 80px;
+  align-items: end; max-width: 1220px; margin: 0 auto; padding: 250px 36px 105px;
+}
+.fn-kicker { font-size: 11px; text-transform: uppercase; letter-spacing: .24em; color: #c99a52; font-weight: 700; }
+.fn-hero h1 { font-family: Georgia, serif; font-size: clamp(42px,5vw,68px); line-height: 1.04; font-weight: 400; margin: 18px 0; color: #f7f0e5; }
+.fn-hero p { color: #c9c1b6; font-size: 18px; line-height: 1.55; max-width: 560px; }
+.fn-actions { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; margin-top: 30px; }
+.fn-btn { border: 1px solid rgba(255,255,255,.22); background: rgba(255,255,255,.06); color: #f7f0e5; padding: 15px 24px; text-transform: uppercase; font-size: 11px; letter-spacing: .16em; cursor: pointer; display: inline-flex; gap: 8px; align-items: center; text-decoration: none; transition: background .2s; }
+.fn-btn:hover { background: rgba(255,255,255,.12); }
+.fn-btn.primary { background: #f7f0e5; color: #111; border: 0; }
+.fn-btn.primary:hover { background: #fff; }
+.fn-btn.gold { color: #c99a52; border: 0; background: transparent; padding-left: 0; }
+
+/* ── Stats sidebar ── */
+.fn-stats { border-left: 1px solid rgba(255,255,255,.13); padding-left: 46px; display: grid; gap: 28px; }
+.fn-stat b { display: block; font-family: Georgia, serif; font-size: 38px; font-weight: 400; }
+.fn-stat span { display: block; text-transform: uppercase; letter-spacing: .2em; color: #9a9387; font-size: 10px; }
+
+/* ── Section ── */
+.fn-section { max-width: 1220px; margin: 0 auto; padding: 70px 36px; }
+.fn-section h2 { font-family: Georgia, serif; font-weight: 400; font-size: 54px; margin: 0 0 14px; }
+.fn-section > p { color: #9a9387; font-size: 18px; }
+
+/* ── Toolbar + search + chips ── */
+.fn-toolbar { display: grid; grid-template-columns: 1fr auto; gap: 16px; margin: 28px 0 18px; }
+.fn-search { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.13); color: #f7f0e5; padding: 16px; border-radius: 0; width: 100%; outline: none; font: inherit; }
+.fn-search:focus { border-color: rgba(201,154,82,.5); }
+.fn-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+.fn-chip { border: 1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.04); color: #9a9387; padding: 10px 13px; cursor: pointer; font: inherit; transition: background .15s, color .15s; }
+.fn-chip.active { background: #c99a52; color: #111; }
+
+/* ── Template grid + cards ── */
+.fn-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+.fn-card { border: 1px solid rgba(255,255,255,.14); background: linear-gradient(145deg, rgba(255,255,255,.075), rgba(255,255,255,.025)); min-height: 420px; }
+
+/* Preview areas */
+.fn-preview { height: 220px; background: #111; position: relative; overflow: hidden; }
+.fn-preview::after { content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(201,154,82,.34), transparent 55%); }
+
+/* CRM preview */
+.fn-p-crm { padding: 22px; }
+.fn-row { display: grid; grid-template-columns: 1fr 70px 60px; gap: 8px; margin: 9px 0; }
+.fn-cell { height: 28px; background: rgba(255,255,255,.10); }
+.fn-goldcell { background: rgba(201,154,82,.5); }
+
+/* Web preview */
+.fn-p-web { display: grid; place-items: center; }
+.fn-window { width: 72%; border: 1px solid rgba(255,255,255,.17); padding: 18px; background: #070707; }
+.fn-line { height: 9px; background: rgba(255,255,255,.15); margin: 10px 0; }
+.fn-line.gold { background: #c99a52; }
+
+/* App preview */
+.fn-p-app { display: grid; place-items: center; }
+.fn-phone { width: 120px; height: 188px; border: 4px solid rgba(255,255,255,.2); border-radius: 25px; padding: 16px; }
+.fn-phone div { height: 18px; background: rgba(255,255,255,.13); margin: 10px 0; border-radius: 8px; }
+.fn-phone .gold { background: #c99a52; }
+
+/* Deck preview */
+.fn-p-deck { display: flex; gap: 12px; justify-content: center; align-items: center; }
+.fn-slide { width: 94px; height: 128px; border: 1px solid rgba(255,255,255,.14); padding: 14px; background: rgba(255,255,255,.06); }
+.fn-slide b { color: #c99a52; }
+
+/* Card body */
+.fn-body { padding: 22px; }
+.fn-badge { display: inline-block; background: #c99a52; color: #111; padding: 7px 10px; font-size: 11px; text-transform: uppercase; font-weight: 800; margin-bottom: 14px; }
+.fn-body h3 { font-size: 25px; margin: 0 0 9px; }
+.fn-body p { color: #9a9387; line-height: 1.45; }
+.fn-meta { display: flex; justify-content: space-between; color: #9a9387; font-size: 13px; margin: 17px 0; }
+.fn-card-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* ── Detail page ── */
+.fn-detail { max-width: 1160px; margin: 0 auto; padding: 58px 36px 80px; display: grid; grid-template-columns: 1.2fr .8fr; gap: 24px; }
+.fn-panel { border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.045); padding: 26px; }
+.fn-sticky { position: sticky; top: 98px; }
+
+/* ── Simple pages (guide, account, studio) ── */
+.fn-simple { max-width: 900px; margin: 0 auto; padding: 90px 36px; }
+.fn-simple h1 { font-family: Georgia, serif; font-size: 72px; font-weight: 400; margin: 0 0 16px; }
+.fn-simple p { color: #9a9387; font-size: 20px; line-height: 1.6; }
+.fn-box { border: 1px solid rgba(255,255,255,.14); padding: 24px; margin-top: 22px; background: rgba(255,255,255,.04); }
+
+/* ── Footer ── */
+.fn-footer { border-top: 1px solid rgba(247,240,229,.45); padding: 28px 36px; color: #9a9387; display: flex; justify-content: space-between; text-transform: uppercase; font-size: 10px; letter-spacing: .18em; }
+.fn-footer a:hover { color: #f7f0e5; }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .fn-utility, .fn-navbar { padding: 0 16px; }
+  .fn-nav-left { gap: 10px; }
+  .fn-nav-left a:nth-child(n+3) { display: none; }
+  .fn-hero, .fn-detail { grid-template-columns: 1fr; padding-top: 110px; }
+  .fn-stats { border-left: 0; padding-left: 0; }
+  .fn-grid, .fn-toolbar { grid-template-columns: 1fr; }
+  .fn-logo-hero { font-size: 62px; letter-spacing: .17em; }
+  .fn-nav-right a:first-child, .fn-kbd { display: none; }
+}
