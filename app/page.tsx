@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import SiteNav from "@/components/SiteNav";
 import { HomeContent } from "@/components/HomeContent";
-import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "FORMA — Template come oggetti curati.",
@@ -26,13 +25,6 @@ export default function Page() {
       <div className="fn-shell">
         <SiteNav />
         <HomeContent />
-        <footer className="fn-footer">
-          <span>FORMA</span>
-          <span>
-            <Link href="/">Home</Link> · <Link href="/catalogo">Catalogo</Link> ·{" "}
-            <Link href="/guida">Guida</Link> · <Link href="/account">Account</Link>
-          </span>
-        </footer>
       </div>
     </div>
   );

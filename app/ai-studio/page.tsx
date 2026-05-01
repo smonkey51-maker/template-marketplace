@@ -4,6 +4,7 @@ import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
 import { useLang } from "@/components/LanguageProvider";
 import { copy } from "@/lib/formaCopy";
+import { FormaFooter } from "@/components/FormaFooter";
 
 export default function AIStudioPage() {
   const { lang } = useLang();
@@ -71,11 +72,7 @@ export default function AIStudioPage() {
             <Link className="fn-btn" href="/catalogo">{t("browseAll")}</Link>
           </div>
         </main>
-
-        <footer className="fn-footer">
-          <span>FORMA</span>
-          <span><Link href="/">{t("footerHome")}</Link> · <Link href="/catalogo">{t("catalogo")}</Link></span>
-        </footer>
+        <FormaFooter />
       </div>
     </div>
   );

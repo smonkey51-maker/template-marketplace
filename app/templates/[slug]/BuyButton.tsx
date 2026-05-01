@@ -1,8 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useLang } from "@/components/LanguageProvider";
+import { copy } from "@/lib/formaCopy";
 
 export function BuyButton({ templateId, price }: { templateId: string; price: string }) {
+  const { lang } = useLang();
+  const t = (k: keyof typeof copy.it) => copy[lang][k];
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -19,11 +23,11 @@ export function BuyButton({ templateId, price }: { templateId: string; price: st
       if (data.url) {
         window.location.href = data.url;
       } else {
-        setError(data.error ?? "Errore nel checkout.");
+        setError(data.error ?? t("checkoutError"));
         setLoading(false);
       }
     } catch {
-      setError("Errore di rete. Riprova.");
+      setError(t("networkError"));
       setLoading(false);
     }
   }
@@ -36,11 +40,9 @@ export function BuyButton({ templateId, price }: { templateId: string; price: st
         disabled={loading}
         style={{ width: "100%", justifyContent: "center", fontSize: 13, padding: "16px 24px" }}
       >
-        {loading ? "Reindirizzamento…" : `Acquista — ${price}`}
+        {loading ? t("redirecting") : `${t("buyNow")} — ${price}`}
       </button>
-      {error && (
-        <p style={{ color: "#c97a52", fontSize: 12, marginTop: 8 }}>{error}</p>
-      )}
+      {error && <p style={{ color: "#c97a52", fontSize: 12, marginTop: 8 }}>{error}</p>}
     </div>
   );
 }

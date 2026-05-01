@@ -48,29 +48,105 @@ export const templates: Template[] = [
     tags: ["hero", "saas", "landing", "gradient"],
     downloads: 1423,
     editorsPick: true,
-    content: `<section class="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white/10 text-white backdrop-blur-sm border border-white/20 mb-6">
-      🚀 Now in public beta
-    </span>
-    <h1 class="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6">
-      Build faster with<br/>
-      <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-cyan-300">
-        AI-powered tools
-      </span>
-    </h1>
-    <p class="text-xl text-white/70 max-w-2xl mx-auto mb-8">
-      Ship your product in days, not months. Join 10,000+ developers who trust our platform.
-    </p>
-    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <button class="px-8 py-4 bg-white text-indigo-900 font-bold rounded-xl hover:bg-white/90 transition">
-        Start for free
-      </button>
-      <button class="px-8 py-4 bg-white/10 text-white font-bold rounded-xl border border-white/20 hover:bg-white/20 transition backdrop-blur-sm">
-        Watch demo →
-      </button>
+    content: `<style>
+body { background: #030712; color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; margin: 0; }
+.glow-purple { box-shadow: 0 0 80px rgba(99,102,241,.3), 0 0 160px rgba(99,102,241,.15); }
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+.float { animation: float 5s ease-in-out infinite; }
+@keyframes pulse2 { 0%,100%{opacity:1} 50%{opacity:.4} }
+.pulse2 { animation: pulse2 2s ease-in-out infinite; }
+</style>
+
+<!-- HERO -->
+<section style="min-height:100vh;background:#030712;position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% -15%, rgba(99,102,241,.4) 0%, transparent 55%);pointer-events:none;"></div>
+  <div style="max-width:1100px;margin:0 auto;padding:80px 24px 60px;text-align:center;position:relative;">
+    <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:999px;background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.25);color:#a5b4fc;font-size:13px;margin-bottom:32px;">
+      <span class="pulse2" style="width:8px;height:8px;border-radius:50%;background:#818cf8;display:inline-block;"></span>
+      Now in public beta — 50,000+ developers signed up
     </div>
-    <p class="mt-8 text-white/40 text-sm">No credit card required · Free tier available · Cancel anytime</p>
+    <h1 style="font-size:clamp(44px,7vw,88px);font-weight:900;line-height:1.0;letter-spacing:-2px;margin:0 0 24px;">
+      <span style="color:#f8fafc;">Ship your SaaS</span><br>
+      <span style="background:linear-gradient(135deg,#818cf8,#a78bfa,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">10x faster</span>
+    </h1>
+    <p style="font-size:20px;color:#94a3b8;max-width:600px;margin:0 auto 40px;line-height:1.65;">
+      The developer platform that goes from idea to production in days, not months. Infrastructure, auth, payments — all included.
+    </p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:16px;">
+      <button class="glow-purple" style="padding:16px 36px;background:#4f46e5;color:#fff;border:none;border-radius:12px;font-size:17px;font-weight:700;cursor:pointer;">Start for free</button>
+      <button style="padding:16px 36px;background:rgba(255,255,255,.06);color:#fff;border:1px solid rgba(255,255,255,.12);border-radius:12px;font-size:17px;font-weight:600;cursor:pointer;backdrop-filter:blur(8px);">Watch demo →</button>
+    </div>
+    <p style="color:#475569;font-size:14px;">No credit card required · 14-day free trial · Cancel anytime</p>
+
+    <!-- Dashboard mockup -->
+    <div class="float" style="margin-top:64px;border-radius:16px;border:1px solid rgba(255,255,255,.08);overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.8);">
+      <div style="background:#0f172a;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:8px;">
+        <div style="display:flex;gap:6px;"><div style="width:12px;height:12px;border-radius:50%;background:#ef4444;opacity:.7;"></div><div style="width:12px;height:12px;border-radius:50%;background:#eab308;opacity:.7;"></div><div style="width:12px;height:12px;border-radius:50%;background:#22c55e;opacity:.7;"></div></div>
+        <div style="flex:1;background:rgba(255,255,255,.05);border-radius:6px;height:22px;margin:0 12px;display:flex;align-items:center;padding:0 10px;"><span style="font-size:11px;color:#475569;">app.yourproduct.com/dashboard</span></div>
+      </div>
+      <div style="background:#0d1117;padding:24px;">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;">
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:16px;"><div style="font-size:28px;font-weight:800;color:#fff;">124k</div><div style="font-size:12px;color:#64748b;margin-top:4px;">Active users</div></div>
+          <div style="background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.2);border-radius:12px;padding:16px;"><div style="font-size:28px;font-weight:800;color:#a5b4fc;">€48.2k</div><div style="font-size:12px;color:#64748b;margin-top:4px;">MRR</div></div>
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:16px;"><div style="font-size:28px;font-weight:800;color:#fff;">98.9%</div><div style="font-size:12px;color:#64748b;margin-top:4px;">Uptime</div></div>
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:16px;"><div style="font-size:28px;font-weight:800;color:#fff;">4.2ms</div><div style="font-size:12px;color:#64748b;margin-top:4px;">Avg latency</div></div>
+        </div>
+        <div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:12px;height:120px;display:flex;align-items:flex-end;padding:16px;gap:6px;overflow:hidden;">
+          <div style="flex:1;background:rgba(99,102,241,.5);border-radius:3px 3px 0 0;height:45%;"></div>
+          <div style="flex:1;background:rgba(99,102,241,.5);border-radius:3px 3px 0 0;height:62%;"></div>
+          <div style="flex:1;background:rgba(99,102,241,.5);border-radius:3px 3px 0 0;height:48%;"></div>
+          <div style="flex:1;background:rgba(99,102,241,.5);border-radius:3px 3px 0 0;height:80%;"></div>
+          <div style="flex:1;background:rgba(99,102,241,.5);border-radius:3px 3px 0 0;height:55%;"></div>
+          <div style="flex:1;background:rgba(167,139,250,.7);border-radius:3px 3px 0 0;height:95%;"></div>
+          <div style="flex:1;background:rgba(99,102,241,.5);border-radius:3px 3px 0 0;height:75%;"></div>
+          <div style="flex:1;background:rgba(99,102,241,.5);border-radius:3px 3px 0 0;height:100%;"></div>
+          <div style="flex:1;background:rgba(99,102,241,.5);border-radius:3px 3px 0 0;height:85%;"></div>
+          <div style="flex:1;background:rgba(99,102,241,.5);border-radius:3px 3px 0 0;height:70%;"></div>
+          <div style="flex:1;background:rgba(167,139,250,.8);border-radius:3px 3px 0 0;height:90%;"></div>
+          <div style="flex:1;background:rgba(99,102,241,.5);border-radius:3px 3px 0 0;height:88%;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section style="background:#030712;padding:96px 24px;border-top:1px solid rgba(255,255,255,.05);">
+  <div style="max-width:1100px;margin:0 auto;">
+    <p style="color:#818cf8;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.18em;text-align:center;margin-bottom:16px;">Platform features</p>
+    <h2 style="font-size:clamp(32px,5vw,52px);font-weight:900;color:#fff;text-align:center;margin:0 0 16px;letter-spacing:-1px;">Everything you need to ship</h2>
+    <p style="font-size:18px;color:#64748b;text-align:center;max-width:520px;margin:0 auto 64px;line-height:1.6;">All the tools developers love, wrapped in a DX that actually makes you faster.</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+      <div style="padding:28px;border-radius:16px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);transition:border-color .2s;"><div style="font-size:28px;margin-bottom:16px;">⚡</div><h3 style="font-size:18px;font-weight:700;color:#f1f5f9;margin:0 0 10px;">Instant deploys</h3><p style="font-size:14px;color:#64748b;line-height:1.65;margin:0;">Push to Git and your changes are live in under 30 seconds. Zero config.</p></div>
+      <div style="padding:28px;border-radius:16px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);"><div style="font-size:28px;margin-bottom:16px;">🤖</div><h3 style="font-size:18px;font-weight:700;color:#f1f5f9;margin:0 0 10px;">AI code generation</h3><p style="font-size:14px;color:#64748b;line-height:1.65;margin:0;">Describe what you want. Our AI writes production-ready code instantly.</p></div>
+      <div style="padding:28px;border-radius:16px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);"><div style="font-size:28px;margin-bottom:16px;">📊</div><h3 style="font-size:18px;font-weight:700;color:#f1f5f9;margin:0 0 10px;">Real-time analytics</h3><p style="font-size:14px;color:#64748b;line-height:1.65;margin:0;">Monitor every request, track errors, understand users. Built-in observability.</p></div>
+      <div style="padding:28px;border-radius:16px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);"><div style="font-size:28px;margin-bottom:16px;">🔐</div><h3 style="font-size:18px;font-weight:700;color:#f1f5f9;margin:0 0 10px;">Enterprise security</h3><p style="font-size:14px;color:#64748b;line-height:1.65;margin:0;">SOC2 Type II, end-to-end encryption, SSO and audit logs built in.</p></div>
+      <div style="padding:28px;border-radius:16px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);"><div style="font-size:28px;margin-bottom:16px;">🌐</div><h3 style="font-size:18px;font-weight:700;color:#f1f5f9;margin:0 0 10px;">Global edge network</h3><p style="font-size:14px;color:#64748b;line-height:1.65;margin:0;">Deploy to 80+ regions. Sub-10ms latency for 99.9% of your users worldwide.</p></div>
+      <div style="padding:28px;border-radius:16px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);"><div style="font-size:28px;margin-bottom:16px;">💰</div><h3 style="font-size:18px;font-weight:700;color:#f1f5f9;margin:0 0 10px;">Pay as you grow</h3><p style="font-size:14px;color:#64748b;line-height:1.65;margin:0;">Start free, scale as you grow. No upfront costs, no surprise bills.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section style="background:#030712;padding:80px 24px;border-top:1px solid rgba(255,255,255,.05);">
+  <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center;">
+    <div><div style="font-size:40px;font-weight:900;color:#fff;margin-bottom:8px;">50k+</div><div style="font-size:14px;color:#64748b;">Developers</div></div>
+    <div><div style="font-size:40px;font-weight:900;color:#818cf8;margin-bottom:8px;">2B+</div><div style="font-size:14px;color:#64748b;">API req/month</div></div>
+    <div><div style="font-size:40px;font-weight:900;color:#fff;margin-bottom:8px;">99.99%</div><div style="font-size:14px;color:#64748b;">Uptime SLA</div></div>
+    <div><div style="font-size:40px;font-weight:900;color:#fff;margin-bottom:8px;">4.9★</div><div style="font-size:14px;color:#64748b;">G2 rating</div></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="background:#030712;padding:96px 24px;border-top:1px solid rgba(255,255,255,.05);">
+  <div style="max-width:700px;margin:0 auto;text-align:center;">
+    <div style="display:inline-block;padding:5px 14px;border-radius:999px;background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.2);color:#a5b4fc;font-size:13px;margin-bottom:24px;">Ready to start?</div>
+    <h2 style="font-size:clamp(36px,5vw,56px);font-weight:900;color:#fff;letter-spacing:-1.5px;margin:0 0 20px;">Start shipping today</h2>
+    <p style="font-size:18px;color:#64748b;margin-bottom:40px;line-height:1.6;">Join 50,000+ developers building with our platform.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <button style="padding:18px 40px;background:#4f46e5;color:#fff;border:none;border-radius:12px;font-size:17px;font-weight:700;cursor:pointer;">Get started free</button>
+      <button style="padding:18px 40px;background:transparent;color:#94a3b8;border:1px solid rgba(255,255,255,.12);border-radius:12px;font-size:17px;font-weight:600;cursor:pointer;">Talk to sales</button>
+    </div>
   </div>
 </section>`,
   },
@@ -84,48 +160,204 @@ export const templates: Template[] = [
     stripePriceId: "price_1TBixDBoWNgrJbiyjst5ntr3",
     tags: ["pricing", "saas", "cards", "table"],
     downloads: 987,
-    content: `<div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-4 py-16">
-  <!-- Starter -->
-  <div class="rounded-2xl border border-gray-200 p-8 bg-white">
-    <h3 class="text-lg font-semibold text-gray-900">Starter</h3>
-    <p class="mt-4 text-4xl font-bold text-gray-900">$9<span class="text-lg text-gray-500">/mo</span></p>
-    <ul class="mt-6 space-y-3 text-sm text-gray-600">
-      <li>✅ 100 AI generations</li>
-      <li>✅ 5 projects</li>
-      <li>✅ Email support</li>
-    </ul>
-    <button class="mt-8 w-full py-3 rounded-xl border-2 border-indigo-600 text-indigo-600 font-semibold hover:bg-indigo-50 transition">
-      Get started
-    </button>
-  </div>
-  <!-- Pro (highlighted) -->
-  <div class="rounded-2xl border-2 border-indigo-600 p-8 bg-indigo-600 text-white scale-105 shadow-2xl">
-    <div class="flex justify-between items-center">
-      <h3 class="text-lg font-semibold">Pro</h3>
-      <span class="text-xs font-bold bg-white/20 px-2 py-1 rounded-full">POPULAR</span>
+    content: `<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#050508;color:#f0f0f5;min-height:100vh}
+.wrap{max-width:1100px;margin:0 auto;padding:0 28px}
+/* Nav */
+nav{display:flex;align-items:center;justify-content:space-between;padding:22px 28px;max-width:1100px;margin:0 auto}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;letter-spacing:-.4px}
+.logo-dot{width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6)}
+.nav-links{display:flex;align-items:center;gap:28px;font-size:13.5px;color:rgba(240,240,245,.5)}
+.nav-btn{background:rgba(99,102,241,.15);border:1px solid rgba(99,102,241,.3);color:#818cf8;padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:.2s}
+.nav-btn:hover{background:rgba(99,102,241,.25)}
+/* Hero */
+.hero{text-align:center;padding:64px 20px 40px}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.2);color:#a5b4fc;padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;letter-spacing:.05em;margin-bottom:24px}
+.hero h1{font-size:clamp(36px,5vw,58px);font-weight:900;letter-spacing:-1.5px;line-height:1.08;margin-bottom:16px}
+.hero h1 span{background:linear-gradient(135deg,#818cf8,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:rgba(240,240,245,.5);font-size:17px;max-width:480px;margin:0 auto 36px;line-height:1.65}
+/* Toggle */
+.toggle-wrap{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:52px}
+.toggle-label{font-size:13px;color:rgba(240,240,245,.5)}
+.toggle-pill{width:48px;height:26px;background:rgba(99,102,241,.3);border-radius:13px;position:relative;cursor:pointer;border:1px solid rgba(99,102,241,.2)}
+.toggle-pill::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;background:#818cf8;border-radius:50%;transition:.2s}
+.save-badge{background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.25);color:#34d399;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700}
+/* Cards */
+.cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;max-width:980px;margin:0 auto 64px;align-items:center}
+.card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:32px 28px;position:relative;transition:.25s}
+.card.featured{background:linear-gradient(145deg,rgba(99,102,241,.12),rgba(139,92,246,.08));border-color:rgba(99,102,241,.35);transform:scale(1.04);box-shadow:0 0 60px rgba(99,102,241,.15)}
+.plan-name{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(240,240,245,.45);margin-bottom:6px}
+.featured .plan-name{color:#a5b4fc}
+.price-row{display:flex;align-items:flex-end;gap:4px;margin-bottom:8px}
+.price-val{font-size:52px;font-weight:900;letter-spacing:-2px;line-height:1}
+.price-mo{font-size:14px;color:rgba(240,240,245,.4);padding-bottom:10px}
+.price-billed{font-size:12px;color:rgba(240,240,245,.35);margin-bottom:28px}
+.popular-tag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,#6366f1,#8b5cf6);color:#fff;padding:4px 16px;border-radius:12px;font-size:11px;font-weight:700;letter-spacing:.06em;white-space:nowrap}
+.feature-list{list-style:none;display:flex;flex-direction:column;gap:11px;margin-bottom:32px;font-size:13.5px}
+.feature-list li{display:flex;align-items:flex-start;gap:9px;color:rgba(240,240,245,.65)}
+.check{width:18px;height:18px;background:rgba(99,102,241,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;shrink:0;flex-shrink:0;color:#818cf8;margin-top:1px}
+.featured .check{background:rgba(99,102,241,.25);color:#c4b5fd}
+.dash{width:18px;height:18px;display:flex;align-items:center;justify-content:center;color:rgba(240,240,245,.2);font-size:12px;flex-shrink:0;margin-top:1px}
+.btn-card{width:100%;padding:13px;border-radius:12px;font-weight:700;font-size:14px;cursor:pointer;transition:.2s;border:0}
+.btn-outline{background:transparent;border:1px solid rgba(255,255,255,.12);color:rgba(240,240,245,.7)}
+.btn-outline:hover{border-color:rgba(99,102,241,.4);color:#a5b4fc}
+.btn-primary{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;box-shadow:0 4px 20px rgba(99,102,241,.35)}
+.btn-primary:hover{opacity:.9;transform:translateY(-1px)}
+/* Compare */
+.compare{max-width:880px;margin:0 auto 64px}
+.compare h2{font-size:22px;font-weight:800;letter-spacing:-.5px;margin-bottom:24px;text-align:center;color:rgba(240,240,245,.8)}
+.compare-table{width:100%;border-collapse:collapse;font-size:13px}
+.compare-table th{padding:12px 18px;text-align:left;color:rgba(240,240,245,.35);font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:11px;border-bottom:1px solid rgba(255,255,255,.05)}
+.compare-table th:nth-child(2),.compare-table th:nth-child(3),.compare-table th:nth-child(4){text-align:center}
+.compare-table td{padding:12px 18px;border-bottom:1px solid rgba(255,255,255,.04);color:rgba(240,240,245,.7)}
+.compare-table td:nth-child(2),.compare-table td:nth-child(3),.compare-table td:nth-child(4){text-align:center}
+.compare-table tr:last-child td{border:none}
+.col-hi{color:#a5b4fc}
+.yes{color:#34d399}
+.no{color:rgba(240,240,245,.2)}
+/* FAQ */
+.faq{max-width:640px;margin:0 auto 64px}
+.faq h2{font-size:22px;font-weight:800;letter-spacing:-.5px;margin-bottom:28px;text-align:center}
+.faq-item{border-bottom:1px solid rgba(255,255,255,.06);padding:20px 0}
+.faq-q{font-size:14px;font-weight:700;color:rgba(240,240,245,.85);margin-bottom:8px}
+.faq-a{font-size:13px;color:rgba(240,240,245,.45);line-height:1.65}
+/* CTA */
+.cta{text-align:center;padding:64px 20px;border-top:1px solid rgba(255,255,255,.05)}
+.cta h2{font-size:32px;font-weight:900;letter-spacing:-.8px;margin-bottom:12px}
+.cta p{color:rgba(240,240,245,.45);font-size:15px;margin-bottom:28px}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,.12);color:rgba(240,240,245,.7);padding:12px 24px;border-radius:10px;font-weight:600;font-size:14px;cursor:pointer}
+.btn-solid{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;padding:12px 28px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;border:0;box-shadow:0 4px 20px rgba(99,102,241,.35)}
+</style>
+
+<nav>
+  <div class="logo"><div class="logo-dot"></div>Nexus</div>
+  <div class="nav-links"><span>Features</span><span>Docs</span><span>Blog</span><span>Status</span></div>
+  <button class="nav-btn">Log in</button>
+</nav>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="hero-badge">💡 Simple, transparent pricing</div>
+    <h1>Plans that <span>scale with you</span></h1>
+    <p>From solo builders to enterprise teams — every plan includes the core features you need to ship faster.</p>
+    <div class="toggle-wrap">
+      <span class="toggle-label">Monthly</span>
+      <div class="toggle-pill"></div>
+      <span class="toggle-label">Annual</span>
+      <span class="save-badge">Save 30%</span>
     </div>
-    <p class="mt-4 text-4xl font-bold">$29<span class="text-lg text-white/70">/mo</span></p>
-    <ul class="mt-6 space-y-3 text-sm text-white/80">
-      <li>✅ Unlimited generations</li>
-      <li>✅ 50 projects</li>
-      <li>✅ Priority support</li>
-    </ul>
-    <button class="mt-8 w-full py-3 rounded-xl bg-white text-indigo-600 font-semibold hover:bg-white/90 transition">
-      Get started
-    </button>
   </div>
-  <!-- Enterprise -->
-  <div class="rounded-2xl border border-gray-200 p-8 bg-white">
-    <h3 class="text-lg font-semibold text-gray-900">Enterprise</h3>
-    <p class="mt-4 text-4xl font-bold text-gray-900">$99<span class="text-lg text-gray-500">/mo</span></p>
-    <ul class="mt-6 space-y-3 text-sm text-gray-600">
-      <li>✅ Unlimited everything</li>
-      <li>✅ Custom integrations</li>
-      <li>✅ Dedicated support</li>
-    </ul>
-    <button class="mt-8 w-full py-3 rounded-xl border-2 border-indigo-600 text-indigo-600 font-semibold hover:bg-indigo-50 transition">
-      Contact sales
-    </button>
+
+  <div class="cards">
+    <!-- Starter -->
+    <div class="card">
+      <div class="plan-name">Starter</div>
+      <div class="price-row"><span class="price-val">$9</span><span class="price-mo">/mo</span></div>
+      <div class="price-billed">Billed monthly · $108/yr</div>
+      <ul class="feature-list">
+        <li><span class="check">✓</span>Up to 3 projects</li>
+        <li><span class="check">✓</span>5,000 API calls/month</li>
+        <li><span class="check">✓</span>Community support</li>
+        <li><span class="check">✓</span>Basic analytics</li>
+        <li><span class="dash">—</span>Custom domains</li>
+        <li><span class="dash">—</span>Team seats</li>
+        <li><span class="dash">—</span>Priority support</li>
+      </ul>
+      <button class="btn-card btn-outline">Get started free</button>
+    </div>
+
+    <!-- Pro (featured) -->
+    <div class="card featured">
+      <div class="popular-tag">MOST POPULAR</div>
+      <div class="plan-name">Pro</div>
+      <div class="price-row"><span class="price-val">$29</span><span class="price-mo">/mo</span></div>
+      <div class="price-billed">Billed monthly · $348/yr</div>
+      <ul class="feature-list">
+        <li><span class="check">✓</span>Unlimited projects</li>
+        <li><span class="check">✓</span>100,000 API calls/month</li>
+        <li><span class="check">✓</span>Priority email support</li>
+        <li><span class="check">✓</span>Advanced analytics</li>
+        <li><span class="check">✓</span>5 custom domains</li>
+        <li><span class="check">✓</span>Up to 5 team seats</li>
+        <li><span class="dash">—</span>Dedicated account mgr</li>
+      </ul>
+      <button class="btn-card btn-primary">Start Pro trial →</button>
+    </div>
+
+    <!-- Enterprise -->
+    <div class="card">
+      <div class="plan-name">Enterprise</div>
+      <div class="price-row"><span class="price-val">$99</span><span class="price-mo">/mo</span></div>
+      <div class="price-billed">Billed monthly · custom annual</div>
+      <ul class="feature-list">
+        <li><span class="check">✓</span>Unlimited projects</li>
+        <li><span class="check">✓</span>Unlimited API calls</li>
+        <li><span class="check">✓</span>24/7 phone + chat</li>
+        <li><span class="check">✓</span>Custom analytics + export</li>
+        <li><span class="check">✓</span>Unlimited custom domains</li>
+        <li><span class="check">✓</span>Unlimited team seats</li>
+        <li><span class="check">✓</span>Dedicated account mgr</li>
+      </ul>
+      <button class="btn-card btn-outline">Contact sales</button>
+    </div>
+  </div>
+
+  <!-- Compare -->
+  <div class="compare">
+    <h2>Compare plans</h2>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Starter</th>
+          <th class="col-hi">Pro</th>
+          <th>Enterprise</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Projects</td><td>3</td><td class="col-hi">Unlimited</td><td>Unlimited</td></tr>
+        <tr><td>API calls / month</td><td>5K</td><td class="col-hi">100K</td><td>Unlimited</td></tr>
+        <tr><td>Custom domains</td><td class="no">✗</td><td class="col-hi yes">✓ 5</td><td class="yes">✓ Unlimited</td></tr>
+        <tr><td>Team seats</td><td class="no">✗</td><td class="col-hi yes">✓ 5</td><td class="yes">✓ Unlimited</td></tr>
+        <tr><td>Analytics dashboard</td><td>Basic</td><td class="col-hi">Advanced</td><td>Custom</td></tr>
+        <tr><td>Support</td><td>Community</td><td class="col-hi">Priority email</td><td>24/7 phone + chat</td></tr>
+        <tr><td>SSO / SAML</td><td class="no">✗</td><td class="no">✗</td><td class="yes">✓</td></tr>
+        <tr><td>SLA guarantee</td><td class="no">✗</td><td class="no">✗</td><td class="yes">✓ 99.99%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item">
+      <div class="faq-q">Can I change plans at any time?</div>
+      <div class="faq-a">Yes — you can upgrade, downgrade, or cancel at any time. Upgrades take effect immediately; downgrades at the end of the billing cycle.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Is there a free trial?</div>
+      <div class="faq-a">Every paid plan starts with a 14-day free trial, no credit card required. After the trial, you're billed on your chosen cycle.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What happens when I exceed API call limits?</div>
+      <div class="faq-a">You'll receive an email warning at 80% usage. Exceeding limits pauses new calls until the next cycle — or you can upgrade instantly.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Do you offer discounts for startups?</div>
+      <div class="faq-a">Yes — we offer 50% off for early-stage startups (&lt;$1M ARR). Apply through our startup program page.</div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta">
+    <h2>Ready to build?</h2>
+    <p>Join 12,000+ teams already using Nexus to ship faster. No credit card required.</p>
+    <div class="cta-btns">
+      <button class="btn-ghost">View documentation</button>
+      <button class="btn-solid">Start free trial →</button>
+    </div>
   </div>
 </div>`,
   },
@@ -562,43 +794,297 @@ export const templates: Template[] = [
     stripePriceId: "price_1TBz4fBoWNgrJbiy7LMgcESo",
     tags: ["artisan", "catalog", "inventory", "spreadsheet", "small business"],
     downloads: 334,
-    content: `<div class="min-h-screen bg-amber-50 p-6 font-sans text-sm">
-  <div class="max-w-4xl mx-auto">
-    <div class="flex items-center justify-between mb-6">
-      <div><h1 class="text-2xl font-bold text-amber-900">🏺 Bottega Ceramica</h1><p class="text-amber-600 text-xs">Catalogo Prodotti · Spring 2025</p></div>
-      <div class="text-right"><div class="text-sm font-semibold text-gray-700">24 products · €4,820 inventory value</div><div class="text-xs text-gray-400 mt-0.5">Last updated: March 17</div></div>
-    </div>
-    <!-- Filters Row -->
-    <div class="flex gap-2 mb-4 flex-wrap">
-      <span class="bg-amber-800 text-white px-3 py-1 rounded-full text-xs font-medium cursor-pointer">All (24)</span>
-      <span class="bg-white text-amber-700 border border-amber-200 px-3 py-1 rounded-full text-xs cursor-pointer hover:bg-amber-50">Vases (8)</span>
-      <span class="bg-white text-amber-700 border border-amber-200 px-3 py-1 rounded-full text-xs cursor-pointer hover:bg-amber-50">Bowls (9)</span>
-      <span class="bg-white text-amber-700 border border-amber-200 px-3 py-1 rounded-full text-xs cursor-pointer hover:bg-amber-50">Plates (7)</span>
-    </div>
-    <!-- Table -->
-    <div class="bg-white rounded-2xl shadow-sm border border-amber-200 overflow-hidden">
-      <table class="w-full text-sm">
-        <thead class="bg-amber-100 text-amber-800 text-xs uppercase">
-          <tr>
-            <th class="px-4 py-3 text-left">Product</th>
-            <th class="px-4 py-3 text-left">Category</th>
-            <th class="px-4 py-3 text-right">Cost</th>
-            <th class="px-4 py-3 text-right">Price</th>
-            <th class="px-4 py-3 text-right">Margin</th>
-            <th class="px-4 py-3 text-center">Stock</th>
-            <th class="px-4 py-3 text-center">Status</th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-amber-50">
-          <tr class="hover:bg-amber-50"><td class="px-4 py-3 font-medium text-gray-800">🏺 Vaso Toscano Grande</td><td class="px-4 py-3 text-gray-500">Vase</td><td class="px-4 py-3 text-right text-gray-400">€18</td><td class="px-4 py-3 text-right font-bold text-amber-800">€65</td><td class="px-4 py-3 text-right text-green-600">72%</td><td class="px-4 py-3 text-center">12</td><td class="px-4 py-3 text-center"><span class="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-xs">Active</span></td></tr>
-          <tr class="hover:bg-amber-50"><td class="px-4 py-3 font-medium text-gray-800">🍜 Ciotola Maiolica</td><td class="px-4 py-3 text-gray-500">Bowl</td><td class="px-4 py-3 text-right text-gray-400">€12</td><td class="px-4 py-3 text-right font-bold text-amber-800">€40</td><td class="px-4 py-3 text-right text-green-600">70%</td><td class="px-4 py-3 text-center">3</td><td class="px-4 py-3 text-center"><span class="bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full text-xs">Low stock</span></td></tr>
-          <tr class="hover:bg-amber-50"><td class="px-4 py-3 font-medium text-gray-800">🍽️ Piatto Deruta</td><td class="px-4 py-3 text-gray-500">Plate</td><td class="px-4 py-3 text-right text-gray-400">€15</td><td class="px-4 py-3 text-right font-bold text-amber-800">€55</td><td class="px-4 py-3 text-right text-green-600">73%</td><td class="px-4 py-3 text-center">0</td><td class="px-4 py-3 text-center"><span class="bg-red-100 text-red-700 px-2 py-0.5 rounded-full text-xs">Out of stock</span></td></tr>
-          <tr class="hover:bg-amber-50"><td class="px-4 py-3 font-medium text-gray-800">🫙 Brocca Rustica</td><td class="px-4 py-3 text-gray-500">Vase</td><td class="px-4 py-3 text-right text-gray-400">€22</td><td class="px-4 py-3 text-right font-bold text-amber-800">€80</td><td class="px-4 py-3 text-right text-green-600">73%</td><td class="px-4 py-3 text-center">7</td><td class="px-4 py-3 text-center"><span class="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-xs">Active</span></td></tr>
-        </tbody>
-      </table>
+    content: `<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Georgia,sans-serif;background:#f9f4ed;color:#1a0e06;min-height:100vh}
+/* Nav */
+nav{display:flex;align-items:center;justify-content:space-between;padding:20px 48px;border-bottom:1px solid rgba(26,14,6,.08);background:rgba(249,244,237,.95);position:sticky;top:0;z-index:10;backdrop-filter:blur(12px)}
+.nav-logo{display:flex;align-items:center;gap:12px}
+.logo-mark{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#8b4513,#c4822a);display:flex;align-items:center;justify-content:center;font-size:16px}
+.logo-name{font-size:17px;font-weight:800;letter-spacing:-.3px;color:#1a0e06}
+.logo-sub{font-size:11px;color:rgba(26,14,6,.45);text-transform:uppercase;letter-spacing:.1em;margin-top:1px}
+.nav-links{display:flex;align-items:center;gap:28px;font-size:13px;color:rgba(26,14,6,.5)}
+.nav-links a{text-decoration:none;color:inherit;transition:.15s}
+.nav-links a:hover{color:#8b4513}
+.nav-cta{background:#1a0e06;color:#f9f4ed;padding:10px 22px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;border:0;transition:.2s}
+.nav-cta:hover{background:#2d1a0a}
+/* Hero */
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1200px;margin:0 auto;padding:72px 48px 80px}
+.hero-left{}
+.hero-tag{display:inline-flex;align-items:center;gap:7px;background:rgba(139,69,19,.08);border:1px solid rgba(139,69,19,.18);color:#8b4513;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:22px}
+.hero h1{font-size:clamp(36px,4vw,58px);font-weight:900;letter-spacing:-1.5px;line-height:1.06;margin-bottom:16px;color:#1a0e06}
+.hero h1 em{font-style:italic;color:#8b4513}
+.hero p{color:rgba(26,14,6,.55);font-size:16px;line-height:1.7;margin-bottom:28px;max-width:420px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn-dark{background:#1a0e06;color:#f9f4ed;padding:13px 24px;border-radius:9px;font-weight:700;font-size:13px;cursor:pointer;border:0;transition:.2s}
+.btn-dark:hover{background:#2d1a0a}
+.btn-outline{background:transparent;border:2px solid rgba(26,14,6,.15);color:#1a0e06;padding:12px 22px;border-radius:9px;font-weight:600;font-size:13px;cursor:pointer;transition:.2s}
+.btn-outline:hover{border-color:rgba(26,14,6,.4)}
+.hero-right{position:relative}
+.hero-img{background:linear-gradient(145deg,#d4924a 0%,#8b4513 50%,#5c2d0a 100%);border-radius:20px;height:380px;display:flex;align-items:center;justify-content:center;font-size:80px;box-shadow:0 24px 60px rgba(26,14,6,.2)}
+.hero-badge{position:absolute;bottom:-16px;left:-16px;background:#1a0e06;color:#f9f4ed;padding:12px 18px;border-radius:12px;box-shadow:0 8px 24px rgba(26,14,6,.25)}
+.hb-val{font-size:22px;font-weight:900;letter-spacing:-1px}
+.hb-label{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:rgba(249,244,237,.5);margin-top:2px}
+/* Stats */
+.stats{max-width:1200px;margin:0 auto 72px;padding:0 48px}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid rgba(26,14,6,.1);border-radius:14px;overflow:hidden}
+.stat{padding:24px;border-right:1px solid rgba(26,14,6,.08);text-align:center}
+.stat:last-child{border:none}
+.stat-val{font-size:30px;font-weight:900;letter-spacing:-1px;color:#8b4513;margin-bottom:5px}
+.stat-label{font-size:11px;color:rgba(26,14,6,.45);text-transform:uppercase;letter-spacing:.08em}
+/* Products */
+.products{max-width:1200px;margin:0 auto 72px;padding:0 48px}
+.products-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px}
+.products-header h2{font-size:28px;font-weight:900;letter-spacing:-.8px}
+.filter-row{display:flex;gap:8px;flex-wrap:wrap}
+.filter-btn{padding:7px 16px;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;transition:.15s;background:transparent;border:1px solid rgba(26,14,6,.15);color:rgba(26,14,6,.6)}
+.filter-btn.active{background:#1a0e06;color:#f9f4ed;border-color:#1a0e06}
+.filter-btn:hover:not(.active){border-color:rgba(139,69,19,.4);color:#8b4513}
+.products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.product-card{background:#fff;border:1px solid rgba(26,14,6,.07);border-radius:16px;overflow:hidden;transition:.25s;cursor:pointer}
+.product-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(26,14,6,.12)}
+.product-img{height:200px;display:flex;align-items:center;justify-content:center;font-size:56px;position:relative}
+.pc-i1{background:linear-gradient(145deg,#e8d5b7,#c4a46a)}
+.pc-i2{background:linear-gradient(145deg,#b8cfb8,#7a9e7a)}
+.pc-i3{background:linear-gradient(145deg,#c4a8c4,#8b6b8b)}
+.pc-i4{background:linear-gradient(145deg,#d4b896,#a07850)}
+.pc-i5{background:linear-gradient(145deg,#b8d4d4,#6a9e9e)}
+.pc-i6{background:linear-gradient(145deg,#d4c4a8,#a08060)}
+.product-badge{position:absolute;top:12px;left:12px;background:#1a0e06;color:#f9f4ed;padding:4px 10px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.product-body{padding:18px}
+.product-cat{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:rgba(26,14,6,.4);font-weight:700;margin-bottom:6px}
+.product-name{font-size:16px;font-weight:800;letter-spacing:-.3px;margin-bottom:6px}
+.product-desc{font-size:12.5px;color:rgba(26,14,6,.5);line-height:1.5;margin-bottom:12px}
+.product-footer{display:flex;align-items:center;justify-content:space-between}
+.product-price{font-size:20px;font-weight:900;letter-spacing:-.5px;color:#8b4513}
+.product-add{background:#1a0e06;color:#f9f4ed;padding:7px 16px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;border:0;transition:.15s}
+.product-add:hover{background:#2d1a0a}
+/* Process */
+.process{max-width:1200px;margin:0 auto 72px;padding:0 48px}
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.step-card{text-align:center;padding:28px 20px;background:#fff;border:1px solid rgba(26,14,6,.07);border-radius:16px}
+.step-num{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:rgba(26,14,6,.3);margin-bottom:14px}
+.step-icon{font-size:32px;margin-bottom:14px}
+.step-h{font-size:14px;font-weight:800;margin-bottom:8px}
+.step-p{font-size:12.5px;color:rgba(26,14,6,.45);line-height:1.55}
+/* Materials */
+.materials{max-width:1200px;margin:0 auto 72px;padding:48px;background:#1a0e06;border-radius:20px;color:#f9f4ed}
+.materials-header{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-bottom:40px}
+.materials h2{font-size:clamp(26px,3.5vw,40px);font-weight:900;letter-spacing:-1.2px}
+.materials p{color:rgba(249,244,237,.5);font-size:15px;line-height:1.7}
+.mat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.mat-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:22px}
+.mat-icon{font-size:24px;margin-bottom:12px}
+.mat-h{font-size:14px;font-weight:800;margin-bottom:6px}
+.mat-p{font-size:12px;color:rgba(249,244,237,.45);line-height:1.55}
+/* Reviews */
+.reviews{max-width:1200px;margin:0 auto 72px;padding:0 48px}
+.reviews h2{font-size:28px;font-weight:900;letter-spacing:-.8px;margin-bottom:28px}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.review-card{background:#fff;border:1px solid rgba(26,14,6,.07);border-radius:14px;padding:22px}
+.rev-stars{color:#c4822a;font-size:13px;margin-bottom:10px}
+.rev-q{font-size:13.5px;color:rgba(26,14,6,.65);line-height:1.6;margin-bottom:14px;font-style:italic}
+.rev-author{display:flex;align-items:center;gap:9px}
+.rev-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+.rev-name{font-size:12.5px;font-weight:700}
+.rev-loc{font-size:11px;color:rgba(26,14,6,.4)}
+/* CTA */
+.cta{max-width:1200px;margin:0 auto;padding:0 48px 80px;text-align:center}
+.cta h2{font-size:clamp(28px,4vw,46px);font-weight:900;letter-spacing:-1.2px;margin-bottom:12px}
+.cta p{color:rgba(26,14,6,.5);font-size:16px;margin-bottom:32px}
+footer{text-align:center;padding:28px;color:rgba(26,14,6,.3);font-size:12px;border-top:1px solid rgba(26,14,6,.08);margin-top:20px}
+</style>
+
+<nav>
+  <div class="nav-logo">
+    <div class="logo-mark">🏺</div>
+    <div>
+      <div class="logo-name">Bottega Ceramica</div>
+      <div class="logo-sub">Artigianato dal 1982</div>
     </div>
   </div>
-</div>`,
+  <div class="nav-links">
+    <a href="#">Catalogo</a>
+    <a href="#">La nostra storia</a>
+    <a href="#">Materiali</a>
+    <a href="#">Contatti</a>
+  </div>
+  <button class="nav-cta">Shop now</button>
+</nav>
+
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">✦ Primavera 2025 — Nuova collezione</div>
+    <h1>Ogni pezzo,<br/><em>unico di mano.</em></h1>
+    <p>Ceramiche artigianali lavorate a mano in Toscana. Ogni oggetto porta il segno del suo creatore — imperfezioni comprese, perché la perfezione è nell'autenticità.</p>
+    <div class="hero-btns">
+      <button class="btn-dark">Scopri il catalogo →</button>
+      <button class="btn-outline">La nostra storia</button>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img">🏺</div>
+    <div class="hero-badge">
+      <div class="hb-val">40+</div>
+      <div class="hb-label">Anni di artigianato</div>
+    </div>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stats-row">
+    <div class="stat"><div class="stat-val">1982</div><div class="stat-label">Anno fondazione</div></div>
+    <div class="stat"><div class="stat-val">3,400+</div><div class="stat-label">Pezzi venduti</div></div>
+    <div class="stat"><div class="stat-val">28</div><div class="stat-label">Paesi spediti</div></div>
+    <div class="stat"><div class="stat-val">100%</div><div class="stat-label">Fatto a mano</div></div>
+  </div>
+</div>
+
+<div class="products">
+  <div class="products-header">
+    <h2>Collezione Primavera</h2>
+    <div class="filter-row">
+      <button class="filter-btn active">Tutti</button>
+      <button class="filter-btn">Vasi</button>
+      <button class="filter-btn">Piatti</button>
+      <button class="filter-btn">Decorazioni</button>
+      <button class="filter-btn">Tazze</button>
+    </div>
+  </div>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-img pc-i1"><span>🏺</span><div class="product-badge">Bestseller</div></div>
+      <div class="product-body">
+        <div class="product-cat">Vasi · Argilla rossa</div>
+        <div class="product-name">Vaso Toscano Grande</div>
+        <div class="product-desc">Tornito a mano, ingobbio bianco, cottura al forno a legna a 1240°C. Dimensioni: H 38cm × Ø 22cm.</div>
+        <div class="product-footer"><div class="product-price">€145</div><button class="product-add">Aggiungi →</button></div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img pc-i2"><span>🌿</span><div class="product-badge">Nuovo</div></div>
+      <div class="product-body">
+        <div class="product-cat">Decorazioni · Terraglia</div>
+        <div class="product-name">Set Erbe Aromatiche</div>
+        <div class="product-desc">Tre vasi coordinati per basilico, rosmarino e salvia. Verniciatura naturale con ossidi di rame.</div>
+        <div class="product-footer"><div class="product-price">€78</div><button class="product-add">Aggiungi →</button></div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img pc-i3"><span>🍽</span></div>
+      <div class="product-body">
+        <div class="product-cat">Piatti · Maiolica</div>
+        <div class="product-name">Piatto Dipinto Floreale</div>
+        <div class="product-desc">Dipinto a mano con motivi floreali tradizionali toscani. Ø 28cm. Da collezione e da uso quotidiano.</div>
+        <div class="product-footer"><div class="product-price">€95</div><button class="product-add">Aggiungi →</button></div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img pc-i4"><span>☕</span><div class="product-badge">Collezione</div></div>
+      <div class="product-body">
+        <div class="product-cat">Tazze · Gres</div>
+        <div class="product-name">Set Tazze Rustiche (6 pz)</div>
+        <div class="product-desc">Gres chamottato, smalto reattivo, effetto unico su ogni pezzo. Per caffè o tisane. Lavabile in lavastoviglie.</div>
+        <div class="product-footer"><div class="product-price">€180</div><button class="product-add">Aggiungi →</button></div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img pc-i5"><span>🫙</span></div>
+      <div class="product-body">
+        <div class="product-cat">Contenitori · Argilla bianca</div>
+        <div class="product-name">Barattolo Ermetico Artigianale</div>
+        <div class="product-desc">Per farina, pasta o spezie. Chiusura ermetica in legno di noce. Capacità 1,2L. Personalizzabile.</div>
+        <div class="product-footer"><div class="product-price">€65</div><button class="product-add">Aggiungi →</button></div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img pc-i6"><span>🕯</span><div class="product-badge">Limited</div></div>
+      <div class="product-body">
+        <div class="product-cat">Decorazioni · Gres bianco</div>
+        <div class="product-name">Portacandele Texture</div>
+        <div class="product-desc">Texture impressa a mano con foglie di felce. Ogni pezzo è irripetibile. Include candela di soia.</div>
+        <div class="product-footer"><div class="product-price">€55</div><button class="product-add">Aggiungi →</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="process">
+  <div style="text-align:center;margin-bottom:36px">
+    <div style="font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:#8b4513;font-weight:700;margin-bottom:10px">Il nostro processo</div>
+    <h2 style="font-size:28px;font-weight:900;letter-spacing:-.8px">Dalla terra alle tue mani</h2>
+  </div>
+  <div class="process-grid">
+    <div class="step-card">
+      <div class="step-num">01</div>
+      <div class="step-icon">🌍</div>
+      <div class="step-h">Argilla locale</div>
+      <div class="step-p">Selezioniamo argilla dalla Val d'Arno, la stessa usata dai maestri rinascimentali. Nessun additivo industriale.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">02</div>
+      <div class="step-icon">🤲</div>
+      <div class="step-h">Tornitura a mano</div>
+      <div class="step-p">Ogni pezzo è centrato e tornito manualmente. Un artigiano lavora circa 40 minuti su ogni vaso medio.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">03</div>
+      <div class="step-icon">🎨</div>
+      <div class="step-h">Decorazione</div>
+      <div class="step-p">Ingobbi, ossidi e smalti applicati a pennello. Disegni ispirati alla tradizione toscana e al paesaggio locale.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">04</div>
+      <div class="step-icon">🔥</div>
+      <div class="step-h">Cottura a legna</div>
+      <div class="step-p">Forno a legna di faggio, 36 ore di cottura a 1240°C. Il processo conferisce quel carattere unico impossibile da replicare industrialmente.</div>
+    </div>
+  </div>
+</div>
+
+<div class="materials">
+  <div class="materials-header">
+    <div>
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:rgba(249,244,237,.4);font-weight:700;margin-bottom:12px">Materiali certificati</div>
+      <h2>Qualità che si sente al tatto</h2>
+    </div>
+    <p>Usiamo solo materiali naturali e certificati food-safe. Ogni lotto è testato da laboratori indipendenti. Nessun piombo, nessun cadmio.</p>
+  </div>
+  <div class="mat-grid">
+    <div class="mat-card"><div class="mat-icon">🌱</div><div class="mat-h">100% naturale</div><div class="mat-p">Argilla, smalti e pigmenti di origine minerale. Zero plastiche, zero additivi sintetici in tutta la filiera.</div></div>
+    <div class="mat-card"><div class="mat-icon">✅</div><div class="mat-h">Food-safe certificato</div><div class="mat-p">Tutti i nostri smalti sono certificati per contatto alimentare secondo le normative EU. Testati ogni stagione.</div></div>
+    <div class="mat-card"><div class="mat-icon">♻️</div><div class="mat-h">Processo sostenibile</div><div class="mat-p">Legna da filiere certificate, recupero dell'acqua di lavorazione, scarti riutilizzati come sgrassante per nuova argilla.</div></div>
+  </div>
+</div>
+
+<div class="reviews">
+  <h2>Clienti soddisfatti</h2>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="rev-stars">★★★★★</div>
+      <div class="rev-q">"Il vaso che ho ordinato è ancora più bello dal vivo. Si vede il lavoro artigianale in ogni dettaglio. Regalato a mia madre, piange ogni volta che lo guarda."</div>
+      <div class="rev-author"><div class="rev-av" style="background:#e8d5b7;color:#8b4513">A</div><div><div class="rev-name">Alessia R.</div><div class="rev-loc">Firenze</div></div></div>
+    </div>
+    <div class="review-card">
+      <div class="rev-stars">★★★★★</div>
+      <div class="rev-q">"Ho comprato un set di tazze e sono perfette. Ogni tazza è leggermente diversa — è questo che le rende speciali. Spedizione velocissima, imballo impeccabile."</div>
+      <div class="rev-author"><div class="rev-av" style="background:#b8cfb8;color:#3a6b3a">M</div><div><div class="rev-name">Marco S.</div><div class="rev-loc">Milano</div></div></div>
+    </div>
+    <div class="review-card">
+      <div class="rev-stars">★★★★★</div>
+      <div class="rev-q">"Ho scoperto questa bottega per caso e non mi sono mai pentita. La qualità è straordinaria per il prezzo. La prossima volta vengono direttamente a visitarla."</div>
+      <div class="rev-author"><div class="rev-av" style="background:#c4a8c4;color:#7a3a7a">L</div><div><div class="rev-name">Laura F.</div><div class="rev-loc">Roma</div></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <h2>Porta un pezzo di Toscana a casa</h2>
+  <p>Spedizione gratuita sopra €150 · Consegna in 5-7 giorni · Reso gratuito entro 30 giorni</p>
+  <button class="btn-dark" style="padding:15px 32px;font-size:14px;border-radius:10px">Scopri il catalogo completo →</button>
+</div>
+
+<footer>© 2025 Bottega Ceramica · Artigianato toscano dal 1982 · P.IVA 01234567890</footer>`,
   },
   {
     id: "revenue-analytics",
@@ -657,55 +1143,73 @@ export const templates: Template[] = [
     tags: ["saas", "landing", "dark", "framer", "conversion"],
     downloads: 728,
     editorsPick: true,
-    content: `<div class="min-h-screen bg-black text-white overflow-hidden font-sans">
-  <!-- Gradient Orbs -->
-  <div class="fixed inset-0 pointer-events-none">
-    <div class="absolute top-0 left-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl"></div>
-    <div class="absolute top-20 right-1/4 w-80 h-80 bg-blue-600/20 rounded-full blur-3xl"></div>
+    content: `<style>
+body { background: #060606; color: #eaeaea; font-family: system-ui, sans-serif; margin: 0; }
+@keyframes fade-up { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+.fade-up { animation: fade-up .8s ease forwards; }
+.fade-up-2 { animation: fade-up .8s .2s ease both; }
+.fade-up-3 { animation: fade-up .8s .4s ease both; }
+</style>
+
+<!-- NAV -->
+<nav style="position:sticky;top:0;z-index:50;border-bottom:1px solid rgba(234,234,234,.08);background:rgba(6,6,6,.9);backdrop-filter:blur(12px);padding:16px 40px;display:flex;justify-content:space-between;align-items:center;">
+  <div style="font-size:20px;font-weight:800;letter-spacing:-.5px;color:#eaeaea;">forma<span style="color:#D4AF37;">.</span></div>
+  <div style="display:flex;gap:32px;font-size:13px;color:#8a8a8a;text-transform:uppercase;letter-spacing:.14em;">
+    <a href="#" style="color:inherit;text-decoration:none;">Product</a>
+    <a href="#" style="color:inherit;text-decoration:none;">Pricing</a>
+    <a href="#" style="color:inherit;text-decoration:none;">Docs</a>
   </div>
-  <!-- Nav -->
-  <nav class="relative z-10 flex items-center justify-between px-8 py-5 max-w-6xl mx-auto">
-    <div class="flex items-center gap-2 font-bold text-lg">⚡ NovaSaaS</div>
-    <div class="hidden md:flex gap-6 text-sm text-gray-400">
-      <a class="hover:text-white transition">Features</a>
-      <a class="hover:text-white transition">Pricing</a>
-      <a class="hover:text-white transition">Docs</a>
-      <a class="hover:text-white transition">Blog</a>
+  <button style="padding:10px 22px;background:linear-gradient(135deg,#D4AF37,#B8962E);color:#060606;border:none;border-radius:0;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.14em;cursor:pointer;">Get started</button>
+</nav>
+
+<!-- HERO -->
+<section style="min-height:88vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 40px;position:relative;overflow:hidden;">
+  <div style="position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(212,175,55,.08),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;"></div>
+  <div class="fade-up">
+    <span style="font-size:11px;text-transform:uppercase;letter-spacing:.28em;color:#D4AF37;font-weight:600;">Template marketplace</span>
+  </div>
+  <h1 class="fade-up-2" style="font-size:clamp(52px,9vw,120px);font-weight:300;line-height:1.0;letter-spacing:-3px;margin:24px 0;color:#eaeaea;">
+    Template come<br><em style="font-style:italic;color:rgba(234,234,234,.55);">oggetti curati.</em>
+  </h1>
+  <p class="fade-up-3" style="font-size:19px;color:#8a8a8a;max-width:560px;line-height:1.7;margin-bottom:48px;">
+    Ogni file è un gesto preciso, non una soluzione generica. HTML, Notion, Shopify — crafted for professionals.
+  </p>
+  <div class="fade-up-3" style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
+    <button style="padding:16px 36px;background:linear-gradient(135deg,#D4AF37,#B8962E);color:#060606;border:none;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.18em;cursor:pointer;">Sfoglia catalogo</button>
+    <button style="padding:16px 36px;background:transparent;color:#8a8a8a;border:1px solid rgba(234,234,234,.14);font-size:12px;text-transform:uppercase;letter-spacing:.18em;cursor:pointer;">AI Studio →</button>
+  </div>
+</section>
+
+<!-- FEATURES STRIP -->
+<section style="border-top:1px solid rgba(234,234,234,.08);padding:64px 40px;">
+  <div style="max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(234,234,234,.08);">
+    <div style="padding:40px 32px;background:#060606;">
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:#D4AF37;margin-bottom:16px;">01</div>
+      <h3 style="font-size:24px;font-weight:300;color:#eaeaea;margin:0 0 12px;">Qualità editoriale</h3>
+      <p style="font-size:14px;color:#8a8a8a;line-height:1.7;margin:0;">Ogni template è curato come un oggetto di design — non generato, non casuale.</p>
     </div>
-    <div class="flex gap-3">
-      <button class="text-sm text-gray-300 hover:text-white transition px-4 py-2">Log in</button>
-      <button class="text-sm bg-white text-black font-bold px-4 py-2 rounded-lg hover:bg-gray-100 transition">Get started free</button>
+    <div style="padding:40px 32px;background:#060606;">
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:#D4AF37;margin-bottom:16px;">02</div>
+      <h3 style="font-size:24px;font-weight:300;color:#eaeaea;margin:0 0 12px;">Pronti all'uso</h3>
+      <p style="font-size:14px;color:#8a8a8a;line-height:1.7;margin:0;">Nessun setup, nessuna dipendenza. Apri, modifica, pubblica in minuti.</p>
     </div>
-  </nav>
-  <!-- Hero -->
-  <div class="relative z-10 text-center pt-16 pb-20 px-6 max-w-4xl mx-auto">
-    <div class="inline-flex items-center gap-2 border border-white/10 bg-white/5 text-gray-300 px-4 py-2 rounded-full text-sm mb-8 backdrop-blur-sm">
-      <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> Now with AI autopilot
-    </div>
-    <h1 class="text-5xl md:text-7xl font-black leading-tight mb-6">
-      The fastest way to<br/>
-      <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">build & ship</span>
-    </h1>
-    <p class="text-gray-400 text-xl max-w-2xl mx-auto mb-10">Stop wrestling with infrastructure. NovaSaaS handles auth, payments, AI, and deploy in one unified platform.</p>
-    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <button class="px-8 py-4 bg-white text-black font-bold rounded-xl hover:bg-gray-100 transition text-lg">Start building free →</button>
-      <button class="px-8 py-4 border border-white/20 text-white font-semibold rounded-xl hover:bg-white/5 transition backdrop-blur-sm">Watch 2-min demo</button>
-    </div>
-    <div class="mt-12 flex items-center justify-center gap-6 text-sm text-gray-500">
-      <span>✓ No credit card</span>
-      <span>✓ Deploy in 60s</span>
-      <span>✓ 10,000 users free</span>
+    <div style="padding:40px 32px;background:#060606;">
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:#D4AF37;margin-bottom:16px;">03</div>
+      <h3 style="font-size:24px;font-weight:300;color:#eaeaea;margin:0 0 12px;">AI Studio incluso</h3>
+      <p style="font-size:14px;color:#8a8a8a;line-height:1.7;margin:0;">Personalizza ogni template in secondi con Claude AI. Nessun codice richiesto.</p>
     </div>
   </div>
-  <!-- Feature Pills -->
-  <div class="relative z-10 flex flex-wrap justify-center gap-3 px-6 pb-16 max-w-3xl mx-auto">
-    <div class="bg-white/5 border border-white/10 px-4 py-2 rounded-full text-sm text-gray-300 backdrop-blur-sm">🔐 Auth in 5 mins</div>
-    <div class="bg-white/5 border border-white/10 px-4 py-2 rounded-full text-sm text-gray-300 backdrop-blur-sm">💳 Stripe built-in</div>
-    <div class="bg-white/5 border border-white/10 px-4 py-2 rounded-full text-sm text-gray-300 backdrop-blur-sm">🤖 AI components</div>
-    <div class="bg-white/5 border border-white/10 px-4 py-2 rounded-full text-sm text-gray-300 backdrop-blur-sm">🚀 Edge deploy</div>
-    <div class="bg-white/5 border border-white/10 px-4 py-2 rounded-full text-sm text-gray-300 backdrop-blur-sm">📊 Analytics</div>
+</section>
+
+<!-- NUMBERS -->
+<section style="padding:80px 40px;border-top:1px solid rgba(234,234,234,.08);">
+  <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:40px;text-align:center;">
+    <div><div style="font-size:48px;font-weight:300;color:#eaeaea;line-height:1;">40+</div><div style="font-size:11px;color:#8a8a8a;text-transform:uppercase;letter-spacing:.18em;margin-top:8px;">Template</div></div>
+    <div><div style="font-size:48px;font-weight:300;color:#D4AF37;line-height:1;">4</div><div style="font-size:11px;color:#8a8a8a;text-transform:uppercase;letter-spacing:.18em;margin-top:8px;">Formati</div></div>
+    <div><div style="font-size:48px;font-weight:300;color:#eaeaea;line-height:1;">€4.99</div><div style="font-size:11px;color:#8a8a8a;text-transform:uppercase;letter-spacing:.18em;margin-top:8px;">Da</div></div>
+    <div><div style="font-size:48px;font-weight:300;color:#eaeaea;line-height:1;">∞</div><div style="font-size:11px;color:#8a8a8a;text-transform:uppercase;letter-spacing:.18em;margin-top:8px;">Download</div></div>
   </div>
-</div>`,
+</section>`,
   },
   {
     id: "creative-agency-portfolio",
@@ -717,59 +1221,104 @@ export const templates: Template[] = [
     stripePriceId: "price_1TBz4iBoWNgrJbiyKCR10XRH",
     tags: ["agency", "portfolio", "creative", "framer", "webflow"],
     downloads: 456,
-    content: `<div class="min-h-screen bg-zinc-950 text-white font-sans">
-  <!-- Nav -->
-  <nav class="flex items-center justify-between px-8 py-6 border-b border-zinc-800">
-    <div class="font-black text-2xl tracking-tight">FORMA<span class="text-[#0A84FF]">.</span></div>
-    <div class="hidden md:flex gap-8 text-sm text-zinc-400">
-      <a class="hover:text-white transition">Work</a>
-      <a class="hover:text-white transition">About</a>
-      <a class="hover:text-white transition">Services</a>
-      <a class="hover:text-white transition">Contact</a>
-    </div>
-    <button class="border border-yellow-400 text-[#0A84FF] px-5 py-2 text-sm font-bold hover:bg-yellow-400 hover:text-black transition rounded">Start a project</button>
-  </nav>
-  <!-- Hero -->
-  <div class="px-8 pt-20 pb-12 max-w-6xl mx-auto">
-    <div class="text-xs tracking-widest text-zinc-500 mb-6 uppercase">Design & Brand Studio · Milano, IT</div>
-    <h1 class="text-7xl md:text-8xl font-black leading-none mb-6 tracking-tighter">
-      We craft<br/>
-      <span class="text-[#0A84FF]">bold</span> brands<br/>
-      <span class="text-zinc-600">that last.</span>
-    </h1>
-    <div class="flex items-center gap-8 mt-10">
-      <p class="text-zinc-400 max-w-xs leading-relaxed">Strategic design for forward-thinking companies. From identity to digital, we build experiences that convert.</p>
-      <div class="flex gap-8 text-center ml-auto">
-        <div><div class="text-3xl font-black text-[#0A84FF]">120+</div><div class="text-zinc-500 text-xs mt-1">Projects</div></div>
-        <div><div class="text-3xl font-black text-[#0A84FF]">8yr</div><div class="text-zinc-500 text-xs mt-1">Experience</div></div>
-        <div><div class="text-3xl font-black text-[#0A84FF]">4.9★</div><div class="text-zinc-500 text-xs mt-1">Clutch</div></div>
+    content: `<style>
+body { background: #0a0a0a; color: #f0f0f0; font-family: system-ui, sans-serif; margin: 0; }
+.work-item:hover .work-overlay { opacity: 1; }
+.work-overlay { opacity: 0; transition: opacity .3s; }
+</style>
+
+<nav style="position:sticky;top:0;z-index:50;background:rgba(10,10,10,.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.06);padding:20px 48px;display:flex;justify-content:space-between;align-items:center;">
+  <div style="font-size:22px;font-weight:900;letter-spacing:-1px;color:#fff;">STUDIO<span style="color:#f59e0b;">_</span></div>
+  <div style="display:flex;gap:32px;font-size:12px;color:#888;text-transform:uppercase;letter-spacing:.16em;">
+    <a href="#" style="color:inherit;text-decoration:none;">Work</a>
+    <a href="#" style="color:inherit;text-decoration:none;">About</a>
+    <a href="#" style="color:inherit;text-decoration:none;">Services</a>
+    <a href="#" style="color:inherit;text-decoration:none;">Contact</a>
+  </div>
+  <button style="padding:12px 24px;background:#fff;color:#0a0a0a;font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.14em;border:none;cursor:pointer;">Start a project</button>
+</nav>
+
+<!-- HERO -->
+<section style="padding:100px 48px 80px;max-width:1200px;margin:0 auto;">
+  <div style="font-size:12px;text-transform:uppercase;letter-spacing:.28em;color:#f59e0b;margin-bottom:24px;font-weight:600;">Creative agency · Est. 2018</div>
+  <h1 style="font-size:clamp(56px,9vw,120px);font-weight:900;line-height:.97;letter-spacing:-3px;margin:0 0 48px;">
+    We design<br>
+    <span style="color:rgba(255,255,255,.25);">brands that</span><br>
+    move people.
+  </h1>
+  <div style="display:flex;gap:48px;align-items:center;flex-wrap:wrap;">
+    <p style="font-size:18px;color:#888;max-width:480px;line-height:1.65;margin:0;">Brand identity, digital experiences, and campaign strategy for companies that refuse to be invisible.</p>
+    <button style="padding:18px 40px;background:#f59e0b;color:#0a0a0a;font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.16em;border:none;cursor:pointer;flex-shrink:0;">View our work →</button>
+  </div>
+</section>
+
+<!-- WORK GRID -->
+<section style="padding:40px 48px 80px;max-width:1200px;margin:0 auto;">
+  <div style="font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:#f59e0b;margin-bottom:32px;font-weight:600;">Selected work — 2023/24</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;">
+    <div class="work-item" style="position:relative;aspect-ratio:4/3;background:linear-gradient(135deg,#1a1a2e,#16213e);overflow:hidden;cursor:pointer;">
+      <div style="position:absolute;inset:0;background:linear-gradient(135deg,#667eea,#764ba2);opacity:.8;"></div>
+      <div class="work-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,.7);display:flex;flex-direction:column;justify-content:flex-end;padding:24px;">
+        <div style="font-size:11px;color:#f59e0b;text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;">Brand Identity</div>
+        <div style="font-size:20px;font-weight:700;color:#fff;">Nexora Finance</div>
       </div>
+      <div style="position:absolute;bottom:20px;left:20px;"><div style="font-size:13px;color:rgba(255,255,255,.6);">Brand Identity</div><div style="font-size:18px;font-weight:700;color:#fff;margin-top:4px;">Nexora Finance</div></div>
+    </div>
+    <div class="work-item" style="position:relative;aspect-ratio:4/3;background:linear-gradient(135deg,#f9a825,#e65100);overflow:hidden;cursor:pointer;">
+      <div class="work-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,.7);display:flex;flex-direction:column;justify-content:flex-end;padding:24px;">
+        <div style="font-size:11px;color:#f59e0b;text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;">Web Design</div>
+        <div style="font-size:20px;font-weight:700;color:#fff;">Solari Energy</div>
+      </div>
+      <div style="position:absolute;bottom:20px;left:20px;"><div style="font-size:13px;color:rgba(255,255,255,.6);">Web Design</div><div style="font-size:18px;font-weight:700;color:#fff;margin-top:4px;">Solari Energy</div></div>
+    </div>
+    <div class="work-item" style="position:relative;aspect-ratio:4/3;background:linear-gradient(135deg,#1a1a1a,#333);overflow:hidden;cursor:pointer;">
+      <div style="position:absolute;inset:0;background:linear-gradient(135deg,#00b4d8,#0077b6);opacity:.7;"></div>
+      <div class="work-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,.7);display:flex;flex-direction:column;justify-content:flex-end;padding:24px;">
+        <div style="font-size:11px;color:#f59e0b;text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;">Campaign</div>
+        <div style="font-size:20px;font-weight:700;color:#fff;">Aqua Wellness</div>
+      </div>
+      <div style="position:absolute;bottom:20px;left:20px;"><div style="font-size:13px;color:rgba(255,255,255,.6);">Campaign</div><div style="font-size:18px;font-weight:700;color:#fff;margin-top:4px;">Aqua Wellness</div></div>
+    </div>
+    <div class="work-item" style="position:relative;aspect-ratio:4/3;background:linear-gradient(135deg,#2d1b69,#11998e);overflow:hidden;cursor:pointer;">
+      <div class="work-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,.7);display:flex;flex-direction:column;justify-content:flex-end;padding:24px;">
+        <div style="font-size:11px;color:#f59e0b;text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;">App Design</div>
+        <div style="font-size:20px;font-weight:700;color:#fff;">Kode Platform</div>
+      </div>
+      <div style="position:absolute;bottom:20px;left:20px;"><div style="font-size:13px;color:rgba(255,255,255,.6);">App Design</div><div style="font-size:18px;font-weight:700;color:#fff;margin-top:4px;">Kode Platform</div></div>
+    </div>
+    <div class="work-item" style="position:relative;aspect-ratio:4/3;background:linear-gradient(135deg,#c94b4b,#4b134f);overflow:hidden;cursor:pointer;">
+      <div class="work-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,.7);display:flex;flex-direction:column;justify-content:flex-end;padding:24px;">
+        <div style="font-size:11px;color:#f59e0b;text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;">Photography</div>
+        <div style="font-size:20px;font-weight:700;color:#fff;">Villa Rosso</div>
+      </div>
+      <div style="position:absolute;bottom:20px;left:20px;"><div style="font-size:13px;color:rgba(255,255,255,.6);">Photography</div><div style="font-size:18px;font-weight:700;color:#fff;margin-top:4px;">Villa Rosso</div></div>
+    </div>
+    <div class="work-item" style="position:relative;aspect-ratio:4/3;background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);overflow:hidden;cursor:pointer;">
+      <div class="work-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,.7);display:flex;flex-direction:column;justify-content:flex-end;padding:24px;">
+        <div style="font-size:11px;color:#f59e0b;text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;">Motion</div>
+        <div style="font-size:20px;font-weight:700;color:#fff;">Arctic Sound</div>
+      </div>
+      <div style="position:absolute;bottom:20px;left:20px;"><div style="font-size:13px;color:rgba(255,255,255,.6);">Motion</div><div style="font-size:18px;font-weight:700;color:#fff;margin-top:4px;">Arctic Sound</div></div>
     </div>
   </div>
-  <!-- Portfolio Grid -->
-  <div class="px-8 pb-20 max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-4">
-    <div class="group relative col-span-2 bg-gradient-to-br from-yellow-400 to-blue-500 rounded-2xl h-64 overflow-hidden cursor-pointer">
-      <div class="absolute inset-0 flex items-center justify-center text-7xl opacity-30">🎨</div>
-      <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/60"><div class="font-bold text-lg">Nuvola — Brand Identity</div><div class="text-white/60 text-sm">Branding · Strategy</div></div>
-    </div>
-    <div class="group relative bg-gradient-to-br from-violet-500 to-purple-700 rounded-2xl h-64 overflow-hidden cursor-pointer">
-      <div class="absolute inset-0 flex items-center justify-center text-7xl opacity-30">📱</div>
-      <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60"><div class="font-bold">Finora App</div><div class="text-white/60 text-sm">UX/UI</div></div>
-    </div>
-    <div class="group relative bg-gradient-to-br from-emerald-400 to-teal-600 rounded-2xl h-48 overflow-hidden cursor-pointer">
-      <div class="absolute inset-0 flex items-center justify-center text-5xl opacity-30">🛍️</div>
-      <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60"><div class="font-bold text-sm">Moda Store</div><div class="text-white/60 text-xs">E-commerce</div></div>
-    </div>
-    <div class="group relative bg-gradient-to-br from-rose-400 to-pink-600 rounded-2xl h-48 overflow-hidden cursor-pointer">
-      <div class="absolute inset-0 flex items-center justify-center text-5xl opacity-30">🏢</div>
-      <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60"><div class="font-bold text-sm">Corp Rebrand</div><div class="text-white/60 text-xs">Identity</div></div>
-    </div>
-    <div class="group relative bg-gradient-to-br from-sky-400 to-blue-600 rounded-2xl h-48 overflow-hidden cursor-pointer">
-      <div class="absolute inset-0 flex items-center justify-center text-5xl opacity-30">🚀</div>
-      <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60"><div class="font-bold text-sm">Launchpad</div><div class="text-white/60 text-xs">Web · Brand</div></div>
-    </div>
+</section>
+
+<!-- SERVICES -->
+<section style="padding:80px 48px;border-top:1px solid rgba(255,255,255,.06);max-width:1200px;margin:0 auto;">
+  <div style="font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:#f59e0b;margin-bottom:40px;font-weight:600;">What we do</div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.06);">
+    <div style="padding:32px 24px;background:#0a0a0a;"><div style="font-size:32px;margin-bottom:16px;">●</div><h3 style="font-size:16px;font-weight:700;color:#fff;margin:0 0 10px;text-transform:uppercase;letter-spacing:.08em;">Brand Strategy</h3><p style="font-size:13px;color:#888;line-height:1.65;margin:0;">Identity systems that resonate and endure.</p></div>
+    <div style="padding:32px 24px;background:#0a0a0a;"><div style="font-size:32px;margin-bottom:16px;">◆</div><h3 style="font-size:16px;font-weight:700;color:#fff;margin:0 0 10px;text-transform:uppercase;letter-spacing:.08em;">Digital Design</h3><p style="font-size:13px;color:#888;line-height:1.65;margin:0;">Web and mobile experiences that convert.</p></div>
+    <div style="padding:32px 24px;background:#0a0a0a;"><div style="font-size:32px;margin-bottom:16px;">▲</div><h3 style="font-size:16px;font-weight:700;color:#fff;margin:0 0 10px;text-transform:uppercase;letter-spacing:.08em;">Campaigns</h3><p style="font-size:13px;color:#888;line-height:1.65;margin:0;">Integrated campaigns with measurable ROI.</p></div>
+    <div style="padding:32px 24px;background:#0a0a0a;"><div style="font-size:32px;margin-bottom:16px;">■</div><h3 style="font-size:16px;font-weight:700;color:#fff;margin:0 0 10px;text-transform:uppercase;letter-spacing:.08em;">Motion</h3><p style="font-size:13px;color:#888;line-height:1.65;margin:0;">Animation and video that stops the scroll.</p></div>
   </div>
-</div>`,
+</section>
+
+<!-- CTA -->
+<section style="padding:96px 48px;text-align:center;background:linear-gradient(180deg,#0a0a0a,#111);">
+  <h2 style="font-size:clamp(48px,7vw,96px);font-weight:900;letter-spacing:-3px;margin:0 0 24px;line-height:.97;">Let's build<br><em style="color:rgba(255,255,255,.3);font-style:italic;">something great.</em></h2>
+  <button style="padding:20px 48px;background:#f59e0b;color:#0a0a0a;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:.16em;border:none;cursor:pointer;margin-top:16px;">Start a project</button>
+</section>`,
   },
   {
     id: "freelance-tech-profile",
@@ -847,50 +1396,202 @@ export const templates: Template[] = [
     stripePriceId: "price_1TBz4jBoWNgrJbiy6sGjzcNh",
     tags: ["startup", "launch", "waitlist", "framer", "product"],
     downloads: 615,
-    content: `<div class="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white font-sans overflow-hidden">
-  <!-- Ambient Glow -->
-  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
-  <!-- Nav -->
-  <nav class="relative z-10 flex items-center justify-between px-8 py-5 max-w-5xl mx-auto">
-    <div class="flex items-center gap-2.5"><div class="w-7 h-7 bg-indigo-500 rounded-lg"></div><span class="font-bold text-lg">Orbit</span></div>
-    <button class="text-sm bg-indigo-600 hover:bg-indigo-500 transition px-4 py-2 rounded-lg font-medium">Join waitlist →</button>
-  </nav>
-  <!-- Hero -->
-  <div class="relative z-10 text-center pt-20 pb-16 px-6 max-w-4xl mx-auto">
-    <div class="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 px-4 py-1.5 rounded-full text-xs font-medium mb-8">
-      🚀 Launching Q2 2025 — 2,400 on waitlist
-    </div>
-    <h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight tracking-tight">
-      Your entire workflow,<br/>
-      <span class="bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">one place.</span>
-    </h1>
-    <p class="text-slate-400 text-xl max-w-xl mx-auto mb-10 leading-relaxed">Orbit connects your tools, automates your busywork, and gives your team back 10 hours per week.</p>
-    <!-- Waitlist Form -->
-    <div class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-      <input type="email" placeholder="Enter your email" class="flex-1 bg-white/5 border border-white/10 text-white placeholder-slate-500 px-4 py-3 rounded-xl focus:outline-none focus:border-indigo-500 text-sm"/>
-      <button class="bg-indigo-600 hover:bg-indigo-500 transition text-white font-bold px-6 py-3 rounded-xl text-sm whitespace-nowrap">Get early access</button>
-    </div>
-    <p class="text-slate-600 text-xs mt-3">Join 2,400+ early adopters · First month free for waitlist</p>
+    content: `<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#050508;color:#f0f0f8;overflow-x:hidden}
+/* Glow layers */
+.glow-t{position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:900px;height:500px;background:radial-gradient(ellipse,rgba(99,102,241,.14) 0%,transparent 70%);pointer-events:none;z-index:0}
+.glow-bl{position:fixed;bottom:-100px;left:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(139,92,246,.08),transparent 70%);pointer-events:none;z-index:0}
+/* Nav */
+nav{position:relative;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:22px 48px;max-width:1200px;margin:0 auto}
+.nav-logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:18px;letter-spacing:-.4px}
+.nl-icon{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:15px}
+.nav-links{display:flex;align-items:center;gap:28px;font-size:13.5px;color:rgba(240,240,248,.45)}
+.nav-cta{background:rgba(99,102,241,.15);border:1px solid rgba(99,102,241,.3);color:#a5b4fc;padding:9px 20px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;transition:.2s}
+.nav-cta:hover{background:rgba(99,102,241,.28)}
+/* Hero */
+.hero{position:relative;z-index:1;text-align:center;padding:80px 20px 60px;max-width:900px;margin:0 auto}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.2);color:#a5b4fc;padding:7px 18px;border-radius:20px;font-size:12px;font-weight:700;letter-spacing:.05em;margin-bottom:28px;animation:fadeUp .5s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.hero h1{font-size:clamp(42px,7vw,80px);font-weight:900;letter-spacing:-2.5px;line-height:1.04;margin-bottom:20px;animation:fadeUp .5s .1s ease both}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,#818cf8 30%,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:18px;color:rgba(240,240,248,.5);max-width:520px;margin:0 auto 36px;line-height:1.7;animation:fadeUp .5s .2s ease both}
+/* Waitlist form */
+.wl-form{display:flex;gap:10px;max-width:440px;margin:0 auto 16px;animation:fadeUp .5s .3s ease both}
+.wl-input{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#f0f0f8;padding:13px 18px;border-radius:11px;font-size:14px;outline:none;transition:.2s}
+.wl-input::placeholder{color:rgba(240,240,248,.3)}
+.wl-input:focus{border-color:rgba(99,102,241,.5);background:rgba(99,102,241,.06)}
+.wl-btn{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;padding:13px 22px;border-radius:11px;font-weight:800;font-size:14px;white-space:nowrap;cursor:pointer;border:0;transition:.2s;box-shadow:0 4px 24px rgba(99,102,241,.3)}
+.wl-btn:hover{opacity:.9;transform:translateY(-1px)}
+.wl-note{font-size:12px;color:rgba(240,240,248,.3);animation:fadeUp .5s .4s ease both}
+/* Social proof bar */
+.sp-bar{display:flex;align-items:center;justify-content:center;gap:24px;margin-top:8px;padding:20px 0;animation:fadeUp .5s .5s ease both}
+.sp-item{text-align:center}
+.sp-val{font-size:26px;font-weight:900;letter-spacing:-1px}
+.sp-val span{font-size:13px;font-weight:600;color:#818cf8}
+.sp-label{font-size:11px;color:rgba(240,240,248,.35);text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+.sp-div{width:1px;height:36px;background:rgba(255,255,255,.08)}
+/* App preview */
+.preview-wrap{position:relative;z-index:1;max-width:880px;margin:0 auto 80px;padding:0 24px}
+.preview-chrome{background:#111118;border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.04);animation:fadeUp .6s .4s ease both}
+.chrome-bar{height:36px;background:#1a1a24;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;padding:0 14px;gap:7px}
+.cb-dot{width:9px;height:9px;border-radius:50%}
+.chrome-content{padding:28px}
+.mock-dash{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
+.mock-kpi{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:16px}
+.mock-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(240,240,248,.3);margin-bottom:8px}
+.mock-val{font-size:22px;font-weight:900;letter-spacing:-1px}
+.mock-chart{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:16px;grid-column:span 2}
+.mock-bars{display:flex;align-items:flex-end;gap:6px;height:64px;margin-top:10px}
+.mb{flex:1;border-radius:4px 4px 0 0;background:rgba(99,102,241,.25)}
+.mb.hi{background:linear-gradient(to top,#6366f1,#818cf8)}
+.mock-activity{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:16px}
+.act-row{display:flex;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:11px;color:rgba(240,240,248,.5)}
+.act-row:last-child{border:none}
+.act-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+/* Features */
+.features{position:relative;z-index:1;max-width:1100px;margin:0 auto 80px;padding:0 24px}
+.section-label{font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:#818cf8;font-weight:700;text-align:center;margin-bottom:16px}
+.section-h2{font-size:clamp(28px,4vw,44px);font-weight:900;letter-spacing:-1.2px;text-align:center;margin-bottom:8px}
+.section-p{text-align:center;color:rgba(240,240,248,.45);font-size:16px;max-width:480px;margin:0 auto 48px}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.feat-card{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:28px;transition:.25s}
+.feat-card:hover{background:rgba(99,102,241,.06);border-color:rgba(99,102,241,.25);transform:translateY(-3px)}
+.feat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:18px}
+.fi-1{background:rgba(99,102,241,.15)}
+.fi-2{background:rgba(139,92,246,.15)}
+.fi-3{background:rgba(236,72,153,.15)}
+.fi-4{background:rgba(20,184,166,.15)}
+.fi-5{background:rgba(245,158,11,.15)}
+.fi-6{background:rgba(59,130,246,.15)}
+.feat-h{font-size:15px;font-weight:800;letter-spacing:-.3px;margin-bottom:8px}
+.feat-p{font-size:13px;color:rgba(240,240,248,.45);line-height:1.65}
+/* Testimonials strip */
+.testimonials{position:relative;z-index:1;max-width:1100px;margin:0 auto 80px;padding:0 24px}
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.test-card{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:24px}
+.test-stars{color:#fbbf24;font-size:13px;margin-bottom:12px}
+.test-q{font-size:13.5px;color:rgba(240,240,248,.7);line-height:1.65;margin-bottom:16px;font-style:italic}
+.test-author{display:flex;align-items:center;gap:10px}
+.test-av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.test-name{font-size:12.5px;font-weight:700;color:rgba(240,240,248,.8)}
+.test-role{font-size:11px;color:rgba(240,240,248,.35)}
+/* CTA */
+.cta{position:relative;z-index:1;text-align:center;padding:80px 20px;border-top:1px solid rgba(255,255,255,.05)}
+.cta h2{font-size:clamp(30px,5vw,52px);font-weight:900;letter-spacing:-1.5px;margin-bottom:16px}
+.cta p{color:rgba(240,240,248,.45);font-size:16px;margin-bottom:36px;max-width:400px;margin-left:auto;margin-right:auto}
+footer{text-align:center;padding:28px;color:rgba(240,240,248,.2);font-size:12px;border-top:1px solid rgba(255,255,255,.04)}
+</style>
+
+<div class="glow-t"></div>
+<div class="glow-bl"></div>
+
+<nav>
+  <div class="nav-logo"><div class="nl-icon">🚀</div>Orbit</div>
+  <div class="nav-links"><span>Features</span><span>Pricing</span><span>Blog</span></div>
+  <button class="nav-cta">Join waitlist →</button>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">🎉 2,847 teams on waitlist — Launching Q3 2025</div>
+  <h1>Your entire workflow,<br/><em>one place.</em></h1>
+  <p>Orbit connects your tools, automates your busywork, and gives your team back 10 hours every week.</p>
+  <div class="wl-form">
+    <input class="wl-input" type="email" placeholder="Enter your work email"/>
+    <button class="wl-btn">Get early access →</button>
   </div>
-  <!-- Feature Grid -->
-  <div class="relative z-10 max-w-5xl mx-auto px-8 pb-20 grid grid-cols-1 md:grid-cols-3 gap-4">
-    <div class="bg-white/3 border border-white/8 rounded-2xl p-6 hover:border-indigo-500/30 transition">
-      <div class="text-3xl mb-3">⚡</div>
-      <h3 class="font-bold text-white mb-2">Instant automation</h3>
-      <p class="text-slate-500 text-sm leading-relaxed">Connect any tool and automate repetitive tasks with no-code workflows in minutes.</p>
+  <div class="wl-note">Join 2,847 early adopters · No credit card · First month free</div>
+  <div class="sp-bar">
+    <div class="sp-item"><div class="sp-val">2,847<span>+</span></div><div class="sp-label">Waitlist</div></div>
+    <div class="sp-div"></div>
+    <div class="sp-item"><div class="sp-val">10<span>h</span></div><div class="sp-label">Saved / week</div></div>
+    <div class="sp-div"></div>
+    <div class="sp-item"><div class="sp-val">4.9<span>★</span></div><div class="sp-label">Beta rating</div></div>
+    <div class="sp-div"></div>
+    <div class="sp-item"><div class="sp-val">62<span>+</span></div><div class="sp-label">Integrations</div></div>
+  </div>
+</div>
+
+<div class="preview-wrap">
+  <div class="preview-chrome">
+    <div class="chrome-bar">
+      <div class="cb-dot" style="background:#ff5f57"></div>
+      <div class="cb-dot" style="background:#ffbd2e"></div>
+      <div class="cb-dot" style="background:#28ca41"></div>
     </div>
-    <div class="bg-white/3 border border-white/8 rounded-2xl p-6 hover:border-indigo-500/30 transition">
-      <div class="text-3xl mb-3">🤝</div>
-      <h3 class="font-bold text-white mb-2">Team sync</h3>
-      <p class="text-slate-500 text-sm leading-relaxed">Real-time collaboration with shared workspaces, comments, and role-based access.</p>
-    </div>
-    <div class="bg-white/3 border border-white/8 rounded-2xl p-6 hover:border-indigo-500/30 transition">
-      <div class="text-3xl mb-3">📊</div>
-      <h3 class="font-bold text-white mb-2">Smart analytics</h3>
-      <p class="text-slate-500 text-sm leading-relaxed">See exactly where time is lost and get AI-powered suggestions to fix it.</p>
+    <div class="chrome-content">
+      <div class="mock-dash">
+        <div class="mock-kpi"><div class="mock-label">Automations</div><div class="mock-val" style="color:#818cf8">247</div></div>
+        <div class="mock-kpi"><div class="mock-label">Hours saved</div><div class="mock-val" style="color:#34d399">10.4h</div></div>
+        <div class="mock-kpi"><div class="mock-label">Active users</div><div class="mock-val">1,847</div></div>
+        <div class="mock-chart">
+          <div class="mock-label">Automation runs · last 7 days</div>
+          <div class="mock-bars">
+            <div class="mb" style="height:55%"></div>
+            <div class="mb" style="height:72%"></div>
+            <div class="mb" style="height:60%"></div>
+            <div class="mb" style="height:85%"></div>
+            <div class="mb" style="height:70%"></div>
+            <div class="mb" style="height:92%"></div>
+            <div class="mb hi" style="height:100%"></div>
+          </div>
+        </div>
+        <div class="mock-activity">
+          <div class="mock-label">Recent activity</div>
+          <div class="act-row"><div class="act-dot" style="background:#34d399"></div>Slack → Notion sync</div>
+          <div class="act-row"><div class="act-dot" style="background:#818cf8"></div>Email sequence sent</div>
+          <div class="act-row"><div class="act-dot" style="background:#fbbf24"></div>Report generated</div>
+          <div class="act-row"><div class="act-dot" style="background:#34d399"></div>New lead captured</div>
+        </div>
+      </div>
     </div>
   </div>
-</div>`,
+</div>
+
+<div class="features">
+  <div class="section-label">Why Orbit</div>
+  <h2 class="section-h2">Everything your team needs</h2>
+  <p class="section-p">Powerful workflows, smart integrations, and AI-powered automation — all in one place.</p>
+  <div class="feat-grid">
+    <div class="feat-card"><div class="feat-icon fi-1">⚡</div><div class="feat-h">Instant automation</div><div class="feat-p">Build no-code workflows in minutes. Connect any tool and automate repetitive tasks without engineering help.</div></div>
+    <div class="feat-card"><div class="feat-icon fi-2">🤝</div><div class="feat-h">Team sync</div><div class="feat-p">Real-time collaboration with shared workspaces, threaded comments, and granular role-based access control.</div></div>
+    <div class="feat-card"><div class="feat-icon fi-3">🧠</div><div class="feat-h">AI suggestions</div><div class="feat-p">Orbit learns your patterns and proactively suggests automations — saving time you didn't know you were wasting.</div></div>
+    <div class="feat-card"><div class="feat-icon fi-4">📊</div><div class="feat-h">Smart analytics</div><div class="feat-p">See exactly where time is lost with workflow-level analytics, bottleneck detection, and ROI dashboards.</div></div>
+    <div class="feat-card"><div class="feat-icon fi-5">🔗</div><div class="feat-h">62+ integrations</div><div class="feat-p">Slack, Notion, Jira, Linear, HubSpot, Airtable, GitHub, Zapier, Salesforce — and growing every week.</div></div>
+    <div class="feat-card"><div class="feat-icon fi-6">🔒</div><div class="feat-h">Enterprise-grade security</div><div class="feat-p">SOC 2 Type II certified, GDPR compliant, SSO/SAML, end-to-end encryption, and 99.99% SLA uptime guarantee.</div></div>
+  </div>
+</div>
+
+<div class="testimonials">
+  <div class="test-grid">
+    <div class="test-card">
+      <div class="test-stars">★★★★★</div>
+      <div class="test-q">"Orbit replaced 4 separate tools for us. Onboarding took one afternoon and the team was fully automated within a week."</div>
+      <div class="test-author"><div class="test-av" style="background:rgba(99,102,241,.2);color:#818cf8">S</div><div><div class="test-name">Sara Bianchi</div><div class="test-role">Head of Ops, PixelForge</div></div></div>
+    </div>
+    <div class="test-card">
+      <div class="test-stars">★★★★★</div>
+      <div class="test-q">"We save 12 hours a week per person. The AI suggestions alone paid back the subscription in the first month."</div>
+      <div class="test-author"><div class="test-av" style="background:rgba(139,92,246,.2);color:#c084fc">M</div><div><div class="test-name">Marco Esposito</div><div class="test-role">CTO, LaunchBase</div></div></div>
+    </div>
+    <div class="test-card">
+      <div class="test-stars">★★★★★</div>
+      <div class="test-q">"Finally a tool that actually works the way we think. The integrations are rock-solid and support is incredibly fast."</div>
+      <div class="test-author"><div class="test-av" style="background:rgba(236,72,153,.2);color:#f472b6">L</div><div><div class="test-name">Laura Chen</div><div class="test-role">PM, DevStudio</div></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <h2>Ready to save 10h/week?</h2>
+  <p>Join 2,847 teams on the waitlist. First month free for early adopters.</p>
+  <div class="wl-form" style="justify-content:center">
+    <input class="wl-input" type="email" placeholder="your@company.com"/>
+    <button class="wl-btn">Join waitlist →</button>
+  </div>
+</div>
+
+<footer>© 2025 Orbit Inc. · Privacy · Terms · Status</footer>`,
   },
 
   // ── CRM / E-commerce / AI Interface Templates ───────────────────────────
@@ -1262,64 +1963,89 @@ export const templates: Template[] = [
     stripePriceId: "price_1TBz23BoWNgrJbiyyFk0vJBh",
     tags: ["restaurant", "menu", "food", "dark", "luxury"],
     downloads: 344,
-    content: `<div class="min-h-screen bg-[#0d0d0d] text-white font-sans">
-  <style>@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');</style>
-  <!-- Header -->
-  <div class="relative overflow-hidden bg-gradient-to-b from-[#1a1008] to-[#0d0d0d] px-8 py-14 text-center border-b border-amber-900/30">
-    <div class="absolute inset-0 opacity-5" style="background-image:radial-gradient(circle,#d97706 1px,transparent 1px);background-size:24px 24px"></div>
-    <p class="text-amber-400 text-xs tracking-[0.3em] uppercase mb-3">Ristorante</p>
-    <h1 class="text-5xl font-bold text-amber-100 mb-2" style="font-family:'Playfair Display',serif">Oro & Fuoco</h1>
-    <p class="text-amber-600 text-sm tracking-widest">Milano · Dal 1987</p>
-    <div class="flex justify-center gap-6 mt-6 text-xs text-amber-700">
-      <span>Lun–Sab 19:00–23:30</span><span class="text-amber-800">·</span><span>+39 02 1234567</span>
+    content: `<style>
+body { background: #0c0a08; color: #f0ead8; font-family: Georgia, serif; margin: 0; }
+.menu-item:hover { background: rgba(212,175,55,.04); }
+</style>
+
+<!-- HERO -->
+<section style="min-height:100vh;background:linear-gradient(170deg,#0c0a08 0%,#1a1208 60%,#0c0a08 100%);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;padding:80px 40px;">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(212,175,55,.08),transparent 60%);pointer-events:none;"></div>
+  <div style="font-size:11px;text-transform:uppercase;letter-spacing:.32em;color:#D4AF37;margin-bottom:24px;font-weight:600;">Ristorante · Dal 1987</div>
+  <h1 style="font-size:clamp(52px,10vw,112px);font-weight:400;line-height:1.0;margin:0 0 24px;color:#f0ead8;letter-spacing:-.5px;">Osteria<br><em style="font-style:italic;color:rgba(240,234,216,.6);">della Rovere</em></h1>
+  <div style="width:80px;height:1px;background:linear-gradient(90deg,transparent,#D4AF37,transparent);margin:20px auto;"></div>
+  <p style="font-size:18px;color:rgba(240,234,216,.55);max-width:480px;line-height:1.7;margin-bottom:48px;">Cucina toscana di stagione. Ingredienti selezionati dai produttori locali, ricette tramandate da generazioni.</p>
+  <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
+    <button style="padding:16px 36px;background:linear-gradient(135deg,#D4AF37,#B8962E);color:#0c0a08;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.18em;border:none;cursor:pointer;font-family:Georgia,serif;">Prenota un tavolo</button>
+    <button style="padding:16px 36px;background:transparent;color:rgba(240,234,216,.6);border:1px solid rgba(212,175,55,.3);font-size:13px;text-transform:uppercase;letter-spacing:.18em;cursor:pointer;font-family:Georgia,serif;">Scopri il menù</button>
+  </div>
+</section>
+
+<!-- MENU -->
+<section style="max-width:800px;margin:0 auto;padding:80px 40px;">
+  <div style="text-align:center;margin-bottom:64px;">
+    <div style="font-size:11px;text-transform:uppercase;letter-spacing:.28em;color:#D4AF37;margin-bottom:16px;">Il menù</div>
+    <h2 style="font-size:clamp(36px,5vw,60px);font-weight:400;color:#f0ead8;margin:0;">Stagione autunnale</h2>
+  </div>
+
+  <!-- Antipasti -->
+  <div style="margin-bottom:56px;">
+    <h3 style="font-size:14px;text-transform:uppercase;letter-spacing:.24em;color:#D4AF37;border-bottom:1px solid rgba(212,175,55,.2);padding-bottom:12px;margin-bottom:24px;">Antipasti</h3>
+    <div class="menu-item" style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(240,234,216,.06);transition:background .2s;">
+      <div><div style="font-size:17px;color:#f0ead8;margin-bottom:4px;">Crostini al fegatino</div><div style="font-size:13px;color:rgba(240,234,216,.45);font-style:italic;">Pane toscano, fegatini di pollo, capperi, acciughe</div></div>
+      <div style="font-size:18px;color:#D4AF37;font-weight:400;flex-shrink:0;margin-left:24px;">€9</div>
+    </div>
+    <div class="menu-item" style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(240,234,216,.06);transition:background .2s;">
+      <div><div style="font-size:17px;color:#f0ead8;margin-bottom:4px;">Burrata di bufala</div><div style="font-size:13px;color:rgba(240,234,216,.45);font-style:italic;">Pomodori confit, basilico, olio extravergine Frantoio</div></div>
+      <div style="font-size:18px;color:#D4AF37;flex-shrink:0;margin-left:24px;">€13</div>
+    </div>
+    <div class="menu-item" style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(240,234,216,.06);transition:background .2s;">
+      <div><div style="font-size:17px;color:#f0ead8;margin-bottom:4px;">Tagliere di salumi</div><div style="font-size:13px;color:rgba(240,234,216,.45);font-style:italic;">Finocchiona DOP, lardo di Colonnata, miele di castagno</div></div>
+      <div style="font-size:18px;color:#D4AF37;flex-shrink:0;margin-left:24px;">€18</div>
     </div>
   </div>
-  <!-- Chef's Special -->
-  <div class="max-w-4xl mx-auto px-6 py-10">
-    <div class="flex items-center gap-4 mb-6"><div class="flex-1 h-px bg-amber-900/40"></div><p class="text-amber-500 text-xs tracking-[0.25em] uppercase">Chef's Selection</p><div class="flex-1 h-px bg-amber-900/40"></div></div>
-    <div class="bg-gradient-to-r from-amber-950/60 to-[#0d0d0d] border border-amber-800/40 rounded-2xl p-6 mb-10 relative overflow-hidden">
-      <div class="absolute top-0 right-0 bg-amber-500 text-black text-[10px] font-bold px-3 py-1 rounded-bl-xl tracking-widest">SPECIALE</div>
-      <div class="flex items-start gap-5">
-        <div class="w-16 h-16 rounded-xl bg-amber-900/30 flex items-center justify-center text-3xl shrink-0">🥩</div>
-        <div class="flex-1">
-          <h3 class="text-lg font-bold text-amber-100 mb-1">Filetto al Tartufo Nero</h3>
-          <p class="text-amber-700 text-sm leading-relaxed">Controfiletto di Fassona piemontese, riduzione di Barolo, lamelle di tartufo nero d'Acqualagna, purè al burro di Normandia.</p>
-          <div class="flex items-center justify-between mt-3">
-            <div class="flex gap-2"><span class="text-[10px] bg-amber-900/50 text-amber-400 px-2 py-0.5 rounded-full">Senza glutine</span><span class="text-[10px] bg-amber-900/50 text-amber-400 px-2 py-0.5 rounded-full">Signature</span></div>
-            <span class="text-amber-400 font-bold text-lg">€42</span>
-          </div>
-        </div>
-      </div>
+
+  <!-- Primi -->
+  <div style="margin-bottom:56px;">
+    <h3 style="font-size:14px;text-transform:uppercase;letter-spacing:.24em;color:#D4AF37;border-bottom:1px solid rgba(212,175,55,.2);padding-bottom:12px;margin-bottom:24px;">Primi</h3>
+    <div class="menu-item" style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(240,234,216,.06);transition:background .2s;">
+      <div><div style="font-size:17px;color:#f0ead8;margin-bottom:4px;">Pappardelle al cinghiale</div><div style="font-size:13px;color:rgba(240,234,216,.45);font-style:italic;">Pasta all'uovo, ragù di cinghiale, tartufo nero</div></div>
+      <div style="font-size:18px;color:#D4AF37;flex-shrink:0;margin-left:24px;">€19</div>
     </div>
-    <!-- Menu Sections -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <!-- Antipasti -->
-      <div>
-        <div class="flex items-center gap-3 mb-4"><div class="w-7 h-7 rounded-lg bg-amber-900/40 flex items-center justify-center text-sm">🌿</div><h2 class="text-sm font-bold text-amber-400 uppercase tracking-widest">Antipasti</h2></div>
-        <div class="space-y-4">
-          <div class="flex justify-between items-start border-b border-white/5 pb-3"><div><p class="text-white font-medium text-sm">Carpaccio di Manzo</p><p class="text-white/40 text-xs mt-0.5">Rucola, grana, capperi, limone</p></div><span class="text-amber-400 font-bold text-sm ml-4">€18</span></div>
-          <div class="flex justify-between items-start border-b border-white/5 pb-3"><div><p class="text-white font-medium text-sm">Burrata Pugliese</p><p class="text-white/40 text-xs mt-0.5">Pomodorini confit, basilico fresco</p></div><span class="text-amber-400 font-bold text-sm ml-4">€16</span></div>
-          <div class="flex justify-between items-start"><div><p class="text-white font-medium text-sm">Frittura di Gamberi</p><p class="text-white/40 text-xs mt-0.5">Gamberi rossi, salsa tartara</p></div><span class="text-amber-400 font-bold text-sm ml-4">€22</span></div>
-        </div>
-      </div>
-      <!-- Primi -->
-      <div>
-        <div class="flex items-center gap-3 mb-4"><div class="w-7 h-7 rounded-lg bg-amber-900/40 flex items-center justify-center text-sm">🍝</div><h2 class="text-sm font-bold text-amber-400 uppercase tracking-widest">Primi Piatti</h2></div>
-        <div class="space-y-4">
-          <div class="flex justify-between items-start border-b border-white/5 pb-3"><div><p class="text-white font-medium text-sm">Tagliolini al Caviale</p><p class="text-white/40 text-xs mt-0.5">Pasta fresca, burro, caviale Beluga</p></div><span class="text-amber-400 font-bold text-sm ml-4">€38</span></div>
-          <div class="flex justify-between items-start border-b border-white/5 pb-3"><div><p class="text-white font-medium text-sm">Risotto Mantecato</p><p class="text-white/40 text-xs mt-0.5">Carnaroli, zafferano DOP, osso buco</p></div><span class="text-amber-400 font-bold text-sm ml-4">€28</span></div>
-          <div class="flex justify-between items-start"><div><p class="text-white font-medium text-sm">Paccheri all'Astice</p><p class="text-white/40 text-xs mt-0.5">Astice bretone, pomodorini, bisque</p></div><span class="text-amber-400 font-bold text-sm ml-4">€34</span></div>
-        </div>
-      </div>
+    <div class="menu-item" style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(240,234,216,.06);transition:background .2s;">
+      <div><div style="font-size:17px;color:#f0ead8;margin-bottom:4px;">Ribollita della tradizione</div><div style="font-size:13px;color:rgba(240,234,216,.45);font-style:italic;">Pane raffermo, fagioli bianchi, cavolo nero, pomodoro</div></div>
+      <div style="font-size:18px;color:#D4AF37;flex-shrink:0;margin-left:24px;">€14</div>
     </div>
-    <!-- Reserve CTA -->
-    <div class="mt-10 bg-gradient-to-r from-amber-950/80 to-amber-900/20 border border-amber-800/40 rounded-2xl p-6 text-center">
-      <p class="text-amber-200 font-bold text-lg mb-1">Prenota il tuo tavolo</p>
-      <p class="text-amber-700 text-sm mb-4">Disponibilità limitata · Dress code richiesto</p>
-      <button class="bg-amber-500 hover:bg-amber-400 text-black font-bold px-8 py-3 rounded-xl text-sm transition">Prenota ora →</button>
+    <div class="menu-item" style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(240,234,216,.06);transition:background .2s;">
+      <div><div style="font-size:17px;color:#f0ead8;margin-bottom:4px;">Risotto ai funghi porcini</div><div style="font-size:13px;color:rgba(240,234,216,.45);font-style:italic;">Riso Carnaroli, porcini freschi, Parmigiano Reggiano 36 mesi</div></div>
+      <div style="font-size:18px;color:#D4AF37;flex-shrink:0;margin-left:24px;">€22</div>
     </div>
   </div>
-</div>`,
+
+  <!-- Dolci -->
+  <div>
+    <h3 style="font-size:14px;text-transform:uppercase;letter-spacing:.24em;color:#D4AF37;border-bottom:1px solid rgba(212,175,55,.2);padding-bottom:12px;margin-bottom:24px;">Dolci</h3>
+    <div class="menu-item" style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(240,234,216,.06);transition:background .2s;">
+      <div><div style="font-size:17px;color:#f0ead8;margin-bottom:4px;">Cantucci e Vin Santo</div><div style="font-size:13px;color:rgba(240,234,216,.45);font-style:italic;">Biscotti di Prato, Vin Santo del Chianti Classico</div></div>
+      <div style="font-size:18px;color:#D4AF37;flex-shrink:0;margin-left:24px;">€9</div>
+    </div>
+    <div class="menu-item" style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(240,234,216,.06);transition:background .2s;">
+      <div><div style="font-size:17px;color:#f0ead8;margin-bottom:4px;">Torta della nonna</div><div style="font-size:13px;color:rgba(240,234,216,.45);font-style:italic;">Crema pasticcera, pinoli, zucchero a velo</div></div>
+      <div style="font-size:18px;color:#D4AF37;flex-shrink:0;margin-left:24px;">€8</div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVATION CTA -->
+<section style="padding:80px 40px;text-align:center;border-top:1px solid rgba(212,175,55,.12);background:linear-gradient(180deg,#0c0a08,#111007);">
+  <div style="font-size:11px;text-transform:uppercase;letter-spacing:.28em;color:#D4AF37;margin-bottom:20px;">Prenota</div>
+  <h2 style="font-size:clamp(32px,5vw,56px);font-weight:400;color:#f0ead8;margin:0 0 16px;">Riserva il tuo tavolo</h2>
+  <p style="font-size:16px;color:rgba(240,234,216,.5);margin-bottom:36px;">Aperto dal martedì alla domenica, pranzo e cena. Chiuso il lunedì.</p>
+  <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+    <button style="padding:16px 36px;background:linear-gradient(135deg,#D4AF37,#B8962E);color:#0c0a08;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.16em;border:none;cursor:pointer;font-family:Georgia,serif;">Prenota ora</button>
+    <a href="tel:+390551234567" style="padding:16px 36px;background:transparent;color:rgba(240,234,216,.6);border:1px solid rgba(212,175,55,.25);font-size:13px;text-transform:uppercase;letter-spacing:.16em;text-decoration:none;display:inline-block;font-family:Georgia,serif;">+39 055 123 4567</a>
+  </div>
+</section>`,
   },
   {
     id: "coffee-shop-landing",
@@ -1471,58 +2197,236 @@ export const templates: Template[] = [
     stripePriceId: "price_1TBz25BoWNgrJbiy9Lsn21ma",
     tags: ["app", "mobile", "ios", "showcase", "download"],
     downloads: 412,
-    content: `<div class="min-h-screen bg-gradient-to-b from-[#0a0a1a] via-[#0d0d20] to-[#060610] font-sans text-white">
-  <!-- App Header -->
-  <div class="max-w-3xl mx-auto px-6 pt-12 pb-8">
-    <div class="flex items-start gap-5">
-      <div class="w-20 h-20 rounded-[22px] bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-4xl shadow-[0_8px_32px_rgba(139,92,246,0.4)] shrink-0">🎯</div>
-      <div class="flex-1">
-        <h1 class="text-2xl font-bold">FocusFlow</h1>
-        <p class="text-white/50 text-sm mt-0.5">Productivity & Focus Timer</p>
-        <div class="flex items-center gap-3 mt-2">
-          <div class="flex items-center gap-1"><span class="text-yellow-400 text-sm">★★★★★</span><span class="text-white/40 text-xs ml-1">4.9</span></div>
-          <span class="text-white/20">·</span>
-          <span class="text-white/40 text-xs">12.4K ratings</span>
-          <span class="text-white/20">·</span>
-          <span class="text-white/40 text-xs">Gratis</span>
+    content: `<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#08080f;color:#f0f0f8;overflow-x:hidden}
+/* Ambient */
+.amb{position:fixed;top:-150px;right:-150px;width:600px;height:600px;background:radial-gradient(circle,rgba(124,58,237,.1),transparent 70%);pointer-events:none;z-index:0}
+.amb2{position:fixed;bottom:-100px;left:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(59,130,246,.06),transparent 70%);pointer-events:none;z-index:0}
+/* Nav */
+nav{position:relative;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:20px 40px;max-width:1100px;margin:0 auto}
+.nav-logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:17px;letter-spacing:-.3px}
+.nl-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#7c3aed,#3b82f6);display:flex;align-items:center;justify-content:center;font-size:18px}
+.nav-badge{background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.25);color:#a78bfa;padding:4px 12px;border-radius:8px;font-size:11px;font-weight:700;letter-spacing:.06em}
+.dl-badge{background:linear-gradient(135deg,#7c3aed,#3b82f6);color:#fff;padding:9px 20px;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;border:0;transition:.2s;box-shadow:0 4px 20px rgba(124,58,237,.3)}
+.dl-badge:hover{opacity:.9}
+/* Hero */
+.hero{position:relative;z-index:1;display:grid;grid-template-columns:1fr 400px;gap:60px;align-items:center;max-width:1100px;margin:0 auto;padding:60px 40px 80px}
+.hero-left{}
+.app-icon{width:72px;height:72px;border-radius:18px;background:linear-gradient(135deg,#7c3aed,#3b82f6);display:flex;align-items:center;justify-content:center;font-size:36px;margin-bottom:20px;box-shadow:0 12px 40px rgba(124,58,237,.4)}
+.app-rating{display:flex;align-items:center;gap:8px;margin-bottom:20px}
+.stars{color:#fbbf24;font-size:15px;letter-spacing:1px}
+.rating-val{font-weight:800;font-size:14px}
+.rating-count{font-size:12px;color:rgba(240,240,248,.35)}
+.hero h1{font-size:clamp(34px,4.5vw,54px);font-weight:900;letter-spacing:-1.8px;line-height:1.08;margin-bottom:14px}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,#a78bfa,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:rgba(240,240,248,.5);font-size:16px;line-height:1.7;margin-bottom:28px;max-width:420px}
+.dl-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px}
+.dl-btn{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:12px 20px;border-radius:12px;cursor:pointer;transition:.2s}
+.dl-btn:hover{background:rgba(255,255,255,.1);border-color:rgba(124,58,237,.4)}
+.dl-btn-icon{font-size:22px}
+.dl-btn-text .line1{font-size:10px;color:rgba(240,240,248,.4);text-transform:uppercase;letter-spacing:.06em}
+.dl-btn-text .line2{font-size:14px;font-weight:800;letter-spacing:-.2px}
+/* Stats */
+.stats{display:flex;gap:28px;flex-wrap:wrap}
+.stat-item{text-align:left}
+.stat-val{font-size:24px;font-weight:900;letter-spacing:-1px}
+.stat-label{font-size:11px;color:rgba(240,240,248,.35);text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+/* Phone mockup */
+.phone-area{position:relative;display:flex;align-items:center;justify-content:center}
+.phone{width:240px;background:#111120;border-radius:36px;border:2px solid rgba(255,255,255,.1);box-shadow:0 40px 80px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.04),inset 0 0 0 1px rgba(255,255,255,.04);overflow:hidden;position:relative;margin:0 auto}
+.phone-notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:90px;height:24px;background:#111120;border-radius:0 0 16px 16px;z-index:10}
+.phone-screen{background:linear-gradient(160deg,#1a0a40,#0a1a40);padding:32px 16px 20px;min-height:480px}
+.app-status{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;font-size:10px;color:rgba(240,240,248,.5)}
+.timer-circle{width:120px;height:120px;border-radius:50%;border:4px solid rgba(124,58,237,.3);display:flex;align-items:center;justify-content:center;flex-direction:column;margin:0 auto 20px;position:relative;background:rgba(124,58,237,.06)}
+.timer-inner{text-align:center}
+.timer-time{font-size:28px;font-weight:900;letter-spacing:-1px;color:#a78bfa}
+.timer-label{font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:rgba(240,240,248,.35);margin-top:2px}
+.timer-ring{position:absolute;inset:-4px;border-radius:50%;background:conic-gradient(#7c3aed 65%,transparent 0%);mask:radial-gradient(circle at center, transparent 47px, black 48px)}
+.mode-pills{display:flex;gap:6px;justify-content:center;margin-bottom:16px}
+.mpill{padding:5px 12px;border-radius:8px;font-size:10px;font-weight:700;cursor:pointer}
+.mpill.active{background:rgba(124,58,237,.25);color:#a78bfa}
+.mpill.inactive{color:rgba(240,240,248,.3)}
+.prog-bars{display:flex;flex-direction:column;gap:8px}
+.prog-row{display:flex;align-items:center;gap:8px;font-size:10px;color:rgba(240,240,248,.5)}
+.prog-track{flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;border-radius:3px}
+/* Screenshots row */
+.screenshots{position:relative;z-index:1;max-width:1100px;margin:0 auto 80px;padding:0 40px}
+.screenshots h2{font-size:20px;font-weight:800;letter-spacing:-.5px;color:rgba(240,240,248,.6);margin-bottom:24px;text-transform:uppercase;letter-spacing:.08em;font-size:11px}
+.screens-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.screen-card{background:#14141e;border:1px solid rgba(255,255,255,.06);border-radius:16px;overflow:hidden}
+.screen-img{height:120px;display:flex;align-items:center;justify-content:center;font-size:36px;flex-direction:column;gap:6px}
+.screen-label{padding:12px;font-size:12px;font-weight:700;color:rgba(240,240,248,.7);border-top:1px solid rgba(255,255,255,.04)}
+.screen-sub{padding:0 12px 12px;font-size:11px;color:rgba(240,240,248,.35)}
+/* Features */
+.features{position:relative;z-index:1;max-width:1100px;margin:0 auto 80px;padding:0 40px}
+.features h2{font-size:clamp(26px,4vw,38px);font-weight:900;letter-spacing:-1px;margin-bottom:8px}
+.features p{color:rgba(240,240,248,.45);font-size:15px;margin-bottom:36px}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.feat-item{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05);border-radius:14px;padding:24px;transition:.2s}
+.feat-item:hover{background:rgba(124,58,237,.06);border-color:rgba(124,58,237,.2)}
+.feat-ico{font-size:24px;margin-bottom:14px}
+.feat-h{font-size:14px;font-weight:800;margin-bottom:6px}
+.feat-p{font-size:12.5px;color:rgba(240,240,248,.45);line-height:1.6}
+/* Reviews */
+.reviews{position:relative;z-index:1;max-width:1100px;margin:0 auto 80px;padding:0 40px}
+.rev-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.rev-header h2{font-size:22px;font-weight:800;letter-spacing:-.5px}
+.rev-overall{text-align:right}
+.rev-num{font-size:42px;font-weight:900;letter-spacing:-2px}
+.rev-stars{color:#fbbf24;font-size:16px}
+.rev-count{font-size:12px;color:rgba(240,240,248,.35)}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.rev-card{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05);border-radius:14px;padding:20px}
+.rc-stars{color:#fbbf24;font-size:12px;margin-bottom:10px}
+.rc-q{font-size:13px;color:rgba(240,240,248,.65);line-height:1.6;margin-bottom:14px}
+.rc-author{display:flex;align-items:center;gap:8px}
+.rc-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.rc-name{font-size:12px;font-weight:700}
+.rc-date{font-size:11px;color:rgba(240,240,248,.3)}
+/* CTA */
+.cta{position:relative;z-index:1;text-align:center;padding:64px 20px;border-top:1px solid rgba(255,255,255,.05);max-width:600px;margin:0 auto}
+.cta h2{font-size:36px;font-weight:900;letter-spacing:-1.2px;margin-bottom:12px}
+.cta p{color:rgba(240,240,248,.45);font-size:15px;margin-bottom:28px}
+footer{text-align:center;padding:24px;color:rgba(240,240,248,.2);font-size:12px;border-top:1px solid rgba(255,255,255,.04)}
+</style>
+
+<div class="amb"></div><div class="amb2"></div>
+
+<nav>
+  <div class="nav-logo"><div class="nl-icon">🎯</div>FocusFlow</div>
+  <div class="nav-badge">FREE APP</div>
+  <button class="dl-badge">Download now →</button>
+</nav>
+
+<div class="hero">
+  <div class="hero-left">
+    <div class="app-icon">🎯</div>
+    <div class="app-rating">
+      <span class="stars">★★★★★</span>
+      <span class="rating-val">4.9</span>
+      <span class="rating-count">· 12,400 ratings</span>
+    </div>
+    <h1>Focus deeper.<br/>Achieve <em>more.</em></h1>
+    <p>The Pomodoro-powered focus app that tracks your productivity, blocks distractions, and helps you build lasting deep work habits.</p>
+    <div class="dl-btns">
+      <div class="dl-btn">
+        <div class="dl-btn-icon">🍎</div>
+        <div class="dl-btn-text">
+          <div class="line1">Download on the</div>
+          <div class="line2">App Store</div>
         </div>
       </div>
-      <button class="bg-[#0A84FF] hover:bg-[#409CFF] text-white font-bold px-5 py-2.5 rounded-xl text-sm transition shrink-0">Scarica</button>
+      <div class="dl-btn">
+        <div class="dl-btn-icon">▶</div>
+        <div class="dl-btn-text">
+          <div class="line1">Get it on</div>
+          <div class="line2">Google Play</div>
+        </div>
+      </div>
     </div>
-    <!-- Stats Bar -->
-    <div class="grid grid-cols-3 gap-4 mt-8 border-t border-white/5 pt-8">
-      <div class="text-center"><div class="text-2xl font-black text-white">#1</div><div class="text-white/40 text-xs mt-1">Produttività</div></div>
-      <div class="text-center border-x border-white/5"><div class="text-2xl font-black text-white">500K+</div><div class="text-white/40 text-xs mt-1">Download</div></div>
-      <div class="text-center"><div class="text-2xl font-black text-white">4.9</div><div class="text-white/40 text-xs mt-1">Valutazione</div></div>
-    </div>
-  </div>
-  <!-- Screenshots -->
-  <div class="px-6 py-4 max-w-3xl mx-auto">
-    <div class="flex gap-4 overflow-x-auto pb-4" style="scrollbar-width:none">
-      <div class="shrink-0 w-36 h-64 rounded-2xl bg-gradient-to-b from-violet-900/80 to-indigo-900/80 border border-white/10 overflow-hidden relative">
-        <div class="absolute top-0 inset-x-0 h-1.5 bg-white/5 rounded-t-2xl"></div>
-        <div class="p-4 text-center mt-4"><div class="text-4xl mb-2">⏱️</div><div class="text-xs font-bold text-white">Focus Mode</div><div class="text-[10px] text-white/40 mt-1">25:00</div><div class="mt-4 w-16 h-16 rounded-full border-4 border-violet-400 flex items-center justify-center text-violet-300 text-2xl mx-auto">▶</div></div>
-      </div>
-      <div class="shrink-0 w-36 h-64 rounded-2xl bg-gradient-to-b from-emerald-900/80 to-teal-900/80 border border-white/10 overflow-hidden relative">
-        <div class="p-4 text-center mt-4"><div class="text-4xl mb-2">📊</div><div class="text-xs font-bold text-white">Stats</div><div class="mt-3 space-y-2"><div class="h-2 bg-emerald-500/30 rounded-full"><div class="h-full bg-emerald-400 rounded-full" style="width:78%"></div></div><div class="h-2 bg-emerald-500/30 rounded-full"><div class="h-full bg-teal-400 rounded-full" style="width:55%"></div></div><div class="h-2 bg-emerald-500/30 rounded-full"><div class="h-full bg-emerald-300 rounded-full" style="width:90%"></div></div></div></div>
-      </div>
-      <div class="shrink-0 w-36 h-64 rounded-2xl bg-gradient-to-b from-amber-900/80 to-orange-900/80 border border-white/10 overflow-hidden relative">
-        <div class="p-4 text-center mt-4"><div class="text-4xl mb-2">🏆</div><div class="text-xs font-bold text-white">Streak</div><div class="text-[10px] text-white/40 mt-1">14 giorni 🔥</div><div class="grid grid-cols-7 gap-1 mt-3">${Array(21).fill(0).map((_, i) => `<div class="h-4 rounded-sm ${i < 14 ? 'bg-amber-400' : 'bg-amber-900/50'}"></div>`).join('')}</div></div>
-      </div>
-      <div class="shrink-0 w-36 h-64 rounded-2xl bg-gradient-to-b from-pink-900/80 to-rose-900/80 border border-white/10 overflow-hidden relative">
-        <div class="p-4 text-center mt-4"><div class="text-4xl mb-2">🎵</div><div class="text-xs font-bold text-white">Focus Music</div><div class="mt-3 space-y-2 text-left"><div class="bg-pink-900/50 rounded-lg p-2 text-[10px] text-pink-200">Lo-fi Beats ▶</div><div class="bg-pink-900/50 rounded-lg p-2 text-[10px] text-pink-200">Nature Sounds</div><div class="bg-pink-900/50 rounded-lg p-2 text-[10px] text-pink-200">White Noise</div></div></div>
-      </div>
+    <div class="stats">
+      <div class="stat-item"><div class="stat-val">#1</div><div class="stat-label">Productivity</div></div>
+      <div class="stat-item"><div class="stat-val">500K+</div><div class="stat-label">Downloads</div></div>
+      <div class="stat-item"><div class="stat-val">4.9★</div><div class="stat-label">Rating</div></div>
+      <div class="stat-item"><div class="stat-val">Free</div><div class="stat-label">To start</div></div>
     </div>
   </div>
-  <!-- Features -->
-  <div class="max-w-3xl mx-auto px-6 py-6">
-    <h2 class="text-white/60 text-xs font-bold uppercase tracking-widest mb-4">Funzionalità</h2>
-    <div class="grid grid-cols-1 gap-3">
-      <div class="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-4 flex items-center gap-4"><div class="w-10 h-10 rounded-xl bg-violet-500/20 flex items-center justify-center text-xl shrink-0">🍅</div><div><p class="font-semibold text-sm">Tecnica Pomodoro</p><p class="text-white/40 text-xs mt-0.5">Sessioni da 25 minuti con pause guidate</p></div></div>
-      <div class="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-4 flex items-center gap-4"><div class="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center text-xl shrink-0">📈</div><div><p class="font-semibold text-sm">Analisi produttività</p><p class="text-white/40 text-xs mt-0.5">Grafici settimanali e trend mensili</p></div></div>
+  <div class="phone-area">
+    <div class="phone">
+      <div class="phone-notch"></div>
+      <div class="phone-screen">
+        <div class="app-status"><span>9:41</span><span>●●●</span></div>
+        <div style="text-align:center;margin-bottom:12px;font-size:11px;color:rgba(240,240,248,.4);text-transform:uppercase;letter-spacing:.1em;font-weight:700">Focus Session</div>
+        <div class="timer-circle">
+          <div class="timer-ring"></div>
+          <div class="timer-inner">
+            <div class="timer-time">16:42</div>
+            <div class="timer-label">remaining</div>
+          </div>
+        </div>
+        <div class="mode-pills">
+          <div class="mpill active">Focus</div>
+          <div class="mpill inactive">Break</div>
+          <div class="mpill inactive">Long</div>
+        </div>
+        <div style="font-size:10px;color:rgba(240,240,248,.3);text-align:center;margin-bottom:12px">Session 2 of 4 · Today's streak: 🔥14</div>
+        <div class="prog-bars">
+          <div class="prog-row"><span style="width:52px">Deep Work</span><div class="prog-track"><div class="prog-fill" style="width:78%;background:linear-gradient(to right,#7c3aed,#a78bfa)"></div></div><span>78%</span></div>
+          <div class="prog-row"><span style="width:52px">Email</span><div class="prog-track"><div class="prog-fill" style="width:35%;background:rgba(248,113,113,.6)"></div></div><span>35%</span></div>
+          <div class="prog-row"><span style="width:52px">Planning</span><div class="prog-track"><div class="prog-fill" style="width:55%;background:rgba(52,211,153,.6)"></div></div><span>55%</span></div>
+        </div>
+      </div>
     </div>
   </div>
-</div>`,
+</div>
+
+<div class="screenshots">
+  <h2>App screenshots</h2>
+  <div class="screens-row">
+    <div class="screen-card">
+      <div class="screen-img" style="background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(59,130,246,.15))">⏱️<span style="font-size:12px;color:rgba(240,240,248,.5)">Timer</span></div>
+      <div class="screen-label">Focus Timer</div>
+      <div class="screen-sub">Pomodoro sessions</div>
+    </div>
+    <div class="screen-card">
+      <div class="screen-img" style="background:linear-gradient(135deg,rgba(16,185,129,.15),rgba(5,150,105,.15))">📊<span style="font-size:12px;color:rgba(240,240,248,.5)">Stats</span></div>
+      <div class="screen-label">Analytics</div>
+      <div class="screen-sub">Weekly progress</div>
+    </div>
+    <div class="screen-card">
+      <div class="screen-img" style="background:linear-gradient(135deg,rgba(245,158,11,.15),rgba(239,68,68,.15))">🏆<span style="font-size:12px;color:rgba(240,240,248,.5)">Streak</span></div>
+      <div class="screen-label">Habit Streaks</div>
+      <div class="screen-sub">Build consistency</div>
+    </div>
+    <div class="screen-card">
+      <div class="screen-img" style="background:linear-gradient(135deg,rgba(236,72,153,.15),rgba(124,58,237,.15))">🎵<span style="font-size:12px;color:rgba(240,240,248,.5)">Music</span></div>
+      <div class="screen-label">Focus Sounds</div>
+      <div class="screen-sub">Lo-fi & white noise</div>
+    </div>
+  </div>
+</div>
+
+<div class="features">
+  <h2>Built for serious focus</h2>
+  <p>Every feature is designed to help you enter flow state faster and stay there longer.</p>
+  <div class="feat-grid">
+    <div class="feat-item"><div class="feat-ico">🍅</div><div class="feat-h">Pomodoro technique</div><div class="feat-p">Research-backed 25-minute focus sessions with guided breaks to prevent burnout and maintain peak performance.</div></div>
+    <div class="feat-item"><div class="feat-ico">📈</div><div class="feat-h">Productivity analytics</div><div class="feat-p">See exactly where your focus goes. Daily, weekly, and monthly reports with task-level breakdown.</div></div>
+    <div class="feat-item"><div class="feat-ico">🔇</div><div class="feat-h">Distraction blocking</div><div class="feat-p">Block websites and apps during focus sessions. Works across iOS and Android with no extra setup.</div></div>
+    <div class="feat-item"><div class="feat-ico">🏆</div><div class="feat-h">Habit streaks</div><div class="feat-p">Build momentum with daily streak tracking. Visual calendar shows your consistency over time.</div></div>
+    <div class="feat-item"><div class="feat-ico">🎵</div><div class="feat-h">Focus soundscapes</div><div class="feat-p">20+ curated lo-fi playlists, white noise, and nature sounds. Proven to improve concentration by 15%.</div></div>
+    <div class="feat-item"><div class="feat-ico">☁️</div><div class="feat-h">iCloud sync</div><div class="feat-p">Your focus history, tasks, and settings sync seamlessly across all your Apple and Android devices.</div></div>
+  </div>
+</div>
+
+<div class="reviews">
+  <div class="rev-header">
+    <h2>What users say</h2>
+    <div class="rev-overall">
+      <div class="rev-num">4.9</div>
+      <div class="rev-stars">★★★★★</div>
+      <div class="rev-count">12,400 ratings</div>
+    </div>
+  </div>
+  <div class="rev-grid">
+    <div class="rev-card"><div class="rc-stars">★★★★★</div><div class="rc-q">"Best focus app I've ever used. Replaced 3 separate apps. The streak tracking keeps me incredibly motivated."</div><div class="rc-author"><div class="rc-av" style="background:rgba(124,58,237,.2);color:#a78bfa">A</div><div><div class="rc-name">Alex T.</div><div class="rc-date">April 2025</div></div></div></div>
+    <div class="rev-card"><div class="rc-stars">★★★★★</div><div class="rc-q">"I went from 2h of real work per day to 6h. The distraction blocking feature is a game-changer for remote work."</div><div class="rc-author"><div class="rc-av" style="background:rgba(59,130,246,.2);color:#60a5fa">M</div><div><div class="rc-name">Maria K.</div><div class="rc-date">March 2025</div></div></div></div>
+    <div class="rev-card"><div class="rc-stars">★★★★★</div><div class="rc-q">"Clean UI, zero bloat, works perfectly. The weekly analytics helped me understand I was wasting 3h/day on email."</div><div class="rc-author"><div class="rc-av" style="background:rgba(16,185,129,.2);color:#34d399">D</div><div><div class="rc-name">David R.</div><div class="rc-date">April 2025</div></div></div></div>
+  </div>
+</div>
+
+<div class="cta">
+  <h2>Start focusing today</h2>
+  <p>Free to download. No subscription required to get started. Join 500K+ focused creators.</p>
+  <div class="dl-btns" style="justify-content:center">
+    <div class="dl-btn"><div class="dl-btn-icon">🍎</div><div class="dl-btn-text"><div class="line1">Download on the</div><div class="line2">App Store</div></div></div>
+    <div class="dl-btn"><div class="dl-btn-icon">▶</div><div class="dl-btn-text"><div class="line1">Get it on</div><div class="line2">Google Play</div></div></div>
+  </div>
+</div>
+
+<footer>© 2025 FocusFlow · Privacy Policy · Terms of Service · Support</footer>`,
   },
   {
     id: "feature-showcase",
@@ -1534,61 +2438,237 @@ export const templates: Template[] = [
     stripePriceId: "price_1TBz25BoWNgrJbiyIiw34qio",
     tags: ["features", "saas", "glassmorphism", "cards", "product"],
     downloads: 538,
-    content: `<div class="min-h-screen font-sans" style="background:linear-gradient(135deg,#0f0c29 0%,#1a1040 50%,#24243e 100%)">
-  <!-- Header -->
-  <div class="max-w-4xl mx-auto px-6 pt-16 pb-10 text-center">
-    <span class="inline-block text-[11px] font-bold tracking-[0.25em] uppercase text-purple-300/70 bg-purple-500/10 border border-purple-500/20 px-4 py-1.5 rounded-full mb-5">Tutto ciò di cui hai bisogno</span>
-    <h1 class="text-4xl md:text-5xl font-black text-white leading-tight mb-4">Funzionalità <span style="background:linear-gradient(135deg,#a78bfa,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent">potenti</span></h1>
-    <p class="text-white/40 text-lg max-w-xl mx-auto">Una piattaforma completa per team che vogliono muoversi velocemente senza compromessi.</p>
+    content: `<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0812;color:#f0eeff;overflow-x:hidden}
+.amb{position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(ellipse,rgba(139,92,246,.12) 0%,transparent 65%);pointer-events:none;z-index:0}
+/* Nav */
+nav{position:relative;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:20px 48px;max-width:1200px;margin:0 auto}
+.nav-logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:17px;letter-spacing:-.3px}
+.nl-dot{width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,#8b5cf6,#3b82f6)}
+.nav-links{display:flex;align-items:center;gap:28px;font-size:13px;color:rgba(240,238,255,.45)}
+.nav-cta{background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff;padding:9px 22px;border-radius:9px;font-weight:700;font-size:13px;cursor:pointer;border:0;box-shadow:0 4px 20px rgba(124,58,237,.3);transition:.2s}
+.nav-cta:hover{opacity:.9}
+/* Hero */
+.hero{position:relative;z-index:1;text-align:center;padding:80px 24px 56px;max-width:900px;margin:0 auto}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);color:#c4b5fd;padding:7px 18px;border-radius:20px;font-size:12px;font-weight:700;letter-spacing:.05em;margin-bottom:28px}
+.hero h1{font-size:clamp(38px,6vw,72px);font-weight:900;letter-spacing:-2.5px;line-height:1.05;margin-bottom:18px}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,#a78bfa 20%,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:rgba(240,238,255,.5);font-size:18px;max-width:540px;margin:0 auto 36px;line-height:1.65}
+.hero-ctas{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.btn-primary{background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff;padding:14px 28px;border-radius:11px;font-weight:800;font-size:14px;cursor:pointer;border:0;box-shadow:0 4px 24px rgba(124,58,237,.35);transition:.2s}
+.btn-primary:hover{opacity:.9;transform:translateY(-1px)}
+.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,.12);color:rgba(240,238,255,.7);padding:13px 24px;border-radius:11px;font-weight:600;font-size:14px;cursor:pointer;transition:.2s}
+.btn-ghost:hover{border-color:rgba(139,92,246,.4);color:#c4b5fd}
+.hero-note{font-size:12px;color:rgba(240,238,255,.3)}
+/* Logos strip */
+.logos{position:relative;z-index:1;text-align:center;padding:0 24px 56px;max-width:1100px;margin:0 auto}
+.logos-label{font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:rgba(240,238,255,.25);margin-bottom:20px}
+.logos-row{display:flex;align-items:center;justify-content:center;gap:36px;flex-wrap:wrap}
+.logo-chip{font-size:13px;font-weight:700;color:rgba(240,238,255,.2);letter-spacing:-.3px}
+/* Big features bento */
+.bento{position:relative;z-index:1;max-width:1100px;margin:0 auto 72px;padding:0 24px}
+.section-label{font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:#a78bfa;font-weight:700;text-align:center;margin-bottom:16px}
+.section-h2{font-size:clamp(28px,4vw,48px);font-weight:900;letter-spacing:-1.5px;text-align:center;margin-bottom:8px}
+.section-p{text-align:center;color:rgba(240,238,255,.45);font-size:16px;max-width:480px;margin:0 auto 48px;line-height:1.65}
+.bento-grid{display:grid;grid-template-columns:1.4fr 1fr;grid-template-rows:auto auto;gap:16px}
+.bento-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:32px;position:relative;overflow:hidden;transition:.25s}
+.bento-card:hover{background:rgba(139,92,246,.06);border-color:rgba(139,92,246,.2)}
+.bc-glow{position:absolute;width:200px;height:200px;border-radius:50%;filter:blur(60px);pointer-events:none;opacity:.15}
+.bento-card.span2{grid-column:span 2}
+.bc-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:20px}
+.bc-i1{background:rgba(139,92,246,.15)}
+.bc-i2{background:rgba(59,130,246,.15)}
+.bc-i3{background:rgba(16,185,129,.15)}
+.bc-i4{background:rgba(245,158,11,.15)}
+.bc-i5{background:rgba(236,72,153,.15)}
+.bc-h{font-size:20px;font-weight:800;letter-spacing:-.4px;margin-bottom:10px}
+.bc-p{font-size:14px;color:rgba(240,238,255,.5);line-height:1.65;max-width:420px}
+.bc-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.bc-tag{background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);color:#c4b5fd;padding:5px 12px;border-radius:8px;font-size:11px;font-weight:700;letter-spacing:.04em}
+/* Stats bar */
+.stats{position:relative;z-index:1;max-width:1100px;margin:0 auto 72px;padding:0 24px}
+.stats-inner{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid rgba(255,255,255,.06);border-radius:16px;overflow:hidden;background:rgba(255,255,255,.02)}
+.stat-item{padding:28px 24px;border-right:1px solid rgba(255,255,255,.05);text-align:center}
+.stat-item:last-child{border:none}
+.stat-val{font-size:36px;font-weight:900;letter-spacing:-1.5px;margin-bottom:6px}
+.stat-grad{background:linear-gradient(135deg,#a78bfa,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-label{font-size:12px;color:rgba(240,238,255,.4);text-transform:uppercase;letter-spacing:.08em}
+/* Feature list */
+.feat-list{position:relative;z-index:1;max-width:1100px;margin:0 auto 72px;padding:0 24px}
+.feat-list-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.fl-card{display:flex;align-items:flex-start;gap:16px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:24px;transition:.2s}
+.fl-card:hover{background:rgba(139,92,246,.05);border-color:rgba(139,92,246,.18)}
+.fl-icon{font-size:22px;flex-shrink:0;margin-top:2px}
+.fl-h{font-size:14.5px;font-weight:800;letter-spacing:-.3px;margin-bottom:7px}
+.fl-p{font-size:13px;color:rgba(240,238,255,.45);line-height:1.6}
+/* Integrations */
+.integrations{position:relative;z-index:1;max-width:1100px;margin:0 auto 72px;padding:0 24px;text-align:center}
+.int-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;max-width:700px;margin:0 auto 32px}
+.int-chip{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:14px;font-size:13px;font-weight:700;color:rgba(240,238,255,.5);transition:.2s}
+.int-chip:hover{background:rgba(139,92,246,.08);border-color:rgba(139,92,246,.2);color:#c4b5fd}
+/* CTA */
+.cta{position:relative;z-index:1;text-align:center;border-top:1px solid rgba(255,255,255,.05);padding:80px 24px}
+.cta-inner{max-width:560px;margin:0 auto}
+.cta h2{font-size:clamp(28px,4vw,46px);font-weight:900;letter-spacing:-1.5px;margin-bottom:14px}
+.cta p{color:rgba(240,238,255,.45);font-size:16px;margin-bottom:32px;line-height:1.65}
+footer{text-align:center;padding:24px;color:rgba(240,238,255,.2);font-size:12px;border-top:1px solid rgba(255,255,255,.04)}
+</style>
+
+<div class="amb"></div>
+
+<nav>
+  <div class="nav-logo"><div class="nl-dot"></div>Nexus</div>
+  <div class="nav-links"><span>Features</span><span>Pricing</span><span>Docs</span><span>Blog</span></div>
+  <button class="nav-cta">Start for free →</button>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">✦ New · AI-powered automation now available</div>
+  <h1>Every feature<br/>your team <em>actually needs.</em></h1>
+  <p>Nexus brings automation, collaboration, analytics, and integrations together — so your team can stop switching tabs and start shipping.</p>
+  <div class="hero-ctas">
+    <button class="btn-primary">Start free trial →</button>
+    <button class="btn-ghost">See all features</button>
   </div>
-  <!-- Feature Grid -->
-  <div class="max-w-4xl mx-auto px-6 pb-16 grid grid-cols-1 md:grid-cols-3 gap-4">
-    <!-- Big feature -->
-    <div class="md:col-span-2 rounded-3xl p-6 relative overflow-hidden border border-white/[0.08]" style="background:rgba(255,255,255,0.04);backdrop-filter:blur(20px)">
-      <div class="absolute inset-0 opacity-30" style="background:radial-gradient(circle at 80% 20%,rgba(139,92,246,0.3),transparent 60%)"></div>
-      <div class="relative">
-        <div class="w-12 h-12 rounded-2xl bg-violet-500/20 flex items-center justify-center text-2xl mb-4">⚡</div>
-        <h3 class="text-white font-bold text-xl mb-2">AI Automation Engine</h3>
-        <p class="text-white/50 text-sm leading-relaxed mb-4">Automatizza workflow complessi con regole intelligenti. Il nostro motore AI impara dai tuoi pattern e suggerisce ottimizzazioni in tempo reale.</p>
-        <div class="flex gap-2 flex-wrap">
-          <span class="text-[11px] bg-violet-500/15 text-violet-300 border border-violet-500/20 px-2.5 py-1 rounded-full">Smart Rules</span>
-          <span class="text-[11px] bg-violet-500/15 text-violet-300 border border-violet-500/20 px-2.5 py-1 rounded-full">ML-powered</span>
-          <span class="text-[11px] bg-violet-500/15 text-violet-300 border border-violet-500/20 px-2.5 py-1 rounded-full">No-code</span>
+  <div class="hero-note">No credit card required · 14-day free trial · Cancel anytime</div>
+</div>
+
+<div class="logos">
+  <div class="logos-label">Trusted by teams at</div>
+  <div class="logos-row">
+    <div class="logo-chip">Acme Corp</div>
+    <div class="logo-chip">PixelForge</div>
+    <div class="logo-chip">LaunchBase</div>
+    <div class="logo-chip">DevStudio</div>
+    <div class="logo-chip">NovaSaaS</div>
+    <div class="logo-chip">BuildCo</div>
+  </div>
+</div>
+
+<div class="bento">
+  <div class="section-label">Core platform</div>
+  <h2 class="section-h2">Built for teams that move fast</h2>
+  <p class="section-p">Every feature is designed to reduce friction, not add it. Ship faster without sacrificing quality or visibility.</p>
+
+  <div class="bento-grid">
+    <!-- Large card: AI Automation -->
+    <div class="bento-card">
+      <div class="bc-glow" style="background:#8b5cf6;top:-50px;right:-50px"></div>
+      <div class="bc-icon bc-i1">⚡</div>
+      <div class="bc-h">AI Automation Engine</div>
+      <p class="bc-p">Automate complex workflows with intelligent rules. Our AI learns your patterns and proactively suggests optimizations — saving hours every week without any engineering work.</p>
+      <div class="bc-tags">
+        <span class="bc-tag">Smart Rules</span>
+        <span class="bc-tag">ML-powered</span>
+        <span class="bc-tag">No-code</span>
+        <span class="bc-tag">Real-time</span>
+      </div>
+    </div>
+
+    <!-- Stack: Security + Analytics -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="bento-card" style="flex:1">
+        <div class="bc-glow" style="background:#3b82f6;bottom:-50px;left:-50px"></div>
+        <div class="bc-icon bc-i2">🔒</div>
+        <div class="bc-h" style="font-size:16px">Enterprise Security</div>
+        <p class="bc-p" style="font-size:13px">SOC 2 Type II, SSO/SAML, 2FA, full audit log, and 99.99% SLA uptime guarantee.</p>
+        <div style="display:flex;align-items:center;gap:7px;margin-top:14px">
+          <div style="width:7px;height:7px;border-radius:50%;background:#34d399;animation:pulse 2s infinite"></div>
+          <span style="font-size:12px;color:#34d399;font-weight:700">All systems operational</span>
+        </div>
+      </div>
+      <div class="bento-card" style="flex:1">
+        <div class="bc-icon bc-i3">📊</div>
+        <div class="bc-h" style="font-size:16px">Real-time Analytics</div>
+        <p class="bc-p" style="font-size:13px">Interactive dashboards with data updated every second. Export to CSV, API, or BI tools.</p>
+      </div>
+    </div>
+
+    <!-- Wide card: Collaboration -->
+    <div class="bento-card span2">
+      <div class="bc-glow" style="background:#f59e0b;top:-40px;left:40%"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px">
+        <div>
+          <div class="bc-icon bc-i4">🤝</div>
+          <div class="bc-h">Team Collaboration</div>
+          <p class="bc-p">Real-time shared workspaces, threaded comments, @mentions, and granular role-based access control. Work together without stepping on each other's toes.</p>
+        </div>
+        <div>
+          <div class="bc-icon bc-i5">🔌</div>
+          <div class="bc-h">500+ Integrations</div>
+          <p class="bc-p">Slack, Notion, GitHub, Jira, Linear, HubSpot, Salesforce, Airtable, Zapier — and everything in your stack. One-click setup, no configuration required.</p>
         </div>
       </div>
     </div>
-    <!-- Small feature -->
-    <div class="rounded-3xl p-6 relative overflow-hidden border border-white/[0.08]" style="background:rgba(255,255,255,0.04);backdrop-filter:blur(20px)">
-      <div class="absolute inset-0 opacity-30" style="background:radial-gradient(circle at 20% 80%,rgba(96,165,250,0.3),transparent 60%)"></div>
-      <div class="relative">
-        <div class="w-12 h-12 rounded-2xl bg-blue-500/20 flex items-center justify-center text-2xl mb-4">🔒</div>
-        <h3 class="text-white font-bold text-lg mb-2">Enterprise Security</h3>
-        <p class="text-white/50 text-sm leading-relaxed">SOC 2 Type II, SSO, 2FA, audit log completo.</p>
-        <div class="mt-4 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div><span class="text-emerald-400 text-xs font-medium">99.99% uptime</span></div>
-      </div>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-val stat-grad">10h</div>
+      <div class="stat-label">Saved per team/week</div>
     </div>
-    <!-- Three equal features -->
-    <div class="rounded-3xl p-6 border border-white/[0.08]" style="background:rgba(255,255,255,0.04);backdrop-filter:blur(20px)">
-      <div class="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center text-xl mb-3">📊</div>
-      <h3 class="text-white font-bold mb-1">Analytics Real-time</h3>
-      <p class="text-white/40 text-xs leading-relaxed">Dashboard interattive con dati aggiornati ogni secondo.</p>
+    <div class="stat-item">
+      <div class="stat-val stat-grad">500+</div>
+      <div class="stat-label">Integrations</div>
     </div>
-    <div class="rounded-3xl p-6 border border-white/[0.08]" style="background:rgba(255,255,255,0.04);backdrop-filter:blur(20px)">
-      <div class="w-10 h-10 rounded-xl bg-pink-500/20 flex items-center justify-center text-xl mb-3">🤝</div>
-      <h3 class="text-white font-bold mb-1">Team Collaboration</h3>
-      <p class="text-white/40 text-xs leading-relaxed">Commenti, menzioni, permessi granulari per ogni risorsa.</p>
+    <div class="stat-item">
+      <div class="stat-val stat-grad">99.99%</div>
+      <div class="stat-label">Uptime SLA</div>
     </div>
-    <div class="rounded-3xl p-6 border border-white/[0.08]" style="background:rgba(255,255,255,0.04);backdrop-filter:blur(20px)">
-      <div class="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center text-xl mb-3">🔌</div>
-      <h3 class="text-white font-bold mb-1">500+ Integrazioni</h3>
-      <p class="text-white/40 text-xs leading-relaxed">Slack, Notion, GitHub, Jira e tutto il tuo stack.</p>
+    <div class="stat-item">
+      <div class="stat-val stat-grad">12K+</div>
+      <div class="stat-label">Teams using Nexus</div>
     </div>
   </div>
-  <!-- CTA -->
-  <div class="max-w-4xl mx-auto px-6 pb-16 text-center">
-    <button class="bg-gradient-to-r from-violet-500 to-blue-500 hover:from-violet-400 hover:to-blue-400 text-white font-bold px-10 py-4 rounded-2xl text-[15px] transition shadow-[0_4px_24px_rgba(139,92,246,0.4)]">Inizia gratis — nessuna carta richiesta</button>
+</div>
+
+<div class="feat-list">
+  <div class="feat-list-grid">
+    <div class="fl-card"><div class="fl-icon">🚀</div><div><div class="fl-h">Lightning fast performance</div><div class="fl-p">Sub-100ms response times for all core operations. Built on edge infrastructure with CDN delivery in 40+ regions.</div></div></div>
+    <div class="fl-card"><div class="fl-icon">📱</div><div><div class="fl-h">Mobile-first design</div><div class="fl-p">Native iOS and Android apps with offline mode, push notifications, and full feature parity with desktop.</div></div></div>
+    <div class="fl-card"><div class="fl-icon">🔄</div><div><div class="fl-h">Version control</div><div class="fl-p">Full history of every change with one-click rollback. Never lose work again — every edit is tracked automatically.</div></div></div>
+    <div class="fl-card"><div class="fl-icon">🌐</div><div><div class="fl-h">Multi-language support</div><div class="fl-p">Available in 28 languages with right-to-left support. Localized date, time, and currency formatting per user.</div></div></div>
+    <div class="fl-card"><div class="fl-icon">📧</div><div><div class="fl-h">Smart notifications</div><div class="fl-p">AI-powered digest that learns what matters to you. Get notified about what's important, not everything.</div></div></div>
+    <div class="fl-card"><div class="fl-icon">🎨</div><div><div class="fl-h">White-label support</div><div class="fl-p">Custom branding, custom domains, and full UI theming on Enterprise plans. Make it yours.</div></div></div>
   </div>
-</div>`,
+</div>
+
+<div class="integrations">
+  <div class="section-label">Integrations</div>
+  <h2 class="section-h2">Works with your entire stack</h2>
+  <p class="section-p" style="margin-bottom:36px">Connect once, automate everything. 500+ integrations with a growing library updated every week.</p>
+  <div class="int-grid">
+    <div class="int-chip">Slack</div>
+    <div class="int-chip">Notion</div>
+    <div class="int-chip">GitHub</div>
+    <div class="int-chip">Jira</div>
+    <div class="int-chip">Linear</div>
+    <div class="int-chip">Figma</div>
+    <div class="int-chip">HubSpot</div>
+    <div class="int-chip">Stripe</div>
+    <div class="int-chip">Zapier</div>
+    <div class="int-chip">Salesforce</div>
+    <div class="int-chip">Airtable</div>
+    <div class="int-chip">Intercom</div>
+  </div>
+  <p style="font-size:12px;color:rgba(240,238,255,.3)">+ 488 more integrations</p>
+</div>
+
+<div class="cta">
+  <div class="cta-inner">
+    <h2>Ready to move faster?</h2>
+    <p>Join 12,000+ teams already saving 10 hours per week with Nexus. Start your free trial — no credit card required.</p>
+    <div class="hero-ctas">
+      <button class="btn-primary">Start free trial →</button>
+      <button class="btn-ghost">Talk to sales</button>
+    </div>
+  </div>
+</div>
+
+<footer>© 2025 Nexus Inc. · Privacy · Terms · Status · Docs</footer>`,
   },
   {
     id: "saas-dashboard",
@@ -1600,51 +2680,259 @@ export const templates: Template[] = [
     stripePriceId: "price_1TBz26BoWNgrJbiyAaT2x1l1",
     tags: ["dashboard", "analytics", "saas", "dark", "minimal"],
     downloads: 672,
-    content: `<div class="min-h-screen bg-[#0e0e12] text-white font-sans flex">
-  <!-- Sidebar -->
-  <div class="hidden md:flex flex-col w-16 bg-[#16161c] border-r border-white/[0.06] items-center py-5 gap-5 shrink-0">
-    <div class="w-8 h-8 rounded-lg bg-[#0A84FF] flex items-center justify-center text-sm font-black">N</div>
-    <div class="flex-1 flex flex-col gap-3 mt-4">
-      <div class="w-9 h-9 rounded-xl bg-[#0A84FF]/15 flex items-center justify-center text-base cursor-pointer">📊</div>
-      <div class="w-9 h-9 rounded-xl hover:bg-white/5 flex items-center justify-center text-base cursor-pointer opacity-50">👤</div>
-      <div class="w-9 h-9 rounded-xl hover:bg-white/5 flex items-center justify-center text-base cursor-pointer opacity-50">💬</div>
-      <div class="w-9 h-9 rounded-xl hover:bg-white/5 flex items-center justify-center text-base cursor-pointer opacity-50">⚙️</div>
+    content: `<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0c0c10;color:#e8e8f0;min-height:100vh;display:flex;overflow:hidden}
+/* Sidebar */
+.sidebar{width:220px;background:#111118;border-right:1px solid rgba(255,255,255,.05);display:flex;flex-direction:column;height:100vh;flex-shrink:0}
+.sidebar-logo{display:flex;align-items:center;gap:10px;padding:22px 18px;border-bottom:1px solid rgba(255,255,255,.04)}
+.logo-mark{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff}
+.logo-name{font-weight:800;font-size:15px;letter-spacing:-.3px}
+.sidebar-section{padding:20px 12px 8px;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(232,232,240,.25);font-weight:700}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;margin:2px 0;cursor:pointer;transition:.15s;font-size:13.5px;color:rgba(232,232,240,.55)}
+.nav-item:hover{background:rgba(255,255,255,.04);color:rgba(232,232,240,.8)}
+.nav-item.active{background:rgba(99,102,241,.12);color:#818cf8;font-weight:600}
+.nav-item .ni{font-size:16px;width:20px;text-align:center}
+.sidebar-bottom{margin-top:auto;padding:16px 12px;border-top:1px solid rgba(255,255,255,.04)}
+.user-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;cursor:pointer}
+.user-row:hover{background:rgba(255,255,255,.04)}
+.avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.user-info .name{font-size:12.5px;font-weight:600;color:rgba(232,232,240,.85)}
+.user-info .role{font-size:11px;color:rgba(232,232,240,.35)}
+/* Main */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.topbar{height:52px;border-bottom:1px solid rgba(255,255,255,.04);display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex-shrink:0}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px}
+.bc-inactive{color:rgba(232,232,240,.3)}
+.bc-sep{color:rgba(232,232,240,.2);font-size:11px}
+.bc-active{color:rgba(232,232,240,.85);font-weight:600}
+.topbar-right{display:flex;align-items:center;gap:12px}
+.date-range{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:6px 12px;font-size:12px;color:rgba(232,232,240,.5);display:flex;align-items:center;gap:6px}
+.notif-btn{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;position:relative}
+.notif-dot{position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:#ef4444;border:1px solid #0c0c10}
+/* Content */
+.content{flex:1;overflow-y:auto;padding:24px}
+.page-title{font-size:20px;font-weight:800;letter-spacing:-.4px;margin-bottom:4px}
+.page-sub{font-size:13px;color:rgba(232,232,240,.4);margin-bottom:24px}
+/* KPI row */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.kpi-card{background:#14141c;border:1px solid rgba(255,255,255,.05);border-radius:14px;padding:18px 20px}
+.kpi-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:rgba(232,232,240,.35);font-weight:600;margin-bottom:10px}
+.kpi-val{font-size:28px;font-weight:900;letter-spacing:-1px;line-height:1;margin-bottom:6px}
+.kpi-change{font-size:12px;display:flex;align-items:center;gap:5px}
+.up{color:#34d399}.down{color:#f87171}.flat{color:rgba(232,232,240,.3)}
+/* Charts row */
+.charts-grid{display:grid;grid-template-columns:1.7fr 1fr;gap:14px;margin-bottom:24px}
+.chart-card{background:#14141c;border:1px solid rgba(255,255,255,.05);border-radius:14px;padding:20px}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.card-title{font-size:13.5px;font-weight:700}
+.card-meta{font-size:11px;color:rgba(232,232,240,.35)}
+/* Bar chart */
+.bar-chart{display:flex;align-items:flex-end;gap:8px;height:110px}
+.bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px}
+.bar{border-radius:5px 5px 0 0;transition:.3s;min-height:4px}
+.bar-label{font-size:10px;color:rgba(232,232,240,.3)}
+/* Donut */
+.donut-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;height:110px;gap:16px}
+.donut{position:relative;width:88px;height:88px}
+.donut svg{transform:rotate(-90deg)}
+.donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.donut-pct{font-size:18px;font-weight:900;letter-spacing:-1px}
+.donut-sub{font-size:9px;color:rgba(232,232,240,.35);text-transform:uppercase;letter-spacing:.06em}
+.donut-legend{display:flex;flex-direction:column;gap:6px;width:100%}
+.leg-row{display:flex;align-items:center;justify-content:space-between;font-size:11px}
+.leg-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.leg-name{color:rgba(232,232,240,.5);flex:1;margin-left:6px}
+.leg-pct{color:rgba(232,232,240,.75);font-weight:600}
+/* Bottom row */
+.bottom-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:14px}
+/* Table */
+.table-card{background:#14141c;border:1px solid rgba(255,255,255,.05);border-radius:14px;padding:20px}
+.data-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.data-table th{text-align:left;padding:8px 10px;color:rgba(232,232,240,.3);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.04)}
+.data-table td{padding:10px 10px;border-bottom:1px solid rgba(255,255,255,.03);color:rgba(232,232,240,.75)}
+.data-table tr:last-child td{border:none}
+.status-pill{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:6px;font-size:11px;font-weight:600}
+.s-active{background:rgba(52,211,153,.1);color:#34d399}
+.s-trial{background:rgba(99,102,241,.1);color:#818cf8}
+.s-churned{background:rgba(248,113,113,.1);color:#f87171}
+/* Feed */
+.feed-card{background:#14141c;border:1px solid rgba(255,255,255,.05);border-radius:14px;padding:20px}
+.feed-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.03)}
+.feed-item:last-child{border:none;padding-bottom:0}
+.feed-icon{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.fi-green{background:rgba(52,211,153,.12)}
+.fi-blue{background:rgba(99,102,241,.12)}
+.fi-amber{background:rgba(245,158,11,.12)}
+.fi-red{background:rgba(248,113,113,.12)}
+.feed-body .title{font-size:12.5px;font-weight:600;color:rgba(232,232,240,.85);margin-bottom:3px}
+.feed-body .sub{font-size:11px;color:rgba(232,232,240,.35)}
+.feed-time{font-size:10.5px;color:rgba(232,232,240,.25);margin-left:auto;flex-shrink:0;padding-top:2px}
+</style>
+
+<div class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">N</div>
+    <div class="logo-name">Nexus</div>
+  </div>
+  <div class="sidebar-section">Overview</div>
+  <div class="nav-item active"><span class="ni">📊</span>Dashboard</div>
+  <div class="nav-item"><span class="ni">📈</span>Analytics</div>
+  <div class="nav-item"><span class="ni">👥</span>Customers</div>
+  <div class="nav-item"><span class="ni">💳</span>Revenue</div>
+  <div class="sidebar-section">Product</div>
+  <div class="nav-item"><span class="ni">🚀</span>Features</div>
+  <div class="nav-item"><span class="ni">🔔</span>Notifications</div>
+  <div class="nav-item"><span class="ni">🗂</span>Segments</div>
+  <div class="sidebar-section">Settings</div>
+  <div class="nav-item"><span class="ni">⚙️</span>Settings</div>
+  <div class="nav-item"><span class="ni">🔑</span>API Keys</div>
+  <div class="sidebar-bottom">
+    <div class="user-row">
+      <div class="avatar">M</div>
+      <div class="user-info">
+        <div class="name">Marco Ricci</div>
+        <div class="role">Admin</div>
+      </div>
     </div>
   </div>
-  <!-- Main -->
-  <div class="flex-1 overflow-hidden">
-    <!-- Top Bar -->
-    <div class="h-12 border-b border-white/[0.06] flex items-center justify-between px-6">
-      <div class="flex items-center gap-2"><span class="text-white/30 text-xs">Dashboard</span><span class="text-white/20 text-xs">/</span><span class="text-white text-xs font-semibold">Overview</span></div>
-      <div class="flex items-center gap-3"><div class="bg-white/5 border border-white/[0.08] rounded-lg px-3 py-1.5 text-xs text-white/40">Apr 2025 ▾</div><div class="w-7 h-7 rounded-full bg-[#0A84FF] flex items-center justify-center text-xs font-bold">M</div></div>
+</div>
+
+<div class="main">
+  <div class="topbar">
+    <div class="breadcrumb">
+      <span class="bc-inactive">Nexus</span>
+      <span class="bc-sep">/</span>
+      <span class="bc-active">Overview</span>
     </div>
-    <!-- Content -->
-    <div class="p-5 space-y-4 overflow-y-auto" style="max-height:calc(100vh - 48px)">
-      <!-- KPIs -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <div class="bg-[#16161c] border border-white/[0.06] rounded-2xl p-4"><div class="text-white/40 text-xs mb-2">MRR</div><div class="text-xl font-black">€28.4K</div><div class="text-emerald-400 text-xs mt-1">↑ +12% vs last month</div></div>
-        <div class="bg-[#16161c] border border-white/[0.06] rounded-2xl p-4"><div class="text-white/40 text-xs mb-2">Active Users</div><div class="text-xl font-black">1,847</div><div class="text-emerald-400 text-xs mt-1">↑ +5.3%</div></div>
-        <div class="bg-[#16161c] border border-white/[0.06] rounded-2xl p-4"><div class="text-white/40 text-xs mb-2">Churn Rate</div><div class="text-xl font-black">2.1%</div><div class="text-emerald-400 text-xs mt-1">↓ -0.4%</div></div>
-        <div class="bg-[#16161c] border border-white/[0.06] rounded-2xl p-4"><div class="text-white/40 text-xs mb-2">NPS Score</div><div class="text-xl font-black">71</div><div class="text-white/30 text-xs mt-1">→ Stable</div></div>
+    <div class="topbar-right">
+      <div class="date-range">📅 Apr 1 – Apr 30, 2025</div>
+      <div class="notif-btn">🔔<div class="notif-dot"></div></div>
+      <div class="avatar" style="width:30px;height:30px;font-size:12px">M</div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="page-title">Good morning, Marco 👋</div>
+    <div class="page-sub">Here's what's happening with your product today.</div>
+
+    <!-- KPIs -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">MRR</div>
+        <div class="kpi-val">€28,450</div>
+        <div class="kpi-change"><span class="up">↑ +12.4%</span><span style="color:rgba(232,232,240,.3)">vs last month</span></div>
       </div>
-      <!-- Chart + Feed -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-        <div class="md:col-span-2 bg-[#16161c] border border-white/[0.06] rounded-2xl p-5">
-          <div class="flex items-center justify-between mb-4"><h3 class="font-semibold text-sm">Revenue Trend</h3><span class="text-white/30 text-xs">Ultimi 7 giorni</span></div>
-          <!-- Fake bar chart -->
-          <div class="flex items-end gap-2 h-24">
-            ${[60, 75, 55, 85, 70, 90, 100].map((h, i) => `<div class="flex-1 rounded-t-md transition" style="height:${h}%;background:${i === 6 ? 'linear-gradient(to top,#0A84FF,#5E5CE6)' : 'rgba(10,132,255,0.15)'}"></div>`).join('')}
-          </div>
-          <div class="flex justify-between mt-2 text-white/20 text-[10px]"><span>Lun</span><span>Mar</span><span>Mer</span><span>Gio</span><span>Ven</span><span>Sab</span><span>Dom</span></div>
+      <div class="kpi-card">
+        <div class="kpi-label">Active users</div>
+        <div class="kpi-val">1,847</div>
+        <div class="kpi-change"><span class="up">↑ +5.3%</span><span style="color:rgba(232,232,240,.3)">vs last month</span></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Churn rate</div>
+        <div class="kpi-val">2.1%</div>
+        <div class="kpi-change"><span class="up">↓ -0.4%</span><span style="color:rgba(232,232,240,.3)">improving</span></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">NPS score</div>
+        <div class="kpi-val">71</div>
+        <div class="kpi-change"><span class="flat">→ Stable</span><span style="color:rgba(232,232,240,.3)">no change</span></div>
+      </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="charts-grid">
+      <div class="chart-card">
+        <div class="card-header">
+          <div class="card-title">Revenue trend</div>
+          <div class="card-meta">Last 7 days</div>
         </div>
-        <div class="bg-[#16161c] border border-white/[0.06] rounded-2xl p-5">
-          <h3 class="font-semibold text-sm mb-4">Activity</h3>
-          <div class="space-y-3">
-            <div class="flex items-start gap-2.5"><div class="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-xs shrink-0">↑</div><div class="text-xs"><p class="text-white/70">New signup</p><p class="text-white/30 text-[10px]">marco@mail.it · 2m fa</p></div></div>
-            <div class="flex items-start gap-2.5"><div class="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center text-xs shrink-0">💳</div><div class="text-xs"><p class="text-white/70">Payment received</p><p class="text-white/30 text-[10px]">€299 · Pro Plan · 8m fa</p></div></div>
-            <div class="flex items-start gap-2.5"><div class="w-6 h-6 rounded-full bg-amber-500/20 flex items-center justify-center text-xs shrink-0">⚠</div><div class="text-xs"><p class="text-white/70">Trial expiring</p><p class="text-white/30 text-[10px]">3 accounts · tomorrow</p></div></div>
-            <div class="flex items-start gap-2.5"><div class="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-xs shrink-0">↑</div><div class="text-xs"><p class="text-white/70">Upgrade Pro→Enterprise</p><p class="text-white/30 text-[10px]">acme corp · 1h fa</p></div></div>
+        <div class="bar-chart" id="barChart">
+          <div class="bar-wrap"><div class="bar" style="height:62%;background:rgba(99,102,241,.25)"></div><div class="bar-label">Mon</div></div>
+          <div class="bar-wrap"><div class="bar" style="height:75%;background:rgba(99,102,241,.25)"></div><div class="bar-label">Tue</div></div>
+          <div class="bar-wrap"><div class="bar" style="height:55%;background:rgba(99,102,241,.25)"></div><div class="bar-label">Wed</div></div>
+          <div class="bar-wrap"><div class="bar" style="height:88%;background:rgba(99,102,241,.25)"></div><div class="bar-label">Thu</div></div>
+          <div class="bar-wrap"><div class="bar" style="height:72%;background:rgba(99,102,241,.25)"></div><div class="bar-label">Fri</div></div>
+          <div class="bar-wrap"><div class="bar" style="height:90%;background:rgba(99,102,241,.25)"></div><div class="bar-label">Sat</div></div>
+          <div class="bar-wrap"><div class="bar" style="height:100%;background:linear-gradient(to top,#6366f1,#8b5cf6)"></div><div class="bar-label">Sun</div></div>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="card-header">
+          <div class="card-title">Plan distribution</div>
+          <div class="card-meta">Active subscriptions</div>
+        </div>
+        <div class="donut-wrap">
+          <div class="donut">
+            <svg width="88" height="88" viewBox="0 0 88 88">
+              <circle cx="44" cy="44" r="34" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="12"/>
+              <circle cx="44" cy="44" r="34" fill="none" stroke="#6366f1" stroke-width="12" stroke-dasharray="134 80" stroke-dashoffset="0"/>
+              <circle cx="44" cy="44" r="34" fill="none" stroke="#8b5cf6" stroke-width="12" stroke-dasharray="50 164" stroke-dashoffset="-134"/>
+              <circle cx="44" cy="44" r="34" fill="none" stroke="#34d399" stroke-width="12" stroke-dasharray="30 184" stroke-dashoffset="-184"/>
+            </svg>
+            <div class="donut-center">
+              <div class="donut-pct">1,847</div>
+              <div class="donut-sub">total</div>
+            </div>
           </div>
+          <div class="donut-legend">
+            <div class="leg-row"><div class="leg-dot" style="background:#6366f1"></div><span class="leg-name">Pro</span><span class="leg-pct">62%</span></div>
+            <div class="leg-row"><div class="leg-dot" style="background:#8b5cf6"></div><span class="leg-name">Starter</span><span class="leg-pct">24%</span></div>
+            <div class="leg-row"><div class="leg-dot" style="background:#34d399"></div><span class="leg-name">Enterprise</span><span class="leg-pct">14%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom row -->
+    <div class="bottom-grid">
+      <div class="table-card">
+        <div class="card-header">
+          <div class="card-title">Recent accounts</div>
+          <div class="card-meta" style="color:#818cf8;cursor:pointer;font-size:12px">View all →</div>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr><th>Company</th><th>Plan</th><th>MRR</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Acme Corp</td><td>Enterprise</td><td>€2,400</td><td><span class="status-pill s-active">● Active</span></td></tr>
+            <tr><td>PixelForge</td><td>Pro</td><td>€290</td><td><span class="status-pill s-active">● Active</span></td></tr>
+            <tr><td>LaunchBase</td><td>Pro</td><td>€290</td><td><span class="status-pill s-trial">◌ Trial</span></td></tr>
+            <tr><td>DevStudio</td><td>Starter</td><td>€90</td><td><span class="status-pill s-active">● Active</span></td></tr>
+            <tr><td>NovaSaaS</td><td>Pro</td><td>€290</td><td><span class="status-pill s-churned">✕ Churned</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="feed-card">
+        <div class="card-header">
+          <div class="card-title">Live activity</div>
+          <div class="card-meta">Last 2 hours</div>
+        </div>
+        <div class="feed-item">
+          <div class="feed-icon fi-green">↑</div>
+          <div class="feed-body"><div class="title">New signup</div><div class="sub">marco@nexus.io · Pro plan</div></div>
+          <div class="feed-time">2m ago</div>
+        </div>
+        <div class="feed-item">
+          <div class="feed-icon fi-blue">💳</div>
+          <div class="feed-body"><div class="title">Payment received</div><div class="sub">€290 · PixelForge · Pro</div></div>
+          <div class="feed-time">8m ago</div>
+        </div>
+        <div class="feed-item">
+          <div class="feed-icon fi-amber">⚠</div>
+          <div class="feed-body"><div class="title">Trial expiring</div><div class="sub">3 accounts expire tomorrow</div></div>
+          <div class="feed-time">31m ago</div>
+        </div>
+        <div class="feed-item">
+          <div class="feed-icon fi-green">🚀</div>
+          <div class="feed-body"><div class="title">Upgrade: Pro → Enterprise</div><div class="sub">Acme Corp · +€2,110 MRR</div></div>
+          <div class="feed-time">1h ago</div>
+        </div>
+        <div class="feed-item">
+          <div class="feed-icon fi-red">✕</div>
+          <div class="feed-body"><div class="title">Cancellation request</div><div class="sub">NovaSaaS · downgrade</div></div>
+          <div class="feed-time">2h ago</div>
         </div>
       </div>
     </div>
@@ -1664,79 +2952,120 @@ export const templates: Template[] = [
     tags: ["cv", "resume", "portfolio", "minimal", "personal"],
     downloads: 891,
     editorsPick: true,
-    content: `<div class="min-h-screen bg-white font-sans">
-  <div class="max-w-3xl mx-auto px-6 py-12">
-    <!-- Header -->
-    <div class="flex flex-col md:flex-row items-start md:items-center gap-6 mb-10 pb-8 border-b border-gray-100">
-      <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#0A84FF] to-[#5E5CE6] flex items-center justify-center text-3xl font-black text-white shrink-0">LM</div>
-      <div class="flex-1">
-        <h1 class="text-3xl font-black text-gray-900 tracking-tight">Luca Marchetti</h1>
-        <p class="text-[#0A84FF] font-semibold mt-0.5">Senior Product Designer</p>
-        <div class="flex flex-wrap gap-3 mt-3 text-xs text-gray-500">
-          <span>📍 Milano, Italy</span><span>✉️ luca@marchetti.io</span><span>🌐 marchetti.io</span>
+    content: `<style>
+body { background: #f8f9fa; color: #111; font-family: system-ui, -apple-system, sans-serif; margin: 0; }
+.skill-bar { height: 4px; background: #e2e8f0; border-radius: 2px; overflow: hidden; }
+.skill-fill { height: 100%; background: linear-gradient(90deg,#3b82f6,#8b5cf6); border-radius: 2px; }
+</style>
+
+<!-- HEADER -->
+<header style="background:#fff;border-bottom:1px solid #e2e8f0;padding:40px 60px;">
+  <div style="max-width:1000px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:32px;flex-wrap:wrap;">
+    <div>
+      <h1 style="font-size:clamp(36px,5vw,60px);font-weight:800;letter-spacing:-1.5px;margin:0 0 8px;color:#0f172a;">Marco Rossetti</h1>
+      <div style="font-size:18px;color:#3b82f6;font-weight:600;margin-bottom:12px;">Senior Product Designer</div>
+      <p style="font-size:15px;color:#64748b;max-width:480px;line-height:1.65;margin:0;">Crafting digital products used by millions. Specialized in B2B SaaS, fintech, and design systems. 8+ years of experience.</p>
+    </div>
+    <div style="text-align:right;flex-shrink:0;">
+      <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#8b5cf6);margin:0 0 12px auto;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800;color:#fff;">M</div>
+      <div style="font-size:13px;color:#64748b;line-height:1.8;">marco@rossetti.design<br>milano, IT · Remote OK</div>
+    </div>
+  </div>
+</header>
+
+<div style="max-width:1000px;margin:0 auto;padding:48px 60px;display:grid;grid-template-columns:2fr 1fr;gap:56px;">
+  <!-- LEFT: Experience + Projects -->
+  <div>
+    <!-- Experience -->
+    <div style="margin-bottom:48px;">
+      <h2 style="font-size:12px;text-transform:uppercase;letter-spacing:.2em;color:#3b82f6;margin:0 0 28px;font-weight:700;">Experience</h2>
+      
+      <div style="margin-bottom:32px;padding-bottom:32px;border-bottom:1px solid #f1f5f9;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
+          <div>
+            <div style="font-size:18px;font-weight:700;color:#0f172a;">Lead Product Designer</div>
+            <div style="font-size:14px;color:#3b82f6;font-weight:600;">Revolut · London / Remote</div>
+          </div>
+          <div style="font-size:13px;color:#94a3b8;font-weight:500;background:#f1f5f9;padding:4px 10px;border-radius:20px;white-space:nowrap;">2021 – Present</div>
+        </div>
+        <p style="font-size:14px;color:#475569;line-height:1.7;margin:0 0 12px;">Led the redesign of the core banking product used by 35M users. Established the design system adopted by 40+ engineers. Increased key conversion metric by 23%.</p>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <span style="font-size:12px;background:#eff6ff;color:#3b82f6;padding:4px 10px;border-radius:20px;font-weight:500;">Figma</span>
+          <span style="font-size:12px;background:#eff6ff;color:#3b82f6;padding:4px 10px;border-radius:20px;font-weight:500;">Design Systems</span>
+          <span style="font-size:12px;background:#eff6ff;color:#3b82f6;padding:4px 10px;border-radius:20px;font-weight:500;">User Research</span>
         </div>
       </div>
-      <div class="flex flex-col gap-2 shrink-0">
-        <button class="bg-[#0A84FF] text-white font-bold px-5 py-2.5 rounded-xl text-sm hover:bg-[#409CFF] transition">Download CV</button>
-        <button class="border border-gray-200 text-gray-600 font-medium px-5 py-2.5 rounded-xl text-sm hover:bg-gray-50 transition">Contattami</button>
+      
+      <div style="margin-bottom:32px;padding-bottom:32px;border-bottom:1px solid #f1f5f9;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
+          <div>
+            <div style="font-size:18px;font-weight:700;color:#0f172a;">Senior UX Designer</div>
+            <div style="font-size:14px;color:#8b5cf6;font-weight:600;">Spotify · Stockholm</div>
+          </div>
+          <div style="font-size:13px;color:#94a3b8;font-weight:500;background:#f1f5f9;padding:4px 10px;border-radius:20px;white-space:nowrap;">2018 – 2021</div>
+        </div>
+        <p style="font-size:14px;color:#475569;line-height:1.7;margin:0 0 12px;">Owned the podcast discovery and playlist creation flows. Shipped features to 400M+ users across iOS, Android, and web. Ran weekly design critiques for a team of 12.</p>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <span style="font-size:12px;background:#f5f3ff;color:#8b5cf6;padding:4px 10px;border-radius:20px;font-weight:500;">Mobile</span>
+          <span style="font-size:12px;background:#f5f3ff;color:#8b5cf6;padding:4px 10px;border-radius:20px;font-weight:500;">A/B Testing</span>
+          <span style="font-size:12px;background:#f5f3ff;color:#8b5cf6;padding:4px 10px;border-radius:20px;font-weight:500;">Prototyping</span>
+        </div>
+      </div>
+      
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
+          <div>
+            <div style="font-size:18px;font-weight:700;color:#0f172a;">UX Designer</div>
+            <div style="font-size:14px;color:#10b981;font-weight:600;">N26 · Berlin</div>
+          </div>
+          <div style="font-size:13px;color:#94a3b8;font-weight:500;background:#f1f5f9;padding:4px 10px;border-radius:20px;white-space:nowrap;">2016 – 2018</div>
+        </div>
+        <p style="font-size:14px;color:#475569;line-height:1.7;margin:0;">Designed onboarding and KYC flows reducing drop-off rate by 31%. First design hire, helped grow team from 1 to 8 designers.</p>
       </div>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <!-- Main column -->
-      <div class="md:col-span-2 space-y-8">
-        <!-- About -->
-        <div>
-          <h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">About</h2>
-          <p class="text-gray-600 text-sm leading-relaxed">Product Designer con 8+ anni di esperienza nel creare interfacce digitali che uniscono estetica e funzionalità. Specializzato in design systems, UX research e prototipazione ad alta fedeltà.</p>
+
+    <!-- Projects -->
+    <div>
+      <h2 style="font-size:12px;text-transform:uppercase;letter-spacing:.2em;color:#3b82f6;margin:0 0 28px;font-weight:700;">Selected projects</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div style="border:1px solid #e2e8f0;border-radius:12px;padding:20px;background:#fff;">
+          <div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#3b82f6,#2563eb);margin-bottom:14px;"></div>
+          <div style="font-size:15px;font-weight:700;color:#0f172a;margin-bottom:6px;">FinFlow Dashboard</div>
+          <p style="font-size:13px;color:#64748b;line-height:1.6;margin:0;">B2B fintech platform for SMEs. Reduced cognitive load by 40%.</p>
         </div>
-        <!-- Experience -->
-        <div>
-          <h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Esperienza</h2>
-          <div class="space-y-5">
-            <div class="flex gap-4">
-              <div class="flex flex-col items-center"><div class="w-9 h-9 rounded-xl bg-[#0A84FF]/10 flex items-center justify-center text-base shrink-0">🏢</div><div class="w-px flex-1 bg-gray-100 my-2"></div></div>
-              <div class="pb-2"><p class="font-bold text-gray-900 text-sm">Lead Product Designer</p><p class="text-[#0A84FF] text-xs font-medium">Factorial · 2022 – oggi</p><p class="text-gray-500 text-xs mt-1 leading-relaxed">Design system da zero, ridotto il tempo di sviluppo del 40%. Team di 4 designer.</p></div>
-            </div>
-            <div class="flex gap-4">
-              <div class="flex flex-col items-center"><div class="w-9 h-9 rounded-xl bg-purple-50 flex items-center justify-center text-base shrink-0">🎨</div><div class="w-px flex-1 bg-gray-100 my-2"></div></div>
-              <div class="pb-2"><p class="font-bold text-gray-900 text-sm">Senior UX Designer</p><p class="text-purple-600 text-xs font-medium">Bending Spoons · 2019 – 2022</p><p class="text-gray-500 text-xs mt-1 leading-relaxed">Redesign completo di Elytra (4M utenti). App featured nell'App Store 3 volte.</p></div>
-            </div>
-            <div class="flex gap-4">
-              <div class="flex flex-col items-center"><div class="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center text-base shrink-0">🚀</div></div>
-              <div><p class="font-bold text-gray-900 text-sm">Product Designer</p><p class="text-emerald-600 text-xs font-medium">Satispay · 2017 – 2019</p><p class="text-gray-500 text-xs mt-1 leading-relaxed">Interfacce per il pagamento mobile. 0 → 2M utenti attivi.</p></div>
-            </div>
-          </div>
+        <div style="border:1px solid #e2e8f0;border-radius:12px;padding:20px;background:#fff;">
+          <div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#8b5cf6,#7c3aed);margin-bottom:14px;"></div>
+          <div style="font-size:15px;font-weight:700;color:#0f172a;margin-bottom:6px;">Atlas Design System</div>
+          <p style="font-size:13px;color:#64748b;line-height:1.6;margin:0;">500+ components, used by 6 product teams at Revolut.</p>
         </div>
       </div>
-      <!-- Side column -->
-      <div class="space-y-6">
-        <!-- Skills -->
-        <div>
-          <h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Skills</h2>
-          <div class="space-y-2">
-            <div><div class="flex justify-between text-xs mb-1"><span class="text-gray-700 font-medium">Figma / Framer</span><span class="text-gray-400">Expert</span></div><div class="h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-[#0A84FF] rounded-full" style="width:95%"></div></div></div>
-            <div><div class="flex justify-between text-xs mb-1"><span class="text-gray-700 font-medium">Design Systems</span><span class="text-gray-400">Expert</span></div><div class="h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-[#0A84FF] rounded-full" style="width:90%"></div></div></div>
-            <div><div class="flex justify-between text-xs mb-1"><span class="text-gray-700 font-medium">UX Research</span><span class="text-gray-400">Advanced</span></div><div class="h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-purple-500 rounded-full" style="width:80%"></div></div></div>
-            <div><div class="flex justify-between text-xs mb-1"><span class="text-gray-700 font-medium">React / CSS</span><span class="text-gray-400">Intermediate</span></div><div class="h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-emerald-500 rounded-full" style="width:65%"></div></div></div>
-          </div>
-        </div>
-        <!-- Tools -->
-        <div>
-          <h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Tools</h2>
-          <div class="flex flex-wrap gap-2">
-            <span class="text-xs bg-gray-50 border border-gray-200 text-gray-600 px-2.5 py-1 rounded-lg">Figma</span>
-            <span class="text-xs bg-gray-50 border border-gray-200 text-gray-600 px-2.5 py-1 rounded-lg">Framer</span>
-            <span class="text-xs bg-gray-50 border border-gray-200 text-gray-600 px-2.5 py-1 rounded-lg">Notion</span>
-            <span class="text-xs bg-gray-50 border border-gray-200 text-gray-600 px-2.5 py-1 rounded-lg">Linear</span>
-            <span class="text-xs bg-gray-50 border border-gray-200 text-gray-600 px-2.5 py-1 rounded-lg">Lottie</span>
-          </div>
-        </div>
-        <!-- Education -->
-        <div>
-          <h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Formazione</h2>
-          <div class="bg-gray-50 rounded-xl p-3"><p class="font-semibold text-gray-800 text-sm">Comunicazione Visiva</p><p class="text-gray-500 text-xs mt-0.5">Politecnico di Milano · 2017</p></div>
-        </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Skills + Education + Contact -->
+  <div>
+    <div style="margin-bottom:40px;">
+      <h2 style="font-size:12px;text-transform:uppercase;letter-spacing:.2em;color:#3b82f6;margin:0 0 24px;font-weight:700;">Skills</h2>
+      <div style="display:grid;gap:14px;">
+        <div><div style="display:flex;justify-content:space-between;font-size:14px;color:#374151;margin-bottom:6px;"><span>Product Design</span><span style="color:#94a3b8;">Expert</span></div><div class="skill-bar"><div class="skill-fill" style="width:95%;"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:14px;color:#374151;margin-bottom:6px;"><span>Figma / Sketch</span><span style="color:#94a3b8;">Expert</span></div><div class="skill-bar"><div class="skill-fill" style="width:98%;"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:14px;color:#374151;margin-bottom:6px;"><span>Design Systems</span><span style="color:#94a3b8;">Expert</span></div><div class="skill-bar"><div class="skill-fill" style="width:90%;"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:14px;color:#374151;margin-bottom:6px;"><span>User Research</span><span style="color:#94a3b8;">Advanced</span></div><div class="skill-bar"><div class="skill-fill" style="width:85%;"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:14px;color:#374151;margin-bottom:6px;"><span>HTML / CSS</span><span style="color:#94a3b8;">Advanced</span></div><div class="skill-bar"><div class="skill-fill" style="width:75%;"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:14px;color:#374151;margin-bottom:6px;"><span>Motion Design</span><span style="color:#94a3b8;">Intermediate</span></div><div class="skill-bar"><div class="skill-fill" style="width:65%;"></div></div></div>
       </div>
+    </div>
+
+    <div style="margin-bottom:40px;">
+      <h2 style="font-size:12px;text-transform:uppercase;letter-spacing:.2em;color:#3b82f6;margin:0 0 20px;font-weight:700;">Education</h2>
+      <div style="margin-bottom:16px;"><div style="font-size:15px;font-weight:700;color:#0f172a;">MSc Interaction Design</div><div style="font-size:13px;color:#64748b;">Politecnico di Milano · 2016</div></div>
+      <div><div style="font-size:15px;font-weight:700;color:#0f172a;">BSc Communication Design</div><div style="font-size:13px;color:#64748b;">NABA Milan · 2014</div></div>
+    </div>
+
+    <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:12px;padding:20px;">
+      <h2 style="font-size:12px;text-transform:uppercase;letter-spacing:.2em;color:#0ea5e9;margin:0 0 14px;font-weight:700;">Available for work</h2>
+      <p style="font-size:13px;color:#0369a1;line-height:1.65;margin:0 0 14px;">Open to senior roles and design leadership positions. Remote-first preferred.</p>
+      <button style="width:100%;padding:11px 0;background:#0ea5e9;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;">Get in touch →</button>
     </div>
   </div>
 </div>`,
@@ -1864,73 +3193,72 @@ export const templates: Template[] = [
     tags: ["waitlist", "coming soon", "launch", "email capture", "startup"],
     downloads: 124,
     isNew: true,
-    content: `<div class="min-h-screen flex flex-col items-center justify-center px-4 py-16 font-sans" style="background:linear-gradient(135deg,#0a0015 0%,#120028 50%,#0a001e 100%)">
-  <!-- Ambient glow -->
-  <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full opacity-20 pointer-events-none" style="background:radial-gradient(ellipse,#7c3aed,transparent 70%)"></div>
-  <div class="relative z-10 text-center max-w-2xl w-full">
-    <!-- Logo -->
-    <div class="flex justify-center mb-10">
-      <div class="flex items-center gap-3 bg-white/5 border border-white/10 rounded-2xl px-5 py-2.5">
-        <div class="w-7 h-7 rounded-lg bg-violet-500 flex items-center justify-center text-sm font-black text-white">V</div>
-        <span class="text-white font-bold text-lg tracking-tight">Vault</span>
-      </div>
-    </div>
+    content: `<style>
+body { background: #030712; color: #f0f6ff; font-family: system-ui, sans-serif; margin: 0; }
+.input-glow:focus { box-shadow: 0 0 0 3px rgba(99,102,241,.35); outline: none; }
+@keyframes ripple { 0%{transform:scale(1);opacity:.6} 100%{transform:scale(2.5);opacity:0} }
+.ripple { animation: ripple 2.5s ease-out infinite; }
+@keyframes counter { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+.counter-in { animation: counter .5s ease forwards; }
+</style>
+
+<!-- MAIN -->
+<section style="min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px;position:relative;overflow:hidden;">
+  
+  <!-- Background glow -->
+  <div style="position:absolute;width:800px;height:800px;border-radius:50%;border:1px solid rgba(99,102,241,.08);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;"></div>
+  <div class="ripple" style="position:absolute;width:500px;height:500px;border-radius:50%;border:1px solid rgba(99,102,241,.12);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;"></div>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(99,102,241,.18),transparent 60%);pointer-events:none;"></div>
+
+  <div style="position:relative;max-width:640px;width:100%;">
     <!-- Badge -->
-    <div class="inline-flex items-center gap-2 bg-violet-500/10 border border-violet-500/20 text-violet-300 px-4 py-1.5 rounded-full text-xs font-semibold mb-6 tracking-wide">
-      <span class="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse"></span>
-      Lancio previsto — Q3 2025
+    <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:999px;background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.2);color:#a5b4fc;font-size:13px;margin-bottom:32px;letter-spacing:.06em;">
+      <span style="width:7px;height:7px;border-radius:50%;background:#818cf8;"></span>
+      Launching Q2 2025 · Private beta
     </div>
-    <!-- Headline -->
-    <h1 class="text-4xl md:text-6xl font-black text-white leading-tight mb-5 tracking-tight">
-      Qualcosa di<br/>
-      <span style="background:linear-gradient(90deg,#a78bfa,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent">straordinario</span><br/>
-      sta arrivando.
-    </h1>
-    <p class="text-white/50 text-lg max-w-md mx-auto mb-10 leading-relaxed">
-      Il tuo nuovo strumento per gestire, condividere e monetizzare i tuoi asset digitali in un click.
+
+    <!-- Logo / Brand -->
+    <div style="font-size:clamp(56px,10vw,96px);font-weight:900;letter-spacing:-3px;color:#fff;line-height:.97;margin-bottom:24px;">
+      Prism<span style="color:#818cf8;">.</span>
+    </div>
+    
+    <p style="font-size:20px;color:#64748b;line-height:1.65;max-width:480px;margin:0 auto 12px;">
+      The design tool that thinks with you.
     </p>
-    <!-- Countdown -->
-    <div class="flex justify-center gap-4 mb-10">
-      <div class="bg-white/5 border border-white/10 rounded-2xl px-5 py-4 min-w-[72px] text-center">
-        <div class="text-3xl font-black text-white">47</div>
-        <div class="text-white/30 text-xs mt-1 uppercase tracking-widest">Giorni</div>
+    <p style="font-size:16px;color:#475569;line-height:1.65;max-width:420px;margin:0 auto 48px;">
+      AI-native, real-time collaboration, zero design debt. Join the waitlist and get early access.
+    </p>
+
+    <!-- Waitlist form -->
+    <form style="display:flex;gap:0;max-width:440px;margin:0 auto 32px;border-radius:12px;overflow:hidden;border:1px solid rgba(99,102,241,.25);">
+      <input class="input-glow" type="email" placeholder="Enter your email address" style="flex:1;padding:16px 20px;background:rgba(255,255,255,.04);border:none;color:#f0f6ff;font-size:15px;font-family:inherit;min-width:0;"/>
+      <button type="submit" style="padding:16px 24px;background:linear-gradient(135deg,#6366f1,#7c3aed);color:#fff;border:none;font-weight:700;font-size:14px;cursor:pointer;white-space:nowrap;">Join waitlist</button>
+    </form>
+    
+    <p style="font-size:13px;color:#334155;margin-bottom:64px;">
+      No spam. Unsubscribe anytime. <span style="color:#475569;">2,847 people already joined.</span>
+    </p>
+
+    <!-- Feature teasers -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.05);border-radius:16px;overflow:hidden;text-align:left;">
+      <div style="padding:24px 20px;background:rgba(255,255,255,.02);">
+        <div style="font-size:24px;margin-bottom:12px;">🧠</div>
+        <h3 style="font-size:14px;font-weight:700;color:#cbd5e1;margin:0 0 6px;">AI Co-designer</h3>
+        <p style="font-size:12px;color:#475569;line-height:1.6;margin:0;">Describe changes in plain English. Prism applies them instantly.</p>
       </div>
-      <div class="bg-white/5 border border-white/10 rounded-2xl px-5 py-4 min-w-[72px] text-center">
-        <div class="text-3xl font-black text-white">12</div>
-        <div class="text-white/30 text-xs mt-1 uppercase tracking-widest">Ore</div>
+      <div style="padding:24px 20px;background:rgba(255,255,255,.02);">
+        <div style="font-size:24px;margin-bottom:12px;">⚡</div>
+        <h3 style="font-size:14px;font-weight:700;color:#cbd5e1;margin:0 0 6px;">Real-time Collab</h3>
+        <p style="font-size:12px;color:#475569;line-height:1.6;margin:0;">Work with your team, see cursors, leave comments, ship together.</p>
       </div>
-      <div class="bg-white/5 border border-white/10 rounded-2xl px-5 py-4 min-w-[72px] text-center">
-        <div class="text-3xl font-black text-white">34</div>
-        <div class="text-white/30 text-xs mt-1 uppercase tracking-widest">Min</div>
+      <div style="padding:24px 20px;background:rgba(255,255,255,.02);">
+        <div style="font-size:24px;margin-bottom:12px;">🎯</div>
+        <h3 style="font-size:14px;font-weight:700;color:#cbd5e1;margin:0 0 6px;">Zero Design Debt</h3>
+        <p style="font-size:12px;color:#475569;line-height:1.6;margin:0;">Auto-enforced design system. Consistency by default, not by discipline.</p>
       </div>
-      <div class="bg-white/5 border border-white/10 rounded-2xl px-5 py-4 min-w-[72px] text-center">
-        <div class="text-3xl font-black text-white">08</div>
-        <div class="text-white/30 text-xs mt-1 uppercase tracking-widest">Sec</div>
-      </div>
-    </div>
-    <!-- Email Form -->
-    <div class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-6">
-      <input type="email" placeholder="La tua email" class="flex-1 bg-white/5 border border-white/10 focus:border-violet-500 text-white placeholder-white/30 px-5 py-3.5 rounded-2xl outline-none text-sm transition"/>
-      <button class="bg-violet-600 hover:bg-violet-500 transition text-white font-bold px-6 py-3.5 rounded-2xl text-sm whitespace-nowrap shadow-[0_4px_20px_rgba(124,58,237,0.4)]">Unisciti alla lista →</button>
-    </div>
-    <!-- Social proof -->
-    <div class="flex items-center justify-center gap-3 mb-10">
-      <div class="flex -space-x-2">
-        <div class="w-7 h-7 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 border-2 border-[#0a0015]"></div>
-        <div class="w-7 h-7 rounded-full bg-gradient-to-br from-violet-400 to-purple-500 border-2 border-[#0a0015]"></div>
-        <div class="w-7 h-7 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 border-2 border-[#0a0015]"></div>
-        <div class="w-7 h-7 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 border-2 border-[#0a0015]"></div>
-      </div>
-      <span class="text-white/40 text-sm"><strong class="text-white/70">1.847</strong> persone già in lista</span>
-    </div>
-    <!-- Features teaser -->
-    <div class="grid grid-cols-3 gap-4 border-t border-white/5 pt-8">
-      <div class="text-center"><div class="text-2xl mb-2">⚡</div><p class="text-white/50 text-xs leading-relaxed">Setup in 60 secondi</p></div>
-      <div class="text-center"><div class="text-2xl mb-2">🔒</div><p class="text-white/50 text-xs leading-relaxed">Privacy by design</p></div>
-      <div class="text-center"><div class="text-2xl mb-2">🚀</div><p class="text-white/50 text-xs leading-relaxed">Early access gratuito</p></div>
     </div>
   </div>
-</div>`,
+</section>`,
   },
   {
     id: "saas-pricing-full",

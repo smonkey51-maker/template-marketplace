@@ -63,7 +63,7 @@ export function TemplatePreview({ id, height = 220 }: Props) {
       {/* Subtle gradient overlay at bottom */}
       <div style={{
         position: "absolute", inset: 0,
-        background: "linear-gradient(to bottom, transparent 55%, #060606 100%)",
+        background: "linear-gradient(to bottom, transparent 55%, var(--surface) 100%)",
         pointerEvents: "none",
       }} />
     </div>
