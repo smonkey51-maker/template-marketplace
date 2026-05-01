@@ -1,24 +1,23 @@
 import type { Metadata } from "next";
-import HomeContentV3 from "@/components/HomeContentV3";
-import { templates } from "@/lib/templates";
+import { FormaLogoAnimated, FormaLogoStatic } from "@/components/FormaLogo";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://forma.design";
 
 export const metadata: Metadata = {
-  title: "Forma — Template UI e Prompt AI pronti all'uso",
+  title: "FORMA — Infrastructure for Digital Structure",
   description:
-    "Scarica template HTML/UI e prompt AI professionali. Personalizzali con lo Studio AI integrato. Acquisto unico, nessun abbonamento.",
+    "FORMA turns scattered initiatives into modular projects, visible flows and decision-ready systems. Built for teams that want control without visual noise.",
   openGraph: {
-    title: "Forma — Template UI e Prompt AI pronti all'uso",
+    title: "FORMA — Infrastructure for Digital Structure",
     description:
-      "Scarica template HTML/UI e prompt AI professionali. Personalizzali con lo Studio AI integrato.",
+      "FORMA turns scattered initiatives into modular projects, visible flows and decision-ready systems.",
     type: "website",
-    images: [{ url: "/api/og", width: 1200, height: 630, alt: "Forma" }],
+    images: [{ url: "/api/og", width: 1200, height: 630, alt: "FORMA" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Forma — Template UI e Prompt AI pronti all'uso",
-    description: "Scarica template HTML/UI e prompt AI professionali.",
+    title: "FORMA — Infrastructure for Digital Structure",
+    description: "FORMA turns scattered initiatives into modular projects, visible flows and decision-ready systems.",
     images: ["/api/og"],
   },
 };
@@ -27,28 +26,9 @@ export default function Page() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Forma",
+    name: "FORMA",
     url: SITE_URL,
-    description: "Template UI e Prompt AI pronti all'uso",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: `${SITE_URL}/?q={search_term_string}`,
-      "query-input": "required name=search_term_string",
-    },
-  };
-
-  const itemListLd = {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    name: "Template Forma",
-    url: SITE_URL,
-    numberOfItems: templates.length,
-    itemListElement: templates.slice(0, 50).map((tmpl, idx) => ({
-      "@type": "ListItem",
-      position: idx + 1,
-      url: `${SITE_URL}/preview/${tmpl.id}`,
-      name: tmpl.name,
-    })),
+    description: "Infrastructure for Digital Structure",
   };
 
   return (
@@ -57,11 +37,70 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListLd) }}
-      />
-      <HomeContentV3 />
+
+      {/* Hero */}
+      <section className="forma-hero">
+        <div style={{ position: "relative", zIndex: 1 }}>
+          <FormaLogoAnimated width={320} />
+          <p className="forma-eyebrow" style={{ marginTop: 40 }}>Premium operating layer</p>
+          <h1>Infrastructure for<br />digital structure.</h1>
+          <p className="forma-lead">
+            FORMA turns scattered initiatives into modular projects, visible flows and
+            decision-ready systems. Built for teams that want control without visual noise.
+          </p>
+          <div className="forma-hero-actions">
+            <a className="forma-btn" href="/app">Open SaaS Demo</a>
+            <a className="forma-btn forma-btn-ghost" href="/brand">View Brand System</a>
+          </div>
+        </div>
+      </section>
+
+      {/* Narrative split */}
+      <section id="system" className="forma-section forma-split">
+        <div>
+          <p className="forma-eyebrow">Narrative</p>
+          <h2>A system, not a tool.</h2>
+          <p className="forma-lead">
+            The product language is architectural: projects, structures, modules and flows.
+            Every surface reinforces the same premium, controlled identity.
+          </p>
+        </div>
+        <div className="forma-mock">
+          <div className="forma-mock-top">
+            <span className="forma-dot" /><span className="forma-dot" /><span className="forma-dot" />
+          </div>
+          <div className="forma-metric"><span>Structures mapped</span><b>128</b></div>
+          <div className="forma-metric"><span>Active modules</span><b>42</b></div>
+          <div className="forma-metric"><span>Decision clarity</span><b>94%</b></div>
+        </div>
+      </section>
+
+      {/* Proof points */}
+      <section className="forma-section">
+        <p className="forma-eyebrow">Proof points</p>
+        <div className="forma-grid3" style={{ marginTop: 40 }}>
+          <div className="forma-card">
+            <h3>Composable</h3>
+            <p className="forma-lead" style={{ fontSize: 16, marginTop: 8 }}>
+              Modular building blocks for complex initiatives.
+            </p>
+          </div>
+          <div className="forma-card">
+            <h3>Editorial</h3>
+            <p className="forma-lead" style={{ fontSize: 16, marginTop: 8 }}>
+              High-trust visual language for premium positioning.
+            </p>
+          </div>
+          <div className="forma-card">
+            <h3>Operational</h3>
+            <p className="forma-lead" style={{ fontSize: 16, marginTop: 8 }}>
+              A SaaS surface designed around everyday use.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer className="forma-footer">FORMA © Premium Brand System</footer>
     </>
   );
 }
