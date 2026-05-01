@@ -68,11 +68,11 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://forma.design";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "FORMA — Infrastructure for Digital Structure",
+    default: "FORMA — Arte, in tasca.",
     template: "%s — FORMA",
   },
   description:
-    "FORMA turns scattered initiatives into modular projects, visible flows and decision-ready systems. Premium brand and SaaS system.",
+    "Template multipiattaforma pronti all'uso: Notion, Web, Mobile e Pitch. Personalizza in pochi minuti, pubblica con una qualità che si vede.",
   openGraph: {
     type: "website",
     siteName: "FORMA",

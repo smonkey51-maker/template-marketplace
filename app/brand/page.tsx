@@ -1,161 +1,74 @@
-import type { Metadata } from "next";
-import { FormaLogoStatic, FormaLogoIcon } from "@/components/FormaLogo";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Brand System — FORMA",
-  description: "9-page FORMA brand kit: logo system, color, typography, templates, mockups, and campaign assets.",
-};
+import { useState } from "react";
+import { FileText, Globe2, Palette } from "lucide-react";
+import { FormaLogoStatic } from "@/components/FormaLogo";
+
+type Lang = "it" | "en";
+
+const PAGES: [string, string][] = [
+  ["Primary logo presentation",  "Marchio primario"],
+  ["Logo system and variations",  "Sistema logo e varianti"],
+  ["Templates collection",        "Collezione template"],
+  ["Brand baseline hero",         "Tagline e visual astratti"],
+  ["Product mockup showcase",     "Mockup prodotto"],
+  ["Lifestyle cases",             "Casi reali lifestyle"],
+  ["Live campaign ads",           "Campagne live"],
+  ["App UI/UX previews",          "Preview UI/UX app"],
+  ["Social media visuals",        "Visual social"],
+];
 
 export default function BrandPage() {
+  const [lang, setLang] = useState<Lang>("it");
+
+  const title      = lang === "it" ? "Brand kit" : "Brand kit";
+  const subtitle   = lang === "it"
+    ? "Nove tavole coordinate: logo, sistema, template, prodotto, campagne e social."
+    : "Nine coordinated boards: logo, system, templates, product, campaigns and social.";
+  const boardDesc  = lang === "it"
+    ? "Una tavola editoriale coerente con il sistema FORMA: nero profondo, oro opaco, griglie pulite e template multipiattaforma."
+    : "An editorial board consistent with FORMA: deep black, matte gold, clean grids and multiplatform templates.";
+
   return (
-    <main>
+    <div className="fp-page">
+      {/* Nav */}
+      <nav className="fp-nav">
+        <FormaLogoStatic width={120} />
+        <div className="fp-lang">
+          <button onClick={() => setLang("it")} className={lang === "it" ? "active" : ""}>IT</button>
+          <button onClick={() => setLang("en")} className={lang === "en" ? "active" : ""}>EN</button>
+        </div>
+      </nav>
 
-      {/* Page 1 — Primary logo presentation */}
-      <section className="forma-brand-board">
-        <div>
-          <p className="forma-eyebrow">Page 1</p>
-          <h2>Primary logo presentation</h2>
-          <p className="forma-lead">The custom monolith logotype drives the premium direction.</p>
-        </div>
-        <div className="forma-board-canvas">
-          <div className="forma-circle" />
-          <div style={{ position: "relative", zIndex: 1 }}>
-            <FormaLogoStatic width={280} />
-          </div>
-        </div>
-      </section>
+      <div className="fp-brand-board">
+        <h1 style={{ fontSize: 86, lineHeight: 0.9, letterSpacing: "-.07em", margin: "0 0 16px" }}>
+          {title}
+        </h1>
+        <p className="fp-lead" style={{ margin: 0 }}>{subtitle}</p>
 
-      {/* Page 2 — Logo system */}
-      <section className="forma-brand-board">
-        <div>
-          <p className="forma-eyebrow">Page 2</p>
-          <h2>Logo system and variations</h2>
-          <p className="forma-lead">Primary, inverted, mono, icon-only and spacing logic.</p>
-        </div>
-        <div className="forma-board-canvas">
-          <div className="forma-grid3" style={{ gap: 16 }}>
-            <div className="forma-gold-block" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <FormaLogoStatic width={100} />
+        {PAGES.map((p, i) => (
+          <section className="fp-board" key={p[0]}>
+            <span className="fp-badge">0{i + 1}</span>
+            <h2>{lang === "it" ? p[1] : p[0]}</h2>
+            <p>{boardDesc}</p>
+            <div className="fp-board-grid">
+              <div className="fp-mini">
+                <Palette color="#d4af37" size={22} />
+                <h3>Visual system</h3>
+              </div>
+              <div className="fp-mini">
+                <FileText color="#d4af37" size={22} />
+                <h3>Template</h3>
+              </div>
+              <div className="fp-mini">
+                <Globe2 color="#d4af37" size={22} />
+                <h3>Campaign</h3>
+              </div>
             </div>
-            <div className="forma-card" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <span style={{ fontWeight: 800, letterSpacing: "0.18em", color: "var(--muted)" }}>MONO</span>
-            </div>
-            <div className="forma-card" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <FormaLogoIcon size={56} />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Page 3 — Templates collection */}
-      <section className="forma-brand-board">
-        <div>
-          <p className="forma-eyebrow">Page 3</p>
-          <h2>Templates collection</h2>
-          <p className="forma-lead">Reusable branded templates for decks, pages and internal reports.</p>
-        </div>
-        <div className="forma-board-canvas">
-          <div className="forma-grid3" style={{ gap: 16 }}>
-            <div className="forma-post">01</div>
-            <div className="forma-post">02</div>
-            <div className="forma-post">03</div>
-          </div>
-        </div>
-      </section>
-
-      {/* Page 4 — Brand baseline */}
-      <section className="forma-brand-board">
-        <div>
-          <p className="forma-eyebrow">Page 4</p>
-          <h2>Brand baseline</h2>
-          <p className="forma-lead">Infrastructure for Digital Structure.</p>
-        </div>
-        <div className="forma-board-canvas">
-          <div className="forma-gold-block" style={{ width: "100%" }}>
-            <h2 style={{ color: "#080808", margin: 0 }}>Structure creates trust.</h2>
-          </div>
-        </div>
-      </section>
-
-      {/* Page 5 — Product mockup showcase */}
-      <section className="forma-brand-board">
-        <div>
-          <p className="forma-eyebrow">Page 5</p>
-          <h2>Product mockup showcase</h2>
-          <p className="forma-lead">Branded SaaS application surfaces.</p>
-        </div>
-        <div className="forma-board-canvas">
-          <div className="forma-mock" style={{ width: "100%" }}>
-            <div className="forma-metric"><span>Projects</span><b>24</b></div>
-            <div className="forma-metric"><span>Modules</span><b>118</b></div>
-            <div className="forma-metric"><span>Flows</span><b>63</b></div>
-          </div>
-        </div>
-      </section>
-
-      {/* Page 6 — Real cases / lifestyle */}
-      <section className="forma-brand-board">
-        <div>
-          <p className="forma-eyebrow">Page 6</p>
-          <h2>Real cases / lifestyle</h2>
-          <p className="forma-lead">Flash photography aesthetic translated into digital boards.</p>
-        </div>
-        <div className="forma-board-canvas" style={{ padding: 0 }}>
-          <div className="forma-photo-flash" style={{ width: "100%", minHeight: 430, borderRadius: 34 }} />
-        </div>
-      </section>
-
-      {/* Page 7 — Live campaign ads */}
-      <section className="forma-brand-board">
-        <div>
-          <p className="forma-eyebrow">Page 7</p>
-          <h2>Live campaign ads</h2>
-          <p className="forma-lead">Illustration, typography and people-led campaign layouts.</p>
-        </div>
-        <div className="forma-board-canvas">
-          <div className="forma-grid3" style={{ gap: 16 }}>
-            <div className="forma-post">BUILD WITH STRUCTURE</div>
-            <div className="forma-gold-block" style={{ display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, letterSpacing: "0.1em" }}>
-              FORMA LIVE
-            </div>
-            <div className="forma-post">SYSTEM FIRST</div>
-          </div>
-        </div>
-      </section>
-
-      {/* Page 8 — App UI/UX previews */}
-      <section className="forma-brand-board">
-        <div>
-          <p className="forma-eyebrow">Page 8</p>
-          <h2>App UI/UX previews</h2>
-          <p className="forma-lead">Mobile screens and system previews.</p>
-        </div>
-        <div className="forma-board-canvas">
-          <div className="forma-phone">
-            <p className="forma-eyebrow" style={{ marginTop: 0 }}>FORMA</p>
-            <div className="forma-mini">Atlas</div>
-            <div className="forma-mini">Northstar</div>
-            <div className="forma-mini">Investor Room</div>
-          </div>
-        </div>
-      </section>
-
-      {/* Page 9 — Social media visuals */}
-      <section className="forma-brand-board">
-        <div>
-          <p className="forma-eyebrow">Page 9</p>
-          <h2>Social media visuals</h2>
-          <p className="forma-lead">Posts, stories and campaign assets.</p>
-        </div>
-        <div className="forma-board-canvas">
-          <div className="forma-grid3" style={{ gap: 16 }}>
-            <div className="forma-post">Post</div>
-            <div className="forma-post">Story</div>
-            <div className="forma-post">Ad</div>
-          </div>
-        </div>
-      </section>
-
-    </main>
+            <div className="fp-orb" />
+          </section>
+        ))}
+      </div>
+    </div>
   );
 }

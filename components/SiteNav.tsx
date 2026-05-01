@@ -6,59 +6,54 @@ import { usePathname } from "next/navigation";
 import { UserButton } from "@clerk/nextjs";
 import { FormaLogoStatic } from "@/components/FormaLogo";
 
-const NAV_LINKS = [
-  { href: "/#system", label: "System" },
-  { href: "/app",     label: "App"    },
-  { href: "/brand",   label: "Brand kit" },
+type Lang = "it" | "en";
+
+const NAV = [
+  { href: "/#explore", labelIt: "Esplora",  labelEn: "Explore"  },
+  { href: "/app",      labelIt: "Prodotto",  labelEn: "Product"  },
+  { href: "/brand",    labelIt: "Brand kit", labelEn: "Brand kit" },
 ];
 
 export default function SiteNav({ title }: { title?: string }) {
   const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 18);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const [lang, setLang] = useState<Lang>("it");
 
   return (
-    <nav className="forma-nav" style={{ zIndex: 50 }}>
+    <nav className="fp-nav" style={{ zIndex: 50 }}>
       {/* Logo */}
       <Link
         href="/"
         aria-label="FORMA — home"
         style={{ transition: "transform 0.4s ease, filter 0.4s ease" }}
         onMouseEnter={e => {
-          (e.currentTarget as HTMLAnchorElement).style.transform = "scale(1.03)";
-          (e.currentTarget as HTMLAnchorElement).style.filter = "drop-shadow(0 0 10px rgba(212,175,55,0.4))";
+          (e.currentTarget as HTMLElement).style.transform = "scale(1.03)";
+          (e.currentTarget as HTMLElement).style.filter = "drop-shadow(0 0 10px rgba(212,175,55,0.4))";
         }}
         onMouseLeave={e => {
-          (e.currentTarget as HTMLAnchorElement).style.transform = "scale(1)";
-          (e.currentTarget as HTMLAnchorElement).style.filter = "none";
+          (e.currentTarget as HTMLElement).style.transform = "scale(1)";
+          (e.currentTarget as HTMLElement).style.filter = "none";
         }}
       >
         <FormaLogoStatic width={120} />
       </Link>
 
       {/* Center links */}
-      <nav className="forma-navlinks">
-        {NAV_LINKS.map(link => (
-          <Link
-            key={link.href}
-            href={link.href}
-            style={{ color: pathname.startsWith(link.href.split("#")[0]) && link.href !== "/#system" ? "var(--text)" : undefined }}
-          >
-            {link.label}
+      <div className="fp-navlinks">
+        {NAV.map(link => (
+          <Link key={link.href} href={link.href}>
+            {lang === "it" ? link.labelIt : link.labelEn}
           </Link>
         ))}
-      </nav>
+      </div>
 
-      {/* CTA + user */}
+      {/* Right: IT/EN + CTA + user */}
       <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-        <Link href="/app" className="forma-btn" style={{ fontSize: 14, padding: "10px 20px" }}>
-          Enter Platform
+        <div className="fp-lang">
+          <button onClick={() => setLang("it")} className={lang === "it" ? "active" : ""}>IT</button>
+          <button onClick={() => setLang("en")} className={lang === "en" ? "active" : ""}>EN</button>
+        </div>
+        <Link href="/app" className="fp-btn primary" style={{ fontSize: 14, padding: "10px 20px" }}>
+          {lang === "it" ? "Apri app" : "Open app"}
         </Link>
         <UserButton />
       </div>

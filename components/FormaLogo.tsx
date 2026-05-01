@@ -9,7 +9,7 @@ export function FormaLogoAnimated({ width = 400, className }: { width?: number; 
       <defs>
         <linearGradient id="formaGoldAnim" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="#D4AF37" />
-          <stop offset="100%" stopColor="#AA8424" />
+          <stop offset="100%" stopColor="#b8962e" />
         </linearGradient>
       </defs>
       {/* F */}
@@ -45,7 +45,7 @@ export function FormaLogoStatic({ width = 120, className }: { width?: number; cl
       <defs>
         <linearGradient id="formaGoldStatic" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="#D4AF37" />
-          <stop offset="100%" stopColor="#AA8424" />
+          <stop offset="100%" stopColor="#b8962e" />
         </linearGradient>
       </defs>
       <text x="35" y="140" fill="url(#formaGoldStatic)" fontSize="118" fontWeight="900"
@@ -65,7 +65,7 @@ export function FormaLogoIcon({ size = 32, className }: { size?: number; classNa
       <defs>
         <linearGradient id="formaGoldIcon" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="#D4AF37" />
-          <stop offset="100%" stopColor="#AA8424" />
+          <stop offset="100%" stopColor="#b8962e" />
         </linearGradient>
       </defs>
       <circle cx="100" cy="100" r="60" stroke="url(#formaGoldIcon)" strokeWidth="20" fill="none" />

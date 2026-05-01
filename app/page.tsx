@@ -1,101 +1,106 @@
 import type { Metadata } from "next";
-import { FormaLogoAnimated, FormaLogoStatic } from "@/components/FormaLogo";
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://forma.design";
+import { ArrowRight, LayoutTemplate, MonitorSmartphone, Smartphone, Presentation } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "FORMA — Infrastructure for Digital Structure",
+  title: "FORMA — Arte, in tasca.",
   description:
-    "FORMA turns scattered initiatives into modular projects, visible flows and decision-ready systems. Built for teams that want control without visual noise.",
+    "Template multipiattaforma pronti all'uso: Notion, Web, Mobile e Pitch. Personalizza in pochi minuti, pubblica con una qualità che si vede.",
   openGraph: {
-    title: "FORMA — Infrastructure for Digital Structure",
-    description:
-      "FORMA turns scattered initiatives into modular projects, visible flows and decision-ready systems.",
+    title: "FORMA — Arte, in tasca.",
+    description: "Template multipiattaforma pronti all'uso: Notion, Web, Mobile e Pitch.",
     type: "website",
     images: [{ url: "/api/og", width: 1200, height: 630, alt: "FORMA" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "FORMA — Infrastructure for Digital Structure",
-    description: "FORMA turns scattered initiatives into modular projects, visible flows and decision-ready systems.",
+    title: "FORMA — Arte, in tasca.",
+    description: "Template multipiattaforma pronti all'uso: Notion, Web, Mobile e Pitch.",
     images: ["/api/og"],
   },
 };
 
 export default function Page() {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "FORMA",
-    url: SITE_URL,
-    description: "Infrastructure for Digital Structure",
-  };
+  return (
+    <div className="fp-page">
+      <LandingContent />
+    </div>
+  );
+}
 
+/* ── Server-renderable landing (no state) ── */
+function LandingContent() {
+  const tiles = ["Notion", "Web", "Mobile", "Pitch"] as const;
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-
       {/* Hero */}
-      <section className="forma-hero">
-        <div style={{ position: "relative", zIndex: 1 }}>
-          <FormaLogoAnimated width={320} />
-          <p className="forma-eyebrow" style={{ marginTop: 40 }}>Premium operating layer</p>
-          <h1>Infrastructure for<br />digital structure.</h1>
-          <p className="forma-lead">
-            FORMA turns scattered initiatives into modular projects, visible flows and
-            decision-ready systems. Built for teams that want control without visual noise.
-          </p>
-          <div className="forma-hero-actions">
-            <a className="forma-btn" href="/app">Open SaaS Demo</a>
-            <a className="forma-btn forma-btn-ghost" href="/brand">View Brand System</a>
+      <section className="fp-hero">
+        <div className="fp-eyebrow">
+          <span className="fp-dot" />
+          Template multipiattaforma
+        </div>
+        <h1 className="fp-h1">Arte, in tasca.</h1>
+        <p className="fp-lead">
+          Template pronti, belli e senza fuffa. Scegli la piattaforma, personalizza in pochi minuti,
+          pubblica con una qualità che si vede.
+        </p>
+        <div className="fp-actions">
+          <a className="fp-btn primary" href="#explore">
+            Esplora template <ArrowRight size={16} />
+          </a>
+          <a className="fp-btn" href="/app">Apri piattaforma</a>
+        </div>
+      </section>
+
+      {/* Browser mockup */}
+      <section className="fp-showcase">
+        <div className="fp-browser">
+          <div className="fp-browserbar">
+            <span /><span /><span />
+          </div>
+          <div className="fp-template-grid">
+            <div className="fp-tile large">
+              <span className="fp-badge">FORMA</span>
+              <h3>Template che sembrano prodotti.</h3>
+              <p>Non parti da zero. Parti da una struttura già pensata, già bella, già utile.</p>
+              <div className="fp-orb" />
+            </div>
+            {tiles.map(x => (
+              <div className="fp-tile" key={x}>
+                <h3>{x}</h3>
+                <p>Pronto da adattare alla tua piattaforma.</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Narrative split */}
-      <section id="system" className="forma-section forma-split">
-        <div>
-          <p className="forma-eyebrow">Narrative</p>
-          <h2>A system, not a tool.</h2>
-          <p className="forma-lead">
-            The product language is architectural: projects, structures, modules and flows.
-            Every surface reinforces the same premium, controlled identity.
-          </p>
-        </div>
-        <div className="forma-mock">
-          <div className="forma-mock-top">
-            <span className="forma-dot" /><span className="forma-dot" /><span className="forma-dot" />
+      {/* Feature section */}
+      <section className="fp-section" id="explore">
+        <h2>Un sistema per creare più in fretta, con più gusto.</h2>
+        <p>
+          FORMA porta arte applicata al tech: template Notion, Web, Mobile e Pitch già progettati
+          con logica, gerarchia e cura editoriale.
+        </p>
+        <div className="fp-cards">
+          <div className="fp-card">
+            <LayoutTemplate color="#d4af37" size={24} />
+            <h3>Notion</h3>
+            <p>Workspace già ordinati.</p>
           </div>
-          <div className="forma-metric"><span>Structures mapped</span><b>128</b></div>
-          <div className="forma-metric"><span>Active modules</span><b>42</b></div>
-          <div className="forma-metric"><span>Decision clarity</span><b>94%</b></div>
-        </div>
-      </section>
-
-      {/* Proof points */}
-      <section className="forma-section">
-        <p className="forma-eyebrow">Proof points</p>
-        <div className="forma-grid3" style={{ marginTop: 40 }}>
-          <div className="forma-card">
-            <h3>Composable</h3>
-            <p className="forma-lead" style={{ fontSize: 16, marginTop: 8 }}>
-              Modular building blocks for complex initiatives.
-            </p>
+          <div className="fp-card">
+            <MonitorSmartphone color="#d4af37" size={24} />
+            <h3>Web</h3>
+            <p>Landing e UI pronte.</p>
           </div>
-          <div className="forma-card">
-            <h3>Editorial</h3>
-            <p className="forma-lead" style={{ fontSize: 16, marginTop: 8 }}>
-              High-trust visual language for premium positioning.
-            </p>
+          <div className="fp-card">
+            <Smartphone color="#d4af37" size={24} />
+            <h3>Mobile</h3>
+            <p>Screen da prototipo.</p>
           </div>
-          <div className="forma-card">
-            <h3>Operational</h3>
-            <p className="forma-lead" style={{ fontSize: 16, marginTop: 8 }}>
-              A SaaS surface designed around everyday use.
-            </p>
+          <div className="fp-card">
+            <Presentation color="#d4af37" size={24} />
+            <h3>Pitch</h3>
+            <p>Deck con narrativa.</p>
           </div>
         </div>
       </section>

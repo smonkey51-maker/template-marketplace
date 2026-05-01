@@ -163,15 +163,16 @@ h4, h5, h6 {
 }
 
 html.dark {
-  /* ── Dark mode: FORMA — near-black with pure gold accent ── */
-  --bg:          #060606;
-  --surface:     #0d0d0d;
+  /* ── Dark mode: FORMA Apple — deep black, ink white, matte gold ── */
+  --bg:          #050505;
+  --surface:     #0b0b0b;
   --surface-2:   #141414;
-  --text:        #f0eee7;
-  --muted:       #8e8a80;
-  --border:      rgba(255,255,255,0.09);
-  --nav-bg:      rgba(6,6,6,0.96);
-  --card-bg:     rgba(15,15,15,0.95);
+  --text:        #f5f2ea;
+  --muted:       #9d998f;
+  --border:      rgba(255,255,255,0.11);
+  --panel:       rgba(255,255,255,0.055);
+  --nav-bg:      rgba(5,5,5,0.86);
+  --card-bg:     rgba(11,11,11,0.95);
   --card-border: rgba(212,175,55,0.14);
   --input-bg:    rgba(234,234,234,0.05);
   --btn-ghost-border:       rgba(234,234,234,0.18);
@@ -188,8 +189,8 @@ html.dark {
   /* FORMA gold accent */
   --accent:         #D4AF37;
   --gold:           #D4AF37;
-  --gold-soft:      #AA8424;
-  --gold2:          #AA8424;
+  --gold-soft:      #b8962e;
+  --gold2:          #b8962e;
   --accent-bg:      rgba(212,175,55,0.12);
   --accent-rgb:     212, 175, 55;
   --accent-muted:   rgba(212,175,55,0.20);
@@ -2054,4 +2055,202 @@ html.forma-v2 {
   .forma-main { padding: 20px; }
   .forma-brand-board { padding: 28px; }
   .forma-navlinks { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FORMA APPLE — multiplatform design system (v2)
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Page wrapper ── */
+.fp-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 50% -10%, rgba(212,175,55,.16), transparent 34%),
+    radial-gradient(circle at 85% 15%, rgba(255,255,255,.07), transparent 26%),
+    #050505;
+}
+
+/* ── Nav (Apple sticky gradient) ── */
+.fp-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 28px 44px; position: sticky; top: 0; z-index: 20;
+  background: linear-gradient(to bottom, rgba(5,5,5,.86), rgba(5,5,5,.38), transparent);
+  backdrop-filter: blur(16px);
+}
+.fp-logo { font-weight: 800; letter-spacing: .14em; color: var(--gold); }
+.fp-navlinks { display: flex; gap: 26px; color: var(--muted); font-size: 14px; }
+.fp-navlinks a { color: var(--muted); transition: color .2s; }
+.fp-navlinks a:hover { color: var(--text); }
+
+/* IT/EN toggle */
+.fp-lang {
+  display: flex; border: 1px solid var(--border); border-radius: 999px;
+  padding: 4px; background: rgba(255,255,255,.04);
+}
+.fp-lang button {
+  border: 0; background: transparent; color: var(--muted);
+  padding: 7px 12px; border-radius: 999px; cursor: pointer; font: inherit;
+  transition: background .2s, color .2s;
+}
+.fp-lang button.active { background: var(--text); color: #050505; }
+
+/* ── Hero ── */
+.fp-hero {
+  max-width: 1180px; margin: 0 auto; padding: 110px 28px 90px; text-align: center;
+}
+
+/* ── Eyebrow pill ── */
+.fp-eyebrow {
+  display: inline-flex; gap: 8px; align-items: center;
+  border: 1px solid var(--border); border-radius: 999px;
+  padding: 9px 14px; color: var(--muted); font-size: 14px;
+  background: rgba(255,255,255,.04);
+}
+.fp-dot { width: 7px; height: 7px; border-radius: 99px; background: var(--gold); flex-shrink: 0; }
+
+/* ── Hero headline ── */
+.fp-h1 {
+  font-size: clamp(58px, 10vw, 132px); line-height: .9;
+  letter-spacing: -.075em; margin: 24px 0 22px; font-weight: 650;
+}
+.fp-lead {
+  max-width: 720px; margin: 0 auto; color: var(--muted);
+  font-size: clamp(18px, 2vw, 23px); line-height: 1.45;
+}
+.fp-actions {
+  display: flex; gap: 14px; justify-content: center; margin-top: 36px; flex-wrap: wrap;
+}
+
+/* ── Buttons ── */
+.fp-btn {
+  border: 1px solid var(--border); padding: 14px 22px;
+  border-radius: 999px; background: rgba(255,255,255,.06);
+  color: var(--text); cursor: pointer; font: inherit;
+  display: inline-flex; align-items: center; gap: 8px;
+  text-decoration: none; transition: background .2s, transform .3s;
+}
+.fp-btn:hover { background: rgba(255,255,255,.10); }
+.fp-btn.primary {
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  color: #070707; border: 0; font-weight: 650;
+}
+.fp-btn.primary:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(212,175,55,.25); }
+
+/* ── Browser mockup ── */
+.fp-showcase {
+  max-width: 1120px; margin: 30px auto 0; padding: 0 28px 90px;
+}
+.fp-browser {
+  border: 1px solid var(--border); background: rgba(255,255,255,.045);
+  border-radius: 34px; padding: 18px; box-shadow: 0 35px 120px rgba(0,0,0,.48);
+}
+.fp-browserbar { display: flex; gap: 7px; margin-bottom: 16px; }
+.fp-browserbar span { width: 11px; height: 11px; border-radius: 99px; background: rgba(255,255,255,.22); }
+.fp-template-grid {
+  display: grid; grid-template-columns: 1.05fr .9fr .9fr; gap: 14px;
+}
+.fp-tile {
+  min-height: 190px; border: 1px solid var(--border); border-radius: 24px;
+  background: linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.025));
+  padding: 22px; position: relative; overflow: hidden;
+}
+.fp-tile.large { grid-row: span 2; min-height: 394px; }
+.fp-tile h3 { margin: 0 0 8px; font-size: 26px; letter-spacing: -.04em; }
+.fp-tile p  { margin: 0; color: var(--muted); line-height: 1.45; }
+.fp-badge {
+  display: inline-block; margin-bottom: 22px;
+  color: #080808; background: var(--gold);
+  padding: 6px 9px; border-radius: 999px; font-size: 12px; font-weight: 700;
+}
+.fp-orb {
+  position: absolute; width: 220px; height: 220px; border-radius: 999px;
+  background: radial-gradient(circle, var(--gold), transparent 64%);
+  opacity: .14; right: -80px; bottom: -80px; pointer-events: none;
+}
+
+/* ── Feature section ── */
+.fp-section { max-width: 1120px; margin: 0 auto; padding: 92px 28px; }
+.fp-section h2 {
+  font-size: clamp(38px, 5vw, 70px); line-height: 1;
+  letter-spacing: -.06em; margin: 0 0 16px;
+}
+.fp-section > p { color: var(--muted); line-height: 1.55; font-size: 18px; }
+.fp-cards { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-top: 34px; }
+.fp-card {
+  border: 1px solid var(--border); border-radius: 28px;
+  background: var(--panel, rgba(255,255,255,.055));
+  padding: 24px; min-height: 180px;
+  transition: transform .3s, background .3s;
+}
+.fp-card:hover { transform: translateY(-4px); background: rgba(255,255,255,.08); }
+.fp-card h3 { margin: 18px 0 8px; }
+.fp-card p  { font-size: 15px; margin: 0; color: var(--muted); }
+
+/* ── App shell / Marketplace ── */
+.fp-app-shell { display: grid; grid-template-columns: 280px 1fr; min-height: 100vh; }
+.fp-sidebar {
+  border-right: 1px solid var(--border); background: #0b0b0b;
+  padding: 28px; position: sticky; top: 0; height: 100vh; overflow-y: auto;
+}
+.fp-sideitem {
+  display: flex; align-items: center; gap: 10px; color: var(--muted);
+  padding: 12px 14px; border-radius: 16px; margin: 4px 0; cursor: pointer;
+  transition: background .2s, color .2s;
+}
+.fp-sideitem.active { background: rgba(255,255,255,.08); color: var(--text); }
+.fp-sideitem:hover:not(.active) { background: rgba(255,255,255,.04); }
+.fp-main { padding: 38px; min-width: 0; }
+.fp-top { display: flex; justify-content: space-between; gap: 18px; align-items: center; }
+.fp-search {
+  margin-top: 28px; border: 1px solid var(--border); border-radius: 18px;
+  background: rgba(255,255,255,.04); padding: 14px 16px;
+  color: var(--text); width: 100%; outline: none; font: inherit;
+}
+.fp-search:focus { border-color: rgba(212,175,55,.4); }
+.fp-filters { display: flex; gap: 8px; flex-wrap: wrap; margin: 18px 0 26px; }
+.fp-chip {
+  border: 1px solid var(--border); background: rgba(255,255,255,.04);
+  border-radius: 999px; padding: 9px 13px; color: var(--muted); cursor: pointer;
+  font: inherit; transition: background .2s, color .2s;
+}
+.fp-chip.active { background: var(--text); color: #050505; }
+.fp-market { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+.fp-product { border: 1px solid var(--border); border-radius: 28px; background: var(--panel); overflow: hidden; }
+.fp-preview {
+  height: 170px; background: linear-gradient(145deg, rgba(212,175,55,.28), rgba(255,255,255,.06));
+  display: flex; align-items: center; justify-content: center;
+  color: #050505; font-weight: 800; font-size: 40px;
+}
+.fp-product-body { padding: 20px; }
+.fp-product-body p { color: var(--muted); line-height: 1.45; }
+.fp-meta { display: flex; justify-content: space-between; color: var(--muted); font-size: 13px; margin-top: 16px; }
+
+/* ── Brand kit boards ── */
+.fp-brand-board { padding: 34px; max-width: 1240px; margin: 0 auto; }
+.fp-board {
+  min-height: 620px; border: 1px solid var(--border); border-radius: 36px;
+  background: linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.025));
+  padding: 42px; margin: 24px 0; position: relative; overflow: hidden;
+}
+.fp-board h2 { font-size: 56px; letter-spacing: -.06em; margin: 0 0 10px; }
+.fp-board > p { color: var(--muted); font-size: 19px; line-height: 1.5; }
+.fp-board-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 40px;
+}
+.fp-mini {
+  border: 1px solid var(--border); border-radius: 24px;
+  background: rgba(0,0,0,.22); min-height: 180px; padding: 22px;
+}
+.fp-mini h3 { margin: 12px 0 0; }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .fp-navlinks { display: none; }
+  .fp-template-grid, .fp-cards, .fp-market, .fp-board-grid { grid-template-columns: 1fr; }
+  .fp-app-shell { grid-template-columns: 1fr; }
+  .fp-sidebar { height: auto; position: relative; }
+  .fp-top { flex-direction: column; align-items: flex-start; }
+  .fp-h1 { font-size: 64px; }
+  .fp-hero { padding-top: 60px; }
+  .fp-nav { padding: 18px; }
 }
