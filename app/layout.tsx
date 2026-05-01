@@ -9,8 +9,6 @@ import MobileNav from "@/components/MobileNav";
 import CustomCursor from "@/components/CustomCursor";
 import PageTransition from "@/components/PageTransition";
 import CommandPalette from "@/components/CommandPalette";
-import { ViewModeProvider, ViewModeWrapper } from "@/components/ViewModeProvider";
-import ViewModeToggle from "@/components/ViewModeToggle";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -68,11 +66,11 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://forma.design";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "FORMA — Infrastructure for Digital Structure",
+    default: "FORMA — Arte, in tasca.",
     template: "%s — FORMA",
   },
   description:
-    "FORMA turns scattered initiatives into modular projects, visible flows and decision-ready systems. Premium brand and SaaS system.",
+    "Template multipiattaforma pronti all'uso: Notion, Web, Mobile e Pitch. Personalizza in pochi minuti, pubblica con una qualità che si vede.",
   openGraph: {
     type: "website",
     siteName: "FORMA",
@@ -108,7 +106,7 @@ export default function RootLayout({
           <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[9999] focus:px-4 focus:py-2 focus:text-[13px] focus:font-bold" style={{ background: "var(--accent)", color: "var(--bg)" }}>
             Skip to content
           </a>
-          <ViewModeProvider><PostHogProvider><ThemeProvider><LanguageProvider><ToastProvider><ViewModeWrapper><PageTransition><div id="main-content">{children}</div></PageTransition><MobileNav /><CommandPalette /></ViewModeWrapper><ViewModeToggle /></ToastProvider></LanguageProvider></ThemeProvider></PostHogProvider></ViewModeProvider>
+          <PostHogProvider><ThemeProvider><LanguageProvider><ToastProvider><PageTransition><div id="main-content">{children}</div></PageTransition><MobileNav /><CommandPalette /></ToastProvider></LanguageProvider></ThemeProvider></PostHogProvider>
           <CustomCursor />
         </body>
       </html>
