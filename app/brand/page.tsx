@@ -19,7 +19,9 @@ export default function BrandPage() {
         </div>
         <div className="forma-board-canvas">
           <div className="forma-circle" />
-          <FormaLogoStatic width={280} style={{ position: "relative", zIndex: 1 } as React.CSSProperties} />
+          <div style={{ position: "relative", zIndex: 1 }}>
+            <FormaLogoStatic width={280} />
+          </div>
         </div>
       </section>
 
