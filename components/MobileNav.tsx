@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useWishlist } from "@/lib/useWishlist";
 import { useLang } from "@/components/LanguageProvider";
 
 export default function MobileNav() {
@@ -14,7 +13,6 @@ export default function MobileNav() {
     setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   }, []);
   const pathname = usePathname();
-  const { ids } = useWishlist();
   const { lang } = useLang();
 
   // Only show on mobile (handled via CSS), hide on certain pages
@@ -24,7 +22,7 @@ export default function MobileNav() {
   const tabs = [
     {
       href: "/",
-      label: lang === "it" ? "Home" : "Home",
+      label: "Home",
       active: pathname === "/",
       icon: (active: boolean) => (
         <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden>
@@ -35,22 +33,26 @@ export default function MobileNav() {
       ),
     },
     {
-      href: "/wishlist",
-      label: lang === "it" ? "Salvati" : "Saved",
-      active: pathname === "/wishlist",
-      badge: ids.length,
+      href: "/catalogo",
+      label: lang === "it" ? "Catalogo" : "Catalog",
+      active: pathname.startsWith("/catalogo") || pathname.startsWith("/templates"),
       icon: (active: boolean) => (
         <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden>
-          <path d="M11 18.5S3 13.5 3 7.5A4 4 0 0111 5a4 4 0 018 2.5c0 6-8 11-8 11z"
-            stroke="currentColor" strokeWidth={active ? "2" : "1.5"} strokeLinejoin="round"
-            fill={active ? "currentColor" : "none"} fillOpacity={active ? "0.2" : "0"} />
+          <rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth={active ? "2" : "1.5"}
+            fill={active ? "currentColor" : "none"} fillOpacity={active ? "0.15" : "0"} />
+          <rect x="12" y="3" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth={active ? "2" : "1.5"}
+            fill={active ? "currentColor" : "none"} fillOpacity={active ? "0.15" : "0"} />
+          <rect x="3" y="12" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth={active ? "2" : "1.5"}
+            fill={active ? "currentColor" : "none"} fillOpacity={active ? "0.15" : "0"} />
+          <rect x="12" y="12" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth={active ? "2" : "1.5"}
+            fill={active ? "currentColor" : "none"} fillOpacity={active ? "0.15" : "0"} />
         </svg>
       ),
     },
     {
-      href: "/studio",
+      href: "/ai-studio",
       label: "Studio",
-      active: pathname === "/studio",
+      active: pathname === "/ai-studio" || pathname === "/studio",
       icon: (active: boolean) => (
         <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden>
           <path d="M11 3v2M11 17v2M3 11H1M21 11h-2M5.64 5.64l-1.42-1.42M17.78 17.78l-1.42-1.42M5.64 16.36l-1.42 1.42M17.78 4.22l-1.42 1.42"
@@ -102,11 +104,6 @@ export default function MobileNav() {
           >
             <span className="relative">
               {tab.icon(tab.active)}
-              {tab.badge ? (
-                <span className="absolute -top-1 -right-1.5 min-w-[14px] h-[14px] rounded-full text-[9px] font-bold flex items-center justify-center px-0.5" style={{ background: "var(--accent)", color: "var(--bg)" }}>
-                  {tab.badge > 9 ? "9+" : tab.badge}
-                </span>
-              ) : null}
             </span>
             <span className={`text-[10px] font-semibold leading-none ${tab.active ? "" : "text-muted"}`} style={tab.active ? { color: "var(--accent)" } : undefined}>
               {tab.label}
