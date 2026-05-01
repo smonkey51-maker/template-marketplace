@@ -165,11 +165,11 @@ h4, h5, h6 {
 html.dark {
   /* ── Dark mode: FORMA — near-black with pure gold accent ── */
   --bg:          #060606;
-  --surface:     #0f0f0f;
-  --surface-2:   #1a1a1a;
-  --text:        #eaeaea;
-  --muted:       #8a8a8a;
-  --border:      rgba(234,234,234,0.09);
+  --surface:     #0d0d0d;
+  --surface-2:   #141414;
+  --text:        #f0eee7;
+  --muted:       #8e8a80;
+  --border:      rgba(255,255,255,0.09);
   --nav-bg:      rgba(6,6,6,0.96);
   --card-bg:     rgba(15,15,15,0.95);
   --card-border: rgba(212,175,55,0.14);
@@ -188,7 +188,8 @@ html.dark {
   /* FORMA gold accent */
   --accent:         #D4AF37;
   --gold:           #D4AF37;
-  --gold-soft:      #B8962E;
+  --gold-soft:      #AA8424;
+  --gold2:          #AA8424;
   --accent-bg:      rgba(212,175,55,0.12);
   --accent-rgb:     212, 175, 55;
   --accent-muted:   rgba(212,175,55,0.20);
@@ -297,16 +298,14 @@ html {
               color 0.22s cubic-bezier(0.4,0,0.2,1);
 }
 
-/* ── Dark mode: Caravaggio tenebrism — light emerges from warm darkness ── */
+/* ── Dark mode: FORMA — near-black with gold glow at top ── */
 html.dark {
-  background-color: #0D0906;
-  background-image:
-    radial-gradient(ellipse at 50% 0%, rgba(196,154,60,0.05) 0%, transparent 55%),
-    radial-gradient(ellipse at 85% 90%, rgba(139,38,53,0.04) 0%, transparent 45%);
+  background-color: #060606;
+  background-image: radial-gradient(circle at 50% -10%, rgba(212,175,55,0.12), transparent 38%);
   background-attachment: fixed;
 }
 html:not(.dark) {
-  background-color: #F5ECD8;
+  background-color: #FDFAF5;
   background-image: none;
 }
 
@@ -1838,4 +1837,221 @@ html.forma-v2 {
 
 @media (prefers-reduced-motion: reduce) {
   .forma-ticker-track { animation: none !important; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FORMA BRAND SYSTEM — utility classes (from fundable-premium)
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Nav ── */
+.forma-nav {
+  position: sticky; top: 0; z-index: 5;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px 48px;
+  background: rgba(6,6,6,0.68);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(255,255,255,0.09);
+}
+.forma-mark { letter-spacing: 0.18em; font-weight: 800; color: var(--gold); }
+.forma-navlinks { display: flex; gap: 22px; color: var(--muted); font-size: 14px; }
+.forma-navlinks a { color: var(--muted); transition: color 0.2s; }
+.forma-navlinks a:hover { color: var(--text); }
+
+/* ── Buttons ── */
+.forma-btn {
+  border: 0; border-radius: 999px; padding: 13px 20px;
+  background: linear-gradient(135deg, var(--gold), var(--gold2, #AA8424));
+  color: #090909; font-weight: 700; cursor: pointer;
+  transition: transform 0.35s var(--ease-glide), box-shadow 0.35s var(--ease-glide);
+  display: inline-flex; align-items: center; text-decoration: none;
+}
+.forma-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 45px rgba(212,175,55,0.25); }
+.forma-btn-ghost {
+  background: transparent; color: var(--text);
+  border: 1px solid rgba(255,255,255,0.09);
+}
+.forma-btn-ghost:hover { background: rgba(255,255,255,0.04); }
+
+/* ── Eyebrow ── */
+.forma-eyebrow {
+  text-transform: uppercase; letter-spacing: 0.22em;
+  color: var(--gold); font-size: 12px; font-weight: 800;
+}
+
+/* ── Hero ── */
+.forma-hero {
+  min-height: 88vh; display: grid; place-items: center;
+  text-align: center; padding: 80px 24px;
+  position: relative;
+}
+.forma-hero::before {
+  content: "";
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(circle at 50% -10%, rgba(212,175,55,0.12), transparent 40%);
+}
+.forma-hero h1 {
+  max-width: 1050px; font-size: clamp(52px,8vw,110px);
+  line-height: 0.92; letter-spacing: -0.07em; margin: 22px auto;
+}
+.forma-lead {
+  max-width: 700px; margin: 0 auto; color: var(--muted);
+  font-size: 20px; line-height: 1.7;
+}
+.forma-hero-actions {
+  display: flex; gap: 14px; justify-content: center;
+  margin-top: 36px; flex-wrap: wrap;
+}
+
+/* ── Sections ── */
+.forma-section {
+  max-width: 1180px; margin: auto; padding: 100px 24px;
+}
+.forma-split {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 42px; align-items: center;
+}
+.forma-grid3 {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 18px;
+}
+
+/* ── Cards ── */
+.forma-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.018));
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 24px; padding: 26px;
+  box-shadow: 0 20px 80px rgba(0,0,0,0.22);
+  transition: transform 0.3s var(--ease-glide), background 0.3s;
+}
+.forma-card:hover { transform: translateY(-4px); }
+.forma-card h3 { margin-top: 0; }
+
+/* ── Mock SaaS widget ── */
+.forma-mock {
+  border-radius: 32px; border: 1px solid rgba(255,255,255,0.09);
+  background: #0b0b0b; padding: 18px;
+  box-shadow: 0 40px 120px rgba(0,0,0,0.48);
+}
+.forma-mock-top { display: flex; gap: 8px; margin-bottom: 18px; }
+.forma-dot { width: 10px; height: 10px; border-radius: 50%; background: #40382a; }
+.forma-metric {
+  display: flex; justify-content: space-between;
+  border-top: 1px solid rgba(255,255,255,0.09); padding: 16px 0;
+  color: var(--text);
+}
+.forma-metric span { color: var(--muted); }
+
+/* ── Footer ── */
+.forma-footer {
+  padding: 48px; text-align: center;
+  color: var(--muted); border-top: 1px solid rgba(255,255,255,0.09);
+}
+
+/* ── App shell (dashboard) ── */
+.forma-app-shell {
+  display: grid; grid-template-columns: 280px 1fr; min-height: 100vh;
+}
+.forma-side {
+  background: #090909; border-right: 1px solid rgba(255,255,255,0.09);
+  padding: 28px; position: sticky; top: 0; height: 100vh; overflow-y: auto;
+}
+.forma-side nav { display: grid; gap: 10px; margin-top: 40px; }
+.forma-side a {
+  padding: 12px 14px; border-radius: 14px;
+  color: var(--muted); transition: background 0.2s, color 0.2s;
+  cursor: pointer; display: block;
+}
+.forma-side a:hover, .forma-side a.active {
+  background: #141414; color: var(--text) !important;
+}
+.forma-main { padding: 34px; }
+.forma-toolbar {
+  display: flex; justify-content: space-between;
+  align-items: center; margin-bottom: 24px;
+}
+.forma-input {
+  width: 100%; background: #101010;
+  border: 1px solid rgba(255,255,255,0.09); border-radius: 16px;
+  padding: 13px; color: var(--text); outline: none;
+}
+.forma-input:focus { border-color: rgba(212,175,55,0.4); }
+.forma-project-grid {
+  display: grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+  gap: 18px;
+}
+.forma-tag {
+  display: inline-flex; border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 999px; padding: 6px 10px; color: var(--gold); font-size: 12px;
+}
+.forma-kanban { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; margin-top: 22px; }
+.forma-column {
+  background: #0b0b0b; border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 22px; padding: 16px; min-height: 260px;
+}
+.forma-mini {
+  padding: 14px; border-radius: 16px;
+  background: #151515; margin: 10px 0; color: var(--muted); font-size: 14px;
+}
+
+/* ── Brand boards ── */
+.forma-brand-board {
+  min-height: 92vh; padding: 48px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 28px; align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,0.09);
+  background: radial-gradient(circle at 70% 20%, rgba(212,175,55,0.13), transparent 35%), #060606;
+}
+.forma-brand-board h2 {
+  font-size: clamp(42px,5vw,82px); line-height: 0.96;
+  letter-spacing: -0.05em; margin: 0;
+}
+.forma-board-canvas {
+  min-height: 430px; border-radius: 34px;
+  border: 1px solid rgba(255,255,255,0.09);
+  background: linear-gradient(135deg, #111, #050505);
+  padding: 28px; position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.forma-board-canvas .forma-grid3 { width: 100%; }
+.forma-circle {
+  position: absolute; border-radius: 50%;
+  border: 28px solid var(--gold);
+  width: 180px; height: 180px;
+  left: 50%; top: 50%; transform: translate(-50%,-50%);
+}
+.forma-gold-block {
+  background: linear-gradient(135deg, var(--gold), var(--gold2, #AA8424));
+  color: #080808; border-radius: 28px; padding: 24px;
+}
+.forma-phone {
+  width: 210px; height: 420px;
+  border: 10px solid #1f1f1f; border-radius: 42px;
+  background: #080808; margin: auto; padding: 20px;
+  overflow: hidden;
+}
+.forma-post {
+  aspect-ratio: 1/1; border-radius: 28px;
+  background: linear-gradient(135deg, #161616, #080808);
+  border: 1px solid rgba(255,255,255,0.09);
+  padding: 24px; display: flex; align-items: center;
+  justify-content: center; color: var(--muted);
+}
+.forma-photo-flash {
+  background: radial-gradient(circle at 35% 20%, #fff, rgba(255,255,255,0.2) 10%, transparent 26%),
+              linear-gradient(135deg, #191919, #070707);
+  min-height: 430px; border-radius: 34px;
+  border: 1px solid rgba(255,255,255,0.09);
+}
+
+/* ── Responsive ── */
+@media (max-width: 850px) {
+  .forma-split,
+  .forma-grid3,
+  .forma-brand-board,
+  .forma-app-shell,
+  .forma-kanban { grid-template-columns: 1fr; }
+  .forma-side { height: auto; position: relative; }
+  .forma-nav { padding: 18px; }
+  .forma-main { padding: 20px; }
+  .forma-brand-board { padding: 28px; }
+  .forma-navlinks { display: none; }
 }

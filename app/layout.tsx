@@ -68,24 +68,24 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://forma.design";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Forma — AI-Powered Template Marketplace",
-    template: "%s — Forma",
+    default: "FORMA — Infrastructure for Digital Structure",
+    template: "%s — FORMA",
   },
   description:
-    "Buy premium UI and prompt templates. Customize any template instantly with Claude AI. No code required.",
+    "FORMA turns scattered initiatives into modular projects, visible flows and decision-ready systems. Premium brand and SaaS system.",
   openGraph: {
     type: "website",
-    siteName: "Forma",
-    title: "Forma — AI-Powered Template Marketplace",
+    siteName: "FORMA",
+    title: "FORMA — Infrastructure for Digital Structure",
     description:
-      "Buy premium UI and prompt templates. Customize any template instantly with Claude AI.",
+      "FORMA turns scattered initiatives into modular projects, visible flows and decision-ready systems.",
     images: [{ url: "/api/og", width: 1200, height: 630, alt: "Forma" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Forma — AI-Powered Template Marketplace",
+    title: "FORMA — Infrastructure for Digital Structure",
     description:
-      "Buy premium UI and prompt templates. Customize any template instantly with Claude AI.",
+      "FORMA turns scattered initiatives into modular projects, visible flows and decision-ready systems.",
     images: ["/api/og"],
   },
   alternates: {
