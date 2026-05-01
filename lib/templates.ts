@@ -2184,61 +2184,237 @@ footer{text-align:center;padding:24px;color:rgba(240,240,248,.2);font-size:12px;
     stripePriceId: "price_1TBz25BoWNgrJbiyIiw34qio",
     tags: ["features", "saas", "glassmorphism", "cards", "product"],
     downloads: 538,
-    content: `<div class="min-h-screen font-sans" style="background:linear-gradient(135deg,#0f0c29 0%,#1a1040 50%,#24243e 100%)">
-  <!-- Header -->
-  <div class="max-w-4xl mx-auto px-6 pt-16 pb-10 text-center">
-    <span class="inline-block text-[11px] font-bold tracking-[0.25em] uppercase text-purple-300/70 bg-purple-500/10 border border-purple-500/20 px-4 py-1.5 rounded-full mb-5">Tutto ciò di cui hai bisogno</span>
-    <h1 class="text-4xl md:text-5xl font-black text-white leading-tight mb-4">Funzionalità <span style="background:linear-gradient(135deg,#a78bfa,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent">potenti</span></h1>
-    <p class="text-white/40 text-lg max-w-xl mx-auto">Una piattaforma completa per team che vogliono muoversi velocemente senza compromessi.</p>
+    content: `<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0812;color:#f0eeff;overflow-x:hidden}
+.amb{position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(ellipse,rgba(139,92,246,.12) 0%,transparent 65%);pointer-events:none;z-index:0}
+/* Nav */
+nav{position:relative;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:20px 48px;max-width:1200px;margin:0 auto}
+.nav-logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:17px;letter-spacing:-.3px}
+.nl-dot{width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,#8b5cf6,#3b82f6)}
+.nav-links{display:flex;align-items:center;gap:28px;font-size:13px;color:rgba(240,238,255,.45)}
+.nav-cta{background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff;padding:9px 22px;border-radius:9px;font-weight:700;font-size:13px;cursor:pointer;border:0;box-shadow:0 4px 20px rgba(124,58,237,.3);transition:.2s}
+.nav-cta:hover{opacity:.9}
+/* Hero */
+.hero{position:relative;z-index:1;text-align:center;padding:80px 24px 56px;max-width:900px;margin:0 auto}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);color:#c4b5fd;padding:7px 18px;border-radius:20px;font-size:12px;font-weight:700;letter-spacing:.05em;margin-bottom:28px}
+.hero h1{font-size:clamp(38px,6vw,72px);font-weight:900;letter-spacing:-2.5px;line-height:1.05;margin-bottom:18px}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,#a78bfa 20%,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:rgba(240,238,255,.5);font-size:18px;max-width:540px;margin:0 auto 36px;line-height:1.65}
+.hero-ctas{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.btn-primary{background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff;padding:14px 28px;border-radius:11px;font-weight:800;font-size:14px;cursor:pointer;border:0;box-shadow:0 4px 24px rgba(124,58,237,.35);transition:.2s}
+.btn-primary:hover{opacity:.9;transform:translateY(-1px)}
+.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,.12);color:rgba(240,238,255,.7);padding:13px 24px;border-radius:11px;font-weight:600;font-size:14px;cursor:pointer;transition:.2s}
+.btn-ghost:hover{border-color:rgba(139,92,246,.4);color:#c4b5fd}
+.hero-note{font-size:12px;color:rgba(240,238,255,.3)}
+/* Logos strip */
+.logos{position:relative;z-index:1;text-align:center;padding:0 24px 56px;max-width:1100px;margin:0 auto}
+.logos-label{font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:rgba(240,238,255,.25);margin-bottom:20px}
+.logos-row{display:flex;align-items:center;justify-content:center;gap:36px;flex-wrap:wrap}
+.logo-chip{font-size:13px;font-weight:700;color:rgba(240,238,255,.2);letter-spacing:-.3px}
+/* Big features bento */
+.bento{position:relative;z-index:1;max-width:1100px;margin:0 auto 72px;padding:0 24px}
+.section-label{font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:#a78bfa;font-weight:700;text-align:center;margin-bottom:16px}
+.section-h2{font-size:clamp(28px,4vw,48px);font-weight:900;letter-spacing:-1.5px;text-align:center;margin-bottom:8px}
+.section-p{text-align:center;color:rgba(240,238,255,.45);font-size:16px;max-width:480px;margin:0 auto 48px;line-height:1.65}
+.bento-grid{display:grid;grid-template-columns:1.4fr 1fr;grid-template-rows:auto auto;gap:16px}
+.bento-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:32px;position:relative;overflow:hidden;transition:.25s}
+.bento-card:hover{background:rgba(139,92,246,.06);border-color:rgba(139,92,246,.2)}
+.bc-glow{position:absolute;width:200px;height:200px;border-radius:50%;filter:blur(60px);pointer-events:none;opacity:.15}
+.bento-card.span2{grid-column:span 2}
+.bc-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:20px}
+.bc-i1{background:rgba(139,92,246,.15)}
+.bc-i2{background:rgba(59,130,246,.15)}
+.bc-i3{background:rgba(16,185,129,.15)}
+.bc-i4{background:rgba(245,158,11,.15)}
+.bc-i5{background:rgba(236,72,153,.15)}
+.bc-h{font-size:20px;font-weight:800;letter-spacing:-.4px;margin-bottom:10px}
+.bc-p{font-size:14px;color:rgba(240,238,255,.5);line-height:1.65;max-width:420px}
+.bc-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.bc-tag{background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);color:#c4b5fd;padding:5px 12px;border-radius:8px;font-size:11px;font-weight:700;letter-spacing:.04em}
+/* Stats bar */
+.stats{position:relative;z-index:1;max-width:1100px;margin:0 auto 72px;padding:0 24px}
+.stats-inner{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid rgba(255,255,255,.06);border-radius:16px;overflow:hidden;background:rgba(255,255,255,.02)}
+.stat-item{padding:28px 24px;border-right:1px solid rgba(255,255,255,.05);text-align:center}
+.stat-item:last-child{border:none}
+.stat-val{font-size:36px;font-weight:900;letter-spacing:-1.5px;margin-bottom:6px}
+.stat-grad{background:linear-gradient(135deg,#a78bfa,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-label{font-size:12px;color:rgba(240,238,255,.4);text-transform:uppercase;letter-spacing:.08em}
+/* Feature list */
+.feat-list{position:relative;z-index:1;max-width:1100px;margin:0 auto 72px;padding:0 24px}
+.feat-list-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.fl-card{display:flex;align-items:flex-start;gap:16px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:24px;transition:.2s}
+.fl-card:hover{background:rgba(139,92,246,.05);border-color:rgba(139,92,246,.18)}
+.fl-icon{font-size:22px;flex-shrink:0;margin-top:2px}
+.fl-h{font-size:14.5px;font-weight:800;letter-spacing:-.3px;margin-bottom:7px}
+.fl-p{font-size:13px;color:rgba(240,238,255,.45);line-height:1.6}
+/* Integrations */
+.integrations{position:relative;z-index:1;max-width:1100px;margin:0 auto 72px;padding:0 24px;text-align:center}
+.int-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;max-width:700px;margin:0 auto 32px}
+.int-chip{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:14px;font-size:13px;font-weight:700;color:rgba(240,238,255,.5);transition:.2s}
+.int-chip:hover{background:rgba(139,92,246,.08);border-color:rgba(139,92,246,.2);color:#c4b5fd}
+/* CTA */
+.cta{position:relative;z-index:1;text-align:center;border-top:1px solid rgba(255,255,255,.05);padding:80px 24px}
+.cta-inner{max-width:560px;margin:0 auto}
+.cta h2{font-size:clamp(28px,4vw,46px);font-weight:900;letter-spacing:-1.5px;margin-bottom:14px}
+.cta p{color:rgba(240,238,255,.45);font-size:16px;margin-bottom:32px;line-height:1.65}
+footer{text-align:center;padding:24px;color:rgba(240,238,255,.2);font-size:12px;border-top:1px solid rgba(255,255,255,.04)}
+</style>
+
+<div class="amb"></div>
+
+<nav>
+  <div class="nav-logo"><div class="nl-dot"></div>Nexus</div>
+  <div class="nav-links"><span>Features</span><span>Pricing</span><span>Docs</span><span>Blog</span></div>
+  <button class="nav-cta">Start for free →</button>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">✦ New · AI-powered automation now available</div>
+  <h1>Every feature<br/>your team <em>actually needs.</em></h1>
+  <p>Nexus brings automation, collaboration, analytics, and integrations together — so your team can stop switching tabs and start shipping.</p>
+  <div class="hero-ctas">
+    <button class="btn-primary">Start free trial →</button>
+    <button class="btn-ghost">See all features</button>
   </div>
-  <!-- Feature Grid -->
-  <div class="max-w-4xl mx-auto px-6 pb-16 grid grid-cols-1 md:grid-cols-3 gap-4">
-    <!-- Big feature -->
-    <div class="md:col-span-2 rounded-3xl p-6 relative overflow-hidden border border-white/[0.08]" style="background:rgba(255,255,255,0.04);backdrop-filter:blur(20px)">
-      <div class="absolute inset-0 opacity-30" style="background:radial-gradient(circle at 80% 20%,rgba(139,92,246,0.3),transparent 60%)"></div>
-      <div class="relative">
-        <div class="w-12 h-12 rounded-2xl bg-violet-500/20 flex items-center justify-center text-2xl mb-4">⚡</div>
-        <h3 class="text-white font-bold text-xl mb-2">AI Automation Engine</h3>
-        <p class="text-white/50 text-sm leading-relaxed mb-4">Automatizza workflow complessi con regole intelligenti. Il nostro motore AI impara dai tuoi pattern e suggerisce ottimizzazioni in tempo reale.</p>
-        <div class="flex gap-2 flex-wrap">
-          <span class="text-[11px] bg-violet-500/15 text-violet-300 border border-violet-500/20 px-2.5 py-1 rounded-full">Smart Rules</span>
-          <span class="text-[11px] bg-violet-500/15 text-violet-300 border border-violet-500/20 px-2.5 py-1 rounded-full">ML-powered</span>
-          <span class="text-[11px] bg-violet-500/15 text-violet-300 border border-violet-500/20 px-2.5 py-1 rounded-full">No-code</span>
+  <div class="hero-note">No credit card required · 14-day free trial · Cancel anytime</div>
+</div>
+
+<div class="logos">
+  <div class="logos-label">Trusted by teams at</div>
+  <div class="logos-row">
+    <div class="logo-chip">Acme Corp</div>
+    <div class="logo-chip">PixelForge</div>
+    <div class="logo-chip">LaunchBase</div>
+    <div class="logo-chip">DevStudio</div>
+    <div class="logo-chip">NovaSaaS</div>
+    <div class="logo-chip">BuildCo</div>
+  </div>
+</div>
+
+<div class="bento">
+  <div class="section-label">Core platform</div>
+  <h2 class="section-h2">Built for teams that move fast</h2>
+  <p class="section-p">Every feature is designed to reduce friction, not add it. Ship faster without sacrificing quality or visibility.</p>
+
+  <div class="bento-grid">
+    <!-- Large card: AI Automation -->
+    <div class="bento-card">
+      <div class="bc-glow" style="background:#8b5cf6;top:-50px;right:-50px"></div>
+      <div class="bc-icon bc-i1">⚡</div>
+      <div class="bc-h">AI Automation Engine</div>
+      <p class="bc-p">Automate complex workflows with intelligent rules. Our AI learns your patterns and proactively suggests optimizations — saving hours every week without any engineering work.</p>
+      <div class="bc-tags">
+        <span class="bc-tag">Smart Rules</span>
+        <span class="bc-tag">ML-powered</span>
+        <span class="bc-tag">No-code</span>
+        <span class="bc-tag">Real-time</span>
+      </div>
+    </div>
+
+    <!-- Stack: Security + Analytics -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="bento-card" style="flex:1">
+        <div class="bc-glow" style="background:#3b82f6;bottom:-50px;left:-50px"></div>
+        <div class="bc-icon bc-i2">🔒</div>
+        <div class="bc-h" style="font-size:16px">Enterprise Security</div>
+        <p class="bc-p" style="font-size:13px">SOC 2 Type II, SSO/SAML, 2FA, full audit log, and 99.99% SLA uptime guarantee.</p>
+        <div style="display:flex;align-items:center;gap:7px;margin-top:14px">
+          <div style="width:7px;height:7px;border-radius:50%;background:#34d399;animation:pulse 2s infinite"></div>
+          <span style="font-size:12px;color:#34d399;font-weight:700">All systems operational</span>
+        </div>
+      </div>
+      <div class="bento-card" style="flex:1">
+        <div class="bc-icon bc-i3">📊</div>
+        <div class="bc-h" style="font-size:16px">Real-time Analytics</div>
+        <p class="bc-p" style="font-size:13px">Interactive dashboards with data updated every second. Export to CSV, API, or BI tools.</p>
+      </div>
+    </div>
+
+    <!-- Wide card: Collaboration -->
+    <div class="bento-card span2">
+      <div class="bc-glow" style="background:#f59e0b;top:-40px;left:40%"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px">
+        <div>
+          <div class="bc-icon bc-i4">🤝</div>
+          <div class="bc-h">Team Collaboration</div>
+          <p class="bc-p">Real-time shared workspaces, threaded comments, @mentions, and granular role-based access control. Work together without stepping on each other's toes.</p>
+        </div>
+        <div>
+          <div class="bc-icon bc-i5">🔌</div>
+          <div class="bc-h">500+ Integrations</div>
+          <p class="bc-p">Slack, Notion, GitHub, Jira, Linear, HubSpot, Salesforce, Airtable, Zapier — and everything in your stack. One-click setup, no configuration required.</p>
         </div>
       </div>
     </div>
-    <!-- Small feature -->
-    <div class="rounded-3xl p-6 relative overflow-hidden border border-white/[0.08]" style="background:rgba(255,255,255,0.04);backdrop-filter:blur(20px)">
-      <div class="absolute inset-0 opacity-30" style="background:radial-gradient(circle at 20% 80%,rgba(96,165,250,0.3),transparent 60%)"></div>
-      <div class="relative">
-        <div class="w-12 h-12 rounded-2xl bg-blue-500/20 flex items-center justify-center text-2xl mb-4">🔒</div>
-        <h3 class="text-white font-bold text-lg mb-2">Enterprise Security</h3>
-        <p class="text-white/50 text-sm leading-relaxed">SOC 2 Type II, SSO, 2FA, audit log completo.</p>
-        <div class="mt-4 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div><span class="text-emerald-400 text-xs font-medium">99.99% uptime</span></div>
-      </div>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-val stat-grad">10h</div>
+      <div class="stat-label">Saved per team/week</div>
     </div>
-    <!-- Three equal features -->
-    <div class="rounded-3xl p-6 border border-white/[0.08]" style="background:rgba(255,255,255,0.04);backdrop-filter:blur(20px)">
-      <div class="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center text-xl mb-3">📊</div>
-      <h3 class="text-white font-bold mb-1">Analytics Real-time</h3>
-      <p class="text-white/40 text-xs leading-relaxed">Dashboard interattive con dati aggiornati ogni secondo.</p>
+    <div class="stat-item">
+      <div class="stat-val stat-grad">500+</div>
+      <div class="stat-label">Integrations</div>
     </div>
-    <div class="rounded-3xl p-6 border border-white/[0.08]" style="background:rgba(255,255,255,0.04);backdrop-filter:blur(20px)">
-      <div class="w-10 h-10 rounded-xl bg-pink-500/20 flex items-center justify-center text-xl mb-3">🤝</div>
-      <h3 class="text-white font-bold mb-1">Team Collaboration</h3>
-      <p class="text-white/40 text-xs leading-relaxed">Commenti, menzioni, permessi granulari per ogni risorsa.</p>
+    <div class="stat-item">
+      <div class="stat-val stat-grad">99.99%</div>
+      <div class="stat-label">Uptime SLA</div>
     </div>
-    <div class="rounded-3xl p-6 border border-white/[0.08]" style="background:rgba(255,255,255,0.04);backdrop-filter:blur(20px)">
-      <div class="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center text-xl mb-3">🔌</div>
-      <h3 class="text-white font-bold mb-1">500+ Integrazioni</h3>
-      <p class="text-white/40 text-xs leading-relaxed">Slack, Notion, GitHub, Jira e tutto il tuo stack.</p>
+    <div class="stat-item">
+      <div class="stat-val stat-grad">12K+</div>
+      <div class="stat-label">Teams using Nexus</div>
     </div>
   </div>
-  <!-- CTA -->
-  <div class="max-w-4xl mx-auto px-6 pb-16 text-center">
-    <button class="bg-gradient-to-r from-violet-500 to-blue-500 hover:from-violet-400 hover:to-blue-400 text-white font-bold px-10 py-4 rounded-2xl text-[15px] transition shadow-[0_4px_24px_rgba(139,92,246,0.4)]">Inizia gratis — nessuna carta richiesta</button>
+</div>
+
+<div class="feat-list">
+  <div class="feat-list-grid">
+    <div class="fl-card"><div class="fl-icon">🚀</div><div><div class="fl-h">Lightning fast performance</div><div class="fl-p">Sub-100ms response times for all core operations. Built on edge infrastructure with CDN delivery in 40+ regions.</div></div></div>
+    <div class="fl-card"><div class="fl-icon">📱</div><div><div class="fl-h">Mobile-first design</div><div class="fl-p">Native iOS and Android apps with offline mode, push notifications, and full feature parity with desktop.</div></div></div>
+    <div class="fl-card"><div class="fl-icon">🔄</div><div><div class="fl-h">Version control</div><div class="fl-p">Full history of every change with one-click rollback. Never lose work again — every edit is tracked automatically.</div></div></div>
+    <div class="fl-card"><div class="fl-icon">🌐</div><div><div class="fl-h">Multi-language support</div><div class="fl-p">Available in 28 languages with right-to-left support. Localized date, time, and currency formatting per user.</div></div></div>
+    <div class="fl-card"><div class="fl-icon">📧</div><div><div class="fl-h">Smart notifications</div><div class="fl-p">AI-powered digest that learns what matters to you. Get notified about what's important, not everything.</div></div></div>
+    <div class="fl-card"><div class="fl-icon">🎨</div><div><div class="fl-h">White-label support</div><div class="fl-p">Custom branding, custom domains, and full UI theming on Enterprise plans. Make it yours.</div></div></div>
   </div>
-</div>`,
+</div>
+
+<div class="integrations">
+  <div class="section-label">Integrations</div>
+  <h2 class="section-h2">Works with your entire stack</h2>
+  <p class="section-p" style="margin-bottom:36px">Connect once, automate everything. 500+ integrations with a growing library updated every week.</p>
+  <div class="int-grid">
+    <div class="int-chip">Slack</div>
+    <div class="int-chip">Notion</div>
+    <div class="int-chip">GitHub</div>
+    <div class="int-chip">Jira</div>
+    <div class="int-chip">Linear</div>
+    <div class="int-chip">Figma</div>
+    <div class="int-chip">HubSpot</div>
+    <div class="int-chip">Stripe</div>
+    <div class="int-chip">Zapier</div>
+    <div class="int-chip">Salesforce</div>
+    <div class="int-chip">Airtable</div>
+    <div class="int-chip">Intercom</div>
+  </div>
+  <p style="font-size:12px;color:rgba(240,238,255,.3)">+ 488 more integrations</p>
+</div>
+
+<div class="cta">
+  <div class="cta-inner">
+    <h2>Ready to move faster?</h2>
+    <p>Join 12,000+ teams already saving 10 hours per week with Nexus. Start your free trial — no credit card required.</p>
+    <div class="hero-ctas">
+      <button class="btn-primary">Start free trial →</button>
+      <button class="btn-ghost">Talk to sales</button>
+    </div>
+  </div>
+</div>
+
+<footer>© 2025 Nexus Inc. · Privacy · Terms · Status · Docs</footer>`,
   },
   {
     id: "saas-dashboard",
