@@ -9,7 +9,6 @@
 /* Snap sections: 100svh (iOS Safari safe), fallback 100vh */
 .forma-section {
   scroll-snap-align: start;
-  scroll-snap-stop: always;
   height: 100svh;
   position: relative;
 }
@@ -18,10 +17,15 @@
   .forma-section { height: 100vh; }
 }
 
+/* Smooth snap scrolling */
+#forma-snap-container {
+  scroll-behavior: smooth;
+}
+
 /* Prevent horizontal scroll from out-of-box elements */
 body { overflow-x: hidden; }
 
-/* Reduced motion: disable scroll-behavior smooth */
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   #forma-snap-container {
     scroll-behavior: auto;
