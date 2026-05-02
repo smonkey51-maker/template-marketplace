@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HeroSection from "@/components/sections/HeroSection";
 import CatalogoSection from "@/components/sections/CatalogoSection";
 import GuidaSection from "@/components/sections/GuidaSection";
@@ -20,6 +18,13 @@ const SECTION_LABELS = [
   "Sezione 5 di 5: Account",
 ];
 
+const PAINTING_INFO: Record<string, string> = {
+  catalogo: "Georges Seurat — Un dimanche après-midi, 1886",
+  guida:    "Claude Monet — Nymphéas, 1906",
+  studio:   "Wassily Kandinsky — Composition VIII, 1923",
+  account:  "Vincent van Gogh — La Notte stellata, 1889",
+};
+
 export default function SnapHomepage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const liveRef = useRef<HTMLDivElement>(null);
@@ -28,18 +33,7 @@ export default function SnapHomepage() {
     const container = containerRef.current;
     if (!container) return;
 
-    // Point ScrollTrigger at the snap container (not window)
-    ScrollTrigger.defaults({ scroller: container });
-    ScrollTrigger.refresh();
-
-    // Long-press easter egg: reveal painting info tooltip
-    const PAINTING_INFO: Record<string, string> = {
-      catalogo: "Georges Seurat — Un dimanche après-midi, 1886",
-      guida:    "Claude Monet — Nymphéas, 1906",
-      studio:   "Wassily Kandinsky — Composition VIII, 1923",
-      account:  "Vincent van Gogh — La Notte stellata, 1889",
-    };
-
+    // Long-press easter egg: painting info tooltip
     let pressTimer: ReturnType<typeof setTimeout>;
     let tooltipEl: HTMLDivElement | null = null;
 
@@ -69,19 +63,20 @@ export default function SnapHomepage() {
           border: "1px solid rgba(212,175,55,0.2)",
           maxWidth: "90vw",
           textAlign: "center",
+          transition: "opacity 0.4s ease",
+          opacity: "1",
         });
         document.body.appendChild(tooltipEl);
         setTimeout(() => {
           if (tooltipEl) {
-            gsap.to(tooltipEl, { opacity: 0, duration: 0.4, onComplete: () => tooltipEl?.remove() });
-            tooltipEl = null;
+            tooltipEl.style.opacity = "0";
+            setTimeout(() => { tooltipEl?.remove(); tooltipEl = null; }, 400);
           }
         }, 2000);
       }, 600);
     };
 
     const onTouchEnd = () => clearTimeout(pressTimer);
-
     container.addEventListener("touchstart", onTouchStart, { passive: true });
     container.addEventListener("touchend", onTouchEnd, { passive: true });
     container.addEventListener("touchcancel", onTouchEnd, { passive: true });
@@ -110,13 +105,11 @@ export default function SnapHomepage() {
       clearTimeout(pressTimer);
       if (tooltipEl) tooltipEl.remove();
       observers.forEach((o) => o.disconnect());
-      ScrollTrigger.defaults({ scroller: window });
     };
   }, []);
 
   return (
     <>
-      {/* Skip-to-content (inherited from layout, but also at snap level) */}
       <a
         href="#catalogo"
         className="sr-only focus:not-sr-only focus:fixed focus:top-20 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:text-[13px] focus:font-bold"
@@ -125,35 +118,22 @@ export default function SnapHomepage() {
         Vai al catalogo
       </a>
 
-      {/* Gallery spotlight — gold radial gradient follows cursor/touch */}
       <GallerySpotlight />
-
-      {/* Fixed overlay nav (logo + tabs + hamburger) */}
       <SectionNav />
-
-      {/* Section dot indicator */}
       <ScrollIndicator />
 
-      {/* aria-live region */}
-      <div
-        ref={liveRef}
-        aria-live="polite"
-        aria-atomic="true"
-        className="sr-only"
-      />
+      <div ref={liveRef} aria-live="polite" aria-atomic="true" className="sr-only" />
 
-      {/* Snap scroll container */}
       <div
         id="forma-snap-container"
         ref={containerRef}
         style={{
           height: "100svh",
           overflowY: "scroll",
-          overflowX: "hidden",    // contain out-of-box card bleed
+          overflowX: "hidden",
           scrollSnapType: "y mandatory",
           overscrollBehaviorY: "contain",
         }}
-        // Keyboard: PgUp/PgDn/arrows work natively with scroll-snap
       >
         <HeroSection />
         <CatalogoSection />
