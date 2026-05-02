@@ -103,6 +103,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="it" className={`${montserrat.variable} ${jakarta.variable} ${dmSerif.variable} ${cormorant.variable} ${fraunces.variable} ${inter.variable}`}>
+        <link rel="preload" as="image" href="/paintings/vermeer.jpg" />
         <body className="bg-page text-theme antialiased min-h-screen">
           <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[9999] focus:px-4 focus:py-2 focus:text-[13px] focus:font-bold" style={{ background: "var(--accent)", color: "var(--bg)" }}>
             Skip to content
