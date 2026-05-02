@@ -151,28 +151,6 @@ export default function HeroSection() {
         <span>05</span>
       </div>
 
-      {/* Social — bottom-left desktop */}
-      <div
-        className="hidden lg:flex absolute bottom-8 left-10 items-center gap-4 anim-in"
-        style={{ zIndex: 10, "--delay": "0.6s" } as React.CSSProperties}
-        aria-label="Social links"
-      >
-        {[
-          { href: "https://twitter.com", label: "Twitter / X", path: "M4 4l7.5 7.5L4 18h2.5l5.5-6.5L17 18h3l-7.5-8 7.5-8H17l-5.5 6-5-6H4z" },
-          { href: "https://instagram.com", label: "Instagram", rect: true },
-        ].map(({ href, label, path, rect }) => (
-          <a key={href} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
-            className="transition-opacity duration-200 hover:opacity-100" style={{ color: "rgba(255,255,255,0.35)" }}>
-            <svg width="16" height="16" viewBox="0 0 22 22" fill="none" aria-hidden>
-              {rect ? (
-                <><rect x="3" y="3" width="16" height="16" rx="5" stroke="currentColor" strokeWidth="1.5" /><circle cx="11" cy="11" r="3.5" stroke="currentColor" strokeWidth="1.5" /><circle cx="16" cy="6" r="0.75" fill="currentColor" /></>
-              ) : (
-                <path d={path} stroke="currentColor" strokeWidth="1.5" />
-              )}
-            </svg>
-          </a>
-        ))}
-      </div>
     </ArtSection>
   );
 }

@@ -13,6 +13,7 @@ out/
 # Misc
 .DS_Store
 *.log
+*.tsbuildinfo
 
 # Template export generato da export-templates
 exports/
