@@ -18,7 +18,7 @@ export default function AccountSection() {
         style={{
           zIndex: 0,
           backgroundColor: "#1a1205",
-          backgroundImage: "url('https://upload.wikimedia.org/wikipedia/commons/4/46/Vincent_van_Gogh_-_Sunflowers_-_VGM_F458.jpg')",
+          backgroundImage: "url('/paintings/vangogh.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center top",
         }}
