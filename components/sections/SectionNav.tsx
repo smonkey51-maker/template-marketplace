@@ -68,18 +68,58 @@ export default function SectionNav() {
           </div>
         </nav>
 
-        {/* Mobile hamburger top-right */}
+        {/* Mobile hamburger/X top-right — animates between states */}
         <button
           className="lg:hidden flex items-center justify-center w-10 h-10 text-white/80 hover:text-white transition-colors"
-          onClick={() => setDrawerOpen(true)}
-          aria-label="Apri menu"
+          onClick={() => setDrawerOpen((o) => !o)}
+          aria-label={drawerOpen ? "Chiudi menu" : "Apri menu"}
           aria-expanded={drawerOpen}
           aria-controls="mobile-drawer"
           style={{ paddingRight: "env(safe-area-inset-right, 0px)" }}
         >
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden>
-            <path d="M3 6h16M3 11h16M3 16h16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-          </svg>
+          <span
+            aria-hidden
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "5px",
+              width: "20px",
+            }}
+          >
+            {/* Top bar */}
+            <span style={{
+              display: "block",
+              height: "1.5px",
+              width: "100%",
+              background: "currentColor",
+              borderRadius: "2px",
+              transition: "transform 0.3s cubic-bezier(0.4,0,0.2,1)",
+              transformOrigin: "center",
+              transform: drawerOpen ? "translateY(6.5px) rotate(45deg)" : "none",
+            }} />
+            {/* Middle bar */}
+            <span style={{
+              display: "block",
+              height: "1.5px",
+              width: "100%",
+              background: "currentColor",
+              borderRadius: "2px",
+              transition: "opacity 0.2s ease, transform 0.3s cubic-bezier(0.4,0,0.2,1)",
+              opacity: drawerOpen ? 0 : 1,
+              transform: drawerOpen ? "scaleX(0)" : "none",
+            }} />
+            {/* Bottom bar */}
+            <span style={{
+              display: "block",
+              height: "1.5px",
+              width: "100%",
+              background: "currentColor",
+              borderRadius: "2px",
+              transition: "transform 0.3s cubic-bezier(0.4,0,0.2,1)",
+              transformOrigin: "center",
+              transform: drawerOpen ? "translateY(-6.5px) rotate(-45deg)" : "none",
+            }} />
+          </span>
         </button>
       </header>
 
@@ -98,15 +138,8 @@ export default function SectionNav() {
             style={{ height: "56px", paddingTop: "env(safe-area-inset-top, 0px)" }}
           >
             <FormaLogoStatic className="w-24 h-auto" />
-            <button
-              className="flex items-center justify-center w-10 h-10 text-white/70 hover:text-white"
-              onClick={() => setDrawerOpen(false)}
-              aria-label="Chiudi menu"
-            >
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
-                <path d="M4 4l12 12M16 4L4 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-              </svg>
-            </button>
+            {/* Space placeholder — close is handled by the hamburger button in the header */}
+            <div className="w-10" />
           </div>
 
           <nav

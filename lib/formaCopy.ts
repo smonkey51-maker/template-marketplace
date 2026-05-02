@@ -92,6 +92,11 @@ export const copy = {
     aiEx3Prompt: "Email di onboarding per un corso online in 5 step",
     aiEx3Output: "HTML · email template",
 
+    /* snap homepage hero */
+    heroTagline: "Arte in tasca.",
+    heroSubSnap: "Template, prompt e strumenti per chi crea.",
+    heroCtaSnap: "Esplora il catalogo →",
+
     /* shared */
     studioTitle: "Studio", studioSub: "Un ambiente per generare, adattare e rifinire template.",
     aiTitle: "AI Studio", aiSub: "Descrivi cosa ti serve. FORMA ti propone la struttura corretta.",
@@ -255,6 +260,11 @@ export const copy = {
     aiEx2Output: "Notion · 4 databases",
     aiEx3Prompt: "Onboarding email for an online course in 5 steps",
     aiEx3Output: "HTML · email template",
+
+    /* snap homepage hero */
+    heroTagline: "Art in your pocket.",
+    heroSubSnap: "Templates, prompts and tools for creators.",
+    heroCtaSnap: "Explore the catalog →",
 
     /* shared */
     studioTitle: "Studio", studioSub: "A place to generate, adapt and refine templates.",

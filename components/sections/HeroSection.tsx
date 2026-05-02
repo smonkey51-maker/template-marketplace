@@ -3,6 +3,8 @@
 import ArtSection from "@/components/ArtSection";
 import { FormaLogoAnimated } from "@/components/FormaLogo";
 import Link from "next/link";
+import { useLang } from "@/components/LanguageProvider";
+import { copy } from "@/lib/formaCopy";
 
 function MockCard({
   rotate,
@@ -59,6 +61,9 @@ function MockCard({
 }
 
 export default function HeroSection() {
+  const { lang } = useLang();
+  const t = copy[lang];
+
   return (
     <ArtSection
       id="hero"
@@ -91,36 +96,38 @@ export default function HeroSection() {
       />
 
       {/* Main content */}
-      <div className="relative z-10 flex flex-col items-center gap-8 sm:gap-10 lg:gap-12 px-8 text-center max-w-3xl mx-auto">
+      <div className="relative z-10 flex flex-col items-center gap-6 sm:gap-8 px-8 text-center max-w-3xl mx-auto">
+        {/* FORMA — protagonist wordmark */}
         <div
-          className="w-36 sm:w-48 lg:w-64 anim-up"
+          className="w-64 sm:w-[420px] lg:w-[580px] anim-up"
           style={{ "--delay": "0s" } as React.CSSProperties}
-          aria-hidden
         >
           <FormaLogoAnimated className="w-full h-auto" />
         </div>
 
+        {/* Tagline — secondary, italic */}
         <h1
           className="anim-up"
           style={{
             fontFamily: "var(--font-cormorant), 'Cormorant Garamond', Georgia, serif",
-            fontSize: "clamp(2.8rem, 8vw, 7rem)",
+            fontSize: "clamp(1.5rem, 3.5vw, 2.8rem)",
             fontWeight: 300,
             fontStyle: "italic",
-            lineHeight: 1.05,
-            letterSpacing: "-0.02em",
+            lineHeight: 1.1,
+            letterSpacing: "-0.01em",
             color: "var(--text)",
-            "--delay": "0.15s",
+            opacity: 0.8,
+            "--delay": "0.18s",
           } as React.CSSProperties}
         >
-          Arte in tasca.
+          {t.heroTagline}
         </h1>
 
         <p
-          className="font-jakarta text-base sm:text-lg max-w-[26ch] sm:max-w-sm anim-up leading-loose"
-          style={{ color: "var(--muted)", "--delay": "0.3s" } as React.CSSProperties}
+          className="font-jakarta text-sm sm:text-base max-w-[30ch] anim-up leading-loose"
+          style={{ color: "var(--muted)", "--delay": "0.32s" } as React.CSSProperties}
         >
-          Template, prompt e strumenti per chi crea.
+          {t.heroSubSnap}
         </p>
 
         <Link
@@ -133,10 +140,10 @@ export default function HeroSection() {
             textDecoration: "none",
             letterSpacing: "0.14em",
             transition: "letter-spacing 0.4s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.2s",
-            "--delay": "0.45s",
+            "--delay": "0.46s",
           } as React.CSSProperties}
         >
-          Esplora il catalogo →
+          {t.heroCtaSnap}
         </Link>
       </div>
 
