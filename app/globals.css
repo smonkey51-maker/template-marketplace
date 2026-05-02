@@ -17,20 +17,8 @@
   .forma-section { height: 100vh; }
 }
 
-/* Smooth snap scrolling */
-#forma-snap-container {
-  scroll-behavior: smooth;
-}
-
 /* Prevent horizontal scroll from out-of-box elements */
 body { overflow-x: hidden; }
-
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  #forma-snap-container {
-    scroll-behavior: auto;
-  }
-}
 
 /* ── Catalogo: card hover tilt spring-back ── */
 .catalogo-card:hover > div {
