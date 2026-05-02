@@ -2,6 +2,56 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ═══════════════════════════════════════════════════════════
+   SNAP-SCROLL — FORMA cinematographic homepage
+   ═══════════════════════════════════════════════════════════ */
+
+/* Snap sections: 100svh (iOS Safari safe), fallback 100vh */
+.forma-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  height: 100svh;
+  position: relative;
+}
+
+@supports not (height: 100svh) {
+  .forma-section { height: 100vh; }
+}
+
+/* Reduced motion: disable scroll-behavior smooth */
+@media (prefers-reduced-motion: reduce) {
+  #forma-snap-container {
+    scroll-behavior: auto;
+  }
+}
+
+/* GSAP forma-reveal base state (reduced-motion fallback targets) */
+.forma-reveal {
+  opacity: 1;
+}
+
+/* Studio: micro-glitch on STUDIO oversized text (desktop hover) */
+@media (min-width: 1024px) {
+  .studio-glitch-text:hover {
+    animation: studio-glitch 0.4s steps(2) 1;
+  }
+}
+
+@keyframes studio-glitch {
+  0%   { transform: translate(0); opacity: 1; }
+  20%  { transform: translate(-3px, 1px); opacity: 0.9; }
+  40%  { transform: translate(3px, -1px); opacity: 1; }
+  60%  { transform: translate(-2px, 0); opacity: 0.85; }
+  80%  { transform: translate(2px, 1px); opacity: 1; }
+  100% { transform: translate(0); opacity: 1; }
+}
+
+/* Account: brush-stroke text texture */
+.account-brush-word {
+  position: relative;
+  display: inline-block;
+}
+
 /* ── Slingday — display font (local, /public/fonts/Slingday.otf) ── */
 /* unicode-range excludes ASCII digits (0–9) → they fall back to Jakarta Sans */
 @font-face {
