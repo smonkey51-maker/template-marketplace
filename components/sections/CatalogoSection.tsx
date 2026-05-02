@@ -183,7 +183,7 @@ export default function CatalogoSection() {
         style={{
           zIndex: 0,
           backgroundColor: "#1a2a3a",
-          backgroundImage: "url('https://upload.wikimedia.org/wikipedia/commons/7/7d/A_Sunday_on_La_Grande_Jatte%2C_Georges_Seurat%2C_1884.jpg')",
+          backgroundImage: "url('/paintings/seurat.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}

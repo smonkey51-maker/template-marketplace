@@ -21,7 +21,7 @@ export default function GuidaSection() {
         style={{
           zIndex: 0,
           backgroundColor: "#162216",
-          backgroundImage: "url('https://upload.wikimedia.org/wikipedia/commons/a/aa/Claude_Monet_-_Water_Lilies_and_Japanese_Bridge_%281897-1899%29_adjusted.jpg')",
+          backgroundImage: "url('/paintings/monet.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}

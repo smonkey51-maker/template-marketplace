@@ -15,7 +15,7 @@ export default function StudioSection() {
         style={{
           zIndex: 0,
           backgroundColor: "#0d1520",
-          backgroundImage: "url('https://upload.wikimedia.org/wikipedia/commons/a/ae/Vassily_Kandinsky%2C_1925_-_Yellow-Red-Blue.jpg')",
+          backgroundImage: "url('/paintings/kandinsky.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
