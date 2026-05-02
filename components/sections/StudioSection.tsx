@@ -37,32 +37,32 @@ export default function StudioSection() {
       </div>
 
       {/* UI panel */}
-      <div className="anim-up absolute right-6 sm:right-10 lg:right-16 top-1/2 -translate-y-1/2" style={{ zIndex: 8, width: "min(320px, 88vw)", "--delay": "0.35s" } as React.CSSProperties}>
-        <div className="flex items-center gap-2 mb-3">
-          <div style={{ width: "30px", height: "30px", borderRadius: "50%", background: "rgba(107,63,160,0.4)", border: "1px solid rgba(107,63,160,0.65)" }} />
-          <span className="text-white/50 text-xs font-semibold tracking-wider">AI Studio</span>
+      <div className="anim-up absolute right-6 sm:right-10 lg:right-20 top-1/2 -translate-y-1/2" style={{ zIndex: 8, width: "min(340px, 88vw)", "--delay": "0.35s" } as React.CSSProperties}>
+        <div className="flex items-center gap-3 mb-4">
+          <div style={{ width: "32px", height: "32px", borderRadius: "50%", background: "rgba(107,63,160,0.4)", border: "1px solid rgba(107,63,160,0.65)", backdropFilter: "blur(8px)" }} />
+          <span className="text-white/50 text-xs font-semibold tracking-wider" style={{ fontFamily: "var(--font-jakarta), sans-serif" }}>AI Studio</span>
         </div>
-        <div style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: "2px", padding: "12px 14px", marginBottom: "10px", minHeight: "68px", backdropFilter: "blur(8px)" }}>
+        <div style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.15)", borderRadius: "2px", padding: "14px 16px", marginBottom: "12px", minHeight: "72px", backdropFilter: "blur(14px)" }}>
           <span className="text-white/30 text-sm font-light" style={{ fontFamily: "var(--font-jakarta), sans-serif" }}>Genera un template per…</span>
         </div>
-        <Link href="/ai-studio" className="block w-full text-center py-3 px-4 text-sm font-bold tracking-wider uppercase hover:opacity-90 transition-opacity"
-          style={{ background: K.yellow, color: K.black, borderRadius: "2px", letterSpacing: "0.12em", textDecoration: "none", minHeight: "44px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <Link href="/ai-studio" className="block w-full text-center py-3.5 px-4 text-sm font-bold tracking-wider uppercase hover:opacity-90 transition-opacity"
+          style={{ background: K.yellow, color: K.black, borderRadius: "2px", letterSpacing: "0.12em", textDecoration: "none", minHeight: "46px", display: "flex", alignItems: "center", justifyContent: "center" }}>
           Genera template
         </Link>
-        <div className="grid grid-cols-3 gap-1.5 mt-3">
+        <div className="grid grid-cols-3 gap-2 mt-4">
           {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} style={{ aspectRatio: "1", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "1px" }} />
+            <div key={i} style={{ aspectRatio: "1", background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: "2px", backdropFilter: "blur(8px)" }} />
           ))}
         </div>
       </div>
 
       {/* Left content */}
-      <div className="relative z-10 flex flex-col h-full px-6 sm:px-10 lg:px-16 pt-20 pb-12 max-w-xs sm:max-w-sm">
-        <p className="anim-up text-xs font-semibold tracking-widest uppercase mb-4" style={{ color: K.yellow, letterSpacing: "0.14em", "--delay": "0.2s" } as React.CSSProperties}>AI Studio</p>
-        <h2 className="anim-up text-white font-light leading-snug mb-4" style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: "clamp(1.8rem, 4vw, 3rem)", letterSpacing: "-0.02em", "--delay": "0.3s" } as React.CSSProperties}>
+      <div className="relative z-10 flex flex-col h-full px-8 sm:px-14 lg:px-20 pt-24 pb-14 max-w-xs sm:max-w-sm">
+        <p className="anim-up text-xs font-semibold tracking-widest uppercase mb-5" style={{ color: K.yellow, letterSpacing: "0.16em", "--delay": "0.2s" } as React.CSSProperties}>AI Studio</p>
+        <h2 className="anim-up text-white font-light leading-snug mb-5" style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: "clamp(1.9rem, 4vw, 3.2rem)", letterSpacing: "-0.02em", "--delay": "0.3s" } as React.CSSProperties}>
           L&apos;astrazione che diventa forma.
         </h2>
-        <p className="anim-up text-white/60 text-sm leading-relaxed max-w-[32ch]" style={{ "--delay": "0.4s" } as React.CSSProperties}>
+        <p className="anim-up text-white/55 text-sm leading-loose max-w-[32ch]" style={{ fontFamily: "var(--font-jakarta), sans-serif", "--delay": "0.4s" } as React.CSSProperties}>
           Descrivi ciò che vuoi creare.<br />Claude genera il template in secondi.
         </p>
       </div>

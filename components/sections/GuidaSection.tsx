@@ -15,26 +15,26 @@ export default function GuidaSection() {
   return (
     <ArtSection id="guida" className="relative overflow-hidden flex flex-col items-center justify-center" aria-label="Sezione 3 di 5: Guida">
 
-      {/* Painting background — Monet, Nymphéas */}
+      {/* Painting background — Monet, Le Bassin aux Nymphéas */}
       <div
         className="anim-bg absolute inset-0"
         style={{
           zIndex: 0,
-          backgroundColor: "#1e2d3b",
-          backgroundImage: "url('https://upload.wikimedia.org/wikipedia/commons/a/aa/Claude_Monet_-_Water_Lilies_-_1906%2C_Ryerson.jpg')",
+          backgroundColor: "#162216",
+          backgroundImage: "url('https://upload.wikimedia.org/wikipedia/commons/a/aa/Claude_Monet_-_Water_Lilies_and_Japanese_Bridge_%281897-1899%29_adjusted.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       />
 
       {/* Dark overlay */}
-      <div className="anim-bg absolute inset-0" style={{ zIndex: 1, background: "rgba(8,16,24,0.72)", "--delay": "0.05s" } as React.CSSProperties} />
+      <div className="anim-bg absolute inset-0" style={{ zIndex: 1, background: "rgba(6,12,8,0.74)", "--delay": "0.05s" } as React.CSSProperties} />
 
-      {/* Water shimmer layer */}
-      <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 2, background: "radial-gradient(ellipse 100% 50% at 50% 80%, rgba(74,140,120,0.18), transparent)" }} aria-hidden />
+      {/* Green shimmer */}
+      <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 2, background: "radial-gradient(ellipse 100% 50% at 50% 85%, rgba(60,120,70,0.20), transparent)" }} aria-hidden />
 
       {/* Centered content */}
-      <div className="relative z-10 flex flex-col items-center text-center px-6 sm:px-10 max-w-2xl w-full pt-16 pb-12">
+      <div className="relative z-10 flex flex-col items-center text-center px-8 sm:px-12 max-w-2xl w-full pt-20 pb-14">
 
         <p className="anim-up text-xs font-semibold tracking-widest uppercase mb-4" style={{ color: MONET_ACCENT, letterSpacing: "0.16em", "--delay": "0.1s" } as React.CSSProperties}>
           Guida
@@ -52,12 +52,12 @@ export default function GuidaSection() {
         </p>
 
         {/* Steps grid */}
-        <div className="anim-up w-full grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8" style={{ "--delay": "0.44s" } as React.CSSProperties}>
+        <div className="anim-up w-full grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10" style={{ "--delay": "0.44s" } as React.CSSProperties}>
           {STEPS.map((step) => (
-            <div key={step.n} style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.10)", borderRadius: "2px", padding: "16px", backdropFilter: "blur(8px)", textAlign: "left" }}>
+            <div key={step.n} style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.15)", borderRadius: "2px", padding: "20px 22px", backdropFilter: "blur(12px)", textAlign: "left" }}>
               <span className="text-xs font-black tracking-widest" style={{ color: MONET_ACCENT }}>{step.n}</span>
-              <p className="text-white text-sm font-semibold mt-1 mb-1">{step.title}</p>
-              <p className="text-white/50 text-xs leading-relaxed">{step.desc}</p>
+              <p className="text-white text-sm font-semibold mt-2 mb-1.5" style={{ fontFamily: "var(--font-jakarta), sans-serif" }}>{step.title}</p>
+              <p className="text-white/50 text-xs leading-loose" style={{ fontFamily: "var(--font-jakarta), sans-serif" }}>{step.desc}</p>
             </div>
           ))}
         </div>

@@ -200,7 +200,7 @@ export default function CatalogoSection() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col h-full px-6 sm:px-10 lg:px-16 pt-20 pb-12 lg:pb-16">
+      <div className="relative z-10 flex flex-col h-full px-8 sm:px-12 lg:px-20 pt-24 pb-14 lg:pb-16">
         <div className="max-w-xs sm:max-w-sm">
           <p className="anim-up text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "var(--accent)", letterSpacing: "0.14em", "--delay": "0.2s" } as React.CSSProperties}>
             Catalogo
