@@ -10,6 +10,132 @@ import Link from "next/link";
 
 gsap.registerPlugin(SplitText, MotionPathPlugin);
 
+// ── Floating out-of-box card mockups ────────────────────────────────────────
+
+function MockCard({
+  rotate,
+  x,
+  y,
+  width,
+  label,
+  accent,
+  lines,
+  className = "",
+}: {
+  rotate: number;
+  x: string;
+  y: string;
+  width: number;
+  label: string;
+  accent: string;
+  lines: number[];
+  className?: string;
+}) {
+  return (
+    <div
+      className={`absolute pointer-events-none select-none ${className}`}
+      style={{
+        left: x,
+        top: y,
+        width,
+        transform: `rotate(${rotate}deg)`,
+        filter: "drop-shadow(0 24px 48px rgba(0,0,0,0.65)) drop-shadow(0 4px 12px rgba(0,0,0,0.4))",
+        willChange: "transform",
+      }}
+      aria-hidden
+    >
+      {/* Browser chrome */}
+      <div
+        style={{
+          background: "rgba(20,18,15,0.95)",
+          border: "1px solid rgba(212,175,55,0.18)",
+          borderRadius: "4px",
+          overflow: "hidden",
+        }}
+      >
+        {/* Title bar */}
+        <div
+          style={{
+            height: "22px",
+            background: "rgba(255,255,255,0.04)",
+            borderBottom: "1px solid rgba(255,255,255,0.06)",
+            display: "flex",
+            alignItems: "center",
+            gap: "5px",
+            padding: "0 8px",
+          }}
+        >
+          {["#ff5f57", "#ffbd2e", "#28c840"].map((c) => (
+            <span key={c} style={{ width: 7, height: 7, borderRadius: "50%", background: c, opacity: 0.7 }} />
+          ))}
+          <span
+            style={{
+              flex: 1,
+              height: "10px",
+              background: "rgba(255,255,255,0.06)",
+              borderRadius: "2px",
+              marginLeft: "6px",
+            }}
+          />
+        </div>
+
+        {/* Hero bar */}
+        <div
+          style={{
+            height: "38px",
+            background: accent,
+            opacity: 0.9,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <span
+            style={{
+              fontSize: "8px",
+              fontFamily: "var(--font-montserrat), sans-serif",
+              fontWeight: 700,
+              letterSpacing: "0.18em",
+              color: "rgba(0,0,0,0.65)",
+              textTransform: "uppercase",
+            }}
+          >
+            {label}
+          </span>
+        </div>
+
+        {/* Content skeleton */}
+        <div style={{ padding: "8px", background: "rgba(12,11,9,0.95)" }}>
+          {lines.map((w, i) => (
+            <div
+              key={i}
+              style={{
+                height: "5px",
+                width: `${w}%`,
+                background: "rgba(255,255,255,0.08)",
+                borderRadius: "2px",
+                marginBottom: "4px",
+              }}
+            />
+          ))}
+          <div
+            style={{
+              height: "16px",
+              width: "42%",
+              background: `${accent}33`,
+              border: `1px solid ${accent}55`,
+              borderRadius: "2px",
+              marginTop: "6px",
+            }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+
 export default function HeroSection() {
   const buildTimeline = useCallback((tl: gsap.core.Timeline, container: HTMLElement) => {
     const isDesktop = window.matchMedia("(min-width: 1024px) and (prefers-reduced-motion: no-preference)").matches;
@@ -20,49 +146,52 @@ export default function HeroSection() {
     const logoEl = container.querySelector(".hero-logo") as HTMLElement | null;
     const counterEl = container.querySelector(".hero-counter") as HTMLElement | null;
     const ctaEl = container.querySelector(".hero-cta") as HTMLElement | null;
+    const mockCards = Array.from(container.querySelectorAll(".hero-mockcard")) as HTMLElement[];
 
     if (reduceMotion) {
-      gsap.set([taglineEl, subEl, logoEl, counterEl, ctaEl].filter(Boolean), { opacity: 1, y: 0, yPercent: 0 });
+      gsap.set([taglineEl, subEl, logoEl, counterEl, ctaEl, ...mockCards].filter(Boolean), { opacity: 1, y: 0, yPercent: 0 });
       return;
     }
 
-    // Logo fade in
-    if (logoEl) {
-      tl.from(logoEl, { opacity: 0, y: -20, duration: 0.8, ease: "power3.out" });
-    }
+    if (logoEl) tl.from(logoEl, { opacity: 0, y: -20, duration: 0.8, ease: "power3.out" });
 
-    // SplitText tagline line-mask reveal
     if (taglineEl) {
       const split = new SplitText(taglineEl, { type: "lines", mask: "lines" });
-      tl.from(
-        split.lines,
-        {
-          yPercent: 100,
-          duration: 1.1,
-          ease: "expo.out",
-          stagger: 0.08,
-          onComplete: () => split.revert(),
-        },
-        "-=0.4"
-      );
+      tl.from(split.lines, {
+        yPercent: 100, duration: 1.1, ease: "expo.out", stagger: 0.08,
+        onComplete: () => split.revert(),
+      }, "-=0.4");
     }
 
-    // Sub text fade up
-    if (subEl) {
-      tl.from(subEl, { opacity: 0, y: 24, duration: 0.7, ease: "power3.out" }, "-=0.5");
+    if (subEl) tl.from(subEl, { opacity: 0, y: 24, duration: 0.7, ease: "power3.out" }, "-=0.5");
+    if (ctaEl) tl.from(ctaEl, { opacity: 0, y: 16, duration: 0.6, ease: "power2.out" }, "-=0.4");
+    if (counterEl) tl.from(counterEl, { opacity: 0, x: 20, duration: 0.5, ease: "power2.out" }, "-=0.4");
+
+    // Floating mock cards drift in from outside
+    if (mockCards.length > 0) {
+      tl.from(mockCards, {
+        opacity: 0,
+        scale: 0.88,
+        y: (i) => (i % 2 === 0 ? -30 : 30),
+        duration: 1.0,
+        ease: "power3.out",
+        stagger: 0.12,
+      }, 0.2);
+
+      // Idle gentle float
+      if (isDesktop) {
+        mockCards.forEach((card, i) => {
+          tl.to(card, {
+            y: `+=${i % 2 === 0 ? -10 : 10}`,
+            duration: 3 + i * 0.7,
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1,
+          }, 1.5 + i * 0.3);
+        });
+      }
     }
 
-    // CTA fade
-    if (ctaEl) {
-      tl.from(ctaEl, { opacity: 0, y: 16, duration: 0.6, ease: "power2.out" }, "-=0.4");
-    }
-
-    // Counter fade
-    if (counterEl) {
-      tl.from(counterEl, { opacity: 0, x: 20, duration: 0.5, ease: "power2.out" }, "-=0.4");
-    }
-
-    // Desktop: MotionPath subtle curve on tagline entry (decor, not layout)
     if (isDesktop && taglineEl) {
       const decor = container.querySelector(".hero-decor-path") as SVGPathElement | null;
       if (decor) {
@@ -78,10 +207,12 @@ export default function HeroSection() {
       id="hero"
       buildTimeline={buildTimeline}
       once
-      className="relative flex flex-col items-center justify-center overflow-hidden"
+      // overflow-visible so mockup cards bleed past section edges; snap container clips x-axis
+      className="relative flex flex-col items-center justify-center"
+      style={{ overflow: "visible" }}
       aria-label="Sezione 1 di 5: Hero"
     >
-      {/* Background gradient */}
+      {/* Background */}
       <div className="absolute inset-0 bg-page" style={{ zIndex: 0 }} />
       <div
         className="absolute inset-0 pointer-events-none"
@@ -91,9 +222,9 @@ export default function HeroSection() {
         }}
       />
 
-      {/* Decorative MotionPath SVG (desktop only) */}
+      {/* Decorative MotionPath SVG */}
       <svg
-        className="hero-decor-path absolute inset-0 w-full h-full pointer-events-none hidden lg:block"
+        className="absolute inset-0 w-full h-full pointer-events-none hidden lg:block"
         style={{ zIndex: 1, opacity: 0 }}
         aria-hidden
         preserveAspectRatio="none"
@@ -107,14 +238,50 @@ export default function HeroSection() {
         />
       </svg>
 
-      {/* Main content */}
+      {/* ── Out-of-the-box floating mockup cards ─────────────────── */}
+
+      {/* Card A — top-right, tilted +14deg, peeking from edge */}
+      <MockCard
+        className="hero-mockcard hidden lg:block"
+        rotate={14}
+        x="calc(100% - 160px)"
+        y="6%"
+        width={220}
+        label="SaaS Hero"
+        accent="#D4AF37"
+        lines={[85, 60, 75]}
+      />
+
+      {/* Card B — bottom-left, tilted -11deg */}
+      <MockCard
+        className="hero-mockcard hidden lg:block"
+        rotate={-11}
+        x="-60px"
+        y="58%"
+        width={200}
+        label="Landing Page"
+        accent="#5a8fb0"
+        lines={[90, 55, 70]}
+      />
+
+      {/* Card C — right-center, tilted +6deg — visible on tablet too */}
+      <MockCard
+        className="hero-mockcard hidden sm:block"
+        rotate={6}
+        x="calc(100% - 110px)"
+        y="44%"
+        width={180}
+        label="Notion Hub"
+        accent="#6b8e4e"
+        lines={[80, 65, 50]}
+      />
+
+      {/* ── Main content ──────────────────────────────────────────── */}
       <div className="relative z-10 flex flex-col items-center gap-6 sm:gap-8 px-6 text-center max-w-3xl mx-auto">
-        {/* Logo */}
         <div className="hero-logo w-36 sm:w-48 lg:w-64" aria-hidden>
           <FormaLogoAnimated className="w-full h-auto" />
         </div>
 
-        {/* Tagline */}
         <h1
           className="hero-tagline overflow-hidden"
           style={{
@@ -130,7 +297,6 @@ export default function HeroSection() {
           Arte in tasca.
         </h1>
 
-        {/* Sub */}
         <p
           className="hero-sub font-jakarta text-base sm:text-lg max-w-xs sm:max-w-sm"
           style={{ color: "var(--muted)" }}
@@ -138,26 +304,26 @@ export default function HeroSection() {
           Template, prompt e strumenti per chi crea.
         </p>
 
-        {/* CTA */}
         <Link
           href="/catalogo"
-          className="hero-cta inline-block text-sm font-semibold tracking-widest uppercase transition-colors duration-200 hover:opacity-100"
+          className="hero-cta inline-block text-sm font-semibold tracking-widest uppercase transition-all duration-300 hover:opacity-100 hover:tracking-[0.2em]"
           style={{
             color: "var(--accent)",
             borderBottom: "1px solid var(--accent)",
             paddingBottom: "2px",
             textDecoration: "none",
             letterSpacing: "0.14em",
+            transition: "letter-spacing 0.4s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.2s",
           }}
         >
           Esplora il catalogo →
         </Link>
       </div>
 
-      {/* Counter 01/05 bottom-right */}
+      {/* Counter 01/05 */}
       <div
         className="hero-counter absolute bottom-6 right-6 sm:bottom-8 sm:right-8 font-montserrat text-xs tracking-widest uppercase"
-        style={{ color: "var(--muted)", letterSpacing: "0.12em" }}
+        style={{ color: "var(--muted)", letterSpacing: "0.12em", zIndex: 10 }}
         aria-hidden
       >
         <span style={{ color: "var(--accent)", fontWeight: 700 }}>01</span>
@@ -165,11 +331,8 @@ export default function HeroSection() {
         <span>05</span>
       </div>
 
-      {/* Social — bottom-left (desktop) */}
-      <div
-        className="hidden lg:flex absolute bottom-8 left-10 items-center gap-4"
-        aria-label="Social links"
-      >
+      {/* Social — bottom-left desktop */}
+      <div className="hidden lg:flex absolute bottom-8 left-10 items-center gap-4" aria-label="Social links" style={{ zIndex: 10 }}>
         {[
           { href: "https://twitter.com", label: "Twitter / X", path: "M4 4l7.5 7.5L4 18h2.5l5.5-6.5L17 18h3l-7.5-8 7.5-8H17l-5.5 6-5-6H4z" },
           { href: "https://instagram.com", label: "Instagram", rect: true },

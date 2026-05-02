@@ -10,6 +10,7 @@ import StudioSection from "@/components/sections/StudioSection";
 import AccountSection from "@/components/sections/AccountSection";
 import SectionNav from "@/components/sections/SectionNav";
 import ScrollIndicator from "@/components/sections/ScrollIndicator";
+import GallerySpotlight from "@/components/sections/GallerySpotlight";
 
 const SECTION_LABELS = [
   "Sezione 1 di 5: Home",
@@ -124,6 +125,9 @@ export default function SnapHomepage() {
         Vai al catalogo
       </a>
 
+      {/* Gallery spotlight — gold radial gradient follows cursor/touch */}
+      <GallerySpotlight />
+
       {/* Fixed overlay nav (logo + tabs + hamburger) */}
       <SectionNav />
 
@@ -145,9 +149,9 @@ export default function SnapHomepage() {
         style={{
           height: "100svh",
           overflowY: "scroll",
+          overflowX: "hidden",    // contain out-of-box card bleed
           scrollSnapType: "y mandatory",
           overscrollBehaviorY: "contain",
-          // iOS: no -webkit-overflow-scrolling (deprecated)
         }}
         // Keyboard: PgUp/PgDn/arrows work natively with scroll-snap
       >
