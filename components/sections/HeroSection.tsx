@@ -72,31 +72,47 @@ export default function HeroSection() {
       style={{ overflow: "visible" }}
       aria-label="Sezione 1 di 5: Hero"
     >
-      <div className="absolute inset-0 bg-page" style={{ zIndex: 0 }} />
+      {/* Painting background — Vermeer, L'Astronomo, 1668 */}
+      <div
+        className="anim-bg absolute inset-0"
+        style={{
+          zIndex: 0,
+          backgroundColor: "#0d0a07",
+          backgroundImage: "url('/paintings/vermeer.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center 20%",
+        }}
+      />
+      {/* Dark overlay */}
+      <div
+        className="absolute inset-0"
+        style={{ zIndex: 1, background: "rgba(5,3,2,0.80)" }}
+      />
+      {/* Gold radial glow — top center */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ zIndex: 1, background: "radial-gradient(ellipse 80% 60% at 50% 40%, rgba(212,175,55,0.07), transparent)" }}
+        style={{ zIndex: 2, background: "radial-gradient(ellipse 70% 50% at 50% 35%, rgba(212,175,55,0.10), transparent)" }}
       />
 
-      {/* Floating mockup cards */}
+      {/* Floating mockup cards — xl only, live in outer margins at that width */}
       <MockCard
-        className="hidden lg:block anim-in"
+        className="hidden xl:block anim-in"
         rotate={14} x="calc(100% - 160px)" y="6%" width={220}
         label="SaaS Hero" accent="#D4AF37" lines={[85, 60, 75]}
       />
       <MockCard
-        className="hidden lg:block anim-in"
+        className="hidden xl:block anim-in"
         rotate={-11} x="-60px" y="58%" width={200}
         label="Landing Page" accent="#5a8fb0" lines={[90, 55, 70]}
       />
       <MockCard
-        className="hidden sm:block anim-in"
+        className="hidden xl:block anim-in"
         rotate={6} x="calc(100% - 110px)" y="44%" width={180}
         label="Notion Hub" accent="#6b8e4e" lines={[80, 65, 50]}
       />
 
       {/* Main content */}
-      <div className="relative z-10 flex flex-col items-center gap-6 sm:gap-8 px-8 text-center max-w-3xl mx-auto">
+      <div className="relative flex flex-col items-center gap-6 sm:gap-8 px-8 text-center max-w-3xl mx-auto" style={{ zIndex: 3 }}>
         {/* FORMA — protagonist wordmark */}
         <div
           className="w-64 sm:w-[420px] lg:w-[580px] anim-up"
@@ -115,8 +131,7 @@ export default function HeroSection() {
             fontStyle: "italic",
             lineHeight: 1.1,
             letterSpacing: "-0.01em",
-            color: "var(--text)",
-            opacity: 0.8,
+            color: "rgba(242,235,217,0.78)",
             "--delay": "0.18s",
           } as React.CSSProperties}
         >
@@ -125,7 +140,7 @@ export default function HeroSection() {
 
         <p
           className="font-jakarta text-sm sm:text-base max-w-[30ch] anim-up leading-loose"
-          style={{ color: "var(--muted)", "--delay": "0.32s" } as React.CSSProperties}
+          style={{ color: "rgba(242,235,217,0.45)", "--delay": "0.32s" } as React.CSSProperties}
         >
           {t.heroSubSnap}
         </p>
@@ -150,7 +165,7 @@ export default function HeroSection() {
       {/* Counter 01/05 */}
       <div
         className="anim-in absolute bottom-6 right-6 sm:bottom-8 sm:right-8 font-montserrat text-xs tracking-widest uppercase"
-        style={{ color: "var(--muted)", letterSpacing: "0.12em", zIndex: 10, "--delay": "0.55s" } as React.CSSProperties}
+        style={{ color: "rgba(242,235,217,0.35)", letterSpacing: "0.12em", zIndex: 10, "--delay": "0.55s" } as React.CSSProperties}
         aria-hidden
       >
         <span style={{ color: "var(--accent)", fontWeight: 700 }}>01</span>
