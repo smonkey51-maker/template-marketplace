@@ -18,10 +18,29 @@
   .forma-section { height: 100vh; }
 }
 
+/* Prevent horizontal scroll from out-of-box elements */
+body { overflow-x: hidden; }
+
 /* Reduced motion: disable scroll-behavior smooth */
 @media (prefers-reduced-motion: reduce) {
   #forma-snap-container {
     scroll-behavior: auto;
+  }
+}
+
+/* ── Catalogo: card hover tilt spring-back ── */
+.catalogo-card:hover > div {
+  box-shadow: 0 16px 48px rgba(212,175,55,0.22), 0 4px 16px rgba(0,0,0,0.5) !important;
+}
+.catalogo-card:hover {
+  transform: rotate(0deg) translateY(-4px) scale(1.03) !important;
+  z-index: 10 !important;
+}
+
+/* ── Hero: floating mockup cards passive hover parallax ── */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .hero-mockcard {
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 }
 
