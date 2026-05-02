@@ -77,26 +77,6 @@ export default function AccountSection() {
         </span>
       </div>
 
-      {/* Social — bottom left, visibili sempre */}
-      <div className="absolute bottom-6 sm:bottom-8 left-6 sm:left-10 lg:left-16 flex items-center gap-4" style={{ zIndex: 10 }}>
-        {[
-          { href: "https://twitter.com", label: "Twitter", icon: "M4 4l7.5 7.5L4 18h2.5l5.5-6.5L17 18h3l-7.5-8 7.5-8H17l-5.5 6-5-6H4z" },
-          { href: "https://instagram.com", label: "Instagram" },
-        ].map(({ href, label, icon }) => (
-          <a key={href} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
-            className="flex items-center gap-1.5 transition-opacity duration-200 hover:opacity-100"
-            style={{ color: "rgba(255,255,255,0.50)" }}>
-            <svg width="15" height="15" viewBox="0 0 22 22" fill="none" aria-hidden>
-              {icon ? (
-                <path d={icon} stroke="currentColor" strokeWidth="1.5" />
-              ) : (
-                <><rect x="3" y="3" width="16" height="16" rx="5" stroke="currentColor" strokeWidth="1.5" /><circle cx="11" cy="11" r="3.5" stroke="currentColor" strokeWidth="1.5" /><circle cx="16" cy="6" r="0.75" fill="currentColor" /></>
-              )}
-            </svg>
-            <span className="text-[10px] font-semibold tracking-widest uppercase hidden sm:inline" style={{ letterSpacing: "0.12em" }}>{label}</span>
-          </a>
-        ))}
-      </div>
 
       <div className="absolute top-20 right-6 sm:right-8 font-montserrat text-xs tracking-widest" style={{ color: "rgba(255,255,255,0.35)", letterSpacing: "0.12em", zIndex: 10 }} aria-hidden>
         <span style={{ color: "var(--accent)", fontWeight: 700 }}>05</span><span className="mx-1 opacity-40">/</span><span>05</span>
