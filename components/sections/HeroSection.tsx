@@ -91,7 +91,7 @@ export default function HeroSection() {
       />
 
       {/* Main content */}
-      <div className="relative z-10 flex flex-col items-center gap-6 sm:gap-8 px-6 text-center max-w-3xl mx-auto">
+      <div className="relative z-10 flex flex-col items-center gap-8 sm:gap-10 lg:gap-12 px-8 text-center max-w-3xl mx-auto">
         <div
           className="w-36 sm:w-48 lg:w-64 anim-up"
           style={{ "--delay": "0s" } as React.CSSProperties}
@@ -117,7 +117,7 @@ export default function HeroSection() {
         </h1>
 
         <p
-          className="font-jakarta text-base sm:text-lg max-w-xs sm:max-w-sm anim-up"
+          className="font-jakarta text-base sm:text-lg max-w-[26ch] sm:max-w-sm anim-up leading-loose"
           style={{ color: "var(--muted)", "--delay": "0.3s" } as React.CSSProperties}
         >
           Template, prompt e strumenti per chi crea.
