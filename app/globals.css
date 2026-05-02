@@ -44,9 +44,45 @@ body { overflow-x: hidden; }
   }
 }
 
-/* GSAP forma-reveal base state (reduced-motion fallback targets) */
-.forma-reveal {
-  opacity: 1;
+/* ── Snap section entrance CSS animations ─────────────────────── */
+/* anim-bg: background fade-in via CSS transition */
+.anim-bg {
+  opacity: 0;
+  transition: opacity 0.9s var(--ease-glide, cubic-bezier(0.22, 1, 0.36, 1)) var(--delay, 0s);
+}
+.forma-section[data-entered] .anim-bg { opacity: 1; }
+
+/* anim-in: simple fade-in */
+.anim-in {
+  opacity: 0;
+}
+.forma-section[data-entered] .anim-in {
+  animation: forma-fade-in 0.7s var(--ease-glide, cubic-bezier(0.22, 1, 0.36, 1)) var(--delay, 0s) both;
+}
+
+/* anim-up: fade in + slide up */
+.anim-up {
+  opacity: 0;
+  transform: translateY(22px);
+}
+.forma-section[data-entered] .anim-up {
+  animation: forma-fade-up 0.65s var(--ease-glide, cubic-bezier(0.22, 1, 0.36, 1)) var(--delay, 0s) both;
+}
+
+@keyframes forma-fade-in {
+  to { opacity: 1; }
+}
+@keyframes forma-fade-up {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-bg, .anim-in, .anim-up {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
 }
 
 /* Studio: micro-glitch on STUDIO oversized text (desktop hover) */
