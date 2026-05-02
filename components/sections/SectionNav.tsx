@@ -28,12 +28,17 @@ export default function SectionNav() {
 
   return (
     <>
-      {/* Fixed overlay nav bar */}
+      {/* Fixed overlay nav bar — glassmorphism */}
       <header
         className="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-4 sm:px-6 lg:px-10"
         style={{
           height: "56px",
           paddingTop: "env(safe-area-inset-top, 0px)",
+          background: "rgba(5,4,2,0.52)",
+          backdropFilter: "blur(20px) saturate(150%)",
+          WebkitBackdropFilter: "blur(20px) saturate(150%)",
+          borderBottom: "1px solid rgba(212,175,55,0.09)",
+          boxShadow: "0 1px 0 rgba(255,255,255,0.03)",
         }}
       >
         {/* Logo top-left */}

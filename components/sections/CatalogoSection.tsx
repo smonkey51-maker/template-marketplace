@@ -229,12 +229,17 @@ export default function CatalogoSection() {
               } as React.CSSProperties}
             >
               <div style={{
-                background: card.editorsPick ? `linear-gradient(135deg, rgba(212,175,55,0.12), rgba(255,255,255,0.04))` : "rgba(255,255,255,0.06)",
-                border: card.editorsPick ? "1px solid rgba(212,175,55,0.40)" : "1px solid rgba(255,255,255,0.10)",
+                background: card.editorsPick
+                  ? `linear-gradient(160deg, rgba(212,175,55,0.14), rgba(255,255,255,0.04))`
+                  : "rgba(255,255,255,0.07)",
+                border: card.editorsPick ? "1px solid rgba(212,175,55,0.45)" : "1px solid rgba(255,255,255,0.13)",
                 borderRadius: "3px",
                 padding: "8px",
-                backdropFilter: "blur(6px)",
-                boxShadow: card.editorsPick ? "0 8px 32px rgba(212,175,55,0.18), 0 2px 8px rgba(0,0,0,0.5)" : "0 4px 16px rgba(0,0,0,0.4)",
+                backdropFilter: "blur(18px) saturate(160%)",
+                WebkitBackdropFilter: "blur(18px) saturate(160%)",
+                boxShadow: card.editorsPick
+                  ? "0 8px 32px rgba(212,175,55,0.20), 0 2px 8px rgba(0,0,0,0.55), inset 0 1px 0 rgba(212,175,55,0.18)"
+                  : "0 4px 16px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.07)",
                 transition: "box-shadow 0.3s ease",
                 position: "relative",
                 overflow: "visible",
