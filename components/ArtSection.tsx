@@ -1,9 +1,8 @@
 "use client";
 
-import { ReactNode, useRef, type CSSProperties } from "react";
+import { ReactNode, useRef, useEffect, type CSSProperties } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
 
 export type ArtSectionId = "hero" | "catalogo" | "guida" | "studio" | "account";
 
@@ -32,10 +31,11 @@ export default function ArtSection({
 }: ArtSectionProps) {
   const ref = useRef<HTMLElement>(null);
 
-  useGSAP(
-    () => {
-      const el = ref.current;
-      if (!el) return;
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const ctx = gsap.context(() => {
       const tl = gsap.timeline({ paused: true });
       buildTimeline(tl, el);
 
@@ -50,9 +50,10 @@ export default function ArtSection({
         onLeave: () => !once && tl.pause(0),
         onLeaveBack: () => !once && tl.pause(0),
       });
-    },
-    { scope: ref, dependencies: [buildTimeline, start, once] }
-  );
+    }, el);
+
+    return () => ctx.revert();
+  }, [buildTimeline, start, once, scroller]);
 
   return (
     <section
