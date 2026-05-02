@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 import gsap from "gsap";
 import ArtSection from "@/components/ArtSection";
 import Image from "next/image";
@@ -12,18 +12,29 @@ const SEURAT_PALETTE = [
   "#7aa3c0", "#b87a5a", "#4a7a3a", "#e0c88a", "#8ab0c8", "#c0a060",
 ];
 
-const SECTION_BG_FALLBACK = "#1a2a3a"; // deep blue-grey fallback when painting absent
+const SECTION_BG_FALLBACK = "#1a2a3a";
 
-// Build a stable array of dot descriptors (avoids re-computation on render)
+// Mulberry32 deterministic PRNG — identical values on SSR and client (no hydration mismatch)
+function rng(seed: number): number {
+  let t = (seed ^ 0x6D2B79F5) >>> 0;
+  t = Math.imul(t ^ (t >>> 15), t | 1);
+  t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+  return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+}
+
 function buildDots(count: number) {
   return Array.from({ length: count }, (_, i) => ({
     id: i,
     color: SEURAT_PALETTE[i % SEURAT_PALETTE.length],
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    size: 4 + Math.random() * 6,
+    x: rng(i * 3) * 100,
+    y: rng(i * 3 + 1) * 100,
+    size: 4 + rng(i * 3 + 2) * 6,
   }));
 }
+
+// Pre-computed at module level — deterministic, safe for SSR
+const DESKTOP_DOTS = buildDots(120);
+const MOBILE_DOTS = buildDots(30);
 
 // Template card data (top 3 from catalog — static preview)
 const PREVIEW_CARDS = [
@@ -36,10 +47,6 @@ const PREVIEW_CARDS = [
 ];
 
 export default function CatalogoSection() {
-  // Stable dot arrays (created once per component lifecycle)
-  const desktopDots = useMemo(() => buildDots(120), []);
-  const mobileDots = useMemo(() => buildDots(30), []);
-
   const buildTimeline = useCallback((tl: gsap.core.Timeline, container: HTMLElement) => {
     const isMobile = window.matchMedia("(max-width: 639px)").matches;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -135,10 +142,6 @@ export default function CatalogoSection() {
       .from(ctaEl, { opacity: 0, y: 12, duration: 0.4, ease: "power2.out" }, 1.4);
   }, []);
 
-  const dots = typeof window !== "undefined" && window.matchMedia("(max-width:639px)").matches
-    ? mobileDots
-    : desktopDots;
-
   return (
     <ArtSection
       id="catalogo"
@@ -169,7 +172,7 @@ export default function CatalogoSection() {
       {/* Seurat dots layer */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 2 }} aria-hidden>
         <div className="relative w-full h-full">
-          {desktopDots.map((dot) => (
+          {DESKTOP_DOTS.map((dot) => (
             <span
               key={dot.id}
               className="seurat-dot absolute rounded-full"
