@@ -6,7 +6,7 @@ export type HistoryEntry = {
   id: string;
   output: string;
   label: string;
-  category: "ui" | "prompt";
+  category: "ui" | "prompt" | "guide" | "worksheet" | "tracker" | "script";
   tab: Tab;
   timestamp: number;
   input?: string;

@@ -2,6 +2,8 @@ import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { getDownloadType } from "@/lib/templates";
 import { getTemplateFromDb } from "@/lib/templatesDb";
+import { readFileSync, existsSync } from "fs";
+import { join } from "path";
 import { getUserPurchases } from "@/lib/purchases";
 import { localiseHtml, getDisplayName } from "@/lib/localise";
 import { buildShopifyZip, buildWordPressZip } from "@/lib/zip-templates";
@@ -37,6 +39,18 @@ export async function GET(
 
     switch (downloadType) {
       case "html": {
+        // For ready-to-use products, serve the full standalone HTML file directly
+        const staticPath = join(process.cwd(), "public", "products", `${templateId}.html`);
+        if (existsSync(staticPath)) {
+          const staticHtml = readFileSync(staticPath, "utf-8");
+          return new NextResponse(staticHtml, {
+            headers: {
+              "Content-Type": "text/html; charset=utf-8",
+              "Content-Disposition": `attachment; filename="${templateId}.html"`,
+            },
+          });
+        }
+
         const body = localiseHtml(template.content, lang, templateId);
         const htmlLang = lang === "it" ? "it" : "en";
         const displayName = getDisplayName(templateId, template.name, lang);

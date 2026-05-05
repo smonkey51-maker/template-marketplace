@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getTemplate } from "@/lib/templates";
+import { readFileSync, existsSync } from "fs";
+import { join } from "path";
 
 export async function GET(
   _req: NextRequest,
@@ -10,6 +12,15 @@ export async function GET(
 
   if (!template) {
     return new NextResponse("Not found", { status: 404 });
+  }
+
+  // For ready-to-use products stored as standalone HTML files in public/products/
+  const staticPath = join(process.cwd(), "public", "products", `${templateId}.html`);
+  if (existsSync(staticPath)) {
+    const html = readFileSync(staticPath, "utf-8");
+    return new NextResponse(html, {
+      headers: { "Content-Type": "text/html; charset=utf-8" },
+    });
   }
 
   const html = `<!DOCTYPE html>

@@ -10,7 +10,13 @@ export async function GET(req: NextRequest) {
   const template = templateId ? getTemplate(templateId) : null;
 
   if (template) {
-    const categoryLabel = template.category === "ui" ? "UI Template" : "AI Prompt";
+    const categoryLabel =
+      template.category === "ui" ? "UI Template" :
+      template.category === "guide" ? "Guide" :
+      template.category === "worksheet" ? "Worksheet" :
+      template.category === "tracker" ? "Tracker" :
+      template.category === "script" ? "Script Pack" :
+      "Prompt Pack";
     const priceLabel = `€${(template.price / 100).toFixed(2)}`;
 
     return new ImageResponse(

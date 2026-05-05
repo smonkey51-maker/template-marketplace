@@ -1,0 +1,64 @@
+============================================================
+GUMROAD LISTING — Home Gym 4-Week Programming Guide
+============================================================
+
+PRODUCT TITLE:
+Home Gym 4-Week Programming Guide — Beginner to Intermediate Training Program (Minimal Equipment)
+
+PRICE: $15 (or €14)
+
+SUMMARY (shown in search results):
+A complete 4-week progressive home workout program for beginners and intermediates. 3–4 sessions/week, minimal equipment, built-in progression system.
+
+DESCRIPTION (paste into Gumroad product description field):
+---
+A gym membership is optional. Results aren't.
+
+This 4-week home training program is designed for people who want to get stronger and fitter without a gym — using just dumbbells, resistance bands, and a pull-up bar (with bodyweight alternatives for everything).
+
+**What You Get:**
+
+📋 4 complete weeks of programming:
+→ Week 1: Foundation (learn movement patterns, RPE 7)
+→ Week 2: Load Increase (add weight, 4th optional session)
+→ Week 3: Intensity Peak (AMRAP sets, drop sets, push hard)
+→ Week 4: Deload & Consolidation (60% effort, lock in gains)
+
+💪 3–4 sessions per week, 45–60 minutes each:
+→ Upper Body Push days
+→ Lower Body days
+→ Upper Body Pull + Core days
+→ Full Body Circuit (optional Day 4)
+
+📊 Progress Tracker — log your weights week by week
+🥗 Nutrition Basics — what to eat pre/post workout
+⚙️ Equipment guide — and bodyweight alternatives for every exercise
+
+**Who It's For:**
+Beginners (0–12 months of training) and intermediate trainees returning after a break. Works with zero equipment — bodyweight alternatives provided throughout.
+
+**Format:** Instant-download PDF (printable workout log included)
+
+---
+
+TAGS:
+home workout, training program, fitness guide, bodyweight workout, dumbbell program, beginner fitness, strength training, no gym, workout plan
+
+CATEGORY: Health & Fitness
+
+COVER IMAGE SIZE: 1280 x 720px
+SUGGESTED COVER TEXT: "Home Gym 4-Week Program — Build Strength Without a Gym"
+
+============================================================
+HOW TO UPLOAD TO GUMROAD
+============================================================
+
+1. Open home-gym-4-week-program.html in Chrome
+2. File → Print → Destination: Save as PDF → Print
+3. Upload to Gumroad as a Digital Product
+4. Set price to $15 (higher price justified by the comprehensive content)
+5. For cover image: use a dark green gradient (matching the product) with bold white text
+6. Great for upselling: "Also check out [Anti-Procrastination Playbook]" in the thank-you message
+
+POST-PURCHASE EMAIL TIP:
+Add a Gumroad post-purchase note: "After completing Week 4, go back to Week 1 with 10% heavier weights. This is progressive overload — the core mechanism of long-term progress. Any questions? Reply to this email."

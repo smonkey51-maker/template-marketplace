@@ -80,7 +80,7 @@ function StudioContent() {
       body: Record<string, unknown>,
       setOutput: (v: string | ((prev: string) => string)) => void,
       setLoading: (v: boolean) => void,
-      historyMeta: { label: string; category: "ui" | "prompt"; tab: Tab; input?: string; templateId?: string }
+      historyMeta: { label: string; category: "ui" | "prompt" | "guide" | "worksheet" | "tracker" | "script"; tab: Tab; input?: string; templateId?: string }
     ) => {
       abortRef.current?.abort();
       const controller = new AbortController();
