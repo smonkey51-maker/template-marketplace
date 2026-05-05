@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Freelance Rate Calculator Workbook</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:#f9fafb;color:#111827;line-height:1.7}
+  .cover{background:linear-gradient(135deg,#0284c7 0%,#0c4a6e 100%);color:#fff;padding:56px 44px;text-align:center}
+  .cover .badge{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:6px 18px;font-size:13px;letter-spacing:.5px;margin-bottom:24px}
+  .cover h1{font-size:clamp(24px,4vw,40px);font-weight:800;line-height:1.2;margin-bottom:14px}
+  .cover p{font-size:16px;opacity:.85;max-width:500px;margin:0 auto}
+  .container{max-width:800px;margin:0 auto;padding:44px 28px}
+  .how-to{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:24px 28px;margin-bottom:36px}
+  .how-to h2{font-size:17px;font-weight:700;color:#0284c7;margin-bottom:12px}
+  .how-to ol{padding-left:20px;font-size:14.5px;color:#374151}
+  .how-to li{margin-bottom:8px}
+  .how-to a{color:#0284c7}
+  .section{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;margin-bottom:24px}
+  .sec-header{background:#0284c7;color:#fff;padding:14px 22px}
+  .sec-header h2{font-size:16px;font-weight:700}
+  .sec-header p{font-size:12px;opacity:.8;margin-top:2px}
+  .input-table{width:100%;border-collapse:collapse}
+  .input-table th{background:#f0f9ff;padding:10px 16px;text-align:left;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#0369a1;border-bottom:2px solid #bae6fd}
+  .input-table td{padding:12px 16px;border-bottom:1px solid #f3f4f6;font-size:14px}
+  .input-table td:first-child{font-weight:500;color:#111827;width:50%}
+  .input-table td:nth-child(2){color:#6b7280;font-size:13px;width:25%}
+  .input-table .input-field{background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:8px 12px;font-size:14px;font-weight:600;color:#92400e;font-family:monospace;width:120px;text-align:right}
+  .formula-row{background:#f0f9ff;border-top:2px solid #bae6fd}
+  .formula-row td{padding:14px 16px;font-size:14px}
+  .formula-row td:first-child{font-weight:700;color:#0284c7}
+  .formula-row .result{background:#dbeafe;border:2px solid #93c5fd;border-radius:8px;padding:10px 14px;font-size:16px;font-weight:800;color:#1e40af;font-family:monospace}
+  .formula-note{font-size:11px;color:#6b7280;margin-top:4px;font-style:italic}
+  .result-summary{background:linear-gradient(135deg,#0284c7,#0c4a6e);color:#fff;border-radius:12px;padding:28px 32px;margin-top:32px}
+  .result-summary h2{font-size:20px;font-weight:800;margin-bottom:20px}
+  .rate-display{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+  .rate-card{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:18px;text-align:center}
+  .rate-card .label{font-size:12px;opacity:.7;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+  .rate-card .amount{font-size:28px;font-weight:800;margin-bottom:4px}
+  .rate-card .sub{font-size:12px;opacity:.6}
+  .notes-box{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:24px 28px;margin-top:24px}
+  .notes-box h2{font-size:16px;font-weight:700;color:#0284c7;margin-bottom:14px}
+  .note-item{display:flex;gap:10px;margin-bottom:12px;font-size:14px;color:#374151}
+  .note-item .dot{color:#0284c7;font-weight:800;margin-top:2px;flex-shrink:0}
+  .sheets-tip{background:#dcfce7;border:1px solid #86efac;border-radius:10px;padding:16px 20px;margin-top:24px}
+  .sheets-tip h3{font-size:14px;font-weight:700;color:#166534;margin-bottom:8px}
+  .sheets-tip code{background:#bbf7d0;padding:2px 6px;border-radius:3px;font-family:monospace;font-size:13px}
+  .footer{background:#0c4a6e;color:#fff;text-align:center;padding:28px;margin-top:40px}
+  .footer p{opacity:.7;font-size:13px}
+  @media(max-width:600px){.rate-display{grid-template-columns:1fr}}
+  @media print{body{background:#fff}.section{break-inside:avoid}.input-field{background:#fff;border:1px solid #999}}
+</style>
+</head>
+<body>
+<div class="cover">
+  <div class="badge">✦ FREELANCE RATE CALCULATOR · FILL IN YOUR NUMBERS · GOOGLE SHEETS READY</div>
+  <h1>Freelance Rate<br>Calculator Workbook</h1>
+  <p>Calculate your real hourly rate in 15 minutes. Accounts for taxes, business expenses, non-billable time, and your desired profit margin.</p>
+</div>
+<div class="container">
+
+  <div class="how-to">
+    <h2>How to Use This Workbook</h2>
+    <ol>
+      <li><strong>Option A — Google Sheets:</strong> Copy the formula structure from the green cells below into your own Google Sheet. Input your numbers in the yellow fields. The formulas auto-calculate.</li>
+      <li><strong>Option B — Print:</strong> Print this page and fill in the yellow fields with a pen. Calculate manually using the formula guide at the bottom.</li>
+      <li>Fill in sections in order — each section feeds into the next calculation.</li>
+      <li>Your final rates appear in the Summary at the bottom. Use the "Recommended Rate" for new clients.</li>
+    </ol>
+  </div>
+
+  <!-- SECTION A -->
+  <div class="section">
+    <div class="sec-header">
+      <h2>Section A: Your Income Target</h2>
+      <p>What do you actually need to bring home? Be honest — not optimistic, not pessimistic.</p>
+    </div>
+    <table class="input-table">
+      <thead><tr><th>Input</th><th>Your Amount</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Desired monthly take-home pay (after tax)</td><td><div class="input-field">€ ___</div></td><td>What you want to actually receive each month</td></tr>
+        <tr><td>Monthly rent / mortgage</td><td><div class="input-field">€ ___</div></td><td>Your actual monthly housing cost</td></tr>
+        <tr><td>Monthly personal expenses (food, transport, etc.)</td><td><div class="input-field">€ ___</div></td><td>Average — check last 3 months of bank statements</td></tr>
+        <tr><td>Monthly savings target</td><td><div class="input-field">€ ___</div></td><td>Emergency fund, retirement, investments</td></tr>
+        <tr class="formula-row"><td>Total Monthly Personal Need</td><td colspan="2"><div class="result">€ ___ + ___ + ___ + ___ = € ___</div><div class="formula-note">Google Sheets: =SUM(B2:B5)</div></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION B -->
+  <div class="section">
+    <div class="sec-header">
+      <h2>Section B: Business Expenses</h2>
+      <p>Your costs of doing business. Clients pay for these whether they know it or not.</p>
+    </div>
+    <table class="input-table">
+      <thead><tr><th>Expense</th><th>Monthly Cost</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>Software & subscriptions</td><td><div class="input-field">€ ___</div></td><td>Adobe CC, Figma, Notion, Slack</td></tr>
+        <tr><td>Hardware / equipment (monthly amortized)</td><td><div class="input-field">€ ___</div></td><td>Laptop cost ÷ 36 months</td></tr>
+        <tr><td>Professional development</td><td><div class="input-field">€ ___</div></td><td>Courses, books, conferences</td></tr>
+        <tr><td>Marketing & portfolio hosting</td><td><div class="input-field">€ ___</div></td><td>Website, domain, ads</td></tr>
+        <tr><td>Insurance (health, professional liability)</td><td><div class="input-field">€ ___</div></td><td>Monthly premium</td></tr>
+        <tr><td>Accounting / legal</td><td><div class="input-field">€ ___</div></td><td>Accountant, contract templates</td></tr>
+        <tr><td>Other business costs</td><td><div class="input-field">€ ___</div></td><td>Coffee meetings, workspace, etc.</td></tr>
+        <tr class="formula-row"><td>Total Monthly Business Expenses</td><td colspan="2"><div class="result">€ ___</div><div class="formula-note">Google Sheets: =SUM(B7:B13)</div></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION C -->
+  <div class="section">
+    <div class="sec-header">
+      <h2>Section C: Tax Rate</h2>
+      <p>Estimate conservatively — it's better to over-save for tax than to get a surprise bill.</p>
+    </div>
+    <table class="input-table">
+      <thead><tr><th>Input</th><th>Your Number</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Estimated effective tax rate</td><td><div class="input-field">___ %</div></td><td>Italy: ~25–35% for freelancers (partita IVA). Check with your accountant.</td></tr>
+        <tr><td>Total Gross Revenue Needed (Personal + Business)</td><td><div class="input-field">€ ___</div></td><td>Section A total + Section B total</td></tr>
+        <tr class="formula-row"><td>Revenue Needed Before Tax</td><td colspan="2"><div class="result">€ ___ ÷ (1 - ___%) = € ___</div><div class="formula-note">Google Sheets: =(A_total+B_total)/(1-tax_rate). Example: €4000/(1-0.28) = €5,556</div></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION D -->
+  <div class="section">
+    <div class="sec-header">
+      <h2>Section D: Billable Hours</h2>
+      <p>Not all your working hours are billable. Estimate conservatively or you'll always earn less than expected.</p>
+    </div>
+    <table class="input-table">
+      <thead><tr><th>Input</th><th>Your Number</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Hours you plan to work per week (total)</td><td><div class="input-field">___ h</div></td><td>Be realistic. 40h/week = burnout for most freelancers.</td></tr>
+        <tr><td>Non-billable hours per week (admin, marketing, meetings)</td><td><div class="input-field">___ h</div></td><td>Typical: 8–15 hours/week for solopreneurs</td></tr>
+        <tr><td>Billable hours per week</td><td><div class="input-field">___ h</div></td><td>= Total hours − Non-billable hours</td></tr>
+        <tr><td>Weeks worked per year</td><td><div class="input-field">___ wk</div></td><td>52 minus vacation (4wk) minus sick days (2wk) = 46 typical</td></tr>
+        <tr class="formula-row"><td>Total Billable Hours Per Year</td><td colspan="2"><div class="result">___ h × ___ wk = ___ hours/year</div><div class="formula-note">Google Sheets: =billable_weekly * weeks_per_year</div></td></tr>
+        <tr class="formula-row"><td>Total Billable Hours Per Month</td><td colspan="2"><div class="result">___ ÷ 12 = ___ hours/month</div></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION E -->
+  <div class="section">
+    <div class="sec-header">
+      <h2>Section E: Profit Margin</h2>
+      <p>Your rate should include profit above your costs — not just break-even. Profit enables reinvestment and resilience.</p>
+    </div>
+    <table class="input-table">
+      <thead><tr><th>Input</th><th>Your Target</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Desired profit margin above costs</td><td><div class="input-field">___ %</div></td><td>Minimum viable: 10%. Sustainable: 20–30%. Premium: 40%+</td></tr>
+        <tr class="formula-row"><td>Revenue Target With Profit</td><td colspan="2"><div class="result">€ ___ × (1 + ___%) = € ___</div><div class="formula-note">Google Sheets: =pre_tax_revenue * (1 + profit_margin)</div></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- FINAL RESULT -->
+  <div class="result-summary">
+    <h2>Your Rate Summary</h2>
+    <div class="rate-display">
+      <div class="rate-card">
+        <div class="label">Minimum Rate</div>
+        <div class="amount">€___/hr</div>
+        <div class="sub">Break-even only. No profit.</div>
+      </div>
+      <div class="rate-card">
+        <div class="label">✓ Recommended Rate</div>
+        <div class="amount">€___/hr</div>
+        <div class="sub">Includes 20-30% profit margin. Use this.</div>
+      </div>
+      <div class="rate-card">
+        <div class="label">Premium Rate</div>
+        <div class="amount">€___/hr</div>
+        <div class="sub">For rush work, specialist scope, premium clients.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes-box">
+    <h2>Important Notes</h2>
+    <div class="note-item"><div class="dot">→</div><p><strong>Your rate is a floor, not a ceiling.</strong> As you gain clients, testimonials, and results — raise it. Recalculate every 6 months.</p></div>
+    <div class="note-item"><div class="dot">→</div><p><strong>Project rates vs. hourly rates:</strong> Once you know your hourly rate, multiply by estimated project hours to get a project price. Add 20% buffer for surprises.</p></div>
+    <div class="note-item"><div class="dot">→</div><p><strong>If the number feels too high:</strong> That's normal. Your rate feeling uncomfortable is usually evidence that you're charging correctly, not incorrectly.</p></div>
+    <div class="note-item"><div class="dot">→</div><p><strong>For retainers:</strong> Calculate your monthly billable hours × recommended rate = retainer floor. Add 15% for the reliability premium.</p></div>
+  </div>
+
+  <div class="sheets-tip">
+    <h3>Google Sheets Formulas (Copy These)</h3>
+    <p style="font-size:13px;color:#166534;margin-top:6px">To build this in Google Sheets, use these formulas in column C (results column):</p>
+    <p style="font-size:13px;color:#374151;margin-top:10px"><code>=SUM(B2:B5)</code> — Total personal need | <code>=SUM(B7:B13)</code> — Business expenses<br><code>=(B15+B16)/(1-B17)</code> — Pre-tax revenue needed | <code>=B19*(1+B21)</code> — Revenue with profit<br><code>=B23/B24</code> — Hourly rate (revenue needed / billable hours per year)</p>
+  </div>
+
+</div>
+<div class="footer">
+  <p><strong>Freelance Rate Calculator Workbook</strong> — Calculate your real rate in 15 minutes</p>
+  <p style="margin-top:6px">Recalculate every 6 months or when your costs change significantly.</p>
+</div>
+</body>
+</html>

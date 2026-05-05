@@ -1,0 +1,60 @@
+============================================================
+GUMROAD LISTING — ChatGPT Prompt Library for Freelancers
+============================================================
+
+PRODUCT TITLE:
+ChatGPT Prompt Library for Freelancers — 53 Tested Copy-Paste Prompts
+
+PRICE: $12 (or €11)
+
+SUMMARY (shown in search results):
+53 ready-to-use ChatGPT prompts for freelancers — proposals, client emails, pricing, marketing, and more. Copy, paste, customize. Zero prompt engineering needed.
+
+DESCRIPTION (paste into Gumroad product description field):
+---
+Stop wasting hours writing proposals, chasing clients, and figuring out what to say.
+
+This prompt library gives you 53 tested, copy-paste prompts for every part of your freelance business.
+
+**What's Inside:**
+
+✦ Section 1: Client Proposals & Pitching (7 prompts)
+✦ Section 2: Project Scoping & Discovery (5 prompts)
+✦ Section 3: Email & Client Communication (7 prompts)
+✦ Section 4: Research & Competitive Analysis (5 prompts)
+✦ Section 5: Pricing, Rates & Invoicing (5 prompts)
+✦ Section 6: Content & Portfolio Building (6 prompts)
+✦ Section 7: Marketing Your Services (7 prompts)
+✦ Section 8: Productivity & Workflow (6 prompts)
+✦ Section 9: Client Onboarding (2 prompts)
+✦ Section 10: Bonus Power Prompts (3 prompts)
+
+**Who It's For:**
+Freelancers, consultants, and solopreneurs who use ChatGPT but don't want to spend time figuring out the right prompts.
+
+**Format:** Instant-download PDF (53 pages, printable)
+**Works with:** ChatGPT-3.5, ChatGPT-4, Claude, Gemini — all major LLMs
+
+---
+
+TAGS (add these in Gumroad):
+chatgpt prompts, freelancer tools, prompt library, AI tools, freelance business, copywriting prompts, productivity, digital download
+
+CATEGORY: Business & Finance > Productivity
+
+COVER IMAGE SIZE: 1280 x 720px (landscape)
+SUGGESTED COVER TEXT: "53 Copy-Paste ChatGPT Prompts for Freelancers"
+
+============================================================
+HOW TO UPLOAD TO GUMROAD
+============================================================
+
+1. Go to gumroad.com → Dashboard → New Product
+2. Choose "Digital Product"
+3. Upload: chatgpt-prompt-library-freelancers.html (rename to .pdf if needed, or convert to PDF using browser print: File → Print → Save as PDF)
+4. Set title, description, and price from above
+5. Create cover image in Canva (1280x720px) using the suggested text
+6. Add tags from the list above
+7. Publish → Share your product URL
+
+TIP: Use the preview of the HTML file (open in Chrome) and take a screenshot for social media posts promoting this product.
