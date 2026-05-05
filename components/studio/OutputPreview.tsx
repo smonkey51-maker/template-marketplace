@@ -13,7 +13,7 @@ type OutputPreviewProps = {
   selectedTemplateId?: string;
   selectedTemplateDownloadType?: string;
   selectedTemplateDownloadUrl?: string;
-  activeCategory: "ui" | "prompt";
+  activeCategory: "ui" | "prompt" | "guide" | "worksheet" | "tracker" | "script";
   lang: string;
 };
 
