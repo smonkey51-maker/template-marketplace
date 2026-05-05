@@ -7,7 +7,14 @@ import { FormaFooter } from "@/components/FormaFooter";
 import { useLang } from "@/components/LanguageProvider";
 import { copy } from "@/lib/formaCopy";
 
-const FEATURED_IDS = ["hero-saas", "cold-email-b2b", "notion-project-hub"];
+const FEATURED_IDS = [
+  "chatgpt-prompt-library-freelancers",
+  "digital-product-launch-checklist",
+  "freelance-rate-calculator",
+  "anti-procrastination-playbook",
+  "monthly-business-finance-tracker",
+  "midjourney-prompt-guide-mockups",
+];
 const HERO_PREVIEW_ID = "saas-landing-dark";
 
 const CATEGORIES_IT = [

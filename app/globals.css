@@ -936,56 +936,35 @@ html::-webkit-scrollbar-track {
 @media (hover: hover) and (pointer: fine) {
   html, * { cursor: none !important; }
 
-  .cursor-dot {
+  /* Brush tip: thin elongated capsule, gradient gold → transparent, rotated -45° */
+  .cursor-brush {
     position: fixed;
     top: 0;
     left: 0;
-    width: 7px;
-    height: 7px;
-    background: var(--accent);
-    border-radius: 50%;
+    width: 3px;
+    height: 26px;
+    background: linear-gradient(
+      to bottom,
+      var(--accent) 0%,
+      rgba(var(--accent-rgb), 0.55) 50%,
+      transparent 100%
+    );
+    border-radius: 1.5px 1.5px 60% 60%;
     pointer-events: none;
     z-index: 999999;
     will-change: transform;
-    transition: opacity 0.2s ease;
-    /* Double halo: white glow + dark outline ensures visibility on any bg */
+    transition: box-shadow 0.18s ease, height 0.18s ease;
     box-shadow:
-      0 0 0 1.5px rgba(255,255,255,0.90),
-      0 0 0 3px rgba(0,0,0,0.30),
-      0 0 8px rgba(0,0,0,0.18);
+      0 0 0 0.5px rgba(255,255,255,0.18),
+      0 0 4px rgba(0,0,0,0.14);
   }
 
-  .cursor-ring {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 34px;
-    height: 34px;
-    border: 1.5px solid rgba(var(--accent-rgb), 0.75);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 999998;
-    will-change: transform;
-    /* Outer shadow makes ring visible on both light and dark backgrounds */
+  .cursor-brush--hover {
+    height: 30px;
     box-shadow:
-      0 0 0 1px rgba(0,0,0,0.25),
-      0 0 8px rgba(0,0,0,0.12);
-    transition:
-      width  0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
-      height 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
-      background 0.25s ease,
-      border-color 0.25s ease,
-      box-shadow 0.25s ease;
-  }
-
-  .cursor-ring--hover {
-    width: 52px;
-    height: 52px;
-    background: rgba(var(--accent-rgb), 0.07);
-    border-color: rgba(var(--accent-rgb), 0.90);
-    box-shadow:
-      0 0 0 1px rgba(0,0,0,0.20),
-      0 0 12px rgba(var(--accent-rgb), 0.25);
+      0 0 0 0.5px rgba(255,255,255,0.25),
+      0 0 10px rgba(var(--accent-rgb), 0.55),
+      0 0 20px rgba(var(--accent-rgb), 0.22);
   }
 }
 
@@ -1371,6 +1350,7 @@ html::-webkit-scrollbar-track {
    CURSOR TRAIL
    ═══════════════════════════════════════════════════════════ */
 @media (hover: hover) and (pointer: fine) {
+  /* Ink-dot trail: soft fading circles following the brush */
   .cursor-trail {
     position: fixed;
     top: 0;
@@ -1380,7 +1360,6 @@ html::-webkit-scrollbar-track {
     z-index: 999990;
     will-change: transform;
     background: var(--accent);
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.5), 0 0 0 2px rgba(0,0,0,0.18);
   }
 }
 
