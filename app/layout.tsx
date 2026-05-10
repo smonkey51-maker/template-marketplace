@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
-import { Montserrat, DM_Serif_Display, Plus_Jakarta_Sans, Cormorant_Garamond, Fraunces, Inter } from "next/font/google";
+import { Montserrat, DM_Serif_Display, Instrument_Sans, Cormorant_Garamond, Fraunces, Inter } from "next/font/google";
 import ThemeProvider from "@/components/ThemeProvider";
 import LanguageProvider from "@/components/LanguageProvider";
 import { PostHogProvider } from "@/components/PostHogProvider";
@@ -37,7 +37,7 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
-const jakarta = Plus_Jakarta_Sans({
+const jakarta = Instrument_Sans({
   subsets: ["latin"],
   variable: "--font-jakarta",
   weight: ["400", "500", "600", "700"],
