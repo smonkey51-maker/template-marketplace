@@ -111,9 +111,9 @@ export function HomeContent() {
         </h2>
         <p style={{ color: "var(--muted)", fontSize: 16, marginBottom: 40 }}>{t("featuredSub")}</p>
         <div className="fn-featured-grid">
-          {featured.map(item => (
+          {featured.map((item, i) => (
             <article key={item.id} className="fn-card">
-              <TemplatePreview id={item.id} height={200} />
+              <TemplatePreview id={item.id} height={i === 0 ? 280 : 200} />
               <div className="fn-body">
                 <span className="fn-badge">{item.downloadType?.toUpperCase() ?? "HTML"}</span>
                 <h3 style={{ marginTop: 12, fontFamily: "var(--font-cormorant), Georgia, serif", fontWeight: 400, fontSize: 22, color: "var(--text)" }}>{item.name}</h3>
@@ -126,7 +126,7 @@ export function HomeContent() {
                     {formatPrice(item.price)}
                   </b>
                 </div>
-                <Link href={`/templates/${item.id}`} className="fn-btn primary" style={{ fontSize: 11, marginTop: 16 }}>
+                <Link href={`/preview/${item.id}`} className="fn-btn primary" style={{ fontSize: 11, marginTop: 16 }}>
                   {t("detailsLink")}
                 </Link>
               </div>
@@ -149,9 +149,7 @@ export function HomeContent() {
           </h2>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 1, background: "var(--fn-border, rgba(234,234,234,.08))" }}>
             {categories.map(cat => (
-              <Link key={cat.label} href={cat.href} style={{ textDecoration: "none", display: "block", padding: "32px 24px", background: "var(--surface)", transition: "background .2s" }}
-                onMouseEnter={e => (e.currentTarget.style.background = "var(--surface-2, #0d0d0d)")}
-                onMouseLeave={e => (e.currentTarget.style.background = "var(--surface)")}>
+              <Link key={cat.label} href={cat.href} className="fn-cat-tile">
                 <div style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: 26, fontWeight: 300, color: "var(--text)", marginBottom: 10 }}>{cat.label}</div>
                 <div style={{ color: "var(--muted)", fontSize: 13, lineHeight: 1.6, marginBottom: 18 }}>{cat.desc}</div>
                 <div style={{ color: "#D4AF37", fontSize: 10, textTransform: "uppercase", letterSpacing: ".18em" }}>{cat.count} template →</div>
