@@ -51,6 +51,7 @@ export function FormaFooter() {
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   placeholder={t("newsletterPlaceholder")}
+                  className="fn-newsletter-input"
                   style={{
                     flex: 1, padding: "10px 14px", background: "var(--bg)",
                     border: "1px solid var(--fn-border, rgba(234,234,234,.14))",
@@ -80,9 +81,7 @@ export function FormaFooter() {
                 { href: "/catalogo", label: t("footerNew") },
                 { href: "/ai-studio", label: "AI Studio" },
               ].map(l => (
-                <Link key={l.href + l.label} href={l.href} style={{ color: "var(--muted)", fontSize: 13, textDecoration: "none", transition: "color .15s" }}
-                  onMouseEnter={e => (e.currentTarget.style.color = "var(--text)")}
-                  onMouseLeave={e => (e.currentTarget.style.color = "var(--muted)")}>
+                <Link key={l.href + l.label} href={l.href} className="link-muted" style={{ fontSize: 13, textDecoration: "none" }}>
                   {l.label}
                 </Link>
               ))}
@@ -100,9 +99,7 @@ export function FormaFooter() {
                 { href: "/guida", label: t("footerGuide") },
                 { href: "mailto:supporto@forma.design", label: t("footerContact") },
               ].map(l => (
-                <Link key={l.label} href={l.href} style={{ color: "var(--muted)", fontSize: 13, textDecoration: "none", transition: "color .15s" }}
-                  onMouseEnter={e => (e.currentTarget.style.color = "var(--text)")}
-                  onMouseLeave={e => (e.currentTarget.style.color = "var(--muted)")}>
+                <Link key={l.label} href={l.href} className="link-muted" style={{ fontSize: 13, textDecoration: "none" }}>
                   {l.label}
                 </Link>
               ))}
@@ -120,9 +117,7 @@ export function FormaFooter() {
                 { href: "/privacy", label: t("footerPrivacy") },
                 { href: "/guida#rimborsi", label: t("footerRefund") },
               ].map(l => (
-                <Link key={l.label} href={l.href} style={{ color: "var(--muted)", fontSize: 13, textDecoration: "none", transition: "color .15s" }}
-                  onMouseEnter={e => (e.currentTarget.style.color = "var(--text)")}
-                  onMouseLeave={e => (e.currentTarget.style.color = "var(--muted)")}>
+                <Link key={l.label} href={l.href} className="link-muted" style={{ fontSize: 13, textDecoration: "none" }}>
                   {l.label}
                 </Link>
               ))}

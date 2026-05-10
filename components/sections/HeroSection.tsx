@@ -139,7 +139,7 @@ export default function HeroSection() {
         </h1>
 
         <p
-          className="font-jakarta text-sm sm:text-base max-w-[30ch] anim-up leading-loose"
+          className="font-jakarta text-sm sm:text-base max-w-[52ch] anim-up leading-loose"
           style={{ color: "rgba(242,235,217,0.45)", "--delay": "0.32s" } as React.CSSProperties}
         >
           {t.heroSubSnap}

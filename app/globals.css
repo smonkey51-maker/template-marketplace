@@ -240,6 +240,16 @@ body {
   letter-spacing: 0.005em;
 }
 
+p {
+  text-wrap: pretty;
+}
+
+/* Footer newsletter input focus ring */
+.fn-newsletter-input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
 /* --font-syne → Montserrat (Syne not loaded; kept for legacy references in .btn-brand etc.) */
 html {
   --font-syne: var(--font-montserrat), sans-serif;
@@ -395,6 +405,8 @@ html {
   scrollbar-gutter: stable;
   background-color: var(--bg);
   color: var(--text);
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
   transition: background-color 0.22s cubic-bezier(0.4,0,0.2,1),
               color 0.22s cubic-bezier(0.4,0,0.2,1);
 }
