@@ -132,6 +132,7 @@ export default function SnapHomepage() {
           overflowY: "scroll",
           overflowX: "hidden",
           scrollSnapType: "y mandatory",
+          scrollBehavior: "smooth",
           overscrollBehaviorY: "contain",
         }}
       >
