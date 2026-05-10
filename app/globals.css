@@ -252,6 +252,7 @@ h1, h2, h3 {
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
 /* h4–h6 and all smaller: Jakarta */
@@ -578,6 +579,7 @@ html::-webkit-scrollbar-track {
   font-weight: 400;
   letter-spacing: -0.035em;
   line-height: 1.02;
+  font-variant-numeric: tabular-nums;
 }
 .display-serif em {
   font-style: italic;
@@ -2489,9 +2491,19 @@ html:not(.dark) .fn-bg::after { opacity: 0.04; mix-blend-mode: multiply; }
 .fn-card {
   background: var(--surface);
   display: flex; flex-direction: column;
-  transition: background .2s;
+  transition: background .2s var(--ease-glide), color .2s var(--ease-glide), border-color .2s var(--ease-glide);
 }
 .fn-card:hover { background: var(--surface-2, #141414); }
+
+/* ── Category tile (replaces inline onMouseEnter/Leave) ── */
+.fn-cat-tile {
+  text-decoration: none;
+  display: block;
+  padding: 32px 24px;
+  background: var(--surface);
+  transition: background .2s var(--ease-glide), color .2s var(--ease-glide);
+}
+.fn-cat-tile:hover { background: var(--surface-2, #141414); }
 .fn-body { padding: 20px 18px 22px; flex: 1; display: flex; flex-direction: column; }
 .fn-meta { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: auto; padding-top: 14px; }
 .fn-meta span { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .14em; }
@@ -2509,6 +2521,8 @@ html:not(.dark) .fn-bg::after { opacity: 0.04; mix-blend-mode: multiply; }
 /* ── Featured strip ── */
 .fn-featured { border-top: 1px solid var(--fn-border, rgba(234,234,234,.08)); padding: 72px 36px; max-width: 1220px; margin: 0 auto; }
 .fn-featured-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--fn-border, rgba(234,234,234,.08)); margin-top: 40px; }
+/* First card spans 2 columns for asymmetric editorial layout */
+.fn-featured-grid > :first-child { grid-column: span 2; }
 
 /* ── Detail page ── */
 .fn-detail { max-width: 1160px; margin: 0 auto; padding: 56px 36px 90px; display: grid; grid-template-columns: 1.25fr .75fr; gap: 24px; align-items: start; }
@@ -2553,6 +2567,7 @@ html:not(.dark) .fn-bg::after { opacity: 0.04; mix-blend-mode: multiply; }
   .fn-stat { padding: 0 16px 0 0; }
   .fn-grid { grid-template-columns: 1fr 1fr; }
   .fn-featured-grid { grid-template-columns: 1fr; }
+  .fn-featured-grid > :first-child { grid-column: span 1; }
   .fn-toolbar { grid-template-columns: 1fr; }
   .fn-section { padding: 48px 20px; }
   .fn-featured { padding: 48px 20px; }
