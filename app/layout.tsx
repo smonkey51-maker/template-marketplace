@@ -6,7 +6,6 @@ import LanguageProvider from "@/components/LanguageProvider";
 import { PostHogProvider } from "@/components/PostHogProvider";
 import { ToastProvider } from "@/components/Toast";
 import MobileNav from "@/components/MobileNav";
-import CustomCursor from "@/components/CustomCursor";
 import PageTransition from "@/components/PageTransition";
 import CommandPalette from "@/components/CommandPalette";
 import GsapProvider from "@/app/providers/GsapProvider";
@@ -109,7 +108,6 @@ export default function RootLayout({
             Skip to content
           </a>
           <PostHogProvider><ThemeProvider><LanguageProvider><ToastProvider><GsapProvider><PageTransition><div id="main-content">{children}</div></PageTransition><MobileNav /><CommandPalette /></GsapProvider></ToastProvider></LanguageProvider></ThemeProvider></PostHogProvider>
-          <CustomCursor />
         </body>
       </html>
     </ClerkProvider>
