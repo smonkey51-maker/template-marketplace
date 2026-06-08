@@ -945,44 +945,6 @@ html::-webkit-scrollbar-track {
 
 
 /* ═══════════════════════════════════════════════════════════
-   CUSTOM CURSOR
-   ═══════════════════════════════════════════════════════════ */
-@media (hover: hover) and (pointer: fine) {
-  html, * { cursor: none !important; }
-
-  /* Brush tip: thin elongated capsule, gradient gold → transparent, rotated -45° */
-  .cursor-brush {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 3px;
-    height: 26px;
-    background: linear-gradient(
-      to bottom,
-      var(--accent) 0%,
-      rgba(var(--accent-rgb), 0.55) 50%,
-      transparent 100%
-    );
-    border-radius: 1.5px 1.5px 60% 60%;
-    pointer-events: none;
-    z-index: 999999;
-    will-change: transform;
-    transition: box-shadow 0.18s ease, height 0.18s ease;
-    box-shadow:
-      0 0 0 0.5px rgba(255,255,255,0.18),
-      0 0 4px rgba(0,0,0,0.14);
-  }
-
-  .cursor-brush--hover {
-    height: 30px;
-    box-shadow:
-      0 0 0 0.5px rgba(255,255,255,0.25),
-      0 0 10px rgba(var(--accent-rgb), 0.55),
-      0 0 20px rgba(var(--accent-rgb), 0.22);
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════
    ANIMATED UNDERLINE LINKS (nav)
    ═══════════════════════════════════════════════════════════ */
 .link-underline {
@@ -1360,22 +1322,6 @@ html::-webkit-scrollbar-track {
   .card-sweep::before { transition: none; }
 }
 
-/* ═══════════════════════════════════════════════════════════
-   CURSOR TRAIL
-   ═══════════════════════════════════════════════════════════ */
-@media (hover: hover) and (pointer: fine) {
-  /* Ink-dot trail: soft fading circles following the brush */
-  .cursor-trail {
-    position: fixed;
-    top: 0;
-    left: 0;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 999990;
-    will-change: transform;
-    background: var(--accent);
-  }
-}
 
 @media (prefers-reduced-motion: reduce) {
   .split-flap-char { animation: none; }
