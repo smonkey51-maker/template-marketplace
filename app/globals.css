@@ -2358,6 +2358,15 @@ html:not(.dark) .fn-bg::after { opacity: 0.04; mix-blend-mode: multiply; }
   border-top: 1px solid var(--fn-border, rgba(234,234,234,.10));
   border-bottom: 1px solid var(--fn-border, rgba(234,234,234,.10));
   text-transform: uppercase; font-size: 10px; letter-spacing: .22em; color: var(--muted);
+  position: sticky; top: 0; z-index: 50;
+  transition: background .25s ease, border-color .25s ease, backdrop-filter .25s ease;
+}
+.fn-navbar.fn-scrolled {
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: blur(14px) saturate(1.6);
+  -webkit-backdrop-filter: blur(14px) saturate(1.6);
+  border-top-color: transparent;
+  border-bottom-color: var(--fn-border, rgba(234,234,234,.18));
 }
 .fn-nav-left, .fn-nav-right { display: flex; gap: 24px; align-items: center; }
 .fn-nav-right { justify-self: end; }

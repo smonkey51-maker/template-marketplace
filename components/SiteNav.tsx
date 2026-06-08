@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
 import { copy } from "@/lib/formaCopy";
@@ -10,6 +11,15 @@ import ThemeToggle from "@/components/ThemeToggle";
 export default function SiteNav() {
   const { lang, toggle } = useLang();
   const t = (k: keyof typeof copy.it) => copy[lang][k];
+  const navRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const nav = navRef.current;
+    if (!nav) return;
+    const onScroll = () => nav.classList.toggle("fn-scrolled", window.scrollY > 0);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <>
@@ -35,7 +45,7 @@ export default function SiteNav() {
       </Link>
 
       {/* Navbar */}
-      <nav className="fn-navbar">
+      <nav ref={navRef} className="fn-navbar">
         <div className="fn-nav-left">
           <Link className="fn-drop" href="/catalogo">{t("catalogo")}</Link>
           <Link className="fn-drop" href="/guida">{t("guida")}</Link>
