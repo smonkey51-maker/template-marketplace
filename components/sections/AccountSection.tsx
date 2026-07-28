@@ -34,8 +34,8 @@ export default function AccountSection() {
         </p>
 
         {/* Stat pill — glassmorphism */}
-        <div className="anim-up flex items-baseline gap-3 mb-8 px-5 py-3"
-          style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.13)", backdropFilter: "blur(10px)", "--delay": "0.48s" } as React.CSSProperties}>
+        <div className="forma-glass-card anim-up flex items-baseline gap-3 mb-8 px-6 py-4"
+          style={{ borderRadius: "999px", "--delay": "0.48s" } as React.CSSProperties}>
           <span style={{ fontFamily: "var(--font-syne), sans-serif", fontSize: "2.8rem", fontWeight: 900, color: SUN.yellow, lineHeight: 1 }}>47</span>
           <span className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.45)", fontFamily: "var(--font-jakarta), sans-serif" }}>template nel catalogo</span>
         </div>

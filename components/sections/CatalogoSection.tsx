@@ -196,30 +196,27 @@ export default function CatalogoSection() {
             <Link key={card.id} href={`/preview/${card.id}`}
               className="catalogo-card group block anim-up"
               style={{
-                transition: "transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease",
                 position: "relative",
                 "--delay": `${0.45 + i * 0.06}s`,
               } as React.CSSProperties}
             >
               <div style={{
                 background: card.editorsPick
-                  ? `linear-gradient(160deg, rgba(212,175,55,0.14), rgba(255,255,255,0.04))`
-                  : "rgba(255,255,255,0.07)",
-                border: card.editorsPick ? "1px solid rgba(212,175,55,0.45)" : "1px solid rgba(255,255,255,0.13)",
-                borderRadius: "3px",
-                padding: "8px",
-                backdropFilter: "blur(18px) saturate(160%)",
-                WebkitBackdropFilter: "blur(18px) saturate(160%)",
+                  ? "linear-gradient(160deg, rgba(212,175,55,0.13), rgba(255,255,255,0.035))"
+                  : "rgba(255,255,255,0.06)",
+                border: card.editorsPick ? "1px solid rgba(212,175,55,0.38)" : "1px solid rgba(255,255,255,0.11)",
+                borderRadius: "var(--r-md, 16px)",
+                padding: "10px",
+                backdropFilter: "blur(20px) saturate(160%)",
+                WebkitBackdropFilter: "blur(20px) saturate(160%)",
                 boxShadow: card.editorsPick
-                  ? "0 8px 32px rgba(212,175,55,0.20), 0 2px 8px rgba(0,0,0,0.55), inset 0 1px 0 rgba(212,175,55,0.18)"
-                  : "0 4px 16px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.07)",
-                transition: "box-shadow 0.3s ease",
+                  ? "0 10px 34px rgba(0,0,0,0.42), inset 0 1px 0 rgba(212,175,55,0.16)"
+                  : "0 6px 22px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.06)",
                 position: "relative",
-                overflow: "visible",
               }}>
                 {card.editorsPick && (
-                  <div className="absolute -top-[11px] left-2 flex items-center gap-1 px-2 py-0.5"
-                    style={{ background: "linear-gradient(90deg, #D4AF37, #B8962E)", borderRadius: "2px", zIndex: 3 }}>
+                  <div className="absolute -top-[10px] left-3 flex items-center gap-1 px-2.5 py-1"
+                    style={{ background: "linear-gradient(90deg, #D4AF37, #B8962E)", borderRadius: "999px", zIndex: 3 }}>
                     <span style={{ fontSize: "8px", fontFamily: "var(--font-montserrat), sans-serif", fontWeight: 800, letterSpacing: "0.14em", color: "rgba(0,0,0,0.85)", textTransform: "uppercase", lineHeight: 1 }}>
                       ✦ Editor&#39;s Pick
                     </span>
@@ -227,13 +224,13 @@ export default function CatalogoSection() {
                 )}
 
                 {/* Visual template preview */}
-                <div style={{ aspectRatio: "16/10", borderRadius: "2px", overflow: "hidden", marginBottom: "7px", border: "1px solid rgba(255,255,255,0.08)" }}>
+                <div style={{ aspectRatio: "16/10", borderRadius: "var(--r-sm, 10px)", overflow: "hidden", marginBottom: "9px", border: "1px solid rgba(255,255,255,0.07)" }}>
                   <card.Preview />
                 </div>
 
-                <p className="text-white text-[11px] font-semibold truncate">{card.label}</p>
-                <p className="text-[9px] uppercase tracking-widest mt-0.5"
-                  style={{ color: card.editorsPick ? "rgba(212,175,55,0.65)" : "rgba(255,255,255,0.35)" }}>
+                <p className="text-white text-[11px] font-semibold truncate px-0.5">{card.label}</p>
+                <p className="text-[9px] uppercase tracking-widest mt-1 px-0.5 pb-0.5"
+                  style={{ color: card.editorsPick ? "rgba(212,175,55,0.7)" : "rgba(255,255,255,0.38)" }}>
                   {card.cat}
                 </p>
               </div>

@@ -52,12 +52,20 @@ export default function GuidaSection() {
         </p>
 
         {/* Steps grid */}
-        <div className="anim-up w-full grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10" style={{ "--delay": "0.44s" } as React.CSSProperties}>
-          {STEPS.map((step) => (
-            <div key={step.n} style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.15)", borderRadius: "2px", padding: "20px 22px", backdropFilter: "blur(12px)", textAlign: "left" }}>
+        <div className="w-full grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+          {STEPS.map((step, i) => (
+            <div
+              key={step.n}
+              className="forma-glass-card anim-up"
+              style={{
+                padding: "24px 24px 26px",
+                textAlign: "left",
+                "--delay": `${0.44 + i * 0.08}s`,
+              } as React.CSSProperties}
+            >
               <span className="text-xs font-black tracking-widest" style={{ color: MONET_ACCENT }}>{step.n}</span>
-              <p className="text-white text-sm font-semibold mt-2 mb-1.5" style={{ fontFamily: "var(--font-jakarta), sans-serif" }}>{step.title}</p>
-              <p className="text-white/50 text-xs leading-loose" style={{ fontFamily: "var(--font-jakarta), sans-serif" }}>{step.desc}</p>
+              <p className="text-white text-sm font-semibold mt-3 mb-2" style={{ fontFamily: "var(--font-jakarta), sans-serif" }}>{step.title}</p>
+              <p className="text-white/55 text-xs leading-loose" style={{ fontFamily: "var(--font-jakarta), sans-serif" }}>{step.desc}</p>
             </div>
           ))}
         </div>
