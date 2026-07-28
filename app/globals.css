@@ -20,13 +20,51 @@
 /* Prevent horizontal scroll from out-of-box elements */
 body { overflow-x: hidden; }
 
-/* ── Catalogo: card hover tilt spring-back ── */
-.catalogo-card:hover > div {
-  box-shadow: 0 16px 48px rgba(212,175,55,0.22), 0 4px 16px rgba(0,0,0,0.5) !important;
+/* ── Catalogo: card hover lift ── */
+.catalogo-card {
+  transition: transform var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
-.catalogo-card:hover {
-  transform: rotate(0deg) translateY(-4px) scale(1.03) !important;
-  z-index: 10 !important;
+.catalogo-card > div {
+  transition:
+    box-shadow  var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+@media (hover: hover) {
+  .catalogo-card:hover {
+    transform: translateY(-6px);
+    z-index: 10;
+  }
+  .catalogo-card:hover > div {
+    box-shadow: 0 24px 60px rgba(0,0,0,0.45), 0 0 0 1px rgba(212,175,55,0.28);
+    border-color: rgba(212,175,55,0.45);
+  }
+}
+.catalogo-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: var(--r-md, 16px);
+}
+
+/* ── Glass card: shared surface primitive over painting backdrops ──
+   Used by the snap sections and any panel that sits on artwork. */
+.forma-glass-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.13);
+  border-radius: var(--r-md, 16px);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.30), inset 0 1px 0 rgba(255,255,255,0.06);
+  transition:
+    background   var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform    var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+@media (hover: hover) {
+  .forma-glass-card:hover {
+    background: rgba(255,255,255,0.085);
+    border-color: rgba(255,255,255,0.2);
+    transform: translateY(-3px);
+  }
 }
 
 /* ── Hero: floating mockup cards passive hover parallax ── */
@@ -37,41 +75,55 @@ body { overflow-x: hidden; }
 }
 
 /* ── Snap section entrance CSS animations ─────────────────────── */
-/* anim-bg: background fade-in via CSS transition */
+/* Motion language: slow ease-out-expo with a subtle scale + blur settle,
+   so content "resolves into focus" instead of sliding in abruptly. */
+
+/* anim-bg: painting fades in while easing down from a slight over-scale */
 .anim-bg {
   opacity: 0;
-  transition: opacity 0.9s var(--ease-glide, cubic-bezier(0.22, 1, 0.36, 1)) var(--delay, 0s);
+  transform: scale(1.045);
+  transition:
+    opacity   1.3s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)) var(--delay, 0s),
+    transform 1.9s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)) var(--delay, 0s);
+  will-change: opacity, transform;
 }
-.forma-section[data-entered] .anim-bg { opacity: 1; }
+.forma-section[data-entered] .anim-bg {
+  opacity: 1;
+  transform: scale(1);
+}
 
-/* anim-in: simple fade-in */
+/* anim-in: fade in, resolving out of a soft blur */
 .anim-in {
   opacity: 0;
 }
 .forma-section[data-entered] .anim-in {
-  animation: forma-fade-in 0.7s var(--ease-glide, cubic-bezier(0.22, 1, 0.36, 1)) var(--delay, 0s) both;
+  animation: forma-fade-in 1s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)) var(--delay, 0s) both;
 }
 
-/* anim-up: fade in + slide up */
+/* anim-up: rise, settle and come into focus */
 .anim-up {
   opacity: 0;
-  transform: translateY(22px);
+  transform: translateY(26px) scale(0.988);
+  filter: blur(7px);
 }
 .forma-section[data-entered] .anim-up {
-  animation: forma-fade-up 0.65s var(--ease-glide, cubic-bezier(0.22, 1, 0.36, 1)) var(--delay, 0s) both;
+  animation: forma-fade-up 1.05s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)) var(--delay, 0s) both;
+  will-change: opacity, transform, filter;
 }
 
 @keyframes forma-fade-in {
-  to { opacity: 1; }
+  from { opacity: 0; filter: blur(5px); }
+  to   { opacity: 1; filter: blur(0); }
 }
 @keyframes forma-fade-up {
-  to { opacity: 1; transform: translateY(0); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .anim-bg, .anim-in, .anim-up {
     opacity: 1 !important;
     transform: none !important;
+    filter: none !important;
     animation: none !important;
     transition: none !important;
   }
@@ -135,6 +187,7 @@ body { overflow-x: hidden; }
   --muted:       rgba(26,14,6,0.55);
   --border:      rgba(26,14,6,0.12);
   --fn-border:   rgba(28,22,16,0.12);
+  --fn-menu-bg:  rgba(253,250,245,0.88);
   --nav-bg:      rgba(253,250,245,0.96);
   --card-bg:     rgba(253,250,245,0.95);
   --card-border: rgba(26,14,6,0.10);
@@ -280,6 +333,7 @@ html.dark {
   --muted:       #8a8a8a;
   --border:      rgba(234,234,234,0.10);
   --fn-border:   rgba(234,234,234,0.10);
+  --fn-menu-bg:  rgba(12,10,7,0.82);
   --panel:       rgba(234,234,234,0.045);
   --nav-bg:      rgba(6,6,6,0.92);
   --card-bg:     rgba(15,15,15,0.97);
@@ -1622,24 +1676,32 @@ html.dark {
   position: relative;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  gap: 8px;
   white-space: nowrap;
   font-family: var(--font-syne), sans-serif;
   font-weight: 700;
-  font-size: 10px;
+  font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.13em;
   background: var(--accent);
   color: var(--bg);
-  padding: 12px 28px;
-  transition: background 0.22s ease, color 0.22s ease, transform 0.18s ease, box-shadow 0.4s ease;
+  padding: 14px 30px;
+  border-radius: 999px;
+  transition:
+    background   var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    color        var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform    var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    box-shadow   var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
   overflow: hidden;
   isolation: isolate;
 }
 
-
-.btn-brand:hover {
-  background: var(--text);
-  color: var(--bg);
+@media (hover: hover) {
+  .btn-brand:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px color-mix(in srgb, var(--accent) 34%, transparent);
+  }
 }
 
 .btn-brand:active {
@@ -1672,7 +1734,8 @@ html.dark {
 
 /* Compact variant — smaller padding */
 .btn-brand-sm {
-  padding: 8px 16px;
+  padding: 9px 20px;
+  font-size: 10px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1682,28 +1745,35 @@ html.dark {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   BTN-GHOST — outline/border CTA (wearebrand.io style)
-   Sharp corners to match design system
+   BTN-GHOST — outline/border CTA, pairs with .btn-brand
    ═══════════════════════════════════════════════════════════ */
 .btn-ghost {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  gap: 8px;
   font-family: var(--font-syne), sans-serif;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.13em;
   border: 1px solid var(--btn-ghost-border);
   background: transparent;
   color: var(--text);
-  padding: 11px 24px;
-  transition: border-color 0.22s cubic-bezier(0.22,1,0.36,1),
-              background    0.22s cubic-bezier(0.22,1,0.36,1),
-              color         0.22s ease;
+  padding: 13px 26px;
+  border-radius: 999px;
+  transition:
+    border-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    background   var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    color        var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform    var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
-.btn-ghost:hover {
-  border-color: var(--btn-ghost-border-hover);
-  background: var(--input-bg);
+@media (hover: hover) {
+  .btn-ghost:hover {
+    border-color: var(--btn-ghost-border-hover);
+    background: var(--input-bg);
+    transform: translateY(-2px);
+  }
 }
 .btn-ghost:active {
   transform: scale(0.97);
@@ -1818,13 +1888,16 @@ html.forma-v2 {
   opacity: 0.14;
 }
 
-/* ── Forma v2 fade-in on scroll ── */
-@keyframes forma-fade-up {
+/* ── Forma v2 fade-in on scroll ──
+   NOTE: keyframe is namespaced (forma-v2-fade-up). It used to be called
+   forma-fade-up, which silently overrode the snap-section entrance
+   keyframe of the same name defined at the top of this file. */
+@keyframes forma-v2-fade-up {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 .forma-fade-in {
-  animation: forma-fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: forma-v2-fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* ── Forma v2 theming CSS vars — defined in :root and .dark above ── */
@@ -1876,223 +1949,6 @@ html.forma-v2 {
 
 @media (prefers-reduced-motion: reduce) {
   .forma-ticker-track { animation: none !important; }
-}
-
-/* ═══════════════════════════════════════════════════════════
-   FORMA BRAND SYSTEM — utility classes (from fundable-premium)
-   ═══════════════════════════════════════════════════════════ */
-
-/* ── Nav ── */
-.forma-nav {
-  position: sticky; top: 0; z-index: 5;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 24px 48px;
-  background: rgba(6,6,6,0.68);
-  backdrop-filter: blur(18px);
-  border-bottom: 1px solid rgba(255,255,255,0.09);
-}
-.forma-mark { letter-spacing: 0.18em; font-weight: 800; color: var(--gold); }
-.forma-navlinks { display: flex; gap: 22px; color: var(--muted); font-size: 14px; }
-.forma-navlinks a { color: var(--muted); transition: color 0.2s; }
-.forma-navlinks a:hover { color: var(--text); }
-
-/* ── Buttons ── */
-.forma-btn {
-  border: 0; border-radius: 999px; padding: 13px 20px;
-  background: linear-gradient(135deg, var(--gold), var(--gold2, #AA8424));
-  color: #090909; font-weight: 700; cursor: pointer;
-  transition: transform 0.35s var(--ease-glide), box-shadow 0.35s var(--ease-glide);
-  display: inline-flex; align-items: center; text-decoration: none;
-}
-.forma-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 45px rgba(212,175,55,0.25); }
-.forma-btn-ghost {
-  background: transparent; color: var(--text);
-  border: 1px solid rgba(255,255,255,0.09);
-}
-.forma-btn-ghost:hover { background: rgba(255,255,255,0.04); }
-
-/* ── Eyebrow ── */
-.forma-eyebrow {
-  text-transform: uppercase; letter-spacing: 0.22em;
-  color: var(--gold); font-size: 12px; font-weight: 800;
-}
-
-/* ── Hero ── */
-.forma-hero {
-  min-height: 88vh; display: grid; place-items: center;
-  text-align: center; padding: 80px 24px;
-  position: relative;
-}
-.forma-hero::before {
-  content: "";
-  position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(circle at 50% -10%, rgba(212,175,55,0.12), transparent 40%);
-}
-.forma-hero h1 {
-  max-width: 1050px; font-size: clamp(52px,8vw,110px);
-  line-height: 0.92; letter-spacing: -0.07em; margin: 22px auto;
-}
-.forma-lead {
-  max-width: 700px; margin: 0 auto; color: var(--muted);
-  font-size: 20px; line-height: 1.7;
-}
-.forma-hero-actions {
-  display: flex; gap: 14px; justify-content: center;
-  margin-top: 36px; flex-wrap: wrap;
-}
-
-/* ── Sections ── */
-.forma-section {
-  max-width: 1180px; margin: auto; padding: 100px 24px;
-}
-.forma-split {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 42px; align-items: center;
-}
-.forma-grid3 {
-  display: grid; grid-template-columns: repeat(3,1fr); gap: 18px;
-}
-
-/* ── Cards ── */
-.forma-card {
-  background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.018));
-  border: 1px solid rgba(255,255,255,0.09);
-  border-radius: 24px; padding: 26px;
-  box-shadow: 0 20px 80px rgba(0,0,0,0.22);
-  transition: transform 0.3s var(--ease-glide), background 0.3s;
-}
-.forma-card:hover { transform: translateY(-4px); }
-.forma-card h3 { margin-top: 0; }
-
-/* ── Mock SaaS widget ── */
-.forma-mock {
-  border-radius: 32px; border: 1px solid rgba(255,255,255,0.09);
-  background: #0b0b0b; padding: 18px;
-  box-shadow: 0 40px 120px rgba(0,0,0,0.48);
-}
-.forma-mock-top { display: flex; gap: 8px; margin-bottom: 18px; }
-.forma-dot { width: 10px; height: 10px; border-radius: 50%; background: #40382a; }
-.forma-metric {
-  display: flex; justify-content: space-between;
-  border-top: 1px solid rgba(255,255,255,0.09); padding: 16px 0;
-  color: var(--text);
-}
-.forma-metric span { color: var(--muted); }
-
-/* ── Footer ── */
-.forma-footer {
-  padding: 48px; text-align: center;
-  color: var(--muted); border-top: 1px solid rgba(255,255,255,0.09);
-}
-
-/* ── App shell (dashboard) ── */
-.forma-app-shell {
-  display: grid; grid-template-columns: 280px 1fr; min-height: 100vh;
-}
-.forma-side {
-  background: #090909; border-right: 1px solid rgba(255,255,255,0.09);
-  padding: 28px; position: sticky; top: 0; height: 100vh; overflow-y: auto;
-}
-.forma-side nav { display: grid; gap: 10px; margin-top: 40px; }
-.forma-side a {
-  padding: 12px 14px; border-radius: 14px;
-  color: var(--muted); transition: background 0.2s, color 0.2s;
-  cursor: pointer; display: block;
-}
-.forma-side a:hover, .forma-side a.active {
-  background: #141414; color: var(--text) !important;
-}
-.forma-main { padding: 34px; }
-.forma-toolbar {
-  display: flex; justify-content: space-between;
-  align-items: center; margin-bottom: 24px;
-}
-.forma-input {
-  width: 100%; background: #101010;
-  border: 1px solid rgba(255,255,255,0.09); border-radius: 16px;
-  padding: 13px; color: var(--text); outline: none;
-}
-.forma-input:focus { border-color: rgba(212,175,55,0.4); }
-.forma-project-grid {
-  display: grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
-  gap: 18px;
-}
-.forma-tag {
-  display: inline-flex; border: 1px solid rgba(255,255,255,0.09);
-  border-radius: 999px; padding: 6px 10px; color: var(--gold); font-size: 12px;
-}
-.forma-kanban { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; margin-top: 22px; }
-.forma-column {
-  background: #0b0b0b; border: 1px solid rgba(255,255,255,0.09);
-  border-radius: 22px; padding: 16px; min-height: 260px;
-}
-.forma-mini {
-  padding: 14px; border-radius: 16px;
-  background: #151515; margin: 10px 0; color: var(--muted); font-size: 14px;
-}
-
-/* ── Brand boards ── */
-.forma-brand-board {
-  min-height: 92vh; padding: 48px;
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 28px; align-items: center;
-  border-bottom: 1px solid rgba(255,255,255,0.09);
-  background: radial-gradient(circle at 70% 20%, rgba(212,175,55,0.13), transparent 35%), #060606;
-}
-.forma-brand-board h2 {
-  font-size: clamp(42px,5vw,82px); line-height: 0.96;
-  letter-spacing: -0.05em; margin: 0;
-}
-.forma-board-canvas {
-  min-height: 430px; border-radius: 34px;
-  border: 1px solid rgba(255,255,255,0.09);
-  background: linear-gradient(135deg, #111, #050505);
-  padding: 28px; position: relative; overflow: hidden;
-  display: flex; align-items: center; justify-content: center;
-}
-.forma-board-canvas .forma-grid3 { width: 100%; }
-.forma-circle {
-  position: absolute; border-radius: 50%;
-  border: 28px solid var(--gold);
-  width: 180px; height: 180px;
-  left: 50%; top: 50%; transform: translate(-50%,-50%);
-}
-.forma-gold-block {
-  background: linear-gradient(135deg, var(--gold), var(--gold2, #AA8424));
-  color: #080808; border-radius: 28px; padding: 24px;
-}
-.forma-phone {
-  width: 210px; height: 420px;
-  border: 10px solid #1f1f1f; border-radius: 42px;
-  background: #080808; margin: auto; padding: 20px;
-  overflow: hidden;
-}
-.forma-post {
-  aspect-ratio: 1/1; border-radius: 28px;
-  background: linear-gradient(135deg, #161616, #080808);
-  border: 1px solid rgba(255,255,255,0.09);
-  padding: 24px; display: flex; align-items: center;
-  justify-content: center; color: var(--muted);
-}
-.forma-photo-flash {
-  background: radial-gradient(circle at 35% 20%, #fff, rgba(255,255,255,0.2) 10%, transparent 26%),
-              linear-gradient(135deg, #191919, #070707);
-  min-height: 430px; border-radius: 34px;
-  border: 1px solid rgba(255,255,255,0.09);
-}
-
-/* ── Responsive ── */
-@media (max-width: 850px) {
-  .forma-split,
-  .forma-grid3,
-  .forma-brand-board,
-  .forma-app-shell,
-  .forma-kanban { grid-template-columns: 1fr; }
-  .forma-side { height: auto; position: relative; }
-  .forma-nav { padding: 18px; }
-  .forma-main { padding: 20px; }
-  .forma-brand-board { padding: 28px; }
-  .forma-navlinks { display: none; }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -2362,7 +2218,6 @@ html:not(.dark) .fn-bg::after { opacity: 0.04; mix-blend-mode: multiply; }
 .fn-nav-left, .fn-nav-right { display: flex; gap: 24px; align-items: center; }
 .fn-nav-right { justify-self: end; }
 .fn-nav-left a:hover, .fn-nav-right a:hover { color: var(--text); }
-.fn-drop::after { content: " +"; color: #D4AF37; }
 .fn-kbd { border: 1px solid var(--fn-border, rgba(234,234,234,.14)); padding: 4px 7px; color: var(--muted); margin-left: 7px; }
 .fn-outline { border: 1px solid rgba(212,175,55,.45); padding: 9px 16px; color: var(--text); transition: background .2s; }
 .fn-outline:hover { background: rgba(212,175,55,.09); }
@@ -2371,6 +2226,77 @@ html:not(.dark) .fn-bg::after { opacity: 0.04; mix-blend-mode: multiply; }
 .fn-lang { display: flex; border: 1px solid var(--fn-border, rgba(234,234,234,.12)); padding: 2px; }
 .fn-lang button { border: 0; background: transparent; color: var(--muted); font-size: 11px; padding: 5px 8px; cursor: pointer; font: inherit; transition: background .15s, color .15s; }
 .fn-lang .active { background: #D4AF37; color: #060606; font-weight: 700; }
+
+/* ── Nav dropdowns ──
+   Only nav entries that actually have a submenu get a caret. The panel
+   is a glass sheet that settles in, matching the site's motion language. */
+.fn-nav-item { position: relative; display: inline-flex; }
+
+.fn-drop {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.fn-caret {
+  transition: transform var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+  opacity: 0.7;
+}
+.fn-caret[data-open] { transform: rotate(180deg); opacity: 1; }
+
+.fn-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  z-index: 80;
+  min-width: 190px;
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+  border-radius: var(--r-md, 16px);
+  background: var(--fn-menu-bg, rgba(12, 10, 7, 0.82));
+  border: 1px solid var(--fn-border, rgba(234, 234, 234, 0.12));
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  box-shadow: var(--elev-4, 0 20px 50px rgba(0, 0, 0, 0.5));
+  opacity: 0;
+  transform: translateY(-6px) scale(0.98);
+  pointer-events: none;
+  visibility: hidden;
+  transition:
+    opacity    var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform  var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    visibility 0s linear var(--t-md, 320ms);
+}
+.fn-menu[data-open] {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.fn-menu-item {
+  padding: 9px 12px;
+  border-radius: var(--r-sm, 10px);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+  transition:
+    background var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    color      var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+.fn-menu-item:hover,
+.fn-menu-item:focus-visible {
+  background: rgba(212, 175, 55, 0.12);
+  color: var(--text);
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fn-menu, .fn-caret { transition: none; }
+}
 
 /* ── Hero ── */
 .fn-hero {
@@ -2443,7 +2369,15 @@ html:not(.dark) .fn-bg::after { opacity: 0.04; mix-blend-mode: multiply; }
 .fn-chip.active { background: #D4AF37; color: #060606; border-color: #D4AF37; font-weight: 700; }
 
 /* ── Grid ── */
-.fn-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--fn-border, rgba(234,234,234,.10)); }
+/* minmax(0,1fr) — without it, a wide child (the scaled preview iframe)
+   sets the track's min-content size and blows the grid past its container. */
+.fn-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--fn-border, rgba(234,234,234,.10)); }
+@media (max-width: 900px) {
+  .fn-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  .fn-grid { grid-template-columns: minmax(0, 1fr); }
+}
 
 /* ── Card ── */
 .fn-card {
