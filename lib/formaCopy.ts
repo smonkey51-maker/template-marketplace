@@ -96,6 +96,7 @@ export const copy = {
     heroTagline: "Arte in tasca.",
     heroSubSnap: "Template, prompt e strumenti per chi crea.",
     heroCtaSnap: "Esplora il catalogo →",
+    heroCtaGuidaSnap: "Come funziona",
 
     /* shared */
     studioTitle: "Studio", studioSub: "Un ambiente per generare, adattare e rifinire template.",
@@ -265,6 +266,7 @@ export const copy = {
     heroTagline: "Art in your pocket.",
     heroSubSnap: "Templates, prompts and tools for creators.",
     heroCtaSnap: "Explore the catalog →",
+    heroCtaGuidaSnap: "How it works",
 
     /* shared */
     studioTitle: "Studio", studioSub: "A place to generate, adapt and refine templates.",
