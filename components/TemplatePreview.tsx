@@ -28,6 +28,11 @@ export function TemplatePreview({ id, height = 220 }: Props) {
       ref={ref}
       style={{
         height,
+        // The iframe below is laid out at its full 1440px width (transform:
+        // scale() does not shrink layout size), so the wrapper must be pinned
+        // to the container width or it inflates the surrounding grid track.
+        width: "100%",
+        maxWidth: "100%",
         overflow: "hidden",
         position: "relative",
         background: "#0f0f0f",

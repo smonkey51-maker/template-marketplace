@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
 import { useLang } from "@/components/LanguageProvider";
@@ -32,11 +32,25 @@ function getPlatformLabel(t: TemplateMeta): string {
 
 const PAID_TEMPLATES = templatesMeta.filter(t => !t.id.startsWith("free-"));
 
+const FILTER_KEYS: FilterKey[] = ["All", "Web", "Notion", "App", "Shop"];
+
+function isFilterKey(v: string | null): v is FilterKey {
+  return v !== null && (FILTER_KEYS as string[]).includes(v);
+}
+
 export default function CatalogoPage() {
   const { lang } = useLang();
   const t = (k: keyof typeof copy.it) => copy[lang][k];
   const [q, setQ] = useState("");
   const [filter, setFilter] = useState<FilterKey>("All");
+
+  // Preselect the category when arriving from a nav dropdown (/catalogo?cat=Notion).
+  // Read from the URL directly rather than useSearchParams so the page needs no
+  // Suspense boundary during prerendering.
+  useEffect(() => {
+    const cat = new URLSearchParams(window.location.search).get("cat");
+    if (isFilterKey(cat)) setFilter(cat);
+  }, []);
 
   const FILTERS: { key: FilterKey; label: string }[] = [
     { key: "All",    label: t("all") },

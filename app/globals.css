@@ -187,6 +187,7 @@ body { overflow-x: hidden; }
   --muted:       rgba(26,14,6,0.55);
   --border:      rgba(26,14,6,0.12);
   --fn-border:   rgba(28,22,16,0.12);
+  --fn-menu-bg:  rgba(253,250,245,0.88);
   --nav-bg:      rgba(253,250,245,0.96);
   --card-bg:     rgba(253,250,245,0.95);
   --card-border: rgba(26,14,6,0.10);
@@ -332,6 +333,7 @@ html.dark {
   --muted:       #8a8a8a;
   --border:      rgba(234,234,234,0.10);
   --fn-border:   rgba(234,234,234,0.10);
+  --fn-menu-bg:  rgba(12,10,7,0.82);
   --panel:       rgba(234,234,234,0.045);
   --nav-bg:      rgba(6,6,6,0.92);
   --card-bg:     rgba(15,15,15,0.97);
@@ -2216,7 +2218,6 @@ html:not(.dark) .fn-bg::after { opacity: 0.04; mix-blend-mode: multiply; }
 .fn-nav-left, .fn-nav-right { display: flex; gap: 24px; align-items: center; }
 .fn-nav-right { justify-self: end; }
 .fn-nav-left a:hover, .fn-nav-right a:hover { color: var(--text); }
-.fn-drop::after { content: " +"; color: #D4AF37; }
 .fn-kbd { border: 1px solid var(--fn-border, rgba(234,234,234,.14)); padding: 4px 7px; color: var(--muted); margin-left: 7px; }
 .fn-outline { border: 1px solid rgba(212,175,55,.45); padding: 9px 16px; color: var(--text); transition: background .2s; }
 .fn-outline:hover { background: rgba(212,175,55,.09); }
@@ -2225,6 +2226,77 @@ html:not(.dark) .fn-bg::after { opacity: 0.04; mix-blend-mode: multiply; }
 .fn-lang { display: flex; border: 1px solid var(--fn-border, rgba(234,234,234,.12)); padding: 2px; }
 .fn-lang button { border: 0; background: transparent; color: var(--muted); font-size: 11px; padding: 5px 8px; cursor: pointer; font: inherit; transition: background .15s, color .15s; }
 .fn-lang .active { background: #D4AF37; color: #060606; font-weight: 700; }
+
+/* ── Nav dropdowns ──
+   Only nav entries that actually have a submenu get a caret. The panel
+   is a glass sheet that settles in, matching the site's motion language. */
+.fn-nav-item { position: relative; display: inline-flex; }
+
+.fn-drop {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.fn-caret {
+  transition: transform var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+  opacity: 0.7;
+}
+.fn-caret[data-open] { transform: rotate(180deg); opacity: 1; }
+
+.fn-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  z-index: 80;
+  min-width: 190px;
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+  border-radius: var(--r-md, 16px);
+  background: var(--fn-menu-bg, rgba(12, 10, 7, 0.82));
+  border: 1px solid var(--fn-border, rgba(234, 234, 234, 0.12));
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  box-shadow: var(--elev-4, 0 20px 50px rgba(0, 0, 0, 0.5));
+  opacity: 0;
+  transform: translateY(-6px) scale(0.98);
+  pointer-events: none;
+  visibility: hidden;
+  transition:
+    opacity    var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform  var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    visibility 0s linear var(--t-md, 320ms);
+}
+.fn-menu[data-open] {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.fn-menu-item {
+  padding: 9px 12px;
+  border-radius: var(--r-sm, 10px);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+  transition:
+    background var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    color      var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+.fn-menu-item:hover,
+.fn-menu-item:focus-visible {
+  background: rgba(212, 175, 55, 0.12);
+  color: var(--text);
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fn-menu, .fn-caret { transition: none; }
+}
 
 /* ── Hero ── */
 .fn-hero {
@@ -2297,7 +2369,15 @@ html:not(.dark) .fn-bg::after { opacity: 0.04; mix-blend-mode: multiply; }
 .fn-chip.active { background: #D4AF37; color: #060606; border-color: #D4AF37; font-weight: 700; }
 
 /* ── Grid ── */
-.fn-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--fn-border, rgba(234,234,234,.10)); }
+/* minmax(0,1fr) — without it, a wide child (the scaled preview iframe)
+   sets the track's min-content size and blows the grid past its container. */
+.fn-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--fn-border, rgba(234,234,234,.10)); }
+@media (max-width: 900px) {
+  .fn-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  .fn-grid { grid-template-columns: minmax(0, 1fr); }
+}
 
 /* ── Card ── */
 .fn-card {
