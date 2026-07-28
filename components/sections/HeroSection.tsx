@@ -145,21 +145,36 @@ export default function HeroSection() {
           {t.heroSubSnap}
         </p>
 
-        <Link
-          href="/catalogo"
-          className="anim-up inline-block text-sm font-semibold tracking-widest uppercase"
-          style={{
-            color: "var(--accent)",
-            borderBottom: "1px solid var(--accent)",
-            paddingBottom: "2px",
-            textDecoration: "none",
-            letterSpacing: "0.14em",
-            transition: "letter-spacing 0.4s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.2s",
-            "--delay": "0.46s",
-          } as React.CSSProperties}
-        >
-          {t.heroCtaSnap}
-        </Link>
+        <div className="anim-up flex flex-wrap items-center justify-center gap-x-6 gap-y-2" style={{ "--delay": "0.46s" } as React.CSSProperties}>
+          <Link
+            href="/catalogo"
+            className="inline-block text-sm font-semibold tracking-widest uppercase"
+            style={{
+              color: "var(--accent)",
+              borderBottom: "1px solid var(--accent)",
+              paddingBottom: "2px",
+              textDecoration: "none",
+              letterSpacing: "0.14em",
+              transition: "letter-spacing 0.4s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.2s",
+            }}
+          >
+            {t.heroCtaSnap}
+          </Link>
+          <Link
+            href="/guida"
+            className="inline-block text-sm font-semibold tracking-widest uppercase"
+            style={{
+              color: "rgba(242,235,217,0.45)",
+              borderBottom: "1px solid rgba(242,235,217,0.45)",
+              paddingBottom: "2px",
+              textDecoration: "none",
+              letterSpacing: "0.14em",
+              transition: "letter-spacing 0.4s cubic-bezier(0.25,0.46,0.45,0.94), color 0.2s, border-color 0.2s",
+            }}
+          >
+            {t.heroCtaGuidaSnap}
+          </Link>
+        </div>
       </div>
 
       {/* Counter 01/05 */}
