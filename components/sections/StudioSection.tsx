@@ -7,7 +7,7 @@ const K = { yellow: "#F5C519", red: "#CF2B3A", blue: "#1B4B8A", violet: "#6B3FA0
 
 export default function StudioSection() {
   return (
-    <ArtSection id="studio" className="relative overflow-hidden" aria-label="Sezione 4 di 5: Studio">
+    <ArtSection id="studio" className="relative overflow-hidden flex flex-col items-center justify-center" aria-label="Sezione 4 di 5: Studio">
 
       {/* Painting background — Kandinsky, Yellow-Red-Blue */}
       <div
@@ -22,35 +22,23 @@ export default function StudioSection() {
       />
       <div className="anim-bg absolute inset-0" style={{ zIndex: 1, background: "rgba(8,12,22,0.78)", "--delay": "0.05s" } as React.CSSProperties} />
 
-      {/* UI panel */}
-      <div className="anim-up absolute right-6 sm:right-10 lg:right-20 top-1/2 -translate-y-1/2" style={{ zIndex: 8, width: "min(340px, 88vw)", "--delay": "0.35s" } as React.CSSProperties}>
-        <div className="flex items-center gap-3 mb-4">
-          <div style={{ width: "32px", height: "32px", borderRadius: "50%", background: "rgba(107,63,160,0.4)", border: "1px solid rgba(107,63,160,0.65)", backdropFilter: "blur(8px)" }} />
-          <span className="text-white/50 text-xs font-semibold tracking-wider" style={{ fontFamily: "var(--font-jakarta), sans-serif" }}>AI Studio</span>
-        </div>
-        <div style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.15)", borderRadius: "2px", padding: "14px 16px", marginBottom: "12px", minHeight: "72px", backdropFilter: "blur(14px)" }}>
-          <span className="text-white/30 text-sm font-light" style={{ fontFamily: "var(--font-jakarta), sans-serif" }}>Genera un template per…</span>
-        </div>
-        <Link href="/ai-studio" className="block w-full text-center py-3.5 px-4 text-sm font-bold tracking-wider uppercase hover:opacity-90 transition-opacity"
-          style={{ background: K.yellow, color: K.black, borderRadius: "2px", letterSpacing: "0.12em", textDecoration: "none", minHeight: "46px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-          Genera template
-        </Link>
-        <div className="grid grid-cols-3 gap-2 mt-4">
-          {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} style={{ aspectRatio: "1", background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: "2px", backdropFilter: "blur(8px)" }} />
-          ))}
-        </div>
-      </div>
-
-      {/* Left content */}
-      <div className="relative z-10 flex flex-col h-full px-8 sm:px-14 lg:px-20 pt-24 pb-14 max-w-xs sm:max-w-sm">
-        <p className="anim-up text-xs font-semibold tracking-widest uppercase mb-5" style={{ color: K.yellow, letterSpacing: "0.16em", "--delay": "0.2s" } as React.CSSProperties}>AI Studio</p>
-        <h2 className="anim-up text-white font-light leading-snug mb-5" style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: "clamp(1.9rem, 4vw, 3.2rem)", letterSpacing: "-0.02em", "--delay": "0.3s" } as React.CSSProperties}>
+      {/* Centered content */}
+      <div className="relative z-10 flex flex-col items-center text-center px-8 sm:px-12 max-w-2xl w-full pt-20 pb-14">
+        <p className="anim-up text-xs font-semibold tracking-widest uppercase mb-4" style={{ color: K.yellow, letterSpacing: "0.16em", "--delay": "0.2s" } as React.CSSProperties}>AI Studio</p>
+        <h2 className="anim-up mb-3" style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: "clamp(2rem, 5vw, 3.8rem)", fontWeight: 300, fontStyle: "italic", color: "#fff", lineHeight: 1.1, letterSpacing: "-0.02em", "--delay": "0.3s" } as React.CSSProperties}>
           L&apos;astrazione che diventa forma.
         </h2>
-        <p className="anim-up text-white/55 text-sm leading-loose max-w-[32ch]" style={{ fontFamily: "var(--font-jakarta), sans-serif", "--delay": "0.4s" } as React.CSSProperties}>
-          Descrivi ciò che vuoi creare.<br />Claude genera il template in secondi.
+        <p className="anim-up text-white/60 text-sm sm:text-base leading-relaxed max-w-[38ch] mb-8" style={{ "--delay": "0.4s" } as React.CSSProperties}>
+          Descrivi ciò che vuoi creare. Claude genera il template in secondi.
         </p>
+
+        <Link
+          href="/ai-studio"
+          className="anim-up inline-block text-sm font-semibold tracking-wider"
+          style={{ color: K.yellow, borderBottom: `1px solid ${K.yellow}`, paddingBottom: "2px", textDecoration: "none", "--delay": "0.5s" } as React.CSSProperties}
+        >
+          Prova l&apos;AI Studio →
+        </Link>
       </div>
 
       {/* STUDIO oversized */}

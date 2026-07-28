@@ -138,22 +138,22 @@ function PreviewMidjourney() {
 
 interface PreviewCard {
   id: string; label: string; cat: string;
-  editorsPick?: boolean; tiltDeg?: number; accentColor: string;
+  editorsPick?: boolean; accentColor: string;
   Preview: () => React.ReactElement;
 }
 
 const PREVIEW_CARDS: PreviewCard[] = [
-  { id: "chatgpt-prompt-library-freelancers", label: "ChatGPT Prompts", cat: "Prompt", editorsPick: true,  tiltDeg: -2.5, accentColor: "#D4AF37", Preview: PreviewChatGPTFreelancer },
-  { id: "digital-product-launch-checklist",   label: "Launch Checklist", cat: "Guide",  tiltDeg: 1.5,                     accentColor: "#888",    Preview: PreviewLaunchChecklist },
-  { id: "freelance-rate-calculator",          label: "Rate Calculator",  cat: "Sheet",  editorsPick: true,  tiltDeg: -1.5, accentColor: "#4a8a5a", Preview: PreviewRateCalculator },
-  { id: "anti-procrastination-playbook",      label: "Playbook",         cat: "Guide",  tiltDeg: 2,                       accentColor: "#B5501F", Preview: PreviewAntiProcrast },
-  { id: "monthly-business-finance-tracker",   label: "Finance Tracker",  cat: "Sheet",  editorsPick: true,  tiltDeg: -1,   accentColor: "#4a8a5a", Preview: PreviewFinanceTracker },
-  { id: "midjourney-prompt-guide-mockups",    label: "Midjourney Guide", cat: "Prompt", tiltDeg: 1,                       accentColor: "#b478ff", Preview: PreviewMidjourney },
+  { id: "chatgpt-prompt-library-freelancers", label: "ChatGPT Prompts", cat: "Prompt", editorsPick: true,  accentColor: "#D4AF37", Preview: PreviewChatGPTFreelancer },
+  { id: "digital-product-launch-checklist",   label: "Launch Checklist", cat: "Guide",                     accentColor: "#888",    Preview: PreviewLaunchChecklist },
+  { id: "freelance-rate-calculator",          label: "Rate Calculator",  cat: "Sheet",  editorsPick: true,  accentColor: "#4a8a5a", Preview: PreviewRateCalculator },
+  { id: "anti-procrastination-playbook",      label: "Playbook",         cat: "Guide",                     accentColor: "#B5501F", Preview: PreviewAntiProcrast },
+  { id: "monthly-business-finance-tracker",   label: "Finance Tracker",  cat: "Sheet",  editorsPick: true,  accentColor: "#4a8a5a", Preview: PreviewFinanceTracker },
+  { id: "midjourney-prompt-guide-mockups",    label: "Midjourney Guide", cat: "Prompt",                     accentColor: "#b478ff", Preview: PreviewMidjourney },
 ];
 
 export default function CatalogoSection() {
   return (
-    <ArtSection id="catalogo" className="relative overflow-hidden" aria-label="Sezione 2 di 5: Catalogo">
+    <ArtSection id="catalogo" className="relative overflow-hidden flex flex-col items-center justify-center" aria-label="Sezione 2 di 5: Catalogo">
 
       {/* Painting background — Seurat, La Grande Jatte */}
       <div
@@ -177,31 +177,26 @@ export default function CatalogoSection() {
         </div>
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 flex flex-col h-full px-8 sm:px-12 lg:px-20 pt-24 pb-14 lg:pb-16">
-        <div className="max-w-xs sm:max-w-sm">
-          <p className="anim-up text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "var(--accent)", letterSpacing: "0.14em", "--delay": "0.2s" } as React.CSSProperties}>
-            Catalogo
-          </p>
-          <p className="anim-up text-white/75 text-sm sm:text-base leading-relaxed max-w-[28ch]" style={{ "--delay": "0.3s" } as React.CSSProperties}>
-            Template curati per ogni progetto.<br />HTML, Notion, prompt e molto altro.
-          </p>
-          <Link href="/catalogo" className="anim-up inline-block mt-4 text-sm font-semibold tracking-wider"
-            style={{ color: "var(--accent)", borderBottom: "1px solid var(--accent)", paddingBottom: "2px", textDecoration: "none", transition: "letter-spacing 0.4s ease", "--delay": "0.4s" } as React.CSSProperties}>
-            Sfoglia tutto →
-          </Link>
-        </div>
+      {/* Centered content */}
+      <div className="relative z-10 flex flex-col items-center text-center px-8 sm:px-12 max-w-4xl w-full pt-20 pb-14">
+        <p className="anim-up text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "var(--accent)", letterSpacing: "0.14em", "--delay": "0.2s" } as React.CSSProperties}>
+          Catalogo
+        </p>
+        <p className="anim-up text-white/75 text-sm sm:text-base leading-relaxed mb-3" style={{ "--delay": "0.3s" } as React.CSSProperties}>
+          Template curati per ogni progetto. HTML, Notion, prompt e molto altro.
+        </p>
+        <Link href="/catalogo" className="anim-up inline-block mb-8 text-sm font-semibold tracking-wider"
+          style={{ color: "var(--accent)", borderBottom: "1px solid var(--accent)", paddingBottom: "2px", textDecoration: "none", transition: "letter-spacing 0.4s ease", "--delay": "0.4s" } as React.CSSProperties}>
+          Sfoglia tutto →
+        </Link>
 
         {/* Template card grid */}
-        <div className="mt-auto" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "10px", maxWidth: "min(680px, 100%)" }}>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-3.5 w-full" style={{ maxWidth: "760px" }}>
           {PREVIEW_CARDS.map((card, i) => (
             <Link key={card.id} href={`/preview/${card.id}`}
               className="catalogo-card group block anim-up"
               style={{
-                transform: card.tiltDeg ? `rotate(${card.tiltDeg}deg)` : undefined,
-                transformOrigin: "center bottom",
-                transition: "transform 0.45s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease",
-                zIndex: card.editorsPick ? 2 : 1,
+                transition: "transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease",
                 position: "relative",
                 "--delay": `${0.45 + i * 0.06}s`,
               } as React.CSSProperties}
