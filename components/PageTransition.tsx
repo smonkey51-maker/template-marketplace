@@ -8,7 +8,7 @@ import { useReducedMotion } from "framer-motion";
 // Enter slow (520ms ease-out-quint) so the new page breathes in.
 // Asymmetric timing is what makes page transitions feel cinematic vs. mechanical.
 const EASE_OUT = [0.22, 1, 0.36, 1] as const;
-const EASE_IN  = [0.4, 0, 1, 1]     as const;
+const EASE_IN = [0.4, 0, 1, 1] as const;
 
 export default function PageTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();

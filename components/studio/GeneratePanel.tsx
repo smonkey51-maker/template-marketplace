@@ -3,9 +3,16 @@
 import { UIStyle, Tone } from "@/types/studio";
 
 const SECTORS = [
-  "SaaS / Tech", "E-commerce", "Portfolio / Freelance", "Restaurant / Food",
-  "Health & Wellness", "Finance / Fintech", "Agency / Creative",
-  "Real Estate", "Education", "Other / Custom",
+  "SaaS / Tech",
+  "E-commerce",
+  "Portfolio / Freelance",
+  "Restaurant / Food",
+  "Health & Wellness",
+  "Finance / Fintech",
+  "Agency / Creative",
+  "Real Estate",
+  "Education",
+  "Other / Custom",
 ];
 
 type GeneratePanelProps = {
@@ -47,8 +54,21 @@ export default function GeneratePanel({
       <div className="bg-surface border border-theme p-8 text-center flex flex-col items-center gap-4">
         <div className="w-14 h-14 bg-accent/10 flex items-center justify-center">
           <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden>
-            <rect x="4" y="11" width="18" height="13" rx="3" stroke="var(--accent)" strokeWidth="1.8"/>
-            <path d="M8 11V8a5 5 0 0110 0v3" stroke="var(--accent)" strokeWidth="1.8" strokeLinecap="round"/>
+            <rect
+              x="4"
+              y="11"
+              width="18"
+              height="13"
+              rx="3"
+              stroke="var(--accent)"
+              strokeWidth="1.8"
+            />
+            <path
+              d="M8 11V8a5 5 0 0110 0v3"
+              stroke="var(--accent)"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+            />
           </svg>
         </div>
         <h3 className="font-semibold text-theme text-[17px]">
@@ -67,7 +87,10 @@ export default function GeneratePanel({
               body: JSON.stringify({ templateId: "studio-access" }),
             });
             const data = await res.json();
-            if (data.requireAuth) { window.location.href = "/sign-in?redirect_url=/studio"; return; }
+            if (data.requireAuth) {
+              window.location.href = "/sign-in?redirect_url=/studio";
+              return;
+            }
             if (data.url) window.location.href = data.url;
           }}
           className="btn-brand text-[15px]"
@@ -86,7 +109,10 @@ export default function GeneratePanel({
                   body: JSON.stringify({ templateId: "studio-access-lifetime" }),
                 });
                 const data = await res.json();
-                if (data.requireAuth) { window.location.href = "/sign-in?redirect_url=/studio"; return; }
+                if (data.requireAuth) {
+                  window.location.href = "/sign-in?redirect_url=/studio";
+                  return;
+                }
                 if (data.url) window.location.href = data.url;
               }}
               className="px-6 py-2.5 glass-subtle border border-theme font-semibold text-[14px] text-theme transition-all duration-200 active:scale-[0.97] ios-spring"
@@ -159,7 +185,9 @@ export default function GeneratePanel({
         >
           <option value="">— Any sector —</option>
           {SECTORS.map((s) => (
-            <option key={s} value={s}>{s}</option>
+            <option key={s} value={s}>
+              {s}
+            </option>
           ))}
         </select>
       </div>
@@ -218,10 +246,13 @@ export default function GeneratePanel({
       >
         {genLoading ? (
           <>
-            <span style={{ display: "inline-block", animation: "spin 1s linear infinite" }}>⟳</span> Generating...
+            <span style={{ display: "inline-block", animation: "spin 1s linear infinite" }}>⟳</span>{" "}
+            Generating...
           </>
+        ) : lang === "it" ? (
+          "Genera Template"
         ) : (
-          lang === "it" ? "Genera Template" : "Generate Template"
+          "Generate Template"
         )}
       </button>
     </div>

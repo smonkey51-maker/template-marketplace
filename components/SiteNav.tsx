@@ -19,16 +19,16 @@ interface DropItem {
  * without a submenu must not advertise one.
  */
 const CATALOGO_ITEMS: DropItem[] = [
-  { href: "/catalogo",              labelIt: "Tutti i template", labelEn: "All templates" },
-  { href: "/catalogo?cat=Web",      labelIt: "Web",              labelEn: "Web" },
-  { href: "/catalogo?cat=Notion",   labelIt: "Notion",           labelEn: "Notion" },
-  { href: "/catalogo?cat=App",      labelIt: "App",              labelEn: "App" },
-  { href: "/catalogo?cat=Shop",     labelIt: "Shop",             labelEn: "Shop" },
+  { href: "/catalogo", labelIt: "Tutti i template", labelEn: "All templates" },
+  { href: "/catalogo?cat=Web", labelIt: "Web", labelEn: "Web" },
+  { href: "/catalogo?cat=Notion", labelIt: "Notion", labelEn: "Notion" },
+  { href: "/catalogo?cat=App", labelIt: "App", labelEn: "App" },
+  { href: "/catalogo?cat=Shop", labelIt: "Shop", labelEn: "Shop" },
 ];
 
 const ACCOUNT_ITEMS: DropItem[] = [
-  { href: "/account",  labelIt: "Il mio account", labelEn: "My account" },
-  { href: "/wishlist", labelIt: "Salvati",        labelEn: "Saved" },
+  { href: "/account", labelIt: "Il mio account", labelEn: "My account" },
+  { href: "/wishlist", labelIt: "Salvati", labelEn: "Saved" },
 ];
 
 /** Nav item with a real dropdown — opens on hover (pointer) and on focus/click. */
@@ -105,7 +105,13 @@ function NavDropdown({
           aria-hidden
           data-open={open ? "1" : undefined}
         >
-          <path d="M1 1l3 3 3-3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+          <path
+            d="M1 1l3 3 3-3"
+            stroke="currentColor"
+            strokeWidth="1.3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       </Link>
 
@@ -135,13 +141,22 @@ export default function SiteNav() {
     <>
       {/* Utility bar */}
       <div className="fn-utility">
-        <span>{t("date")}</span>
         <span>{t("tagline")}</span>
         <div className="fn-right">
           <ThemeToggle />
           <div className="fn-lang">
-            <button className={lang === "it" ? "active" : ""} onClick={() => lang === "en" && toggle()}>IT</button>
-            <button className={lang === "en" ? "active" : ""} onClick={() => lang === "it" && toggle()}>EN</button>
+            <button
+              className={lang === "it" ? "active" : ""}
+              onClick={() => lang === "en" && toggle()}
+            >
+              IT
+            </button>
+            <button
+              className={lang === "en" ? "active" : ""}
+              onClick={() => lang === "it" && toggle()}
+            >
+              EN
+            </button>
           </div>
           <UserButton />
         </div>
@@ -164,8 +179,12 @@ export default function SiteNav() {
         </div>
         <div />
         <div className="fn-nav-right">
-          <Link href="/catalogo">{t("cerca")} <span className="fn-kbd">Ctrl K</span></Link>
-          <Link className="fn-outline" href="/studio">{t("studio")}</Link>
+          <Link href="/catalogo">
+            {t("cerca")} <span className="fn-kbd">Ctrl K</span>
+          </Link>
+          <Link className="fn-outline" href="/studio">
+            {t("studio")}
+          </Link>
         </div>
       </nav>
     </>

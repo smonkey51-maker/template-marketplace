@@ -36,7 +36,13 @@ const ETSY_TYPES: DownloadType[] = ["canva", "notion", "excel", "sheets"];
 
 // Tutte le sottocartelle di gumroad
 const GUMROAD_SUBDIRS: DownloadType[] = [
-  "html", "canva", "notion", "excel", "sheets", "webflow", "framer",
+  "html",
+  "canva",
+  "notion",
+  "excel",
+  "sheets",
+  "webflow",
+  "framer",
 ];
 
 function ensureDir(...parts: string[]) {
@@ -111,7 +117,6 @@ export function runExport(silent = false): void {
       fs.writeFileSync(path.join(dest, filename), tailwindHtml(tmpl.name, tmpl.content), "utf-8");
       gumroadPath = `gumroad/html/${filename}`;
       console.log(`  ✅ html     → ${gumroadPath}`);
-
     } else {
       // canva, notion, excel, sheets, webflow, framer
       const filename = `${tmpl.id}.txt`;
@@ -134,7 +139,7 @@ export function runExport(silent = false): void {
     }
 
     indexRows.push(
-      `| ${tmpl.name} | \`${tmpl.id}\` | ${dlType} | ${price} | \`${gumroadPath}\` | ${etsyPath ? `\`${etsyPath}\`` : "—"} |`
+      `| ${tmpl.name} | \`${tmpl.id}\` | ${dlType} | ${price} | \`${gumroadPath}\` | ${etsyPath ? `\`${etsyPath}\`` : "—"} |`,
     );
   }
 

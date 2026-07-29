@@ -42,7 +42,7 @@ export default function ArtSection({
           delete el.dataset.entered;
         }
       },
-      { root, threshold: 0.4 }
+      { root, threshold: 0.4 },
     );
     obs.observe(el);
     return () => obs.disconnect();

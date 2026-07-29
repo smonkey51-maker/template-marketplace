@@ -14,22 +14,29 @@ export async function POST(req: NextRequest) {
   try {
     const authResult = await auth();
     userId = authResult.userId;
-  } catch { /* guest checkout */ }
+  } catch {
+    /* guest checkout */
+  }
 
   const parsed = checkoutSchema.safeParse(await req.json());
   if (!parsed.success) {
-    return NextResponse.json({ error: parsed.error.issues[0]?.message ?? "Invalid input" }, { status: 400 });
+    return NextResponse.json(
+      { error: parsed.error.issues[0]?.message ?? "Invalid input" },
+      { status: 400 },
+    );
   }
   const { templateId, bundleId } = parsed.data;
   const requestOrigin =
-    req.headers.get("origin") ??
-    req.headers.get("referer")?.match(/^https?:\/\/[^/]+/)?.[0];
+    req.headers.get("origin") ?? req.headers.get("referer")?.match(/^https?:\/\/[^/]+/)?.[0];
   const appUrl = requestOrigin ?? process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
 
   // ── Bundle checkout — requires auth ───────────────────────────────────────
   if (bundleId) {
     if (!userId) {
-      return NextResponse.json({ error: "Login required for bundles", requireAuth: true }, { status: 401 });
+      return NextResponse.json(
+        { error: "Login required for bundles", requireAuth: true },
+        { status: 401 },
+      );
     }
     const bundle = await getBundleFromDb(bundleId);
     if (!bundle) {
@@ -56,7 +63,10 @@ export async function POST(req: NextRequest) {
   // ── Studio Access — requires auth ─────────────────────────────────────────
   if (templateId === "studio-access" || templateId === "studio-access-lifetime") {
     if (!userId) {
-      return NextResponse.json({ error: "Login required for Studio Access", requireAuth: true }, { status: 401 });
+      return NextResponse.json(
+        { error: "Login required for Studio Access", requireAuth: true },
+        { status: 401 },
+      );
     }
     const priceId =
       templateId === "studio-access-lifetime"

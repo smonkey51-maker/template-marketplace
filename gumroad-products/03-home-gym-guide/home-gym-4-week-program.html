@@ -1,432 +1,1294 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Home Gym 4-Week Programming Guide — Beginner to Intermediate</title>
-<style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Segoe UI',system-ui,sans-serif;background:#f9fafb;color:#111827;line-height:1.65}
-  .cover{background:linear-gradient(135deg,#065f46 0%,#022c22 100%);color:#fff;padding:60px 48px;text-align:center}
-  .cover .badge{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:6px 18px;font-size:13px;letter-spacing:.5px;margin-bottom:24px}
-  .cover h1{font-size:clamp(26px,4vw,42px);font-weight:800;line-height:1.2;margin-bottom:16px}
-  .cover p{font-size:17px;opacity:.85;max-width:540px;margin:0 auto 32px}
-  .cover .stats{display:flex;gap:32px;justify-content:center;flex-wrap:wrap}
-  .cover .stat strong{display:block;font-size:28px;font-weight:800}
-  .cover .stat span{font-size:12px;opacity:.7}
-  .container{max-width:860px;margin:0 auto;padding:48px 32px}
-  .intro-box{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:28px 32px;margin-bottom:40px}
-  .intro-box h2{font-size:18px;font-weight:700;color:#065f46;margin-bottom:14px}
-  .equipment-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-top:16px}
-  .equip-item{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px 14px;font-size:13px;color:#065f46;font-weight:600}
-  .equip-item span{display:block;font-weight:400;color:#6b7280;font-size:12px;margin-top:2px}
-  .week-header{background:#065f46;color:#fff;padding:20px 28px;border-radius:12px 12px 0 0;margin-top:48px;margin-bottom:0}
-  .week-header h2{font-size:22px;font-weight:800}
-  .week-header p{font-size:14px;opacity:.8;margin-top:4px}
-  .week-goal{background:#d1fae5;border:1px solid #6ee7b7;border-radius:0;padding:14px 28px;font-size:14px;color:#065f46;font-weight:500;border-top:none}
-  .day-card{background:#fff;border:1px solid #e5e7eb;border-left:none;border-right:none;padding:24px 28px}
-  .day-card:last-child{border-radius:0 0 12px 12px;border-bottom:1px solid #e5e7eb;border-left:1px solid #e5e7eb;border-right:1px solid #e5e7eb}
-  .day-card:not(:last-child){border-bottom:1px solid #f3f4f6}
-  .day-card{border:1px solid #e5e7eb;border-top:none}
-  .week-block{border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;margin-top:48px}
-  .week-block .week-header{border-radius:0;margin:0}
-  .week-block .week-goal{border-radius:0}
-  .day-card{padding:20px 28px}
-  .day-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#9ca3af;margin-bottom:6px}
-  .day-title{font-size:18px;font-weight:700;color:#111827;margin-bottom:4px}
-  .day-type{display:inline-block;font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;margin-bottom:14px}
-  .type-upper{background:#dbeafe;color:#1e40af}
-  .type-lower{background:#fce7f3;color:#9d174d}
-  .type-full{background:#d1fae5;color:#065f46}
-  .type-rest{background:#f3f4f6;color:#6b7280}
-  .type-cardio{background:#fef3c7;color:#92400e}
-  .exercise-table{width:100%;border-collapse:collapse;font-size:14px}
-  .exercise-table th{background:#f9fafb;padding:8px 12px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#6b7280;border-bottom:2px solid #e5e7eb}
-  .exercise-table td{padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#374151}
-  .exercise-table tr:last-child td{border-bottom:none}
-  .exercise-table .ex-name{font-weight:600;color:#111827}
-  .note-tag{background:#fef3c7;color:#92400e;font-size:11px;padding:1px 6px;border-radius:3px;margin-left:6px;font-style:italic}
-  .rest-day-card{padding:20px 28px;background:#f9fafb;text-align:center;color:#6b7280;font-size:15px;font-style:italic}
-  .tip-box{background:#eff6ff;border-left:4px solid #3b82f6;padding:14px 18px;margin:16px 0;font-size:13px;color:#1e40af}
-  .tip-box strong{display:block;margin-bottom:4px}
-  .nutrition-section{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:28px 32px;margin-top:48px}
-  .nutrition-section h2{font-size:20px;font-weight:700;color:#065f46;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid #d1fae5}
-  .nutrition-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-  .nutrition-card{background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:18px 20px}
-  .nutrition-card h3{font-size:15px;font-weight:700;color:#111827;margin-bottom:10px}
-  .nutrition-card ul{padding-left:18px;font-size:14px;color:#374151}
-  .nutrition-card li{margin-bottom:6px}
-  .progress-section{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:28px 32px;margin-top:32px}
-  .progress-section h2{font-size:20px;font-weight:700;color:#065f46;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid #d1fae5}
-  .tracker-table{width:100%;border-collapse:collapse;font-size:14px}
-  .tracker-table th{background:#f9fafb;padding:10px 14px;text-align:left;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#6b7280;border:1px solid #e5e7eb}
-  .tracker-table td{padding:10px 14px;border:1px solid #e5e7eb;color:#374151}
-  .tracker-table td:first-child{font-weight:600}
-  .blank{background:#f9fafb;color:#d1d5db;text-align:center}
-  .footer{background:#022c22;color:#fff;text-align:center;padding:32px;margin-top:48px}
-  .footer p{opacity:.7;font-size:14px}
-  @media(max-width:600px){.nutrition-grid{grid-template-columns:1fr}.cover{padding:40px 24px}.container{padding:32px 20px}}
-  @media print{.week-block,.nutrition-section,.progress-section{break-inside:avoid} body{background:#fff}}
-</style>
-</head>
-<body>
-
-<div class="cover">
-  <div class="badge">✦ 4-WEEK PROGRAM · BEGINNER TO INTERMEDIATE · MINIMAL EQUIPMENT</div>
-  <h1>Home Gym<br>Programming Guide</h1>
-  <p>A complete, progressive 4-week training program designed for home workouts. No gym membership. No excuses. Just results.</p>
-  <div class="stats">
-    <div class="stat"><strong>4</strong><span>Weeks of programming</span></div>
-    <div class="stat"><strong>3–4</strong><span>Workouts per week</span></div>
-    <div class="stat"><strong>45–60</strong><span>Minutes per session</span></div>
-    <div class="stat"><strong>Progressive</strong><span>Overload built in</span></div>
-  </div>
-</div>
-
-<div class="container">
-
-  <div class="intro-box">
-    <h2>What You Need</h2>
-    <p style="font-size:15px;color:#374151;margin-bottom:16px">This program requires minimal equipment. Everything below has a bodyweight alternative — noted in the program with <span class="note-tag">BW alt</span>.</p>
-    <div class="equipment-grid">
-      <div class="equip-item">Resistance Bands<span>Light, medium, heavy</span></div>
-      <div class="equip-item">Dumbbells<span>2 pairs or adjustable</span></div>
-      <div class="equip-item">Pull-Up Bar<span>Doorframe style, $20–30</span></div>
-      <div class="equip-item">Yoga Mat<span>Or any non-slip floor</span></div>
-      <div class="equip-item">Sturdy Chair<span>Or bench substitute</span></div>
-      <div class="equip-item">Water Bottle<span>Non-negotiable</span></div>
-    </div>
-    <div class="tip-box" style="margin-top:16px">
-      <strong>No Equipment at All?</strong>
-      Every exercise has a bodyweight-only alternative. Look for <span class="note-tag">BW alt</span> next to exercises. You can complete this entire program with zero equipment — progress just comes from reps and tempo instead of weight.
-    </div>
-  </div>
-
-  <!-- WEEK 1 -->
-  <div class="week-block">
-    <div class="week-header">
-      <h2>Week 1 — Foundation</h2>
-      <p>Focus: Learn movement patterns. Perfect form over speed or weight. Rest 60–90 seconds between sets.</p>
-    </div>
-    <div class="week-goal">🎯 Week 1 Goal: Complete all 3 sessions. Log your starting weights. Don't go to failure — stop 2 reps before you can't continue (RPE 7).</div>
-
-    <div class="day-card">
-      <div class="day-label">Day 1 — Monday</div>
-      <div class="day-title">Upper Body Push</div>
-      <span class="day-type type-upper">Upper Body</span>
-      <table class="exercise-table">
-        <thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Rest</th><th>Notes</th></tr></thead>
-        <tbody>
-          <tr><td class="ex-name">Push-Up <span class="note-tag">BW alt</span></td><td>3</td><td>8–12</td><td>60s</td><td>Elbows 45° from torso. Full range of motion.</td></tr>
-          <tr><td class="ex-name">Dumbbell Shoulder Press</td><td>3</td><td>10–12</td><td>60s</td><td>Neutral or pronated grip. BW alt: Pike push-up</td></tr>
-          <tr><td class="ex-name">Dumbbell Chest Fly</td><td>3</td><td>12–15</td><td>60s</td><td>Slight elbow bend, controlled lowering. BW alt: Wide push-up</td></tr>
-          <tr><td class="ex-name">Tricep Dip (Chair)</td><td>3</td><td>10–12</td><td>60s</td><td>Fingers face forward, elbows track back</td></tr>
-          <tr><td class="ex-name">Band Lateral Raise</td><td>3</td><td>12–15</td><td>45s</td><td>Arms to shoulder height only. BW alt: No weight, focus tempo</td></tr>
-          <tr><td class="ex-name">Plank Hold</td><td>3</td><td>30s</td><td>45s</td><td>Neutral spine. Don't hold breath.</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="day-card">
-      <div class="day-label">Day 2 — Wednesday</div>
-      <div class="day-title">Lower Body</div>
-      <span class="day-type type-lower">Lower Body</span>
-      <table class="exercise-table">
-        <thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Rest</th><th>Notes</th></tr></thead>
-        <tbody>
-          <tr><td class="ex-name">Bodyweight Squat <span class="note-tag">BW alt</span></td><td>3</td><td>15–20</td><td>60s</td><td>Depth: thighs at least parallel to floor</td></tr>
-          <tr><td class="ex-name">Dumbbell Goblet Squat</td><td>3</td><td>10–12</td><td>60s</td><td>Hold dumbbell at chest. Chest tall throughout.</td></tr>
-          <tr><td class="ex-name">Reverse Lunge (each leg)</td><td>3</td><td>10 each</td><td>60s</td><td>Step back, knee hovers above floor</td></tr>
-          <tr><td class="ex-name">Romanian Deadlift</td><td>3</td><td>10–12</td><td>75s</td><td>Hinge at hip. BW alt: Single-leg RDL bodyweight</td></tr>
-          <tr><td class="ex-name">Glute Bridge</td><td>3</td><td>15–20</td><td>45s</td><td>Squeeze glutes at top, hold 1 second</td></tr>
-          <tr><td class="ex-name">Calf Raise</td><td>3</td><td>20–25</td><td>30s</td><td>Full range: stretch at bottom, squeeze at top</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="day-card">
-      <div class="day-label">Day 3 — Friday</div>
-      <div class="day-title">Upper Body Pull + Core</div>
-      <span class="day-type type-upper">Upper Body</span>
-      <table class="exercise-table">
-        <thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Rest</th><th>Notes</th></tr></thead>
-        <tbody>
-          <tr><td class="ex-name">Pull-Up or Band-Assisted Pull-Up</td><td>3</td><td>5–8</td><td>90s</td><td>BW alt: Band pull-apart or doorframe row</td></tr>
-          <tr><td class="ex-name">Dumbbell Row (each arm)</td><td>3</td><td>10–12</td><td>60s</td><td>Elbow drives to hip, not out to side</td></tr>
-          <tr><td class="ex-name">Band Pull-Apart</td><td>3</td><td>15–20</td><td>45s</td><td>Arms straight, squeeze shoulder blades together</td></tr>
-          <tr><td class="ex-name">Dumbbell Curl</td><td>3</td><td>10–12</td><td>60s</td><td>Slow eccentric (3 seconds down)</td></tr>
-          <tr><td class="ex-name">Dead Bug</td><td>3</td><td>8 each side</td><td>45s</td><td>Lower back stays pressed to floor</td></tr>
-          <tr><td class="ex-name">Hollow Body Hold</td><td>3</td><td>20s</td><td>45s</td><td>Lower back pressed down, arms overhead</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="rest-day-card">
-      <p>💤 Days 4, 5, 6, 7 — Active Recovery or Full Rest</p>
-      <p style="margin-top:8px;font-size:13px">Optional: 20-minute walk, light stretching, or mobility work. No structured training.</p>
-    </div>
-  </div>
-
-  <!-- WEEK 2 -->
-  <div class="week-block">
-    <div class="week-header">
-      <h2>Week 2 — Load Increase</h2>
-      <p>Focus: Add weight or reps to last week. Aim for RPE 8 on the last set. Rest 75–90 seconds between sets.</p>
-    </div>
-    <div class="week-goal">🎯 Week 2 Goal: Beat at least 1 metric from Week 1 on every exercise (more weight OR more reps). Add a 4th training day if you feel recovered.</div>
-
-    <div class="day-card">
-      <div class="day-label">Day 1 — Monday</div>
-      <div class="day-title">Upper Body Push (Increased Load)</div>
-      <span class="day-type type-upper">Upper Body</span>
-      <table class="exercise-table">
-        <thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Rest</th><th>Notes</th></tr></thead>
-        <tbody>
-          <tr><td class="ex-name">Push-Up</td><td>4</td><td>10–15</td><td>60s</td><td>Add 1 set from Week 1</td></tr>
-          <tr><td class="ex-name">Dumbbell Shoulder Press</td><td>4</td><td>10–12</td><td>75s</td><td>Increase weight by 2–5 lbs if possible</td></tr>
-          <tr><td class="ex-name">Incline Push-Up (feet elevated)</td><td>3</td><td>10–12</td><td>60s</td><td>NEW — feet on chair, hands on floor</td></tr>
-          <tr><td class="ex-name">Tricep Overhead Extension</td><td>3</td><td>12–15</td><td>60s</td><td>NEW — one dumbbell held with both hands</td></tr>
-          <tr><td class="ex-name">Band Front Raise</td><td>3</td><td>12–15</td><td>45s</td><td>Alternate with lateral raise from Week 1</td></tr>
-          <tr><td class="ex-name">Plank — Shoulder Taps</td><td>3</td><td>20 taps</td><td>45s</td><td>Stay still in the hips</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="day-card">
-      <div class="day-label">Day 2 — Wednesday</div>
-      <div class="day-title">Lower Body (Increased Load)</div>
-      <span class="day-type type-lower">Lower Body</span>
-      <table class="exercise-table">
-        <thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Rest</th><th>Notes</th></tr></thead>
-        <tbody>
-          <tr><td class="ex-name">Dumbbell Squat</td><td>4</td><td>12–15</td><td>75s</td><td>Dumbbells at sides or goblet style</td></tr>
-          <tr><td class="ex-name">Walking Lunge</td><td>3</td><td>10 each</td><td>60s</td><td>NEW — adds balance challenge</td></tr>
-          <tr><td class="ex-name">Single-Leg Romanian Deadlift</td><td>3</td><td>8 each</td><td>75s</td><td>NEW — one dumbbell in opposite hand</td></tr>
-          <tr><td class="ex-name">Sumo Squat (wide stance)</td><td>3</td><td>12–15</td><td>60s</td><td>Toes pointed 45° out, targets inner thigh</td></tr>
-          <tr><td class="ex-name">Single-Leg Glute Bridge</td><td>3</td><td>12 each</td><td>45s</td><td>Elevate from Week 1's bilateral version</td></tr>
-          <tr><td class="ex-name">Jump Squat <span class="note-tag">optional</span></td><td>3</td><td>10</td><td>60s</td><td>Skip if low ceiling or joint issues. BW alt: squat pulse</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="day-card">
-      <div class="day-label">Day 3 — Friday</div>
-      <div class="day-title">Upper Body Pull + Core (Increased Load)</div>
-      <span class="day-type type-upper">Upper Body</span>
-      <table class="exercise-table">
-        <thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Rest</th><th>Notes</th></tr></thead>
-        <tbody>
-          <tr><td class="ex-name">Pull-Up or Negative Pull-Up</td><td>4</td><td>5–8</td><td>90s</td><td>Negatives: 5s controlled lower</td></tr>
-          <tr><td class="ex-name">Renegade Row</td><td>3</td><td>8 each</td><td>75s</td><td>NEW — push-up position, row one arm</td></tr>
-          <tr><td class="ex-name">Face Pull (band)</td><td>3</td><td>15–20</td><td>45s</td><td>NEW — external rotation, protect rotator cuff</td></tr>
-          <tr><td class="ex-name">Hammer Curl</td><td>3</td><td>10–12</td><td>60s</td><td>Neutral grip targets brachialis</td></tr>
-          <tr><td class="ex-name">Bicycle Crunch</td><td>3</td><td>20 total</td><td>45s</td><td>Slow and controlled, no neck pull</td></tr>
-          <tr><td class="ex-name">Leg Raises</td><td>3</td><td>12–15</td><td>45s</td><td>Keep low back pressed down</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="day-card">
-      <div class="day-label">Day 4 (Optional) — Saturday</div>
-      <div class="day-title">Full Body Circuit</div>
-      <span class="day-type type-full">Full Body</span>
-      <table class="exercise-table">
-        <thead><tr><th>Exercise</th><th>Sets</th><th>Duration</th><th>Rest</th><th>Notes</th></tr></thead>
-        <tbody>
-          <tr><td class="ex-name">Jumping Jacks / March in Place</td><td>1</td><td>2 min</td><td>—</td><td>Warm-up</td></tr>
-          <tr><td class="ex-name">Squat to Press</td><td>3</td><td>12 reps</td><td>45s</td><td>Squat down, press dumbbells up as you stand</td></tr>
-          <tr><td class="ex-name">Push-Up to Row</td><td>3</td><td>8 reps</td><td>45s</td><td>Push-up, then row one dumbbell at top</td></tr>
-          <tr><td class="ex-name">Reverse Lunge + Curl</td><td>3</td><td>10 each leg</td><td>45s</td><td>Curl at the bottom of the lunge</td></tr>
-          <tr><td class="ex-name">Burpee (modified)</td><td>3</td><td>8 reps</td><td>60s</td><td>Step out instead of jump if needed</td></tr>
-          <tr><td class="ex-name">Mountain Climber</td><td>3</td><td>30s</td><td>45s</td><td>Controlled pace — not a sprint</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- WEEK 3 -->
-  <div class="week-block">
-    <div class="week-header">
-      <h2>Week 3 — Intensity Peak</h2>
-      <p>Focus: Push harder. RPE 8–9 on working sets. Reduce rest periods by 15 seconds. This is the hardest week.</p>
-    </div>
-    <div class="week-goal">🎯 Week 3 Goal: Hit failure (RPE 9–10) on the LAST set of your main exercises only. Log everything — this is your benchmark week.</div>
-
-    <div class="day-card">
-      <div class="day-label">Day 1</div>
-      <div class="day-title">Upper Body Push — Peak</div>
-      <span class="day-type type-upper">Upper Body</span>
-      <table class="exercise-table">
-        <thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Rest</th><th>Notes</th></tr></thead>
-        <tbody>
-          <tr><td class="ex-name">Diamond Push-Up</td><td>4</td><td>AMRAP*</td><td>75s</td><td>*As many reps as possible. Stop at form failure.</td></tr>
-          <tr><td class="ex-name">Arnold Press</td><td>4</td><td>10–12</td><td>75s</td><td>Rotation adds front and side delt work</td></tr>
-          <tr><td class="ex-name">Dumbbell Pullover</td><td>3</td><td>12–15</td><td>60s</td><td>Lie on bench/floor, arcs dumbbell overhead</td></tr>
-          <tr><td class="ex-name">Close-Grip Push-Up</td><td>3</td><td>AMRAP</td><td>60s</td><td>Hands shoulder-width, elbows tight to body</td></tr>
-          <tr><td class="ex-name">Lateral Raise Drop Set</td><td>2</td><td>10+10</td><td>90s</td><td>Heavy 10 reps → immediately lighter 10 reps</td></tr>
-          <tr><td class="ex-name">Plank — Side Plank Each Side</td><td>3</td><td>30s each</td><td>30s</td><td>Hip stays elevated</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="day-card">
-      <div class="day-label">Day 2</div>
-      <div class="day-title">Lower Body — Peak</div>
-      <span class="day-type type-lower">Lower Body</span>
-      <table class="exercise-table">
-        <thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Rest</th><th>Notes</th></tr></thead>
-        <tbody>
-          <tr><td class="ex-name">Dumbbell Squat — Heavy</td><td>5</td><td>8–10</td><td>90s</td><td>Heaviest weight you can manage with good form</td></tr>
-          <tr><td class="ex-name">Bulgarian Split Squat</td><td>3</td><td>8 each</td><td>75s</td><td>Rear foot elevated on chair. The hardest leg exercise here.</td></tr>
-          <tr><td class="ex-name">Stiff-Leg Deadlift</td><td>4</td><td>10–12</td><td>75s</td><td>Maximum hamstring stretch at bottom</td></tr>
-          <tr><td class="ex-name">Lateral Band Walk</td><td>3</td><td>15 each direction</td><td>45s</td><td>Band around ankles, stay in squat position</td></tr>
-          <tr><td class="ex-name">Squat Jump Superset with Wall Sit</td><td>3</td><td>10 jumps + 30s sit</td><td>90s</td><td>No rest between squat jump and wall sit</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="day-card">
-      <div class="day-label">Day 3</div>
-      <div class="day-title">Upper Body Pull + Core — Peak</div>
-      <span class="day-type type-upper">Upper Body</span>
-      <table class="exercise-table">
-        <thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Rest</th><th>Notes</th></tr></thead>
-        <tbody>
-          <tr><td class="ex-name">Pull-Up — Weighted or Max Reps</td><td>4</td><td>AMRAP</td><td>120s</td><td>Add weight vest if BW is easy (10+ reps)</td></tr>
-          <tr><td class="ex-name">Isometric Row Hold</td><td>3</td><td>5 reps × 3s hold</td><td>75s</td><td>Hold the top position 3 seconds each rep</td></tr>
-          <tr><td class="ex-name">Straight-Arm Pulldown (band)</td><td>3</td><td>15–20</td><td>45s</td><td>Targets lat — keep arms straight throughout</td></tr>
-          <tr><td class="ex-name">Zottman Curl</td><td>3</td><td>10–12</td><td>60s</td><td>Curl up with supinated grip, lower with pronated</td></tr>
-          <tr><td class="ex-name">Hanging Knee Raises</td><td>3</td><td>12–15</td><td>45s</td><td>Use pull-up bar. BW alt: lying knee raise</td></tr>
-          <tr><td class="ex-name">Ab Wheel / Plank Roll-Out</td><td>3</td><td>8–10</td><td>60s</td><td>BW alt: push-up position, walk hands forward and back</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="day-card">
-      <div class="day-label">Day 4</div>
-      <div class="day-title">Full Body Power Circuit</div>
-      <span class="day-type type-full">Full Body</span>
-      <table class="exercise-table">
-        <thead><tr><th>Exercise</th><th>Rounds</th><th>Work</th><th>Rest</th><th>Notes</th></tr></thead>
-        <tbody>
-          <tr><td class="ex-name">Dumbbell Swing</td><td>4</td><td>15 reps</td><td>45s</td><td>Hip hinge power — like a kettlebell swing</td></tr>
-          <tr><td class="ex-name">Clapping Push-Up</td><td>4</td><td>5–8 reps</td><td>60s</td><td>BW alt: explosive push-up (no clap)</td></tr>
-          <tr><td class="ex-name">Jump Lunge</td><td>3</td><td>10 each</td><td>60s</td><td>BW alt: fast alternating reverse lunge</td></tr>
-          <tr><td class="ex-name">Tuck Jump</td><td>3</td><td>10 reps</td><td>60s</td><td>BW alt: squat jump</td></tr>
-          <tr><td class="ex-name">Plank to Push-Up</td><td>3</td><td>10 reps</td><td>45s</td><td>Forearm plank → push-up position → back down</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- WEEK 4 -->
-  <div class="week-block">
-    <div class="week-header">
-      <h2>Week 4 — Deload &amp; Consolidation</h2>
-      <p>Focus: Active recovery. 60% of Week 3 intensity. Let adaptations solidify. Prioritize mobility and technique.</p>
-    </div>
-    <div class="week-goal">🎯 Week 4 Goal: Do NOT push hard. This is intentional — reduced volume allows your muscles to grow and recover. Most beginners skip deloads and plateau. Don't.</div>
-
-    <div class="day-card">
-      <div class="day-label">Day 1, 2, 3</div>
-      <div class="day-title">Repeat Week 1 Workouts — 60% Effort</div>
-      <span class="day-type type-rest">Deload</span>
-      <div style="padding:12px 0;font-size:15px;color:#374151">
-        <p>Use the same exercises as Week 1, but:</p>
-        <ul style="margin:12px 0 0 20px">
-          <li>Drop weight by 30–40%</li>
-          <li>Stop 4–5 reps before failure (RPE 6)</li>
-          <li>Add 30 seconds to rest periods</li>
-          <li>Focus entirely on perfect movement mechanics</li>
-          <li>Add 10 minutes of static stretching after each session</li>
-        </ul>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Home Gym 4-Week Programming Guide — Beginner to Intermediate</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+        background: #f9fafb;
+        color: #111827;
+        line-height: 1.65;
+      }
+      .cover {
+        background: linear-gradient(135deg, #065f46 0%, #022c22 100%);
+        color: #fff;
+        padding: 60px 48px;
+        text-align: center;
+      }
+      .cover .badge {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 999px;
+        padding: 6px 18px;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+        margin-bottom: 24px;
+      }
+      .cover h1 {
+        font-size: clamp(26px, 4vw, 42px);
+        font-weight: 800;
+        line-height: 1.2;
+        margin-bottom: 16px;
+      }
+      .cover p {
+        font-size: 17px;
+        opacity: 0.85;
+        max-width: 540px;
+        margin: 0 auto 32px;
+      }
+      .cover .stats {
+        display: flex;
+        gap: 32px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .cover .stat strong {
+        display: block;
+        font-size: 28px;
+        font-weight: 800;
+      }
+      .cover .stat span {
+        font-size: 12px;
+        opacity: 0.7;
+      }
+      .container {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 48px 32px;
+      }
+      .intro-box {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 28px 32px;
+        margin-bottom: 40px;
+      }
+      .intro-box h2 {
+        font-size: 18px;
+        font-weight: 700;
+        color: #065f46;
+        margin-bottom: 14px;
+      }
+      .equipment-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 12px;
+        margin-top: 16px;
+      }
+      .equip-item {
+        background: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        border-radius: 8px;
+        padding: 10px 14px;
+        font-size: 13px;
+        color: #065f46;
+        font-weight: 600;
+      }
+      .equip-item span {
+        display: block;
+        font-weight: 400;
+        color: #6b7280;
+        font-size: 12px;
+        margin-top: 2px;
+      }
+      .week-header {
+        background: #065f46;
+        color: #fff;
+        padding: 20px 28px;
+        border-radius: 12px 12px 0 0;
+        margin-top: 48px;
+        margin-bottom: 0;
+      }
+      .week-header h2 {
+        font-size: 22px;
+        font-weight: 800;
+      }
+      .week-header p {
+        font-size: 14px;
+        opacity: 0.8;
+        margin-top: 4px;
+      }
+      .week-goal {
+        background: #d1fae5;
+        border: 1px solid #6ee7b7;
+        border-radius: 0;
+        padding: 14px 28px;
+        font-size: 14px;
+        color: #065f46;
+        font-weight: 500;
+        border-top: none;
+      }
+      .day-card {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-left: none;
+        border-right: none;
+        padding: 24px 28px;
+      }
+      .day-card:last-child {
+        border-radius: 0 0 12px 12px;
+        border-bottom: 1px solid #e5e7eb;
+        border-left: 1px solid #e5e7eb;
+        border-right: 1px solid #e5e7eb;
+      }
+      .day-card:not(:last-child) {
+        border-bottom: 1px solid #f3f4f6;
+      }
+      .day-card {
+        border: 1px solid #e5e7eb;
+        border-top: none;
+      }
+      .week-block {
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-top: 48px;
+      }
+      .week-block .week-header {
+        border-radius: 0;
+        margin: 0;
+      }
+      .week-block .week-goal {
+        border-radius: 0;
+      }
+      .day-card {
+        padding: 20px 28px;
+      }
+      .day-label {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #9ca3af;
+        margin-bottom: 6px;
+      }
+      .day-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 4px;
+      }
+      .day-type {
+        display: inline-block;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 3px 10px;
+        border-radius: 999px;
+        margin-bottom: 14px;
+      }
+      .type-upper {
+        background: #dbeafe;
+        color: #1e40af;
+      }
+      .type-lower {
+        background: #fce7f3;
+        color: #9d174d;
+      }
+      .type-full {
+        background: #d1fae5;
+        color: #065f46;
+      }
+      .type-rest {
+        background: #f3f4f6;
+        color: #6b7280;
+      }
+      .type-cardio {
+        background: #fef3c7;
+        color: #92400e;
+      }
+      .exercise-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+      }
+      .exercise-table th {
+        background: #f9fafb;
+        padding: 8px 12px;
+        text-align: left;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #6b7280;
+        border-bottom: 2px solid #e5e7eb;
+      }
+      .exercise-table td {
+        padding: 10px 12px;
+        border-bottom: 1px solid #f3f4f6;
+        color: #374151;
+      }
+      .exercise-table tr:last-child td {
+        border-bottom: none;
+      }
+      .exercise-table .ex-name {
+        font-weight: 600;
+        color: #111827;
+      }
+      .note-tag {
+        background: #fef3c7;
+        color: #92400e;
+        font-size: 11px;
+        padding: 1px 6px;
+        border-radius: 3px;
+        margin-left: 6px;
+        font-style: italic;
+      }
+      .rest-day-card {
+        padding: 20px 28px;
+        background: #f9fafb;
+        text-align: center;
+        color: #6b7280;
+        font-size: 15px;
+        font-style: italic;
+      }
+      .tip-box {
+        background: #eff6ff;
+        border-left: 4px solid #3b82f6;
+        padding: 14px 18px;
+        margin: 16px 0;
+        font-size: 13px;
+        color: #1e40af;
+      }
+      .tip-box strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+      .nutrition-section {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 28px 32px;
+        margin-top: 48px;
+      }
+      .nutrition-section h2 {
+        font-size: 20px;
+        font-weight: 700;
+        color: #065f46;
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #d1fae5;
+      }
+      .nutrition-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      .nutrition-card {
+        background: #f9fafb;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        padding: 18px 20px;
+      }
+      .nutrition-card h3 {
+        font-size: 15px;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 10px;
+      }
+      .nutrition-card ul {
+        padding-left: 18px;
+        font-size: 14px;
+        color: #374151;
+      }
+      .nutrition-card li {
+        margin-bottom: 6px;
+      }
+      .progress-section {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 28px 32px;
+        margin-top: 32px;
+      }
+      .progress-section h2 {
+        font-size: 20px;
+        font-weight: 700;
+        color: #065f46;
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #d1fae5;
+      }
+      .tracker-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+      }
+      .tracker-table th {
+        background: #f9fafb;
+        padding: 10px 14px;
+        text-align: left;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #6b7280;
+        border: 1px solid #e5e7eb;
+      }
+      .tracker-table td {
+        padding: 10px 14px;
+        border: 1px solid #e5e7eb;
+        color: #374151;
+      }
+      .tracker-table td:first-child {
+        font-weight: 600;
+      }
+      .blank {
+        background: #f9fafb;
+        color: #d1d5db;
+        text-align: center;
+      }
+      .footer {
+        background: #022c22;
+        color: #fff;
+        text-align: center;
+        padding: 32px;
+        margin-top: 48px;
+      }
+      .footer p {
+        opacity: 0.7;
+        font-size: 14px;
+      }
+      @media (max-width: 600px) {
+        .nutrition-grid {
+          grid-template-columns: 1fr;
+        }
+        .cover {
+          padding: 40px 24px;
+        }
+        .container {
+          padding: 32px 20px;
+        }
+      }
+      @media print {
+        .week-block,
+        .nutrition-section,
+        .progress-section {
+          break-inside: avoid;
+        }
+        body {
+          background: #fff;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cover">
+      <div class="badge">✦ 4-WEEK PROGRAM · BEGINNER TO INTERMEDIATE · MINIMAL EQUIPMENT</div>
+      <h1>Home Gym<br />Programming Guide</h1>
+      <p>
+        A complete, progressive 4-week training program designed for home workouts. No gym
+        membership. No excuses. Just results.
+      </p>
+      <div class="stats">
+        <div class="stat"><strong>4</strong><span>Weeks of programming</span></div>
+        <div class="stat"><strong>3–4</strong><span>Workouts per week</span></div>
+        <div class="stat"><strong>45–60</strong><span>Minutes per session</span></div>
+        <div class="stat"><strong>Progressive</strong><span>Overload built in</span></div>
       </div>
     </div>
 
-    <div class="rest-day-card">
-      <p>🔄 After Week 4 — What's Next?</p>
-      <p style="margin-top:8px;font-size:13px">Repeat the 4-week cycle starting at Week 1, but increase all starting weights by 5–10%. This is progressive overload — the fundamental mechanism of getting stronger.</p>
+    <div class="container">
+      <div class="intro-box">
+        <h2>What You Need</h2>
+        <p style="font-size: 15px; color: #374151; margin-bottom: 16px">
+          This program requires minimal equipment. Everything below has a bodyweight alternative —
+          noted in the program with <span class="note-tag">BW alt</span>.
+        </p>
+        <div class="equipment-grid">
+          <div class="equip-item">Resistance Bands<span>Light, medium, heavy</span></div>
+          <div class="equip-item">Dumbbells<span>2 pairs or adjustable</span></div>
+          <div class="equip-item">Pull-Up Bar<span>Doorframe style, $20–30</span></div>
+          <div class="equip-item">Yoga Mat<span>Or any non-slip floor</span></div>
+          <div class="equip-item">Sturdy Chair<span>Or bench substitute</span></div>
+          <div class="equip-item">Water Bottle<span>Non-negotiable</span></div>
+        </div>
+        <div class="tip-box" style="margin-top: 16px">
+          <strong>No Equipment at All?</strong>
+          Every exercise has a bodyweight-only alternative. Look for
+          <span class="note-tag">BW alt</span> next to exercises. You can complete this entire
+          program with zero equipment — progress just comes from reps and tempo instead of weight.
+        </div>
+      </div>
+
+      <!-- WEEK 1 -->
+      <div class="week-block">
+        <div class="week-header">
+          <h2>Week 1 — Foundation</h2>
+          <p>
+            Focus: Learn movement patterns. Perfect form over speed or weight. Rest 60–90 seconds
+            between sets.
+          </p>
+        </div>
+        <div class="week-goal">
+          🎯 Week 1 Goal: Complete all 3 sessions. Log your starting weights. Don't go to failure —
+          stop 2 reps before you can't continue (RPE 7).
+        </div>
+
+        <div class="day-card">
+          <div class="day-label">Day 1 — Monday</div>
+          <div class="day-title">Upper Body Push</div>
+          <span class="day-type type-upper">Upper Body</span>
+          <table class="exercise-table">
+            <thead>
+              <tr>
+                <th>Exercise</th>
+                <th>Sets</th>
+                <th>Reps</th>
+                <th>Rest</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="ex-name">Push-Up <span class="note-tag">BW alt</span></td>
+                <td>3</td>
+                <td>8–12</td>
+                <td>60s</td>
+                <td>Elbows 45° from torso. Full range of motion.</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Dumbbell Shoulder Press</td>
+                <td>3</td>
+                <td>10–12</td>
+                <td>60s</td>
+                <td>Neutral or pronated grip. BW alt: Pike push-up</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Dumbbell Chest Fly</td>
+                <td>3</td>
+                <td>12–15</td>
+                <td>60s</td>
+                <td>Slight elbow bend, controlled lowering. BW alt: Wide push-up</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Tricep Dip (Chair)</td>
+                <td>3</td>
+                <td>10–12</td>
+                <td>60s</td>
+                <td>Fingers face forward, elbows track back</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Band Lateral Raise</td>
+                <td>3</td>
+                <td>12–15</td>
+                <td>45s</td>
+                <td>Arms to shoulder height only. BW alt: No weight, focus tempo</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Plank Hold</td>
+                <td>3</td>
+                <td>30s</td>
+                <td>45s</td>
+                <td>Neutral spine. Don't hold breath.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="day-card">
+          <div class="day-label">Day 2 — Wednesday</div>
+          <div class="day-title">Lower Body</div>
+          <span class="day-type type-lower">Lower Body</span>
+          <table class="exercise-table">
+            <thead>
+              <tr>
+                <th>Exercise</th>
+                <th>Sets</th>
+                <th>Reps</th>
+                <th>Rest</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="ex-name">Bodyweight Squat <span class="note-tag">BW alt</span></td>
+                <td>3</td>
+                <td>15–20</td>
+                <td>60s</td>
+                <td>Depth: thighs at least parallel to floor</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Dumbbell Goblet Squat</td>
+                <td>3</td>
+                <td>10–12</td>
+                <td>60s</td>
+                <td>Hold dumbbell at chest. Chest tall throughout.</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Reverse Lunge (each leg)</td>
+                <td>3</td>
+                <td>10 each</td>
+                <td>60s</td>
+                <td>Step back, knee hovers above floor</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Romanian Deadlift</td>
+                <td>3</td>
+                <td>10–12</td>
+                <td>75s</td>
+                <td>Hinge at hip. BW alt: Single-leg RDL bodyweight</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Glute Bridge</td>
+                <td>3</td>
+                <td>15–20</td>
+                <td>45s</td>
+                <td>Squeeze glutes at top, hold 1 second</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Calf Raise</td>
+                <td>3</td>
+                <td>20–25</td>
+                <td>30s</td>
+                <td>Full range: stretch at bottom, squeeze at top</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="day-card">
+          <div class="day-label">Day 3 — Friday</div>
+          <div class="day-title">Upper Body Pull + Core</div>
+          <span class="day-type type-upper">Upper Body</span>
+          <table class="exercise-table">
+            <thead>
+              <tr>
+                <th>Exercise</th>
+                <th>Sets</th>
+                <th>Reps</th>
+                <th>Rest</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="ex-name">Pull-Up or Band-Assisted Pull-Up</td>
+                <td>3</td>
+                <td>5–8</td>
+                <td>90s</td>
+                <td>BW alt: Band pull-apart or doorframe row</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Dumbbell Row (each arm)</td>
+                <td>3</td>
+                <td>10–12</td>
+                <td>60s</td>
+                <td>Elbow drives to hip, not out to side</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Band Pull-Apart</td>
+                <td>3</td>
+                <td>15–20</td>
+                <td>45s</td>
+                <td>Arms straight, squeeze shoulder blades together</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Dumbbell Curl</td>
+                <td>3</td>
+                <td>10–12</td>
+                <td>60s</td>
+                <td>Slow eccentric (3 seconds down)</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Dead Bug</td>
+                <td>3</td>
+                <td>8 each side</td>
+                <td>45s</td>
+                <td>Lower back stays pressed to floor</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Hollow Body Hold</td>
+                <td>3</td>
+                <td>20s</td>
+                <td>45s</td>
+                <td>Lower back pressed down, arms overhead</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="rest-day-card">
+          <p>💤 Days 4, 5, 6, 7 — Active Recovery or Full Rest</p>
+          <p style="margin-top: 8px; font-size: 13px">
+            Optional: 20-minute walk, light stretching, or mobility work. No structured training.
+          </p>
+        </div>
+      </div>
+
+      <!-- WEEK 2 -->
+      <div class="week-block">
+        <div class="week-header">
+          <h2>Week 2 — Load Increase</h2>
+          <p>
+            Focus: Add weight or reps to last week. Aim for RPE 8 on the last set. Rest 75–90
+            seconds between sets.
+          </p>
+        </div>
+        <div class="week-goal">
+          🎯 Week 2 Goal: Beat at least 1 metric from Week 1 on every exercise (more weight OR more
+          reps). Add a 4th training day if you feel recovered.
+        </div>
+
+        <div class="day-card">
+          <div class="day-label">Day 1 — Monday</div>
+          <div class="day-title">Upper Body Push (Increased Load)</div>
+          <span class="day-type type-upper">Upper Body</span>
+          <table class="exercise-table">
+            <thead>
+              <tr>
+                <th>Exercise</th>
+                <th>Sets</th>
+                <th>Reps</th>
+                <th>Rest</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="ex-name">Push-Up</td>
+                <td>4</td>
+                <td>10–15</td>
+                <td>60s</td>
+                <td>Add 1 set from Week 1</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Dumbbell Shoulder Press</td>
+                <td>4</td>
+                <td>10–12</td>
+                <td>75s</td>
+                <td>Increase weight by 2–5 lbs if possible</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Incline Push-Up (feet elevated)</td>
+                <td>3</td>
+                <td>10–12</td>
+                <td>60s</td>
+                <td>NEW — feet on chair, hands on floor</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Tricep Overhead Extension</td>
+                <td>3</td>
+                <td>12–15</td>
+                <td>60s</td>
+                <td>NEW — one dumbbell held with both hands</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Band Front Raise</td>
+                <td>3</td>
+                <td>12–15</td>
+                <td>45s</td>
+                <td>Alternate with lateral raise from Week 1</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Plank — Shoulder Taps</td>
+                <td>3</td>
+                <td>20 taps</td>
+                <td>45s</td>
+                <td>Stay still in the hips</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="day-card">
+          <div class="day-label">Day 2 — Wednesday</div>
+          <div class="day-title">Lower Body (Increased Load)</div>
+          <span class="day-type type-lower">Lower Body</span>
+          <table class="exercise-table">
+            <thead>
+              <tr>
+                <th>Exercise</th>
+                <th>Sets</th>
+                <th>Reps</th>
+                <th>Rest</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="ex-name">Dumbbell Squat</td>
+                <td>4</td>
+                <td>12–15</td>
+                <td>75s</td>
+                <td>Dumbbells at sides or goblet style</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Walking Lunge</td>
+                <td>3</td>
+                <td>10 each</td>
+                <td>60s</td>
+                <td>NEW — adds balance challenge</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Single-Leg Romanian Deadlift</td>
+                <td>3</td>
+                <td>8 each</td>
+                <td>75s</td>
+                <td>NEW — one dumbbell in opposite hand</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Sumo Squat (wide stance)</td>
+                <td>3</td>
+                <td>12–15</td>
+                <td>60s</td>
+                <td>Toes pointed 45° out, targets inner thigh</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Single-Leg Glute Bridge</td>
+                <td>3</td>
+                <td>12 each</td>
+                <td>45s</td>
+                <td>Elevate from Week 1's bilateral version</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Jump Squat <span class="note-tag">optional</span></td>
+                <td>3</td>
+                <td>10</td>
+                <td>60s</td>
+                <td>Skip if low ceiling or joint issues. BW alt: squat pulse</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="day-card">
+          <div class="day-label">Day 3 — Friday</div>
+          <div class="day-title">Upper Body Pull + Core (Increased Load)</div>
+          <span class="day-type type-upper">Upper Body</span>
+          <table class="exercise-table">
+            <thead>
+              <tr>
+                <th>Exercise</th>
+                <th>Sets</th>
+                <th>Reps</th>
+                <th>Rest</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="ex-name">Pull-Up or Negative Pull-Up</td>
+                <td>4</td>
+                <td>5–8</td>
+                <td>90s</td>
+                <td>Negatives: 5s controlled lower</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Renegade Row</td>
+                <td>3</td>
+                <td>8 each</td>
+                <td>75s</td>
+                <td>NEW — push-up position, row one arm</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Face Pull (band)</td>
+                <td>3</td>
+                <td>15–20</td>
+                <td>45s</td>
+                <td>NEW — external rotation, protect rotator cuff</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Hammer Curl</td>
+                <td>3</td>
+                <td>10–12</td>
+                <td>60s</td>
+                <td>Neutral grip targets brachialis</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Bicycle Crunch</td>
+                <td>3</td>
+                <td>20 total</td>
+                <td>45s</td>
+                <td>Slow and controlled, no neck pull</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Leg Raises</td>
+                <td>3</td>
+                <td>12–15</td>
+                <td>45s</td>
+                <td>Keep low back pressed down</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="day-card">
+          <div class="day-label">Day 4 (Optional) — Saturday</div>
+          <div class="day-title">Full Body Circuit</div>
+          <span class="day-type type-full">Full Body</span>
+          <table class="exercise-table">
+            <thead>
+              <tr>
+                <th>Exercise</th>
+                <th>Sets</th>
+                <th>Duration</th>
+                <th>Rest</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="ex-name">Jumping Jacks / March in Place</td>
+                <td>1</td>
+                <td>2 min</td>
+                <td>—</td>
+                <td>Warm-up</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Squat to Press</td>
+                <td>3</td>
+                <td>12 reps</td>
+                <td>45s</td>
+                <td>Squat down, press dumbbells up as you stand</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Push-Up to Row</td>
+                <td>3</td>
+                <td>8 reps</td>
+                <td>45s</td>
+                <td>Push-up, then row one dumbbell at top</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Reverse Lunge + Curl</td>
+                <td>3</td>
+                <td>10 each leg</td>
+                <td>45s</td>
+                <td>Curl at the bottom of the lunge</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Burpee (modified)</td>
+                <td>3</td>
+                <td>8 reps</td>
+                <td>60s</td>
+                <td>Step out instead of jump if needed</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Mountain Climber</td>
+                <td>3</td>
+                <td>30s</td>
+                <td>45s</td>
+                <td>Controlled pace — not a sprint</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- WEEK 3 -->
+      <div class="week-block">
+        <div class="week-header">
+          <h2>Week 3 — Intensity Peak</h2>
+          <p>
+            Focus: Push harder. RPE 8–9 on working sets. Reduce rest periods by 15 seconds. This is
+            the hardest week.
+          </p>
+        </div>
+        <div class="week-goal">
+          🎯 Week 3 Goal: Hit failure (RPE 9–10) on the LAST set of your main exercises only. Log
+          everything — this is your benchmark week.
+        </div>
+
+        <div class="day-card">
+          <div class="day-label">Day 1</div>
+          <div class="day-title">Upper Body Push — Peak</div>
+          <span class="day-type type-upper">Upper Body</span>
+          <table class="exercise-table">
+            <thead>
+              <tr>
+                <th>Exercise</th>
+                <th>Sets</th>
+                <th>Reps</th>
+                <th>Rest</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="ex-name">Diamond Push-Up</td>
+                <td>4</td>
+                <td>AMRAP*</td>
+                <td>75s</td>
+                <td>*As many reps as possible. Stop at form failure.</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Arnold Press</td>
+                <td>4</td>
+                <td>10–12</td>
+                <td>75s</td>
+                <td>Rotation adds front and side delt work</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Dumbbell Pullover</td>
+                <td>3</td>
+                <td>12–15</td>
+                <td>60s</td>
+                <td>Lie on bench/floor, arcs dumbbell overhead</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Close-Grip Push-Up</td>
+                <td>3</td>
+                <td>AMRAP</td>
+                <td>60s</td>
+                <td>Hands shoulder-width, elbows tight to body</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Lateral Raise Drop Set</td>
+                <td>2</td>
+                <td>10+10</td>
+                <td>90s</td>
+                <td>Heavy 10 reps → immediately lighter 10 reps</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Plank — Side Plank Each Side</td>
+                <td>3</td>
+                <td>30s each</td>
+                <td>30s</td>
+                <td>Hip stays elevated</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="day-card">
+          <div class="day-label">Day 2</div>
+          <div class="day-title">Lower Body — Peak</div>
+          <span class="day-type type-lower">Lower Body</span>
+          <table class="exercise-table">
+            <thead>
+              <tr>
+                <th>Exercise</th>
+                <th>Sets</th>
+                <th>Reps</th>
+                <th>Rest</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="ex-name">Dumbbell Squat — Heavy</td>
+                <td>5</td>
+                <td>8–10</td>
+                <td>90s</td>
+                <td>Heaviest weight you can manage with good form</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Bulgarian Split Squat</td>
+                <td>3</td>
+                <td>8 each</td>
+                <td>75s</td>
+                <td>Rear foot elevated on chair. The hardest leg exercise here.</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Stiff-Leg Deadlift</td>
+                <td>4</td>
+                <td>10–12</td>
+                <td>75s</td>
+                <td>Maximum hamstring stretch at bottom</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Lateral Band Walk</td>
+                <td>3</td>
+                <td>15 each direction</td>
+                <td>45s</td>
+                <td>Band around ankles, stay in squat position</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Squat Jump Superset with Wall Sit</td>
+                <td>3</td>
+                <td>10 jumps + 30s sit</td>
+                <td>90s</td>
+                <td>No rest between squat jump and wall sit</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="day-card">
+          <div class="day-label">Day 3</div>
+          <div class="day-title">Upper Body Pull + Core — Peak</div>
+          <span class="day-type type-upper">Upper Body</span>
+          <table class="exercise-table">
+            <thead>
+              <tr>
+                <th>Exercise</th>
+                <th>Sets</th>
+                <th>Reps</th>
+                <th>Rest</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="ex-name">Pull-Up — Weighted or Max Reps</td>
+                <td>4</td>
+                <td>AMRAP</td>
+                <td>120s</td>
+                <td>Add weight vest if BW is easy (10+ reps)</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Isometric Row Hold</td>
+                <td>3</td>
+                <td>5 reps × 3s hold</td>
+                <td>75s</td>
+                <td>Hold the top position 3 seconds each rep</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Straight-Arm Pulldown (band)</td>
+                <td>3</td>
+                <td>15–20</td>
+                <td>45s</td>
+                <td>Targets lat — keep arms straight throughout</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Zottman Curl</td>
+                <td>3</td>
+                <td>10–12</td>
+                <td>60s</td>
+                <td>Curl up with supinated grip, lower with pronated</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Hanging Knee Raises</td>
+                <td>3</td>
+                <td>12–15</td>
+                <td>45s</td>
+                <td>Use pull-up bar. BW alt: lying knee raise</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Ab Wheel / Plank Roll-Out</td>
+                <td>3</td>
+                <td>8–10</td>
+                <td>60s</td>
+                <td>BW alt: push-up position, walk hands forward and back</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="day-card">
+          <div class="day-label">Day 4</div>
+          <div class="day-title">Full Body Power Circuit</div>
+          <span class="day-type type-full">Full Body</span>
+          <table class="exercise-table">
+            <thead>
+              <tr>
+                <th>Exercise</th>
+                <th>Rounds</th>
+                <th>Work</th>
+                <th>Rest</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="ex-name">Dumbbell Swing</td>
+                <td>4</td>
+                <td>15 reps</td>
+                <td>45s</td>
+                <td>Hip hinge power — like a kettlebell swing</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Clapping Push-Up</td>
+                <td>4</td>
+                <td>5–8 reps</td>
+                <td>60s</td>
+                <td>BW alt: explosive push-up (no clap)</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Jump Lunge</td>
+                <td>3</td>
+                <td>10 each</td>
+                <td>60s</td>
+                <td>BW alt: fast alternating reverse lunge</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Tuck Jump</td>
+                <td>3</td>
+                <td>10 reps</td>
+                <td>60s</td>
+                <td>BW alt: squat jump</td>
+              </tr>
+              <tr>
+                <td class="ex-name">Plank to Push-Up</td>
+                <td>3</td>
+                <td>10 reps</td>
+                <td>45s</td>
+                <td>Forearm plank → push-up position → back down</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- WEEK 4 -->
+      <div class="week-block">
+        <div class="week-header">
+          <h2>Week 4 — Deload &amp; Consolidation</h2>
+          <p>
+            Focus: Active recovery. 60% of Week 3 intensity. Let adaptations solidify. Prioritize
+            mobility and technique.
+          </p>
+        </div>
+        <div class="week-goal">
+          🎯 Week 4 Goal: Do NOT push hard. This is intentional — reduced volume allows your muscles
+          to grow and recover. Most beginners skip deloads and plateau. Don't.
+        </div>
+
+        <div class="day-card">
+          <div class="day-label">Day 1, 2, 3</div>
+          <div class="day-title">Repeat Week 1 Workouts — 60% Effort</div>
+          <span class="day-type type-rest">Deload</span>
+          <div style="padding: 12px 0; font-size: 15px; color: #374151">
+            <p>Use the same exercises as Week 1, but:</p>
+            <ul style="margin: 12px 0 0 20px">
+              <li>Drop weight by 30–40%</li>
+              <li>Stop 4–5 reps before failure (RPE 6)</li>
+              <li>Add 30 seconds to rest periods</li>
+              <li>Focus entirely on perfect movement mechanics</li>
+              <li>Add 10 minutes of static stretching after each session</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="rest-day-card">
+          <p>🔄 After Week 4 — What's Next?</p>
+          <p style="margin-top: 8px; font-size: 13px">
+            Repeat the 4-week cycle starting at Week 1, but increase all starting weights by 5–10%.
+            This is progressive overload — the fundamental mechanism of getting stronger.
+          </p>
+        </div>
+      </div>
+
+      <!-- NUTRITION -->
+      <div class="nutrition-section">
+        <h2>Nutrition Basics — What to Eat Around Workouts</h2>
+        <div class="nutrition-grid">
+          <div class="nutrition-card">
+            <h3>⏰ Pre-Workout (60–90 min before)</h3>
+            <ul>
+              <li>Complex carbs: oats, rice, banana</li>
+              <li>Moderate protein: Greek yogurt, eggs</li>
+              <li>Low fat (slows digestion)</li>
+              <li>Hydrate: 500ml water in the hour before</li>
+            </ul>
+          </div>
+          <div class="nutrition-card">
+            <h3>💪 Post-Workout (within 2 hours)</h3>
+            <ul>
+              <li>Fast-acting carbs: white rice, fruit</li>
+              <li>High-quality protein: chicken, fish, tofu</li>
+              <li>Target 30–40g protein in this window</li>
+              <li>Rehydrate: 500ml water minimum</li>
+            </ul>
+          </div>
+          <div class="nutrition-card">
+            <h3>🥩 Daily Protein Target</h3>
+            <ul>
+              <li>Aim for 1.6–2.2g per kg of bodyweight</li>
+              <li>Split across 3–4 meals for best absorption</li>
+              <li>Sources: eggs, chicken, fish, legumes, dairy</li>
+              <li>Supplements optional — food comes first</li>
+            </ul>
+          </div>
+          <div class="nutrition-card">
+            <h3>💧 Hydration</h3>
+            <ul>
+              <li>Minimum 2.5 liters per day on rest days</li>
+              <li>3+ liters on training days</li>
+              <li>Urine color: pale yellow = well hydrated</li>
+              <li>Avoid training fasted if you feel weak</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROGRESS TRACKER -->
+      <div class="progress-section">
+        <h2>Progress Tracker — Fill In Each Week</h2>
+        <table class="tracker-table">
+          <thead>
+            <tr>
+              <th>Exercise</th>
+              <th>Week 1</th>
+              <th>Week 2</th>
+              <th>Week 3</th>
+              <th>Week 4</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Push-Up Max Reps</td>
+              <td class="blank">___</td>
+              <td class="blank">___</td>
+              <td class="blank">___</td>
+              <td class="blank">___</td>
+            </tr>
+            <tr>
+              <td>Shoulder Press Weight</td>
+              <td class="blank">___</td>
+              <td class="blank">___</td>
+              <td class="blank">___</td>
+              <td class="blank">___</td>
+            </tr>
+            <tr>
+              <td>Dumbbell Squat Weight</td>
+              <td class="blank">___</td>
+              <td class="blank">___</td>
+              <td class="blank">___</td>
+              <td class="blank">___</td>
+            </tr>
+            <tr>
+              <td>Pull-Up Reps / Assist</td>
+              <td class="blank">___</td>
+              <td class="blank">___</td>
+              <td class="blank">___</td>
+              <td class="blank">___</td>
+            </tr>
+            <tr>
+              <td>RDL Weight</td>
+              <td class="blank">___</td>
+              <td class="blank">___</td>
+              <td class="blank">___</td>
+              <td class="blank">___</td>
+            </tr>
+            <tr>
+              <td>Plank Hold Time</td>
+              <td class="blank">___</td>
+              <td class="blank">___</td>
+              <td class="blank">___</td>
+              <td class="blank">___</td>
+            </tr>
+            <tr>
+              <td>Bodyweight (optional)</td>
+              <td class="blank">___</td>
+              <td class="blank">___</td>
+              <td class="blank">___</td>
+              <td class="blank">___</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="tip-box" style="margin-top: 20px">
+          <strong>The Rule of Progress:</strong>
+          If you can't beat at least one metric from the previous week (on any exercise), you're
+          leaving gains on the table. Weight, reps, rest reduction, or tempo slowdown all count as
+          progress.
+        </div>
+      </div>
     </div>
-  </div>
 
-  <!-- NUTRITION -->
-  <div class="nutrition-section">
-    <h2>Nutrition Basics — What to Eat Around Workouts</h2>
-    <div class="nutrition-grid">
-      <div class="nutrition-card">
-        <h3>⏰ Pre-Workout (60–90 min before)</h3>
-        <ul>
-          <li>Complex carbs: oats, rice, banana</li>
-          <li>Moderate protein: Greek yogurt, eggs</li>
-          <li>Low fat (slows digestion)</li>
-          <li>Hydrate: 500ml water in the hour before</li>
-        </ul>
-      </div>
-      <div class="nutrition-card">
-        <h3>💪 Post-Workout (within 2 hours)</h3>
-        <ul>
-          <li>Fast-acting carbs: white rice, fruit</li>
-          <li>High-quality protein: chicken, fish, tofu</li>
-          <li>Target 30–40g protein in this window</li>
-          <li>Rehydrate: 500ml water minimum</li>
-        </ul>
-      </div>
-      <div class="nutrition-card">
-        <h3>🥩 Daily Protein Target</h3>
-        <ul>
-          <li>Aim for 1.6–2.2g per kg of bodyweight</li>
-          <li>Split across 3–4 meals for best absorption</li>
-          <li>Sources: eggs, chicken, fish, legumes, dairy</li>
-          <li>Supplements optional — food comes first</li>
-        </ul>
-      </div>
-      <div class="nutrition-card">
-        <h3>💧 Hydration</h3>
-        <ul>
-          <li>Minimum 2.5 liters per day on rest days</li>
-          <li>3+ liters on training days</li>
-          <li>Urine color: pale yellow = well hydrated</li>
-          <li>Avoid training fasted if you feel weak</li>
-        </ul>
-      </div>
+    <div class="footer">
+      <p><strong>Home Gym 4-Week Programming Guide</strong> — Beginner to Intermediate</p>
+      <p style="margin-top: 8px">
+        Consult a healthcare professional before starting any new exercise program. Stop if you
+        experience pain (not to be confused with normal muscle fatigue).
+      </p>
     </div>
-  </div>
-
-  <!-- PROGRESS TRACKER -->
-  <div class="progress-section">
-    <h2>Progress Tracker — Fill In Each Week</h2>
-    <table class="tracker-table">
-      <thead>
-        <tr>
-          <th>Exercise</th>
-          <th>Week 1</th>
-          <th>Week 2</th>
-          <th>Week 3</th>
-          <th>Week 4</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>Push-Up Max Reps</td><td class="blank">___</td><td class="blank">___</td><td class="blank">___</td><td class="blank">___</td></tr>
-        <tr><td>Shoulder Press Weight</td><td class="blank">___</td><td class="blank">___</td><td class="blank">___</td><td class="blank">___</td></tr>
-        <tr><td>Dumbbell Squat Weight</td><td class="blank">___</td><td class="blank">___</td><td class="blank">___</td><td class="blank">___</td></tr>
-        <tr><td>Pull-Up Reps / Assist</td><td class="blank">___</td><td class="blank">___</td><td class="blank">___</td><td class="blank">___</td></tr>
-        <tr><td>RDL Weight</td><td class="blank">___</td><td class="blank">___</td><td class="blank">___</td><td class="blank">___</td></tr>
-        <tr><td>Plank Hold Time</td><td class="blank">___</td><td class="blank">___</td><td class="blank">___</td><td class="blank">___</td></tr>
-        <tr><td>Bodyweight (optional)</td><td class="blank">___</td><td class="blank">___</td><td class="blank">___</td><td class="blank">___</td></tr>
-      </tbody>
-    </table>
-    <div class="tip-box" style="margin-top:20px">
-      <strong>The Rule of Progress:</strong>
-      If you can't beat at least one metric from the previous week (on any exercise), you're leaving gains on the table. Weight, reps, rest reduction, or tempo slowdown all count as progress.
-    </div>
-  </div>
-
-</div>
-
-<div class="footer">
-  <p><strong>Home Gym 4-Week Programming Guide</strong> — Beginner to Intermediate</p>
-  <p style="margin-top:8px">Consult a healthcare professional before starting any new exercise program. Stop if you experience pain (not to be confused with normal muscle fatigue).</p>
-</div>
-
-</body>
+  </body>
 </html>

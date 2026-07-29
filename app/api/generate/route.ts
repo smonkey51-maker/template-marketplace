@@ -92,10 +92,7 @@ Rules:
               if (event.type === "message_delta" && event.usage) {
                 outputTokens = event.usage.output_tokens ?? 0;
               }
-              if (
-                event.type === "content_block_delta" &&
-                event.delta?.type === "text_delta"
-              ) {
+              if (event.type === "content_block_delta" && event.delta?.type === "text_delta") {
                 controller.enqueue(encoder.encode(event.delta.text));
               }
             }
@@ -115,10 +112,7 @@ Rules:
               if (event.type === "message_delta" && event.usage) {
                 outputTokens = event.usage.output_tokens ?? 0;
               }
-              if (
-                event.type === "content_block_delta" &&
-                event.delta.type === "text_delta"
-              ) {
+              if (event.type === "content_block_delta" && event.delta.type === "text_delta") {
                 controller.enqueue(encoder.encode(event.delta.text));
               }
             }

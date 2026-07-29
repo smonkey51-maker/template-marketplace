@@ -2,16 +2,10 @@ import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 
 function getSupabase() {
-  return createClient(
-    process.env.SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
+  return createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
 }
 
-export async function GET(
-  _req: Request,
-  { params }: { params: Promise<{ templateId: string }> }
-) {
+export async function GET(_req: Request, { params }: { params: Promise<{ templateId: string }> }) {
   const { templateId } = await params;
   const supabase = getSupabase();
 
@@ -26,9 +20,7 @@ export async function GET(
     return NextResponse.json({ reviews: [], avgRating: 0, count: 0 });
   }
 
-  const avgRating = data.length > 0
-    ? data.reduce((sum, r) => sum + r.rating, 0) / data.length
-    : 0;
+  const avgRating = data.length > 0 ? data.reduce((sum, r) => sum + r.rating, 0) / data.length : 0;
 
   return NextResponse.json({
     reviews: data,

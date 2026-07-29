@@ -20,7 +20,10 @@ export default function ReviewForm({
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (rating === 0) { setError(lang === "it" ? "Seleziona un voto" : "Please select a rating"); return; }
+    if (rating === 0) {
+      setError(lang === "it" ? "Seleziona un voto" : "Please select a rating");
+      return;
+    }
     setLoading(true);
     setError("");
     try {
@@ -31,7 +34,9 @@ export default function ReviewForm({
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error ?? (lang === "it" ? "Errore durante il salvataggio" : "Error saving review"));
+        setError(
+          data.error ?? (lang === "it" ? "Errore durante il salvataggio" : "Error saving review"),
+        );
       } else {
         setSuccess(true);
         onSubmitted?.();
@@ -77,9 +82,19 @@ export default function ReviewForm({
           placeholder={lang === "it" ? "Racconta la tua esperienza..." : "Share your experience..."}
         />
       </div>
-      {error && <p className="text-[12px]" style={{ color: "var(--error, #FF453A)" }}>{error}</p>}
+      {error && (
+        <p className="text-[12px]" style={{ color: "var(--error, #FF453A)" }}>
+          {error}
+        </p>
+      )}
       <button type="submit" disabled={loading} className="btn-brand-sm self-start">
-        {loading ? (lang === "it" ? "Invio..." : "Submitting...") : (lang === "it" ? "Invia recensione" : "Submit review")}
+        {loading
+          ? lang === "it"
+            ? "Invio..."
+            : "Submitting..."
+          : lang === "it"
+            ? "Invia recensione"
+            : "Submit review"}
       </button>
     </form>
   );

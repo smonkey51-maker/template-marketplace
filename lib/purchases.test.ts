@@ -61,7 +61,7 @@ describe("getUserPurchases", () => {
             Promise.resolve({
               data: [{ template_id: "hero-saas" }, { template_id: "studio-access" }],
               error: null,
-            })
+            }),
           ),
         })),
       })),
@@ -76,9 +76,7 @@ describe("getUserPurchases", () => {
     vi.mocked(createClient).mockReturnValue({
       from: vi.fn(() => ({
         select: vi.fn(() => ({
-          eq: vi.fn(() =>
-            Promise.resolve({ data: null, error: { message: "DB error" } })
-          ),
+          eq: vi.fn(() => Promise.resolve({ data: null, error: { message: "DB error" } })),
         })),
       })),
     } as never);

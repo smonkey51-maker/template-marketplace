@@ -13,6 +13,8 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: 31536000,
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com" },
+      { protocol: "https", hostname: "plus.unsplash.com" },
+      { protocol: "https", hostname: "*.supabase.co" },
     ],
   },
   async headers() {
@@ -29,27 +31,19 @@ const nextConfig: NextConfig = {
         // Prevent page-level routes from being embedded in external iframes,
         // but NOT /api/preview/* which must be loadable in same-origin iframes.
         source: "/((?!api/preview).*)",
-        headers: [
-          { key: "X-Frame-Options", value: "SAMEORIGIN" },
-        ],
+        headers: [{ key: "X-Frame-Options", value: "SAMEORIGIN" }],
       },
       {
         source: "/_next/static/(.*)",
-        headers: [
-          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
-        ],
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
       },
       {
         source: "/paintings/(.*)",
-        headers: [
-          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
-        ],
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
       },
       {
         source: "/api/(.*)",
-        headers: [
-          { key: "X-Robots-Tag", value: "noindex" },
-        ],
+        headers: [{ key: "X-Robots-Tag", value: "noindex" }],
       },
     ];
   },

@@ -1,36 +1,132 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><link rel="stylesheet" href="../colors_and_type.css">
-<style>
-  body { margin: 0; padding: 16px; background: #14100C; font-family: 'Plus Jakarta Sans', sans-serif; }
-  .grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; }
-  .swatch { display: flex; flex-direction: column; gap: 4px; }
-  .chip { height: 52px; width: 100%; }
-  .label { font-size: 9px; letter-spacing: 0.06em; color: rgba(237,232,220,0.5); text-transform: uppercase; }
-  .val { font-size: 9px; color: rgba(237,232,220,0.3); font-family: 'SF Mono', monospace; }
-  .section-label { font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #C8915A; margin-bottom: 8px; margin-top: 12px; }
-  .row { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; margin-bottom: 4px; }
-</style>
-</head>
-<body class="dark">
-<div class="section-label">Accent Scale</div>
-<div class="row">
-  <div class="swatch"><div class="chip" style="background:#C8915A"></div><div class="label">accent</div><div class="val">#C8915A</div></div>
-  <div class="swatch"><div class="chip" style="background:#9C6B3C"></div><div class="label">terra</div><div class="val">#9C6B3C</div></div>
-  <div class="swatch"><div class="chip" style="background:rgba(200,145,90,0.35)"></div><div class="label">gold-mid</div></div>
-  <div class="swatch"><div class="chip" style="background:rgba(200,145,90,0.14)"></div><div class="label">gold-dim</div></div>
-  <div class="swatch"><div class="chip" style="background:rgba(200,145,90,0.12)"></div><div class="label">accent-bg</div></div>
-  <div class="swatch"><div class="chip" style="background:#9C7040"></div><div class="label">accent ☀</div><div class="val">#9C7040</div></div>
-  <div class="swatch"><div class="chip" style="background:#8C5028"></div><div class="label">terra ☀</div><div class="val">#8C5028</div></div>
-  <div class="swatch"><div class="chip" style="background:rgba(156,112,64,0.30)"></div><div class="label">gold-mid ☀</div></div>
-</div>
-<div class="section-label">Neutral Scale</div>
-<div class="row">
-  <div class="swatch"><div class="chip" style="background:#EDE8DC"></div><div class="label">text</div><div class="val">#EDE8DC</div></div>
-  <div class="swatch"><div class="chip" style="background:rgba(237,232,220,0.55)"></div><div class="label">muted</div></div>
-  <div class="swatch"><div class="chip" style="background:rgba(237,232,220,0.09)"></div><div class="label">border</div></div>
-  <div class="swatch"><div class="chip" style="background:rgba(30,26,20,0.80)"></div><div class="label">surface-2</div></div>
-  <div class="swatch"><div class="chip" style="background:rgba(30,26,20,0.65)"></div><div class="label">surface</div></div>
-  <div class="swatch"><div class="chip" style="background:rgba(20,16,12,0.55)"></div><div class="label">bg</div></div>
-  <div class="swatch"><div class="chip" style="background:#252119"></div><div class="label">obsidian-2</div></div>
-  <div class="swatch"><div class="chip" style="background:#383228"></div><div class="label">obsidian-4</div></div>
-</div>
-</body></html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../colors_and_type.css" />
+    <style>
+      body {
+        margin: 0;
+        padding: 16px;
+        background: #14100c;
+        font-family: "Plus Jakarta Sans", sans-serif;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        gap: 6px;
+      }
+      .swatch {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .chip {
+        height: 52px;
+        width: 100%;
+      }
+      .label {
+        font-size: 9px;
+        letter-spacing: 0.06em;
+        color: rgba(237, 232, 220, 0.5);
+        text-transform: uppercase;
+      }
+      .val {
+        font-size: 9px;
+        color: rgba(237, 232, 220, 0.3);
+        font-family: "SF Mono", monospace;
+      }
+      .section-label {
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #c8915a;
+        margin-bottom: 8px;
+        margin-top: 12px;
+      }
+      .row {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        gap: 6px;
+        margin-bottom: 4px;
+      }
+    </style>
+  </head>
+  <body class="dark">
+    <div class="section-label">Accent Scale</div>
+    <div class="row">
+      <div class="swatch">
+        <div class="chip" style="background: #c8915a"></div>
+        <div class="label">accent</div>
+        <div class="val">#C8915A</div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background: #9c6b3c"></div>
+        <div class="label">terra</div>
+        <div class="val">#9C6B3C</div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background: rgba(200, 145, 90, 0.35)"></div>
+        <div class="label">gold-mid</div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background: rgba(200, 145, 90, 0.14)"></div>
+        <div class="label">gold-dim</div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background: rgba(200, 145, 90, 0.12)"></div>
+        <div class="label">accent-bg</div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background: #9c7040"></div>
+        <div class="label">accent ☀</div>
+        <div class="val">#9C7040</div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background: #8c5028"></div>
+        <div class="label">terra ☀</div>
+        <div class="val">#8C5028</div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background: rgba(156, 112, 64, 0.3)"></div>
+        <div class="label">gold-mid ☀</div>
+      </div>
+    </div>
+    <div class="section-label">Neutral Scale</div>
+    <div class="row">
+      <div class="swatch">
+        <div class="chip" style="background: #ede8dc"></div>
+        <div class="label">text</div>
+        <div class="val">#EDE8DC</div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background: rgba(237, 232, 220, 0.55)"></div>
+        <div class="label">muted</div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background: rgba(237, 232, 220, 0.09)"></div>
+        <div class="label">border</div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background: rgba(30, 26, 20, 0.8)"></div>
+        <div class="label">surface-2</div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background: rgba(30, 26, 20, 0.65)"></div>
+        <div class="label">surface</div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background: rgba(20, 16, 12, 0.55)"></div>
+        <div class="label">bg</div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background: #252119"></div>
+        <div class="label">obsidian-2</div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background: #383228"></div>
+        <div class="label">obsidian-4</div>
+      </div>
+    </div>
+  </body>
+</html>

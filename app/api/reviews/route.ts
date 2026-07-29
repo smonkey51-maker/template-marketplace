@@ -4,10 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { reviewSchema } from "@/lib/schemas";
 
 function getSupabase() {
-  return createClient(
-    process.env.SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
+  return createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
 }
 
 export async function GET(req: NextRequest) {
@@ -27,11 +24,13 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ reviews: [], avgRating: 0, count: 0 });
   }
 
-  const avgRating = data.length > 0
-    ? data.reduce((sum, r) => sum + r.rating, 0) / data.length
-    : 0;
+  const avgRating = data.length > 0 ? data.reduce((sum, r) => sum + r.rating, 0) / data.length : 0;
 
-  return NextResponse.json({ reviews: data, avgRating: Math.round(avgRating * 10) / 10, count: data.length });
+  return NextResponse.json({
+    reviews: data,
+    avgRating: Math.round(avgRating * 10) / 10,
+    count: data.length,
+  });
 }
 
 export async function POST(req: NextRequest) {
@@ -41,7 +40,10 @@ export async function POST(req: NextRequest) {
 
   const parsed = reviewSchema.safeParse(await req.json());
   if (!parsed.success) {
-    return NextResponse.json({ error: parsed.error.issues[0]?.message ?? "Invalid input" }, { status: 400 });
+    return NextResponse.json(
+      { error: parsed.error.issues[0]?.message ?? "Invalid input" },
+      { status: 400 },
+    );
   }
   const { templateId, rating, comment } = parsed.data;
 
@@ -61,7 +63,7 @@ export async function POST(req: NextRequest) {
     .from("reviews")
     .upsert(
       { user_id: userId, template_id: templateId, rating, comment: comment ?? null },
-      { onConflict: "user_id,template_id" }
+      { onConflict: "user_id,template_id" },
     )
     .select()
     .single();

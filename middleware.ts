@@ -1,17 +1,38 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
 
 // Routes che richiedono login
 const isProtected = createRouteMatcher([
-  "/studio(.*)",
-  "/account(.*)",
-  "/admin(.*)",
+  "/:locale/studio(.*)",
+  "/:locale/account(.*)",
+  "/:locale/admin(.*)",
   "/api/generate(.*)",
   "/api/customize(.*)",
   "/api/stripe-portal(.*)",
   "/api/admin(.*)",
 ]);
 
+const locales = ["it", "en"];
+const defaultLocale = "it";
+
 export default clerkMiddleware(async (auth, req) => {
+  const { pathname } = req.nextUrl;
+
+  if (pathname.startsWith("/api") || pathname.startsWith("/_next") || pathname.includes(".")) {
+    if (isProtected(req)) await auth.protect();
+    return;
+  }
+
+  const pathnameHasLocale = locales.some(
+    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
+  );
+
+  if (!pathnameHasLocale) {
+    const url = req.nextUrl.clone();
+    url.pathname = `/${defaultLocale}${pathname}`;
+    return NextResponse.redirect(url);
+  }
+
   if (isProtected(req)) {
     await auth.protect();
   }

@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
 
     const supabase = createClient(
       process.env.SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!
+      process.env.SUPABASE_SERVICE_ROLE_KEY!,
     );
 
     // Resolve the effective user_id: authenticated user or guest placeholder
@@ -42,7 +42,8 @@ export async function POST(req: NextRequest) {
     if (bundleId && userId) {
       // Bundle purchase: always requires auth
       const bundle = await getBundleFromDb(bundleId);
-      const ids = bundle?.templateIds ?? (templateIds ? templateIds.split(",").filter(Boolean) : []);
+      const ids =
+        bundle?.templateIds ?? (templateIds ? templateIds.split(",").filter(Boolean) : []);
       const rows = ids.map((tid) => ({
         user_id: userId,
         template_id: tid,
@@ -59,7 +60,9 @@ export async function POST(req: NextRequest) {
             type: "bundle",
             itemName: bundle.name,
             previewUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/`,
-            bundleTemplates: await Promise.all(ids.map(async (tid) => (await getTemplateFromDb(tid))?.name ?? tid)),
+            bundleTemplates: await Promise.all(
+              ids.map(async (tid) => (await getTemplateFromDb(tid))?.name ?? tid),
+            ),
           }).catch(console.error);
         }
       }

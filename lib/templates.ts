@@ -1,13 +1,13 @@
 export type TemplateCategory = "ui" | "guide" | "worksheet" | "tracker" | "script" | "prompt";
 export type DownloadType =
-  | "html"       // UI template → .html file with Tailwind CDN
-  | "canva"      // Canva edit link
-  | "excel"      // .xlsx file
-  | "sheets"     // Google Sheets /copy link
-  | "notion"     // Notion duplicate link
-  | "webflow"    // Webflow project link
-  | "framer"     // Framer project link
-  | "shopify"    // Shopify Liquid theme → .zip download
+  | "html" // UI template → .html file with Tailwind CDN
+  | "canva" // Canva edit link
+  | "excel" // .xlsx file
+  | "sheets" // Google Sheets /copy link
+  | "notion" // Notion duplicate link
+  | "webflow" // Webflow project link
+  | "framer" // Framer project link
+  | "shopify" // Shopify Liquid theme → .zip download
   | "wordpress"; // WordPress PHP theme → .zip download
 
 export interface Template {
@@ -36,13 +36,13 @@ export function getDownloadType(template: Template): DownloadType {
 }
 
 export const templates: Template[] = [
-
   // ── PROMPT PACKS ─────────────────────────────────────────────────────────
 
   {
     id: "chatgpt-prompt-library-freelancers",
     name: "ChatGPT Prompt Library for Freelancers",
-    description: "53 copy-paste ChatGPT prompts for every part of your freelance business: proposals, client emails, pricing, marketing, and onboarding.",
+    description:
+      "53 copy-paste ChatGPT prompts for every part of your freelance business: proposals, client emails, pricing, marketing, and onboarding.",
     category: "prompt",
     price: 1200,
     stripePriceId: "price_TODO_chatgpt_prompt_library",
@@ -74,7 +74,8 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
   {
     id: "chatgpt-prompt-pack-creators",
     name: "ChatGPT Prompt Pack for Content Creators",
-    description: "30 copy-paste prompts for writing Threads hooks, Instagram captions, product descriptions, and content that converts.",
+    description:
+      "30 copy-paste prompts for writing Threads hooks, Instagram captions, product descriptions, and content that converts.",
     category: "prompt",
     price: 900,
     stripePriceId: "price_TODO_chatgpt_prompt_creators",
@@ -105,7 +106,8 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
   {
     id: "midjourney-prompt-guide-mockups",
     name: "Midjourney Prompt Guide for Product Mockups",
-    description: "25+ tested Midjourney prompts and a full workflow for creating professional product mockup images without hiring a designer.",
+    description:
+      "25+ tested Midjourney prompts and a full workflow for creating professional product mockup images without hiring a designer.",
     category: "prompt",
     price: 1200,
     stripePriceId: "price_TODO_midjourney_mockups",
@@ -138,7 +140,8 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
   {
     id: "dm-sales-script-pack",
     name: "DM Sales Script Pack",
-    description: "10 copy-paste DM scripts for selling digital products on Instagram and Threads — for every stage of the conversation, without sounding spammy.",
+    description:
+      "10 copy-paste DM scripts for selling digital products on Instagram and Threads — for every stage of the conversation, without sounding spammy.",
     category: "script",
     price: 900,
     stripePriceId: "price_TODO_dm_sales_scripts",
@@ -172,7 +175,8 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
   {
     id: "home-gym-4-week-guide",
     name: "Home Gym 4-Week Programming Guide",
-    description: "A complete, progressive 4-week training program for home workouts with minimal equipment. Beginner to intermediate, 3–4 sessions/week.",
+    description:
+      "A complete, progressive 4-week training program for home workouts with minimal equipment. Beginner to intermediate, 3–4 sessions/week.",
     category: "guide",
     price: 1500,
     stripePriceId: "price_TODO_home_gym_guide",
@@ -203,7 +207,8 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
   {
     id: "social-media-detox-7day",
     name: "7-Day Social Media Detox Protocol",
-    description: "A structured 7-day daily-action plan to break compulsive scrolling and rebuild an intentional relationship with social media.",
+    description:
+      "A structured 7-day daily-action plan to break compulsive scrolling and rebuild an intentional relationship with social media.",
     category: "guide",
     price: 900,
     stripePriceId: "price_TODO_social_detox",
@@ -234,7 +239,8 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
   {
     id: "anti-procrastination-playbook",
     name: "Anti-Procrastination Playbook",
-    description: "Root causes, 8 behavioral frameworks, and systems that actually override procrastination. Based on behavioral psychology, not motivation.",
+    description:
+      "Root causes, 8 behavioral frameworks, and systems that actually override procrastination. Based on behavioral psychology, not motivation.",
     category: "guide",
     price: 1200,
     stripePriceId: "price_TODO_anti_procrastination",
@@ -266,7 +272,8 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
   {
     id: "mindset-reset-7day-journal",
     name: "7-Day Mindset Reset Journal",
-    description: "A guided daily journal for clearing mental blocks, surfacing limiting beliefs, and reconnecting with what you actually want to build.",
+    description:
+      "A guided daily journal for clearing mental blocks, surfacing limiting beliefs, and reconnecting with what you actually want to build.",
     category: "guide",
     price: 900,
     stripePriceId: "price_TODO_mindset_journal",
@@ -296,7 +303,8 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
   {
     id: "first-100-online-guide",
     name: "How to Make Your First $100 Online",
-    description: "A no-BS, step-by-step roadmap from zero — 13 sequential steps from choosing what to sell to making your first sale, with no audience or startup capital.",
+    description:
+      "A no-BS, step-by-step roadmap from zero — 13 sequential steps from choosing what to sell to making your first sale, with no audience or startup capital.",
     category: "guide",
     price: 900,
     stripePriceId: "price_TODO_first_100_online",
@@ -330,7 +338,8 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
   {
     id: "digital-product-launch-checklist",
     name: "Digital Product Launch Checklist",
-    description: "Every step from idea to first sale: 6-phase launch checklist covering product foundation, build, Gumroad setup, pre-launch, launch day, and post-launch.",
+    description:
+      "Every step from idea to first sale: 6-phase launch checklist covering product foundation, build, Gumroad setup, pre-launch, launch day, and post-launch.",
     category: "guide",
     price: 700,
     stripePriceId: "price_TODO_launch_checklist",
@@ -367,7 +376,8 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
   {
     id: "freelance-rate-calculator",
     name: "Freelance Rate Calculator Workbook",
-    description: "Calculate your real hourly freelance rate in 15 minutes. Accounts for taxes, business expenses, non-billable time, and profit margin. Google Sheets ready.",
+    description:
+      "Calculate your real hourly freelance rate in 15 minutes. Accounts for taxes, business expenses, non-billable time, and profit margin. Google Sheets ready.",
     category: "worksheet",
     price: 900,
     stripePriceId: "price_TODO_rate_calculator",
@@ -400,7 +410,8 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
   {
     id: "monthly-business-finance-tracker",
     name: "Monthly Business Finance Tracker",
-    description: "A complete monthly financial dashboard for freelancers: track revenue, expenses, profit margins, and tax estimates. Google Sheets ready with formulas.",
+    description:
+      "A complete monthly financial dashboard for freelancers: track revenue, expenses, profit margins, and tax estimates. Google Sheets ready with formulas.",
     category: "worksheet",
     price: 900,
     stripePriceId: "price_TODO_finance_tracker",
@@ -435,7 +446,8 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
   {
     id: "wedding-budget-tracker",
     name: "Wedding Planning Budget Tracker",
-    description: "Track every vendor, deposit, and payment deadline across 6 wedding categories. Complete overview of what's booked, paid, and still owed.",
+    description:
+      "Track every vendor, deposit, and payment deadline across 6 wedding categories. Complete overview of what's booked, paid, and still owed.",
     category: "worksheet",
     price: 1200,
     stripePriceId: "price_TODO_wedding_tracker",
@@ -465,7 +477,8 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
   {
     id: "remote-job-search-tracker",
     name: "Remote Job Search Tracker",
-    description: "Track every application, interview stage, follow-up, and offer. Includes offer comparison table and weekly goal tracker. Google Sheets ready.",
+    description:
+      "Track every application, interview stage, follow-up, and offer. Includes offer comparison table and weekly goal tracker. Google Sheets ready.",
     category: "worksheet",
     price: 700,
     stripePriceId: "price_TODO_job_tracker",
@@ -498,7 +511,8 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
   {
     id: "first-apartment-budget-planner",
     name: "First Apartment Checklist & Budget Planner",
-    description: "Everything to buy, set up, and budget for your first apartment — prioritized by urgency so you don't overspend on things you don't need yet.",
+    description:
+      "Everything to buy, set up, and budget for your first apartment — prioritized by urgency so you don't overspend on things you don't need yet.",
     category: "worksheet",
     price: 700,
     stripePriceId: "price_TODO_apartment_planner",
@@ -533,7 +547,8 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
   {
     id: "pet-care-vet-tracker",
     name: "Pet Care & Vet Visit Tracker",
-    description: "A complete health record and care organizer for your pet — vet visits, vaccinations, medications, weight log, diet, and emergency contacts. Print-ready.",
+    description:
+      "A complete health record and care organizer for your pet — vet visits, vaccinations, medications, weight log, diet, and emergency contacts. Print-ready.",
     category: "tracker",
     price: 700,
     stripePriceId: "price_TODO_pet_tracker",
@@ -559,9 +574,7 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
   </div>
 </div>`,
   },
-
 ];
-
 
 export function getTemplate(id: string): Template | undefined {
   return templates.find((t) => t.id === id);
@@ -575,9 +588,7 @@ export function formatPrice(cents: number): string {
 export type TemplateMeta = Omit<Template, "content">;
 
 /** All templates without their content strings — safe for client-side catalog imports. */
-export const templatesMeta: TemplateMeta[] = templates.map(
-  ({ content: _c, ...meta }) => meta
-);
+export const templatesMeta: TemplateMeta[] = templates.map(({ content: _c, ...meta }) => meta);
 
 /** Abbreviated count: 1240 → "1.2k", 14500 → "15k" */
 export function formatCount(n: number): string {

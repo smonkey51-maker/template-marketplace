@@ -4,7 +4,7 @@ import { createClient } from "@supabase/supabase-js";
 import { getUserPurchases, hasStudioAccess } from "@/lib/purchases";
 
 const LIMITS = {
-  free:   { generate: 5,   customize: 10  },
+  free: { generate: 5, customize: 10 },
   studio: { generate: 100, customize: 200 },
 } as const;
 
@@ -12,10 +12,7 @@ export async function GET() {
   const { userId } = await auth();
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const supabase = createClient(
-    process.env.SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
+  const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
 
   const startOfMonth = new Date();
   startOfMonth.setDate(1);
@@ -39,8 +36,8 @@ export async function GET() {
 
   return NextResponse.json({
     plan,
-    generate:  { used: generateCalls,  limit: limits.generate  },
+    generate: { used: generateCalls, limit: limits.generate },
     customize: { used: customizeCalls, limit: limits.customize },
-    cost_usd:  totalCost,
+    cost_usd: totalCost,
   });
 }

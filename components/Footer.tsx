@@ -12,7 +12,10 @@ export default function Footer() {
   const f = t[lang].footer;
 
   return (
-    <footer className="relative z-10 border-t pb-20 sm:pb-0 overflow-hidden" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
+    <footer
+      className="relative z-10 border-t pb-20 sm:pb-0 overflow-hidden"
+      style={{ borderColor: "var(--border)", background: "var(--surface)" }}
+    >
       {/* Kanji watermark — giant, animated */}
       <span
         aria-hidden="true"
@@ -44,11 +47,18 @@ export default function Footer() {
           <div className="col-span-2 sm:col-span-1 flex flex-col gap-3">
             <span
               className="text-[18px] leading-none tracking-[0.04em] uppercase select-none"
-              style={{ fontFamily: "var(--font-montserrat)", fontWeight: 800, color: "var(--text)" }}
+              style={{
+                fontFamily: "var(--font-montserrat)",
+                fontWeight: 800,
+                color: "var(--text)",
+              }}
             >
               For<span style={{ color: "var(--accent)" }}>ma</span>
             </span>
-            <p className="text-[12px] leading-relaxed max-w-[240px]" style={{ color: "var(--muted)" }}>
+            <p
+              className="text-[12px] leading-relaxed max-w-[240px]"
+              style={{ color: "var(--muted)" }}
+            >
               {lang === "it"
                 ? "Template premium e prompt AI, curati come piccoli oggetti artigianali."
                 : "Premium templates and AI prompts, crafted like small artisanal objects."}
@@ -64,15 +74,18 @@ export default function Footer() {
 
           {/* Product links */}
           <div className="flex flex-col gap-2.5">
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] mb-1" style={{ fontFamily: "var(--font-montserrat)", color: "var(--accent)" }}>
+            <p
+              className="text-[10px] font-bold uppercase tracking-[0.2em] mb-1"
+              style={{ fontFamily: "var(--font-montserrat)", color: "var(--accent)" }}
+            >
               {lang === "it" ? "Prodotto" : "Product"}
             </p>
             {[
               { href: "/#bundles", label: f.bundles },
               { href: "/wishlist", label: f.saved },
-              { href: "/guide",    label: f.guide },
-              { href: "/studio",   label: f.studio },
-              { href: "/account",  label: f.account },
+              { href: "/guide", label: f.guide },
+              { href: "/studio", label: f.studio },
+              { href: "/account", label: f.account },
             ].map((l) => (
               <Link key={l.href} href={l.href} className="text-[12.5px] link-muted">
                 <span className="link-underline">{l.label}</span>
@@ -82,12 +95,15 @@ export default function Footer() {
 
           {/* Legal */}
           <div className="flex flex-col gap-2.5">
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] mb-1" style={{ fontFamily: "var(--font-montserrat)", color: "var(--accent)" }}>
+            <p
+              className="text-[10px] font-bold uppercase tracking-[0.2em] mb-1"
+              style={{ fontFamily: "var(--font-montserrat)", color: "var(--accent)" }}
+            >
               {lang === "it" ? "Legale" : "Legal"}
             </p>
             {[
               { href: "/privacy", label: f.privacy },
-              { href: "/terms",   label: f.terms },
+              { href: "/terms", label: f.terms },
             ].map((l) => (
               <Link key={l.href} href={l.href} className="text-[12.5px] link-muted">
                 <span className="link-underline">{l.label}</span>
@@ -97,10 +113,16 @@ export default function Footer() {
 
           {/* Philosophy / Craft */}
           <div className="flex flex-col gap-2.5">
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] mb-1" style={{ fontFamily: "var(--font-montserrat)", color: "var(--accent)" }}>
+            <p
+              className="text-[10px] font-bold uppercase tracking-[0.2em] mb-1"
+              style={{ fontFamily: "var(--font-montserrat)", color: "var(--accent)" }}
+            >
               {lang === "it" ? "Filosofia" : "Philosophy"}
             </p>
-            <p className="text-[12px] leading-relaxed italic display-serif" style={{ color: "var(--muted)" }}>
+            <p
+              className="text-[12px] leading-relaxed italic display-serif"
+              style={{ color: "var(--muted)" }}
+            >
               {lang === "it"
                 ? "「 Kanso 」 semplicità.\n「 Shizen 」 naturalezza.\n「 Seijaku 」 quiete."
                 : "「 Kanso 」 simplicity.\n「 Shizen 」 naturalness.\n「 Seijaku 」 tranquility."}
@@ -109,16 +131,31 @@ export default function Footer() {
         </div>
 
         {/* Zen divider */}
-        <div className="zen-divider mt-10" aria-hidden="true"><span>◇</span></div>
+        <div className="zen-divider mt-10" aria-hidden="true">
+          <span>◇</span>
+        </div>
 
         {/* Bottom bar */}
         <div className="flex items-center justify-between gap-4 flex-wrap">
-          <p className="text-[11px] font-light" style={{ color: "var(--muted)" }}>{f.copyright}</p>
+          <p className="text-[11px] font-light" style={{ color: "var(--muted)" }}>
+            {f.copyright}
+          </p>
           <div className="flex items-center gap-4">
             <LanguageToggle />
-            <span className="text-[10px] font-medium flex items-center gap-1.5" style={{ color: "var(--muted)" }}>
+            <span
+              className="text-[10px] font-medium flex items-center gap-1.5"
+              style={{ color: "var(--muted)" }}
+            >
               Powered by
-              <span style={{ color: "var(--accent)", fontFamily: "var(--font-montserrat)", fontWeight: 600 }}>Claude AI</span>
+              <span
+                style={{
+                  color: "var(--accent)",
+                  fontFamily: "var(--font-montserrat)",
+                  fontWeight: 600,
+                }}
+              >
+                Claude AI
+              </span>
             </span>
           </div>
         </div>

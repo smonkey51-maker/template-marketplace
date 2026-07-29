@@ -40,8 +40,12 @@ export default function RelatedTemplates({ currentTemplate }: { currentTemplate:
       </p>
       <div className="flex flex-col gap-3">
         {related.map((tmpl) => {
-          const tName = lang === "it" ? (templateTranslations[tmpl.id]?.name ?? tmpl.name) : tmpl.name;
-          const tDesc = lang === "it" ? (templateTranslations[tmpl.id]?.description ?? tmpl.description) : tmpl.description;
+          const tName =
+            lang === "it" ? (templateTranslations[tmpl.id]?.name ?? tmpl.name) : tmpl.name;
+          const tDesc =
+            lang === "it"
+              ? (templateTranslations[tmpl.id]?.description ?? tmpl.description)
+              : tmpl.description;
           return (
             <Link
               key={tmpl.id}
@@ -51,13 +55,39 @@ export default function RelatedTemplates({ currentTemplate }: { currentTemplate:
               <div className="w-10 h-10 flex items-center justify-center shrink-0 bg-accent/10">
                 {tmpl.category === "ui" ? (
                   <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden>
-                    <rect x="1.5" y="3.5" width="17" height="12" rx="2" stroke="var(--accent)" strokeWidth="1.5"/>
-                    <path d="M5 15.5v2M15 15.5v2M4 17.5h12" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round"/>
+                    <rect
+                      x="1.5"
+                      y="3.5"
+                      width="17"
+                      height="12"
+                      rx="2"
+                      stroke="var(--accent)"
+                      strokeWidth="1.5"
+                    />
+                    <path
+                      d="M5 15.5v2M15 15.5v2M4 17.5h12"
+                      stroke="var(--accent)"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
                   </svg>
                 ) : (
                   <svg width="16" height="18" viewBox="0 0 16 20" fill="none" aria-hidden>
-                    <rect x="1.5" y="1.5" width="13" height="17" rx="2" stroke="var(--accent)" strokeWidth="1.5"/>
-                    <path d="M5 7h6M5 10.5h6M5 14h4" stroke="var(--accent)" strokeWidth="1.3" strokeLinecap="round"/>
+                    <rect
+                      x="1.5"
+                      y="1.5"
+                      width="13"
+                      height="17"
+                      rx="2"
+                      stroke="var(--accent)"
+                      strokeWidth="1.5"
+                    />
+                    <path
+                      d="M5 7h6M5 10.5h6M5 14h4"
+                      stroke="var(--accent)"
+                      strokeWidth="1.3"
+                      strokeLinecap="round"
+                    />
                   </svg>
                 )}
               </div>
@@ -65,7 +95,9 @@ export default function RelatedTemplates({ currentTemplate }: { currentTemplate:
                 <p className="font-semibold text-theme text-[14px] truncate">{tName}</p>
                 <p className="text-[12px] text-muted truncate">{tDesc}</p>
               </div>
-              <span className="text-[14px] font-bold shrink-0" style={{ color: "var(--accent)" }}>{formatPrice(tmpl.price)}</span>
+              <span className="text-[14px] font-bold shrink-0" style={{ color: "var(--accent)" }}>
+                {formatPrice(tmpl.price)}
+              </span>
             </Link>
           );
         })}

@@ -12,13 +12,10 @@ export async function POST(req: NextRequest) {
 
   const { bundleId, templateId } = await req.json();
 
-  const supabase = createClient(
-    process.env.SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
+  const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
 
   if (bundleId) {
-    const bundle = await getBundleFromDb(bundleId).catch(() => null) ?? getBundleLocal(bundleId);
+    const bundle = (await getBundleFromDb(bundleId).catch(() => null)) ?? getBundleLocal(bundleId);
     if (!bundle || bundle.price !== 0) {
       return NextResponse.json({ error: "Bundle not found or not free" }, { status: 400 });
     }
@@ -30,7 +27,9 @@ export async function POST(req: NextRequest) {
       .eq("user_id", userId)
       .in("template_id", bundle.templateIds);
 
-    const alreadyOwned = new Set((existing ?? []).map((r: { template_id: string }) => r.template_id));
+    const alreadyOwned = new Set(
+      (existing ?? []).map((r: { template_id: string }) => r.template_id),
+    );
     const toInsert = bundle.templateIds
       .filter((tid) => !alreadyOwned.has(tid))
       .map((tid) => ({
@@ -48,7 +47,8 @@ export async function POST(req: NextRequest) {
   }
 
   if (templateId) {
-    const template = await getTemplateFromDb(templateId).catch(() => null) ?? getTemplateLocal(templateId);
+    const template =
+      (await getTemplateFromDb(templateId).catch(() => null)) ?? getTemplateLocal(templateId);
     if (!template || template.price !== 0) {
       return NextResponse.json({ error: "Template not found or not free" }, { status: 400 });
     }

@@ -20,8 +20,10 @@ export function TemplatePreview({ id, height = 220 }: Props) {
     const el = ref.current;
     if (!el) return;
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { rootMargin: "300px" }
+      ([entry]) => {
+        if (entry.isIntersecting) setVisible(true);
+      },
+      { rootMargin: "300px" },
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -57,10 +59,14 @@ export function TemplatePreview({ id, height = 220 }: Props) {
     >
       {/* Gold gradient shimmer while loading (or before the width is known) */}
       {(!loaded || scale === 0) && (
-        <div style={{
-          position: "absolute", inset: 0,
-          background: "linear-gradient(145deg, rgba(212,175,55,.07) 0%, rgba(212,175,55,.02) 100%)",
-        }} />
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background:
+              "linear-gradient(145deg, rgba(212,175,55,.07) 0%, rgba(212,175,55,.02) 100%)",
+          }}
+        />
       )}
 
       {visible && scale > 0 && (
@@ -83,11 +89,14 @@ export function TemplatePreview({ id, height = 220 }: Props) {
       )}
 
       {/* Subtle gradient overlay at bottom */}
-      <div style={{
-        position: "absolute", inset: 0,
-        background: "linear-gradient(to bottom, transparent 55%, var(--surface) 100%)",
-        pointerEvents: "none",
-      }} />
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "linear-gradient(to bottom, transparent 55%, var(--surface) 100%)",
+          pointerEvents: "none",
+        }}
+      />
     </div>
   );
 }

@@ -36,18 +36,26 @@ export default function CustomizePanel({
       {/* Template picker */}
       <div>
         <label className="text-[11px] font-semibold text-muted uppercase tracking-widest mb-2 block px-1">
-          {lang === "it" ? "Seleziona un template da personalizzare" : "Select a template to customize"}
+          {lang === "it"
+            ? "Seleziona un template da personalizzare"
+            : "Select a template to customize"}
           {hasStudioAccess && (
             <span className="ml-2 normal-case tracking-normal font-normal text-accent">
-              {lang === "it" ? "— tutti disponibili con Studio Access" : "— all unlocked with Studio Access"}
+              {lang === "it"
+                ? "— tutti disponibili con Studio Access"
+                : "— all unlocked with Studio Access"}
             </span>
           )}
         </label>
         {!purchasesLoaded ? (
           <div className="w-full h-12 bg-surface animate-pulse" />
-        ) : !hasStudioAccess && purchasedIds.filter(id => id !== "studio-access" && id !== "studio-access-lifetime").length === 0 ? (
+        ) : !hasStudioAccess &&
+          purchasedIds.filter((id) => id !== "studio-access" && id !== "studio-access-lifetime")
+            .length === 0 ? (
           <div className="bg-surface border border-theme px-4 py-6 text-center text-[15px] text-muted">
-            {lang === "it" ? "Non hai ancora acquistato nessun template." : "You haven't purchased any templates yet."}{" "}
+            {lang === "it"
+              ? "Non hai ancora acquistato nessun template."
+              : "You haven't purchased any templates yet."}{" "}
             <Link href="/" className="text-accent hover:underline">
               {lang === "it" ? "Vai al marketplace →" : "Go to marketplace →"}
             </Link>
@@ -58,19 +66,16 @@ export default function CustomizePanel({
             onChange={(e) => setSelectedId(e.target.value)}
             className="w-full bg-input border border-theme px-4 py-3 text-[15px] text-theme focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all duration-200"
           >
-            <option value="">— {lang === "it" ? "Scegli un template" : "Choose a template"} —</option>
+            <option value="">
+              — {lang === "it" ? "Scegli un template" : "Choose a template"} —
+            </option>
             {["ui", "prompt"].map((cat) => {
               const group = templates.filter(
-                (t) =>
-                  t.category === cat &&
-                  (hasStudioAccess || purchasedIds.includes(t.id))
+                (t) => t.category === cat && (hasStudioAccess || purchasedIds.includes(t.id)),
               );
               if (group.length === 0) return null;
               return (
-                <optgroup
-                  key={cat}
-                  label={cat === "ui" ? "UI Templates" : "Prompt Templates"}
-                >
+                <optgroup key={cat} label={cat === "ui" ? "UI Templates" : "Prompt Templates"}>
                   {group.map((t) => (
                     <option key={t.id} value={t.id}>
                       {t.name} ({formatPrice(t.price)})
@@ -91,7 +96,15 @@ export default function CustomizePanel({
           </p>
           {selectedTemplate.category === "ui" ? (
             <div className="h-40 overflow-hidden relative">
-              <div className="absolute inset-0 pointer-events-none" style={{ transform: "scale(0.38)", transformOrigin: "top left", width: "263%", height: "263%" }}>
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  transform: "scale(0.38)",
+                  transformOrigin: "top left",
+                  width: "263%",
+                  height: "263%",
+                }}
+              >
                 <iframe
                   src={`/api/preview/${selectedTemplate.id}`}
                   title={selectedTemplate.name}
@@ -134,20 +147,19 @@ export default function CustomizePanel({
 
       <button
         onClick={onCustomize}
-        disabled={
-          customLoading ||
-          !selectedTemplate ||
-          !customInstructions.trim()
-        }
+        disabled={customLoading || !selectedTemplate || !customInstructions.trim()}
         className="btn-brand w-full justify-center text-[15px] gap-2"
         style={{ padding: "14px 24px" }}
       >
         {customLoading ? (
           <>
-            <span style={{ display: "inline-block", animation: "spin 1s linear infinite" }}>⟳</span> Customizing...
+            <span style={{ display: "inline-block", animation: "spin 1s linear infinite" }}>⟳</span>{" "}
+            Customizing...
           </>
+        ) : lang === "it" ? (
+          "Personalizza Template"
         ) : (
-          lang === "it" ? "Personalizza Template" : "Customize Template"
+          "Customize Template"
         )}
       </button>
     </div>

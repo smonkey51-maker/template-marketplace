@@ -50,11 +50,37 @@ export default function CommandPalette() {
 
   const routes: PaletteItem[] = useMemo(
     () => [
-      { kind: "route", label: lang === "it" ? "Catalogo" : "Catalog", hint: lang === "it" ? "Sfoglia tutti i template" : "Browse all templates", href: "/" },
-      { kind: "route", label: lang === "it" ? "AI Studio" : "AI Studio", hint: lang === "it" ? "Genera e personalizza con Claude" : "Generate and customize with Claude", href: "/studio" },
-      { kind: "route", label: lang === "it" ? "Guida" : "Guide", hint: lang === "it" ? "Guida all'acquisto" : "Buyer's guide", href: "/guide" },
-      { kind: "route", label: lang === "it" ? "Wishlist" : "Wishlist", hint: lang === "it" ? "I tuoi salvati" : "Your saved items", href: "/wishlist" },
-      { kind: "route", label: "Account", hint: lang === "it" ? "I tuoi acquisti" : "Your purchases", href: "/account" },
+      {
+        kind: "route",
+        label: lang === "it" ? "Catalogo" : "Catalog",
+        hint: lang === "it" ? "Sfoglia tutti i template" : "Browse all templates",
+        href: "/",
+      },
+      {
+        kind: "route",
+        label: lang === "it" ? "AI Studio" : "AI Studio",
+        hint:
+          lang === "it" ? "Genera e personalizza con Claude" : "Generate and customize with Claude",
+        href: "/studio",
+      },
+      {
+        kind: "route",
+        label: lang === "it" ? "Guida" : "Guide",
+        hint: lang === "it" ? "Guida all'acquisto" : "Buyer's guide",
+        href: "/guide",
+      },
+      {
+        kind: "route",
+        label: lang === "it" ? "Wishlist" : "Wishlist",
+        hint: lang === "it" ? "I tuoi salvati" : "Your saved items",
+        href: "/wishlist",
+      },
+      {
+        kind: "route",
+        label: "Account",
+        hint: lang === "it" ? "I tuoi acquisti" : "Your purchases",
+        href: "/account",
+      },
     ],
     [lang],
   );
@@ -110,10 +136,18 @@ export default function CommandPalette() {
   const allItems = useMemo<PaletteItem[]>(() => {
     const q = query.trim().toLowerCase();
     const filteredRoutes = q
-      ? routes.filter((r) => r.kind === "route" && (r.label.toLowerCase().includes(q) || r.hint.toLowerCase().includes(q)))
+      ? routes.filter(
+          (r) =>
+            r.kind === "route" &&
+            (r.label.toLowerCase().includes(q) || r.hint.toLowerCase().includes(q)),
+        )
       : routes;
     const filteredActions = q
-      ? actions.filter((a) => a.kind === "action" && (a.label.toLowerCase().includes(q) || a.hint.toLowerCase().includes(q)))
+      ? actions.filter(
+          (a) =>
+            a.kind === "action" &&
+            (a.label.toLowerCase().includes(q) || a.hint.toLowerCase().includes(q)),
+        )
       : actions;
     return [...filteredRoutes, ...templateItems, ...filteredActions];
   }, [routes, actions, templateItems, query]);
@@ -159,18 +193,43 @@ export default function CommandPalette() {
   return (
     <>
       <div className="cmdk-backdrop" onClick={() => setOpen(false)} aria-hidden />
-      <div className="cmdk-panel" role="dialog" aria-modal="true" aria-label={lang === "it" ? "Palette comandi" : "Command palette"}>
+      <div
+        className="cmdk-panel"
+        role="dialog"
+        aria-modal="true"
+        aria-label={lang === "it" ? "Palette comandi" : "Command palette"}
+      >
         {/* Input */}
-        <div className="flex items-center gap-3 px-4 py-3.5 border-b" style={{ borderColor: "var(--border)" }}>
+        <div
+          className="flex items-center gap-3 px-4 py-3.5 border-b"
+          style={{ borderColor: "var(--border)" }}
+        >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
-            <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.6" style={{ color: "var(--muted)" }} />
-            <path d="M20 20l-3.5-3.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" style={{ color: "var(--muted)" }} />
+            <circle
+              cx="11"
+              cy="11"
+              r="7"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              style={{ color: "var(--muted)" }}
+            />
+            <path
+              d="M20 20l-3.5-3.5"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              style={{ color: "var(--muted)" }}
+            />
           </svg>
           <input
             ref={inputRef}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder={lang === "it" ? "Cerca template, azioni, pagine…" : "Search templates, actions, pages…"}
+            placeholder={
+              lang === "it"
+                ? "Cerca template, azioni, pagine…"
+                : "Search templates, actions, pages…"
+            }
             className="flex-1 bg-transparent outline-none text-[14px] placeholder:text-[var(--muted)]"
             style={{ color: "var(--text)" }}
             aria-label={lang === "it" ? "Cerca" : "Search"}
@@ -188,79 +247,129 @@ export default function CommandPalette() {
 
           {/* Routes group */}
           {allItems.some((i) => i.kind === "route") && (
-            <div className="px-3 pt-2 pb-1 text-[9px] font-bold uppercase tracking-[0.18em]" style={{ color: "var(--muted)" }}>
+            <div
+              className="px-3 pt-2 pb-1 text-[9px] font-bold uppercase tracking-[0.18em]"
+              style={{ color: "var(--muted)" }}
+            >
               {lang === "it" ? "Naviga" : "Navigate"}
             </div>
           )}
-          {allItems.filter((i) => i.kind === "route").map((item) => {
-            cursor += 1;
-            const active = cursor === index;
-            const itemIdx = cursor;
-            return (
-              <div key={`r-${item.kind === "route" ? item.href : ""}`} data-idx={itemIdx} data-active={active} className="cmdk-item" onClick={() => execute(item)} onMouseEnter={() => setIndex(itemIdx)}>
-                <span className="text-[14px] opacity-60">↗</span>
-                <div className="flex-1 min-w-0">
-                  <p className="text-[13px] font-semibold truncate">{item.kind === "route" ? item.label : ""}</p>
-                  <p className="text-[11px] truncate" style={{ color: "var(--muted)" }}>{item.kind === "route" ? item.hint : ""}</p>
+          {allItems
+            .filter((i) => i.kind === "route")
+            .map((item) => {
+              cursor += 1;
+              const active = cursor === index;
+              const itemIdx = cursor;
+              return (
+                <div
+                  key={`r-${item.kind === "route" ? item.href : ""}`}
+                  data-idx={itemIdx}
+                  data-active={active}
+                  className="cmdk-item"
+                  onClick={() => execute(item)}
+                  onMouseEnter={() => setIndex(itemIdx)}
+                >
+                  <span className="text-[14px] opacity-60">↗</span>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[13px] font-semibold truncate">
+                      {item.kind === "route" ? item.label : ""}
+                    </p>
+                    <p className="text-[11px] truncate" style={{ color: "var(--muted)" }}>
+                      {item.kind === "route" ? item.hint : ""}
+                    </p>
+                  </div>
+                  {active && <span className="cmdk-kbd">↵</span>}
                 </div>
-                {active && <span className="cmdk-kbd">↵</span>}
-              </div>
-            );
-          })}
+              );
+            })}
 
           {/* Templates group */}
           {allItems.some((i) => i.kind === "template") && (
-            <div className="px-3 pt-3 pb-1 text-[9px] font-bold uppercase tracking-[0.18em]" style={{ color: "var(--muted)" }}>
+            <div
+              className="px-3 pt-3 pb-1 text-[9px] font-bold uppercase tracking-[0.18em]"
+              style={{ color: "var(--muted)" }}
+            >
               {lang === "it" ? "Template" : "Templates"}
             </div>
           )}
-          {allItems.filter((i) => i.kind === "template").map((item) => {
-            cursor += 1;
-            const active = cursor === index;
-            const itemIdx = cursor;
-            if (item.kind !== "template") return null;
-            return (
-              <div key={`t-${item.id}`} data-idx={itemIdx} data-active={active} className="cmdk-item" onClick={() => execute(item)} onMouseEnter={() => setIndex(itemIdx)}>
-                <span className="w-6 h-6 shrink-0 flex items-center justify-center text-[11px] font-bold" style={{ background: "var(--accent-bg)", color: "var(--accent)" }}>
-                  {item.name.slice(0, 1).toUpperCase()}
-                </span>
-                <div className="flex-1 min-w-0">
-                  <p className="text-[13px] font-semibold truncate">{item.name}</p>
-                  {item.description && (
-                    <p className="text-[11px] truncate" style={{ color: "var(--muted)" }}>{item.description}</p>
-                  )}
+          {allItems
+            .filter((i) => i.kind === "template")
+            .map((item) => {
+              cursor += 1;
+              const active = cursor === index;
+              const itemIdx = cursor;
+              if (item.kind !== "template") return null;
+              return (
+                <div
+                  key={`t-${item.id}`}
+                  data-idx={itemIdx}
+                  data-active={active}
+                  className="cmdk-item"
+                  onClick={() => execute(item)}
+                  onMouseEnter={() => setIndex(itemIdx)}
+                >
+                  <span
+                    className="w-6 h-6 shrink-0 flex items-center justify-center text-[11px] font-bold"
+                    style={{ background: "var(--accent-bg)", color: "var(--accent)" }}
+                  >
+                    {item.name.slice(0, 1).toUpperCase()}
+                  </span>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[13px] font-semibold truncate">{item.name}</p>
+                    {item.description && (
+                      <p className="text-[11px] truncate" style={{ color: "var(--muted)" }}>
+                        {item.description}
+                      </p>
+                    )}
+                  </div>
+                  {active && <span className="cmdk-kbd">↵</span>}
                 </div>
-                {active && <span className="cmdk-kbd">↵</span>}
-              </div>
-            );
-          })}
+              );
+            })}
 
           {/* Actions group */}
           {allItems.some((i) => i.kind === "action") && (
-            <div className="px-3 pt-3 pb-1 text-[9px] font-bold uppercase tracking-[0.18em]" style={{ color: "var(--muted)" }}>
+            <div
+              className="px-3 pt-3 pb-1 text-[9px] font-bold uppercase tracking-[0.18em]"
+              style={{ color: "var(--muted)" }}
+            >
               {lang === "it" ? "Azioni" : "Actions"}
             </div>
           )}
-          {allItems.filter((i) => i.kind === "action").map((item) => {
-            cursor += 1;
-            const active = cursor === index;
-            const itemIdx = cursor;
-            if (item.kind !== "action") return null;
-            return (
-              <div key={`a-${item.label}`} data-idx={itemIdx} data-active={active} className="cmdk-item" onClick={() => execute(item)} onMouseEnter={() => setIndex(itemIdx)}>
-                <span className="text-[14px] opacity-60">⚡</span>
-                <div className="flex-1 min-w-0">
-                  <p className="text-[13px] font-semibold truncate">{item.label}</p>
-                  <p className="text-[11px] truncate" style={{ color: "var(--muted)" }}>{item.hint}</p>
+          {allItems
+            .filter((i) => i.kind === "action")
+            .map((item) => {
+              cursor += 1;
+              const active = cursor === index;
+              const itemIdx = cursor;
+              if (item.kind !== "action") return null;
+              return (
+                <div
+                  key={`a-${item.label}`}
+                  data-idx={itemIdx}
+                  data-active={active}
+                  className="cmdk-item"
+                  onClick={() => execute(item)}
+                  onMouseEnter={() => setIndex(itemIdx)}
+                >
+                  <span className="text-[14px] opacity-60">⚡</span>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[13px] font-semibold truncate">{item.label}</p>
+                    <p className="text-[11px] truncate" style={{ color: "var(--muted)" }}>
+                      {item.hint}
+                    </p>
+                  </div>
+                  {active && <span className="cmdk-kbd">↵</span>}
                 </div>
-                {active && <span className="cmdk-kbd">↵</span>}
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between px-4 py-2.5 border-t text-[10px]" style={{ borderColor: "var(--border)", color: "var(--muted)" }}>
+        <div
+          className="flex items-center justify-between px-4 py-2.5 border-t text-[10px]"
+          style={{ borderColor: "var(--border)", color: "var(--muted)" }}
+        >
           <div className="flex items-center gap-2">
             <span className="cmdk-kbd">↑</span>
             <span className="cmdk-kbd">↓</span>

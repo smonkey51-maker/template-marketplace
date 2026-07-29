@@ -30,9 +30,15 @@ export default function GallerySpotlight() {
     };
     rafId = requestAnimationFrame(frame);
 
-    const onMouse = (e: MouseEvent) => { tx = e.clientX; ty = e.clientY; };
+    const onMouse = (e: MouseEvent) => {
+      tx = e.clientX;
+      ty = e.clientY;
+    };
     const onTouch = (e: TouchEvent) => {
-      if (e.touches[0]) { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }
+      if (e.touches[0]) {
+        tx = e.touches[0].clientX;
+        ty = e.touches[0].clientY;
+      }
     };
 
     window.addEventListener("mousemove", onMouse, { passive: true });

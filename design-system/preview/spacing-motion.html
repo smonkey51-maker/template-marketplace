@@ -1,37 +1,142 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Plus+Jakarta+Sans:wght@400&display=swap" rel="stylesheet">
-<style>
-  body { margin:0; padding:16px 20px; background:#14100C; font-family:'Plus Jakarta Sans',sans-serif; }
-  .label { font-family:'Montserrat',sans-serif; font-size:9px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#C8915A; margin-bottom:10px; }
-  .easing-row { display:flex; flex-direction:column; gap:6px; }
-  .easing-item { display:flex; align-items:center; gap:10px; }
-  .easing-name { font-size:10px; color:#C8915A; font-family:'Montserrat',sans-serif; font-weight:600; width:90px; flex-shrink:0; }
-  .easing-desc { font-size:10px; color:rgba(237,232,220,0.5); flex:1; }
-  .easing-curve { font-size:9px; color:rgba(237,232,220,0.3); font-family:'SF Mono',monospace; }
-  .hr { border:none; border-top:1px solid rgba(237,232,220,0.08); margin:10px 0; }
-  .dur-row { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
-  .dur-chip { display:flex; flex-direction:column; align-items:center; gap:3px; }
-  .dur-pill { height:20px; background:rgba(200,145,90,0.2); border:1px solid rgba(200,145,90,0.4); display:flex; align-items:center; justify-content:center; padding:0 8px; }
-  .dur-val { font-size:9px; color:#C8915A; font-family:'SF Mono',monospace; }
-  .dur-name { font-size:9px; color:rgba(237,232,220,0.4); }
-</style>
-</head>
-<body>
-<div class="label">Motion Easings</div>
-<div class="easing-row">
-  <div class="easing-item"><span class="easing-name">ease-glide</span><span class="easing-desc">Generic smooth</span><span class="easing-curve">0.22,1,0.36,1</span></div>
-  <div class="easing-item"><span class="easing-name">ease-snap</span><span class="easing-desc">Gentle spring · modals</span><span class="easing-curve">0.32,1.10,0.64,1</span></div>
-  <div class="easing-item"><span class="easing-name">ease-bounce</span><span class="easing-desc">Overshoot · wax seal</span><span class="easing-curve">0.34,1.56,0.64,1</span></div>
-  <div class="easing-item"><span class="easing-name">ease-brisk</span><span class="easing-desc">Fast out, slow in</span><span class="easing-curve">0.45,0,0.15,1</span></div>
-  <div class="easing-item"><span class="easing-name">ease-linger</span><span class="easing-desc">Very slow end · hero text</span><span class="easing-curve">0.16,1,0.3,1</span></div>
-</div>
-<div class="hr"></div>
-<div class="label">Duration Scale</div>
-<div class="dur-row">
-  <div class="dur-chip"><div class="dur-pill"><span class="dur-val">120ms</span></div><div class="dur-name">t-xs</div></div>
-  <div class="dur-chip"><div class="dur-pill"><span class="dur-val">200ms</span></div><div class="dur-name">t-sm</div></div>
-  <div class="dur-chip"><div class="dur-pill"><span class="dur-val">320ms</span></div><div class="dur-name">t-md</div></div>
-  <div class="dur-chip"><div class="dur-pill"><span class="dur-val">520ms</span></div><div class="dur-name">t-lg</div></div>
-  <div class="dur-chip"><div class="dur-pill"><span class="dur-val">820ms</span></div><div class="dur-name">t-xl</div></div>
-</div>
-</body></html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Plus+Jakarta+Sans:wght@400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 16px 20px;
+        background: #14100c;
+        font-family: "Plus Jakarta Sans", sans-serif;
+      }
+      .label {
+        font-family: "Montserrat", sans-serif;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #c8915a;
+        margin-bottom: 10px;
+      }
+      .easing-row {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .easing-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .easing-name {
+        font-size: 10px;
+        color: #c8915a;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 600;
+        width: 90px;
+        flex-shrink: 0;
+      }
+      .easing-desc {
+        font-size: 10px;
+        color: rgba(237, 232, 220, 0.5);
+        flex: 1;
+      }
+      .easing-curve {
+        font-size: 9px;
+        color: rgba(237, 232, 220, 0.3);
+        font-family: "SF Mono", monospace;
+      }
+      .hr {
+        border: none;
+        border-top: 1px solid rgba(237, 232, 220, 0.08);
+        margin: 10px 0;
+      }
+      .dur-row {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .dur-chip {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+      }
+      .dur-pill {
+        height: 20px;
+        background: rgba(200, 145, 90, 0.2);
+        border: 1px solid rgba(200, 145, 90, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 8px;
+      }
+      .dur-val {
+        font-size: 9px;
+        color: #c8915a;
+        font-family: "SF Mono", monospace;
+      }
+      .dur-name {
+        font-size: 9px;
+        color: rgba(237, 232, 220, 0.4);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="label">Motion Easings</div>
+    <div class="easing-row">
+      <div class="easing-item">
+        <span class="easing-name">ease-glide</span><span class="easing-desc">Generic smooth</span
+        ><span class="easing-curve">0.22,1,0.36,1</span>
+      </div>
+      <div class="easing-item">
+        <span class="easing-name">ease-snap</span
+        ><span class="easing-desc">Gentle spring · modals</span
+        ><span class="easing-curve">0.32,1.10,0.64,1</span>
+      </div>
+      <div class="easing-item">
+        <span class="easing-name">ease-bounce</span
+        ><span class="easing-desc">Overshoot · wax seal</span
+        ><span class="easing-curve">0.34,1.56,0.64,1</span>
+      </div>
+      <div class="easing-item">
+        <span class="easing-name">ease-brisk</span><span class="easing-desc">Fast out, slow in</span
+        ><span class="easing-curve">0.45,0,0.15,1</span>
+      </div>
+      <div class="easing-item">
+        <span class="easing-name">ease-linger</span
+        ><span class="easing-desc">Very slow end · hero text</span
+        ><span class="easing-curve">0.16,1,0.3,1</span>
+      </div>
+    </div>
+    <div class="hr"></div>
+    <div class="label">Duration Scale</div>
+    <div class="dur-row">
+      <div class="dur-chip">
+        <div class="dur-pill"><span class="dur-val">120ms</span></div>
+        <div class="dur-name">t-xs</div>
+      </div>
+      <div class="dur-chip">
+        <div class="dur-pill"><span class="dur-val">200ms</span></div>
+        <div class="dur-name">t-sm</div>
+      </div>
+      <div class="dur-chip">
+        <div class="dur-pill"><span class="dur-val">320ms</span></div>
+        <div class="dur-name">t-md</div>
+      </div>
+      <div class="dur-chip">
+        <div class="dur-pill"><span class="dur-val">520ms</span></div>
+        <div class="dur-name">t-lg</div>
+      </div>
+      <div class="dur-chip">
+        <div class="dur-pill"><span class="dur-val">820ms</span></div>
+        <div class="dur-name">t-xl</div>
+      </div>
+    </div>
+  </body>
+</html>

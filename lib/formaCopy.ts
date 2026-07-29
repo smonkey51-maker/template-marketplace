@@ -3,14 +3,20 @@ export type Lang = "it" | "en";
 export const copy = {
   it: {
     /* nav */
-    catalogo: "Catalogo", guida: "Guida", studioAi: "AI Studio",
-    account: "Account", cerca: "Cerca", studio: "Studio",
+    catalogo: "Catalogo",
+    guida: "Guida",
+    studioAi: "AI Studio",
+    account: "Account",
+    cerca: "Cerca",
+    studio: "Studio",
 
     /* home hero */
     heroKicker: "Edizione digitale · Vol. I",
     heroTitle: "Template come oggetti curati.",
     heroSub: "Ogni file è un gesto preciso, non una soluzione generica.",
-    browse: "Sfoglia", browseAll: "Sfoglia catalogo", studioCta: "AI Studio",
+    browse: "Sfoglia",
+    browseAll: "Sfoglia catalogo",
+    studioCta: "AI Studio",
 
     /* home stats */
     statCatalog: "Template nel catalogo",
@@ -30,19 +36,30 @@ export const copy = {
     /* home AI callout */
     aiKicker: "Intelligenza artificiale",
     aiCalloutTitle: "Descrivi. FORMA costruisce.",
-    aiCalloutSub: "L'AI Studio genera strutture su misura a partire da un'idea. Prompt → template → download in pochi secondi.",
+    aiCalloutSub:
+      "L'AI Studio genera strutture su misura a partire da un'idea. Prompt → template → download in pochi secondi.",
     aiCalloutCta: "Apri AI Studio →",
 
     /* catalog */
-    templates: "Template nel catalogo", categories: "Categorie",
-    from: "Da", oneTime: "Acquisto unico",
+    templates: "Template nel catalogo",
+    categories: "Categorie",
+    from: "Da",
+    oneTime: "Acquisto unico",
     searchPlaceholder: "Cerca per nome, categoria o formato…",
-    all: "Tutti", notion: "Notion", web: "Web", app: "App", deck: "Deck",
-    buy: "Dettagli", download: "Anteprima", details: "Dettagli", saved: "Salvati",
+    all: "Tutti",
+    notion: "Notion",
+    web: "Web",
+    app: "App",
+    deck: "Deck",
+    buy: "Dettagli",
+    download: "Anteprima",
+    details: "Dettagli",
+    saved: "Salvati",
     noResults: "Nessun template trovato.",
 
     /* account */
-    accountTitle: "Account", accountSub: "Gestisci acquisti, download e template salvati.",
+    accountTitle: "Account",
+    accountSub: "Gestisci acquisti, download e template salvati.",
 
     /* guida page */
     guideKicker: "Documentazione",
@@ -53,35 +70,50 @@ export const copy = {
     guideFaqKicker: "FAQ",
     guideFaqTitle: "Domande frequenti",
     guideStep1Title: "Scegli il formato",
-    guideStep1Body: "Naviga il catalogo e filtra per tipo: HTML, Notion, Shopify, WordPress. Ogni template mostra anteprima, prezzo e specifiche tecniche.",
+    guideStep1Body:
+      "Naviga il catalogo e filtra per tipo: HTML, Notion, Shopify, WordPress. Ogni template mostra anteprima, prezzo e specifiche tecniche.",
     guideStep2Title: "Anteprima e dettagli",
-    guideStep2Body: "Apri la pagina del template per vedere il design nel dettaglio, leggere le caratteristiche e verificare la compatibilità con il tuo flusso di lavoro.",
+    guideStep2Body:
+      "Apri la pagina del template per vedere il design nel dettaglio, leggere le caratteristiche e verificare la compatibilità con il tuo flusso di lavoro.",
     guideStep3Title: "Acquista",
-    guideStep3Body: "Checkout sicuro via Stripe. Accettiamo carta di credito e PayPal. Acquisto una tantum — nessun abbonamento, nessun rinnovo.",
+    guideStep3Body:
+      "Checkout sicuro via Stripe. Accettiamo carta di credito e PayPal. Acquisto una tantum — nessun abbonamento, nessun rinnovo.",
     guideStep4Title: "Scarica e usa subito",
-    guideStep4Body: "File disponibile immediatamente nell'area account e via email. HTML → apri in qualsiasi editor. Notion → duplica nel workspace. Shopify/WP → carica come tema.",
+    guideStep4Body:
+      "File disponibile immediatamente nell'area account e via email. HTML → apri in qualsiasi editor. Notion → duplica nel workspace. Shopify/WP → carica come tema.",
     guideFaq1Q: "Posso modificare i template liberamente?",
-    guideFaq1A: "Sì. Ogni template è completamente editabile. I file HTML usano Tailwind CDN — basta aprire in un editor e cambiare testi, colori e sezioni. I template Notion si duplicano e modificano direttamente nel workspace.",
+    guideFaq1A:
+      "Sì. Ogni template è completamente editabile. I file HTML usano Tailwind CDN — basta aprire in un editor e cambiare testi, colori e sezioni. I template Notion si duplicano e modificano direttamente nel workspace.",
     guideFaq2Q: "Quante volte posso scaricare?",
-    guideFaq2A: "Illimitatamente. Una volta acquistato, il template è tuo per sempre — nessuna restrizione di download, nessuna scadenza.",
+    guideFaq2A:
+      "Illimitatamente. Una volta acquistato, il template è tuo per sempre — nessuna restrizione di download, nessuna scadenza.",
     guideFaq3Q: "L'uso commerciale è incluso?",
-    guideFaq3A: "Sì. Puoi usare i template per progetti clienti e applicazioni commerciali. Non è consentita la rivendita del file originale su altri marketplace.",
+    guideFaq3A:
+      "Sì. Puoi usare i template per progetti clienti e applicazioni commerciali. Non è consentita la rivendita del file originale su altri marketplace.",
     guideFaq4Q: "Come funziona l'AI Studio?",
-    guideFaq4A: "Descrivi il template che vuoi (tipo, stile, sezioni, tono). L'AI genera una struttura HTML o Notion pronta all'uso in pochi secondi. Puoi poi personalizzarla nell'editor integrato.",
+    guideFaq4A:
+      "Descrivi il template che vuoi (tipo, stile, sezioni, tono). L'AI genera una struttura HTML o Notion pronta all'uso in pochi secondi. Puoi poi personalizzarla nell'editor integrato.",
     guideFaq5Q: "Esiste assistenza dopo l'acquisto?",
-    guideFaq5A: "Sì. Per ogni domanda tecnica scrivi a supporto@forma.design — risposta entro 24 ore lavorative.",
+    guideFaq5A:
+      "Sì. Per ogni domanda tecnica scrivi a supporto@forma.design — risposta entro 24 ore lavorative.",
 
     /* ai-studio page */
     aiStudioKicker: "Intelligenza artificiale",
     aiStudioTitle: "AI Studio",
     aiStudioSub: "Descrivi cosa ti serve. FORMA genera la struttura corretta in pochi secondi.",
     aiStudioHowKicker: "Come funziona",
-    aiStep1Icon: "01", aiStep1Title: "Descrivi",
-    aiStep1Desc: "Scrivi un prompt: tipo di template, tono, sezioni, colori. Più dettagli dai, migliore è il risultato.",
-    aiStep2Icon: "02", aiStep2Title: "Genera",
-    aiStep2Desc: "L'AI produce codice HTML o struttura Notion ottimizzata, pronta per essere usata o modificata.",
-    aiStep3Icon: "03", aiStep3Title: "Personalizza",
-    aiStep3Desc: "Raffina nel prompt, cambia sezioni, rigenera singoli blocchi. Poi scarica il file definitivo.",
+    aiStep1Icon: "01",
+    aiStep1Title: "Descrivi",
+    aiStep1Desc:
+      "Scrivi un prompt: tipo di template, tono, sezioni, colori. Più dettagli dai, migliore è il risultato.",
+    aiStep2Icon: "02",
+    aiStep2Title: "Genera",
+    aiStep2Desc:
+      "L'AI produce codice HTML o struttura Notion ottimizzata, pronta per essere usata o modificata.",
+    aiStep3Icon: "03",
+    aiStep3Title: "Personalizza",
+    aiStep3Desc:
+      "Raffina nel prompt, cambia sezioni, rigenera singoli blocchi. Poi scarica il file definitivo.",
     aiExamplesKicker: "Esempi",
     aiExamplesTitle: "Cosa puoi generare",
     aiStudioCta: "Apri lo Studio →",
@@ -99,8 +131,10 @@ export const copy = {
     heroCtaGuidaSnap: "Come funziona",
 
     /* shared */
-    studioTitle: "Studio", studioSub: "Un ambiente per generare, adattare e rifinire template.",
-    aiTitle: "AI Studio", aiSub: "Descrivi cosa ti serve. FORMA ti propone la struttura corretta.",
+    studioTitle: "Studio",
+    studioSub: "Un ambiente per generare, adattare e rifinire template.",
+    aiTitle: "AI Studio",
+    aiSub: "Descrivi cosa ti serve. FORMA ti propone la struttura corretta.",
     guidePageTitle: "Guida",
     backHome: "Torna alla landing",
     footerHome: "Home",
@@ -173,14 +207,20 @@ export const copy = {
 
   en: {
     /* nav */
-    catalogo: "Catalog", guida: "Guide", studioAi: "AI Studio",
-    account: "Account", cerca: "Search", studio: "Studio",
+    catalogo: "Catalog",
+    guida: "Guide",
+    studioAi: "AI Studio",
+    account: "Account",
+    cerca: "Search",
+    studio: "Studio",
 
     /* home hero */
     heroKicker: "Digital edition · Vol. I",
     heroTitle: "Templates as curated objects.",
     heroSub: "Every file is a precise gesture, not a generic solution.",
-    browse: "Browse", browseAll: "Browse catalog", studioCta: "AI Studio",
+    browse: "Browse",
+    browseAll: "Browse catalog",
+    studioCta: "AI Studio",
 
     /* home stats */
     statCatalog: "Templates in catalog",
@@ -200,19 +240,30 @@ export const copy = {
     /* home AI callout */
     aiKicker: "Artificial intelligence",
     aiCalloutTitle: "Describe it. FORMA builds it.",
-    aiCalloutSub: "The AI Studio generates custom structures from an idea. Prompt → template → download in seconds.",
+    aiCalloutSub:
+      "The AI Studio generates custom structures from an idea. Prompt → template → download in seconds.",
     aiCalloutCta: "Open AI Studio →",
 
     /* catalog */
-    templates: "Templates in catalog", categories: "Categories",
-    from: "From", oneTime: "one-time purchase",
+    templates: "Templates in catalog",
+    categories: "Categories",
+    from: "From",
+    oneTime: "one-time purchase",
     searchPlaceholder: "Search by name, category or format…",
-    all: "All", notion: "Notion", web: "Web", app: "App", deck: "Deck",
-    buy: "Details", download: "Preview", details: "Details", saved: "Saved",
+    all: "All",
+    notion: "Notion",
+    web: "Web",
+    app: "App",
+    deck: "Deck",
+    buy: "Details",
+    download: "Preview",
+    details: "Details",
+    saved: "Saved",
     noResults: "No templates found.",
 
     /* account */
-    accountTitle: "Account", accountSub: "Manage purchases, downloads and saved templates.",
+    accountTitle: "Account",
+    accountSub: "Manage purchases, downloads and saved templates.",
 
     /* guida page */
     guideKicker: "Documentation",
@@ -223,35 +274,49 @@ export const copy = {
     guideFaqKicker: "FAQ",
     guideFaqTitle: "Frequently asked questions",
     guideStep1Title: "Choose your format",
-    guideStep1Body: "Browse the catalog and filter by type: HTML, Notion, Shopify, WordPress. Each template shows a preview, price and technical specs.",
+    guideStep1Body:
+      "Browse the catalog and filter by type: HTML, Notion, Shopify, WordPress. Each template shows a preview, price and technical specs.",
     guideStep2Title: "Preview and details",
-    guideStep2Body: "Open the template page to see the design in detail, read the features and verify compatibility with your workflow.",
+    guideStep2Body:
+      "Open the template page to see the design in detail, read the features and verify compatibility with your workflow.",
     guideStep3Title: "Purchase",
-    guideStep3Body: "Secure checkout via Stripe. We accept credit cards and PayPal. One-time purchase — no subscription, no renewal.",
+    guideStep3Body:
+      "Secure checkout via Stripe. We accept credit cards and PayPal. One-time purchase — no subscription, no renewal.",
     guideStep4Title: "Download and use immediately",
-    guideStep4Body: "File available immediately in your account area and by email. HTML → open in any editor. Notion → duplicate to your workspace. Shopify/WP → upload as theme.",
+    guideStep4Body:
+      "File available immediately in your account area and by email. HTML → open in any editor. Notion → duplicate to your workspace. Shopify/WP → upload as theme.",
     guideFaq1Q: "Can I edit the templates freely?",
-    guideFaq1A: "Yes. Every template is fully editable. HTML files use Tailwind CDN — just open in an editor and change texts, colours and sections. Notion templates are duplicated and edited directly in the workspace.",
+    guideFaq1A:
+      "Yes. Every template is fully editable. HTML files use Tailwind CDN — just open in an editor and change texts, colours and sections. Notion templates are duplicated and edited directly in the workspace.",
     guideFaq2Q: "How many times can I download?",
-    guideFaq2A: "Unlimited. Once purchased, the template is yours forever — no download restrictions, no expiry.",
+    guideFaq2A:
+      "Unlimited. Once purchased, the template is yours forever — no download restrictions, no expiry.",
     guideFaq3Q: "Is commercial use included?",
-    guideFaq3A: "Yes. You can use the templates for client projects and commercial applications. Reselling the original file on other marketplaces is not permitted.",
+    guideFaq3A:
+      "Yes. You can use the templates for client projects and commercial applications. Reselling the original file on other marketplaces is not permitted.",
     guideFaq4Q: "How does the AI Studio work?",
-    guideFaq4A: "Describe the template you want (type, style, sections, tone). The AI generates an HTML or Notion structure ready to use in seconds. You can then customise it in the integrated editor.",
+    guideFaq4A:
+      "Describe the template you want (type, style, sections, tone). The AI generates an HTML or Notion structure ready to use in seconds. You can then customise it in the integrated editor.",
     guideFaq5Q: "Is there support after purchase?",
-    guideFaq5A: "Yes. For any technical question write to support@forma.design — reply within 24 business hours.",
+    guideFaq5A:
+      "Yes. For any technical question write to support@forma.design — reply within 24 business hours.",
 
     /* ai-studio page */
     aiStudioKicker: "Artificial intelligence",
     aiStudioTitle: "AI Studio",
     aiStudioSub: "Describe what you need. FORMA generates the right structure in seconds.",
     aiStudioHowKicker: "How it works",
-    aiStep1Icon: "01", aiStep1Title: "Describe",
-    aiStep1Desc: "Write a prompt: template type, tone, sections, colours. The more details you give, the better the result.",
-    aiStep2Icon: "02", aiStep2Title: "Generate",
+    aiStep1Icon: "01",
+    aiStep1Title: "Describe",
+    aiStep1Desc:
+      "Write a prompt: template type, tone, sections, colours. The more details you give, the better the result.",
+    aiStep2Icon: "02",
+    aiStep2Title: "Generate",
     aiStep2Desc: "The AI produces optimised HTML code or Notion structure, ready to use or modify.",
-    aiStep3Icon: "03", aiStep3Title: "Customise",
-    aiStep3Desc: "Refine in the prompt, change sections, regenerate individual blocks. Then download the final file.",
+    aiStep3Icon: "03",
+    aiStep3Title: "Customise",
+    aiStep3Desc:
+      "Refine in the prompt, change sections, regenerate individual blocks. Then download the final file.",
     aiExamplesKicker: "Examples",
     aiExamplesTitle: "What you can generate",
     aiStudioCta: "Open Studio →",
@@ -269,8 +334,10 @@ export const copy = {
     heroCtaGuidaSnap: "How it works",
 
     /* shared */
-    studioTitle: "Studio", studioSub: "A place to generate, adapt and refine templates.",
-    aiTitle: "AI Studio", aiSub: "Describe what you need. FORMA proposes the right structure.",
+    studioTitle: "Studio",
+    studioSub: "A place to generate, adapt and refine templates.",
+    aiTitle: "AI Studio",
+    aiSub: "Describe what you need. FORMA proposes the right structure.",
     guidePageTitle: "Guide",
     backHome: "Back to landing",
     footerHome: "Home",

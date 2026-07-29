@@ -104,6 +104,7 @@ This is the **single source of truth** for all templates. It is a large file (~3
 - Helper functions: `getTemplate(id)`, `getBundle(id)`, `formatPrice(cents)`, `getDownloadType(template)`.
 
 **When adding a new template:**
+
 1. Add the `Template` object to `lib/templates.ts`.
 2. Add a real `stripePriceId` (create a Stripe Price if needed via `scripts/seed-stripe.ts`).
 3. Add Italian translations in `lib/i18n.ts` under `templateTranslations`.
@@ -127,6 +128,7 @@ This is the **single source of truth** for all templates. It is a large file (~3
 ### Payments (Stripe)
 
 Three purchase flows:
+
 1. **Single template** — guest or authenticated, `mode: "payment"`.
 2. **Bundle** — requires auth, `mode: "payment"`, expands to multiple template rows in Supabase.
 3. **Studio Access** — requires auth, subscription (`mode: "subscription"`) or lifetime (`mode: "payment"`).
@@ -157,6 +159,7 @@ The Stripe webhook (`/api/webhook`) writes purchase records to Supabase and send
 ### Email (Resend)
 
 `lib/email.ts`:
+
 - `sendPurchaseEmail()` — sends post-purchase confirmation with download link.
 - `sendNewsletterEmail()` — batch sends up to 100 emails per Resend API call.
 - Silently no-ops if `RESEND_API_KEY` is not set (safe in dev).
@@ -174,22 +177,22 @@ Generates `exports/gumroad/` and `exports/etsy/` from all templates in `lib/temp
 
 ## Environment Variables
 
-| Variable | Required | Description |
-|---|---|---|
-| `ANTHROPIC_API_KEY` | Yes | Claude API key |
-| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Yes | Clerk publishable key |
-| `CLERK_SECRET_KEY` | Yes | Clerk secret key |
-| `STRIPE_SECRET_KEY` | Yes | Stripe secret key |
-| `STRIPE_WEBHOOK_SECRET` | Yes | Stripe webhook signing secret |
-| `STUDIO_ACCESS_LIFETIME_PRICE_ID` | Yes (for lifetime) | Stripe price ID for lifetime Studio Access |
-| `SUPABASE_URL` | Yes | Supabase project URL |
-| `SUPABASE_SERVICE_ROLE_KEY` | Yes | Supabase service role key (server-only) |
-| `NEXT_PUBLIC_SITE_URL` | Yes | Full site URL e.g. `https://templatelab.io` |
-| `NEXT_PUBLIC_APP_URL` | Optional | Fallback for checkout redirect URLs |
-| `RESEND_API_KEY` | Optional | Resend email API key |
-| `RESEND_FROM` | Optional | Sender address for emails |
-| `NEXT_PUBLIC_POSTHOG_KEY` | Optional | PostHog project API key |
-| `NEXT_PUBLIC_POSTHOG_HOST` | Optional | PostHog host (defaults to `https://app.posthog.com`) |
+| Variable                            | Required           | Description                                          |
+| ----------------------------------- | ------------------ | ---------------------------------------------------- |
+| `ANTHROPIC_API_KEY`                 | Yes                | Claude API key                                       |
+| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Yes                | Clerk publishable key                                |
+| `CLERK_SECRET_KEY`                  | Yes                | Clerk secret key                                     |
+| `STRIPE_SECRET_KEY`                 | Yes                | Stripe secret key                                    |
+| `STRIPE_WEBHOOK_SECRET`             | Yes                | Stripe webhook signing secret                        |
+| `STUDIO_ACCESS_LIFETIME_PRICE_ID`   | Yes (for lifetime) | Stripe price ID for lifetime Studio Access           |
+| `SUPABASE_URL`                      | Yes                | Supabase project URL                                 |
+| `SUPABASE_SERVICE_ROLE_KEY`         | Yes                | Supabase service role key (server-only)              |
+| `NEXT_PUBLIC_SITE_URL`              | Yes                | Full site URL e.g. `https://templatelab.io`          |
+| `NEXT_PUBLIC_APP_URL`               | Optional           | Fallback for checkout redirect URLs                  |
+| `RESEND_API_KEY`                    | Optional           | Resend email API key                                 |
+| `RESEND_FROM`                       | Optional           | Sender address for emails                            |
+| `NEXT_PUBLIC_POSTHOG_KEY`           | Optional           | PostHog project API key                              |
+| `NEXT_PUBLIC_POSTHOG_HOST`          | Optional           | PostHog host (defaults to `https://app.posthog.com`) |
 
 Copy `.env.local.example` to `.env.local` and fill in values before running locally.
 
@@ -223,6 +226,7 @@ npm run export-templates
 ### Providers (Root Layout)
 
 The root layout (`app/layout.tsx`) wraps everything in this order:
+
 ```
 ClerkProvider
   PostHogProvider
@@ -245,14 +249,14 @@ ClerkProvider
 
 The brand uses a warm **gold/terra** palette — not bright orange:
 
-| Token | Light | Dark | Usage |
-|---|---|---|---|
-| `--accent` | `#9C7733` | `#C8A96E` | Primary gold accent |
-| `--terra` | `#B5501F` | `#C4622D` | Secondary warm accent |
-| `--bg` | `#FDFAF5` | `#050402` | Page background |
-| `--surface` | `#F5EFE3` | `#0d0b08` | Card/section background |
-| `--text` | `#1C1610` | `#F2EBD9` | Primary text |
-| `--muted` | `#7A6B56` | `rgba(242,235,217,0.55)` | Secondary text |
+| Token       | Light     | Dark                     | Usage                   |
+| ----------- | --------- | ------------------------ | ----------------------- |
+| `--accent`  | `#9C7733` | `#C8A96E`                | Primary gold accent     |
+| `--terra`   | `#B5501F` | `#C4622D`                | Secondary warm accent   |
+| `--bg`      | `#FDFAF5` | `#050402`                | Page background         |
+| `--surface` | `#F5EFE3` | `#0d0b08`                | Card/section background |
+| `--text`    | `#1C1610` | `#F2EBD9`                | Primary text            |
+| `--muted`   | `#7A6B56` | `rgba(242,235,217,0.55)` | Secondary text          |
 
 ### Design Tokens
 
@@ -264,8 +268,8 @@ The brand uses a warm **gold/terra** palette — not bright orange:
 
 The site uses two opposite depth systems. Which one applies depends on what a surface sits on — do not mix them.
 
-- **Spatial** (`--spatial-*` tokens, `.forma-glass-card`) — for anything over the **paintings** on the snap homepage. Translucent glass with a rim light and a cast shadow that grows with elevation; panels *lift* on hover. Paintings also carry a scroll parallax via `.parallax-layer` (driven from `SnapHomepage`).
-- **Neumorphic** (`--neu-*` tokens) — for the **inner pages** (`/catalogo`, `/guida`, `/account`, `/ai-studio`), whose ground is flat cream or near-black. Controls and cards are extruded from the page and press *into* it when selected; they *swell* on hover rather than lifting.
+- **Spatial** (`--spatial-*` tokens, `.forma-glass-card`) — for anything over the **paintings** on the snap homepage. Translucent glass with a rim light and a cast shadow that grows with elevation; panels _lift_ on hover. Paintings also carry a scroll parallax via `.parallax-layer` (driven from `SnapHomepage`).
+- **Neumorphic** (`--neu-*` tokens) — for the **inner pages** (`/catalogo`, `/guida`, `/account`, `/ai-studio`), whose ground is flat cream or near-black. Controls and cards are extruded from the page and press _into_ it when selected; they _swell_ on hover rather than lifting.
 
 Neumorphism only works on a flat, single-colour ground — never put it over a painting, where it cuts an opaque hole in the artwork. Every neumorphic control keeps a faint `--neu-edge` border and encodes state in colour as well as shadow: pure neumorphism has no edge and fails WCAG 1.4.11. The primary CTA stays solid gold, never neumorphic.
 

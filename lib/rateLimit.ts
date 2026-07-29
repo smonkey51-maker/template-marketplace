@@ -17,11 +17,7 @@ const store = new Map<string, number[]>();
  * @deprecated In production use `rateLimitRedis` from lib/rateLimitRedis.ts
  * which is backed by Upstash Redis and works across all server instances.
  */
-export function rateLimit(
-  key: string,
-  limit: number,
-  windowMs: number
-): boolean {
+export function rateLimit(key: string, limit: number, windowMs: number): boolean {
   const now = Date.now();
   const timestamps = (store.get(key) ?? []).filter((t) => now - t < windowMs);
   if (timestamps.length >= limit) return false;

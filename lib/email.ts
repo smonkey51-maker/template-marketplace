@@ -6,8 +6,8 @@ type PurchaseEmailParams = {
   to: string;
   type: "template" | "bundle" | "studio";
   itemName: string;
-  downloadUrl?: string;   // guest download link for html/prompt templates
-  previewUrl?: string;    // /preview/:id for studio link
+  downloadUrl?: string; // guest download link for html/prompt templates
+  previewUrl?: string; // /preview/:id for studio link
   bundleTemplates?: string[];
 };
 
@@ -28,10 +28,10 @@ export async function sendPurchaseEmail(params: PurchaseEmailParams) {
     type === "studio"
       ? `<a href="https://forma.design/studio" style="display:inline-block;background:${accentColor};color:#fff;font-weight:700;font-size:15px;padding:14px 28px;border-radius:14px;text-decoration:none;margin-top:8px;">Apri AI Studio →</a>`
       : downloadUrl
-      ? `<a href="${downloadUrl}" style="display:inline-block;background:${accentColor};color:#fff;font-weight:700;font-size:15px;padding:14px 28px;border-radius:14px;text-decoration:none;margin-top:8px;">⬇ Scarica il template</a>`
-      : previewUrl
-      ? `<a href="${previewUrl}" style="display:inline-block;background:${accentColor};color:#fff;font-weight:700;font-size:15px;padding:14px 28px;border-radius:14px;text-decoration:none;margin-top:8px;">Accedi al template →</a>`
-      : "";
+        ? `<a href="${downloadUrl}" style="display:inline-block;background:${accentColor};color:#fff;font-weight:700;font-size:15px;padding:14px 28px;border-radius:14px;text-decoration:none;margin-top:8px;">⬇ Scarica il template</a>`
+        : previewUrl
+          ? `<a href="${previewUrl}" style="display:inline-block;background:${accentColor};color:#fff;font-weight:700;font-size:15px;padding:14px 28px;border-radius:14px;text-decoration:none;margin-top:8px;">Accedi al template →</a>`
+          : "";
 
   const bundleList =
     bundleTemplates && bundleTemplates.length > 0
@@ -42,8 +42,8 @@ export async function sendPurchaseEmail(params: PurchaseEmailParams) {
     type === "studio"
       ? "Hai attivato <strong>Studio Access</strong>. Puoi ora generare template illimitati con Claude AI."
       : type === "bundle"
-      ? `Hai acquistato il bundle <strong>${itemName}</strong>. I seguenti template sono ora disponibili nel tuo account:${bundleList}`
-      : `Hai acquistato <strong>${itemName}</strong>. Il tuo template è pronto per il download.`;
+        ? `Hai acquistato il bundle <strong>${itemName}</strong>. I seguenti template sono ora disponibili nel tuo account:${bundleList}`
+        : `Hai acquistato <strong>${itemName}</strong>. Il tuo template è pronto per il download.`;
 
   const html = `<!DOCTYPE html>
 <html lang="it">
@@ -124,7 +124,7 @@ export async function sendNewsletterEmail(
   to: string[],
   subject: string,
   title: string,
-  body: string
+  body: string,
 ) {
   if (!process.env.RESEND_API_KEY) return { sent: 0, errors: 0 };
   const resend = new Resend(process.env.RESEND_API_KEY);
@@ -137,7 +137,7 @@ export async function sendNewsletterEmail(
   for (let i = 0; i < to.length; i += BATCH) {
     const chunk = to.slice(i, i + BATCH);
     const result = await resend.batch.send(
-      chunk.map((email) => ({ from: FROM, to: email, subject, html }))
+      chunk.map((email) => ({ from: FROM, to: email, subject, html })),
     );
     sent += chunk.length - (result.error ? chunk.length : 0);
     if (result.error) errors += chunk.length;

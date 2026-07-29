@@ -1,48 +1,174 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Plus+Jakarta+Sans:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  body { margin:0; padding:16px 20px; background:#14100C; font-family:'Plus Jakarta Sans',sans-serif; color:#EDE8DC; }
-  .label { font-family:'Montserrat',sans-serif; font-size:9px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#C8915A; margin-bottom:8px; }
-  .row { display:flex; gap:12px; align-items:flex-start; flex-wrap:wrap; margin-bottom:14px; }
-  .field { display:flex; flex-direction:column; gap:4px; }
-  .field-label { font-size:10px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:rgba(237,232,220,0.55); }
-  input, textarea, select {
-    background:rgba(237,232,220,0.06); border:1px solid rgba(237,232,220,0.12);
-    color:#EDE8DC; font-family:'Plus Jakarta Sans',sans-serif; font-size:13px;
-    padding:9px 12px; outline:none; width:180px;
-  }
-  input::placeholder { color:rgba(237,232,220,0.3); }
-  input:focus { border-color:rgba(200,145,90,0.6); box-shadow:0 0 0 2px rgba(200,145,90,0.12); }
-  .input-error { border-color:rgba(156,107,60,0.6) !important; }
-  .error-msg { font-size:10px; color:#9C6B3C; margin-top:2px; }
-  .filter-chip { display:inline-flex; align-items:center; padding:5px 12px; border:1px solid rgba(237,232,220,0.15); background:transparent; color:rgba(237,232,220,0.6); font-family:'Montserrat',sans-serif; font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; cursor:pointer; transition:all 0.2s; }
-  .filter-chip.active { border-color:rgba(200,145,90,0.5); background:rgba(200,145,90,0.1); color:#C8915A; }
-  .toggle { display:flex; align-items:center; gap:8px; }
-  .toggle-track { width:32px; height:18px; border-radius:9px; background:rgba(237,232,220,0.15); position:relative; cursor:pointer; }
-  .toggle-track.on { background:rgba(200,145,90,0.6); }
-  .toggle-thumb { position:absolute; top:2px; left:2px; width:14px; height:14px; border-radius:50%; background:#EDE8DC; transition:transform 0.2s; }
-  .toggle-track.on .toggle-thumb { transform:translateX(14px); }
-  .toggle-label { font-size:11px; color:rgba(237,232,220,0.6); }
-</style>
-</head>
-<body>
-<div class="label">Inputs</div>
-<div class="row">
-  <div class="field"><div class="field-label">Email</div><input type="text" placeholder="nome@email.com" /></div>
-  <div class="field"><div class="field-label">Email — Error</div><input type="text" value="invalid-email" class="input-error" /><div class="error-msg">Email non valida</div></div>
-  <div class="field"><div class="field-label">Search</div><input type="text" placeholder="Cerca template…" style="padding-left:32px;background-image:url('data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'14\' height=\'14\' viewBox=\'0 0 24 24\' fill=\'none\'><circle cx=\'11\' cy=\'11\' r=\'7\' stroke=\'rgba(237,232,220,0.3)\' stroke-width=\'1.8\'/><path d=\'M20 20l-3.5-3.5\' stroke=\'rgba(237,232,220,0.3)\' stroke-width=\'1.8\' stroke-linecap=\'round\'/></svg>');background-repeat:no-repeat;background-position:10px center;background-size:14px 14px" /></div>
-</div>
-<div class="label">Filter Chips</div>
-<div class="row">
-  <button class="filter-chip active">Tutti</button>
-  <button class="filter-chip">UI</button>
-  <button class="filter-chip">Prompt</button>
-  <button class="filter-chip">Canva</button>
-  <button class="filter-chip">Notion</button>
-</div>
-<div class="label">Toggles</div>
-<div class="row">
-  <div class="toggle"><div class="toggle-track on"><div class="toggle-thumb"></div></div><span class="toggle-label">Dark mode</span></div>
-  <div class="toggle"><div class="toggle-track"><div class="toggle-thumb"></div></div><span class="toggle-label">Italiano</span></div>
-</div>
-</body></html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Plus+Jakarta+Sans:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 16px 20px;
+        background: #14100c;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        color: #ede8dc;
+      }
+      .label {
+        font-family: "Montserrat", sans-serif;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #c8915a;
+        margin-bottom: 8px;
+      }
+      .row {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        margin-bottom: 14px;
+      }
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .field-label {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(237, 232, 220, 0.55);
+      }
+      input,
+      textarea,
+      select {
+        background: rgba(237, 232, 220, 0.06);
+        border: 1px solid rgba(237, 232, 220, 0.12);
+        color: #ede8dc;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: 13px;
+        padding: 9px 12px;
+        outline: none;
+        width: 180px;
+      }
+      input::placeholder {
+        color: rgba(237, 232, 220, 0.3);
+      }
+      input:focus {
+        border-color: rgba(200, 145, 90, 0.6);
+        box-shadow: 0 0 0 2px rgba(200, 145, 90, 0.12);
+      }
+      .input-error {
+        border-color: rgba(156, 107, 60, 0.6) !important;
+      }
+      .error-msg {
+        font-size: 10px;
+        color: #9c6b3c;
+        margin-top: 2px;
+      }
+      .filter-chip {
+        display: inline-flex;
+        align-items: center;
+        padding: 5px 12px;
+        border: 1px solid rgba(237, 232, 220, 0.15);
+        background: transparent;
+        color: rgba(237, 232, 220, 0.6);
+        font-family: "Montserrat", sans-serif;
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .filter-chip.active {
+        border-color: rgba(200, 145, 90, 0.5);
+        background: rgba(200, 145, 90, 0.1);
+        color: #c8915a;
+      }
+      .toggle {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .toggle-track {
+        width: 32px;
+        height: 18px;
+        border-radius: 9px;
+        background: rgba(237, 232, 220, 0.15);
+        position: relative;
+        cursor: pointer;
+      }
+      .toggle-track.on {
+        background: rgba(200, 145, 90, 0.6);
+      }
+      .toggle-thumb {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: #ede8dc;
+        transition: transform 0.2s;
+      }
+      .toggle-track.on .toggle-thumb {
+        transform: translateX(14px);
+      }
+      .toggle-label {
+        font-size: 11px;
+        color: rgba(237, 232, 220, 0.6);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="label">Inputs</div>
+    <div class="row">
+      <div class="field">
+        <div class="field-label">Email</div>
+        <input type="text" placeholder="nome@email.com" />
+      </div>
+      <div class="field">
+        <div class="field-label">Email — Error</div>
+        <input type="text" value="invalid-email" class="input-error" />
+        <div class="error-msg">Email non valida</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Search</div>
+        <input
+          type="text"
+          placeholder="Cerca template…"
+          style="
+            padding-left: 32px;
+            background-image: url(&quot;data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none'><circle cx='11' cy='11' r='7' stroke='rgba(237,232,220,0.3)' stroke-width='1.8'/><path d='M20 20l-3.5-3.5' stroke='rgba(237,232,220,0.3)' stroke-width='1.8' stroke-linecap='round'/></svg>&quot;);
+            background-repeat: no-repeat;
+            background-position: 10px center;
+            background-size: 14px 14px;
+          "
+        />
+      </div>
+    </div>
+    <div class="label">Filter Chips</div>
+    <div class="row">
+      <button class="filter-chip active">Tutti</button>
+      <button class="filter-chip">UI</button>
+      <button class="filter-chip">Prompt</button>
+      <button class="filter-chip">Canva</button>
+      <button class="filter-chip">Notion</button>
+    </div>
+    <div class="label">Toggles</div>
+    <div class="row">
+      <div class="toggle">
+        <div class="toggle-track on"><div class="toggle-thumb"></div></div>
+        <span class="toggle-label">Dark mode</span>
+      </div>
+      <div class="toggle">
+        <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        <span class="toggle-label">Italiano</span>
+      </div>
+    </div>
+  </body>
+</html>

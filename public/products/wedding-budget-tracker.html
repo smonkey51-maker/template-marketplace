@@ -1,174 +1,852 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Wedding Planning Budget Tracker</title>
-<style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Segoe UI',system-ui,sans-serif;background:#fdf9f7;color:#111827;line-height:1.7}
-  .cover{background:linear-gradient(135deg,#be185d 0%,#831843 100%);color:#fff;padding:56px 44px;text-align:center}
-  .cover .badge{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:6px 18px;font-size:13px;letter-spacing:.5px;margin-bottom:24px}
-  .cover h1{font-size:clamp(24px,4vw,40px);font-weight:800;line-height:1.2;margin-bottom:14px}
-  .cover p{font-size:16px;opacity:.85;max-width:500px;margin:0 auto}
-  .container{max-width:950px;margin:0 auto;padding:44px 28px}
-  .summary-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;margin-bottom:32px}
-  .sum-card{background:#fff;border:1px solid #fce7f3;border-radius:10px;padding:16px 18px;text-align:center}
-  .sum-card .label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:#9d174d;margin-bottom:6px}
-  .sum-card .value{font-size:22px;font-weight:800;color:#111827;font-family:monospace}
-  .sum-card .formula{font-size:11px;color:#9ca3af;margin-top:4px;font-family:monospace}
-  .section{background:#fff;border:1px solid #fce7f3;border-radius:12px;overflow:hidden;margin-bottom:22px}
-  .sec-header{background:#be185d;color:#fff;padding:14px 22px;display:flex;justify-content:space-between;align-items:center}
-  .sec-header h2{font-size:16px;font-weight:700}
-  .sec-header .budget-pct{font-size:13px;opacity:.8}
-  .data-table{width:100%;border-collapse:collapse;font-size:13px}
-  .data-table th{background:#fdf2f8;padding:9px 12px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#9d174d;border-bottom:2px solid #fbcfe8}
-  .data-table td{padding:10px 12px;border-bottom:1px solid #fdf2f8;color:#374151;vertical-align:top}
-  .data-table .blank{background:#fff9fb;min-width:80px;min-height:28px;border-radius:4px}
-  .data-table .wide-blank{background:#fff9fb;min-width:160px;min-height:28px;border-radius:4px}
-  .data-table .amount{font-family:monospace;font-weight:600;text-align:right}
-  .data-table .status-paid{color:#16a34a;font-weight:600;font-size:12px}
-  .data-table .status-due{color:#dc2626;font-weight:600;font-size:12px}
-  .data-table .status-booked{color:#be185d;font-weight:600;font-size:12px}
-  .data-table tr.total-row td{background:#fdf2f8;font-weight:700;font-size:13px;color:#9d174d;border-top:2px solid #fbcfe8}
-  .tips{background:#fff;border:1px solid #fce7f3;border-radius:12px;padding:22px 26px;margin-top:24px}
-  .tips h2{font-size:16px;font-weight:700;color:#be185d;margin-bottom:14px}
-  .tip-item{display:flex;gap:10px;margin-bottom:10px;font-size:13.5px;color:#374151}
-  .tip-item .dot{color:#be185d;font-weight:800;flex-shrink:0}
-  .footer{background:#831843;color:#fff;text-align:center;padding:28px;margin-top:40px}
-  .footer p{opacity:.7;font-size:13px}
-  @media print{body{background:#fff}.section{break-inside:avoid}}
-</style>
-</head>
-<body>
-<div class="cover">
-  <div class="badge">✦ COMPLETE WEDDING BUDGET · VENDORS · DEPOSITS · TIMELINE</div>
-  <h1>Wedding Planning<br>Budget Tracker</h1>
-  <p>Track every vendor, deposit, and payment deadline in one organized dashboard. Know exactly where you stand — financially and logistically.</p>
-</div>
-<div class="container">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Wedding Planning Budget Tracker</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+        background: #fdf9f7;
+        color: #111827;
+        line-height: 1.7;
+      }
+      .cover {
+        background: linear-gradient(135deg, #be185d 0%, #831843 100%);
+        color: #fff;
+        padding: 56px 44px;
+        text-align: center;
+      }
+      .cover .badge {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 999px;
+        padding: 6px 18px;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+        margin-bottom: 24px;
+      }
+      .cover h1 {
+        font-size: clamp(24px, 4vw, 40px);
+        font-weight: 800;
+        line-height: 1.2;
+        margin-bottom: 14px;
+      }
+      .cover p {
+        font-size: 16px;
+        opacity: 0.85;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+      .container {
+        max-width: 950px;
+        margin: 0 auto;
+        padding: 44px 28px;
+      }
+      .summary-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 14px;
+        margin-bottom: 32px;
+      }
+      .sum-card {
+        background: #fff;
+        border: 1px solid #fce7f3;
+        border-radius: 10px;
+        padding: 16px 18px;
+        text-align: center;
+      }
+      .sum-card .label {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.7px;
+        color: #9d174d;
+        margin-bottom: 6px;
+      }
+      .sum-card .value {
+        font-size: 22px;
+        font-weight: 800;
+        color: #111827;
+        font-family: monospace;
+      }
+      .sum-card .formula {
+        font-size: 11px;
+        color: #9ca3af;
+        margin-top: 4px;
+        font-family: monospace;
+      }
+      .section {
+        background: #fff;
+        border: 1px solid #fce7f3;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 22px;
+      }
+      .sec-header {
+        background: #be185d;
+        color: #fff;
+        padding: 14px 22px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .sec-header h2 {
+        font-size: 16px;
+        font-weight: 700;
+      }
+      .sec-header .budget-pct {
+        font-size: 13px;
+        opacity: 0.8;
+      }
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+      .data-table th {
+        background: #fdf2f8;
+        padding: 9px 12px;
+        text-align: left;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #9d174d;
+        border-bottom: 2px solid #fbcfe8;
+      }
+      .data-table td {
+        padding: 10px 12px;
+        border-bottom: 1px solid #fdf2f8;
+        color: #374151;
+        vertical-align: top;
+      }
+      .data-table .blank {
+        background: #fff9fb;
+        min-width: 80px;
+        min-height: 28px;
+        border-radius: 4px;
+      }
+      .data-table .wide-blank {
+        background: #fff9fb;
+        min-width: 160px;
+        min-height: 28px;
+        border-radius: 4px;
+      }
+      .data-table .amount {
+        font-family: monospace;
+        font-weight: 600;
+        text-align: right;
+      }
+      .data-table .status-paid {
+        color: #16a34a;
+        font-weight: 600;
+        font-size: 12px;
+      }
+      .data-table .status-due {
+        color: #dc2626;
+        font-weight: 600;
+        font-size: 12px;
+      }
+      .data-table .status-booked {
+        color: #be185d;
+        font-weight: 600;
+        font-size: 12px;
+      }
+      .data-table tr.total-row td {
+        background: #fdf2f8;
+        font-weight: 700;
+        font-size: 13px;
+        color: #9d174d;
+        border-top: 2px solid #fbcfe8;
+      }
+      .tips {
+        background: #fff;
+        border: 1px solid #fce7f3;
+        border-radius: 12px;
+        padding: 22px 26px;
+        margin-top: 24px;
+      }
+      .tips h2 {
+        font-size: 16px;
+        font-weight: 700;
+        color: #be185d;
+        margin-bottom: 14px;
+      }
+      .tip-item {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 10px;
+        font-size: 13.5px;
+        color: #374151;
+      }
+      .tip-item .dot {
+        color: #be185d;
+        font-weight: 800;
+        flex-shrink: 0;
+      }
+      .footer {
+        background: #831843;
+        color: #fff;
+        text-align: center;
+        padding: 28px;
+        margin-top: 40px;
+      }
+      .footer p {
+        opacity: 0.7;
+        font-size: 13px;
+      }
+      @media print {
+        body {
+          background: #fff;
+        }
+        .section {
+          break-inside: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cover">
+      <div class="badge">✦ COMPLETE WEDDING BUDGET · VENDORS · DEPOSITS · TIMELINE</div>
+      <h1>Wedding Planning<br />Budget Tracker</h1>
+      <p>
+        Track every vendor, deposit, and payment deadline in one organized dashboard. Know exactly
+        where you stand — financially and logistically.
+      </p>
+    </div>
+    <div class="container">
+      <div class="summary-cards">
+        <div class="sum-card">
+          <div class="label">Total Budget</div>
+          <div class="value">€ ___</div>
+          <div class="formula">Enter your total</div>
+        </div>
+        <div class="sum-card">
+          <div class="label">Total Booked</div>
+          <div class="value">€ ___</div>
+          <div class="formula">=SUM(all contracts)</div>
+        </div>
+        <div class="sum-card">
+          <div class="label">Total Paid</div>
+          <div class="value">€ ___</div>
+          <div class="formula">=SUM(paid amounts)</div>
+        </div>
+        <div class="sum-card">
+          <div class="label">Still Owed</div>
+          <div class="value">€ ___</div>
+          <div class="formula">=Booked - Paid</div>
+        </div>
+        <div class="sum-card">
+          <div class="label">Remaining Budget</div>
+          <div class="value">€ ___</div>
+          <div class="formula">=Budget - Booked</div>
+        </div>
+        <div class="sum-card">
+          <div class="label">Guests Confirmed</div>
+          <div class="value">___ / ___</div>
+          <div class="formula">Confirmed / Invited</div>
+        </div>
+      </div>
 
-  <div class="summary-cards">
-    <div class="sum-card"><div class="label">Total Budget</div><div class="value">€ ___</div><div class="formula">Enter your total</div></div>
-    <div class="sum-card"><div class="label">Total Booked</div><div class="value">€ ___</div><div class="formula">=SUM(all contracts)</div></div>
-    <div class="sum-card"><div class="label">Total Paid</div><div class="value">€ ___</div><div class="formula">=SUM(paid amounts)</div></div>
-    <div class="sum-card"><div class="label">Still Owed</div><div class="value">€ ___</div><div class="formula">=Booked - Paid</div></div>
-    <div class="sum-card"><div class="label">Remaining Budget</div><div class="value">€ ___</div><div class="formula">=Budget - Booked</div></div>
-    <div class="sum-card"><div class="label">Guests Confirmed</div><div class="value">___ / ___</div><div class="formula">Confirmed / Invited</div></div>
-  </div>
+      <div class="section">
+        <div class="sec-header">
+          <h2>📍 Venue</h2>
+          <div class="budget-pct">Typical: 30–40% of budget</div>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Vendor</th>
+              <th>Contact</th>
+              <th>Contract Signed?</th>
+              <th>Total Price</th>
+              <th>Deposit Paid</th>
+              <th>Deposit Due Date</th>
+              <th>Final Balance</th>
+              <th>Final Balance Due</th>
+              <th>Status</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Ceremony Venue</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="blank"></td>
+              <td class="amount blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+            </tr>
+            <tr>
+              <td>Reception Venue</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="blank"></td>
+              <td class="amount blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+            </tr>
+            <tr>
+              <td>Venue Decor / Lighting</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="blank"></td>
+              <td class="amount blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+            </tr>
+            <tr class="total-row">
+              <td colspan="4"><strong>Venue Subtotal</strong></td>
+              <td class="amount">=SUM</td>
+              <td class="amount">=SUM</td>
+              <td colspan="2" class="amount">=SUM</td>
+              <td colspan="3"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-  <div class="section">
-    <div class="sec-header"><h2>📍 Venue</h2><div class="budget-pct">Typical: 30–40% of budget</div></div>
-    <table class="data-table">
-      <thead><tr><th>Item</th><th>Vendor</th><th>Contact</th><th>Contract Signed?</th><th>Total Price</th><th>Deposit Paid</th><th>Deposit Due Date</th><th>Final Balance</th><th>Final Balance Due</th><th>Status</th><th>Notes</th></tr></thead>
-      <tbody>
-        <tr><td>Ceremony Venue</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="blank"></td><td class="amount blank"></td><td class="blank"></td><td class="blank"></td><td class="wide-blank"></td></tr>
-        <tr><td>Reception Venue</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="blank"></td><td class="amount blank"></td><td class="blank"></td><td class="blank"></td><td class="wide-blank"></td></tr>
-        <tr><td>Venue Decor / Lighting</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="blank"></td><td class="amount blank"></td><td class="blank"></td><td class="blank"></td><td class="wide-blank"></td></tr>
-        <tr class="total-row"><td colspan="4"><strong>Venue Subtotal</strong></td><td class="amount">=SUM</td><td class="amount">=SUM</td><td colspan="2" class="amount">=SUM</td><td colspan="3"></td></tr>
-      </tbody>
-    </table>
-  </div>
+      <div class="section">
+        <div class="sec-header">
+          <h2>🍽️ Catering &amp; Bar</h2>
+          <div class="budget-pct">Typical: 25–35% of budget</div>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Vendor</th>
+              <th>Contact</th>
+              <th>Per Head / Total</th>
+              <th>Guest Count</th>
+              <th>Total Price</th>
+              <th>Deposit Paid</th>
+              <th>Balance Due</th>
+              <th>Balance Due Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Catering (food)</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+            </tr>
+            <tr>
+              <td>Bar / Open Bar</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+            </tr>
+            <tr>
+              <td>Wedding Cake</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+            </tr>
+            <tr>
+              <td>Late Night Snacks</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+            </tr>
+            <tr class="total-row">
+              <td colspan="5"><strong>Catering Subtotal</strong></td>
+              <td class="amount">=SUM</td>
+              <td class="amount">=SUM</td>
+              <td class="amount">=SUM</td>
+              <td colspan="2"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-  <div class="section">
-    <div class="sec-header"><h2>🍽️ Catering &amp; Bar</h2><div class="budget-pct">Typical: 25–35% of budget</div></div>
-    <table class="data-table">
-      <thead><tr><th>Item</th><th>Vendor</th><th>Contact</th><th>Per Head / Total</th><th>Guest Count</th><th>Total Price</th><th>Deposit Paid</th><th>Balance Due</th><th>Balance Due Date</th><th>Status</th></tr></thead>
-      <tbody>
-        <tr><td>Catering (food)</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="blank"></td><td class="blank"></td></tr>
-        <tr><td>Bar / Open Bar</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="blank"></td><td class="blank"></td></tr>
-        <tr><td>Wedding Cake</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="blank"></td><td class="blank"></td></tr>
-        <tr><td>Late Night Snacks</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="blank"></td><td class="blank"></td></tr>
-        <tr class="total-row"><td colspan="5"><strong>Catering Subtotal</strong></td><td class="amount">=SUM</td><td class="amount">=SUM</td><td class="amount">=SUM</td><td colspan="2"></td></tr>
-      </tbody>
-    </table>
-  </div>
+      <div class="section">
+        <div class="sec-header">
+          <h2>📸 Photography &amp; Video</h2>
+          <div class="budget-pct">Typical: 10–15% of budget</div>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Vendor</th>
+              <th>Contact</th>
+              <th>Hours Included</th>
+              <th>Total Price</th>
+              <th>Deposit</th>
+              <th>Balance</th>
+              <th>Balance Due Date</th>
+              <th>Deliverables</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Photographer</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+              <td class="blank"></td>
+            </tr>
+            <tr>
+              <td>Videographer</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+              <td class="blank"></td>
+            </tr>
+            <tr>
+              <td>Photo Booth</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+              <td class="blank"></td>
+            </tr>
+            <tr class="total-row">
+              <td colspan="4"><strong>Photo/Video Subtotal</strong></td>
+              <td class="amount">=SUM</td>
+              <td class="amount">=SUM</td>
+              <td class="amount">=SUM</td>
+              <td colspan="3"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-  <div class="section">
-    <div class="sec-header"><h2>📸 Photography &amp; Video</h2><div class="budget-pct">Typical: 10–15% of budget</div></div>
-    <table class="data-table">
-      <thead><tr><th>Item</th><th>Vendor</th><th>Contact</th><th>Hours Included</th><th>Total Price</th><th>Deposit</th><th>Balance</th><th>Balance Due Date</th><th>Deliverables</th><th>Status</th></tr></thead>
-      <tbody>
-        <tr><td>Photographer</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="blank"></td><td class="wide-blank"></td><td class="blank"></td></tr>
-        <tr><td>Videographer</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="blank"></td><td class="wide-blank"></td><td class="blank"></td></tr>
-        <tr><td>Photo Booth</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="blank"></td><td class="wide-blank"></td><td class="blank"></td></tr>
-        <tr class="total-row"><td colspan="4"><strong>Photo/Video Subtotal</strong></td><td class="amount">=SUM</td><td class="amount">=SUM</td><td class="amount">=SUM</td><td colspan="3"></td></tr>
-      </tbody>
-    </table>
-  </div>
+      <div class="section">
+        <div class="sec-header">
+          <h2>🎵 Music &amp; Entertainment</h2>
+          <div class="budget-pct">Typical: 5–10% of budget</div>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Vendor / Artist</th>
+              <th>Contact</th>
+              <th>Total Price</th>
+              <th>Deposit</th>
+              <th>Balance</th>
+              <th>Due Date</th>
+              <th>Set Time / Duration</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>DJ / Band</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+            </tr>
+            <tr>
+              <td>Ceremony Music</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+            </tr>
+            <tr>
+              <td>Sound System Rental</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+            </tr>
+            <tr class="total-row">
+              <td colspan="3"><strong>Music Subtotal</strong></td>
+              <td class="amount">=SUM</td>
+              <td class="amount">=SUM</td>
+              <td class="amount">=SUM</td>
+              <td colspan="3"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-  <div class="section">
-    <div class="sec-header"><h2>🎵 Music &amp; Entertainment</h2><div class="budget-pct">Typical: 5–10% of budget</div></div>
-    <table class="data-table">
-      <thead><tr><th>Item</th><th>Vendor / Artist</th><th>Contact</th><th>Total Price</th><th>Deposit</th><th>Balance</th><th>Due Date</th><th>Set Time / Duration</th><th>Status</th></tr></thead>
-      <tbody>
-        <tr><td>DJ / Band</td><td class="blank"></td><td class="blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
-        <tr><td>Ceremony Music</td><td class="blank"></td><td class="blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
-        <tr><td>Sound System Rental</td><td class="blank"></td><td class="blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
-        <tr class="total-row"><td colspan="3"><strong>Music Subtotal</strong></td><td class="amount">=SUM</td><td class="amount">=SUM</td><td class="amount">=SUM</td><td colspan="3"></td></tr>
-      </tbody>
-    </table>
-  </div>
+      <div class="section">
+        <div class="sec-header">
+          <h2>💐 Flowers &amp; Decor</h2>
+          <div class="budget-pct">Typical: 8–12% of budget</div>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Vendor</th>
+              <th>Contact</th>
+              <th>Total Price</th>
+              <th>Deposit</th>
+              <th>Balance</th>
+              <th>Due Date</th>
+              <th>Delivery Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Bridal Bouquet</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+            </tr>
+            <tr>
+              <td>Bridesmaid Bouquets</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+            </tr>
+            <tr>
+              <td>Centerpieces</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+            </tr>
+            <tr>
+              <td>Ceremony Arch / Aisle</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+            </tr>
+            <tr>
+              <td>Other Decor</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+            </tr>
+            <tr class="total-row">
+              <td colspan="3"><strong>Flowers/Decor Subtotal</strong></td>
+              <td class="amount">=SUM</td>
+              <td class="amount">=SUM</td>
+              <td class="amount">=SUM</td>
+              <td colspan="3"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-  <div class="section">
-    <div class="sec-header"><h2>💐 Flowers &amp; Decor</h2><div class="budget-pct">Typical: 8–12% of budget</div></div>
-    <table class="data-table">
-      <thead><tr><th>Item</th><th>Vendor</th><th>Contact</th><th>Total Price</th><th>Deposit</th><th>Balance</th><th>Due Date</th><th>Delivery Date</th><th>Status</th></tr></thead>
-      <tbody>
-        <tr><td>Bridal Bouquet</td><td class="blank"></td><td class="blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
-        <tr><td>Bridesmaid Bouquets</td><td class="blank"></td><td class="blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
-        <tr><td>Centerpieces</td><td class="blank"></td><td class="blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
-        <tr><td>Ceremony Arch / Aisle</td><td class="blank"></td><td class="blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
-        <tr><td>Other Decor</td><td class="blank"></td><td class="blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
-        <tr class="total-row"><td colspan="3"><strong>Flowers/Decor Subtotal</strong></td><td class="amount">=SUM</td><td class="amount">=SUM</td><td class="amount">=SUM</td><td colspan="3"></td></tr>
-      </tbody>
-    </table>
-  </div>
+      <div class="section">
+        <div class="sec-header">
+          <h2>👗 Attire &amp; Beauty</h2>
+          <div class="budget-pct">Typical: 8–12% of budget</div>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Vendor / Store</th>
+              <th>Size / Details</th>
+              <th>Total Price</th>
+              <th>Deposit</th>
+              <th>Balance Due</th>
+              <th>Pickup Date</th>
+              <th>Alterations?</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Wedding Dress</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+            </tr>
+            <tr>
+              <td>Suit / Tuxedo</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+            </tr>
+            <tr>
+              <td>Hair &amp; Makeup</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+            </tr>
+            <tr>
+              <td>Accessories</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+            </tr>
+            <tr class="total-row">
+              <td colspan="3"><strong>Attire Subtotal</strong></td>
+              <td class="amount">=SUM</td>
+              <td class="amount">=SUM</td>
+              <td class="amount">=SUM</td>
+              <td colspan="3"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-  <div class="section">
-    <div class="sec-header"><h2>👗 Attire &amp; Beauty</h2><div class="budget-pct">Typical: 8–12% of budget</div></div>
-    <table class="data-table">
-      <thead><tr><th>Item</th><th>Vendor / Store</th><th>Size / Details</th><th>Total Price</th><th>Deposit</th><th>Balance Due</th><th>Pickup Date</th><th>Alterations?</th><th>Status</th></tr></thead>
-      <tbody>
-        <tr><td>Wedding Dress</td><td class="blank"></td><td class="blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
-        <tr><td>Suit / Tuxedo</td><td class="blank"></td><td class="blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
-        <tr><td>Hair &amp; Makeup</td><td class="blank"></td><td class="blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
-        <tr><td>Accessories</td><td class="blank"></td><td class="blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
-        <tr class="total-row"><td colspan="3"><strong>Attire Subtotal</strong></td><td class="amount">=SUM</td><td class="amount">=SUM</td><td class="amount">=SUM</td><td colspan="3"></td></tr>
-      </tbody>
-    </table>
-  </div>
+      <div class="section">
+        <div class="sec-header">
+          <h2>📋 Other Vendors &amp; Miscellaneous</h2>
+          <div class="budget-pct">Keep 5–10% as contingency</div>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Vendor</th>
+              <th>Total Price</th>
+              <th>Deposit</th>
+              <th>Balance</th>
+              <th>Due Date</th>
+              <th>Status</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Wedding Planner / Coordinator</td>
+              <td class="blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+            </tr>
+            <tr>
+              <td>Invitations &amp; Stationery</td>
+              <td class="blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+            </tr>
+            <tr>
+              <td>Transportation (limo, shuttle)</td>
+              <td class="blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+            </tr>
+            <tr>
+              <td>Accommodation (honeymoon suite)</td>
+              <td class="blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+            </tr>
+            <tr>
+              <td>Favors &amp; Gifts</td>
+              <td class="blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+            </tr>
+            <tr>
+              <td>Marriage License / Officiant</td>
+              <td class="blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="amount blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+            </tr>
+            <tr>
+              <td>Contingency Reserve</td>
+              <td>—</td>
+              <td class="amount blank"></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>Reserved</td>
+              <td>Keep 5–10% for surprises</td>
+            </tr>
+            <tr class="total-row">
+              <td colspan="2"><strong>Other Subtotal</strong></td>
+              <td class="amount">=SUM</td>
+              <td class="amount">=SUM</td>
+              <td class="amount">=SUM</td>
+              <td colspan="3"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-  <div class="section">
-    <div class="sec-header"><h2>📋 Other Vendors &amp; Miscellaneous</h2><div class="budget-pct">Keep 5–10% as contingency</div></div>
-    <table class="data-table">
-      <thead><tr><th>Item</th><th>Vendor</th><th>Total Price</th><th>Deposit</th><th>Balance</th><th>Due Date</th><th>Status</th><th>Notes</th></tr></thead>
-      <tbody>
-        <tr><td>Wedding Planner / Coordinator</td><td class="blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="blank"></td><td class="blank"></td><td class="wide-blank"></td></tr>
-        <tr><td>Invitations &amp; Stationery</td><td class="blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="blank"></td><td class="blank"></td><td class="wide-blank"></td></tr>
-        <tr><td>Transportation (limo, shuttle)</td><td class="blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="blank"></td><td class="blank"></td><td class="wide-blank"></td></tr>
-        <tr><td>Accommodation (honeymoon suite)</td><td class="blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="blank"></td><td class="blank"></td><td class="wide-blank"></td></tr>
-        <tr><td>Favors &amp; Gifts</td><td class="blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="blank"></td><td class="blank"></td><td class="wide-blank"></td></tr>
-        <tr><td>Marriage License / Officiant</td><td class="blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="amount blank"></td><td class="blank"></td><td class="blank"></td><td class="wide-blank"></td></tr>
-        <tr><td>Contingency Reserve</td><td>—</td><td class="amount blank"></td><td>—</td><td>—</td><td>—</td><td>Reserved</td><td>Keep 5–10% for surprises</td></tr>
-        <tr class="total-row"><td colspan="2"><strong>Other Subtotal</strong></td><td class="amount">=SUM</td><td class="amount">=SUM</td><td class="amount">=SUM</td><td colspan="3"></td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="tips">
-    <h2>💡 Budget Tips for Couples</h2>
-    <div class="tip-item"><div class="dot">→</div><p><strong>Pay deposits by credit card</strong> where possible — you get consumer protection if a vendor cancels or goes under.</p></div>
-    <div class="tip-item"><div class="dot">→</div><p><strong>Ask for an itemized quote</strong> from every vendor. Packages that bundle everything are harder to negotiate. Individual line items give you flexibility.</p></div>
-    <div class="tip-item"><div class="dot">→</div><p><strong>Book vendors in this order:</strong> venue first (sets guest count), then catering (depends on venue capacity), then photographer, then everything else.</p></div>
-    <div class="tip-item"><div class="dot">→</div><p><strong>Track deposits separately.</strong> Deposits are rarely refundable — knowing exactly what you've committed to (not just "total cost") prevents cash flow surprises.</p></div>
-    <div class="tip-item"><div class="dot">→</div><p><strong>Set a Google Sheets reminder</strong> for every balance due date — 2 weeks before the due date so you have time to transfer funds.</p></div>
-  </div>
-
-</div>
-<div class="footer">
-  <p><strong>Wedding Planning Budget Tracker</strong> — Complete vendor and financial organizer</p>
-  <p style="margin-top:6px">Google Sheets version: recreate each table, use SUM formulas for totals. Conditional formatting on "Status" column for visual tracking.</p>
-</div>
-</body>
+      <div class="tips">
+        <h2>💡 Budget Tips for Couples</h2>
+        <div class="tip-item">
+          <div class="dot">→</div>
+          <p>
+            <strong>Pay deposits by credit card</strong> where possible — you get consumer
+            protection if a vendor cancels or goes under.
+          </p>
+        </div>
+        <div class="tip-item">
+          <div class="dot">→</div>
+          <p>
+            <strong>Ask for an itemized quote</strong> from every vendor. Packages that bundle
+            everything are harder to negotiate. Individual line items give you flexibility.
+          </p>
+        </div>
+        <div class="tip-item">
+          <div class="dot">→</div>
+          <p>
+            <strong>Book vendors in this order:</strong> venue first (sets guest count), then
+            catering (depends on venue capacity), then photographer, then everything else.
+          </p>
+        </div>
+        <div class="tip-item">
+          <div class="dot">→</div>
+          <p>
+            <strong>Track deposits separately.</strong> Deposits are rarely refundable — knowing
+            exactly what you've committed to (not just "total cost") prevents cash flow surprises.
+          </p>
+        </div>
+        <div class="tip-item">
+          <div class="dot">→</div>
+          <p>
+            <strong>Set a Google Sheets reminder</strong> for every balance due date — 2 weeks
+            before the due date so you have time to transfer funds.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <p>
+        <strong>Wedding Planning Budget Tracker</strong> — Complete vendor and financial organizer
+      </p>
+      <p style="margin-top: 6px">
+        Google Sheets version: recreate each table, use SUM formulas for totals. Conditional
+        formatting on "Status" column for visual tracking.
+      </p>
+    </div>
+  </body>
 </html>

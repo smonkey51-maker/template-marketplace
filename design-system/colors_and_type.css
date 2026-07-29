@@ -5,11 +5,11 @@
    ═══════════════════════════════════════════════════════════ */
 
 /* ── Web Fonts ─────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,700&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,700&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&display=swap");
 
 @font-face {
-  font-family: 'Slingday';
-  src: url('./fonts/Slingday.otf') format('opentype');
+  font-family: "Slingday";
+  src: url("./fonts/Slingday.otf") format("opentype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -18,19 +18,19 @@
 
 /* ── Font family aliases ───────────────────────────────────── */
 :root {
-  --font-display:     'Fraunces', 'DM Serif Display', Georgia, serif;
-  --font-editorial:   'Cormorant Garamond', 'Slingday', Georgia, serif;
-  --font-heading:     'Montserrat', system-ui, sans-serif;
-  --font-body:        'Plus Jakarta Sans', -apple-system, sans-serif;
-  --font-mono:        'SF Mono', 'Fira Code', monospace;
+  --font-display: "Fraunces", "DM Serif Display", Georgia, serif;
+  --font-editorial: "Cormorant Garamond", "Slingday", Georgia, serif;
+  --font-heading: "Montserrat", system-ui, sans-serif;
+  --font-body: "Plus Jakarta Sans", -apple-system, sans-serif;
+  --font-mono: "SF Mono", "Fira Code", monospace;
   /* Legacy aliases matching codebase var names */
-  --font-montserrat:  'Montserrat', sans-serif;
-  --font-jakarta:     'Plus Jakarta Sans', sans-serif;
-  --font-fraunces:    'Fraunces', serif;
-  --font-dm-serif:    'DM Serif Display', serif;
-  --font-cormorant:   'Cormorant Garamond', serif;
-  --font-syne:        var(--font-montserrat); /* legacy alias */
-  --font-gatsunaga:   var(--font-montserrat), 'Slingday', Georgia, serif;
+  --font-montserrat: "Montserrat", sans-serif;
+  --font-jakarta: "Plus Jakarta Sans", sans-serif;
+  --font-fraunces: "Fraunces", serif;
+  --font-dm-serif: "DM Serif Display", serif;
+  --font-cormorant: "Cormorant Garamond", serif;
+  --font-syne: var(--font-montserrat); /* legacy alias */
+  --font-gatsunaga: var(--font-montserrat), "Slingday", Georgia, serif;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -38,154 +38,155 @@
    ═══════════════════════════════════════════════════════════ */
 :root {
   /* Backgrounds */
-  --bg:           rgba(250, 247, 240, 0.38);
-  --surface:      rgba(242, 234, 216, 0.92);
-  --surface-2:    rgba(234, 224, 204, 0.97);
-  --nav-bg:       rgba(250, 247, 240, 0.96);
-  --card-bg:      rgba(250, 247, 240, 0.93);
-  --input-bg:     rgba(28, 24, 20, 0.05);
+  --bg: rgba(250, 247, 240, 0.38);
+  --surface: rgba(242, 234, 216, 0.92);
+  --surface-2: rgba(234, 224, 204, 0.97);
+  --nav-bg: rgba(250, 247, 240, 0.96);
+  --card-bg: rgba(250, 247, 240, 0.93);
+  --input-bg: rgba(28, 24, 20, 0.05);
 
   /* Text */
-  --text:         #0A0805;
-  --muted:        #4A3828;
+  --text: #0a0805;
+  --muted: #4a3828;
 
   /* Borders */
-  --border:       rgba(28, 24, 20, 0.14);
-  --card-border:  rgba(28, 24, 20, 0.10);
-  --border-gold:  1px solid rgba(156, 112, 64, 0.28);
+  --border: rgba(28, 24, 20, 0.14);
+  --card-border: rgba(28, 24, 20, 0.1);
+  --border-gold: 1px solid rgba(156, 112, 64, 0.28);
 
   /* Brand accent — Hinoki wood gold */
-  --accent:       #9C7040;
-  --accent-rgb:   156, 112, 64;
-  --accent-bg:    rgba(156, 112, 64, 0.10);
+  --accent: #9c7040;
+  --accent-rgb: 156, 112, 64;
+  --accent-bg: rgba(156, 112, 64, 0.1);
   --accent-muted: rgba(156, 112, 64, 0.18);
 
   /* Secondary accent — warm sienna */
-  --terra:        #8C5028;
-  --terra-dim:    rgba(140, 80, 40, 0.12);
+  --terra: #8c5028;
+  --terra-dim: rgba(140, 80, 40, 0.12);
 
   /* Gold scale */
-  --gold:         #9C7040;
-  --gold-dim:     rgba(156, 112, 64, 0.12);
-  --gold-mid:     rgba(156, 112, 64, 0.30);
+  --gold: #9c7040;
+  --gold-dim: rgba(156, 112, 64, 0.12);
+  --gold-mid: rgba(156, 112, 64, 0.3);
 
   /* Ink surface scale */
-  --cream:        #1C1814;
-  --cream-60:     rgba(28, 24, 20, 0.60);
-  --cream-30:     rgba(28, 24, 20, 0.30);
-  --cream-08:     rgba(28, 24, 20, 0.08);
-  --obsidian-2:   #F2EAD8;
-  --obsidian-3:   #E8DEC8;
-  --obsidian-4:   #DDD1B8;
+  --cream: #1c1814;
+  --cream-60: rgba(28, 24, 20, 0.6);
+  --cream-30: rgba(28, 24, 20, 0.3);
+  --cream-08: rgba(28, 24, 20, 0.08);
+  --obsidian-2: #f2ead8;
+  --obsidian-3: #e8dec8;
+  --obsidian-4: #ddd1b8;
 
   /* Semantic states */
-  --success:      #5A7A32;
-  --success-dim:  rgba(90, 122, 50, 0.12);
-  --error:        #8C5028;
-  --error-dim:    rgba(140, 80, 40, 0.12);
+  --success: #5a7a32;
+  --success-dim: rgba(90, 122, 50, 0.12);
+  --error: #8c5028;
+  --error-dim: rgba(140, 80, 40, 0.12);
 
   /* Ambient glow */
-  --glow-gold:    rgba(156, 112, 64, 0.18);
-  --glow-terra:   rgba(140, 80, 40, 0.12);
+  --glow-gold: rgba(156, 112, 64, 0.18);
+  --glow-terra: rgba(140, 80, 40, 0.12);
 
   /* Glassmorphism */
-  --glass-fill:       rgba(250, 247, 240, 0.84);
-  --glass-shadow:     0 4px 32px rgba(28,24,20,0.09), 0 1px 0 rgba(255,255,255,0.85) inset;
-  --glass-stroke:     rgba(28, 24, 20, 0.10);
+  --glass-fill: rgba(250, 247, 240, 0.84);
+  --glass-shadow: 0 4px 32px rgba(28, 24, 20, 0.09), 0 1px 0 rgba(255, 255, 255, 0.85) inset;
+  --glass-stroke: rgba(28, 24, 20, 0.1);
 
   /* Overlays */
-  --overlay:          rgba(28, 22, 16, 0.80);
-  --overlay-light:    rgba(28, 22, 16, 0.50);
+  --overlay: rgba(28, 22, 16, 0.8);
+  --overlay-light: rgba(28, 22, 16, 0.5);
 
   /* Platform brand colors */
-  --platform-canva:     #7B61FF;
-  --platform-excel:     #1D6F42;
-  --platform-sheets:    #0F9D58;
-  --platform-notion:    #6E6E6E;
-  --platform-webflow:   #4353FF;
-  --platform-framer:    #0055FF;
-  --platform-shopify:   #95BF47;
-  --platform-wordpress: #21759B;
+  --platform-canva: #7b61ff;
+  --platform-excel: #1d6f42;
+  --platform-sheets: #0f9d58;
+  --platform-notion: #6e6e6e;
+  --platform-webflow: #4353ff;
+  --platform-framer: #0055ff;
+  --platform-shopify: #95bf47;
+  --platform-wordpress: #21759b;
 }
 
 /* ═══════════════════════════════════════════════════════════
    BASE COLOR TOKENS — Dark Mode (Sumi-e / Lacca)
    ═══════════════════════════════════════════════════════════ */
-.dark, [data-theme="dark"] {
+.dark,
+[data-theme="dark"] {
   /* Backgrounds */
-  --bg:           rgba(20, 16, 12, 0.55);
-  --surface:      rgba(30, 26, 20, 0.65);
-  --surface-2:    rgba(30, 26, 20, 0.80);
-  --nav-bg:       rgba(28, 24, 20, 0.93);
-  --card-bg:      rgba(30, 26, 20, 0.65);
-  --input-bg:     rgba(237, 232, 220, 0.06);
+  --bg: rgba(20, 16, 12, 0.55);
+  --surface: rgba(30, 26, 20, 0.65);
+  --surface-2: rgba(30, 26, 20, 0.8);
+  --nav-bg: rgba(28, 24, 20, 0.93);
+  --card-bg: rgba(30, 26, 20, 0.65);
+  --input-bg: rgba(237, 232, 220, 0.06);
 
   /* Text */
-  --text:         #EDE8DC;
-  --muted:        rgba(237, 232, 220, 0.55);
+  --text: #ede8dc;
+  --muted: rgba(237, 232, 220, 0.55);
 
   /* Borders */
-  --border:       rgba(237, 232, 220, 0.09);
-  --card-border:  rgba(237, 232, 220, 0.09);
-  --border-gold:  1px solid rgba(200, 145, 90, 0.28);
+  --border: rgba(237, 232, 220, 0.09);
+  --card-border: rgba(237, 232, 220, 0.09);
+  --border-gold: 1px solid rgba(200, 145, 90, 0.28);
 
   /* Brand accent — Amber wood */
-  --accent:       #C8915A;
-  --accent-rgb:   200, 145, 90;
-  --accent-bg:    rgba(200, 145, 90, 0.12);
+  --accent: #c8915a;
+  --accent-rgb: 200, 145, 90;
+  --accent-bg: rgba(200, 145, 90, 0.12);
   --accent-muted: rgba(200, 145, 90, 0.15);
 
   /* Secondary accent */
-  --terra:        #9C6B3C;
-  --terra-dim:    rgba(156, 107, 60, 0.15);
+  --terra: #9c6b3c;
+  --terra-dim: rgba(156, 107, 60, 0.15);
 
   /* Gold scale */
-  --gold:         #C8915A;
-  --gold-dim:     rgba(200, 145, 90, 0.14);
-  --gold-mid:     rgba(200, 145, 90, 0.35);
+  --gold: #c8915a;
+  --gold-dim: rgba(200, 145, 90, 0.14);
+  --gold-mid: rgba(200, 145, 90, 0.35);
 
   /* Ink surface scale */
-  --cream:        #EDE8DC;
-  --cream-60:     rgba(237, 232, 220, 0.60);
-  --cream-30:     rgba(237, 232, 220, 0.30);
-  --cream-08:     rgba(237, 232, 220, 0.08);
-  --obsidian-2:   #252119;
-  --obsidian-3:   #2E2921;
-  --obsidian-4:   #383228;
+  --cream: #ede8dc;
+  --cream-60: rgba(237, 232, 220, 0.6);
+  --cream-30: rgba(237, 232, 220, 0.3);
+  --cream-08: rgba(237, 232, 220, 0.08);
+  --obsidian-2: #252119;
+  --obsidian-3: #2e2921;
+  --obsidian-4: #383228;
 
   /* Semantic states */
-  --success:      #7AAF4A;
-  --success-dim:  rgba(122, 175, 74, 0.14);
-  --error:        #9C6B3C;
-  --error-dim:    rgba(156, 107, 60, 0.14);
+  --success: #7aaf4a;
+  --success-dim: rgba(122, 175, 74, 0.14);
+  --error: #9c6b3c;
+  --error-dim: rgba(156, 107, 60, 0.14);
 
   /* Ambient glow */
-  --glow-gold:    rgba(200, 145, 90, 0.12);
-  --glow-terra:   rgba(156, 107, 60, 0.08);
+  --glow-gold: rgba(200, 145, 90, 0.12);
+  --glow-terra: rgba(156, 107, 60, 0.08);
 
   /* Glassmorphism */
-  --glass-fill:       rgba(237, 232, 220, 0.04);
-  --glass-shadow:     0 4px 32px rgba(0,0,0,0.5), 0 1px 0 rgba(237,232,220,0.06) inset;
-  --glass-stroke:     rgba(237, 232, 220, 0.09);
+  --glass-fill: rgba(237, 232, 220, 0.04);
+  --glass-shadow: 0 4px 32px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(237, 232, 220, 0.06) inset;
+  --glass-stroke: rgba(237, 232, 220, 0.09);
 
   /* Overlays */
-  --overlay:          rgba(5, 4, 2, 0.85);
-  --overlay-light:    rgba(5, 4, 2, 0.55);
+  --overlay: rgba(5, 4, 2, 0.85);
+  --overlay-light: rgba(5, 4, 2, 0.55);
 }
 
 /* ═══════════════════════════════════════════════════════════
    SPACING TOKENS — 4pt grid
    ═══════════════════════════════════════════════════════════ */
 :root {
-  --s-1:  4px;
-  --s-2:  8px;
-  --s-3:  12px;
-  --s-4:  16px;
-  --s-5:  24px;
-  --s-6:  32px;
-  --s-7:  48px;
-  --s-8:  64px;
-  --s-9:  96px;
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+  --s-9: 96px;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -203,28 +204,29 @@
    SHADOW / ELEVATION — 5-step scale
    ═══════════════════════════════════════════════════════════ */
 :root {
-  --shadow-sm:  0 1px 3px rgba(28,22,16,0.06), 0 1px 2px rgba(28,22,16,0.04);
-  --shadow-md:  0 4px 16px rgba(28,22,16,0.08), 0 2px 6px rgba(28,22,16,0.05);
-  --shadow-lg:  0 8px 40px rgba(28,22,16,0.10), 0 4px 12px rgba(28,22,16,0.06);
-  --shadow-xl:  0 20px 60px rgba(28,22,16,0.14), 0 8px 20px rgba(28,22,16,0.08);
+  --shadow-sm: 0 1px 3px rgba(28, 22, 16, 0.06), 0 1px 2px rgba(28, 22, 16, 0.04);
+  --shadow-md: 0 4px 16px rgba(28, 22, 16, 0.08), 0 2px 6px rgba(28, 22, 16, 0.05);
+  --shadow-lg: 0 8px 40px rgba(28, 22, 16, 0.1), 0 4px 12px rgba(28, 22, 16, 0.06);
+  --shadow-xl: 0 20px 60px rgba(28, 22, 16, 0.14), 0 8px 20px rgba(28, 22, 16, 0.08);
 
-  --elev-1: 0 1px 2px rgba(0,0,0,0.05), 0 1px 1px rgba(0,0,0,0.03);
-  --elev-2: 0 2px 6px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
-  --elev-3: 0 8px 24px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.04);
-  --elev-4: 0 20px 50px rgba(0,0,0,0.14), 0 4px 12px rgba(0,0,0,0.06);
-  --elev-5: 0 40px 100px rgba(0,0,0,0.22), 0 8px 24px rgba(0,0,0,0.08);
+  --elev-1: 0 1px 2px rgba(0, 0, 0, 0.05), 0 1px 1px rgba(0, 0, 0, 0.03);
+  --elev-2: 0 2px 6px rgba(0, 0, 0, 0.07), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --elev-3: 0 8px 24px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.04);
+  --elev-4: 0 20px 50px rgba(0, 0, 0, 0.14), 0 4px 12px rgba(0, 0, 0, 0.06);
+  --elev-5: 0 40px 100px rgba(0, 0, 0, 0.22), 0 8px 24px rgba(0, 0, 0, 0.08);
 }
-.dark, [data-theme="dark"] {
-  --shadow-sm:  0 1px 3px rgba(0,0,0,0.20), 0 1px 2px rgba(0,0,0,0.14);
-  --shadow-md:  0 4px 16px rgba(0,0,0,0.28), 0 2px 6px rgba(0,0,0,0.18);
-  --shadow-lg:  0 8px 40px rgba(0,0,0,0.35), 0 4px 12px rgba(0,0,0,0.22);
-  --shadow-xl:  0 20px 60px rgba(0,0,0,0.45), 0 8px 20px rgba(0,0,0,0.28);
+.dark,
+[data-theme="dark"] {
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.14);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.28), 0 2px 6px rgba(0, 0, 0, 0.18);
+  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.35), 0 4px 12px rgba(0, 0, 0, 0.22);
+  --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.45), 0 8px 20px rgba(0, 0, 0, 0.28);
 
-  --elev-1: 0 1px 2px rgba(0,0,0,0.40), 0 1px 1px rgba(0,0,0,0.24);
-  --elev-2: 0 2px 6px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.30);
-  --elev-3: 0 8px 24px rgba(0,0,0,0.60), 0 2px 6px rgba(0,0,0,0.35);
-  --elev-4: 0 20px 50px rgba(0,0,0,0.70), 0 4px 12px rgba(0,0,0,0.40);
-  --elev-5: 0 40px 100px rgba(0,0,0,0.85), 0 8px 24px rgba(0,0,0,0.45);
+  --elev-1: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 1px rgba(0, 0, 0, 0.24);
+  --elev-2: 0 2px 6px rgba(0, 0, 0, 0.55), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --elev-3: 0 8px 24px rgba(0, 0, 0, 0.6), 0 2px 6px rgba(0, 0, 0, 0.35);
+  --elev-4: 0 20px 50px rgba(0, 0, 0, 0.7), 0 4px 12px rgba(0, 0, 0, 0.4);
+  --elev-5: 0 40px 100px rgba(0, 0, 0, 0.85), 0 8px 24px rgba(0, 0, 0, 0.45);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -232,12 +234,12 @@
    ═══════════════════════════════════════════════════════════ */
 :root {
   /* Easing */
-  --ease-glide:   cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-snap:    cubic-bezier(0.32, 1.10, 0.64, 1);
-  --ease-bounce:  cubic-bezier(0.34, 1.56, 0.64, 1);
-  --ease-brisk:   cubic-bezier(0.45, 0, 0.15, 1);
-  --ease-fluid:   cubic-bezier(0.4,  0, 0.2, 1);
-  --ease-linger:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-glide: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-snap: cubic-bezier(0.32, 1.1, 0.64, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-brisk: cubic-bezier(0.45, 0, 0.15, 1);
+  --ease-fluid: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-linger: cubic-bezier(0.16, 1, 0.3, 1);
 
   /* Duration */
   --t-xs: 120ms;
@@ -264,17 +266,23 @@ body {
 /* Display hero — Fraunces variable */
 .type-display {
   font-family: var(--font-display);
-  font-variation-settings: "opsz" 144, "SOFT" 100;
+  font-variation-settings:
+    "opsz" 144,
+    "SOFT" 100;
   font-weight: 400;
   font-style: italic;
   letter-spacing: -0.035em;
   line-height: 1.02;
   color: var(--text);
 }
-.type-display em { color: var(--accent); font-style: italic; }
+.type-display em {
+  color: var(--accent);
+  font-style: italic;
+}
 
 /* H1 */
-h1, .type-h1 {
+h1,
+.type-h1 {
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: clamp(2rem, 5vw, 3.5rem);
@@ -284,7 +292,8 @@ h1, .type-h1 {
 }
 
 /* H2 */
-h2, .type-h2 {
+h2,
+.type-h2 {
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: clamp(1.4rem, 3vw, 2.2rem);
@@ -294,7 +303,8 @@ h2, .type-h2 {
 }
 
 /* H3 */
-h3, .type-h3 {
+h3,
+.type-h3 {
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: clamp(1.1rem, 2vw, 1.5rem);
@@ -304,13 +314,45 @@ h3, .type-h3 {
 }
 
 /* H4–H6 */
-h4, .type-h4 { font-family: var(--font-body); font-weight: 700; font-size: 1rem; line-height: 1.4; color: var(--text); }
-h5, .type-h5 { font-family: var(--font-body); font-weight: 600; font-size: 0.875rem; line-height: 1.4; color: var(--text); }
-h6, .type-h6 { font-family: var(--font-body); font-weight: 600; font-size: 0.75rem; line-height: 1.4; color: var(--muted); }
+h4,
+.type-h4 {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--text);
+}
+h5,
+.type-h5 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--text);
+}
+h6,
+.type-h6 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--muted);
+}
 
 /* Body */
-p, .type-body { font-family: var(--font-body); font-size: 15px; line-height: 1.85; color: var(--text); }
-.type-body-sm { font-family: var(--font-body); font-size: 13px; line-height: 1.7; color: var(--text); }
+p,
+.type-body {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.85;
+  color: var(--text);
+}
+.type-body-sm {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text);
+}
 
 /* Label — uppercase tracked, used for nav + section headers */
 .type-label {
@@ -369,5 +411,9 @@ p, .type-body { font-family: var(--font-body); font-size: 15px; line-height: 1.8
 }
 
 /* Muted helper */
-.type-muted { color: var(--muted); }
-.type-accent { color: var(--accent); }
+.type-muted {
+  color: var(--muted);
+}
+.type-accent {
+  color: var(--accent);
+}

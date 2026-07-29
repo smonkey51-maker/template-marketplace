@@ -9,10 +9,7 @@ export function isStudioProduct(templateId: string): boolean {
 }
 
 export async function getUserPurchases(userId: string): Promise<string[]> {
-  const supabase = createClient(
-    process.env.SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
+  const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
   const { data, error } = await supabase
     .from("purchases")
     .select("template_id")

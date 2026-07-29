@@ -1,22 +1,22 @@
 // ── Forma UI Kit — AI Studio Screen ─────────────────────────────────
 
 const STUDIO_EXAMPLES = [
-  'A minimalist landing page for a meditation app with soft gradients',
-  'A dark-mode SaaS dashboard with sidebar navigation and charts',
-  'An e-commerce product page with a sticky cart and gallery',
-  'A personal portfolio with a full-bleed hero and project grid',
+  "A minimalist landing page for a meditation app with soft gradients",
+  "A dark-mode SaaS dashboard with sidebar navigation and charts",
+  "An e-commerce product page with a sticky cart and gallery",
+  "A personal portfolio with a full-bleed hero and project grid",
 ];
 
 function StudioScreen({ setScreen }) {
-  const [prompt, setPrompt] = React.useState('');
+  const [prompt, setPrompt] = React.useState("");
   const [generating, setGenerating] = React.useState(false);
   const [generated, setGenerated] = React.useState(false);
-  const [dots, setDots] = React.useState('');
-  const [studioTab, setStudioTab] = React.useState('generate');
+  const [dots, setDots] = React.useState("");
+  const [studioTab, setStudioTab] = React.useState("generate");
 
   React.useEffect(() => {
     if (!generating) return;
-    const iv = setInterval(() => setDots(d => d.length >= 3 ? '' : d + '.'), 400);
+    const iv = setInterval(() => setDots((d) => (d.length >= 3 ? "" : d + ".")), 400);
     return () => clearInterval(iv);
   }, [generating]);
 
@@ -24,7 +24,10 @@ function StudioScreen({ setScreen }) {
     if (!prompt.trim()) return;
     setGenerating(true);
     setGenerated(false);
-    setTimeout(() => { setGenerating(false); setGenerated(true); }, 2600);
+    setTimeout(() => {
+      setGenerating(false);
+      setGenerated(true);
+    }, 2600);
   };
 
   const mockResult = `
@@ -63,102 +66,269 @@ function StudioScreen({ setScreen }) {
   `;
 
   const panelStyle = {
-    background: COLORS.cardBg, border: `1px solid ${COLORS.border}`,
-    padding: '20px', display: 'flex', flexDirection: 'column', gap: 12,
+    background: COLORS.cardBg,
+    border: `1px solid ${COLORS.border}`,
+    padding: "20px",
+    display: "flex",
+    flexDirection: "column",
+    gap: 12,
   };
 
   return (
-    <div style={{ padding: '0 0 48px' }}>
+    <div style={{ padding: "0 0 48px" }}>
       {/* Studio hero band */}
-      <div style={{ background: COLORS.surface, borderBottom: `1px solid ${COLORS.border}`, padding: '32px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
+      <div
+        style={{
+          background: COLORS.surface,
+          borderBottom: `1px solid ${COLORS.border}`,
+          padding: "32px 24px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+          gap: 16,
+        }}
+      >
         <div>
-          <div style={{ fontFamily: FONTS.heading, fontSize: 9, fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: COLORS.accent, marginBottom: 6, display: 'flex', alignItems: 'center', gap: 6 }}>
-            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1l1.1 2.3L9 4l-2 1.8.5 2.5L5 7.2 2.5 8.3 3 5.8 1 4l2.9-.7L5 1z" fill={COLORS.accent}/></svg>
+          <div
+            style={{
+              fontFamily: FONTS.heading,
+              fontSize: 9,
+              fontWeight: 700,
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              color: COLORS.accent,
+              marginBottom: 6,
+              display: "flex",
+              alignItems: "center",
+              gap: 6,
+            }}
+          >
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+              <path
+                d="M5 1l1.1 2.3L9 4l-2 1.8.5 2.5L5 7.2 2.5 8.3 3 5.8 1 4l2.9-.7L5 1z"
+                fill={COLORS.accent}
+              />
+            </svg>
             AI Studio — Powered by Claude
           </div>
-          <h1 style={{ fontFamily: FONTS.heading, fontWeight: 700, fontSize: 26, letterSpacing: '-0.02em', color: COLORS.text, margin: 0 }}>Generate & customise templates</h1>
+          <h1
+            style={{
+              fontFamily: FONTS.heading,
+              fontWeight: 700,
+              fontSize: 26,
+              letterSpacing: "-0.02em",
+              color: COLORS.text,
+              margin: 0,
+            }}
+          >
+            Generate & customise templates
+          </h1>
         </div>
-        <div style={{ fontFamily: FONTS.body, fontSize: 12, color: COLORS.muted, maxWidth: 320, lineHeight: 1.6 }}>
+        <div
+          style={{
+            fontFamily: FONTS.body,
+            fontSize: 12,
+            color: COLORS.muted,
+            maxWidth: 320,
+            lineHeight: 1.6,
+          }}
+        >
           Describe what you want and Claude will build a production-ready HTML template instantly.
         </div>
       </div>
 
-      <div style={{ padding: '24px', maxWidth: 1100, margin: '0 auto' }}>
+      <div style={{ padding: "24px", maxWidth: 1100, margin: "0 auto" }}>
         {/* Tab row */}
-        <div style={{ display: 'flex', gap: 0, borderBottom: `1px solid ${COLORS.border}`, marginBottom: 24 }}>
-          {['generate', 'customize'].map(tb => (
-            <button key={tb} onClick={() => setStudioTab(tb)} style={{
-              fontFamily: FONTS.heading, fontSize: 10, fontWeight: 600,
-              textTransform: 'uppercase', letterSpacing: '0.1em',
-              padding: '10px 18px', background: 'none', border: 'none', cursor: 'pointer',
-              color: studioTab === tb ? COLORS.text : COLORS.muted,
-              borderBottom: studioTab === tb ? `2px solid ${COLORS.accent}` : '2px solid transparent',
-              marginBottom: -1,
-            }}>{tb === 'generate' ? '✦ Generate' : '⌥ Customize'}</button>
+        <div
+          style={{
+            display: "flex",
+            gap: 0,
+            borderBottom: `1px solid ${COLORS.border}`,
+            marginBottom: 24,
+          }}
+        >
+          {["generate", "customize"].map((tb) => (
+            <button
+              key={tb}
+              onClick={() => setStudioTab(tb)}
+              style={{
+                fontFamily: FONTS.heading,
+                fontSize: 10,
+                fontWeight: 600,
+                textTransform: "uppercase",
+                letterSpacing: "0.1em",
+                padding: "10px 18px",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                color: studioTab === tb ? COLORS.text : COLORS.muted,
+                borderBottom:
+                  studioTab === tb ? `2px solid ${COLORS.accent}` : "2px solid transparent",
+                marginBottom: -1,
+              }}
+            >
+              {tb === "generate" ? "✦ Generate" : "⌥ Customize"}
+            </button>
           ))}
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
           {/* Left: prompt input */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
             <div style={panelStyle}>
-              <div style={{ fontFamily: FONTS.heading, fontSize: 9, fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: COLORS.accent }}>Describe your template</div>
+              <div
+                style={{
+                  fontFamily: FONTS.heading,
+                  fontSize: 9,
+                  fontWeight: 700,
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  color: COLORS.accent,
+                }}
+              >
+                Describe your template
+              </div>
               <textarea
                 value={prompt}
-                onChange={e => setPrompt(e.target.value)}
+                onChange={(e) => setPrompt(e.target.value)}
                 placeholder="e.g. A minimal SaaS landing page with a dark hero, feature cards, and a pricing section…"
                 rows={5}
                 style={{
-                  background: COLORS.inputBg, border: `1px solid ${COLORS.border}`,
-                  color: COLORS.text, fontFamily: FONTS.body, fontSize: 13,
-                  padding: '12px', outline: 'none', resize: 'vertical',
+                  background: COLORS.inputBg,
+                  border: `1px solid ${COLORS.border}`,
+                  color: COLORS.text,
+                  fontFamily: FONTS.body,
+                  fontSize: 13,
+                  padding: "12px",
+                  outline: "none",
+                  resize: "vertical",
                   lineHeight: 1.7,
                   transition: `border-color 0.2s`,
                 }}
-                onFocus={e => e.target.style.borderColor = 'rgba(200,145,90,0.5)'}
-                onBlur={e => e.target.style.borderColor = COLORS.border}
+                onFocus={(e) => (e.target.style.borderColor = "rgba(200,145,90,0.5)")}
+                onBlur={(e) => (e.target.style.borderColor = COLORS.border)}
               />
 
               {/* Options row */}
-              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                {[['Category', ['UI', 'Landing', 'Dashboard', 'Portfolio']], ['Style', ['Minimal', 'Editorial', 'Bold', 'Playful']]].map(([label, opts]) => (
-                  <div key={label} style={{ display: 'flex', flexDirection: 'column', gap: 3, flex: 1, minWidth: 120 }}>
-                    <span style={{ fontFamily: FONTS.heading, fontSize: 8, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: COLORS.muted }}>{label}</span>
-                    <select style={{ background: COLORS.inputBg, border: `1px solid ${COLORS.border}`, color: COLORS.text, fontFamily: FONTS.body, fontSize: 12, padding: '6px 8px', outline: 'none' }}>
-                      {opts.map(o => <option key={o}>{o}</option>)}
+              <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                {[
+                  ["Category", ["UI", "Landing", "Dashboard", "Portfolio"]],
+                  ["Style", ["Minimal", "Editorial", "Bold", "Playful"]],
+                ].map(([label, opts]) => (
+                  <div
+                    key={label}
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 3,
+                      flex: 1,
+                      minWidth: 120,
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: FONTS.heading,
+                        fontSize: 8,
+                        fontWeight: 700,
+                        letterSpacing: "0.15em",
+                        textTransform: "uppercase",
+                        color: COLORS.muted,
+                      }}
+                    >
+                      {label}
+                    </span>
+                    <select
+                      style={{
+                        background: COLORS.inputBg,
+                        border: `1px solid ${COLORS.border}`,
+                        color: COLORS.text,
+                        fontFamily: FONTS.body,
+                        fontSize: 12,
+                        padding: "6px 8px",
+                        outline: "none",
+                      }}
+                    >
+                      {opts.map((o) => (
+                        <option key={o}>{o}</option>
+                      ))}
                     </select>
                   </div>
                 ))}
               </div>
 
-              <button onClick={handleGenerate} disabled={!prompt.trim() || generating} style={{
-                fontFamily: FONTS.heading, fontWeight: 700, fontSize: 10,
-                textTransform: 'uppercase', letterSpacing: '0.14em',
-                background: (!prompt.trim() || generating) ? 'rgba(200,145,90,0.35)' : COLORS.accent,
-                color: '#0d0a06', padding: '13px', border: 'none',
-                cursor: (!prompt.trim() || generating) ? 'not-allowed' : 'pointer',
-                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-                transition: `background 0.2s`,
-              }}>
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1l1.1 2.3L9 4l-2 1.8.5 2.5L5 7.2 2.5 8.3 3 5.8 1 4l2.9-.7L5 1z" fill="#0d0a06"/></svg>
-                {generating ? `Generating${dots}` : 'Generate Template'}
+              <button
+                onClick={handleGenerate}
+                disabled={!prompt.trim() || generating}
+                style={{
+                  fontFamily: FONTS.heading,
+                  fontWeight: 700,
+                  fontSize: 10,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.14em",
+                  background:
+                    !prompt.trim() || generating ? "rgba(200,145,90,0.35)" : COLORS.accent,
+                  color: "#0d0a06",
+                  padding: "13px",
+                  border: "none",
+                  cursor: !prompt.trim() || generating ? "not-allowed" : "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 8,
+                  transition: `background 0.2s`,
+                }}
+              >
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                  <path
+                    d="M5 1l1.1 2.3L9 4l-2 1.8.5 2.5L5 7.2 2.5 8.3 3 5.8 1 4l2.9-.7L5 1z"
+                    fill="#0d0a06"
+                  />
+                </svg>
+                {generating ? `Generating${dots}` : "Generate Template"}
               </button>
             </div>
 
             {/* Example prompts */}
             <div style={panelStyle}>
-              <div style={{ fontFamily: FONTS.heading, fontSize: 9, fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: COLORS.accent }}>Try an example</div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              <div
+                style={{
+                  fontFamily: FONTS.heading,
+                  fontSize: 9,
+                  fontWeight: 700,
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  color: COLORS.accent,
+                }}
+              >
+                Try an example
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                 {STUDIO_EXAMPLES.map((ex, i) => (
-                  <button key={i} onClick={() => setPrompt(ex)} style={{
-                    background: 'none', border: `1px solid ${COLORS.border}`,
-                    color: COLORS.muted, fontFamily: FONTS.body, fontSize: 12,
-                    padding: '8px 12px', textAlign: 'left', cursor: 'pointer',
-                    transition: 'border-color 0.2s, color 0.2s',
-                    lineHeight: 1.5,
-                  }}
-                  onMouseEnter={e => { e.target.style.borderColor='rgba(200,145,90,0.4)'; e.target.style.color=COLORS.text; }}
-                  onMouseLeave={e => { e.target.style.borderColor=COLORS.border; e.target.style.color=COLORS.muted; }}>
+                  <button
+                    key={i}
+                    onClick={() => setPrompt(ex)}
+                    style={{
+                      background: "none",
+                      border: `1px solid ${COLORS.border}`,
+                      color: COLORS.muted,
+                      fontFamily: FONTS.body,
+                      fontSize: 12,
+                      padding: "8px 12px",
+                      textAlign: "left",
+                      cursor: "pointer",
+                      transition: "border-color 0.2s, color 0.2s",
+                      lineHeight: 1.5,
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.borderColor = "rgba(200,145,90,0.4)";
+                      e.target.style.color = COLORS.text;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.borderColor = COLORS.border;
+                      e.target.style.color = COLORS.muted;
+                    }}
+                  >
                     {ex}
                   </button>
                 ))}
@@ -168,29 +338,138 @@ function StudioScreen({ setScreen }) {
 
           {/* Right: preview */}
           <div style={panelStyle}>
-            <div style={{ fontFamily: FONTS.heading, fontSize: 9, fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: COLORS.accent }}>Preview</div>
-            <div style={{ flex: 1, background: '#0d0a06', border: `1px solid ${COLORS.border}`, minHeight: 400, position: 'relative', overflow: 'hidden' }}>
+            <div
+              style={{
+                fontFamily: FONTS.heading,
+                fontSize: 9,
+                fontWeight: 700,
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                color: COLORS.accent,
+              }}
+            >
+              Preview
+            </div>
+            <div
+              style={{
+                flex: 1,
+                background: "#0d0a06",
+                border: `1px solid ${COLORS.border}`,
+                minHeight: 400,
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
               {!generating && !generated && (
-                <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 12 }}>
-                  <svg width="32" height="32" viewBox="0 0 10 10" fill="none" style={{ opacity: 0.3 }}><path d="M5 1l1.1 2.3L9 4l-2 1.8.5 2.5L5 7.2 2.5 8.3 3 5.8 1 4l2.9-.7L5 1z" fill={COLORS.accent}/></svg>
-                  <span style={{ fontFamily: FONTS.body, fontSize: 12, color: COLORS.muted }}>Your template preview will appear here</span>
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 12,
+                  }}
+                >
+                  <svg
+                    width="32"
+                    height="32"
+                    viewBox="0 0 10 10"
+                    fill="none"
+                    style={{ opacity: 0.3 }}
+                  >
+                    <path
+                      d="M5 1l1.1 2.3L9 4l-2 1.8.5 2.5L5 7.2 2.5 8.3 3 5.8 1 4l2.9-.7L5 1z"
+                      fill={COLORS.accent}
+                    />
+                  </svg>
+                  <span style={{ fontFamily: FONTS.body, fontSize: 12, color: COLORS.muted }}>
+                    Your template preview will appear here
+                  </span>
                 </div>
               )}
               {generating && (
-                <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
-                  <div style={{ width: 48, height: 48, border: `2px solid rgba(200,145,90,0.25)`, borderTopColor: COLORS.accent, borderRadius: '50%', animation: 'spin 0.7s linear infinite' }} />
-                  <span style={{ fontFamily: FONTS.heading, fontSize: 10, fontWeight: 600, letterSpacing: '0.15em', textTransform: 'uppercase', color: COLORS.accent }}>Claude is thinking{dots}</span>
-                  <span style={{ fontFamily: FONTS.body, fontSize: 11, color: COLORS.muted }}>Building your template…</span>
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 16,
+                  }}
+                >
+                  <div
+                    style={{
+                      width: 48,
+                      height: 48,
+                      border: `2px solid rgba(200,145,90,0.25)`,
+                      borderTopColor: COLORS.accent,
+                      borderRadius: "50%",
+                      animation: "spin 0.7s linear infinite",
+                    }}
+                  />
+                  <span
+                    style={{
+                      fontFamily: FONTS.heading,
+                      fontSize: 10,
+                      fontWeight: 600,
+                      letterSpacing: "0.15em",
+                      textTransform: "uppercase",
+                      color: COLORS.accent,
+                    }}
+                  >
+                    Claude is thinking{dots}
+                  </span>
+                  <span style={{ fontFamily: FONTS.body, fontSize: 11, color: COLORS.muted }}>
+                    Building your template…
+                  </span>
                 </div>
               )}
               {generated && !generating && (
-                <div dangerouslySetInnerHTML={{ __html: mockResult }} style={{ pointerEvents: 'none' }} />
+                <div
+                  dangerouslySetInnerHTML={{ __html: mockResult }}
+                  style={{ pointerEvents: "none" }}
+                />
               )}
             </div>
             {generated && (
-              <div style={{ display: 'flex', gap: 8 }}>
-                <button style={{ flex: 1, fontFamily: FONTS.heading, fontWeight: 700, fontSize: 9, textTransform: 'uppercase', letterSpacing: '0.14em', background: COLORS.accent, color: '#0d0a06', padding: '10px', border: 'none', cursor: 'pointer' }}>↓ Download</button>
-                <button style={{ fontFamily: FONTS.heading, fontWeight: 600, fontSize: 9, textTransform: 'uppercase', letterSpacing: '0.1em', background: 'none', color: COLORS.text, padding: '10px 14px', border: `1px solid ${COLORS.border}`, cursor: 'pointer' }}>Refine</button>
+              <div style={{ display: "flex", gap: 8 }}>
+                <button
+                  style={{
+                    flex: 1,
+                    fontFamily: FONTS.heading,
+                    fontWeight: 700,
+                    fontSize: 9,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.14em",
+                    background: COLORS.accent,
+                    color: "#0d0a06",
+                    padding: "10px",
+                    border: "none",
+                    cursor: "pointer",
+                  }}
+                >
+                  ↓ Download
+                </button>
+                <button
+                  style={{
+                    fontFamily: FONTS.heading,
+                    fontWeight: 600,
+                    fontSize: 9,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.1em",
+                    background: "none",
+                    color: COLORS.text,
+                    padding: "10px 14px",
+                    border: `1px solid ${COLORS.border}`,
+                    cursor: "pointer",
+                  }}
+                >
+                  Refine
+                </button>
               </div>
             )}
           </div>

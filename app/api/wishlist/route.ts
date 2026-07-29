@@ -4,10 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { wishlistSchema } from "@/lib/schemas";
 
 function getSupabase() {
-  return createClient(
-    process.env.SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
+  return createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
 }
 
 export async function GET() {
@@ -35,7 +32,10 @@ export async function POST(req: NextRequest) {
 
   const parsed = wishlistSchema.safeParse(await req.json());
   if (!parsed.success) {
-    return NextResponse.json({ error: parsed.error.issues[0]?.message ?? "Invalid input" }, { status: 400 });
+    return NextResponse.json(
+      { error: parsed.error.issues[0]?.message ?? "Invalid input" },
+      { status: 400 },
+    );
   }
   const { templateId } = parsed.data;
 

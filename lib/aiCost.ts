@@ -2,21 +2,14 @@ import { createClient } from "@supabase/supabase-js";
 
 // Prezzi claude-opus-4-6 (USD per milione di token)
 const PRICING: Record<string, { input: number; output: number }> = {
-  "claude-opus-4-6":    { input: 15.0, output: 75.0 },
-  "claude-sonnet-4-6":  { input: 3.0,  output: 15.0 },
-  "claude-haiku-4-5-20251001": { input: 0.8,  output: 4.0 },
+  "claude-opus-4-6": { input: 15.0, output: 75.0 },
+  "claude-sonnet-4-6": { input: 3.0, output: 15.0 },
+  "claude-haiku-4-5-20251001": { input: 0.8, output: 4.0 },
 };
 
-export function calcCostUSD(
-  model: string,
-  inputTokens: number,
-  outputTokens: number
-): number {
+export function calcCostUSD(model: string, inputTokens: number, outputTokens: number): number {
   const price = PRICING[model] ?? PRICING["claude-opus-4-6"];
-  return (
-    (inputTokens  / 1_000_000) * price.input +
-    (outputTokens / 1_000_000) * price.output
-  );
+  return (inputTokens / 1_000_000) * price.input + (outputTokens / 1_000_000) * price.output;
 }
 
 export async function recordAIUsage({
@@ -34,10 +27,7 @@ export async function recordAIUsage({
   outputTokens: number;
   templateId?: string;
 }): Promise<void> {
-  const supabase = createClient(
-    process.env.SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
+  const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
 
   const cost_usd = calcCostUSD(model, inputTokens, outputTokens);
 
@@ -53,12 +43,9 @@ export async function recordAIUsage({
 }
 
 export async function getMonthlyUsage(
-  userId: string
+  userId: string,
 ): Promise<{ calls: number; cost_usd: number }> {
-  const supabase = createClient(
-    process.env.SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
+  const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
 
   const startOfMonth = new Date();
   startOfMonth.setDate(1);

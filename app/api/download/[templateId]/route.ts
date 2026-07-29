@@ -10,7 +10,7 @@ import { buildShopifyZip, buildWordPressZip } from "@/lib/zip-templates";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: Promise<{ templateId: string }> }
+  { params }: { params: Promise<{ templateId: string }> },
 ) {
   try {
     const { userId } = await auth();
@@ -107,23 +107,17 @@ export async function GET(
         if (template.downloadUrl && template.downloadUrl.trim() !== "") {
           return NextResponse.json({ url: template.downloadUrl });
         }
-        return NextResponse.json(
-          { error: "Download link not configured yet" },
-          { status: 404 }
-        );
+        return NextResponse.json({ error: "Download link not configured yet" }, { status: 404 });
       }
 
       default:
         return NextResponse.json(
           { error: `Unsupported download type: ${downloadType}` },
-          { status: 400 }
+          { status: 400 },
         );
     }
   } catch (err) {
     console.error("[download] Error:", err);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

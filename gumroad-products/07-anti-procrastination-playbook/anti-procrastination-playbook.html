@@ -1,179 +1,468 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Anti-Procrastination Playbook</title>
-<style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Segoe UI',system-ui,sans-serif;background:#fafafa;color:#111827;line-height:1.7}
-  .cover{background:linear-gradient(135deg,#dc2626 0%,#7f1d1d 100%);color:#fff;padding:56px 44px;text-align:center}
-  .cover h1{font-size:clamp(24px,4vw,42px);font-weight:800;line-height:1.2;margin-bottom:14px}
-  .cover .badge{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:6px 18px;font-size:13px;letter-spacing:.5px;margin-bottom:24px}
-  .cover p{font-size:16px;opacity:.85;max-width:500px;margin:0 auto}
-  .container{max-width:780px;margin:0 auto;padding:44px 28px}
-  h2.sec{font-size:21px;font-weight:800;color:#7f1d1d;margin:40px 0 16px;padding-bottom:10px;border-bottom:3px solid #fee2e2}
-  .framework{background:#fff;border:1px solid #e5e7eb;border-left:5px solid #dc2626;border-radius:0 10px 10px 0;padding:20px 24px;margin-bottom:20px}
-  .framework h3{font-size:17px;font-weight:700;color:#111827;margin-bottom:6px}
-  .framework .subtitle{font-size:13px;color:#dc2626;font-weight:600;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px}
-  .framework p,.framework li{font-size:14.5px;color:#374151}
-  .framework ul,.framework ol{padding-left:20px}
-  .framework li{margin-bottom:6px}
-  .diagnosis{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px}
-  .diag-card{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:18px 20px}
-  .diag-card h3{font-size:14px;font-weight:700;color:#111827;margin-bottom:10px}
-  .diag-card ul{padding-left:16px;font-size:13.5px;color:#374151}
-  .diag-card li{margin-bottom:5px}
-  .action-box{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:16px 20px;margin-top:12px}
-  .action-box strong{display:block;color:#dc2626;font-size:13px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
-  .action-box p{font-size:14px;color:#7f1d1d}
-  .footer{background:#7f1d1d;color:#fff;text-align:center;padding:28px;margin-top:44px}
-  .footer p{opacity:.7;font-size:13px}
-  @media(max-width:600px){.diagnosis{grid-template-columns:1fr}}
-  @media print{body{background:#fff}.framework{break-inside:avoid}}
-</style>
-</head>
-<body>
-<div class="cover">
-  <div class="badge">✦ 8 FRAMEWORKS · TACTICAL SYSTEMS · INSTANT USE</div>
-  <h1>Anti-Procrastination<br>Playbook</h1>
-  <p>Root causes, systems, and behavioral frameworks that actually override procrastination. Not motivation — mechanics.</p>
-</div>
-<div class="container">
-
-  <h2 class="sec">Part 1: Diagnose Your Type</h2>
-  <p style="font-size:15px;color:#374151;margin-bottom:20px">Procrastination is not laziness. It's a behavioral symptom with 4 distinct root causes. Applying the wrong fix makes it worse. Identify your type first.</p>
-  <div class="diagnosis">
-    <div class="diag-card">
-      <h3>🧠 Type A: Overwhelm Procrastinator</h3>
-      <ul><li>The task feels too big to start</li><li>You don't know where to begin</li><li>You're waiting to "feel ready"</li><li>You start, get confused, and stop</li></ul>
-      <div class="action-box"><strong>Fix</strong><p>The 2-Minute Decomposition (Framework 1)</p></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Anti-Procrastination Playbook</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+        background: #fafafa;
+        color: #111827;
+        line-height: 1.7;
+      }
+      .cover {
+        background: linear-gradient(135deg, #dc2626 0%, #7f1d1d 100%);
+        color: #fff;
+        padding: 56px 44px;
+        text-align: center;
+      }
+      .cover h1 {
+        font-size: clamp(24px, 4vw, 42px);
+        font-weight: 800;
+        line-height: 1.2;
+        margin-bottom: 14px;
+      }
+      .cover .badge {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 999px;
+        padding: 6px 18px;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+        margin-bottom: 24px;
+      }
+      .cover p {
+        font-size: 16px;
+        opacity: 0.85;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+      .container {
+        max-width: 780px;
+        margin: 0 auto;
+        padding: 44px 28px;
+      }
+      h2.sec {
+        font-size: 21px;
+        font-weight: 800;
+        color: #7f1d1d;
+        margin: 40px 0 16px;
+        padding-bottom: 10px;
+        border-bottom: 3px solid #fee2e2;
+      }
+      .framework {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-left: 5px solid #dc2626;
+        border-radius: 0 10px 10px 0;
+        padding: 20px 24px;
+        margin-bottom: 20px;
+      }
+      .framework h3 {
+        font-size: 17px;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 6px;
+      }
+      .framework .subtitle {
+        font-size: 13px;
+        color: #dc2626;
+        font-weight: 600;
+        margin-bottom: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .framework p,
+      .framework li {
+        font-size: 14.5px;
+        color: #374151;
+      }
+      .framework ul,
+      .framework ol {
+        padding-left: 20px;
+      }
+      .framework li {
+        margin-bottom: 6px;
+      }
+      .diagnosis {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-bottom: 32px;
+      }
+      .diag-card {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        padding: 18px 20px;
+      }
+      .diag-card h3 {
+        font-size: 14px;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 10px;
+      }
+      .diag-card ul {
+        padding-left: 16px;
+        font-size: 13.5px;
+        color: #374151;
+      }
+      .diag-card li {
+        margin-bottom: 5px;
+      }
+      .action-box {
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        border-radius: 10px;
+        padding: 16px 20px;
+        margin-top: 12px;
+      }
+      .action-box strong {
+        display: block;
+        color: #dc2626;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 6px;
+      }
+      .action-box p {
+        font-size: 14px;
+        color: #7f1d1d;
+      }
+      .footer {
+        background: #7f1d1d;
+        color: #fff;
+        text-align: center;
+        padding: 28px;
+        margin-top: 44px;
+      }
+      .footer p {
+        opacity: 0.7;
+        font-size: 13px;
+      }
+      @media (max-width: 600px) {
+        .diagnosis {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media print {
+        body {
+          background: #fff;
+        }
+        .framework {
+          break-inside: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cover">
+      <div class="badge">✦ 8 FRAMEWORKS · TACTICAL SYSTEMS · INSTANT USE</div>
+      <h1>Anti-Procrastination<br />Playbook</h1>
+      <p>
+        Root causes, systems, and behavioral frameworks that actually override procrastination. Not
+        motivation — mechanics.
+      </p>
     </div>
-    <div class="diag-card">
-      <h3>😰 Type B: Fear Procrastinator</h3>
-      <ul><li>The task involves judgment or evaluation</li><li>You fear doing it wrong</li><li>You over-plan instead of execute</li><li>Perfectionism stalls progress</li></ul>
-      <div class="action-box"><strong>Fix</strong><p>The Permission to Be Bad (Framework 3)</p></div>
+    <div class="container">
+      <h2 class="sec">Part 1: Diagnose Your Type</h2>
+      <p style="font-size: 15px; color: #374151; margin-bottom: 20px">
+        Procrastination is not laziness. It's a behavioral symptom with 4 distinct root causes.
+        Applying the wrong fix makes it worse. Identify your type first.
+      </p>
+      <div class="diagnosis">
+        <div class="diag-card">
+          <h3>🧠 Type A: Overwhelm Procrastinator</h3>
+          <ul>
+            <li>The task feels too big to start</li>
+            <li>You don't know where to begin</li>
+            <li>You're waiting to "feel ready"</li>
+            <li>You start, get confused, and stop</li>
+          </ul>
+          <div class="action-box">
+            <strong>Fix</strong>
+            <p>The 2-Minute Decomposition (Framework 1)</p>
+          </div>
+        </div>
+        <div class="diag-card">
+          <h3>😰 Type B: Fear Procrastinator</h3>
+          <ul>
+            <li>The task involves judgment or evaluation</li>
+            <li>You fear doing it wrong</li>
+            <li>You over-plan instead of execute</li>
+            <li>Perfectionism stalls progress</li>
+          </ul>
+          <div class="action-box">
+            <strong>Fix</strong>
+            <p>The Permission to Be Bad (Framework 3)</p>
+          </div>
+        </div>
+        <div class="diag-card">
+          <h3>😤 Type C: Resentment Procrastinator</h3>
+          <ul>
+            <li>You don't want to do the task at all</li>
+            <li>It feels imposed or meaningless</li>
+            <li>You avoid it passively (busy with other things)</li>
+            <li>Strong resistance when you think about it</li>
+          </ul>
+          <div class="action-box">
+            <strong>Fix</strong>
+            <p>The Why Excavation + Minimum Viable Task (Framework 5)</p>
+          </div>
+        </div>
+        <div class="diag-card">
+          <h3>🌀 Type D: Distraction Procrastinator</h3>
+          <ul>
+            <li>You start, then get pulled away</li>
+            <li>You confuse being busy with being productive</li>
+            <li>Your environment has too many triggers</li>
+            <li>Notifications, people, or comfort tasks hijack you</li>
+          </ul>
+          <div class="action-box">
+            <strong>Fix</strong>
+            <p>The Environment Architecture (Framework 6)</p>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="sec">Part 2: The 8 Frameworks</h2>
+
+      <div class="framework">
+        <div class="subtitle">Framework 1 · For Type A</div>
+        <h3>The 2-Minute Decomposition</h3>
+        <p style="margin-bottom: 10px">
+          When a task feels too big to start, you don't need motivation — you need a smaller task.
+          The rule: if you can't start in 2 minutes, the task isn't defined well enough.
+        </p>
+        <ol>
+          <li>Write the task you're avoiding.</li>
+          <li>
+            Ask: "What is the very first physical action required to begin this?" (Not "work on
+            report" — "open the document and type the date.")
+          </li>
+          <li>Do only that one action. Nothing more.</li>
+          <li>After you've done it, ask again: "What's the next single action?"</li>
+          <li>Never hold more than 1 next action in your head at a time.</li>
+        </ol>
+        <div class="action-box">
+          <strong>Why it works</strong>
+          <p>
+            Starting generates momentum. The resistance is to starting, not to the work itself. Once
+            you begin, the brain's task-completion drive takes over (the Zeigarnik effect).
+          </p>
+        </div>
+      </div>
+
+      <div class="framework">
+        <div class="subtitle">Framework 2 · Universal</div>
+        <h3>The 25-5-25 Override</h3>
+        <p style="margin-bottom: 10px">
+          A modified Pomodoro built specifically for high-resistance tasks — the ones you've been
+          avoiding for days.
+        </p>
+        <ol>
+          <li>
+            Set a timer for 25 minutes. Work on only the avoided task. Nothing else. No switching.
+          </li>
+          <li>
+            When the timer goes off: stop. Take 5 minutes away from the screen. Walk, stretch, drink
+            water.
+          </li>
+          <li>
+            Before the second 25-minute block: write one sentence on what you'll focus on
+            specifically.
+          </li>
+          <li>
+            After 2 blocks: take a 25-minute real break. Full permission to do nothing productive.
+          </li>
+        </ol>
+        <div class="action-box">
+          <strong>Key rule:</strong>
+          <p>
+            If you break the 25 minutes (check phone, switch tasks), the timer resets to 0. No
+            partial credit. The constraint is the system.
+          </p>
+        </div>
+      </div>
+
+      <div class="framework">
+        <div class="subtitle">Framework 3 · For Type B</div>
+        <h3>Permission to Be Bad</h3>
+        <p style="margin-bottom: 10px">
+          Perfectionism is a fear mechanism disguised as high standards. It convinces you that
+          starting badly is worse than not starting at all. It's wrong.
+        </p>
+        <ol>
+          <li>
+            Before you start the task, write at the top of the document/page:
+            <em>"This is a first draft. It is allowed to be terrible."</em>
+          </li>
+          <li>
+            Set a timer for 15 minutes. Your only goal: fill the space with something, anything.
+            Quality is banned.
+          </li>
+          <li>
+            When the timer ends, read what you wrote. Notice: it's probably 40–60% usable already.
+          </li>
+          <li>
+            Editing is psychologically easier than creating. Now you can be a perfectionist — but on
+            something that already exists.
+          </li>
+        </ol>
+        <div class="action-box">
+          <strong>Science:</strong>
+          <p>
+            The "blank page" triggers a stress response in the brain. Lowering the standard
+            neutralizes the threat signal and allows the prefrontal cortex to engage.
+          </p>
+        </div>
+      </div>
+
+      <div class="framework">
+        <div class="subtitle">Framework 4 · Universal</div>
+        <h3>The Commitment Device</h3>
+        <p style="margin-bottom: 10px">
+          Your future self will procrastinate if given the opportunity. Remove the opportunity by
+          pre-committing.
+        </p>
+        <ol>
+          <li>
+            Tell a specific person: "By [time] today, I will send you [specific output]." Not "I'll
+            try to" — "I will send."
+          </li>
+          <li>
+            Set a consequence: if you don't deliver, you donate €20 to a cause you dislike, or you
+            owe your accountability partner something uncomfortable.
+          </li>
+          <li>Make the commitment public (post it) for higher-stakes tasks.</li>
+        </ol>
+        <div class="action-box">
+          <strong>Why it works:</strong>
+          <p>
+            Loss aversion is stronger than gain motivation. Humans will work harder to avoid losing
+            €20 than to gain €20. Design your system around this.
+          </p>
+        </div>
+      </div>
+
+      <div class="framework">
+        <div class="subtitle">Framework 5 · For Type C</div>
+        <h3>The Why Excavation + MVT</h3>
+        <p style="margin-bottom: 10px">
+          Resentment procrastination comes from disconnection. Before you can act, you need to
+          reconnect the task to something meaningful — or cut it entirely.
+        </p>
+        <ol>
+          <li>
+            Write: "I'm avoiding [task] because ___." Be honest. "Because it's boring" is valid.
+          </li>
+          <li>Then write: "If I complete this, it will lead to ___, which matters because ___."</li>
+          <li>
+            If you can't complete step 2 with a real answer: delegate, delete, or delay this task
+            permanently. It's probably not worth doing.
+          </li>
+          <li>
+            If you can: define the Minimum Viable Task (MVT) — the smallest version of this task
+            that still creates value. Do only that. Perfectionism on things you resent is a trap.
+          </li>
+        </ol>
+      </div>
+
+      <div class="framework">
+        <div class="subtitle">Framework 6 · For Type D</div>
+        <h3>Environment Architecture</h3>
+        <p style="margin-bottom: 10px">
+          Your environment either makes focus automatic or makes distraction automatic. Most people
+          default to a distraction-optimized setup.
+        </p>
+        <ol>
+          <li>
+            Phone out of sight (not just face-down — out of the room). Research shows even a visible
+            phone reduces cognitive capacity by 10–20%.
+          </li>
+          <li>
+            Use one browser profile for deep work. No social tabs. Block distracting sites using
+            Freedom, Cold Turkey, or similar.
+          </li>
+          <li>
+            Use headphones with brown or white noise. Not music with lyrics — it competes for the
+            same language-processing resources you're using to write/think.
+          </li>
+          <li>
+            Clean your immediate workspace before starting. Clutter creates micro-decisions that
+            drain willpower.
+          </li>
+          <li>
+            Set a "work uniform" — even at home, change clothes before deep work. Triggers shift
+            your brain state.
+          </li>
+        </ol>
+      </div>
+
+      <div class="framework">
+        <div class="subtitle">Framework 7 · Universal</div>
+        <h3>The Procrastination Audit</h3>
+        <p style="margin-bottom: 10px">
+          Run this audit every Friday afternoon (15 minutes). It prevents small avoidances from
+          compounding into crises.
+        </p>
+        <ol>
+          <li>List every task you avoided this week. No judgment — just list.</li>
+          <li>For each item: identify the type (overwhelm / fear / resentment / distraction).</li>
+          <li>Apply the corresponding framework to the top 3 items.</li>
+          <li>
+            Schedule the next action for each in your calendar — specific time slot, not "sometime
+            next week."
+          </li>
+        </ol>
+      </div>
+
+      <div class="framework">
+        <div class="subtitle">Framework 8 · Universal</div>
+        <h3>The Pre-Mortem</h3>
+        <p style="margin-bottom: 10px">
+          Visualization works — but forward visualization ("imagine success") is less effective than
+          backward visualization ("imagine failure").
+        </p>
+        <ol>
+          <li>
+            Imagine it's 6 months from now. You failed at the goal connected to this task. Write: "I
+            failed because ___."
+          </li>
+          <li>List every reason on that list that is actually within your control.</li>
+          <li>
+            Those reasons = your action plan. The pre-mortem reveals the specific risks that
+            procrastination enables.
+          </li>
+          <li>
+            Ask: "Which of these risks is most likely if I don't act today?" Work on that risk
+            first.
+          </li>
+        </ol>
+        <div class="action-box">
+          <strong>When to use this:</strong>
+          <p>
+            Reserve for large projects, business decisions, or long-avoided major tasks. It's too
+            heavy for daily use but extremely effective for breaking a long-standing avoidance
+            pattern.
+          </p>
+        </div>
+      </div>
     </div>
-    <div class="diag-card">
-      <h3>😤 Type C: Resentment Procrastinator</h3>
-      <ul><li>You don't want to do the task at all</li><li>It feels imposed or meaningless</li><li>You avoid it passively (busy with other things)</li><li>Strong resistance when you think about it</li></ul>
-      <div class="action-box"><strong>Fix</strong><p>The Why Excavation + Minimum Viable Task (Framework 5)</p></div>
+    <div class="footer">
+      <p>
+        <strong>Anti-Procrastination Playbook</strong> — 4 root causes · 8 behavioral frameworks
+      </p>
+      <p style="margin-top: 6px">
+        Behavioral change is cumulative. Pick one framework. Use it for 7 days. Then add another.
+      </p>
     </div>
-    <div class="diag-card">
-      <h3>🌀 Type D: Distraction Procrastinator</h3>
-      <ul><li>You start, then get pulled away</li><li>You confuse being busy with being productive</li><li>Your environment has too many triggers</li><li>Notifications, people, or comfort tasks hijack you</li></ul>
-      <div class="action-box"><strong>Fix</strong><p>The Environment Architecture (Framework 6)</p></div>
-    </div>
-  </div>
-
-  <h2 class="sec">Part 2: The 8 Frameworks</h2>
-
-  <div class="framework">
-    <div class="subtitle">Framework 1 · For Type A</div>
-    <h3>The 2-Minute Decomposition</h3>
-    <p style="margin-bottom:10px">When a task feels too big to start, you don't need motivation — you need a smaller task. The rule: if you can't start in 2 minutes, the task isn't defined well enough.</p>
-    <ol>
-      <li>Write the task you're avoiding.</li>
-      <li>Ask: "What is the very first physical action required to begin this?" (Not "work on report" — "open the document and type the date.")</li>
-      <li>Do only that one action. Nothing more.</li>
-      <li>After you've done it, ask again: "What's the next single action?"</li>
-      <li>Never hold more than 1 next action in your head at a time.</li>
-    </ol>
-    <div class="action-box"><strong>Why it works</strong><p>Starting generates momentum. The resistance is to starting, not to the work itself. Once you begin, the brain's task-completion drive takes over (the Zeigarnik effect).</p></div>
-  </div>
-
-  <div class="framework">
-    <div class="subtitle">Framework 2 · Universal</div>
-    <h3>The 25-5-25 Override</h3>
-    <p style="margin-bottom:10px">A modified Pomodoro built specifically for high-resistance tasks — the ones you've been avoiding for days.</p>
-    <ol>
-      <li>Set a timer for 25 minutes. Work on only the avoided task. Nothing else. No switching.</li>
-      <li>When the timer goes off: stop. Take 5 minutes away from the screen. Walk, stretch, drink water.</li>
-      <li>Before the second 25-minute block: write one sentence on what you'll focus on specifically.</li>
-      <li>After 2 blocks: take a 25-minute real break. Full permission to do nothing productive.</li>
-    </ol>
-    <div class="action-box"><strong>Key rule:</strong><p>If you break the 25 minutes (check phone, switch tasks), the timer resets to 0. No partial credit. The constraint is the system.</p></div>
-  </div>
-
-  <div class="framework">
-    <div class="subtitle">Framework 3 · For Type B</div>
-    <h3>Permission to Be Bad</h3>
-    <p style="margin-bottom:10px">Perfectionism is a fear mechanism disguised as high standards. It convinces you that starting badly is worse than not starting at all. It's wrong.</p>
-    <ol>
-      <li>Before you start the task, write at the top of the document/page: <em>"This is a first draft. It is allowed to be terrible."</em></li>
-      <li>Set a timer for 15 minutes. Your only goal: fill the space with something, anything. Quality is banned.</li>
-      <li>When the timer ends, read what you wrote. Notice: it's probably 40–60% usable already.</li>
-      <li>Editing is psychologically easier than creating. Now you can be a perfectionist — but on something that already exists.</li>
-    </ol>
-    <div class="action-box"><strong>Science:</strong><p>The "blank page" triggers a stress response in the brain. Lowering the standard neutralizes the threat signal and allows the prefrontal cortex to engage.</p></div>
-  </div>
-
-  <div class="framework">
-    <div class="subtitle">Framework 4 · Universal</div>
-    <h3>The Commitment Device</h3>
-    <p style="margin-bottom:10px">Your future self will procrastinate if given the opportunity. Remove the opportunity by pre-committing.</p>
-    <ol>
-      <li>Tell a specific person: "By [time] today, I will send you [specific output]." Not "I'll try to" — "I will send."</li>
-      <li>Set a consequence: if you don't deliver, you donate €20 to a cause you dislike, or you owe your accountability partner something uncomfortable.</li>
-      <li>Make the commitment public (post it) for higher-stakes tasks.</li>
-    </ol>
-    <div class="action-box"><strong>Why it works:</strong><p>Loss aversion is stronger than gain motivation. Humans will work harder to avoid losing €20 than to gain €20. Design your system around this.</p></div>
-  </div>
-
-  <div class="framework">
-    <div class="subtitle">Framework 5 · For Type C</div>
-    <h3>The Why Excavation + MVT</h3>
-    <p style="margin-bottom:10px">Resentment procrastination comes from disconnection. Before you can act, you need to reconnect the task to something meaningful — or cut it entirely.</p>
-    <ol>
-      <li>Write: "I'm avoiding [task] because ___." Be honest. "Because it's boring" is valid.</li>
-      <li>Then write: "If I complete this, it will lead to ___, which matters because ___."</li>
-      <li>If you can't complete step 2 with a real answer: delegate, delete, or delay this task permanently. It's probably not worth doing.</li>
-      <li>If you can: define the Minimum Viable Task (MVT) — the smallest version of this task that still creates value. Do only that. Perfectionism on things you resent is a trap.</li>
-    </ol>
-  </div>
-
-  <div class="framework">
-    <div class="subtitle">Framework 6 · For Type D</div>
-    <h3>Environment Architecture</h3>
-    <p style="margin-bottom:10px">Your environment either makes focus automatic or makes distraction automatic. Most people default to a distraction-optimized setup.</p>
-    <ol>
-      <li>Phone out of sight (not just face-down — out of the room). Research shows even a visible phone reduces cognitive capacity by 10–20%.</li>
-      <li>Use one browser profile for deep work. No social tabs. Block distracting sites using Freedom, Cold Turkey, or similar.</li>
-      <li>Use headphones with brown or white noise. Not music with lyrics — it competes for the same language-processing resources you're using to write/think.</li>
-      <li>Clean your immediate workspace before starting. Clutter creates micro-decisions that drain willpower.</li>
-      <li>Set a "work uniform" — even at home, change clothes before deep work. Triggers shift your brain state.</li>
-    </ol>
-  </div>
-
-  <div class="framework">
-    <div class="subtitle">Framework 7 · Universal</div>
-    <h3>The Procrastination Audit</h3>
-    <p style="margin-bottom:10px">Run this audit every Friday afternoon (15 minutes). It prevents small avoidances from compounding into crises.</p>
-    <ol>
-      <li>List every task you avoided this week. No judgment — just list.</li>
-      <li>For each item: identify the type (overwhelm / fear / resentment / distraction).</li>
-      <li>Apply the corresponding framework to the top 3 items.</li>
-      <li>Schedule the next action for each in your calendar — specific time slot, not "sometime next week."</li>
-    </ol>
-  </div>
-
-  <div class="framework">
-    <div class="subtitle">Framework 8 · Universal</div>
-    <h3>The Pre-Mortem</h3>
-    <p style="margin-bottom:10px">Visualization works — but forward visualization ("imagine success") is less effective than backward visualization ("imagine failure").</p>
-    <ol>
-      <li>Imagine it's 6 months from now. You failed at the goal connected to this task. Write: "I failed because ___."</li>
-      <li>List every reason on that list that is actually within your control.</li>
-      <li>Those reasons = your action plan. The pre-mortem reveals the specific risks that procrastination enables.</li>
-      <li>Ask: "Which of these risks is most likely if I don't act today?" Work on that risk first.</li>
-    </ol>
-    <div class="action-box"><strong>When to use this:</strong><p>Reserve for large projects, business decisions, or long-avoided major tasks. It's too heavy for daily use but extremely effective for breaking a long-standing avoidance pattern.</p></div>
-  </div>
-
-</div>
-<div class="footer">
-  <p><strong>Anti-Procrastination Playbook</strong> — 4 root causes · 8 behavioral frameworks</p>
-  <p style="margin-top:6px">Behavioral change is cumulative. Pick one framework. Use it for 7 days. Then add another.</p>
-</div>
-</body>
+  </body>
 </html>

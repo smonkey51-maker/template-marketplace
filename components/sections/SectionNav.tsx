@@ -87,49 +87,55 @@ export default function SectionNav() {
             aria-controls="mobile-drawer"
             style={{ paddingRight: "env(safe-area-inset-right, 0px)" }}
           >
-          <span
-            aria-hidden
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "5px",
-              width: "20px",
-            }}
-          >
-            {/* Top bar */}
-            <span style={{
-              display: "block",
-              height: "1.5px",
-              width: "100%",
-              background: "rgba(255,255,255,0.88)",
-              borderRadius: "2px",
-              transition: "transform 0.3s cubic-bezier(0.4,0,0.2,1)",
-              transformOrigin: "center",
-              transform: drawerOpen ? "translateY(6.5px) rotate(45deg)" : "none",
-            }} />
-            {/* Middle bar */}
-            <span style={{
-              display: "block",
-              height: "1.5px",
-              width: "100%",
-              background: "rgba(255,255,255,0.88)",
-              borderRadius: "2px",
-              transition: "opacity 0.2s ease, transform 0.3s cubic-bezier(0.4,0,0.2,1)",
-              opacity: drawerOpen ? 0 : 1,
-              transform: drawerOpen ? "scaleX(0)" : "none",
-            }} />
-            {/* Bottom bar */}
-            <span style={{
-              display: "block",
-              height: "1.5px",
-              width: "100%",
-              background: "rgba(255,255,255,0.88)",
-              borderRadius: "2px",
-              transition: "transform 0.3s cubic-bezier(0.4,0,0.2,1)",
-              transformOrigin: "center",
-              transform: drawerOpen ? "translateY(-6.5px) rotate(-45deg)" : "none",
-            }} />
-          </span>
+            <span
+              aria-hidden
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "5px",
+                width: "20px",
+              }}
+            >
+              {/* Top bar */}
+              <span
+                style={{
+                  display: "block",
+                  height: "1.5px",
+                  width: "100%",
+                  background: "rgba(255,255,255,0.88)",
+                  borderRadius: "2px",
+                  transition: "transform 0.3s cubic-bezier(0.4,0,0.2,1)",
+                  transformOrigin: "center",
+                  transform: drawerOpen ? "translateY(6.5px) rotate(45deg)" : "none",
+                }}
+              />
+              {/* Middle bar */}
+              <span
+                style={{
+                  display: "block",
+                  height: "1.5px",
+                  width: "100%",
+                  background: "rgba(255,255,255,0.88)",
+                  borderRadius: "2px",
+                  transition: "opacity 0.2s ease, transform 0.3s cubic-bezier(0.4,0,0.2,1)",
+                  opacity: drawerOpen ? 0 : 1,
+                  transform: drawerOpen ? "scaleX(0)" : "none",
+                }}
+              />
+              {/* Bottom bar */}
+              <span
+                style={{
+                  display: "block",
+                  height: "1.5px",
+                  width: "100%",
+                  background: "rgba(255,255,255,0.88)",
+                  borderRadius: "2px",
+                  transition: "transform 0.3s cubic-bezier(0.4,0,0.2,1)",
+                  transformOrigin: "center",
+                  transform: drawerOpen ? "translateY(-6.5px) rotate(-45deg)" : "none",
+                }}
+              />
+            </span>
           </button>
         </div>
       </header>
@@ -143,7 +149,9 @@ export default function SectionNav() {
           role="dialog"
           aria-modal="true"
           aria-label="Navigation menu"
-          onClick={(e) => { if (e.target === e.currentTarget) setDrawerOpen(false); }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setDrawerOpen(false);
+          }}
         >
           <div
             className="flex items-center justify-between px-4 pt-safe"

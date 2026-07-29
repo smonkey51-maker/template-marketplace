@@ -73,11 +73,25 @@ export default function OutputPreview({
             </button>
             <button
               onClick={() => {
-                const dlType = tab === "customize"
-                  ? (selectedTemplateDownloadType ?? (activeCategory === "ui" ? "html" : "prompt"))
-                  : (activeCategory === "ui" ? "html" : "prompt");
-                const isHtmlOutput = activeCategory === "ui" ||
-                  !["notion","canva","excel","sheets","webflow","framer","shopify","wordpress"].includes(dlType as string);
+                const dlType =
+                  tab === "customize"
+                    ? (selectedTemplateDownloadType ??
+                      (activeCategory === "ui" ? "html" : "prompt"))
+                    : activeCategory === "ui"
+                      ? "html"
+                      : "prompt";
+                const isHtmlOutput =
+                  activeCategory === "ui" ||
+                  ![
+                    "notion",
+                    "canva",
+                    "excel",
+                    "sheets",
+                    "webflow",
+                    "framer",
+                    "shopify",
+                    "wordpress",
+                  ].includes(dlType as string);
                 const ext = isHtmlOutput ? "html" : "txt";
                 const mime = isHtmlOutput ? "text/html" : "text/plain";
                 const blob = new Blob([output], { type: mime });
@@ -94,14 +108,22 @@ export default function OutputPreview({
               aria-label={lang === "it" ? "Scarica file" : "Download file"}
             >
               <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden>
-                <path d="M7 1v8M4 7l3 3 3-3M2 12h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path
+                  d="M7 1v8M4 7l3 3 3-3M2 12h10"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
               {lang === "it" ? "Scarica" : "Download"}
-              {tab === "customize" && selectedTemplateDownloadType && selectedTemplateDownloadType !== "html" && (
-                <span className="text-[10px] opacity-60 ml-0.5">
-                  .{activeCategory === "ui" ? "html" : "txt"}
-                </span>
-              )}
+              {tab === "customize" &&
+                selectedTemplateDownloadType &&
+                selectedTemplateDownloadType !== "html" && (
+                  <span className="text-[10px] opacity-60 ml-0.5">
+                    .{activeCategory === "ui" ? "html" : "txt"}
+                  </span>
+                )}
             </button>
             {tab === "customize" && selectedTemplateDownloadUrl && (
               <a
@@ -112,9 +134,16 @@ export default function OutputPreview({
                 title={lang === "it" ? "Apri template originale" : "Open original template"}
               >
                 <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden>
-                  <path d="M1 11L11 1M11 1H5M11 1v6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path
+                    d="M1 11L11 1M11 1H5M11 1v6"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
-                {selectedTemplateDownloadType?.charAt(0).toUpperCase()}{selectedTemplateDownloadType?.slice(1)}
+                {selectedTemplateDownloadType?.charAt(0).toUpperCase()}
+                {selectedTemplateDownloadType?.slice(1)}
               </a>
             )}
           </div>
@@ -128,19 +157,34 @@ export default function OutputPreview({
               <div className="flex justify-center mb-3 text-muted">
                 {tab === "generate" ? (
                   <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden>
-                    <path d="M18 4v4M18 28v4M4 18h4M28 18h4M7.76 7.76l2.83 2.83M25.41 25.41l2.83 2.83M7.76 28.24l2.83-2.83M25.41 10.59l2.83-2.83" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                    <circle cx="18" cy="18" r="6" stroke="currentColor" strokeWidth="2"/>
+                    <path
+                      d="M18 4v4M18 28v4M4 18h4M28 18h4M7.76 7.76l2.83 2.83M25.41 25.41l2.83 2.83M7.76 28.24l2.83-2.83M25.41 10.59l2.83-2.83"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                    <circle cx="18" cy="18" r="6" stroke="currentColor" strokeWidth="2" />
                   </svg>
                 ) : (
                   <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden>
-                    <path d="M24 8l4 4-18 18H6v-4L24 8z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path
+                      d="M24 8l4 4-18 18H6v-4L24 8z"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
                 )}
               </div>
               <p>
                 {tab === "generate"
-                  ? (lang === "it" ? "Descrivi un template da generare" : "Describe a template to generate")
-                  : (lang === "it" ? "Seleziona un template e aggiungi istruzioni" : "Select a template and add instructions")}
+                  ? lang === "it"
+                    ? "Descrivi un template da generare"
+                    : "Describe a template to generate"
+                  : lang === "it"
+                    ? "Seleziona un template e aggiungi istruzioni"
+                    : "Select a template and add instructions"}
               </p>
             </div>
           </div>
@@ -149,7 +193,16 @@ export default function OutputPreview({
         {isLoading && !output && (
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="flex flex-col items-center gap-4 text-muted px-6 text-center">
-              <span style={{ display: "inline-block", animation: "spin 1s linear infinite", fontSize: "1.5rem", color: "var(--accent)" }}>⟳</span>
+              <span
+                style={{
+                  display: "inline-block",
+                  animation: "spin 1s linear infinite",
+                  fontSize: "1.5rem",
+                  color: "var(--accent)",
+                }}
+              >
+                ⟳
+              </span>
               <span className="text-[15px]">
                 Claude is thinking
                 <span className="animate-pulse">...</span>

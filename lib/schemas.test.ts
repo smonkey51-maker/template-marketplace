@@ -96,7 +96,11 @@ describe("checkoutSchema", () => {
 
 describe("reviewSchema", () => {
   it("accepts valid review", () => {
-    const result = reviewSchema.safeParse({ templateId: "hero-saas", rating: 5, comment: "Great!" });
+    const result = reviewSchema.safeParse({
+      templateId: "hero-saas",
+      rating: 5,
+      comment: "Great!",
+    });
     expect(result.success).toBe(true);
   });
 
@@ -116,7 +120,11 @@ describe("reviewSchema", () => {
   });
 
   it("rejects comment over 1000 chars", () => {
-    const result = reviewSchema.safeParse({ templateId: "hero-saas", rating: 4, comment: "x".repeat(1001) });
+    const result = reviewSchema.safeParse({
+      templateId: "hero-saas",
+      rating: 4,
+      comment: "x".repeat(1001),
+    });
     expect(result.success).toBe(false);
   });
 });

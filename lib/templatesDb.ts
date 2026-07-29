@@ -12,10 +12,7 @@ import { createClient } from "@supabase/supabase-js";
 import type { Template, Bundle } from "@/lib/templates";
 
 function getSupabase() {
-  return createClient(
-    process.env.SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
+  return createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
 }
 
 // ── Row → domain type mappers ─────────────────────────────────────────────────
@@ -64,13 +61,15 @@ export const getAllTemplates = unstable_cache(
     // Exclude `content` for list queries — only load it when needed
     const { data, error } = await supabase
       .from("templates")
-      .select("id,name,description,category,price,stripe_price_id,tags,downloads,download_type,download_url,video_url,editors_pick,is_new,content");
+      .select(
+        "id,name,description,category,price,stripe_price_id,tags,downloads,download_type,download_url,video_url,editors_pick,is_new,content",
+      );
 
     if (error || !data) return [];
     return data.map(rowToTemplate);
   },
   ["templates-all"],
-  { revalidate: 3600, tags: ["templates"] }
+  { revalidate: 3600, tags: ["templates"] },
 );
 
 export const getAllBundles = unstable_cache(
@@ -81,37 +80,29 @@ export const getAllBundles = unstable_cache(
     return data.map(rowToBundle);
   },
   ["bundles-all"],
-  { revalidate: 3600, tags: ["bundles"] }
+  { revalidate: 3600, tags: ["bundles"] },
 );
 
 export const getTemplateFromDb = unstable_cache(
   async (id: string): Promise<Template | null> => {
     const supabase = getSupabase();
-    const { data, error } = await supabase
-      .from("templates")
-      .select("*")
-      .eq("id", id)
-      .single();
+    const { data, error } = await supabase.from("templates").select("*").eq("id", id).single();
 
     if (error || !data) return null;
     return rowToTemplate(data);
   },
   ["template-by-id"],
-  { revalidate: 3600, tags: ["templates"] }
+  { revalidate: 3600, tags: ["templates"] },
 );
 
 export const getBundleFromDb = unstable_cache(
   async (id: string): Promise<Bundle | null> => {
     const supabase = getSupabase();
-    const { data, error } = await supabase
-      .from("bundles")
-      .select("*")
-      .eq("id", id)
-      .single();
+    const { data, error } = await supabase.from("bundles").select("*").eq("id", id).single();
 
     if (error || !data) return null;
     return rowToBundle(data);
   },
   ["bundle-by-id"],
-  { revalidate: 3600, tags: ["bundles"] }
+  { revalidate: 3600, tags: ["bundles"] },
 );

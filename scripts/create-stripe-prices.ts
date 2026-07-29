@@ -39,26 +39,111 @@ interface Item {
 }
 
 const TEMPLATES: Item[] = [
-  { placeholder: "price_PLACEHOLDER_waitinglist01",    name: "Waitlist Coming Soon Page",        description: "HTML UI template — Forma",  amount: 999  },
-  { placeholder: "price_PLACEHOLDER_saaspricingfull",  name: "SaaS Full Pricing Page",           description: "HTML UI template — Forma",  amount: 1499 },
-  { placeholder: "price_PLACEHOLDER_ecommerceproduct", name: "E-commerce Product Page",          description: "HTML UI template — Forma",  amount: 1299 },
-  { placeholder: "price_PLACEHOLDER_adhdfocustracker", name: "ADHD Focus Tracker Dashboard",     description: "HTML UI template — Forma",  amount: 999  },
-  { placeholder: "price_PLACEHOLDER_invoicehtml01",    name: "Professional Invoice Template",    description: "HTML UI template — Forma",  amount: 799  },
-  { placeholder: "price_PLACEHOLDER_aitechportfolio",  name: "AI & Tech Portfolio",              description: "HTML UI template — Forma",  amount: 1299 },
-  { placeholder: "price_PLACEHOLDER_personaltrainer",  name: "Personal Trainer Profile",         description: "HTML UI template — Forma",  amount: 999  },
-  { placeholder: "price_PLACEHOLDER_linkedinpack01",   name: "LinkedIn Content Pack (5 formati)","description": "Prompt template — Forma", amount: 999  },
-  { placeholder: "price_PLACEHOLDER_youtubescriptpack",name: "YouTube Script Builder",           description: "Prompt template — Forma",   amount: 1299 },
-  { placeholder: "price_PLACEHOLDER_claudeprojectspack",name: "Claude Projects Starter Pack",   description: "Prompt template — Forma",   amount: 1499 },
-  { placeholder: "price_PLACEHOLDER_aiworkflowpack01", name: "AI Workflow Automation Pack",      description: "Prompt template — Forma",   amount: 1699 },
+  {
+    placeholder: "price_PLACEHOLDER_waitinglist01",
+    name: "Waitlist Coming Soon Page",
+    description: "HTML UI template — Forma",
+    amount: 999,
+  },
+  {
+    placeholder: "price_PLACEHOLDER_saaspricingfull",
+    name: "SaaS Full Pricing Page",
+    description: "HTML UI template — Forma",
+    amount: 1499,
+  },
+  {
+    placeholder: "price_PLACEHOLDER_ecommerceproduct",
+    name: "E-commerce Product Page",
+    description: "HTML UI template — Forma",
+    amount: 1299,
+  },
+  {
+    placeholder: "price_PLACEHOLDER_adhdfocustracker",
+    name: "ADHD Focus Tracker Dashboard",
+    description: "HTML UI template — Forma",
+    amount: 999,
+  },
+  {
+    placeholder: "price_PLACEHOLDER_invoicehtml01",
+    name: "Professional Invoice Template",
+    description: "HTML UI template — Forma",
+    amount: 799,
+  },
+  {
+    placeholder: "price_PLACEHOLDER_aitechportfolio",
+    name: "AI & Tech Portfolio",
+    description: "HTML UI template — Forma",
+    amount: 1299,
+  },
+  {
+    placeholder: "price_PLACEHOLDER_personaltrainer",
+    name: "Personal Trainer Profile",
+    description: "HTML UI template — Forma",
+    amount: 999,
+  },
+  {
+    placeholder: "price_PLACEHOLDER_linkedinpack01",
+    name: "LinkedIn Content Pack (5 formati)",
+    description: "Prompt template — Forma",
+    amount: 999,
+  },
+  {
+    placeholder: "price_PLACEHOLDER_youtubescriptpack",
+    name: "YouTube Script Builder",
+    description: "Prompt template — Forma",
+    amount: 1299,
+  },
+  {
+    placeholder: "price_PLACEHOLDER_claudeprojectspack",
+    name: "Claude Projects Starter Pack",
+    description: "Prompt template — Forma",
+    amount: 1499,
+  },
+  {
+    placeholder: "price_PLACEHOLDER_aiworkflowpack01",
+    name: "AI Workflow Automation Pack",
+    description: "Prompt template — Forma",
+    amount: 1699,
+  },
 ];
 
 const BUNDLES: Item[] = [
-  { placeholder: "price_BUNDLE_PLACEHOLDER_saas01",       name: "Bundle: SaaS Starter Kit",           description: "Bundle 5 template — Forma", amount: 2999 },
-  { placeholder: "price_BUNDLE_PLACEHOLDER_aicontent",    name: "Bundle: AI Content Creator Pack",    description: "Bundle 5 template — Forma", amount: 2299 },
-  { placeholder: "price_BUNDLE_PLACEHOLDER_freelancer",   name: "Bundle: Freelancer Essential Kit",   description: "Bundle 4 template — Forma", amount: 1999 },
-  { placeholder: "price_BUNDLE_PLACEHOLDER_claudepower",  name: "Bundle: Claude Power Bundle",        description: "Bundle 4 template — Forma", amount: 2999 },
-  { placeholder: "price_BUNDLE_PLACEHOLDER_localbiz",     name: "Bundle: Local Business Web Pack",    description: "Bundle 4 template — Forma", amount: 1999 },
-  { placeholder: "price_BUNDLE_PLACEHOLDER_productivity", name: "Bundle: Focus & Productivity Bundle","description": "Bundle 3 template — Forma", amount: 2499 },
+  {
+    placeholder: "price_BUNDLE_PLACEHOLDER_saas01",
+    name: "Bundle: SaaS Starter Kit",
+    description: "Bundle 5 template — Forma",
+    amount: 2999,
+  },
+  {
+    placeholder: "price_BUNDLE_PLACEHOLDER_aicontent",
+    name: "Bundle: AI Content Creator Pack",
+    description: "Bundle 5 template — Forma",
+    amount: 2299,
+  },
+  {
+    placeholder: "price_BUNDLE_PLACEHOLDER_freelancer",
+    name: "Bundle: Freelancer Essential Kit",
+    description: "Bundle 4 template — Forma",
+    amount: 1999,
+  },
+  {
+    placeholder: "price_BUNDLE_PLACEHOLDER_claudepower",
+    name: "Bundle: Claude Power Bundle",
+    description: "Bundle 4 template — Forma",
+    amount: 2999,
+  },
+  {
+    placeholder: "price_BUNDLE_PLACEHOLDER_localbiz",
+    name: "Bundle: Local Business Web Pack",
+    description: "Bundle 4 template — Forma",
+    amount: 1999,
+  },
+  {
+    placeholder: "price_BUNDLE_PLACEHOLDER_productivity",
+    name: "Bundle: Focus & Productivity Bundle",
+    description: "Bundle 3 template — Forma",
+    amount: 2499,
+  },
 ];
 
 async function createPrice(item: Item): Promise<{ placeholder: string; priceId: string }> {
@@ -106,7 +191,9 @@ async function main() {
   for (const r of results) {
     console.log(`  ${r.placeholder.padEnd(45)} → ${r.priceId}`);
   }
-  console.log("\nRicorda di eseguire 'git add lib/templates.ts && git commit' per salvare le modifiche.\n");
+  console.log(
+    "\nRicorda di eseguire 'git add lib/templates.ts && git commit' per salvare le modifiche.\n",
+  );
 }
 
 main().catch((err) => {

@@ -14,12 +14,9 @@ import { rateLimit } from "@/lib/rateLimit";
 export async function rateLimitRedis(
   key: string,
   limit: number,
-  windowMs: number
+  windowMs: number,
 ): Promise<boolean> {
-  if (
-    !process.env.UPSTASH_REDIS_REST_URL ||
-    !process.env.UPSTASH_REDIS_REST_TOKEN
-  ) {
+  if (!process.env.UPSTASH_REDIS_REST_URL || !process.env.UPSTASH_REDIS_REST_TOKEN) {
     // Fallback: in-memory limiter for local dev
     return rateLimit(key, limit, windowMs);
   }

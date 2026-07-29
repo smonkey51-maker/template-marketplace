@@ -1,156 +1,722 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Remote Job Search Tracker</title>
-<style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Segoe UI',system-ui,sans-serif;background:#f9fafb;color:#111827;line-height:1.7}
-  .cover{background:linear-gradient(135deg,#0f766e 0%,#134e4a 100%);color:#fff;padding:56px 44px;text-align:center}
-  .cover .badge{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:6px 18px;font-size:13px;letter-spacing:.5px;margin-bottom:24px}
-  .cover h1{font-size:clamp(24px,4vw,40px);font-weight:800;line-height:1.2;margin-bottom:14px}
-  .cover p{font-size:16px;opacity:.85;max-width:500px;margin:0 auto}
-  .container{max-width:980px;margin:0 auto;padding:44px 28px}
-  .metrics{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-bottom:32px}
-  .metric{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px 16px;text-align:center}
-  .metric .label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:#6b7280;margin-bottom:6px}
-  .metric .value{font-size:22px;font-weight:800;color:#111827;font-family:monospace}
-  .metric .formula{font-size:10px;color:#9ca3af;margin-top:3px;font-family:monospace}
-  .section{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;margin-bottom:22px}
-  .sec-header{background:#0f766e;color:#fff;padding:14px 22px}
-  .sec-header h2{font-size:16px;font-weight:700}
-  .data-table{width:100%;border-collapse:collapse;font-size:12.5px}
-  .data-table th{background:#f0fdfa;padding:9px 11px;text-align:left;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#0f766e;border-bottom:2px solid #99f6e4}
-  .data-table td{padding:10px 11px;border-bottom:1px solid #f3f4f6;color:#374151;vertical-align:top}
-  .data-table .blank{background:#f0fdfa;min-width:70px;min-height:26px;border-radius:3px}
-  .data-table .wide{background:#f0fdfa;min-width:140px;min-height:26px;border-radius:3px}
-  .stage-applied{color:#2563eb;font-weight:600;font-size:11px}
-  .stage-screen{color:#7c3aed;font-weight:600;font-size:11px}
-  .stage-interview{color:#d97706;font-weight:600;font-size:11px}
-  .stage-offer{color:#16a34a;font-weight:600;font-size:11px}
-  .stage-rejected{color:#dc2626;font-weight:600;font-size:11px}
-  .stage-ghosted{color:#6b7280;font-weight:600;font-size:11px}
-  .follow-up-table td{padding:10px 11px}
-  .goal-section{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:22px 26px;margin-bottom:22px}
-  .goal-section h2{font-size:16px;font-weight:700;color:#0f766e;margin-bottom:14px}
-  .goal-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  .goal-field label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:#6b7280;display:block;margin-bottom:5px}
-  .goal-field .g-input{background:#f0fdfa;border:1px solid #99f6e4;border-radius:6px;padding:9px 12px;font-size:14px;min-height:34px;color:#134e4a}
-  .tips{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:22px 26px;margin-top:22px}
-  .tips h2{font-size:16px;font-weight:700;color:#0f766e;margin-bottom:12px}
-  .tip{display:flex;gap:10px;margin-bottom:10px;font-size:13.5px;color:#374151}
-  .footer{background:#134e4a;color:#fff;text-align:center;padding:28px;margin-top:40px}
-  .footer p{opacity:.7;font-size:13px}
-  @media(max-width:600px){.goal-grid{grid-template-columns:1fr}}
-  @media print{body{background:#fff}.section{break-inside:avoid}}
-</style>
-</head>
-<body>
-<div class="cover">
-  <div class="badge">✦ JOB APPLICATIONS · FOLLOW-UPS · INTERVIEW PREP · OFFER COMPARISON</div>
-  <h1>Remote Job<br>Search Tracker</h1>
-  <p>Track every application, follow-up, and interview in one organized system. Never lose track of where you stand with any company.</p>
-</div>
-<div class="container">
-
-  <div class="metrics">
-    <div class="metric"><div class="label">Applications Sent</div><div class="value">___</div><div class="formula">=COUNTA(applied)</div></div>
-    <div class="metric"><div class="label">Responses</div><div class="value">___</div><div class="formula">=COUNTIF(status,"≠Applied")</div></div>
-    <div class="metric"><div class="label">Response Rate</div><div class="value">__%</div><div class="formula">=Responses/Total</div></div>
-    <div class="metric"><div class="label">Interviews</div><div class="value">___</div><div class="formula">=COUNTIF(stage,"Interview")</div></div>
-    <div class="metric"><div class="label">Offers</div><div class="value">___</div><div class="formula">=COUNTIF(stage,"Offer")</div></div>
-    <div class="metric"><div class="label">Avg Salary Offered</div><div class="value">€___</div><div class="formula">=AVERAGE(offers)</div></div>
-  </div>
-
-  <div class="goal-section">
-    <h2>My Job Search Goals</h2>
-    <div class="goal-grid">
-      <div class="goal-field"><label>Target Role Title(s)</label><div class="g-input"></div></div>
-      <div class="goal-field"><label>Target Salary Range</label><div class="g-input"></div></div>
-      <div class="goal-field"><label>Must-Have: Remote Type</label><div class="g-input">Full Remote / Hybrid (max ___ days/wk)</div></div>
-      <div class="goal-field"><label>Target Start Date</label><div class="g-input"></div></div>
-      <div class="goal-field"><label>Weekly Application Goal</label><div class="g-input">___ applications/week</div></div>
-      <div class="goal-field"><label>Must-Have Benefits</label><div class="g-input"></div></div>
-      <div class="goal-field"><label>Industries I'm Targeting</label><div class="g-input"></div></div>
-      <div class="goal-field"><label>Hard Nos (deal-breakers)</label><div class="g-input"></div></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Remote Job Search Tracker</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+        background: #f9fafb;
+        color: #111827;
+        line-height: 1.7;
+      }
+      .cover {
+        background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
+        color: #fff;
+        padding: 56px 44px;
+        text-align: center;
+      }
+      .cover .badge {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 999px;
+        padding: 6px 18px;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+        margin-bottom: 24px;
+      }
+      .cover h1 {
+        font-size: clamp(24px, 4vw, 40px);
+        font-weight: 800;
+        line-height: 1.2;
+        margin-bottom: 14px;
+      }
+      .cover p {
+        font-size: 16px;
+        opacity: 0.85;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+      .container {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 44px 28px;
+      }
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 12px;
+        margin-bottom: 32px;
+      }
+      .metric {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        padding: 14px 16px;
+        text-align: center;
+      }
+      .metric .label {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.7px;
+        color: #6b7280;
+        margin-bottom: 6px;
+      }
+      .metric .value {
+        font-size: 22px;
+        font-weight: 800;
+        color: #111827;
+        font-family: monospace;
+      }
+      .metric .formula {
+        font-size: 10px;
+        color: #9ca3af;
+        margin-top: 3px;
+        font-family: monospace;
+      }
+      .section {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 22px;
+      }
+      .sec-header {
+        background: #0f766e;
+        color: #fff;
+        padding: 14px 22px;
+      }
+      .sec-header h2 {
+        font-size: 16px;
+        font-weight: 700;
+      }
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12.5px;
+      }
+      .data-table th {
+        background: #f0fdfa;
+        padding: 9px 11px;
+        text-align: left;
+        font-size: 10.5px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #0f766e;
+        border-bottom: 2px solid #99f6e4;
+      }
+      .data-table td {
+        padding: 10px 11px;
+        border-bottom: 1px solid #f3f4f6;
+        color: #374151;
+        vertical-align: top;
+      }
+      .data-table .blank {
+        background: #f0fdfa;
+        min-width: 70px;
+        min-height: 26px;
+        border-radius: 3px;
+      }
+      .data-table .wide {
+        background: #f0fdfa;
+        min-width: 140px;
+        min-height: 26px;
+        border-radius: 3px;
+      }
+      .stage-applied {
+        color: #2563eb;
+        font-weight: 600;
+        font-size: 11px;
+      }
+      .stage-screen {
+        color: #7c3aed;
+        font-weight: 600;
+        font-size: 11px;
+      }
+      .stage-interview {
+        color: #d97706;
+        font-weight: 600;
+        font-size: 11px;
+      }
+      .stage-offer {
+        color: #16a34a;
+        font-weight: 600;
+        font-size: 11px;
+      }
+      .stage-rejected {
+        color: #dc2626;
+        font-weight: 600;
+        font-size: 11px;
+      }
+      .stage-ghosted {
+        color: #6b7280;
+        font-weight: 600;
+        font-size: 11px;
+      }
+      .follow-up-table td {
+        padding: 10px 11px;
+      }
+      .goal-section {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 22px 26px;
+        margin-bottom: 22px;
+      }
+      .goal-section h2 {
+        font-size: 16px;
+        font-weight: 700;
+        color: #0f766e;
+        margin-bottom: 14px;
+      }
+      .goal-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .goal-field label {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.7px;
+        color: #6b7280;
+        display: block;
+        margin-bottom: 5px;
+      }
+      .goal-field .g-input {
+        background: #f0fdfa;
+        border: 1px solid #99f6e4;
+        border-radius: 6px;
+        padding: 9px 12px;
+        font-size: 14px;
+        min-height: 34px;
+        color: #134e4a;
+      }
+      .tips {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 22px 26px;
+        margin-top: 22px;
+      }
+      .tips h2 {
+        font-size: 16px;
+        font-weight: 700;
+        color: #0f766e;
+        margin-bottom: 12px;
+      }
+      .tip {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 10px;
+        font-size: 13.5px;
+        color: #374151;
+      }
+      .footer {
+        background: #134e4a;
+        color: #fff;
+        text-align: center;
+        padding: 28px;
+        margin-top: 40px;
+      }
+      .footer p {
+        opacity: 0.7;
+        font-size: 13px;
+      }
+      @media (max-width: 600px) {
+        .goal-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media print {
+        body {
+          background: #fff;
+        }
+        .section {
+          break-inside: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cover">
+      <div class="badge">✦ JOB APPLICATIONS · FOLLOW-UPS · INTERVIEW PREP · OFFER COMPARISON</div>
+      <h1>Remote Job<br />Search Tracker</h1>
+      <p>
+        Track every application, follow-up, and interview in one organized system. Never lose track
+        of where you stand with any company.
+      </p>
     </div>
-  </div>
+    <div class="container">
+      <div class="metrics">
+        <div class="metric">
+          <div class="label">Applications Sent</div>
+          <div class="value">___</div>
+          <div class="formula">=COUNTA(applied)</div>
+        </div>
+        <div class="metric">
+          <div class="label">Responses</div>
+          <div class="value">___</div>
+          <div class="formula">=COUNTIF(status,"≠Applied")</div>
+        </div>
+        <div class="metric">
+          <div class="label">Response Rate</div>
+          <div class="value">__%</div>
+          <div class="formula">=Responses/Total</div>
+        </div>
+        <div class="metric">
+          <div class="label">Interviews</div>
+          <div class="value">___</div>
+          <div class="formula">=COUNTIF(stage,"Interview")</div>
+        </div>
+        <div class="metric">
+          <div class="label">Offers</div>
+          <div class="value">___</div>
+          <div class="formula">=COUNTIF(stage,"Offer")</div>
+        </div>
+        <div class="metric">
+          <div class="label">Avg Salary Offered</div>
+          <div class="value">€___</div>
+          <div class="formula">=AVERAGE(offers)</div>
+        </div>
+      </div>
 
-  <!-- MAIN TRACKER -->
-  <div class="section">
-    <div class="sec-header"><h2>Application Tracker — Main Log</h2></div>
-    <table class="data-table">
-      <thead><tr>
-        <th>#</th><th>Company</th><th>Role Title</th><th>Location / Remote?</th>
-        <th>Salary Range</th><th>Applied Via</th><th>Date Applied</th>
-        <th>Stage</th><th>Last Contact</th><th>Follow-Up Due</th>
-        <th>Contact Name</th><th>Contact Email</th><th>Notes</th>
-      </tr></thead>
-      <tbody>
-        <tr><td>1</td><td class="blank"></td><td class="wide"></td><td class="blank">Remote</td><td class="blank"></td><td class="blank">LinkedIn</td><td class="blank"></td><td><span class="stage-applied">Applied</span></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="wide"></td></tr>
-        <tr><td>2</td><td class="blank"></td><td class="wide"></td><td class="blank">Remote</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td><span class="stage-screen">Phone Screen</span></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="wide"></td></tr>
-        <tr><td>3</td><td class="blank"></td><td class="wide"></td><td class="blank">Hybrid</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td><span class="stage-interview">Interview</span></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="wide"></td></tr>
-        <tr><td>4</td><td class="blank"></td><td class="wide"></td><td class="blank">Remote</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td><span class="stage-offer">Offer</span></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="wide"></td></tr>
-        <tr><td>5</td><td class="blank"></td><td class="wide"></td><td class="blank">Remote</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td><span class="stage-rejected">Rejected</span></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="wide"></td></tr>
-        <tr><td>6</td><td class="blank"></td><td class="wide"></td><td class="blank">Remote</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td><span class="stage-ghosted">Ghosted</span></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="wide"></td></tr>
-        <tr><td>7</td><td class="blank"></td><td class="wide"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="wide"></td></tr>
-        <tr><td>8</td><td class="blank"></td><td class="wide"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="wide"></td></tr>
-        <tr><td>9</td><td class="blank"></td><td class="wide"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="wide"></td></tr>
-        <tr><td>10</td><td class="blank"></td><td class="wide"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="wide"></td></tr>
-      </tbody>
-    </table>
-    <div style="padding:10px 14px;font-size:11px;color:#6b7280;background:#f9fafb;border-top:1px solid #f3f4f6">
-      Stage codes: <span class="stage-applied">Applied</span> → <span class="stage-screen">Phone Screen</span> → <span class="stage-interview">Interview (1st/2nd/Final)</span> → <span class="stage-offer">Offer</span> | <span class="stage-rejected">Rejected</span> | <span class="stage-ghosted">Ghosted (14+ days no response)</span>
+      <div class="goal-section">
+        <h2>My Job Search Goals</h2>
+        <div class="goal-grid">
+          <div class="goal-field">
+            <label>Target Role Title(s)</label>
+            <div class="g-input"></div>
+          </div>
+          <div class="goal-field">
+            <label>Target Salary Range</label>
+            <div class="g-input"></div>
+          </div>
+          <div class="goal-field">
+            <label>Must-Have: Remote Type</label>
+            <div class="g-input">Full Remote / Hybrid (max ___ days/wk)</div>
+          </div>
+          <div class="goal-field">
+            <label>Target Start Date</label>
+            <div class="g-input"></div>
+          </div>
+          <div class="goal-field">
+            <label>Weekly Application Goal</label>
+            <div class="g-input">___ applications/week</div>
+          </div>
+          <div class="goal-field">
+            <label>Must-Have Benefits</label>
+            <div class="g-input"></div>
+          </div>
+          <div class="goal-field">
+            <label>Industries I'm Targeting</label>
+            <div class="g-input"></div>
+          </div>
+          <div class="goal-field">
+            <label>Hard Nos (deal-breakers)</label>
+            <div class="g-input"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN TRACKER -->
+      <div class="section">
+        <div class="sec-header"><h2>Application Tracker — Main Log</h2></div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Company</th>
+              <th>Role Title</th>
+              <th>Location / Remote?</th>
+              <th>Salary Range</th>
+              <th>Applied Via</th>
+              <th>Date Applied</th>
+              <th>Stage</th>
+              <th>Last Contact</th>
+              <th>Follow-Up Due</th>
+              <th>Contact Name</th>
+              <th>Contact Email</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td class="blank"></td>
+              <td class="wide"></td>
+              <td class="blank">Remote</td>
+              <td class="blank"></td>
+              <td class="blank">LinkedIn</td>
+              <td class="blank"></td>
+              <td><span class="stage-applied">Applied</span></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide"></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td class="blank"></td>
+              <td class="wide"></td>
+              <td class="blank">Remote</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td><span class="stage-screen">Phone Screen</span></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide"></td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td class="blank"></td>
+              <td class="wide"></td>
+              <td class="blank">Hybrid</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td><span class="stage-interview">Interview</span></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide"></td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td class="blank"></td>
+              <td class="wide"></td>
+              <td class="blank">Remote</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td><span class="stage-offer">Offer</span></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide"></td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td class="blank"></td>
+              <td class="wide"></td>
+              <td class="blank">Remote</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td><span class="stage-rejected">Rejected</span></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide"></td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td class="blank"></td>
+              <td class="wide"></td>
+              <td class="blank">Remote</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td><span class="stage-ghosted">Ghosted</span></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide"></td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td class="blank"></td>
+              <td class="wide"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide"></td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td class="blank"></td>
+              <td class="wide"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide"></td>
+            </tr>
+            <tr>
+              <td>9</td>
+              <td class="blank"></td>
+              <td class="wide"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide"></td>
+            </tr>
+            <tr>
+              <td>10</td>
+              <td class="blank"></td>
+              <td class="wide"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide"></td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          style="
+            padding: 10px 14px;
+            font-size: 11px;
+            color: #6b7280;
+            background: #f9fafb;
+            border-top: 1px solid #f3f4f6;
+          "
+        >
+          Stage codes: <span class="stage-applied">Applied</span> →
+          <span class="stage-screen">Phone Screen</span> →
+          <span class="stage-interview">Interview (1st/2nd/Final)</span> →
+          <span class="stage-offer">Offer</span> | <span class="stage-rejected">Rejected</span> |
+          <span class="stage-ghosted">Ghosted (14+ days no response)</span>
+        </div>
+      </div>
+
+      <!-- INTERVIEW LOG -->
+      <div class="section">
+        <div class="sec-header"><h2>Interview Log — Prep &amp; Notes</h2></div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th>Interview Date &amp; Time</th>
+              <th>Round</th>
+              <th>Interviewer(s)</th>
+              <th>Format</th>
+              <th>Key Prep Topics</th>
+              <th>My Questions to Ask</th>
+              <th>Result</th>
+              <th>Post-Interview Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank">1st</td>
+              <td class="blank"></td>
+              <td class="blank">Video / Phone / Panel</td>
+              <td class="wide"></td>
+              <td class="wide"></td>
+              <td class="blank"></td>
+              <td class="wide"></td>
+            </tr>
+            <tr>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank">2nd</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide"></td>
+              <td class="wide"></td>
+              <td class="blank"></td>
+              <td class="wide"></td>
+            </tr>
+            <tr>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank">Final</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide"></td>
+              <td class="wide"></td>
+              <td class="blank"></td>
+              <td class="wide"></td>
+            </tr>
+            <tr>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide"></td>
+              <td class="wide"></td>
+              <td class="blank"></td>
+              <td class="wide"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- OFFER COMPARISON -->
+      <div class="section">
+        <div class="sec-header"><h2>Offer Comparison Table</h2></div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Factor</th>
+              <th>Company A</th>
+              <th>Company B</th>
+              <th>Company C</th>
+              <th>My Priority (1–5)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Base Salary</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank">5</td>
+            </tr>
+            <tr>
+              <td>Bonus / Equity</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank">4</td>
+            </tr>
+            <tr>
+              <td>Remote Policy</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank">5</td>
+            </tr>
+            <tr>
+              <td>Health / Insurance</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank">4</td>
+            </tr>
+            <tr>
+              <td>PTO / Vacation Days</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank">3</td>
+            </tr>
+            <tr>
+              <td>Learning Budget</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank">3</td>
+            </tr>
+            <tr>
+              <td>Team Size / Culture</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank">4</td>
+            </tr>
+            <tr>
+              <td>Growth Potential</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank">4</td>
+            </tr>
+            <tr>
+              <td>Offer Deadline</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank">—</td>
+            </tr>
+            <tr>
+              <td><strong>Total Score (weighted)</strong></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td>—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tips">
+        <h2>Job Search Tips Built Into This Tracker</h2>
+        <div class="tip">
+          <span>→</span>
+          <p>
+            <strong>Follow up after 7 days, not 3.</strong> Hiring managers are busy. A 7-day
+            follow-up is professional; a 3-day follow-up looks anxious. Mark follow-up dates in the
+            tracker.
+          </p>
+        </div>
+        <div class="tip">
+          <span>→</span>
+          <p>
+            <strong>Track your response rate.</strong> If you've sent 30+ applications with under 5%
+            response rate, the problem isn't the companies — it's the CV or cover letter. The data
+            tells you.
+          </p>
+        </div>
+        <div class="tip">
+          <span>→</span>
+          <p>
+            <strong>"Ghosted" ≠ rejected.</strong> After 14 days of no response, move the stage to
+            "Ghosted" and send one final follow-up. If no reply: close it mentally and move on.
+          </p>
+        </div>
+        <div class="tip">
+          <span>→</span>
+          <p>
+            <strong>Use the Offer Comparison to negotiate.</strong> Having 2+ offers in the
+            comparison table gives you real leverage. Even one competing offer (at any stage)
+            strengthens your negotiating position significantly.
+          </p>
+        </div>
+      </div>
     </div>
-  </div>
-
-  <!-- INTERVIEW LOG -->
-  <div class="section">
-    <div class="sec-header"><h2>Interview Log — Prep &amp; Notes</h2></div>
-    <table class="data-table">
-      <thead><tr><th>Company</th><th>Interview Date &amp; Time</th><th>Round</th><th>Interviewer(s)</th><th>Format</th><th>Key Prep Topics</th><th>My Questions to Ask</th><th>Result</th><th>Post-Interview Notes</th></tr></thead>
-      <tbody>
-        <tr><td class="blank"></td><td class="blank"></td><td class="blank">1st</td><td class="blank"></td><td class="blank">Video / Phone / Panel</td><td class="wide"></td><td class="wide"></td><td class="blank"></td><td class="wide"></td></tr>
-        <tr><td class="blank"></td><td class="blank"></td><td class="blank">2nd</td><td class="blank"></td><td class="blank"></td><td class="wide"></td><td class="wide"></td><td class="blank"></td><td class="wide"></td></tr>
-        <tr><td class="blank"></td><td class="blank"></td><td class="blank">Final</td><td class="blank"></td><td class="blank"></td><td class="wide"></td><td class="wide"></td><td class="blank"></td><td class="wide"></td></tr>
-        <tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="wide"></td><td class="wide"></td><td class="blank"></td><td class="wide"></td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- OFFER COMPARISON -->
-  <div class="section">
-    <div class="sec-header"><h2>Offer Comparison Table</h2></div>
-    <table class="data-table">
-      <thead><tr><th>Factor</th><th>Company A</th><th>Company B</th><th>Company C</th><th>My Priority (1–5)</th></tr></thead>
-      <tbody>
-        <tr><td>Base Salary</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank">5</td></tr>
-        <tr><td>Bonus / Equity</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank">4</td></tr>
-        <tr><td>Remote Policy</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank">5</td></tr>
-        <tr><td>Health / Insurance</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank">4</td></tr>
-        <tr><td>PTO / Vacation Days</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank">3</td></tr>
-        <tr><td>Learning Budget</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank">3</td></tr>
-        <tr><td>Team Size / Culture</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank">4</td></tr>
-        <tr><td>Growth Potential</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank">4</td></tr>
-        <tr><td>Offer Deadline</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank">—</td></tr>
-        <tr><td><strong>Total Score (weighted)</strong></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td>—</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="tips">
-    <h2>Job Search Tips Built Into This Tracker</h2>
-    <div class="tip"><span>→</span><p><strong>Follow up after 7 days, not 3.</strong> Hiring managers are busy. A 7-day follow-up is professional; a 3-day follow-up looks anxious. Mark follow-up dates in the tracker.</p></div>
-    <div class="tip"><span>→</span><p><strong>Track your response rate.</strong> If you've sent 30+ applications with under 5% response rate, the problem isn't the companies — it's the CV or cover letter. The data tells you.</p></div>
-    <div class="tip"><span>→</span><p><strong>"Ghosted" ≠ rejected.</strong> After 14 days of no response, move the stage to "Ghosted" and send one final follow-up. If no reply: close it mentally and move on.</p></div>
-    <div class="tip"><span>→</span><p><strong>Use the Offer Comparison to negotiate.</strong> Having 2+ offers in the comparison table gives you real leverage. Even one competing offer (at any stage) strengthens your negotiating position significantly.</p></div>
-  </div>
-
-</div>
-<div class="footer">
-  <p><strong>Remote Job Search Tracker</strong> — Applications, interviews, and offers in one system</p>
-  <p style="margin-top:6px">Google Sheets: use COUNTIF for automated metrics. Add conditional formatting to color-code stages.</p>
-</div>
-</body>
+    <div class="footer">
+      <p>
+        <strong>Remote Job Search Tracker</strong> — Applications, interviews, and offers in one
+        system
+      </p>
+      <p style="margin-top: 6px">
+        Google Sheets: use COUNTIF for automated metrics. Add conditional formatting to color-code
+        stages.
+      </p>
+    </div>
+  </body>
 </html>

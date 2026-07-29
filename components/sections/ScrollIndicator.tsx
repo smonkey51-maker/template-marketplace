@@ -25,7 +25,7 @@ export default function ScrollIndicator() {
             if (e.isIntersecting && e.intersectionRatio >= 0.5) setActive(i);
           });
         },
-        { root: container, threshold: 0.5 }
+        { root: container, threshold: 0.5 },
       );
       obs.observe(el);
       observers.push(obs);
@@ -104,11 +104,7 @@ export default function ScrollIndicator() {
       </nav>
 
       {/* aria-live region for screen reader announcements */}
-      <div
-        aria-live="polite"
-        aria-atomic="true"
-        className="sr-only"
-      >
+      <div aria-live="polite" aria-atomic="true" className="sr-only">
         {LABELS[active]}
       </div>
     </>

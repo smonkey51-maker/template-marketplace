@@ -15,10 +15,7 @@ export async function GET() {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const supabase = createClient(
-    process.env.SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
+  const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
   const { count, error } = await supabase
     .from("subscribers")
     .select("*", { count: "exact", head: true });
@@ -42,10 +39,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "subject, title e body sono obbligatori" }, { status: 400 });
   }
 
-  const supabase = createClient(
-    process.env.SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
+  const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
   const { data, error } = await supabase.from("subscribers").select("email");
   if (error) return NextResponse.json({ error: "DB error" }, { status: 500 });
 

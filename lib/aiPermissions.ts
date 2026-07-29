@@ -5,7 +5,7 @@ import { getMonthlyUsage } from "@/lib/aiCost";
 // - free:    5 generate + 10 customize
 // - studio:  100 generate + 200 customize (acquisto studio-access)
 const LIMITS = {
-  free:   { generate: 5,   customize: 10  },
+  free: { generate: 5, customize: 10 },
   studio: { generate: 100, customize: 200 },
 } as const;
 
@@ -17,12 +17,9 @@ export type PermissionResult =
 
 export async function checkAIPermission(
   userId: string,
-  feature: AIFeature
+  feature: AIFeature,
 ): Promise<PermissionResult> {
-  const [purchases, usage] = await Promise.all([
-    getUserPurchases(userId),
-    getMonthlyUsage(userId),
-  ]);
+  const [purchases, usage] = await Promise.all([getUserPurchases(userId), getMonthlyUsage(userId)]);
 
   const plan: "free" | "studio" = hasStudioAccess(purchases) ? "studio" : "free";
   const limit = LIMITS[plan][feature];
@@ -44,15 +41,9 @@ export async function checkAIPermission(
   return { allowed: true, plan };
 }
 
-async function getFeatureCalls(
-  userId: string,
-  feature: AIFeature
-): Promise<{ calls: number }> {
+async function getFeatureCalls(userId: string, feature: AIFeature): Promise<{ calls: number }> {
   const { createClient } = await import("@supabase/supabase-js");
-  const supabase = createClient(
-    process.env.SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
+  const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
 
   const startOfMonth = new Date();
   startOfMonth.setDate(1);

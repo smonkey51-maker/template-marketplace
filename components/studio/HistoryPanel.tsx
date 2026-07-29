@@ -12,7 +12,10 @@ function relativeTime(ts: number): string {
 }
 
 // Lightweight line diff — returns stats and first changed lines
-function computeDiff(prev: string, next: string): {
+function computeDiff(
+  prev: string,
+  next: string,
+): {
   added: number;
   removed: number;
   preview: Array<{ type: "add" | "del" | "ctx"; text: string }>;
@@ -35,7 +38,10 @@ function computeDiff(prev: string, next: string): {
   const maxI = Math.min(prevLines.length, nextLines.length, 40);
   let firstDiff = -1;
   for (let i = 0; i < maxI; i++) {
-    if (prevLines[i] !== nextLines[i]) { firstDiff = i; break; }
+    if (prevLines[i] !== nextLines[i]) {
+      firstDiff = i;
+      break;
+    }
   }
 
   if (firstDiff >= 0) {
@@ -45,8 +51,10 @@ function computeDiff(prev: string, next: string): {
     }
     for (let i = firstDiff; i < Math.min(firstDiff + 4, maxI) && count < 4; i++) {
       if (prevLines[i] !== nextLines[i]) {
-        if (prevLines[i]?.trim()) preview.push({ type: "del", text: prevLines[i].trim().slice(0, 60) });
-        if (nextLines[i]?.trim()) preview.push({ type: "add", text: nextLines[i].trim().slice(0, 60) });
+        if (prevLines[i]?.trim())
+          preview.push({ type: "del", text: prevLines[i].trim().slice(0, 60) });
+        if (nextLines[i]?.trim())
+          preview.push({ type: "add", text: nextLines[i].trim().slice(0, 60) });
         count++;
       }
     }
@@ -144,8 +152,14 @@ export default function HistoryPanel({
                     title={isIt ? "Mostra versioni precedenti" : "Show previous versions"}
                   >
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
-                      <path d="M6 1v4l2.5 2" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-                      <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1.2"/>
+                      <path
+                        d="M6 1v4l2.5 2"
+                        stroke="currentColor"
+                        strokeWidth="1.4"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1.2" />
                     </svg>
                     <span>{entry.versions!.length}</span>
                   </button>
@@ -169,7 +183,7 @@ export default function HistoryPanel({
                         <div className="flex items-center justify-between gap-2 px-3 py-2">
                           <div className="flex items-center gap-2">
                             <span className="text-[10px] font-bold text-muted">
-                              v{(entry.versions!.length - idx)}
+                              v{entry.versions!.length - idx}
                             </span>
                             <span className="text-[11px] text-muted">
                               {relativeTime(ver.timestamp)}
@@ -184,13 +198,18 @@ export default function HistoryPanel({
                               onClick={() => setDiffVersionIdx(isDiffOpen ? null : idx)}
                               className="text-[10px] font-semibold px-2 py-0.5 border border-theme hover:border-accent/40 text-muted hover:text-theme transition-colors"
                             >
-                              {isDiffOpen ? "← " : ""}{isIt ? "Diff" : "Diff"}
+                              {isDiffOpen ? "← " : ""}
+                              {isIt ? "Diff" : "Diff"}
                             </button>
                             {/* Restore button */}
                             <button
                               onClick={() => onRestoreVersion(ver.output)}
                               className="text-[10px] font-semibold px-2 py-0.5 transition-colors"
-                              style={{ background: "var(--accent-bg)", color: "var(--accent)", border: "1px solid var(--accent-dim, var(--accent-bg))" }}
+                              style={{
+                                background: "var(--accent-bg)",
+                                color: "var(--accent)",
+                                border: "1px solid var(--accent-dim, var(--accent-bg))",
+                              }}
                             >
                               {isIt ? "Ripristina" : "Restore"}
                             </button>
@@ -202,14 +221,21 @@ export default function HistoryPanel({
                           <div className="border-t border-theme px-3 py-2 space-y-2">
                             {/* Stats bar */}
                             <div className="flex items-center gap-3 text-[11px]">
-                              <span className="font-semibold" style={{ color: "var(--ios-green, #30D158)" }}>
+                              <span
+                                className="font-semibold"
+                                style={{ color: "var(--ios-green, #30D158)" }}
+                              >
                                 +{diff.added} {isIt ? "righe" : "lines"}
                               </span>
-                              <span className="font-semibold" style={{ color: "var(--ios-red, #FF453A)" }}>
+                              <span
+                                className="font-semibold"
+                                style={{ color: "var(--ios-red, #FF453A)" }}
+                              >
                                 -{diff.removed} {isIt ? "righe" : "lines"}
                               </span>
                               <span className="text-muted opacity-60 ml-auto">
-                                {entry.output.length > ver.output.length ? "+" : ""}{entry.output.length - ver.output.length} chars
+                                {entry.output.length > ver.output.length ? "+" : ""}
+                                {entry.output.length - ver.output.length} chars
                               </span>
                             </div>
 
@@ -222,10 +248,16 @@ export default function HistoryPanel({
                                     className="px-2 py-0.5 truncate"
                                     style={
                                       line.type === "add"
-                                        ? { background: "rgba(48,209,88,0.08)", color: "var(--ios-green, #30D158)" }
+                                        ? {
+                                            background: "rgba(48,209,88,0.08)",
+                                            color: "var(--ios-green, #30D158)",
+                                          }
                                         : line.type === "del"
-                                        ? { background: "rgba(255,69,58,0.08)", color: "var(--ios-red, #FF453A)" }
-                                        : { color: "var(--muted)", opacity: 0.6 }
+                                          ? {
+                                              background: "rgba(255,69,58,0.08)",
+                                              color: "var(--ios-red, #FF453A)",
+                                            }
+                                          : { color: "var(--muted)", opacity: 0.6 }
                                     }
                                   >
                                     {line.type === "add" ? "+ " : line.type === "del" ? "- " : "  "}

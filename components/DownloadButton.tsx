@@ -17,7 +17,13 @@ interface Meta {
 function Icon({ d, viewBox = "0 0 16 16" }: { d: string; viewBox?: string }) {
   return (
     <svg width="15" height="15" viewBox={viewBox} fill="none" aria-hidden>
-      <path d={d} stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      <path
+        d={d}
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
@@ -25,8 +31,14 @@ function Icon({ d, viewBox = "0 0 16 16" }: { d: string; viewBox?: string }) {
 function DownloadArrow({ size = 18 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 18 18" fill="none" aria-hidden>
-      <path d="M9 3v9M5 9l4 4 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-      <path d="M3 15h12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+      <path
+        d="M9 3v9M5 9l4 4 4-4"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path d="M3 15h12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
     </svg>
   );
 }
@@ -112,10 +124,16 @@ function LangModal({
   return (
     <div
       className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4"
-      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
     >
       {/* backdrop */}
-      <div className="absolute inset-0 backdrop-blur-sm" style={{ background: "var(--overlay-light)" }} onClick={onClose} />
+      <div
+        className="absolute inset-0 backdrop-blur-sm"
+        style={{ background: "var(--overlay-light)" }}
+        onClick={onClose}
+      />
       {/* panel */}
       <div
         className="relative z-10 w-full max-w-xs border border-theme p-5 shadow-2xl"
@@ -137,7 +155,12 @@ function LangModal({
             className="flex-1 flex flex-col items-center gap-2 py-3 border border-theme hover:border-accent transition-colors disabled:opacity-50"
             style={{ background: "var(--bg)" }}
           >
-            <span className="text-[11px] font-black uppercase tracking-[0.15em] text-muted" style={{ fontFamily: "var(--font-syne)" }}>IT</span>
+            <span
+              className="text-[11px] font-black uppercase tracking-[0.15em] text-muted"
+              style={{ fontFamily: "var(--font-syne)" }}
+            >
+              IT
+            </span>
             <span className="text-theme text-[13px] font-semibold">Italiano</span>
           </button>
           <button
@@ -146,7 +169,12 @@ function LangModal({
             className="flex-1 flex flex-col items-center gap-2 py-3 border border-theme hover:border-accent transition-colors disabled:opacity-50"
             style={{ background: "var(--bg)" }}
           >
-            <span className="text-[11px] font-black uppercase tracking-[0.15em] text-muted" style={{ fontFamily: "var(--font-syne)" }}>EN</span>
+            <span
+              className="text-[11px] font-black uppercase tracking-[0.15em] text-muted"
+              style={{ fontFamily: "var(--font-syne)" }}
+            >
+              EN
+            </span>
             <span className="text-theme text-[13px] font-semibold">English</span>
           </button>
         </div>
@@ -195,14 +223,15 @@ export default function DownloadButton({
 
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        const isNotConfigured = res.status === 404 && data.error?.toLowerCase().includes("not configured");
+        const isNotConfigured =
+          res.status === 404 && data.error?.toLowerCase().includes("not configured");
         setError(
           isNotConfigured
-            ? (lang === "it"
-                ? "Link non ancora configurato — contatta il supporto"
-                : "Link not configured yet — contact support")
+            ? lang === "it"
+              ? "Link non ancora configurato — contatta il supporto"
+              : "Link not configured yet — contact support"
             : (data.error ??
-                (lang === "it" ? "Download non disponibile" : "Download not available"))
+                (lang === "it" ? "Download non disponibile" : "Download not available")),
         );
         return;
       }
@@ -215,8 +244,7 @@ export default function DownloadButton({
       } else {
         const blob = await res.blob();
         const disposition = res.headers.get("content-disposition") ?? "";
-        const filename =
-          disposition.match(/filename="(.+)"/)?.[1] ?? `${templateId}.html`;
+        const filename = disposition.match(/filename="(.+)"/)?.[1] ?? `${templateId}.html`;
         const objectUrl = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = objectUrl;
@@ -245,14 +273,19 @@ export default function DownloadButton({
   };
 
   const spinner = (size: number) => (
-    <span className={`w-${size} h-${size} border-2 border-muted border-t-transparent rounded-full animate-spin`}
-      style={{ width: size * 4, height: size * 4 }} />
+    <span
+      className={`w-${size} h-${size} border-2 border-muted border-t-transparent rounded-full animate-spin`}
+      style={{ width: size * 4, height: size * 4 }}
+    />
   );
 
   const modal = showLangModal ? (
     <LangModal
       onSelect={handleLangSelect}
-      onClose={() => { setShowLangModal(false); setLoading(false); }}
+      onClose={() => {
+        setShowLangModal(false);
+        setLoading(false);
+      }}
       loading={loading}
       siteLang={lang as "it" | "en"}
     />
@@ -272,12 +305,17 @@ export default function DownloadButton({
             color: "var(--bg)",
           }}
         >
-          <span className="flex items-center justify-center w-10 h-10 shrink-0"
-            style={{ background: "rgba(0,0,0,0.15)" }}>
+          <span
+            className="flex items-center justify-center w-10 h-10 shrink-0"
+            style={{ background: "rgba(0,0,0,0.15)" }}
+          >
             {loading ? spinner(4) : <DownloadArrow size={20} />}
           </span>
           <span className="flex flex-col items-start text-left flex-1 min-w-0">
-            <span className="text-[15px] font-bold truncate" style={{ fontFamily: "var(--font-syne)" }}>
+            <span
+              className="text-[15px] font-bold truncate"
+              style={{ fontFamily: "var(--font-syne)" }}
+            >
               {lang === "it" ? "Scarica il template" : "Download template"}
             </span>
             <span className="text-[12px] opacity-75">
@@ -288,7 +326,11 @@ export default function DownloadButton({
             {downloadType.toUpperCase()}
           </span>
         </button>
-        {error && <p className="text-[12px] text-center" style={{ color: "var(--error)" }}>{error}</p>}
+        {error && (
+          <p className="text-[12px] text-center" style={{ color: "var(--error)" }}>
+            {error}
+          </p>
+        )}
         {modal}
       </div>
     );
@@ -303,14 +345,14 @@ export default function DownloadButton({
           disabled={loading}
           className="btn-brand btn-brand-sm text-[12px] disabled:opacity-50"
         >
-          {loading ? (
-            spinner(3)
-          ) : (
-            <span className="flex-shrink-0">{meta.icon}</span>
-          )}
+          {loading ? spinner(3) : <span className="flex-shrink-0">{meta.icon}</span>}
           {label}
         </button>
-        {error && <p className="text-[11px]" style={{ color: "var(--error)" }}>{error}</p>}
+        {error && (
+          <p className="text-[11px]" style={{ color: "var(--error)" }}>
+            {error}
+          </p>
+        )}
         {modal}
       </div>
     );
@@ -333,7 +375,11 @@ export default function DownloadButton({
           </>
         )}
       </button>
-      {error && <p className="text-[12px] text-center" style={{ color: "var(--error)" }}>{error}</p>}
+      {error && (
+        <p className="text-[12px] text-center" style={{ color: "var(--error)" }}>
+          {error}
+        </p>
+      )}
       {modal}
     </div>
   );

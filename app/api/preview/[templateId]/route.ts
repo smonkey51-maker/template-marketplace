@@ -5,7 +5,7 @@ import { join } from "path";
 
 export async function GET(
   _req: NextRequest,
-  { params }: { params: Promise<{ templateId: string }> }
+  { params }: { params: Promise<{ templateId: string }> },
 ) {
   const { templateId } = await params;
   const template = getTemplate(templateId);

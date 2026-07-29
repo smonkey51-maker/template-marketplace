@@ -31,7 +31,7 @@ describe("rateLimitRedis", () => {
         })),
         {
           slidingWindow: vi.fn().mockReturnValue("sliding-window-limiter"),
-        }
+        },
       ),
     }));
 
@@ -57,7 +57,7 @@ describe("rateLimitRedis", () => {
         })),
         {
           slidingWindow: vi.fn().mockReturnValue("sliding-window-limiter"),
-        }
+        },
       ),
     }));
 

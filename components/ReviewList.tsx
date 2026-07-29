@@ -45,16 +45,22 @@ export default function ReviewList({
       .finally(() => setLoading(false));
   }
 
-  useEffect(() => { fetchReviews(); }, [templateId]);
+  useEffect(() => {
+    fetchReviews();
+  }, [templateId]);
 
   return (
     <div className="space-y-6">
       {/* Summary */}
       <div className="flex items-center gap-4">
         <div className="text-center">
-          <p className="text-[36px] font-bold text-theme leading-none">{avgRating > 0 ? avgRating.toFixed(1) : "—"}</p>
+          <p className="text-[36px] font-bold text-theme leading-none">
+            {avgRating > 0 ? avgRating.toFixed(1) : "—"}
+          </p>
           <StarRating rating={avgRating} size={13} />
-          <p className="text-[11px] text-muted mt-1">{count} {lang === "it" ? "recensioni" : "reviews"}</p>
+          <p className="text-[11px] text-muted mt-1">
+            {count} {lang === "it" ? "recensioni" : "reviews"}
+          </p>
         </div>
       </div>
 
@@ -65,7 +71,10 @@ export default function ReviewList({
             <ReviewForm
               templateId={templateId}
               lang={lang}
-              onSubmitted={() => { setShowForm(false); fetchReviews(); }}
+              onSubmitted={() => {
+                setShowForm(false);
+                fetchReviews();
+              }}
             />
           ) : (
             <button
@@ -93,7 +102,9 @@ export default function ReviewList({
               <div className="flex items-center gap-2 mb-1.5">
                 <StarRating rating={review.rating} size={12} />
                 <span className="text-[11px] text-muted">
-                  {new Date(review.created_at).toLocaleDateString(lang === "it" ? "it-IT" : "en-US")}
+                  {new Date(review.created_at).toLocaleDateString(
+                    lang === "it" ? "it-IT" : "en-US",
+                  )}
                 </span>
               </div>
               {review.comment && (

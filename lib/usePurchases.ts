@@ -11,7 +11,7 @@ export function usePurchases() {
 
   useEffect(() => {
     fetch("/api/purchases")
-      .then((r) => r.ok ? r.json() : { templateIds: [] })
+      .then((r) => (r.ok ? r.json() : { templateIds: [] }))
       .then((d) => setPurchasedIds(d.templateIds ?? []))
       .catch((e) => console.error("[usePurchases]", e))
       .finally(() => setLoading(false));

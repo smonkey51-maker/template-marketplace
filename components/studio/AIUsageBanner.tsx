@@ -5,9 +5,9 @@ import Link from "next/link";
 
 interface UsageData {
   plan: "free" | "studio";
-  generate:  { used: number; limit: number };
+  generate: { used: number; limit: number };
   customize: { used: number; limit: number };
-  cost_usd:  number;
+  cost_usd: number;
 }
 
 function UsageBar({ used, limit }: { used: number; limit: number }) {
@@ -23,7 +23,9 @@ function UsageBar({ used, limit }: { used: number; limit: number }) {
           style={{ width: `${pct}%` }}
         />
       </div>
-      <span className={`text-[11px] tabular-nums shrink-0 ${isNearLimit ? "text-terra" : "text-muted"}`}>
+      <span
+        className={`text-[11px] tabular-nums shrink-0 ${isNearLimit ? "text-terra" : "text-muted"}`}
+      >
         {used}/{limit}
       </span>
     </div>
@@ -47,11 +49,11 @@ export default function AIUsageBanner() {
   return (
     <div className="flex flex-wrap items-center gap-x-5 gap-y-2 px-3 py-2 bg-surface border border-theme/30 text-[12px]">
       {/* Plan badge */}
-      <span className={`font-semibold uppercase tracking-wider text-[10px] px-1.5 py-0.5 ${
-        isStudio
-          ? "bg-accent/15 text-accent"
-          : "bg-surface text-muted border border-theme/30"
-      }`}>
+      <span
+        className={`font-semibold uppercase tracking-wider text-[10px] px-1.5 py-0.5 ${
+          isStudio ? "bg-accent/15 text-accent" : "bg-surface text-muted border border-theme/30"
+        }`}
+      >
         {isStudio ? "Studio" : "Free"}
       </span>
 

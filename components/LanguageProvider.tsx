@@ -1,6 +1,7 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect } from "react";
+import { useParams, useRouter, usePathname } from "next/navigation";
 
 export type Lang = "it" | "en";
 
@@ -14,25 +15,25 @@ export function useLang() {
 }
 
 export default function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [lang, setLang] = useState<Lang>("it");
+  const params = useParams();
+  const router = useRouter();
+  const pathname = usePathname();
 
-  useEffect(() => {
-    const stored = localStorage.getItem("lang") as Lang | null;
-    if (stored === "it" || stored === "en") {
-      setLang(stored);
-    }
-  }, []);
+  const lang = (params?.lang as Lang) || "it";
 
   useEffect(() => {
     document.documentElement.setAttribute("lang", lang);
+    localStorage.setItem("lang", lang);
   }, [lang]);
 
   const toggle = () => {
-    setLang((prev) => {
-      const next: Lang = prev === "it" ? "en" : "it";
-      localStorage.setItem("lang", next);
-      return next;
-    });
+    const nextLang = lang === "it" ? "en" : "it";
+    if (pathname.startsWith(`/${lang}`)) {
+      const newPathname = pathname.replace(`/${lang}`, `/${nextLang}`);
+      router.push(newPathname || `/${nextLang}`);
+    } else {
+      router.push(`/${nextLang}${pathname}`);
+    }
   };
 
   return <LangCtx.Provider value={{ lang, toggle }}>{children}</LangCtx.Provider>;

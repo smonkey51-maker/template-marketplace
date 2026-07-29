@@ -20,9 +20,9 @@ const SECTION_LABELS = [
 
 const PAINTING_INFO: Record<string, string> = {
   catalogo: "Georges Seurat — Un dimanche après-midi, 1886",
-  guida:    "Claude Monet — Nymphéas, 1906",
-  studio:   "Wassily Kandinsky — Composition VIII, 1923",
-  account:  "Vincent van Gogh — La Notte stellata, 1889",
+  guida: "Claude Monet — Nymphéas, 1906",
+  studio: "Wassily Kandinsky — Composition VIII, 1923",
+  account: "Vincent van Gogh — La Notte stellata, 1889",
 };
 
 export default function SnapHomepage() {
@@ -70,7 +70,10 @@ export default function SnapHomepage() {
         setTimeout(() => {
           if (tooltipEl) {
             tooltipEl.style.opacity = "0";
-            setTimeout(() => { tooltipEl?.remove(); tooltipEl = null; }, 400);
+            setTimeout(() => {
+              tooltipEl?.remove();
+              tooltipEl = null;
+            }, 400);
           }
         }, 2000);
       }, 600);
@@ -124,7 +127,7 @@ export default function SnapHomepage() {
             liveRef.current.textContent = SECTION_LABELS[i];
           }
         },
-        { root: container, threshold: 0.5 }
+        { root: container, threshold: 0.5 },
       );
       obs.observe(section);
       observers.push(obs);
