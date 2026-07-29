@@ -44,30 +44,30 @@ template-marketplace/
 │       ├── admin/newsletter/route.ts  # Admin newsletter send
 │       └── og/route.tsx        # Dynamic Open Graph image
 ├── components/                 # Shared React components
-│   ├── SiteNav.tsx             # Top navigation bar
-│   ├── MobileNav.tsx           # Mobile drawer navigation
-│   ├── HomeContent.tsx         # Marketplace home page content
-│   ├── TemplateGrid.tsx        # Filterable/searchable template grid
-│   ├── TemplateCard.tsx        # Individual template card
-│   ├── BundleCard.tsx          # Bundle product card
+│   ├── SiteNav.tsx             # Inner-page navigation (with dropdowns)
+│   ├── MobileNav.tsx           # Mobile bottom navigation
+│   ├── SnapHomepage.tsx        # Snap-scroll homepage shell + parallax driver
+│   ├── sections/               # The five homepage sections + SectionNav
+│   ├── studio/                 # AI Studio panels
+│   ├── ArtSection.tsx          # Snap section wrapper (entrance observer)
+│   ├── TemplateCard.tsx        # Individual template card (wishlist)
+│   ├── TemplatePreview.tsx     # Scaled live iframe preview of a template
 │   ├── BundleDetailContent.tsx # Bundle detail view
-│   ├── PreviewModal.tsx        # Quick preview modal
 │   ├── PreviewContent.tsx      # Iframe preview of HTML templates
-│   ├── PromptFullView.tsx      # Full-screen prompt template viewer
 │   ├── DownloadButton.tsx      # Download + auth gate button
 │   ├── RelatedTemplates.tsx    # Related templates carousel
+│   ├── ReviewSection.tsx       # Reviews (list + form)
 │   ├── EmailCapture.tsx        # Newsletter sign-up form
+│   ├── CommandPalette.tsx      # Ctrl-K palette
 │   ├── Toast.tsx               # Toast notification system (Context + hook)
 │   ├── ThemeProvider.tsx       # Dark/light theme context
 │   ├── ThemeToggle.tsx         # Theme toggle button
 │   ├── LanguageProvider.tsx    # IT/EN language context
 │   ├── LanguageToggle.tsx      # Language toggle button
 │   ├── PostHogProvider.tsx     # PostHog analytics wrapper
-│   ├── NavButtons.tsx          # Nav CTA buttons
-│   ├── StudioAccessButton.tsx  # Studio Access upsell button
-│   ├── ScrollToTop.tsx         # Scroll-to-top FAB
-│   ├── CustomCursor.tsx        # Custom animated cursor
-│   └── Footer.tsx              # Site footer
+│   ├── PageTransition.tsx      # Route transition wrapper
+│   ├── FormaLogo.tsx           # Wordmark (animated / static)
+│   └── Footer.tsx / FormaFooter.tsx  # Site footers
 ├── lib/
 │   ├── templates.ts            # ⚠️ ALL template data lives here — single source of truth
 │   ├── i18n.ts                 # IT/EN translation strings + templateTranslations
@@ -229,9 +229,10 @@ ClerkProvider
     ThemeProvider
       LanguageProvider
         ToastProvider
-          {children}
-          MobileNav
-CustomCursor  (outside providers, fixed position)
+          GsapProvider
+            PageTransition > {children}
+            MobileNav
+            CommandPalette
 ```
 
 ### Fonts
@@ -305,7 +306,7 @@ Tailwind `darkMode: "class"`. The `<html>` element starts with `class="dark"`. `
 
 1. Add the section key to `lib/i18n.ts` under `sections` for both `it` and `en`.
 2. Add matching accent colour in `app/globals.css` or wherever category colours are defined.
-3. Update `TemplateGrid.tsx` filter chips if the new category needs a dedicated filter.
+3. Add the filter chip in `app/catalogo/page.tsx` (`FilterKey` + `FILTERS`), and a matching entry in `CATALOGO_ITEMS` in `components/SiteNav.tsx` so it appears in the nav dropdown.
 
 ### Modify Claude prompts
 
