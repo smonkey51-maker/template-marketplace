@@ -2,6 +2,7 @@
 
 import ArtSection from "@/components/ArtSection";
 import Link from "next/link";
+import { AmbientAura } from "@/components/AmbientAura";
 
 const K = {
   yellow: "#F5C519",
@@ -36,6 +37,8 @@ export default function StudioSection() {
           { zIndex: 1, background: "rgba(8,12,22,0.78)", "--delay": "0.05s" } as React.CSSProperties
         }
       />
+      {/* Magic Aura */}
+      <AmbientAura color="red" />
 
       {/* Centered content */}
       <div className="relative z-10 flex flex-col items-center text-center px-8 sm:px-12 max-w-2xl w-full pt-20 pb-14">

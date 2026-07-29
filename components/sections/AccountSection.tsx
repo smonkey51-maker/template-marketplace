@@ -2,6 +2,7 @@
 
 import ArtSection from "@/components/ArtSection";
 import Link from "next/link";
+import { AmbientAura } from "@/components/AmbientAura";
 
 const SUN = {
   yellow: "#F5C519",
@@ -35,6 +36,8 @@ export default function AccountSection() {
           { zIndex: 1, background: "rgba(12,8,3,0.72)", "--delay": "0.05s" } as React.CSSProperties
         }
       />
+      {/* Magic Aura */}
+      <AmbientAura color="gold" />
 
       {/* Centered content */}
       <div className="relative z-10 flex flex-col items-center text-center px-8 sm:px-12 max-w-2xl w-full pt-20 pb-14">

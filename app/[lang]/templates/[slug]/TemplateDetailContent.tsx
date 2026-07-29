@@ -7,6 +7,7 @@ import { TemplatePreview } from "@/components/TemplatePreview";
 import { BuyButton } from "./BuyButton";
 import { FormaFooter } from "@/components/FormaFooter";
 import { formatPrice, type TemplateMeta } from "@/lib/templates";
+import { motion } from "framer-motion";
 
 function getPlatformLabel(downloadType?: string): string {
   const labels: Record<string, string> = {
@@ -118,26 +119,42 @@ export function TemplateDetailContent({
 
         {/* Related templates */}
         {related.length > 0 && (
-          <div className="text-center">
-            <h2 className="text-[11px] font-bold uppercase tracking-[0.2em] text-accent mb-10">
+          <div className="text-center mt-32 mb-20">
+            <h2 className="text-[11px] font-bold uppercase tracking-[0.2em] text-accent mb-16">
               {t("relatedTemplates")}
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {related.map((rel) => (
-                <Link
-                  key={rel.id}
-                  href={`/templates/${rel.id}`}
-                  className="glass-panel overflow-hidden group flex flex-col items-center hover:scale-[1.02] transition-transform duration-300"
-                >
-                  <div className="w-full h-32 relative pointer-events-none">
-                    <TemplatePreview id={rel.id} />
-                  </div>
-                  <div className="p-5 text-center w-full">
-                    <div className="font-cormorant text-2xl mb-1">{rel.name}</div>
-                    <div className="text-accent text-sm tracking-widest">{formatPrice(rel.price)}</div>
-                  </div>
-                </Link>
-              ))}
+            <div className="flex justify-center items-center h-[320px] relative w-full perspective-[1400px]">
+              {related.slice(0, 3).map((rel, i) => {
+                const offset = i - 1; // -1, 0, 1 (assumendo massimo 3 correlati)
+                return (
+                  <motion.div
+                    key={rel.id}
+                    className="absolute w-[260px] sm:w-[320px]"
+                    style={{ zIndex: 10 + i }}
+                    initial={{ x: offset * 80, rotate: offset * 6, y: Math.abs(offset) * 16 }}
+                    whileHover={{ 
+                      y: -30, 
+                      scale: 1.05, 
+                      zIndex: 30,
+                      rotate: offset * 2 
+                    }}
+                    transition={{ type: "spring", bounce: 0.3 }}
+                  >
+                    <Link
+                      href={`/templates/${rel.id}`}
+                      className="glass-panel overflow-hidden flex flex-col items-center block w-full shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+                    >
+                      <div className="w-full h-36 relative pointer-events-none">
+                        <TemplatePreview id={rel.id} />
+                      </div>
+                      <div className="p-5 text-center w-full">
+                        <div className="font-cormorant text-2xl mb-1">{rel.name}</div>
+                        <div className="text-accent text-sm tracking-widest">{formatPrice(rel.price)}</div>
+                      </div>
+                    </Link>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         )}

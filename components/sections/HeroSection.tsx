@@ -5,6 +5,7 @@ import { FormaLogoAnimated } from "@/components/FormaLogo";
 import Link from "next/link";
 import { useLang } from "@/components/LanguageProvider";
 import { copy } from "@/lib/formaCopy";
+import { AmbientAura } from "@/components/AmbientAura";
 
 function MockCard({
   rotate,
@@ -149,15 +150,8 @@ export default function HeroSection() {
       />
       {/* Dark overlay */}
       <div className="absolute inset-0" style={{ zIndex: 1, background: "rgba(5,3,2,0.80)" }} />
-      {/* Gold radial glow — top center */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          zIndex: 2,
-          background:
-            "radial-gradient(ellipse 70% 50% at 50% 35%, rgba(212,175,55,0.10), transparent)",
-        }}
-      />
+      {/* Magic Aura (Tech/Studio) */}
+      <AmbientAura color="gold" />
 
       {/* Floating mockup cards — xl only, live in outer margins at that width */}
       <MockCard

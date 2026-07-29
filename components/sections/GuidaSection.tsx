@@ -2,6 +2,7 @@
 
 import ArtSection from "@/components/ArtSection";
 import Link from "next/link";
+import { AmbientAura } from "@/components/AmbientAura";
 
 const MONET_ACCENT = "#7ec8a0";
 
@@ -46,16 +47,8 @@ export default function GuidaSection() {
         }
       />
 
-      {/* Green shimmer */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          zIndex: 2,
-          background:
-            "radial-gradient(ellipse 100% 50% at 50% 85%, rgba(60,120,70,0.20), transparent)",
-        }}
-        aria-hidden
-      />
+      {/* Magic Aura */}
+      <AmbientAura color="green" />
 
       {/* Centered content */}
       <div className="relative z-10 flex flex-col items-center text-center px-8 sm:px-12 max-w-2xl w-full pt-20 pb-14">

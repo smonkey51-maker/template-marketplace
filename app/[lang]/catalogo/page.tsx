@@ -9,6 +9,7 @@ import { FormaFooter } from "@/components/FormaFooter";
 import { templatesMeta, formatPrice, type TemplateMeta } from "@/lib/templates";
 import { TemplatePreview } from "@/components/TemplatePreview";
 import { motion, AnimatePresence } from "framer-motion";
+import { TiltCard } from "@/components/TiltCard";
 
 type FilterKey = "All" | "Web" | "Notion" | "App" | "Shop";
 
@@ -160,7 +161,7 @@ export default function CatalogoPage() {
           ) : (
             <div className="fn-grid">
               {filtered.map((item) => (
-                <motion.article 
+                <TiltCard 
                   className="fn-card cursor-pointer" 
                   key={item.id}
                   layoutId={`card-container-${item.id}`}
@@ -168,6 +169,7 @@ export default function CatalogoPage() {
                   whileHover={{ y: -4, boxShadow: "0 20px 40px rgba(0,0,0,0.4)" }}
                   whileTap={{ scale: 0.96 }}
                   transition={{ type: "spring", bounce: 0.3 }}
+                  active={activeId === item.id}
                 >
                   <motion.div layoutId={`card-preview-${item.id}`} style={{ borderRadius: "12px", overflow: "hidden", marginBottom: "16px" }}>
                     <TemplatePreview id={item.id} />
@@ -251,7 +253,7 @@ export default function CatalogoPage() {
                       </button>
                     </div>
                   </motion.div>
-                </motion.article>
+                </TiltCard>
               ))}
             </div>
           )}
