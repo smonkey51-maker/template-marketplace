@@ -81,6 +81,38 @@ export default function SnapHomepage() {
     container.addEventListener("touchend", onTouchEnd, { passive: true });
     container.addEventListener("touchcancel", onTouchEnd, { passive: true });
 
+    // ── Parallax: paintings trail the content, so they read as further away.
+    // Each layer is overscanned 7% top and bottom (see .parallax-layer), so a
+    // shift of up to ±PARALLAX_RATIO of a viewport never exposes an edge.
+    const PARALLAX_RATIO = 0.06;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const layers = Array.from(container.querySelectorAll(".parallax-layer")) as HTMLElement[];
+    let parallaxFrame = 0;
+
+    const applyParallax = () => {
+      parallaxFrame = 0;
+      const scrollTop = container.scrollTop;
+      for (const layer of layers) {
+        const section = layer.closest(".forma-section") as HTMLElement | null;
+        if (!section) continue;
+        // 0 when the section is exactly in view; ±1 one viewport away.
+        const progress = (scrollTop - section.offsetTop) / container.clientHeight;
+        if (Math.abs(progress) > 1.2) continue; // off-screen, skip the write
+        const shift = progress * container.clientHeight * PARALLAX_RATIO;
+        layer.style.setProperty("--parallax", `${shift.toFixed(1)}px`);
+      }
+    };
+
+    const onScroll = () => {
+      if (parallaxFrame) return;
+      parallaxFrame = requestAnimationFrame(applyParallax);
+    };
+
+    if (!reduceMotion && layers.length) {
+      container.addEventListener("scroll", onScroll, { passive: true });
+      applyParallax();
+    }
+
     // IntersectionObserver for aria-live announcements
     const sections = Array.from(container.querySelectorAll(".forma-section")) as HTMLElement[];
     const observers: IntersectionObserver[] = [];
@@ -102,6 +134,8 @@ export default function SnapHomepage() {
       container.removeEventListener("touchstart", onTouchStart);
       container.removeEventListener("touchend", onTouchEnd);
       container.removeEventListener("touchcancel", onTouchEnd);
+      container.removeEventListener("scroll", onScroll);
+      if (parallaxFrame) cancelAnimationFrame(parallaxFrame);
       clearTimeout(pressTimer);
       if (tooltipEl) tooltipEl.remove();
       observers.forEach((o) => o.disconnect());

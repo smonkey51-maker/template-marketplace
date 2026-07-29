@@ -12,7 +12,7 @@ export default function AccountSection() {
 
       {/* Painting background — Van Gogh, Sunflowers */}
       <div
-        className="anim-bg absolute inset-0"
+        className="anim-bg parallax-layer absolute inset-0"
         style={{
           zIndex: 0,
           backgroundColor: "#1a1205",

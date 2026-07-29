@@ -20,23 +20,27 @@
 /* Prevent horizontal scroll from out-of-box elements */
 body { overflow-x: hidden; }
 
-/* ── Catalogo: card hover lift ── */
+/* ── Catalogo: card lifts off the painting on hover ── */
 .catalogo-card {
   transition: transform var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
 .catalogo-card > div {
   transition:
-    box-shadow  var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    border-color var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+    box-shadow   var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    background   var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
 @media (hover: hover) {
   .catalogo-card:hover {
-    transform: translateY(-6px);
+    transform: translateY(-7px);
     z-index: 10;
   }
   .catalogo-card:hover > div {
-    box-shadow: 0 24px 60px rgba(0,0,0,0.45), 0 0 0 1px rgba(212,175,55,0.28);
-    border-color: rgba(212,175,55,0.45);
+    /* Raised: shadow travels further and softens, rim light brightens */
+    box-shadow:
+      var(--spatial-cast-2),
+      inset 0 1px 0 var(--spatial-rim-hi);
+    border-color: rgba(212, 175, 55, 0.42);
   }
 }
 .catalogo-card:focus-visible {
@@ -45,25 +49,32 @@ body { overflow-x: hidden; }
   border-radius: var(--r-md, 16px);
 }
 
-/* ── Glass card: shared surface primitive over painting backdrops ──
-   Used by the snap sections and any panel that sits on artwork. */
+/* ── Spatial glass: shared surface for panels sitting on artwork ──
+   A pane of glass, not a tinted box: the rim catches light along the
+   top edge, and the cast shadow below sells the gap to the painting. */
 .forma-glass-card {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.13);
+  background: var(--spatial-fill);
+  border: 1px solid var(--spatial-rim);
   border-radius: var(--r-md, 16px);
-  backdrop-filter: blur(16px) saturate(150%);
-  -webkit-backdrop-filter: blur(16px) saturate(150%);
-  box-shadow: 0 6px 24px rgba(0,0,0,0.30), inset 0 1px 0 rgba(255,255,255,0.06);
+  backdrop-filter: var(--spatial-blur);
+  -webkit-backdrop-filter: var(--spatial-blur);
+  box-shadow:
+    var(--spatial-cast-1),
+    inset 0 1px 0 var(--spatial-rim);
   transition:
     background   var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
     border-color var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    box-shadow   var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
     transform    var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
 @media (hover: hover) {
   .forma-glass-card:hover {
-    background: rgba(255,255,255,0.085);
-    border-color: rgba(255,255,255,0.2);
-    transform: translateY(-3px);
+    background: var(--spatial-fill-hi);
+    border-color: var(--spatial-rim-hi);
+    box-shadow:
+      var(--spatial-cast-2),
+      inset 0 1px 0 var(--spatial-rim-hi);
+    transform: translateY(-4px);
   }
 }
 
@@ -90,6 +101,22 @@ body { overflow-x: hidden; }
 .forma-section[data-entered] .anim-bg {
   opacity: 1;
   transform: scale(1);
+}
+
+/* ── Parallax: the painting sits further away than the content ──
+   Only the image layer moves, never the dark overlay above it.
+   Uses the independent `translate` property so it composes with the
+   entrance animation's `transform: scale()` instead of clobbering it.
+   The layer is overscanned top and bottom so the travel never exposes
+   an edge. */
+.parallax-layer {
+  top: -7%;
+  bottom: -7%;
+  height: auto;
+  translate: 0 var(--parallax, 0px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .parallax-layer { top: 0; bottom: 0; translate: none; }
 }
 
 /* anim-in: fade in, resolving out of a soft blur */
@@ -446,6 +473,46 @@ html.dark {
   --elev-3: 0 8px 24px rgba(0,0,0,0.60), 0 2px 6px rgba(0,0,0,0.35);
   --elev-4: 0 20px 50px rgba(0,0,0,0.70), 0 4px 12px rgba(0,0,0,0.40);
   --elev-5: 0 40px 100px rgba(0,0,0,0.85), 0 8px 24px rgba(0,0,0,0.45);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DEPTH SYSTEMS — two opposite models, each in its habitat
+   ═══════════════════════════════════════════════════════════
+   SPATIAL  — panels are translucent glass floating *above* the
+              paintings. Used on the snap homepage, where the
+              backdrop is a photograph.
+   NEUMORPHIC — controls are extruded *out of* a flat surface.
+              Used on the inner pages (/catalogo, /guida,
+              /account, /ai-studio), whose ground is a solid
+              cream or near-black — the only place the illusion
+              can hold.
+   ═══════════════════════════════════════════════════════════ */
+:root {
+  /* Spatial material — reads over artwork in both themes */
+  --spatial-fill:       rgba(255, 250, 235, 0.085);
+  --spatial-fill-hi:    rgba(255, 250, 235, 0.13);
+  --spatial-rim:        rgba(255, 245, 220, 0.26);
+  --spatial-rim-hi:     rgba(255, 245, 220, 0.42);
+  --spatial-blur:       blur(22px) saturate(180%);
+  /* Cast shadows grow with elevation — z1 resting, z2 raised */
+  --spatial-cast-1:     0 12px 30px -10px rgba(0, 0, 0, 0.55);
+  --spatial-cast-2:     0 28px 60px -12px rgba(0, 0, 0, 0.62);
+
+  /* Neumorphic light pair. The surface is lit from the top-left,
+     so the light shadow goes up-left and the dark one down-right. */
+  --neu-surface:        var(--surface);
+  --neu-light:          rgba(255, 255, 255, 0.92);
+  --neu-dark:           rgba(150, 130, 100, 0.26);
+  /* Faint but real border. Pure neumorphism fails WCAG non-text
+     contrast (1.4.11) because the only edge is a shadow — this
+     keeps the sculpted look while leaving the control findable. */
+  --neu-edge:           rgba(28, 22, 16, 0.09);
+  --neu-radius:         18px;
+}
+html.dark {
+  --neu-light:          rgba(255, 240, 210, 0.055);
+  --neu-dark:           rgba(0, 0, 0, 0.62);
+  --neu-edge:           rgba(242, 235, 217, 0.09);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -2223,9 +2290,32 @@ html:not(.dark) .fn-bg::after { opacity: 0.04; mix-blend-mode: multiply; }
 .fn-outline:hover { background: rgba(212,175,55,.09); }
 
 /* IT/EN toggle */
-.fn-lang { display: flex; border: 1px solid var(--fn-border, rgba(234,234,234,.12)); padding: 2px; }
-.fn-lang button { border: 0; background: transparent; color: var(--muted); font-size: 11px; padding: 5px 8px; cursor: pointer; font: inherit; transition: background .15s, color .15s; }
-.fn-lang .active { background: #D4AF37; color: #060606; font-weight: 700; }
+/* Segmented control — the well is carved into the page, the selected
+   segment sits proud of it. */
+.fn-lang {
+  display: flex; gap: 2px; padding: 3px;
+  border: 1px solid var(--neu-edge);
+  border-radius: 999px;
+  background: var(--surface);
+  box-shadow:
+    inset 3px 3px 6px var(--neu-dark),
+    inset -3px -3px 6px var(--neu-light);
+}
+.fn-lang button {
+  border: 0; background: transparent; color: var(--muted);
+  font-size: 11px; padding: 5px 11px; cursor: pointer; font: inherit;
+  border-radius: 999px;
+  transition:
+    background var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    color      var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    box-shadow var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+.fn-lang button:hover { color: var(--text); }
+.fn-lang .active {
+  background: #D4AF37; color: #060606; font-weight: 700;
+  box-shadow: 2px 2px 5px var(--neu-dark);
+}
+.fn-lang button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* ── Nav dropdowns ──
    Only nav entries that actually have a submenu get a caret. The panel
@@ -2351,22 +2441,76 @@ html:not(.dark) .fn-bg::after { opacity: 0.04; mix-blend-mode: multiply; }
 
 /* ── Search / toolbar ── */
 .fn-toolbar { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+
+/* ── Neumorphic controls (inner pages only) ──
+   These pages sit on a flat cream / near-black ground, which is the one
+   condition the illusion needs: the control is the same material as the
+   page, lit from the top-left. The faint --neu-edge border is deliberate
+   — pure neumorphism has no edge at all and fails WCAG 1.4.11, so the
+   sculpting stays but the control remains findable. */
 .fn-search {
   flex: 1; min-width: 200px;
-  background: var(--surface); border: 1px solid var(--fn-border, rgba(234,234,234,.14));
-  color: var(--text); padding: 13px 16px; outline: none; font: inherit;
+  background: var(--surface);
+  border: 1px solid var(--neu-edge);
+  border-radius: 999px;
+  color: var(--text); padding: 14px 20px; outline: none; font: inherit;
+  box-shadow:
+    inset 4px 4px 9px var(--neu-dark),
+    inset -4px -4px 9px var(--neu-light);
+  transition:
+    box-shadow   var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
 .fn-search::placeholder { color: var(--muted); }
-.fn-search:focus { border-color: rgba(212,175,55,.40); }
-.fn-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 28px; }
+.fn-search:focus {
+  border-color: rgba(212, 175, 55, 0.45);
+  box-shadow:
+    inset 4px 4px 9px var(--neu-dark),
+    inset -4px -4px 9px var(--neu-light),
+    0 0 0 3px rgba(212, 175, 55, 0.14);
+}
+
+.fn-chips { display: flex; gap: 9px; flex-wrap: wrap; margin-bottom: 28px; }
 .fn-chip {
   font-size: 10px; text-transform: uppercase; letter-spacing: .16em;
-  padding: 7px 14px; background: transparent; cursor: pointer; font: inherit;
-  border: 1px solid var(--fn-border, rgba(234,234,234,.16)); color: var(--muted);
-  transition: background .15s, color .15s, border-color .15s;
+  padding: 10px 18px; cursor: pointer; font: inherit;
+  background: var(--surface);
+  border: 1px solid var(--neu-edge);
+  border-radius: 999px;
+  color: var(--muted);
+  /* Resting: extruded out of the page */
+  box-shadow:
+    5px 5px 11px var(--neu-dark),
+    -5px -5px 11px var(--neu-light);
+  transition:
+    box-shadow var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    color      var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform  var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
-.fn-chip:hover { border-color: rgba(212,175,55,.35); color: var(--text); }
-.fn-chip.active { background: #D4AF37; color: #060606; border-color: #D4AF37; font-weight: 700; }
+@media (hover: hover) {
+  .fn-chip:hover {
+    color: var(--text);
+    box-shadow:
+      7px 7px 15px var(--neu-dark),
+      -7px -7px 15px var(--neu-light);
+  }
+}
+.fn-chip:active { transform: translateY(1px); }
+/* Selected: pressed into the page. The state is carried by the inset
+   shadow *and* by colour + weight, so it survives forced-colors and
+   low-vision viewing where the shadow alone would not read. */
+.fn-chip.active {
+  color: var(--accent);
+  font-weight: 700;
+  border-color: rgba(212, 175, 55, 0.30);
+  box-shadow:
+    inset 5px 5px 10px var(--neu-dark),
+    inset -5px -5px 10px var(--neu-light);
+}
+.fn-chip:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
 
 /* ── Grid ── */
 /* minmax(0,1fr) — without it, a wide child (the scaled preview iframe)
@@ -2383,9 +2527,25 @@ html:not(.dark) .fn-bg::after { opacity: 0.04; mix-blend-mode: multiply; }
 .fn-card {
   background: var(--surface);
   display: flex; flex-direction: column;
-  transition: background .2s var(--ease-glide), color .2s var(--ease-glide), border-color .2s var(--ease-glide);
+  position: relative;
+  transition:
+    background var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    box-shadow var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform  var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
-.fn-card:hover { background: var(--surface-2, #141414); }
+/* The grid uses 1px gaps over a border-coloured background to draw its
+   rules, so cards can't carry an outward neumorphic shadow without
+   fighting those seams — they rise on hover instead. */
+@media (hover: hover) {
+  .fn-card:hover {
+    background: var(--surface-2, #141414);
+    transform: translateY(-3px);
+    box-shadow:
+      6px 6px 16px var(--neu-dark),
+      -6px -6px 16px var(--neu-light);
+    z-index: 2;
+  }
+}
 
 /* ── Category tile (replaces inline onMouseEnter/Leave) ── */
 .fn-cat-tile {
