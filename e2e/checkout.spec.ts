@@ -7,8 +7,7 @@ import { test, expect } from "@playwright/test";
  */
 test.describe("Checkout flow", () => {
   test("preview page loads for a known template", async ({ page }) => {
-    // hero-saas is the first template in lib/templates.ts
-    await page.goto("/preview/hero-saas");
+    await page.goto("/preview/chatgpt-prompt-library-freelancers");
     await expect(page.locator("h1, h2").first()).toBeVisible();
   });
 

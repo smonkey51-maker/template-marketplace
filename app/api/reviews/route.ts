@@ -4,12 +4,11 @@ import { supabaseAdmin as getSupabase } from "@/lib/supabaseAdmin";
 import { reviewSchema } from "@/lib/schemas";
 
 export async function GET(req: NextRequest) {
-  const supabase = getSupabase();
   const { searchParams } = new URL(req.url);
   const templateId = searchParams.get("templateId");
   if (!templateId) return NextResponse.json({ error: "Missing templateId" }, { status: 400 });
 
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from("reviews")
     .select("id, user_id, rating, comment, created_at")
     .eq("template_id", templateId)
@@ -30,7 +29,6 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const supabase = getSupabase();
   const { userId } = await auth();
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
@@ -42,6 +40,7 @@ export async function POST(req: NextRequest) {
     );
   }
   const { templateId, rating, comment } = parsed.data;
+  const supabase = getSupabase();
 
   // Verify user has purchased the template.
   // `limit(1)` rather than `.single()`: duplicate purchase rows would make

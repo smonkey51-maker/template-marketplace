@@ -4,11 +4,10 @@ import { supabaseAdmin as getSupabase } from "@/lib/supabaseAdmin";
 import { wishlistSchema } from "@/lib/schemas";
 
 export async function GET() {
-  const supabase = getSupabase();
   const { userId } = await auth();
   if (!userId) return NextResponse.json({ ids: [] });
 
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from("wishlists")
     .select("template_id")
     .eq("user_id", userId);
@@ -22,7 +21,6 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-  const supabase = getSupabase();
   const { userId } = await auth();
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
@@ -34,6 +32,7 @@ export async function POST(req: NextRequest) {
     );
   }
   const { templateId } = parsed.data;
+  const supabase = getSupabase();
 
   // Check if exists
   const { data: existing } = await supabase

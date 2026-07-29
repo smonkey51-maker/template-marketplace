@@ -1,6 +1,10 @@
 import { defineConfig, devices } from "@playwright/test";
 
-const BASE_URL = process.env.PLAYWRIGHT_BASE_URL ?? "http://localhost:3000";
+// 127.0.0.1, not localhost: on the CI runner Chromium fails to resolve
+// "localhost" and every page.goto died with ERR_NAME_NOT_RESOLVED, while the
+// request-fixture tests — which don't go through the browser's network stack —
+// passed. The loopback address sidesteps name resolution entirely.
+const BASE_URL = process.env.PLAYWRIGHT_BASE_URL ?? "http://127.0.0.1:3000";
 
 export default defineConfig({
   testDir: "./e2e",
@@ -11,6 +15,13 @@ export default defineConfig({
   reporter: [["html", { open: "never" }], ["list"]],
   use: {
     baseURL: BASE_URL,
+    // The suite only ever talks to the server started below, so send Chromium
+    // straight there. Without this it routes even 127.0.0.1 through whatever
+    // proxy the environment configures and every page.goto fails with
+    // ERR_NAME_NOT_RESOLVED — note that happens for the bare IP too, so it is
+    // the proxy rather than name resolution. The request-fixture tests were
+    // unaffected, which is why only the browser-driven ones were failing.
+    launchOptions: { args: ["--no-proxy-server"] },
     trace: "on-first-retry",
     screenshot: "only-on-failure",
     video: "on-first-retry",

@@ -3751,6 +3751,14 @@ html.forma-v2 {
   }
 }
 
+/* Off-screen cards are skipped by the browser rather than by an observer we
+   write ourselves. contain-intrinsic-size keeps the scrollbar honest by giving
+   the engine a placeholder height for content it hasn't laid out yet. */
+.fn-cat-tile {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 420px;
+}
+
 /* ── Card — glass sheet ──
    Rests just above the page and lifts toward the viewer on hover. Same
    gesture as the panels over the paintings; only the transparency differs. */

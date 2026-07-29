@@ -122,7 +122,9 @@ export default function CinematicHomepage() {
   const accPointer = useTransform(scrollYProgress, [0.85, 0.92], ["none", "auto"]);
 
   return (
-    <div ref={containerRef} style={{ height: "500vh", position: "relative" }}>
+    // <main> rather than <div>: every page needs one main landmark so screen
+    // readers can skip past the nav straight to the content. This page had none.
+    <main ref={containerRef} style={{ height: "500vh", position: "relative" }}>
       <GallerySpotlight />
       <SectionNav />
 
@@ -235,6 +237,6 @@ export default function CinematicHomepage() {
           pointerEvents: "none",
         }}
       />
-    </div>
+    </main>
   );
 }

@@ -24,3 +24,11 @@ flutter-craft/
 
 # Claude Code agent memory — stato interno, non committare
 .claude/agent-memory/
+
+# Throwaway measurement/debug scripts. They have to live in the repo root to
+# resolve node_modules, so they are easy to commit by accident — one already
+# slipped in and broke lint on CI.
+/perf*.mjs
+/probe*.mjs
+/shot*.mjs
+/pw.*.config.ts

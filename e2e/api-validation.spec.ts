@@ -10,8 +10,7 @@ test.describe("API validation", () => {
       const response = await request.post("/api/generate", {
         data: { category: "ui", description: "A hero section" },
       });
-      // Middleware blocks unauthenticated requests
-      expect([401, 302]).toContain(response.status());
+      expect(response.status()).toBe(401);
     });
   });
 
@@ -24,23 +23,26 @@ test.describe("API validation", () => {
           instructions: "Change color to red",
         },
       });
-      expect([401, 302]).toContain(response.status());
+      expect(response.status()).toBe(401);
     });
   });
 
   test.describe("/api/reviews", () => {
-    test("returns 400 for invalid rating", async ({ request }) => {
+    // Auth is checked before the body is validated, so an unauthenticated
+    // request is rejected as 401 and never reaches the schema. That ordering is
+    // deliberate — don't tell an anonymous caller which fields are malformed.
+    test("returns 401 without auth, whatever the body", async ({ request }) => {
       const response = await request.post("/api/reviews", {
         data: { templateId: "hero-saas", rating: 10 },
       });
-      expect(response.status()).toBe(400);
+      expect(response.status()).toBe(401);
     });
 
-    test("returns 400 for missing templateId", async ({ request }) => {
+    test("returns 401 without auth for a missing templateId too", async ({ request }) => {
       const response = await request.post("/api/reviews", {
         data: { rating: 5 },
       });
-      expect(response.status()).toBe(400);
+      expect(response.status()).toBe(401);
     });
   });
 
@@ -53,11 +55,11 @@ test.describe("API validation", () => {
       expect(Array.isArray(body.ids)).toBe(true);
     });
 
-    test("POST returns 400 for empty templateId", async ({ request }) => {
+    test("POST returns 401 without auth", async ({ request }) => {
       const response = await request.post("/api/wishlist", {
         data: { templateId: "" },
       });
-      expect(response.status()).toBe(400);
+      expect(response.status()).toBe(401);
     });
   });
 });

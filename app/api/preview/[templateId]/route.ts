@@ -1,50 +1,40 @@
-import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { resolveTemplate } from "@/lib/templatesDb";
-import { getUserPurchases } from "@/lib/purchases";
-import { readProductFile, TAILWIND_CDN } from "@/lib/productFiles";
+import { TAILWIND_CDN } from "@/lib/productFiles";
 
 /**
- * Marketing preview for a template, rendered inside a same-origin iframe on
- * the catalogue / detail / studio pages.
+ * Marketing preview for a template, rendered inside a same-origin iframe on the
+ * catalogue / detail / studio pages.
  *
- * Non-owners get the short teaser stored in `templates.content` — never the
- * full `content/products/*.html` file, which is the thing they are paying for.
- * Owners (and anyone taking a free template) get the real product.
+ * Always the short teaser from `templates.content` — never the full
+ * `content/products/*.html` file, which is the thing people pay for. Buyers
+ * reach the real product through /api/download/[templateId], which checks the
+ * purchase; a preview iframe is the wrong place to hand it out.
+ *
+ * That makes this endpoint completely public, which is what keeps it fast: it
+ * is excluded from the Clerk middleware matcher, so the 16 iframes the
+ * catalogue mounts no longer each trigger an authentication handshake, and the
+ * response is identical for everyone and therefore cacheable.
  */
 export async function GET(
-  _req: NextRequest,
+  req: NextRequest,
   { params }: { params: Promise<{ templateId: string }> },
 ) {
   const { templateId } = await params;
 
+  // Grid thumbnails render in a sandbox without allow-scripts, so the Tailwind
+  // CDN <script> can never execute there — but the browser still fetches it,
+  // once per card. Templates carry their own inline <style>, so the interactive
+  // view is the only one that needs it.
+  const interactive = req.nextUrl.searchParams.get("interactive") === "1";
+
   // Fall back to the local catalogue when the row isn't in the DB (or Supabase
-  // isn't configured, as in local dev). The teaser is public either way, so the
-  // fallback costs nothing — but without it every preview iframe on the site
-  // goes blank the moment a template is missing from the templates table.
+  // isn't configured, as in local dev) — otherwise every preview iframe on the
+  // site goes blank the moment a template is missing from the templates table.
   const template = await resolveTemplate(templateId);
 
   if (!template) {
     return new NextResponse("Not found", { status: 404 });
-  }
-
-  let owns = template.price === 0;
-  if (!owns) {
-    const { userId } = await auth().catch(() => ({ userId: null }));
-    if (userId) {
-      const purchases = await getUserPurchases(userId);
-      owns = purchases.includes(templateId);
-    }
-  }
-
-  const full = owns ? readProductFile(templateId) : null;
-  if (full) {
-    return new NextResponse(full, {
-      headers: {
-        "Content-Type": "text/html; charset=utf-8",
-        "Cache-Control": "private, no-store",
-      },
-    });
   }
 
   const html = `<!DOCTYPE html>
@@ -52,8 +42,7 @@ export async function GET(
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <script src="${TAILWIND_CDN}"></script>
-  <style>body { margin: 0; } * { scrollbar-width: none; -ms-overflow-style: none; } *::-webkit-scrollbar { display: none; }</style>
+${interactive ? `  <script src="${TAILWIND_CDN}"></script>\n` : ""}  <style>body { margin: 0; } * { scrollbar-width: none; -ms-overflow-style: none; } *::-webkit-scrollbar { display: none; }</style>
 </head>
 <body>${template.content}</body>
 </html>`;
@@ -61,7 +50,6 @@ export async function GET(
   return new NextResponse(html, {
     headers: {
       "Content-Type": "text/html; charset=utf-8",
-      // Teaser only — safe to cache for everyone
       "Cache-Control": "public, max-age=300, s-maxage=3600",
     },
   });

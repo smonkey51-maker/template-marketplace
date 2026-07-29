@@ -29,11 +29,25 @@ jobs:
           NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: pk_test_Y2xlcmsuZXhhbXBsZS5jb20k
           CLERK_SECRET_KEY: sk_test_ci
 
-  # Non-blocking for now. The e2e suite had never actually executed in CI —
-  # the lint step failed ahead of it, so `test:all` was unreachable — and
-  # running it surfaced both wrong expectations in the specs and real app bugs
-  # (see the e2e section of PR #130). It runs here so the failures are visible
-  # and tracked; flip continue-on-error off once the suite is green.
+  # Runs and reports, but does not gate — for one specific reason.
+  #
+  # The 8 API tests (Playwright's `request` fixture, which uses Node's network
+  # stack) pass. The 4 browser-driven tests fail with ERR_NAME_NOT_RESOLVED
+  # before they reach any assertion: Chromium on this runner cannot open a
+  # connection to the server Playwright itself started. It is not name
+  # resolution — the same error occurs for the bare loopback IP — and it is not
+  # the app: curl answers 200 on every one of those URLs. Tried and did not
+  # help: 127.0.0.1 instead of localhost, --no-proxy-server, --no-sandbox,
+  # proxy: direct://, --proxy-bypass-list, the full Chromium build instead of
+  # the headless shell, and clearing HTTP_PROXY/HTTPS_PROXY/NO_PROXY for the
+  # step (the proxy-precedence theory looked right but was disproven — the
+  # browser fails to reach the server with the proxy env cleared too).
+  #
+  # So this is the runner's egress configuration, and gating merges on it would
+  # block every PR on something no change to this repo can fix. To finish the
+  # job: run the suite on a runner whose Chromium can reach localhost, confirm
+  # 12/12, then delete continue-on-error. The specs themselves are correct —
+  # they passed 12/12 locally before this environment's networking changed.
   e2e:
     runs-on: ubuntu-latest
     timeout-minutes: 25
@@ -65,9 +79,16 @@ jobs:
           # Playwright starts and waits on the server itself — see
           # playwright.config.ts, which uses `npm start` when CI is set.
           CI: "true"
-          NEXT_PUBLIC_SITE_URL: http://localhost:3000
+          NEXT_PUBLIC_SITE_URL: http://127.0.0.1:3000
           NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: pk_test_Y2xlcmsuZXhhbXBsZS5jb20k
           CLERK_SECRET_KEY: sk_test_ci
+          # Unreachable on purpose. The suite only covers paths that reject a
+          # request before any query runs, but the routes still need the vars to
+          # be present — supabaseAdmin() throws when they are missing, which
+          # would turn an expected 401 into a 500.
+          SUPABASE_URL: https://example.supabase.co
+          SUPABASE_SERVICE_ROLE_KEY: ci-placeholder
+          STRIPE_SECRET_KEY: sk_test_ci
       - uses: actions/upload-artifact@v4
         if: always()
         with:
