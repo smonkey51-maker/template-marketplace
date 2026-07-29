@@ -46,7 +46,15 @@ jobs:
           node-version: "22"
           cache: "npm"
       - run: npm ci
-      - run: npx playwright install --with-deps chromium
+      # No --with-deps: that runs apt-get, which stalled for 14+ minutes on
+      # this runner. ubuntu-latest already ships the shared libraries Chromium
+      # needs, so only the browser itself has to be fetched.
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - run: npx playwright install chromium
       - run: npm run build
         env:
           NEXT_PUBLIC_SITE_URL: http://localhost:3000
