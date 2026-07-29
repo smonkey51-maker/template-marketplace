@@ -140,7 +140,7 @@ export default function SiteNav() {
     <>
       {/* Utility bar */}
       <div className="fn-utility">
-        <span>{t("tagline")}</span>
+        <div /> {/* Empty placeholder for left side */}
         <div className="fn-right">
           <UserButton />
         </div>
