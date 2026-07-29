@@ -142,13 +142,24 @@ export default function CatalogoPage() {
             />
           </div>
 
-          <div className="fn-chips">
+          <div className="flex gap-1 p-1.5 mb-10 glass-pill w-fit mx-auto sm:mx-0 overflow-x-auto max-w-full" style={{ scrollbarWidth: "none" }}>
             {FILTERS.map(({ key, label }) => (
               <button
                 key={key}
-                className={`fn-chip${filter === key ? " active" : ""}`}
                 onClick={() => setFilter(key)}
+                className={`relative px-5 py-2.5 text-[11px] font-semibold tracking-widest uppercase transition-colors z-10 whitespace-nowrap outline-none ${
+                  filter === key ? "text-black drop-shadow-sm" : "text-white/60 hover:text-white"
+                }`}
+                style={{ WebkitTapHighlightColor: "transparent" }}
               >
+                {filter === key && (
+                  <motion.div
+                    layoutId="active-filter-pill"
+                    className="absolute inset-0 bg-white shadow-lg"
+                    style={{ borderRadius: 9999, zIndex: -1 }}
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
                 {label}
               </button>
             ))}
