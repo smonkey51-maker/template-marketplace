@@ -1498,11 +1498,17 @@ html.dark .zen-divider { opacity: 0.45; }
 /* ── Shoji inner frame (障子) ──
    Thin inset border appears on hover — evokes shoji screen wooden grid.
 ── */
+.shoji-card {
+  border-radius: var(--neu-radius, 18px);
+  overflow: hidden;
+}
 .shoji-card::after {
   content: '';
   position: absolute;
   inset: 5px;
   border: 1px solid rgba(255,255,255,0);
+  /* Inset by 5px, so its radius is the card's minus that inset. */
+  border-radius: calc(var(--neu-radius, 18px) - 5px);
   pointer-events: none;
   transition: border-color 0.35s ease;
   z-index: 40;
@@ -2285,8 +2291,12 @@ html:not(.dark) .fn-bg::after { opacity: 0.04; mix-blend-mode: multiply; }
 .fn-nav-left, .fn-nav-right { display: flex; gap: 24px; align-items: center; }
 .fn-nav-right { justify-self: end; }
 .fn-nav-left a:hover, .fn-nav-right a:hover { color: var(--text); }
-.fn-kbd { border: 1px solid var(--fn-border, rgba(234,234,234,.14)); padding: 4px 7px; color: var(--muted); margin-left: 7px; }
-.fn-outline { border: 1px solid rgba(212,175,55,.45); padding: 9px 16px; color: var(--text); transition: background .2s; }
+.fn-kbd { border: 1px solid var(--fn-border, rgba(234,234,234,.14)); border-radius: 6px; padding: 4px 8px; color: var(--muted); margin-left: 7px; }
+.fn-outline {
+  border: 1px solid rgba(212,175,55,.45); border-radius: 999px;
+  padding: 10px 20px; color: var(--text);
+  transition: background var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
 .fn-outline:hover { background: rgba(212,175,55,.09); }
 
 /* IT/EN toggle */
@@ -2407,13 +2417,20 @@ html:not(.dark) .fn-bg::after { opacity: 0.04; mix-blend-mode: multiply; }
 
 /* ── Buttons ── */
 .fn-btn {
-  display: inline-flex; align-items: center; gap: 8px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   font-family: var(--font-jakarta), sans-serif;
   font-size: 10px; text-transform: uppercase; letter-spacing: .20em;
-  padding: 13px 22px; text-decoration: none; cursor: pointer;
+  padding: 13px 24px; text-decoration: none; cursor: pointer;
   border: 1px solid var(--fn-border, rgba(234,234,234,.18)); color: var(--text);
-  background: transparent; transition: background .2s, border-color .2s; white-space: nowrap;
+  border-radius: 999px;
+  background: transparent; white-space: nowrap;
+  transition:
+    background   var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform    var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
+@media (hover: hover) { .fn-btn:hover { transform: translateY(-1px); } }
+.fn-btn.gold:hover { transform: none; }
 .fn-btn:hover { background: rgba(212,175,55,.07); border-color: rgba(212,175,55,.30); }
 .fn-btn.primary { background: linear-gradient(135deg, #D4AF37, #B8962E); color: #060606; border: 0; font-weight: 700; }
 .fn-btn.primary:hover { background: linear-gradient(135deg, #dfc040, #c9a238); }
@@ -2513,49 +2530,89 @@ html:not(.dark) .fn-bg::after { opacity: 0.04; mix-blend-mode: multiply; }
 }
 
 /* ── Grid ── */
-/* minmax(0,1fr) — without it, a wide child (the scaled preview iframe)
+/* Cards are extruded surfaces now, so the grid gives them room to cast a
+   shadow instead of drawing hairline rules through 1px gaps.
+   minmax(0,1fr) — without it, a wide child (the scaled preview iframe)
    sets the track's min-content size and blows the grid past its container. */
-.fn-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--fn-border, rgba(234,234,234,.10)); }
+.fn-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  background: transparent;
+}
 @media (max-width: 900px) {
-  .fn-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fn-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
 }
 @media (max-width: 600px) {
-  .fn-grid { grid-template-columns: minmax(0, 1fr); }
+  .fn-grid { grid-template-columns: minmax(0, 1fr); gap: 20px; }
 }
 
-/* ── Card ── */
+/* ── Card — neumorphic surface ──
+   Extruded out of the page at rest; on hover it pushes further out
+   rather than lifting off, which is the gesture that matches the
+   material (spatial panels lift, neumorphic ones swell). */
 .fn-card {
   background: var(--surface);
   display: flex; flex-direction: column;
   position: relative;
+  overflow: hidden;
+  border: 1px solid var(--neu-edge);
+  border-radius: var(--neu-radius, 18px);
+  box-shadow:
+    7px 7px 18px var(--neu-dark),
+    -7px -7px 18px var(--neu-light);
   transition:
     background var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
     box-shadow var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
     transform  var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
-/* The grid uses 1px gaps over a border-coloured background to draw its
-   rules, so cards can't carry an outward neumorphic shadow without
-   fighting those seams — they rise on hover instead. */
 @media (hover: hover) {
   .fn-card:hover {
     background: var(--surface-2, #141414);
-    transform: translateY(-3px);
+    transform: translateY(-2px);
     box-shadow:
-      6px 6px 16px var(--neu-dark),
-      -6px -6px 16px var(--neu-light);
+      11px 11px 26px var(--neu-dark),
+      -11px -11px 26px var(--neu-light);
     z-index: 2;
   }
 }
+.fn-card:focus-within {
+  box-shadow:
+    11px 11px 26px var(--neu-dark),
+    -11px -11px 26px var(--neu-light);
+}
 
 /* ── Category tile (replaces inline onMouseEnter/Leave) ── */
+.fn-cat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+}
+@media (max-width: 1000px) { .fn-cat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; } }
+@media (max-width: 560px)  { .fn-cat-grid { grid-template-columns: minmax(0, 1fr); gap: 18px; } }
+
 .fn-cat-tile {
   text-decoration: none;
   display: block;
   padding: 32px 24px;
   background: var(--surface);
-  transition: background .2s var(--ease-glide), color .2s var(--ease-glide);
+  border: 1px solid var(--neu-edge);
+  border-radius: var(--neu-radius, 18px);
+  box-shadow:
+    6px 6px 15px var(--neu-dark),
+    -6px -6px 15px var(--neu-light);
+  transition:
+    background var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    box-shadow var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
-.fn-cat-tile:hover { background: var(--surface-2, #141414); }
+@media (hover: hover) {
+  .fn-cat-tile:hover {
+    background: var(--surface-2, #141414);
+    box-shadow:
+      9px 9px 22px var(--neu-dark),
+      -9px -9px 22px var(--neu-light);
+  }
+}
 .fn-body { padding: 20px 18px 22px; flex: 1; display: flex; flex-direction: column; }
 .fn-meta { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: auto; padding-top: 14px; }
 .fn-meta span { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .14em; }
@@ -2563,7 +2620,7 @@ html:not(.dark) .fn-bg::after { opacity: 0.04; mix-blend-mode: multiply; }
 /* ── Badge ── */
 .fn-badge {
   display: inline-block; font-size: 9px; text-transform: uppercase; letter-spacing: .18em;
-  padding: 4px 8px;
+  padding: 5px 11px; border-radius: 999px;
   background: rgba(212,175,55,.12); color: #D4AF37; border: 1px solid rgba(212,175,55,.22);
   font-family: var(--font-jakarta), sans-serif; font-weight: 600;
 }
@@ -2572,13 +2629,15 @@ html:not(.dark) .fn-bg::after { opacity: 0.04; mix-blend-mode: multiply; }
 
 /* ── Featured strip ── */
 .fn-featured { border-top: 1px solid var(--fn-border, rgba(234,234,234,.08)); padding: 72px 36px; max-width: 1220px; margin: 0 auto; }
-.fn-featured-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--fn-border, rgba(234,234,234,.08)); margin-top: 40px; }
+.fn-featured-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; background: transparent; margin-top: 40px; }
+@media (max-width: 900px) { .fn-featured-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; } }
+@media (max-width: 600px) { .fn-featured-grid { grid-template-columns: minmax(0, 1fr); gap: 20px; } }
 /* First card spans 2 columns for asymmetric editorial layout */
 .fn-featured-grid > :first-child { grid-column: span 2; }
 
 /* ── Detail page ── */
 .fn-detail { max-width: 1160px; margin: 0 auto; padding: 56px 36px 90px; display: grid; grid-template-columns: 1.25fr .75fr; gap: 24px; align-items: start; }
-.fn-panel { border: 1px solid var(--fn-border, rgba(234,234,234,.09)); background: var(--surface); padding: 28px; }
+.fn-panel { border: 1px solid var(--fn-border, rgba(234,234,234,.09)); border-radius: var(--neu-radius, 18px); background: var(--surface); padding: 28px; }
 .fn-sticky { position: sticky; top: 24px; }
 
 /* ── Simple pages ── */
@@ -2589,12 +2648,13 @@ html:not(.dark) .fn-bg::after { opacity: 0.04; mix-blend-mode: multiply; }
 }
 .fn-simple p { color: var(--muted); font-size: 18px; line-height: 1.65; max-width: 680px; }
 .fn-box {
-  border: 1px solid var(--fn-border, rgba(234,234,234,.09)); padding: 26px; margin-top: 24px;
+  border: 1px solid var(--fn-border, rgba(234,234,234,.09)); border-radius: var(--neu-radius, 18px);
+  padding: 26px; margin-top: 24px;
   background: var(--surface); color: var(--muted); line-height: 1.7;
 }
 
 /* ── Studio window ── */
-.fn-window { width: 72%; border: 1px solid var(--fn-border, rgba(234,234,234,.10)); padding: 18px; background: var(--surface); }
+.fn-window { width: 72%; border: 1px solid var(--fn-border, rgba(234,234,234,.10)); border-radius: var(--r-md, 16px); padding: 18px; background: var(--surface); }
 .fn-line { height: 1px; background: var(--fn-border, rgba(234,234,234,.18)); margin-bottom: 10px; }
 .fn-line.gold { background: rgba(212,175,55,.35); }
 

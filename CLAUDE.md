@@ -255,9 +255,18 @@ The brand uses a warm **gold/terra** palette — not bright orange:
 
 ### Design Tokens
 
-- **Border radius**: The design is intentionally **sharp-cornered** (`rounded-none` in Tailwind). Radius tokens `--r-sm` through `--r-xl` exist in `globals.css` for special use cases (phone bezels, pills) but are not the default.
+- **Border radius**: The design is **rounded**. Use the radius scale — `--r-sm` (10px) / `--r-md` (16px) / `--r-lg` (22px) / `--r-xl` (28px), plus `--neu-radius` (18px) for neumorphic surfaces and `999px` for pills (buttons, chips, badges). Do not add new sharp corners; the site was previously sharp-cornered and that rule no longer applies.
 - **Shadows**: Use CSS custom properties `--shadow-sm`, `--shadow-md`, `--shadow-lg`, `--shadow-xl` defined in `globals.css`.
-- **Buttons**: All primary CTA buttons use the `.btn-brand` CSS class (gold background, ring animation on hover, shimmer sweep). Use `.btn-brand-sm` for compact variant. Defined in `globals.css`.
+- **Buttons**: All primary CTA buttons use the `.btn-brand` CSS class (gold pill, lift on hover). Use `.btn-brand-sm` for compact variant. Defined in `globals.css`.
+
+### Depth: two models, each in its habitat
+
+The site uses two opposite depth systems. Which one applies depends on what a surface sits on — do not mix them.
+
+- **Spatial** (`--spatial-*` tokens, `.forma-glass-card`) — for anything over the **paintings** on the snap homepage. Translucent glass with a rim light and a cast shadow that grows with elevation; panels *lift* on hover. Paintings also carry a scroll parallax via `.parallax-layer` (driven from `SnapHomepage`).
+- **Neumorphic** (`--neu-*` tokens) — for the **inner pages** (`/catalogo`, `/guida`, `/account`, `/ai-studio`), whose ground is flat cream or near-black. Controls and cards are extruded from the page and press *into* it when selected; they *swell* on hover rather than lifting.
+
+Neumorphism only works on a flat, single-colour ground — never put it over a painting, where it cuts an opaque hole in the artwork. Every neumorphic control keeps a faint `--neu-edge` border and encodes state in colour as well as shadow: pure neumorphism has no edge and fails WCAG 1.4.11. The primary CTA stays solid gold, never neumorphic.
 
 ### Theme
 

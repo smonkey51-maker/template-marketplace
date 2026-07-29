@@ -56,7 +56,9 @@ function StudioContent() {
 
   useEffect(() => {
     fetch("/api/purchases")
-      .then((r) => r.json())
+      // Guard on r.ok: a 500 returns an empty body, and calling .json() on it
+      // throws an opaque "Unexpected end of JSON input" instead of the status.
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`/api/purchases ${r.status}`))))
       .then((data) => {
         setPurchasedIds(data.templateIds ?? []);
         setPurchasesLoaded(true);

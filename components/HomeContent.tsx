@@ -147,7 +147,7 @@ export function HomeContent() {
           <h2 style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontWeight: 300, fontSize: "clamp(32px,4vw,52px)", margin: "0 0 36px", color: "var(--text)" }}>
             {t("categoriesTitle")}
           </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 1, background: "var(--fn-border, rgba(234,234,234,.08))" }}>
+          <div className="fn-cat-grid">
             {categories.map(cat => (
               <Link key={cat.label} href={cat.href} className="fn-cat-tile">
                 <div style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: 26, fontWeight: 300, color: "var(--text)", marginBottom: 10 }}>{cat.label}</div>
