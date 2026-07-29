@@ -1,6 +1,7 @@
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
+import { siteUrl } from "@/lib/siteUrl";
 
 export async function POST(req: NextRequest) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
@@ -15,7 +16,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Email non trovata" }, { status: 400 });
   }
 
-  const origin = req.headers.get("origin") ?? "http://localhost:3000";
+  // Not the Origin header — it is client-controlled, and feeding it to Stripe
+  // as a return_url is the same open redirect that was fixed in /api/checkout.
+  const origin = siteUrl();
 
   // Find or create Stripe customer by email
   const customers = await stripe.customers.list({ email, limit: 1 });

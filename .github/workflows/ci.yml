@@ -29,15 +29,13 @@ jobs:
           NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: pk_test_Y2xlcmsuZXhhbXBsZS5jb20k
           CLERK_SECRET_KEY: sk_test_ci
 
-  # Non-blocking for now. The e2e suite had never actually executed in CI —
-  # the lint step failed ahead of it, so `test:all` was unreachable — and
-  # running it surfaced both wrong expectations in the specs and real app bugs
-  # (see the e2e section of PR #130). It runs here so the failures are visible
-  # and tracked; flip continue-on-error off once the suite is green.
+  # Blocking. This was continue-on-error while the suite was red: it had never
+  # executed in CI (the lint step failed ahead of it), and running it surfaced
+  # both wrong expectations in the specs and real app bugs. Both are fixed, so
+  # the suite gates merges like any other check.
   e2e:
     runs-on: ubuntu-latest
     timeout-minutes: 25
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js

@@ -22,13 +22,15 @@ export const TiltCard = React.forwardRef<HTMLElement, TiltCardProps>(
     const [isHovered, setIsHovered] = useState(false);
     const [isDesktop, setIsDesktop] = useState(true);
 
-    // Disable intense interactions on mobile to save battery
+    // Disable intense interactions on mobile to save battery.
+    // Listening to the media query itself rather than to `resize`: resize fires
+    // on every frame of a window drag, and the catalogue mounts 16 of these.
     useEffect(() => {
-      const checkMobile = () =>
-        setIsDesktop(window.matchMedia("(hover: hover) and (pointer: fine)").matches);
-      checkMobile();
-      window.addEventListener("resize", checkMobile);
-      return () => window.removeEventListener("resize", checkMobile);
+      const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
+      const sync = () => setIsDesktop(mq.matches);
+      sync();
+      mq.addEventListener("change", sync);
+      return () => mq.removeEventListener("change", sync);
     }, []);
 
     const mouseX = useMotionValue(0.5);
@@ -89,12 +91,12 @@ export const TiltCard = React.forwardRef<HTMLElement, TiltCardProps>(
         >
           {children}
 
-          {/* Dynamic Glow Overlay */}
-          {isDesktop && !active && (
+          {/* Dynamic glow — mounted only while hovered, so idle cards cost
+              nothing to composite. */}
+          {isDesktop && isHovered && !active && (
             <motion.div
-              className="absolute inset-0 pointer-events-none rounded-[inherit] transition-opacity duration-300"
+              className="absolute inset-0 pointer-events-none rounded-[inherit]"
               style={{
-                opacity: isHovered ? 1 : 0,
                 background,
                 zIndex: 10,
                 border: "1px solid rgba(255,255,255,0.05)",
