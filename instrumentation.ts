@@ -13,40 +13,41 @@ export async function register() {
     await import("./sentry.edge.config");
   }
 
-  if (process.env.NEXT_RUNTIME !== "nodejs") return;
-  if (process.env.NODE_ENV !== "development") return;
-
-  const { runExport } = await import("./scripts/export-for-marketplace");
-  const { watch } = await import("node:fs");
-  const { resolve } = await import("node:path");
-
-  // Esportazione iniziale all'avvio (solo in sviluppo)
-  try {
-    console.log("\n📦 [Forma] Generazione exports/...");
-    runExport();
-    console.log("📦 [Forma] exports/ aggiornato.\n");
-  } catch (err) {
-    console.error("❌ [Forma] Errore durante l'export iniziale:", err);
-  }
-
-  // Watcher su lib/templates.ts — rigenera al salvataggio
-  const templatesPath = resolve(process.cwd(), "lib", "templates.ts");
-  let debounceTimer: ReturnType<typeof setTimeout> | null = null;
-
-  watch(templatesPath, () => {
-    if (debounceTimer) clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(() => {
-      console.log("\n🔄 [Forma] templates.ts modificato — rigenero exports/...");
+  if (process.env.NEXT_RUNTIME === "nodejs") {
+    if (process.env.NODE_ENV === "development") {
       try {
-        runExport();
-        console.log("✅ [Forma] exports/ aggiornato.\n");
-      } catch (err) {
-        console.error("❌ [Forma] Errore durante l'export:", err);
-      }
-    }, 300);
-  });
+        // Usa require per bypassare l'analisi statica webpack per l'Edge
+        const { runExport } = require("./scripts/export-for-marketplace");
+        const fs = require("node:fs");
+        const path = require("node:path");
 
-  console.log("👁️  [Forma] Watcher attivo su lib/templates.ts\n");
+        console.log("\n📦 [Forma] Generazione exports/...");
+        runExport();
+        console.log("📦 [Forma] exports/ aggiornato.\n");
+
+        const getCwd = () => process.cwd();
+        const templatesPath = path.resolve(getCwd(), "lib", "templates.ts");
+        let debounceTimer: ReturnType<typeof setTimeout> | null = null;
+
+        fs.watch(templatesPath, () => {
+          if (debounceTimer) clearTimeout(debounceTimer);
+          debounceTimer = setTimeout(() => {
+            console.log("\n🔄 [Forma] templates.ts modificato — rigenero exports/...");
+            try {
+              runExport();
+              console.log("✅ [Forma] exports/ aggiornato.\n");
+            } catch (err) {
+              console.error("❌ [Forma] Errore durante l'export:", err);
+            }
+          }, 300);
+        });
+
+        console.log("👁️  [Forma] Watcher attivo su lib/templates.ts\n");
+      } catch (err) {
+        console.error("❌ [Forma] Errore durante l'export iniziale:", err);
+      }
+    }
+  }
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

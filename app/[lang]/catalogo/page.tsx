@@ -257,6 +257,7 @@ export default function CatalogoPage() {
           )}
         </section>
         <FormaFooter />
+      </div>
       </motion.div>
 
       {/* iOS App-like Modal Overlay */}
