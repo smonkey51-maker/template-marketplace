@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { getUserPreferences, saveUserPreferences } from "@/lib/userMemory";
+import { preferencesSchema } from "@/lib/schemas";
 
 export async function GET() {
   const { userId } = await auth();
@@ -14,15 +15,19 @@ export async function POST(req: NextRequest) {
   const { userId } = await auth();
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const body = await req.json();
-  const { brand_tone, preferred_style, color_notes, extra_context } = body;
+  const parsed = preferencesSchema.safeParse(await req.json().catch(() => ({})));
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: parsed.error.issues[0]?.message ?? "Invalid input" },
+      { status: 400 },
+    );
+  }
 
-  await saveUserPreferences(userId, {
-    brand_tone: brand_tone?.trim() || undefined,
-    preferred_style: preferred_style?.trim() || undefined,
-    color_notes: color_notes?.trim() || undefined,
-    extra_context: extra_context?.trim() || undefined,
-  });
+  // Empty strings mean "clear this field", not "store an empty string"
+  const prefs = Object.fromEntries(
+    Object.entries(parsed.data).filter(([, v]) => v !== undefined && v !== ""),
+  );
 
+  await saveUserPreferences(userId, prefs);
   return NextResponse.json({ ok: true });
 }

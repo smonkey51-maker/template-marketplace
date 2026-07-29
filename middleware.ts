@@ -1,5 +1,5 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-import { NextResponse } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 
 // Routes che richiedono login
 const isProtected = createRouteMatcher([
@@ -13,7 +13,7 @@ const isProtected = createRouteMatcher([
 ]);
 
 const locales = ["it", "en"];
-function getLocale(req: any): string {
+function getLocale(req: NextRequest): string {
   const acceptLanguage = req.headers.get("accept-language");
   if (!acceptLanguage) return "en";
 

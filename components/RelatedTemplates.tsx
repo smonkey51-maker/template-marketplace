@@ -50,7 +50,7 @@ export default function RelatedTemplates({ currentTemplate }: { currentTemplate:
             <Link
               key={tmpl.id}
               href={`/preview/${tmpl.id}`}
-              className="flex items-center gap-4 bg-surface border border-theme px-4 py-3.5 hover:border-accent/40 hover:-translate-y-0.5 transition-all duration-200 active:scale-[0.98]"
+              className="flex items-center gap-4 bg-surface border border-theme r-md px-4 py-3.5 hover:border-accent/40 hover:-translate-y-0.5 transition-all duration-200 active:scale-[0.98]"
             >
               <div className="w-10 h-10 flex items-center justify-center shrink-0 bg-accent/10">
                 {tmpl.category === "ui" ? (

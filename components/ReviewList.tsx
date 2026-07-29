@@ -66,7 +66,7 @@ export default function ReviewList({
 
       {/* Write review */}
       {hasPurchased && !hasReviewed && (
-        <div className="border border-theme p-4">
+        <div className="border border-theme r-md p-4">
           {showForm ? (
             <ReviewForm
               templateId={templateId}

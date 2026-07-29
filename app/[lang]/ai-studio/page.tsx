@@ -41,12 +41,11 @@ export default function AIStudioPage() {
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(3,1fr)",
-              gap: 1,
-              background: "var(--fn-border, rgba(234,234,234,.10))",
+              gap: 12,
             }}
           >
             {steps.map((step) => (
-              <div key={step.icon} style={{ padding: "28px 24px", background: "var(--surface)" }}>
+              <div key={step.icon} className="glass-surface" style={{ padding: "28px 24px" }}>
                 <div
                   style={{
                     fontFamily: "var(--font-cormorant), Georgia, serif",
@@ -96,16 +95,15 @@ export default function AIStudioPage() {
             <div
               style={{
                 display: "grid",
-                gap: 1,
-                background: "var(--fn-border, rgba(234,234,234,.10))",
+                gap: 12,
               }}
             >
               {examples.map((ex) => (
                 <div
                   key={ex.prompt}
+                  className="glass-surface"
                   style={{
                     padding: "20px 24px",
-                    background: "var(--surface)",
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",

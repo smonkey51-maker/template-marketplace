@@ -89,7 +89,7 @@ export default function HistoryPanel({
 
   if (history.length === 0) {
     return (
-      <div className="mt-4 bg-surface border border-theme p-6 text-center">
+      <div className="mt-4 bg-surface border border-theme r-md p-6 text-center">
         <p className="text-[13px] text-muted">
           {isIt ? "Nessuna cronologia ancora." : "No history yet."}
         </p>
@@ -98,7 +98,7 @@ export default function HistoryPanel({
   }
 
   return (
-    <div className="mt-4 bg-surface border border-theme overflow-hidden">
+    <div className="mt-4 bg-surface border border-theme r-glass overflow-hidden">
       <p className="text-[11px] font-semibold text-muted uppercase tracking-widest px-4 pt-3 pb-2">
         {isIt ? "Cronologia" : "History"} · {history.length}
       </p>
@@ -178,7 +178,7 @@ export default function HistoryPanel({
                     const diff = isDiffOpen ? computeDiff(ver.output, entry.output) : null;
 
                     return (
-                      <div key={idx} className="border border-theme">
+                      <div key={idx} className="border border-theme r-sm">
                         {/* Version row */}
                         <div className="flex items-center justify-between gap-2 px-3 py-2">
                           <div className="flex items-center gap-2">
@@ -196,7 +196,7 @@ export default function HistoryPanel({
                             {/* Diff toggle */}
                             <button
                               onClick={() => setDiffVersionIdx(isDiffOpen ? null : idx)}
-                              className="text-[10px] font-semibold px-2 py-0.5 border border-theme hover:border-accent/40 text-muted hover:text-theme transition-colors"
+                              className="text-[10px] font-semibold px-2 py-0.5 border border-theme r-pill hover:border-accent/40 text-muted hover:text-theme transition-colors"
                             >
                               {isDiffOpen ? "← " : ""}
                               {isIt ? "Diff" : "Diff"}

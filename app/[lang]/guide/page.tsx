@@ -60,7 +60,7 @@ export default function GuidePage() {
           <SectionLabel>{g.sectionTypes}</SectionLabel>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
             {/* UI Template */}
-            <div className="bg-surface border border-theme p-6 flex flex-col gap-4">
+            <div className="bg-surface border border-theme r-glass p-6 flex flex-col gap-4">
               <div
                 className="w-10 h-10 flex items-center justify-center"
                 style={{ background: "var(--accent-bg)" }}
@@ -117,7 +117,7 @@ export default function GuidePage() {
             </div>
 
             {/* Prompt Template */}
-            <div className="bg-surface border border-theme p-6 flex flex-col gap-4">
+            <div className="bg-surface border border-theme r-glass p-6 flex flex-col gap-4">
               <div
                 className="w-10 h-10 flex items-center justify-center"
                 style={{ background: "var(--accent-bg)" }}
@@ -169,7 +169,7 @@ export default function GuidePage() {
         {/* ── 2. Il flusso ── */}
         <section className="anim-fade-up delay-150">
           <SectionLabel>{g.sectionFlow}</SectionLabel>
-          <div className="mt-6 bg-surface border border-theme p-6 sm:p-8">
+          <div className="mt-6 bg-surface border border-theme r-glass p-6 sm:p-8">
             <StepList
               steps={[
                 { title: g.flowStep1Title, desc: g.flowStep1Desc },
@@ -186,7 +186,7 @@ export default function GuidePage() {
           <SectionLabel>{g.sectionStudio}</SectionLabel>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
             {/* Personalizza */}
-            <div className="bg-surface border border-theme p-6 flex flex-col gap-3">
+            <div className="bg-surface border border-theme r-glass p-6 flex flex-col gap-3">
               <div className="flex items-start justify-between gap-2">
                 <h3 className="text-[15px] font-bold text-theme">{g.studioCustomTitle}</h3>
                 <span
@@ -204,7 +204,7 @@ export default function GuidePage() {
             </div>
 
             {/* Genera */}
-            <div className="bg-surface border border-theme p-6 flex flex-col gap-3">
+            <div className="bg-surface border border-theme r-glass p-6 flex flex-col gap-3">
               <div className="flex items-start justify-between gap-2">
                 <h3 className="text-[15px] font-bold text-theme">{g.studioGenTitle}</h3>
                 <span
@@ -226,7 +226,7 @@ export default function GuidePage() {
         {/* ── 4. Bundle ── */}
         <section className="anim-fade-up delay-225">
           <SectionLabel>{g.sectionBundles}</SectionLabel>
-          <div className="mt-6 bg-surface border border-theme p-6 flex flex-col sm:flex-row sm:items-center gap-5">
+          <div className="mt-6 bg-surface border border-theme r-glass p-6 flex flex-col sm:flex-row sm:items-center gap-5">
             <div
               className="w-10 h-10 shrink-0 flex items-center justify-center"
               style={{ background: "var(--accent-bg)" }}
@@ -278,7 +278,7 @@ export default function GuidePage() {
 
         {/* ── CTA ── */}
         <section className="anim-fade-up delay-300 text-center pb-8">
-          <div className="bg-surface border border-theme p-8 sm:p-10 relative overflow-hidden">
+          <div className="bg-surface border border-theme r-glass p-8 sm:p-10 relative overflow-hidden">
             <div
               className="absolute inset-x-0 top-0 h-px"
               style={{

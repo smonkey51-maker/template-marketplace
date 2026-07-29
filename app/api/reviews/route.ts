@@ -1,11 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
-import { createClient } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
+import { supabaseAdmin as getSupabase } from "@/lib/supabaseAdmin";
 import { reviewSchema } from "@/lib/schemas";
-
-function getSupabase() {
-  return createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
-}
 
 export async function GET(req: NextRequest) {
   const supabase = getSupabase();
@@ -47,15 +43,17 @@ export async function POST(req: NextRequest) {
   }
   const { templateId, rating, comment } = parsed.data;
 
-  // Verify user has purchased the template
-  const { data: purchase } = await supabase
+  // Verify user has purchased the template.
+  // `limit(1)` rather than `.single()`: duplicate purchase rows would make
+  // `.single()` error out and lock a genuine buyer out of reviewing.
+  const { data: purchases } = await supabase
     .from("purchases")
     .select("template_id")
     .eq("user_id", userId)
     .eq("template_id", templateId)
-    .single();
+    .limit(1);
 
-  if (!purchase) {
+  if (!purchases || purchases.length === 0) {
     return NextResponse.json({ error: "Must purchase template before reviewing" }, { status: 403 });
   }
 

@@ -278,7 +278,7 @@ function StudioContent() {
           {/* Left: Controls */}
           <div className="flex flex-col gap-6">
             {/* Tab switcher — iOS segmented control */}
-            <div className="flex bg-card p-1 gap-1">
+            <div className="flex bg-card r-pill p-1 gap-1">
               {(["generate", "customize"] as Tab[]).map((t) => (
                 <button
                   key={t}

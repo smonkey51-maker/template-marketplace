@@ -43,7 +43,10 @@ export function AmbientAura({ color = "gold", intensity = 1 }: AmbientAuraProps)
   }
 
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 2, opacity: intensity }}>
+    <div
+      className="absolute inset-0 pointer-events-none overflow-hidden"
+      style={{ zIndex: 2, opacity: intensity }}
+    >
       <motion.div
         animate={{
           x: ["0%", "10%", "-10%", "0%"],

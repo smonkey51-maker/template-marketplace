@@ -47,7 +47,7 @@ export default function AIUsageBanner() {
   const isStudio = data.plan === "studio";
 
   return (
-    <div className="flex flex-wrap items-center gap-x-5 gap-y-2 px-3 py-2 bg-surface border border-theme/30 text-[12px]">
+    <div className="flex flex-wrap items-center gap-x-5 gap-y-2 px-3 py-2 bg-surface border border-theme/30 r-pill text-[12px]">
       {/* Plan badge */}
       <span
         className={`font-semibold uppercase tracking-wider text-[10px] px-1.5 py-0.5 ${

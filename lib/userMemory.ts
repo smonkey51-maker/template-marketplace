@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
+import { supabaseAdmin } from "@/lib/supabaseAdmin";
 
 export interface UserPreferences {
   brand_tone?: string;
@@ -8,7 +8,7 @@ export interface UserPreferences {
 }
 
 export async function getUserPreferences(userId: string): Promise<UserPreferences> {
-  const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
+  const supabase = supabaseAdmin();
 
   const { data } = await supabase
     .from("user_preferences")
@@ -23,7 +23,7 @@ export async function saveUserPreferences(
   userId: string,
   prefs: Partial<UserPreferences>,
 ): Promise<void> {
-  const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
+  const supabase = supabaseAdmin();
 
   await supabase
     .from("user_preferences")

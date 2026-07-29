@@ -28,7 +28,7 @@ export default function Error({
         </button>
         <a
           href="/"
-          className="px-4 py-2 text-[13px] font-semibold border border-theme text-muted hover:text-theme transition-colors"
+          className="px-4 py-2 text-[13px] font-semibold border border-theme r-pill text-muted hover:text-theme transition-colors"
         >
           ← Home
         </a>

@@ -11,22 +11,6 @@ import { TemplatePreview } from "@/components/TemplatePreview";
 import { motion, AnimatePresence } from "framer-motion";
 import { TiltCard } from "@/components/TiltCard";
 
-type FilterKey = "All" | "Web" | "Notion" | "App" | "Shop";
-
-function getFilterKey(t: TemplateMeta): FilterKey {
-  const dt = t.downloadType ?? "html";
-  if (dt === "notion") return "Notion";
-  if (dt === "shopify" || dt === "wordpress") return "Shop";
-  const tags = t.tags.join(" ").toLowerCase();
-  if (
-    tags.includes("mobile") ||
-    tags.includes("ios") ||
-    t.name.toLowerCase().includes("mobile app")
-  )
-    return "App";
-  return "Web";
-}
-
 function getPlatformLabel(t: TemplateMeta): string {
   const dt = t.downloadType ?? "html";
   const labels: Record<string, string> = {
@@ -45,12 +29,6 @@ function getPlatformLabel(t: TemplateMeta): string {
 
 const PAID_TEMPLATES = templatesMeta.filter((t) => !t.id.startsWith("free-"));
 
-const FILTER_KEYS: FilterKey[] = ["All", "Web", "Notion", "App", "Shop"];
-
-function isFilterKey(v: string | null): v is FilterKey {
-  return v !== null && (FILTER_KEYS as string[]).includes(v);
-}
-
 export default function CatalogoPage() {
   const { lang } = useLang();
   const t = (k: keyof typeof copy.it) => copy[lang][k];
@@ -58,7 +36,6 @@ export default function CatalogoPage() {
   const [activeId, setActiveId] = useState<string | null>(null);
 
   const activeItem = useMemo(() => PAID_TEMPLATES.find((t) => t.id === activeId), [activeId]);
-
 
   // Lock body scroll when modal is open
   useEffect(() => {
@@ -72,167 +49,172 @@ export default function CatalogoPage() {
     };
   }, [activeId]);
 
-
   const filtered = useMemo(
     () =>
-      PAID_TEMPLATES.filter(
-        (x) =>
-          `${x.name} ${x.description} ${x.tags.join(" ")}`.toLowerCase().includes(q.toLowerCase()),
+      PAID_TEMPLATES.filter((x) =>
+        `${x.name} ${x.description} ${x.tags.join(" ")}`.toLowerCase().includes(q.toLowerCase()),
       ),
     [q],
   );
 
   return (
     <>
-      <motion.div 
+      <motion.div
         className="fn-bg"
-        animate={{ 
-          scale: activeId ? 0.94 : 1, 
-          borderRadius: activeId ? "24px" : "0px",
-          filter: activeId ? "brightness(0.65)" : "brightness(1)" 
+        animate={{
+          scale: activeId ? 0.985 : 1,
+          filter: activeId ? "brightness(0.88)" : "brightness(1)",
         }}
-        transition={{ type: "spring", bounce: 0.25, duration: 0.6 }}
-        style={{ transformOrigin: "top center", minHeight: "100vh" }}
+        transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+        style={{
+          transformOrigin: "top center",
+          minHeight: "100vh",
+          borderRadius: "var(--glass-radius)",
+        }}
       >
-      <div className="fn-shell">
-        <SiteNav />
+        <div className="fn-shell">
+          <SiteNav />
 
-        <section className="fn-section">
-          <div className="fn-kicker">{t("browseAll")}</div>
-          <h2
-            style={{
-              fontFamily: "var(--font-cormorant), Georgia, serif",
-              fontWeight: 300,
-              fontSize: "clamp(42px,5vw,72px)",
-              margin: "0 0 6px",
-              color: "var(--text)",
-            }}
-          >
-            {t("templates")}
-          </h2>
-          <p style={{ color: "var(--muted)", fontSize: 17, marginBottom: 32 }}>
-            {filtered.length}{" "}
-            {lang === "it"
-              ? "template pronti all'uso — HTML, Notion, Shopify, WordPress"
-              : "ready-to-use templates — HTML, Notion, Shopify, WordPress"}
-          </p>
+          <section className="fn-section">
+            <div className="fn-kicker">{t("browseAll")}</div>
+            <h2
+              style={{
+                fontFamily: "var(--font-cormorant), Georgia, serif",
+                fontWeight: 300,
+                fontSize: "clamp(42px,5vw,72px)",
+                margin: "0 0 6px",
+                color: "var(--text)",
+              }}
+            >
+              {t("templates")}
+            </h2>
+            <p style={{ color: "var(--muted)", fontSize: 17, marginBottom: 32 }}>
+              {filtered.length}{" "}
+              {lang === "it"
+                ? "template pronti all'uso — HTML, Notion, Shopify, WordPress"
+                : "ready-to-use templates — HTML, Notion, Shopify, WordPress"}
+            </p>
 
-          <div className="fn-toolbar">
-            <input
-              className="fn-search"
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
-              placeholder={t("searchPlaceholder")}
-            />
-          </div>
-
-
-          {filtered.length === 0 ? (
-            <div style={{ padding: "60px 0", textAlign: "center", color: "var(--muted)" }}>
-              {t("noResults")}
+            <div className="fn-toolbar">
+              <input
+                className="fn-search"
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+                placeholder={t("searchPlaceholder")}
+              />
             </div>
-          ) : (
-            <div className="fn-grid">
-              {filtered.map((item) => (
-                <TiltCard 
-                  className="fn-card cursor-pointer" 
-                  key={item.id}
-                  layoutId={`card-container-${item.id}`}
-                  onClick={() => setActiveId(item.id)}
-                  whileHover={{ y: -4, boxShadow: "0 20px 40px rgba(0,0,0,0.4)" }}
-                  whileTap={{ scale: 0.96 }}
-                  transition={{ type: "spring", bounce: 0.3 }}
-                  active={activeId === item.id}
-                >
-                  <motion.div layoutId={`card-preview-${item.id}`} style={{ borderRadius: "12px", overflow: "hidden", marginBottom: "16px" }}>
-                    <TemplatePreview id={item.id} />
-                  </motion.div>
-                  <motion.div className="fn-body" layoutId={`card-body-${item.id}`}>
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: 8,
-                        alignItems: "center",
-                        marginBottom: 14,
-                        flexWrap: "wrap",
-                      }}
+
+            {filtered.length === 0 ? (
+              <div style={{ padding: "60px 0", textAlign: "center", color: "var(--muted)" }}>
+                {t("noResults")}
+              </div>
+            ) : (
+              <div className="fn-grid">
+                {filtered.map((item) => (
+                  <TiltCard
+                    className="fn-card cursor-pointer"
+                    key={item.id}
+                    layoutId={`card-container-${item.id}`}
+                    onClick={() => setActiveId(item.id)}
+                    whileTap={{ scale: 0.99 }}
+                    transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                    active={activeId === item.id}
+                  >
+                    <motion.div
+                      layoutId={`card-preview-${item.id}`}
+                      style={{ borderRadius: "12px", overflow: "hidden", marginBottom: "16px" }}
                     >
-                      <span className="fn-badge">{getPlatformLabel(item)}</span>
-                      {item.editorsPick && (
-                        <span
-                          className="fn-badge"
+                      <TemplatePreview id={item.id} />
+                    </motion.div>
+                    <div className="fn-body">
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: 8,
+                          alignItems: "center",
+                          marginBottom: 14,
+                          flexWrap: "wrap",
+                        }}
+                      >
+                        <span className="fn-badge">{getPlatformLabel(item)}</span>
+                        {item.editorsPick && (
+                          <span
+                            className="fn-badge"
+                            style={{
+                              background: "transparent",
+                              border: "1px solid rgba(212,175,55,.5)",
+                              color: "#D4AF37",
+                            }}
+                          >
+                            ★ Editor
+                          </span>
+                        )}
+                        {item.isNew && (
+                          <span
+                            className="fn-badge"
+                            style={{
+                              background: "transparent",
+                              border: "1px solid rgba(234,234,234,.25)",
+                              color: "var(--text)",
+                            }}
+                          >
+                            New
+                          </span>
+                        )}
+                      </div>
+                      <h3
+                        style={{
+                          fontFamily: "var(--font-cormorant), Georgia, serif",
+                          fontWeight: 400,
+                          fontSize: 26,
+                          margin: "0 0 8px",
+                          lineHeight: 1.2,
+                        }}
+                      >
+                        {item.name}
+                      </h3>
+                      <p
+                        style={{
+                          color: "var(--muted)",
+                          fontSize: 14,
+                          lineHeight: 1.55,
+                          margin: "0 0 16px",
+                        }}
+                      >
+                        {item.description}
+                      </p>
+                      <div className="fn-meta">
+                        <span>{item.tags.slice(0, 2).join(" · ")}</span>
+                        <b
                           style={{
-                            background: "transparent",
-                            border: "1px solid rgba(212,175,55,.5)",
-                            color: "#D4AF37",
-                          }}
-                        >
-                          ★ Editor
-                        </span>
-                      )}
-                      {item.isNew && (
-                        <span
-                          className="fn-badge"
-                          style={{
-                            background: "transparent",
-                            border: "1px solid rgba(234,234,234,.25)",
+                            fontFamily: "var(--font-cormorant), Georgia, serif",
+                            fontSize: 22,
+                            fontWeight: 400,
                             color: "var(--text)",
                           }}
                         >
-                          New
-                        </span>
-                      )}
+                          {formatPrice(item.price)}
+                        </b>
+                      </div>
+                      <div className="fn-card-actions" style={{ marginTop: 18 }}>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setActiveId(item.id);
+                          }}
+                          className="fn-btn primary w-full justify-center"
+                        >
+                          {t("details")}
+                        </button>
+                      </div>
                     </div>
-                    <h3
-                      style={{
-                        fontFamily: "var(--font-cormorant), Georgia, serif",
-                        fontWeight: 400,
-                        fontSize: 26,
-                        margin: "0 0 8px",
-                        lineHeight: 1.2,
-                      }}
-                    >
-                      {item.name}
-                    </h3>
-                    <p
-                      style={{
-                        color: "var(--muted)",
-                        fontSize: 14,
-                        lineHeight: 1.55,
-                        margin: "0 0 16px",
-                      }}
-                    >
-                      {item.description}
-                    </p>
-                    <div className="fn-meta">
-                      <span>{item.tags.slice(0, 2).join(" · ")}</span>
-                      <b
-                        style={{
-                          fontFamily: "var(--font-cormorant), Georgia, serif",
-                          fontSize: 22,
-                          fontWeight: 400,
-                          color: "var(--text)",
-                        }}
-                      >
-                        {formatPrice(item.price)}
-                      </b>
-                    </div>
-                    <div className="fn-card-actions" style={{ marginTop: 18 }}>
-                      <button 
-                        onClick={(e) => { e.stopPropagation(); setActiveId(item.id); }} 
-                        className="fn-btn primary w-full justify-center"
-                      >
-                        {t("details")}
-                      </button>
-                    </div>
-                  </motion.div>
-                </TiltCard>
-              ))}
-            </div>
-          )}
-        </section>
-        <FormaFooter />
-      </div>
+                  </TiltCard>
+                ))}
+              </div>
+            )}
+          </section>
+          <FormaFooter />
+        </div>
       </motion.div>
 
       {/* iOS App-like Modal Overlay */}
@@ -240,7 +222,7 @@ export default function CatalogoPage() {
         {activeId && activeItem && (
           <div className="fixed inset-0 z-[100] flex items-end justify-center pointer-events-none sm:p-4">
             {/* Overlay invisibile per cliccare fuori e chiudere */}
-            <motion.div 
+            <motion.div
               className="absolute inset-0 pointer-events-auto bg-black/40 backdrop-blur-sm"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -252,14 +234,13 @@ export default function CatalogoPage() {
               className="relative w-full max-w-[1000px] glass-panel flex flex-col pointer-events-auto"
               style={{
                 height: "92vh",
-                borderBottomLeftRadius: 0,
-                borderBottomRightRadius: 0,
+                borderRadius: "var(--glass-radius) var(--glass-radius) 0 0",
                 overflow: "hidden",
               }}
-              initial={{ y: 50, opacity: 0 }}
+              initial={{ y: 24, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 50, opacity: 0 }}
-              transition={{ type: "spring", bounce: 0.25, duration: 0.6 }}
+              exit={{ y: 24, opacity: 0 }}
+              transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
             >
               {/* Bottone Chiudi */}
               <button
@@ -267,42 +248,93 @@ export default function CatalogoPage() {
                 className="absolute top-6 right-6 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-black/40 text-white backdrop-blur-xl border border-white/10 hover:bg-black/60 transition-colors"
                 aria-label="Chiudi"
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <line x1="18" y1="6" x2="6" y2="18" />
                   <line x1="6" y1="6" x2="18" y2="18" />
                 </svg>
               </button>
 
               <div className="flex-1 overflow-y-auto overflow-x-hidden">
-                <motion.div layoutId={`card-preview-${activeItem.id}`} style={{ width: "100%", height: "50vh", minHeight: "400px", position: "relative" }}>
+                <motion.div
+                  layoutId={`card-preview-${activeItem.id}`}
+                  style={{
+                    width: "100%",
+                    height: "50vh",
+                    minHeight: "400px",
+                    position: "relative",
+                  }}
+                >
                   <TemplatePreview id={activeItem.id} interactive={true} />
                 </motion.div>
-                
-                <motion.div layoutId={`card-body-${activeItem.id}`} className="p-8 sm:p-12">
+
+                <motion.div className="p-8 sm:p-12">
                   <div className="flex gap-2 items-center flex-wrap mb-4">
                     <span className="fn-badge bg-black/20">{getPlatformLabel(activeItem)}</span>
-                    {activeItem.editorsPick && <span className="fn-badge" style={{ border: "1px solid rgba(212,175,55,.5)", color: "#D4AF37" }}>★ Editor</span>}
+                    {activeItem.editorsPick && (
+                      <span
+                        className="fn-badge"
+                        style={{ border: "1px solid rgba(212,175,55,.5)", color: "#D4AF37" }}
+                      >
+                        ★ Editor
+                      </span>
+                    )}
                   </div>
-                  
-                  <h2 style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: "clamp(32px, 4vw, 48px)", lineHeight: 1.1, marginBottom: 16 }}>
+
+                  <h2
+                    style={{
+                      fontFamily: "var(--font-cormorant), Georgia, serif",
+                      fontSize: "clamp(32px, 4vw, 48px)",
+                      lineHeight: 1.1,
+                      marginBottom: 16,
+                    }}
+                  >
                     {activeItem.name}
                   </h2>
-                  
-                  <p style={{ color: "var(--muted)", fontSize: 18, lineHeight: 1.6, marginBottom: 32, maxWidth: "600px" }}>
+
+                  <p
+                    style={{
+                      color: "var(--muted)",
+                      fontSize: 18,
+                      lineHeight: 1.6,
+                      marginBottom: 32,
+                      maxWidth: "600px",
+                    }}
+                  >
                     {activeItem.description}
                   </p>
 
                   <div className="flex items-center gap-6 pt-6 border-t border-theme">
                     <div>
-                      <span className="block text-xs uppercase tracking-widest text-muted mb-1">Prezzo</span>
-                      <b style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: 32 }}>{formatPrice(activeItem.price)}</b>
+                      <span className="block text-xs uppercase tracking-widest text-muted mb-1">
+                        Prezzo
+                      </span>
+                      <b
+                        style={{
+                          fontFamily: "var(--font-cormorant), Georgia, serif",
+                          fontSize: 32,
+                        }}
+                      >
+                        {formatPrice(activeItem.price)}
+                      </b>
                     </div>
-                    
+
                     <div className="flex-1 flex justify-end gap-3">
                       <Link href={`/preview/${activeItem.id}`} className="fn-btn">
                         {t("download")}
                       </Link>
-                      <Link href={`/templates/${activeItem.id}`} className="fn-btn primary shadow-lg">
+                      <Link
+                        href={`/templates/${activeItem.id}`}
+                        className="fn-btn primary shadow-lg"
+                      >
                         Acquista Ora
                       </Link>
                     </div>

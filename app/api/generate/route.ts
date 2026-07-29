@@ -2,12 +2,12 @@ import { anthropic } from "@/lib/claude";
 import { NextRequest } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { checkAIPermission } from "@/lib/aiPermissions";
-import { recordAIUsage } from "@/lib/aiCost";
+import { reserveAIUsage, finalizeAIUsage, releaseAIUsage } from "@/lib/aiCost";
 import { getUserPreferences, buildMemoryContext } from "@/lib/userMemory";
 import { generateSchema } from "@/lib/schemas";
 import { rateLimitRedis } from "@/lib/rateLimitRedis";
 
-const MODEL = "claude-opus-4-6";
+const MODEL = "claude-opus-5";
 
 export async function POST(req: NextRequest) {
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
@@ -25,6 +25,8 @@ export async function POST(req: NextRequest) {
   if (!permission.allowed) {
     return new Response(permission.reason, { status: 403 });
   }
+
+  let reservationId: string | null = null;
 
   try {
     if (!process.env.ANTHROPIC_API_KEY) {
@@ -65,71 +67,56 @@ Rules:
       ? `Create a ${style || "modern"} UI template for: ${description}`
       : `Create a professional prompt template for: ${description}`;
 
+    // Claim the quota slot before the model call — see reserveAIUsage.
+    reservationId = await reserveAIUsage({
+      userId,
+      feature: "generate",
+      model: MODEL,
+      templateId,
+    });
+
+    // Await stream creation so auth/config errors surface before we start
+    // streaming. Adaptive thinking + effort — `budget_tokens` is rejected on
+    // Opus 5, and adaptive interleaves thinking without any beta header.
+    const stream = await anthropic.messages.create({
+      model: MODEL,
+      max_tokens: isUI ? 16000 : 8000,
+      stream: true,
+      thinking: { type: "adaptive" },
+      output_config: { effort: isUI ? "high" : "medium" },
+      system,
+      messages: [{ role: "user", content: userMsg }],
+    });
+
     const encoder = new TextEncoder();
     let inputTokens = 0;
     let outputTokens = 0;
+    const usageId = reservationId;
 
-    // UI templates use extended thinking for higher quality output
     const readable = new ReadableStream({
       async start(controller) {
         try {
-          if (isUI) {
-            const betaStream = await anthropic.beta.messages.create({
-              model: MODEL,
-              max_tokens: 8000,
-              betas: ["interleaved-thinking-2025-05-14"],
-              thinking: { type: "enabled", budget_tokens: 3000 },
-              stream: true,
-              system,
-              messages: [{ role: "user", content: userMsg }],
-            } as Parameters<typeof anthropic.beta.messages.create>[0]);
-
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            for await (const event of betaStream as any) {
-              if (event.type === "message_start" && event.message?.usage) {
-                inputTokens = event.message.usage.input_tokens ?? 0;
-              }
-              if (event.type === "message_delta" && event.usage) {
-                outputTokens = event.usage.output_tokens ?? 0;
-              }
-              if (event.type === "content_block_delta" && event.delta?.type === "text_delta") {
-                controller.enqueue(encoder.encode(event.delta.text));
-              }
+          for await (const event of stream) {
+            if (event.type === "message_start" && event.message?.usage) {
+              inputTokens = event.message.usage.input_tokens ?? 0;
             }
-          } else {
-            const stream = await anthropic.messages.create({
-              model: MODEL,
-              max_tokens: 4096,
-              stream: true,
-              system,
-              messages: [{ role: "user", content: userMsg }],
-            });
-
-            for await (const event of stream) {
-              if (event.type === "message_start" && event.message?.usage) {
-                inputTokens = event.message.usage.input_tokens ?? 0;
-              }
-              if (event.type === "message_delta" && event.usage) {
-                outputTokens = event.usage.output_tokens ?? 0;
-              }
-              if (event.type === "content_block_delta" && event.delta.type === "text_delta") {
-                controller.enqueue(encoder.encode(event.delta.text));
-              }
+            if (event.type === "message_delta" && event.usage) {
+              outputTokens = event.usage.output_tokens ?? 0;
+            }
+            if (event.type === "content_block_delta" && event.delta.type === "text_delta") {
+              controller.enqueue(encoder.encode(event.delta.text));
             }
           }
 
           controller.close();
 
-          // Registra uso dopo stream completato (non blocca la response)
-          recordAIUsage({
-            userId,
-            feature: "generate",
-            model: MODEL,
-            inputTokens,
-            outputTokens,
-            templateId,
-          }).catch(console.error);
+          if (usageId) {
+            finalizeAIUsage({ id: usageId, model: MODEL, inputTokens, outputTokens }).catch(
+              console.error,
+            );
+          }
         } catch (err) {
+          if (usageId) releaseAIUsage(usageId).catch(console.error);
           controller.error(err);
         }
       },
@@ -144,6 +131,7 @@ Rules:
       },
     });
   } catch (err) {
+    if (reservationId) await releaseAIUsage(reservationId).catch(console.error);
     const message = err instanceof Error ? err.message : "Internal server error";
     return new Response(message, { status: 500 });
   }

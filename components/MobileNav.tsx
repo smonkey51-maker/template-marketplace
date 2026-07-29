@@ -166,13 +166,13 @@ export default function MobileNav() {
             aria-label={tab.label}
             aria-current={tab.active ? "page" : undefined}
             className={`relative flex flex-col items-center justify-center gap-1 min-w-[64px] py-2 rounded-full transition-all duration-300 active:scale-95 ${
-              tab.active ? "bg-white/10 text-white" : "text-white/50 hover:text-white/80 hover:bg-white/5"
+              tab.active
+                ? "bg-white/10 text-white"
+                : "text-white/50 hover:text-white/80 hover:bg-white/5"
             }`}
           >
             <span className="relative">{tab.icon(tab.active)}</span>
-            <span
-              className="text-[10px] font-semibold leading-none tracking-wide"
-            >
+            <span className="text-[10px] font-semibold leading-none tracking-wide">
               {tab.label}
             </span>
           </Link>

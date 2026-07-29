@@ -35,8 +35,12 @@ export async function rateLimitRedis(
 
     const { success } = await ratelimiter.limit(key);
     return success;
-  } catch {
-    // If Redis is unreachable, fail open (allow the request)
-    return true;
+  } catch (err) {
+    // Fail CLOSED. These limiters guard endpoints that cost real money per
+    // call (Anthropic) — failing open means an outage of Redis becomes an
+    // unmetered-spend incident. Fall back to the per-instance limiter so a
+    // brief Redis blip degrades rather than disables protection.
+    console.error("[rateLimitRedis] Redis unavailable, falling back to in-memory:", err);
+    return rateLimit(key, limit, windowMs);
   }
 }

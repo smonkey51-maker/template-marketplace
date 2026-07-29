@@ -48,11 +48,11 @@ export default function CustomizePanel({
           )}
         </label>
         {!purchasesLoaded ? (
-          <div className="w-full h-12 bg-surface animate-pulse" />
+          <div className="w-full h-12 bg-surface r-md animate-pulse" />
         ) : !hasStudioAccess &&
           purchasedIds.filter((id) => id !== "studio-access" && id !== "studio-access-lifetime")
             .length === 0 ? (
-          <div className="bg-surface border border-theme px-4 py-6 text-center text-[15px] text-muted">
+          <div className="bg-surface border border-theme r-md px-4 py-6 text-center text-[15px] text-muted">
             {lang === "it"
               ? "Non hai ancora acquistato nessun template."
               : "You haven't purchased any templates yet."}{" "}
@@ -64,7 +64,7 @@ export default function CustomizePanel({
           <select
             value={selectedId}
             onChange={(e) => setSelectedId(e.target.value)}
-            className="w-full bg-input border border-theme px-4 py-3 text-[15px] text-theme focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all duration-200"
+            className="w-full bg-input border border-theme r-md px-4 py-3 text-[15px] text-theme focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all duration-200"
           >
             <option value="">
               — {lang === "it" ? "Scegli un template" : "Choose a template"} —
@@ -90,7 +90,7 @@ export default function CustomizePanel({
 
       {/* Template preview */}
       {selectedTemplate && (
-        <div className="bg-surface border border-theme overflow-hidden">
+        <div className="bg-surface border border-theme r-glass overflow-hidden">
           <p className="text-[11px] font-semibold text-muted px-4 pt-3 pb-2 uppercase tracking-widest">
             Template preview
           </p>
@@ -140,7 +140,7 @@ export default function CustomizePanel({
               ? "e.g. Change the color scheme to dark green, add an animation on the headline, make the CTA button larger"
               : "e.g. Make it more casual and friendly, add a variable for company size, shorten to under 100 words"
           }
-          className="w-full bg-input border border-theme px-4 py-3 text-[15px] text-theme placeholder-muted focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 resize-none transition-all duration-200"
+          className="w-full bg-input border border-theme r-md px-4 py-3 text-[15px] text-theme placeholder-muted focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 resize-none transition-all duration-200"
         />
         <p className="text-[11px] text-muted mt-1 px-1">⌘+Enter to customize</p>
       </div>
