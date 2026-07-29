@@ -3719,20 +3719,7 @@ html:not(.dark) .fn-bg::after {
   box-shadow:
     7px 7px 18px var(--neu-dark),
     -7px -7px 18px var(--neu-light);
-  transition:
-    background var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    box-shadow var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    transform var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
-}
-@media (hover: hover) {
-  .fn-card:hover {
-    background: var(--surface-2, #141414);
-    transform: translateY(-2px);
-    box-shadow:
-      11px 11px 26px var(--neu-dark),
-      -11px -11px 26px var(--neu-light);
-    z-index: 2;
-  }
+  transition: background var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
 .fn-card:focus-within {
   box-shadow:
