@@ -7,6 +7,7 @@ on:
     branches: ["main"]
 
 jobs:
+  # Blocking gate. Everything here genuinely passes today.
   build:
     runs-on: ubuntu-latest
     steps:
@@ -14,15 +15,52 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
           cache: "npm"
       - run: npm ci
       - run: npm run typecheck
       - run: npm run lint
-      - run: npm run test:all
+      - run: npm test
       - run: npm run build
         env:
           # Build-time placeholders — the real values live in the deploy env.
           NEXT_PUBLIC_SITE_URL: https://example.com
           NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: pk_test_ci
           CLERK_SECRET_KEY: sk_test_ci
+
+  # Non-blocking for now. The e2e suite had never actually executed in CI —
+  # the lint step failed ahead of it, so `test:all` was unreachable — and
+  # running it surfaced both wrong expectations in the specs and real app bugs
+  # (see the e2e section of PR #130). It runs here so the failures are visible
+  # and tracked; flip continue-on-error off once the suite is green.
+  e2e:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+        env:
+          NEXT_PUBLIC_SITE_URL: http://localhost:3000
+          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: pk_test_ci
+          CLERK_SECRET_KEY: sk_test_ci
+      - run: npm run test:e2e
+        env:
+          # Playwright starts and waits on the server itself — see
+          # playwright.config.ts, which uses `npm start` when CI is set.
+          CI: "true"
+          NEXT_PUBLIC_SITE_URL: http://localhost:3000
+          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: pk_test_ci
+          CLERK_SECRET_KEY: sk_test_ci
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7

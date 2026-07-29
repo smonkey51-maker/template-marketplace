@@ -21,13 +21,15 @@ export default defineConfig({
       use: { ...devices["Desktop Chrome"] },
     },
   ],
-  // Start the dev server automatically for local runs
-  webServer: process.env.CI
-    ? undefined
-    : {
-        command: "npm run dev",
-        url: BASE_URL,
-        reuseExistingServer: true,
-        timeout: 60_000,
-      },
+  // Playwright starts the server itself in both environments. Previously CI got
+  // `undefined` here, so it expected something to already be listening on :3000
+  // — nothing ever was, which is one reason the suite could never have passed
+  // on a runner. CI runs the production build (the workflow builds first);
+  // locally it runs the dev server.
+  webServer: {
+    command: process.env.CI ? "npm start" : "npm run dev",
+    url: BASE_URL,
+    reuseExistingServer: !process.env.CI,
+    timeout: 120_000,
+  },
 });
