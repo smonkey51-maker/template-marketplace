@@ -16,7 +16,7 @@ import MobileNav from "@/components/MobileNav";
 import PageTransition from "@/components/PageTransition";
 import CommandPalette from "@/components/CommandPalette";
 import GsapProvider from "@/app/providers/GsapProvider";
-import "./globals.css";
+import "@/app/globals.css";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
