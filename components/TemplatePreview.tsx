@@ -5,12 +5,13 @@ import { useEffect, useRef, useState } from "react";
 interface Props {
   id: string;
   height?: number;
+  interactive?: boolean;
 }
 
 /** Design width the previewed templates are authored against. */
 const PREVIEW_WIDTH = 1440;
 
-export function TemplatePreview({ id, height = 220 }: Props) {
+export function TemplatePreview({ id, height = 220, interactive = false }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -76,7 +77,7 @@ export function TemplatePreview({ id, height = 220 }: Props) {
           src={`/api/preview/${id}`}
           title={`Preview ${id}`}
           onLoad={() => setLoaded(true)}
-          sandbox="allow-scripts allow-same-origin"
+          sandbox={interactive ? "allow-scripts allow-same-origin" : "allow-same-origin"}
           style={{
             width: `${PREVIEW_WIDTH}px`,
             // Tall enough that, once scaled down, it still covers the wrapper.

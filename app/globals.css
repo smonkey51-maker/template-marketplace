@@ -3262,23 +3262,6 @@ html.forma-v2 {
   z-index: 0;
   background: radial-gradient(ellipse at 50% -5%, rgba(212, 175, 55, 0.07), transparent 50%);
 }
-/* Caravaggio chiaroscuro — bg-dark.jpg at low opacity creates painting-like depth */
-.fn-bg::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background-image: url("/bg-dark.jpg");
-  background-size: cover;
-  background-position: center top;
-  opacity: 0.05;
-  mix-blend-mode: luminosity;
-}
-html:not(.dark) .fn-bg::after {
-  opacity: 0.04;
-  mix-blend-mode: multiply;
-}
 
 .fn-shell {
   position: relative;
