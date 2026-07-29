@@ -63,9 +63,16 @@ jobs:
           # Playwright starts and waits on the server itself — see
           # playwright.config.ts, which uses `npm start` when CI is set.
           CI: "true"
-          NEXT_PUBLIC_SITE_URL: http://localhost:3000
+          NEXT_PUBLIC_SITE_URL: http://127.0.0.1:3000
           NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: pk_test_Y2xlcmsuZXhhbXBsZS5jb20k
           CLERK_SECRET_KEY: sk_test_ci
+          # Unreachable on purpose. The suite only covers paths that reject a
+          # request before any query runs, but the routes still need the vars to
+          # be present — supabaseAdmin() throws when they are missing, which
+          # would turn an expected 401 into a 500.
+          SUPABASE_URL: https://example.supabase.co
+          SUPABASE_SERVICE_ROLE_KEY: ci-placeholder
+          STRIPE_SECRET_KEY: sk_test_ci
       - uses: actions/upload-artifact@v4
         if: always()
         with:
