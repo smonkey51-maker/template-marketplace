@@ -6,7 +6,6 @@ import { UserButton } from "@clerk/nextjs";
 import { copy } from "@/lib/formaCopy";
 import { useLang } from "@/components/LanguageProvider";
 import { FormaLogoAnimated } from "@/components/FormaLogo";
-import ThemeToggle from "@/components/ThemeToggle";
 
 interface DropItem {
   href: string;
@@ -143,7 +142,6 @@ export default function SiteNav() {
       <div className="fn-utility">
         <span>{t("tagline")}</span>
         <div className="fn-right">
-          <ThemeToggle />
           <div className="fn-lang">
             <button
               className={lang === "it" ? "active" : ""}

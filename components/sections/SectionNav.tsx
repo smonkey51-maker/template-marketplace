@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { FormaLogoStatic } from "@/components/FormaLogo";
 import { useLang } from "@/components/LanguageProvider";
-import ThemeToggle from "@/components/ThemeToggle";
 import LanguageToggle from "@/components/LanguageToggle";
 
 interface NavLink {
@@ -75,7 +74,6 @@ export default function SectionNav() {
             inside the lg-only nav, which buried them in the drawer on tablet
             and mobile. */}
         <div className="flex items-center gap-2">
-          <ThemeToggle />
           <LanguageToggle />
 
           {/* Mobile hamburger/X — animates between states */}
