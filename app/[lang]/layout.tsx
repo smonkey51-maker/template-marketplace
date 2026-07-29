@@ -115,7 +115,8 @@ export default async function RootLayout({
     <ClerkProvider>
       <html
         lang={lang}
-        className={`${montserrat.variable} ${jakarta.variable} ${dmSerif.variable} ${cormorant.variable} ${fraunces.variable} ${inter.variable}`}
+        className={`dark ${montserrat.variable} ${jakarta.variable} ${dmSerif.variable} ${cormorant.variable} ${fraunces.variable} ${inter.variable}`}
+        style={{ colorScheme: "dark" }}
       >
         <link rel="preload" as="image" href="/paintings/vermeer.jpg" />
         <body className="bg-page text-theme antialiased min-h-screen">

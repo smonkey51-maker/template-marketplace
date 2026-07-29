@@ -14,11 +14,14 @@ export default function PageTransition({ children }: { children: React.ReactNode
   const pathname = usePathname();
   const prefersReduced = useReducedMotion();
 
+  // Strip language prefix so language switches don't trigger a full page fade (flash)
+  const routeKey = pathname.replace(/^\/(it|en)/, "") || "/";
+
   if (prefersReduced) {
     return (
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
-          key={pathname}
+          key={routeKey}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, transition: { duration: 0.15 } }}
           exit={{ opacity: 0, transition: { duration: 0.1 } }}
@@ -32,7 +35,7 @@ export default function PageTransition({ children }: { children: React.ReactNode
   return (
     <AnimatePresence mode="wait" initial={false}>
       <motion.div
-        key={pathname}
+        key={routeKey}
         initial={{ opacity: 0, y: 10 }}
         animate={{
           opacity: 1,

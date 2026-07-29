@@ -30,9 +30,9 @@ export default function LanguageProvider({ children }: { children: React.ReactNo
     const nextLang = lang === "it" ? "en" : "it";
     if (pathname.startsWith(`/${lang}`)) {
       const newPathname = pathname.replace(`/${lang}`, `/${nextLang}`);
-      router.push(newPathname || `/${nextLang}`);
+      router.push(newPathname || `/${nextLang}`, { scroll: false });
     } else {
-      router.push(`/${nextLang}${pathname}`);
+      router.push(`/${nextLang}${pathname}`, { scroll: false });
     }
   };
 
