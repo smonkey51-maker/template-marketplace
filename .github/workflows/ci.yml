@@ -10,6 +10,7 @@ jobs:
   # Blocking gate. Everything here genuinely passes today.
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
@@ -35,6 +36,7 @@ jobs:
   # and tracked; flip continue-on-error off once the suite is green.
   e2e:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     continue-on-error: true
     steps:
       - uses: actions/checkout@v4
