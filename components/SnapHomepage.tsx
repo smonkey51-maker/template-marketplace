@@ -160,9 +160,8 @@ export default function SnapHomepage() {
           height: "100svh",
           overflowY: "scroll",
           overflowX: "hidden",
-          scrollSnapType: "y mandatory",
           scrollBehavior: "smooth",
-          overscrollBehaviorY: "contain",
+          overscrollBehaviorY: "none", // continuous storytelling without rigid snapping
         }}
       >
         <HeroSection />

@@ -142,20 +142,6 @@ export default function SiteNav() {
       <div className="fn-utility">
         <span>{t("tagline")}</span>
         <div className="fn-right">
-          <div className="fn-lang">
-            <button
-              className={lang === "it" ? "active" : ""}
-              onClick={() => lang === "en" && toggle()}
-            >
-              IT
-            </button>
-            <button
-              className={lang === "en" ? "active" : ""}
-              onClick={() => lang === "it" && toggle()}
-            >
-              EN
-            </button>
-          </div>
           <UserButton />
         </div>
       </div>

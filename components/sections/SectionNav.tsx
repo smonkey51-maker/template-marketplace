@@ -2,10 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
 import { FormaLogoStatic } from "@/components/FormaLogo";
 import { useLang } from "@/components/LanguageProvider";
-import LanguageToggle from "@/components/LanguageToggle";
 
 interface NavLink {
   href: string;
@@ -23,18 +21,15 @@ const NAV_LINKS: NavLink[] = [
 export default function SectionNav() {
   const pathname = usePathname();
   const { lang } = useLang();
-  const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
     <>
-      {/* Fixed overlay nav bar — glassmorphism, always above the drawer */}
+      {/* Fixed overlay nav bar — glassmorphism */}
       <header
         className="fixed top-0 inset-x-0 z-[70] flex items-center justify-between px-4 sm:px-6 lg:px-10"
         style={{
           height: "56px",
           paddingTop: "env(safe-area-inset-top, 0px)",
-          // Closest layer in the depth stack: strongest blur, and a cast
-          // shadow that separates it from the panels floating below.
           background: "rgba(5,4,2,0.46)",
           backdropFilter: "blur(30px) saturate(190%)",
           WebkitBackdropFilter: "blur(30px) saturate(190%)",
@@ -70,124 +65,10 @@ export default function SectionNav() {
           })}
         </nav>
 
-        {/* Theme + language stay reachable at every width — they used to live
-            inside the lg-only nav, which buried them in the drawer on tablet
-            and mobile. */}
-        <div className="flex items-center gap-2">
-          <LanguageToggle />
-
-          {/* Mobile hamburger/X — animates between states */}
-          <button
-            className="lg:hidden flex items-center justify-center w-10 h-10 ml-1 text-white/80 hover:text-white transition-colors"
-            onClick={() => setDrawerOpen((o) => !o)}
-            aria-label={drawerOpen ? "Chiudi menu" : "Apri menu"}
-            aria-expanded={drawerOpen}
-            aria-controls="mobile-drawer"
-            style={{ paddingRight: "env(safe-area-inset-right, 0px)" }}
-          >
-            <span
-              aria-hidden
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "5px",
-                width: "20px",
-              }}
-            >
-              {/* Top bar */}
-              <span
-                style={{
-                  display: "block",
-                  height: "1.5px",
-                  width: "100%",
-                  background: "rgba(255,255,255,0.88)",
-                  borderRadius: "2px",
-                  transition: "transform 0.3s cubic-bezier(0.4,0,0.2,1)",
-                  transformOrigin: "center",
-                  transform: drawerOpen ? "translateY(6.5px) rotate(45deg)" : "none",
-                }}
-              />
-              {/* Middle bar */}
-              <span
-                style={{
-                  display: "block",
-                  height: "1.5px",
-                  width: "100%",
-                  background: "rgba(255,255,255,0.88)",
-                  borderRadius: "2px",
-                  transition: "opacity 0.2s ease, transform 0.3s cubic-bezier(0.4,0,0.2,1)",
-                  opacity: drawerOpen ? 0 : 1,
-                  transform: drawerOpen ? "scaleX(0)" : "none",
-                }}
-              />
-              {/* Bottom bar */}
-              <span
-                style={{
-                  display: "block",
-                  height: "1.5px",
-                  width: "100%",
-                  background: "rgba(255,255,255,0.88)",
-                  borderRadius: "2px",
-                  transition: "transform 0.3s cubic-bezier(0.4,0,0.2,1)",
-                  transformOrigin: "center",
-                  transform: drawerOpen ? "translateY(-6.5px) rotate(-45deg)" : "none",
-                }}
-              />
-            </span>
-          </button>
-        </div>
+        {/* Empty space on mobile to keep logo left-aligned if we wanted, but justify-between handles it.
+            We leave a div to balance flex on desktop if needed, or just let justify-between work. */}
+        <div className="hidden lg:block w-24"></div>
       </header>
-
-      {/* Mobile fullscreen drawer */}
-      {drawerOpen && (
-        <div
-          id="mobile-drawer"
-          className="fixed inset-0 z-[60] flex flex-col"
-          style={{ background: "rgba(6,6,6,0.97)", backdropFilter: "blur(24px)" }}
-          role="dialog"
-          aria-modal="true"
-          aria-label="Navigation menu"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) setDrawerOpen(false);
-          }}
-        >
-          <div
-            className="flex items-center justify-between px-4 pt-safe"
-            style={{ height: "56px", paddingTop: "env(safe-area-inset-top, 0px)" }}
-          >
-            <FormaLogoStatic className="w-24 h-auto" />
-            {/* Space placeholder — close is handled by the hamburger button in the header */}
-            <div className="w-10" />
-          </div>
-
-          <nav
-            className="flex flex-col items-start gap-2 px-6 mt-10"
-            aria-label="Mobile navigation"
-          >
-            {NAV_LINKS.map((link) => {
-              const label = lang === "it" ? link.labelIt : link.labelEn;
-              const active = pathname.startsWith(link.href);
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setDrawerOpen(false)}
-                  aria-current={active ? "page" : undefined}
-                  className="py-3 text-3xl font-light tracking-tight transition-colors"
-                  style={{
-                    fontFamily: "var(--font-cormorant), Georgia, serif",
-                    color: active ? "var(--accent)" : "rgba(255,255,255,0.85)",
-                  }}
-                >
-                  {label}
-                </Link>
-              );
-            })}
-          </nav>
-          {/* Theme + language are not repeated here — they now sit in the
-              header bar at every width, including behind this drawer. */}
-        </div>
-      )}
     </>
   );
 }

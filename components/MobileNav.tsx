@@ -143,26 +143,20 @@ export default function MobileNav() {
   ];
 
   return (
-    <nav
-      className={`sm:hidden fixed bottom-0 inset-x-0 z-50 border-t border-theme ${reduced ? "" : "transition-transform duration-300 ease-out"} ${mounted ? "translate-y-0" : "translate-y-full"}`}
-      style={{
-        backdropFilter: "blur(20px) saturate(160%)",
-        WebkitBackdropFilter: "blur(20px) saturate(160%)",
-        backgroundColor: "var(--nav-bg)",
-      }}
+    <div
+      className={`sm:hidden fixed bottom-6 inset-x-0 z-[90] flex justify-center pointer-events-none ${reduced ? "" : "transition-all duration-500 ease-out"} ${mounted ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
     >
-      {/* Top specular line */}
-      <div
-        className="absolute inset-x-8 top-0 h-px rounded-full"
-        style={{ background: "var(--glass-top-edge)" }}
-      />
-
-      <div
-        className="flex items-stretch"
+      <nav
+        className="pointer-events-auto flex items-center justify-between rounded-full"
         style={{
-          paddingBottom: "env(safe-area-inset-bottom, 0px)",
-          paddingLeft: "env(safe-area-inset-left, 0px)",
-          paddingRight: "env(safe-area-inset-right, 0px)",
+          width: "calc(100% - 32px)",
+          maxWidth: "360px",
+          backdropFilter: "blur(32px) saturate(200%)",
+          WebkitBackdropFilter: "blur(32px) saturate(200%)",
+          backgroundColor: "rgba(12,12,12,0.65)",
+          border: "1px solid rgba(255,255,255,0.08)",
+          boxShadow: "0 16px 40px -12px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.15)",
+          padding: "6px 8px",
         }}
       >
         {tabs.map((tab) => (
@@ -171,21 +165,19 @@ export default function MobileNav() {
             href={tab.href}
             aria-label={tab.label}
             aria-current={tab.active ? "page" : undefined}
-            className={`relative flex-1 flex flex-col items-center justify-center gap-1.5 py-3 min-h-[48px] transition-all duration-200 active:scale-95 active:opacity-70 ${
-              tab.active ? "" : "text-muted"
+            className={`relative flex flex-col items-center justify-center gap-1 min-w-[64px] py-2 rounded-full transition-all duration-300 active:scale-95 ${
+              tab.active ? "bg-white/10 text-white" : "text-white/50 hover:text-white/80 hover:bg-white/5"
             }`}
-            style={tab.active ? { color: "var(--accent)" } : undefined}
           >
             <span className="relative">{tab.icon(tab.active)}</span>
             <span
-              className={`text-[10px] font-semibold leading-none ${tab.active ? "" : "text-muted"}`}
-              style={tab.active ? { color: "var(--accent)" } : undefined}
+              className="text-[10px] font-semibold leading-none tracking-wide"
             >
               {tab.label}
             </span>
           </Link>
         ))}
-      </div>
-    </nav>
+      </nav>
+    </div>
   );
 }

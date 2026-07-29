@@ -6,9 +6,8 @@
    SNAP-SCROLL — FORMA cinematographic homepage
    ═══════════════════════════════════════════════════════════ */
 
-/* Snap sections: 100svh (iOS Safari safe), fallback 100vh */
+/* Snap sections removed -> Continuous storytelling sections */
 .forma-section {
-  scroll-snap-align: start;
   height: 100svh;
   position: relative;
 }
@@ -263,11 +262,11 @@ body {
   --input-bg: rgba(26, 14, 6, 0.05);
   --btn-ghost-border: rgba(26, 14, 6, 0.18);
   --btn-ghost-border-hover: rgba(26, 14, 6, 0.72);
-  /* Border radius tokens */
-  --r-sm: 10px;
-  --r-md: 16px;
-  --r-lg: 22px;
-  --r-xl: 28px;
+  /* Border radius tokens - Squircle/Pill shift */
+  --r-sm: 24px;
+  --r-md: 32px;
+  --r-lg: 40px;
+  --r-xl: 48px;
   /* Glassmorphism tokens - Liquid Glass */
   --glass-fill: rgba(253, 250, 245, 0.7);
   --glass-shadow: 0 8px 32px rgba(26, 14, 6, 0.15), 0 2px 2px -1px rgba(255, 255, 255, 0.8) inset;
@@ -783,6 +782,24 @@ html::-webkit-scrollbar-track {
   .glass-subtle {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
+  }
+  
+  /* ── Liquid Glass ── */
+  .glass-pill {
+    border-radius: 9999px;
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    background: var(--glass-fill);
+    box-shadow: 0 12px 32px -8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15), inset 0 -1px 0 rgba(0,0,0,0.1);
+    border: 1px solid var(--glass-stroke);
+  }
+  .glass-panel {
+    border-radius: var(--r-md);
+    backdrop-filter: blur(32px) saturate(200%);
+    -webkit-backdrop-filter: blur(32px) saturate(200%);
+    background: var(--glass-fill);
+    box-shadow: 0 16px 40px -12px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.12);
+    border: 1px solid var(--glass-stroke);
   }
 
   /* ── Springs & easing ──────────────────── */

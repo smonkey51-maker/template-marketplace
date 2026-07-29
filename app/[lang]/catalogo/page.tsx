@@ -262,10 +262,10 @@ export default function CatalogoPage() {
       {/* iOS App-like Modal Overlay */}
       <AnimatePresence>
         {activeId && activeItem && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 pointer-events-none">
+          <div className="fixed inset-0 z-[100] flex items-end justify-center pointer-events-none sm:p-4">
             {/* Overlay invisibile per cliccare fuori e chiudere */}
             <motion.div 
-              className="absolute inset-0 pointer-events-auto"
+              className="absolute inset-0 pointer-events-auto bg-black/40 backdrop-blur-sm"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -274,30 +274,29 @@ export default function CatalogoPage() {
 
             <motion.div
               layoutId={`card-container-${activeItem.id}`}
-              className="relative w-full max-w-4xl bg-card border border-theme flex flex-col pointer-events-auto"
+              className="relative w-full max-w-[1000px] glass-panel flex flex-col pointer-events-auto"
               style={{
-                height: "90vh",
-                borderRadius: "24px",
+                height: "92vh",
+                borderBottomLeftRadius: 0,
+                borderBottomRightRadius: 0,
                 overflow: "hidden",
-                boxShadow: "0 40px 100px -20px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.15)",
-                backdropFilter: "blur(40px) saturate(200%)"
               }}
               transition={{ type: "spring", bounce: 0.25, duration: 0.6 }}
             >
-              {/* Bottone Chiudi in alto a destra */}
+              {/* Bottone Chiudi */}
               <button
                 onClick={() => setActiveId(null)}
-                className="absolute top-4 right-4 z-20 flex items-center justify-center w-8 h-8 rounded-full bg-black/40 text-white backdrop-blur-md hover:bg-black/60 transition-colors"
+                className="absolute top-6 right-6 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-black/40 text-white backdrop-blur-xl border border-white/10 hover:bg-black/60 transition-colors"
                 aria-label="Chiudi"
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="18" y1="6" x2="6" y2="18" />
                   <line x1="6" y1="6" x2="18" y2="18" />
                 </svg>
               </button>
 
               <div className="flex-1 overflow-y-auto overflow-x-hidden">
-                <motion.div layoutId={`card-preview-${activeItem.id}`} style={{ width: "100%", height: "45vh", position: "relative" }}>
+                <motion.div layoutId={`card-preview-${activeItem.id}`} style={{ width: "100%", height: "50vh", minHeight: "400px", position: "relative" }}>
                   <TemplatePreview id={activeItem.id} />
                 </motion.div>
                 

@@ -13,7 +13,20 @@ const isProtected = createRouteMatcher([
 ]);
 
 const locales = ["it", "en"];
-const defaultLocale = "it";
+function getLocale(req: any): string {
+  const acceptLanguage = req.headers.get("accept-language");
+  if (!acceptLanguage) return "en";
+
+  const langs = acceptLanguage
+    .split(",")
+    .map((lang: string) => lang.split(";")[0].trim().substring(0, 2).toLowerCase());
+
+  for (const lang of langs) {
+    if (lang === "it") return "it";
+    if (lang === "en") return "en";
+  }
+  return "en"; // Fallback globale ad inglese se la lingua non è tra quelle supportate
+}
 
 export default clerkMiddleware(async (auth, req) => {
   const { pathname } = req.nextUrl;
@@ -28,8 +41,9 @@ export default clerkMiddleware(async (auth, req) => {
   );
 
   if (!pathnameHasLocale) {
+    const locale = getLocale(req);
     const url = req.nextUrl.clone();
-    url.pathname = `/${defaultLocale}${pathname}`;
+    url.pathname = `/${locale}${pathname}`;
     return NextResponse.redirect(url);
   }
 

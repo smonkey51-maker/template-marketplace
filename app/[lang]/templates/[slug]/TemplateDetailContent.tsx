@@ -35,482 +35,106 @@ export function TemplateDetailContent({
   const dt = item.downloadType ?? "html";
   const platform = getPlatformLabel(dt);
 
-  const isPrompt =
-    item.tags.some((tag) => ["prompt", "ai", "copywriting"].includes(tag)) && dt === "html";
-  const isNotion = dt === "notion";
-
-  const included = isPrompt
-    ? [t("includedPrompt"), t("includedExamples"), t("includedDocs"), t("includedLicense")]
-    : isNotion
-      ? [t("includedNotion"), t("includedDb"), t("includedDocs"), t("includedLicense")]
-      : [
-          t("includedHtml"),
-          t("includedResponsive"),
-          t("includedTailwind"),
-          t("includedComments"),
-          t("includedLicense"),
-        ];
-
-  const techRows = isPrompt
-    ? [
-        { k: t("platform"), v: "Markdown / .txt" },
-        { k: t("techFramework"), v: "AI-agnostic" },
-      ]
-    : isNotion
-      ? [
-          { k: t("platform"), v: "Notion" },
-          { k: t("techFramework"), v: "Notion databases" },
-        ]
-      : [
-          { k: t("platform"), v: "HTML / Web" },
-          { k: t("techBrowser"), v: t("techBrowserVal") },
-          { k: t("techFramework"), v: "Tailwind CSS 3" },
-          { k: t("techNoTools"), v: "✓" },
-          { k: t("techMobile"), v: "✓" },
-        ];
-
-  const tagsLower = item.tags.join(" ").toLowerCase();
-  const perfectFor: string[] = [];
-  if (tagsLower.match(/agency|portfolio|creative/)) perfectFor.push(t("forAgencies"));
-  if (tagsLower.match(/saas|startup|landing/)) perfectFor.push(t("forStartups"));
-  if (tagsLower.match(/developer|code|html/)) perfectFor.push(t("forDesigners"));
-  if (tagsLower.match(/email|marketing|newsletter/)) perfectFor.push(t("forMarketing"));
-  if (tagsLower.match(/freelance|resume|invoice/)) perfectFor.push(t("forFreelance"));
-  if (tagsLower.match(/ai|prompt|content/)) perfectFor.push(t("forCreators"));
-  if (perfectFor.length === 0) perfectFor.push(t("forDesigners"), t("forAgencies"));
-
   return (
     <>
       <main
-        style={{ maxWidth: 1160, margin: "0 auto", padding: "32px clamp(16px, 3vw, 36px) 80px" }}
+        style={{
+          maxWidth: 960,
+          margin: "0 auto",
+          padding: "40px clamp(16px, 3vw, 36px) 120px",
+        }}
       >
-        {/* Breadcrumb */}
-        <nav
-          style={{
-            fontSize: 11,
-            textTransform: "uppercase",
-            letterSpacing: ".18em",
-            color: "var(--muted)",
-            marginBottom: 32,
-            display: "flex",
-            gap: 10,
-            alignItems: "center",
-          }}
-        >
-          <Link href="/" style={{ color: "var(--muted)", textDecoration: "none" }}>
-            FORMA
-          </Link>
-          <span>/</span>
-          <Link href="/catalogo" style={{ color: "var(--muted)", textDecoration: "none" }}>
-            {t("catalogo")}
-          </Link>
-          <span>/</span>
-          <span style={{ color: "#D4AF37" }}>{item.name}</span>
-        </nav>
+        {/* Navigation Breadcrumb (Floating Pill) */}
+        <div className="flex justify-center mb-10">
+          <nav className="glass-pill px-6 py-2 flex gap-3 text-[11px] font-semibold uppercase tracking-widest text-muted items-center">
+            <Link href="/" className="hover:text-accent transition-colors">FORMA</Link>
+            <span>/</span>
+            <Link href="/catalogo" className="hover:text-accent transition-colors">{t("catalogo")}</Link>
+            <span>/</span>
+            <span className="text-accent">{item.name}</span>
+          </nav>
+        </div>
 
-        <div className="fn-tpl-layout">
-          {/* LEFT: preview + details */}
-          <section>
-            {/* Large live preview */}
-            <div
-              style={{
-                border: "1px solid var(--fn-border, rgba(234,234,234,.10))",
-                overflow: "hidden",
-                marginBottom: 28,
-              }}
-            >
-              <TemplatePreview id={item.id} height={480} />
-            </div>
+        {/* The Glass Sheet */}
+        <article className="glass-panel overflow-hidden mb-24">
+          <div style={{ height: "60vh", minHeight: "400px", position: "relative" }}>
+            <TemplatePreview id={item.id} />
+          </div>
 
-            {/* Badges */}
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 20 }}>
-              <span className="fn-badge">{platform}</span>
+          <div className="p-8 sm:p-14 lg:p-20">
+            <div className="flex flex-wrap gap-2 items-center mb-6">
+              <span className="fn-badge bg-black/20 backdrop-blur-md">{platform}</span>
               {item.editorsPick && (
-                <span
-                  className="fn-badge"
-                  style={{
-                    background: "transparent",
-                    border: "1px solid rgba(212,175,55,.5)",
-                    color: "#D4AF37",
-                  }}
-                >
-                  ★ Editor&apos;s Pick
-                </span>
-              )}
-              {item.isNew && (
-                <span
-                  className="fn-badge"
-                  style={{
-                    background: "transparent",
-                    border: "1px solid var(--fn-border)",
-                    color: "var(--text)",
-                  }}
-                >
-                  New
+                <span className="fn-badge" style={{ border: "1px solid rgba(212,175,55,.4)", color: "#D4AF37" }}>
+                  ★ Editor
                 </span>
               )}
             </div>
 
-            {/* Title */}
             <h1
               style={{
                 fontFamily: "var(--font-cormorant), Georgia, serif",
+                fontSize: "clamp(36px, 6vw, 64px)",
+                lineHeight: 1.05,
                 fontWeight: 300,
-                fontSize: "clamp(32px,4vw,56px)",
-                margin: "0 0 14px",
-                color: "var(--text)",
-                lineHeight: 1.08,
+                marginBottom: 24,
               }}
             >
               {item.name}
             </h1>
-            <p
-              style={{
-                color: "var(--muted)",
-                lineHeight: 1.7,
-                fontSize: 16,
-                marginBottom: 28,
-                maxWidth: 620,
-              }}
-            >
+            
+            <p className="text-muted text-lg sm:text-xl leading-relaxed max-w-2xl mb-12">
               {item.description}
             </p>
 
-            {/* Downloads */}
-            <div
-              style={{
-                fontSize: 12,
-                color: "var(--muted)",
-                letterSpacing: ".14em",
-                textTransform: "uppercase",
-                marginBottom: 36,
-                display: "flex",
-                gap: 6,
-                alignItems: "center",
-              }}
-            >
-              <span style={{ color: "#D4AF37" }}>↓</span>
-              {item.downloads.toLocaleString()} {t("downloadsLabel")}
-            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 border-t border-theme pt-12">
+              <div>
+                <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-accent mb-6">Features</h3>
+                <ul className="space-y-3 text-muted text-sm sm:text-base">
+                  <li className="flex items-center gap-3"><span className="text-accent">✓</span> Accesso immediato</li>
+                  <li className="flex items-center gap-3"><span className="text-accent">✓</span> Uso commerciale limitato</li>
+                  <li className="flex items-center gap-3"><span className="text-accent">✓</span> Supporto prioritario</li>
+                  <li className="flex items-center gap-3"><span className="text-accent">✓</span> Rimborso entro 14 giorni</li>
+                </ul>
+              </div>
 
-            {/* What's included */}
-            <div style={{ marginBottom: 36 }}>
-              <h3
-                style={{
-                  fontSize: 11,
-                  textTransform: "uppercase",
-                  letterSpacing: ".22em",
-                  color: "#D4AF37",
-                  marginBottom: 16,
-                  fontWeight: 600,
-                }}
-              >
-                {t("whatsIncluded")}
-              </h3>
-              <div style={{ display: "grid", gap: 10 }}>
-                {included.map((inc) => (
-                  <div
-                    key={inc}
-                    style={{
-                      display: "flex",
-                      gap: 10,
-                      alignItems: "flex-start",
-                      fontSize: 14,
-                      color: "var(--muted)",
-                    }}
+              <div className="flex flex-col justify-end bg-black/10 rounded-3xl p-8 border border-theme">
+                <span className="text-xs uppercase tracking-widest text-muted mb-2">Prezzo una tantum</span>
+                <div className="font-cormorant text-5xl mb-8">{formatPrice(item.price)}</div>
+                
+                <div className="flex flex-col gap-3">
+                  <BuyButton templateId={item.id} price={formatPrice(item.price)} />
+                  <Link
+                    href={`/preview/${item.id}`}
+                    className="fn-btn justify-center bg-white/5 hover:bg-white/10"
                   >
-                    <span style={{ color: "#D4AF37", flexShrink: 0, marginTop: 1 }}>✓</span>
-                    {inc}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Tech specs */}
-            <div style={{ marginBottom: 36 }}>
-              <h3
-                style={{
-                  fontSize: 11,
-                  textTransform: "uppercase",
-                  letterSpacing: ".22em",
-                  color: "#D4AF37",
-                  marginBottom: 16,
-                  fontWeight: 600,
-                }}
-              >
-                {t("techSpecs")}
-              </h3>
-              <div style={{ border: "1px solid var(--fn-border, rgba(234,234,234,.10))" }}>
-                {techRows.map((row, i) => (
-                  <div
-                    key={row.k}
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: "160px 1fr",
-                      borderBottom:
-                        i < techRows.length - 1
-                          ? "1px solid var(--fn-border, rgba(234,234,234,.08))"
-                          : "none",
-                      padding: "10px 16px",
-                      background: i % 2 === 0 ? "transparent" : "rgba(212,175,55,.02)",
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontSize: 12,
-                        color: "var(--muted)",
-                        textTransform: "uppercase",
-                        letterSpacing: ".12em",
-                      }}
-                    >
-                      {row.k}
-                    </span>
-                    <span style={{ fontSize: 13, color: "var(--text)" }}>{row.v}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Perfect for */}
-            <div style={{ marginBottom: 36 }}>
-              <h3
-                style={{
-                  fontSize: 11,
-                  textTransform: "uppercase",
-                  letterSpacing: ".22em",
-                  color: "#D4AF37",
-                  marginBottom: 16,
-                  fontWeight: 600,
-                }}
-              >
-                {t("perfectFor")}
-              </h3>
-              <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                {perfectFor.map((p) => (
-                  <span
-                    key={p}
-                    style={{
-                      padding: "6px 14px",
-                      fontSize: 12,
-                      color: "var(--muted)",
-                      border: "1px solid var(--fn-border, rgba(234,234,234,.14))",
-                      textTransform: "uppercase",
-                      letterSpacing: ".12em",
-                    }}
-                  >
-                    {p}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Tags */}
-            <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-              {item.tags.map((tag) => (
-                <span
-                  key={tag}
-                  style={{
-                    fontSize: 10,
-                    color: "var(--muted)",
-                    border: "1px solid var(--fn-border, rgba(234,234,234,.10))",
-                    padding: "4px 10px",
-                    textTransform: "uppercase",
-                    letterSpacing: ".14em",
-                  }}
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </section>
-
-          {/* RIGHT: sticky purchase sidebar */}
-          <aside style={{ position: "sticky", top: 24 }}>
-            <div
-              style={{
-                border: "1px solid var(--fn-border, rgba(234,234,234,.10))",
-                background: "var(--surface)",
-                padding: "28px 24px",
-              }}
-            >
-              {/* Price */}
-              <div
-                style={{
-                  fontFamily: "var(--font-cormorant), Georgia, serif",
-                  fontSize: 58,
-                  fontWeight: 300,
-                  color: "var(--text)",
-                  lineHeight: 1,
-                  marginBottom: 4,
-                }}
-              >
-                {formatPrice(item.price)}
-              </div>
-              <p
-                style={{
-                  color: "var(--muted)",
-                  fontSize: 11,
-                  marginBottom: 24,
-                  textTransform: "uppercase",
-                  letterSpacing: ".16em",
-                }}
-              >
-                {t("oneTimePurchase")} · {platform}
-              </p>
-
-              <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 24 }}>
-                <BuyButton templateId={item.id} price={formatPrice(item.price)} />
-                <Link
-                  href={`/preview/${item.id}`}
-                  className="fn-btn"
-                  style={{ width: "100%", justifyContent: "center", fontSize: 11 }}
-                >
-                  {t("previewBtn")} →
-                </Link>
-              </div>
-
-              {/* Quick features */}
-              <div
-                style={{
-                  borderTop: "1px solid var(--fn-border, rgba(234,234,234,.08))",
-                  paddingTop: 20,
-                  display: "grid",
-                  gap: 10,
-                }}
-              >
-                {[
-                  { icon: "✓", label: t("immediateAccess") },
-                  { icon: "✓", label: t("commercialUse") },
-                  { icon: "✓", label: t("freeUpdates") },
-                  { icon: "✓", label: t("emailSupport") },
-                ].map((f) => (
-                  <div
-                    key={f.label}
-                    style={{ display: "flex", gap: 10, fontSize: 13, color: "var(--muted)" }}
-                  >
-                    <span style={{ color: "#D4AF37" }}>{f.icon}</span>
-                    {f.label}
-                  </div>
-                ))}
-              </div>
-
-              {/* Money-back guarantee */}
-              <div
-                style={{
-                  marginTop: 20,
-                  padding: "14px 16px",
-                  background: "rgba(212,175,55,.05)",
-                  border: "1px solid rgba(212,175,55,.15)",
-                  textAlign: "center",
-                }}
-              >
-                <div
-                  style={{
-                    fontSize: 11,
-                    color: "#D4AF37",
-                    textTransform: "uppercase",
-                    letterSpacing: ".16em",
-                    marginBottom: 4,
-                  }}
-                >
-                  ⚡ {t("moneyBackShort")}
-                </div>
-                <div style={{ fontSize: 12, color: "var(--muted)", lineHeight: 1.5 }}>
-                  {lang === "it"
-                    ? "Non sei soddisfatto? Rimborso completo entro 14 giorni."
-                    : "Not satisfied? Full refund within 14 days."}
+                    Preview dal vivo
+                  </Link>
                 </div>
               </div>
-
-              {/* Secure checkout */}
-              <div style={{ marginTop: 16, textAlign: "center" }}>
-                <span
-                  style={{
-                    fontSize: 11,
-                    color: "var(--muted)",
-                    letterSpacing: ".12em",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  ⚡ {t("secureCheckout")}
-                </span>
-              </div>
-
-              <div style={{ marginTop: 20 }}>
-                <Link
-                  href="/catalogo"
-                  style={{
-                    fontSize: 11,
-                    color: "var(--muted)",
-                    textDecoration: "none",
-                    textTransform: "uppercase",
-                    letterSpacing: ".14em",
-                  }}
-                >
-                  {t("backToCatalog")}
-                </Link>
-              </div>
             </div>
-          </aside>
-        </div>
+          </div>
+        </article>
 
         {/* Related templates */}
         {related.length > 0 && (
-          <div
-            style={{
-              marginTop: 72,
-              borderTop: "1px solid var(--fn-border, rgba(234,234,234,.10))",
-              paddingTop: 48,
-            }}
-          >
-            <h2
-              style={{
-                fontSize: 11,
-                textTransform: "uppercase",
-                letterSpacing: ".22em",
-                color: "#D4AF37",
-                marginBottom: 32,
-                fontWeight: 600,
-              }}
-            >
+          <div className="text-center">
+            <h2 className="text-[11px] font-bold uppercase tracking-[0.2em] text-accent mb-10">
               {t("relatedTemplates")}
             </h2>
-            <div className="fn-tpl-related">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {related.map((rel) => (
                 <Link
                   key={rel.id}
                   href={`/templates/${rel.id}`}
-                  style={{
-                    textDecoration: "none",
-                    background: "var(--surface)",
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
+                  className="glass-panel overflow-hidden group flex flex-col items-center hover:scale-[1.02] transition-transform duration-300"
                 >
-                  <TemplatePreview id={rel.id} height={160} />
-                  <div style={{ padding: "14px 16px" }}>
-                    <span className="fn-badge" style={{ marginBottom: 8, display: "inline-block" }}>
-                      {getPlatformLabel(rel.downloadType)}
-                    </span>
-                    <div
-                      style={{
-                        fontFamily: "var(--font-cormorant), Georgia, serif",
-                        fontSize: 20,
-                        color: "var(--text)",
-                        marginBottom: 6,
-                      }}
-                    >
-                      {rel.name}
-                    </div>
-                    <div
-                      style={{
-                        fontSize: 13,
-                        color: "#D4AF37",
-                        fontFamily: "var(--font-cormorant), Georgia, serif",
-                      }}
-                    >
-                      {formatPrice(rel.price)}
-                    </div>
+                  <div className="w-full h-32 relative pointer-events-none">
+                    <TemplatePreview id={rel.id} />
+                  </div>
+                  <div className="p-5 text-center w-full">
+                    <div className="font-cormorant text-2xl mb-1">{rel.name}</div>
+                    <div className="text-accent text-sm tracking-widest">{formatPrice(rel.price)}</div>
                   </div>
                 </Link>
               ))}
