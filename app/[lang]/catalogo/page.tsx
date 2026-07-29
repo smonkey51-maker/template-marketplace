@@ -287,7 +287,6 @@ export default function CatalogoPage() {
             />
 
             <motion.div
-              layoutId={`card-container-${activeItem.id}`}
               className="relative w-full max-w-[1000px] glass-panel flex flex-col pointer-events-auto"
               style={{
                 height: "92vh",
@@ -295,6 +294,9 @@ export default function CatalogoPage() {
                 borderBottomRightRadius: 0,
                 overflow: "hidden",
               }}
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 50, opacity: 0 }}
               transition={{ type: "spring", bounce: 0.25, duration: 0.6 }}
             >
               {/* Bottone Chiudi */}
