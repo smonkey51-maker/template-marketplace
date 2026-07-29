@@ -3182,22 +3182,25 @@ html.forma-v2 {
   z-index: 0;
   background: radial-gradient(ellipse at 50% -5%, rgba(212, 175, 55, 0.07), transparent 50%);
 }
-/* Caravaggio chiaroscuro — bg-dark.jpg at low opacity creates painting-like depth */
-.fn-bg::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background-image: url("/bg-dark.jpg");
-  background-size: cover;
-  background-position: center top;
-  opacity: 0.05;
-  mix-blend-mode: luminosity;
+
+.fn-search {
+  flex: 1;
+  min-width: 200px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  color: var(--text);
+  padding: 16px 24px;
+  outline: none;
+  font: inherit;
+  transition: border-color var(--t-md, 320ms), background var(--t-md, 320ms);
 }
-html:not(.dark) .fn-bg::after {
-  opacity: 0.04;
-  mix-blend-mode: multiply;
+.fn-search::placeholder {
+  color: var(--muted);
+}
+.fn-search:focus {
+  border-color: rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.06);
 }
 
 .fn-shell {

@@ -55,18 +55,10 @@ export default function CatalogoPage() {
   const { lang } = useLang();
   const t = (k: keyof typeof copy.it) => copy[lang][k];
   const [q, setQ] = useState("");
-  const [filter, setFilter] = useState<FilterKey>("All");
   const [activeId, setActiveId] = useState<string | null>(null);
 
   const activeItem = useMemo(() => PAID_TEMPLATES.find((t) => t.id === activeId), [activeId]);
 
-  // Preselect the category when arriving from a nav dropdown (/catalogo?cat=Notion).
-  // Read from the URL directly rather than useSearchParams so the page needs no
-  // Suspense boundary during prerendering.
-  useEffect(() => {
-    const cat = new URLSearchParams(window.location.search).get("cat");
-    if (isFilterKey(cat)) setFilter(cat);
-  }, []);
 
   // Lock body scroll when modal is open
   useEffect(() => {
@@ -80,22 +72,14 @@ export default function CatalogoPage() {
     };
   }, [activeId]);
 
-  const FILTERS: { key: FilterKey; label: string }[] = [
-    { key: "All", label: t("all") },
-    { key: "Web", label: "Web" },
-    { key: "Notion", label: "Notion" },
-    { key: "App", label: "App" },
-    { key: "Shop", label: "Shop" },
-  ];
 
   const filtered = useMemo(
     () =>
       PAID_TEMPLATES.filter(
         (x) =>
-          (filter === "All" || getFilterKey(x) === filter) &&
           `${x.name} ${x.description} ${x.tags.join(" ")}`.toLowerCase().includes(q.toLowerCase()),
       ),
-    [q, filter],
+    [q],
   );
 
   return (
@@ -142,28 +126,6 @@ export default function CatalogoPage() {
             />
           </div>
 
-          <div className="flex gap-1 p-1.5 mb-10 glass-pill w-fit mx-auto sm:mx-0 overflow-x-auto max-w-full" style={{ scrollbarWidth: "none" }}>
-            {FILTERS.map(({ key, label }) => (
-              <button
-                key={key}
-                onClick={() => setFilter(key)}
-                className={`relative px-5 py-2.5 text-[11px] font-semibold tracking-widest uppercase transition-colors z-10 whitespace-nowrap outline-none ${
-                  filter === key ? "text-white" : "text-white/50 hover:text-white/80"
-                }`}
-                style={{ WebkitTapHighlightColor: "transparent" }}
-              >
-                {filter === key && (
-                  <motion.div
-                    layoutId="active-filter-pill"
-                    className="absolute inset-0 bg-white/15 border border-white/10 shadow-sm"
-                    style={{ borderRadius: 9999, zIndex: -1 }}
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                  />
-                )}
-                {label}
-              </button>
-            ))}
-          </div>
 
           {filtered.length === 0 ? (
             <div style={{ padding: "60px 0", textAlign: "center", color: "var(--muted)" }}>
@@ -313,7 +275,7 @@ export default function CatalogoPage() {
 
               <div className="flex-1 overflow-y-auto overflow-x-hidden">
                 <motion.div layoutId={`card-preview-${activeItem.id}`} style={{ width: "100%", height: "50vh", minHeight: "400px", position: "relative" }}>
-                  <TemplatePreview id={activeItem.id} />
+                  <TemplatePreview id={activeItem.id} interactive={true} />
                 </motion.div>
                 
                 <motion.div layoutId={`card-body-${activeItem.id}`} className="p-8 sm:p-12">
