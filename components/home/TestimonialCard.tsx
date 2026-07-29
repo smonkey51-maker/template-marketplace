@@ -12,7 +12,7 @@ export default function TestimonialCard({
   lang: "it" | "en";
 }) {
   return (
-    <div className="shoji-card glass-subtle rounded-none p-5 flex flex-col gap-3.5">
+    <div className="shoji-card glass-subtle p-5 flex flex-col gap-3.5">
       {/* Stars */}
       <div className="flex gap-0.5">
         {Array.from({ length: testimonial.rating }).map((_, i) => (

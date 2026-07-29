@@ -9,7 +9,7 @@ export default function LanguageToggle() {
     <button
       onClick={toggle}
       aria-label="Toggle language"
-      className="relative flex items-center p-[2px] transition-colors duration-300 focus:outline-none border border-theme"
+      className="relative flex items-center p-[2px] rounded-full overflow-hidden transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] border border-theme"
       style={{
         width: "64px",
         height: "26px",
@@ -18,7 +18,7 @@ export default function LanguageToggle() {
     >
       {/* IT side */}
       <span
-        className="flex-1 flex items-center justify-center text-[11px] font-black tracking-widest transition-all duration-200 h-full"
+        className="flex-1 flex items-center justify-center text-[11px] font-black tracking-widest rounded-full transition-all duration-200 h-full"
         style={
           lang === "it"
             ? { background: "var(--accent)", color: "var(--bg)" }
@@ -30,7 +30,7 @@ export default function LanguageToggle() {
 
       {/* EN side */}
       <span
-        className="flex-1 flex items-center justify-center text-[11px] font-black tracking-widest transition-all duration-200 h-full"
+        className="flex-1 flex items-center justify-center text-[11px] font-black tracking-widest rounded-full transition-all duration-200 h-full"
         style={
           lang === "en"
             ? { background: "var(--accent)", color: "var(--bg)" }

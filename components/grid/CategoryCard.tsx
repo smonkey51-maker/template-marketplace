@@ -91,7 +91,7 @@ export default function CategoryCard({
     >
       {/* Ambient glow */}
       <div
-        className="absolute inset-0 rounded-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none -z-10 blur-2xl"
+        className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none -z-10 blur-2xl"
         style={{ background: `radial-gradient(ellipse at 50% 100%, ${section.gradientFrom}88 0%, transparent 70%)` }}
       />
       <div
@@ -99,7 +99,7 @@ export default function CategoryCard({
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         onClick={(e) => { addRipple(e); onClick(); }}
-        className="shoji-card group relative rounded-none overflow-hidden cursor-pointer border border-white/10 dark:border-white/8"
+        className="shoji-card group relative overflow-hidden cursor-pointer border border-white/10 dark:border-white/8"
         style={{ willChange: "transform", height: featured ? "220px" : "172px" }}
       >
         {/* Background — Unsplash image or gradient fallback */}

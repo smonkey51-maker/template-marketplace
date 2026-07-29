@@ -48,7 +48,7 @@ export default function SectionNav() {
           <FormaLogoStatic className="w-24 sm:w-32 h-auto opacity-90 hover:opacity-100 transition-opacity" />
         </Link>
 
-        {/* Desktop tab nav top-right */}
+        {/* Desktop tab nav */}
         <nav className="hidden lg:flex items-center gap-1" aria-label="Main navigation">
           {NAV_LINKS.map((link) => {
             const label = lang === "it" ? link.labelIt : link.labelEn;
@@ -69,21 +69,24 @@ export default function SectionNav() {
               </Link>
             );
           })}
-          <div className="ml-3 flex items-center gap-1">
-            <ThemeToggle />
-            <LanguageToggle />
-          </div>
         </nav>
 
-        {/* Mobile hamburger/X top-right — animates between states */}
-        <button
-          className="lg:hidden flex items-center justify-center w-10 h-10 text-white/80 hover:text-white transition-colors"
-          onClick={() => setDrawerOpen((o) => !o)}
-          aria-label={drawerOpen ? "Chiudi menu" : "Apri menu"}
-          aria-expanded={drawerOpen}
-          aria-controls="mobile-drawer"
-          style={{ paddingRight: "env(safe-area-inset-right, 0px)" }}
-        >
+        {/* Theme + language stay reachable at every width — they used to live
+            inside the lg-only nav, which buried them in the drawer on tablet
+            and mobile. */}
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <LanguageToggle />
+
+          {/* Mobile hamburger/X — animates between states */}
+          <button
+            className="lg:hidden flex items-center justify-center w-10 h-10 ml-1 text-white/80 hover:text-white transition-colors"
+            onClick={() => setDrawerOpen((o) => !o)}
+            aria-label={drawerOpen ? "Chiudi menu" : "Apri menu"}
+            aria-expanded={drawerOpen}
+            aria-controls="mobile-drawer"
+            style={{ paddingRight: "env(safe-area-inset-right, 0px)" }}
+          >
           <span
             aria-hidden
             style={{
@@ -127,7 +130,8 @@ export default function SectionNav() {
               transform: drawerOpen ? "translateY(-6.5px) rotate(-45deg)" : "none",
             }} />
           </span>
-        </button>
+          </button>
+        </div>
       </header>
 
       {/* Mobile fullscreen drawer */}
@@ -174,11 +178,8 @@ export default function SectionNav() {
               );
             })}
           </nav>
-
-          <div className="mt-auto px-6 pb-8 flex items-center gap-3" style={{ paddingBottom: "max(2rem, env(safe-area-inset-bottom))" }}>
-            <ThemeToggle />
-            <LanguageToggle />
-          </div>
+          {/* Theme + language are not repeated here — they now sit in the
+              header bar at every width, including behind this drawer. */}
         </div>
       )}
     </>
