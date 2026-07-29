@@ -8,6 +8,7 @@ import { copy } from "@/lib/formaCopy";
 import { FormaFooter } from "@/components/FormaFooter";
 import { templatesMeta, formatPrice, type TemplateMeta } from "@/lib/templates";
 import { TemplatePreview } from "@/components/TemplatePreview";
+import { motion, AnimatePresence } from "framer-motion";
 
 type FilterKey = "All" | "Web" | "Notion" | "App" | "Shop";
 
@@ -54,6 +55,9 @@ export default function CatalogoPage() {
   const t = (k: keyof typeof copy.it) => copy[lang][k];
   const [q, setQ] = useState("");
   const [filter, setFilter] = useState<FilterKey>("All");
+  const [activeId, setActiveId] = useState<string | null>(null);
+
+  const activeItem = useMemo(() => PAID_TEMPLATES.find((t) => t.id === activeId), [activeId]);
 
   // Preselect the category when arriving from a nav dropdown (/catalogo?cat=Notion).
   // Read from the URL directly rather than useSearchParams so the page needs no
@@ -62,6 +66,18 @@ export default function CatalogoPage() {
     const cat = new URLSearchParams(window.location.search).get("cat");
     if (isFilterKey(cat)) setFilter(cat);
   }, []);
+
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (activeId) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [activeId]);
 
   const FILTERS: { key: FilterKey; label: string }[] = [
     { key: "All", label: t("all") },
@@ -82,7 +98,17 @@ export default function CatalogoPage() {
   );
 
   return (
-    <div className="fn-bg">
+    <>
+      <motion.div 
+        className="fn-bg"
+        animate={{ 
+          scale: activeId ? 0.94 : 1, 
+          borderRadius: activeId ? "24px" : "0px",
+          filter: activeId ? "brightness(0.65)" : "brightness(1)" 
+        }}
+        transition={{ type: "spring", bounce: 0.25, duration: 0.6 }}
+        style={{ transformOrigin: "top center", minHeight: "100vh" }}
+      >
       <div className="fn-shell">
         <SiteNav />
 
@@ -134,9 +160,19 @@ export default function CatalogoPage() {
           ) : (
             <div className="fn-grid">
               {filtered.map((item) => (
-                <article className="fn-card" key={item.id}>
-                  <TemplatePreview id={item.id} />
-                  <div className="fn-body">
+                <motion.article 
+                  className="fn-card cursor-pointer" 
+                  key={item.id}
+                  layoutId={`card-container-${item.id}`}
+                  onClick={() => setActiveId(item.id)}
+                  whileHover={{ y: -4, boxShadow: "0 20px 40px rgba(0,0,0,0.4)" }}
+                  whileTap={{ scale: 0.96 }}
+                  transition={{ type: "spring", bounce: 0.3 }}
+                >
+                  <motion.div layoutId={`card-preview-${item.id}`} style={{ borderRadius: "12px", overflow: "hidden", marginBottom: "16px" }}>
+                    <TemplatePreview id={item.id} />
+                  </motion.div>
+                  <motion.div className="fn-body" layoutId={`card-body-${item.id}`}>
                     <div
                       style={{
                         display: "flex",
@@ -207,21 +243,99 @@ export default function CatalogoPage() {
                       </b>
                     </div>
                     <div className="fn-card-actions" style={{ marginTop: 18 }}>
-                      <Link href={`/templates/${item.id}`} className="fn-btn primary">
+                      <button 
+                        onClick={(e) => { e.stopPropagation(); setActiveId(item.id); }} 
+                        className="fn-btn primary w-full justify-center"
+                      >
                         {t("details")}
-                      </Link>
-                      <Link href={`/preview/${item.id}`} className="fn-btn">
-                        {t("download")}
-                      </Link>
+                      </button>
                     </div>
-                  </div>
-                </article>
+                  </motion.div>
+                </motion.article>
               ))}
             </div>
           )}
         </section>
         <FormaFooter />
-      </div>
-    </div>
+      </motion.div>
+
+      {/* iOS App-like Modal Overlay */}
+      <AnimatePresence>
+        {activeId && activeItem && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 pointer-events-none">
+            {/* Overlay invisibile per cliccare fuori e chiudere */}
+            <motion.div 
+              className="absolute inset-0 pointer-events-auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setActiveId(null)}
+            />
+
+            <motion.div
+              layoutId={`card-container-${activeItem.id}`}
+              className="relative w-full max-w-4xl bg-card border border-theme flex flex-col pointer-events-auto"
+              style={{
+                height: "90vh",
+                borderRadius: "24px",
+                overflow: "hidden",
+                boxShadow: "0 40px 100px -20px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.15)",
+                backdropFilter: "blur(40px) saturate(200%)"
+              }}
+              transition={{ type: "spring", bounce: 0.25, duration: 0.6 }}
+            >
+              {/* Bottone Chiudi in alto a destra */}
+              <button
+                onClick={() => setActiveId(null)}
+                className="absolute top-4 right-4 z-20 flex items-center justify-center w-8 h-8 rounded-full bg-black/40 text-white backdrop-blur-md hover:bg-black/60 transition-colors"
+                aria-label="Chiudi"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+
+              <div className="flex-1 overflow-y-auto overflow-x-hidden">
+                <motion.div layoutId={`card-preview-${activeItem.id}`} style={{ width: "100%", height: "45vh", position: "relative" }}>
+                  <TemplatePreview id={activeItem.id} />
+                </motion.div>
+                
+                <motion.div layoutId={`card-body-${activeItem.id}`} className="p-8 sm:p-12">
+                  <div className="flex gap-2 items-center flex-wrap mb-4">
+                    <span className="fn-badge bg-black/20">{getPlatformLabel(activeItem)}</span>
+                    {activeItem.editorsPick && <span className="fn-badge" style={{ border: "1px solid rgba(212,175,55,.5)", color: "#D4AF37" }}>★ Editor</span>}
+                  </div>
+                  
+                  <h2 style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: "clamp(32px, 4vw, 48px)", lineHeight: 1.1, marginBottom: 16 }}>
+                    {activeItem.name}
+                  </h2>
+                  
+                  <p style={{ color: "var(--muted)", fontSize: 18, lineHeight: 1.6, marginBottom: 32, maxWidth: "600px" }}>
+                    {activeItem.description}
+                  </p>
+
+                  <div className="flex items-center gap-6 pt-6 border-t border-theme">
+                    <div>
+                      <span className="block text-xs uppercase tracking-widest text-muted mb-1">Prezzo</span>
+                      <b style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: 32 }}>{formatPrice(activeItem.price)}</b>
+                    </div>
+                    
+                    <div className="flex-1 flex justify-end gap-3">
+                      <Link href={`/preview/${activeItem.id}`} className="fn-btn">
+                        {t("download")}
+                      </Link>
+                      <Link href={`/templates/${activeItem.id}`} className="fn-btn primary shadow-lg">
+                        Acquista Ora
+                      </Link>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

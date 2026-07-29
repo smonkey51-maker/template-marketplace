@@ -611,7 +611,24 @@ html, body {
     color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    transform 0.4s cubic-bezier(0.32, 1.1, 0.64, 1); /* Bouncier for tactile feedback */
+}
+
+/* ── iOS-Like Haptic Feedback ── */
+/* Tutti gli elementi interattivi principali reagiscono alla pressione */
+button:active, 
+.fn-btn:active, 
+.fn-chip:active, 
+.catalogo-card:active, 
+.fn-card:active {
+  transform: scale(0.96) !important;
+  transition-duration: 0.15s !important;
+}
+
+/* Stack Effect Utility (utilizzata da Framer Motion) */
+.ios-stack-bg {
+  transform-origin: top center;
+  transition: transform 0.6s cubic-bezier(0.32, 1.1, 0.64, 1), filter 0.6s ease;
 }
 
 /* ── Dark mode: FORMA — near-black with gold glow at top ── */
