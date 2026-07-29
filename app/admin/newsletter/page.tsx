@@ -14,7 +14,7 @@ export default function NewsletterAdminPage() {
 
   useEffect(() => {
     fetch("/api/admin/newsletter")
-      .then((r) => r.json())
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`/api/admin/newsletter ${r.status}`))))
       .then((d) => setCount(d.count ?? null))
       .catch((e) => console.error("[NewsletterAdmin] fetch count:", e));
   }, []);

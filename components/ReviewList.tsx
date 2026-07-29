@@ -35,7 +35,7 @@ export default function ReviewList({
   function fetchReviews() {
     setLoading(true);
     fetch(`/api/reviews?templateId=${encodeURIComponent(templateId)}`)
-      .then((r) => r.json())
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`/api/reviews ${r.status}`))))
       .then((data) => {
         setReviews(data.reviews ?? []);
         setAvgRating(data.avgRating ?? 0);

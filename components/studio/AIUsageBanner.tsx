@@ -35,7 +35,7 @@ export default function AIUsageBanner() {
 
   useEffect(() => {
     fetch("/api/ai-usage")
-      .then((r) => r.json())
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`/api/ai-usage ${r.status}`))))
       .then(setData)
       .catch(() => null);
   }, []);
