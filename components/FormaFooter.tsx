@@ -62,19 +62,25 @@ export function FormaFooter() {
             </p>
             {/* Newsletter */}
             {!sent ? (
-              <form onSubmit={handleSubscribe} style={{ display: "flex", gap: 0 }}>
+              <form onSubmit={handleSubscribe} style={{ 
+                display: "flex", 
+                gap: 4, 
+                background: "var(--bg)",
+                border: "1px solid var(--fn-border, rgba(234,234,234,.14))",
+                borderRadius: 999,
+                padding: "4px",
+                alignItems: "center"
+              }}>
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder={t("newsletterPlaceholder")}
                   className="fn-newsletter-input"
                   style={{
                     flex: 1,
-                    padding: "10px 14px",
-                    background: "var(--bg)",
-                    border: "1px solid var(--fn-border, rgba(234,234,234,.14))",
-                    borderRight: 0,
+                    padding: "10px 16px",
+                    background: "transparent",
+                    border: "none",
                     color: "var(--text)",
                     fontSize: 12,
                     outline: "none",
@@ -84,7 +90,7 @@ export function FormaFooter() {
                 <button
                   type="submit"
                   className="fn-btn primary"
-                  style={{ padding: "10px 16px", fontSize: 10, whiteSpace: "nowrap" }}
+                  style={{ padding: "10px 20px", fontSize: 10, whiteSpace: "nowrap" }}
                 >
                   {t("newsletterCta")}
                 </button>
@@ -96,14 +102,12 @@ export function FormaFooter() {
                   fontSize: 12,
                   letterSpacing: ".12em",
                   textTransform: "uppercase",
+                  padding: "10px 0"
                 }}
               >
                 ✓ {lang === "it" ? "Iscritto." : "Subscribed."}
               </p>
             )}
-            <p style={{ color: "var(--muted)", fontSize: 11, marginTop: 8 }}>
-              {t("newsletterSub")}
-            </p>
           </div>
 
           {/* Catalog col */}
