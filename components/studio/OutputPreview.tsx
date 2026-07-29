@@ -39,7 +39,7 @@ export default function OutputPreview({
         <div className="flex items-center gap-2">
           <h2 className="text-[13px] font-semibold text-muted uppercase tracking-widest">Output</h2>
           {output && isUIOutput && (
-            <div className="flex bg-card p-0.5 gap-0.5">
+            <div className="flex bg-card r-pill p-0.5 gap-0.5">
               <button
                 onClick={() => setOutputView("code")}
                 className={`px-3 py-1 text-[13px] font-medium transition-all duration-200 ${

@@ -152,7 +152,7 @@ function PlatformPreview({ type }: { type: string }) {
             {[24, 32, 20].map((w, i) => (
               <div
                 key={i}
-                className="h-2.5 rounded-sm"
+                className="h-2.5 rounded-full"
                 style={{ width: w, background: "rgba(255,255,255,0.35)" }}
               />
             ))}
@@ -189,15 +189,15 @@ function PlatformPreview({ type }: { type: string }) {
               }}
             >
               <div
-                className="absolute inset-x-3 top-3 h-4 rounded-sm"
+                className="absolute inset-x-3 top-3 h-4 rounded-md"
                 style={{ background: "#7B61FF" }}
               />
               <div
-                className="absolute left-3 top-9 w-16 h-2 rounded-sm"
+                className="absolute left-3 top-9 w-16 h-2 rounded-full"
                 style={{ background: "#d1d5db" }}
               />
               <div
-                className="absolute left-3 top-13 w-12 h-1.5 rounded-sm"
+                className="absolute left-3 top-13 w-12 h-1.5 rounded-full"
                 style={{ background: "#e5e7eb" }}
               />
               <div className="absolute bottom-4 left-3 flex gap-1.5">
@@ -223,19 +223,19 @@ function PlatformPreview({ type }: { type: string }) {
           className="w-16 shrink-0 flex flex-col px-2 pt-3 gap-1.5"
           style={{ background: "#F7F6F3", borderRight: "1px solid #E9E9E7" }}
         >
-          <div className="w-8 h-2.5 rounded-sm mb-1" style={{ background: "#C9C9C7" }} />
+          <div className="w-8 h-2.5 rounded-full mb-1" style={{ background: "#C9C9C7" }} />
           {[1, 0, 0, 1, 0, 0, 0].map((active, i) => (
             <div
               key={i}
-              className="flex items-center gap-1 px-1 py-0.5 rounded-sm"
+              className="flex items-center gap-1 px-1 py-0.5 rounded-md"
               style={{ background: active ? "#E9E9E7" : "transparent" }}
             >
               <div
-                className="w-2.5 h-2.5 rounded-sm shrink-0"
+                className="w-2.5 h-2.5 rounded-full shrink-0"
                 style={{ background: active ? "#37352F" : "#C9C9C7" }}
               />
               <div
-                className="h-1.5 flex-1 rounded-sm"
+                className="h-1.5 flex-1 rounded-full"
                 style={{ background: active ? "#37352F" : "#C9C9C7", opacity: active ? 0.7 : 0.4 }}
               />
             </div>
@@ -246,29 +246,29 @@ function PlatformPreview({ type }: { type: string }) {
           <div className="flex items-start gap-1.5 mb-3">
             <span style={{ fontSize: "16px", lineHeight: 1 }}>📋</span>
             <div
-              className="h-4 w-24 rounded-sm mt-0.5"
+              className="h-4 w-24 rounded-md mt-0.5"
               style={{ background: "#37352F", opacity: 0.85 }}
             />
           </div>
           <div
-            className="h-2 w-20 rounded-sm mb-3"
+            className="h-2 w-20 rounded-full mb-3"
             style={{ background: "#37352F", opacity: 0.25 }}
           />
           {[92, 75, 88, 60, 80, 66, 72].map((w, i) => (
             <div
               key={i}
-              className="h-1.5 rounded-sm mb-1.5"
+              className="h-1.5 rounded-full mb-1.5"
               style={{ width: `${w}%`, background: "#37352F", opacity: i % 4 === 0 ? 0.2 : 0.1 }}
             />
           ))}
           <div
-            className="mt-2 p-2 rounded-sm"
+            className="mt-2 p-2 rounded-md"
             style={{ background: "#F7F6F3", border: "1px solid #E9E9E7" }}
           >
             {[100, 85, 60].map((w, i) => (
               <div
                 key={i}
-                className="h-1.5 rounded-sm mb-1"
+                className="h-1.5 rounded-full mb-1"
                 style={{ width: `${w}%`, background: "#37352F", opacity: 0.12 }}
               />
             ))}
@@ -298,13 +298,16 @@ function PlatformPreview({ type }: { type: string }) {
           className="shrink-0 flex items-center px-2 gap-1.5"
           style={{ height: "22px", background: accent }}
         >
-          <div className="w-3.5 h-3.5 rounded-sm" style={{ background: "rgba(255,255,255,0.4)" }} />
-          <div className="flex-1 h-2 rounded-sm" style={{ background: "rgba(255,255,255,0.2)" }} />
+          <div className="w-3.5 h-3.5 rounded-md" style={{ background: "rgba(255,255,255,0.4)" }} />
+          <div
+            className="flex-1 h-2 rounded-full"
+            style={{ background: "rgba(255,255,255,0.2)" }}
+          />
           <div className="flex gap-0.5">
             {[0, 1, 2].map((i) => (
               <div
                 key={i}
-                className="w-2.5 h-2 rounded-sm opacity-60"
+                className="w-2.5 h-2 rounded-full opacity-60"
                 style={{ background: "white" }}
               />
             ))}
@@ -402,7 +405,7 @@ function PlatformPreview({ type }: { type: string }) {
             className="flex-1 h-2.5 rounded-full mx-4"
             style={{ background: "rgba(255,255,255,0.1)" }}
           />
-          <div className="w-10 h-4 rounded-sm" style={{ background: accent2 }} />
+          <div className="w-10 h-4 rounded-md" style={{ background: accent2 }} />
         </div>
         {/* Main panel */}
         <div className="flex flex-1 overflow-hidden">
@@ -414,15 +417,15 @@ function PlatformPreview({ type }: { type: string }) {
             {[1, 0, 0, 1, 0, 0].map((a, i) => (
               <div
                 key={i}
-                className="flex items-center gap-1 px-1 py-0.5 rounded-sm"
+                className="flex items-center gap-1 px-1 py-0.5 rounded-md"
                 style={{ background: a ? "rgba(255,255,255,0.08)" : "transparent" }}
               >
                 <div
-                  className="w-2 h-2 rounded-sm"
+                  className="w-2 h-2 rounded-full"
                   style={{ background: a ? "rgba(255,255,255,0.6)" : "rgba(255,255,255,0.2)" }}
                 />
                 <div
-                  className="flex-1 h-1.5 rounded-sm"
+                  className="flex-1 h-1.5 rounded-full"
                   style={{ background: "rgba(255,255,255,0.15)" }}
                 />
               </div>
@@ -448,15 +451,15 @@ function PlatformPreview({ type }: { type: string }) {
                 style={{ background: isDark ? "#1E1E1E" : bg }}
               />
               <div
-                className="absolute top-8 left-3 right-3 h-3 rounded-sm"
+                className="absolute top-8 left-3 right-3 h-3 rounded-md"
                 style={{ background: accent2, opacity: 0.85 }}
               />
               <div
-                className="absolute top-13 left-3 w-16 h-1.5 rounded-sm"
+                className="absolute top-13 left-3 w-16 h-1.5 rounded-full"
                 style={{ background: "#e5e7eb" }}
               />
               <div
-                className="absolute bottom-3 left-3 right-3 h-6 rounded-sm"
+                className="absolute bottom-3 left-3 right-3 h-6 rounded-md"
                 style={{ background: accent2, opacity: 0.15 }}
               />
             </div>
@@ -469,7 +472,7 @@ function PlatformPreview({ type }: { type: string }) {
             {[40, 30, 40, 30, 35].map((w, i) => (
               <div
                 key={i}
-                className="h-1.5 rounded-sm"
+                className="h-1.5 rounded-full"
                 style={{
                   width: `${w + 16}px`,
                   maxWidth: "100%",
@@ -494,12 +497,12 @@ function PlatformPreview({ type }: { type: string }) {
           className="shrink-0 flex items-center px-3 gap-2"
           style={{ height: "26px", background: "#1A1A1A" }}
         >
-          <div className="w-4 h-4 rounded-sm" style={{ background: "#95BF47" }} />
+          <div className="w-4 h-4 rounded-md" style={{ background: "#95BF47" }} />
           <div className="flex gap-2">
             {[28, 22, 26].map((w, i) => (
               <div
                 key={i}
-                className="h-2 rounded-sm opacity-50"
+                className="h-2 rounded-full opacity-50"
                 style={{ width: w, background: "white" }}
               />
             ))}
@@ -523,16 +526,16 @@ function PlatformPreview({ type }: { type: string }) {
           </div>
           {/* Product info */}
           <div className="px-3 py-2 flex flex-col gap-1.5">
-            <div className="h-3 w-24 rounded-sm" style={{ background: "#1A1A1A", opacity: 0.8 }} />
-            <div className="h-2.5 w-12 rounded-sm" style={{ background: "#95BF47" }} />
-            <div className="h-1.5 w-32 rounded-sm" style={{ background: "#d1d5db" }} />
-            <div className="h-1.5 w-28 rounded-sm" style={{ background: "#d1d5db" }} />
+            <div className="h-3 w-24 rounded-md" style={{ background: "#1A1A1A", opacity: 0.8 }} />
+            <div className="h-2.5 w-12 rounded-full" style={{ background: "#95BF47" }} />
+            <div className="h-1.5 w-32 rounded-full" style={{ background: "#d1d5db" }} />
+            <div className="h-1.5 w-28 rounded-full" style={{ background: "#d1d5db" }} />
             <div
-              className="mt-1 h-6 rounded-sm flex items-center justify-center"
+              className="mt-1 h-6 rounded-md flex items-center justify-center"
               style={{ background: "#95BF47" }}
             >
               <div
-                className="h-2 w-16 rounded-sm"
+                className="h-2 w-16 rounded-full"
                 style={{ background: "rgba(255,255,255,0.8)" }}
               />
             </div>
@@ -552,11 +555,11 @@ function PlatformPreview({ type }: { type: string }) {
           className="shrink-0 flex items-center px-2 gap-1.5"
           style={{ height: "22px", background: "#1d2327" }}
         >
-          <div className="w-3.5 h-3.5 rounded-sm" style={{ background: "#21759B" }} />
+          <div className="w-3.5 h-3.5 rounded-md" style={{ background: "#21759B" }} />
           {[28, 20, 24].map((w, i) => (
             <div
               key={i}
-              className="h-2 rounded-sm opacity-50"
+              className="h-2 rounded-full opacity-50"
               style={{ width: w, background: "white" }}
             />
           ))}
@@ -571,15 +574,15 @@ function PlatformPreview({ type }: { type: string }) {
             {[1, 0, 0, 0, 0, 0].map((a, i) => (
               <div
                 key={i}
-                className="flex items-center gap-1 mx-1 px-1 py-1 rounded-sm"
+                className="flex items-center gap-1 mx-1 px-1 py-1 rounded-md"
                 style={{ background: a ? "#2271b1" : "transparent" }}
               >
                 <div
-                  className="w-2 h-2 rounded-sm"
+                  className="w-2 h-2 rounded-full"
                   style={{ background: "rgba(255,255,255,0.4)" }}
                 />
                 <div
-                  className="flex-1 h-1.5 rounded-sm"
+                  className="flex-1 h-1.5 rounded-full"
                   style={{ background: "rgba(255,255,255,0.2)" }}
                 />
               </div>
@@ -588,7 +591,7 @@ function PlatformPreview({ type }: { type: string }) {
           {/* Content */}
           <div className="flex-1 p-2 overflow-hidden">
             <div
-              className="h-3.5 w-24 rounded-sm mb-2"
+              className="h-3.5 w-24 rounded-md mb-2"
               style={{ background: "#1d2327", opacity: 0.7 }}
             />
             {[
@@ -598,7 +601,7 @@ function PlatformPreview({ type }: { type: string }) {
             ].map(({ w, h }, i) => (
               <div
                 key={i}
-                className="rounded-sm mb-1.5"
+                className="rounded-md mb-1.5"
                 style={{
                   width: w,
                   height: h,
@@ -611,7 +614,7 @@ function PlatformPreview({ type }: { type: string }) {
               {[0, 1, 2, 3].map((i) => (
                 <div
                   key={i}
-                  className="h-10 rounded-sm"
+                  className="h-10 rounded-md"
                   style={{ background: "white", border: "1px solid #dcdcde" }}
                 />
               ))}
@@ -876,7 +879,7 @@ export default function TemplateCard({
       <Link
         href={`/preview/${template.id}`}
         aria-label={displayName}
-        className="shoji-card card-sweep card-tilt shine-sweep bg-card border border-theme relative overflow-hidden flex flex-col h-full active:opacity-90 block transition-shadow duration-300 group-hover:shadow-[0_16px_48px_rgba(0,0,0,0.22)]"
+        className="shoji-card card-sweep card-tilt shine-sweep bg-card border border-theme r-glass relative overflow-hidden flex flex-col h-full active:opacity-90 block transition-shadow duration-300 group-hover:shadow-[0_16px_48px_rgba(0,0,0,0.22)]"
       >
         {/* Thumbnail */}
         <div

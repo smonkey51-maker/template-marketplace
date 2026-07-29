@@ -10,6 +10,7 @@
 import { unstable_cache } from "next/cache";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import type { Template, Bundle } from "@/lib/templates";
+import { getTemplate as getLocalTemplate, getBundle as getLocalBundle } from "@/lib/templates";
 
 const getSupabase = supabaseAdmin;
 
@@ -106,3 +107,23 @@ export const getBundleFromDb = unstable_cache(
   ["bundle-by-id"],
   { revalidate: 3600, tags: ["bundles"] },
 );
+
+/**
+ * Resolve a template, preferring Supabase and falling back to the catalogue
+ * bundled in lib/templates.ts.
+ *
+ * Supabase is the source of truth, but it can be unreachable, unconfigured
+ * (local dev) or simply missing a row that the shipped catalogue still has.
+ * Every server route goes through this so they can't disagree about whether a
+ * template exists — a mismatch there meant guests and signed-in users were
+ * served different files for the same purchase.
+ */
+export async function resolveTemplate(id: string): Promise<Template | null> {
+  const fromDb = await getTemplateFromDb(id).catch(() => null);
+  return fromDb ?? getLocalTemplate(id) ?? null;
+}
+
+export async function resolveBundle(id: string): Promise<Bundle | null> {
+  const fromDb = await getBundleFromDb(id).catch(() => null);
+  return fromDb ?? getLocalBundle(id) ?? null;
+}

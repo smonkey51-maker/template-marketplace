@@ -41,8 +41,7 @@ export default function GuidaPage() {
             style={{
               marginTop: 52,
               display: "grid",
-              gap: 1,
-              background: "var(--fn-border, rgba(234,234,234,.10))",
+              gap: 12,
             }}
           >
             {steps.map((step) => (
@@ -53,8 +52,8 @@ export default function GuidaPage() {
                   gridTemplateColumns: "72px 1fr",
                   gap: 28,
                   padding: "30px 26px",
-                  background: "var(--surface)",
                 }}
+                className="glass-surface"
               >
                 <div
                   style={{
@@ -106,12 +105,11 @@ export default function GuidaPage() {
             <div
               style={{
                 display: "grid",
-                gap: 1,
-                background: "var(--fn-border, rgba(234,234,234,.10))",
+                gap: 12,
               }}
             >
               {faqs.map((faq) => (
-                <div key={faq.q} style={{ padding: "22px 26px", background: "var(--surface)" }}>
+                <div key={faq.q} className="glass-surface" style={{ padding: "22px 26px" }}>
                   <h4
                     style={{
                       fontFamily: "var(--font-cormorant), Georgia, serif",

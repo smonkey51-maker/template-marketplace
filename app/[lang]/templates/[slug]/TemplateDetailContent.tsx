@@ -48,9 +48,13 @@ export function TemplateDetailContent({
         {/* Navigation Breadcrumb (Floating Pill) */}
         <div className="flex justify-center mb-10">
           <nav className="glass-pill px-6 py-2 flex gap-3 text-[11px] font-semibold uppercase tracking-widest text-muted items-center">
-            <Link href="/" className="hover:text-accent transition-colors">FORMA</Link>
+            <Link href="/" className="hover:text-accent transition-colors">
+              FORMA
+            </Link>
             <span>/</span>
-            <Link href="/catalogo" className="hover:text-accent transition-colors">{t("catalogo")}</Link>
+            <Link href="/catalogo" className="hover:text-accent transition-colors">
+              {t("catalogo")}
+            </Link>
             <span>/</span>
             <span className="text-accent">{item.name}</span>
           </nav>
@@ -66,7 +70,10 @@ export function TemplateDetailContent({
             <div className="flex flex-wrap gap-2 items-center mb-6">
               <span className="fn-badge bg-black/20 backdrop-blur-md">{platform}</span>
               {item.editorsPick && (
-                <span className="fn-badge" style={{ border: "1px solid rgba(212,175,55,.4)", color: "#D4AF37" }}>
+                <span
+                  className="fn-badge"
+                  style={{ border: "1px solid rgba(212,175,55,.4)", color: "#D4AF37" }}
+                >
                   ★ Editor
                 </span>
               )}
@@ -83,31 +90,43 @@ export function TemplateDetailContent({
             >
               {item.name}
             </h1>
-            
+
             <p className="text-muted text-lg sm:text-xl leading-relaxed max-w-2xl mb-12">
               {item.description}
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 border-t border-theme pt-12">
               <div>
-                <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-accent mb-6">Features</h3>
+                <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-accent mb-6">
+                  Features
+                </h3>
                 <ul className="space-y-3 text-muted text-sm sm:text-base">
-                  <li className="flex items-center gap-3"><span className="text-accent">✓</span> Accesso immediato</li>
-                  <li className="flex items-center gap-3"><span className="text-accent">✓</span> Uso commerciale limitato</li>
-                  <li className="flex items-center gap-3"><span className="text-accent">✓</span> Supporto prioritario</li>
-                  <li className="flex items-center gap-3"><span className="text-accent">✓</span> Rimborso entro 14 giorni</li>
+                  <li className="flex items-center gap-3">
+                    <span className="text-accent">✓</span> Accesso immediato
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="text-accent">✓</span> Uso commerciale limitato
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="text-accent">✓</span> Supporto prioritario
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="text-accent">✓</span> Rimborso entro 14 giorni
+                  </li>
                 </ul>
               </div>
 
               <div className="flex flex-col justify-end bg-black/10 rounded-3xl p-8 border border-theme">
-                <span className="text-xs uppercase tracking-widest text-muted mb-2">Prezzo una tantum</span>
+                <span className="text-xs uppercase tracking-widest text-muted mb-2">
+                  Prezzo una tantum
+                </span>
                 <div className="font-cormorant text-5xl mb-8">{formatPrice(item.price)}</div>
-                
+
                 <div className="flex flex-col gap-3">
                   <BuyButton templateId={item.id} price={formatPrice(item.price)} />
                   <Link
                     href={`/preview/${item.id}`}
-                    className="fn-btn justify-center bg-white/5 hover:bg-white/10"
+                    className="fn-btn justify-center bg-white/5 hover:bg-white/10 r-pill"
                   >
                     Preview dal vivo
                   </Link>
@@ -132,11 +151,11 @@ export function TemplateDetailContent({
                     className="absolute w-[260px] sm:w-[320px]"
                     style={{ zIndex: 10 + i }}
                     initial={{ x: offset * 80, rotate: offset * 6, y: Math.abs(offset) * 16 }}
-                    whileHover={{ 
-                      y: -30, 
-                      scale: 1.05, 
+                    whileHover={{
+                      y: -30,
+                      scale: 1.05,
                       zIndex: 30,
-                      rotate: offset * 2 
+                      rotate: offset * 2,
                     }}
                     transition={{ type: "spring", bounce: 0.3 }}
                   >
@@ -149,7 +168,9 @@ export function TemplateDetailContent({
                       </div>
                       <div className="p-5 text-center w-full">
                         <div className="font-cormorant text-2xl mb-1">{rel.name}</div>
-                        <div className="text-accent text-sm tracking-widest">{formatPrice(rel.price)}</div>
+                        <div className="text-accent text-sm tracking-widest">
+                          {formatPrice(rel.price)}
+                        </div>
                       </div>
                     </Link>
                   </motion.div>

@@ -93,7 +93,7 @@ function SuccessContent() {
   // ── Free bundle success ──────────────────────────────────────────────────
   if (bundle && isFree) {
     return (
-      <div className="relative z-10 bg-surface border border-theme p-8 max-w-md w-full mx-auto text-center shadow-[0_8px_40px_rgba(0,0,0,0.12)]">
+      <div className="relative z-10 bg-surface border border-theme r-glass p-8 max-w-md w-full mx-auto text-center shadow-[0_8px_40px_rgba(0,0,0,0.12)]">
         <div
           className="absolute inset-x-8 top-0 h-px rounded-full"
           style={{
@@ -102,7 +102,7 @@ function SuccessContent() {
         />
 
         <div className="flex justify-center mb-6">
-          <div className="w-20 h-20 bg-accent/15 flex items-center justify-center text-4xl">
+          <div className="w-20 h-20 bg-accent/15 rounded-full flex items-center justify-center text-4xl">
             {bundle.emoji}
           </div>
         </div>
@@ -163,7 +163,7 @@ function SuccessContent() {
   }
 
   return (
-    <div className="relative z-10 bg-surface border border-theme p-8 max-w-md w-full mx-auto text-center shadow-[0_8px_40px_rgba(0,0,0,0.12)]">
+    <div className="relative z-10 bg-surface border border-theme r-glass p-8 max-w-md w-full mx-auto text-center shadow-[0_8px_40px_rgba(0,0,0,0.12)]">
       {/* Top glint */}
       <div
         className="absolute inset-x-8 top-0 h-px rounded-full"
@@ -174,7 +174,7 @@ function SuccessContent() {
 
       {/* Success icon */}
       <div className="flex justify-center mb-6">
-        <div className="w-20 h-20 bg-accent/15 flex items-center justify-center">
+        <div className="w-20 h-20 bg-accent/15 rounded-full flex items-center justify-center">
           <span className="text-[32px] font-bold" style={{ color: "var(--accent)" }}>
             ✓
           </span>
@@ -274,7 +274,7 @@ export default function SuccessPage() {
 
       <Suspense
         fallback={
-          <div className="relative z-10 bg-surface border border-theme p-8 max-w-md w-full mx-auto text-center">
+          <div className="relative z-10 bg-surface border border-theme r-glass p-8 max-w-md w-full mx-auto text-center">
             <div
               className="w-8 h-8 rounded-full border-2 border-t-transparent animate-spin mx-auto"
               style={{ borderColor: "var(--accent)", borderTopColor: "transparent" }}

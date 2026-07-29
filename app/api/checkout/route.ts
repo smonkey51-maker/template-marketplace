@@ -1,7 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
-import { getTemplateFromDb, getBundleFromDb } from "@/lib/templatesDb";
+import { resolveTemplate, resolveBundle } from "@/lib/templatesDb";
 import { checkoutSchema } from "@/lib/schemas";
 import { siteUrl } from "@/lib/siteUrl";
 
@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
         { status: 401 },
       );
     }
-    const bundle = await getBundleFromDb(bundleId);
+    const bundle = await resolveBundle(bundleId);
     if (!bundle) {
       return NextResponse.json({ error: "Bundle non trovato" }, { status: 404 });
     }
@@ -89,7 +89,7 @@ export async function POST(req: NextRequest) {
   }
 
   // ── Single template — guest checkout allowed ───────────────────────────────
-  const template = await getTemplateFromDb(templateId as string);
+  const template = await resolveTemplate(templateId as string);
   if (!template) {
     return NextResponse.json({ error: "Template non trovato" }, { status: 404 });
   }

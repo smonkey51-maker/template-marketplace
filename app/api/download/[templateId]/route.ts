@@ -1,7 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { getDownloadType } from "@/lib/templates";
-import { getTemplateFromDb } from "@/lib/templatesDb";
+import { resolveTemplate } from "@/lib/templatesDb";
 import { getUserPurchases } from "@/lib/purchases";
 import { localiseHtml, getDisplayName } from "@/lib/localise";
 import { buildShopifyZip, buildWordPressZip } from "@/lib/zip-templates";
@@ -18,7 +18,7 @@ export async function GET(
     }
 
     const { templateId } = await params;
-    const template = await getTemplateFromDb(templateId);
+    const template = await resolveTemplate(templateId);
     if (!template) {
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     }

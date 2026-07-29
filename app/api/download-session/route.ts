@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { getDownloadType } from "@/lib/templates";
-import { getTemplateFromDb } from "@/lib/templatesDb";
+import { resolveTemplate } from "@/lib/templatesDb";
 import { rateLimitRedis } from "@/lib/rateLimitRedis";
 import { localiseHtml, getDisplayName } from "@/lib/localise";
 import { buildShopifyZip, buildWordPressZip } from "@/lib/zip-templates";
@@ -36,7 +36,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "Template mismatch" }, { status: 403 });
     }
 
-    const template = await getTemplateFromDb(templateId);
+    const template = await resolveTemplate(templateId);
     if (!template) {
       return NextResponse.json({ error: "Template not found" }, { status: 404 });
     }

@@ -86,7 +86,7 @@ export default function NewsletterAdminPage() {
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
                 placeholder="es. Nuovi template disponibili su Forma"
-                className="w-full bg-input border border-theme px-3 py-2.5 text-[13px] text-theme placeholder:text-muted outline-none focus:border-accent/50 transition-colors"
+                className="w-full bg-input border border-theme r-md px-3 py-2.5 text-[13px] text-theme placeholder:text-muted outline-none focus:border-accent/50 transition-colors"
               />
             </div>
             <div>
@@ -96,7 +96,7 @@ export default function NewsletterAdminPage() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="es. 5 nuovi template questa settimana"
-                className="w-full bg-input border border-theme px-3 py-2.5 text-[13px] text-theme placeholder:text-muted outline-none focus:border-accent/50 transition-colors"
+                className="w-full bg-input border border-theme r-md px-3 py-2.5 text-[13px] text-theme placeholder:text-muted outline-none focus:border-accent/50 transition-colors"
               />
             </div>
             <div>
@@ -108,7 +108,7 @@ export default function NewsletterAdminPage() {
                 onChange={(e) => setBody(e.target.value)}
                 placeholder={"Ciao!\n\nQuesta settimana abbiamo aggiunto 5 nuovi template..."}
                 rows={10}
-                className="w-full bg-input border border-theme px-3 py-2.5 text-[13px] text-theme placeholder:text-muted outline-none focus:border-accent/50 transition-colors resize-y font-mono"
+                className="w-full bg-input border border-theme r-md px-3 py-2.5 text-[13px] text-theme placeholder:text-muted outline-none focus:border-accent/50 transition-colors resize-y font-mono"
               />
             </div>
 

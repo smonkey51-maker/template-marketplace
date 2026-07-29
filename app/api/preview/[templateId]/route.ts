@@ -1,6 +1,6 @@
 import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
-import { getTemplateFromDb } from "@/lib/templatesDb";
+import { resolveTemplate } from "@/lib/templatesDb";
 import { getUserPurchases } from "@/lib/purchases";
 import { readProductFile, TAILWIND_CDN } from "@/lib/productFiles";
 
@@ -17,7 +17,12 @@ export async function GET(
   { params }: { params: Promise<{ templateId: string }> },
 ) {
   const { templateId } = await params;
-  const template = await getTemplateFromDb(templateId);
+
+  // Fall back to the local catalogue when the row isn't in the DB (or Supabase
+  // isn't configured, as in local dev). The teaser is public either way, so the
+  // fallback costs nothing — but without it every preview iframe on the site
+  // goes blank the moment a template is missing from the templates table.
+  const template = await resolveTemplate(templateId);
 
   if (!template) {
     return new NextResponse("Not found", { status: 404 });

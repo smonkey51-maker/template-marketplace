@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin as getSupabase } from "@/lib/supabaseAdmin";
 import { wishlistSchema } from "@/lib/schemas";
 
-
 export async function GET() {
   const supabase = getSupabase();
   const { userId } = await auth();

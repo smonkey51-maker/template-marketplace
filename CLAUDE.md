@@ -260,18 +260,25 @@ The brand uses a warm **gold/terra** palette — not bright orange:
 
 ### Design Tokens
 
-- **Border radius**: The design is **rounded**. Use the radius scale — `--r-sm` (10px) / `--r-md` (16px) / `--r-lg` (22px) / `--r-xl` (28px), plus `--neu-radius` (18px) for neumorphic surfaces and `999px` for pills (buttons, chips, badges). Do not add new sharp corners; the site was previously sharp-cornered and that rule no longer applies.
+- **Border radius**: **Nothing on this site has a square corner.** Use the radius utilities rather than raw pixel values, so the whole site rounds together if a token moves: `.r-glass` (`--glass-radius`, 22px — panels, cards, sheets), `.r-md` (16px — inputs, textareas), `.r-sm` (10px — small chips), `.r-pill` (999px — buttons, badges, segmented tracks, filter chips). The underlying scale is `--r-sm` / `--r-md` / `--r-lg` / `--r-xl`. When adding any surface with a background or a border, give it one of these — a bare `bg-*` or `border` class is a bug.
 - **Shadows**: Use CSS custom properties `--shadow-sm`, `--shadow-md`, `--shadow-lg`, `--shadow-xl` defined in `globals.css`.
 - **Buttons**: All primary CTA buttons use the `.btn-brand` CSS class (gold pill, lift on hover). Use `.btn-brand-sm` for compact variant. Defined in `globals.css`.
 
-### Depth: two models, each in its habitat
+### Depth: one material — liquid glass
 
-The site uses two opposite depth systems. Which one applies depends on what a surface sits on — do not mix them.
+**There is no neumorphism on this site.** It was removed; do not reintroduce extruded or pressed-in surfaces. Every raised surface is the same material: a translucent sheet that refracts what is behind it, catches a rim light along its top edge, and casts a shadow onto the ground. Panels **lift** toward the viewer on hover — they never swell out of the page or sink into it.
 
-- **Spatial** (`--spatial-*` tokens, `.forma-glass-card`) — for anything over the **paintings** on the snap homepage. Translucent glass with a rim light and a cast shadow that grows with elevation; panels _lift_ on hover. Paintings also carry a scroll parallax via `.parallax-layer` (driven from `SnapHomepage`).
-- **Neumorphic** (`--neu-*` tokens) — for the **inner pages** (`/catalogo`, `/guida`, `/account`, `/ai-studio`), whose ground is flat cream or near-black. Controls and cards are extruded from the page and press _into_ it when selected; they _swell_ on hover rather than lifting.
+Two tiers, differing only in how much they let through:
 
-Neumorphism only works on a flat, single-colour ground — never put it over a painting, where it cuts an opaque hole in the artwork. Every neumorphic control keeps a faint `--neu-edge` border and encodes state in colour as well as shadow: pure neumorphism has no edge and fails WCAG 1.4.11. The primary CTA stays solid gold, never neumorphic.
+- **Over artwork** (`--glass-*`, `.forma-glass-card`) — panels floating above the **paintings** on the snap homepage. Paintings also carry a scroll parallax via `.parallax-layer`.
+- **On a flat ground** (`--glass-s-*`, `.glass-surface`) — controls and cards on the **inner pages** (`/catalogo`, `/guida`, `/account`, `/ai-studio`). Less transparent, because there is little behind them to refract, but the same rim light, cast shadow and lift.
+
+`.glass-surface` is the shared base — reach for it before hand-rolling a panel.
+
+Two rules the material depends on:
+
+- **The rim border is load-bearing.** It is what keeps a glass control findable against the page (WCAG 1.4.11); never drop it for a "cleaner" look.
+- **State is never carried by shadow alone.** A selected control also changes fill, rim colour and text colour, so it survives forced-colors mode and low-vision viewing. The primary CTA stays solid gold — it is not glass.
 
 ### Theme
 

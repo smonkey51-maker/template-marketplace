@@ -62,15 +62,18 @@ export function FormaFooter() {
             </p>
             {/* Newsletter */}
             {!sent ? (
-              <form onSubmit={handleSubscribe} style={{ 
-                display: "flex", 
-                gap: 4, 
-                background: "var(--bg)",
-                border: "1px solid var(--fn-border, rgba(234,234,234,.14))",
-                borderRadius: 999,
-                padding: "4px",
-                alignItems: "center"
-              }}>
+              <form
+                onSubmit={handleSubscribe}
+                style={{
+                  display: "flex",
+                  gap: 4,
+                  background: "var(--bg)",
+                  border: "1px solid var(--fn-border, rgba(234,234,234,.14))",
+                  borderRadius: 999,
+                  padding: "4px",
+                  alignItems: "center",
+                }}
+              >
                 <input
                   type="email"
                   value={email}
@@ -102,7 +105,7 @@ export function FormaFooter() {
                   fontSize: 12,
                   letterSpacing: ".12em",
                   textTransform: "uppercase",
-                  padding: "10px 0"
+                  padding: "10px 0",
                 }}
               >
                 ✓ {lang === "it" ? "Iscritto." : "Subscribed."}

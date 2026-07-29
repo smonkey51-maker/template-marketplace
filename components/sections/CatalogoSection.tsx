@@ -429,7 +429,11 @@ export default function CatalogoSection() {
       <div
         className="anim-bg absolute inset-0"
         style={
-          { zIndex: 1, background: "rgba(10,12,15,0.72)", "--delay": "0.05s" } as React.CSSProperties
+          {
+            zIndex: 1,
+            background: "rgba(10,12,15,0.72)",
+            "--delay": "0.05s",
+          } as React.CSSProperties
         }
       />
       {/* Magic Aura */}

@@ -74,7 +74,7 @@ export default function NotFound() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={lang === "it" ? "Cerca un template…" : "Search for a template…"}
-              className="w-full pl-9 pr-3 py-2.5 text-[14px] outline-none border border-theme bg-input text-theme placeholder:text-muted focus:border-accent transition-colors duration-200"
+              className="w-full pl-9 pr-3 py-2.5 text-[14px] outline-none border border-theme r-pill bg-input text-theme placeholder:text-muted focus:border-accent transition-colors duration-200"
               style={{ caretColor: "var(--accent)" }}
             />
           </div>

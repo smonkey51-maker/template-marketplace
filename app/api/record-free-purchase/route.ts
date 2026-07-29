@@ -1,8 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
-import { getBundleFromDb, getTemplateFromDb } from "@/lib/templatesDb";
-import { getBundle as getBundleLocal, getTemplate as getTemplateLocal } from "@/lib/templates";
+import { resolveBundle, resolveTemplate } from "@/lib/templatesDb";
 
 export async function POST(req: NextRequest) {
   const { userId } = await auth();
@@ -15,7 +14,7 @@ export async function POST(req: NextRequest) {
   const supabase = supabaseAdmin();
 
   if (bundleId) {
-    const bundle = (await getBundleFromDb(bundleId).catch(() => null)) ?? getBundleLocal(bundleId);
+    const bundle = await resolveBundle(bundleId);
     if (!bundle || bundle.price !== 0) {
       return NextResponse.json({ error: "Bundle not found or not free" }, { status: 400 });
     }
@@ -47,8 +46,7 @@ export async function POST(req: NextRequest) {
   }
 
   if (templateId) {
-    const template =
-      (await getTemplateFromDb(templateId).catch(() => null)) ?? getTemplateLocal(templateId);
+    const template = await resolveTemplate(templateId);
     if (!template || template.price !== 0) {
       return NextResponse.json({ error: "Template not found or not free" }, { status: 400 });
     }

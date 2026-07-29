@@ -92,7 +92,7 @@ export default function AccountPage() {
         </div>
 
         {/* Profile card */}
-        <div className="bg-surface border border-theme p-6 flex items-center gap-5">
+        <div className="bg-surface border border-theme r-glass p-6 flex items-center gap-5">
           <div
             className="w-16 h-16 flex items-center justify-center text-2xl font-bold shrink-0"
             style={{ background: "var(--accent)", color: "var(--bg)" }}
@@ -146,7 +146,7 @@ export default function AccountPage() {
             <button
               onClick={openPortal}
               disabled={portalLoading}
-              className="px-4 py-2 bg-card border border-theme text-[15px] font-medium transition-all duration-200 active:scale-[0.97] ios-spring shrink-0"
+              className="px-4 py-2 bg-card border border-theme r-pill text-[15px] font-medium transition-all duration-200 active:scale-[0.97] ios-spring shrink-0"
             >
               {portalLoading ? "..." : t[lang].account.manageSubscription}
             </button>
@@ -185,7 +185,7 @@ export default function AccountPage() {
               {[0, 1, 2].map((i) => (
                 <div
                   key={i}
-                  className="bg-surface border border-theme overflow-hidden animate-pulse"
+                  className="bg-surface border border-theme r-glass overflow-hidden animate-pulse"
                 >
                   <div className="flex items-center gap-4 px-5 py-4">
                     <div className="w-11 h-11 shrink-0" style={{ background: "var(--card-bg)" }} />
@@ -202,7 +202,7 @@ export default function AccountPage() {
               ))}
             </div>
           ) : purchasedTemplates.length === 0 ? (
-            <div className="bg-surface border border-theme p-10 text-center flex flex-col items-center gap-4">
+            <div className="bg-surface border border-theme r-glass p-10 text-center flex flex-col items-center gap-4">
               <p className="text-[15px] text-muted">{t[lang].account.noTemplates}</p>
               <Link href="/" className="btn-brand">
                 {t[lang].account.goToMarketplace}
@@ -216,7 +216,10 @@ export default function AccountPage() {
                 const meta = DOWNLOAD_META_LABELS[dlType];
 
                 return (
-                  <div key={tmpl.id} className="bg-surface border border-theme overflow-hidden">
+                  <div
+                    key={tmpl.id}
+                    className="bg-surface border border-theme r-glass overflow-hidden"
+                  >
                     {/* Template info row */}
                     <div className="flex items-center gap-4 px-5 py-4">
                       {/* Platform icon */}
@@ -274,13 +277,13 @@ export default function AccountPage() {
                       <div className="flex items-center gap-2 shrink-0">
                         <Link
                           href={`/preview/${tmpl.id}`}
-                          className="hidden sm:flex items-center gap-1 px-3 py-2 text-[12px] text-muted border border-theme hover:border-accent hover:text-theme transition-colors"
+                          className="hidden sm:flex items-center gap-1 px-3 py-2 text-[12px] text-muted border border-theme r-pill hover:border-accent hover:text-theme transition-colors"
                         >
                           {lang === "it" ? "Anteprima" : "Preview"}
                         </Link>
                         <Link
                           href={`/studio?templateId=${tmpl.id}`}
-                          className="hidden sm:flex items-center gap-1 px-3 py-2 text-[12px] text-muted border border-theme hover:border-accent hover:text-theme transition-colors"
+                          className="hidden sm:flex items-center gap-1 px-3 py-2 text-[12px] text-muted border border-theme r-pill hover:border-accent hover:text-theme transition-colors"
                         >
                           {lang === "it" ? "Studio" : "Studio"}
                         </Link>
@@ -312,7 +315,7 @@ export default function AccountPage() {
           >
             {t[lang].account.accountSection}
           </h3>
-          <div className="bg-surface border border-theme overflow-hidden">
+          <div className="bg-surface border border-theme r-glass overflow-hidden">
             <button
               onClick={openPortal}
               disabled={portalLoading}

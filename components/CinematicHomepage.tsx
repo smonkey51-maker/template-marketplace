@@ -16,7 +16,7 @@ function ScrollDot({ i, scrollYProgress }: { i: number; scrollYProgress: any }) 
   const center = i * 0.25;
   const end = i * 0.25 + 0.1;
   const isActive = useTransform(scrollYProgress, [start, center, end], [0, 1, 0]);
-  
+
   return (
     <button
       onClick={() => window.scrollTo({ top: i * window.innerHeight, behavior: "smooth" })}
@@ -27,7 +27,9 @@ function ScrollDot({ i, scrollYProgress }: { i: number; scrollYProgress: any }) 
         style={{
           width: useTransform(isActive, (v) => (v > 0.5 ? "8px" : "4px")),
           height: useTransform(isActive, (v) => (v > 0.5 ? "8px" : "4px")),
-          background: useTransform(isActive, (v) => (v > 0.5 ? "var(--accent)" : "rgba(255,255,255,0.4)")),
+          background: useTransform(isActive, (v) =>
+            v > 0.5 ? "var(--accent)" : "rgba(255,255,255,0.4)",
+          ),
           boxShadow: useTransform(isActive, (v) => (v > 0.5 ? "0 0 8px var(--accent)" : "none")),
         }}
       />
@@ -46,19 +48,36 @@ export default function CinematicHomepage() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
 
   // Se non siamo su desktop, facciamo un fallback fluido senza sticky pesanti
   if (!isDesktop) {
     return (
-      <div id="forma-snap-container" className="relative flex flex-col" style={{ overflowX: "hidden" }}>
+      <div
+        id="forma-snap-container"
+        className="relative flex flex-col"
+        style={{ overflowX: "hidden" }}
+      >
         <GallerySpotlight />
         <SectionNav />
-        <div id="trigger-hero"><HeroSection /></div>
-        <div id="trigger-catalogo"><CatalogoSection /></div>
-        <div id="trigger-guida"><GuidaSection /></div>
-        <div id="trigger-studio"><StudioSection /></div>
-        <div id="trigger-account"><AccountSection /></div>
+        <div id="trigger-hero">
+          <HeroSection />
+        </div>
+        <div id="trigger-catalogo">
+          <CatalogoSection />
+        </div>
+        <div id="trigger-guida">
+          <GuidaSection />
+        </div>
+        <div id="trigger-studio">
+          <StudioSection />
+        </div>
+        <div id="trigger-account">
+          <AccountSection />
+        </div>
       </div>
     );
   }
@@ -73,17 +92,29 @@ export default function CinematicHomepage() {
   // Catalogo (15% - 50%)
   const catOpacity = useTransform(scrollYProgress, [0.15, 0.25, 0.4, 0.5], [0, 1, 1, 0]);
   const catScale = useTransform(scrollYProgress, [0.15, 0.25, 0.5], [1.05, 1, 0.95]);
-  const catPointer = useTransform(scrollYProgress, [0.15, 0.25, 0.4, 0.5], ["none", "auto", "auto", "none"]);
+  const catPointer = useTransform(
+    scrollYProgress,
+    [0.15, 0.25, 0.4, 0.5],
+    ["none", "auto", "auto", "none"],
+  );
 
   // Guida (40% - 75%)
   const guiOpacity = useTransform(scrollYProgress, [0.4, 0.5, 0.65, 0.75], [0, 1, 1, 0]);
   const guiScale = useTransform(scrollYProgress, [0.4, 0.5, 0.75], [1.05, 1, 0.95]);
-  const guiPointer = useTransform(scrollYProgress, [0.4, 0.5, 0.65, 0.75], ["none", "auto", "auto", "none"]);
+  const guiPointer = useTransform(
+    scrollYProgress,
+    [0.4, 0.5, 0.65, 0.75],
+    ["none", "auto", "auto", "none"],
+  );
 
   // Studio (65% - 90%)
   const stuOpacity = useTransform(scrollYProgress, [0.65, 0.75, 0.85, 0.92], [0, 1, 1, 0]);
   const stuScale = useTransform(scrollYProgress, [0.65, 0.75, 0.92], [1.05, 1, 0.95]);
-  const stuPointer = useTransform(scrollYProgress, [0.65, 0.75, 0.85, 0.92], ["none", "auto", "auto", "none"]);
+  const stuPointer = useTransform(
+    scrollYProgress,
+    [0.65, 0.75, 0.85, 0.92],
+    ["none", "auto", "auto", "none"],
+  );
 
   // Account (85% - 100%)
   const accOpacity = useTransform(scrollYProgress, [0.85, 0.92, 1], [0, 1, 1]);
@@ -94,7 +125,7 @@ export default function CinematicHomepage() {
     <div ref={containerRef} style={{ height: "500vh", position: "relative" }}>
       <GallerySpotlight />
       <SectionNav />
-      
+
       {/* Desktop Cinematic Scroll Indicator */}
       <nav className="hidden lg:flex fixed left-6 top-1/2 -translate-y-1/2 z-50 flex-col items-center gap-4">
         <span
@@ -112,55 +143,98 @@ export default function CinematicHomepage() {
 
       {/* Pinned Cinematic Screen */}
       <div className="sticky top-0 h-screen w-full overflow-hidden bg-black">
-        
         {/* Layer 1: Hero */}
-        <motion.div 
-          style={{ opacity: heroOpacity, scale: heroScale, pointerEvents: heroPointer as any }} 
+        <motion.div
+          style={{ opacity: heroOpacity, scale: heroScale, pointerEvents: heroPointer as any }}
           className="absolute inset-0 origin-center"
         >
           <HeroSection />
         </motion.div>
 
         {/* Layer 2: Catalogo */}
-        <motion.div 
-          style={{ opacity: catOpacity, scale: catScale, pointerEvents: catPointer as any }} 
+        <motion.div
+          style={{ opacity: catOpacity, scale: catScale, pointerEvents: catPointer as any }}
           className="absolute inset-0 origin-center"
         >
           <CatalogoSection />
         </motion.div>
 
         {/* Layer 3: Guida */}
-        <motion.div 
-          style={{ opacity: guiOpacity, scale: guiScale, pointerEvents: guiPointer as any }} 
+        <motion.div
+          style={{ opacity: guiOpacity, scale: guiScale, pointerEvents: guiPointer as any }}
           className="absolute inset-0 origin-center"
         >
           <GuidaSection />
         </motion.div>
 
         {/* Layer 4: Studio */}
-        <motion.div 
-          style={{ opacity: stuOpacity, scale: stuScale, pointerEvents: stuPointer as any }} 
+        <motion.div
+          style={{ opacity: stuOpacity, scale: stuScale, pointerEvents: stuPointer as any }}
           className="absolute inset-0 origin-center"
         >
           <StudioSection />
         </motion.div>
 
         {/* Layer 5: Account */}
-        <motion.div 
-          style={{ opacity: accOpacity, scale: accScale, pointerEvents: accPointer as any }} 
+        <motion.div
+          style={{ opacity: accOpacity, scale: accScale, pointerEvents: accPointer as any }}
           className="absolute inset-0 origin-center"
         >
           <AccountSection />
         </motion.div>
-
       </div>
 
       {/* Invisible triggers for CSS intersection observer animations (ArtSection) */}
-      <div id="trigger-hero" style={{ position: "absolute", top: "0", height: "100vh", width: "100%", pointerEvents: "none" }} />
-      <div id="trigger-catalogo" style={{ position: "absolute", top: "100vh", height: "100vh", width: "100%", pointerEvents: "none" }} />
-      <div id="trigger-guida" style={{ position: "absolute", top: "200vh", height: "100vh", width: "100%", pointerEvents: "none" }} />
-      <div id="trigger-studio" style={{ position: "absolute", top: "300vh", height: "100vh", width: "100%", pointerEvents: "none" }} />
-      <div id="trigger-account" style={{ position: "absolute", top: "400vh", height: "100vh", width: "100%", pointerEvents: "none" }} />
+      <div
+        id="trigger-hero"
+        style={{
+          position: "absolute",
+          top: "0",
+          height: "100vh",
+          width: "100%",
+          pointerEvents: "none",
+        }}
+      />
+      <div
+        id="trigger-catalogo"
+        style={{
+          position: "absolute",
+          top: "100vh",
+          height: "100vh",
+          width: "100%",
+          pointerEvents: "none",
+        }}
+      />
+      <div
+        id="trigger-guida"
+        style={{
+          position: "absolute",
+          top: "200vh",
+          height: "100vh",
+          width: "100%",
+          pointerEvents: "none",
+        }}
+      />
+      <div
+        id="trigger-studio"
+        style={{
+          position: "absolute",
+          top: "300vh",
+          height: "100vh",
+          width: "100%",
+          pointerEvents: "none",
+        }}
+      />
+      <div
+        id="trigger-account"
+        style={{
+          position: "absolute",
+          top: "400vh",
+          height: "100vh",
+          width: "100%",
+          pointerEvents: "none",
+        }}
+      />
     </div>
   );
 }

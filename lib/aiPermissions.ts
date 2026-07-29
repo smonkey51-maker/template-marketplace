@@ -5,8 +5,7 @@ import { AI_LIMITS, startOfMonthISO, type AIFeature, type AIPlan } from "@/lib/a
 export type { AIFeature } from "@/lib/aiLimits";
 
 export type PermissionResult =
-  | { allowed: true; plan: AIPlan }
-  | { allowed: false; reason: string; plan: AIPlan };
+  { allowed: true; plan: AIPlan } | { allowed: false; reason: string; plan: AIPlan };
 
 export async function checkAIPermission(
   userId: string,

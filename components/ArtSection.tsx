@@ -34,7 +34,7 @@ export default function ArtSection({
 
     const root = null;
     const triggerEl = document.getElementById(`trigger-${id}`) || el;
-    
+
     const obs = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
