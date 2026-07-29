@@ -148,14 +148,14 @@ export default function CatalogoPage() {
                 key={key}
                 onClick={() => setFilter(key)}
                 className={`relative px-5 py-2.5 text-[11px] font-semibold tracking-widest uppercase transition-colors z-10 whitespace-nowrap outline-none ${
-                  filter === key ? "text-black drop-shadow-sm" : "text-white/60 hover:text-white"
+                  filter === key ? "text-white" : "text-white/50 hover:text-white/80"
                 }`}
                 style={{ WebkitTapHighlightColor: "transparent" }}
               >
                 {filter === key && (
                   <motion.div
                     layoutId="active-filter-pill"
-                    className="absolute inset-0 bg-white shadow-lg"
+                    className="absolute inset-0 bg-white/15 border border-white/10 shadow-sm"
                     style={{ borderRadius: 9999, zIndex: -1 }}
                     transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                   />
