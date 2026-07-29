@@ -11,7 +11,7 @@ export default function StudioSection() {
 
       {/* Painting background — Kandinsky, Yellow-Red-Blue */}
       <div
-        className="anim-bg absolute inset-0"
+        className="anim-bg parallax-layer absolute inset-0"
         style={{
           zIndex: 0,
           backgroundColor: "#0d1520",

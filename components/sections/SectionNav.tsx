@@ -34,11 +34,13 @@ export default function SectionNav() {
         style={{
           height: "56px",
           paddingTop: "env(safe-area-inset-top, 0px)",
-          background: "rgba(5,4,2,0.52)",
-          backdropFilter: "blur(20px) saturate(150%)",
-          WebkitBackdropFilter: "blur(20px) saturate(150%)",
-          borderBottom: "1px solid rgba(212,175,55,0.09)",
-          boxShadow: "0 1px 0 rgba(255,255,255,0.03)",
+          // Closest layer in the depth stack: strongest blur, and a cast
+          // shadow that separates it from the panels floating below.
+          background: "rgba(5,4,2,0.46)",
+          backdropFilter: "blur(30px) saturate(190%)",
+          WebkitBackdropFilter: "blur(30px) saturate(190%)",
+          borderBottom: "1px solid var(--spatial-rim)",
+          boxShadow: "0 8px 28px -12px rgba(0,0,0,0.6), inset 0 1px 0 var(--spatial-rim)",
         }}
       >
         {/* Logo top-left */}

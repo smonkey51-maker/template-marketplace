@@ -157,7 +157,7 @@ export default function CatalogoSection() {
 
       {/* Painting background — Seurat, La Grande Jatte */}
       <div
-        className="anim-bg absolute inset-0"
+        className="anim-bg parallax-layer absolute inset-0"
         style={{
           zIndex: 0,
           backgroundColor: "#1a2a3a",
@@ -202,16 +202,18 @@ export default function CatalogoSection() {
             >
               <div style={{
                 background: card.editorsPick
-                  ? "linear-gradient(160deg, rgba(212,175,55,0.13), rgba(255,255,255,0.035))"
-                  : "rgba(255,255,255,0.06)",
-                border: card.editorsPick ? "1px solid rgba(212,175,55,0.38)" : "1px solid rgba(255,255,255,0.11)",
+                  ? "linear-gradient(160deg, rgba(212,175,55,0.13), var(--spatial-fill))"
+                  : "var(--spatial-fill)",
+                border: card.editorsPick
+                  ? "1px solid rgba(212,175,55,0.38)"
+                  : "1px solid var(--spatial-rim)",
                 borderRadius: "var(--r-md, 16px)",
                 padding: "10px",
-                backdropFilter: "blur(20px) saturate(160%)",
-                WebkitBackdropFilter: "blur(20px) saturate(160%)",
+                backdropFilter: "var(--spatial-blur)",
+                WebkitBackdropFilter: "var(--spatial-blur)",
                 boxShadow: card.editorsPick
-                  ? "0 10px 34px rgba(0,0,0,0.42), inset 0 1px 0 rgba(212,175,55,0.16)"
-                  : "0 6px 22px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.06)",
+                  ? "var(--spatial-cast-1), inset 0 1px 0 rgba(212,175,55,0.2)"
+                  : "var(--spatial-cast-1), inset 0 1px 0 var(--spatial-rim)",
                 position: "relative",
               }}>
                 {card.editorsPick && (

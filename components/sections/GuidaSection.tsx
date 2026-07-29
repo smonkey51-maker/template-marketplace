@@ -17,7 +17,7 @@ export default function GuidaSection() {
 
       {/* Painting background — Monet, Le Bassin aux Nymphéas */}
       <div
-        className="anim-bg absolute inset-0"
+        className="anim-bg parallax-layer absolute inset-0"
         style={{
           zIndex: 0,
           backgroundColor: "#162216",

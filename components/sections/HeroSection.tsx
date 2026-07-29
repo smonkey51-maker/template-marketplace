@@ -74,7 +74,7 @@ export default function HeroSection() {
     >
       {/* Painting background — Vermeer, L'Astronomo, 1668 */}
       <div
-        className="anim-bg absolute inset-0"
+        className="anim-bg parallax-layer absolute inset-0"
         style={{
           zIndex: 0,
           backgroundColor: "#0d0a07",
