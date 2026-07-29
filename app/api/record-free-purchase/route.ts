@@ -1,6 +1,6 @@
 import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import { getBundleFromDb, getTemplateFromDb } from "@/lib/templatesDb";
 import { getBundle as getBundleLocal, getTemplate as getTemplateLocal } from "@/lib/templates";
 
@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
 
   const { bundleId, templateId } = await req.json();
 
-  const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
+  const supabase = supabaseAdmin();
 
   if (bundleId) {
     const bundle = (await getBundleFromDb(bundleId).catch(() => null)) ?? getBundleLocal(bundleId);

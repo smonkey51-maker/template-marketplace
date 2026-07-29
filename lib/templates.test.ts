@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { formatPrice, getTemplate, getBundle } from "./templates";
+import { formatPrice, getTemplate, getBundle, templates } from "./templates";
 
 describe("formatPrice", () => {
   it("formats cents to EUR price string", () => {
@@ -13,9 +13,12 @@ describe("formatPrice", () => {
 
 describe("getTemplate", () => {
   it("returns a template by id", () => {
-    const t = getTemplate("hero-saas");
+    // Read the id off the catalogue rather than hardcoding one — templates get
+    // retired, and a stale literal here fails for a reason unrelated to getTemplate.
+    const id = templates[0].id;
+    const t = getTemplate(id);
     expect(t).toBeDefined();
-    expect(t?.id).toBe("hero-saas");
+    expect(t?.id).toBe(id);
   });
 
   it("returns undefined for unknown id", () => {

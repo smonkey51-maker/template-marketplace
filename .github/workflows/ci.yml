@@ -20,3 +20,9 @@ jobs:
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run test:all
+      - run: npm run build
+        env:
+          # Build-time placeholders — the real values live in the deploy env.
+          NEXT_PUBLIC_SITE_URL: https://example.com
+          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: pk_test_ci
+          CLERK_SECRET_KEY: sk_test_ci

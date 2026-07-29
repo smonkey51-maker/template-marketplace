@@ -8,12 +8,10 @@
  */
 
 import { unstable_cache } from "next/cache";
-import { createClient } from "@supabase/supabase-js";
+import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import type { Template, Bundle } from "@/lib/templates";
 
-function getSupabase() {
-  return createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
-}
+const getSupabase = supabaseAdmin;
 
 // ── Row → domain type mappers ─────────────────────────────────────────────────
 
@@ -62,11 +60,13 @@ export const getAllTemplates = unstable_cache(
     const { data, error } = await supabase
       .from("templates")
       .select(
-        "id,name,description,category,price,stripe_price_id,tags,downloads,download_type,download_url,video_url,editors_pick,is_new,content",
+        "id,name,description,category,price,stripe_price_id,tags,downloads,download_type,download_url,video_url,editors_pick,is_new",
       );
 
     if (error || !data) return [];
-    return data.map(rowToTemplate);
+    // `content` is intentionally absent here — callers that need the body use
+    // getTemplateFromDb(id). Keep the field defined so the type stays honest.
+    return data.map((row) => ({ ...rowToTemplate(row), content: "" }));
   },
   ["templates-all"],
   { revalidate: 3600, tags: ["templates"] },

@@ -3,8 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { getTemplateFromDb, getBundleFromDb } from "@/lib/templatesDb";
 import { checkoutSchema } from "@/lib/schemas";
-
-const STUDIO_ACCESS_PRICE_ID = "price_1TBruJBoWNgrJbiy6Ry5WGB2";
+import { siteUrl } from "@/lib/siteUrl";
 
 export async function POST(req: NextRequest) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
@@ -26,9 +25,9 @@ export async function POST(req: NextRequest) {
     );
   }
   const { templateId, bundleId } = parsed.data;
-  const requestOrigin =
-    req.headers.get("origin") ?? req.headers.get("referer")?.match(/^https?:\/\/[^/]+/)?.[0];
-  const appUrl = requestOrigin ?? process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+  // Never derive redirect URLs from Origin/Referer — those are client-controlled
+  // and would let an attacker point Stripe's success_url at their own domain.
+  const appUrl = siteUrl();
 
   // ── Bundle checkout — requires auth ───────────────────────────────────────
   if (bundleId) {
@@ -71,7 +70,7 @@ export async function POST(req: NextRequest) {
     const priceId =
       templateId === "studio-access-lifetime"
         ? process.env.STUDIO_ACCESS_LIFETIME_PRICE_ID
-        : STUDIO_ACCESS_PRICE_ID;
+        : process.env.STUDIO_ACCESS_PRICE_ID;
     if (!priceId) {
       return NextResponse.json({ error: "Price not configured" }, { status: 404 });
     }

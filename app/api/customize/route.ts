@@ -2,13 +2,13 @@ import { anthropic } from "@/lib/claude";
 import { NextRequest } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { checkAIPermission } from "@/lib/aiPermissions";
-import { recordAIUsage } from "@/lib/aiCost";
+import { reserveAIUsage, finalizeAIUsage, releaseAIUsage } from "@/lib/aiCost";
 import { getUserPreferences, buildMemoryContext } from "@/lib/userMemory";
 import { customizeSchema } from "@/lib/schemas";
 import { rateLimitRedis } from "@/lib/rateLimitRedis";
 
-// Haiku is sufficient for editing/customisation tasks — ~19x cheaper than Opus
-const MODEL = "claude-haiku-4-5-20251001";
+// Haiku is sufficient for editing/customisation tasks — 5x cheaper than Opus 5
+const MODEL = "claude-haiku-4-5";
 
 export async function POST(req: NextRequest) {
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
@@ -26,6 +26,8 @@ export async function POST(req: NextRequest) {
   if (!permission.allowed) {
     return new Response(permission.reason, { status: 403 });
   }
+
+  let reservationId: string | null = null;
 
   try {
     if (!process.env.ANTHROPIC_API_KEY) {
@@ -61,6 +63,15 @@ Rules:
     let inputTokens = 0;
     let outputTokens = 0;
 
+    // Claim the quota slot before the model call — see reserveAIUsage.
+    reservationId = await reserveAIUsage({
+      userId,
+      feature: "customize",
+      model: MODEL,
+      templateId,
+    });
+    const usageId = reservationId;
+
     // Await the stream creation so auth/config errors are caught before we start streaming
     const stream = await anthropic.messages.create({
       model: MODEL,
@@ -93,16 +104,13 @@ Rules:
 
           controller.close();
 
-          // Registra uso dopo stream completato (non blocca la response)
-          recordAIUsage({
-            userId,
-            feature: "customize",
-            model: MODEL,
-            inputTokens,
-            outputTokens,
-            templateId,
-          }).catch(console.error);
+          if (usageId) {
+            finalizeAIUsage({ id: usageId, model: MODEL, inputTokens, outputTokens }).catch(
+              console.error,
+            );
+          }
         } catch (err) {
+          if (usageId) releaseAIUsage(usageId).catch(console.error);
           controller.error(err);
         }
       },
@@ -117,6 +125,7 @@ Rules:
       },
     });
   } catch (err) {
+    if (reservationId) await releaseAIUsage(reservationId).catch(console.error);
     const message = err instanceof Error ? err.message : "Internal server error";
     return new Response(message, { status: 500 });
   }

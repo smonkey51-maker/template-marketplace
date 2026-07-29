@@ -47,3 +47,25 @@ export const wishlistSchema = z.object({
 });
 
 export type WishlistInput = z.infer<typeof wishlistSchema>;
+
+// ── /api/preferences ──────────────────────────────────────────────────────────
+// These strings are injected verbatim into the Claude system prompt, so they are
+// capped hard: an unbounded field is both a prompt-injection surface and an
+// unbounded bill.
+const pref = z.string().trim().max(300).optional();
+
+export const preferencesSchema = z.object({
+  brand_tone: pref,
+  preferred_style: pref,
+  color_notes: pref,
+  extra_context: z.string().trim().max(1000).optional(),
+});
+
+export type PreferencesInput = z.infer<typeof preferencesSchema>;
+
+// ── /api/subscribe ────────────────────────────────────────────────────────────
+export const subscribeSchema = z.object({
+  email: z.email("Invalid email").max(254).trim().toLowerCase(),
+});
+
+export type SubscribeInput = z.infer<typeof subscribeSchema>;

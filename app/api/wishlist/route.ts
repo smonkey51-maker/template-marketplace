@@ -1,11 +1,8 @@
 import { auth } from "@clerk/nextjs/server";
-import { createClient } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
+import { supabaseAdmin as getSupabase } from "@/lib/supabaseAdmin";
 import { wishlistSchema } from "@/lib/schemas";
 
-function getSupabase() {
-  return createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
-}
 
 export async function GET() {
   const supabase = getSupabase();
@@ -45,9 +42,9 @@ export async function POST(req: NextRequest) {
     .select("template_id")
     .eq("user_id", userId)
     .eq("template_id", templateId)
-    .single();
+    .limit(1);
 
-  if (existing) {
+  if (existing && existing.length > 0) {
     // Remove
     const { error } = await supabase
       .from("wishlists")

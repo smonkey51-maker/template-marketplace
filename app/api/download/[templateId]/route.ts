@@ -2,11 +2,10 @@ import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { getDownloadType } from "@/lib/templates";
 import { getTemplateFromDb } from "@/lib/templatesDb";
-import { readFileSync, existsSync } from "fs";
-import { join } from "path";
 import { getUserPurchases } from "@/lib/purchases";
 import { localiseHtml, getDisplayName } from "@/lib/localise";
 import { buildShopifyZip, buildWordPressZip } from "@/lib/zip-templates";
+import { readProductFile, renderStandaloneHtml } from "@/lib/productFiles";
 
 export async function GET(
   req: NextRequest,
@@ -33,40 +32,28 @@ export async function GET(
     }
 
     // Language preference from query string (defaults to "en")
-    const lang = (req.nextUrl.searchParams.get("lang") ?? "en") as "it" | "en";
+    const lang: "it" | "en" = req.nextUrl.searchParams.get("lang") === "it" ? "it" : "en";
 
     const downloadType = getDownloadType(template);
 
     switch (downloadType) {
       case "html": {
         // For ready-to-use products, serve the full standalone HTML file directly
-        const staticPath = join(process.cwd(), "public", "products", `${templateId}.html`);
-        if (existsSync(staticPath)) {
-          const staticHtml = readFileSync(staticPath, "utf-8");
+        const staticHtml = readProductFile(templateId);
+        if (staticHtml) {
           return new NextResponse(staticHtml, {
             headers: {
               "Content-Type": "text/html; charset=utf-8",
               "Content-Disposition": `attachment; filename="${templateId}.html"`,
+              "Cache-Control": "private, no-store",
             },
           });
         }
 
         const body = localiseHtml(template.content, lang, templateId);
-        const htmlLang = lang === "it" ? "it" : "en";
         const displayName = getDisplayName(templateId, template.name, lang);
+        const html = renderStandaloneHtml({ body, title: displayName, lang });
 
-        const html = `<!DOCTYPE html>
-<html lang="${htmlLang}">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>${displayName} — Forma</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>body { margin: 0; }</style>
-</head>
-<body>${body}
-</body>
-</html>`;
         return new NextResponse(html, {
           headers: {
             "Content-Type": "text/html; charset=utf-8",

@@ -1,40 +1,63 @@
+import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
-import { getTemplate } from "@/lib/templates";
-import { readFileSync, existsSync } from "fs";
-import { join } from "path";
+import { getTemplateFromDb } from "@/lib/templatesDb";
+import { getUserPurchases } from "@/lib/purchases";
+import { readProductFile, TAILWIND_CDN } from "@/lib/productFiles";
 
+/**
+ * Marketing preview for a template, rendered inside a same-origin iframe on
+ * the catalogue / detail / studio pages.
+ *
+ * Non-owners get the short teaser stored in `templates.content` — never the
+ * full `content/products/*.html` file, which is the thing they are paying for.
+ * Owners (and anyone taking a free template) get the real product.
+ */
 export async function GET(
   _req: NextRequest,
   { params }: { params: Promise<{ templateId: string }> },
 ) {
   const { templateId } = await params;
-  const template = getTemplate(templateId);
+  const template = await getTemplateFromDb(templateId);
 
   if (!template) {
     return new NextResponse("Not found", { status: 404 });
   }
 
-  // For ready-to-use products stored as standalone HTML files in public/products/
-  const staticPath = join(process.cwd(), "public", "products", `${templateId}.html`);
-  if (existsSync(staticPath)) {
-    const html = readFileSync(staticPath, "utf-8");
-    return new NextResponse(html, {
-      headers: { "Content-Type": "text/html; charset=utf-8" },
+  let owns = template.price === 0;
+  if (!owns) {
+    const { userId } = await auth().catch(() => ({ userId: null }));
+    if (userId) {
+      const purchases = await getUserPurchases(userId);
+      owns = purchases.includes(templateId);
+    }
+  }
+
+  const full = owns ? readProductFile(templateId) : null;
+  if (full) {
+    return new NextResponse(full, {
+      headers: {
+        "Content-Type": "text/html; charset=utf-8",
+        "Cache-Control": "private, no-store",
+      },
     });
   }
 
   const html = `<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="${TAILWIND_CDN}"></script>
   <style>body { margin: 0; } * { scrollbar-width: none; -ms-overflow-style: none; } *::-webkit-scrollbar { display: none; }</style>
 </head>
 <body>${template.content}</body>
 </html>`;
 
   return new NextResponse(html, {
-    headers: { "Content-Type": "text/html; charset=utf-8" },
+    headers: {
+      "Content-Type": "text/html; charset=utf-8",
+      // Teaser only — safe to cache for everyone
+      "Cache-Control": "public, max-age=300, s-maxage=3600",
+    },
   });
 }

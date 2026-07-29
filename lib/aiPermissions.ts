@@ -1,31 +1,24 @@
 import { getUserPurchases, hasStudioAccess } from "@/lib/purchases";
-import { getMonthlyUsage } from "@/lib/aiCost";
+import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import { AI_LIMITS, startOfMonthISO, type AIFeature, type AIPlan } from "@/lib/aiLimits";
 
-// Limiti mensili per piano
-// - free:    5 generate + 10 customize
-// - studio:  100 generate + 200 customize (acquisto studio-access)
-const LIMITS = {
-  free: { generate: 5, customize: 10 },
-  studio: { generate: 100, customize: 200 },
-} as const;
-
-export type AIFeature = "generate" | "customize";
+export type { AIFeature } from "@/lib/aiLimits";
 
 export type PermissionResult =
-  | { allowed: true; plan: "free" | "studio" }
-  | { allowed: false; reason: string; plan: "free" | "studio" };
+  | { allowed: true; plan: AIPlan }
+  | { allowed: false; reason: string; plan: AIPlan };
 
 export async function checkAIPermission(
   userId: string,
   feature: AIFeature,
 ): Promise<PermissionResult> {
-  const [purchases, usage] = await Promise.all([getUserPurchases(userId), getMonthlyUsage(userId)]);
+  const [purchases, calls] = await Promise.all([
+    getUserPurchases(userId),
+    getFeatureCalls(userId, feature),
+  ]);
 
-  const plan: "free" | "studio" = hasStudioAccess(purchases) ? "studio" : "free";
-  const limit = LIMITS[plan][feature];
-
-  // Conta solo le chiamate per questa feature nel mese corrente
-  const { calls } = await getFeatureCalls(userId, feature);
+  const plan: AIPlan = hasStudioAccess(purchases) ? "studio" : "free";
+  const limit = AI_LIMITS[plan][feature];
 
   if (calls >= limit) {
     return {
@@ -41,20 +34,14 @@ export async function checkAIPermission(
   return { allowed: true, plan };
 }
 
-async function getFeatureCalls(userId: string, feature: AIFeature): Promise<{ calls: number }> {
-  const { createClient } = await import("@supabase/supabase-js");
-  const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
-
-  const startOfMonth = new Date();
-  startOfMonth.setDate(1);
-  startOfMonth.setHours(0, 0, 0, 0);
-
-  const { count } = await supabase
+/** Calls made by this user, for this feature, in the current calendar month. */
+async function getFeatureCalls(userId: string, feature: AIFeature): Promise<number> {
+  const { count } = await supabaseAdmin()
     .from("ai_usage")
     .select("*", { count: "exact", head: true })
     .eq("user_id", userId)
     .eq("feature", feature)
-    .gte("created_at", startOfMonth.toISOString());
+    .gte("created_at", startOfMonthISO());
 
-  return { calls: count ?? 0 };
+  return count ?? 0;
 }

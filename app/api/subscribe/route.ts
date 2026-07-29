@@ -1,17 +1,22 @@
-import { createClient } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
+import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import { subscribeSchema } from "@/lib/schemas";
+import { rateLimitRedis } from "@/lib/rateLimitRedis";
 
 export async function POST(req: NextRequest) {
-  const { email } = await req.json().catch(() => ({}));
-  if (!email || typeof email !== "string" || !email.includes("@")) {
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+  if (!(await rateLimitRedis(`subscribe:${ip}`, 5, 60_000))) {
+    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+  }
+
+  const parsed = subscribeSchema.safeParse(await req.json().catch(() => ({})));
+  if (!parsed.success) {
     return NextResponse.json({ error: "Invalid email" }, { status: 400 });
   }
 
-  const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
-
-  const { error } = await supabase
+  const { error } = await supabaseAdmin()
     .from("subscribers")
-    .upsert({ email: email.toLowerCase().trim() }, { onConflict: "email" });
+    .upsert({ email: parsed.data.email }, { onConflict: "email" });
 
   if (error) {
     console.error("Subscribe error:", error);
