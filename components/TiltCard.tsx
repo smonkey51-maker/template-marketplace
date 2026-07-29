@@ -8,18 +8,20 @@ interface TiltCardProps extends HTMLMotionProps<"article"> {
   active?: boolean;
 }
 
-export function TiltCard({ children, active, className = "", style, ...props }: TiltCardProps) {
-  const ref = useRef<HTMLElement>(null);
-  const [isHovered, setIsHovered] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(true);
+export const TiltCard = React.forwardRef<HTMLElement, TiltCardProps>(
+  ({ children, active, className = "", style, ...props }, forwardedRef) => {
+    const internalRef = useRef<HTMLElement>(null);
+    const ref = (forwardedRef as React.MutableRefObject<HTMLElement>) || internalRef;
+    const [isHovered, setIsHovered] = useState(false);
+    const [isDesktop, setIsDesktop] = useState(true);
 
-  // Disable intense interactions on mobile to save battery
-  useEffect(() => {
-    const checkMobile = () => setIsDesktop(window.matchMedia("(hover: hover) and (pointer: fine)").matches);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+    // Disable intense interactions on mobile to save battery
+    useEffect(() => {
+      const checkMobile = () => setIsDesktop(window.matchMedia("(hover: hover) and (pointer: fine)").matches);
+      checkMobile();
+      window.addEventListener("resize", checkMobile);
+      return () => window.removeEventListener("resize", checkMobile);
+    }, []);
 
   const mouseX = useMotionValue(0.5);
   const mouseY = useMotionValue(0.5);
@@ -94,4 +96,4 @@ export function TiltCard({ children, active, className = "", style, ...props }: 
       </motion.div>
     </motion.article>
   );
-}
+});
