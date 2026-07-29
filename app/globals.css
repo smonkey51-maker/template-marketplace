@@ -35,16 +35,16 @@ body {
     background var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
 @media (hover: hover) {
-  .catalogo-card:hover {
-    transform: translateY(-7px);
-    z-index: 10;
+  .catalogo-card {
+    perspective: 1400px;
   }
   .catalogo-card:hover > div {
     /* Raised: shadow travels further and softens, rim light brightens */
     box-shadow:
       var(--spatial-cast-2),
-      inset 0 1px 0 var(--spatial-rim-hi);
-    border-color: rgba(212, 175, 55, 0.42);
+      inset 0 2px 3px -1px rgba(255,255,255,0.4);
+    border-color: rgba(212, 175, 55, 0.6);
+    transform: rotateX(4deg) rotateY(-4deg) translateY(-8px) scale(1.02);
   }
 }
 .catalogo-card:focus-visible {
@@ -59,17 +59,19 @@ body {
 .forma-glass-card {
   background: var(--spatial-fill);
   border: 1px solid var(--spatial-rim);
+  border-top-color: rgba(255, 255, 255, 0.15); /* Specular highlight */
   border-radius: var(--r-md, 16px);
   backdrop-filter: var(--spatial-blur);
   -webkit-backdrop-filter: var(--spatial-blur);
   box-shadow:
     var(--spatial-cast-1),
+    inset 0 2px 2px -1px rgba(255, 255, 255, 0.15), /* Inner liquid edge */
     inset 0 1px 0 var(--spatial-rim);
   transition:
-    background var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    border-color var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    box-shadow var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    transform var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+    background 0.5s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color 0.5s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    box-shadow 0.5s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform 0.5s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
 @media (hover: hover) {
   .forma-glass-card:hover {
@@ -266,10 +268,10 @@ body {
   --r-md: 16px;
   --r-lg: 22px;
   --r-xl: 28px;
-  /* Glassmorphism tokens */
-  --glass-fill: rgba(253, 250, 245, 0.88);
-  --glass-shadow: 0 4px 32px rgba(26, 14, 6, 0.12), 0 1px 0 rgba(255, 248, 230, 0.9) inset;
-  --glass-stroke: rgba(26, 14, 6, 0.1);
+  /* Glassmorphism tokens - Liquid Glass */
+  --glass-fill: rgba(253, 250, 245, 0.7);
+  --glass-shadow: 0 8px 32px rgba(26, 14, 6, 0.15), 0 2px 2px -1px rgba(255, 255, 255, 0.8) inset;
+  --glass-stroke: rgba(255, 255, 255, 0.4);
   --glass-top-edge: linear-gradient(
     90deg,
     transparent,
@@ -424,10 +426,10 @@ html.dark {
   --input-bg: rgba(234, 234, 234, 0.05);
   --btn-ghost-border: rgba(234, 234, 234, 0.18);
   --btn-ghost-border-hover: rgba(234, 234, 234, 0.7);
-  /* Glassmorphism tokens — dark */
-  --glass-fill: rgba(15, 15, 15, 0.88);
-  --glass-shadow: 0 4px 32px rgba(0, 0, 0, 0.55), 0 1px 0 rgba(212, 175, 55, 0.07) inset;
-  --glass-stroke: rgba(212, 175, 55, 0.1);
+  /* Glassmorphism tokens — dark - Liquid Glass */
+  --glass-fill: rgba(15, 15, 15, 0.65);
+  --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.7), 0 2px 2px -1px rgba(255, 255, 255, 0.12) inset;
+  --glass-stroke: rgba(255, 255, 255, 0.08);
   --glass-top-edge: linear-gradient(
     90deg,
     transparent,
@@ -550,37 +552,34 @@ html.dark {
               can hold.
    ═══════════════════════════════════════════════════════════ */
 :root {
-  /* Spatial material — reads over artwork in both themes */
-  --spatial-fill: rgba(255, 250, 235, 0.085);
-  --spatial-fill-hi: rgba(255, 250, 235, 0.13);
-  --spatial-rim: rgba(255, 245, 220, 0.26);
-  --spatial-rim-hi: rgba(255, 245, 220, 0.42);
-  --spatial-blur: blur(22px) saturate(180%);
-  /* Cast shadows grow with elevation — z1 resting, z2 raised */
-  --spatial-cast-1: 0 12px 30px -10px rgba(0, 0, 0, 0.55);
-  --spatial-cast-2: 0 28px 60px -12px rgba(0, 0, 0, 0.62);
+  /* Spatial material — reads over artwork in both themes - Liquid Glass effect */
+  --spatial-fill: rgba(255, 250, 235, 0.15);
+  --spatial-fill-hi: rgba(255, 250, 235, 0.25);
+  --spatial-rim: rgba(255, 255, 255, 0.3);
+  --spatial-rim-hi: rgba(255, 255, 255, 0.6);
+  --spatial-blur: blur(36px) saturate(220%);
+  /* Cast shadows grow with elevation — z1 resting, z2 raised (Spatial Core) */
+  --spatial-cast-1: 0 16px 40px -8px rgba(0, 0, 0, 0.65);
+  --spatial-cast-2: 0 32px 70px -12px rgba(0, 0, 0, 0.75);
 
-  /* Neumorphic light pair. The surface is lit from the top-left,
-     so the light shadow goes up-left and the dark one down-right. */
-  --neu-surface: var(--surface);
-  --neu-light: rgba(255, 255, 255, 0.92);
-  --neu-dark: rgba(150, 130, 100, 0.26);
-  /* Faint but real border. Pure neumorphism fails WCAG non-text
-     contrast (1.4.11) because the only edge is a shadow — this
-     keeps the sculpted look while leaving the control findable. */
-  --neu-edge: rgba(28, 22, 16, 0.09);
+  /* Neumorphic light pair. */
+  --neu-surface: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.02)) var(--surface);
+  --neu-light: rgba(255, 255, 255, 0.95);
+  --neu-dark: rgba(150, 130, 100, 0.35);
+  --neu-edge: rgba(28, 22, 16, 0.05);
   --neu-radius: 18px;
 }
 html.dark {
-  --neu-light: rgba(255, 240, 210, 0.055);
-  --neu-dark: rgba(0, 0, 0, 0.62);
-  --neu-edge: rgba(242, 235, 217, 0.09);
+  --neu-surface: linear-gradient(145deg, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.4)) var(--surface);
+  --neu-light: rgba(255, 255, 255, 0.06);
+  --neu-dark: rgba(0, 0, 0, 0.8);
+  --neu-edge: rgba(242, 235, 217, 0.04);
 }
 
 /* ═══════════════════════════════════════════════════════════
    GLOBAL TRANSITIONS & FONT
    ═══════════════════════════════════════════════════════════ */
-html {
+html, body {
   font-family:
     var(--font-jakarta),
     var(--font-geist),
@@ -598,8 +597,21 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
   transition:
-    background-color 0.22s cubic-bezier(0.4, 0, 0.2, 1),
-    color 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    background-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Tutti gli elementi che usano i colori semantici devono avere la transizione */
+.bg-page, .bg-surface, .bg-surface-2, .bg-card, .text-theme, .text-muted, .border-theme, .glass, .forma-glass-card {
+  transition: 
+    background-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* ── Dark mode: FORMA — near-black with gold glow at top ── */
