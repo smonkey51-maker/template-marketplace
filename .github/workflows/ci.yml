@@ -38,8 +38,10 @@ jobs:
   # resolution — the same error occurs for the bare loopback IP — and it is not
   # the app: curl answers 200 on every one of those URLs. Tried and did not
   # help: 127.0.0.1 instead of localhost, --no-proxy-server, --no-sandbox,
-  # proxy: direct://, --proxy-bypass-list, and the full Chromium build instead
-  # of the headless shell.
+  # proxy: direct://, --proxy-bypass-list, the full Chromium build instead of
+  # the headless shell, and clearing HTTP_PROXY/HTTPS_PROXY/NO_PROXY for the
+  # step (the proxy-precedence theory looked right but was disproven — the
+  # browser fails to reach the server with the proxy env cleared too).
   #
   # So this is the runner's egress configuration, and gating merges on it would
   # block every PR on something no change to this repo can fix. To finish the
