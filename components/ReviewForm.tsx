@@ -72,7 +72,7 @@ export default function ReviewForm({
           onChange={(e) => setComment(e.target.value)}
           rows={3}
           maxLength={500}
-          className="w-full text-[13px] border border-theme bg-input rounded-none px-3 py-2 resize-none outline-none focus:border-accent transition-colors"
+          className="w-full text-[13px] border border-theme bg-input rounded-xl px-4 py-3 resize-none outline-none focus:border-accent transition-colors"
           style={{ background: "var(--input-bg)", color: "var(--text)" }}
           placeholder={lang === "it" ? "Racconta la tua esperienza..." : "Share your experience..."}
         />

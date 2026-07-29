@@ -29,7 +29,7 @@ function normalize(str: string): string {
 
 function SkeletonCard() {
   return (
-    <div className="bg-card border border-theme rounded-none overflow-hidden animate-pulse">
+    <div className="bg-card border border-theme rounded-2xl overflow-hidden animate-pulse">
       <div className="h-48 bg-theme/5" />
       <div className="p-4 flex flex-col gap-2.5">
         <div className="h-2 w-16 bg-theme/8" />
@@ -248,7 +248,7 @@ export default function TemplateGrid({ externalQuery = "", onClearSearch }: { ex
             <select
               value={searchSort}
               onChange={(e) => setSearchSort(e.target.value as typeof searchSort)}
-              className="text-[11px] font-medium text-muted bg-input border border-theme rounded-none px-2.5 py-1.5 outline-none focus:border-accent transition-colors"
+              className="text-[11px] font-medium text-muted bg-input border border-theme rounded-lg px-3 py-1.5 outline-none focus:border-accent transition-colors"
               style={{ color: "var(--muted)", background: "var(--input-bg)" }}
             >
               <option value="relevance">{lang === "it" ? "Più rilevanti" : "Most relevant"}</option>
@@ -275,7 +275,7 @@ export default function TemplateGrid({ externalQuery = "", onClearSearch }: { ex
                   <MagneticWrap>
                     <button
                       onClick={() => setVisibleCount((v) => v + 12)}
-                      className="px-6 py-2.5 glass border border-theme rounded-none text-[13px] font-semibold text-muted hover:text-theme hover:border-accent/30 transition-all duration-200 ios-spring"
+                      className="px-6 py-2.5 glass border border-theme rounded-full text-[13px] font-semibold text-muted hover:text-theme hover:border-accent/30 transition-all duration-200 ios-spring"
                     >
                       {lang === "it"
                         ? `Mostra altri ${Math.min(12, searchResults.length - visibleCount)} di ${searchResults.length} →`
@@ -335,7 +335,7 @@ export default function TemplateGrid({ externalQuery = "", onClearSearch }: { ex
             <span className="text-[13px] font-semibold text-theme">
               {openSection.emoji} {openSectionMeta.label}
             </span>
-            <span className="bg-accent/10 text-accent rounded-none px-2 py-0.5 text-[11px] font-bold">
+            <span className="bg-accent/10 text-accent rounded-full px-2.5 py-0.5 text-[11px] font-bold">
               {openSectionTemplates.length}
             </span>
           </div>

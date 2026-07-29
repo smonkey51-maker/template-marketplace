@@ -10,7 +10,7 @@ export default function ThemeToggle() {
     <button
       onClick={toggle}
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-      className="relative flex items-center w-[52px] h-[28px] p-[3px] transition-colors duration-300 focus:outline-none"
+      className="relative flex items-center w-[52px] h-[28px] p-[3px] rounded-full transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
       style={{ backgroundColor: isDark ? "rgba(255,255,255,0.10)" : "rgba(0,0,0,0.08)" }}
     >
       {/* Sun icon — left side (active in light mode) */}
@@ -34,7 +34,7 @@ export default function ThemeToggle() {
 
       {/* Sliding knob */}
       <span
-        className="relative z-10 w-[22px] h-[22px] flex items-center justify-center transition-transform duration-300"
+        className="relative z-10 w-[22px] h-[22px] rounded-full flex items-center justify-center transition-transform duration-300"
         style={{
           transform: isDark ? "translateX(24px)" : "translateX(0px)",
           backgroundColor: "var(--card-bg)",

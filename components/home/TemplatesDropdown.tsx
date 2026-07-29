@@ -7,7 +7,7 @@ import { PILLARS } from "@/lib/gridData";
 export default function TemplatesDropdown({ lang }: { lang: "it" | "en" }) {
   return (
     <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-50 w-[580px] max-w-[calc(100vw-2rem)]">
-      <div className="border border-theme rounded-none shadow-2xl overflow-hidden" style={{ background: "var(--bg)" }}>
+      <div className="border border-theme rounded-2xl shadow-2xl overflow-hidden" style={{ background: "var(--bg)" }}>
         <div className="grid grid-cols-[180px_1fr]">
           {/* Left: steps */}
           <div className="p-4" style={{ background: "var(--surface)", borderRight: "1px solid var(--border)" }}>
@@ -16,8 +16,8 @@ export default function TemplatesDropdown({ lang }: { lang: "it" | "en" }) {
             </p>
             <div className="flex flex-col gap-1">
               {STEPS.map((s) => (
-                <div key={s.n} className="flex items-start gap-2.5 px-2 py-2.5 rounded-none">
-                  <div className="w-7 h-7 rounded-none flex items-center justify-center text-sm flex-shrink-0 shadow-sm border"
+                <div key={s.n} className="flex items-start gap-2.5 px-2 py-2.5 rounded-lg">
+                  <div className="w-7 h-7 rounded-lg flex items-center justify-center text-sm flex-shrink-0 shadow-sm border"
                     style={{ background: "var(--card-bg)", borderColor: "var(--border)" }}>
                     {s.icon}
                   </div>
@@ -58,7 +58,7 @@ export default function TemplatesDropdown({ lang }: { lang: "it" | "en" }) {
                           if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
                           else document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" });
                         }}
-                        className="flex items-center gap-2 px-2.5 py-1.5 rounded-none text-left transition-colors hover:bg-surface focus:bg-surface"
+                        className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-left transition-colors hover:bg-surface focus:bg-surface"
                       >
                         <span className="text-xs flex-shrink-0">{cat.emoji}</span>
                         <span className="text-[11px] font-medium leading-tight" style={{ color: "var(--text)", opacity: 0.8 }}>

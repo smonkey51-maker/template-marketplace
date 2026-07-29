@@ -6,7 +6,7 @@ import { bundles, formatPrice } from "@/lib/templates";
 export default function BundlesDropdown({ lang, purchasedIds }: { lang: "it" | "en"; purchasedIds: string[] }) {
   return (
     <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-50 w-[440px] max-w-[calc(100vw-2rem)]">
-      <div className="border border-theme rounded-none shadow-2xl overflow-hidden" style={{ background: "var(--bg)" }}>
+      <div className="border border-theme rounded-2xl shadow-2xl overflow-hidden" style={{ background: "var(--bg)" }}>
         <div className="p-3">
           <p className="text-[9px] font-black uppercase tracking-[0.2em] mb-2 px-2" style={{ color: "var(--muted)" }}>
             {lang === "it" ? "Bundle — risparmia fino al 55%" : "Bundles — save up to 55%"}
@@ -19,9 +19,9 @@ export default function BundlesDropdown({ lang, purchasedIds }: { lang: "it" | "
                 <Link
                   key={bundle.id}
                   href={`/bundle/${bundle.id}`}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-none transition-colors group cursor-pointer hover:bg-surface focus:bg-surface"
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors group cursor-pointer hover:bg-surface focus:bg-surface"
                 >
-                  <div className="w-8 h-8 rounded-none flex items-center justify-center text-base flex-shrink-0"
+                  <div className="w-8 h-8 rounded-lg flex items-center justify-center text-base flex-shrink-0"
                     style={{ background: "var(--accent-bg)", color: "var(--accent)" }}>
                     {bundle.emoji}
                   </div>
