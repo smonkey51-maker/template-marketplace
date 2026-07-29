@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import SnapHomepage from "@/components/SnapHomepage";
+import CinematicHomepage from "@/components/CinematicHomepage";
 
 export const metadata: Metadata = {
   title: "FORMA — Arte in tasca.",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    // Full-bleed snap homepage — no fn-shell wrapper, nav is internal overlay
-    <SnapHomepage />
+    // Full-bleed cinematic homepage
+    <CinematicHomepage />
   );
 }

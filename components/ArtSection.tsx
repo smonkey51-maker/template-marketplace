@@ -32,7 +32,9 @@ export default function ArtSection({
       return;
     }
 
-    const root = document.getElementById("forma-snap-container");
+    const root = null;
+    const triggerEl = document.getElementById(`trigger-${id}`) || el;
+    
     const obs = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -42,9 +44,9 @@ export default function ArtSection({
           delete el.dataset.entered;
         }
       },
-      { root, threshold: 0.4 },
+      { root, threshold: 0.1 },
     );
-    obs.observe(el);
+    obs.observe(triggerEl);
     return () => obs.disconnect();
   }, [once]);
 
