@@ -55,6 +55,8 @@ export function TemplatePreview({ id, height = 220 }: Props) {
         position: "relative",
         background: "#0f0f0f",
         flexShrink: 0,
+        borderRadius: "inherit",
+        transform: "translateZ(0)", // Fixes border-radius clipping with transforms
       }}
     >
       {/* Gold gradient shimmer while loading (or before the width is known) */}
