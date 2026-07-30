@@ -29,10 +29,46 @@ function getPlatformLabel(t: TemplateMeta): string {
 
 const PAID_TEMPLATES = templatesMeta.filter((t) => !t.id.startsWith("free-"));
 
+/**
+ * Buyer-facing groupings, not the raw `category` field.
+ *
+ * The categories as stored are prompt 3 · script 1 · guide 6 · worksheet 5 ·
+ * tracker 1. Exposing those directly would give two filters that return a
+ * single product each, which is worse than no filter — you click it and the
+ * page looks broken. So `script` joins the prompts (both are copy you paste and
+ * adapt) and `tracker` joins the worksheets (both are sheets you fill in),
+ * leaving four groups that each hold a real handful.
+ */
+type GroupKey = "all" | "prompt" | "guide" | "sheet";
+
+const GROUP_OF: Record<TemplateMeta["category"], Exclude<GroupKey, "all">> = {
+  prompt: "prompt",
+  script: "prompt",
+  guide: "guide",
+  worksheet: "sheet",
+  tracker: "sheet",
+  ui: "guide",
+};
+
+const GROUPS: { key: GroupKey; it: string; en: string }[] = [
+  { key: "all", it: "Tutti", en: "All" },
+  { key: "prompt", it: "Prompt e script", en: "Prompts & scripts" },
+  { key: "guide", it: "Guide", en: "Guides" },
+  { key: "sheet", it: "Fogli e tracker", en: "Sheets & trackers" },
+];
+
+/** How many products a filter would show, so the chip can say so up front. */
+function countFor(key: GroupKey): number {
+  return key === "all"
+    ? PAID_TEMPLATES.length
+    : PAID_TEMPLATES.filter((x) => GROUP_OF[x.category] === key).length;
+}
+
 export default function CatalogoPage() {
   const { lang } = useLang();
   const t = (k: keyof typeof copy.it) => copy[lang][k];
   const [q, setQ] = useState("");
+  const [group, setGroup] = useState<GroupKey>("all");
   const [activeId, setActiveId] = useState<string | null>(null);
   const [isClosing, setIsClosing] = useState(false);
 
@@ -97,7 +133,10 @@ export default function CatalogoPage() {
       onComplete: () => {
         setActiveId(null);
         setIsClosing(false);
-        openerRef.current?.focus();
+        // Same reason on the way back: the card that opened the sheet may be
+        // far up a long grid, and returning focus to it must not yank the page
+        // to it — the browser restores the scroll position on its own.
+        openerRef.current?.focus({ preventScroll: true });
       },
     });
   }, []);
@@ -108,7 +147,13 @@ export default function CatalogoPage() {
   // underneath instead of the dialog on top of it.
   useEffect(() => {
     if (!activeId || isClosing) return;
-    modalRef.current?.focus();
+    // preventScroll matters here. The sheet's entrance starts at
+    // translateY(100%), so at the moment focus lands it is still below the
+    // viewport — and the browser's job on focus is to scroll whatever received
+    // it into view. That scrolled the document to the bottom of the catalogue
+    // before the sheet slid up, which read as the page jumping to the end to
+    // open it.
+    modalRef.current?.focus({ preventScroll: true });
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") handleClose();
     };
@@ -116,13 +161,23 @@ export default function CatalogoPage() {
     return () => document.removeEventListener("keydown", onKey);
   }, [activeId, isClosing, handleClose]);
 
-  const filtered = useMemo(
-    () =>
-      PAID_TEMPLATES.filter((x) =>
-        `${x.name} ${x.description} ${x.tags.join(" ")}`.toLowerCase().includes(q.toLowerCase()),
-      ),
-    [q],
-  );
+  const filtered = useMemo(() => {
+    // Uniform cards mean the grid tiles by itself, so there is no ordering
+    // trick here any more. The previous version paired each double-width
+    // editor's pick with a normal card to stop it stranding a gap; with every
+    // card the same size that problem does not exist, and source order — which
+    // groups by category — is the honest order to browse in.
+    const byGroup =
+      group === "all"
+        ? PAID_TEMPLATES
+        : PAID_TEMPLATES.filter((x) => GROUP_OF[x.category] === group);
+
+    if (!q.trim()) return byGroup;
+    const needle = q.toLowerCase();
+    return byGroup.filter((x) =>
+      `${x.name} ${x.description} ${x.tags.join(" ")}`.toLowerCase().includes(needle),
+    );
+  }, [q, group]);
 
   return (
     <>
@@ -168,6 +223,33 @@ export default function CatalogoPage() {
               />
             </div>
 
+            {/* Group filters. A single-select segmented control rather than
+                checkboxes: the groups do not overlap, so more than one at a time
+                would be meaningless. Each chip carries its count, which is what
+                stops a filter from looking broken when you click it — you know
+                before pressing how much is behind it. */}
+            <div
+              className="fn-filters"
+              role="group"
+              aria-label={lang === "it" ? "Filtra per tipo" : "Filter by type"}
+            >
+              {GROUPS.map((g) => {
+                const active = group === g.key;
+                return (
+                  <button
+                    key={g.key}
+                    type="button"
+                    onClick={() => setGroup(g.key)}
+                    aria-pressed={active}
+                    className={`fn-filter${active ? " is-active" : ""}`}
+                  >
+                    {lang === "it" ? g.it : g.en}
+                    <span className="fn-filter__count">{countFor(g.key)}</span>
+                  </button>
+                );
+              })}
+            </div>
+
             {filtered.length === 0 ? (
               <div style={{ padding: "60px 0", textAlign: "center", color: "var(--muted)" }}>
                 {t("noResults")}
@@ -176,7 +258,7 @@ export default function CatalogoPage() {
               <div className="fn-grid">
                 {filtered.map((item, idx) => (
                   <article
-                    className={`fn-card cursor-pointer${item.editorsPick ? " fn-card--wide" : ""}`}
+                    className="fn-card cursor-pointer"
                     key={item.id}
                     onClick={(e) => {
                       openerRef.current = e.currentTarget as HTMLElement;
@@ -229,18 +311,6 @@ export default function CatalogoPage() {
                             }}
                           >
                             ★ Editor
-                          </span>
-                        )}
-                        {item.isNew && (
-                          <span
-                            className="fn-badge"
-                            style={{
-                              background: "transparent",
-                              border: "1px solid rgba(234,234,234,.25)",
-                              color: "var(--text)",
-                            }}
-                          >
-                            New
                           </span>
                         )}
                       </div>
