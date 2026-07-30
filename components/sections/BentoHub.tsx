@@ -41,7 +41,13 @@ export default function BentoHub() {
       ariaLabel={lang === "it" ? "Sezioni del sito" : "Site sections"}
     >
       {/* ── AI Studio — left column, spans 2 rows ────────────────────── */}
-      <BentoCell rows={2} href="/ai-studio" label={t.aiTitle} delay={180} className="bento-order-studio justify-end p-5">
+      <BentoCell
+        rows={2}
+        href="/ai-studio"
+        label={t.aiTitle}
+        delay={180}
+        className="bento-order-studio justify-end p-5"
+      >
         <CellPainting src="/paintings/kandinsky.jpg" />
         <div className="relative">
           <BentoEyebrow>{t.aiTitle}</BentoEyebrow>
@@ -50,7 +56,13 @@ export default function BentoHub() {
       </BentoCell>
 
       {/* ── Hero — the one cell that carries the headline ────────────── */}
-      <BentoCell cols={2} rows={2} colsMd={2} delay={60} className="bento-order-hero justify-end p-6 sm:p-8">
+      <BentoCell
+        cols={2}
+        rows={2}
+        colsMd={2}
+        delay={60}
+        className="bento-order-hero justify-end p-6 sm:p-8"
+      >
         <CellPainting src="/paintings/vermeer.jpg" position="center 20%" />
         <div className="relative flex flex-col gap-4">
           <div className="sm:hidden mb-4">
@@ -84,7 +96,12 @@ export default function BentoHub() {
       </BentoCell>
 
       {/* ── Catalogo — right column, top ─────────────────────────────── */}
-      <BentoCell href="/catalogo" label={t.catalogo} delay={120} className="bento-order-catalogo justify-end p-5 sm:p-6">
+      <BentoCell
+        href="/catalogo"
+        label={t.catalogo}
+        delay={120}
+        className="bento-order-catalogo justify-end p-5 sm:p-6"
+      >
         <CellPainting src="/paintings/seurat.jpg" />
         <div className="relative">
           <BentoEyebrow>{t.catalogo}</BentoEyebrow>
@@ -93,7 +110,12 @@ export default function BentoHub() {
       </BentoCell>
 
       {/* ── Guida — right column, bottom ────────────────────────────── */}
-      <BentoCell href="/guida" label={t.guida} delay={240} className="bento-order-guida justify-end p-5 sm:p-6">
+      <BentoCell
+        href="/guida"
+        label={t.guida}
+        delay={240}
+        className="bento-order-guida justify-end p-5 sm:p-6"
+      >
         <CellPainting src="/paintings/monet.jpg" />
         <div className="relative">
           <BentoEyebrow>{t.guida}</BentoEyebrow>
@@ -104,7 +126,12 @@ export default function BentoHub() {
       </BentoCell>
 
       {/* ── Personal area — one cell, two sub-boxes ─────────────────── */}
-      <BentoCell cols={4} colsMd={2} delay={300} className="bento-order-personal justify-center p-5 sm:p-6">
+      <BentoCell
+        cols={4}
+        colsMd={2}
+        delay={300}
+        className="bento-order-personal justify-center p-5 sm:p-6"
+      >
         <BentoEyebrow>{lang === "it" ? "Area personale" : "Your area"}</BentoEyebrow>
         <BentoSubGrid>
           <BentoSubBox href="/account" label={t.accountTitle}>
