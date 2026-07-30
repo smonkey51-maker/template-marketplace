@@ -166,13 +166,13 @@ export default function CatalogoPage() {
                     style={{
                       display: "flex",
                       flexDirection: "column",
-                      height: "100%", // Assicura che la card occupi tutto lo spazio della cella
+                      height: "100%", 
                     }}
                   >
                     <div
                       style={{ 
                         position: "relative",
-                        aspectRatio: "16/10", // Forza tutte le immagini ad avere la stessa proporzione
+                        aspectRatio: "16/10", 
                         borderRadius: "12px", 
                         overflow: "hidden", 
                         marginBottom: "16px",
@@ -187,7 +187,7 @@ export default function CatalogoPage() {
                       style={{ 
                         display: "flex", 
                         flexDirection: "column", 
-                        flex: 1 // Permette al corpo di espandersi
+                        flex: 1 
                       }}
                     >
                       <div
@@ -247,7 +247,6 @@ export default function CatalogoPage() {
                         {item.description}
                       </p>
                       
-                      {/* Questo div spinge il contenuto verso il basso, così se una card ha meno testo, si allinea comunque */}
                       <div className="fn-meta" style={{ marginTop: "auto" }}>
                         <span>{item.tags.slice(0, 2).join(" · ")}</span>
                         <b
@@ -388,12 +387,18 @@ export default function CatalogoPage() {
                   </div>
 
                   <div className="flex-1 flex justify-end gap-3">
-                    <Link href={`/preview/${activeItem.id}`} className="fn-btn">
+                    {/* Aggiunto /${lang} ai percorsi e sblocco scroll su click */}
+                    <Link 
+                      href={`/${lang}/preview/${activeItem.id}`} 
+                      className="fn-btn"
+                      onClick={() => { document.body.style.overflow = ""; }}
+                    >
                       {t("download")}
                     </Link>
                     <Link
-                      href={`/templates/${activeItem.id}`}
+                      href={`/${lang}/templates/${activeItem.id}`}
                       className="fn-btn primary shadow-lg"
+                      onClick={() => { document.body.style.overflow = ""; }}
                     >
                       Acquista Ora
                     </Link>
