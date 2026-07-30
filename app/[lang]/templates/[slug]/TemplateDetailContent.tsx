@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useLang } from "@/components/LanguageProvider";
 import { copy } from "@/lib/formaCopy";
 import { TemplatePreview } from "@/components/TemplatePreview";
+import { TemplateThumb } from "@/components/TemplateThumb";
 import { BuyButton } from "./BuyButton";
 import { FormaFooter } from "@/components/FormaFooter";
 import { formatPrice, type TemplateMeta } from "@/lib/templates";
@@ -164,7 +165,10 @@ export function TemplateDetailContent({
                       className="glass-panel overflow-hidden flex flex-col items-center block w-full shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
                     >
                       <div className="w-full h-36 relative pointer-events-none">
-                        <TemplatePreview id={rel.id} />
+                        {/* Static, like the catalogue grid — a row of related
+                            products is not worth an iframe each. The main
+                            preview above still renders live. */}
+                        <TemplateThumb id={rel.id} name={rel.name} height={144} />
                       </div>
                       <div className="p-5 text-center w-full">
                         <div className="font-cormorant text-2xl mb-1">{rel.name}</div>
