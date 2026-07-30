@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useLang } from "@/components/LanguageProvider";
 import { copy } from "@/lib/formaCopy";
-import { TemplatePreview } from "@/components/TemplatePreview";
 import { TemplateThumb } from "@/components/TemplateThumb";
 import { BuyButton } from "./BuyButton";
 import { FormaFooter } from "@/components/FormaFooter";
@@ -42,7 +41,11 @@ export function TemplateDetailContent({
         style={{
           maxWidth: 960,
           margin: "0 auto",
-          padding: "40px clamp(16px, 3vw, 36px) 120px",
+          // The bottom figure clears the floating mobile nav: it sits 24px off
+          // the bottom and stands ~56px tall, so anything less leaves the last
+          // screenful of the page — including the buy button — sitting under it
+          // with no way to scroll clear.
+          padding: "40px clamp(16px, 3vw, 36px) calc(140px + env(safe-area-inset-bottom, 0px))",
         }}
       >
         {/* Navigation Breadcrumb (Floating Pill) */}
@@ -62,8 +65,17 @@ export function TemplateDetailContent({
 
         {/* The Glass Sheet */}
         <article className="glass-panel overflow-hidden mb-24">
-          <div style={{ height: "60vh", minHeight: "400px", position: "relative" }}>
-            <TemplatePreview id={item.id} />
+          {/* The static thumbnail, not the live iframe.
+              TemplatePreview lays the template out at its 1440px design width
+              and scales the whole thing down to the container — on a ~390px
+              phone that is a factor of 0.27, so the product was drawn at
+              roughly a quarter size and could not be read at all. The generated
+              thumbnails are cropped to the template's own bounding box, so they
+              stay legible at any width, and they cost an image instead of a
+              nested document. The live, explorable version is one tap away
+              under "Preview dal vivo". */}
+          <div className="fn-detail-shot">
+            <TemplateThumb id={item.id} name={item.name} priority height={420} />
           </div>
 
           <div className="p-8 sm:p-14 lg:p-20">
@@ -116,7 +128,7 @@ export function TemplateDetailContent({
                 </ul>
               </div>
 
-              <div className="flex flex-col justify-end bg-black/10 rounded-3xl p-8 border border-theme">
+              <div className="fn-buy-box flex flex-col justify-end bg-black/10 rounded-3xl p-8 border border-theme">
                 <span className="text-xs uppercase tracking-widest text-muted mb-2">
                   Prezzo una tantum
                 </span>
@@ -156,9 +168,9 @@ export function TemplateDetailContent({
                       className="fn-card overflow-hidden flex flex-col items-center block w-full h-full"
                     >
                       <div className="w-full h-36 relative pointer-events-none">
-                        {/* Static, like the catalogue grid — a row of related
-                            products is not worth an iframe each. The main
-                            preview above still renders live. */}
+                        {/* Static, like the shot above and the catalogue grid.
+                            Nothing on this page mounts an iframe any more; the
+                            live view lives at /preview/[id]. */}
                         <TemplateThumb id={rel.id} name={rel.name} height={144} />
                       </div>
                       <div className="p-5 text-center w-full">
