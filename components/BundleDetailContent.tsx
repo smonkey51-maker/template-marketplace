@@ -64,15 +64,26 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ bundleId }),
       });
-      if (!res.ok) throw new Error("checkout_failed");
-      const data = await res.json();
-      if (data.url) window.location.href = data.url;
-      else throw new Error("no_url");
-    } catch {
+      const data = await res.json().catch(() => ({}));
+
+      // Same as the single-template flow: show what the route actually said,
+      // and send an unauthenticated buyer to sign in instead of to an error.
+      if (!res.ok) {
+        if (data.requireAuth) {
+          router.push(`/sign-in?redirect_url=${encodeURIComponent(window.location.pathname)}`);
+          return;
+        }
+        throw new Error(typeof data.error === "string" ? data.error : "");
+      }
+      if (!data.url) throw new Error("");
+      window.location.href = data.url;
+    } catch (err) {
+      const fromServer = err instanceof Error && err.message ? err.message : null;
       toast(
-        lang === "it"
-          ? "Errore durante il checkout. Riprova più tardi."
-          : "Checkout failed. Please try again.",
+        fromServer ??
+          (lang === "it"
+            ? "Errore durante il checkout. Riprova più tardi."
+            : "Checkout failed. Please try again."),
         "error",
       );
     } finally {
@@ -85,7 +96,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
       {/* ── Back button ── */}
       <button
         onClick={() => router.push("/")}
-        className="fixed top-4 left-4 z-50 flex items-center gap-1.5 px-3.5 py-2 border border-theme shadow-sm
+        className="r-pill fixed top-4 left-4 z-50 flex items-center gap-1.5 px-3.5 py-2 border border-theme shadow-sm
           text-theme text-[14px] font-semibold
           hover:opacity-80 transition-opacity duration-200"
         style={{ background: "var(--card-bg)" }}
@@ -105,7 +116,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
 
       <div className="flex-1 max-w-4xl mx-auto w-full px-4 sm:px-6 pt-20 pb-48">
         {/* ── Hero ── */}
-        <div className={`${colors.bg} border ${colors.border} p-6 sm:p-8 mb-8`}>
+        <div className={`r-glass ${colors.bg} border ${colors.border} p-6 sm:p-8 mb-8`}>
           <div className="flex items-start gap-4 mb-4">
             <span className="text-5xl shrink-0">{bundle.emoji}</span>
             <div className="flex-1 min-w-0">
@@ -113,7 +124,9 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
                 <span className={`text-[11px] font-black uppercase tracking-widest ${colors.text}`}>
                   Bundle
                 </span>
-                <span className={`border px-2.5 py-0.5 text-[11px] font-black ${colors.badge}`}>
+                <span
+                  className={`r-pill border px-2.5 py-0.5 text-[11px] font-black ${colors.badge}`}
+                >
                   –{savingsPct}%
                 </span>
               </div>
@@ -128,9 +141,9 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
           {/* Highlights */}
           <div className="grid sm:grid-cols-3 gap-2.5">
             {bundle.highlights.map((h, i) => (
-              <div key={i} className="flex items-start gap-2 bg-theme/5 px-3 py-2.5">
+              <div key={i} className="r-md flex items-start gap-2 bg-theme/5 px-3 py-2.5">
                 <span
-                  className={`mt-0.5 w-4 h-4 flex items-center justify-center text-[9px] shrink-0 border ${colors.badge}`}
+                  className={`r-pill mt-0.5 w-4 h-4 flex items-center justify-center text-[9px] shrink-0 border ${colors.badge}`}
                 >
                   ✓
                 </span>
@@ -155,7 +168,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
                 <button
                   key={tmpl!.id}
                   onClick={() => setActiveTemplateIdx(i)}
-                  className={`w-full flex items-center gap-3 px-4 py-3 text-left
+                  className={`r-md w-full flex items-center gap-3 px-4 py-3 text-left
                     transition-all duration-200 ios-spring border ${
                       isActive
                         ? `${colors.bg} ${colors.border}`
@@ -163,7 +176,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
                     }`}
                 >
                   <span
-                    className={`w-6 h-6 flex items-center justify-center text-[11px] font-black shrink-0 border ${
+                    className={`r-pill w-6 h-6 flex items-center justify-center text-[11px] font-black shrink-0 border ${
                       isActive ? colors.badge : "bg-theme/10 border-theme/30 text-muted"
                     }`}
                   >
@@ -212,7 +225,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
 
           {/* Preview area */}
           {activeTemplate && (
-            <div className="border border-theme overflow-hidden bg-card">
+            <div className="r-glass border border-theme overflow-hidden bg-card">
               <div className="relative">
                 <iframe
                   key={activeTemplateIdx}
@@ -301,7 +314,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
                   <div className="flex flex-col sm:flex-row gap-5 sm:gap-6 items-start">
                     {/* Preview */}
                     <div
-                      className="w-full sm:w-[220px] shrink-0 border border-accent/20 overflow-hidden bg-card"
+                      className="r-glass w-full sm:w-[220px] shrink-0 border border-accent/20 overflow-hidden bg-card"
                       style={{ height: "130px" }}
                     >
                       <div className="relative" style={{ height: "130px" }}>
@@ -381,7 +394,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
           })()}
 
         {/* ── Price breakdown ── */}
-        <div className="glass-subtle border border-theme p-5 mb-4">
+        <div className="r-glass glass-subtle border border-theme p-5 mb-4">
           <h2 className="text-[13px] font-black text-muted/60 uppercase tracking-widest mb-4">
             {t[lang].bundleDetail.totalValue}
           </h2>

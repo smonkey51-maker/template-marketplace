@@ -146,7 +146,7 @@ function SuccessContent() {
           {isSignedIn && (
             <Link
               href="/studio"
-              className="block w-full px-6 py-3.5 glass-subtle font-bold text-[14px] text-theme text-center transition-all duration-200 active:scale-[0.97] ios-spring"
+              className="r-pill block w-full px-6 py-3.5 glass-subtle font-bold text-[14px] text-theme text-center transition-all duration-200 active:scale-[0.97] ios-spring"
             >
               {lang === "it" ? "Personalizza con AI Studio →" : "Customize with AI Studio →"}
             </Link>
@@ -232,7 +232,7 @@ function SuccessContent() {
                 </p>
                 <Link
                   href={`/sign-up?redirect_url=/account`}
-                  className="block w-full px-5 py-3 glass-subtle font-bold text-[14px] text-theme text-center transition-all duration-200 active:scale-[0.97] ios-spring"
+                  className="r-pill block w-full px-5 py-3 glass-subtle font-bold text-[14px] text-theme text-center transition-all duration-200 active:scale-[0.97] ios-spring"
                 >
                   {lang === "it" ? "Crea account gratuito →" : "Create free account →"}
                 </Link>
@@ -242,7 +242,7 @@ function SuccessContent() {
             {isSignedIn && template && (
               <Link
                 href={`/studio?templateId=${template.id}`}
-                className="block w-full px-6 py-3.5 glass-subtle font-bold text-[15px] text-theme text-center transition-all duration-200 active:scale-[0.97] ios-spring"
+                className="r-pill block w-full px-6 py-3.5 glass-subtle font-bold text-[15px] text-theme text-center transition-all duration-200 active:scale-[0.97] ios-spring"
               >
                 {t[lang].success.customizeStudio}
               </Link>

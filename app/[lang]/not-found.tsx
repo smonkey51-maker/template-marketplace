@@ -99,7 +99,7 @@ export default function NotFound() {
                 <Link
                   key={tmpl.id}
                   href={`/preview/${tmpl.id}`}
-                  className="flex items-center gap-3 px-4 py-3 glass-subtle border border-theme hover:border-accent/30 transition-all duration-200 text-left group"
+                  className="r-md flex items-center gap-3 px-4 py-3 glass-subtle border border-theme hover:border-accent/30 transition-all duration-200 text-left group"
                 >
                   <div className="flex-1 min-w-0">
                     <p className="text-[13px] font-semibold text-theme truncate group-hover:text-accent transition-colors">
@@ -144,7 +144,7 @@ export default function NotFound() {
           </Link>
           <Link
             href="/studio"
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 glass-subtle border border-theme text-theme font-bold text-[15px] transition-all duration-200 active:scale-[0.97] ios-spring"
+            className="r-pill inline-flex items-center justify-center gap-2 px-6 py-3 glass-subtle border border-theme text-theme font-bold text-[15px] transition-all duration-200 active:scale-[0.97] ios-spring"
           >
             {lang === "it" ? "AI Studio" : "AI Studio"}
           </Link>

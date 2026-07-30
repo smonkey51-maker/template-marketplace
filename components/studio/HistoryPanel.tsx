@@ -114,7 +114,7 @@ export default function HistoryPanel({
               <div className="flex items-stretch">
                 <button
                   onClick={() => onSelectEntry(entry)}
-                  className="flex-1 text-left px-4 py-3 hover:bg-card transition-colors duration-150 group"
+                  className="r-md flex-1 text-left px-4 py-3 hover:bg-card transition-colors duration-150 group"
                 >
                   <div className="flex items-center justify-between gap-3">
                     <span className="text-[13px] text-theme truncate flex-1 group-hover:text-accent transition-colors">
@@ -148,7 +148,7 @@ export default function HistoryPanel({
                       setExpandedId(isExpanded ? null : entry.id);
                       setDiffVersionIdx(null);
                     }}
-                    className="px-3 border-l border-theme text-muted hover:text-theme hover:bg-card transition-colors text-[11px] flex flex-col items-center justify-center gap-0.5 shrink-0"
+                    className="r-md px-3 border-l border-theme text-muted hover:text-theme hover:bg-card transition-colors text-[11px] flex flex-col items-center justify-center gap-0.5 shrink-0"
                     title={isIt ? "Mostra versioni precedenti" : "Show previous versions"}
                   >
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
@@ -168,7 +168,7 @@ export default function HistoryPanel({
 
               {/* Versions panel */}
               {isExpanded && hasVersions && (
-                <div className="border-t border-theme bg-card px-4 py-3 space-y-3">
+                <div className="r-md border-t border-theme bg-card px-4 py-3 space-y-3">
                   <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted">
                     {isIt ? "Versioni precedenti" : "Previous versions"}
                   </p>

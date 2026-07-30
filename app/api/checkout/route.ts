@@ -5,6 +5,49 @@ import { resolveTemplate, resolveBundle } from "@/lib/templatesDb";
 import { checkoutSchema } from "@/lib/schemas";
 import { siteUrl } from "@/lib/siteUrl";
 
+/**
+ * A price ID that was never created in Stripe.
+ *
+ * Templates are added to lib/templates.ts with a `price_TODO_*` placeholder and
+ * the real Price is meant to be minted afterwards. When that second step is
+ * skipped, Stripe answers "No such price" and the buyer got an unexplained
+ * error at the moment they tried to pay. Catch it here so the response says
+ * what is actually wrong.
+ */
+function isPlaceholderPrice(priceId: string): boolean {
+  return priceId.startsWith("price_TODO");
+}
+
+/**
+ * Stripe throws on any rejected request — an unhandled one leaves the route
+ * returning a bare 500 with nothing in it, which is what the buyer saw. Log the
+ * real reason and answer with something the UI can show.
+ */
+async function createSession(
+  stripe: Stripe,
+  params: Stripe.Checkout.SessionCreateParams,
+): Promise<NextResponse> {
+  const priceId = params.line_items?.[0]?.price;
+  if (typeof priceId === "string" && isPlaceholderPrice(priceId)) {
+    console.error(`[checkout] placeholder price ID never created in Stripe: ${priceId}`);
+    return NextResponse.json(
+      { error: "Questo articolo non è ancora acquistabile. Riprova più tardi." },
+      { status: 503 },
+    );
+  }
+
+  try {
+    const session = await stripe.checkout.sessions.create(params);
+    return NextResponse.json({ url: session.url });
+  } catch (err) {
+    console.error("[checkout] Stripe rejected the session:", err);
+    return NextResponse.json(
+      { error: "Non è stato possibile avviare il pagamento. Riprova più tardi." },
+      { status: 502 },
+    );
+  }
+}
+
 export async function POST(req: NextRequest) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
@@ -48,7 +91,7 @@ export async function POST(req: NextRequest) {
     }
 
     const bundleMeta = { userId, bundleId, templateIds: bundle.templateIds.join(",") };
-    const session = await stripe.checkout.sessions.create({
+    return createSession(stripe, {
       mode: "payment",
       line_items: [{ price: bundle.stripePriceId, quantity: 1 }],
       success_url: `${appUrl}/success?bundleId=${bundleId}&session_id={CHECKOUT_SESSION_ID}`,
@@ -56,7 +99,6 @@ export async function POST(req: NextRequest) {
       payment_intent_data: { metadata: bundleMeta },
       metadata: bundleMeta,
     });
-    return NextResponse.json({ url: session.url });
   }
 
   // ── Studio Access — requires auth ─────────────────────────────────────────
@@ -75,7 +117,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Price not configured" }, { status: 404 });
     }
     const isSubscription = templateId === "studio-access";
-    const session = await stripe.checkout.sessions.create({
+    return createSession(stripe, {
       mode: isSubscription ? "subscription" : "payment",
       line_items: [{ price: priceId, quantity: 1 }],
       success_url: `${appUrl}/success?templateId=${templateId}&session_id={CHECKOUT_SESSION_ID}`,
@@ -85,7 +127,6 @@ export async function POST(req: NextRequest) {
         : { payment_intent_data: { metadata: { userId, templateId } } }),
       metadata: { userId, templateId },
     });
-    return NextResponse.json({ url: session.url });
   }
 
   // ── Single template — guest checkout allowed ───────────────────────────────
@@ -100,7 +141,7 @@ export async function POST(req: NextRequest) {
   }
 
   const templateMeta = { templateId: templateId as string, ...(userId ? { userId } : {}) };
-  const session = await stripe.checkout.sessions.create({
+  return createSession(stripe, {
     mode: "payment",
     line_items: [{ price: template.stripePriceId, quantity: 1 }],
     success_url: `${appUrl}/success?templateId=${templateId}&session_id={CHECKOUT_SESSION_ID}`,
@@ -108,6 +149,4 @@ export async function POST(req: NextRequest) {
     payment_intent_data: { metadata: templateMeta },
     metadata: templateMeta,
   });
-
-  return NextResponse.json({ url: session.url });
 }

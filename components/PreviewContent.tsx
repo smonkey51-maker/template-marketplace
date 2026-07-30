@@ -177,15 +177,27 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ templateId }),
       });
-      if (!res.ok) throw new Error("checkout_failed");
-      const data = await res.json();
-      if (data.url) window.location.href = data.url;
-      else throw new Error("no_url");
-    } catch {
+      const data = await res.json().catch(() => ({}));
+
+      // The route says why it refused — "this item isn't purchasable yet",
+      // "log in first". Throwing that away and showing one generic line left
+      // the buyer with no idea whether to retry, sign in, or give up.
+      if (!res.ok) {
+        if (data.requireAuth) {
+          router.push(`/sign-in?redirect_url=${encodeURIComponent(window.location.pathname)}`);
+          return;
+        }
+        throw new Error(typeof data.error === "string" ? data.error : "");
+      }
+      if (!data.url) throw new Error("");
+      window.location.href = data.url;
+    } catch (err) {
+      const fromServer = err instanceof Error && err.message ? err.message : null;
       toast(
-        lang === "it"
-          ? "Errore durante il checkout. Riprova più tardi."
-          : "Checkout failed. Please try again.",
+        fromServer ??
+          (lang === "it"
+            ? "Errore durante il checkout. Riprova più tardi."
+            : "Checkout failed. Please try again."),
         "error",
       );
     } finally {
@@ -228,7 +240,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
       >
         <button
           onClick={() => router.push("/")}
-          className="flex items-center gap-1.5 px-3.5 py-2 border border-theme shadow-sm
+          className="r-pill flex items-center gap-1.5 px-3.5 py-2 border border-theme shadow-sm
             text-theme text-[14px] font-semibold
             hover:opacity-80 transition-opacity duration-200"
           style={{ background: "var(--card-bg)" }}
@@ -264,7 +276,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
                   ? "Salva"
                   : "Save"
             }
-            className={`flex items-center justify-center w-9 h-9 border shadow-sm transition-all duration-200
+            className={`r-pill flex items-center justify-center w-9 h-9 border shadow-sm transition-all duration-200
               ${
                 isWishlisted(template.id)
                   ? "border-accent/30 text-accent"
@@ -491,7 +503,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
               <Link
                 key={tag}
                 href={`/?q=${encodeURIComponent(tag)}`}
-                className="text-[10px] text-muted glass-subtle px-2 py-0.5 border border-theme
+                className="r-pill text-[10px] text-muted glass-subtle px-2 py-0.5 border border-theme
                   hover:text-theme hover:border-theme/60 transition-colors duration-200"
               >
                 {tag}
@@ -540,7 +552,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
               />
               <Link
                 href={`/studio?templateId=${template.id}`}
-                className="block w-full px-5 py-3 glass-subtle font-bold text-[14px] text-theme text-center transition-all duration-200 active:scale-[0.97] ios-spring"
+                className="r-pill block w-full px-5 py-3 glass-subtle font-bold text-[14px] text-theme text-center transition-all duration-200 active:scale-[0.97] ios-spring"
               >
                 {t[lang].preview.openStudio}
               </Link>

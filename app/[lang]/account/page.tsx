@@ -319,14 +319,14 @@ export default function AccountPage() {
             <button
               onClick={openPortal}
               disabled={portalLoading}
-              className="w-full text-left px-5 py-4 text-[15px] text-theme hover:bg-card active:bg-card transition-colors duration-150 border-b border-theme flex items-center justify-between"
+              className="r-md w-full text-left px-5 py-4 text-[15px] text-theme hover:bg-card active:bg-card transition-colors duration-150 border-b border-theme flex items-center justify-between"
             >
               <span>{portalLoading ? "..." : t[lang].account.managePayments}</span>
               <span className="text-muted text-[18px]">›</span>
             </button>
             <Link
               href="/studio"
-              className="block px-5 py-4 text-[15px] text-theme hover:bg-card/[0.04] active:bg-white/[0.05] transition-colors duration-150 flex items-center justify-between"
+              className="r-md block px-5 py-4 text-[15px] text-theme hover:bg-card/[0.04] active:bg-white/[0.05] transition-colors duration-150 flex items-center justify-between"
             >
               <span>{t[lang].account.goToStudio}</span>
               <span className="text-muted text-[18px]">›</span>
