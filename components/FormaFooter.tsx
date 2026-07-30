@@ -4,6 +4,54 @@ import Link from "next/link";
 import { useState } from "react";
 import { useLang } from "@/components/LanguageProvider";
 import { copy } from "@/lib/formaCopy";
+import { FormaLogoStatic } from "@/components/FormaLogo";
+
+function FooterAccordion({ title, children, lang }: { title: string; children: React.ReactNode; lang: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <button
+        onClick={() => setOpen(!open)}
+        className="fn-footer-accordion-trigger"
+        style={{
+          fontSize: 10,
+          textTransform: "uppercase" as const,
+          letterSpacing: ".22em",
+          color: "#D4AF37",
+          marginBottom: open ? 16 : 0,
+          fontWeight: 600,
+          background: "none",
+          border: "none",
+          cursor: "pointer",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          width: "100%",
+          padding: 0,
+          fontFamily: "inherit",
+        }}
+      >
+        {title}
+        <span className="fn-footer-accordion-icon" style={{ fontSize: 16, lineHeight: 1 }}>
+          {open ? "−" : "+"}
+        </span>
+      </button>
+      <nav
+        className="fn-footer-accordion-content"
+        style={{
+          display: "flex",
+          flexDirection: "column" as const,
+          gap: 14,
+          maxHeight: open ? 300 : 0,
+          overflow: "hidden",
+          transition: "max-height 0.3s ease, margin 0.3s ease",
+        }}
+      >
+        {children}
+      </nav>
+    </div>
+  );
+}
 
 export function FormaFooter() {
   const { lang } = useLang();
@@ -37,18 +85,7 @@ export function FormaFooter() {
         <div className="fn-footer-grid">
           {/* Brand col */}
           <div>
-            <div
-              style={{
-                fontFamily: "var(--font-cormorant), Georgia, serif",
-                fontSize: 32,
-                fontWeight: 300,
-                color: "var(--text)",
-                marginBottom: 12,
-                letterSpacing: ".08em",
-              }}
-            >
-              FORMA
-            </div>
+            <FormaLogoStatic className="w-32 h-auto opacity-90 mb-3" />
             <p
               style={{
                 color: "var(--muted)",
@@ -68,7 +105,7 @@ export function FormaFooter() {
                   display: "flex",
                   gap: 4,
                   background: "var(--bg)",
-                  border: "1px solid var(--fn-border, rgba(234,234,234,.14))",
+                  border: "1px solid rgba(255,255,255,0.18)",
                   borderRadius: 999,
                   padding: "4px",
                   alignItems: "center",
@@ -79,10 +116,11 @@ export function FormaFooter() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="fn-newsletter-input"
+                  placeholder={lang === "it" ? "La tua email" : "Your email"}
                   style={{
                     flex: 1,
                     padding: "10px 16px",
-                    background: "transparent",
+                    background: "rgba(255,255,255,0.06)",
                     border: "none",
                     color: "var(--text)",
                     fontSize: 12,
@@ -114,101 +152,59 @@ export function FormaFooter() {
           </div>
 
           {/* Catalog col */}
-          <div>
-            <div
-              style={{
-                fontSize: 10,
-                textTransform: "uppercase",
-                letterSpacing: ".22em",
-                color: "#D4AF37",
-                marginBottom: 16,
-                fontWeight: 600,
-              }}
-            >
-              {t("footerCatalog")}
-            </div>
-            <nav style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              {[
-                { href: "/catalogo", label: t("footerTemplates") },
-                { href: "/catalogo", label: t("footerBundles") },
-                { href: "/catalogo", label: t("footerNew") },
-                { href: "/ai-studio", label: "AI Studio" },
-              ].map((l) => (
-                <Link
-                  key={l.href + l.label}
-                  href={l.href}
-                  className="link-muted"
-                  style={{ fontSize: 13, textDecoration: "none" }}
-                >
-                  {l.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
+          <FooterAccordion title={t("footerCatalog")} lang={lang}>
+            {[
+              { href: "/catalogo", label: t("footerTemplates") },
+              { href: "/catalogo", label: t("footerBundles") },
+              { href: "/catalogo", label: t("footerNew") },
+              { href: "/ai-studio", label: "AI Studio" },
+            ].map((l) => (
+              <Link
+                key={l.href + l.label}
+                href={l.href}
+                className="link-muted"
+                style={{ fontSize: 13, textDecoration: "none" }}
+              >
+                {l.label}
+              </Link>
+            ))}
+          </FooterAccordion>
 
           {/* Support col */}
-          <div>
-            <div
-              style={{
-                fontSize: 10,
-                textTransform: "uppercase",
-                letterSpacing: ".22em",
-                color: "#D4AF37",
-                marginBottom: 16,
-                fontWeight: 600,
-              }}
-            >
-              {t("footerSupport")}
-            </div>
-            <nav style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              {[
-                { href: "/guida", label: t("footerFaq") },
-                { href: "/guida", label: t("footerGuide") },
-                { href: "mailto:supporto@forma.design", label: t("footerContact") },
-              ].map((l) => (
-                <Link
-                  key={l.label}
-                  href={l.href}
-                  className="link-muted"
-                  style={{ fontSize: 13, textDecoration: "none" }}
-                >
-                  {l.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
+          <FooterAccordion title={t("footerSupport")} lang={lang}>
+            {[
+              { href: "/guida", label: t("footerFaq") },
+              { href: "/guida", label: t("footerGuide") },
+              { href: "mailto:supporto@forma.design", label: t("footerContact") },
+            ].map((l) => (
+              <Link
+                key={l.label}
+                href={l.href}
+                className="link-muted"
+                style={{ fontSize: 13, textDecoration: "none" }}
+              >
+                {l.label}
+              </Link>
+            ))}
+          </FooterAccordion>
 
           {/* Legal col */}
-          <div>
-            <div
-              style={{
-                fontSize: 10,
-                textTransform: "uppercase",
-                letterSpacing: ".22em",
-                color: "#D4AF37",
-                marginBottom: 16,
-                fontWeight: 600,
-              }}
-            >
-              {t("footerLegal")}
-            </div>
-            <nav style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              {[
-                { href: "/terms", label: t("footerTerms") },
-                { href: "/privacy", label: t("footerPrivacy") },
-                { href: "/guida#rimborsi", label: t("footerRefund") },
-              ].map((l) => (
-                <Link
-                  key={l.label}
-                  href={l.href}
-                  className="link-muted"
-                  style={{ fontSize: 13, textDecoration: "none" }}
-                >
-                  {l.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
+          <FooterAccordion title={t("footerLegal")} lang={lang}>
+            {[
+              { href: "/terms", label: t("footerTerms") },
+              { href: "/privacy", label: t("footerPrivacy") },
+              { href: "/guida#rimborsi", label: t("footerRefund") },
+            ].map((l) => (
+              <Link
+                key={l.label}
+                href={l.href}
+                className="link-muted"
+                style={{ fontSize: 13, textDecoration: "none" }}
+              >
+                {l.label}
+              </Link>
+            ))}
+          </FooterAccordion>
         </div>
 
         {/* Trust badges */}
