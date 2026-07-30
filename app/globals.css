@@ -4434,3 +4434,48 @@ html.dark {
     border-color: var(--glass-s-rim);
   }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   PRODUCT SHOTS
+   The template as an image, not as a nested document scaled
+   to a quarter of its design width.
+   ═══════════════════════════════════════════════════════════ */
+
+.fn-detail-shot,
+.fn-sheet-shot {
+  position: relative;
+  width: 100%;
+  /* A ratio rather than a viewport height. `60vh` on a tall phone reserved most
+     of the screen for a product shot and pushed the name, the price and the buy
+     button below the fold — the three things the page exists to show. */
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+
+/* Cap it on large screens so the shot stays a product image and does not become
+   a hero band. */
+@media (min-width: 768px) {
+  .fn-detail-shot {
+    aspect-ratio: 2 / 1;
+    max-height: 460px;
+  }
+  .fn-sheet-shot {
+    aspect-ratio: 2 / 1;
+    max-height: 380px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CLEARANCE FOR THE FLOATING MOBILE NAV
+   The pill stays; the content moves out from under it.
+   ═══════════════════════════════════════════════════════════ */
+
+/* The pill sits 24px off the bottom and stands ~56px tall. Anything that ends
+   within that band is unreachable: taps land on the nav instead. This gives the
+   buy box its own clearance so the button can always be scrolled clear of it,
+   rather than relying on whatever happens to follow on the page. */
+@media (max-width: 639px) {
+  .fn-buy-box {
+    margin-bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+  }
+}

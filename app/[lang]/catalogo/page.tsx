@@ -7,7 +7,6 @@ import { useLang } from "@/components/LanguageProvider";
 import { copy } from "@/lib/formaCopy";
 import { FormaFooter } from "@/components/FormaFooter";
 import { templatesMeta, formatPrice, type TemplateMeta } from "@/lib/templates";
-import { TemplatePreview } from "@/components/TemplatePreview";
 import { TemplateThumb } from "@/components/TemplateThumb";
 import gsap from "gsap";
 
@@ -588,15 +587,13 @@ export default function CatalogoPage() {
             </button>
 
             <div className="flex-1 overflow-y-auto overflow-x-hidden">
-              <div
-                style={{
-                  width: "100%",
-                  height: "50vh",
-                  minHeight: "400px",
-                  position: "relative",
-                }}
-              >
-                <TemplatePreview id={activeItem.id} interactive={true} />
+              {/* Same reason as the detail page: TemplatePreview lays the
+                  template out at 1440px and scales it to fit, so on a phone the
+                  product was drawn at roughly a quarter size and could not be
+                  read. The thumbnail is cropped to the template's own bounds and
+                  stays legible. "Anteprima" below opens the live one. */}
+              <div className="fn-sheet-shot">
+                <TemplateThumb id={activeItem.id} name={activeItem.name} priority height={340} />
               </div>
 
               <div className="p-8 sm:p-12">
