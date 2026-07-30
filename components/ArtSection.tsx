@@ -32,9 +32,6 @@ export default function ArtSection({
       return;
     }
 
-    const root = null;
-    const triggerEl = document.getElementById(`trigger-${id}`) || el;
-
     const obs = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -44,9 +41,9 @@ export default function ArtSection({
           delete el.dataset.entered;
         }
       },
-      { root, threshold: 0.1 },
+      { threshold: 0.1 },
     );
-    obs.observe(triggerEl);
+    obs.observe(el);
     return () => obs.disconnect();
   }, [once]);
 

@@ -51,7 +51,7 @@ export default function GeneratePanel({
 }: GeneratePanelProps) {
   if (!hasStudioAccess) {
     return (
-      <div className="bg-surface border border-theme p-8 text-center flex flex-col items-center gap-4">
+      <div className="r-glass bg-surface border border-theme p-8 text-center flex flex-col items-center gap-4">
         <div className="w-14 h-14 bg-accent/10 flex items-center justify-center">
           <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden>
             <rect
@@ -115,7 +115,7 @@ export default function GeneratePanel({
                 }
                 if (data.url) window.location.href = data.url;
               }}
-              className="px-6 py-2.5 glass-subtle border border-theme font-semibold text-[14px] text-theme transition-all duration-200 active:scale-[0.97] ios-spring"
+              className="r-pill px-6 py-2.5 glass-subtle border border-theme font-semibold text-[14px] text-theme transition-all duration-200 active:scale-[0.97] ios-spring"
             >
               {lang === "it" ? "✦ Lifetime — €49 una volta sola" : "✦ Lifetime — €49 one-time"}
             </button>
@@ -181,7 +181,7 @@ export default function GeneratePanel({
         <select
           value={genSector}
           onChange={(e) => setGenSector(e.target.value)}
-          className="w-full bg-input border border-theme px-4 py-2.5 text-[15px] text-theme focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all duration-200"
+          className="r-md w-full bg-input border border-theme px-4 py-2.5 text-[15px] text-theme focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all duration-200"
         >
           <option value="">— Any sector —</option>
           {SECTORS.map((s) => (
@@ -233,7 +233,7 @@ export default function GeneratePanel({
               ? "e.g. A testimonial section with 3 cards, star ratings, and customer photos"
               : "e.g. A LinkedIn connection request message for B2B SaaS outreach"
           }
-          className="w-full bg-input border border-theme px-4 py-3 text-[15px] text-theme placeholder-muted focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 resize-none transition-all duration-200"
+          className="r-md w-full bg-input border border-theme px-4 py-3 text-[15px] text-theme placeholder-muted focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 resize-none transition-all duration-200"
         />
         <p className="text-[11px] text-muted mt-1 px-1">⌘+Enter to generate</p>
       </div>

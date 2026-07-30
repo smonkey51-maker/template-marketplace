@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CinematicHomepage from "@/components/CinematicHomepage";
+import Homepage from "@/components/Homepage";
 
 export const metadata: Metadata = {
   title: "FORMA — Arte in tasca.",
@@ -20,8 +20,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return (
-    // Full-bleed cinematic homepage
-    <CinematicHomepage />
-  );
+  return <Homepage />;
 }

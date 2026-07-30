@@ -50,7 +50,6 @@ export async function register() {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const onRequestError = async (...args: any[]) => {
   if (!process.env.NEXT_PUBLIC_SENTRY_DSN) return;
   const { captureRequestError } = await import("@sentry/nextjs");

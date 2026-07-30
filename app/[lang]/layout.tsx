@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { ClerkProvider } from "@clerk/nextjs";
+import { LOCALES, isLocale } from "@/lib/locales";
 import {
   Montserrat,
   DM_Serif_Display,
@@ -101,6 +103,11 @@ export const metadata: Metadata = {
   },
 };
 
+/** Only /it and /en exist. Anything else is a 404, not a render. */
+export function generateStaticParams() {
+  return LOCALES.map((lang) => ({ lang }));
+}
+
 export default async function RootLayout({
   children,
   params,
@@ -109,7 +116,15 @@ export default async function RootLayout({
   params: Promise<{ lang: string }> | any;
 }) {
   const resolvedParams = await params;
-  const lang = resolvedParams?.lang || "it";
+
+  // `[lang]` matches any single segment, so scanners requesting /wp-login.php
+  // or /index.php rendered the homepage with lang="wp-login.php" — every
+  // `copy[lang]` lookup then returned undefined and the page threw a 500 while
+  // reading `.heroTagline` off it. An unsupported locale is a missing page.
+  if (!isLocale(resolvedParams?.lang)) {
+    notFound();
+  }
+  const lang = resolvedParams.lang;
 
   return (
     <ClerkProvider>

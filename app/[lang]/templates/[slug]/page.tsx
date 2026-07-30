@@ -33,7 +33,7 @@ export default async function TemplatePage({ params }: { params: Promise<{ slug:
   if (!item) notFound();
 
   // Strip content field — pass only metadata to the client component
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   const { content: _content, ...meta } = item;
 
   // Related: same tags, different id, max 3

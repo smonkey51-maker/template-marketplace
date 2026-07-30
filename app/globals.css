@@ -3,18 +3,21 @@
 @tailwind utilities;
 
 /* ═══════════════════════════════════════════════════════════
-   SNAP-SCROLL — FORMA cinematographic homepage
+   FORMA homepage sections
    ═══════════════════════════════════════════════════════════ */
 
-/* Snap sections removed -> Continuous storytelling sections */
+/* One viewport tall as a floor, not a ceiling: `height` clipped any section
+   whose content did not fit — on short viewports, and whenever a translation
+   ran longer than the Italian original. Sections stack in normal document
+   flow and the page scrolls at 1:1. */
 .forma-section {
-  height: 100svh;
+  min-height: 100svh;
   position: relative;
 }
 
 @supports not (height: 100svh) {
   .forma-section {
-    height: 100vh;
+    min-height: 100vh;
   }
 }
 
@@ -2674,15 +2677,6 @@ html.dark {
   background-repeat: repeat;
   background-size: 300px 300px;
   opacity: 0.03;
-}
-
-/* ── Scroll snap: active when .forma-v2 class on html ── */
-html.forma-v2 {
-  scroll-snap-type: y proximity;
-}
-.forma-snap {
-  scroll-snap-align: start;
-  scroll-snap-stop: normal;
 }
 
 /* ── Section separator: thin 1px sumi ── */

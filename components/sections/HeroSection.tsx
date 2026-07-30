@@ -7,124 +7,6 @@ import { useLang } from "@/components/LanguageProvider";
 import { copy } from "@/lib/formaCopy";
 import { AmbientAura } from "@/components/AmbientAura";
 
-function MockCard({
-  rotate,
-  x,
-  y,
-  width,
-  label,
-  accent,
-  lines,
-  className = "",
-}: {
-  rotate: number;
-  x: string;
-  y: string;
-  width: number;
-  label: string;
-  accent: string;
-  lines: number[];
-  className?: string;
-}) {
-  return (
-    <div
-      className={`absolute pointer-events-none select-none ${className}`}
-      style={{
-        left: x,
-        top: y,
-        width,
-        transform: `rotate(${rotate}deg)`,
-        filter: "drop-shadow(0 24px 48px rgba(0,0,0,0.65)) drop-shadow(0 4px 12px rgba(0,0,0,0.4))",
-      }}
-      aria-hidden
-    >
-      <div
-        style={{
-          background: "rgba(20,18,15,0.95)",
-          border: "1px solid rgba(212,175,55,0.18)",
-          borderRadius: "4px",
-          overflow: "hidden",
-        }}
-      >
-        <div
-          style={{
-            height: "22px",
-            background: "rgba(255,255,255,0.04)",
-            borderBottom: "1px solid rgba(255,255,255,0.06)",
-            display: "flex",
-            alignItems: "center",
-            gap: "5px",
-            padding: "0 8px",
-          }}
-        >
-          {["#ff5f57", "#ffbd2e", "#28c840"].map((c) => (
-            <span
-              key={c}
-              style={{ width: 7, height: 7, borderRadius: "50%", background: c, opacity: 0.7 }}
-            />
-          ))}
-          <span
-            style={{
-              flex: 1,
-              height: "10px",
-              background: "rgba(255,255,255,0.06)",
-              borderRadius: "2px",
-              marginLeft: "6px",
-            }}
-          />
-        </div>
-        <div
-          style={{
-            height: "38px",
-            background: accent,
-            opacity: 0.9,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <span
-            style={{
-              fontSize: "8px",
-              fontFamily: "var(--font-montserrat), sans-serif",
-              fontWeight: 700,
-              letterSpacing: "0.18em",
-              color: "rgba(0,0,0,0.65)",
-              textTransform: "uppercase",
-            }}
-          >
-            {label}
-          </span>
-        </div>
-        <div style={{ padding: "8px", background: "rgba(12,11,9,0.95)" }}>
-          {lines.map((w, i) => (
-            <div
-              key={i}
-              style={{
-                height: "5px",
-                width: `${w}%`,
-                background: "rgba(255,255,255,0.08)",
-                borderRadius: "2px",
-                marginBottom: "4px",
-              }}
-            />
-          ))}
-          <div
-            style={{
-              height: "16px",
-              width: "42%",
-              background: `${accent}33`,
-              border: `1px solid ${accent}55`,
-              borderRadius: "2px",
-              marginTop: "6px",
-            }}
-          />
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function HeroSection() {
   const { lang } = useLang();
   const t = copy[lang];
@@ -134,7 +16,6 @@ export default function HeroSection() {
       id="hero"
       once
       className="relative flex flex-col items-center justify-center"
-      style={{ overflow: "visible" }}
       aria-label="Sezione 1 di 5: Hero"
     >
       {/* Painting background — Vermeer, L'Astronomo, 1668 */}
@@ -152,38 +33,6 @@ export default function HeroSection() {
       <div className="absolute inset-0" style={{ zIndex: 1, background: "rgba(5,3,2,0.80)" }} />
       {/* Magic Aura (Tech/Studio) */}
       <AmbientAura color="gold" />
-
-      {/* Floating mockup cards — xl only, live in outer margins at that width */}
-      <MockCard
-        className="hidden xl:block anim-in"
-        rotate={14}
-        x="calc(100% - 160px)"
-        y="6%"
-        width={220}
-        label="SaaS Hero"
-        accent="#D4AF37"
-        lines={[85, 60, 75]}
-      />
-      <MockCard
-        className="hidden xl:block anim-in"
-        rotate={-11}
-        x="-60px"
-        y="58%"
-        width={200}
-        label="Landing Page"
-        accent="#5a8fb0"
-        lines={[90, 55, 70]}
-      />
-      <MockCard
-        className="hidden xl:block anim-in"
-        rotate={6}
-        x="calc(100% - 110px)"
-        y="44%"
-        width={180}
-        label="Notion Hub"
-        accent="#6b8e4e"
-        lines={[80, 65, 50]}
-      />
 
       {/* Main content */}
       <div

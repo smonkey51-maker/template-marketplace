@@ -2,8 +2,9 @@
 
 import { createContext, useContext, useEffect } from "react";
 import { useParams, useRouter, usePathname } from "next/navigation";
+import { toLocale, type Locale } from "@/lib/locales";
 
-export type Lang = "it" | "en";
+export type Lang = Locale;
 
 const LangCtx = createContext<{ lang: Lang; toggle: () => void }>({
   lang: "it",
@@ -19,7 +20,9 @@ export default function LanguageProvider({ children }: { children: React.ReactNo
   const router = useRouter();
   const pathname = usePathname();
 
-  const lang = (params?.lang as Lang) || "it";
+  // Never hand a component a locale the copy tables don't have a key for:
+  // `copy[lang]` would be undefined and every field read off it throws.
+  const lang = toLocale(params?.lang);
 
   useEffect(() => {
     document.documentElement.setAttribute("lang", lang);

@@ -136,7 +136,7 @@ function LangModal({
       />
       {/* panel */}
       <div
-        className="relative z-10 w-full max-w-xs border border-theme p-5 shadow-2xl"
+        className="r-glass relative z-10 w-full max-w-xs border border-theme p-5 shadow-2xl"
         style={{ background: "var(--card-bg)" }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -152,7 +152,7 @@ function LangModal({
           <button
             onClick={() => onSelect("it")}
             disabled={loading}
-            className="flex-1 flex flex-col items-center gap-2 py-3 border border-theme hover:border-accent transition-colors disabled:opacity-50"
+            className="r-md flex-1 flex flex-col items-center gap-2 py-3 border border-theme hover:border-accent transition-colors disabled:opacity-50"
             style={{ background: "var(--bg)" }}
           >
             <span
@@ -166,7 +166,7 @@ function LangModal({
           <button
             onClick={() => onSelect("en")}
             disabled={loading}
-            className="flex-1 flex flex-col items-center gap-2 py-3 border border-theme hover:border-accent transition-colors disabled:opacity-50"
+            className="r-md flex-1 flex flex-col items-center gap-2 py-3 border border-theme hover:border-accent transition-colors disabled:opacity-50"
             style={{ background: "var(--bg)" }}
           >
             <span

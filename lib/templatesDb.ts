@@ -108,6 +108,35 @@ export const getBundleFromDb = unstable_cache(
   { revalidate: 3600, tags: ["bundles"] },
 );
 
+// ── Circuit breaker ───────────────────────────────────────────────────────────
+
+/**
+ * How long to stop calling Supabase after it fails.
+ *
+ * The fallback below means a dead database costs correctness nothing — but it
+ * costs *time*, and that time is paid per call. When the Supabase project is
+ * paused its hostname stops resolving entirely, so every lookup sat through a
+ * failed DNS resolution before falling back; the catalogue mounts 16 preview
+ * iframes, so one page load paid that 16 times over. Short window, because the
+ * point is to shed load during an outage, not to keep serving stale data after
+ * one recovers.
+ */
+const BREAKER_MS = 30_000;
+let breakerOpenUntil = 0;
+
+async function fromDb<T>(query: () => Promise<T | null>): Promise<T | null> {
+  if (Date.now() < breakerOpenUntil) return null;
+
+  try {
+    const result = await query();
+    breakerOpenUntil = 0;
+    return result;
+  } catch {
+    breakerOpenUntil = Date.now() + BREAKER_MS;
+    return null;
+  }
+}
+
 /**
  * Resolve a template, preferring Supabase and falling back to the catalogue
  * bundled in lib/templates.ts.
@@ -119,11 +148,9 @@ export const getBundleFromDb = unstable_cache(
  * served different files for the same purchase.
  */
 export async function resolveTemplate(id: string): Promise<Template | null> {
-  const fromDb = await getTemplateFromDb(id).catch(() => null);
-  return fromDb ?? getLocalTemplate(id) ?? null;
+  return (await fromDb(() => getTemplateFromDb(id))) ?? getLocalTemplate(id) ?? null;
 }
 
 export async function resolveBundle(id: string): Promise<Bundle | null> {
-  const fromDb = await getBundleFromDb(id).catch(() => null);
-  return fromDb ?? getLocalBundle(id) ?? null;
+  return (await fromDb(() => getBundleFromDb(id))) ?? getLocalBundle(id) ?? null;
 }

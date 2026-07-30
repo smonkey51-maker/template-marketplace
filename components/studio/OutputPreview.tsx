@@ -67,7 +67,7 @@ export default function OutputPreview({
           <div className="flex items-center gap-2">
             <button
               onClick={onCopy}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-input hover:bg-surface text-[13px] font-medium transition-all duration-200 active:scale-[0.97] ios-spring"
+              className="r-pill flex items-center gap-1.5 px-3 py-1.5 bg-input hover:bg-surface text-[13px] font-medium transition-all duration-200 active:scale-[0.97] ios-spring"
             >
               {copied ? "✓ Copied!" : "Copy"}
             </button>
@@ -104,7 +104,7 @@ export default function OutputPreview({
                 a.click();
                 URL.revokeObjectURL(url);
               }}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-input hover:bg-surface text-[13px] font-medium transition-all duration-200 active:scale-[0.97] ios-spring"
+              className="r-pill flex items-center gap-1.5 px-3 py-1.5 bg-input hover:bg-surface text-[13px] font-medium transition-all duration-200 active:scale-[0.97] ios-spring"
               aria-label={lang === "it" ? "Scarica file" : "Download file"}
             >
               <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden>
@@ -130,7 +130,7 @@ export default function OutputPreview({
                 href={selectedTemplateDownloadUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-input hover:bg-surface text-[13px] font-medium transition-all duration-200 active:scale-[0.97] ios-spring"
+                className="r-pill flex items-center gap-1.5 px-3 py-1.5 bg-input hover:bg-surface text-[13px] font-medium transition-all duration-200 active:scale-[0.97] ios-spring"
                 title={lang === "it" ? "Apri template originale" : "Open original template"}
               >
                 <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden>
@@ -150,7 +150,7 @@ export default function OutputPreview({
         )}
       </div>
 
-      <div className="flex-1 relative bg-surface border border-theme overflow-hidden min-h-[500px]">
+      <div className="r-glass flex-1 relative bg-surface border border-theme overflow-hidden min-h-[500px]">
         {!output && !isLoading && (
           <div className="absolute inset-0 flex items-center justify-center text-muted text-[15px]">
             <div className="text-center">
