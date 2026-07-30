@@ -3733,17 +3733,13 @@ html.dark {
   background: transparent;
 }
 
-/* Bento rhythm: an editor's pick takes two tracks, so the grid reads as
-   variable-size cells rather than a uniform wall of thirds. Only the span
-   changes — the card's internals and its shared-layout `layoutId` transition
-   into the detail modal are untouched, which is why this is a span and not a
-   second card component. Dropped below 900px, where the grid is only two
-   tracks wide and a 2-track cell would just be a full-width row. */
-@media (min-width: 901px) {
-  .fn-card--wide {
-    grid-column: span 2;
-  }
-}
+/* No double-width cards. An editor's pick used to span two tracks, which gave
+   the grid a bento rhythm but cost it evenness: the wide cards stranded a gap
+   whenever one arrived with a single track left, and two products at two
+   different sizes invite a comparison of size rather than of substance. Every
+   card is one track now, so the grid tiles on its own and the products are read
+   against each other rather than against the layout. `editorsPick` still shows,
+   as a badge. */
 @media (max-width: 900px) {
   .fn-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -4317,3 +4313,98 @@ html.dark {
 }
 
 
+
+/* ═══════════════════════════════════════════════════════════
+   CATALOGUE FILTERS
+   A single-select segmented control. The groups don't overlap,
+   so multi-select would be meaningless.
+   ═══════════════════════════════════════════════════════════ */
+
+.fn-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 40px;
+}
+
+.fn-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--glass-s-rim);
+  background: var(--glass-s-fill);
+  color: var(--muted);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  /* Colour and border only. Animating size would reflow the whole row every
+     time the selection moves. */
+  transition:
+    background var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    color var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+@media (hover: hover) {
+  .fn-filter:hover {
+    color: var(--text);
+    border-color: var(--glass-s-rim-hi);
+  }
+}
+.fn-filter:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Selection is carried by fill, border AND text colour together — never by one
+   of them alone, so it survives forced-colors mode and low-vision viewing. */
+.fn-filter.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #17130a;
+}
+
+.fn-filter__count {
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.65;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CATALOGUE CARD — uniform
+   Every card the same size, so the eye compares products
+   rather than boxes.
+   ═══════════════════════════════════════════════════════════ */
+
+/* The thumbnail sets the card's top block at a fixed ratio, so a row of cards
+   lines up on the same horizontal regardless of how long the titles are. */
+.fn-card > *:first-child {
+  flex-shrink: 0;
+}
+
+/* Body grows to absorb the difference in text length, which is what keeps the
+   price and the button on the same baseline across a row. */
+.fn-card .fn-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* Push the price row and the action to the bottom of whatever height the row
+   settles at — the alternative is buttons floating at different heights, which
+   is the single thing that makes a product grid look unfinished. */
+.fn-card .fn-meta {
+  margin-top: auto;
+}
+
+/* Two lines of description, then ellipsis. Uncapped copy is what made cards
+   different heights in the first place. */
+.fn-card .fn-body > p {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

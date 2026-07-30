@@ -27,6 +27,13 @@ export interface Template {
   /** Optional YouTube/Loom URL for a walkthrough tutorial shown on the preview page */
   videoUrl?: string;
   editorsPick?: boolean;
+  /**
+   * Marks a genuinely recent arrival, and nothing else. Every template in the
+   * catalogue carried this at once, which made the "New" badge appear on all of
+   * them — a badge on everything distinguishes nothing, and it diluted the one
+   * badge that does carry signal (`editorsPick`). Set it deliberately on a new
+   * template and clear it when it stops being new.
+   */
   isNew?: boolean;
 }
 
@@ -48,7 +55,6 @@ export const templates: Template[] = [
     stripePriceId: "price_TODO_chatgpt_prompt_library",
     tags: ["chatgpt", "prompts", "freelancer", "AI tools", "productivity"],
     downloads: 847,
-    isNew: true,
     editorsPick: true,
     content: `<style>
 body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
@@ -81,7 +87,6 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
     stripePriceId: "price_TODO_chatgpt_prompt_creators",
     tags: ["chatgpt", "content creator", "social media", "threads", "instagram"],
     downloads: 612,
-    isNew: true,
     content: `<style>
 body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
 .card{background:linear-gradient(135deg,#0e7490,#164e63);color:#fff;border-radius:16px;padding:48px 40px;max-width:480px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.25)}
@@ -113,7 +118,6 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
     stripePriceId: "price_TODO_midjourney_mockups",
     tags: ["midjourney", "AI image", "product mockups", "etsy", "digital products"],
     downloads: 391,
-    isNew: true,
     content: `<style>
 body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
 .card{background:linear-gradient(135deg,#4f46e5,#312e81);color:#fff;border-radius:16px;padding:48px 40px;max-width:480px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.25)}
@@ -147,7 +151,6 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
     stripePriceId: "price_TODO_dm_sales_scripts",
     tags: ["DM scripts", "sales", "Instagram", "Threads", "digital products"],
     downloads: 1204,
-    isNew: true,
     editorsPick: true,
     content: `<style>
 body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
@@ -182,7 +185,6 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
     stripePriceId: "price_TODO_home_gym_guide",
     tags: ["fitness", "home workout", "training program", "bodyweight", "beginner"],
     downloads: 733,
-    isNew: true,
     content: `<style>
 body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
 .card{background:linear-gradient(135deg,#065f46,#022c22);color:#fff;border-radius:16px;padding:48px 40px;max-width:480px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.25)}
@@ -214,7 +216,6 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
     stripePriceId: "price_TODO_social_detox",
     tags: ["productivity", "mental health", "social media", "screen time", "detox"],
     downloads: 528,
-    isNew: true,
     content: `<style>
 body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
 .card{background:linear-gradient(135deg,#059669,#065f46);color:#fff;border-radius:16px;padding:48px 40px;max-width:480px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.25)}
@@ -246,7 +247,6 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
     stripePriceId: "price_TODO_anti_procrastination",
     tags: ["productivity", "procrastination", "focus", "behavioral psychology", "systems"],
     downloads: 914,
-    isNew: true,
     editorsPick: true,
     content: `<style>
 body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
@@ -279,7 +279,6 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
     stripePriceId: "price_TODO_mindset_journal",
     tags: ["journaling", "mindset", "personal development", "confidence", "creator"],
     downloads: 677,
-    isNew: true,
     content: `<style>
 body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
 .card{background:linear-gradient(135deg,#92400e,#451a03);color:#fff;border-radius:16px;padding:48px 40px;max-width:480px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.25)}
@@ -310,7 +309,6 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
     stripePriceId: "price_TODO_first_100_online",
     tags: ["make money online", "digital products", "beginner", "side hustle", "Gumroad"],
     downloads: 1842,
-    isNew: true,
     editorsPick: true,
     content: `<style>
 body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
@@ -345,7 +343,6 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
     stripePriceId: "price_TODO_launch_checklist",
     tags: ["digital products", "launch checklist", "Gumroad", "product launch", "beginner"],
     downloads: 2103,
-    isNew: true,
     content: `<style>
 body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
 .card{background:linear-gradient(135deg,#1d4ed8,#1e1b4b);color:#fff;border-radius:16px;padding:48px 40px;max-width:480px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.25)}
@@ -383,7 +380,6 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
     stripePriceId: "price_TODO_rate_calculator",
     tags: ["freelancer", "rate calculator", "pricing", "Google Sheets", "financial"],
     downloads: 1187,
-    isNew: true,
     content: `<style>
 body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
 .card{background:linear-gradient(135deg,#0284c7,#0c4a6e);color:#fff;border-radius:16px;padding:48px 40px;max-width:480px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.25)}
@@ -417,7 +413,6 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
     stripePriceId: "price_TODO_finance_tracker",
     tags: ["finance tracker", "freelancer", "revenue", "Google Sheets", "taxes", "accounting"],
     downloads: 876,
-    isNew: true,
     content: `<style>
 body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
 .card{background:linear-gradient(135deg,#16a34a,#14532d);color:#fff;border-radius:16px;padding:48px 40px;max-width:480px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.25)}
@@ -453,7 +448,6 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
     stripePriceId: "price_TODO_wedding_tracker",
     tags: ["wedding", "budget planner", "wedding planning", "Google Sheets", "vendor tracking"],
     downloads: 634,
-    isNew: true,
     content: `<style>
 body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
 .card{background:linear-gradient(135deg,#be185d,#831843);color:#fff;border-radius:16px;padding:48px 40px;max-width:480px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.25)}
@@ -484,7 +478,6 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
     stripePriceId: "price_TODO_job_tracker",
     tags: ["job search", "remote work", "job tracker", "career", "Google Sheets"],
     downloads: 941,
-    isNew: true,
     content: `<style>
 body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
 .card{background:linear-gradient(135deg,#0f766e,#134e4a);color:#fff;border-radius:16px;padding:48px 40px;max-width:480px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.25)}
@@ -518,7 +511,6 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
     stripePriceId: "price_TODO_apartment_planner",
     tags: ["apartment", "moving", "budget planner", "checklist", "first home", "Gen Z"],
     downloads: 1034,
-    isNew: true,
     content: `<style>
 body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
 .card{background:linear-gradient(135deg,#ea580c,#7c2d12);color:#fff;border-radius:16px;padding:48px 40px;max-width:480px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.25)}
@@ -554,7 +546,6 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
     stripePriceId: "price_TODO_pet_tracker",
     tags: ["pet care", "vet tracker", "dog", "cat", "health record", "pet owner"],
     downloads: 487,
-    isNew: true,
     content: `<style>
 body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
 .card{background:linear-gradient(135deg,#7c3aed,#4c1d95);color:#fff;border-radius:16px;padding:48px 40px;max-width:480px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.25)}
