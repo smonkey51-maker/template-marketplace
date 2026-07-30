@@ -8,7 +8,6 @@ import { TemplateThumb } from "@/components/TemplateThumb";
 import { BuyButton } from "./BuyButton";
 import { FormaFooter } from "@/components/FormaFooter";
 import { formatPrice, type TemplateMeta } from "@/lib/templates";
-import { motion } from "framer-motion";
 
 function getPlatformLabel(downloadType?: string): string {
   const labels: Record<string, string> = {
@@ -143,26 +142,18 @@ export function TemplateDetailContent({
             <h2 className="text-[11px] font-bold uppercase tracking-[0.2em] text-accent mb-16">
               {t("relatedTemplates")}
             </h2>
-            <div className="flex justify-center items-center h-[320px] relative w-full perspective-[1400px]">
-              {related.slice(0, 3).map((rel, i) => {
-                const offset = i - 1; // -1, 0, 1 (assumendo massimo 3 correlati)
+            {/* A plain grid, not the fanned stack of three absolutely positioned
+                cards this used to be. That needed a framer spring per card and a
+                3D perspective context, and the cards overlapped each other at
+                rest — so two of the three products were partly hidden on a page
+                whose job is to show them. Hover lift is CSS, via .fn-card. */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full">
+              {related.slice(0, 3).map((rel) => {
                 return (
-                  <motion.div
-                    key={rel.id}
-                    className="absolute w-[260px] sm:w-[320px]"
-                    style={{ zIndex: 10 + i }}
-                    initial={{ x: offset * 80, rotate: offset * 6, y: Math.abs(offset) * 16 }}
-                    whileHover={{
-                      y: -30,
-                      scale: 1.05,
-                      zIndex: 30,
-                      rotate: offset * 2,
-                    }}
-                    transition={{ type: "spring", bounce: 0.3 }}
-                  >
+                  <div key={rel.id} className="w-full">
                     <Link
                       href={`/templates/${rel.id}`}
-                      className="glass-panel overflow-hidden flex flex-col items-center block w-full shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+                      className="fn-card overflow-hidden flex flex-col items-center block w-full h-full"
                     >
                       <div className="w-full h-36 relative pointer-events-none">
                         {/* Static, like the catalogue grid — a row of related
@@ -177,7 +168,7 @@ export function TemplateDetailContent({
                         </div>
                       </div>
                     </Link>
-                  </motion.div>
+                  </div>
                 );
               })}
             </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, useRef } from "react";
+import { useCallback, useEffect, useMemo, useState, useRef } from "react";
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
 import { useLang } from "@/components/LanguageProvider";
@@ -39,6 +39,9 @@ export default function CatalogoPage() {
   const bgRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
+  // Whatever opened the sheet, so focus returns there on close instead of
+  // dropping to the top of the document.
+  const openerRef = useRef<HTMLElement | null>(null);
 
   const activeItem = useMemo(() => PAID_TEMPLATES.find((t) => t.id === activeId), [activeId]);
 
@@ -66,20 +69,18 @@ export default function CatalogoPage() {
     }
   }, [activeId, isClosing]);
 
-  // Modal Entrance Animation
-  useEffect(() => {
-    if (activeId && !isClosing && overlayRef.current && modalRef.current) {
-      gsap.fromTo(overlayRef.current, { opacity: 0 }, { opacity: 1, duration: 0.3 });
-      gsap.fromTo(
-        modalRef.current,
-        { y: 24, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.34, ease: "power2.out" },
-      );
-    }
-  }, [activeId, isClosing]);
+  // No entrance effect here on purpose. The sheet used to start at inline
+  // `opacity: 0` and rely on gsap to animate it up, which had two failure modes:
+  // the sheet was invisible whenever that animation did not run — it mounted and
+  // locked scroll, so clicking a template appeared to do nothing at all — and
+  // React owns the `style` attribute, so the first re-render reset opacity back
+  // to 0 and wiped what gsap had written. The entrance is CSS now, which means
+  // the resting state is visible and animation is decoration rather than a
+  // precondition. gsap still drives the close and the background recede, where
+  // it earns its place: the close has to finish before the element unmounts.
 
-  // Handle closing animation before unmounting
-  const handleClose = () => {
+  // Closing animation, then unmount.
+  const handleClose = useCallback(() => {
     if (!overlayRef.current || !modalRef.current) return;
     setIsClosing(true);
 
@@ -96,9 +97,24 @@ export default function CatalogoPage() {
       onComplete: () => {
         setActiveId(null);
         setIsClosing(false);
+        openerRef.current?.focus();
       },
     });
-  };
+  }, []);
+
+  // Escape closes the sheet, and focus moves into it on open. Neither worked
+  // before: the only way out was the small × with a pointer, and focus stayed on
+  // the card behind the overlay, so Tab wandered through the catalogue
+  // underneath instead of the dialog on top of it.
+  useEffect(() => {
+    if (!activeId || isClosing) return;
+    modalRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") handleClose();
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [activeId, isClosing, handleClose]);
 
   const filtered = useMemo(
     () =>
@@ -162,7 +178,10 @@ export default function CatalogoPage() {
                   <article
                     className={`fn-card cursor-pointer${item.editorsPick ? " fn-card--wide" : ""}`}
                     key={item.id}
-                    onClick={() => setActiveId(item.id)}
+                    onClick={(e) => {
+                      openerRef.current = e.currentTarget as HTMLElement;
+                      setActiveId(item.id);
+                    }}
                     style={{
                       display: "flex",
                       flexDirection: "column",
@@ -264,6 +283,7 @@ export default function CatalogoPage() {
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
+                            openerRef.current = e.currentTarget;
                             setActiveId(item.id);
                           }}
                           className="fn-btn primary w-full justify-center"
@@ -287,19 +307,28 @@ export default function CatalogoPage() {
           {/* Overlay invisibile per cliccare fuori e chiudere */}
           <div
             ref={overlayRef}
-            className="absolute inset-0 pointer-events-auto bg-black/40 backdrop-blur-sm opacity-0"
+            className={`absolute inset-0 pointer-events-auto bg-black/40 backdrop-blur-sm${
+              isClosing ? "" : " anim-fade-in"
+            }`}
             onClick={handleClose}
           />
 
           <div
             ref={modalRef}
-            className="relative w-full max-w-[1000px] glass-panel flex flex-col pointer-events-auto z-10"
+            // A real dialog: without these a screen reader announced nothing on
+            // open and went on reading the catalogue behind as though the sheet
+            // were not there.
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="sheet-title"
+            tabIndex={-1}
+            className={`relative w-full max-w-[1000px] glass-panel flex flex-col pointer-events-auto z-10 outline-none${
+              isClosing ? "" : " sheet-enter"
+            }`}
             style={{
               height: "92vh",
               borderRadius: "var(--glass-radius) var(--glass-radius) 0 0",
               overflow: "hidden",
-              opacity: 0,
-              transform: "translateY(24px)",
             }}
           >
             {/* Bottone Chiudi */}
@@ -349,6 +378,7 @@ export default function CatalogoPage() {
                 </div>
 
                 <h2
+                  id="sheet-title"
                   style={{
                     fontFamily: "var(--font-cormorant), Georgia, serif",
                     fontSize: "clamp(32px, 4vw, 48px)",
