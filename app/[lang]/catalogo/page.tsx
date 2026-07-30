@@ -57,11 +57,104 @@ const GROUPS: { key: GroupKey; it: string; en: string }[] = [
   { key: "sheet", it: "Fogli e tracker", en: "Sheets & trackers" },
 ];
 
-/** How many products a filter would show, so the chip can say so up front. */
-function countFor(key: GroupKey): number {
-  return key === "all"
-    ? PAID_TEMPLATES.length
-    : PAID_TEMPLATES.filter((x) => GROUP_OF[x.category] === key).length;
+/**
+ * Two price bands, not five.
+ *
+ * The catalogue runs €7 to €15 — four distinct prices across sixteen products.
+ * Slicing an eight-euro spread finer produces exactly the one-result filters the
+ * groups above were shaped to avoid. Two bands split it 11 / 5, which is a split
+ * a buyer can actually act on.
+ */
+type PriceKey = "all" | "under10" | "from10";
+
+const PRICE_BANDS: { key: PriceKey; it: string; en: string }[] = [
+  { key: "all", it: "Qualsiasi prezzo", en: "Any price" },
+  { key: "under10", it: "Fino a €9", en: "Up to €9" },
+  { key: "from10", it: "€10 e oltre", en: "€10 and up" },
+];
+
+/** Minimum stars; 0 means the facet is off. */
+type StarsKey = 0 | 3 | 4 | 5;
+
+const STAR_BANDS: StarsKey[] = [0, 3, 4, 5];
+
+interface Facets {
+  group: GroupKey;
+  price: PriceKey;
+  stars: StarsKey;
+}
+
+type Ratings = Record<string, { avg: number; count: number }>;
+
+function matchesGroup(x: TemplateMeta, key: GroupKey) {
+  return key === "all" || GROUP_OF[x.category] === key;
+}
+function matchesPrice(x: TemplateMeta, key: PriceKey) {
+  if (key === "all") return true;
+  return key === "under10" ? x.price < 1000 : x.price >= 1000;
+}
+function matchesStars(x: TemplateMeta, key: StarsKey, ratings: Ratings) {
+  if (key === 0) return true;
+  const r = ratings[x.id];
+  return !!r && r.count > 0 && r.avg >= key;
+}
+function matchesQuery(x: TemplateMeta, needle: string) {
+  if (!needle) return true;
+  return `${x.name} ${x.description} ${x.tags.join(" ")}`.toLowerCase().includes(needle);
+}
+
+/**
+ * How many products a chip would show **given whatever else is already
+ * selected** — not how many exist in the catalogue overall.
+ *
+ * This is the difference between a facet count that helps and one that lies. A
+ * chip reading "6" that yields two results once clicked is worse than no number
+ * at all, because it was believed. So each count is computed with its own
+ * dimension overridden and every other filter left as the user has it.
+ */
+function countWith(
+  facets: Facets,
+  needle: string,
+  ratings: Ratings,
+  override: Partial<Facets>,
+): number {
+  const f = { ...facets, ...override };
+  return PAID_TEMPLATES.filter(
+    (x) =>
+      matchesGroup(x, f.group) &&
+      matchesPrice(x, f.price) &&
+      matchesStars(x, f.stars, ratings) &&
+      matchesQuery(x, needle),
+  ).length;
+}
+
+/** One facet chip. Label, plus what selecting it would actually yield. */
+function FilterChip({
+  active,
+  count,
+  onClick,
+  children,
+}: {
+  active: boolean;
+  count: number;
+  onClick: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      // Disabled rather than hidden when it would yield nothing: a row of chips
+      // that reshuffles as you filter is disorienting, and knowing a combination
+      // is empty *before* clicking is the point of showing counts at all.
+      disabled={count === 0 && !active}
+      className={`fn-filter${active ? " is-active" : ""}`}
+    >
+      {children}
+      <span className="fn-filter__count">{count}</span>
+    </button>
+  );
 }
 
 export default function CatalogoPage() {
@@ -69,6 +162,9 @@ export default function CatalogoPage() {
   const t = (k: keyof typeof copy.it) => copy[lang][k];
   const [q, setQ] = useState("");
   const [group, setGroup] = useState<GroupKey>("all");
+  const [price, setPrice] = useState<PriceKey>("all");
+  const [stars, setStars] = useState<StarsKey>(0);
+  const [ratings, setRatings] = useState<Ratings>({});
   const [activeId, setActiveId] = useState<string | null>(null);
   const [isClosing, setIsClosing] = useState(false);
 
@@ -161,23 +257,51 @@ export default function CatalogoPage() {
     return () => document.removeEventListener("keydown", onKey);
   }, [activeId, isClosing, handleClose]);
 
+  // Ratings come from one aggregate request, not one per card. An empty object
+  // is the honest resting state: it means "no ratings known", which is also
+  // what the catalogue shows before the first review is ever written — and it
+  // is what keeps a failed request from taking the grid down over a facet.
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/reviews/summary")
+      .then((r) => (r.ok ? r.json() : { summary: {} }))
+      .then((d) => {
+        if (!cancelled) setRatings(d?.summary ?? {});
+      })
+      .catch(() => {
+        /* leave ratings empty — the star filter simply stays hidden */
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  /**
+   * Whether any template has a rating at all.
+   *
+   * The star filter is hidden until this is true. A facet whose every option
+   * returns nothing is the same broken-looking page as a one-result filter, and
+   * with no reviews written yet that is exactly what it would be. It appears on
+   * its own the moment the first review lands — no deploy needed.
+   */
+  const hasRatings = useMemo(() => Object.values(ratings).some((r) => r.count > 0), [ratings]);
+
+  const needle = q.trim().toLowerCase();
+  const facets: Facets = useMemo(() => ({ group, price, stars }), [group, price, stars]);
+
   const filtered = useMemo(() => {
     // Uniform cards mean the grid tiles by itself, so there is no ordering
-    // trick here any more. The previous version paired each double-width
-    // editor's pick with a normal card to stop it stranding a gap; with every
-    // card the same size that problem does not exist, and source order — which
-    // groups by category — is the honest order to browse in.
-    const byGroup =
-      group === "all"
-        ? PAID_TEMPLATES
-        : PAID_TEMPLATES.filter((x) => GROUP_OF[x.category] === group);
-
-    if (!q.trim()) return byGroup;
-    const needle = q.toLowerCase();
-    return byGroup.filter((x) =>
-      `${x.name} ${x.description} ${x.tags.join(" ")}`.toLowerCase().includes(needle),
+    // trick here any more. Source order — which groups by category — is the
+    // honest order to browse in, and every facet composes with the others
+    // rather than replacing them.
+    return PAID_TEMPLATES.filter(
+      (x) =>
+        matchesGroup(x, facets.group) &&
+        matchesPrice(x, facets.price) &&
+        matchesStars(x, facets.stars, ratings) &&
+        matchesQuery(x, needle),
     );
-  }, [q, group]);
+  }, [facets, needle, ratings]);
 
   return (
     <>
@@ -223,31 +347,72 @@ export default function CatalogoPage() {
               />
             </div>
 
-            {/* Group filters. A single-select segmented control rather than
-                checkboxes: the groups do not overlap, so more than one at a time
-                would be meaningless. Each chip carries its count, which is what
-                stops a filter from looking broken when you click it — you know
-                before pressing how much is behind it. */}
-            <div
-              className="fn-filters"
-              role="group"
-              aria-label={lang === "it" ? "Filtra per tipo" : "Filter by type"}
-            >
-              {GROUPS.map((g) => {
-                const active = group === g.key;
-                return (
-                  <button
+            {/* Facets. Each row is single-select, because the options within a
+                row do not overlap — more than one at a time would be
+                meaningless. Counts are computed against the other active
+                filters, so a chip never promises more than clicking it
+                delivers. */}
+            <div className="fn-facets">
+              <div
+                className="fn-filters"
+                role="group"
+                aria-label={lang === "it" ? "Filtra per tipo" : "Filter by type"}
+              >
+                {GROUPS.map((g) => (
+                  <FilterChip
                     key={g.key}
-                    type="button"
+                    active={group === g.key}
+                    count={countWith(facets, needle, ratings, { group: g.key })}
                     onClick={() => setGroup(g.key)}
-                    aria-pressed={active}
-                    className={`fn-filter${active ? " is-active" : ""}`}
                   >
                     {lang === "it" ? g.it : g.en}
-                    <span className="fn-filter__count">{countFor(g.key)}</span>
-                  </button>
-                );
-              })}
+                  </FilterChip>
+                ))}
+              </div>
+
+              <div
+                className="fn-filters"
+                role="group"
+                aria-label={lang === "it" ? "Filtra per prezzo" : "Filter by price"}
+              >
+                {PRICE_BANDS.map((b) => (
+                  <FilterChip
+                    key={b.key}
+                    active={price === b.key}
+                    count={countWith(facets, needle, ratings, { price: b.key })}
+                    onClick={() => setPrice(b.key)}
+                  >
+                    {lang === "it" ? b.it : b.en}
+                  </FilterChip>
+                ))}
+              </div>
+
+              {/* Only once something has actually been rated. Before that every
+                  option would return nothing, which is the same broken-looking
+                  page as a filter that finds one item. It appears by itself when
+                  the first review lands. */}
+              {hasRatings && (
+                <div
+                  className="fn-filters"
+                  role="group"
+                  aria-label={lang === "it" ? "Filtra per valutazione" : "Filter by rating"}
+                >
+                  {STAR_BANDS.map((sKey) => (
+                    <FilterChip
+                      key={sKey}
+                      active={stars === sKey}
+                      count={countWith(facets, needle, ratings, { stars: sKey })}
+                      onClick={() => setStars(sKey)}
+                    >
+                      {sKey === 0
+                        ? lang === "it"
+                          ? "Qualsiasi voto"
+                          : "Any rating"
+                        : `${"★".repeat(sKey)}${lang === "it" ? "+" : "+"}`}
+                    </FilterChip>
+                  ))}
+                </div>
+              )}
             </div>
 
             {filtered.length === 0 ? (

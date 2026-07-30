@@ -4408,3 +4408,29 @@ html.dark {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* Facet rows stack; chips wrap within a row. */
+.fn-facets {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 0 40px;
+}
+.fn-facets .fn-filters {
+  margin: 0;
+}
+
+/* A combination that would yield nothing stays visible but unusable, rather
+   than disappearing — a chip row that reshuffles while you filter is
+   disorienting, and the whole point of the counts is to see a dead end before
+   walking into it. */
+.fn-filter:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+@media (hover: hover) {
+  .fn-filter:disabled:hover {
+    color: var(--muted);
+    border-color: var(--glass-s-rim);
+  }
+}
