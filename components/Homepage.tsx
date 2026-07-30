@@ -1,28 +1,27 @@
 "use client";
 
-import HeroSection from "@/components/sections/HeroSection";
-import CatalogoSection from "@/components/sections/CatalogoSection";
-import GuidaSection from "@/components/sections/GuidaSection";
-import StudioSection from "@/components/sections/StudioSection";
-import AccountSection from "@/components/sections/AccountSection";
+import BentoHub from "@/components/sections/BentoHub";
 import SectionNav from "@/components/sections/SectionNav";
 import GallerySpotlight from "@/components/sections/GallerySpotlight";
+import { FormaFooter } from "@/components/FormaFooter";
 
 /**
- * The five homepage sections, one after another, in normal document flow.
+ * The homepage: a bento hub, then the footer.
  *
- * Scrolling is whatever the browser does by default: one pixel of page per
- * pixel of scroll, no hijacking. The previous version stacked all five
- * sections on top of each other inside a `sticky` viewport and drove their
- * opacity and scale from scroll progress across a 500vh spacer — so the page
- * moved five times further than it looked, nothing was ever where the
- * scrollbar said it was, and Ctrl-F / anchor links / the keyboard PageDown
- * all landed in the wrong place. It also kept every section mounted and
- * animating at once.
+ * This replaced five stacked full-viewport sections. Each held one
+ * destination, so reaching the Studio meant scrolling past four screens of
+ * parallax — one grid's worth of information spread over five viewports. The
+ * hub puts every destination on one screen, sized by importance.
  *
- * Entrance animations still exist — they are CSS, triggered once per section
- * by the IntersectionObserver in ArtSection, and they do not touch scroll
- * position.
+ * Scrolling stays whatever the browser does by default. An earlier version
+ * stacked the sections inside a `sticky` viewport and drove their opacity and
+ * scale from scroll progress across a 500vh spacer, so the page moved five
+ * times further than it looked and nothing was ever where the scrollbar said
+ * it was. Nothing here touches scroll position.
+ *
+ * The five section components are gone rather than left unused: the homepage
+ * was their only caller, and each shipped its own copy of the page's content
+ * to the client for a screen most visitors scrolled straight past.
  */
 export default function Homepage() {
   return (
@@ -31,12 +30,8 @@ export default function Homepage() {
     <main className="relative flex flex-col" style={{ overflowX: "hidden" }}>
       <GallerySpotlight />
       <SectionNav />
-
-      <HeroSection />
-      <CatalogoSection />
-      <GuidaSection />
-      <StudioSection />
-      <AccountSection />
+      <BentoHub />
+      <FormaFooter />
     </main>
   );
 }

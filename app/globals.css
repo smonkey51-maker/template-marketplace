@@ -3732,6 +3732,18 @@ html.dark {
   gap: 28px;
   background: transparent;
 }
+
+/* Bento rhythm: an editor's pick takes two tracks, so the grid reads as
+   variable-size cells rather than a uniform wall of thirds. Only the span
+   changes — the card's internals and its shared-layout `layoutId` transition
+   into the detail modal are untouched, which is why this is a span and not a
+   second card component. Dropped below 900px, where the grid is only two
+   tracks wide and a 2-track cell would just be a full-width row. */
+@media (min-width: 901px) {
+  .fn-card--wide {
+    grid-column: span 2;
+  }
+}
 @media (max-width: 900px) {
   .fn-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -4174,5 +4186,83 @@ html.dark {
 @media (max-width: 600px) {
   .fn-tpl-related {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BENTO GRID
+   A tray of variable-size cells, each one a destination.
+   ═══════════════════════════════════════════════════════════ */
+
+.bento-grid {
+  display: grid;
+  gap: 10px;
+  /* Single column on phones. Cell spans are ignored here on purpose —
+     a 2-wide cell in a 1-wide grid would overflow the viewport. */
+  grid-template-columns: 1fr;
+  grid-auto-rows: minmax(180px, auto);
+}
+
+@media (min-width: 640px) {
+  .bento-grid {
+    gap: 12px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: minmax(200px, auto);
+  }
+  .bento-cell {
+    /* Must be a bare integer — `span min(...)` is not valid CSS, so the
+       2-track ceiling is enforced in BentoCell instead. */
+    grid-column: span var(--bento-cols-md, 1);
+    grid-row: span var(--bento-rows, 1);
+  }
+}
+
+@media (min-width: 1024px) {
+  .bento-grid {
+    gap: 14px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: minmax(210px, auto);
+  }
+  .bento-cell {
+    grid-column: span var(--bento-cols, 1);
+  }
+}
+
+/* Entrance. Transform and opacity only, so this composites and the grid holds
+   frame rate while every cell is appearing at once. `both` keeps the pre-delay
+   frames at the from-state instead of flashing the finished cell first. */
+.bento-cell {
+  min-width: 0; /* lets long words wrap instead of widening the track */
+  animation: bento-rise 0.72s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1))
+    var(--delay, 0ms) both;
+}
+
+@keyframes bento-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* A cell that is a link needs a visible keyboard focus ring. The rim border is
+   load-bearing for finding the cell at rest, but it does not move on focus, so
+   it cannot double as the focus indicator. */
+.bento-cell:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Hover lift comes from .glass-surface. The media query there already gates it
+   on a real pointer, so a tap on mobile does not leave a cell stuck raised. */
+
+@media (prefers-reduced-motion: reduce) {
+  .bento-cell {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 }
