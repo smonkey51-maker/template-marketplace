@@ -4273,3 +4273,46 @@ html.dark {
   }
 }
 
+/* ═══════════════════════════════════════════════════════════
+   BENTO MOBILE — full-width CTAs + cell ordering
+   ═══════════════════════════════════════════════════════════ */
+
+/* On mobile, make the hero CTA buttons full-width */
+@media (max-width: 639px) {
+  .bento-hero-ctas {
+    flex-direction: column;
+    width: 100%;
+  }
+  .bento-hero-ctas > a {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+  /* Mobile cell ordering: Hero first, then Catalogo, Studio, Guida, Personal */
+  .bento-order-hero { order: 1; }
+  .bento-order-catalogo { order: 2; }
+  .bento-order-studio { order: 3; }
+  .bento-order-guida { order: 4; }
+  .bento-order-personal { order: 5; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FOOTER ACCORDION — mobile collapsible sections
+   ═══════════════════════════════════════════════════════════ */
+
+/* On desktop (≥640px): hide the +/- icon, always show content,
+   make the trigger non-interactive */
+@media (min-width: 640px) {
+  .fn-footer-accordion-icon {
+    display: none !important;
+  }
+  .fn-footer-accordion-content {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  .fn-footer-accordion-trigger {
+    cursor: default !important;
+    pointer-events: none !important;
+  }
+}
+
