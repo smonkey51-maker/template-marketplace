@@ -97,7 +97,10 @@ export default function CatalogoPage() {
       onComplete: () => {
         setActiveId(null);
         setIsClosing(false);
-        openerRef.current?.focus();
+        // Same reason on the way back: the card that opened the sheet may be
+        // far up a long grid, and returning focus to it must not yank the page
+        // to it — the browser restores the scroll position on its own.
+        openerRef.current?.focus({ preventScroll: true });
       },
     });
   }, []);
@@ -108,7 +111,13 @@ export default function CatalogoPage() {
   // underneath instead of the dialog on top of it.
   useEffect(() => {
     if (!activeId || isClosing) return;
-    modalRef.current?.focus();
+    // preventScroll matters here. The sheet's entrance starts at
+    // translateY(100%), so at the moment focus lands it is still below the
+    // viewport — and the browser's job on focus is to scroll whatever received
+    // it into view. That scrolled the document to the bottom of the catalogue
+    // before the sheet slid up, which read as the page jumping to the end to
+    // open it.
+    modalRef.current?.focus({ preventScroll: true });
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") handleClose();
     };
@@ -116,13 +125,38 @@ export default function CatalogoPage() {
     return () => document.removeEventListener("keydown", onKey);
   }, [activeId, isClosing, handleClose]);
 
-  const filtered = useMemo(
-    () =>
-      PAID_TEMPLATES.filter((x) =>
-        `${x.name} ${x.description} ${x.tags.join(" ")}`.toLowerCase().includes(q.toLowerCase()),
-      ),
-    [q],
-  );
+  const filtered = useMemo(() => {
+    const matches = PAID_TEMPLATES.filter((x) =>
+      `${x.name} ${x.description} ${x.tags.join(" ")}`.toLowerCase().includes(q.toLowerCase()),
+    );
+
+    // Lay the grid out on purpose instead of taking whatever order the
+    // catalogue happens to be written in.
+    //
+    // Two things were wrong with source order. An editor's pick spans two of the
+    // three tracks, and in source order they fell at indices 0, 3, 6, 8 — the
+    // one at 6 arrived when a single track was left, could not fit, and got
+    // pushed to the next row, leaving a visible hole. And the best products were
+    // scattered through the page rather than leading it.
+    //
+    // Pairing each wide card with one normal card fills a row exactly (2 + 1),
+    // so every wide card starts a row and none of them strand a gap. The
+    // remaining normal cards follow three-up in their original order, which
+    // keeps the category grouping intact below the featured block. `grid-auto-
+    // flow: dense` would also close the hole, but by reordering cards visually
+    // without reordering the DOM — so tab order would stop matching what you
+    // see.
+    const wide = matches.filter((x) => x.editorsPick);
+    const rest = matches.filter((x) => !x.editorsPick);
+
+    const ordered: TemplateMeta[] = [];
+    wide.forEach((w, i) => {
+      ordered.push(w);
+      if (rest[i]) ordered.push(rest[i]);
+    });
+    ordered.push(...rest.slice(wide.length));
+    return ordered;
+  }, [q]);
 
   return (
     <>
