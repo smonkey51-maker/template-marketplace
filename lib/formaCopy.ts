@@ -11,7 +11,6 @@ export const copy = {
     studio: "Studio",
 
     /* home hero */
-    heroKicker: "Edizione digitale · Vol. I",
     heroTitle: "Template come oggetti curati.",
     heroSub: "Ogni file è un gesto preciso, non una soluzione generica.",
     browse: "Sfoglia",
@@ -215,7 +214,6 @@ export const copy = {
     studio: "Studio",
 
     /* home hero */
-    heroKicker: "Digital edition · Vol. I",
     heroTitle: "Templates as curated objects.",
     heroSub: "Every file is a precise gesture, not a generic solution.",
     browse: "Browse",

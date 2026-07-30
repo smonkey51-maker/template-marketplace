@@ -68,7 +68,6 @@ export default function BentoHub() {
           <div className="sm:hidden mb-4">
             <FormaLogoAnimated className="w-full h-auto max-w-[150px]" />
           </div>
-          <BentoEyebrow>{t.heroKicker}</BentoEyebrow>
           <h1
             className="font-black text-white leading-[0.95] tracking-tight"
             style={{ fontSize: "clamp(2.1rem, 4.4vw, 3.6rem)" }}
