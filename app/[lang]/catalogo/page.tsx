@@ -163,13 +163,33 @@ export default function CatalogoPage() {
                     className={`fn-card cursor-pointer${item.editorsPick ? " fn-card--wide" : ""}`}
                     key={item.id}
                     onClick={() => setActiveId(item.id)}
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      height: "100%", // Assicura che la card occupi tutto lo spazio della cella
+                    }}
                   >
                     <div
-                      style={{ borderRadius: "12px", overflow: "hidden", marginBottom: "16px" }}
+                      style={{ 
+                        position: "relative",
+                        aspectRatio: "16/10", // Forza tutte le immagini ad avere la stessa proporzione
+                        borderRadius: "12px", 
+                        overflow: "hidden", 
+                        marginBottom: "16px",
+                        flexShrink: 0
+                      }}
                     >
                       <TemplateThumb id={item.id} name={item.name} priority={idx < 3} />
                     </div>
-                    <div className="fn-body">
+                    
+                    <div 
+                      className="fn-body" 
+                      style={{ 
+                        display: "flex", 
+                        flexDirection: "column", 
+                        flex: 1 // Permette al corpo di espandersi
+                      }}
+                    >
                       <div
                         style={{
                           display: "flex",
@@ -226,7 +246,9 @@ export default function CatalogoPage() {
                       >
                         {item.description}
                       </p>
-                      <div className="fn-meta">
+                      
+                      {/* Questo div spinge il contenuto verso il basso, così se una card ha meno testo, si allinea comunque */}
+                      <div className="fn-meta" style={{ marginTop: "auto" }}>
                         <span>{item.tags.slice(0, 2).join(" · ")}</span>
                         <b
                           style={{
