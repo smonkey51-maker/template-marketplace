@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import MotionWrapper from "./MotionWrapper";
 
 export const metadata: Metadata = {
   title: "Catalogo Template — FORMA",
@@ -19,5 +20,5 @@ export const metadata: Metadata = {
 };
 
 export default function CatalogoLayout({ children }: { children: React.ReactNode }) {
-  return children;
+  return <MotionWrapper>{children}</MotionWrapper>;
 }
