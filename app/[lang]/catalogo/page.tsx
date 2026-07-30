@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
 import { useLang } from "@/components/LanguageProvider";
@@ -9,7 +9,7 @@ import { FormaFooter } from "@/components/FormaFooter";
 import { templatesMeta, formatPrice, type TemplateMeta } from "@/lib/templates";
 import { TemplatePreview } from "@/components/TemplatePreview";
 import { TemplateThumb } from "@/components/TemplateThumb";
-import { motion, AnimatePresence } from "framer-motion";
+import gsap from "gsap";
 
 function getPlatformLabel(t: TemplateMeta): string {
   const dt = t.downloadType ?? "html";
@@ -34,12 +34,17 @@ export default function CatalogoPage() {
   const t = (k: keyof typeof copy.it) => copy[lang][k];
   const [q, setQ] = useState("");
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [isClosing, setIsClosing] = useState(false);
+
+  const bgRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
 
   const activeItem = useMemo(() => PAID_TEMPLATES.find((t) => t.id === activeId), [activeId]);
 
   // Lock body scroll when modal is open
   useEffect(() => {
-    if (activeId) {
+    if (activeId && !isClosing) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
@@ -47,7 +52,53 @@ export default function CatalogoPage() {
     return () => {
       document.body.style.overflow = "";
     };
-  }, [activeId]);
+  }, [activeId, isClosing]);
+
+  // Background animation
+  useEffect(() => {
+    if (bgRef.current) {
+      gsap.to(bgRef.current, {
+        scale: activeId && !isClosing ? 0.985 : 1,
+        filter: activeId && !isClosing ? "brightness(0.88)" : "brightness(1)",
+        duration: 0.32,
+        ease: "power2.out",
+      });
+    }
+  }, [activeId, isClosing]);
+
+  // Modal Entrance Animation
+  useEffect(() => {
+    if (activeId && !isClosing && overlayRef.current && modalRef.current) {
+      gsap.fromTo(overlayRef.current, { opacity: 0 }, { opacity: 1, duration: 0.3 });
+      gsap.fromTo(
+        modalRef.current,
+        { y: 24, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.34, ease: "power2.out" }
+      );
+    }
+  }, [activeId, isClosing]);
+
+  // Handle closing animation before unmounting
+  const handleClose = () => {
+    if (!overlayRef.current || !modalRef.current) return;
+    setIsClosing(true);
+    
+    gsap.to(modalRef.current, {
+      y: 24,
+      opacity: 0,
+      duration: 0.3,
+      ease: "power2.in",
+    });
+    
+    gsap.to(overlayRef.current, {
+      opacity: 0,
+      duration: 0.3,
+      onComplete: () => {
+        setActiveId(null);
+        setIsClosing(false);
+      },
+    });
+  };
 
   const filtered = useMemo(
     () =>
@@ -59,19 +110,14 @@ export default function CatalogoPage() {
 
   return (
     <>
-      <motion.div
+      <div
+        ref={bgRef}
         className="fn-bg"
-        initial={{ opacity: 1 }}
-        animate={{
-          opacity: 1,
-          scale: activeId ? 0.985 : 1,
-          filter: activeId ? "brightness(0.88)" : "brightness(1)",
-        }}
-        transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
         style={{
           transformOrigin: "top center",
           minHeight: "100vh",
           borderRadius: "var(--glass-radius)",
+          opacity: 1,
         }}
       >
         <div className="fn-shell">
@@ -118,14 +164,11 @@ export default function CatalogoPage() {
                     key={item.id}
                     onClick={() => setActiveId(item.id)}
                   >
-                    <motion.div
-                      layoutId={`card-preview-${item.id}`}
+                    <div
                       style={{ borderRadius: "12px", overflow: "hidden", marginBottom: "16px" }}
                     >
-                      {/* The first row is what a visitor sees before scrolling, so
-                          those load eagerly; the rest stay lazy. */}
                       <TemplateThumb id={item.id} name={item.name} priority={idx < 3} />
-                    </motion.div>
+                    </div>
                     <div className="fn-body">
                       <div
                         style={{
@@ -215,140 +258,130 @@ export default function CatalogoPage() {
           </section>
           <FormaFooter />
         </div>
-      </motion.div>
+      </div>
 
       {/* iOS App-like Modal Overlay */}
-      <AnimatePresence>
-        {activeId && activeItem && (
-          <motion.div
-            key="modal-wrapper"
-            className="fixed inset-0 z-[100] flex items-end justify-center pointer-events-none sm:p-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+      {(activeId || isClosing) && activeItem && (
+        <div className="fixed inset-0 z-[100] flex items-end justify-center pointer-events-none sm:p-4">
+          {/* Overlay invisibile per cliccare fuori e chiudere */}
+          <div
+            ref={overlayRef}
+            className="absolute inset-0 pointer-events-auto bg-black/40 backdrop-blur-sm opacity-0"
+            onClick={handleClose}
+          />
+
+          <div
+            ref={modalRef}
+            className="relative w-full max-w-[1000px] glass-panel flex flex-col pointer-events-auto z-10"
+            style={{
+              height: "92vh",
+              borderRadius: "var(--glass-radius) var(--glass-radius) 0 0",
+              overflow: "hidden",
+              opacity: 0,
+              transform: "translateY(24px)",
+            }}
           >
-            {/* Overlay invisibile per cliccare fuori e chiudere (ora un div standard) */}
-            <div
-              className="absolute inset-0 pointer-events-auto bg-black/40 backdrop-blur-sm"
-              onClick={() => setActiveId(null)}
-            />
-
-            <motion.div
-              className="relative w-full max-w-[1000px] glass-panel flex flex-col pointer-events-auto z-10"
-              style={{
-                height: "92vh",
-                borderRadius: "var(--glass-radius) var(--glass-radius) 0 0",
-                overflow: "hidden",
-              }}
-              initial={{ y: 24 }}
-              animate={{ y: 0 }}
-              exit={{ y: 24 }}
-              transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
+            {/* Bottone Chiudi */}
+            <button
+              onClick={handleClose}
+              className="absolute top-6 right-6 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-black/40 text-white backdrop-blur-xl border border-white/10 hover:bg-black/60 transition-colors"
+              aria-label="Chiudi"
             >
-              {/* Bottone Chiudi */}
-              <button
-                onClick={() => setActiveId(null)}
-                className="absolute top-6 right-6 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-black/40 text-white backdrop-blur-xl border border-white/10 hover:bg-black/60 transition-colors"
-                aria-label="Chiudi"
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                  <line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
-              </button>
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
 
-              <div className="flex-1 overflow-y-auto overflow-x-hidden">
-                <motion.div
-                  layoutId={`card-preview-${activeItem.id}`}
+            <div className="flex-1 overflow-y-auto overflow-x-hidden">
+              <div
+                style={{
+                  width: "100%",
+                  height: "50vh",
+                  minHeight: "400px",
+                  position: "relative",
+                }}
+              >
+                <TemplatePreview id={activeItem.id} interactive={true} />
+              </div>
+
+              <div className="p-8 sm:p-12">
+                <div className="flex gap-2 items-center flex-wrap mb-4">
+                  <span className="fn-badge bg-black/20">{getPlatformLabel(activeItem)}</span>
+                  {activeItem.editorsPick && (
+                    <span
+                      className="fn-badge"
+                      style={{ border: "1px solid rgba(212,175,55,.5)", color: "#D4AF37" }}
+                    >
+                      ★ Editor
+                    </span>
+                  )}
+                </div>
+
+                <h2
                   style={{
-                    width: "100%",
-                    height: "50vh",
-                    minHeight: "400px",
-                    position: "relative",
+                    fontFamily: "var(--font-cormorant), Georgia, serif",
+                    fontSize: "clamp(32px, 4vw, 48px)",
+                    lineHeight: 1.1,
+                    marginBottom: 16,
                   }}
                 >
-                  <TemplatePreview id={activeItem.id} interactive={true} />
-                </motion.div>
+                  {activeItem.name}
+                </h2>
 
-                <div className="p-8 sm:p-12">
-                  <div className="flex gap-2 items-center flex-wrap mb-4">
-                    <span className="fn-badge bg-black/20">{getPlatformLabel(activeItem)}</span>
-                    {activeItem.editorsPick && (
-                      <span
-                        className="fn-badge"
-                        style={{ border: "1px solid rgba(212,175,55,.5)", color: "#D4AF37" }}
-                      >
-                        ★ Editor
-                      </span>
-                    )}
+                <p
+                  style={{
+                    color: "var(--muted)",
+                    fontSize: 18,
+                    lineHeight: 1.6,
+                    marginBottom: 32,
+                    maxWidth: "600px",
+                  }}
+                >
+                  {activeItem.description}
+                </p>
+
+                <div className="flex items-center gap-6 pt-6 border-t border-theme">
+                  <div>
+                    <span className="block text-xs uppercase tracking-widest text-muted mb-1">
+                      Prezzo
+                    </span>
+                    <b
+                      style={{
+                        fontFamily: "var(--font-cormorant), Georgia, serif",
+                        fontSize: 32,
+                      }}
+                    >
+                      {formatPrice(activeItem.price)}
+                    </b>
                   </div>
 
-                  <h2
-                    style={{
-                      fontFamily: "var(--font-cormorant), Georgia, serif",
-                      fontSize: "clamp(32px, 4vw, 48px)",
-                      lineHeight: 1.1,
-                      marginBottom: 16,
-                    }}
-                  >
-                    {activeItem.name}
-                  </h2>
-
-                  <p
-                    style={{
-                      color: "var(--muted)",
-                      fontSize: 18,
-                      lineHeight: 1.6,
-                      marginBottom: 32,
-                      maxWidth: "600px",
-                    }}
-                  >
-                    {activeItem.description}
-                  </p>
-
-                  <div className="flex items-center gap-6 pt-6 border-t border-theme">
-                    <div>
-                      <span className="block text-xs uppercase tracking-widest text-muted mb-1">
-                        Prezzo
-                      </span>
-                      <b
-                        style={{
-                          fontFamily: "var(--font-cormorant), Georgia, serif",
-                          fontSize: 32,
-                        }}
-                      >
-                        {formatPrice(activeItem.price)}
-                      </b>
-                    </div>
-
-                    <div className="flex-1 flex justify-end gap-3">
-                      <Link href={`/preview/${activeItem.id}`} className="fn-btn">
-                        {t("download")}
-                      </Link>
-                      <Link
-                        href={`/templates/${activeItem.id}`}
-                        className="fn-btn primary shadow-lg"
-                      >
-                        Acquista Ora
-                      </Link>
-                    </div>
+                  <div className="flex-1 flex justify-end gap-3">
+                    <Link href={`/preview/${activeItem.id}`} className="fn-btn">
+                      {t("download")}
+                    </Link>
+                    <Link
+                      href={`/templates/${activeItem.id}`}
+                      className="fn-btn primary shadow-lg"
+                    >
+                      Acquista Ora
+                    </Link>
                   </div>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
