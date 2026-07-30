@@ -72,6 +72,26 @@ const nextConfig: NextConfig = {
         headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
       },
       {
+        // Catalogue thumbnails. Without a rule here these fall back to Vercel's
+        // default for public/ — `max-age=0, must-revalidate` — so every visit
+        // revalidated all sixteen, which undercuts the point of making the cards
+        // static in the first place.
+        //
+        // Not `immutable` like /paintings, though: a painting never changes,
+        // whereas a thumbnail is regenerated whenever its template's teaser
+        // does, and these filenames carry no content hash. A year of immutable
+        // would strand returning visitors on a stale image with no way to bust
+        // it. A day fresh plus a week of stale-while-revalidate keeps the common
+        // case a cache hit while letting a regenerated thumbnail propagate.
+        source: "/thumbs/(.*)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=86400, stale-while-revalidate=604800",
+          },
+        ],
+      },
+      {
         source: "/api/(.*)",
         headers: [{ key: "X-Robots-Tag", value: "noindex" }],
       },
