@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ClerkProvider } from "@clerk/nextjs";
-import { LOCALES, isLocale } from "@/lib/locales";
+import { LOCALES, isLocale, toLocale } from "@/lib/locales";
 import {
   Montserrat,
   DM_Serif_Display,
@@ -72,36 +72,60 @@ const fraunces = Fraunces({
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://forma.design";
 
-export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
-  title: {
-    default: "FORMA — Template come oggetti curati.",
-    template: "%s — FORMA",
-  },
-  description:
-    "Template digitali pronti all'uso: HTML, Notion, Shopify, WordPress. Ogni file è un gesto preciso, non una soluzione generica.",
-  openGraph: {
-    type: "website",
-    siteName: "FORMA",
+// Localised per route segment rather than a single static object. The site is
+// Italian-first, but middleware.ts routes any non-Italian browser to /en, and a
+// visitor who lands there was still served an Italian <title> and an Italian
+// description — the part of the page that reaches search results and link
+// previews, where it is least likely to be noticed and most likely to matter.
+const SITE_META = {
+  it: {
     title: "FORMA — Template come oggetti curati.",
     description:
-      "Template digitali pronti all'uso: HTML, Notion, Shopify, WordPress. Ogni file è un gesto preciso, non una soluzione generica.",
-    images: [{ url: "/api/og", width: 1200, height: 630, alt: "FORMA" }],
+      "Template digitali pronti all'uso: prompt AI, guide, fogli di calcolo e tracker. Ogni file è un gesto preciso, non una soluzione generica.",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "FORMA — Template come oggetti curati.",
+  en: {
+    title: "FORMA — Templates as considered objects.",
     description:
-      "Template digitali pronti all'uso: HTML, Notion, Shopify, WordPress. Ogni file è un gesto preciso, non una soluzione generica.",
-    images: ["/api/og"],
+      "Ready-to-use digital templates: AI prompts, guides, spreadsheets and trackers. Every file is a precise gesture, not a generic solution.",
   },
-  alternates: {
-    languages: {
-      it: SITE_URL,
-      en: `${SITE_URL}?lang=en`,
+} as const;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang: rawLang } = await params;
+  const lang = toLocale(rawLang);
+  const m = SITE_META[lang];
+  return {
+    metadataBase: new URL(SITE_URL),
+    title: {
+      default: m.title,
+      // Pages set a bare title; this appends the brand. A page that spells the
+      // suffix out itself gets it twice.
+      template: "%s — FORMA",
     },
-  },
-};
+    description: m.description,
+    openGraph: {
+      type: "website",
+      siteName: "FORMA",
+      title: m.title,
+      description: m.description,
+      images: [{ url: `/api/og?lang=${lang}`, width: 1200, height: 630, alt: "FORMA" }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: m.title,
+      description: m.description,
+      images: [`/api/og?lang=${lang}`],
+    },
+    alternates: {
+      canonical: `${SITE_URL}/${lang}`,
+      languages: { it: `${SITE_URL}/it`, en: `${SITE_URL}/en` },
+    },
+  };
+}
 
 /** Only /it and /en exist. Anything else is a 404, not a render. */
 export function generateStaticParams() {

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { formatPrice } from "@/lib/templates";
 import { getBundleFromDb, getAllBundles } from "@/lib/templatesDb";
 import BundleDetailContent from "@/components/BundleDetailContent";
+import { getLocalizedName, getLocalizedDesc } from "@/lib/i18n";
+import { toLocale } from "@/lib/locales";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://forma.design";
 
@@ -17,41 +19,48 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ bundleId: string }>;
+  params: Promise<{ bundleId: string; lang: string }>;
 }): Promise<Metadata> {
-  const { bundleId } = await params;
+  const { bundleId, lang: rawLang } = await params;
+  const lang = toLocale(rawLang);
   const bundle = await getBundleFromDb(bundleId);
-  if (!bundle) return { title: "Bundle not found" };
+  if (!bundle) return { title: lang === "it" ? "Bundle non trovato" : "Bundle not found" };
+  const name = getLocalizedName(bundle, lang);
   const canonicalUrl = `${SITE_URL}/bundle/${bundleId}`;
   const savings = bundle.regularPrice - bundle.price;
   return {
-    title: bundle.name,
+    title: name,
     description: `${bundle.tagline}. ${bundle.highlights.join(" · ")}`,
     alternates: { canonical: canonicalUrl },
     openGraph: {
-      title: `${bundle.name} — Forma`,
+      title: `${name} — Forma`,
       description: `${bundle.tagline}. ${formatPrice(bundle.price)} invece di ${formatPrice(bundle.regularPrice)}. Risparmia ${formatPrice(savings)}.`,
       type: "website",
       url: canonicalUrl,
     },
     twitter: {
       card: "summary_large_image",
-      title: `${bundle.name} — Forma`,
+      title: `${name} — Forma`,
       description: bundle.tagline,
     },
   };
 }
 
-export default async function BundlePage({ params }: { params: Promise<{ bundleId: string }> }) {
-  const { bundleId } = await params;
+export default async function BundlePage({
+  params,
+}: {
+  params: Promise<{ bundleId: string; lang: string }>;
+}) {
+  const { bundleId, lang: rawLang } = await params;
+  const lang = toLocale(rawLang);
   const bundle = await getBundleFromDb(bundleId);
 
   const jsonLd = bundle
     ? {
         "@context": "https://schema.org",
         "@type": "Product",
-        name: bundle.name,
-        description: bundle.description,
+        name: getLocalizedName(bundle, lang),
+        description: getLocalizedDesc(bundle, lang),
         url: `${SITE_URL}/bundle/${bundleId}`,
         brand: { "@type": "Brand", name: "Forma" },
         seller: { "@type": "Organization", name: "Forma", url: SITE_URL },

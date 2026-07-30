@@ -7,6 +7,7 @@ import { TemplateThumb } from "@/components/TemplateThumb";
 import { BuyButton } from "./BuyButton";
 import { FormaFooter } from "@/components/FormaFooter";
 import { formatPrice, type TemplateMeta } from "@/lib/templates";
+import { getLocalizedName, getLocalizedDesc } from "@/lib/i18n";
 
 function getPlatformLabel(downloadType?: string): string {
   const labels: Record<string, string> = {
@@ -34,6 +35,7 @@ export function TemplateDetailContent({
   const t = (k: keyof typeof copy.it) => copy[lang][k];
   const dt = item.downloadType ?? "html";
   const platform = getPlatformLabel(dt);
+  const name = getLocalizedName(item, lang);
 
   return (
     <>
@@ -59,7 +61,7 @@ export function TemplateDetailContent({
               {t("catalogo")}
             </Link>
             <span>/</span>
-            <span className="text-accent">{item.name}</span>
+            <span className="text-accent">{name}</span>
           </nav>
         </div>
 
@@ -75,7 +77,7 @@ export function TemplateDetailContent({
               nested document. The live, explorable version is one tap away
               under "Preview dal vivo". */}
           <div className="fn-detail-shot">
-            <TemplateThumb id={item.id} name={item.name} priority height={420} />
+            <TemplateThumb id={item.id} name={name} priority height={420} />
           </div>
 
           <div className="p-8 sm:p-14 lg:p-20">
@@ -100,11 +102,11 @@ export function TemplateDetailContent({
                 marginBottom: 24,
               }}
             >
-              {item.name}
+              {name}
             </h1>
 
             <p className="text-muted text-lg sm:text-xl leading-relaxed max-w-2xl mb-12">
-              {item.description}
+              {getLocalizedDesc(item, lang)}
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 border-t border-theme pt-12">
@@ -171,10 +173,16 @@ export function TemplateDetailContent({
                         {/* Static, like the shot above and the catalogue grid.
                             Nothing on this page mounts an iframe any more; the
                             live view lives at /preview/[id]. */}
-                        <TemplateThumb id={rel.id} name={rel.name} height={144} />
+                        <TemplateThumb
+                          id={rel.id}
+                          name={getLocalizedName(rel, lang)}
+                          height={144}
+                        />
                       </div>
                       <div className="p-5 text-center w-full">
-                        <div className="font-cormorant text-2xl mb-1">{rel.name}</div>
+                        <div className="font-cormorant text-2xl mb-1">
+                          {getLocalizedName(rel, lang)}
+                        </div>
                         <div className="text-accent text-sm tracking-widest">
                           {formatPrice(rel.price)}
                         </div>
