@@ -6,7 +6,15 @@ import { useLang } from "@/components/LanguageProvider";
 import { copy } from "@/lib/formaCopy";
 import { FormaLogoStatic } from "@/components/FormaLogo";
 
-function FooterAccordion({ title, children, lang }: { title: string; children: React.ReactNode; lang: string }) {
+function FooterAccordion({
+  title,
+  children,
+  lang,
+}: {
+  title: string;
+  children: React.ReactNode;
+  lang: string;
+}) {
   const [open, setOpen] = useState(false);
   return (
     <div>

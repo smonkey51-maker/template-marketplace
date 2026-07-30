@@ -73,7 +73,7 @@ export default function CatalogoPage() {
       gsap.fromTo(
         modalRef.current,
         { y: 24, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.34, ease: "power2.out" }
+        { y: 0, opacity: 1, duration: 0.34, ease: "power2.out" },
       );
     }
   }, [activeId, isClosing]);
@@ -82,14 +82,14 @@ export default function CatalogoPage() {
   const handleClose = () => {
     if (!overlayRef.current || !modalRef.current) return;
     setIsClosing(true);
-    
+
     gsap.to(modalRef.current, {
       y: 24,
       opacity: 0,
       duration: 0.3,
       ease: "power2.in",
     });
-    
+
     gsap.to(overlayRef.current, {
       opacity: 0,
       duration: 0.3,
@@ -166,28 +166,28 @@ export default function CatalogoPage() {
                     style={{
                       display: "flex",
                       flexDirection: "column",
-                      height: "100%", 
+                      height: "100%",
                     }}
                   >
                     <div
-                      style={{ 
+                      style={{
                         position: "relative",
-                        aspectRatio: "16/10", 
-                        borderRadius: "12px", 
-                        overflow: "hidden", 
+                        aspectRatio: "16/10",
+                        borderRadius: "12px",
+                        overflow: "hidden",
                         marginBottom: "16px",
-                        flexShrink: 0
+                        flexShrink: 0,
                       }}
                     >
                       <TemplateThumb id={item.id} name={item.name} priority={idx < 3} />
                     </div>
-                    
-                    <div 
-                      className="fn-body" 
-                      style={{ 
-                        display: "flex", 
-                        flexDirection: "column", 
-                        flex: 1 
+
+                    <div
+                      className="fn-body"
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        flex: 1,
                       }}
                     >
                       <div
@@ -246,7 +246,7 @@ export default function CatalogoPage() {
                       >
                         {item.description}
                       </p>
-                      
+
                       <div className="fn-meta" style={{ marginTop: "auto" }}>
                         <span>{item.tags.slice(0, 2).join(" · ")}</span>
                         <b
@@ -388,17 +388,21 @@ export default function CatalogoPage() {
 
                   <div className="flex-1 flex justify-end gap-3">
                     {/* Aggiunto /${lang} ai percorsi e sblocco scroll su click */}
-                    <Link 
-                      href={`/${lang}/preview/${activeItem.id}`} 
+                    <Link
+                      href={`/${lang}/preview/${activeItem.id}`}
                       className="fn-btn"
-                      onClick={() => { document.body.style.overflow = ""; }}
+                      onClick={() => {
+                        document.body.style.overflow = "";
+                      }}
                     >
                       {t("download")}
                     </Link>
                     <Link
                       href={`/${lang}/templates/${activeItem.id}`}
                       className="fn-btn primary shadow-lg"
-                      onClick={() => { document.body.style.overflow = ""; }}
+                      onClick={() => {
+                        document.body.style.overflow = "";
+                      }}
                     >
                       Acquista Ora
                     </Link>

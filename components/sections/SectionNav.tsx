@@ -76,7 +76,10 @@ export default function SectionNav() {
         </div>
 
         {/* Right side nav */}
-        <nav className="hidden lg:flex items-center gap-1 justify-self-end" aria-label="Right navigation">
+        <nav
+          className="hidden lg:flex items-center gap-1 justify-self-end"
+          aria-label="Right navigation"
+        >
           {renderNavLinks(RIGHT_LINKS)}
         </nav>
       </header>
