@@ -493,188 +493,130 @@ export const t = {
   },
 } as const;
 
-// Italian name+description translations for every template.
-// EN falls back to the original name/description in lib/templates.ts.
+// Italian name + description for every product on sale.
+//
+// English is the base: the strings in lib/templates.ts are the English copy,
+// and this table overrides them when the visitor is on /it. The locale itself
+// is decided in middleware.ts from Accept-Language — an Italian browser lands
+// on /it, every other language on /en — so a template with no entry here shows
+// its English name to an Italian visitor. That is the bug this table exists to
+// prevent, and it is why the keys must track lib/templates.ts exactly.
+//
+// It previously held forty entries for a catalogue that no longer exists
+// ("hero-saas", "restaurant-menu", …) and not one for the sixteen products
+// actually on sale, so every Italian visitor read an English shop.
+//
+// Note on "first-100-online-guide": the title stays in dollars in both
+// languages because the guide itself is written in dollars — content/products/
+// first-100-online-guide.html says "$100" six times. Translating the cover to
+// euros would promise a figure the file does not deliver.
 export const templateTranslations: Record<string, { name: string; description: string }> = {
-  "hero-saas": {
-    name: "Sezione Hero SaaS",
-    description: "Hero moderno con sfondo gradiente, CTA e badge social proof.",
-  },
-  "pricing-table": {
-    name: "Tabella Prezzi 3 Livelli",
-    description: "Card prezzi pulite con piano consigliato in evidenza e lista funzionalità.",
-  },
-  "blog-card-grid": {
-    name: "Griglia Articoli Blog",
-    description: "Layout a 3 colonne con card articolo, autore, data e tag categoria.",
-  },
-  "real-estate-agent": {
-    name: "Profilo Agente Immobiliare",
-    description: "Pagina profilo Canva-style per agenti con vetrina annunci e CTA contatto.",
-  },
-  "airbnb-property-listing": {
-    name: "Annuncio Affitto Breve",
-    description: "Pagina proprietà per host con galleria, servizi e CTA prenotazione.",
-  },
-  "therapist-profile": {
-    name: "Profilo Psicologo / Terapeuta",
-    description: "Pagina professionale calda per terapeuti con specializzazioni e prenotazione.",
-  },
-  "law-firm-services": {
-    name: "Studio Legale — Servizi",
-    description: "Pagina servizi autorevole per studi legali e avvocati.",
-  },
-  "budget-tracker": {
-    name: "Tracker Budget Personale",
-    description: "Dashboard finanza personale con categorie spese, grafici e obiettivi.",
-  },
-  "personal-finance-dashboard": {
-    name: "Dashboard Finanza Personale",
-    description: "Panoramica patrimonio con asset, obiettivi di risparmio e rendimenti.",
-  },
-  "artisan-product-catalog": {
-    name: "Catalogo Prodotti Artigianali",
-    description: "Vetrina prodotti fatti a mano con storytelling del brand e checkout.",
-  },
-  "revenue-analytics": {
-    name: "Analytics Ricavi",
-    description: "Dashboard KPI con grafici trend, metriche chiave e breakdown per canale.",
-  },
-  "saas-landing-dark": {
-    name: "Landing Page SaaS Dark",
-    description: "Pagina lancio dark-mode con feature, prezzi e social proof.",
-  },
-  "creative-agency-portfolio": {
-    name: "Portfolio Agenzia Creativa",
-    description: "Pagina portfolio con case study, servizi offerti e presentazione del team.",
-  },
-  "freelance-tech-profile": {
-    name: "Profilo Freelance Tech",
-    description: "Pagina personale per developer con skill, progetti e contatti.",
-  },
-  "startup-product-launch": {
-    name: "Lancio Prodotto Startup",
-    description: "Pagina lancio con countdown, lista d'attesa e social proof.",
-  },
-  "cold-email-b2b": {
-    name: "CRM Outreach B2B",
-    description: "Dashboard CRM scuro per campagne email con tracker sequenze e analisi risposte.",
-  },
-  "product-description-ecom": {
-    name: "Pagina Prodotto E-commerce",
-    description: "Pagina prodotto minimal ed elegante con galleria, varianti, recensioni e badge.",
-  },
-  "ai-assistant-system-prompt": {
-    name: "Interfaccia Chat AI",
-    description: "UI chat AI moderna con cronologia conversazioni, messaggi e selezione modello.",
-  },
-  "linkedin-prompt-pack": {
-    name: "Personal Brand Landing",
-    description: "Pagina creator con statistiche social, post recenti e iscrizione newsletter.",
-  },
-  "youtube-script-pack": {
-    name: "Content Creator Studio",
-    description: "Dashboard creator YouTube con analytics iscritti, performance video e upload.",
-  },
-  "claude-projects-pack": {
-    name: "AI Projects Command Center",
+  // ── Prompt e script AI ──────────────────────────────────────────────────
+  "chatgpt-prompt-library-freelancers": {
+    name: "Libreria di Prompt ChatGPT per Freelance",
     description:
-      "Dashboard stile Claude Projects per gestire assistenti AI, prompt e knowledge base.",
+      "53 prompt ChatGPT pronti da copiare per ogni parte della tua attività da freelance: preventivi, email ai clienti, tariffe, marketing e onboarding.",
   },
-  "ai-workflow-pack": {
-    name: "Automation Workflow Board",
-    description: "Dashboard workflow automation con pipeline multi-step e statistiche esecuzione.",
-  },
-  "restaurant-menu": {
-    name: "Menù Ristorante",
-    description: "Pagina menù elegante con categorie, prezzi e sezione speciali del giorno.",
-  },
-  "coffee-shop-landing": {
-    name: "Landing Caffetteria",
-    description: "Pagina landing calda per caffetterie con storia del locale e offerte.",
-  },
-  "hotel-booking": {
-    name: "Prenotazione Hotel",
-    description: "Pagina hotel con galleria foto, servizi e modulo prenotazione integrato.",
-  },
-  "mobile-app-showcase": {
-    name: "Showcase App Mobile",
-    description: "Pagina vetrina app con mockup device, funzionalità e link download.",
-  },
-  "feature-showcase": {
-    name: "Vetrina Funzionalità",
-    description: "Pagina feature con icone, descrizioni e comparazione piani.",
-  },
-  "saas-dashboard": {
-    name: "Anteprima Dashboard SaaS",
-    description: "Dashboard con sidebar, metriche e grafici interattivi.",
-  },
-  "digital-resume": {
-    name: "CV Digitale",
-    description: "Curriculum vitae online con timeline esperienze, skill e portfolio.",
-  },
-  "link-in-bio": {
-    name: "Link in Bio",
-    description: "Pagina link in bio per creator con profilo social e link multipli.",
-  },
-  "newsletter-landing": {
-    name: "Landing Newsletter",
-    description: "Pagina iscrizione newsletter con anteprima contenuti e CTA ottimizzata.",
-  },
-  "free-hero-section": {
-    name: "Hero Section Minimalista",
+  "chatgpt-prompt-pack-creators": {
+    name: "Pacchetto Prompt ChatGPT per Creator",
     description:
-      "Hero section dark con headline impattante, CTA doppio e badge disponibilità. Zero dipendenze.",
+      "30 prompt pronti da copiare per scrivere hook per Threads, caption Instagram, descrizioni prodotto e contenuti che convertono.",
   },
-  "free-feature-grid": {
-    name: "Feature Grid con Icone",
-    description: "Griglia 3-colonne per feature di prodotto. Dark theme, icone SVG, hover animato.",
-  },
-  "free-email-optin": {
-    name: "Sezione Email Opt-in",
+  "midjourney-prompt-guide-mockups": {
+    name: "Guida ai Prompt Midjourney per Mockup Prodotto",
     description:
-      "Sezione cattura email con proposta di valore, contatore social proof e bordo gradiente.",
+      "Oltre 25 prompt Midjourney testati e un workflow completo per creare mockup di prodotto professionali senza assumere un designer.",
   },
-  "free-testimonial-cards": {
-    name: "Griglia Testimonianze",
-    description: "Griglia a 3 colonne con stelle, avatar e stile serif editoriale. Tema scuro.",
-  },
-  "free-cold-intro-prompt": {
-    name: "Generatore Email Introduzione",
+  "dm-sales-script-pack": {
+    name: "Pacchetto Script DM di Vendita",
     description:
-      "Gestore campagne outreach con varianti email AI, punteggio di rilevanza ed esportazione rapida.",
+      "10 script DM pronti da copiare per vendere prodotti digitali su Instagram e Threads — uno per ogni fase della conversazione, senza sembrare spam.",
   },
-  // Shopify templates
-  "shopify-product-landing": {
-    name: "Shopify Landing Prodotto",
+
+  // ── Guide e percorsi ────────────────────────────────────────────────────
+  "home-gym-4-week-guide": {
+    name: "Home Gym: Programma di 4 Settimane",
     description:
-      "Sezione hero prodotto ad alta conversione con griglia feature e add-to-cart. Pronta per Liquid.",
+      "Un programma di allenamento progressivo di 4 settimane per allenarti a casa con attrezzatura minima. Da principiante a intermedio, 3–4 sessioni a settimana.",
   },
-  "shopify-collection-grid": {
-    name: "Shopify Griglia Collezione",
+  "social-media-detox-7day": {
+    name: "Protocollo Detox dai Social in 7 Giorni",
     description:
-      "Griglia collezione prodotti elegante con filtri, quick view e card animate. Sezione tema Liquid.",
+      "Un piano strutturato di azioni quotidiane per 7 giorni, per interrompere lo scrolling compulsivo e ricostruire un rapporto consapevole con i social.",
   },
-  "shopify-announcement-bar": {
-    name: "Shopify Barra Annunci",
+  "anti-procrastination-playbook": {
+    name: "Playbook Anti-Procrastinazione",
     description:
-      "Barra annunci rotante con countdown, soglia spedizione gratuita e animazione slide-in.",
+      "Cause profonde, 8 framework comportamentali e sistemi che superano davvero la procrastinazione. Basato sulla psicologia comportamentale, non sulla motivazione.",
   },
-  // WordPress templates
-  "wordpress-business-theme": {
-    name: "Tema WordPress Business",
+  "mindset-reset-7day-journal": {
+    name: "Journal Mindset Reset in 7 Giorni",
     description:
-      "Tema business WordPress completo con hero, servizi, testimonianze e form contatti. Template PHP pulito.",
+      "Un journal guidato quotidiano per sciogliere i blocchi mentali, far emergere le convinzioni limitanti e ritrovare ciò che vuoi davvero costruire.",
   },
-  "wordpress-blog-theme": {
-    name: "Tema WordPress Blog",
+  "first-100-online-guide": {
+    name: "Come Guadagnare i Tuoi Primi 100 $ Online",
     description:
-      "Tema blog WordPress minimal focalizzato sulla tipografia. Post format personalizzati e sidebar widget.",
+      "Una roadmap concreta e senza fronzoli, da zero: 13 passi in sequenza, da cosa vendere fino alla prima vendita, senza pubblico e senza capitale iniziale.",
   },
-  "wordpress-portfolio-theme": {
-    name: "Tema WordPress Portfolio",
+  "digital-product-launch-checklist": {
+    name: "Checklist per il Lancio di un Prodotto Digitale",
     description:
-      "Tema portfolio WordPress con griglia progetti filtrabile, galleria lightbox e testimonianze clienti.",
+      "Ogni passo dall'idea alla prima vendita: checklist in 6 fasi che copre le basi del prodotto, la realizzazione, la configurazione di Gumroad, il pre-lancio, il giorno del lancio e il dopo.",
+  },
+
+  // ── Fogli e tracker ─────────────────────────────────────────────────────
+  "freelance-rate-calculator": {
+    name: "Workbook Calcolo Tariffa Freelance",
+    description:
+      "Calcola la tua vera tariffa oraria da freelance in 15 minuti. Tiene conto di tasse, spese, ore non fatturabili e margine di profitto. Pronto per Google Sheets.",
+  },
+  "monthly-business-finance-tracker": {
+    name: "Tracker Finanze Mensili per Freelance",
+    description:
+      "Una dashboard finanziaria mensile completa per freelance: entrate, spese, margini di profitto e stima delle tasse. Pronto per Google Sheets, con formule già impostate.",
+  },
+  "wedding-budget-tracker": {
+    name: "Tracker Budget Matrimonio",
+    description:
+      "Tieni traccia di ogni fornitore, acconto e scadenza di pagamento su 6 categorie del matrimonio. Quadro completo di ciò che è prenotato, pagato e ancora da saldare.",
+  },
+  "remote-job-search-tracker": {
+    name: "Tracker Ricerca Lavoro da Remoto",
+    description:
+      "Tieni traccia di ogni candidatura, fase di colloquio, follow-up e offerta. Include tabella di confronto delle offerte e obiettivi settimanali. Pronto per Google Sheets.",
+  },
+  "first-apartment-budget-planner": {
+    name: "Checklist e Budget per il Primo Appartamento",
+    description:
+      "Tutto quello che serve comprare, sistemare e mettere a budget per la tua prima casa — ordinato per urgenza, così non spendi troppo su ciò che può aspettare.",
+  },
+  "pet-care-vet-tracker": {
+    name: "Registro Cure e Visite Veterinarie",
+    description:
+      "Un archivio sanitario completo per il tuo animale: visite dal veterinario, vaccinazioni, farmaci, peso, alimentazione e contatti d'emergenza. Pronto da stampare.",
+  },
+
+  // ── Bundle ──────────────────────────────────────────────────────────────
+  "bundle-ai-creator": {
+    name: "Bundle AI Creator",
+    description:
+      "53 prompt per freelancer, 30 prompt per creator, guida completa a Midjourney per mockup e 10 script DM per vendere. Un arsenale AI completo.",
+  },
+  "bundle-wellness-mindset": {
+    name: "Bundle Benessere e Mindset",
+    description:
+      "4 settimane di allenamento home gym, protocollo detox dai social, playbook anti-procrastinazione e journal mindset 7 giorni. Un reset completo.",
+  },
+  "bundle-money-career": {
+    name: "Bundle Soldi e Carriera",
+    description:
+      "Calcolatore tariffa freelance, tracker finanze mensili, tracker ricerca lavoro remoto, guida ai primi 100 $ online e checklist lancio prodotto digitale.",
+  },
+  "bundle-life-admin": {
+    name: "Bundle Gestione Quotidiana",
+    description:
+      "Planner budget primo appartamento, tracker budget matrimonio e registro cure veterinarie. I tre tracker essenziali per le grandi tappe della vita.",
   },
 };
 

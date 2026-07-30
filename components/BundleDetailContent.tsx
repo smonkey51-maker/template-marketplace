@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { getBundle, getTemplate, formatPrice } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
-import { t } from "@/lib/i18n";
+import { t, getLocalizedName, getLocalizedDesc } from "@/lib/i18n";
 import { useToast } from "@/components/Toast";
 
 const BRAND_COLOR = {
@@ -131,12 +131,14 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
                 </span>
               </div>
               <h1 className="text-[1.6rem] sm:text-[2rem] font-black text-theme leading-tight tracking-tight">
-                {bundle.name}
+                {getLocalizedName(bundle, lang)}
               </h1>
               <p className={`text-[14px] font-semibold ${colors.text} mt-1`}>{bundle.tagline}</p>
             </div>
           </div>
-          <p className="text-[14px] text-muted leading-relaxed mb-5">{bundle.description}</p>
+          <p className="text-[14px] text-muted leading-relaxed mb-5">
+            {getLocalizedDesc(bundle, lang)}
+          </p>
 
           {/* Highlights */}
           <div className="grid sm:grid-cols-3 gap-2.5">
@@ -186,9 +188,11 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
                     <p
                       className={`text-[13px] font-semibold leading-tight ${isActive ? colors.text : "text-theme"}`}
                     >
-                      {tmpl!.name}
+                      {getLocalizedName(tmpl!, lang)}
                     </p>
-                    <p className="text-[11px] text-muted truncate mt-0.5">{tmpl!.description}</p>
+                    <p className="text-[11px] text-muted truncate mt-0.5">
+                      {getLocalizedDesc(tmpl!, lang)}
+                    </p>
                   </div>
                   <div className="shrink-0 flex items-center gap-2">
                     {owned && (
@@ -230,7 +234,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
                 <iframe
                   key={activeTemplateIdx}
                   src={`/api/preview/${activeTemplate.id}`}
-                  title={activeTemplate.name}
+                  title={getLocalizedName(activeTemplate, lang)}
                   sandbox="allow-scripts"
                   className="w-full border-0 block"
                   style={{ height: "480px" }}
@@ -242,8 +246,10 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
               {/* Template meta footer */}
               <div className="px-4 py-3 border-t border-theme flex items-center justify-between gap-3">
                 <div>
-                  <p className="text-[13px] font-bold text-theme">{activeTemplate.name}</p>
-                  <p className="text-[11px] text-muted">{activeTemplate.description}</p>
+                  <p className="text-[13px] font-bold text-theme">
+                    {getLocalizedName(activeTemplate, lang)}
+                  </p>
+                  <p className="text-[11px] text-muted">{getLocalizedDesc(activeTemplate, lang)}</p>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
                   {purchasedIds.includes(activeTemplate.id) && (
@@ -320,7 +326,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
                       <div className="relative" style={{ height: "130px" }}>
                         <iframe
                           src={`/api/preview/${featured.id}`}
-                          title={featured.name}
+                          title={getLocalizedName(featured, lang)}
                           sandbox="allow-scripts"
                           className="w-full border-0 block"
                           style={{
@@ -337,10 +343,10 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
                     {/* Info */}
                     <div className="flex-1 min-w-0">
                       <h3 className="text-[18px] sm:text-[20px] font-black text-theme leading-tight tracking-tight mb-1">
-                        {featured.name}
+                        {getLocalizedName(featured, lang)}
                       </h3>
                       <p className="text-[13px] text-muted leading-relaxed mb-4">
-                        {featured.description}
+                        {getLocalizedDesc(featured, lang)}
                       </p>
 
                       {/* Stats row */}
@@ -406,7 +412,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
                   <div className="flex items-center gap-2">
                     {owned && <span className="text-accent text-[11px]">✓</span>}
                     <span className={`text-[13px] ${owned ? "text-accent/80" : "text-theme/80"}`}>
-                      {tmpl!.name}
+                      {getLocalizedName(tmpl!, lang)}
                     </span>
                     {owned && (
                       <span className="text-[10px] text-accent/60 bg-accent/10 px-1.5 py-0.5 border border-accent/20">
@@ -467,7 +473,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
             <span className="text-2xl shrink-0">{bundle.emoji}</span>
             <div className="flex-1 min-w-0">
               <p className="text-[14px] font-bold text-theme leading-tight truncate">
-                {bundle.name}
+                {getLocalizedName(bundle, lang)}
               </p>
               <p className="text-[11px] text-muted">
                 {includedTemplates.length}{" "}
@@ -494,7 +500,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
             <button
               onClick={handleBuy}
               disabled={loading}
-              aria-label={`${t[lang].bundleDetail.buyNow.replace("{{price}}", formatPrice(bundle.price))} — ${bundle.name}`}
+              aria-label={`${t[lang].bundleDetail.buyNow.replace("{{price}}", formatPrice(bundle.price))} — ${getLocalizedName(bundle, lang)}`}
               className="btn-brand w-full justify-center text-[15px]"
               style={{ padding: "14px 24px" }}
             >

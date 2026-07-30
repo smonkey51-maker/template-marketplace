@@ -4,6 +4,8 @@ import { formatPrice } from "@/lib/templates";
 import { getTemplateFromDb, getAllTemplates } from "@/lib/templatesDb";
 import PreviewContent from "@/components/PreviewContent";
 import ReviewSection from "@/components/ReviewSection";
+import { getLocalizedName, getLocalizedDesc } from "@/lib/i18n";
+import { toLocale } from "@/lib/locales";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://forma.design";
 
@@ -19,45 +21,53 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ templateId: string }>;
+  params: Promise<{ templateId: string; lang: string }>;
 }): Promise<Metadata> {
-  const { templateId } = await params;
+  const { templateId, lang: rawLang } = await params;
+  const lang = toLocale(rawLang);
   const template = await getTemplateFromDb(templateId);
-  if (!template) return { title: "Template not found" };
-  const ogImage = `/api/og?id=${templateId}`;
+  if (!template) return { title: lang === "it" ? "Template non trovato" : "Template not found" };
+  const name = getLocalizedName(template, lang);
+  const description = getLocalizedDesc(template, lang);
+  const ogImage = `/api/og?id=${templateId}&lang=${lang}`;
   const canonicalUrl = `${SITE_URL}/preview/${templateId}`;
   return {
-    title: template.name,
-    description: template.description,
+    title: name,
+    description: description,
     alternates: { canonical: canonicalUrl },
     openGraph: {
-      title: `${template.name} — Forma`,
-      description: template.description,
+      title: `${name} — Forma`,
+      description: description,
       type: "website",
       url: canonicalUrl,
-      images: [{ url: ogImage, width: 1200, height: 630, alt: template.name }],
+      images: [{ url: ogImage, width: 1200, height: 630, alt: name }],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${template.name} — Forma`,
-      description: template.description,
+      title: `${name} — Forma`,
+      description: description,
       images: [ogImage],
     },
   };
 }
 
-export default async function PreviewPage({ params }: { params: Promise<{ templateId: string }> }) {
-  const { templateId } = await params;
+export default async function PreviewPage({
+  params,
+}: {
+  params: Promise<{ templateId: string; lang: string }>;
+}) {
+  const { templateId, lang: rawLang } = await params;
+  const lang = toLocale(rawLang);
   const template = await getTemplateFromDb(templateId);
 
   const jsonLd = template
     ? {
         "@context": "https://schema.org",
         "@type": "Product",
-        name: template.name,
-        description: template.description,
+        name: getLocalizedName(template, lang),
+        description: getLocalizedDesc(template, lang),
         url: `${SITE_URL}/preview/${templateId}`,
-        image: `${SITE_URL}/api/og?id=${templateId}`,
+        image: `${SITE_URL}/api/og?id=${templateId}&lang=${lang}`,
         brand: { "@type": "Brand", name: "Forma" },
         category: "UI Template",
         seller: { "@type": "Organization", name: "Forma", url: SITE_URL },

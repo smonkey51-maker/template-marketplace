@@ -616,7 +616,7 @@ export const bundles: Bundle[] = [
     name: "AI Creator Bundle",
     tagline: "Tutto ciò che serve per creare e vendere con l'AI",
     description:
-      "53 prompt per freelancer, 30 prompt per creator, guida completa a Midjourney per mockup e 10 script DM per vendere. Un arsenale AI completo.",
+      "53 prompts for freelancers, 30 for creators, a full Midjourney guide for product mockups, and 10 DM scripts that sell. A complete AI arsenal.",
     templateIds: [
       "chatgpt-prompt-library-freelancers",
       "chatgpt-prompt-pack-creators",
@@ -640,7 +640,7 @@ export const bundles: Bundle[] = [
     name: "Wellness & Mindset Bundle",
     tagline: "Rimetti a fuoco corpo, mente e abitudini",
     description:
-      "4 settimane di allenamento home gym, protocollo detox dai social, playbook anti-procrastinazione e journal mindset 7 giorni. Un reset completo.",
+      "A 4-week home gym program, a social media detox protocol, an anti-procrastination playbook, and a 7-day mindset journal. A complete reset.",
     templateIds: [
       "home-gym-4-week-guide",
       "social-media-detox-7day",
@@ -664,7 +664,7 @@ export const bundles: Bundle[] = [
     name: "Money & Career Bundle",
     tagline: "Gestisci soldi, carriera e business da subito",
     description:
-      "Calcolatore tariffa freelance, tracker finanze mensili, tracker ricerca lavoro remoto, guida ai primi €100 online e checklist lancio prodotto digitale.",
+      "Freelance rate calculator, monthly finance tracker, remote job search tracker, the first $100 online guide, and a digital product launch checklist.",
     templateIds: [
       "freelance-rate-calculator",
       "monthly-business-finance-tracker",
@@ -689,7 +689,7 @@ export const bundles: Bundle[] = [
     name: "Life Admin Bundle",
     tagline: "Tieni tutto sotto controllo senza stress",
     description:
-      "Planner budget primo appartamento, tracker budget matrimonio e registro cure veterinarie pet. I tre tracker essenziali per le grandi tappe della vita.",
+      "First apartment budget planner, wedding budget tracker, and pet care & vet record. The three essential trackers for life's big milestones.",
     templateIds: [
       "first-apartment-budget-planner",
       "wedding-budget-tracker",

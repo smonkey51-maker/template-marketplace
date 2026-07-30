@@ -1,6 +1,8 @@
 import { ImageResponse } from "next/og";
 import { NextRequest } from "next/server";
 import { getTemplate } from "@/lib/templates";
+import { getLocalizedName, getLocalizedDesc } from "@/lib/i18n";
+import { toLocale } from "@/lib/locales";
 
 export const runtime = "edge";
 
@@ -8,6 +10,10 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const templateId = searchParams.get("id");
   const template = templateId ? getTemplate(templateId) : null;
+  // Callers that omit ?lang get Italian, matching the site default; the pages
+  // that embed this image pass their own locale so the card matches the page
+  // that was shared.
+  const lang = toLocale(searchParams.get("lang"));
 
   if (template) {
     const categoryLabel =
@@ -94,7 +100,7 @@ export async function GET(req: NextRequest) {
             maxWidth: "900px",
           }}
         >
-          {template.name}
+          {getLocalizedName(template, lang)}
         </div>
 
         {/* Description */}
@@ -107,7 +113,7 @@ export async function GET(req: NextRequest) {
             marginBottom: "48px",
           }}
         >
-          {template.description}
+          {getLocalizedDesc(template, lang)}
         </div>
 
         {/* Bottom row */}

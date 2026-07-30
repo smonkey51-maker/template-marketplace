@@ -7,7 +7,7 @@ import { useUser } from "@clerk/nextjs";
 import { getTemplate, getBundle, getDownloadType } from "@/lib/templates";
 import DownloadButton from "@/components/DownloadButton";
 import { useLang } from "@/components/LanguageProvider";
-import { t } from "@/lib/i18n";
+import { t, getLocalizedName } from "@/lib/i18n";
 
 const CONFETTI_COLORS = [
   "#C8A96E",
@@ -120,7 +120,7 @@ function SuccessContent() {
         </h1>
         <p className="text-[14px] text-muted mb-1">
           {lang === "it" ? "Hai sbloccato il" : "You've unlocked the"}{" "}
-          <span className="font-semibold text-theme">{bundle.name}</span>
+          <span className="font-semibold text-theme">{getLocalizedName(bundle, lang)}</span>
         </p>
         <p className="text-[12px] text-muted mb-6">
           {lang === "it"
@@ -207,7 +207,7 @@ function SuccessContent() {
           {template && (
             <p className="text-[15px] text-muted mb-2">
               {t[lang].success.templatePurchased}{" "}
-              <span className="text-theme font-semibold">{template.name}</span>
+              <span className="text-theme font-semibold">{getLocalizedName(template, lang)}</span>
             </p>
           )}
           <p className="text-[13px] text-muted mb-6">{t[lang].success.subtitleTemplate}</p>

@@ -7,6 +7,7 @@ import { useLang } from "@/components/LanguageProvider";
 import { copy } from "@/lib/formaCopy";
 import { FormaFooter } from "@/components/FormaFooter";
 import { templatesMeta, formatPrice, type TemplateMeta } from "@/lib/templates";
+import { getLocalizedName, getLocalizedDesc, templateTranslations } from "@/lib/i18n";
 import { TemplateThumb } from "@/components/TemplateThumb";
 import gsap from "gsap";
 
@@ -99,7 +100,15 @@ function matchesStars(x: TemplateMeta, key: StarsKey, ratings: Ratings) {
 }
 function matchesQuery(x: TemplateMeta, needle: string) {
   if (!needle) return true;
-  return `${x.name} ${x.description} ${x.tags.join(" ")}`.toLowerCase().includes(needle);
+  // Both languages are searched regardless of the current locale. The tags are
+  // English-only, so an Italian visitor typing "matrimonio" would otherwise
+  // miss the wedding tracker whose card in front of them says "Matrimonio",
+  // and an English visitor searching a product they were linked to in Italian
+  // would miss it too. Matching the union costs one string concat and makes
+  // the search agree with whatever the visitor can actually see.
+  const tr = templateTranslations[x.id];
+  const haystack = `${x.name} ${x.description} ${x.tags.join(" ")} ${tr?.name ?? ""} ${tr?.description ?? ""}`;
+  return haystack.toLowerCase().includes(needle);
 }
 
 /**
@@ -444,7 +453,11 @@ export default function CatalogoPage() {
                         flexShrink: 0,
                       }}
                     >
-                      <TemplateThumb id={item.id} name={item.name} priority={idx < 3} />
+                      <TemplateThumb
+                        id={item.id}
+                        name={getLocalizedName(item, lang)}
+                        priority={idx < 3}
+                      />
                     </div>
 
                     <div
@@ -487,7 +500,7 @@ export default function CatalogoPage() {
                           lineHeight: 1.2,
                         }}
                       >
-                        {item.name}
+                        {getLocalizedName(item, lang)}
                       </h3>
                       <p
                         style={{
@@ -497,7 +510,7 @@ export default function CatalogoPage() {
                           margin: "0 0 16px",
                         }}
                       >
-                        {item.description}
+                        {getLocalizedDesc(item, lang)}
                       </p>
 
                       <div className="fn-meta" style={{ marginTop: "auto" }}>
@@ -593,7 +606,12 @@ export default function CatalogoPage() {
                   read. The thumbnail is cropped to the template's own bounds and
                   stays legible. "Anteprima" below opens the live one. */}
               <div className="fn-sheet-shot">
-                <TemplateThumb id={activeItem.id} name={activeItem.name} priority height={340} />
+                <TemplateThumb
+                  id={activeItem.id}
+                  name={getLocalizedName(activeItem, lang)}
+                  priority
+                  height={340}
+                />
               </div>
 
               <div className="p-8 sm:p-12">
@@ -618,7 +636,7 @@ export default function CatalogoPage() {
                     marginBottom: 16,
                   }}
                 >
-                  {activeItem.name}
+                  {getLocalizedName(activeItem, lang)}
                 </h2>
 
                 <p
@@ -630,7 +648,7 @@ export default function CatalogoPage() {
                     maxWidth: "600px",
                   }}
                 >
-                  {activeItem.description}
+                  {getLocalizedDesc(activeItem, lang)}
                 </p>
 
                 <div className="flex items-center gap-6 pt-6 border-t border-theme">
