@@ -8,8 +8,8 @@ import { copy } from "@/lib/formaCopy";
 import { FormaFooter } from "@/components/FormaFooter";
 import { templatesMeta, formatPrice, type TemplateMeta } from "@/lib/templates";
 import { TemplatePreview } from "@/components/TemplatePreview";
+import { TemplateThumb } from "@/components/TemplateThumb";
 import { motion, AnimatePresence } from "framer-motion";
-import { TiltCard } from "@/components/TiltCard";
 
 function getPlatformLabel(t: TemplateMeta): string {
   const dt = t.downloadType ?? "html";
@@ -110,21 +110,29 @@ export default function CatalogoPage() {
               </div>
             ) : (
               <div className="fn-grid">
-                {filtered.map((item) => (
-                  <TiltCard
+                {filtered.map((item, idx) => (
+                  // A plain article, not the old TiltCard. That gave every card a
+                  // mousemove handler, two spring systems, and `perspective` +
+                  // `transformStyle: preserve-3d` — which forces a 3D rendering
+                  // context, and therefore its own compositor layer, per card.
+                  // Sixteen of those is most of what made this page heavy.
+                  // Hover is CSS now, via .fn-card in globals.css.
+                  //
+                  // The `card-container` layoutId is gone with it: nothing in the
+                  // modal ever matched that id, so it bought no transition while
+                  // still making all sixteen cards layout-animated components.
+                  <article
                     className={`fn-card cursor-pointer${item.editorsPick ? " fn-card--wide" : ""}`}
                     key={item.id}
-                    layoutId={`card-container-${item.id}`}
                     onClick={() => setActiveId(item.id)}
-                    whileTap={{ scale: 0.99 }}
-                    transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                    active={activeId === item.id}
                   >
                     <motion.div
                       layoutId={`card-preview-${item.id}`}
                       style={{ borderRadius: "12px", overflow: "hidden", marginBottom: "16px" }}
                     >
-                      <TemplatePreview id={item.id} />
+                      {/* The first row is what a visitor sees before scrolling, so
+                          those load eagerly; the rest stay lazy. */}
+                      <TemplateThumb id={item.id} name={item.name} priority={idx < 3} />
                     </motion.div>
                     <div className="fn-body">
                       <div
@@ -208,7 +216,7 @@ export default function CatalogoPage() {
                         </button>
                       </div>
                     </div>
-                  </TiltCard>
+                  </article>
                 ))}
               </div>
             )}

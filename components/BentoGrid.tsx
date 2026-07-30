@@ -100,11 +100,12 @@ export function BentoCell({
 export interface BentoGridProps {
   children: ReactNode;
   className?: string;
+  style?: CSSProperties;
   /** Labels the grid for assistive tech when it acts as a navigation hub. */
   ariaLabel?: string;
 }
 
-export function BentoGrid({ children, className = "", ariaLabel }: BentoGridProps) {
+export function BentoGrid({ children, className = "", style, ariaLabel }: BentoGridProps) {
   // A <nav> when it is labelled, a plain div otherwise. An aria-label on a
   // generic div with no role is dropped on the floor by screen readers, so
   // labelling one would have looked accessible while doing nothing — and a hub
@@ -112,13 +113,17 @@ export function BentoGrid({ children, className = "", ariaLabel }: BentoGridProp
   // regardless.
   if (ariaLabel) {
     return (
-      <nav className={`bento-grid ${className}`} aria-label={ariaLabel}>
+      <nav className={`bento-grid ${className}`} style={style} aria-label={ariaLabel}>
         {children}
       </nav>
     );
   }
 
-  return <div className={`bento-grid ${className}`}>{children}</div>;
+  return (
+    <div className={`bento-grid ${className}`} style={style}>
+      {children}
+    </div>
+  );
 }
 
 /**
@@ -133,5 +138,44 @@ export function BentoEyebrow({ children }: { children: ReactNode }) {
     <span className="text-[11px] font-black uppercase tracking-[0.18em] text-accent">
       {children}
     </span>
+  );
+}
+
+/**
+ * A group of smaller boxes nested inside one cell.
+ *
+ * This is what keeps the grid from reading as noise. Eight same-looking cells
+ * of different sizes give the eye no grouping to work with — every tile competes
+ * equally for attention. Putting related destinations inside one labelled cell
+ * says "these two belong together" structurally, so the top level of the grid
+ * stays down to a handful of zones instead of a wall of peers.
+ */
+export function BentoSubGrid({ children }: { children: ReactNode }) {
+  return <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mt-3">{children}</div>;
+}
+
+export interface BentoSubBoxProps {
+  children: ReactNode;
+  href: string;
+  label?: string;
+}
+
+/** One box inside a BentoSubGrid. Lighter than a cell — it sits on one. */
+export function BentoSubBox({ children, href, label }: BentoSubBoxProps) {
+  return (
+    <Link
+      href={href}
+      aria-label={label}
+      // A nested surface needs its own rim to be findable against the cell it
+      // sits on, but a second backdrop-filter here would stack blurs for no
+      // visual gain and cost a compositor layer per box — so fill and rim only.
+      className="r-md flex flex-col justify-end p-4 min-h-[104px] border transition-colors duration-200"
+      style={{
+        background: "var(--glass-s-fill)",
+        borderColor: "var(--glass-s-rim)",
+      }}
+    >
+      {children}
+    </Link>
   );
 }

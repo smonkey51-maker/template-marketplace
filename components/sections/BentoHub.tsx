@@ -1,28 +1,48 @@
 "use client";
 
 import Link from "next/link";
-import { BentoGrid, BentoCell, BentoEyebrow } from "@/components/BentoGrid";
+import {
+  BentoGrid,
+  BentoCell,
+  BentoEyebrow,
+  BentoSubGrid,
+  BentoSubBox,
+} from "@/components/BentoGrid";
 import { FormaLogoAnimated } from "@/components/FormaLogo";
 import { useLang } from "@/components/LanguageProvider";
 import { copy } from "@/lib/formaCopy";
 
 /**
- * The homepage as a bento hub: every destination on one screen, sized by
- * importance rather than stacked in five full-viewport sections.
+ * The homepage as a bento hub — four zones, not eight peers.
  *
- * On desktop the eight cells tile a 4-track grid exactly, with the hero two
- * tracks wide and two rows tall:
+ * On desktop the cells tile a 4-track grid exactly:
  *
  *   ┌────────┬─────────────────┬────────┐
- *   │ logo   │      hero       │ catal. │
- *   ├────────┤                 ├────────┤
- *   │ links  │                 │ guida  │
- *   ├────────┴────────┬────────┼────────┤
- *   │     studio      │ accnt  │ wish   │
- *   └─────────────────┴────────┴────────┘
+ *   │ brand  │      HERO       │ catal. │
+ *   ├────────┤     (2 × 2)     ├────────┤
+ *   │ studio │                 │ guida  │
+ *   ├────────┴─────────────────┴────────┤
+ *   │       area personale (4 wide)     │
+ *   │        ┌────────┐ ┌────────┐      │
+ *   │        │ account│ │ salvati│      │
+ *   │        └────────┘ └────────┘      │
+ *   └───────────────────────────────────┘
  *
- * The cell order below is the order auto-placement needs to produce that —
- * reordering the JSX reflows the whole grid, so keep the diagram in sync.
+ * Row 1 is 1+2+1, row 2 is 1+(hero)+1, row 3 is 4. The cell order below is what
+ * auto-placement needs to produce that, so reordering the JSX reflows the whole
+ * grid — keep the diagram in sync.
+ *
+ * Two things changed after the first version read as confusing.
+ *
+ * The eight cells were all top-level peers, so nothing told the eye what
+ * belonged with what. Now the two discovery destinations stack on the right,
+ * the tool sits under the brand on the left, and the personal-area pair is
+ * grouped inside a single labelled cell as sub-boxes.
+ *
+ * And a whole cell of quick links is gone: it repeated Catalogo / Guida /
+ * Studio / Account, which the fixed header already lists three centimetres
+ * above it. The same four words twice on one screen is most of what made the
+ * layout feel noisy.
  */
 
 /** A painting used as a cell background, with the overlay that keeps text legible. */
@@ -50,19 +70,18 @@ export default function BentoHub() {
   const { lang } = useLang();
   const t = copy[lang];
 
-  const quickLinks = [
-    { href: "/catalogo", label: t.catalogo },
-    { href: "/guida", label: t.guida },
-    { href: "/ai-studio", label: t.studioAi },
-    { href: "/account", label: t.account },
-  ];
+  const savedLabel = lang === "it" ? "Salvati" : "Saved";
 
   return (
     <BentoGrid
-      className="mx-auto w-full max-w-[1400px] px-3 sm:px-4 lg:px-6 py-4 sm:py-6"
+      // The top padding clears the fixed 56px header. Without it the first cell
+      // slid underneath, and the wordmark inside it collided with the header's
+      // own logo — two FORMA marks stacked in the same corner.
+      className="mx-auto w-full max-w-[1400px] px-3 sm:px-4 lg:px-6 pb-4 sm:pb-6"
+      style={{ paddingTop: "calc(56px + env(safe-area-inset-top, 0px) + 16px)" }}
       ariaLabel={lang === "it" ? "Sezioni del sito" : "Site sections"}
     >
-      {/* ── Wordmark ───────────────────────────────────────────────────── */}
+      {/* ── Brand ──────────────────────────────────────────────────────── */}
       <BentoCell delay={0} className="justify-between p-5">
         <FormaLogoAnimated className="w-full h-auto max-w-[150px]" />
         <div>
@@ -100,7 +119,7 @@ export default function BentoHub() {
         </div>
       </BentoCell>
 
-      {/* ── Catalogo ───────────────────────────────────────────────────── */}
+      {/* ── Discover, right column: catalogue above guide ───────────────── */}
       <BentoCell href="/catalogo" label={t.catalogo} delay={120} className="justify-end p-5 sm:p-6">
         <CellPainting src="/paintings/seurat.jpg" />
         <div className="relative">
@@ -109,20 +128,16 @@ export default function BentoHub() {
         </div>
       </BentoCell>
 
-      {/* ── Quick links ────────────────────────────────────────────────── */}
-      <BentoCell delay={180} className="justify-center p-5 gap-1">
-        {quickLinks.map((l) => (
-          <Link
-            key={l.href}
-            href={l.href}
-            className="r-sm -mx-1 px-1 py-0.5 text-[17px] font-bold text-theme hover:text-accent transition-colors duration-200"
-          >
-            {l.label}.
-          </Link>
-        ))}
+      {/* ── Studio — under the brand, left column ───────────────────────── */}
+      <BentoCell href="/ai-studio" label={t.aiTitle} delay={180} className="justify-end p-5">
+        <CellPainting src="/paintings/kandinsky.jpg" />
+        <div className="relative">
+          <BentoEyebrow>{t.aiTitle}</BentoEyebrow>
+          <p className="text-[19px] font-black text-white leading-tight mt-1.5">{t.studioTitle}</p>
+        </div>
       </BentoCell>
 
-      {/* ── Guida ──────────────────────────────────────────────────────── */}
+      {/* ── Guide ──────────────────────────────────────────────────────── */}
       <BentoCell href="/guida" label={t.guida} delay={240} className="justify-end p-5 sm:p-6">
         <CellPainting src="/paintings/monet.jpg" />
         <div className="relative">
@@ -133,46 +148,23 @@ export default function BentoHub() {
         </div>
       </BentoCell>
 
-      {/* ── Studio ─────────────────────────────────────────────────────── */}
-      <BentoCell
-        href="/ai-studio"
-        label={t.aiTitle}
-        cols={2}
-        colsMd={2}
-        delay={300}
-        className="justify-end p-6 sm:p-8"
-      >
-        <CellPainting src="/paintings/kandinsky.jpg" />
-        <div className="relative">
-          <BentoEyebrow>{t.aiTitle}</BentoEyebrow>
-          <p
-            className="font-black text-white leading-[0.95] tracking-tight mt-2"
-            style={{ fontSize: "clamp(1.7rem, 3.2vw, 2.6rem)" }}
-          >
-            {t.studioTitle}
-          </p>
-          <p className="text-[14px] text-white/70 max-w-sm mt-2 leading-relaxed">{t.aiSub}</p>
-        </div>
-      </BentoCell>
-
-      {/* ── Account ────────────────────────────────────────────────────── */}
-      <BentoCell href="/account" label={t.accountTitle} delay={360} className="justify-end p-5">
-        <BentoEyebrow>{t.account}</BentoEyebrow>
-        <p className="text-[17px] font-black text-theme leading-tight mt-1.5">{t.accountTitle}</p>
-        <p className="text-[13px] text-muted mt-1 leading-snug">{t.accountSub}</p>
-      </BentoCell>
-
-      {/* ── Wishlist ───────────────────────────────────────────────────── */}
-      <BentoCell
-        href="/wishlist"
-        label={lang === "it" ? "Salvati" : "Saved"}
-        delay={420}
-        className="justify-end p-5"
-      >
-        <BentoEyebrow>{lang === "it" ? "Salvati" : "Saved"}</BentoEyebrow>
-        <p className="text-[17px] font-black text-theme leading-tight mt-1.5">
-          {lang === "it" ? "I tuoi preferiti" : "Your favourites"}
-        </p>
+      {/* ── Personal area — one cell, two sub-boxes ─────────────────────── */}
+      <BentoCell cols={4} colsMd={2} delay={300} className="justify-center p-5 sm:p-6">
+        <BentoEyebrow>{lang === "it" ? "Area personale" : "Your area"}</BentoEyebrow>
+        <BentoSubGrid>
+          <BentoSubBox href="/account" label={t.accountTitle}>
+            <p className="text-[16px] font-black text-theme leading-tight">{t.accountTitle}</p>
+            <p className="text-[12px] text-muted mt-1 leading-snug">{t.accountSub}</p>
+          </BentoSubBox>
+          <BentoSubBox href="/wishlist" label={savedLabel}>
+            <p className="text-[16px] font-black text-theme leading-tight">{savedLabel}</p>
+            <p className="text-[12px] text-muted mt-1 leading-snug">
+              {lang === "it"
+                ? "I template che hai messo da parte."
+                : "The templates you set aside."}
+            </p>
+          </BentoSubBox>
+        </BentoSubGrid>
       </BentoCell>
     </BentoGrid>
   );
