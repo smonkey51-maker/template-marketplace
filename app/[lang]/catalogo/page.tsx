@@ -61,7 +61,9 @@ export default function CatalogoPage() {
     <>
       <motion.div
         className="fn-bg"
+        initial={{ opacity: 1 }}
         animate={{
+          opacity: 1,
           scale: activeId ? 0.985 : 1,
           filter: activeId ? "brightness(0.88)" : "brightness(1)",
         }}
@@ -111,16 +113,6 @@ export default function CatalogoPage() {
             ) : (
               <div className="fn-grid">
                 {filtered.map((item, idx) => (
-                  // A plain article, not the old TiltCard. That gave every card a
-                  // mousemove handler, two spring systems, and `perspective` +
-                  // `transformStyle: preserve-3d` — which forces a 3D rendering
-                  // context, and therefore its own compositor layer, per card.
-                  // Sixteen of those is most of what made this page heavy.
-                  // Hover is CSS now, via .fn-card in globals.css.
-                  //
-                  // The `card-container` layoutId is gone with it: nothing in the
-                  // modal ever matched that id, so it bought no transition while
-                  // still making all sixteen cards layout-animated components.
                   <article
                     className={`fn-card cursor-pointer${item.editorsPick ? " fn-card--wide" : ""}`}
                     key={item.id}
@@ -228,26 +220,30 @@ export default function CatalogoPage() {
       {/* iOS App-like Modal Overlay */}
       <AnimatePresence>
         {activeId && activeItem && (
-          <div className="fixed inset-0 z-[100] flex items-end justify-center pointer-events-none sm:p-4">
-            {/* Overlay invisibile per cliccare fuori e chiudere */}
-            <motion.div
+          <motion.div
+            key="modal-wrapper"
+            className="fixed inset-0 z-[100] flex items-end justify-center pointer-events-none sm:p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {/* Overlay invisibile per cliccare fuori e chiudere (ora un div standard) */}
+            <div
               className="absolute inset-0 pointer-events-auto bg-black/40 backdrop-blur-sm"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
               onClick={() => setActiveId(null)}
             />
 
             <motion.div
-              className="relative w-full max-w-[1000px] glass-panel flex flex-col pointer-events-auto"
+              className="relative w-full max-w-[1000px] glass-panel flex flex-col pointer-events-auto z-10"
               style={{
                 height: "92vh",
                 borderRadius: "var(--glass-radius) var(--glass-radius) 0 0",
                 overflow: "hidden",
               }}
-              initial={{ y: 24, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 24, opacity: 0 }}
+              initial={{ y: 24 }}
+              animate={{ y: 0 }}
+              exit={{ y: 24 }}
               transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
             >
               {/* Bottone Chiudi */}
@@ -284,7 +280,7 @@ export default function CatalogoPage() {
                   <TemplatePreview id={activeItem.id} interactive={true} />
                 </motion.div>
 
-                <motion.div className="p-8 sm:p-12">
+                <div className="p-8 sm:p-12">
                   <div className="flex gap-2 items-center flex-wrap mb-4">
                     <span className="fn-badge bg-black/20">{getPlatformLabel(activeItem)}</span>
                     {activeItem.editorsPick && (
@@ -347,10 +343,10 @@ export default function CatalogoPage() {
                       </Link>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               </div>
             </motion.div>
-          </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </>
