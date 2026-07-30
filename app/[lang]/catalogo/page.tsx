@@ -112,7 +112,7 @@ export default function CatalogoPage() {
               <div className="fn-grid">
                 {filtered.map((item) => (
                   <TiltCard
-                    className="fn-card cursor-pointer"
+                    className={`fn-card cursor-pointer${item.editorsPick ? " fn-card--wide" : ""}`}
                     key={item.id}
                     layoutId={`card-container-${item.id}`}
                     onClick={() => setActiveId(item.id)}
