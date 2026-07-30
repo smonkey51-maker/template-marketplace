@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { UIStyle, Tone } from "@/types/studio";
 
 const SECTORS = [
@@ -33,6 +34,124 @@ type GeneratePanelProps = {
   lang: string;
 };
 
+/**
+ * The Studio Access paywall.
+ *
+ * Split out of GeneratePanel so it can hold state: the two buttons used to
+ * read `data.url` and, when the response carried an error instead, do nothing
+ * at all — the click landed, the request failed, and the page sat there. That
+ * is the worst possible failure on a purchase button, because it looks like
+ * the button is broken rather than like something went wrong. It now shows
+ * whatever the checkout route said, the same way BuyButton does.
+ */
+function StudioAccessGate({ lang }: { lang: string }) {
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState<"sub" | "lifetime" | null>(null);
+
+  async function startCheckout(templateId: string, which: "sub" | "lifetime") {
+    setLoading(which);
+    setError("");
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ templateId }),
+      });
+      const data = await res.json();
+      if (data.requireAuth) {
+        window.location.href = "/sign-in?redirect_url=/studio";
+        return;
+      }
+      if (data.url) {
+        window.location.href = data.url;
+        return;
+      }
+      setError(
+        data.error ??
+          (lang === "it"
+            ? "Non è stato possibile avviare il pagamento. Riprova più tardi."
+            : "We could not start the payment. Please try again later."),
+      );
+    } catch {
+      setError(
+        lang === "it"
+          ? "Connessione non riuscita. Controlla la rete e riprova."
+          : "Connection failed. Check your network and try again.",
+      );
+    }
+    setLoading(null);
+  }
+
+  return (
+    <div className="r-glass bg-surface border border-theme p-8 text-center flex flex-col items-center gap-4">
+      <div className="w-14 h-14 bg-accent/10 flex items-center justify-center r-md">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden>
+          <rect
+            x="4"
+            y="11"
+            width="18"
+            height="13"
+            rx="3"
+            stroke="var(--accent)"
+            strokeWidth="1.8"
+          />
+          <path
+            d="M8 11V8a5 5 0 0110 0v3"
+            stroke="var(--accent)"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+          />
+        </svg>
+      </div>
+      <h3 className="font-semibold text-theme text-[17px]">
+        {lang === "it" ? "Studio Access richiesto" : "Studio Access required"}
+      </h3>
+      <p className="text-[15px] text-muted">
+        {lang === "it"
+          ? "Acquista Studio Access per generare template illimitati con l'AI."
+          : "Get Studio Access to generate unlimited templates with AI."}
+      </p>
+      <button
+        onClick={() => startCheckout("studio-access", "sub")}
+        disabled={loading !== null}
+        className="btn-brand text-[15px]"
+        style={{ padding: "12px 24px" }}
+      >
+        {loading === "sub"
+          ? lang === "it"
+            ? "Reindirizzamento…"
+            : "Redirecting…"
+          : lang === "it"
+            ? "€9,99/mese — Abbonati →"
+            : "€9.99/mo — Subscribe →"}
+      </button>
+      {process.env.NEXT_PUBLIC_STUDIO_LIFETIME_AVAILABLE === "true" && (
+        <>
+          <span className="text-[12px] text-muted">— {lang === "it" ? "oppure" : "or"} —</span>
+          <button
+            onClick={() => startCheckout("studio-access-lifetime", "lifetime")}
+            disabled={loading !== null}
+            className="r-pill px-6 py-2.5 glass-subtle border border-theme font-semibold text-[14px] text-theme transition-all duration-200 active:scale-[0.97] ios-spring"
+          >
+            {loading === "lifetime"
+              ? lang === "it"
+                ? "Reindirizzamento…"
+                : "Redirecting…"
+              : lang === "it"
+                ? "✦ Lifetime — €49 una volta sola"
+                : "✦ Lifetime — €49 one-time"}
+          </button>
+        </>
+      )}
+      {error && (
+        <p role="alert" style={{ color: "#c97a52", fontSize: 13, marginTop: 4 }}>
+          {error}
+        </p>
+      )}
+    </div>
+  );
+}
+
 export default function GeneratePanel({
   genCategory,
   setGenCategory,
@@ -50,79 +169,7 @@ export default function GeneratePanel({
   lang,
 }: GeneratePanelProps) {
   if (!hasStudioAccess) {
-    return (
-      <div className="r-glass bg-surface border border-theme p-8 text-center flex flex-col items-center gap-4">
-        <div className="w-14 h-14 bg-accent/10 flex items-center justify-center">
-          <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden>
-            <rect
-              x="4"
-              y="11"
-              width="18"
-              height="13"
-              rx="3"
-              stroke="var(--accent)"
-              strokeWidth="1.8"
-            />
-            <path
-              d="M8 11V8a5 5 0 0110 0v3"
-              stroke="var(--accent)"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-            />
-          </svg>
-        </div>
-        <h3 className="font-semibold text-theme text-[17px]">
-          {lang === "it" ? "Studio Access richiesto" : "Studio Access required"}
-        </h3>
-        <p className="text-[15px] text-muted">
-          {lang === "it"
-            ? "Acquista Studio Access per generare template illimitati con l'AI."
-            : "Get Studio Access to generate unlimited templates with AI."}
-        </p>
-        <button
-          onClick={async () => {
-            const res = await fetch("/api/checkout", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ templateId: "studio-access" }),
-            });
-            const data = await res.json();
-            if (data.requireAuth) {
-              window.location.href = "/sign-in?redirect_url=/studio";
-              return;
-            }
-            if (data.url) window.location.href = data.url;
-          }}
-          className="btn-brand text-[15px]"
-          style={{ padding: "12px 24px" }}
-        >
-          {lang === "it" ? "€9.99/mese — Abbonati →" : "€9.99/mo — Subscribe →"}
-        </button>
-        {process.env.NEXT_PUBLIC_STUDIO_LIFETIME_AVAILABLE === "true" && (
-          <>
-            <span className="text-[12px] text-muted">— {lang === "it" ? "oppure" : "or"} —</span>
-            <button
-              onClick={async () => {
-                const res = await fetch("/api/checkout", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({ templateId: "studio-access-lifetime" }),
-                });
-                const data = await res.json();
-                if (data.requireAuth) {
-                  window.location.href = "/sign-in?redirect_url=/studio";
-                  return;
-                }
-                if (data.url) window.location.href = data.url;
-              }}
-              className="r-pill px-6 py-2.5 glass-subtle border border-theme font-semibold text-[14px] text-theme transition-all duration-200 active:scale-[0.97] ios-spring"
-            >
-              {lang === "it" ? "✦ Lifetime — €49 una volta sola" : "✦ Lifetime — €49 one-time"}
-            </button>
-          </>
-        )}
-      </div>
-    );
+    return <StudioAccessGate lang={lang} />;
   }
 
   return (

@@ -114,7 +114,19 @@ export async function POST(req: NextRequest) {
         ? process.env.STUDIO_ACCESS_LIFETIME_PRICE_ID
         : process.env.STUDIO_ACCESS_PRICE_ID;
     if (!priceId) {
-      return NextResponse.json({ error: "Price not configured" }, { status: 404 });
+      // Names the missing variable, because "Price not configured" told whoever
+      // read the logs nothing about which of the two to set. The buyer gets the
+      // same wording as a placeholder price ID: it is the same situation from
+      // their side — the product exists but cannot be sold yet.
+      const missingVar =
+        templateId === "studio-access-lifetime"
+          ? "STUDIO_ACCESS_LIFETIME_PRICE_ID"
+          : "STUDIO_ACCESS_PRICE_ID";
+      console.error(`[checkout] ${missingVar} is not set; cannot sell ${templateId}`);
+      return NextResponse.json(
+        { error: "Questo articolo non è ancora acquistabile. Riprova più tardi." },
+        { status: 503 },
+      );
     }
     const isSubscription = templateId === "studio-access";
     return createSession(stripe, {
