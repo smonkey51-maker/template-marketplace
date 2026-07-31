@@ -261,10 +261,10 @@ function StudioContent() {
 
       {limitError && (
         <div className="max-w-7xl mx-auto w-full px-6 pt-6">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 px-4 py-3 bg-terra/10 border border-terra/30 text-[13px]">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 px-4 py-3 bg-terra/10 border border-terra/30 text-[13px] r-md">
             <span className="text-terra flex-1">{limitError}</span>
             <a
-              href={`/${lang}/bundle/studio-access`}
+              href={`/${lang}/ai-studio`}
               className="shrink-0 px-3 py-1.5 bg-accent text-white text-[12px] font-semibold uppercase tracking-wide hover:bg-accent/90 transition-colors"
             >
               Upgrade to Studio
