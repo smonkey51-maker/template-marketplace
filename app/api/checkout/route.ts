@@ -19,6 +19,25 @@ function isPlaceholderPrice(priceId: string): boolean {
 }
 
 /**
+ * Studio Access, €9.99/month — the live recurring Price in this project's
+ * Stripe account, verified active on an active product.
+ *
+ * A default rather than an env-only lookup because the deployment had no
+ * STUDIO_ACCESS_PRICE_ID set and the subscription was therefore unsellable,
+ * while the price itself had existed the whole time. Every other price on the
+ * site is committed to lib/templates.ts; this one being the lone exception is
+ * what let it drift out of sync with reality unnoticed.
+ *
+ * A Stripe price ID is not a secret. It is not a credential, grants nothing on
+ * its own, and Stripe's own client-side integrations put it in the browser.
+ * The twenty template prices sit in lib/templates.ts for the same reason.
+ *
+ * STUDIO_ACCESS_PRICE_ID still wins when set, so a different account — staging,
+ * a test key, a future price change — needs no code change.
+ */
+const STUDIO_ACCESS_MONTHLY_PRICE_ID = "price_1TBsiXBN003f1FovSn41HKlj";
+
+/**
  * Stripe throws on any rejected request — an unhandled one leaves the route
  * returning a bare 500 with nothing in it, which is what the buyer saw. Log the
  * real reason and answer with something the UI can show.
@@ -112,17 +131,21 @@ export async function POST(req: NextRequest) {
     const priceId =
       templateId === "studio-access-lifetime"
         ? process.env.STUDIO_ACCESS_LIFETIME_PRICE_ID
-        : process.env.STUDIO_ACCESS_PRICE_ID;
+        : (process.env.STUDIO_ACCESS_PRICE_ID ?? STUDIO_ACCESS_MONTHLY_PRICE_ID);
     if (!priceId) {
-      // Names the missing variable, because "Price not configured" told whoever
-      // read the logs nothing about which of the two to set. The buyer gets the
-      // same wording as a placeholder price ID: it is the same situation from
-      // their side — the product exists but cannot be sold yet.
-      const missingVar =
-        templateId === "studio-access-lifetime"
-          ? "STUDIO_ACCESS_LIFETIME_PRICE_ID"
-          : "STUDIO_ACCESS_PRICE_ID";
-      console.error(`[checkout] ${missingVar} is not set; cannot sell ${templateId}`);
+      // Only reachable for the lifetime option now that the monthly price has a
+      // default — and only when NEXT_PUBLIC_STUDIO_LIFETIME_AVAILABLE is on,
+      // since the button is hidden otherwise. No lifetime Price exists in the
+      // account, so this stays a real path: turning the flag on without minting
+      // one has to fail legibly rather than throw.
+      //
+      // Names the variable, because "Price not configured" told whoever read
+      // the logs nothing. The buyer gets the same wording as a placeholder
+      // price ID: from their side it is the same situation — the product exists
+      // but cannot be sold yet.
+      console.error(
+        `[checkout] STUDIO_ACCESS_LIFETIME_PRICE_ID is not set; cannot sell ${templateId}`,
+      );
       return NextResponse.json(
         { error: "Questo articolo non è ancora acquistabile. Riprova più tardi." },
         { status: 503 },
