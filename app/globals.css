@@ -2,6 +2,238 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ═══════════════════════════════════════════════════════════
+   FORMA homepage sections
+   ═══════════════════════════════════════════════════════════ */
+
+/* One viewport tall as a floor, not a ceiling: `height` clipped any section
+   whose content did not fit — on short viewports, and whenever a translation
+   ran longer than the Italian original. Sections stack in normal document
+   flow and the page scrolls at 1:1. */
+.forma-section {
+  min-height: 100svh;
+  position: relative;
+}
+
+@supports not (height: 100svh) {
+  .forma-section {
+    min-height: 100vh;
+  }
+}
+
+/* Prevent horizontal scroll from out-of-box elements */
+body {
+  overflow-x: hidden;
+}
+
+/* ── Catalogo: card lifts off the painting on hover ── */
+.catalogo-card {
+  transition: transform var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+.catalogo-card > div {
+  transition:
+    box-shadow var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    background var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+@media (hover: hover) {
+  .catalogo-card {
+    perspective: 1400px;
+  }
+  .catalogo-card:hover > div {
+    /* Raised: shadow travels further and softens, rim light brightens */
+    box-shadow:
+      var(--glass-cast-2),
+      inset 0 2px 3px -1px rgba(255, 255, 255, 0.4);
+    border-color: rgba(212, 175, 55, 0.6);
+    transform: rotateX(4deg) rotateY(-4deg) translateY(-8px) scale(1.02);
+  }
+}
+.catalogo-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: var(--r-md, 16px);
+}
+
+/* ── Spatial glass: shared surface for panels sitting on artwork ──
+   A pane of glass, not a tinted box: the rim catches light along the
+   top edge, and the cast shadow below sells the gap to the painting. */
+.forma-glass-card {
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-rim);
+  border-top-color: rgba(255, 255, 255, 0.15); /* Specular highlight */
+  border-radius: var(--r-md, 16px);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow:
+    var(--glass-cast-1),
+    inset 0 2px 2px -1px rgba(255, 255, 255, 0.15),
+    /* Inner liquid edge */ inset 0 1px 0 var(--glass-rim);
+  transition:
+    background 0.5s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color 0.5s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    box-shadow 0.5s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform 0.5s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+@media (hover: hover) {
+  .forma-glass-card:hover {
+    background: var(--glass-fill-hi);
+    border-color: var(--glass-rim-hi);
+    box-shadow:
+      var(--glass-cast-2),
+      inset 0 1px 0 var(--glass-rim-hi);
+    transform: translateY(-4px);
+  }
+}
+
+/* ── Hero: floating mockup cards passive hover parallax ── */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .hero-mockcard {
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+}
+
+/* ── Snap section entrance CSS animations ─────────────────────── */
+/* Motion language: slow ease-out-expo with a subtle scale + blur settle,
+   so content "resolves into focus" instead of sliding in abruptly. */
+
+/* anim-bg: painting fades in while easing down from a slight over-scale */
+.anim-bg {
+  opacity: 0;
+  transform: scale(1.045);
+  transition:
+    opacity 1.3s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)) var(--delay, 0s),
+    transform 1.9s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)) var(--delay, 0s);
+  will-change: opacity, transform;
+}
+.forma-section[data-entered] .anim-bg {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ── Parallax: the painting sits further away than the content ──
+   Only the image layer moves, never the dark overlay above it.
+   Uses the independent `translate` property so it composes with the
+   entrance animation's `transform: scale()` instead of clobbering it.
+   The layer is overscanned top and bottom so the travel never exposes
+   an edge. */
+.parallax-layer {
+  top: -7%;
+  bottom: -7%;
+  height: auto;
+  translate: 0 var(--parallax, 0px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .parallax-layer {
+    top: 0;
+    bottom: 0;
+    translate: none;
+  }
+}
+
+/* anim-in: fade in, resolving out of a soft blur */
+.anim-in {
+  opacity: 0;
+}
+.forma-section[data-entered] .anim-in {
+  animation: forma-fade-in 1s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)) var(--delay, 0s)
+    both;
+}
+
+/* anim-up: rise, settle and come into focus */
+.anim-up {
+  opacity: 0;
+  transform: translateY(26px) scale(0.988);
+  filter: blur(7px);
+}
+.forma-section[data-entered] .anim-up {
+  animation: forma-fade-up 1.05s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)) var(--delay, 0s)
+    both;
+  will-change: opacity, transform, filter;
+}
+
+@keyframes forma-fade-in {
+  from {
+    opacity: 0;
+    filter: blur(5px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+@keyframes forma-fade-up {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-bg,
+  .anim-in,
+  .anim-up {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Studio: micro-glitch on STUDIO oversized text (desktop hover) */
+@media (min-width: 1024px) {
+  .studio-glitch-text:hover {
+    animation: studio-glitch 0.4s steps(2) 1;
+  }
+}
+
+@keyframes studio-glitch {
+  0% {
+    transform: translate(0);
+    opacity: 1;
+  }
+  20% {
+    transform: translate(-3px, 1px);
+    opacity: 0.9;
+  }
+  40% {
+    transform: translate(3px, -1px);
+    opacity: 1;
+  }
+  60% {
+    transform: translate(-2px, 0);
+    opacity: 0.85;
+  }
+  80% {
+    transform: translate(2px, 1px);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0);
+    opacity: 1;
+  }
+}
+
+/* Account: brush-stroke text texture */
+.account-brush-word {
+  position: relative;
+  display: inline-block;
+}
+
+/* ── Slingday — display font (local, /public/fonts/Slingday.otf) ── */
+/* unicode-range excludes ASCII digits (0–9) → they fall back to Jakarta Sans */
+@font-face {
+  font-family: "Slingday";
+  src: url("/fonts/Slingday.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  /* Exclude ASCII digits U+0030–U+0039 → fall back to Jakarta Sans */
+  unicode-range: U+0020-002F, U+003A-FFFF;
+}
+
 /* ── Global keyboard focus indicators (accessibility) ── */
 @layer components {
   button:focus-visible,
@@ -18,197 +250,520 @@
    THEME VARIABLES
    ═══════════════════════════════════════════════════════════ */
 :root {
-  /* ── Light mode: warm Italian craft palette ── */
-  --bg:          #FDFAF5;
-  --surface:     #F5EFE3;
-  --surface-2:   rgba(253,250,245,0.96);
-  --text:        #1C1610;
-  --muted:       #635541;
-  --border:      rgba(28,22,16,0.10);
-  --nav-bg:      rgba(253,250,245,0.90);
-  --card-bg:     #FDFAF5;
-  --card-border: rgba(28,22,16,0.10);
-  --input-bg:    rgba(28,22,16,0.05);
-  /* Border radius tokens */
-  --r-sm: 10px;
-  --r-md: 16px;
-  --r-lg: 22px;
-  --r-xl: 28px;
-  /* Glassmorphism tokens */
-  --glass-fill:     rgba(253,250,245,0.84);
-  --glass-shadow:   0 4px 32px rgba(28,22,16,0.09), 0 1px 0 rgba(255,255,255,0.85) inset;
-  --glass-stroke:   rgba(28,22,16,0.10);
-  --glass-top-edge: linear-gradient(90deg, transparent, rgba(255,255,255,0.95) 20%, rgba(255,255,255,0.95) 80%, transparent);
-  --glass-bright:   1.01;
-  --spec-hot:       rgba(255,255,255,0.65);
-  --spec-mid:       rgba(255,255,255,0.28);
-  --divider:        rgba(28,22,16,0.09);
-  /* Gold accent — muted for light mode legibility */
-  --accent:         #9C7733;
-  --accent-bg:      rgba(156,119,51,0.10);
-  --accent-rgb:     156, 119, 51;
-  --accent-muted:   rgba(156,119,51,0.18);
-  /* Hybrid tokens for light mode */
-  --gold:           #9C7733;
-  --gold-dim:       rgba(156,119,51,0.12);
-  --gold-mid:       rgba(156,119,51,0.30);
-  --terra:          #B5501F;
-  --terra-dim:      rgba(181,80,31,0.12);
-  --cream:          #1C1610;
-  --cream-60:       rgba(28,22,16,0.60);
-  --cream-30:       rgba(28,22,16,0.30);
-  --cream-08:       rgba(28,22,16,0.08);
-  --obsidian-2:     #F5EFE3;
-  --obsidian-3:     #EDE5D5;
-  --obsidian-4:     #E3D9C6;
-  --border-gold:    1px solid rgba(156,119,51,0.28);
+  /* ── Light mode: soft warm neutral ── */
+  --bg: #fdfaf5;
+  --surface: #f5efe3;
+  --surface-2: #ede5d4;
+  --text: #1c1610;
+  --muted: rgba(26, 14, 6, 0.55);
+  --border: rgba(26, 14, 6, 0.12);
+  --fn-border: rgba(28, 22, 16, 0.12);
+  --fn-menu-bg: rgba(253, 250, 245, 0.88);
+  --nav-bg: rgba(253, 250, 245, 0.96);
+  --card-bg: rgba(253, 250, 245, 0.95);
+  --card-border: rgba(26, 14, 6, 0.1);
+  --input-bg: rgba(26, 14, 6, 0.05);
+  --btn-ghost-border: rgba(26, 14, 6, 0.18);
+  --btn-ghost-border-hover: rgba(26, 14, 6, 0.72);
+  /* Border radius tokens - Squircle/Pill shift */
+  --r-sm: 24px;
+  --r-md: 32px;
+  --r-lg: 40px;
+  --r-xl: 48px;
+  /* Glassmorphism tokens - Liquid Glass */
+  --glass-fill: rgba(253, 250, 245, 0.7);
+  --glass-shadow: 0 8px 32px rgba(26, 14, 6, 0.15), 0 2px 2px -1px rgba(255, 255, 255, 0.8) inset;
+  --glass-stroke: rgba(255, 255, 255, 0.4);
+  --glass-top-edge: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 248, 230, 0.95) 20%,
+    rgba(255, 248, 230, 0.95) 80%,
+    transparent
+  );
+  --glass-bright: 1.01;
+  --spec-hot: rgba(212, 175, 55, 0.65);
+  --spec-mid: rgba(212, 175, 55, 0.28);
+  --divider: rgba(26, 14, 6, 0.09);
+  /* FORMA gold accent */
+  --accent: #d4af37;
+  --gold: #d4af37;
+  --gold-soft: #b8962e;
+  --accent-bg: rgba(212, 175, 55, 0.1);
+  --accent-rgb: 212, 175, 55;
+  --accent-muted: rgba(212, 175, 55, 0.18);
+  /* Palette tokens */
+  --gold-dim: rgba(212, 175, 55, 0.12);
+  --gold-mid: rgba(212, 175, 55, 0.3);
+  --terra: #7a1c2e;
+  --terra-dim: rgba(122, 28, 46, 0.12);
+  --cream: #f2e8d0;
+  --cream-60: rgba(242, 232, 208, 0.6);
+  --cream-30: rgba(242, 232, 208, 0.3);
+  --cream-08: rgba(242, 232, 208, 0.08);
+  --obsidian-2: #eee0c4;
+  --obsidian-3: #e6d5b0;
+  --obsidian-4: #ddd1b8; /* unused, keep for compat */
+  --border-gold: 1px solid rgba(212, 175, 55, 0.28);
   /* Semantic state colors */
-  --success:        #6B8C42;
-  --success-dim:    rgba(107,140,66,0.12);
-  --error:          #B5501F;
-  --error-dim:      rgba(181,80,31,0.12);
-  /* Ambient glow — warm brand tones */
-  --glow-gold:      rgba(156,119,51,0.18);
-  --glow-terra:     rgba(181,80,31,0.12);
+  --success: #5a7a32;
+  --success-dim: rgba(90, 122, 50, 0.12);
+  --error: #7a1c2e;
+  --error-dim: rgba(122, 28, 46, 0.12);
+  /* Ambient glow */
+  --glow-gold: rgba(212, 175, 55, 0.18);
+  --glow-terra: rgba(122, 28, 46, 0.12);
   /* Platform brand colors (download buttons) */
-  --platform-canva:    #7B61FF;
-  --platform-excel:    #1D6F42;
-  --platform-sheets:   #0F9D58;
-  --platform-notion:   #6E6E6E;
-  --platform-webflow:  #4353FF;
-  --platform-framer:   #0055FF;
-  --platform-shopify:  #95BF47;
-  --platform-wordpress:#21759B;
+  --platform-canva: #7b61ff;
+  --platform-excel: #1d6f42;
+  --platform-sheets: #0f9d58;
+  --platform-notion: #6e6e6e;
+  --platform-webflow: #4353ff;
+  --platform-framer: #0055ff;
+  --platform-shopify: #95bf47;
+  --platform-wordpress: #21759b;
   /* Phone bezel (preview) */
-  --bezel-bg:        #E8E4DE;
-  --bezel-ring:      #D4CFC7;
-  --bezel-ring-2:    #C8C3BA;
-  --bezel-button:    #C8C3BA;
-  --bezel-notch-bg:  #F5F2ED;
-  --bezel-notch-border: #D4CFC7;
+  --bezel-bg: #e8e4de;
+  --bezel-ring: #d4cfc7;
+  --bezel-ring-2: #c8c3ba;
+  --bezel-button: #c8c3ba;
+  --bezel-notch-bg: #f5f2ed;
+  --bezel-notch-border: #d4cfc7;
   /* Prompt viewer */
-  --prompt-bg:       #FFFEF7;
-  --prompt-header:   #F7F6EE;
-  --prompt-text:     #1C1610;
-  --prompt-label:    #8E8E93;
+  --prompt-bg: #fffef7;
+  --prompt-header: #f7f6ee;
+  --prompt-text: #1c1814;
+  --prompt-label: #8e8e93;
   /* Modal skeleton */
-  --skeleton-bg:     #F2F2F7;
+  --skeleton-bg: #f2f2f7;
+  /* Pillar heading */
+  --pillar-name-color: #b8962e;
+  /* Forma tokens — light */
+  --forma-bg: var(--bg);
+  --forma-bg-alt: var(--surface);
+  --forma-bg-dark-section: #f0e4cc;
+  --forma-text: var(--text);
+  --forma-text-muted: var(--muted);
+  --forma-text-accent: var(--accent);
+  --forma-border: var(--border);
+  --forma-border-card: var(--card-border);
+  --forma-accent-sabi: var(--terra);
+  --forma-kinari: #1c1610;
+  --bg-outer: #f0e4cc;
+  /* Slingday — primary font for the entire site */
+  --font-gatsunaga: var(--font-montserrat), "Slingday", "Georgia", serif;
+  /* FORMA spacing scale */
+  --sp-1: 8px;
+  --sp-2: 16px;
+  --sp-3: 24px;
+  --sp-4: 40px;
+  --sp-5: 64px;
+  --sp-6: 120px;
+}
+
+/* ── Font pairing: Slingday (h1–h3 + .font-gatsunaga) + Jakarta (everything else) ──
+   Small/medium text always uses Jakarta for readability.
+── */
+
+/* Body + all default text: Jakarta */
+body {
+  font-family:
+    var(--font-jakarta),
+    -apple-system,
+    sans-serif;
+  font-size: 15px;
+  line-height: 1.85;
+  letter-spacing: 0.005em;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* Footer newsletter input focus ring */
+.fn-newsletter-input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+/* --font-syne → Montserrat (Syne not loaded; kept for legacy references in .btn-brand etc.) */
+html {
+  --font-syne: var(--font-montserrat), sans-serif;
+  /* --font-dm-serif and --font-cormorant resolve to their actual loaded fonts (DM Serif Display, Cormorant Garamond) */
+}
+
+/* h1–h3: Montserrat Bold */
+h1,
+h2,
+h3 {
+  font-family: var(--font-montserrat), sans-serif;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+/* h4–h6 and all smaller: Jakarta */
+h4,
+h5,
+h6 {
+  font-family: var(--font-jakarta), sans-serif;
+  line-height: 1.4;
 }
 
 html.dark {
-  /* ── Hybrid obsidian palette ── */
-  --bg:          #050402;
-  --surface:     #0d0b08;
-  --surface-2:   rgba(13,11,8,0.96);
-  --text:        #F2EBD9;
-  --muted:       rgba(242,235,217,0.55);
-  --border:      rgba(242,235,217,0.09);
-  --nav-bg:      rgba(5,4,2,0.93);
-  --card-bg:     #0d0b08;
-  --card-border: rgba(242,235,217,0.09);
-  --input-bg:    rgba(242,235,217,0.06);
-  /* Glassmorphism tokens — obsidian */
-  --glass-fill:     rgba(242,235,217,0.04);
-  --glass-shadow:   0 4px 32px rgba(0,0,0,0.5), 0 1px 0 rgba(242,235,217,0.06) inset;
-  --glass-stroke:   rgba(242,235,217,0.09);
-  --glass-top-edge: linear-gradient(90deg, transparent, rgba(242,235,217,0.08) 20%, rgba(242,235,217,0.08) 80%, transparent);
-  --glass-bright:   1.05;
-  --spec-hot:       rgba(242,235,217,0.08);
-  --spec-mid:       rgba(242,235,217,0.03);
-  --divider:        rgba(242,235,217,0.08);
-  /* Gold accent — replaces purple */
-  --accent:         #C8A96E;
-  --accent-bg:      rgba(200,169,110,0.12);
-  --accent-rgb:     200, 169, 110;
-  --accent-muted:   rgba(200,169,110,0.15);
-  /* Hybrid-specific tokens */
-  --gold:           #C8A96E;
-  --gold-dim:       rgba(200,169,110,0.14);
-  --gold-mid:       rgba(200,169,110,0.35);
-  --terra:          #C4622D;
-  --terra-dim:      rgba(196,98,45,0.15);
-  --cream:          #F2EBD9;
-  --cream-60:       rgba(242,235,217,0.6);
-  --cream-30:       rgba(242,235,217,0.3);
-  --cream-08:       rgba(242,235,217,0.08);
-  --obsidian-2:     #0d0b08;
-  --obsidian-3:     #161310;
-  --obsidian-4:     #1e1a16;
-  --border-gold:    1px solid rgba(200,169,110,0.28);
-  /* Semantic state colors — dark mode */
-  --success:        #8BAF5A;
-  --success-dim:    rgba(139,175,90,0.14);
-  --error:          #C4622D;
-  --error-dim:      rgba(196,98,45,0.14);
-  /* Ambient glow — warm brand tones */
-  --glow-gold:      rgba(200,169,110,0.12);
-  --glow-terra:     rgba(196,98,45,0.08);
+  /* ── Dark mode: FORMA — near-black, warm white, matte gold ── */
+  --bg: #060606;
+  --surface: #0f0f0f;
+  --surface-2: #1a1a1a;
+  --text: #eaeaea;
+  --muted: #8a8a8a;
+  --border: rgba(234, 234, 234, 0.1);
+  --fn-border: rgba(234, 234, 234, 0.1);
+  --fn-menu-bg: rgba(12, 10, 7, 0.82);
+  --panel: rgba(234, 234, 234, 0.045);
+  --nav-bg: rgba(6, 6, 6, 0.92);
+  --card-bg: rgba(15, 15, 15, 0.97);
+  --card-border: rgba(212, 175, 55, 0.14);
+  --input-bg: rgba(234, 234, 234, 0.05);
+  --btn-ghost-border: rgba(234, 234, 234, 0.18);
+  --btn-ghost-border-hover: rgba(234, 234, 234, 0.7);
+  /* Glassmorphism tokens — dark - Liquid Glass */
+  --glass-fill: rgba(15, 15, 15, 0.65);
+  --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.7), 0 2px 2px -1px rgba(255, 255, 255, 0.12) inset;
+  --glass-stroke: rgba(255, 255, 255, 0.08);
+  --glass-top-edge: linear-gradient(
+    90deg,
+    transparent,
+    rgba(212, 175, 55, 0.14) 20%,
+    rgba(212, 175, 55, 0.14) 80%,
+    transparent
+  );
+  --glass-bright: 1;
+  --spec-hot: rgba(212, 175, 55, 0.18);
+  --spec-mid: rgba(212, 175, 55, 0.09);
+  --divider: rgba(234, 234, 234, 0.08);
+  /* FORMA gold accent */
+  --accent: #d4af37;
+  --gold: #d4af37;
+  --gold-soft: #b8962e;
+  --gold2: #b8962e;
+  --accent-bg: rgba(212, 175, 55, 0.12);
+  --accent-rgb: 212, 175, 55;
+  --accent-muted: rgba(212, 175, 55, 0.2);
+  /* Palette tokens */
+  --gold-dim: rgba(212, 175, 55, 0.12);
+  --gold-mid: rgba(212, 175, 55, 0.28);
+  --terra: #8b2635;
+  --terra-dim: rgba(139, 38, 53, 0.15);
+  --cream: #eaeaea;
+  --cream-60: rgba(234, 234, 234, 0.6);
+  --cream-30: rgba(234, 234, 234, 0.3);
+  --cream-08: rgba(234, 234, 234, 0.08);
+  --obsidian-2: #141414;
+  --obsidian-3: #0d0d0d;
+  --obsidian-4: #080808;
+  --border-gold: 1px solid rgba(212, 175, 55, 0.22);
+  /* Semantic state colors */
+  --success: #5a7a32;
+  --success-dim: rgba(90, 122, 50, 0.12);
+  --error: #8b2635;
+  --error-dim: rgba(139, 38, 53, 0.15);
+  /* Ambient glow */
+  --glow-gold: rgba(212, 175, 55, 0.22);
+  --glow-terra: rgba(139, 38, 53, 0.16);
   /* Platform brand colors (download buttons) */
-  --platform-canva:    #7B61FF;
-  --platform-excel:    #1D6F42;
-  --platform-sheets:   #0F9D58;
-  --platform-notion:   #787878;
-  --platform-webflow:  #4353FF;
-  --platform-framer:   #0055FF;
-  --platform-shopify:  #95BF47;
-  --platform-wordpress:#21759B;
+  --platform-canva: #7b61ff;
+  --platform-excel: #1d6f42;
+  --platform-sheets: #0f9d58;
+  --platform-notion: #787878;
+  --platform-webflow: #4353ff;
+  --platform-framer: #0055ff;
+  --platform-shopify: #95bf47;
+  --platform-wordpress: #21759b;
   /* Phone bezel (preview) */
-  --bezel-bg:        #1C1C1E;
-  --bezel-ring:      #2C2C2E;
-  --bezel-ring-2:    #3A3A3C;
-  --bezel-button:    #3A3A3C;
-  --bezel-notch-bg:  #000000;
-  --bezel-notch-border: #333333;
+  --bezel-bg: #141414;
+  --bezel-ring: #1e1e1e;
+  --bezel-ring-2: #282828;
+  --bezel-button: #141414;
+  --bezel-notch-bg: #0d0d0d;
+  --bezel-notch-border: #1e1e1e;
   /* Prompt viewer */
-  --prompt-bg:       #161310;
-  --prompt-header:   #1e1a16;
-  --prompt-text:     #F2EBD9;
-  --prompt-label:    rgba(242,235,217,0.45);
+  --prompt-bg: #0d0d0d;
+  --prompt-header: #141414;
+  --prompt-text: #eaeaea;
+  --prompt-label: rgba(234, 234, 234, 0.45);
   /* Modal skeleton */
-  --skeleton-bg:     #161310;
+  --skeleton-bg: #1e1e1e;
+  /* Pillar heading — FORMA gold in dark mode */
+  --pillar-name-color: #d4af37;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DESIGN TOKENS — motion, space, elevation
+   ═══════════════════════════════════════════════════════════ */
+:root {
+  /* Motion — 6 easings ispirati a Vision OS / iOS spring system */
+  --ease-glide: cubic-bezier(0.22, 1, 0.36, 1); /* generic smooth */
+  --ease-snap: cubic-bezier(0.32, 1.1, 0.64, 1); /* gentle spring */
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1); /* overshoot */
+  --ease-brisk: cubic-bezier(0.45, 0, 0.15, 1); /* fast out, slow in */
+  --ease-fluid: cubic-bezier(0.4, 0, 0.2, 1); /* material standard */
+  --ease-linger: cubic-bezier(0.16, 1, 0.3, 1); /* very slow end */
+  /* Durations — 4pt-ish scale */
+  --t-xs: 120ms;
+  --t-sm: 200ms;
+  --t-md: 320ms;
+  --t-lg: 520ms;
+  --t-xl: 820ms;
+  /* Spacing scale — 4pt grid */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+  --s-9: 96px;
+  /* Elevation — 5-step shadow scale (respect theme) */
+  --elev-1: 0 1px 2px rgba(0, 0, 0, 0.05), 0 1px 1px rgba(0, 0, 0, 0.03);
+  --elev-2: 0 2px 6px rgba(0, 0, 0, 0.07), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --elev-3: 0 8px 24px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.04);
+  --elev-4: 0 20px 50px rgba(0, 0, 0, 0.14), 0 4px 12px rgba(0, 0, 0, 0.06);
+  --elev-5: 0 40px 100px rgba(0, 0, 0, 0.22), 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+html.dark {
+  --elev-1: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 1px rgba(0, 0, 0, 0.24);
+  --elev-2: 0 2px 6px rgba(0, 0, 0, 0.55), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --elev-3: 0 8px 24px rgba(0, 0, 0, 0.6), 0 2px 6px rgba(0, 0, 0, 0.35);
+  --elev-4: 0 20px 50px rgba(0, 0, 0, 0.7), 0 4px 12px rgba(0, 0, 0, 0.4);
+  --elev-5: 0 40px 100px rgba(0, 0, 0, 0.85), 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DEPTH — ONE MATERIAL: LIQUID GLASS
+   ═══════════════════════════════════════════════════════════
+   Every raised surface on the site is the same material: a
+   translucent sheet that refracts what sits behind it, catches
+   a rim light along its top edge, and casts a shadow onto the
+   ground. Panels LIFT toward the viewer — nothing is ever
+   extruded out of the page or pressed into it.
+
+   Two tiers, differing only in how much they let through:
+
+   OVER-ART  (--glass-*)      panels floating above the
+                              paintings on the snap homepage.
+   ON-SURFACE (--glass-s-*)   controls and cards on the inner
+                              pages, whose ground is flat cream
+                              or near-black. Less transparent,
+                              because there is little behind
+                              them to refract — but the same
+                              rim light, cast shadow and lift.
+
+   State is never carried by shadow alone: a selected control
+   also changes fill, rim colour and text colour, so it survives
+   forced-colors mode and low-vision viewing (WCAG 1.4.11).
+   ═══════════════════════════════════════════════════════════ */
+:root {
+  /* Tier 1 — glass over artwork */
+  --glass-fill: rgba(255, 250, 235, 0.15);
+  --glass-fill-hi: rgba(255, 250, 235, 0.25);
+  --glass-rim: rgba(255, 255, 255, 0.3);
+  --glass-rim-hi: rgba(255, 255, 255, 0.6);
+  --glass-blur: blur(36px) saturate(220%);
+  --glass-cast-1: 0 16px 40px -8px rgba(0, 0, 0, 0.65);
+  --glass-cast-2: 0 32px 70px -12px rgba(0, 0, 0, 0.75);
+
+  /* Tier 2 — glass on a flat ground (inner pages) */
+  --glass-s-fill: rgba(255, 255, 255, 0.55);
+  --glass-s-fill-hi: rgba(255, 255, 255, 0.75);
+  --glass-s-fill-sunk: rgba(255, 255, 255, 0.32);
+  --glass-s-rim: rgba(28, 22, 16, 0.09);
+  --glass-s-rim-hi: rgba(28, 22, 16, 0.16);
+  --glass-s-sheen: rgba(255, 255, 255, 0.75);
+  --glass-s-blur: blur(20px) saturate(160%);
+  --glass-s-cast-1: 0 2px 6px -1px rgba(60, 48, 30, 0.1), 0 8px 20px -6px rgba(60, 48, 30, 0.14);
+  --glass-s-cast-2: 0 6px 14px -2px rgba(60, 48, 30, 0.14), 0 18px 40px -10px rgba(60, 48, 30, 0.2);
+
+  /* Every glass sheet is rounded. There are no square corners. */
+  --glass-radius: 22px;
+}
+html.dark {
+  --glass-s-fill: rgba(255, 255, 255, 0.055);
+  --glass-s-fill-hi: rgba(255, 255, 255, 0.095);
+  --glass-s-fill-sunk: rgba(0, 0, 0, 0.28);
+  --glass-s-rim: rgba(242, 235, 217, 0.1);
+  --glass-s-rim-hi: rgba(242, 235, 217, 0.2);
+  --glass-s-sheen: rgba(255, 255, 255, 0.12);
+  --glass-s-cast-1: 0 2px 6px -1px rgba(0, 0, 0, 0.5), 0 8px 22px -6px rgba(0, 0, 0, 0.6);
+  --glass-s-cast-2: 0 6px 16px -2px rgba(0, 0, 0, 0.6), 0 20px 44px -10px rgba(0, 0, 0, 0.75);
+}
+
+/* Radius utilities — every surface picks one of these, never a raw pixel
+   value, so the whole site rounds together if the token moves. */
+.r-glass {
+  border-radius: var(--glass-radius);
+}
+.r-md {
+  border-radius: var(--r-md, 16px);
+}
+.r-sm {
+  border-radius: var(--r-sm, 10px);
+}
+.r-pill {
+  border-radius: 999px;
+}
+
+/* The shared sheet. Anything raised on an inner page builds on this. */
+.glass-surface {
+  background: var(--glass-s-fill);
+  border: 1px solid var(--glass-s-rim);
+  border-radius: var(--glass-radius);
+  backdrop-filter: var(--glass-s-blur);
+  -webkit-backdrop-filter: var(--glass-s-blur);
+  box-shadow:
+    var(--glass-s-cast-1),
+    inset 0 1px 0 var(--glass-s-sheen);
+  transition:
+    background var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    box-shadow var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+@media (hover: hover) {
+  .glass-surface:hover {
+    background: var(--glass-s-fill-hi);
+    border-color: var(--glass-s-rim-hi);
+    transform: translateY(-2px);
+    box-shadow:
+      var(--glass-s-cast-2),
+      inset 0 1px 0 var(--glass-s-sheen);
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════
    GLOBAL TRANSITIONS & FONT
    ═══════════════════════════════════════════════════════════ */
-html {
-  font-family: var(--font-jakarta), var(--font-geist), -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+html,
+body {
+  font-family:
+    var(--font-jakarta),
+    var(--font-geist),
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    system-ui,
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  scrollbar-gutter: stable;
   background-color: var(--bg);
   color: var(--text);
-  transition: background-color 0.22s cubic-bezier(0.4,0,0.2,1),
-              color 0.22s cubic-bezier(0.4,0,0.2,1);
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+  transition:
+    background-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Display font for headings */
-h1, h2, h3 {
-  font-family: var(--font-syne), var(--font-geist), system-ui, sans-serif;
+/* Tutti gli elementi che usano i colori semantici devono avere la transizione */
+.bg-page,
+.bg-surface,
+.bg-surface-2,
+.bg-card,
+.text-theme,
+.text-muted,
+.border-theme,
+.glass,
+.forma-glass-card {
+  transition:
+    background-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.4s cubic-bezier(0.32, 1.1, 0.64, 1); /* Bouncier for tactile feedback */
 }
 
-* { -webkit-tap-highlight-color: transparent; }
+/* ── iOS-Like Haptic Feedback ── */
+/* Tutti gli elementi interattivi principali reagiscono alla pressione */
+button:active,
+.fn-btn:active,
+.fn-chip:active,
+.catalogo-card:active,
+.fn-card:active {
+  transform: scale(0.96) !important;
+  transition-duration: 0.15s !important;
+}
+
+/* Stack Effect Utility (utilizzata da Framer Motion) */
+.ios-stack-bg {
+  transform-origin: top center;
+  transition:
+    transform 0.6s cubic-bezier(0.32, 1.1, 0.64, 1),
+    filter 0.6s ease;
+}
+
+/* ── Dark mode: FORMA — near-black with gold glow at top ── */
+html.dark {
+  background-color: #060606;
+  background-image: radial-gradient(circle at 50% -10%, rgba(212, 175, 55, 0.12), transparent 38%);
+  background-attachment: fixed;
+}
+html:not(.dark) {
+  background-color: #fdfaf5;
+  background-image: none;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
 
 /* ── Shimmer skeleton loader ── */
 @keyframes shimmer {
-  0%   { background-position: -400px 0; }
-  100% { background-position: 400px 0; }
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
 }
 .skeleton-shimmer {
   background: linear-gradient(90deg, var(--surface) 25%, var(--input-bg) 50%, var(--surface) 75%);
   background-size: 800px 100%;
+  border-radius: var(--r-sm, 10px);
   animation: shimmer 1.4s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-shimmer {
+    animation: none;
+    background: var(--surface);
+  }
 }
 
 /* ── Staggered card entrance ── */
 @keyframes cardEntrance {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   @keyframes cardEntrance {
-    from { opacity: 1; }
-    to   { opacity: 1; }
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 1;
+    }
   }
 }
 
@@ -221,7 +776,9 @@ h1, h2, h3 {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
-*::-webkit-scrollbar { display: none; }
+*::-webkit-scrollbar {
+  display: none;
+}
 
 /* Show branded scrollbar on the page itself */
 html {
@@ -247,14 +804,14 @@ html::-webkit-scrollbar-track {
 /* Show slim scrollbar inside modal preview */
 .modal-preview-scroll {
   scrollbar-width: thin;
-  scrollbar-color: rgba(128,128,128,0.25) transparent;
+  scrollbar-color: rgba(128, 128, 128, 0.25) transparent;
 }
 .modal-preview-scroll::-webkit-scrollbar {
   display: block;
   width: 4px;
 }
 .modal-preview-scroll::-webkit-scrollbar-thumb {
-  background: rgba(128,128,128,0.25);
+  background: rgba(128, 128, 128, 0.25);
   border-radius: 4px;
 }
 .modal-preview-scroll::-webkit-scrollbar-track {
@@ -265,15 +822,33 @@ html::-webkit-scrollbar-track {
    SEMANTIC THEME UTILITIES
    ═══════════════════════════════════════════════════════════ */
 @layer utilities {
-  .bg-page      { background-color: var(--bg); }
-  .bg-surface   { background-color: var(--surface); }
-  .bg-surface-2 { background-color: var(--surface-2); }
-  .bg-card      { background-color: var(--card-bg); }
-  .bg-input     { background-color: var(--input-bg); }
-  .bg-nav       { background-color: var(--nav-bg); }
-  .text-theme   { color: var(--text); }
-  .text-muted   { color: var(--muted); }
-  .border-theme { border-color: var(--border); }
+  .bg-page {
+    background-color: var(--bg);
+  }
+  .bg-surface {
+    background-color: var(--surface);
+  }
+  .bg-surface-2 {
+    background-color: var(--surface-2);
+  }
+  .bg-card {
+    background-color: var(--card-bg);
+  }
+  .bg-input {
+    background-color: var(--input-bg);
+  }
+  .bg-nav {
+    background-color: var(--nav-bg);
+  }
+  .text-theme {
+    color: var(--text);
+  }
+  .text-muted {
+    color: var(--muted);
+  }
+  .border-theme {
+    border-color: var(--border);
+  }
 
   /* ── Surface utilities ── */
   .glass {
@@ -286,6 +861,66 @@ html::-webkit-scrollbar-track {
   .glass-subtle {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
+  }
+
+  /* ── Liquid Glass ── */
+  .glass-noise::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.04;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+
+  .glass-pill {
+    position: relative;
+    border-radius: 9999px;
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    background: var(--glass-fill);
+    box-shadow:
+      0 12px 32px -8px rgba(0, 0, 0, 0.5),
+      inset 0 4px 20px rgba(255, 255, 255, 0.1),
+      /* Liquid inner glow */ inset 0 1px 1px rgba(255, 255, 255, 0.3); /* Specular top edge highlight */
+    border: 1px solid var(--glass-stroke);
+  }
+  .glass-pill::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.04;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+
+  .glass-panel {
+    position: relative;
+    border-radius: var(--r-md);
+    backdrop-filter: blur(32px) saturate(200%);
+    -webkit-backdrop-filter: blur(32px) saturate(200%);
+    background: var(--glass-fill);
+    box-shadow:
+      0 16px 40px -12px rgba(0, 0, 0, 0.6),
+      inset 0 4px 20px rgba(255, 255, 255, 0.08),
+      /* Liquid inner glow */ inset 0 2px 2px -1px rgba(255, 255, 255, 0.25); /* Specular highlight */
+    border: 1px solid var(--glass-stroke);
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+  }
+  .glass-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    pointer-events: none;
   }
 
   /* ── Springs & easing ──────────────────── */
@@ -304,43 +939,408 @@ html::-webkit-scrollbar-track {
     animation: fade-in 0.24s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
   .anim-scale-in {
-    animation: scale-in 0.28s cubic-bezier(0.34, 1.20, 0.64, 1) both;
+    animation: scale-in 0.28s cubic-bezier(0.34, 1.2, 0.64, 1) both;
   }
 
   /* Delay helpers */
-  .delay-0   { animation-delay: 0ms; }
-  .delay-75  { animation-delay: 75ms; }
-  .delay-150 { animation-delay: 150ms; }
-  .delay-225 { animation-delay: 225ms; }
-  .delay-300 { animation-delay: 300ms; }
-  .delay-400 { animation-delay: 400ms; }
+  .delay-0 {
+    animation-delay: 0ms;
+  }
+  .delay-75 {
+    animation-delay: 75ms;
+  }
+  .delay-150 {
+    animation-delay: 150ms;
+  }
+  .delay-225 {
+    animation-delay: 225ms;
+  }
+  .delay-300 {
+    animation-delay: 300ms;
+  }
+  .delay-400 {
+    animation-delay: 400ms;
+  }
 
   /* ── Sheet / modal ─────────────────────── */
   .sheet-enter {
-    animation: sheet-up 0.32s cubic-bezier(0.32, 1.10, 0.64, 1) both;
+    animation: sheet-up 0.32s cubic-bezier(0.32, 1.1, 0.64, 1) both;
   }
   .modal-enter {
-    animation: modal-in 0.26s cubic-bezier(0.32, 1.10, 0.64, 1) both;
+    animation: modal-in 0.26s cubic-bezier(0.32, 1.1, 0.64, 1) both;
   }
 
   /* ── Gradient border animation ─────────── */
   .gradient-border-spin::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: -2px;
     border-radius: inherit;
     padding: 2px;
-    background: conic-gradient(from var(--angle), var(--accent), var(--terra), var(--success), var(--accent));
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    background: conic-gradient(
+      from var(--angle),
+      var(--accent),
+      var(--terra),
+      var(--success),
+      var(--accent)
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     animation: border-spin 3s linear infinite;
   }
   @property --angle {
-    syntax: '<angle>';
+    syntax: "<angle>";
     initial-value: 0deg;
     inherits: false;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DISPLAY TYPE — Fraunces editorial hero
+   ═══════════════════════════════════════════════════════════ */
+.display-serif {
+  font-family: var(--font-fraunces), "DM Serif Display", Georgia, serif;
+  font-variation-settings:
+    "opsz" 144,
+    "SOFT" 100;
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+  font-variant-numeric: tabular-nums;
+}
+.display-serif em {
+  font-style: italic;
+  font-variation-settings:
+    "opsz" 144,
+    "SOFT" 100;
+  color: var(--accent);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SPLIT-TEXT REVEAL — hero headline stagger
+   ═══════════════════════════════════════════════════════════ */
+.split-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.15em;
+  margin-bottom: -0.15em;
+  padding-left: 0.12em;
+  margin-left: -0.12em;
+}
+.split-word > span {
+  display: inline-block;
+  transform: translateY(108%);
+  animation: split-rise var(--t-xl) var(--ease-linger) forwards;
+}
+.split-word:nth-child(1) > span {
+  animation-delay: 60ms;
+}
+.split-word:nth-child(2) > span {
+  animation-delay: 160ms;
+}
+.split-word:nth-child(3) > span {
+  animation-delay: 260ms;
+}
+.split-word:nth-child(4) > span {
+  animation-delay: 360ms;
+}
+.split-word:nth-child(5) > span {
+  animation-delay: 460ms;
+}
+.split-word:nth-child(6) > span {
+  animation-delay: 560ms;
+}
+.split-word:nth-child(7) > span {
+  animation-delay: 660ms;
+}
+@keyframes split-rise {
+  from {
+    transform: translateY(108%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .split-word > span {
+    animation: none;
+    transform: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MAGNETIC BUTTON — subtle attraction on hover
+   ═══════════════════════════════════════════════════════════ */
+.magnetic {
+  transition: transform var(--t-md) var(--ease-snap);
+  will-change: transform;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SCROLL-LINKED NAV — blur progression
+   ═══════════════════════════════════════════════════════════ */
+.nav-scrolled {
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  background: color-mix(in oklab, var(--nav-bg) 92%, var(--accent) 8%);
+  box-shadow: var(--elev-2);
+}
+.nav-default {
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   COMMAND PALETTE — Cmd+K overlay
+   ═══════════════════════════════════════════════════════════ */
+.cmdk-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: color-mix(in oklab, var(--bg) 70%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: fade-in var(--t-sm) var(--ease-glide) forwards;
+}
+.cmdk-panel {
+  position: fixed;
+  left: 50%;
+  top: 14vh;
+  transform: translateX(-50%);
+  width: min(640px, calc(100vw - 32px));
+  z-index: 101;
+  background: var(--surface-2);
+  border: 1px solid var(--accent-muted);
+  border-radius: var(--glass-radius);
+  overflow: hidden;
+  box-shadow: var(--elev-5);
+  animation: cmdk-pop var(--t-md) var(--ease-snap) forwards;
+}
+@keyframes cmdk-pop {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+.cmdk-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition:
+    background var(--t-xs) var(--ease-glide),
+    color var(--t-xs) var(--ease-glide);
+  color: var(--text);
+  border-left: 2px solid transparent;
+}
+.cmdk-item[data-active="true"],
+.cmdk-item:hover {
+  background: var(--accent-bg);
+  border-left-color: var(--accent);
+  border-radius: var(--r-sm, 10px);
+}
+.cmdk-kbd {
+  font-family: var(--font-montserrat), sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 2px 6px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--muted);
+  background: var(--input-bg);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   WAX SEAL — price stamp on cards
+   ═══════════════════════════════════════════════════════════ */
+.wax-seal {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 30%,
+    color-mix(in oklab, var(--accent) 80%, white 20%),
+    var(--accent) 60%,
+    color-mix(in oklab, var(--accent) 85%, black 15%) 100%
+  );
+  color: color-mix(in oklab, var(--bg) 95%, white 5%);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.3),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.25),
+    var(--elev-3);
+  font-family: var(--font-fraunces), serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: -0.01em;
+  transform: rotate(-6deg);
+  transition: transform var(--t-md) var(--ease-bounce);
+}
+.wax-seal::before {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 255, 255, 0.35);
+  pointer-events: none;
+}
+.card-tilt:hover .wax-seal {
+  transform: rotate(0deg) scale(1.06);
+}
+@media (prefers-reduced-motion: reduce) {
+  .wax-seal,
+  .card-tilt:hover .wax-seal {
+    transform: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MASONRY FEATURED — homepage grid
+   ═══════════════════════════════════════════════════════════ */
+.masonry-featured {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+@media (max-width: 640px) {
+  .masonry-featured {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SHINE SWEEP — hover light pass on cards
+   ═══════════════════════════════════════════════════════════ */
+.shine-sweep {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.shine-sweep::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.1) 48%,
+    rgba(255, 255, 255, 0.18) 50%,
+    rgba(255, 255, 255, 0.1) 52%,
+    transparent 70%
+  );
+  transform: translateX(-120%);
+  transition: transform var(--t-xl) var(--ease-glide);
+  pointer-events: none;
+  z-index: 1;
+}
+.shine-sweep:hover::after {
+  transform: translateX(120%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .shine-sweep::after {
+    display: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ORBITING THUMBS — hero ambient mini-previews
+   ═══════════════════════════════════════════════════════════ */
+.orbit-layer {
+  position: absolute;
+  inset: -80px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.55;
+  mask-image: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    transparent 35%,
+    rgba(0, 0, 0, 0.4) 55%,
+    rgba(0, 0, 0, 0.9) 85%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    transparent 35%,
+    rgba(0, 0, 0, 0.4) 55%,
+    rgba(0, 0, 0, 0.9) 85%
+  );
+}
+.orbit-thumb {
+  position: absolute;
+  width: 88px;
+  height: 88px;
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
+  box-shadow: var(--elev-3);
+  overflow: hidden;
+  animation: orbit-drift 18s ease-in-out infinite alternate;
+  will-change: transform;
+}
+.orbit-thumb:nth-child(1) {
+  top: 8%;
+  left: 6%;
+  animation-delay: -1s;
+}
+.orbit-thumb:nth-child(2) {
+  top: 12%;
+  right: 4%;
+  animation-delay: -4s;
+}
+.orbit-thumb:nth-child(3) {
+  top: 46%;
+  left: 2%;
+  animation-delay: -7s;
+  width: 72px;
+  height: 72px;
+}
+.orbit-thumb:nth-child(4) {
+  top: 52%;
+  right: 6%;
+  animation-delay: -10s;
+  width: 72px;
+  height: 72px;
+}
+.orbit-thumb:nth-child(5) {
+  bottom: 8%;
+  left: 14%;
+  animation-delay: -13s;
+}
+.orbit-thumb:nth-child(6) {
+  bottom: 12%;
+  right: 12%;
+  animation-delay: -16s;
+}
+@keyframes orbit-drift {
+  0% {
+    transform: translate(0, 0) rotate(-2deg);
+  }
+  50% {
+    transform: translate(8px, -10px) rotate(0deg);
+  }
+  100% {
+    transform: translate(-6px, 6px) rotate(2deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .orbit-thumb {
+    animation: none;
   }
 }
 
@@ -348,43 +1348,131 @@ html::-webkit-scrollbar-track {
    KEYFRAMES
    ═══════════════════════════════════════════════════════════ */
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes scale-in {
-  from { opacity: 0; transform: scale(0.95); }
-  to   { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 @keyframes sheet-up {
-  from { transform: translateY(100%); opacity: 0; }
-  to   { transform: translateY(0);    opacity: 1; }
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 @keyframes modal-in {
-  from { transform: scale(0.96) translateY(8px); opacity: 0; }
-  to   { transform: scale(1)    translateY(0);   opacity: 1; }
+  from {
+    transform: scale(0.96) translateY(8px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
 }
 
 @keyframes border-spin {
-  to { --angle: 360deg; }
+  to {
+    --angle: 360deg;
+  }
+}
+
+/* ── Heart pop — wishlist spring animation ── */
+@keyframes heart-pop {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.45);
+  }
+  65% {
+    transform: scale(0.85);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  @keyframes heart-pop {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+}
+
+/* ── CTA bar slide-up entrance (preview page) ── */
+@keyframes cta-slide-up {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.cta-bar-enter {
+  animation: cta-slide-up 0.42s cubic-bezier(0.32, 1.1, 0.64, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cta-bar-enter {
+    animation: none;
+  }
 }
 
 @keyframes pulse-ring {
-  0%   { transform: scale(1);    opacity: 0.5; }
-  100% { transform: scale(1.8);  opacity: 0; }
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
 }
 
 @keyframes gradient-shift {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -407,6 +1495,7 @@ html::-webkit-scrollbar-track {
   .anim-fade-up,
   .anim-fade-in,
   .anim-scale-in,
+  .anim-fade-up-slow,
   .sheet-enter,
   .modal-enter {
     animation: none !important;
@@ -425,79 +1514,28 @@ html::-webkit-scrollbar-track {
   .animate-spin {
     animation: none !important;
   }
-}
-
-/* ═══════════════════════════════════════════════════════════
-   GRAIN / NOISE OVERLAY
-   ═══════════════════════════════════════════════════════════ */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 99990;
-  opacity: 0.028;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 160px 160px;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   CUSTOM CURSOR
-   ═══════════════════════════════════════════════════════════ */
-@media (hover: hover) and (pointer: fine) {
-  html, * { cursor: none !important; }
-
-  .cursor-dot {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 7px;
-    height: 7px;
-    background: var(--accent);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 999999;
-    will-change: transform;
-    transition: opacity 0.2s ease;
-    /* Double halo: white glow + dark outline ensures visibility on any bg */
-    box-shadow:
-      0 0 0 1.5px rgba(255,255,255,0.90),
-      0 0 0 3px rgba(0,0,0,0.30),
-      0 0 8px rgba(0,0,0,0.18);
+  /* Card tilt — disable 3D on reduced-motion */
+  .card-tilt {
+    transform-style: flat !important;
   }
-
-  .cursor-ring {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 34px;
-    height: 34px;
-    border: 1.5px solid rgba(var(--accent-rgb), 0.75);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 999998;
-    will-change: transform;
-    /* Outer shadow makes ring visible on both light and dark backgrounds */
-    box-shadow:
-      0 0 0 1px rgba(0,0,0,0.25),
-      0 0 8px rgba(0,0,0,0.12);
-    transition:
-      width  0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
-      height 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
-      background 0.25s ease,
-      border-color 0.25s ease,
-      box-shadow 0.25s ease;
+  .card-tilt:hover {
+    transform: none !important;
   }
-
-  .cursor-ring--hover {
-    width: 52px;
-    height: 52px;
-    background: rgba(var(--accent-rgb), 0.07);
-    border-color: rgba(var(--accent-rgb), 0.90);
-    box-shadow:
-      0 0 0 1px rgba(0,0,0,0.20),
-      0 0 12px rgba(var(--accent-rgb), 0.25);
+  .card-tilt:active {
+    transform: scale(0.98) !important;
+  }
+  /* Ticker marquee */
+  .ticker-animate {
+    animation: none !important;
+  }
+  /* Ripple */
+  .ripple-dot {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+  /* Gradient border spin */
+  .gradient-border-spin::before {
+    animation: none !important;
   }
 }
 
@@ -509,7 +1547,7 @@ body::after {
   display: inline-block;
 }
 .link-underline::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -1px;
   left: 0;
@@ -522,27 +1560,61 @@ body::after {
   width: 100%;
 }
 
+/* ── CSS-driven link color (replaces JS onMouseEnter/Leave) ──
+   Use .link-muted for any link that should be muted at rest and text on hover.
+   Add .nav-active for the currently active nav item.
+── */
+.link-muted {
+  color: var(--muted);
+  transition: color 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.link-muted:hover,
+.link-muted:focus-visible {
+  color: var(--text);
+}
+.nav-active {
+  color: var(--text);
+}
+/* Active underline — always visible for active nav items */
+.nav-active .link-underline::after {
+  width: 100%;
+  background: var(--accent);
+  opacity: 0.75;
+}
+
 /* ═══════════════════════════════════════════════════════════
    CARD TILT (3-D perspective on hover)
    ═══════════════════════════════════════════════════════════ */
 .card-tilt {
   transform-style: preserve-3d;
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s ease;
 }
-.card-tilt:hover {
-  transform: perspective(800px) rotateX(2deg) rotateY(-1.5deg) translateY(-4px);
+@media (hover: hover) {
+  .card-tilt:hover {
+    transform: perspective(800px) rotateX(2deg) rotateY(-1.5deg) translateY(-4px);
+  }
 }
 .card-tilt:active {
   transform: scale(0.98);
 }
 
 @keyframes marquee-left {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 @keyframes marquee-right {
-  from { transform: translateX(-50%); }
-  to   { transform: translateX(0); }
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -551,75 +1623,176 @@ body::after {
 
 /* CTA shimmer sweep */
 @keyframes shimmer-sweep {
-  0%   { transform: translateX(-150%) skewX(-12deg); }
-  100% { transform: translateX(400%) skewX(-12deg); }
+  0% {
+    transform: translateX(-150%) skewX(-12deg);
+  }
+  100% {
+    transform: translateX(400%) skewX(-12deg);
+  }
 }
 
 /* Ambient glow pulse */
 @keyframes glow-pulse {
-  0%, 100% { opacity: 0.48; transform: translateX(-50%) scale(1); }
-  50%       { opacity: 0.70; transform: translateX(-50%) scale(1.1); }
+  0%,
+  100% {
+    opacity: 0.48;
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translateX(-50%) scale(1.1);
+  }
 }
 
 /* Floating particles */
 @keyframes float-a {
-  0%, 100% { transform: translate(0, 0);          opacity: 0.10; }
-  50%       { transform: translate(10px, -22px);   opacity: 0.22; }
+  0%,
+  100% {
+    transform: translate(0, 0);
+    opacity: 0.1;
+  }
+  50% {
+    transform: translate(10px, -22px);
+    opacity: 0.22;
+  }
 }
 @keyframes float-b {
-  0%, 100% { transform: translate(0, 0);           opacity: 0.07; }
-  45%       { transform: translate(-8px, -16px);   opacity: 0.16; }
+  0%,
+  100% {
+    transform: translate(0, 0);
+    opacity: 0.07;
+  }
+  45% {
+    transform: translate(-8px, -16px);
+    opacity: 0.16;
+  }
 }
 @keyframes float-c {
-  0%, 100% { transform: translate(0, 0)    scale(1);    opacity: 0.09; }
-  60%       { transform: translate(6px, -28px) scale(1.15); opacity: 0.19; }
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.09;
+  }
+  60% {
+    transform: translate(6px, -28px) scale(1.15);
+    opacity: 0.19;
+  }
 }
 
 /* SVG check draw */
 @keyframes check-draw {
-  from { stroke-dashoffset: 20; opacity: 0.2; }
-  to   { stroke-dashoffset: 0;  opacity: 1;   }
+  from {
+    stroke-dashoffset: 20;
+    opacity: 0.2;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+/* Hero title reveal */
+@keyframes hero-title-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.hero-title-reveal {
+  animation: hero-title-reveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-title-reveal {
+    animation: none;
+  }
 }
 
 /* Ripple */
 @keyframes ripple-expand {
-  from { transform: scale(0) translate(-50%, -50%); opacity: 0.30; }
-  to   { transform: scale(9) translate(-50%, -50%); opacity: 0; }
+  from {
+    transform: scale(0) translate(-50%, -50%);
+    opacity: 0.3;
+  }
+  to {
+    transform: scale(9) translate(-50%, -50%);
+    opacity: 0;
+  }
 }
 
 /* Drill-in from right */
 @keyframes drill-in {
-  from { opacity: 0; transform: translateX(18px); }
-  to   { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 /* Drill-back from left */
 @keyframes drill-back {
-  from { opacity: 0; transform: translateX(-18px); }
-  to   { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(-18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 /* Page entry */
 @keyframes page-enter {
-  from { opacity: 0; transform: translateY(5px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Confetti fall */
 @keyframes confetti-fall {
-  0%   { transform: translateY(-10px) rotate(0deg);    opacity: 1; }
-  100% { transform: translateY(100vh) rotate(720deg);  opacity: 0; }
+  0% {
+    transform: translateY(-10px) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
 }
 @keyframes confetti-sway {
-  0%, 100% { margin-left: 0; }
-  25%       { margin-left: 20px; }
-  75%       { margin-left: -20px; }
+  0%,
+  100% {
+    margin-left: 0;
+  }
+  25% {
+    margin-left: 20px;
+  }
+  75% {
+    margin-left: -20px;
+  }
 }
 
 @layer utilities {
-  .anim-drill-in   { animation: drill-in  0.22s cubic-bezier(0.22, 1, 0.36, 1) both; }
-  .anim-drill-back { animation: drill-back 0.22s cubic-bezier(0.22, 1, 0.36, 1) both; }
-  .anim-page-enter { animation: page-enter 0.30s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .anim-drill-in {
+    animation: drill-in 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .anim-drill-back {
+    animation: drill-back 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .anim-page-enter {
+    animation: page-enter 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
 
   /* Ripple dot (appended via JS) */
   .ripple-dot {
@@ -637,12 +1810,13 @@ body::after {
   /* CTA shimmer child span */
   .shimmer-span {
     position: absolute;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
     width: 28%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
     animation: shimmer-sweep 3.8s ease-in-out infinite;
-    animation-delay: 2s;
+    animation-delay: 0.5s;
     pointer-events: none;
     border-radius: inherit;
   }
@@ -653,14 +1827,21 @@ body::after {
     stroke-dashoffset: 20;
     animation: check-draw 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
-  .check-path-delay-1 { animation-delay: 0.15s; }
-  .check-path-delay-2 { animation-delay: 0.30s; }
+  .check-path-delay-1 {
+    animation-delay: 0.15s;
+  }
+  .check-path-delay-2 {
+    animation-delay: 0.3s;
+  }
 }
 
 /* Also disable new animations under reduced-motion */
 @media (prefers-reduced-motion: reduce) {
-  .anim-drill-in, .anim-drill-back, .anim-page-enter,
-  .shimmer-span, .check-path {
+  .anim-drill-in,
+  .anim-drill-back,
+  .anim-page-enter,
+  .shimmer-span,
+  .check-path {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
@@ -668,13 +1849,20 @@ body::after {
   }
 }
 
-
 /* ═══════════════════════════════════════════════════════════
    LOADING STATE — dot-pulse per bottoni / spinner leggero
    ═══════════════════════════════════════════════════════════ */
 @keyframes dot-pulse {
-  0%, 80%, 100% { transform: scale(0.6); opacity: 0.3; }
-  40%           { transform: scale(1);   opacity: 1; }
+  0%,
+  80%,
+  100% {
+    transform: scale(0.6);
+    opacity: 0.3;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .btn-loading {
@@ -683,7 +1871,7 @@ body::after {
   pointer-events: none;
 }
 .btn-loading::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   margin: auto;
@@ -696,7 +1884,9 @@ body::after {
 }
 
 @keyframes spin-smooth {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Dot-pulse variant — usabile inline */
@@ -712,12 +1902,21 @@ body::after {
   background: currentColor;
   animation: dot-pulse 1.2s ease-in-out infinite;
 }
-.dots-loading span:nth-child(2) { animation-delay: 0.2s; }
-.dots-loading span:nth-child(3) { animation-delay: 0.4s; }
+.dots-loading span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.dots-loading span:nth-child(3) {
+  animation-delay: 0.4s;
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .btn-loading::after { animation: none; }
-  .dots-loading span  { animation: none; opacity: 0.5; }
+  .btn-loading::after {
+    animation: none;
+  }
+  .dots-loading span {
+    animation: none;
+    opacity: 0.5;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -728,9 +1927,17 @@ body::after {
   animation: flap 0.1s cubic-bezier(0.4, 0, 0.6, 1);
 }
 @keyframes flap {
-  0%   { transform: scaleY(0); opacity: 0; }
-  60%  { transform: scaleY(1.06); }
-  100% { transform: scaleY(1); opacity: 1; }
+  0% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  60% {
+    transform: scaleY(1.06);
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -739,52 +1946,440 @@ body::after {
 .scroll-reveal {
   opacity: 0;
   transform: translateY(10px);
-  transition: opacity 0.36s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+  transition:
+    opacity 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .scroll-reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
+/* ── Bundle card scroll-reveal — deeper lift, slower fade for premium feel ──
+   20 px rise over 600 ms with a custom ease that starts slow and glides in.
+   The stagger delay is applied via inline style at the call site.
+── */
+.scroll-reveal-bundle {
+  opacity: 0;
+  /* Start 20 px below final position */
+  transform: translateY(20px);
+  /* cubic-bezier(0.22, 1, 0.36, 1) is a deceleration curve:
+     fast exit from eased-in start, then glides to rest — matches the brand's
+     "ease-premium" token but stretched to 600 ms for a more cinematic entrance. */
+  transition:
+    opacity 600ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.scroll-reveal-bundle.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal-bundle {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 /* ═══════════════════════════════════════════════════════════
-   CURSOR TRAIL
+   BUILDFORWHO-STYLE ANIMATIONS
+   Ported faithfully: fadeUp stagger, blink dot, reveal scroll,
+   card border sweep, nav compact, ticker pause.
    ═══════════════════════════════════════════════════════════ */
-@media (hover: hover) and (pointer: fine) {
-  .cursor-trail {
-    position: fixed;
-    top: 0;
-    left: 0;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 999990;
-    will-change: transform;
-    background: var(--accent);
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.5), 0 0 0 2px rgba(0,0,0,0.18);
+
+/* ── fade-up stagger — hero entrance (uses canonical fade-up keyframe) ── */
+.fade-up-0 {
+  animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0s both;
+  will-change: opacity, transform;
+}
+.fade-up-1 {
+  animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+  will-change: opacity, transform;
+}
+.fade-up-2 {
+  animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+  will-change: opacity, transform;
+}
+.fade-up-3 {
+  animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+  will-change: opacity, transform;
+}
+.fade-up-4 {
+  animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+  will-change: opacity, transform;
+}
+
+/* ── blink — pulsing indicator dot ── */
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+.blink-dot {
+  animation: blink 2s step-end infinite;
+}
+
+/* ── reveal — scroll-triggered section entrance ──
+   IntersectionObserver adds `.visible` when 10% of element enters viewport.
+   Delays allow staggered children (add reveal-delay-1/2/3 on siblings).
+── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+  will-change: opacity, transform;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+  will-change: auto;
+}
+.reveal-delay-1 {
+  transition-delay: 0.1s;
+}
+.reveal-delay-2 {
+  transition-delay: 0.2s;
+}
+.reveal-delay-3 {
+  transition-delay: 0.3s;
+}
+
+/* ── card-sweep — gold top border sweeps in on hover ──
+   Requires `position: relative` on the element (shoji-card already has it).
+   Uses ::before — compatible with shoji-card which only uses ::after.
+── */
+.card-sweep::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--terra, #c4622d));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+  z-index: 50;
+}
+.card-sweep:hover::before {
+  transform: scaleX(1);
+}
+
+/* ── ticker pause on hover ── */
+.ticker-wrap:hover .ticker-animate {
+  animation-play-state: paused;
+}
+
+/* ── Reduced motion overrides ── */
+@media (prefers-reduced-motion: reduce) {
+  .fade-up-0,
+  .fade-up-1,
+  .fade-up-2,
+  .fade-up-3,
+  .fade-up-4 {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .card-sweep::before {
+    transition: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .split-flap-char { animation: none; }
-  .scroll-reveal    { opacity: 1; transform: none; transition: none; }
+  .split-flap-char {
+    animation: none;
+  }
+  .scroll-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .shimmer-span {
+    animation: none !important;
+  }
+  .check-path {
+    stroke-dashoffset: 0 !important;
+    animation: none !important;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════
    HYBRID DESIGN UTILITIES
    ═══════════════════════════════════════════════════════════ */
 
-/* DM Serif Display font utility */
-.font-dm-serif {
-  font-family: var(--font-dm-serif), "Georgia", serif;
+/* Gatsunaga / DM Serif Display font utilities */
+.font-dm-serif,
+.font-gatsunaga {
+  font-family: var(--font-gatsunaga);
 }
 
-/* Warm grain overlay on dark bg */
+/* ── Zen Divider (禅) ──
+   Centered ornament with tapered accent lines — Japanese scroll aesthetic.
+   Usage: <div class="zen-divider" aria-hidden="true"><span>◇</span></div>
+── */
+.zen-divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  margin: 2.5rem 0;
+  opacity: 0.6;
+}
+html.dark .zen-divider {
+  opacity: 0.45;
+}
+.zen-divider::before,
+.zen-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+}
+.zen-divider::before {
+  background: linear-gradient(to right, transparent, var(--accent));
+}
+.zen-divider::after {
+  background: linear-gradient(to left, transparent, var(--accent));
+}
+.zen-divider span {
+  font-size: 10px;
+  color: var(--accent);
+  flex-shrink: 0;
+  line-height: 1;
+  transform: rotate(0deg);
+  display: inline-block;
+}
+
+/* ── Shoji inner frame (障子) ──
+   Thin inset border appears on hover — evokes shoji screen wooden grid.
+── */
+.shoji-card {
+  border-radius: var(--glass-radius);
+  overflow: hidden;
+}
+.shoji-card::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(255, 255, 255, 0);
+  /* Inset by 5px, so its radius is the card's minus that inset. */
+  border-radius: calc(var(--glass-radius) - 5px);
+  pointer-events: none;
+  transition: border-color 0.35s ease;
+  z-index: 40;
+}
+.shoji-card:hover::after {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+/* ── Mon ring (家紋) ──
+   Thin circle with inner diamond — Japanese family crest motif.
+   Usage: <div class="mon-ring" aria-hidden="true">◆</div>
+── */
+.mon-ring {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 7px;
+  color: var(--accent);
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+/* ── Tategaki (縦書き) — vertical kanji side label ──
+   Usage: <span class="tategaki" aria-hidden="true">品</span>
+── */
+.tategaki {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: var(--font-gatsunaga);
+  font-size: 11px;
+  color: var(--accent);
+  opacity: 0.5;
+  letter-spacing: 0.25em;
+  user-select: none;
+  pointer-events: none;
+}
+html.dark .tategaki {
+  opacity: 0.28;
+}
+
+/* ── Ma divider (間) — "negative space" variant of zen-divider ──
+   Shorter lines, slightly different symbol for section variety.
+   Usage: <div class="ma-divider" aria-hidden="true"><span>間</span></div>
+── */
+.ma-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin: 1.8rem 0;
+  opacity: 0.55;
+}
+html.dark .ma-divider {
+  opacity: 0.32;
+}
+.ma-divider::before,
+.ma-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+}
+.ma-divider::before {
+  background: linear-gradient(to right, transparent, var(--accent));
+}
+.ma-divider::after {
+  background: linear-gradient(to left, transparent, var(--accent));
+}
+.ma-divider span {
+  font-family: var(--font-gatsunaga);
+  font-size: 11px;
+  color: var(--accent);
+  flex-shrink: 0;
+  line-height: 1;
+  display: inline-block;
+  opacity: 0.85;
+}
+
+/* ── Torii accent (鳥居) — two stacked horizontal marks ──
+   Evokes the gate crossbeam — used above hero text or section tops.
+   Usage: <div class="torii-accent" aria-hidden="true"></div>
+── */
+.torii-accent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  opacity: 0.45;
+}
+.torii-accent::before,
+.torii-accent::after {
+  content: "";
+  display: block;
+  height: 1px;
+  background: var(--accent);
+}
+.torii-accent::before {
+  width: 48px;
+}
+.torii-accent::after {
+  width: 32px;
+}
+
+/* ── Hanko seal (判子) ──
+   Square Japanese seal motif for decorative use.
+   Usage: <div class="hanko-seal" aria-hidden="true">印</div>
+── */
+.hanko-seal {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-gatsunaga);
+  font-size: 13px;
+  color: var(--accent);
+  opacity: 0.55;
+  transform: rotate(-3deg);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+  flex-shrink: 0;
+}
+.hanko-seal:hover {
+  opacity: 0.8;
+  transform: rotate(0deg);
+}
+
+/* ── Pillar header — theme-adaptive opacities ── */
+.pillar-name {
+  opacity: 0.92;
+}
+html.dark .pillar-name {
+  opacity: 0.75;
+}
+
+.pillar-bar {
+  opacity: 0.5;
+}
+html.dark .pillar-bar {
+  opacity: 0.3;
+}
+
+.pillar-line {
+  opacity: 0.38;
+}
+html.dark .pillar-line {
+  opacity: 0.2;
+}
+
+.pillar-tategaki {
+  opacity: 0.65 !important;
+  font-size: 13px;
+}
+html.dark .pillar-tategaki {
+  opacity: 0.5 !important;
+}
+
+/* ── Ink line (墨線) — asymmetric brush-stroke underline beneath section h2 ──
+   Left-anchored gradient fading right: evokes a single sumi-e brush mark.
+   Usage: <h2 class="ink-line">…</h2>
+── */
+.ink-line {
+  position: relative;
+  display: inline-block;
+}
+.ink-line::after {
+  content: "";
+  position: absolute;
+  bottom: -7px;
+  left: 0;
+  width: 38%;
+  height: 1px;
+  background: linear-gradient(to right, var(--accent), transparent);
+  opacity: 0.5;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ink-line::after {
+    opacity: 0.35;
+  }
+}
+
+/* ── Kanji step numbers ── */
+.kanji-num {
+  font-family: var(--font-gatsunaga);
+  font-size: 28px;
+  line-height: 1;
+  color: var(--accent);
+  opacity: 0.35;
+  letter-spacing: -0.02em;
+  transition: opacity 0.3s ease;
+}
+.kanji-num:hover,
+*:hover > .kanji-num {
+  opacity: 0.55;
+}
+
+/* Warm grain overlay on dark bg — z-index below modals/toasts */
 html.dark body::before {
-  content: '';
+  content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 9000;
+  z-index: 1000;
   opacity: 0.022;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 180px 180px;
@@ -792,8 +2387,12 @@ html.dark body::before {
 
 /* Hybrid ticker animation */
 @keyframes ticker-hybrid {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 .ticker-animate {
   animation: ticker-hybrid 28s linear infinite;
@@ -801,9 +2400,9 @@ html.dark body::before {
 
 /* Card N° edition badge */
 .card-edition-badge {
-  font-family: var(--font-dm-serif), serif;
+  font-family: var(--font-gatsunaga);
   font-style: italic;
-  color: var(--gold, #C8A96E);
+  color: var(--gold, #c8a96e);
   opacity: 0.65;
   font-size: 11px;
   letter-spacing: 0.03em;
@@ -811,9 +2410,9 @@ html.dark body::before {
 
 /* Gold price text */
 .price-gold {
-  font-family: var(--font-dm-serif), serif;
-  font-style: italic;
-  color: var(--gold, #C8A96E);
+  font-family: var(--font-jakarta), sans-serif;
+  font-weight: 600;
+  color: var(--gold, #c8a96e);
 }
 
 /* Hero shelf scrollbar hidden */
@@ -821,26 +2420,28 @@ html.dark body::before {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
-.hero-shelf-scroll::-webkit-scrollbar { display: none; }
+.hero-shelf-scroll::-webkit-scrollbar {
+  display: none;
+}
 
 /* ═══════════════════════════════════════════════════════════
    SHADOW TOKENS
    ═══════════════════════════════════════════════════════════ */
 :root {
-  --shadow-sm:  0 1px 3px rgba(28,22,16,0.06), 0 1px 2px rgba(28,22,16,0.04);
-  --shadow-md:  0 4px 16px rgba(28,22,16,0.08), 0 2px 6px rgba(28,22,16,0.05);
-  --shadow-lg:  0 8px 40px rgba(28,22,16,0.10), 0 4px 12px rgba(28,22,16,0.06);
-  --shadow-xl:  0 20px 60px rgba(28,22,16,0.14), 0 8px 20px rgba(28,22,16,0.08);
-  --overlay:    rgba(28,22,16,0.80);
-  --overlay-light: rgba(28,22,16,0.50);
+  --shadow-sm: 0 1px 3px rgba(28, 22, 16, 0.06), 0 1px 2px rgba(28, 22, 16, 0.04);
+  --shadow-md: 0 4px 16px rgba(28, 22, 16, 0.08), 0 2px 6px rgba(28, 22, 16, 0.05);
+  --shadow-lg: 0 8px 40px rgba(28, 22, 16, 0.1), 0 4px 12px rgba(28, 22, 16, 0.06);
+  --shadow-xl: 0 20px 60px rgba(28, 22, 16, 0.14), 0 8px 20px rgba(28, 22, 16, 0.08);
+  --overlay: rgba(28, 22, 16, 0.8);
+  --overlay-light: rgba(28, 22, 16, 0.5);
 }
 html.dark {
-  --shadow-sm:  0 1px 3px rgba(0,0,0,0.20), 0 1px 2px rgba(0,0,0,0.14);
-  --shadow-md:  0 4px 16px rgba(0,0,0,0.28), 0 2px 6px rgba(0,0,0,0.18);
-  --shadow-lg:  0 8px 40px rgba(0,0,0,0.35), 0 4px 12px rgba(0,0,0,0.22);
-  --shadow-xl:  0 20px 60px rgba(0,0,0,0.45), 0 8px 20px rgba(0,0,0,0.28);
-  --overlay:    rgba(5,4,2,0.85);
-  --overlay-light: rgba(5,4,2,0.55);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.14);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.28), 0 2px 6px rgba(0, 0, 0, 0.18);
+  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.35), 0 4px 12px rgba(0, 0, 0, 0.22);
+  --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.45), 0 8px 20px rgba(0, 0, 0, 0.28);
+  --overlay: rgba(5, 4, 2, 0.85);
+  --overlay-light: rgba(5, 4, 2, 0.55);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -850,44 +2451,57 @@ html.dark {
   position: relative;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
   font-family: var(--font-syne), sans-serif;
   font-weight: 700;
-  font-size: 10px;
+  font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.13em;
   background: var(--accent);
   color: var(--bg);
-  padding: 12px 28px;
-  transition: background 0.22s ease, color 0.22s ease, transform 0.18s ease, box-shadow 0.4s ease;
+  padding: 14px 30px;
+  border-radius: 999px;
+  transition:
+    background var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    box-shadow var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
   overflow: hidden;
   isolation: isolate;
 }
 
-/* Shimmer sweep — contained within button (overflow: hidden) */
-.btn-brand::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 28%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
-  animation: shimmer-sweep 3.8s ease-in-out infinite;
-  animation-delay: 2s;
-  pointer-events: none;
-}
-
-.btn-brand:hover {
-  background: var(--text);
-  color: var(--bg);
-  /* Ring effect via box-shadow so overflow:hidden doesn't clip it */
-  box-shadow:
-    0 8px 24px rgba(var(--accent-rgb), 0.22),
-    0 0 0 2px rgba(var(--accent-rgb), 0.55);
+@media (hover: hover) {
+  .btn-brand:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px color-mix(in srgb, var(--accent) 34%, transparent);
+  }
 }
 
 .btn-brand:active {
-  transform: scale(0.97);
+  animation: btn-spring 0.38s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes btn-spring {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(0.93);
+  }
+  55% {
+    transform: scale(1.03);
+  }
+  75% {
+    transform: scale(0.98);
+  }
+  90% {
+    transform: scale(1.01);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .btn-brand:disabled {
@@ -895,12 +2509,1989 @@ html.dark {
   pointer-events: none;
 }
 
+.btn-brand:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.btn-ghost:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
 /* Compact variant — smaller padding */
 .btn-brand-sm {
-  padding: 8px 16px;
+  padding: 9px 20px;
+  font-size: 10px;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .btn-brand::before { display: none; }
-  .btn-brand::after  { animation: none; }
+  .btn-brand::before {
+    display: none;
+  }
+  .btn-brand::after {
+    animation: none;
+  }
+  .btn-brand:active {
+    animation: none;
+    transform: scale(0.97);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BTN-GHOST — outline/border CTA, pairs with .btn-brand
+   ═══════════════════════════════════════════════════════════ */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-syne), sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  border: 1px solid var(--btn-ghost-border);
+  background: transparent;
+  color: var(--text);
+  padding: 13px 26px;
+  border-radius: 999px;
+  transition:
+    border-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    background var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+@media (hover: hover) {
+  .btn-ghost:hover {
+    border-color: var(--btn-ghost-border-hover);
+    background: var(--input-bg);
+    transform: translateY(-2px);
+  }
+}
+.btn-ghost:active {
+  transform: scale(0.97);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LABEL-SECTION — editorial uppercase section tag
+   ═══════════════════════════════════════════════════════════ */
+.label-section {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-syne), sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--muted);
+}
+.label-section::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.45;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ANIM-FADE-UP-SLOW — cinematic hero entrance (longer)
+   ═══════════════════════════════════════════════════════════ */
+@layer utilities {
+  .anim-fade-up-slow {
+    animation: fade-up 0.72s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .delay-500 {
+    animation-delay: 500ms;
+  }
+  .delay-600 {
+    animation-delay: 600ms;
+  }
+}
+
+/* ── Typing cursor blink ── */
+@keyframes cursor-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+.cursor-blink {
+  animation: cursor-blink 1s step-end infinite;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FORMA V2 — legacy named tokens (kept for component compat)
+   ═══════════════════════════════════════════════════════════ */
+:root {
+  --sumi: #1a0e06;
+  --tsuchi: #9c6e20;
+  --kinari: #f2e8d0;
+  --sabi: #7a1c2e;
+  --sumi-dim: #4a3020;
+  --border-sumi: rgba(26, 14, 6, 0.14);
+  --border-sumi-strong: rgba(26, 14, 6, 0.22);
+}
+
+/* ── Forma v2 typography helpers ── */
+.forma-serif {
+  font-family: var(--font-cormorant), "Cormorant Garamond", "EB Garamond", Georgia, serif;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  color: var(--sumi);
+}
+.forma-sans {
+  font-family:
+    var(--font-inter),
+    var(--font-jakarta),
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--sumi-dim);
+}
+.forma-mono {
+  font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+  font-weight: 300;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--sumi);
+  opacity: 0.4;
+}
+
+/* ── Grain texture overlay ── */
+.forma-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 300px 300px;
+  opacity: 0.03;
+}
+
+/* ── Section separator: thin 1px sumi ── */
+.forma-sep {
+  width: 100%;
+  height: 1px;
+  background: var(--sumi);
+  opacity: 0.14;
+}
+
+/* ── Forma v2 fade-in on scroll ──
+   NOTE: keyframe is namespaced (forma-v2-fade-up). It used to be called
+   forma-fade-up, which silently overrode the snap-section entrance
+   keyframe of the same name defined at the top of this file. */
+@keyframes forma-v2-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.forma-fade-in {
+  animation: forma-v2-fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ── Forma v2 theming CSS vars — defined in :root and .dark above ── */
+.dark {
+  --forma-bg: var(--bg);
+  --forma-bg-alt: rgba(26, 18, 9, 0.95);
+  --forma-bg-dark-section: #080503;
+  --forma-text: var(--text);
+  --forma-text-muted: var(--muted);
+  --forma-text-accent: var(--accent);
+  --forma-border: var(--border);
+  --forma-border-card: var(--card-border);
+  --forma-accent-sabi: var(--terra);
+  --forma-kinari: #f8f0dc;
+  --bg-outer: #050302;
+}
+
+/* Compact mode overrides */
+.forma-compact .forma-v2-section {
+  min-height: auto !important;
+  padding-top: clamp(56px, 10vw, 96px) !important;
+  padding-bottom: clamp(48px, 8vw, 80px) !important;
+}
+.forma-compact .forma-section-grid {
+  grid-template-columns: 1fr !important;
+  gap: 32px !important;
+}
+
+/* Mobile: always single column */
+@media (max-width: 768px) {
+  .forma-section-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .forma-editorial-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .forma-v2-section {
+    padding-left: 6vw !important;
+    padding-right: 6vw !important;
+  }
+}
+
+/* ── Forma masthead — responsive letter-spacing for mobile ── */
+@media (max-width: 639px) {
+  .forma-masthead {
+    letter-spacing: 0.18em !important;
+    padding-right: 0.18em !important;
+  }
+}
+
+/* ── News ticker animation ── */
+@keyframes forma-ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .forma-ticker-track {
+    animation: none !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FORMA APPLE — multiplatform design system (v2)
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Page wrapper ── */
+.fp-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 50% -10%, rgba(212, 175, 55, 0.16), transparent 34%),
+    radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.07), transparent 26%), #050505;
+}
+
+/* ── Nav (Apple sticky gradient) ── */
+.fp-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 44px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: linear-gradient(to bottom, rgba(5, 5, 5, 0.86), rgba(5, 5, 5, 0.38), transparent);
+  backdrop-filter: blur(16px);
+}
+.fp-logo {
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+}
+.fp-navlinks {
+  display: flex;
+  gap: 26px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.fp-navlinks a {
+  color: var(--muted);
+  transition: color 0.2s;
+}
+.fp-navlinks a:hover {
+  color: var(--text);
+}
+
+/* IT/EN toggle */
+.fp-lang {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.04);
+}
+.fp-lang button {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  padding: 7px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  font: inherit;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+.fp-lang button.active {
+  background: var(--text);
+  color: #050505;
+}
+
+/* ── Hero ── */
+.fp-hero {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 110px 28px 90px;
+  text-align: center;
+}
+
+/* ── Eyebrow pill ── */
+.fp-eyebrow {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 9px 14px;
+  color: var(--muted);
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.04);
+}
+.fp-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 99px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+/* ── Hero headline ── */
+.fp-h1 {
+  font-size: clamp(58px, 10vw, 132px);
+  line-height: 0.9;
+  letter-spacing: -0.075em;
+  margin: 24px 0 22px;
+  font-weight: 650;
+}
+.fp-lead {
+  max-width: 720px;
+  margin: 0 auto;
+  color: var(--muted);
+  font-size: clamp(18px, 2vw, 23px);
+  line-height: 1.45;
+}
+.fp-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  margin-top: 36px;
+  flex-wrap: wrap;
+}
+
+/* ── Buttons ── */
+.fp-btn {
+  border: 1px solid var(--border);
+  padding: 14px 22px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  transition:
+    background 0.2s,
+    transform 0.3s;
+}
+.fp-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.fp-btn.primary {
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  color: #070707;
+  border: 0;
+  font-weight: 650;
+}
+.fp-btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px rgba(212, 175, 55, 0.25);
+}
+
+/* ── Browser mockup ── */
+.fp-showcase {
+  max-width: 1120px;
+  margin: 30px auto 0;
+  padding: 0 28px 90px;
+}
+.fp-browser {
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.045);
+  border-radius: 34px;
+  padding: 18px;
+  box-shadow: 0 35px 120px rgba(0, 0, 0, 0.48);
+}
+.fp-browserbar {
+  display: flex;
+  gap: 7px;
+  margin-bottom: 16px;
+}
+.fp-browserbar span {
+  width: 11px;
+  height: 11px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.22);
+}
+.fp-template-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.9fr 0.9fr;
+  gap: 14px;
+}
+.fp-tile {
+  min-height: 190px;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025));
+  padding: 22px;
+  position: relative;
+  overflow: hidden;
+}
+.fp-tile.large {
+  grid-row: span 2;
+  min-height: 394px;
+}
+.fp-tile h3 {
+  margin: 0 0 8px;
+  font-size: 26px;
+  letter-spacing: -0.04em;
+}
+.fp-tile p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.45;
+}
+.fp-badge {
+  display: inline-block;
+  margin-bottom: 22px;
+  color: #080808;
+  background: var(--gold);
+  padding: 6px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.fp-orb {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 999px;
+  background: radial-gradient(circle, var(--gold), transparent 64%);
+  opacity: 0.14;
+  right: -80px;
+  bottom: -80px;
+  pointer-events: none;
+}
+
+/* ── Feature section ── */
+.fp-section {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 92px 28px;
+}
+.fp-section h2 {
+  font-size: clamp(38px, 5vw, 70px);
+  line-height: 1;
+  letter-spacing: -0.06em;
+  margin: 0 0 16px;
+}
+.fp-section > p {
+  color: var(--muted);
+  line-height: 1.55;
+  font-size: 18px;
+}
+.fp-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 34px;
+}
+.fp-card {
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  background: var(--panel, rgba(255, 255, 255, 0.055));
+  padding: 24px;
+  min-height: 180px;
+  transition:
+    transform 0.3s,
+    background 0.3s;
+}
+.fp-card:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.08);
+}
+.fp-card h3 {
+  margin: 18px 0 8px;
+}
+.fp-card p {
+  font-size: 15px;
+  margin: 0;
+  color: var(--muted);
+}
+
+/* ── App shell / Marketplace ── */
+.fp-app-shell {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  min-height: 100vh;
+}
+.fp-sidebar {
+  border-right: 1px solid var(--border);
+  background: #0b0b0b;
+  padding: 28px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+.fp-sideitem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  padding: 12px 14px;
+  border-radius: 16px;
+  margin: 4px 0;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+.fp-sideitem.active {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+}
+.fp-sideitem:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.04);
+}
+.fp-main {
+  padding: 38px;
+  min-width: 0;
+}
+.fp-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: center;
+}
+.fp-search {
+  margin-top: 28px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 14px 16px;
+  color: var(--text);
+  width: 100%;
+  outline: none;
+  font: inherit;
+}
+.fp-search:focus {
+  border-color: rgba(212, 175, 55, 0.4);
+}
+.fp-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 18px 0 26px;
+}
+.fp-chip {
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 999px;
+  padding: 9px 13px;
+  color: var(--muted);
+  cursor: pointer;
+  font: inherit;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+.fp-chip.active {
+  background: var(--text);
+  color: #050505;
+}
+.fp-market {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.fp-product {
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  background: var(--panel);
+  overflow: hidden;
+}
+.fp-preview {
+  height: 170px;
+  background: linear-gradient(145deg, rgba(212, 175, 55, 0.28), rgba(255, 255, 255, 0.06));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #050505;
+  font-weight: 800;
+  font-size: 40px;
+}
+.fp-product-body {
+  padding: 20px;
+}
+.fp-product-body p {
+  color: var(--muted);
+  line-height: 1.45;
+}
+.fp-meta {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 16px;
+}
+
+/* ── Brand kit boards ── */
+.fp-brand-board {
+  padding: 34px;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+.fp-board {
+  min-height: 620px;
+  border: 1px solid var(--border);
+  border-radius: 36px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025));
+  padding: 42px;
+  margin: 24px 0;
+  position: relative;
+  overflow: hidden;
+}
+.fp-board h2 {
+  font-size: 56px;
+  letter-spacing: -0.06em;
+  margin: 0 0 10px;
+}
+.fp-board > p {
+  color: var(--muted);
+  font-size: 19px;
+  line-height: 1.5;
+}
+.fp-board-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  margin-top: 40px;
+}
+.fp-mini {
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  background: rgba(0, 0, 0, 0.22);
+  min-height: 180px;
+  padding: 22px;
+}
+.fp-mini h3 {
+  margin: 12px 0 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .fp-navlinks {
+    display: none;
+  }
+  .fp-template-grid,
+  .fp-cards,
+  .fp-market,
+  .fp-board-grid {
+    grid-template-columns: 1fr;
+  }
+  .fp-app-shell {
+    grid-template-columns: 1fr;
+  }
+  .fp-sidebar {
+    height: auto;
+    position: relative;
+  }
+  .fp-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .fp-h1 {
+    font-size: 64px;
+  }
+  .fp-hero {
+    padding-top: 60px;
+  }
+  .fp-nav {
+    padding: 18px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FORMA — editorial system (v5)
+   Palette adapts to theme via CSS vars.
+   Dark:  bg #060606 · surface #0f0f0f · text #eaeaea · muted #8a8a8a
+   Light: bg #FDFAF5 · surface #F5EFE3 · text #1C1610 · muted rgba(26,14,6,.55)
+   Gold:  #D4AF37 → #B8962E
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Background — theme-aware + Caravaggio tenebrism overlay ── */
+.fn-bg {
+  min-height: 100vh;
+  background: var(--bg);
+  position: relative;
+  overflow: hidden;
+}
+/* Radial gold glow — subtler in light mode via opacity cascade */
+.fn-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(ellipse at 50% -5%, rgba(212, 175, 55, 0.07), transparent 50%);
+}
+
+.fn-shell {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+}
+
+/* ── Divider lines ── */
+.fn-topline,
+.fn-midline {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--fn-border, rgba(234, 234, 234, 0.12)) 20%,
+    var(--fn-border, rgba(234, 234, 234, 0.12)) 80%,
+    transparent
+  );
+  width: 100%;
+}
+
+/* ── Utility bar ── */
+.fn-utility {
+  height: 42px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 0 36px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  color: var(--muted);
+}
+.fn-utility .fn-right {
+  justify-self: end;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* ── Logo hero (SVG container) ── */
+.fn-logo-hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px auto;
+  text-decoration: none;
+  transition: opacity 0.35s;
+}
+.fn-logo-hero:hover {
+  opacity: 0.7;
+}
+.fn-logo-svg {
+  width: clamp(180px, 36vw, 340px);
+  height: auto;
+}
+
+/* ── Navbar ── */
+.fn-navbar {
+  height: 56px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 0 36px;
+  border-top: 1px solid var(--fn-border, rgba(234, 234, 234, 0.1));
+  border-bottom: 1px solid var(--fn-border, rgba(234, 234, 234, 0.1));
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: rgba(255, 255, 255, 0.85);
+}
+.fn-nav-left,
+.fn-nav-right {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+.fn-nav-right {
+  justify-self: end;
+}
+.fn-nav-left a:hover,
+.fn-nav-right a:hover {
+  color: var(--text);
+}
+.fn-kbd {
+  border: 1px solid var(--fn-border, rgba(234, 234, 234, 0.14));
+  border-radius: 6px;
+  padding: 4px 8px;
+  color: var(--muted);
+  margin-left: 7px;
+}
+.fn-outline {
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  border-radius: 999px;
+  padding: 10px 20px;
+  color: var(--text);
+  transition: background var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+.fn-outline:hover {
+  background: rgba(212, 175, 55, 0.09);
+}
+
+/* IT/EN toggle */
+/* Segmented control — the well is carved into the page, the selected
+   segment sits proud of it. */
+.fn-lang {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--glass-s-rim);
+  border-radius: 999px;
+  background: var(--glass-s-fill-sunk);
+  backdrop-filter: var(--glass-s-blur);
+  -webkit-backdrop-filter: var(--glass-s-blur);
+  box-shadow: inset 0 1px 0 var(--glass-s-sheen);
+}
+.fn-lang button {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 11px;
+  padding: 5px 11px;
+  cursor: pointer;
+  font: inherit;
+  border-radius: 999px;
+  transition:
+    background var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    color var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    box-shadow var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+.fn-lang button:hover {
+  color: var(--text);
+}
+/* The selected segment is a lit glass pill riding above the track. */
+.fn-lang .active {
+  background: #d4af37;
+  color: #060606;
+  font-weight: 700;
+  box-shadow:
+    var(--glass-s-cast-1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+.fn-lang button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ── Nav dropdowns ──
+   Only nav entries that actually have a submenu get a caret. The panel
+   is a glass sheet that settles in, matching the site's motion language. */
+.fn-nav-item {
+  position: relative;
+  display: inline-flex;
+}
+
+.fn-drop {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.fn-caret {
+  transition: transform var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+  opacity: 0.7;
+}
+.fn-caret[data-open] {
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
+.fn-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  z-index: 80;
+  min-width: 190px;
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+  border-radius: var(--r-md, 16px);
+  background: var(--fn-menu-bg, rgba(12, 10, 7, 0.82));
+  border: 1px solid var(--fn-border, rgba(234, 234, 234, 0.12));
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  box-shadow: var(--elev-4, 0 20px 50px rgba(0, 0, 0, 0.5));
+  opacity: 0;
+  transform: translateY(-6px) scale(0.98);
+  pointer-events: none;
+  visibility: hidden;
+  transition:
+    opacity var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    visibility 0s linear var(--t-md, 320ms);
+}
+.fn-menu[data-open] {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.fn-menu-item {
+  padding: 9px 12px;
+  border-radius: var(--r-sm, 10px);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+  white-space: nowrap;
+  transition:
+    background var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    color var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+.fn-menu-item:hover,
+.fn-menu-item:focus-visible {
+  background: rgba(212, 175, 55, 0.12);
+  color: var(--text);
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fn-menu,
+  .fn-caret {
+    transition: none;
+  }
+}
+
+/* ── Hero ── */
+.fn-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 72px;
+  align-items: end;
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 80px 36px 100px;
+}
+.fn-kicker {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.26em;
+  color: #d4af37;
+  font-weight: 600;
+  font-family: var(--font-jakarta), sans-serif;
+}
+.fn-hero h1 {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(40px, 5vw, 68px);
+  line-height: 1.02;
+  font-weight: 300;
+  margin: 16px 0;
+  color: var(--text);
+}
+.fn-hero p {
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.65;
+  max-width: 540px;
+}
+.fn-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 32px;
+}
+
+/* ── Buttons ── */
+.fn-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-jakarta), sans-serif;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  padding: 13px 24px;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid var(--fn-border, rgba(234, 234, 234, 0.18));
+  color: var(--text);
+  border-radius: 999px;
+  background: transparent;
+  white-space: nowrap;
+  transition:
+    background var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+@media (hover: hover) {
+  .fn-btn:hover {
+    transform: translateY(-1px);
+  }
+}
+.fn-btn.gold:hover {
+  transform: none;
+}
+.fn-btn:hover {
+  background: rgba(212, 175, 55, 0.07);
+  border-color: rgba(212, 175, 55, 0.3);
+}
+.fn-btn.primary {
+  background: linear-gradient(135deg, #d4af37, #b8962e);
+  color: #060606;
+  border: 0;
+  font-weight: 700;
+}
+.fn-btn.primary:hover {
+  background: linear-gradient(135deg, #dfc040, #c9a238);
+}
+.fn-btn.gold {
+  color: #d4af37;
+  border: 0;
+  background: transparent;
+  padding-left: 0;
+}
+.fn-btn.gold:hover {
+  color: #e8c94a;
+}
+
+/* ── Stats ── */
+.fn-stats {
+  border-left: 1px solid var(--fn-border, rgba(234, 234, 234, 0.14));
+  padding-left: 40px;
+  display: grid;
+  gap: 28px;
+}
+.fn-stat b {
+  display: block;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 40px;
+  font-weight: 300;
+  color: var(--text);
+}
+.fn-stat span {
+  color: var(--muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+/* ── Section ── */
+.fn-section {
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 72px 36px;
+}
+.fn-section h2 {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 300;
+  font-size: clamp(38px, 5vw, 60px);
+  margin: 0 0 8px;
+  color: var(--text);
+}
+.fn-section > p {
+  color: var(--muted);
+  font-size: 17px;
+}
+
+/* ── Search / toolbar ── */
+.fn-toolbar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* ── Glass controls (inner pages) ──
+   Same material as the panels over the paintings, tuned for a flat ground:
+   a touch less transparent, since there is little behind them to refract.
+   The rim border is load-bearing — it is what keeps a glass control
+   findable against the page (WCAG 1.4.11), so it is never dropped. */
+.fn-search {
+  flex: 1;
+  min-width: 200px;
+  background: var(--glass-s-fill-sunk);
+  border: 1px solid var(--glass-s-rim);
+  border-radius: 999px;
+  color: var(--text);
+  padding: 14px 20px;
+  outline: none;
+  font: inherit;
+  backdrop-filter: var(--glass-s-blur);
+  -webkit-backdrop-filter: var(--glass-s-blur);
+  box-shadow: inset 0 1px 0 var(--glass-s-sheen);
+  transition:
+    background var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    box-shadow var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+.fn-search::placeholder {
+  color: var(--muted);
+}
+.fn-search:focus {
+  background: var(--glass-s-fill);
+  border-color: rgba(212, 175, 55, 0.45);
+  box-shadow:
+    inset 0 1px 0 var(--glass-s-sheen),
+    0 0 0 3px rgba(212, 175, 55, 0.14);
+}
+
+.fn-chips {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+.fn-chip {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  padding: 10px 18px;
+  cursor: pointer;
+  font: inherit;
+  background: var(--glass-s-fill);
+  border: 1px solid var(--glass-s-rim);
+  border-radius: 999px;
+  color: var(--muted);
+  backdrop-filter: var(--glass-s-blur);
+  -webkit-backdrop-filter: var(--glass-s-blur);
+  /* Resting: a glass pill sitting just above the page */
+  box-shadow:
+    var(--glass-s-cast-1),
+    inset 0 1px 0 var(--glass-s-sheen);
+  transition:
+    background var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    box-shadow var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+@media (hover: hover) {
+  .fn-chip:hover {
+    color: var(--text);
+    background: var(--glass-s-fill-hi);
+    border-color: var(--glass-s-rim-hi);
+    transform: translateY(-2px);
+    box-shadow:
+      var(--glass-s-cast-2),
+      inset 0 1px 0 var(--glass-s-sheen);
+  }
+}
+.fn-chip:active {
+  transform: translateY(0);
+}
+/* Selected: the sheet lights up and settles back onto the page. The state
+   is carried by fill, rim colour, text colour and weight — not by shadow
+   alone — so it survives forced-colors and low-vision viewing. */
+.fn-chip.active {
+  color: var(--accent);
+  font-weight: 700;
+  background: var(--glass-s-fill-hi);
+  border-color: rgba(212, 175, 55, 0.55);
+  transform: none;
+  box-shadow:
+    inset 0 1px 0 var(--glass-s-sheen),
+    0 0 0 1px rgba(212, 175, 55, 0.22);
+}
+.fn-chip:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ── Grid ── */
+/* Cards are extruded surfaces now, so the grid gives them room to cast a
+   shadow instead of drawing hairline rules through 1px gaps.
+   minmax(0,1fr) — without it, a wide child (the scaled preview iframe)
+   sets the track's min-content size and blows the grid past its container. */
+.fn-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  background: transparent;
+}
+
+/* No double-width cards. An editor's pick used to span two tracks, which gave
+   the grid a bento rhythm but cost it evenness: the wide cards stranded a gap
+   whenever one arrived with a single track left, and two products at two
+   different sizes invite a comparison of size rather than of substance. Every
+   card is one track now, so the grid tiles on its own and the products are read
+   against each other rather than against the layout. `editorsPick` still shows,
+   as a badge. */
+@media (max-width: 900px) {
+  .fn-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+  }
+}
+@media (max-width: 600px) {
+  .fn-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+}
+
+/* Off-screen cards are skipped by the browser rather than by an observer we
+   write ourselves. contain-intrinsic-size keeps the scrollbar honest by giving
+   the engine a placeholder height for content it hasn't laid out yet. */
+.fn-cat-tile {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 420px;
+}
+
+/* ── Card — glass sheet ──
+   Rests just above the page and lifts toward the viewer on hover. Same
+   gesture as the panels over the paintings; only the transparency differs. */
+.fn-card {
+  background: var(--glass-s-fill);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--glass-s-rim);
+  border-radius: var(--glass-radius);
+  /* No backdrop-filter here, unlike .glass-surface — and the material is
+     unchanged, because behind these cards there is nothing to refract. The
+     catalogue ground is a flat --bg plus one very large, very soft gold radial
+     (alpha 0.07); blurring a flat fill and a gradient that gentle at 20px is
+     visually indistinguishable from not blurring them. What it did cost was a
+     compositor layer and a blur pass per card, sixteen times over, on the page
+     that felt slowest. Fill, rim, cast shadow and hover lift all stay, which is
+     what the on-flat-ground tier in CLAUDE.md actually asks for. */
+  box-shadow:
+    var(--glass-s-cast-1),
+    inset 0 1px 0 var(--glass-s-sheen);
+  transition:
+    background var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    box-shadow var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+@media (hover: hover) {
+  .fn-card:hover {
+    background: var(--glass-s-fill-hi);
+    border-color: var(--glass-s-rim-hi);
+    transform: translateY(-3px);
+    box-shadow:
+      var(--glass-s-cast-2),
+      inset 0 1px 0 var(--glass-s-sheen);
+  }
+}
+.fn-card:focus-within {
+  border-color: var(--glass-s-rim-hi);
+  box-shadow:
+    var(--glass-s-cast-2),
+    inset 0 1px 0 var(--glass-s-sheen);
+}
+
+/* ── Category tile (replaces inline onMouseEnter/Leave) ── */
+.fn-cat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+}
+@media (max-width: 1000px) {
+  .fn-cat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+}
+@media (max-width: 560px) {
+  .fn-cat-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+}
+
+.fn-cat-tile {
+  text-decoration: none;
+  display: block;
+  padding: 32px 24px;
+  background: var(--glass-s-fill);
+  border: 1px solid var(--glass-s-rim);
+  border-radius: var(--glass-radius);
+  backdrop-filter: var(--glass-s-blur);
+  -webkit-backdrop-filter: var(--glass-s-blur);
+  box-shadow:
+    var(--glass-s-cast-1),
+    inset 0 1px 0 var(--glass-s-sheen);
+  transition:
+    background var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    box-shadow var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+@media (hover: hover) {
+  .fn-cat-tile:hover {
+    background: var(--glass-s-fill-hi);
+    border-color: var(--glass-s-rim-hi);
+    transform: translateY(-3px);
+    box-shadow:
+      var(--glass-s-cast-2),
+      inset 0 1px 0 var(--glass-s-sheen);
+  }
+}
+.fn-body {
+  padding: 20px 18px 22px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.fn-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 14px;
+}
+.fn-meta span {
+  color: var(--muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+/* ── Badge ── */
+.fn-badge {
+  display: inline-block;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: rgba(212, 175, 55, 0.12);
+  color: #d4af37;
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  font-family: var(--font-jakarta), sans-serif;
+  font-weight: 600;
+}
+
+.fn-card-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ── Featured strip ── */
+.fn-featured {
+  border-top: 1px solid var(--fn-border, rgba(234, 234, 234, 0.08));
+  padding: 72px 36px;
+  max-width: 1220px;
+  margin: 0 auto;
+}
+.fn-featured-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  background: transparent;
+  margin-top: 40px;
+}
+@media (max-width: 900px) {
+  .fn-featured-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+  }
+}
+@media (max-width: 600px) {
+  .fn-featured-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+}
+/* First card spans 2 columns for asymmetric editorial layout */
+.fn-featured-grid > :first-child {
+  grid-column: span 2;
+}
+
+/* ── Detail page ── */
+.fn-detail {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 56px 36px 90px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  gap: 24px;
+  align-items: start;
+}
+.fn-panel {
+  border: 1px solid var(--glass-s-rim);
+  border-radius: var(--glass-radius);
+  background: var(--glass-s-fill);
+  backdrop-filter: var(--glass-s-blur);
+  -webkit-backdrop-filter: var(--glass-s-blur);
+  box-shadow:
+    var(--glass-s-cast-1),
+    inset 0 1px 0 var(--glass-s-sheen);
+  padding: 28px;
+}
+.fn-sticky {
+  position: sticky;
+  top: 24px;
+}
+
+/* ── Simple pages ── */
+.fn-simple {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 88px 36px 80px;
+}
+.fn-simple h1 {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(44px, 8vw, 80px);
+  font-weight: 300;
+  margin: 0 0 18px;
+  color: var(--text);
+  line-height: 1.05;
+}
+.fn-simple p {
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.65;
+  max-width: 680px;
+}
+.fn-box {
+  border: 1px solid var(--glass-s-rim);
+  border-radius: var(--glass-radius);
+  padding: 26px;
+  margin-top: 24px;
+  background: var(--glass-s-fill);
+  backdrop-filter: var(--glass-s-blur);
+  -webkit-backdrop-filter: var(--glass-s-blur);
+  box-shadow:
+    var(--glass-s-cast-1),
+    inset 0 1px 0 var(--glass-s-sheen);
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ── Studio window ── */
+.fn-window {
+  width: 72%;
+  border: 1px solid var(--fn-border, rgba(234, 234, 234, 0.1));
+  border-radius: var(--r-md, 16px);
+  padding: 18px;
+  background: var(--surface);
+}
+.fn-line {
+  height: 1px;
+  background: var(--fn-border, rgba(234, 234, 234, 0.18));
+  margin-bottom: 10px;
+}
+.fn-line.gold {
+  background: rgba(212, 175, 55, 0.35);
+}
+
+/* ── Footer ── */
+.fn-footer {
+  border-top: 1px solid var(--fn-border, rgba(234, 234, 234, 0.09));
+  padding: 28px 36px;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+}
+.fn-footer a:hover {
+  color: var(--text);
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .fn-utility,
+  .fn-navbar {
+    padding: 0 18px;
+  }
+  .fn-nav-left {
+    gap: 12px;
+  }
+  .fn-nav-left a:nth-child(n + 3) {
+    display: none;
+  }
+  .fn-nav-right a:first-child,
+  .fn-kbd {
+    display: none;
+  }
+  .fn-hero {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 56px 20px 60px;
+    gap: 40px;
+  }
+  .fn-detail {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 40px 20px 100px;
+  }
+  .fn-stats {
+    border-left: 0;
+    padding-left: 0;
+    border-top: 1px solid var(--fn-border, rgba(234, 234, 234, 0.1));
+    padding-top: 24px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+  .fn-stat {
+    padding: 0 16px 0 0;
+  }
+  .fn-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .fn-featured-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .fn-featured-grid > :first-child {
+    grid-column: span 1;
+  }
+  .fn-toolbar {
+    grid-template-columns: 1fr;
+  }
+  .fn-section {
+    padding: 48px 20px;
+  }
+  .fn-featured {
+    padding: 48px 20px;
+  }
+  .fn-simple {
+    padding: 64px 20px 100px;
+  }
+  .fn-footer {
+    padding: 24px 20px;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .fn-bg {
+    padding-bottom: 80px;
+  }
+}
+@media (max-width: 600px) {
+  .fn-utility > span:not(.fn-right) {
+    display: none;
+  }
+  .fn-utility {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 18px;
+  }
+  .fn-logo-svg {
+    width: clamp(130px, 52vw, 210px);
+  }
+  .fn-logo-hero {
+    margin: 20px auto;
+  }
+  .fn-hero {
+    padding-top: 36px;
+  }
+  .fn-grid {
+    grid-template-columns: 1fr;
+  }
+  .fn-detail {
+    padding-top: 24px;
+  }
+  .fn-simple h1 {
+    font-size: clamp(40px, 12vw, 56px);
+  }
+}
+
+/* ── Footer ── */
+.fn-footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 56px;
+}
+@media (max-width: 900px) {
+  .fn-footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+}
+@media (max-width: 600px) {
+  .fn-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-bottom: 36px;
+  }
+}
+
+/* ── Homepage hero layout ── */
+.fn-home-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 72px 36px 60px;
+  gap: 56px;
+}
+@media (max-width: 900px) {
+  .fn-home-hero {
+    grid-template-columns: 1fr;
+    padding: 56px 20px 48px;
+  }
+  .fn-home-hero aside {
+    display: none;
+  }
+}
+
+/* ── Template detail page ── */
+.fn-tpl-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+  gap: 32px;
+  align-items: start;
+}
+.fn-tpl-related {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  background: transparent;
+}
+@media (max-width: 900px) {
+  .fn-tpl-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .fn-tpl-layout aside {
+    position: static !important;
+  }
+  .fn-tpl-related {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+}
+@media (max-width: 560px) {
+  .fn-tpl-related {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .fn-tpl-related {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BENTO GRID
+   A tray of variable-size cells, each one a destination.
+   ═══════════════════════════════════════════════════════════ */
+
+.bento-grid {
+  display: grid;
+  gap: 10px;
+  /* Single column on phones. Cell spans are ignored here on purpose —
+     a 2-wide cell in a 1-wide grid would overflow the viewport. */
+  grid-template-columns: 1fr;
+  grid-auto-rows: minmax(180px, auto);
+}
+
+@media (min-width: 640px) {
+  .bento-grid {
+    gap: 12px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: minmax(200px, auto);
+  }
+  .bento-cell {
+    /* Must be a bare integer — `span min(...)` is not valid CSS, so the
+       2-track ceiling is enforced in BentoCell instead. */
+    grid-column: span var(--bento-cols-md, 1);
+    grid-row: span var(--bento-rows, 1);
+  }
+}
+
+@media (min-width: 1024px) {
+  .bento-grid {
+    gap: 14px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: minmax(210px, auto);
+  }
+  .bento-cell {
+    grid-column: span var(--bento-cols, 1);
+  }
+}
+
+/* Entrance. Transform and opacity only, so this composites and the grid holds
+   frame rate while every cell is appearing at once. `both` keeps the pre-delay
+   frames at the from-state instead of flashing the finished cell first. */
+.bento-cell {
+  min-width: 0; /* lets long words wrap instead of widening the track */
+  animation: bento-rise 0.72s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1))
+    var(--delay, 0ms) both;
+}
+
+@keyframes bento-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* A cell that is a link needs a visible keyboard focus ring. The rim border is
+   load-bearing for finding the cell at rest, but it does not move on focus, so
+   it cannot double as the focus indicator. */
+.bento-cell:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Hover lift comes from .glass-surface. The media query there already gates it
+   on a real pointer, so a tap on mobile does not leave a cell stuck raised. */
+
+@media (prefers-reduced-motion: reduce) {
+  .bento-cell {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BENTO MOBILE — full-width CTAs + cell ordering
+   ═══════════════════════════════════════════════════════════ */
+
+/* On mobile, make the hero CTA buttons full-width */
+@media (max-width: 639px) {
+  .bento-hero-ctas {
+    flex-direction: column;
+    width: 100%;
+  }
+  .bento-hero-ctas > a {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+  /* Mobile cell ordering: Hero first, then Catalogo, Studio, Guida, Personal */
+  .bento-order-hero { order: 1; }
+  .bento-order-catalogo { order: 2; }
+  .bento-order-studio { order: 3; }
+  .bento-order-guida { order: 4; }
+  .bento-order-personal { order: 5; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FOOTER ACCORDION — mobile collapsible sections
+   ═══════════════════════════════════════════════════════════ */
+
+/* On desktop (≥640px): hide the +/- icon, always show content,
+   make the trigger non-interactive */
+@media (min-width: 640px) {
+  .fn-footer-accordion-icon {
+    display: none !important;
+  }
+  .fn-footer-accordion-content {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  .fn-footer-accordion-trigger {
+    cursor: default !important;
+    pointer-events: none !important;
+  }
+}
+
+
+
+/* ═══════════════════════════════════════════════════════════
+   CATALOGUE FILTERS
+   A single-select segmented control. The groups don't overlap,
+   so multi-select would be meaningless.
+   ═══════════════════════════════════════════════════════════ */
+
+.fn-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 40px;
+}
+
+.fn-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--glass-s-rim);
+  background: var(--glass-s-fill);
+  color: var(--muted);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  /* Colour and border only. Animating size would reflow the whole row every
+     time the selection moves. */
+  transition:
+    background var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    color var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+@media (hover: hover) {
+  .fn-filter:hover {
+    color: var(--text);
+    border-color: var(--glass-s-rim-hi);
+  }
+}
+.fn-filter:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Selection is carried by fill, border AND text colour together — never by one
+   of them alone, so it survives forced-colors mode and low-vision viewing. */
+.fn-filter.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #17130a;
+}
+
+.fn-filter__count {
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.65;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CATALOGUE CARD — uniform
+   Every card the same size, so the eye compares products
+   rather than boxes.
+   ═══════════════════════════════════════════════════════════ */
+
+/* The thumbnail sets the card's top block at a fixed ratio, so a row of cards
+   lines up on the same horizontal regardless of how long the titles are. */
+.fn-card > *:first-child {
+  flex-shrink: 0;
+}
+
+/* Body grows to absorb the difference in text length, which is what keeps the
+   price and the button on the same baseline across a row. */
+.fn-card .fn-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* Push the price row and the action to the bottom of whatever height the row
+   settles at — the alternative is buttons floating at different heights, which
+   is the single thing that makes a product grid look unfinished. */
+.fn-card .fn-meta {
+  margin-top: auto;
+}
+
+/* Two lines of description, then ellipsis. Uncapped copy is what made cards
+   different heights in the first place. */
+.fn-card .fn-body > p {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Facet rows stack; chips wrap within a row. */
+.fn-facets {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 0 40px;
+}
+.fn-facets .fn-filters {
+  margin: 0;
+}
+
+/* A combination that would yield nothing stays visible but unusable, rather
+   than disappearing — a chip row that reshuffles while you filter is
+   disorienting, and the whole point of the counts is to see a dead end before
+   walking into it. */
+.fn-filter:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+@media (hover: hover) {
+  .fn-filter:disabled:hover {
+    color: var(--muted);
+    border-color: var(--glass-s-rim);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PRODUCT SHOTS
+   The template as an image, not as a nested document scaled
+   to a quarter of its design width.
+   ═══════════════════════════════════════════════════════════ */
+
+.fn-detail-shot,
+.fn-sheet-shot {
+  position: relative;
+  width: 100%;
+  /* A ratio rather than a viewport height. `60vh` on a tall phone reserved most
+     of the screen for a product shot and pushed the name, the price and the buy
+     button below the fold — the three things the page exists to show. */
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+
+/* Cap it on large screens so the shot stays a product image and does not become
+   a hero band. */
+@media (min-width: 768px) {
+  .fn-detail-shot {
+    aspect-ratio: 2 / 1;
+    max-height: 460px;
+  }
+  .fn-sheet-shot {
+    aspect-ratio: 2 / 1;
+    max-height: 380px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CLEARANCE FOR THE FLOATING MOBILE NAV
+   The pill stays; the content moves out from under it.
+   ═══════════════════════════════════════════════════════════ */
+
+/* The pill sits 24px off the bottom and stands ~56px tall. Anything that ends
+   within that band is unreachable: taps land on the nav instead. This gives the
+   buy box its own clearance so the button can always be scrolled clear of it,
+   rather than relying on whatever happens to follow on the page. */
+@media (max-width: 639px) {
+  .fn-buy-box {
+    margin-bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* ── Catalogue detail sheet ───────────────────────────────────────────────
+   The sheet keeps the glass material — rim light, blur, cast shadow — but not
+   the standard 0.65 fill. It opens directly over the catalogue grid, and the
+   thumbnails behind it are now photographs of the products: bright, busy, full
+   of type. At 0.65 the product name, description and price were read against
+   other products' covers, which is the one place on the site where that cannot
+   be allowed, because it is where the buying decision is made.
+   The rim border is untouched; it is what keeps the panel findable (WCAG
+   1.4.11), and dropping it for a cleaner look is never the fix. */
+.fn-sheet-panel {
+  background: rgba(10, 9, 7, 0.94);
+}
+:root:not(.dark) .fn-sheet-panel {
+  background: rgba(253, 250, 245, 0.96);
 }

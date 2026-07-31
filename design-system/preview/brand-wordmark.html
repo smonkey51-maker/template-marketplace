@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;800&family=Fraunces:opsz,wght@144,300&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 20px 24px;
+        background: #14100c;
+        font-family: "Plus Jakarta Sans", sans-serif;
+      }
+      .label {
+        font-family: "Montserrat", sans-serif;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #c8915a;
+        margin-bottom: 10px;
+      }
+      .wordmark {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 800;
+        font-size: 36px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #ede8dc;
+        line-height: 1;
+      }
+      .wordmark-sub {
+        font-size: 10px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #c8915a;
+        font-weight: 500;
+        margin-top: 4px;
+      }
+      .wordmark-sm {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 800;
+        font-size: 18px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #ede8dc;
+        line-height: 1;
+      }
+      .wordmark-sm .sub {
+        font-size: 9px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #c8915a;
+        font-weight: 500;
+        display: block;
+        margin-top: 2px;
+      }
+      .row {
+        display: flex;
+        gap: 32px;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        margin-bottom: 16px;
+      }
+      .kanji {
+        font-family: "Fraunces", serif;
+        font-weight: 300;
+        font-size: 80px;
+        color: #c8915a;
+        opacity: 0.18;
+        line-height: 1;
+      }
+      .divider {
+        border: none;
+        border-top: 1px solid rgba(237, 232, 220, 0.08);
+        margin: 14px 0;
+      }
+      .on-light {
+        background: rgba(250, 247, 240, 0.95);
+        padding: 12px 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="label">Wordmark — Dark Background</div>
+    <div class="row">
+      <div>
+        <div class="wordmark">For<span style="color: #c8915a">ma</span></div>
+        <div class="wordmark-sub">Artisan digital marketplace</div>
+      </div>
+      <div>
+        <div class="wordmark-sm">
+          For<span style="color: #c8915a">ma</span>
+          <span class="sub">Mercato del digitale artigianale</span>
+        </div>
+      </div>
+      <div class="kanji">形</div>
+    </div>
+    <div class="divider"></div>
+    <div class="label">Wordmark — Light Background</div>
+    <div class="on-light">
+      <div
+        style="
+          font-family: &quot;Montserrat&quot;, sans-serif;
+          font-weight: 800;
+          font-size: 28px;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          color: #0a0805;
+          line-height: 1;
+        "
+      >
+        For<span style="color: #9c7040">ma</span>
+      </div>
+      <div
+        style="
+          font-size: 9px;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: #9c7040;
+          font-weight: 500;
+          font-family: &quot;Montserrat&quot;, sans-serif;
+          margin-top: 3px;
+        "
+      >
+        Artisan digital marketplace
+      </div>
+    </div>
+  </body>
+</html>

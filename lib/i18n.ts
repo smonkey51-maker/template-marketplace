@@ -13,7 +13,8 @@ export const t = {
       titleStart: "Template premium,",
       titleGradient: "personalizzati\ncon AI",
       titleEnd: "per te",
-      subtitle: "Acquista un template professionale, poi adattalo in secondi con Claude AI. Nessun codice. Nessuna attesa.",
+      subtitle:
+        "Acquista un template professionale, poi adattalo in secondi con Claude AI. Nessun codice. Nessuna attesa.",
       cta1: "Sfoglia i template →",
       cta2: "Prova l'AI Studio",
       statTemplates: "template pronti",
@@ -27,7 +28,8 @@ export const t = {
       step2Title: "Acquista in un click",
       step2Desc: "Pagamento sicuro con Stripe. Accesso immediato al template e all'AI Studio.",
       step3Title: "Personalizza con AI",
-      step3Desc: "Descrivi le modifiche in italiano. Claude AI le applica in secondi — senza codice.",
+      step3Desc:
+        "Descrivi le modifiche in italiano. Claude AI le applica in secondi — senza codice.",
     },
     studioAccessBanner: {
       badge: "Studio Access",
@@ -132,24 +134,51 @@ export const t = {
     guide: {
       pageTitle: "Guida",
       badge: "Come funziona",
-      title: "Come usare TemplateLab",
+      title: "Come usare Forma",
       subtitle: "Dalla scelta all'utilizzo in pochi minuti.",
-      sectionTypes: "I nostri template",
+      // Tipi di template
+      sectionTypes: "I due tipi di template",
       uiTitle: "UI Template",
-      uiDesc: "Pagine HTML pronte. Copia, incolla, personalizza con AI Studio in secondi.",
-      sectionInstall: "Come installare un UI Template",
-      installStep1Title: "Acquista",
-      installStep1Desc: "Scegli dal marketplace e acquista in un click. Pagamento sicuro con Stripe.",
-      installStep2Title: "Personalizza con AI",
-      installStep2Desc: "Apri in AI Studio. Descrivi le modifiche — Claude le applica in secondi.",
-      installStep3Title: "Copia il codice",
-      installStep3Desc: "Un click per copiare l'HTML personalizzato negli appunti.",
-      installStep4Title: "Incolla nel tuo progetto",
-      installStep4Desc: "Compatibile con React, Next.js, Vue, Svelte o HTML puro. Zero dipendenze.",
-      sectionDemo: "Come appaiono i template",
-      demoUIDesc: "Pagina HTML completa con navbar, hero e sezioni. Pronta per AI Studio.",
+      uiDesc:
+        "Pagine HTML complete, pronte da copiare e incollare nel tuo progetto. Compatibili con qualsiasi framework.",
+      uiTags: ["HTML", "Tailwind CSS", "Copy & Paste"],
+      promptTitle: "Prompt Template",
+      promptDesc:
+        "Istruzioni AI pronte da usare in ChatGPT, Claude, Gemini e altri. Copia il testo e ottieni risultati professionali subito.",
+      promptTags: ["ChatGPT", "Claude", "Gemini"],
+      // Flusso
+      sectionFlow: "Come funziona",
+      flowStep1Title: "Scegli un template",
+      flowStep1Desc:
+        "Sfoglia il marketplace, filtra per categoria e anteprima il template prima di acquistare.",
+      flowStep2Title: "Acquista con Stripe",
+      flowStep2Desc:
+        "Pagamento sicuro in un click. Il template è subito disponibile nel tuo account.",
+      flowStep3Title: "Personalizza con AI Studio",
+      flowStep3Desc:
+        "Apri il template in AI Studio e descrivi le modifiche. Claude le applica in pochi secondi.",
+      flowStep4Title: "Copia e usa",
+      flowStep4Desc:
+        "Un click per copiare il codice o il testo. Incollalo nel tuo progetto — zero dipendenze.",
+      // AI Studio
+      sectionStudio: "L'AI Studio",
+      studioCustomTitle: "Personalizza un template",
+      studioCustomDesc:
+        "Hai acquistato un template? Aprilo in AI Studio e descrivi cosa vuoi cambiare: colori, testi, layout. Claude riscrive il codice in secondi.",
+      studioCustomBadge: "Incluso con ogni acquisto",
+      studioGenTitle: "Genera da zero",
+      studioGenDesc:
+        "Con Studio Access puoi creare template HTML o Prompt completamente nuovi. Descrivi l'idea e Claude li costruisce per te.",
+      studioGenBadge: "Studio Access",
+      // Bundle
+      sectionBundles: "I Bundle",
+      bundleTitle: "Più template, prezzo ridotto",
+      bundleDesc:
+        "I bundle raccolgono più template correlati in un unico acquisto scontato. Ideali se hai bisogno di coprire più casi d'uso.",
+      bundleBadge: "Risparmio garantito",
+      // CTA
       ctaLabel: "Inizia ora",
-      ctaTitle: "Pronto a usare TemplateLab?",
+      ctaTitle: "Pronto a usare Forma?",
       ctaSubtitle: "Sfoglia i template, scegli quello che fa per te e personalizzalo con AI.",
       ctaBtn: "Sfoglia i template →",
     },
@@ -206,7 +235,7 @@ export const t = {
       owned: "{{n}}/{{total}} template già posseduti",
     },
     footer: {
-      tagline: "Template UI e Prompt AI pronti all'uso.",
+      tagline: "Design per chi costruisce.",
       bundles: "Bundle",
       saved: "Salvati",
       guide: "Guida",
@@ -214,7 +243,7 @@ export const t = {
       account: "Account",
       privacy: "Privacy Policy",
       terms: "Termini di servizio",
-      copyright: "© 2026 TemplateLab. Tutti i diritti riservati.",
+      copyright: "© 2026 Forma. Tutti i diritti riservati.",
     },
   },
   en: {
@@ -229,7 +258,8 @@ export const t = {
       titleStart: "Premium templates,",
       titleGradient: "customized\nwith AI",
       titleEnd: "for you",
-      subtitle: "Buy a professional template, then adapt it in seconds with Claude AI. No code. No waiting.",
+      subtitle:
+        "Buy a professional template, then adapt it in seconds with Claude AI. No code. No waiting.",
       cta1: "Browse templates →",
       cta2: "Try AI Studio",
       statTemplates: "templates ready",
@@ -243,7 +273,8 @@ export const t = {
       step2Title: "Buy in one click",
       step2Desc: "Secure payment with Stripe. Immediate access to the template and AI Studio.",
       step3Title: "Customize with AI",
-      step3Desc: "Describe your changes in plain language. Claude AI applies them in seconds — no code.",
+      step3Desc:
+        "Describe your changes in plain language. Claude AI applies them in seconds — no code.",
     },
     studioAccessBanner: {
       badge: "Studio Access",
@@ -348,24 +379,51 @@ export const t = {
     guide: {
       pageTitle: "Guide",
       badge: "How it works",
-      title: "How to use TemplateLab",
+      title: "How to use Forma",
       subtitle: "From choosing to using in minutes.",
-      sectionTypes: "Our templates",
+      // Template types
+      sectionTypes: "Two types of templates",
       uiTitle: "UI Template",
-      uiDesc: "Complete HTML pages, ready to copy and paste. Customize with AI Studio in seconds.",
-      sectionInstall: "How to install a UI Template",
-      installStep1Title: "Purchase",
-      installStep1Desc: "Choose from the marketplace and buy in one click. Secure Stripe payment.",
-      installStep2Title: "Customize with AI",
-      installStep2Desc: "Open in AI Studio. Describe your changes — Claude applies them in seconds.",
-      installStep3Title: "Copy the code",
-      installStep3Desc: "One click to copy the customized HTML to your clipboard.",
-      installStep4Title: "Paste into your project",
-      installStep4Desc: "Works with React, Next.js, Vue, Svelte or plain HTML. Zero dependencies.",
-      sectionDemo: "How templates look",
-      demoUIDesc: "Complete HTML page with navbar, hero and sections. Ready for AI Studio.",
+      uiDesc:
+        "Complete HTML pages, ready to copy and paste into any project. Works with any framework.",
+      uiTags: ["HTML", "Tailwind CSS", "Copy & Paste"],
+      promptTitle: "Prompt Template",
+      promptDesc:
+        "AI-ready instructions for ChatGPT, Claude, Gemini and others. Copy the text and get professional results instantly.",
+      promptTags: ["ChatGPT", "Claude", "Gemini"],
+      // Flow
+      sectionFlow: "How it works",
+      flowStep1Title: "Pick a template",
+      flowStep1Desc:
+        "Browse the marketplace, filter by category and preview the template before buying.",
+      flowStep2Title: "Buy with Stripe",
+      flowStep2Desc:
+        "Secure one-click payment. The template is immediately available in your account.",
+      flowStep3Title: "Customize with AI Studio",
+      flowStep3Desc:
+        "Open the template in AI Studio and describe your changes. Claude applies them in seconds.",
+      flowStep4Title: "Copy and use",
+      flowStep4Desc:
+        "One click to copy the code or text. Paste it into your project — zero dependencies.",
+      // AI Studio
+      sectionStudio: "The AI Studio",
+      studioCustomTitle: "Customize a template",
+      studioCustomDesc:
+        "Bought a template? Open it in AI Studio and describe what you want to change: colours, text, layout. Claude rewrites the code in seconds.",
+      studioCustomBadge: "Included with every purchase",
+      studioGenTitle: "Generate from scratch",
+      studioGenDesc:
+        "With Studio Access you can create brand new HTML or Prompt templates. Describe the idea and Claude builds it for you.",
+      studioGenBadge: "Studio Access",
+      // Bundles
+      sectionBundles: "Bundles",
+      bundleTitle: "More templates, lower price",
+      bundleDesc:
+        "Bundles group multiple related templates into one discounted purchase. Perfect when you need to cover more use cases.",
+      bundleBadge: "Guaranteed savings",
+      // CTA
       ctaLabel: "Get started",
-      ctaTitle: "Ready to use TemplateLab?",
+      ctaTitle: "Ready to use Forma?",
       ctaSubtitle: "Browse the templates, pick the one that suits you and customize it with AI.",
       ctaBtn: "Browse templates →",
     },
@@ -422,7 +480,7 @@ export const t = {
       owned: "{{n}}/{{total}} templates already owned",
     },
     footer: {
-      tagline: "UI templates and AI prompts, ready to use.",
+      tagline: "Design for those who build.",
       bundles: "Bundles",
       saved: "Saved",
       guide: "Guide",
@@ -430,131 +488,226 @@ export const t = {
       account: "Account",
       privacy: "Privacy Policy",
       terms: "Terms of Service",
-      copyright: "© 2026 TemplateLab. All rights reserved.",
+      copyright: "© 2026 Forma. All rights reserved.",
     },
   },
 } as const;
 
-// Italian name+description translations for every template.
-// EN falls back to the original name/description in lib/templates.ts.
+// Italian name + description for every product on sale.
+//
+// English is the base: the strings in lib/templates.ts are the English copy,
+// and this table overrides them when the visitor is on /it. The locale itself
+// is decided in middleware.ts from Accept-Language — an Italian browser lands
+// on /it, every other language on /en — so a template with no entry here shows
+// its English name to an Italian visitor. That is the bug this table exists to
+// prevent, and it is why the keys must track lib/templates.ts exactly.
+//
+// It previously held forty entries for a catalogue that no longer exists
+// ("hero-saas", "restaurant-menu", …) and not one for the sixteen products
+// actually on sale, so every Italian visitor read an English shop.
+//
+// Note on "first-100-online-guide": the title stays in dollars in both
+// languages because the guide itself is written in dollars — content/products/
+// first-100-online-guide.html says "$100" six times. Translating the cover to
+// euros would promise a figure the file does not deliver.
 export const templateTranslations: Record<string, { name: string; description: string }> = {
-  "hero-saas":                { name: "Sezione Hero SaaS",             description: "Hero moderno con sfondo gradiente, CTA e badge social proof." },
-  "pricing-table":            { name: "Tabella Prezzi 3 Livelli",       description: "Card prezzi pulite con piano consigliato in evidenza e lista funzionalità." },
-  "blog-card-grid":           { name: "Griglia Articoli Blog",          description: "Layout a 3 colonne con card articolo, autore, data e tag categoria." },
-  "real-estate-agent":        { name: "Profilo Agente Immobiliare",     description: "Pagina profilo Canva-style per agenti con vetrina annunci e CTA contatto." },
-  "airbnb-property-listing":  { name: "Annuncio Affitto Breve",         description: "Pagina proprietà per host con galleria, servizi e CTA prenotazione." },
-  "therapist-profile":        { name: "Profilo Psicologo / Terapeuta",  description: "Pagina professionale calda per terapeuti con specializzazioni e prenotazione." },
-  "law-firm-services":        { name: "Studio Legale — Servizi",        description: "Pagina servizi autorevole per studi legali e avvocati." },
-  "budget-tracker":           { name: "Tracker Budget Personale",       description: "Dashboard finanza personale con categorie spese, grafici e obiettivi." },
-  "personal-finance-dashboard": { name: "Dashboard Finanza Personale", description: "Panoramica patrimonio con asset, obiettivi di risparmio e rendimenti." },
-  "artisan-product-catalog":  { name: "Catalogo Prodotti Artigianali",  description: "Vetrina prodotti fatti a mano con storytelling del brand e checkout." },
-  "revenue-analytics":        { name: "Analytics Ricavi",               description: "Dashboard KPI con grafici trend, metriche chiave e breakdown per canale." },
-  "saas-landing-dark":        { name: "Landing Page SaaS Dark",         description: "Pagina lancio dark-mode con feature, prezzi e social proof." },
-  "creative-agency-portfolio": { name: "Portfolio Agenzia Creativa",    description: "Pagina portfolio con case study, servizi offerti e presentazione del team." },
-  "freelance-tech-profile":   { name: "Profilo Freelance Tech",         description: "Pagina personale per developer con skill, progetti e contatti." },
-  "startup-product-launch":   { name: "Lancio Prodotto Startup",        description: "Pagina lancio con countdown, lista d'attesa e social proof." },
-  "cold-email-b2b":           { name: "CRM Outreach B2B",               description: "Dashboard CRM scuro per campagne email con tracker sequenze e analisi risposte." },
-  "product-description-ecom": { name: "Pagina Prodotto E-commerce",     description: "Pagina prodotto minimal ed elegante con galleria, varianti, recensioni e badge." },
-  "ai-assistant-system-prompt": { name: "Interfaccia Chat AI",           description: "UI chat AI moderna con cronologia conversazioni, messaggi e selezione modello." },
-  "linkedin-prompt-pack":     { name: "Personal Brand Landing",          description: "Pagina creator con statistiche social, post recenti e iscrizione newsletter." },
-  "youtube-script-pack":      { name: "Content Creator Studio",          description: "Dashboard creator YouTube con analytics iscritti, performance video e upload." },
-  "claude-projects-pack":     { name: "AI Projects Command Center",      description: "Dashboard stile Claude Projects per gestire assistenti AI, prompt e knowledge base." },
-  "ai-workflow-pack":         { name: "Automation Workflow Board",        description: "Dashboard workflow automation con pipeline multi-step e statistiche esecuzione." },
-  "restaurant-menu":          { name: "Menù Ristorante",                description: "Pagina menù elegante con categorie, prezzi e sezione speciali del giorno." },
-  "coffee-shop-landing":      { name: "Landing Caffetteria",            description: "Pagina landing calda per caffetterie con storia del locale e offerte." },
-  "hotel-booking":            { name: "Prenotazione Hotel",             description: "Pagina hotel con galleria foto, servizi e modulo prenotazione integrato." },
-  "mobile-app-showcase":      { name: "Showcase App Mobile",            description: "Pagina vetrina app con mockup device, funzionalità e link download." },
-  "feature-showcase":         { name: "Vetrina Funzionalità",           description: "Pagina feature con icone, descrizioni e comparazione piani." },
-  "saas-dashboard":           { name: "Anteprima Dashboard SaaS",       description: "Dashboard con sidebar, metriche e grafici interattivi." },
-  "digital-resume":           { name: "CV Digitale",                    description: "Curriculum vitae online con timeline esperienze, skill e portfolio." },
-  "link-in-bio":              { name: "Link in Bio",                    description: "Pagina link in bio per creator con profilo social e link multipli." },
-  "newsletter-landing":       { name: "Landing Newsletter",             description: "Pagina iscrizione newsletter con anteprima contenuti e CTA ottimizzata." },
-  "free-email-optin":         { name: "Sezione Email Opt-in",           description: "Sezione cattura email con proposta di valore, contatore social proof e bordo gradiente." },
-  "free-testimonial-cards":   { name: "Griglia Testimonianze",          description: "Griglia a 3 colonne con stelle, avatar e stile serif editoriale. Tema scuro." },
-  "free-cold-intro-prompt":   { name: "Generatore Email Introduzione",     description: "Gestore campagne outreach con varianti email AI, punteggio di rilevanza ed esportazione rapida." },
-  // Shopify templates
-  "shopify-product-landing":  { name: "Shopify Landing Prodotto",         description: "Sezione hero prodotto ad alta conversione con griglia feature e add-to-cart. Pronta per Liquid." },
-  "shopify-collection-grid":  { name: "Shopify Griglia Collezione",       description: "Griglia collezione prodotti elegante con filtri, quick view e card animate. Sezione tema Liquid." },
-  "shopify-announcement-bar": { name: "Shopify Barra Annunci",            description: "Barra annunci rotante con countdown, soglia spedizione gratuita e animazione slide-in." },
-  // WordPress templates
-  "wordpress-business-theme": { name: "Tema WordPress Business",          description: "Tema business WordPress completo con hero, servizi, testimonianze e form contatti. Template PHP pulito." },
-  "wordpress-blog-theme":     { name: "Tema WordPress Blog",              description: "Tema blog WordPress minimal focalizzato sulla tipografia. Post format personalizzati e sidebar widget." },
-  "wordpress-portfolio-theme":{ name: "Tema WordPress Portfolio",          description: "Tema portfolio WordPress con griglia progetti filtrabile, galleria lightbox e testimonianze clienti." },
+  // ── Prompt e script AI ──────────────────────────────────────────────────
+  "chatgpt-prompt-library-freelancers": {
+    name: "Libreria di Prompt ChatGPT per Freelance",
+    description:
+      "53 prompt ChatGPT pronti da copiare per ogni parte della tua attività da freelance: preventivi, email ai clienti, tariffe, marketing e onboarding.",
+  },
+  "chatgpt-prompt-pack-creators": {
+    name: "Pacchetto Prompt ChatGPT per Creator",
+    description:
+      "30 prompt pronti da copiare per scrivere hook per Threads, caption Instagram, descrizioni prodotto e contenuti che convertono.",
+  },
+  "midjourney-prompt-guide-mockups": {
+    name: "Guida ai Prompt Midjourney per Mockup Prodotto",
+    description:
+      "Oltre 25 prompt Midjourney testati e un workflow completo per creare mockup di prodotto professionali senza assumere un designer.",
+  },
+  "dm-sales-script-pack": {
+    name: "Pacchetto Script DM di Vendita",
+    description:
+      "10 script DM pronti da copiare per vendere prodotti digitali su Instagram e Threads — uno per ogni fase della conversazione, senza sembrare spam.",
+  },
+
+  // ── Guide e percorsi ────────────────────────────────────────────────────
+  "home-gym-4-week-guide": {
+    name: "Home Gym: Programma di 4 Settimane",
+    description:
+      "Un programma di allenamento progressivo di 4 settimane per allenarti a casa con attrezzatura minima. Da principiante a intermedio, 3–4 sessioni a settimana.",
+  },
+  "social-media-detox-7day": {
+    name: "Protocollo Detox dai Social in 7 Giorni",
+    description:
+      "Un piano strutturato di azioni quotidiane per 7 giorni, per interrompere lo scrolling compulsivo e ricostruire un rapporto consapevole con i social.",
+  },
+  "anti-procrastination-playbook": {
+    name: "Playbook Anti-Procrastinazione",
+    description:
+      "Cause profonde, 8 framework comportamentali e sistemi che superano davvero la procrastinazione. Basato sulla psicologia comportamentale, non sulla motivazione.",
+  },
+  "mindset-reset-7day-journal": {
+    name: "Journal Mindset Reset in 7 Giorni",
+    description:
+      "Un journal guidato quotidiano per sciogliere i blocchi mentali, far emergere le convinzioni limitanti e ritrovare ciò che vuoi davvero costruire.",
+  },
+  "first-100-online-guide": {
+    name: "Come Guadagnare i Tuoi Primi 100 $ Online",
+    description:
+      "Una roadmap concreta e senza fronzoli, da zero: 13 passi in sequenza, da cosa vendere fino alla prima vendita, senza pubblico e senza capitale iniziale.",
+  },
+  "digital-product-launch-checklist": {
+    name: "Checklist per il Lancio di un Prodotto Digitale",
+    description:
+      "Ogni passo dall'idea alla prima vendita: checklist in 6 fasi che copre le basi del prodotto, la realizzazione, la configurazione di Gumroad, il pre-lancio, il giorno del lancio e il dopo.",
+  },
+
+  // ── Fogli e tracker ─────────────────────────────────────────────────────
+  "freelance-rate-calculator": {
+    name: "Workbook Calcolo Tariffa Freelance",
+    description:
+      "Calcola la tua vera tariffa oraria da freelance in 15 minuti. Tiene conto di tasse, spese, ore non fatturabili e margine di profitto. Pronto per Google Sheets.",
+  },
+  "monthly-business-finance-tracker": {
+    name: "Tracker Finanze Mensili per Freelance",
+    description:
+      "Una dashboard finanziaria mensile completa per freelance: entrate, spese, margini di profitto e stima delle tasse. Pronto per Google Sheets, con formule già impostate.",
+  },
+  "wedding-budget-tracker": {
+    name: "Tracker Budget Matrimonio",
+    description:
+      "Tieni traccia di ogni fornitore, acconto e scadenza di pagamento su 6 categorie del matrimonio. Quadro completo di ciò che è prenotato, pagato e ancora da saldare.",
+  },
+  "remote-job-search-tracker": {
+    name: "Tracker Ricerca Lavoro da Remoto",
+    description:
+      "Tieni traccia di ogni candidatura, fase di colloquio, follow-up e offerta. Include tabella di confronto delle offerte e obiettivi settimanali. Pronto per Google Sheets.",
+  },
+  "first-apartment-budget-planner": {
+    name: "Checklist e Budget per il Primo Appartamento",
+    description:
+      "Tutto quello che serve comprare, sistemare e mettere a budget per la tua prima casa — ordinato per urgenza, così non spendi troppo su ciò che può aspettare.",
+  },
+  "pet-care-vet-tracker": {
+    name: "Registro Cure e Visite Veterinarie",
+    description:
+      "Un archivio sanitario completo per il tuo animale: visite dal veterinario, vaccinazioni, farmaci, peso, alimentazione e contatti d'emergenza. Pronto da stampare.",
+  },
+
+  // ── Bundle ──────────────────────────────────────────────────────────────
+  "bundle-ai-creator": {
+    name: "Bundle AI Creator",
+    description:
+      "53 prompt per freelancer, 30 prompt per creator, guida completa a Midjourney per mockup e 10 script DM per vendere. Un arsenale AI completo.",
+  },
+  "bundle-wellness-mindset": {
+    name: "Bundle Benessere e Mindset",
+    description:
+      "4 settimane di allenamento home gym, protocollo detox dai social, playbook anti-procrastinazione e journal mindset 7 giorni. Un reset completo.",
+  },
+  "bundle-money-career": {
+    name: "Bundle Soldi e Carriera",
+    description:
+      "Calcolatore tariffa freelance, tracker finanze mensili, tracker ricerca lavoro remoto, guida ai primi 100 $ online e checklist lancio prodotto digitale.",
+  },
+  "bundle-life-admin": {
+    name: "Bundle Gestione Quotidiana",
+    description:
+      "Planner budget primo appartamento, tracker budget matrimonio e registro cure veterinarie. I tre tracker essenziali per le grandi tappe della vita.",
+  },
 };
 
 // Per la ricerca bilingue: mappa termini italiani → tag inglesi
 export const SEARCH_SYNONYMS: Record<string, string[]> = {
   // Italian → English mappings
-  "ristorante": ["restaurant", "food", "menu", "hospitality"],
-  "caffe": ["coffee", "café"],
-  "bar": ["coffee", "café"],
-  "albergo": ["hotel", "booking", "hospitality", "travel"],
-  "affitto": ["rental", "airbnb", "property"],
-  "casa": ["property", "real estate", "airbnb"],
-  "immobiliare": ["real estate", "property", "listings"],
-  "psicologo": ["therapist", "health", "psychology"],
-  "psicologa": ["therapist", "health"],
-  "avvocato": ["law", "legal", "firm"],
-  "legale": ["law", "legal", "firm"],
-  "curriculum": ["cv", "resume", "personal"],
-  "profilo": ["profile", "personal", "portfolio"],
-  "agenzia": ["agency", "portfolio", "creative"],
-  "freelance": ["freelance", "portfolio", "crm"],
-  "email": ["email", "cold-email", "copywriting"],
-  "negozio": ["catalog", "product", "ecom", "shop", "store"],
-  "prodotto": ["product", "ecom", "catalog"],
-  "startup": ["startup", "landing", "saas"],
-  "landing": ["landing", "saas", "startup", "hero"],
-  "app": ["app", "mobile", "ios"],
-  "blog": ["blog", "articles", "cards"],
-  "prezzo": ["pricing", "saas", "table"],
-  "prenotazione": ["booking", "hotel", "hospitality"],
-  "newsletter": ["newsletter", "email", "signup"],
-  "link": ["link in bio", "creator", "social"],
-  "contabilita": ["budget", "finance", "spreadsheet", "tracker"],
-  "finanza": ["finance", "investments", "budget", "tracker"],
-  "dashboard": ["dashboard", "analytics", "saas"],
+  ristorante: ["restaurant", "food", "menu", "hospitality"],
+  caffe: ["coffee", "café"],
+  bar: ["coffee", "café"],
+  albergo: ["hotel", "booking", "hospitality", "travel"],
+  affitto: ["rental", "airbnb", "property"],
+  casa: ["property", "real estate", "airbnb"],
+  immobiliare: ["real estate", "property", "listings"],
+  psicologo: ["therapist", "health", "psychology"],
+  psicologa: ["therapist", "health"],
+  avvocato: ["law", "legal", "firm"],
+  legale: ["law", "legal", "firm"],
+  curriculum: ["cv", "resume", "personal"],
+  profilo: ["profile", "personal", "portfolio"],
+  agenzia: ["agency", "portfolio", "creative"],
+  freelance: ["freelance", "portfolio", "crm"],
+  email: ["email", "cold-email", "copywriting"],
+  negozio: ["catalog", "product", "ecom", "shop", "store"],
+  prodotto: ["product", "ecom", "catalog"],
+  startup: ["startup", "landing", "saas"],
+  landing: ["landing", "saas", "startup", "hero"],
+  app: ["app", "mobile", "ios"],
+  blog: ["blog", "articles", "cards"],
+  prezzo: ["pricing", "saas", "table"],
+  prenotazione: ["booking", "hotel", "hospitality"],
+  newsletter: ["newsletter", "email", "signup"],
+  link: ["link in bio", "creator", "social"],
+  contabilita: ["budget", "finance", "spreadsheet", "tracker"],
+  finanza: ["finance", "investments", "budget", "tracker"],
+  dashboard: ["dashboard", "analytics", "saas"],
   // English → expanded terms
-  "restaurant": ["ristorante", "food", "menu", "hospitality"],
-  "hotel": ["albergo", "booking", "hospitality", "travel"],
-  "portfolio": ["agenzia", "agency", "creative", "portfolio"],
-  "resume": ["curriculum", "cv", "personal"],
-  "cv": ["curriculum", "resume", "personal"],
-  "shop": ["negozio", "ecom", "store", "catalog"],
-  "store": ["negozio", "ecom", "shop", "catalog"],
-  "price": ["pricing", "prezzo", "table"],
-  "pricing": ["prezzo", "price", "table", "saas"],
-  "finance": ["finanza", "budget", "tracker", "contabilita"],
-  "budget": ["finanza", "finance", "tracker", "contabilita"],
-  "crm": ["freelance", "client", "contacts"],
-  "notion": ["notion", "template", "workspace", "productivity"],
-  "canva": ["canva", "design", "social", "template"],
-  "excel": ["excel", "spreadsheet", "sheets", "tracker"],
-  "sheets": ["excel", "spreadsheet", "google", "tracker"],
-  "social": ["social", "instagram", "linkedin", "link in bio"],
-  "instagram": ["social", "stories", "post"],
-  "linkedin": ["social", "professional", "networking"],
-  "sito": ["website", "landing", "web", "hero"],
-  "website": ["sito", "landing", "web", "hero"],
-  "progetto": ["project", "hub", "management"],
-  "project": ["progetto", "hub", "management"],
-  "lavoro": ["job", "career", "tracker", "work"],
-  "job": ["lavoro", "career", "tracker", "work"],
-  "cliente": ["client", "crm", "freelance", "portal"],
-  "client": ["cliente", "crm", "freelance", "portal"],
-  "contenuto": ["content", "calendar", "blog", "social"],
-  "content": ["contenuto", "calendar", "blog", "social"],
-  "calendario": ["calendar", "content", "planner"],
-  "calendar": ["calendario", "content", "planner"],
-  "organizzazione": ["organization", "productivity", "planner", "second brain"],
-  "prompt": ["prompt", "ai", "copywriting", "template"],
-  "template": ["template", "modello"],
-  "modello": ["template", "model"],
-  "gratuito": ["free", "gratis"],
-  "free": ["gratuito", "gratis"],
-  "shopify": ["shopify", "ecommerce", "liquid", "negozio", "store"],
-  "wordpress": ["wordpress", "php", "theme", "blog", "cms"],
-  "tema": ["theme", "wordpress", "shopify"],
-  "theme": ["tema", "wordpress", "shopify"],
-  "ecommerce": ["shopify", "negozio", "store", "product"],
+  restaurant: ["ristorante", "food", "menu", "hospitality"],
+  hotel: ["albergo", "booking", "hospitality", "travel"],
+  portfolio: ["agenzia", "agency", "creative", "portfolio"],
+  resume: ["curriculum", "cv", "personal"],
+  cv: ["curriculum", "resume", "personal"],
+  shop: ["negozio", "ecom", "store", "catalog"],
+  store: ["negozio", "ecom", "shop", "catalog"],
+  price: ["pricing", "prezzo", "table"],
+  pricing: ["prezzo", "price", "table", "saas"],
+  finance: ["finanza", "budget", "tracker", "contabilita"],
+  budget: ["finanza", "finance", "tracker", "contabilita"],
+  crm: ["freelance", "client", "contacts"],
+  notion: ["notion", "template", "workspace", "productivity"],
+  canva: ["canva", "design", "social", "template"],
+  excel: ["excel", "spreadsheet", "sheets", "tracker"],
+  sheets: ["excel", "spreadsheet", "google", "tracker"],
+  social: ["social", "instagram", "linkedin", "link in bio"],
+  instagram: ["social", "stories", "post"],
+  linkedin: ["social", "professional", "networking"],
+  sito: ["website", "landing", "web", "hero"],
+  website: ["sito", "landing", "web", "hero"],
+  progetto: ["project", "hub", "management"],
+  project: ["progetto", "hub", "management"],
+  lavoro: ["job", "career", "tracker", "work"],
+  job: ["lavoro", "career", "tracker", "work"],
+  cliente: ["client", "crm", "freelance", "portal"],
+  client: ["cliente", "crm", "freelance", "portal"],
+  contenuto: ["content", "calendar", "blog", "social"],
+  content: ["contenuto", "calendar", "blog", "social"],
+  calendario: ["calendar", "content", "planner"],
+  calendar: ["calendario", "content", "planner"],
+  organizzazione: ["organization", "productivity", "planner", "second brain"],
+  prompt: ["prompt", "ai", "copywriting", "template"],
+  template: ["template", "modello"],
+  modello: ["template", "model"],
+  gratuito: ["free", "gratis"],
+  free: ["gratuito", "gratis"],
+  shopify: ["shopify", "ecommerce", "liquid", "negozio", "store"],
+  wordpress: ["wordpress", "php", "theme", "blog", "cms"],
+  tema: ["theme", "wordpress", "shopify"],
+  theme: ["tema", "wordpress", "shopify"],
+  ecommerce: ["shopify", "negozio", "store", "product"],
 };
+
+/** Returns the localized name for a template (falls back to EN name). */
+export function getLocalizedName(template: { id: string; name: string }, lang: Lang): string {
+  return lang === "it" ? (templateTranslations[template.id]?.name ?? template.name) : template.name;
+}
+
+/** Returns the localized description for a template (falls back to EN description). */
+export function getLocalizedDesc(
+  template: { id: string; description: string },
+  lang: Lang,
+): string {
+  return lang === "it"
+    ? (templateTranslations[template.id]?.description ?? template.description)
+    : template.description;
+}

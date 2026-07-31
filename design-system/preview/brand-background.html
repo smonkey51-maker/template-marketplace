@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #14100c;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        height: 150px;
+        overflow: hidden;
+      }
+      .label {
+        font-family: "Montserrat", sans-serif;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #c8915a;
+        padding: 10px 16px 6px;
+      }
+      .samples {
+        display: flex;
+        height: 110px;
+        gap: 0;
+      }
+      .sample {
+        flex: 1;
+        position: relative;
+        overflow: hidden;
+      }
+      /* Dark: seigaiha + photo */
+      .dark-bg {
+        background-image:
+          url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='40'><circle cx='40' cy='40' r='40' fill='none' stroke='%23C8915A' stroke-width='0.7' stroke-opacity='0.06'/><circle cx='0' cy='40' r='40' fill='none' stroke='%23C8915A' stroke-width='0.7' stroke-opacity='0.06'/><circle cx='80' cy='40' r='40' fill='none' stroke='%23C8915A' stroke-width='0.7' stroke-opacity='0.06'/></svg>"),
+          linear-gradient(rgba(14, 10, 6, 0.72), rgba(14, 10, 6, 0.72));
+        background-size:
+          80px 40px,
+          100% 100%;
+        background-color: #14100c;
+      }
+      /* Light: washi overlay */
+      .light-bg {
+        background: rgba(250, 247, 240, 0.95);
+        background-image: radial-gradient(
+          ellipse 80% 50% at 0% 0%,
+          rgba(156, 112, 64, 0.08) 0%,
+          transparent 65%
+        );
+      }
+      /* Glass card */
+      .glass-card {
+        position: absolute;
+        bottom: 8px;
+        left: 8px;
+        right: 8px;
+        padding: 8px 10px;
+        backdrop-filter: blur(16px);
+        background: rgba(237, 232, 220, 0.04);
+        border: 1px solid rgba(237, 232, 220, 0.09);
+        box-shadow: 0 4px 32px rgba(0, 0, 0, 0.5);
+      }
+      .glass-text {
+        font-size: 10px;
+        color: rgba(237, 232, 220, 0.7);
+      }
+      .glass-card-light {
+        position: absolute;
+        bottom: 8px;
+        left: 8px;
+        right: 8px;
+        padding: 8px 10px;
+        backdrop-filter: blur(16px);
+        background: rgba(250, 247, 240, 0.84);
+        border: 1px solid rgba(28, 24, 20, 0.1);
+        box-shadow: 0 4px 32px rgba(28, 24, 20, 0.09);
+      }
+      .glass-text-light {
+        font-size: 10px;
+        color: rgba(28, 24, 20, 0.7);
+      }
+      /* grain overlay */
+      .grain {
+        position: absolute;
+        inset: 0;
+        opacity: 0.022;
+        pointer-events: none;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        background-size: 180px 180px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="label">Background System — Dark (Seigaiha + Grain) · Light (Washi)</div>
+    <div class="samples">
+      <div class="sample dark-bg">
+        <div class="grain"></div>
+        <div class="glass-card">
+          <div class="glass-text">Glass card on dark — backdrop-filter blur(16px)</div>
+        </div>
+      </div>
+      <div class="sample light-bg">
+        <div class="glass-card-light">
+          <div class="glass-text-light">Glass card on light — rgba(250,247,240,0.84)</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

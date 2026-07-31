@@ -8,23 +8,27 @@
  *  - For each bundle with a stripePriceId: same.
  *  - Skips items with empty/placeholder stripePriceId.
  */
-import Stripe from 'stripe';
-import { readFileSync } from 'fs';
-import { createRequire } from 'module';
+import Stripe from "stripe";
+import { readFileSync } from "fs";
+import { createRequire } from "module";
 
 // ── Load env ──────────────────────────────────────────────────────────────────
-const envRaw = readFileSync('.env.local', 'utf8');
+const envRaw = readFileSync(".env.local", "utf8");
 const envMap = Object.fromEntries(
-  envRaw.split('\n')
-    .filter(l => l.includes('='))
-    .map(l => { const [k, ...v] = l.split('='); return [k.trim(), v.join('=').trim()]; })
+  envRaw
+    .split("\n")
+    .filter((l) => l.includes("="))
+    .map((l) => {
+      const [k, ...v] = l.split("=");
+      return [k.trim(), v.join("=").trim()];
+    }),
 );
 const stripe = new Stripe(envMap.STRIPE_SECRET_KEY);
 
 // ── Import templates data via dynamic require workaround ──────────────────────
 // We read the compiled JS; since we don't want to run tsc, parse the raw TS
 // source and extract the data we need directly.
-const src = readFileSync('./lib/templates.ts', 'utf8');
+const src = readFileSync("./lib/templates.ts", "utf8");
 
 // Parse templates array: extract id, name, description, stripePriceId
 function extractItems(src, arrayName) {
@@ -34,7 +38,8 @@ function extractItems(src, arrayName) {
   if (startIdx === -1) return items;
 
   // Walk through and extract each { id, name, description, stripePriceId } block
-  const re = /id:\s*"([^"]+)"[\s\S]*?name:\s*"([^"]+)"[\s\S]*?description:\s*"([^"]+)"[\s\S]*?stripePriceId:\s*"([^"]+)"/g;
+  const re =
+    /id:\s*"([^"]+)"[\s\S]*?name:\s*"([^"]+)"[\s\S]*?description:\s*"([^"]+)"[\s\S]*?stripePriceId:\s*"([^"]+)"/g;
   // Only search from the array start
   const slice = src.slice(startIdx);
   let m;
@@ -49,13 +54,13 @@ function extractItems(src, arrayName) {
   return items;
 }
 
-const templates = extractItems(src, 'templates');
-const bundles = extractItems(src, 'bundles');
+const templates = extractItems(src, "templates");
+const bundles = extractItems(src, "bundles");
 
 console.log(`Found ${templates.length} templates, ${bundles.length} bundles.\n`);
 
 async function syncItem(item, type) {
-  if (!item.stripePriceId || item.stripePriceId.startsWith('price_TODO')) {
+  if (!item.stripePriceId || item.stripePriceId.startsWith("price_TODO")) {
     console.log(`  ⏭  Skipping ${item.id} (no valid price ID)`);
     return;
   }
@@ -63,7 +68,7 @@ async function syncItem(item, type) {
   try {
     // Get price to find product ID
     const price = await stripe.prices.retrieve(item.stripePriceId);
-    const productId = typeof price.product === 'string' ? price.product : price.product.id;
+    const productId = typeof price.product === "string" ? price.product : price.product.id;
 
     // Update product
     await stripe.products.update(productId, {
@@ -71,7 +76,7 @@ async function syncItem(item, type) {
       description: item.description.slice(0, 500), // Stripe max 500 chars
       metadata: {
         [`${type}Id`]: item.id,
-        source: 'templatelab',
+        source: "templatelab",
         lastSync: new Date().toISOString().slice(0, 10),
       },
     });
@@ -82,14 +87,14 @@ async function syncItem(item, type) {
   }
 }
 
-console.log('── Templates ─────────────────────────────────────────────────────');
+console.log("── Templates ─────────────────────────────────────────────────────");
 for (const tmpl of templates) {
-  await syncItem(tmpl, 'template');
+  await syncItem(tmpl, "template");
 }
 
-console.log('\n── Bundles ───────────────────────────────────────────────────────');
+console.log("\n── Bundles ───────────────────────────────────────────────────────");
 for (const bundle of bundles) {
-  await syncItem(bundle, 'bundle');
+  await syncItem(bundle, "bundle");
 }
 
-console.log('\nSync complete.');
+console.log("\nSync complete.");

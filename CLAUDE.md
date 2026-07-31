@@ -44,30 +44,30 @@ template-marketplace/
 │       ├── admin/newsletter/route.ts  # Admin newsletter send
 │       └── og/route.tsx        # Dynamic Open Graph image
 ├── components/                 # Shared React components
-│   ├── SiteNav.tsx             # Top navigation bar
-│   ├── MobileNav.tsx           # Mobile drawer navigation
-│   ├── HomeContent.tsx         # Marketplace home page content
-│   ├── TemplateGrid.tsx        # Filterable/searchable template grid
-│   ├── TemplateCard.tsx        # Individual template card
-│   ├── BundleCard.tsx          # Bundle product card
+│   ├── SiteNav.tsx             # Inner-page navigation (with dropdowns)
+│   ├── MobileNav.tsx           # Mobile bottom navigation
+│   ├── SnapHomepage.tsx        # Snap-scroll homepage shell + parallax driver
+│   ├── sections/               # The five homepage sections + SectionNav
+│   ├── studio/                 # AI Studio panels
+│   ├── ArtSection.tsx          # Snap section wrapper (entrance observer)
+│   ├── TemplateCard.tsx        # Individual template card (wishlist)
+│   ├── TemplatePreview.tsx     # Scaled live iframe preview of a template
 │   ├── BundleDetailContent.tsx # Bundle detail view
-│   ├── PreviewModal.tsx        # Quick preview modal
 │   ├── PreviewContent.tsx      # Iframe preview of HTML templates
-│   ├── PromptFullView.tsx      # Full-screen prompt template viewer
 │   ├── DownloadButton.tsx      # Download + auth gate button
 │   ├── RelatedTemplates.tsx    # Related templates carousel
+│   ├── ReviewSection.tsx       # Reviews (list + form)
 │   ├── EmailCapture.tsx        # Newsletter sign-up form
+│   ├── CommandPalette.tsx      # Ctrl-K palette
 │   ├── Toast.tsx               # Toast notification system (Context + hook)
 │   ├── ThemeProvider.tsx       # Dark/light theme context
 │   ├── ThemeToggle.tsx         # Theme toggle button
 │   ├── LanguageProvider.tsx    # IT/EN language context
 │   ├── LanguageToggle.tsx      # Language toggle button
 │   ├── PostHogProvider.tsx     # PostHog analytics wrapper
-│   ├── NavButtons.tsx          # Nav CTA buttons
-│   ├── StudioAccessButton.tsx  # Studio Access upsell button
-│   ├── ScrollToTop.tsx         # Scroll-to-top FAB
-│   ├── CustomCursor.tsx        # Custom animated cursor
-│   └── Footer.tsx              # Site footer
+│   ├── PageTransition.tsx      # Route transition wrapper
+│   ├── FormaLogo.tsx           # Wordmark (animated / static)
+│   └── Footer.tsx / FormaFooter.tsx  # Site footers
 ├── lib/
 │   ├── templates.ts            # ⚠️ ALL template data lives here — single source of truth
 │   ├── i18n.ts                 # IT/EN translation strings + templateTranslations
@@ -104,6 +104,7 @@ This is the **single source of truth** for all templates. It is a large file (~3
 - Helper functions: `getTemplate(id)`, `getBundle(id)`, `formatPrice(cents)`, `getDownloadType(template)`.
 
 **When adding a new template:**
+
 1. Add the `Template` object to `lib/templates.ts`.
 2. Add a real `stripePriceId` (create a Stripe Price if needed via `scripts/seed-stripe.ts`).
 3. Add Italian translations in `lib/i18n.ts` under `templateTranslations`.
@@ -127,13 +128,18 @@ This is the **single source of truth** for all templates. It is a large file (~3
 ### Payments (Stripe)
 
 Three purchase flows:
+
 1. **Single template** — guest or authenticated, `mode: "payment"`.
 2. **Bundle** — requires auth, `mode: "payment"`, expands to multiple template rows in Supabase.
 3. **Studio Access** — requires auth, subscription (`mode: "subscription"`) or lifetime (`mode: "payment"`).
 
 The Stripe webhook (`/api/webhook`) writes purchase records to Supabase and sends a confirmation email via Resend.
 
-`STUDIO_ACCESS_PRICE_ID = "price_1TBruJBoWNgrJbiy6Ry5WGB2"` is hardcoded in `checkout/route.ts`; the lifetime price comes from `STUDIO_ACCESS_LIFETIME_PRICE_ID` env var.
+The €9.99/month Studio Access subscription has a **default price ID in `app/api/checkout/route.ts`** (`STUDIO_ACCESS_MONTHLY_PRICE_ID`), so the subscription is sellable with no env var set. `STUDIO_ACCESS_PRICE_ID` overrides it when you need a different account or a different price. A Stripe price ID is not a secret — the twenty template prices live in `lib/templates.ts` for the same reason.
+
+The lifetime option is env-only (`STUDIO_ACCESS_LIFETIME_PRICE_ID`) and no such Price exists in the account, but the button is behind `NEXT_PUBLIC_STUDIO_LIFETIME_AVAILABLE === "true"` and stays hidden, so nothing is broken by leaving it unset.
+
+The lifetime button is behind `NEXT_PUBLIC_STUDIO_LIFETIME_AVAILABLE === "true"` and is hidden otherwise, so `STUDIO_ACCESS_LIFETIME_PRICE_ID` is only needed if that flag is on.
 
 ### Database (Supabase)
 
@@ -157,6 +163,7 @@ The Stripe webhook (`/api/webhook`) writes purchase records to Supabase and send
 ### Email (Resend)
 
 `lib/email.ts`:
+
 - `sendPurchaseEmail()` — sends post-purchase confirmation with download link.
 - `sendNewsletterEmail()` — batch sends up to 100 emails per Resend API call.
 - Silently no-ops if `RESEND_API_KEY` is not set (safe in dev).
@@ -174,22 +181,23 @@ Generates `exports/gumroad/` and `exports/etsy/` from all templates in `lib/temp
 
 ## Environment Variables
 
-| Variable | Required | Description |
-|---|---|---|
-| `ANTHROPIC_API_KEY` | Yes | Claude API key |
-| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Yes | Clerk publishable key |
-| `CLERK_SECRET_KEY` | Yes | Clerk secret key |
-| `STRIPE_SECRET_KEY` | Yes | Stripe secret key |
-| `STRIPE_WEBHOOK_SECRET` | Yes | Stripe webhook signing secret |
-| `STUDIO_ACCESS_LIFETIME_PRICE_ID` | Yes (for lifetime) | Stripe price ID for lifetime Studio Access |
-| `SUPABASE_URL` | Yes | Supabase project URL |
-| `SUPABASE_SERVICE_ROLE_KEY` | Yes | Supabase service role key (server-only) |
-| `NEXT_PUBLIC_SITE_URL` | Yes | Full site URL e.g. `https://templatelab.io` |
-| `NEXT_PUBLIC_APP_URL` | Optional | Fallback for checkout redirect URLs |
-| `RESEND_API_KEY` | Optional | Resend email API key |
-| `RESEND_FROM` | Optional | Sender address for emails |
-| `NEXT_PUBLIC_POSTHOG_KEY` | Optional | PostHog project API key |
-| `NEXT_PUBLIC_POSTHOG_HOST` | Optional | PostHog host (defaults to `https://app.posthog.com`) |
+| Variable                            | Required           | Description                                          |
+| ----------------------------------- | ------------------ | ---------------------------------------------------- |
+| `ANTHROPIC_API_KEY`                 | Yes                | Claude API key                                       |
+| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Yes                | Clerk publishable key                                |
+| `CLERK_SECRET_KEY`                  | Yes                | Clerk secret key                                     |
+| `STRIPE_SECRET_KEY`                 | Yes                | Stripe secret key                                    |
+| `STRIPE_WEBHOOK_SECRET`             | Yes                | Stripe webhook signing secret                        |
+| `STUDIO_ACCESS_PRICE_ID`            | Optional           | Overrides the built-in €9.99/month Studio price      |
+| `STUDIO_ACCESS_LIFETIME_PRICE_ID`   | Yes (for lifetime) | Stripe price ID for lifetime Studio Access           |
+| `SUPABASE_URL`                      | Yes                | Supabase project URL                                 |
+| `SUPABASE_SERVICE_ROLE_KEY`         | Yes                | Supabase service role key (server-only)              |
+| `NEXT_PUBLIC_SITE_URL`              | Yes                | Full site URL e.g. `https://templatelab.io`          |
+| `NEXT_PUBLIC_APP_URL`               | Optional           | Fallback for checkout redirect URLs                  |
+| `RESEND_API_KEY`                    | Optional           | Resend email API key                                 |
+| `RESEND_FROM`                       | Optional           | Sender address for emails                            |
+| `NEXT_PUBLIC_POSTHOG_KEY`           | Optional           | PostHog project API key                              |
+| `NEXT_PUBLIC_POSTHOG_HOST`          | Optional           | PostHog host (defaults to `https://app.posthog.com`) |
 
 Copy `.env.local.example` to `.env.local` and fill in values before running locally.
 
@@ -223,15 +231,17 @@ npm run export-templates
 ### Providers (Root Layout)
 
 The root layout (`app/layout.tsx`) wraps everything in this order:
+
 ```
 ClerkProvider
   PostHogProvider
     ThemeProvider
       LanguageProvider
         ToastProvider
-          {children}
-          MobileNav
-CustomCursor  (outside providers, fixed position)
+          GsapProvider
+            PageTransition > {children}
+            MobileNav
+            CommandPalette
 ```
 
 ### Fonts
@@ -244,20 +254,36 @@ CustomCursor  (outside providers, fixed position)
 
 The brand uses a warm **gold/terra** palette — not bright orange:
 
-| Token | Light | Dark | Usage |
-|---|---|---|---|
-| `--accent` | `#9C7733` | `#C8A96E` | Primary gold accent |
-| `--terra` | `#B5501F` | `#C4622D` | Secondary warm accent |
-| `--bg` | `#FDFAF5` | `#050402` | Page background |
-| `--surface` | `#F5EFE3` | `#0d0b08` | Card/section background |
-| `--text` | `#1C1610` | `#F2EBD9` | Primary text |
-| `--muted` | `#7A6B56` | `rgba(242,235,217,0.55)` | Secondary text |
+| Token       | Light     | Dark                     | Usage                   |
+| ----------- | --------- | ------------------------ | ----------------------- |
+| `--accent`  | `#9C7733` | `#C8A96E`                | Primary gold accent     |
+| `--terra`   | `#B5501F` | `#C4622D`                | Secondary warm accent   |
+| `--bg`      | `#FDFAF5` | `#050402`                | Page background         |
+| `--surface` | `#F5EFE3` | `#0d0b08`                | Card/section background |
+| `--text`    | `#1C1610` | `#F2EBD9`                | Primary text            |
+| `--muted`   | `#7A6B56` | `rgba(242,235,217,0.55)` | Secondary text          |
 
 ### Design Tokens
 
-- **Border radius**: The design is intentionally **sharp-cornered** (`rounded-none` in Tailwind). Radius tokens `--r-sm` through `--r-xl` exist in `globals.css` for special use cases (phone bezels, pills) but are not the default.
+- **Border radius**: **Nothing on this site has a square corner.** Use the radius utilities rather than raw pixel values, so the whole site rounds together if a token moves: `.r-glass` (`--glass-radius`, 22px — panels, cards, sheets), `.r-md` (16px — inputs, textareas), `.r-sm` (10px — small chips), `.r-pill` (999px — buttons, badges, segmented tracks, filter chips). The underlying scale is `--r-sm` / `--r-md` / `--r-lg` / `--r-xl`. When adding any surface with a background or a border, give it one of these — a bare `bg-*` or `border` class is a bug.
 - **Shadows**: Use CSS custom properties `--shadow-sm`, `--shadow-md`, `--shadow-lg`, `--shadow-xl` defined in `globals.css`.
-- **Buttons**: All primary CTA buttons use the `.btn-brand` CSS class (gold background, ring animation on hover, shimmer sweep). Use `.btn-brand-sm` for compact variant. Defined in `globals.css`.
+- **Buttons**: All primary CTA buttons use the `.btn-brand` CSS class (gold pill, lift on hover). Use `.btn-brand-sm` for compact variant. Defined in `globals.css`.
+
+### Depth: one material — liquid glass
+
+**There is no neumorphism on this site.** It was removed; do not reintroduce extruded or pressed-in surfaces. Every raised surface is the same material: a translucent sheet that refracts what is behind it, catches a rim light along its top edge, and casts a shadow onto the ground. Panels **lift** toward the viewer on hover — they never swell out of the page or sink into it.
+
+Two tiers, differing only in how much they let through:
+
+- **Over artwork** (`--glass-*`, `.forma-glass-card`) — panels floating above the **paintings** on the snap homepage. Paintings also carry a scroll parallax via `.parallax-layer`.
+- **On a flat ground** (`--glass-s-*`, `.glass-surface`) — controls and cards on the **inner pages** (`/catalogo`, `/guida`, `/account`, `/ai-studio`). Less transparent, because there is little behind them to refract, but the same rim light, cast shadow and lift.
+
+`.glass-surface` is the shared base — reach for it before hand-rolling a panel.
+
+Two rules the material depends on:
+
+- **The rim border is load-bearing.** It is what keeps a glass control findable against the page (WCAG 1.4.11); never drop it for a "cleaner" look.
+- **State is never carried by shadow alone.** A selected control also changes fill, rim colour and text colour, so it survives forced-colors mode and low-vision viewing. The primary CTA stays solid gold — it is not glass.
 
 ### Theme
 
@@ -296,7 +322,7 @@ Tailwind `darkMode: "class"`. The `<html>` element starts with `class="dark"`. `
 
 1. Add the section key to `lib/i18n.ts` under `sections` for both `it` and `en`.
 2. Add matching accent colour in `app/globals.css` or wherever category colours are defined.
-3. Update `TemplateGrid.tsx` filter chips if the new category needs a dedicated filter.
+3. Add the filter chip in `app/catalogo/page.tsx` (`FilterKey` + `FILTERS`), and a matching entry in `CATALOGO_ITEMS` in `components/SiteNav.tsx` so it appears in the nav dropdown.
 
 ### Modify Claude prompts
 

@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Monthly Business Finance Tracker</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+        background: #f9fafb;
+        color: #111827;
+        line-height: 1.7;
+      }
+      .cover {
+        background: linear-gradient(135deg, #16a34a 0%, #14532d 100%);
+        color: #fff;
+        padding: 56px 44px;
+        text-align: center;
+      }
+      .cover .badge {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 999px;
+        padding: 6px 18px;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+        margin-bottom: 24px;
+      }
+      .cover h1 {
+        font-size: clamp(24px, 4vw, 40px);
+        font-weight: 800;
+        line-height: 1.2;
+        margin-bottom: 14px;
+      }
+      .cover p {
+        font-size: 16px;
+        opacity: 0.85;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 44px 28px;
+      }
+      .how-to {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 24px 28px;
+        margin-bottom: 36px;
+      }
+      .how-to h2 {
+        font-size: 17px;
+        font-weight: 700;
+        color: #16a34a;
+        margin-bottom: 12px;
+      }
+      .how-to ol {
+        padding-left: 20px;
+        font-size: 14.5px;
+        color: #374151;
+      }
+      .how-to li {
+        margin-bottom: 8px;
+      }
+      .section {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 24px;
+      }
+      .sec-header {
+        background: #16a34a;
+        color: #fff;
+        padding: 14px 22px;
+      }
+      .sec-header h2 {
+        font-size: 16px;
+        font-weight: 700;
+      }
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13.5px;
+      }
+      .data-table th {
+        background: #f0fdf4;
+        padding: 10px 14px;
+        text-align: left;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #15803d;
+        border-bottom: 2px solid #bbf7d0;
+      }
+      .data-table td {
+        padding: 11px 14px;
+        border-bottom: 1px solid #f3f4f6;
+        color: #374151;
+      }
+      .data-table td.field {
+        font-weight: 500;
+        color: #111827;
+      }
+      .data-table td.input {
+        background: #fffbeb;
+        border: 1px solid #fde68a;
+        border-radius: 4px;
+        font-family: monospace;
+        color: #92400e;
+        font-weight: 600;
+        text-align: right;
+        min-width: 100px;
+      }
+      .data-table td.formula {
+        background: #ecfdf5;
+        border: 1px solid #6ee7b7;
+        font-family: monospace;
+        font-size: 12px;
+        color: #065f46;
+        font-weight: 600;
+      }
+      .data-table tr.total {
+        background: #f0fdf4;
+      }
+      .data-table tr.total td {
+        font-weight: 700;
+        color: #15803d;
+        font-size: 14px;
+        padding: 12px 14px;
+        border-top: 2px solid #bbf7d0;
+      }
+      .data-table td.category {
+        font-size: 11px;
+        color: #9ca3af;
+        font-weight: 400;
+      }
+      .metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 16px;
+        margin: 24px 0;
+      }
+      .metric-card {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        padding: 18px 20px;
+      }
+      .metric-card .label {
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #6b7280;
+        margin-bottom: 8px;
+      }
+      .metric-card .value {
+        font-size: 26px;
+        font-weight: 800;
+        color: #111827;
+        font-family: monospace;
+      }
+      .metric-card .formula {
+        font-size: 11px;
+        color: #9ca3af;
+        margin-top: 4px;
+        font-family: monospace;
+      }
+      .sheets-guide {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 24px 28px;
+        margin-top: 24px;
+      }
+      .sheets-guide h2 {
+        font-size: 17px;
+        font-weight: 700;
+        color: #16a34a;
+        margin-bottom: 14px;
+      }
+      .formula-row {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        margin-bottom: 12px;
+      }
+      .f-cell {
+        background: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        border-radius: 6px;
+        padding: 6px 10px;
+        font-family: monospace;
+        font-size: 12px;
+        color: #166534;
+        flex-shrink: 0;
+      }
+      .f-desc {
+        font-size: 13px;
+        color: #374151;
+      }
+      .footer {
+        background: #14532d;
+        color: #fff;
+        text-align: center;
+        padding: 28px;
+        margin-top: 40px;
+      }
+      .footer p {
+        opacity: 0.7;
+        font-size: 13px;
+      }
+      @media print {
+        body {
+          background: #fff;
+        }
+        .section {
+          break-inside: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cover">
+      <div class="badge">✦ MONTHLY TRACKER · REVENUE · EXPENSES · PROFIT · TAX ESTIMATE</div>
+      <h1>Monthly Business<br />Finance Tracker</h1>
+      <p>
+        A complete monthly financial dashboard for freelancers and solopreneurs. Track every euro in
+        and out — and always know your real profit margin.
+      </p>
+    </div>
+    <div class="container">
+      <div class="how-to">
+        <h2>Setup Instructions</h2>
+        <ol>
+          <li>Open a new Google Sheet. Rename it "Business Finance [Year]".</li>
+          <li>Create 12 tabs — one per month (Jan, Feb, Mar...).</li>
+          <li>Copy each table below into the corresponding section of your sheet.</li>
+          <li>
+            Enter your data in the yellow (input) cells. The green cells contain formulas — don't
+            edit them.
+          </li>
+          <li>
+            At month end: copy the entire sheet tab and rename it for the next month. Your formulas
+            carry over.
+          </li>
+        </ol>
+      </div>
+
+      <!-- REVENUE -->
+      <div class="section">
+        <div class="sec-header">
+          <h2>Table 1: Monthly Revenue</h2>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Revenue Source</th>
+              <th>Client / Project</th>
+              <th>Invoice #</th>
+              <th>Invoice Date</th>
+              <th>Payment Date</th>
+              <th>Amount (€)</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="field">Freelance Project</td>
+              <td class="input">___</td>
+              <td class="input">___</td>
+              <td class="input">___</td>
+              <td class="input">___</td>
+              <td class="input">0.00</td>
+              <td class="input">Paid / Pending</td>
+            </tr>
+            <tr>
+              <td class="field">Freelance Project</td>
+              <td class="input">___</td>
+              <td class="input">___</td>
+              <td class="input">___</td>
+              <td class="input">___</td>
+              <td class="input">0.00</td>
+              <td class="input">Paid / Pending</td>
+            </tr>
+            <tr>
+              <td class="field">Freelance Project</td>
+              <td class="input">___</td>
+              <td class="input">___</td>
+              <td class="input">___</td>
+              <td class="input">___</td>
+              <td class="input">0.00</td>
+              <td class="input">Paid / Pending</td>
+            </tr>
+            <tr>
+              <td class="field">Digital Products</td>
+              <td class="input">Gumroad sales</td>
+              <td class="input">—</td>
+              <td class="input">___</td>
+              <td class="input">___</td>
+              <td class="input">0.00</td>
+              <td class="input">Paid</td>
+            </tr>
+            <tr>
+              <td class="field">Retainer / Subscription</td>
+              <td class="input">___</td>
+              <td class="input">___</td>
+              <td class="input">___</td>
+              <td class="input">___</td>
+              <td class="input">0.00</td>
+              <td class="input">Paid / Pending</td>
+            </tr>
+            <tr>
+              <td class="field">Other Revenue</td>
+              <td class="input">___</td>
+              <td class="input">___</td>
+              <td class="input">___</td>
+              <td class="input">___</td>
+              <td class="input">0.00</td>
+              <td class="input">___</td>
+            </tr>
+            <tr class="total">
+              <td colspan="5"><strong>TOTAL REVENUE</strong></td>
+              <td class="formula">=SUM(F2:F7)</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td colspan="5" style="font-size: 12px; color: #9ca3af; padding: 8px 14px">
+                Paid only (excluding pending)
+              </td>
+              <td class="formula" style="font-size: 11px">=SUMIF(G2:G7,"Paid",F2:F7)</td>
+              <td>—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- EXPENSES -->
+      <div class="section">
+        <div class="sec-header">
+          <h2>Table 2: Monthly Expenses</h2>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Description</th>
+              <th>Date</th>
+              <th>Vendor</th>
+              <th>Amount (€)</th>
+              <th>Tax Deductible?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="field">Software</td>
+              <td class="input">Adobe CC / Figma / etc.</td>
+              <td class="input">___</td>
+              <td class="input">___</td>
+              <td class="input">0.00</td>
+              <td class="input">Yes</td>
+            </tr>
+            <tr>
+              <td class="field">Software</td>
+              <td class="input">Notion / Slack / Zoom</td>
+              <td class="input">___</td>
+              <td class="input">___</td>
+              <td class="input">0.00</td>
+              <td class="input">Yes</td>
+            </tr>
+            <tr>
+              <td class="field">Hardware</td>
+              <td class="input">Equipment purchase</td>
+              <td class="input">___</td>
+              <td class="input">___</td>
+              <td class="input">0.00</td>
+              <td class="input">Yes</td>
+            </tr>
+            <tr>
+              <td class="field">Marketing</td>
+              <td class="input">Ads / website / domain</td>
+              <td class="input">___</td>
+              <td class="input">___</td>
+              <td class="input">0.00</td>
+              <td class="input">Yes</td>
+            </tr>
+            <tr>
+              <td class="field">Professional Dev.</td>
+              <td class="input">Courses / books</td>
+              <td class="input">___</td>
+              <td class="input">___</td>
+              <td class="input">0.00</td>
+              <td class="input">Yes</td>
+            </tr>
+            <tr>
+              <td class="field">Insurance</td>
+              <td class="input">Professional / health</td>
+              <td class="input">___</td>
+              <td class="input">___</td>
+              <td class="input">0.00</td>
+              <td class="input">Yes</td>
+            </tr>
+            <tr>
+              <td class="field">Accounting</td>
+              <td class="input">Accountant / legal</td>
+              <td class="input">___</td>
+              <td class="input">___</td>
+              <td class="input">0.00</td>
+              <td class="input">Yes</td>
+            </tr>
+            <tr>
+              <td class="field">Travel / Transport</td>
+              <td class="input">Client meetings</td>
+              <td class="input">___</td>
+              <td class="input">___</td>
+              <td class="input">0.00</td>
+              <td class="input">Partial</td>
+            </tr>
+            <tr>
+              <td class="field">Other</td>
+              <td class="input">___</td>
+              <td class="input">___</td>
+              <td class="input">___</td>
+              <td class="input">0.00</td>
+              <td class="input">___</td>
+            </tr>
+            <tr class="total">
+              <td colspan="4"><strong>TOTAL EXPENSES</strong></td>
+              <td class="formula">=SUM(E10:E18)</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td colspan="4" style="font-size: 12px; color: #9ca3af; padding: 8px 14px">
+                Deductible expenses only
+              </td>
+              <td class="formula" style="font-size: 11px">=SUMIF(F10:F18,"Yes",E10:E18)</td>
+              <td>—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- KEY METRICS -->
+      <h2 style="font-size: 18px; font-weight: 700; color: #14532d; margin: 32px 0 16px">
+        Key Metrics Dashboard
+      </h2>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="label">Gross Profit</div>
+          <div class="value">€ ___</div>
+          <div class="formula">=Total Revenue - Total Expenses</div>
+        </div>
+        <div class="metric-card">
+          <div class="label">Profit Margin</div>
+          <div class="value">___ %</div>
+          <div class="formula">=Gross Profit / Total Revenue × 100</div>
+        </div>
+        <div class="metric-card">
+          <div class="label">Tax Reserve (28%)</div>
+          <div class="value">€ ___</div>
+          <div class="formula">=Total Revenue × 0.28</div>
+        </div>
+        <div class="metric-card">
+          <div class="label">Net After Tax Reserve</div>
+          <div class="value">€ ___</div>
+          <div class="formula">=Gross Profit - Tax Reserve</div>
+        </div>
+        <div class="metric-card">
+          <div class="label">Pending Invoices</div>
+          <div class="value">€ ___</div>
+          <div class="formula">=SUMIF(Status,"Pending",Amount)</div>
+        </div>
+        <div class="metric-card">
+          <div class="label">Avg Revenue/Day</div>
+          <div class="value">€ ___</div>
+          <div class="formula">=Total Revenue / Working days</div>
+        </div>
+      </div>
+
+      <!-- TAX ESTIMATE -->
+      <div class="section">
+        <div class="sec-header">
+          <h2>Table 3: Tax Estimate (Set Aside Monthly)</h2>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Your Number</th>
+              <th>Formula / Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="field">Total Revenue this month</td>
+              <td class="formula">=Total from Table 1</td>
+              <td>Auto-filled from Table 1</td>
+            </tr>
+            <tr>
+              <td class="field">Total Deductible Expenses</td>
+              <td class="formula">=Deductible from Table 2</td>
+              <td>Auto-filled from Table 2</td>
+            </tr>
+            <tr>
+              <td class="field">Taxable Income</td>
+              <td class="formula">=Revenue - Deductible Expenses</td>
+              <td>What you're taxed on</td>
+            </tr>
+            <tr>
+              <td class="field">Your tax rate</td>
+              <td class="input">___ %</td>
+              <td>
+                Italy regime forfettario: 5% (first 5y) or 15%. Ordinario: 23–43%. Check with
+                accountant.
+              </td>
+            </tr>
+            <tr class="total">
+              <td><strong>Set Aside This Month</strong></td>
+              <td class="formula">=Taxable Income × Tax Rate</td>
+              <td>Transfer to dedicated savings account immediately</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- NOTES -->
+      <div class="sheets-guide">
+        <h2>Google Sheets Setup Guide</h2>
+        <div class="formula-row">
+          <div class="f-cell">=SUM(range)</div>
+          <div class="f-desc">Add up any column of numbers. Example: =SUM(E2:E10)</div>
+        </div>
+        <div class="formula-row">
+          <div class="f-cell">=SUMIF(range,"Yes",sum_range)</div>
+          <div class="f-desc">
+            Sum only rows where a condition is met. Used for "Deductible = Yes" and "Status = Paid".
+          </div>
+        </div>
+        <div class="formula-row">
+          <div class="f-cell">=B2/B1</div>
+          <div class="f-desc">
+            Profit margin: Gross Profit ÷ Total Revenue. Format cell as percentage.
+          </div>
+        </div>
+        <div class="formula-row">
+          <div class="f-cell">Conditional Formatting</div>
+          <div class="f-desc">
+            Select the "Status" column → Format → Conditional formatting → "Pending" = orange
+            background, "Paid" = green. Instant visual dashboard.
+          </div>
+        </div>
+        <div class="formula-row">
+          <div class="f-cell">Year Summary Tab</div>
+          <div class="f-desc">
+            Create a 13th tab "Year Summary". Pull each month's totals with: =Jan!B_total_row
+            (referencing the total row from each month tab). See your annual performance at a
+            glance.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <p><strong>Monthly Business Finance Tracker</strong> — For freelancers and solopreneurs</p>
+      <p style="margin-top: 6px">
+        This is a tracking tool, not tax advice. Consult your accountant for tax rates and deduction
+        rules in your jurisdiction.
+      </p>
+    </div>
+  </body>
+</html>

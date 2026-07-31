@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>7-Day Mindset Reset Journal</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: Georgia, "Times New Roman", serif;
+        background: #fdf9f4;
+        color: #1a1a1a;
+        line-height: 1.8;
+      }
+      .cover {
+        background: linear-gradient(135deg, #92400e 0%, #451a03 100%);
+        color: #fff;
+        padding: 60px 44px;
+        text-align: center;
+      }
+      .cover .badge {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 999px;
+        padding: 6px 18px;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+        margin-bottom: 24px;
+        font-family: "Segoe UI", sans-serif;
+      }
+      .cover h1 {
+        font-size: clamp(26px, 4vw, 44px);
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 14px;
+      }
+      .cover p {
+        font-size: 16px;
+        opacity: 0.85;
+        max-width: 480px;
+        margin: 0 auto;
+      }
+      .container {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 48px 28px;
+      }
+      .intro {
+        background: #fff;
+        border: 1px solid #e7e0d5;
+        border-radius: 10px;
+        padding: 28px 32px;
+        margin-bottom: 40px;
+        font-size: 15px;
+        color: #3a3028;
+      }
+      .intro h2 {
+        font-family: "Segoe UI", sans-serif;
+        font-size: 17px;
+        font-weight: 700;
+        color: #92400e;
+        margin-bottom: 12px;
+      }
+      .day-block {
+        background: #fff;
+        border: 1px solid #e7e0d5;
+        border-radius: 12px;
+        margin-bottom: 32px;
+        overflow: hidden;
+      }
+      .day-header {
+        padding: 20px 28px;
+        border-bottom: 1px solid #f0e8de;
+      }
+      .day-num {
+        font-family: "Segoe UI", sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #a16207;
+        margin-bottom: 4px;
+      }
+      .day-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: #1a1a1a;
+      }
+      .day-intention {
+        font-size: 14px;
+        color: #78716c;
+        margin-top: 6px;
+        font-style: italic;
+      }
+      .day-body {
+        padding: 24px 28px;
+      }
+      .prompt-section {
+        margin-bottom: 24px;
+      }
+      .prompt-section h4 {
+        font-family: "Segoe UI", sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.7px;
+        color: #a16207;
+        margin-bottom: 12px;
+      }
+      .prompt-q {
+        font-size: 16px;
+        color: #1a1a1a;
+        margin-bottom: 16px;
+        line-height: 1.7;
+        font-style: italic;
+      }
+      .write-area {
+        border: 1px solid #e7e0d5;
+        border-radius: 8px;
+        background: #fdf9f4;
+        padding: 16px 18px;
+        min-height: 80px;
+        margin-bottom: 12px;
+      }
+      .write-area p {
+        font-size: 13px;
+        color: #d4c5b0;
+        font-style: italic;
+        font-family: "Segoe UI", sans-serif;
+      }
+      .affirmation {
+        background: linear-gradient(135deg, #fffbeb, #fef3c7);
+        border: 1px solid #fde68a;
+        border-radius: 8px;
+        padding: 16px 20px;
+        margin-top: 16px;
+        text-align: center;
+      }
+      .affirmation .label {
+        font-family: "Segoe UI", sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        color: #92400e;
+        margin-bottom: 8px;
+      }
+      .affirmation p {
+        font-size: 16px;
+        color: #451a03;
+        font-style: italic;
+      }
+      .footer {
+        background: #451a03;
+        color: #fff;
+        text-align: center;
+        padding: 28px;
+        margin-top: 40px;
+      }
+      .footer p {
+        opacity: 0.7;
+        font-size: 13px;
+        font-family: "Segoe UI", sans-serif;
+      }
+      @media print {
+        body {
+          background: #fff;
+        }
+        .day-block {
+          break-inside: avoid;
+        }
+        .write-area {
+          min-height: 120px;
+          border: 1px dashed #d4c5b0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cover">
+      <div class="badge">✦ 7-DAY GUIDED JOURNAL · PRINT OR WRITE DIGITALLY</div>
+      <h1>7-Day Mindset Reset Journal</h1>
+      <p>
+        A daily guided journal for clearing mental blocks, rebuilding confidence, and reconnecting
+        with what you actually want to build.
+      </p>
+    </div>
+    <div class="container">
+      <div class="intro">
+        <h2>How to Use This Journal</h2>
+        <p>
+          Each day takes 10–20 minutes. Morning is ideal, before the noise of the day sets in. You
+          don't need to answer every question fully — follow the one that pulls you. There are no
+          wrong answers here. The only wrong answer is performing for an imaginary audience instead
+          of being honest with yourself. This journal is for you.
+        </p>
+      </div>
+
+      <!-- DAY 1 -->
+      <div class="day-block">
+        <div class="day-header">
+          <div class="day-num">Day 1</div>
+          <div class="day-title">Where I Actually Am</div>
+          <div class="day-intention">
+            Intention: Radical honesty about your starting point. No performance. No optimization.
+            Just truth.
+          </div>
+        </div>
+        <div class="day-body">
+          <div class="prompt-section">
+            <h4>Morning Write</h4>
+            <div class="prompt-q">
+              Right now, if I'm being completely honest — not the version I post online, not the
+              version I tell my friends — what is actually going on for me? In my business, in my
+              head, in my confidence?
+            </div>
+            <div class="write-area"><p>Write here...</p></div>
+          </div>
+          <div class="prompt-section">
+            <h4>Deeper Question</h4>
+            <div class="prompt-q">
+              What have I been pretending is fine that isn't? What have I been telling myself I'm
+              "almost ready" for but never actually starting?
+            </div>
+            <div class="write-area"><p>Write here...</p></div>
+          </div>
+          <div class="prompt-section">
+            <h4>One Sentence Close</h4>
+            <div class="prompt-q">
+              Complete: "The thing I most need to admit to myself today is ___."
+            </div>
+            <div class="write-area"><p>Write here...</p></div>
+          </div>
+          <div class="affirmation">
+            <div class="label">Today's Anchor</div>
+            <p>"Clarity about where I am is not failure. It's the only honest starting point."</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAY 2 -->
+      <div class="day-block">
+        <div class="day-header">
+          <div class="day-num">Day 2</div>
+          <div class="day-title">The Stories I Tell Myself</div>
+          <div class="day-intention">
+            Intention: Surface the narrative running in the background — the one that shapes every
+            decision you make.
+          </div>
+        </div>
+        <div class="day-body">
+          <div class="prompt-section">
+            <h4>Morning Write</h4>
+            <div class="prompt-q">
+              When I think about putting myself (or my work) out there publicly, what is the
+              specific story my mind tells me? Not the polished version — the actual voice. What
+              does it say will happen?
+            </div>
+            <div class="write-area"><p>Write here...</p></div>
+          </div>
+          <div class="prompt-section">
+            <h4>The Origin Question</h4>
+            <div class="prompt-q">
+              Where did this story come from? Is it based on something that actually happened, or
+              something I've been carrying forward from a much earlier time — a classroom, a parent,
+              a past failure? How old is this belief?
+            </div>
+            <div class="write-area"><p>Write here...</p></div>
+          </div>
+          <div class="prompt-section">
+            <h4>The Counter-Evidence</h4>
+            <div class="prompt-q">
+              List 3 specific moments or facts from your life that contradict this story. Evidence
+              that the story is at least partially wrong.
+            </div>
+            <div class="write-area"><p>Write here...</p></div>
+          </div>
+          <div class="affirmation">
+            <div class="label">Today's Anchor</div>
+            <p>"A story repeated long enough feels like a fact. It isn't."</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAY 3 -->
+      <div class="day-block">
+        <div class="day-header">
+          <div class="day-num">Day 3</div>
+          <div class="day-title">What I'm Actually Afraid Of</div>
+          <div class="day-intention">
+            Intention: Name the specific fear — not the vague "what if it doesn't work" but the
+            exact image in your mind.
+          </div>
+        </div>
+        <div class="day-body">
+          <div class="prompt-section">
+            <h4>Morning Write</h4>
+            <div class="prompt-q">
+              If I launched the thing, posted the content, sent the email — what is the single most
+              specific thing I'm afraid will happen? Not "it won't work" — the actual scene. Who
+              sees it? What do they think? What do I feel?
+            </div>
+            <div class="write-area"><p>Write here...</p></div>
+          </div>
+          <div class="prompt-section">
+            <h4>The Probability Check</h4>
+            <div class="prompt-q">
+              If I rate the probability of that specific thing happening on a scale of 0–100%, what
+              is it actually? And if it did happen — what would I do next? Write the realistic
+              recovery plan.
+            </div>
+            <div class="write-area"><p>Write here...</p></div>
+          </div>
+          <div class="prompt-section">
+            <h4>The Cost of Not Acting</h4>
+            <div class="prompt-q">
+              What is the cost — concrete, specific — of NOT doing this? In 6 months? In 2 years?
+              What does the person who let fear win look like?
+            </div>
+            <div class="write-area"><p>Write here...</p></div>
+          </div>
+          <div class="affirmation">
+            <div class="label">Today's Anchor</div>
+            <p>"Fear named is fear reduced. Fear unnamed runs your life."</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAY 4 -->
+      <div class="day-block">
+        <div class="day-header">
+          <div class="day-num">Day 4</div>
+          <div class="day-title">What I Actually Want</div>
+          <div class="day-intention">
+            Intention: Strip away what you think you should want. What do YOU want — for real?
+          </div>
+        </div>
+        <div class="day-body">
+          <div class="prompt-section">
+            <h4>Morning Write</h4>
+            <div class="prompt-q">
+              If no one could see what I was building — no followers, no metrics, no external
+              validation — what would I still want to create? What would I do anyway?
+            </div>
+            <div class="write-area"><p>Write here...</p></div>
+          </div>
+          <div class="prompt-section">
+            <h4>The Vision (Unfiltered)</h4>
+            <div class="prompt-q">
+              Describe in specific detail what your working life looks like in 2 years if it goes
+              well. Not the vague "financial freedom" version — the actual day. Where are you? What
+              are you doing at 10am? Who are you talking to? What did you create?
+            </div>
+            <div class="write-area"><p>Write here...</p></div>
+          </div>
+          <div class="prompt-section">
+            <h4>The Permission Slip</h4>
+            <div class="prompt-q">
+              Write a permission slip to yourself. "I give myself permission to want ___ even though
+              ___."
+            </div>
+            <div class="write-area"><p>Write here...</p></div>
+          </div>
+          <div class="affirmation">
+            <div class="label">Today's Anchor</div>
+            <p>"Wanting something specific is not arrogance. It's clarity."</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAY 5 -->
+      <div class="day-block">
+        <div class="day-header">
+          <div class="day-num">Day 5</div>
+          <div class="day-title">The Identity Shift</div>
+          <div class="day-intention">
+            Intention: Behavior follows identity. You won't consistently act like someone you don't
+            believe you are.
+          </div>
+        </div>
+        <div class="day-body">
+          <div class="prompt-section">
+            <h4>Morning Write</h4>
+            <div class="prompt-q">
+              Right now, who do I believe myself to be in the context of
+              [business/creativity/building]? What label do I give myself — and is it serving me?
+            </div>
+            <div class="write-area"><p>Write here...</p></div>
+          </div>
+          <div class="prompt-section">
+            <h4>The Identity Redesign</h4>
+            <div class="prompt-q">
+              Who do I need to believe myself to be in order to take the actions I've been avoiding?
+              Describe this person in 5 specific sentences. What do they believe about themselves?
+              How do they handle setbacks? How do they make decisions?
+            </div>
+            <div class="write-area"><p>Write here...</p></div>
+          </div>
+          <div class="prompt-section">
+            <h4>One Identity Action</h4>
+            <div class="prompt-q">
+              What is one small action I can take TODAY that the person I described in the previous
+              question would take — even if I don't fully feel like that person yet?
+            </div>
+            <div class="write-area"><p>Write here...</p></div>
+          </div>
+          <div class="affirmation">
+            <div class="label">Today's Anchor</div>
+            <p>"Act like the person you're becoming, before you feel like them."</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAY 6 -->
+      <div class="day-block">
+        <div class="day-header">
+          <div class="day-num">Day 6</div>
+          <div class="day-title">What I'm Grateful For (Without Toxic Positivity)</div>
+          <div class="day-intention">
+            Intention: Real gratitude — not forced, not a performance, not a bypass of difficulty.
+          </div>
+        </div>
+        <div class="day-body">
+          <div class="prompt-section">
+            <h4>Morning Write</h4>
+            <div class="prompt-q">
+              What is something genuinely good in my life right now that I've been taking for
+              granted? Not "I'm grateful for my health" — something specific and real that I
+              actually feel grateful for when I slow down enough to notice it.
+            </div>
+            <div class="write-area"><p>Write here...</p></div>
+          </div>
+          <div class="prompt-section">
+            <h4>The Hard Gratitude</h4>
+            <div class="prompt-q">
+              Is there something difficult from the past 12 months that, in retrospect, taught me
+              something I needed to learn? What did it cost me — and what did it give me?
+            </div>
+            <div class="write-area"><p>Write here...</p></div>
+          </div>
+          <div class="prompt-section">
+            <h4>Appreciation Letter (Short)</h4>
+            <div class="prompt-q">
+              Write 3 sentences of appreciation to yourself — not for what you've achieved, but for
+              what you've carried, survived, or navigated.
+            </div>
+            <div class="write-area"><p>Write here...</p></div>
+          </div>
+          <div class="affirmation">
+            <div class="label">Today's Anchor</div>
+            <p>
+              "Gratitude is not pretending things are fine. It's finding what's real and good in the
+              middle of what's hard."
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAY 7 -->
+      <div class="day-block">
+        <div class="day-header">
+          <div class="day-num">Day 7</div>
+          <div class="day-title">The Commitment</div>
+          <div class="day-intention">
+            Intention: Leave this journal with something specific to do — not a vague resolution, a
+            concrete commitment.
+          </div>
+        </div>
+        <div class="day-body">
+          <div class="prompt-section">
+            <h4>Morning Integration</h4>
+            <div class="prompt-q">
+              Looking back over the 6 days: what is the one insight that surprised me most? What did
+              I learn about myself that I didn't know (or didn't want to know) at the start?
+            </div>
+            <div class="write-area"><p>Write here...</p></div>
+          </div>
+          <div class="prompt-section">
+            <h4>The 30-Day Commitment</h4>
+            <div class="prompt-q">
+              Based on this week, what is one specific thing I commit to doing for the next 30 days?
+              It should be: concrete (not vague), yours (not someone else's expectation), small
+              enough to actually do, and meaningful enough to matter.
+            </div>
+            <div class="write-area"><p>Write here...</p></div>
+          </div>
+          <div class="prompt-section">
+            <h4>The Letter to Future Me</h4>
+            <div class="prompt-q">
+              Write a short letter to yourself to read in 30 days. What do you want to remember from
+              this week? What do you want future-you to know that present-you figured out?
+            </div>
+            <div class="write-area"><p>Write here...</p></div>
+          </div>
+          <div class="affirmation">
+            <div class="label">Final Anchor</div>
+            <p>
+              "Clarity without commitment is just entertainment. You know what to do next. Do it."
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <p><strong>7-Day Mindset Reset Journal</strong> — A guided reset for creators and builders</p>
+      <p style="margin-top: 6px">
+        Print for best experience. Or use a PDF annotator to write digitally. Repeat after any major
+        transition or confidence low.
+      </p>
+    </div>
+  </body>
+</html>

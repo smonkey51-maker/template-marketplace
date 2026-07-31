@@ -49,7 +49,11 @@ export function localiseHtml(html: string, lang: "it" | "en", templateId: string
 }
 
 /** Get the display name for a template, using Italian translation when available. */
-export function getDisplayName(templateId: string, templateName: string, lang: "it" | "en"): string {
+export function getDisplayName(
+  templateId: string,
+  templateName: string,
+  lang: "it" | "en",
+): string {
   if (lang === "en") return templateName;
   const tr = templateTranslations[templateId];
   return tr ? tr.name : templateName;

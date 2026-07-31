@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>7-Day Social Media Detox Protocol</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+        background: #fafafa;
+        color: #111827;
+        line-height: 1.65;
+      }
+      .cover {
+        background: linear-gradient(135deg, #059669 0%, #065f46 100%);
+        color: #fff;
+        padding: 56px 44px;
+        text-align: center;
+      }
+      .cover .badge {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 999px;
+        padding: 6px 18px;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+        margin-bottom: 24px;
+      }
+      .cover h1 {
+        font-size: clamp(24px, 4vw, 40px);
+        font-weight: 800;
+        line-height: 1.2;
+        margin-bottom: 14px;
+      }
+      .cover p {
+        font-size: 16px;
+        opacity: 0.85;
+        max-width: 500px;
+        margin: 0 auto 28px;
+      }
+      .container {
+        max-width: 780px;
+        margin: 0 auto;
+        padding: 44px 28px;
+      }
+      .day-block {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 14px;
+        overflow: hidden;
+        margin-bottom: 24px;
+      }
+      .day-header {
+        padding: 18px 24px;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      .day-num {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 4px;
+      }
+      .day-title {
+        font-size: 20px;
+        font-weight: 800;
+        color: #111827;
+      }
+      .day-theme {
+        font-size: 13px;
+        color: #6b7280;
+        margin-top: 4px;
+      }
+      .day-body {
+        padding: 20px 24px;
+      }
+      .task-section {
+        margin-bottom: 18px;
+      }
+      .task-section h4 {
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.7px;
+        color: #9ca3af;
+        margin-bottom: 10px;
+      }
+      .task {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        margin-bottom: 10px;
+      }
+      .task .check {
+        width: 20px;
+        height: 20px;
+        border: 2px solid #d1d5db;
+        border-radius: 5px;
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+      .task p {
+        font-size: 14.5px;
+        color: #374151;
+      }
+      .reflection {
+        background: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        border-radius: 8px;
+        padding: 14px 18px;
+        margin-top: 12px;
+      }
+      .reflection h4 {
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.7px;
+        color: #059669;
+        margin-bottom: 8px;
+      }
+      .reflection p {
+        font-size: 14px;
+        color: #065f46;
+        font-style: italic;
+      }
+      .d1 {
+        border-top: 4px solid #3b82f6;
+      }
+      .d2 {
+        border-top: 4px solid #8b5cf6;
+      }
+      .d3 {
+        border-top: 4px solid #f59e0b;
+      }
+      .d4 {
+        border-top: 4px solid #ef4444;
+      }
+      .d5 {
+        border-top: 4px solid #10b981;
+      }
+      .d6 {
+        border-top: 4px solid #6366f1;
+      }
+      .d7 {
+        border-top: 4px solid #059669;
+      }
+      .after-section {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 24px 28px;
+        margin-top: 32px;
+      }
+      .after-section h2 {
+        font-size: 18px;
+        font-weight: 700;
+        color: #065f46;
+        margin-bottom: 16px;
+      }
+      .rule-item {
+        display: flex;
+        gap: 14px;
+        margin-bottom: 14px;
+        align-items: flex-start;
+      }
+      .rule-num {
+        background: #059669;
+        color: #fff;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+      .footer {
+        background: #065f46;
+        color: #fff;
+        text-align: center;
+        padding: 28px;
+        margin-top: 40px;
+      }
+      .footer p {
+        opacity: 0.7;
+        font-size: 13px;
+      }
+      @media print {
+        body {
+          background: #fff;
+        }
+        .day-block {
+          break-inside: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cover">
+      <div class="badge">✦ 7-DAY PROTOCOL · DAILY ACTIONS · BUILT FOR CREATORS</div>
+      <h1>Social Media<br />Detox Protocol</h1>
+      <p>
+        A structured 7-day plan to break compulsive scrolling, reset your attention, and rebuild an
+        intentional relationship with social media.
+      </p>
+    </div>
+    <div class="container">
+      <div class="day-block d1">
+        <div class="day-header">
+          <div class="day-num" style="color: #3b82f6">Day 1 — Monday</div>
+          <div class="day-title">Audit & Awareness</div>
+          <div class="day-theme">
+            Theme: Know exactly where your time goes before you change anything.
+          </div>
+        </div>
+        <div class="day-body">
+          <div class="task-section">
+            <h4>Morning (before opening any app)</h4>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                Check your screen time report (Settings → Screen Time on iPhone / Digital Wellbeing
+                on Android). Write down your daily average for each social app.
+              </p>
+            </div>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                Set a specific intention: write one sentence starting with "This week, I want to use
+                social media for [purpose] and not for [escape]."
+              </p>
+            </div>
+          </div>
+          <div class="task-section">
+            <h4>During the Day</h4>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                Every time you pick up your phone to scroll, pause for 3 seconds and ask: "What am I
+                feeling right now?" Note the emotion (boredom, anxiety, loneliness, habit). Don't
+                stop scrolling yet — just observe.
+              </p>
+            </div>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                Count how many times you open Instagram/TikTok/Threads today. Just count. Don't
+                judge.
+              </p>
+            </div>
+          </div>
+          <div class="task-section">
+            <h4>Evening</h4>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                Turn off all social media notifications for the next 7 days. Push notifications are
+                the core trigger loop — removing them is non-negotiable.
+              </p>
+            </div>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                Move social media apps to a folder on page 2 of your home screen. Not deleted — just
+                not immediately visible.
+              </p>
+            </div>
+          </div>
+          <div class="reflection">
+            <h4>Day 1 Reflection Prompt</h4>
+            <p>
+              "What emotion most often drives me to open social media? When do I reach for my phone
+              instead of sitting with a feeling?"
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="day-block d2">
+        <div class="day-header">
+          <div class="day-num" style="color: #8b5cf6">Day 2 — Tuesday</div>
+          <div class="day-title">The First Restriction</div>
+          <div class="day-theme">
+            Theme: Introduce your first real limit. Expect discomfort — that's the point.
+          </div>
+        </div>
+        <div class="day-body">
+          <div class="task-section">
+            <h4>Morning</h4>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                Do not open any social media app for the first 60 minutes after waking. Phone in
+                another room if needed. Replace with: water, a 10-minute walk, or reading 5 pages of
+                a physical book.
+              </p>
+            </div>
+            <div class="task">
+              <div class="check"></div>
+              <p>Set app time limits: Instagram, TikTok, Twitter/X to 30 minutes each for today.</p>
+            </div>
+          </div>
+          <div class="task-section">
+            <h4>During the Day</h4>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                When you hit your 30-minute limit and feel the urge to override it — don't. Let the
+                discomfort exist for 5 minutes before deciding. Write down what you were going to
+                check.
+              </p>
+            </div>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                Replace one scrolling session with a 15-minute task you've been avoiding. Notice how
+                you feel after vs. how you feel after scrolling.
+              </p>
+            </div>
+          </div>
+          <div class="task-section">
+            <h4>Evening</h4>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                No social media after 8 PM. The blue light and comparison loop before sleep destroys
+                sleep quality and morning mood.
+              </p>
+            </div>
+          </div>
+          <div class="reflection">
+            <h4>Day 2 Reflection Prompt</h4>
+            <p>
+              "What did I notice when the app timer cut me off? Was it genuine discomfort or just
+              habit expecting to be fed?"
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="day-block d3">
+        <div class="day-header">
+          <div class="day-num" style="color: #f59e0b">Day 3 — Wednesday</div>
+          <div class="day-title">The Unfollow Audit</div>
+          <div class="day-theme">
+            Theme: Your feed is a choice. An anxious, comparison-triggering feed is a self-inflicted
+            wound.
+          </div>
+        </div>
+        <div class="day-body">
+          <div class="task-section">
+            <h4>Morning</h4>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                Continue: no social media for 60 minutes after waking. 30-minute daily limit per
+                app.
+              </p>
+            </div>
+          </div>
+          <div class="task-section">
+            <h4>The Unfollow Session (20 minutes max)</h4>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                Open Instagram. For every account you see: ask one question — "Does following this
+                person make me feel inspired and good, or worse about myself?" Unfollow without
+                guilt if the answer is the latter.
+              </p>
+            </div>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                Unfollow every account that makes you feel: behind in life, not enough financially,
+                not attractive enough, envious, or triggered. This is curating your mental diet, not
+                cancelling people.
+              </p>
+            </div>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                Mute any account you can't unfollow (close friends, colleagues) but whose content
+                drains you.
+              </p>
+            </div>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                Follow 3–5 accounts that teach you something, make you laugh genuinely, or share
+                work in your field. Replace noise with signal.
+              </p>
+            </div>
+          </div>
+          <div class="reflection">
+            <h4>Day 3 Reflection Prompt</h4>
+            <p>
+              "After the unfollow audit, what kind of person do I actually want to be influenced by?
+              What values do I want reinforced daily?"
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="day-block d4">
+        <div class="day-header">
+          <div class="day-num" style="color: #ef4444">Day 4 — Thursday</div>
+          <div class="day-title">Full Withdrawal Day</div>
+          <div class="day-theme">
+            Theme: No social media for the full day. This is the hardest day. Do it anyway.
+          </div>
+        </div>
+        <div class="day-body">
+          <div class="task-section">
+            <h4>The Rules for Today</h4>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                Zero social media. Instagram, TikTok, Twitter/X, LinkedIn, Facebook, YouTube Shorts,
+                Reddit — none of them. Email and messaging are allowed.
+              </p>
+            </div>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                If you need to post for work/business: schedule it the night before using a
+                scheduler. You don't need to open the app.
+              </p>
+            </div>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                When the urge hits (it will, probably 20+ times): pick up a pen and write what you
+                were going to look at. That moment of friction breaks the automatic behavior.
+              </p>
+            </div>
+          </div>
+          <div class="task-section">
+            <h4>Replace the Time With</h4>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                One activity that requires your hands: cooking, walking, drawing, organizing a
+                space, playing an instrument.
+              </p>
+            </div>
+            <div class="task">
+              <div class="check"></div>
+              <p>One deep work session of at least 90 minutes with phone in another room.</p>
+            </div>
+            <div class="task">
+              <div class="check"></div>
+              <p>One real conversation — in person or video call — with someone you care about.</p>
+            </div>
+          </div>
+          <div class="reflection">
+            <h4>Day 4 Reflection Prompt</h4>
+            <p>
+              "How many times did I feel the pull today, and what was actually underneath it each
+              time? Boredom, loneliness, anxiety, procrastination?"
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="day-block d5">
+        <div class="day-header">
+          <div class="day-num" style="color: #10b981">Day 5 — Friday</div>
+          <div class="day-title">Intentional Re-Entry</div>
+          <div class="day-theme">
+            Theme: Return to social media — but on your terms, not the algorithm's.
+          </div>
+        </div>
+        <div class="day-body">
+          <div class="task-section">
+            <h4>The New Rules (Starting Today)</h4>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                Social media is allowed today — but only in designated windows: 12–12:30 PM and
+                6–6:30 PM. That's it. Set alarms.
+              </p>
+            </div>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                Before opening any app, state your purpose aloud or in writing: "I'm going on
+                Instagram to [specific action]." No purpose = don't open it.
+              </p>
+            </div>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                No mindless feed scrolling. Only: intentional posting, responding to DMs/comments,
+                or searching for something specific.
+              </p>
+            </div>
+          </div>
+          <div class="task-section">
+            <h4>Notice the Difference</h4>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                After your 30-minute window: write 2 sentences on how you feel vs. how you feel
+                after an unlimited scrolling session.
+              </p>
+            </div>
+          </div>
+          <div class="reflection">
+            <h4>Day 5 Reflection Prompt</h4>
+            <p>
+              "With a time limit and an intention, did social media feel different? More or less
+              satisfying? More or less anxious?"
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="day-block d6">
+        <div class="day-header">
+          <div class="day-num" style="color: #6366f1">Day 6 — Saturday</div>
+          <div class="day-title">Build Your Replacement Stack</div>
+          <div class="day-theme">
+            Theme: The detox only sticks if you build something better to replace the habit.
+          </div>
+        </div>
+        <div class="day-body">
+          <div class="task-section">
+            <h4>Design Your Alternatives</h4>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                Write a list of 10 things you enjoy that don't involve a screen. Be specific: not
+                "exercise" but "30-minute walk listening to a podcast."
+              </p>
+            </div>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                Identify your 3 highest-trigger moments: when you most automatically reach for your
+                phone (waking up, waiting, boredom, after lunch, before bed). For each, write the
+                alternative behavior you'll use instead.
+              </p>
+            </div>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                Set up your environment: charger outside the bedroom, physical book on your
+                nightstand, phone in your bag during meals.
+              </p>
+            </div>
+          </div>
+          <div class="task-section">
+            <h4>Digital Hygiene Actions</h4>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                Delete any apps you haven't actively decided to keep. Not muted — deleted. You can
+                reinstall; friction is the point.
+              </p>
+            </div>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                Keep notifications OFF permanently for social apps. Check on YOUR schedule, not when
+                they summon you.
+              </p>
+            </div>
+          </div>
+          <div class="reflection">
+            <h4>Day 6 Reflection Prompt</h4>
+            <p>
+              "What replacement activities actually worked this week? What did I discover about how
+              I want to spend unstructured time?"
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="day-block d7">
+        <div class="day-header">
+          <div class="day-num" style="color: #059669">Day 7 — Sunday</div>
+          <div class="day-title">Your New Rules — Permanent Setup</div>
+          <div class="day-theme">
+            Theme: Write your personal social media policy for the next 30 days. Review it in a
+            month.
+          </div>
+        </div>
+        <div class="day-body">
+          <div class="task-section">
+            <h4>Write Your Personal Policy</h4>
+            <div class="task">
+              <div class="check"></div>
+              <p>I will use social media at these times only: [fill in 1–2 daily windows]</p>
+            </div>
+            <div class="task">
+              <div class="check"></div>
+              <p>My maximum daily social media time is: [X minutes]</p>
+            </div>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                I will not open social media in these situations: [before 9am / after 9pm / during
+                meals / first thing when bored]
+              </p>
+            </div>
+            <div class="task">
+              <div class="check"></div>
+              <p>If I'm creating content for business, I schedule and post — I don't browse.</p>
+            </div>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                I review my screen time every Sunday. If I'm over [X minutes/day], I do a 24-hour
+                reset.
+              </p>
+            </div>
+          </div>
+          <div class="task-section">
+            <h4>Final Actions</h4>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                Screenshot or print your policy. Put it on your phone background or inside your
+                journal cover.
+              </p>
+            </div>
+            <div class="task">
+              <div class="check"></div>
+              <p>
+                Tell one person about your new rules — accountability increases follow-through by
+                65%.
+              </p>
+            </div>
+          </div>
+          <div class="reflection">
+            <h4>Day 7 Final Reflection</h4>
+            <p>
+              "What changed this week — in my focus, my mood, my time? What's one thing I want to
+              protect now that I've felt what intentional attention feels like?"
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="after-section">
+        <h2>After Day 7 — Keeping It</h2>
+        <div class="rule-item">
+          <div class="rule-num">1</div>
+          <p>
+            <strong>The 24-Hour Rule:</strong> Any week your screen time creeps above your personal
+            limit, do a full 24-hour detox the following Monday. This resets the pattern before it
+            becomes a rut.
+          </p>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">2</div>
+          <p>
+            <strong>Notifications Stay Off — Forever:</strong> This is the single highest-leverage
+            change from this protocol. Don't undo it.
+          </p>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">3</div>
+          <p>
+            <strong>Feed = Diet:</strong> Audit your follows every 3 months. The algorithm evolves;
+            so should your curation.
+          </p>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">4</div>
+          <p>
+            <strong>Scheduled Windows Are Non-Negotiable:</strong> The moment you remove the
+            windows, the habit creeps back. Time boundaries are the infrastructure of intentional
+            use.
+          </p>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">5</div>
+          <p>
+            <strong>Don't Be Precious About It:</strong> You'll slip. Everyone does. The rule isn't
+            "never slip" — it's "notice when you slip and reset the same day, not next week."
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <p><strong>7-Day Social Media Detox Protocol</strong> — A structured reset for creators</p>
+      <p style="margin-top: 6px">Print this guide or save it to your phone. Check boxes daily.</p>
+    </div>
+  </body>
+</html>

@@ -1,857 +1,939 @@
-<!DOCTYPE html>
-<html lang="it" style="background:#FAFAF7;">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Neo-Brutalist Zine — TemplateLab Mockup</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --paper: #FAFAF7;
-    --ink: #0A0A08;
-    --yellow: #F5E642;
-    --red: #FF3B00;
-    --green: #00C853;
-    --blue: #0047FF;
-    --border: 2px solid #0A0A08;
-    --shadow: 4px 4px 0 #0A0A08;
-    --shadow-lg: 6px 6px 0 #0A0A08;
-  }
-
-  body {
-    background: var(--paper);
-    color: var(--ink);
-    font-family: 'Space Grotesk', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    /* Grid paper texture */
-    background-image:
-      linear-gradient(rgba(10,10,8,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(10,10,8,0.04) 1px, transparent 1px);
-    background-size: 24px 24px;
-  }
-
-  /* ── NAV ── */
-  nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 32px;
-    height: 60px;
-    border-bottom: var(--border);
-    background: var(--paper);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background-image:
-      linear-gradient(rgba(10,10,8,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(10,10,8,0.04) 1px, transparent 1px);
-    background-size: 24px 24px;
-  }
-
-  .nav-logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 18px;
-    letter-spacing: -0.02em;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 0;
-  }
-
-  .nav-logo-block {
-    background: var(--ink);
-    color: var(--yellow);
-    padding: 2px 8px;
-    margin-right: 1px;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 0;
-    list-style: none;
-    border-left: var(--border);
-  }
-
-  .nav-links li {
-    border-right: var(--border);
-  }
-
-  .nav-links a {
-    display: block;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink);
-    text-decoration: none;
-    padding: 8px 18px;
-    transition: background 0s, color 0s;
-  }
-
-  .nav-links a:hover {
-    background: var(--ink);
-    color: var(--yellow);
-  }
-
-  .nav-cta {
-    font-family: 'Syne', sans-serif;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 10px 20px;
-    background: var(--yellow);
-    color: var(--ink);
-    border: var(--border);
-    box-shadow: var(--shadow);
-    text-decoration: none;
-    transition: box-shadow 0.1s, transform 0.1s;
-    display: inline-block;
-  }
-
-  .nav-cta:hover {
-    box-shadow: var(--shadow-lg);
-    transform: translate(-2px, -2px);
-  }
-
-  /* ── HERO ── */
-  .hero {
-    border-bottom: var(--border);
-    padding: 0;
-    display: grid;
-    grid-template-columns: 1fr 420px;
-  }
-
-  .hero-left {
-    padding: 56px 48px;
-    border-right: var(--border);
-  }
-
-  .hero-issue {
-    font-family: 'Space Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--ink);
-    opacity: 0.4;
-    margin-bottom: 24px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .hero-issue::before {
-    content: 'VOL. 01 — 2026';
-  }
-
-  .hero-headline {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: clamp(56px, 7vw, 100px);
-    line-height: 0.92;
-    letter-spacing: -0.03em;
-    text-transform: uppercase;
-    color: var(--ink);
-    margin-bottom: 32px;
-  }
-
-  .hero-headline .accent {
-    background: var(--yellow);
-    padding: 0 4px;
-    display: inline-block;
-  }
-
-  .hero-headline .accent-red {
-    background: var(--red);
-    color: white;
-    padding: 0 4px;
-    display: inline-block;
-  }
-
-  .hero-sub {
-    font-size: 15px;
-    line-height: 1.6;
-    color: var(--ink);
-    opacity: 0.6;
-    max-width: 440px;
-    margin-bottom: 36px;
-  }
-
-  .hero-actions {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-
-  .btn-primary {
-    font-family: 'Syne', sans-serif;
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 14px 28px;
-    background: var(--ink);
-    color: var(--yellow);
-    border: var(--border);
-    box-shadow: var(--shadow);
-    text-decoration: none;
-    transition: box-shadow 0.1s, transform 0.1s;
-    display: inline-block;
-  }
-
-  .btn-primary:hover {
-    box-shadow: var(--shadow-lg);
-    transform: translate(-2px, -2px);
-  }
-
-  .btn-secondary {
-    font-family: 'Syne', sans-serif;
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 14px 28px;
-    background: transparent;
-    color: var(--ink);
-    border: var(--border);
-    box-shadow: var(--shadow);
-    text-decoration: none;
-    transition: box-shadow 0.1s, transform 0.1s;
-    display: inline-block;
-  }
-
-  .btn-secondary:hover {
-    background: var(--ink);
-    color: var(--paper);
-    box-shadow: var(--shadow-lg);
-    transform: translate(-2px, -2px);
-  }
-
-  .hero-right {
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    justify-content: center;
-  }
-
-  .hero-stats {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    border: var(--border);
-    box-shadow: var(--shadow-lg);
-    background: var(--paper);
-  }
-
-  .stat-row {
-    padding: 20px 24px;
-    border-bottom: 2px solid rgba(10,10,8,0.15);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .stat-row:last-child { border-bottom: none; }
-
-  .stat-row.highlighted {
-    background: var(--yellow);
-    border-bottom: var(--border);
-  }
-
-  .stat-num {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 28px;
-    letter-spacing: -0.02em;
-  }
-
-  .stat-lbl {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    opacity: 0.5;
-  }
-
-  /* ── FILTER BAR ── */
-  .filter-bar {
-    display: flex;
-    align-items: stretch;
-    border-bottom: var(--border);
-    overflow-x: auto;
-    background: var(--paper);
-    background-image:
-      linear-gradient(rgba(10,10,8,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(10,10,8,0.04) 1px, transparent 1px);
-    background-size: 24px 24px;
-  }
-
-  .filter-bar-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 0 20px;
-    border-right: var(--border);
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-    opacity: 0.4;
-  }
-
-  .filter-chip {
-    font-family: 'Syne', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 14px 20px;
-    border-right: 2px solid rgba(10,10,8,0.12);
-    cursor: pointer;
-    transition: background 0s;
-    white-space: nowrap;
-    text-decoration: none;
-    color: var(--ink);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .filter-chip:hover, .filter-chip.active {
-    background: var(--ink);
-    color: var(--yellow);
-    border-right-color: var(--ink);
-  }
-
-  .filter-chip.active {
-    border-right: var(--border);
-  }
-
-  /* ── GRID ── */
-  .grid-section {
-    padding: 40px 32px;
-  }
-
-  .grid-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 32px;
-    padding-bottom: 16px;
-    border-bottom: var(--border);
-  }
-
-  .grid-title {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 13px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .grid-count {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    opacity: 0.4;
-  }
-
-  .template-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-
-  .template-card {
-    border: var(--border);
-    background: var(--paper);
-    box-shadow: var(--shadow);
-    transition: box-shadow 0.1s, transform 0.1s;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .template-card:hover {
-    box-shadow: var(--shadow-lg);
-    transform: translate(-2px, -2px);
-  }
-
-  /* Hard color-swap on hover */
-  .template-card:hover .card-body {
-    background: var(--ink);
-  }
-
-  .template-card:hover .card-name {
-    color: var(--yellow);
-  }
-
-  .template-card:hover .card-category {
-    color: rgba(245,230,66,0.6);
-  }
-
-  .template-card:hover .card-price {
-    color: var(--yellow);
-  }
-
-  .template-card:hover .card-downloads {
-    color: rgba(245,230,66,0.4);
-  }
-
-  .card-preview {
-    width: 100%;
-    aspect-ratio: 16/10;
-    border-bottom: var(--border);
-    position: relative;
-    overflow: hidden;
-  }
-
-  /* Category-color previews — flat, no gradient */
-  .preview-saas { background: #0d1117; }
-  .preview-pricing { background: #f8f8f8; }
-  .preview-portfolio { background: #1a0f2e; }
-  .preview-prompt { background: #fff8e6; }
-  .preview-ecommerce { background: #0f1a0f; }
-  .preview-agency { background: #1a1a2e; }
-
-  .preview-content {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-  }
-
-  .preview-ui-dark {
-    width: 75%;
-  }
-
-  .ui-row {
-    height: 4px;
-    border-radius: 0;
-    margin-bottom: 8px;
-    background: rgba(255,255,255,0.12);
-  }
-
-  .ui-row.accent { background: rgba(245,230,66,0.3); width: 40%; }
-  .ui-row.w80 { width: 80%; }
-  .ui-row.w60 { width: 60%; }
-  .ui-row.w90 { width: 90%; }
-  .ui-row.w40 { width: 40%; }
-  .ui-row.w50 { width: 50%; }
-
-  .preview-ui-light .ui-row { background: rgba(10,10,8,0.15); }
-  .preview-ui-light .ui-row.accent { background: rgba(255,59,0,0.3); }
-
-  .card-body {
-    padding: 16px 20px;
-    transition: background 0s;
-  }
-
-  .card-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 8px;
-  }
-
-  .card-category {
-    font-family: 'Space Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    opacity: 0.45;
-    transition: color 0s;
-  }
-
-  .card-name {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 14px;
-    letter-spacing: -0.01em;
-    color: var(--ink);
-    transition: color 0s;
-    line-height: 1.2;
-  }
-
-  .card-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 12px;
-  }
-
-  .card-price {
-    font-family: 'Space Mono', monospace;
-    font-weight: 700;
-    font-size: 16px;
-    color: var(--ink);
-    transition: color 0s;
-  }
-
-  .card-downloads {
-    font-size: 10px;
-    opacity: 0.35;
-    font-family: 'Space Mono', monospace;
-    transition: color 0s;
-  }
-
-  /* Badge stamps */
-  .card-badge {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    font-family: 'Syne', sans-serif;
-    font-size: 9px;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 4px 8px;
-    border: 2px solid var(--ink);
-    z-index: 2;
-    line-height: 1;
-  }
-
-  .badge-pick { background: var(--yellow); color: var(--ink); }
-  .badge-new { background: var(--red); color: white; border-color: white; }
-  .badge-hot { background: var(--ink); color: var(--yellow); }
-
-  /* ── MANIFESTO STRIP ── */
-  .manifesto {
-    border-top: var(--border);
-    border-bottom: var(--border);
-    margin: 8px 0 0;
-    padding: 32px 48px;
-    background: var(--ink);
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 48px;
-    align-items: center;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-    background-size: 24px 24px;
-  }
-
-  .manifesto-num {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 80px;
-    color: var(--yellow);
-    line-height: 1;
-    letter-spacing: -0.04em;
-  }
-
-  .manifesto-text {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 22px;
-    color: white;
-    line-height: 1.3;
-    letter-spacing: -0.01em;
-  }
-
-  .manifesto-cta {
-    font-family: 'Syne', sans-serif;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 14px 28px;
-    background: var(--yellow);
-    color: var(--ink);
-    border: 2px solid var(--yellow);
-    box-shadow: 4px 4px 0 var(--yellow), 4px 4px 0 0 rgba(255,255,255,0.3);
-    text-decoration: none;
-    white-space: nowrap;
-    display: inline-block;
-  }
-
-  .manifesto-cta:hover { background: white; border-color: white; }
-
-  /* ── MOCKUP LABEL ── */
-  .mockup-label {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    background: var(--ink);
-    color: var(--yellow);
-    font-family: 'Syne', sans-serif;
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 8px 16px;
-    z-index: 999;
-    border: var(--border);
-    box-shadow: var(--shadow);
-  }
-</style>
-</head>
-<body>
-
-<div class="mockup-label">Mockup — Neo-Brutalist Zine</div>
-
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">
-    <span class="nav-logo-block">T</span>emplateLab
-  </div>
-  <ul class="nav-links">
-    <li><a href="#">Catalogo</a></li>
-    <li><a href="#">Collezioni</a></li>
-    <li><a href="#">AI Studio</a></li>
-    <li><a href="#">Guida</a></li>
-  </ul>
-  <a href="#" class="nav-cta">Studio Access →</a>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-left">
-    <div class="hero-issue"></div>
-    <h1 class="hero-headline">
-      Template<br>
-      <span class="accent">premium</span><br>
-      con <span class="accent-red">AI.</span>
-    </h1>
-    <p class="hero-sub">
-      Acquista, personalizza con Claude AI in secondi. Nessun codice. 47 template pronti. Prezzi onesti.
-    </p>
-    <div class="hero-actions">
-      <a href="#" class="btn-primary">Sfoglia il catalogo</a>
-      <a href="#" class="btn-secondary">Prova l'AI Studio</a>
-    </div>
-  </div>
-  <div class="hero-right">
-    <div class="hero-stats">
-      <div class="stat-row highlighted">
-        <div>
-          <div class="stat-num">47</div>
-          <div class="stat-lbl">Template pronti</div>
+<!doctype html>
+<html lang="it" style="background: #fafaf7">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neo-Brutalist Zine — TemplateLab Mockup</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --paper: #fafaf7;
+        --ink: #0a0a08;
+        --yellow: #f5e642;
+        --red: #ff3b00;
+        --green: #00c853;
+        --blue: #0047ff;
+        --border: 2px solid #0a0a08;
+        --shadow: 4px 4px 0 #0a0a08;
+        --shadow-lg: 6px 6px 0 #0a0a08;
+      }
+
+      body {
+        background: var(--paper);
+        color: var(--ink);
+        font-family: "Space Grotesk", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        /* Grid paper texture */
+        background-image:
+          linear-gradient(rgba(10, 10, 8, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(10, 10, 8, 0.04) 1px, transparent 1px);
+        background-size: 24px 24px;
+      }
+
+      /* ── NAV ── */
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 32px;
+        height: 60px;
+        border-bottom: var(--border);
+        background: var(--paper);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background-image:
+          linear-gradient(rgba(10, 10, 8, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(10, 10, 8, 0.04) 1px, transparent 1px);
+        background-size: 24px 24px;
+      }
+
+      .nav-logo {
+        font-family: "Syne", sans-serif;
+        font-weight: 800;
+        font-size: 18px;
+        letter-spacing: -0.02em;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 0;
+      }
+
+      .nav-logo-block {
+        background: var(--ink);
+        color: var(--yellow);
+        padding: 2px 8px;
+        margin-right: 1px;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 0;
+        list-style: none;
+        border-left: var(--border);
+      }
+
+      .nav-links li {
+        border-right: var(--border);
+      }
+
+      .nav-links a {
+        display: block;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--ink);
+        text-decoration: none;
+        padding: 8px 18px;
+        transition:
+          background 0s,
+          color 0s;
+      }
+
+      .nav-links a:hover {
+        background: var(--ink);
+        color: var(--yellow);
+      }
+
+      .nav-cta {
+        font-family: "Syne", sans-serif;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 10px 20px;
+        background: var(--yellow);
+        color: var(--ink);
+        border: var(--border);
+        box-shadow: var(--shadow);
+        text-decoration: none;
+        transition:
+          box-shadow 0.1s,
+          transform 0.1s;
+        display: inline-block;
+      }
+
+      .nav-cta:hover {
+        box-shadow: var(--shadow-lg);
+        transform: translate(-2px, -2px);
+      }
+
+      /* ── HERO ── */
+      .hero {
+        border-bottom: var(--border);
+        padding: 0;
+        display: grid;
+        grid-template-columns: 1fr 420px;
+      }
+
+      .hero-left {
+        padding: 56px 48px;
+        border-right: var(--border);
+      }
+
+      .hero-issue {
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--ink);
+        opacity: 0.4;
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .hero-issue::before {
+        content: "VOL. 01 — 2026";
+      }
+
+      .hero-headline {
+        font-family: "Syne", sans-serif;
+        font-weight: 800;
+        font-size: clamp(56px, 7vw, 100px);
+        line-height: 0.92;
+        letter-spacing: -0.03em;
+        text-transform: uppercase;
+        color: var(--ink);
+        margin-bottom: 32px;
+      }
+
+      .hero-headline .accent {
+        background: var(--yellow);
+        padding: 0 4px;
+        display: inline-block;
+      }
+
+      .hero-headline .accent-red {
+        background: var(--red);
+        color: white;
+        padding: 0 4px;
+        display: inline-block;
+      }
+
+      .hero-sub {
+        font-size: 15px;
+        line-height: 1.6;
+        color: var(--ink);
+        opacity: 0.6;
+        max-width: 440px;
+        margin-bottom: 36px;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .btn-primary {
+        font-family: "Syne", sans-serif;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 14px 28px;
+        background: var(--ink);
+        color: var(--yellow);
+        border: var(--border);
+        box-shadow: var(--shadow);
+        text-decoration: none;
+        transition:
+          box-shadow 0.1s,
+          transform 0.1s;
+        display: inline-block;
+      }
+
+      .btn-primary:hover {
+        box-shadow: var(--shadow-lg);
+        transform: translate(-2px, -2px);
+      }
+
+      .btn-secondary {
+        font-family: "Syne", sans-serif;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 14px 28px;
+        background: transparent;
+        color: var(--ink);
+        border: var(--border);
+        box-shadow: var(--shadow);
+        text-decoration: none;
+        transition:
+          box-shadow 0.1s,
+          transform 0.1s;
+        display: inline-block;
+      }
+
+      .btn-secondary:hover {
+        background: var(--ink);
+        color: var(--paper);
+        box-shadow: var(--shadow-lg);
+        transform: translate(-2px, -2px);
+      }
+
+      .hero-right {
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        justify-content: center;
+      }
+
+      .hero-stats {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        border: var(--border);
+        box-shadow: var(--shadow-lg);
+        background: var(--paper);
+      }
+
+      .stat-row {
+        padding: 20px 24px;
+        border-bottom: 2px solid rgba(10, 10, 8, 0.15);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .stat-row:last-child {
+        border-bottom: none;
+      }
+
+      .stat-row.highlighted {
+        background: var(--yellow);
+        border-bottom: var(--border);
+      }
+
+      .stat-num {
+        font-family: "Syne", sans-serif;
+        font-weight: 800;
+        font-size: 28px;
+        letter-spacing: -0.02em;
+      }
+
+      .stat-lbl {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        opacity: 0.5;
+      }
+
+      /* ── FILTER BAR ── */
+      .filter-bar {
+        display: flex;
+        align-items: stretch;
+        border-bottom: var(--border);
+        overflow-x: auto;
+        background: var(--paper);
+        background-image:
+          linear-gradient(rgba(10, 10, 8, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(10, 10, 8, 0.04) 1px, transparent 1px);
+        background-size: 24px 24px;
+      }
+
+      .filter-bar-label {
+        font-family: "Space Mono", monospace;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 0 20px;
+        border-right: var(--border);
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+        opacity: 0.4;
+      }
+
+      .filter-chip {
+        font-family: "Syne", sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 14px 20px;
+        border-right: 2px solid rgba(10, 10, 8, 0.12);
+        cursor: pointer;
+        transition: background 0s;
+        white-space: nowrap;
+        text-decoration: none;
+        color: var(--ink);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .filter-chip:hover,
+      .filter-chip.active {
+        background: var(--ink);
+        color: var(--yellow);
+        border-right-color: var(--ink);
+      }
+
+      .filter-chip.active {
+        border-right: var(--border);
+      }
+
+      /* ── GRID ── */
+      .grid-section {
+        padding: 40px 32px;
+      }
+
+      .grid-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 32px;
+        padding-bottom: 16px;
+        border-bottom: var(--border);
+      }
+
+      .grid-title {
+        font-family: "Syne", sans-serif;
+        font-weight: 800;
+        font-size: 13px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .grid-count {
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        opacity: 0.4;
+      }
+
+      .template-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+
+      .template-card {
+        border: var(--border);
+        background: var(--paper);
+        box-shadow: var(--shadow);
+        transition:
+          box-shadow 0.1s,
+          transform 0.1s;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .template-card:hover {
+        box-shadow: var(--shadow-lg);
+        transform: translate(-2px, -2px);
+      }
+
+      /* Hard color-swap on hover */
+      .template-card:hover .card-body {
+        background: var(--ink);
+      }
+
+      .template-card:hover .card-name {
+        color: var(--yellow);
+      }
+
+      .template-card:hover .card-category {
+        color: rgba(245, 230, 66, 0.6);
+      }
+
+      .template-card:hover .card-price {
+        color: var(--yellow);
+      }
+
+      .template-card:hover .card-downloads {
+        color: rgba(245, 230, 66, 0.4);
+      }
+
+      .card-preview {
+        width: 100%;
+        aspect-ratio: 16/10;
+        border-bottom: var(--border);
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Category-color previews — flat, no gradient */
+      .preview-saas {
+        background: #0d1117;
+      }
+      .preview-pricing {
+        background: #f8f8f8;
+      }
+      .preview-portfolio {
+        background: #1a0f2e;
+      }
+      .preview-prompt {
+        background: #fff8e6;
+      }
+      .preview-ecommerce {
+        background: #0f1a0f;
+      }
+      .preview-agency {
+        background: #1a1a2e;
+      }
+
+      .preview-content {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .preview-ui-dark {
+        width: 75%;
+      }
+
+      .ui-row {
+        height: 4px;
+        border-radius: 0;
+        margin-bottom: 8px;
+        background: rgba(255, 255, 255, 0.12);
+      }
+
+      .ui-row.accent {
+        background: rgba(245, 230, 66, 0.3);
+        width: 40%;
+      }
+      .ui-row.w80 {
+        width: 80%;
+      }
+      .ui-row.w60 {
+        width: 60%;
+      }
+      .ui-row.w90 {
+        width: 90%;
+      }
+      .ui-row.w40 {
+        width: 40%;
+      }
+      .ui-row.w50 {
+        width: 50%;
+      }
+
+      .preview-ui-light .ui-row {
+        background: rgba(10, 10, 8, 0.15);
+      }
+      .preview-ui-light .ui-row.accent {
+        background: rgba(255, 59, 0, 0.3);
+      }
+
+      .card-body {
+        padding: 16px 20px;
+        transition: background 0s;
+      }
+
+      .card-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 8px;
+      }
+
+      .card-category {
+        font-family: "Space Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        opacity: 0.45;
+        transition: color 0s;
+      }
+
+      .card-name {
+        font-family: "Syne", sans-serif;
+        font-weight: 800;
+        font-size: 14px;
+        letter-spacing: -0.01em;
+        color: var(--ink);
+        transition: color 0s;
+        line-height: 1.2;
+      }
+
+      .card-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 12px;
+      }
+
+      .card-price {
+        font-family: "Space Mono", monospace;
+        font-weight: 700;
+        font-size: 16px;
+        color: var(--ink);
+        transition: color 0s;
+      }
+
+      .card-downloads {
+        font-size: 10px;
+        opacity: 0.35;
+        font-family: "Space Mono", monospace;
+        transition: color 0s;
+      }
+
+      /* Badge stamps */
+      .card-badge {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        font-family: "Syne", sans-serif;
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 4px 8px;
+        border: 2px solid var(--ink);
+        z-index: 2;
+        line-height: 1;
+      }
+
+      .badge-pick {
+        background: var(--yellow);
+        color: var(--ink);
+      }
+      .badge-new {
+        background: var(--red);
+        color: white;
+        border-color: white;
+      }
+      .badge-hot {
+        background: var(--ink);
+        color: var(--yellow);
+      }
+
+      /* ── MANIFESTO STRIP ── */
+      .manifesto {
+        border-top: var(--border);
+        border-bottom: var(--border);
+        margin: 8px 0 0;
+        padding: 32px 48px;
+        background: var(--ink);
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 48px;
+        align-items: center;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 24px 24px;
+      }
+
+      .manifesto-num {
+        font-family: "Syne", sans-serif;
+        font-weight: 800;
+        font-size: 80px;
+        color: var(--yellow);
+        line-height: 1;
+        letter-spacing: -0.04em;
+      }
+
+      .manifesto-text {
+        font-family: "Syne", sans-serif;
+        font-weight: 700;
+        font-size: 22px;
+        color: white;
+        line-height: 1.3;
+        letter-spacing: -0.01em;
+      }
+
+      .manifesto-cta {
+        font-family: "Syne", sans-serif;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 14px 28px;
+        background: var(--yellow);
+        color: var(--ink);
+        border: 2px solid var(--yellow);
+        box-shadow:
+          4px 4px 0 var(--yellow),
+          4px 4px 0 0 rgba(255, 255, 255, 0.3);
+        text-decoration: none;
+        white-space: nowrap;
+        display: inline-block;
+      }
+
+      .manifesto-cta:hover {
+        background: white;
+        border-color: white;
+      }
+
+      /* ── MOCKUP LABEL ── */
+      .mockup-label {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        background: var(--ink);
+        color: var(--yellow);
+        font-family: "Syne", sans-serif;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 8px 16px;
+        z-index: 999;
+        border: var(--border);
+        box-shadow: var(--shadow);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mockup-label">Mockup — Neo-Brutalist Zine</div>
+
+    <!-- NAV -->
+    <nav>
+      <div class="nav-logo"><span class="nav-logo-block">T</span>emplateLab</div>
+      <ul class="nav-links">
+        <li><a href="#">Catalogo</a></li>
+        <li><a href="#">Collezioni</a></li>
+        <li><a href="#">AI Studio</a></li>
+        <li><a href="#">Guida</a></li>
+      </ul>
+      <a href="#" class="nav-cta">Studio Access →</a>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-left">
+        <div class="hero-issue"></div>
+        <h1 class="hero-headline">
+          Template<br />
+          <span class="accent">premium</span><br />
+          con <span class="accent-red">AI.</span>
+        </h1>
+        <p class="hero-sub">
+          Acquista, personalizza con Claude AI in secondi. Nessun codice. 47 template pronti. Prezzi
+          onesti.
+        </p>
+        <div class="hero-actions">
+          <a href="#" class="btn-primary">Sfoglia il catalogo</a>
+          <a href="#" class="btn-secondary">Prova l'AI Studio</a>
         </div>
-        <div style="font-size:32px; font-weight:800; font-family:'Syne',sans-serif;">→</div>
       </div>
-      <div class="stat-row">
-        <div class="stat-num">12k+</div>
-        <div class="stat-lbl">Acquisti</div>
-      </div>
-      <div class="stat-row">
-        <div class="stat-num" style="font-size:18px;">Claude AI</div>
-        <div class="stat-lbl">Integrato</div>
-      </div>
-      <div class="stat-row" style="background:#f0f0ed;">
-        <div style="font-family:'Space Mono',monospace; font-size:11px; opacity:0.5;">Pagamento sicuro</div>
-        <div style="font-family:'Space Mono',monospace; font-size:11px; font-weight:700;">Stripe ✓</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FILTER BAR -->
-<div class="filter-bar">
-  <div class="filter-bar-label">Filtra</div>
-  <a href="#" class="filter-chip active">Tutti</a>
-  <a href="#" class="filter-chip">UI Template</a>
-  <a href="#" class="filter-chip">Prompt</a>
-  <a href="#" class="filter-chip">SaaS</a>
-  <a href="#" class="filter-chip">E-commerce</a>
-  <a href="#" class="filter-chip">Portfolio</a>
-  <a href="#" class="filter-chip">Agenzie</a>
-  <a href="#" class="filter-chip">Startup</a>
-</div>
-
-<!-- GRID -->
-<div class="grid-section">
-  <div class="grid-header">
-    <span class="grid-title">47 template disponibili</span>
-    <span class="grid-count">// Ordinati per popolarità</span>
-  </div>
-
-  <div class="template-grid">
-
-    <div class="template-card">
-      <div class="card-preview preview-saas">
-        <div class="card-badge badge-pick">Pick</div>
-        <div class="preview-content">
-          <div class="preview-ui-dark">
-            <div class="ui-row accent"></div>
-            <div class="ui-row w80"></div>
-            <div class="ui-row w60"></div>
-            <div style="height:12px"></div>
-            <div class="ui-row w90"></div>
-            <div class="ui-row w50"></div>
+      <div class="hero-right">
+        <div class="hero-stats">
+          <div class="stat-row highlighted">
+            <div>
+              <div class="stat-num">47</div>
+              <div class="stat-lbl">Template pronti</div>
+            </div>
+            <div
+              style="font-size: 32px; font-weight: 800; font-family: &quot;Syne&quot;, sans-serif"
+            >
+              →
+            </div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-num">12k+</div>
+            <div class="stat-lbl">Acquisti</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-num" style="font-size: 18px">Claude AI</div>
+            <div class="stat-lbl">Integrato</div>
+          </div>
+          <div class="stat-row" style="background: #f0f0ed">
+            <div
+              style="font-family: &quot;Space Mono&quot;, monospace; font-size: 11px; opacity: 0.5"
+            >
+              Pagamento sicuro
+            </div>
+            <div
+              style="
+                font-family: &quot;Space Mono&quot;, monospace;
+                font-size: 11px;
+                font-weight: 700;
+              "
+            >
+              Stripe ✓
+            </div>
           </div>
         </div>
       </div>
-      <div class="card-body">
-        <div class="card-top">
-          <div>
-            <div class="card-category">UI Template · SaaS</div>
-            <div class="card-name">Hero Section<br>Gradient Pro</div>
-          </div>
-        </div>
-        <div class="card-bottom">
-          <div class="card-price">€12,99</div>
-          <div class="card-downloads">1.423 ↓</div>
-        </div>
-      </div>
-    </div>
+    </section>
 
-    <div class="template-card">
-      <div class="card-preview preview-pricing">
-        <div class="card-badge badge-hot">Hot</div>
-        <div class="preview-content">
-          <div class="preview-ui-light preview-ui-dark">
-            <div class="ui-row accent w40" style="background: rgba(255,59,0,0.2);"></div>
-            <div class="ui-row w80" style="background:rgba(10,10,8,0.08);"></div>
-            <div class="ui-row w60" style="background:rgba(10,10,8,0.08);"></div>
-            <div style="height:12px"></div>
-            <div class="ui-row w70" style="background:rgba(10,10,8,0.08);"></div>
-          </div>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="card-top">
-          <div>
-            <div class="card-category">UI Template</div>
-            <div class="card-name">Pricing Table<br>3-Tier</div>
-          </div>
-        </div>
-        <div class="card-bottom">
-          <div class="card-price">€9,99</div>
-          <div class="card-downloads">987 ↓</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="template-card">
-      <div class="card-preview preview-portfolio">
-        <div class="card-badge badge-new">New</div>
-        <div class="preview-content">
-          <div class="preview-ui-dark">
-            <div class="ui-row w60"></div>
-            <div class="ui-row w90"></div>
-            <div class="ui-row w40"></div>
-            <div style="height:12px"></div>
-            <div class="ui-row accent w50"></div>
-          </div>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="card-top">
-          <div>
-            <div class="card-category">UI Template</div>
-            <div class="card-name">Portfolio<br>Agency Dark</div>
-          </div>
-        </div>
-        <div class="card-bottom">
-          <div class="card-price">€14,99</div>
-          <div class="card-downloads">421 ↓</div>
-        </div>
-      </div>
+    <!-- FILTER BAR -->
+    <div class="filter-bar">
+      <div class="filter-bar-label">Filtra</div>
+      <a href="#" class="filter-chip active">Tutti</a>
+      <a href="#" class="filter-chip">UI Template</a>
+      <a href="#" class="filter-chip">Prompt</a>
+      <a href="#" class="filter-chip">SaaS</a>
+      <a href="#" class="filter-chip">E-commerce</a>
+      <a href="#" class="filter-chip">Portfolio</a>
+      <a href="#" class="filter-chip">Agenzie</a>
+      <a href="#" class="filter-chip">Startup</a>
     </div>
 
-    <div class="template-card">
-      <div class="card-preview preview-prompt">
-        <div class="preview-content">
-          <div class="preview-ui-dark">
-            <div class="ui-row w90" style="background:rgba(10,10,8,0.1);"></div>
-            <div class="ui-row w70" style="background:rgba(10,10,8,0.1);"></div>
-            <div class="ui-row w80" style="background:rgba(10,10,8,0.1);"></div>
-            <div style="height:12px"></div>
-            <div class="ui-row w50" style="background:rgba(255,59,0,0.15);"></div>
-          </div>
-        </div>
+    <!-- GRID -->
+    <div class="grid-section">
+      <div class="grid-header">
+        <span class="grid-title">47 template disponibili</span>
+        <span class="grid-count">// Ordinati per popolarità</span>
       </div>
-      <div class="card-body">
-        <div class="card-top">
-          <div>
-            <div class="card-category">AI Prompt</div>
-            <div class="card-name">LinkedIn<br>Growth Kit</div>
+
+      <div class="template-grid">
+        <div class="template-card">
+          <div class="card-preview preview-saas">
+            <div class="card-badge badge-pick">Pick</div>
+            <div class="preview-content">
+              <div class="preview-ui-dark">
+                <div class="ui-row accent"></div>
+                <div class="ui-row w80"></div>
+                <div class="ui-row w60"></div>
+                <div style="height: 12px"></div>
+                <div class="ui-row w90"></div>
+                <div class="ui-row w50"></div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-top">
+              <div>
+                <div class="card-category">UI Template · SaaS</div>
+                <div class="card-name">Hero Section<br />Gradient Pro</div>
+              </div>
+            </div>
+            <div class="card-bottom">
+              <div class="card-price">€12,99</div>
+              <div class="card-downloads">1.423 ↓</div>
+            </div>
           </div>
         </div>
-        <div class="card-bottom">
-          <div class="card-price">€7,99</div>
-          <div class="card-downloads">756 ↓</div>
+
+        <div class="template-card">
+          <div class="card-preview preview-pricing">
+            <div class="card-badge badge-hot">Hot</div>
+            <div class="preview-content">
+              <div class="preview-ui-light preview-ui-dark">
+                <div class="ui-row accent w40" style="background: rgba(255, 59, 0, 0.2)"></div>
+                <div class="ui-row w80" style="background: rgba(10, 10, 8, 0.08)"></div>
+                <div class="ui-row w60" style="background: rgba(10, 10, 8, 0.08)"></div>
+                <div style="height: 12px"></div>
+                <div class="ui-row w70" style="background: rgba(10, 10, 8, 0.08)"></div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-top">
+              <div>
+                <div class="card-category">UI Template</div>
+                <div class="card-name">Pricing Table<br />3-Tier</div>
+              </div>
+            </div>
+            <div class="card-bottom">
+              <div class="card-price">€9,99</div>
+              <div class="card-downloads">987 ↓</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="template-card">
+          <div class="card-preview preview-portfolio">
+            <div class="card-badge badge-new">New</div>
+            <div class="preview-content">
+              <div class="preview-ui-dark">
+                <div class="ui-row w60"></div>
+                <div class="ui-row w90"></div>
+                <div class="ui-row w40"></div>
+                <div style="height: 12px"></div>
+                <div class="ui-row accent w50"></div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-top">
+              <div>
+                <div class="card-category">UI Template</div>
+                <div class="card-name">Portfolio<br />Agency Dark</div>
+              </div>
+            </div>
+            <div class="card-bottom">
+              <div class="card-price">€14,99</div>
+              <div class="card-downloads">421 ↓</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="template-card">
+          <div class="card-preview preview-prompt">
+            <div class="preview-content">
+              <div class="preview-ui-dark">
+                <div class="ui-row w90" style="background: rgba(10, 10, 8, 0.1)"></div>
+                <div class="ui-row w70" style="background: rgba(10, 10, 8, 0.1)"></div>
+                <div class="ui-row w80" style="background: rgba(10, 10, 8, 0.1)"></div>
+                <div style="height: 12px"></div>
+                <div class="ui-row w50" style="background: rgba(255, 59, 0, 0.15)"></div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-top">
+              <div>
+                <div class="card-category">AI Prompt</div>
+                <div class="card-name">LinkedIn<br />Growth Kit</div>
+              </div>
+            </div>
+            <div class="card-bottom">
+              <div class="card-price">€7,99</div>
+              <div class="card-downloads">756 ↓</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="template-card">
+          <div class="card-preview preview-ecommerce">
+            <div class="preview-content">
+              <div class="preview-ui-dark">
+                <div class="ui-row w80"></div>
+                <div class="ui-row accent w60" style="background: rgba(0, 200, 83, 0.3)"></div>
+                <div class="ui-row w90"></div>
+                <div style="height: 12px"></div>
+                <div class="ui-row w40"></div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-top">
+              <div>
+                <div class="card-category">UI Template · E-commerce</div>
+                <div class="card-name">Fashion Store<br />Minimal</div>
+              </div>
+            </div>
+            <div class="card-bottom">
+              <div class="card-price">€19,99</div>
+              <div class="card-downloads">312 ↓</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="template-card">
+          <div class="card-preview preview-agency">
+            <div
+              class="card-badge badge-pick"
+              style="background: var(--blue); color: white; border-color: white"
+            >
+              Pro
+            </div>
+            <div class="preview-content">
+              <div class="preview-ui-dark">
+                <div class="ui-row w60"></div>
+                <div class="ui-row accent w80" style="background: rgba(0, 71, 255, 0.3)"></div>
+                <div class="ui-row w50"></div>
+                <div style="height: 12px"></div>
+                <div class="ui-row w70"></div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-top">
+              <div>
+                <div class="card-category">UI Template · Agency</div>
+                <div class="card-name">Creative Agency<br />Landing</div>
+              </div>
+            </div>
+            <div class="card-bottom">
+              <div class="card-price">€24,99</div>
+              <div class="card-downloads">198 ↓</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="template-card">
-      <div class="card-preview preview-ecommerce">
-        <div class="preview-content">
-          <div class="preview-ui-dark">
-            <div class="ui-row w80"></div>
-            <div class="ui-row accent w60" style="background:rgba(0,200,83,0.3);"></div>
-            <div class="ui-row w90"></div>
-            <div style="height:12px"></div>
-            <div class="ui-row w40"></div>
-          </div>
-        </div>
+    <!-- MANIFESTO STRIP -->
+    <div class="manifesto">
+      <div class="manifesto-num">AI</div>
+      <div class="manifesto-text">
+        Non trovi quello che cerchi?<br />
+        Descrivilo. Claude lo costruisce<br />
+        <span style="color: var(--yellow)">in 30 secondi.</span>
       </div>
-      <div class="card-body">
-        <div class="card-top">
-          <div>
-            <div class="card-category">UI Template · E-commerce</div>
-            <div class="card-name">Fashion Store<br>Minimal</div>
-          </div>
-        </div>
-        <div class="card-bottom">
-          <div class="card-price">€19,99</div>
-          <div class="card-downloads">312 ↓</div>
-        </div>
-      </div>
+      <a href="#" class="manifesto-cta">Apri AI Studio →</a>
     </div>
 
-    <div class="template-card">
-      <div class="card-preview preview-agency">
-        <div class="card-badge badge-pick" style="background:var(--blue); color:white; border-color:white;">Pro</div>
-        <div class="preview-content">
-          <div class="preview-ui-dark">
-            <div class="ui-row w60"></div>
-            <div class="ui-row accent w80" style="background:rgba(0,71,255,0.3);"></div>
-            <div class="ui-row w50"></div>
-            <div style="height:12px"></div>
-            <div class="ui-row w70"></div>
-          </div>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="card-top">
-          <div>
-            <div class="card-category">UI Template · Agency</div>
-            <div class="card-name">Creative Agency<br>Landing</div>
-          </div>
-        </div>
-        <div class="card-bottom">
-          <div class="card-price">€24,99</div>
-          <div class="card-downloads">198 ↓</div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- MANIFESTO STRIP -->
-<div class="manifesto">
-  <div class="manifesto-num">AI</div>
-  <div class="manifesto-text">
-    Non trovi quello che cerchi?<br>
-    Descrivilo. Claude lo costruisce<br>
-    <span style="color: var(--yellow);">in 30 secondi.</span>
-  </div>
-  <a href="#" class="manifesto-cta">Apri AI Studio →</a>
-</div>
-
-<div style="height: 64px; border-top: 2px solid rgba(10,10,8,0.1); margin-top:0;"></div>
-
-</body>
+    <div style="height: 64px; border-top: 2px solid rgba(10, 10, 8, 0.1); margin-top: 0"></div>
+  </body>
 </html>

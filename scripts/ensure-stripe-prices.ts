@@ -60,7 +60,10 @@ function extractTemplates(source: string): ParsedItem[] {
   const bundlesStart = source.indexOf("export const bundles");
 
   if (templatesStart !== -1) {
-    const region = bundlesStart !== -1 ? source.slice(templatesStart, bundlesStart) : source.slice(templatesStart);
+    const region =
+      bundlesStart !== -1
+        ? source.slice(templatesStart, bundlesStart)
+        : source.slice(templatesStart);
     let m;
     while ((m = templateRegex.exec(region)) !== null) {
       items.push({
@@ -121,10 +124,12 @@ async function main() {
     try {
       const product = await stripe.products.create({
         name: item.name,
-        description: (item.description || `${item.type === "bundle" ? "Bundle" : "UI Template"} — TemplateLab`).slice(0, 500),
+        description: (
+          item.description || `${item.type === "bundle" ? "Bundle" : "UI Template"} — Forma`
+        ).slice(0, 500),
         metadata: {
           [`${item.type}Id`]: item.id,
-          source: "templatelab",
+          source: "forma",
           createdBy: "ensure-stripe-prices",
         },
       });
@@ -135,7 +140,7 @@ async function main() {
         currency: "eur",
         metadata: {
           [`${item.type}Id`]: item.id,
-          source: "templatelab",
+          source: "forma",
         },
       });
 

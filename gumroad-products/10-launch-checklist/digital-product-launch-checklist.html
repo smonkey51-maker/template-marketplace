@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Digital Product Launch Checklist</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+        background: #f9fafb;
+        color: #111827;
+        line-height: 1.7;
+      }
+      .cover {
+        background: linear-gradient(135deg, #1d4ed8 0%, #1e1b4b 100%);
+        color: #fff;
+        padding: 56px 44px;
+        text-align: center;
+      }
+      .cover .badge {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 999px;
+        padding: 6px 18px;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+        margin-bottom: 24px;
+      }
+      .cover h1 {
+        font-size: clamp(24px, 4vw, 40px);
+        font-weight: 800;
+        line-height: 1.2;
+        margin-bottom: 14px;
+      }
+      .cover p {
+        font-size: 16px;
+        opacity: 0.85;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+      .container {
+        max-width: 740px;
+        margin: 0 auto;
+        padding: 44px 28px;
+      }
+      .phase {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 24px;
+      }
+      .phase-header {
+        padding: 16px 22px;
+        border-bottom: 1px solid #e5e7eb;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .phase-icon {
+        font-size: 22px;
+      }
+      .phase-header h2 {
+        font-size: 17px;
+        font-weight: 700;
+        color: #111827;
+      }
+      .phase-header .timing {
+        font-size: 12px;
+        color: #6b7280;
+        font-weight: 500;
+        margin-left: auto;
+      }
+      .phase-body {
+        padding: 18px 22px;
+      }
+      .item {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        padding: 9px 0;
+        border-bottom: 1px solid #f3f4f6;
+      }
+      .item:last-child {
+        border-bottom: none;
+      }
+      .check {
+        width: 18px;
+        height: 18px;
+        border: 2px solid #d1d5db;
+        border-radius: 4px;
+        flex-shrink: 0;
+        margin-top: 3px;
+      }
+      .item-text {
+        font-size: 14px;
+        color: #374151;
+      }
+      .item-text strong {
+        color: #111827;
+      }
+      .item-text .note {
+        display: block;
+        font-size: 12px;
+        color: #9ca3af;
+        margin-top: 2px;
+      }
+      .important {
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        border-radius: 6px;
+        padding: 2px 8px;
+        font-size: 11px;
+        color: #dc2626;
+        font-weight: 600;
+        margin-left: 8px;
+        vertical-align: middle;
+      }
+      .footer {
+        background: #1e1b4b;
+        color: #fff;
+        text-align: center;
+        padding: 28px;
+        margin-top: 40px;
+      }
+      .footer p {
+        opacity: 0.7;
+        font-size: 13px;
+      }
+      @media print {
+        body {
+          background: #fff;
+        }
+        .phase {
+          break-inside: avoid;
+        }
+        .check {
+          border: 1px solid #999;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cover">
+      <div class="badge">✦ COMPLETE CHECKLIST · PRE-LAUNCH THROUGH POST-LAUNCH</div>
+      <h1>Digital Product<br />Launch Checklist</h1>
+      <p>
+        Every step from idea to first sale. Use this every time you launch — no step skipped, no
+        launch forgotten.
+      </p>
+    </div>
+    <div class="container">
+      <div class="phase">
+        <div class="phase-header">
+          <div class="phase-icon">🎯</div>
+          <h2>Phase 1: Product Foundation</h2>
+          <div class="timing">Week 1–2</div>
+        </div>
+        <div class="phase-body">
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong>Validate demand before building</strong
+              ><span class="note"
+                >Search Gumroad, Etsy, Google for similar products. Find at least 3 selling products
+                in your space.</span
+              >
+            </div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong>Define the exact transformation</strong
+              ><span class="note"
+                >Complete: "After using this product, the buyer will be able to ___ without ___."
+                One sentence. Specific.</span
+              >
+            </div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong>Choose format: PDF / template / spreadsheet / prompt pack</strong
+              ><span class="note"
+                >Pick the simplest format that delivers the transformation. Don't over-engineer
+                it.</span
+              >
+            </div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong>Set a completion deadline (max 1 week away)</strong
+              ><span class="note">Without a deadline, "almost done" is your permanent status.</span>
+            </div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong>Set price range before building</strong>
+              <span class="important">CRITICAL</span
+              ><span class="note"
+                >$7–15 for beginner guides. $15–30 for template packs. $25–50 for comprehensive
+                systems. Don't price after — you'll underprice from insecurity.</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-header">
+          <div class="phase-icon">🔨</div>
+          <h2>Phase 2: Build the Product</h2>
+          <div class="timing">Week 2–3</div>
+        </div>
+        <div class="phase-body">
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong>Write the outline first (20 minutes max)</strong
+              ><span class="note"
+                >Headings only. If you can't outline it in 20 minutes, the scope is too big.</span
+              >
+            </div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong>Write all content (use AI to accelerate first draft)</strong
+              ><span class="note"
+                >ChatGPT/Claude for draft → you edit for voice and accuracy. 70% faster.</span
+              >
+            </div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong>Review: Does it deliver on the transformation you defined?</strong
+              ><span class="note"
+                >Read it as if you're the buyer. Does it actually solve the problem? Cut anything
+                that doesn't serve this.</span
+              >
+            </div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong>Design in Canva (clean, minimal)</strong
+              ><span class="note"
+                >Use a professional template. Change to 2–3 colors. Readable font. Export as
+                PDF.</span
+              >
+            </div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong>Have 1 person read it who matches your ideal buyer</strong
+              ><span class="note"
+                >Ask them: "Was anything unclear? What would make you more confident paying for
+                this?"</span
+              >
+            </div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong>Final edit: cut all filler, tighten all instructions</strong>
+            </div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong>Save final version as PDF (for delivery) and source file (for edits)</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-header">
+          <div class="phase-icon">🛒</div>
+          <h2>Phase 3: Gumroad Setup</h2>
+          <div class="timing">Day before launch</div>
+        </div>
+        <div class="phase-body">
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text"><strong>Create Gumroad product and upload PDF file</strong></div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong>Set price (do NOT use "pay what you want" for your first product)</strong>
+              <span class="important">CRITICAL</span
+              ><span class="note"
+                >A set price creates perceived value. PWYW attracts $0 purchases and devalues your
+                work.</span
+              >
+            </div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong
+                >Write product description (hook → problem → what's inside → who it's for →
+                CTA)</strong
+              >
+            </div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong>Create cover image (1280x720px, Canva)</strong
+              ><span class="note"
+                >Include: product name, 1-line benefit, clean design. No stock photo collages.</span
+              >
+            </div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text"><strong>Write 3–5 bullet points of what's included</strong></div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong>Add "summary" (shown in search results) — 1–2 sentences</strong>
+            </div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong>Set product URL (clean, readable: gumroad.com/l/your-product-name)</strong>
+            </div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong>Test purchase yourself (use a promo code for 100% off)</strong>
+              <span class="important">CRITICAL</span
+              ><span class="note"
+                >Download your own product. Make sure the file opens correctly and looks
+                right.</span
+              >
+            </div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong>Connect Stripe or PayPal to receive payouts</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-header">
+          <div class="phase-icon">📢</div>
+          <h2>Phase 4: Pre-Launch Warm-Up</h2>
+          <div class="timing">3–5 days before launch</div>
+        </div>
+        <div class="phase-body">
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong>Share "behind the scenes" content about building the product</strong
+              ><span class="note"
+                >Not the product itself yet — the process. This builds curiosity and
+                investment.</span
+              >
+            </div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong>Post about the PROBLEM your product solves (not the product)</strong
+              ><span class="note"
+                >2–3 pieces of content that establish you understand this problem deeply.</span
+              >
+            </div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong
+                >DM 5–10 people who'd be your ideal buyer: "I'm launching something relevant to you
+                soon"</strong
+              >
+            </div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong>Update your bio to mention the upcoming product</strong>
+            </div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong>Set launch date and time (concrete: "Tuesday 10am")</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-header">
+          <div class="phase-icon">🚀</div>
+          <h2>Phase 5: Launch Day</h2>
+          <div class="timing">Launch day</div>
+        </div>
+        <div class="phase-body">
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong>Post your launch announcement (hook + what it is + link)</strong>
+              <span class="important">CRITICAL</span>
+            </div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text"><strong>Update your bio link to the product page</strong></div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text"><strong>DM the warm leads you prepped: "It's live"</strong></div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong
+                >Share in relevant communities (subreddits, Facebook groups, Slack groups) if
+                allowed</strong
+              >
+            </div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong>Post a story/short-form with the link (use "link in bio" + sticker)</strong>
+            </div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong>Reply to every comment and DM within 2 hours</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-header">
+          <div class="phase-icon">📈</div>
+          <h2>Phase 6: Post-Launch (Days 2–14)</h2>
+          <div class="timing">After launch</div>
+        </div>
+        <div class="phase-body">
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong>Send thank-you DM to every buyer</strong
+              ><span class="note"
+                >Personal, brief. Ask how they're finding it. This converts to a testimonial and
+                loyalty.</span
+              >
+            </div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong>Request 3 testimonials from early buyers</strong
+              ><span class="note"
+                >Wait 3–5 days after purchase. Ask for 2 sentences. Offer to tag them.</span
+              >
+            </div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong>Add testimonials to Gumroad page as they arrive</strong>
+            </div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong
+                >Post 2–3x more about the topic (not just the product) — content that earns the
+                product</strong
+              >
+            </div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong>Check Gumroad analytics: where are buyers coming from?</strong
+              ><span class="note">Double down on the highest-converting source.</span>
+            </div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong>After 10 sales: consider raising the price by $3–5</strong>
+            </div>
+          </div>
+          <div class="item">
+            <div class="check"></div>
+            <div class="item-text">
+              <strong
+                >After 30 days: review what worked. Start planning product 2 based on buyer
+                feedback.</strong
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <p>
+        <strong>Digital Product Launch Checklist</strong> — From idea to first sale, nothing skipped
+      </p>
+      <p style="margin-top: 6px">
+        Print this. Check boxes as you go. Every skipped step is a risk to your launch.
+      </p>
+    </div>
+  </body>
+</html>

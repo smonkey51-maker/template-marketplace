@@ -22,7 +22,10 @@ if (fs.existsSync(envPath)) {
 }
 
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
-if (!STRIPE_SECRET_KEY) { console.error("STRIPE_SECRET_KEY not found"); process.exit(1); }
+if (!STRIPE_SECRET_KEY) {
+  console.error("STRIPE_SECRET_KEY not found");
+  process.exit(1);
+}
 const stripe = new Stripe(STRIPE_SECRET_KEY);
 
 // ── Read templates.ts ──────────────────────────────────────────────────────
@@ -32,7 +35,8 @@ let source = fs.readFileSync(templatesPath, "utf8");
 // Extract all template blocks by splitting on object boundaries.
 // Strategy: find all  id: "...", name: "...", price: NNN, stripePriceId: "..."  tuples.
 const templateMeta = [];
-const blockRe = /id:\s*"([^"]+)"[^]*?name:\s*"([^"]+)"[^]*?(?:description:\s*"([^"]*)"[^]*?)?price:\s*(\d+)[^]*?stripePriceId:\s*"([^"]*)"/g;
+const blockRe =
+  /id:\s*"([^"]+)"[^]*?name:\s*"([^"]+)"[^]*?(?:description:\s*"([^"]*)"[^]*?)?price:\s*(\d+)[^]*?stripePriceId:\s*"([^"]*)"/g;
 let match;
 while ((match = blockRe.exec(source)) !== null) {
   // skip the interface definition (id: string)
@@ -61,7 +65,10 @@ while (hasMore) {
     if (product.metadata?.templateId) {
       const prices = await stripe.prices.list({ product: product.id, active: true, limit: 1 });
       if (prices.data.length > 0) {
-        existing[product.metadata.templateId] = { productId: product.id, priceId: prices.data[0].id };
+        existing[product.metadata.templateId] = {
+          productId: product.id,
+          priceId: prices.data[0].id,
+        };
       }
     }
   }
@@ -101,10 +108,16 @@ for (const tmpl of templateMeta) {
   // Patch the source: find "id: "tmpl.id"" then the next stripePriceId value
   const idMarker = `id: "${tmpl.id}"`;
   const idPos = source.indexOf(idMarker);
-  if (idPos === -1) { console.warn(`   ⚠ id not found in source: ${tmpl.id}`); continue; }
+  if (idPos === -1) {
+    console.warn(`   ⚠ id not found in source: ${tmpl.id}`);
+    continue;
+  }
 
   const priceKeyPos = source.indexOf('stripePriceId: "', idPos);
-  if (priceKeyPos === -1) { console.warn(`   ⚠ stripePriceId not found: ${tmpl.id}`); continue; }
+  if (priceKeyPos === -1) {
+    console.warn(`   ⚠ stripePriceId not found: ${tmpl.id}`);
+    continue;
+  }
 
   const valueStart = priceKeyPos + 'stripePriceId: "'.length;
   const valueEnd = source.indexOf('"', valueStart);

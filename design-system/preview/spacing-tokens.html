@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Plus+Jakarta+Sans:wght@400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 16px 20px;
+        background: #14100c;
+        font-family: "Plus Jakarta Sans", sans-serif;
+      }
+      .label {
+        font-family: "Montserrat", sans-serif;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #c8915a;
+        margin-bottom: 10px;
+      }
+      .row {
+        display: flex;
+        align-items: flex-end;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+      }
+      .bar {
+        background: rgba(200, 145, 90, 0.4);
+        width: 18px;
+        border-top: 1.5px solid #c8915a;
+      }
+      .name {
+        font-size: 9px;
+        color: rgba(237, 232, 220, 0.5);
+        letter-spacing: 0.05em;
+      }
+      .val {
+        font-size: 9px;
+        color: rgba(200, 145, 90, 0.7);
+        font-family: "SF Mono", monospace;
+      }
+      .hr {
+        border: none;
+        border-top: 1px solid rgba(237, 232, 220, 0.08);
+        margin: 12px 0;
+      }
+      .radius-row {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+      .r-box {
+        background: rgba(200, 145, 90, 0.12);
+        border: 1px solid rgba(200, 145, 90, 0.3);
+        width: 40px;
+        height: 40px;
+      }
+      .r-label {
+        font-size: 9px;
+        color: rgba(237, 232, 220, 0.5);
+        letter-spacing: 0.05em;
+        text-align: center;
+        margin-top: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="label">Spacing — 4pt Grid</div>
+    <div class="row">
+      <div class="step">
+        <div class="bar" style="height: 4px"></div>
+        <div class="name">s-1</div>
+        <div class="val">4px</div>
+      </div>
+      <div class="step">
+        <div class="bar" style="height: 8px"></div>
+        <div class="name">s-2</div>
+        <div class="val">8px</div>
+      </div>
+      <div class="step">
+        <div class="bar" style="height: 12px"></div>
+        <div class="name">s-3</div>
+        <div class="val">12px</div>
+      </div>
+      <div class="step">
+        <div class="bar" style="height: 16px"></div>
+        <div class="name">s-4</div>
+        <div class="val">16px</div>
+      </div>
+      <div class="step">
+        <div class="bar" style="height: 24px"></div>
+        <div class="name">s-5</div>
+        <div class="val">24px</div>
+      </div>
+      <div class="step">
+        <div class="bar" style="height: 32px"></div>
+        <div class="name">s-6</div>
+        <div class="val">32px</div>
+      </div>
+      <div class="step">
+        <div class="bar" style="height: 48px"></div>
+        <div class="name">s-7</div>
+        <div class="val">48px</div>
+      </div>
+      <div class="step">
+        <div class="bar" style="height: 64px"></div>
+        <div class="name">s-8</div>
+        <div class="val">64px</div>
+      </div>
+      <div class="step">
+        <div class="bar" style="height: 80px"></div>
+        <div class="name">s-9</div>
+        <div class="val">96px</div>
+      </div>
+    </div>
+    <div class="hr"></div>
+    <div class="label">Border Radius — Sharp Default · Tokens for Pills</div>
+    <div class="radius-row">
+      <div>
+        <div class="r-box" style="border-radius: 0"></div>
+        <div class="r-label">default<br />0</div>
+      </div>
+      <div>
+        <div class="r-box" style="border-radius: 10px"></div>
+        <div class="r-label">r-sm<br />10px</div>
+      </div>
+      <div>
+        <div class="r-box" style="border-radius: 16px"></div>
+        <div class="r-label">r-md<br />16px</div>
+      </div>
+      <div>
+        <div class="r-box" style="border-radius: 22px"></div>
+        <div class="r-label">r-lg<br />22px</div>
+      </div>
+      <div>
+        <div class="r-box" style="border-radius: 28px"></div>
+        <div class="r-label">r-xl<br />28px</div>
+      </div>
+      <div>
+        <div
+          class="r-box"
+          style="border-radius: 999px; width: 60px; height: 28px; margin-top: 6px"
+        ></div>
+        <div class="r-label">pill<br />999px</div>
+      </div>
+    </div>
+  </body>
+</html>

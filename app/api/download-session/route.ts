@@ -1,21 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
-import { getTemplate, getDownloadType } from "@/lib/templates";
-import { rateLimit } from "@/lib/rateLimit";
+import { getDownloadType } from "@/lib/templates";
+import { resolveTemplate } from "@/lib/templatesDb";
+import { rateLimitRedis } from "@/lib/rateLimitRedis";
 import { localiseHtml, getDisplayName } from "@/lib/localise";
 import { buildShopifyZip, buildWordPressZip } from "@/lib/zip-templates";
+import { readProductFile, renderStandaloneHtml } from "@/lib/productFiles";
 
 export async function GET(req: NextRequest) {
   const sessionId = req.nextUrl.searchParams.get("session_id");
   const templateId = req.nextUrl.searchParams.get("templateId");
-  const lang = (req.nextUrl.searchParams.get("lang") ?? "en") as "it" | "en";
+  const lang: "it" | "en" = req.nextUrl.searchParams.get("lang") === "it" ? "it" : "en";
 
   if (!sessionId || !templateId) {
     return NextResponse.json({ error: "Missing parameters" }, { status: 400 });
   }
 
   // Rate limit: 10 requests per session_id per hour
-  if (!rateLimit(`dl-session:${sessionId}`, 10, 3_600_000)) {
+  if (!(await rateLimitRedis(`dl-session:${sessionId}`, 10, 3_600_000))) {
     return new NextResponse("Too many requests", { status: 429 });
   }
 
@@ -34,7 +36,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "Template mismatch" }, { status: 403 });
     }
 
-    const template = getTemplate(templateId);
+    const template = await resolveTemplate(templateId);
     if (!template) {
       return NextResponse.json({ error: "Template not found" }, { status: 404 });
     }
@@ -45,24 +47,25 @@ export async function GET(req: NextRequest) {
 
     switch (downloadType) {
       case "html": {
+        // Ready-to-use products ship as a full standalone file
+        const staticHtml = readProductFile(templateId);
+        if (staticHtml) {
+          return new NextResponse(staticHtml, {
+            headers: {
+              "Content-Type": "text/html; charset=utf-8",
+              "Content-Disposition": `attachment; filename="${templateId}.html"`,
+              "Cache-Control": "private, no-store",
+            },
+          });
+        }
+
         const body = localiseHtml(template.content, lang, templateId);
-        const htmlLang = lang === "it" ? "it" : "en";
-        const html = `<!DOCTYPE html>
-<html lang="${htmlLang}">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>${displayName} — TemplateLab</title>
-  <script src="https://cdn.tailwindcss.com"><\/script>
-  <style>body { margin: 0; }</style>
-</head>
-<body>${body}
-</body>
-</html>`;
+        const html = renderStandaloneHtml({ body, title: displayName, lang });
         return new NextResponse(html, {
           headers: {
             "Content-Type": "text/html; charset=utf-8",
             "Content-Disposition": `attachment; filename="${template.id}-${lang}.html"`,
+            "Cache-Control": "private, no-store",
           },
         });
       }

@@ -1,0 +1,807 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Pet Care &amp; Vet Visit Tracker</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+        background: #f9fafb;
+        color: #111827;
+        line-height: 1.7;
+      }
+      .cover {
+        background: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%);
+        color: #fff;
+        padding: 56px 44px;
+        text-align: center;
+      }
+      .cover .badge {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 999px;
+        padding: 6px 18px;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+        margin-bottom: 24px;
+      }
+      .cover h1 {
+        font-size: clamp(24px, 4vw, 40px);
+        font-weight: 800;
+        line-height: 1.2;
+        margin-bottom: 14px;
+      }
+      .cover p {
+        font-size: 16px;
+        opacity: 0.85;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 44px 28px;
+      }
+      .pet-profile {
+        background: #fff;
+        border: 2px solid #ddd6fe;
+        border-radius: 14px;
+        padding: 28px 32px;
+        margin-bottom: 32px;
+      }
+      .pet-profile h2 {
+        font-size: 17px;
+        font-weight: 700;
+        color: #7c3aed;
+        margin-bottom: 20px;
+      }
+      .profile-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .profile-field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .profile-field label {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.7px;
+        color: #6b7280;
+      }
+      .profile-field .field-input {
+        background: #faf5ff;
+        border: 1px solid #ddd6fe;
+        border-radius: 8px;
+        padding: 10px 14px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #4c1d95;
+        min-height: 38px;
+      }
+      .section {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 24px;
+      }
+      .sec-header {
+        background: #7c3aed;
+        color: #fff;
+        padding: 14px 22px;
+      }
+      .sec-header h2 {
+        font-size: 16px;
+        font-weight: 700;
+      }
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13.5px;
+      }
+      .data-table th {
+        background: #f5f3ff;
+        padding: 10px 14px;
+        text-align: left;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #6d28d9;
+        border-bottom: 2px solid #ddd6fe;
+      }
+      .data-table td {
+        padding: 11px 14px;
+        border-bottom: 1px solid #f3f4f6;
+        color: #374151;
+        vertical-align: top;
+      }
+      .data-table .blank {
+        background: #faf5ff;
+        min-width: 80px;
+        min-height: 32px;
+        border-radius: 4px;
+      }
+      .data-table .wide-blank {
+        background: #faf5ff;
+        min-width: 180px;
+        min-height: 32px;
+        border-radius: 4px;
+      }
+      .data-table .status-due {
+        color: #dc2626;
+        font-weight: 600;
+      }
+      .data-table .status-ok {
+        color: #16a34a;
+        font-weight: 600;
+      }
+      .vacc-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        padding: 20px 22px;
+      }
+      .vacc-card {
+        border: 1px solid #ddd6fe;
+        border-radius: 10px;
+        padding: 16px 18px;
+      }
+      .vacc-card h3 {
+        font-size: 14px;
+        font-weight: 700;
+        color: #4c1d95;
+        margin-bottom: 12px;
+      }
+      .vacc-field {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 7px 0;
+        border-bottom: 1px solid #f3f4f6;
+        font-size: 13px;
+      }
+      .vacc-field:last-child {
+        border-bottom: none;
+      }
+      .vacc-field .name {
+        color: #374151;
+      }
+      .vacc-field .dates {
+        display: flex;
+        gap: 10px;
+      }
+      .vacc-field .date-box {
+        background: #faf5ff;
+        border: 1px solid #ddd6fe;
+        border-radius: 4px;
+        padding: 3px 10px;
+        font-size: 12px;
+        font-family: monospace;
+        color: #6d28d9;
+        min-width: 80px;
+        text-align: center;
+      }
+      .meds-table td:first-child {
+        font-weight: 500;
+        width: 25%;
+      }
+      .notes-section {
+        background: #faf5ff;
+        padding: 20px 22px;
+      }
+      .notes-section h3 {
+        font-size: 14px;
+        font-weight: 700;
+        color: #6d28d9;
+        margin-bottom: 12px;
+      }
+      .note-entry {
+        border: 1px solid #ddd6fe;
+        border-radius: 8px;
+        padding: 12px 14px;
+        margin-bottom: 12px;
+        background: #fff;
+      }
+      .note-entry .note-date {
+        font-size: 12px;
+        color: #9ca3af;
+        margin-bottom: 6px;
+      }
+      .note-entry .note-text {
+        font-size: 14px;
+        color: #374151;
+        min-height: 40px;
+      }
+      .emergency-box {
+        background: #fef2f2;
+        border: 2px solid #fecaca;
+        border-radius: 12px;
+        padding: 20px 24px;
+        margin-top: 24px;
+      }
+      .emergency-box h2 {
+        font-size: 16px;
+        font-weight: 700;
+        color: #dc2626;
+        margin-bottom: 14px;
+      }
+      .emerg-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+      .emerg-field {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .emerg-field label {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.7px;
+        color: #ef4444;
+      }
+      .emerg-field .e-input {
+        background: #fff;
+        border: 1px solid #fecaca;
+        border-radius: 6px;
+        padding: 8px 12px;
+        font-size: 14px;
+        color: #111827;
+        min-height: 34px;
+      }
+      .footer {
+        background: #4c1d95;
+        color: #fff;
+        text-align: center;
+        padding: 28px;
+        margin-top: 40px;
+      }
+      .footer p {
+        opacity: 0.7;
+        font-size: 13px;
+      }
+      @media (max-width: 600px) {
+        .profile-grid,
+        .vacc-grid,
+        .emerg-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media print {
+        body {
+          background: #fff;
+        }
+        .section {
+          break-inside: avoid;
+        }
+        .pet-profile {
+          break-inside: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cover">
+      <div class="badge">✦ PRINT-READY · VET RECORDS · MEDICATIONS · HEALTH HISTORY</div>
+      <h1>Pet Care &amp;<br />Vet Visit Tracker</h1>
+      <p>
+        A complete health record and care organizer for your pet. Print and keep in a binder, or
+        fill out digitally. Always ready for the next vet visit.
+      </p>
+    </div>
+    <div class="container">
+      <!-- PET PROFILE -->
+      <div class="pet-profile">
+        <h2>🐾 Pet Profile</h2>
+        <div class="profile-grid">
+          <div class="profile-field">
+            <label>Pet Name</label>
+            <div class="field-input"></div>
+          </div>
+          <div class="profile-field">
+            <label>Species &amp; Breed</label>
+            <div class="field-input"></div>
+          </div>
+          <div class="profile-field">
+            <label>Date of Birth / Age</label>
+            <div class="field-input"></div>
+          </div>
+          <div class="profile-field">
+            <label>Sex &amp; Spayed/Neutered?</label>
+            <div class="field-input"></div>
+          </div>
+          <div class="profile-field">
+            <label>Microchip Number</label>
+            <div class="field-input"></div>
+          </div>
+          <div class="profile-field">
+            <label>Color / Distinguishing Marks</label>
+            <div class="field-input"></div>
+          </div>
+          <div class="profile-field">
+            <label>Primary Vet Name</label>
+            <div class="field-input"></div>
+          </div>
+          <div class="profile-field">
+            <label>Vet Clinic &amp; Phone</label>
+            <div class="field-input"></div>
+          </div>
+          <div class="profile-field">
+            <label>Insurance Provider</label>
+            <div class="field-input"></div>
+          </div>
+          <div class="profile-field">
+            <label>Policy / Member Number</label>
+            <div class="field-input"></div>
+          </div>
+          <div class="profile-field">
+            <label>Known Allergies</label>
+            <div class="field-input" style="min-height: 54px"></div>
+          </div>
+          <div class="profile-field">
+            <label>Blood Type (if known)</label>
+            <div class="field-input"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VACCINATIONS -->
+      <div class="section">
+        <div class="sec-header"><h2>Vaccination Record</h2></div>
+        <div class="vacc-grid">
+          <div class="vacc-card">
+            <h3>🐕 Dog Vaccinations</h3>
+            <div class="vacc-field">
+              <span class="name">Rabies</span>
+              <div class="dates">
+                <div class="date-box">Last: ___</div>
+                <div class="date-box">Next: ___</div>
+              </div>
+            </div>
+            <div class="vacc-field">
+              <span class="name">DHPP (Core)</span>
+              <div class="dates">
+                <div class="date-box">Last: ___</div>
+                <div class="date-box">Next: ___</div>
+              </div>
+            </div>
+            <div class="vacc-field">
+              <span class="name">Bordetella</span>
+              <div class="dates">
+                <div class="date-box">Last: ___</div>
+                <div class="date-box">Next: ___</div>
+              </div>
+            </div>
+            <div class="vacc-field">
+              <span class="name">Leptospirosis</span>
+              <div class="dates">
+                <div class="date-box">Last: ___</div>
+                <div class="date-box">Next: ___</div>
+              </div>
+            </div>
+            <div class="vacc-field">
+              <span class="name">Lyme</span>
+              <div class="dates">
+                <div class="date-box">Last: ___</div>
+                <div class="date-box">Next: ___</div>
+              </div>
+            </div>
+            <div class="vacc-field">
+              <span class="name">Influenza</span>
+              <div class="dates">
+                <div class="date-box">Last: ___</div>
+                <div class="date-box">Next: ___</div>
+              </div>
+            </div>
+          </div>
+          <div class="vacc-card">
+            <h3>🐈 Cat Vaccinations</h3>
+            <div class="vacc-field">
+              <span class="name">Rabies</span>
+              <div class="dates">
+                <div class="date-box">Last: ___</div>
+                <div class="date-box">Next: ___</div>
+              </div>
+            </div>
+            <div class="vacc-field">
+              <span class="name">FVRCP (Core)</span>
+              <div class="dates">
+                <div class="date-box">Last: ___</div>
+                <div class="date-box">Next: ___</div>
+              </div>
+            </div>
+            <div class="vacc-field">
+              <span class="name">FeLV</span>
+              <div class="dates">
+                <div class="date-box">Last: ___</div>
+                <div class="date-box">Next: ___</div>
+              </div>
+            </div>
+            <div class="vacc-field">
+              <span class="name">FIV</span>
+              <div class="dates">
+                <div class="date-box">Last: ___</div>
+                <div class="date-box">Next: ___</div>
+              </div>
+            </div>
+            <div class="vacc-field">
+              <span class="name">Bordetella</span>
+              <div class="dates">
+                <div class="date-box">Last: ___</div>
+                <div class="date-box">Next: ___</div>
+              </div>
+            </div>
+            <div class="vacc-field">
+              <span class="name">Other</span>
+              <div class="dates">
+                <div class="date-box">Last: ___</div>
+                <div class="date-box">Next: ___</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VET VISITS -->
+      <div class="section">
+        <div class="sec-header"><h2>Vet Visit Log</h2></div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Reason for Visit</th>
+              <th>Vet Seen</th>
+              <th>Weight</th>
+              <th>Diagnosis / Notes</th>
+              <th>Treatment / Prescribed</th>
+              <th>Follow-Up?</th>
+              <th>Cost</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+              <td class="wide-blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+            </tr>
+            <tr>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+              <td class="wide-blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+            </tr>
+            <tr>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+              <td class="wide-blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+            </tr>
+            <tr>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+              <td class="wide-blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+            </tr>
+            <tr>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+              <td class="wide-blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+            </tr>
+            <tr>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+              <td class="wide-blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+            </tr>
+            <tr>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+              <td class="wide-blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+            </tr>
+            <tr>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+              <td class="wide-blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- MEDICATIONS -->
+      <div class="section">
+        <div class="sec-header"><h2>Current Medications &amp; Supplements</h2></div>
+        <table class="data-table meds-table">
+          <thead>
+            <tr>
+              <th>Medication / Supplement</th>
+              <th>Dosage</th>
+              <th>Frequency</th>
+              <th>Prescribed By</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Refill Due</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Flea / Tick Prevention</td>
+              <td class="blank"></td>
+              <td class="blank">Monthly</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank">Ongoing</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+            </tr>
+            <tr>
+              <td>Heartworm Prevention</td>
+              <td class="blank"></td>
+              <td class="blank">Monthly</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank">Ongoing</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+            </tr>
+            <tr>
+              <td>Joint Supplement</td>
+              <td class="blank"></td>
+              <td class="blank">Daily</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank">Ongoing</td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+            </tr>
+            <tr>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+            </tr>
+            <tr>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- WEIGHT LOG -->
+      <div class="section">
+        <div class="sec-header"><h2>Weight &amp; Health Log</h2></div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Weight (kg)</th>
+              <th>Body Condition Score (1–9)</th>
+              <th>Appetite</th>
+              <th>Energy Level</th>
+              <th>Any Concerns?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+            </tr>
+            <tr>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+            </tr>
+            <tr>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+            </tr>
+            <tr>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+            </tr>
+            <tr>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="blank"></td>
+              <td class="wide-blank"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- DIET -->
+      <div class="section">
+        <div class="sec-header"><h2>Diet &amp; Feeding</h2></div>
+        <div style="padding: 20px 22px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px">
+          <div>
+            <p style="font-size: 13px; font-weight: 700; color: #6d28d9; margin-bottom: 10px">
+              Current Food
+            </p>
+            <div class="profile-field" style="margin-bottom: 12px">
+              <label>Brand &amp; Product Name</label>
+              <div class="field-input"></div>
+            </div>
+            <div class="profile-field" style="margin-bottom: 12px">
+              <label>Amount Per Meal</label>
+              <div class="field-input"></div>
+            </div>
+            <div class="profile-field" style="margin-bottom: 12px">
+              <label>Meals Per Day</label>
+              <div class="field-input"></div>
+            </div>
+            <div class="profile-field">
+              <label>Food Allergies / Restrictions</label>
+              <div class="field-input" style="min-height: 54px"></div>
+            </div>
+          </div>
+          <div>
+            <p style="font-size: 13px; font-weight: 700; color: #6d28d9; margin-bottom: 10px">
+              Treats &amp; Extras
+            </p>
+            <div class="profile-field" style="margin-bottom: 12px">
+              <label>Approved Treats</label>
+              <div class="field-input" style="min-height: 54px"></div>
+            </div>
+            <div class="profile-field" style="margin-bottom: 12px">
+              <label>Foods to Avoid (Vet Advised)</label>
+              <div class="field-input" style="min-height: 54px"></div>
+            </div>
+            <div class="profile-field">
+              <label>Daily Water Intake Target</label>
+              <div class="field-input"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GENERAL NOTES -->
+      <div class="section">
+        <div class="sec-header"><h2>General Health Notes &amp; Observations</h2></div>
+        <div class="notes-section">
+          <h3>
+            Use this section for any observations: behavioral changes, new symptoms, unusual habits
+          </h3>
+          <div class="note-entry">
+            <div class="note-date">Date: ___/___/___</div>
+            <div class="note-text"></div>
+          </div>
+          <div class="note-entry">
+            <div class="note-date">Date: ___/___/___</div>
+            <div class="note-text"></div>
+          </div>
+          <div class="note-entry">
+            <div class="note-date">Date: ___/___/___</div>
+            <div class="note-text"></div>
+          </div>
+          <div class="note-entry">
+            <div class="note-date">Date: ___/___/___</div>
+            <div class="note-text"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EMERGENCY CONTACTS -->
+      <div class="emergency-box">
+        <h2>🚨 Emergency Information</h2>
+        <div class="emerg-grid">
+          <div class="emerg-field">
+            <label>Primary Vet (24h Emergency)</label>
+            <div class="e-input"></div>
+          </div>
+          <div class="emerg-field">
+            <label>Emergency Vet Clinic</label>
+            <div class="e-input"></div>
+          </div>
+          <div class="emerg-field">
+            <label>Emergency Vet Address</label>
+            <div class="e-input"></div>
+          </div>
+          <div class="emerg-field">
+            <label>Emergency Vet Phone</label>
+            <div class="e-input"></div>
+          </div>
+          <div class="emerg-field">
+            <label>Pet Sitter / Backup Caregiver</label>
+            <div class="e-input"></div>
+          </div>
+          <div class="emerg-field">
+            <label>Poison Control Number</label>
+            <div class="e-input">EU: +39 02 6610 1029 (Italy) / UK: 01202 509000</div>
+          </div>
+          <div class="emerg-field">
+            <label>Insurance Emergency Line</label>
+            <div class="e-input"></div>
+          </div>
+          <div class="emerg-field">
+            <label>Nearest 24h Animal Hospital</label>
+            <div class="e-input"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <p><strong>Pet Care &amp; Vet Visit Tracker</strong> — Complete health record for your pet</p>
+      <p style="margin-top: 6px">
+        Print and keep in a binder for easy access at vet visits. Update after every appointment.
+      </p>
+    </div>
+  </body>
+</html>
