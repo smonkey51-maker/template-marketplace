@@ -175,12 +175,12 @@ export default function CatalogoPage() {
       gsap.fromTo(
         overlayRef.current,
         { opacity: 0 },
-        { opacity: 1, duration: 0.3, ease: "power2.out" }
+        { opacity: 1, duration: 0.3, ease: "power2.out" },
       );
       gsap.fromTo(
         modalRef.current,
         { y: "100%", opacity: 0 },
-        { y: "0%", opacity: 1, duration: 0.35, ease: "power2.out" }
+        { y: "0%", opacity: 1, duration: 0.35, ease: "power2.out" },
       );
     }
   }, [activeId, isClosing]);
