@@ -4479,3 +4479,19 @@ html.dark {
     margin-bottom: calc(88px + env(safe-area-inset-bottom, 0px));
   }
 }
+
+/* ── Catalogue detail sheet ───────────────────────────────────────────────
+   The sheet keeps the glass material — rim light, blur, cast shadow — but not
+   the standard 0.65 fill. It opens directly over the catalogue grid, and the
+   thumbnails behind it are now photographs of the products: bright, busy, full
+   of type. At 0.65 the product name, description and price were read against
+   other products' covers, which is the one place on the site where that cannot
+   be allowed, because it is where the buying decision is made.
+   The rim border is untouched; it is what keeps the panel findable (WCAG
+   1.4.11), and dropping it for a cleaner look is never the fix. */
+.fn-sheet-panel {
+  background: rgba(10, 9, 7, 0.94);
+}
+:root:not(.dark) .fn-sheet-panel {
+  background: rgba(253, 250, 245, 0.96);
+}

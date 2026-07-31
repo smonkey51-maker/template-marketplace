@@ -554,7 +554,7 @@ export default function CatalogoPage() {
           {/* Overlay invisibile per cliccare fuori e chiudere */}
           <div
             ref={overlayRef}
-            className={`absolute inset-0 pointer-events-auto bg-black/40 backdrop-blur-sm${
+            className={`absolute inset-0 pointer-events-auto bg-black/65 backdrop-blur-sm${
               isClosing ? "" : " anim-fade-in"
             }`}
             onClick={handleClose}
@@ -569,7 +569,7 @@ export default function CatalogoPage() {
             aria-modal="true"
             aria-labelledby="sheet-title"
             tabIndex={-1}
-            className={`relative w-full max-w-[1000px] glass-panel flex flex-col pointer-events-auto z-10 outline-none${
+            className={`relative w-full max-w-[1000px] glass-panel fn-sheet-panel flex flex-col pointer-events-auto z-10 outline-none${
               isClosing ? "" : " sheet-enter"
             }`}
             style={{

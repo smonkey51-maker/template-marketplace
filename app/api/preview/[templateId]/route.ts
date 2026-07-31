@@ -1,20 +1,31 @@
 import { NextRequest, NextResponse } from "next/server";
 import { resolveTemplate } from "@/lib/templatesDb";
 import { TAILWIND_CDN } from "@/lib/productFiles";
+import { buildProductPreview } from "@/lib/productPreview";
 
 /**
- * Marketing preview for a template, rendered inside a same-origin iframe on the
+ * Preview for a template, rendered inside a same-origin iframe on the
  * catalogue / detail / studio pages.
  *
- * Always the short teaser from `templates.content` — never the full
- * `content/products/*.html` file, which is the thing people pay for. Buyers
- * reach the real product through /api/download/[templateId], which checks the
- * purchase; a preview iframe is the wrong place to hand it out.
+ * It now serves the opening of the **real** product, cut short. It used to
+ * serve `templates.content`, a 1.5 KB promotional card carrying the title and
+ * three figures — so every route into the product showed a poster of it rather
+ * than the thing itself, and a visitor genuinely could not tell what was for
+ * sale. `?full=1` is not a thing: the truncation happens in
+ * buildProductPreview before the string is ever assembled, so the rest of the
+ * document is not in this response for view-source to find.
  *
- * That makes this endpoint completely public, which is what keeps it fast: it
- * is excluded from the Clerk middleware matcher, so the 16 iframes the
- * catalogue mounts no longer each trigger an authentication handshake, and the
- * response is identical for everyone and therefore cacheable.
+ * `templates.content` remains the fallback for anything without a file in
+ * content/products/ — currently nothing, but a template can be added to
+ * lib/templates.ts before its product file exists, and a poster beats a 404.
+ *
+ * Buyers still reach the complete file through /api/download/[templateId],
+ * which checks the purchase.
+ *
+ * The endpoint stays completely public, which is what keeps it fast: it is
+ * excluded from the Clerk middleware matcher, so the iframes the catalogue
+ * mounts no longer each trigger an authentication handshake, and the response
+ * is identical for everyone and therefore cacheable.
  */
 export async function GET(
   req: NextRequest,
@@ -35,6 +46,17 @@ export async function GET(
 
   if (!template) {
     return new NextResponse("Not found", { status: 404 });
+  }
+
+  const lang = req.nextUrl.searchParams.get("lang") === "en" ? "en" : "it";
+  const preview = buildProductPreview(templateId, lang);
+  if (preview) {
+    return new NextResponse(preview.html, {
+      headers: {
+        "Content-Type": "text/html; charset=utf-8",
+        "Cache-Control": "public, max-age=300, s-maxage=3600",
+      },
+    });
   }
 
   const html = `<!DOCTYPE html>
