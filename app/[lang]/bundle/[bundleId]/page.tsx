@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { formatPrice } from "@/lib/templates";
-import { getBundleFromDb, getAllBundles } from "@/lib/templatesDb";
+import { resolveBundle, resolveAllBundles } from "@/lib/templatesDb";
 import BundleDetailContent from "@/components/BundleDetailContent";
 import { getLocalizedName, getLocalizedDesc } from "@/lib/i18n";
 import { toLocale } from "@/lib/locales";
@@ -9,7 +9,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://forma.design";
 
 export async function generateStaticParams() {
   try {
-    const bundles = await getAllBundles();
+    const bundles = await resolveAllBundles();
     return bundles.map((b) => ({ bundleId: b.id }));
   } catch {
     return [];
@@ -23,7 +23,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { bundleId, lang: rawLang } = await params;
   const lang = toLocale(rawLang);
-  const bundle = await getBundleFromDb(bundleId);
+  const bundle = await resolveBundle(bundleId);
   if (!bundle) return { title: lang === "it" ? "Bundle non trovato" : "Bundle not found" };
   const name = getLocalizedName(bundle, lang);
   const canonicalUrl = `${SITE_URL}/bundle/${bundleId}`;
@@ -53,7 +53,7 @@ export default async function BundlePage({
 }) {
   const { bundleId, lang: rawLang } = await params;
   const lang = toLocale(rawLang);
-  const bundle = await getBundleFromDb(bundleId);
+  const bundle = await resolveBundle(bundleId);
 
   const jsonLd = bundle
     ? {

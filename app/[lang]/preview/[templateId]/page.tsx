@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { formatPrice } from "@/lib/templates";
-import { getTemplateFromDb, getAllTemplates } from "@/lib/templatesDb";
+import { resolveTemplate, resolveAllTemplates } from "@/lib/templatesDb";
 import PreviewContent from "@/components/PreviewContent";
 import ReviewSection from "@/components/ReviewSection";
 import { getLocalizedName, getLocalizedDesc } from "@/lib/i18n";
@@ -11,7 +11,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://forma.design";
 
 export async function generateStaticParams() {
   try {
-    const templates = await getAllTemplates();
+    const templates = await resolveAllTemplates();
     return templates.map((t) => ({ templateId: t.id }));
   } catch {
     return [];
@@ -25,7 +25,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { templateId, lang: rawLang } = await params;
   const lang = toLocale(rawLang);
-  const template = await getTemplateFromDb(templateId);
+  const template = await resolveTemplate(templateId);
   if (!template) return { title: lang === "it" ? "Template non trovato" : "Template not found" };
   const name = getLocalizedName(template, lang);
   const description = getLocalizedDesc(template, lang);
@@ -58,7 +58,7 @@ export default async function PreviewPage({
 }) {
   const { templateId, lang: rawLang } = await params;
   const lang = toLocale(rawLang);
-  const template = await getTemplateFromDb(templateId);
+  const template = await resolveTemplate(templateId);
 
   const jsonLd = template
     ? {
