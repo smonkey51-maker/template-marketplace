@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState, useRef } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
 import { useLang } from "@/components/LanguageProvider";
@@ -548,151 +549,168 @@ export default function CatalogoPage() {
         </div>
       </div>
 
-      {/* iOS App-like Modal Overlay */}
-      {(activeId || isClosing) && activeItem && (
-        <div className="fixed inset-0 z-[100] flex items-end justify-center pointer-events-none sm:p-4">
-          {/* Overlay invisibile per cliccare fuori e chiudere */}
-          <div
-            ref={overlayRef}
-            className={`absolute inset-0 pointer-events-auto bg-black/65 backdrop-blur-sm${
-              isClosing ? "" : " anim-fade-in"
-            }`}
-            onClick={handleClose}
-          />
-
-          <div
-            ref={modalRef}
-            // A real dialog: without these a screen reader announced nothing on
-            // open and went on reading the catalogue behind as though the sheet
-            // were not there.
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="sheet-title"
-            tabIndex={-1}
-            className={`relative w-full max-w-[1000px] glass-panel fn-sheet-panel flex flex-col pointer-events-auto z-10 outline-none${
-              isClosing ? "" : " sheet-enter"
-            }`}
-            style={{
-              height: "92vh",
-              borderRadius: "var(--glass-radius) var(--glass-radius) 0 0",
-              overflow: "hidden",
-            }}
-          >
-            {/* Bottone Chiudi */}
-            <button
+      {/* Rendered into document.body rather than here.
+          A modal has no business being positioned relative to whatever happens
+          to wrap the page. It was, and it cost: PageTransition's wrapper kept a
+          `transform: translateY(0)` after its animation finished (declared
+          `both`), and any transform other than `none` makes an element the
+          containing block for its fixed descendants — so `inset-0` resolved
+          against the whole document and `items-end` parked this sheet below
+          the end of the page, unreachable behind the scroll lock. It opened,
+          and nothing appeared.
+          PageTransition no longer leaves that transform behind, so this portal
+          is not what fixes the reported bug. It is here so that the next
+          wrapper someone adds cannot reintroduce it. */}
+      {/* No mounted guard: the branch is only reached once something has been
+          clicked, so it is never evaluated during the server render and
+          document.body is never touched there. */}
+      {(activeId || isClosing) &&
+        activeItem &&
+        createPortal(
+          <div className="fixed inset-0 z-[100] flex items-end justify-center pointer-events-none sm:p-4">
+            {/* Overlay invisibile per cliccare fuori e chiudere */}
+            <div
+              ref={overlayRef}
+              className={`absolute inset-0 pointer-events-auto bg-black/65 backdrop-blur-sm${
+                isClosing ? "" : " anim-fade-in"
+              }`}
               onClick={handleClose}
-              className="absolute top-6 right-6 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-black/40 text-white backdrop-blur-xl border border-white/10 hover:bg-black/60 transition-colors"
-              aria-label="Chiudi"
-            >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-            </button>
+            />
 
-            <div className="flex-1 overflow-y-auto overflow-x-hidden">
-              {/* Same reason as the detail page: TemplatePreview lays the
+            <div
+              ref={modalRef}
+              // A real dialog: without these a screen reader announced nothing on
+              // open and went on reading the catalogue behind as though the sheet
+              // were not there.
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="sheet-title"
+              tabIndex={-1}
+              className={`relative w-full max-w-[1000px] glass-panel fn-sheet-panel flex flex-col pointer-events-auto z-10 outline-none${
+                isClosing ? "" : " sheet-enter"
+              }`}
+              style={{
+                height: "92vh",
+                borderRadius: "var(--glass-radius) var(--glass-radius) 0 0",
+                overflow: "hidden",
+              }}
+            >
+              {/* Bottone Chiudi */}
+              <button
+                onClick={handleClose}
+                className="absolute top-6 right-6 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-black/40 text-white backdrop-blur-xl border border-white/10 hover:bg-black/60 transition-colors"
+                aria-label="Chiudi"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+
+              <div className="flex-1 overflow-y-auto overflow-x-hidden">
+                {/* Same reason as the detail page: TemplatePreview lays the
                   template out at 1440px and scales it to fit, so on a phone the
                   product was drawn at roughly a quarter size and could not be
                   read. The thumbnail is cropped to the template's own bounds and
                   stays legible. "Anteprima" below opens the live one. */}
-              <div className="fn-sheet-shot">
-                <TemplateThumb
-                  id={activeItem.id}
-                  name={getLocalizedName(activeItem, lang)}
-                  priority
-                  height={340}
-                />
-              </div>
-
-              <div className="p-8 sm:p-12">
-                <div className="flex gap-2 items-center flex-wrap mb-4">
-                  <span className="fn-badge bg-black/20">{getPlatformLabel(activeItem)}</span>
-                  {activeItem.editorsPick && (
-                    <span
-                      className="fn-badge"
-                      style={{ border: "1px solid rgba(212,175,55,.5)", color: "#D4AF37" }}
-                    >
-                      ★ Editor
-                    </span>
-                  )}
+                <div className="fn-sheet-shot">
+                  <TemplateThumb
+                    id={activeItem.id}
+                    name={getLocalizedName(activeItem, lang)}
+                    priority
+                    height={340}
+                  />
                 </div>
 
-                <h2
-                  id="sheet-title"
-                  style={{
-                    fontFamily: "var(--font-cormorant), Georgia, serif",
-                    fontSize: "clamp(32px, 4vw, 48px)",
-                    lineHeight: 1.1,
-                    marginBottom: 16,
-                  }}
-                >
-                  {getLocalizedName(activeItem, lang)}
-                </h2>
-
-                <p
-                  style={{
-                    color: "var(--muted)",
-                    fontSize: 18,
-                    lineHeight: 1.6,
-                    marginBottom: 32,
-                    maxWidth: "600px",
-                  }}
-                >
-                  {getLocalizedDesc(activeItem, lang)}
-                </p>
-
-                <div className="flex items-center gap-6 pt-6 border-t border-theme">
-                  <div>
-                    <span className="block text-xs uppercase tracking-widest text-muted mb-1">
-                      Prezzo
-                    </span>
-                    <b
-                      style={{
-                        fontFamily: "var(--font-cormorant), Georgia, serif",
-                        fontSize: 32,
-                      }}
-                    >
-                      {formatPrice(activeItem.price)}
-                    </b>
+                <div className="p-8 sm:p-12">
+                  <div className="flex gap-2 items-center flex-wrap mb-4">
+                    <span className="fn-badge bg-black/20">{getPlatformLabel(activeItem)}</span>
+                    {activeItem.editorsPick && (
+                      <span
+                        className="fn-badge"
+                        style={{ border: "1px solid rgba(212,175,55,.5)", color: "#D4AF37" }}
+                      >
+                        ★ Editor
+                      </span>
+                    )}
                   </div>
 
-                  <div className="flex-1 flex justify-end gap-3">
-                    {/* Aggiunto /${lang} ai percorsi e sblocco scroll su click */}
-                    <Link
-                      href={`/${lang}/preview/${activeItem.id}`}
-                      className="fn-btn"
-                      onClick={() => {
-                        document.body.style.overflow = "";
-                      }}
-                    >
-                      {t("download")}
-                    </Link>
-                    <Link
-                      href={`/${lang}/templates/${activeItem.id}`}
-                      className="fn-btn primary shadow-lg"
-                      onClick={() => {
-                        document.body.style.overflow = "";
-                      }}
-                    >
-                      Acquista Ora
-                    </Link>
+                  <h2
+                    id="sheet-title"
+                    style={{
+                      fontFamily: "var(--font-cormorant), Georgia, serif",
+                      fontSize: "clamp(32px, 4vw, 48px)",
+                      lineHeight: 1.1,
+                      marginBottom: 16,
+                    }}
+                  >
+                    {getLocalizedName(activeItem, lang)}
+                  </h2>
+
+                  <p
+                    style={{
+                      color: "var(--muted)",
+                      fontSize: 18,
+                      lineHeight: 1.6,
+                      marginBottom: 32,
+                      maxWidth: "600px",
+                    }}
+                  >
+                    {getLocalizedDesc(activeItem, lang)}
+                  </p>
+
+                  <div className="flex items-center gap-6 pt-6 border-t border-theme">
+                    <div>
+                      <span className="block text-xs uppercase tracking-widest text-muted mb-1">
+                        Prezzo
+                      </span>
+                      <b
+                        style={{
+                          fontFamily: "var(--font-cormorant), Georgia, serif",
+                          fontSize: 32,
+                        }}
+                      >
+                        {formatPrice(activeItem.price)}
+                      </b>
+                    </div>
+
+                    <div className="flex-1 flex justify-end gap-3">
+                      {/* Aggiunto /${lang} ai percorsi e sblocco scroll su click */}
+                      <Link
+                        href={`/${lang}/preview/${activeItem.id}`}
+                        className="fn-btn"
+                        onClick={() => {
+                          document.body.style.overflow = "";
+                        }}
+                      >
+                        {t("download")}
+                      </Link>
+                      <Link
+                        href={`/${lang}/templates/${activeItem.id}`}
+                        className="fn-btn primary shadow-lg"
+                        onClick={() => {
+                          document.body.style.overflow = "";
+                        }}
+                      >
+                        Acquista Ora
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body,
+        )}
     </>
   );
 }
