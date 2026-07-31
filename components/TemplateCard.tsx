@@ -877,7 +877,7 @@ export default function TemplateCard({
         style={spotlightStyle}
       />
       <Link
-        href={`/preview/${template.id}`}
+        href={`/${lang}/templates/${template.id}`}
         aria-label={displayName}
         className="shoji-card card-sweep card-tilt shine-sweep bg-card border border-theme r-glass relative overflow-hidden flex flex-col h-full active:opacity-90 block transition-shadow duration-300 group-hover:shadow-[0_16px_48px_rgba(0,0,0,0.22)]"
       >
@@ -886,9 +886,12 @@ export default function TemplateCard({
           className="relative"
           onClick={(e) => {
             if (onQuickView) {
-              e.preventDefault();
-              e.stopPropagation();
-              onQuickView(template.id);
+              // Rispettiamo Cmd/Ctrl/Shift/Alt click per permettere l'apertura in nuova scheda
+              if (!e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                e.preventDefault();
+                e.stopPropagation();
+                onQuickView(template.id);
+              }
             }
           }}
         >
