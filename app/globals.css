@@ -1747,18 +1747,6 @@ html::-webkit-scrollbar-track {
   }
 }
 
-/* Page entry */
-@keyframes page-enter {
-  from {
-    opacity: 0;
-    transform: translateY(5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 /* Confetti fall */
 @keyframes confetti-fall {
   0% {
@@ -1790,10 +1778,6 @@ html::-webkit-scrollbar-track {
   .anim-drill-back {
     animation: drill-back 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
-  .anim-page-enter {
-    animation: page-enter 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-
   /* Ripple dot (appended via JS) */
   .ripple-dot {
     position: absolute;
@@ -1839,7 +1823,6 @@ html::-webkit-scrollbar-track {
 @media (prefers-reduced-motion: reduce) {
   .anim-drill-in,
   .anim-drill-back,
-  .anim-page-enter,
   .shimmer-span,
   .check-path {
     animation: none !important;
