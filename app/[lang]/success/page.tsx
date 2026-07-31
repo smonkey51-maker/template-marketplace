@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Suspense, useRef, useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 import { getTemplate, getBundle, getDownloadType } from "@/lib/templates";
@@ -20,7 +20,12 @@ const CONFETTI_COLORS = [
 ];
 
 function Confetti() {
-  const pieces = useRef(
+  // Lazy initializer, not a plain useRef(expr): useRef re-evaluates its
+  // argument on every render (only .current's first value sticks), so the
+  // Math.random() calls ran every render for no reason — and reading .current
+  // during render is itself a rules-of-hooks violation. useState(() => ...)
+  // runs the initializer exactly once, on mount.
+  const [pieces] = useState(() =>
     Array.from({ length: 60 }, (_, i) => ({
       id: i,
       color: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
@@ -30,7 +35,7 @@ function Confetti() {
       size: 6 + Math.random() * 6,
       isRect: Math.random() > 0.5,
     })),
-  ).current;
+  );
 
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-[200]" aria-hidden>
