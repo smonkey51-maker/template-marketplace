@@ -18,7 +18,7 @@ useGSAP(() => {
           y: 0, 
           duration: 0.5, 
           ease: "power3.out", 
-          clearProps: "transform" // Fondamentale: rimuove i residui di transform a fine animazione per evitare bug di scroll
+          clearProps: "transform" // Fondamentale: rimuove i residui di transform a fine animazione
         } 
       );
     }
