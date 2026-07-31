@@ -28,6 +28,7 @@ import sharp from "sharp";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { templates } from "../lib/templates";
+import { readProductFile } from "../lib/productFiles";
 
 /** Design width the templates are authored against — same as TemplatePreview. */
 const RENDER_WIDTH = 1440;
@@ -88,7 +89,13 @@ async function main() {
 
   for (const template of templates) {
     try {
-      await page.setContent(previewHtml(template.content), { waitUntil: "load" });
+      // The product itself, not the promotional card. `template.content` is a
+      // 1.5 KB poster — a title and three figures — while the thing on sale is
+      // the document in content/products/. Thumbnails drawn from the poster
+      // showed sixteen near-identical coloured rectangles and told a visitor
+      // nothing about what they would receive.
+      const productHtml = readProductFile(template.id);
+      await page.setContent(productHtml ?? previewHtml(template.content), { waitUntil: "load" });
       // Web fonts resolve after `load`; screenshotting before they settle
       // catches a fallback-font frame.
       await page.evaluate(() => document.fonts.ready);
@@ -112,14 +119,22 @@ async function main() {
 
       // Breathing room, so the crop never shaves a shadow or a rounded corner.
       const pad = 20;
-      const clip = box
-        ? {
-            x: Math.max(0, box.left - pad),
-            y: Math.max(0, box.top - pad),
-            width: Math.min(RENDER_WIDTH, box.width + pad * 2),
-            height: Math.min(RENDER_HEIGHT, box.height + pad * 2),
-          }
-        : { x: 0, y: 0, width: RENDER_WIDTH, height: RENDER_HEIGHT };
+      // A product document is taller than the viewport and starts with its
+      // cover, so the top of the page is exactly the frame worth showing —
+      // cropping to the bounding box would try to fit the whole document into a
+      // 16:10 card and render it unreadably small. The bounding-box crop is kept
+      // for the poster fallback, where the drawing floats in a centred flexbox
+      // and a full-viewport capture would be mostly empty background.
+      const clip = productHtml
+        ? { x: 0, y: 0, width: RENDER_WIDTH, height: RENDER_HEIGHT }
+        : box
+          ? {
+              x: Math.max(0, box.left - pad),
+              y: Math.max(0, box.top - pad),
+              width: Math.min(RENDER_WIDTH, box.width + pad * 2),
+              height: Math.min(RENDER_HEIGHT, box.height + pad * 2),
+            }
+          : { x: 0, y: 0, width: RENDER_WIDTH, height: RENDER_HEIGHT };
 
       const png = await page.screenshot({ type: "png", clip });
 
