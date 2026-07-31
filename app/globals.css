@@ -962,12 +962,25 @@ html::-webkit-scrollbar-track {
     animation-delay: 400ms;
   }
 
-  /* ── Sheet / modal ─────────────────────── */
+  /* ── Sheet / modal ─────────────────────────
+     `backwards`, not `both`. Both of these end on `transform: translateY(0)`
+     / `scale(1)`, and with `both` the element keeps that transform forever
+     once the animation finishes. A transform other than `none` makes an
+     element the containing block for every `position: fixed` descendant —
+     the exact bug that put the page wrapper's fixed children at the bottom
+     of the document instead of on screen. These two are dialogs, which is
+     where a fixed child is most likely to turn up next.
+
+     `backwards` still applies the first keyframe during any delay, so the
+     entrance cannot flash at full opacity before it starts; it simply stops
+     holding the last keyframe after the animation is over. The end state is
+     `opacity: 1` with no transform, which is the elements' natural resting
+     state anyway, so dropping the fill changes nothing visually. */
   .sheet-enter {
-    animation: sheet-up 0.32s cubic-bezier(0.32, 1.1, 0.64, 1) both;
+    animation: sheet-up 0.32s cubic-bezier(0.32, 1.1, 0.64, 1) backwards;
   }
   .modal-enter {
-    animation: modal-in 0.26s cubic-bezier(0.32, 1.1, 0.64, 1) both;
+    animation: modal-in 0.26s cubic-bezier(0.32, 1.1, 0.64, 1) backwards;
   }
 
   /* ── Gradient border animation ─────────── */
