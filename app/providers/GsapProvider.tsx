@@ -2,12 +2,11 @@
 
 import React from "react";
 import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-// Registrazione dei plugin globali in ambiente browser
+// Registrazione dei plugin globali in ambiente browser (senza @gsap/react)
 if (typeof window !== "undefined") {
-  gsap.registerPlugin(useGSAP, ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger);
 }
 
 interface GsapProviderProps {
