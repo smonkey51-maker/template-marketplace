@@ -17,12 +17,17 @@ interface DropItem {
  * Nav entries. Only entries with `items` render a disclosure caret — a link
  * without a submenu must not advertise one.
  */
+// These mirror the filter chips on /catalogo, and the values match the
+// GroupKey union there. They used to be Web / Notion / App / Shop pointing at
+// ?cat=, which the catalogue never read — four of the five items in the main
+// menu silently landed on the unfiltered catalogue, and none of those four
+// categories has existed since the catalogue was rebuilt.
 const CATALOGO_ITEMS: DropItem[] = [
   { href: "/catalogo", labelIt: "Tutti i template", labelEn: "All templates" },
-  { href: "/catalogo?cat=Web", labelIt: "Web", labelEn: "Web" },
-  { href: "/catalogo?cat=Notion", labelIt: "Notion", labelEn: "Notion" },
-  { href: "/catalogo?cat=App", labelIt: "App", labelEn: "App" },
-  { href: "/catalogo?cat=Shop", labelIt: "Shop", labelEn: "Shop" },
+  { href: "/catalogo?gruppo=prompt", labelIt: "Prompt e script", labelEn: "Prompts & scripts" },
+  { href: "/catalogo?gruppo=guide", labelIt: "Guide", labelEn: "Guides" },
+  { href: "/catalogo?gruppo=sheet", labelIt: "Fogli e tracker", labelEn: "Sheets & trackers" },
+  { href: "/catalogo#bundle", labelIt: "Bundle", labelEn: "Bundles" },
 ];
 
 const ACCOUNT_ITEMS: DropItem[] = [

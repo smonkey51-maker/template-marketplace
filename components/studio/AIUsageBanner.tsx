@@ -72,7 +72,7 @@ export default function AIUsageBanner() {
       {/* Upgrade CTA — solo free */}
       {!isStudio && (
         <Link
-          href="/bundle/studio-access"
+          href="/ai-studio"
           className="ml-auto text-[11px] text-accent underline underline-offset-2 hover:text-accent/80 transition-colors shrink-0"
         >
           Upgrade to Studio →

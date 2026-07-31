@@ -168,8 +168,7 @@ export function FormaFooter() {
           <FooterAccordion title={t("footerCatalog")} lang={lang}>
             {[
               { href: "/catalogo", label: t("footerTemplates") },
-              { href: "/catalogo", label: t("footerBundles") },
-              { href: "/catalogo", label: t("footerNew") },
+              { href: "/catalogo#bundle", label: t("footerBundles") },
               { href: "/ai-studio", label: "AI Studio" },
             ].map((l) => (
               <Link
