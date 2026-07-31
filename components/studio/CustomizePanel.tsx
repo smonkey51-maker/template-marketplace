@@ -56,7 +56,7 @@ export default function CustomizePanel({
             {lang === "it"
               ? "Non hai ancora acquistato nessun template."
               : "You haven't purchased any templates yet."}{" "}
-            <Link href="/" className="text-accent hover:underline">
+            <Link href={`/${lang}`} className="text-accent hover:underline">
               {lang === "it" ? "Vai al marketplace →" : "Go to marketplace →"}
             </Link>
           </div>

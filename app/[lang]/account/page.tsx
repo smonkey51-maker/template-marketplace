@@ -111,7 +111,7 @@ export default function AccountPage() {
               {user?.emailAddresses?.[0]?.emailAddress}
             </p>
           </div>
-          <Link href="/studio" className="btn-brand btn-brand-sm shrink-0">
+          <Link href={`/${lang}/studio`} className="btn-brand btn-brand-sm shrink-0">
             {t[lang].account.studioBtn}
           </Link>
         </div>
@@ -151,7 +151,7 @@ export default function AccountPage() {
               {portalLoading ? "..." : t[lang].account.manageSubscription}
             </button>
           ) : (
-            <Link href="/#studio-access" className="btn-brand btn-brand-sm shrink-0">
+            <Link href={`/${lang}#studio-access`} className="btn-brand btn-brand-sm shrink-0">
               {t[lang].account.activateCta}
             </Link>
           )}
@@ -204,7 +204,7 @@ export default function AccountPage() {
           ) : purchasedTemplates.length === 0 ? (
             <div className="bg-surface border border-theme r-glass p-10 text-center flex flex-col items-center gap-4">
               <p className="text-[15px] text-muted">{t[lang].account.noTemplates}</p>
-              <Link href="/" className="btn-brand">
+              <Link href={`/${lang}`} className="btn-brand">
                 {t[lang].account.goToMarketplace}
               </Link>
             </div>
@@ -276,13 +276,13 @@ export default function AccountPage() {
                       {/* Actions */}
                       <div className="flex items-center gap-2 shrink-0">
                         <Link
-                          href={`/preview/${tmpl.id}`}
+                          href={`/${lang}/preview/${tmpl.id}`}
                           className="hidden sm:flex items-center gap-1 px-3 py-2 text-[12px] text-muted border border-theme r-pill hover:border-accent hover:text-theme transition-colors"
                         >
                           {lang === "it" ? "Anteprima" : "Preview"}
                         </Link>
                         <Link
-                          href={`/studio?templateId=${tmpl.id}`}
+                          href={`/${lang}/studio?templateId=${tmpl.id}`}
                           className="hidden sm:flex items-center gap-1 px-3 py-2 text-[12px] text-muted border border-theme r-pill hover:border-accent hover:text-theme transition-colors"
                         >
                           {lang === "it" ? "Studio" : "Studio"}
@@ -325,7 +325,7 @@ export default function AccountPage() {
               <span className="text-muted text-[18px]">›</span>
             </button>
             <Link
-              href="/studio"
+              href={`/${lang}/studio`}
               className="r-md block px-5 py-4 text-[15px] text-theme hover:bg-card/[0.04] active:bg-white/[0.05] transition-colors duration-150 flex items-center justify-between"
             >
               <span>{t[lang].account.goToStudio}</span>

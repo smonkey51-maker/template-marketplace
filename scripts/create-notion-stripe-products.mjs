@@ -87,7 +87,7 @@ for (const tmpl of templates) {
   const product = await stripe.products.create({
     name: tmpl.name,
     description: tmpl.description,
-    metadata: { templateId: tmpl.id, source: "templatelab" },
+    metadata: { templateId: tmpl.id, source: "forma" },
   });
 
   const price = await stripe.prices.create({
@@ -107,7 +107,7 @@ for (const tmpl of templates) {
 const bundleProduct = await stripe.products.create({
   name: bundle.name,
   description: bundle.description,
-  metadata: { bundleId: bundle.id, source: "templatelab" },
+  metadata: { bundleId: bundle.id, source: "forma" },
 });
 const bundlePrice = await stripe.prices.create({
   product: bundleProduct.id,

@@ -43,7 +43,7 @@ export default function BentoHub() {
       {/* ── AI Studio — left column, spans 2 rows ────────────────────── */}
       <BentoCell
         rows={2}
-        href="/ai-studio"
+        href={`/${lang}/ai-studio`}
         label={t.aiTitle}
         delay={180}
         className="bento-order-studio justify-end p-5"
@@ -76,11 +76,11 @@ export default function BentoHub() {
           </h1>
           <p className="text-[15px] text-white/75 max-w-md leading-relaxed">{t.heroSubSnap}</p>
           <div className="bento-hero-ctas flex flex-col sm:flex-row flex-wrap gap-2.5 mt-1">
-            <Link href="/catalogo" className="btn-brand">
+            <Link href={`/${lang}/catalogo`} className="btn-brand">
               {t.heroCtaSnap}
             </Link>
             <Link
-              href="/guida"
+              href={`/${lang}/guida`}
               className="r-pill px-5 py-2.5 text-[14px] font-bold text-white transition-all"
               style={{
                 background: "rgba(255,255,255,0.15)",
@@ -96,7 +96,7 @@ export default function BentoHub() {
 
       {/* ── Catalogo — right column, top ─────────────────────────────── */}
       <BentoCell
-        href="/catalogo"
+        href={`/${lang}/catalogo`}
         label={t.catalogo}
         delay={120}
         className="bento-order-catalogo justify-end p-5 sm:p-6"
@@ -110,7 +110,7 @@ export default function BentoHub() {
 
       {/* ── Guida — right column, bottom ────────────────────────────── */}
       <BentoCell
-        href="/guida"
+        href={`/${lang}/guida`}
         label={t.guida}
         delay={240}
         className="bento-order-guida justify-end p-5 sm:p-6"
@@ -133,7 +133,7 @@ export default function BentoHub() {
       >
         <BentoEyebrow>{lang === "it" ? "Area personale" : "Your area"}</BentoEyebrow>
         <BentoSubGrid>
-          <BentoSubBox href="/account" label={t.accountTitle}>
+          <BentoSubBox href={`/${lang}/account`} label={t.accountTitle}>
             <div className="flex items-start justify-between">
               <div>
                 <p className="text-[16px] font-black text-theme leading-tight">{t.accountTitle}</p>
@@ -142,7 +142,7 @@ export default function BentoHub() {
               <span className="text-[20px] opacity-60 shrink-0 ml-3">👤</span>
             </div>
           </BentoSubBox>
-          <BentoSubBox href="/wishlist" label={savedLabel}>
+          <BentoSubBox href={`/${lang}/wishlist`} label={savedLabel}>
             <div className="flex items-start justify-between">
               <div>
                 <p className="text-[16px] font-black text-theme leading-tight">{savedLabel}</p>

@@ -76,7 +76,7 @@ export default function WishlistPage() {
                   : "Tap the ❤ on any template to save it here."}
               </p>
             </div>
-            <Link href="/" className="btn-brand">
+            <Link href={`/${lang}`} className="btn-brand">
               {lang === "it" ? "Sfoglia template →" : "Browse templates →"}
             </Link>
           </div>

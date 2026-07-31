@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useLang } from "@/components/LanguageProvider";
 
 interface UsageData {
   plan: "free" | "studio";
@@ -33,6 +34,7 @@ function UsageBar({ used, limit }: { used: number; limit: number }) {
 }
 
 export default function AIUsageBanner() {
+  const { lang } = useLang();
   const [data, setData] = useState<UsageData | null>(null);
 
   useEffect(() => {
@@ -72,7 +74,7 @@ export default function AIUsageBanner() {
       {/* Upgrade CTA — solo free */}
       {!isStudio && (
         <Link
-          href="/bundle/studio-access"
+          href={`/${lang}/bundle/studio-access`}
           className="ml-auto text-[11px] text-accent underline underline-offset-2 hover:text-accent/80 transition-colors shrink-0"
         >
           Upgrade to Studio →
