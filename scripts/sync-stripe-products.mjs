@@ -31,25 +31,44 @@ const stripe = new Stripe(envMap.STRIPE_SECRET_KEY);
 const src = readFileSync("./lib/templates.ts", "utf8");
 
 // Parse templates array: extract id, name, description, stripePriceId
+//
+// Bounded per-object, not one big lazy scan across the whole array: the old
+// `id:[\s\S]*?name:[\s\S]*?description:[\s\S]*?stripePriceId:` regex had no
+// boundary between one object and the next, so any entry missing a field (or
+// with them out of this exact order) let the match bleed into the following
+// template — silently pairing that template's name/description with the
+// WRONG stripePriceId when this script pushes metadata to Stripe. Slicing the
+// source between one `id:` and the next confines every field lookup to its
+// own object.
+//
+// The slice itself is also bounded to the next `export const`: without that,
+// extracting "templates" ran off the end of that array straight into
+// "bundles" (whose entries have the same id/name/description/stripePriceId
+// shape), so every bundle got synced twice — once correctly as a bundle, once
+// mislabeled with `metadata.templateId`.
 function extractItems(src, arrayName) {
   const items = [];
   const startMarker = `export const ${arrayName}`;
   const startIdx = src.indexOf(startMarker);
   if (startIdx === -1) return items;
 
-  // Walk through and extract each { id, name, description, stripePriceId } block
-  const re =
-    /id:\s*"([^"]+)"[\s\S]*?name:\s*"([^"]+)"[\s\S]*?description:\s*"([^"]+)"[\s\S]*?stripePriceId:\s*"([^"]+)"/g;
-  // Only search from the array start
-  const slice = src.slice(startIdx);
-  let m;
-  while ((m = re.exec(slice)) !== null) {
-    items.push({
-      id: m[1],
-      name: m[2],
-      description: m[3],
-      stripePriceId: m[4],
-    });
+  const nextExportIdx = src.indexOf("\nexport const ", startIdx + startMarker.length);
+  const slice = nextExportIdx === -1 ? src.slice(startIdx) : src.slice(startIdx, nextExportIdx);
+  const idRe = /id:\s*"([^"]+)"/g;
+  const idMatches = [...slice.matchAll(idRe)];
+
+  for (let i = 0; i < idMatches.length; i++) {
+    const id = idMatches[i][1];
+    const objStart = idMatches[i].index;
+    const objEnd = i + 1 < idMatches.length ? idMatches[i + 1].index : slice.length;
+    const objSrc = slice.slice(objStart, objEnd);
+
+    const name = objSrc.match(/name:\s*"([^"]+)"/)?.[1];
+    const description = objSrc.match(/description:\s*"([^"]+)"/)?.[1];
+    const stripePriceId = objSrc.match(/stripePriceId:\s*"([^"]+)"/)?.[1];
+    if (!name || !description || !stripePriceId) continue;
+
+    items.push({ id, name, description, stripePriceId });
   }
   return items;
 }
@@ -76,7 +95,7 @@ async function syncItem(item, type) {
       description: item.description.slice(0, 500), // Stripe max 500 chars
       metadata: {
         [`${type}Id`]: item.id,
-        source: "templatelab",
+        source: "forma",
         lastSync: new Date().toISOString().slice(0, 10),
       },
     });

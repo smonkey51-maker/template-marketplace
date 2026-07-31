@@ -800,32 +800,63 @@ function PurchasedBadge({ lang }: { lang: Lang }) {
   );
 }
 
-/* ── Spotlight hook — tracks mouse relative to card, outputs a CSS radial gradient ── */
+/* ── Spotlight hook — tracks mouse relative to card, outputs a CSS radial gradient ──
+ *
+ * Mutates the overlay's DOM style directly instead of going through React
+ * state: `onMouseMove` used to call `setStyle` on every single event, and a
+ * browser fires dozens of these per second, so hovering a card meant a React
+ * re-render (and a fresh gradient string) at the same rate — noticeably
+ * janky with several cards in a grid. The mouse position is cheap to store in
+ * a ref on every event; the expensive parts (`getBoundingClientRect`, writing
+ * the gradient) are coalesced to once per animation frame, and never touch
+ * React's render cycle at all. */
 function useSpotlight() {
   const ref = useRef<HTMLDivElement>(null);
-  const [style, setStyle] = useState<React.CSSProperties>({});
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number | null>(null);
+  const posRef = useRef({ x: 0, y: 0 });
   const prefersReduced = useRef(
     typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches,
   );
 
-  const onMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    if (prefersReduced.current) return;
+  const applyFrame = useCallback(() => {
+    rafRef.current = null;
     const el = ref.current;
-    if (!el) return;
+    const overlay = overlayRef.current;
+    if (!el || !overlay) return;
     const rect = el.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    setStyle({
-      background: `radial-gradient(circle at ${x}% ${y}%, var(--glow-gold) 0%, transparent 65%)`,
-      opacity: 1,
-    });
+    const x = ((posRef.current.x - rect.left) / rect.width) * 100;
+    const y = ((posRef.current.y - rect.top) / rect.height) * 100;
+    overlay.style.background = `radial-gradient(circle at ${x}% ${y}%, var(--glow-gold) 0%, transparent 65%)`;
+    overlay.style.opacity = "1";
   }, []);
+
+  const onMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      if (prefersReduced.current) return;
+      posRef.current = { x: e.clientX, y: e.clientY };
+      if (rafRef.current == null) {
+        rafRef.current = requestAnimationFrame(applyFrame);
+      }
+    },
+    [applyFrame],
+  );
 
   const onMouseLeave = useCallback(() => {
-    setStyle({ opacity: 0 });
+    if (rafRef.current != null) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
+    if (overlayRef.current) overlayRef.current.style.opacity = "0";
   }, []);
 
-  return { ref, spotlightStyle: style, onMouseMove, onMouseLeave };
+  useEffect(() => {
+    return () => {
+      if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
+
+  return { ref, overlayRef, onMouseMove, onMouseLeave };
 }
 
 /* ── Main card ──────────────────────────────────────────────────────── */
@@ -849,7 +880,7 @@ export default function TemplateCard({
       ? (templateTranslations[template.id]?.description ?? template.description)
       : template.description;
   const saved = isWishlisted(template.id);
-  const { ref: spotlightRef, spotlightStyle, onMouseMove, onMouseLeave } = useSpotlight();
+  const { ref: spotlightRef, overlayRef, onMouseMove, onMouseLeave } = useSpotlight();
 
   const handleWishlist = useCallback(
     (e: React.MouseEvent) => {
@@ -870,11 +901,13 @@ export default function TemplateCard({
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
     >
-      {/* Spotlight overlay — rendered outside the Link to avoid z-index conflicts */}
+      {/* Spotlight overlay — rendered outside the Link to avoid z-index conflicts.
+          Its background/opacity are written directly to the DOM by useSpotlight,
+          not via React state — see the hook for why. */}
       <div
+        ref={overlayRef}
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-10 transition-opacity duration-300"
-        style={spotlightStyle}
       />
       <Link
         href={`/${lang}/templates/${template.id}`}

@@ -130,10 +130,10 @@ export default function GuidaPage() {
           </div>
 
           <div style={{ marginTop: 48, display: "flex", gap: 14, flexWrap: "wrap" }}>
-            <Link className="fn-btn primary" href="/catalogo">
+            <Link className="fn-btn primary" href={`/${lang}/catalogo`}>
               {t("guideCta1")}
             </Link>
-            <Link className="fn-btn" href="/ai-studio">
+            <Link className="fn-btn" href={`/${lang}/ai-studio`}>
               {t("guideCta2")}
             </Link>
           </div>

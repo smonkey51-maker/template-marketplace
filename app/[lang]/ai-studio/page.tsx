@@ -140,10 +140,10 @@ export default function AIStudioPage() {
           </div>
 
           <div style={{ marginTop: 52, display: "flex", gap: 14, flexWrap: "wrap" }}>
-            <Link className="fn-btn primary" href="/studio">
+            <Link className="fn-btn primary" href={`/${lang}/studio`}>
               {t("aiStudioCta")}
             </Link>
-            <Link className="fn-btn" href="/catalogo">
+            <Link className="fn-btn" href={`/${lang}/catalogo`}>
               {t("browseAll")}
             </Link>
           </div>

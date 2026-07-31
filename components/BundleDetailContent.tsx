@@ -40,7 +40,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
       <div className="min-h-screen bg-page flex items-center justify-center">
         <div className="text-center">
           <p className="text-muted text-[15px] mb-4">{t[lang].bundleDetail.notFound}</p>
-          <Link href="/" className="font-semibold" style={{ color: "var(--accent)" }}>
+          <Link href={`/${lang}`} className="font-semibold" style={{ color: "var(--accent)" }}>
             {t[lang].bundleDetail.notFoundBack}
           </Link>
         </div>
@@ -70,7 +70,9 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
       // and send an unauthenticated buyer to sign in instead of to an error.
       if (!res.ok) {
         if (data.requireAuth) {
-          router.push(`/sign-in?redirect_url=${encodeURIComponent(window.location.pathname)}`);
+          router.push(
+            `/${lang}/sign-in?redirect_url=${encodeURIComponent(window.location.pathname)}`,
+          );
           return;
         }
         throw new Error(typeof data.error === "string" ? data.error : "");
@@ -95,7 +97,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
     <div className="min-h-screen bg-page flex flex-col">
       {/* ── Back button ── */}
       <button
-        onClick={() => router.push("/")}
+        onClick={() => router.push(`/${lang}`)}
         className="r-pill fixed top-4 left-4 z-50 flex items-center gap-1.5 px-3.5 py-2 border border-theme shadow-sm
           text-theme text-[14px] font-semibold
           hover:opacity-80 transition-opacity duration-200"
@@ -261,7 +263,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
                     {formatPrice(activeTemplate.price)}
                   </span>
                   <Link
-                    href={`/preview/${activeTemplate.id}`}
+                    href={`/${lang}/preview/${activeTemplate.id}`}
                     target="_blank"
                     onClick={(e) => e.stopPropagation()}
                     className={`text-[11px] font-semibold ${colors.text} hover:opacity-70 transition-opacity whitespace-nowrap`}
@@ -381,12 +383,12 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
                             {t[lang].bundleDetail.alreadyOwned}
                           </span>
                         ) : (
-                          <Link href={`/preview/${featured.id}`} className="btn-brand-sm">
+                          <Link href={`/${lang}/preview/${featured.id}`} className="btn-brand-sm">
                             {lang === "it" ? "Scopri il template →" : "Explore template →"}
                           </Link>
                         )}
                         <Link
-                          href={`/preview/${featured.id}`}
+                          href={`/${lang}/preview/${featured.id}`}
                           className="text-[12px] text-muted/60 hover:text-muted transition-colors underline underline-offset-2"
                         >
                           {lang === "it" ? "Anteprima completa" : "Full preview"}

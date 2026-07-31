@@ -135,7 +135,7 @@ function SuccessContent() {
 
         <div className="flex flex-col gap-3">
           <Link
-            href="/account"
+            href={`/${lang}/account`}
             className={`btn-brand w-full justify-center text-[14px] ${recording ? "opacity-60 pointer-events-none" : ""}`}
             style={{ padding: "13px 24px" }}
             aria-disabled={recording}
@@ -150,14 +150,14 @@ function SuccessContent() {
           </Link>
           {isSignedIn && (
             <Link
-              href="/studio"
+              href={`/${lang}/studio`}
               className="r-pill block w-full px-6 py-3.5 glass-subtle font-bold text-[14px] text-theme text-center transition-all duration-200 active:scale-[0.97] ios-spring"
             >
               {lang === "it" ? "Personalizza con AI Studio →" : "Customize with AI Studio →"}
             </Link>
           )}
           <Link
-            href="/"
+            href={`/${lang}`}
             className="block w-full px-6 py-3 text-[13px] text-muted text-center transition-all duration-200 hover:text-theme"
           >
             {lang === "it" ? "Torna al marketplace" : "Back to marketplace"}
@@ -200,7 +200,7 @@ function SuccessContent() {
           </p>
           <p className="text-[13px] text-muted mb-8">{t[lang].success.subtitleStudio}</p>
           <Link
-            href="/studio"
+            href={`/${lang}/studio`}
             className="btn-brand w-full justify-center text-[15px]"
             style={{ padding: "14px 24px" }}
           >
@@ -236,7 +236,7 @@ function SuccessContent() {
                     : "Create an account to customize with AI and access your purchases from your profile."}
                 </p>
                 <Link
-                  href={`/sign-up?redirect_url=/account`}
+                  href={`/${lang}/sign-up?redirect_url=${encodeURIComponent(`/${lang}/account`)}`}
                   className="r-pill block w-full px-5 py-3 glass-subtle font-bold text-[14px] text-theme text-center transition-all duration-200 active:scale-[0.97] ios-spring"
                 >
                   {lang === "it" ? "Crea account gratuito →" : "Create free account →"}
@@ -246,14 +246,14 @@ function SuccessContent() {
             {/* Authenticated: studio link */}
             {isSignedIn && template && (
               <Link
-                href={`/studio?templateId=${template.id}`}
+                href={`/${lang}/studio?templateId=${template.id}`}
                 className="r-pill block w-full px-6 py-3.5 glass-subtle font-bold text-[15px] text-theme text-center transition-all duration-200 active:scale-[0.97] ios-spring"
               >
                 {t[lang].success.customizeStudio}
               </Link>
             )}
             <Link
-              href="/"
+              href={`/${lang}`}
               className="block w-full px-6 py-3 text-[14px] text-muted text-center transition-all duration-200 hover:text-theme"
             >
               {t[lang].success.backToMarketplace}

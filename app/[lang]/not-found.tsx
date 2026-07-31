@@ -16,7 +16,7 @@ export default function NotFound() {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (query.trim()) {
-      window.location.href = `/?q=${encodeURIComponent(query.trim())}#browse`;
+      window.location.href = `/${lang}?q=${encodeURIComponent(query.trim())}#browse`;
     }
   };
 
@@ -98,7 +98,7 @@ export default function NotFound() {
               return (
                 <Link
                   key={tmpl.id}
-                  href={`/preview/${tmpl.id}`}
+                  href={`/${lang}/preview/${tmpl.id}`}
                   className="r-md flex items-center gap-3 px-4 py-3 glass-subtle border border-theme hover:border-accent/30 transition-all duration-200 text-left group"
                 >
                   <div className="flex-1 min-w-0">
@@ -130,7 +130,11 @@ export default function NotFound() {
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <Link href="/" className="btn-brand gap-2 text-[15px]" style={{ padding: "12px 24px" }}>
+          <Link
+            href={`/${lang}`}
+            className="btn-brand gap-2 text-[15px]"
+            style={{ padding: "12px 24px" }}
+          >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
               <path
                 d="M6 1L1 7l5 6M1 7h12"
@@ -143,7 +147,7 @@ export default function NotFound() {
             {lang === "it" ? "Torna al marketplace" : "Back to marketplace"}
           </Link>
           <Link
-            href="/studio"
+            href={`/${lang}/studio`}
             className="r-pill inline-flex items-center justify-center gap-2 px-6 py-3 glass-subtle border border-theme text-theme font-bold text-[15px] transition-all duration-200 active:scale-[0.97] ios-spring"
           >
             {lang === "it" ? "AI Studio" : "AI Studio"}

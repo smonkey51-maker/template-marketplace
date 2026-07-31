@@ -118,7 +118,7 @@ function NavDropdown({
         {items.map((item) => (
           <Link
             key={item.href}
-            href={item.href}
+            href={`/${lang}${item.href}`}
             role="menuitem"
             className="fn-menu-item"
             tabIndex={open ? 0 : -1}
@@ -149,24 +149,34 @@ export default function SiteNav() {
       <div className="fn-topline" />
 
       {/* SVG logo */}
-      <Link href="/" className="fn-logo-hero" aria-label="FORMA home">
+      <Link href={`/${lang}`} className="fn-logo-hero" aria-label="FORMA home">
         <FormaLogoAnimated className="fn-logo-svg" />
       </Link>
 
       {/* Navbar */}
       <nav className="fn-navbar" aria-label="Main navigation">
         <div className="fn-nav-left">
-          <NavDropdown label={t("catalogo")} href="/catalogo" items={CATALOGO_ITEMS} lang={lang} />
-          <Link href="/guida">{t("guida")}</Link>
-          <Link href="/ai-studio">{t("studioAi")}</Link>
-          <NavDropdown label={t("account")} href="/account" items={ACCOUNT_ITEMS} lang={lang} />
+          <NavDropdown
+            label={t("catalogo")}
+            href={`/${lang}/catalogo`}
+            items={CATALOGO_ITEMS}
+            lang={lang}
+          />
+          <Link href={`/${lang}/guida`}>{t("guida")}</Link>
+          <Link href={`/${lang}/ai-studio`}>{t("studioAi")}</Link>
+          <NavDropdown
+            label={t("account")}
+            href={`/${lang}/account`}
+            items={ACCOUNT_ITEMS}
+            lang={lang}
+          />
         </div>
         <div />
         <div className="fn-nav-right">
-          <Link href="/catalogo">
+          <Link href={`/${lang}/catalogo`}>
             {t("cerca")} <span className="fn-kbd">Ctrl K</span>
           </Link>
-          <Link className="fn-outline" href="/studio">
+          <Link className="fn-outline" href={`/${lang}/studio`}>
             {t("studio")}
           </Link>
         </div>

@@ -93,7 +93,7 @@ for (const tmpl of templateMeta) {
   } else {
     // Create product + price
     const product = await stripe.products.create({
-      name: `${tmpl.name} — TemplateLab`,
+      name: `${tmpl.name} — Forma`,
       metadata: { templateId: tmpl.id },
     });
     const price = await stripe.prices.create({

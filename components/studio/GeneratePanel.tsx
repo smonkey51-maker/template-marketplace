@@ -59,7 +59,7 @@ function StudioAccessGate({ lang }: { lang: string }) {
       });
       const data = await res.json();
       if (data.requireAuth) {
-        window.location.href = "/sign-in?redirect_url=/studio";
+        window.location.href = `/${lang}/sign-in?redirect_url=${encodeURIComponent(`/${lang}/studio`)}`;
         return;
       }
       if (data.url) {

@@ -3,6 +3,7 @@
 import { useState, useRef, useCallback, Suspense, useEffect } from "react";
 import { isHTMLOutput, useLocalStorageHistory } from "@/lib/studioUtils";
 import { hasStudioAccess } from "@/lib/purchases";
+import { useAuth } from "@clerk/nextjs";
 import { useSearchParams } from "next/navigation";
 import { getTemplate } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
@@ -58,11 +59,17 @@ function StudioContent() {
   const [customLoading, setCustomLoading] = useState(false);
 
   // Purchased templates
+  const { isLoaded: authLoaded, userId } = useAuth();
   const [purchasedIds, setPurchasedIds] = useState<string[]>([]);
   const [purchasesLoaded, setPurchasesLoaded] = useState(false);
   const studioAccess = hasStudioAccess(purchasedIds);
 
   useEffect(() => {
+    // Wait for Clerk to resolve auth before asking — and refetch whenever the
+    // signed-in user changes (sign-in/out without a full page reload, e.g. via
+    // the nav's UserButton), otherwise purchasedIds/studioAccess stay whatever
+    // they were the first time this effect ran.
+    if (!authLoaded) return;
     fetch("/api/purchases")
       // Guard on r.ok: a 500 returns an empty body, and calling .json() on it
       // throws an opaque "Unexpected end of JSON input" instead of the status.
@@ -75,7 +82,7 @@ function StudioContent() {
         console.error("[studio]", e);
         setPurchasesLoaded(true);
       });
-  }, []);
+  }, [authLoaded, userId]);
 
   const [copied, setCopied] = useState(false);
   const [outputView, setOutputView] = useState<"code" | "preview">("code");
@@ -257,7 +264,7 @@ function StudioContent() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 px-4 py-3 bg-terra/10 border border-terra/30 text-[13px]">
             <span className="text-terra flex-1">{limitError}</span>
             <a
-              href="/bundle/studio-access"
+              href={`/${lang}/bundle/studio-access`}
               className="shrink-0 px-3 py-1.5 bg-accent text-white text-[12px] font-semibold uppercase tracking-wide hover:bg-accent/90 transition-colors"
             >
               Upgrade to Studio
