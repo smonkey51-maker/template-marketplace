@@ -10,7 +10,12 @@
 import { unstable_cache } from "next/cache";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import type { Template, Bundle } from "@/lib/templates";
-import { getTemplate as getLocalTemplate, getBundle as getLocalBundle } from "@/lib/templates";
+import {
+  getTemplate as getLocalTemplate,
+  getBundle as getLocalBundle,
+  templates as localTemplates,
+  bundles as localBundles,
+} from "@/lib/templates";
 
 const getSupabase = supabaseAdmin;
 
@@ -153,4 +158,23 @@ export async function resolveTemplate(id: string): Promise<Template | null> {
 
 export async function resolveBundle(id: string): Promise<Bundle | null> {
   return (await fromDb(() => getBundleFromDb(id))) ?? getLocalBundle(id) ?? null;
+}
+
+/**
+ * The whole catalogue, same fallback rule as resolveTemplate.
+ *
+ * getAllTemplates answers `[]` for both "the database is empty" and "the query
+ * failed", and callers cannot tell those apart. Used directly by
+ * generateStaticParams that meant zero pages were prerendered whenever the
+ * table was out of sync with the shipped catalogue — which is exactly the state
+ * the site was in.
+ */
+export async function resolveAllTemplates(): Promise<Template[]> {
+  const fromDatabase = await fromDb(() => getAllTemplates());
+  return fromDatabase?.length ? fromDatabase : localTemplates;
+}
+
+export async function resolveAllBundles(): Promise<Bundle[]> {
+  const fromDatabase = await fromDb(() => getAllBundles());
+  return fromDatabase?.length ? fromDatabase : localBundles;
 }

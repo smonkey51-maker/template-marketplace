@@ -135,7 +135,9 @@ Three purchase flows:
 
 The Stripe webhook (`/api/webhook`) writes purchase records to Supabase and sends a confirmation email via Resend.
 
-Both Studio Access prices come from env vars — `STUDIO_ACCESS_PRICE_ID` for the €9.99/month subscription and `STUDIO_ACCESS_LIFETIME_PRICE_ID` for the one-off lifetime option. Neither is hardcoded. (This paragraph used to claim a hardcoded `price_1TBruJBoWNgrJbiy6Ry5WGB2`; that price does not exist in the project's Stripe account and the code has not read a constant for some time.)
+The €9.99/month Studio Access subscription has a **default price ID in `app/api/checkout/route.ts`** (`STUDIO_ACCESS_MONTHLY_PRICE_ID`), so the subscription is sellable with no env var set. `STUDIO_ACCESS_PRICE_ID` overrides it when you need a different account or a different price. A Stripe price ID is not a secret — the twenty template prices live in `lib/templates.ts` for the same reason.
+
+The lifetime option is env-only (`STUDIO_ACCESS_LIFETIME_PRICE_ID`) and no such Price exists in the account, but the button is behind `NEXT_PUBLIC_STUDIO_LIFETIME_AVAILABLE === "true"` and stays hidden, so nothing is broken by leaving it unset.
 
 The lifetime button is behind `NEXT_PUBLIC_STUDIO_LIFETIME_AVAILABLE === "true"` and is hidden otherwise, so `STUDIO_ACCESS_LIFETIME_PRICE_ID` is only needed if that flag is on.
 
@@ -186,7 +188,7 @@ Generates `exports/gumroad/` and `exports/etsy/` from all templates in `lib/temp
 | `CLERK_SECRET_KEY`                  | Yes                | Clerk secret key                                     |
 | `STRIPE_SECRET_KEY`                 | Yes                | Stripe secret key                                    |
 | `STRIPE_WEBHOOK_SECRET`             | Yes                | Stripe webhook signing secret                        |
-| `STUDIO_ACCESS_PRICE_ID`            | Yes (for Studio)   | Stripe price ID for the €9.99/month subscription     |
+| `STUDIO_ACCESS_PRICE_ID`            | Optional           | Overrides the built-in €9.99/month Studio price      |
 | `STUDIO_ACCESS_LIFETIME_PRICE_ID`   | Yes (for lifetime) | Stripe price ID for lifetime Studio Access           |
 | `SUPABASE_URL`                      | Yes                | Supabase project URL                                 |
 | `SUPABASE_SERVICE_ROLE_KEY`         | Yes                | Supabase service role key (server-only)              |
