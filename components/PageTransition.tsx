@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
 import { usePathname } from "next/navigation";
 
 interface PageTransitionProps {
@@ -13,8 +12,7 @@ export default function PageTransition({ children }: PageTransitionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
-  useGSAP(() => {
-    // Sblocco forzato: previene il bug dell'overflow: hidden
+  useEffect(() => {
     document.body.style.overflow = "";
 
     if (containerRef.current) {
@@ -30,7 +28,7 @@ export default function PageTransition({ children }: PageTransitionProps) {
         }
       );
     }
-  }, [pathname]); // Si riavvia ad ogni cambio di rotta
+  }, [pathname]);
 
   return (
     <div ref={containerRef} className="anim-page-enter">
