@@ -25,14 +25,10 @@ export default function PageTransition({ children }: PageTransitionProps) {
           duration: 0.6,
           ease: "power3.out",
           clearProps: "all",
-        }
+        },
       );
     }
   }, [pathname]);
 
-  return (
-    <div ref={containerRef} className="anim-page-enter">
-      {children}
-    </div>
-  );
+  return <div ref={containerRef}>{children}</div>;
 }

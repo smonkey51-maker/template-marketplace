@@ -30,7 +30,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang: rawLang } = await params;
   const m = META[toLocale(rawLang)];
-  
+
   return {
     title: m.title,
     description: m.description,
