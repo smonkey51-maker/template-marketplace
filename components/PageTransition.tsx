@@ -3,6 +3,7 @@
 import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { usePathname } from "next/navigation";
+import { prefersReducedMotion } from "@/lib/reducedMotion";
 
 interface PageTransitionProps {
   children: React.ReactNode;
@@ -41,6 +42,13 @@ export default function PageTransition({ children }: PageTransitionProps) {
   }, [pathname]);
 
   useEffect(() => {
+    // Skipped outright rather than run at zero duration: `fromTo` applies its
+    // start state the moment it is created, so a zero-length tween would still
+    // paint one transparent frame before snapping back. There is nothing here
+    // that depends on the tween finishing, so not starting it is the honest
+    // way to have no animation.
+    if (prefersReducedMotion()) return;
+
     if (containerRef.current) {
       gsap.fromTo(
         containerRef.current,
