@@ -123,10 +123,15 @@ export function FormaFooter() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="fn-newsletter-input"
+                  // r-pill, not a bare background: the field carries its own
+                  // fill, and a filled surface with no radius is a square
+                  // corner — here a rectangle sitting inside the pill-shaped
+                  // form that wraps it, which is what made it look broken.
+                  className="fn-newsletter-input r-pill"
                   placeholder={lang === "it" ? "La tua email" : "Your email"}
                   style={{
                     flex: 1,
+                    minWidth: 0,
                     padding: "10px 16px",
                     background: "rgba(255,255,255,0.06)",
                     border: "none",
@@ -163,8 +168,7 @@ export function FormaFooter() {
           <FooterAccordion title={t("footerCatalog")} lang={lang}>
             {[
               { href: "/catalogo", label: t("footerTemplates") },
-              { href: "/catalogo", label: t("footerBundles") },
-              { href: "/catalogo", label: t("footerNew") },
+              { href: "/catalogo#bundle", label: t("footerBundles") },
               { href: "/ai-studio", label: "AI Studio" },
             ].map((l) => (
               <Link

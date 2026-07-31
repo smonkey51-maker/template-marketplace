@@ -70,7 +70,7 @@ export const copy = {
     guideFaqTitle: "Domande frequenti",
     guideStep1Title: "Scegli il formato",
     guideStep1Body:
-      "Naviga il catalogo e filtra per tipo: HTML, Notion, Shopify, WordPress. Ogni template mostra anteprima, prezzo e specifiche tecniche.",
+      "Naviga il catalogo e filtra per tipo: prompt e script, guide, fogli e tracker. Ogni prodotto mostra un'anteprima reale, il prezzo e cosa contiene.",
     guideStep2Title: "Anteprima e dettagli",
     guideStep2Body:
       "Apri la pagina del template per vedere il design nel dettaglio, leggere le caratteristiche e verificare la compatibilità con il tuo flusso di lavoro.",
@@ -273,7 +273,7 @@ export const copy = {
     guideFaqTitle: "Frequently asked questions",
     guideStep1Title: "Choose your format",
     guideStep1Body:
-      "Browse the catalog and filter by type: HTML, Notion, Shopify, WordPress. Each template shows a preview, price and technical specs.",
+      "Browse the catalogue and filter by type: prompts and scripts, guides, sheets and trackers. Every product shows a real preview, the price and what is inside.",
     guideStep2Title: "Preview and details",
     guideStep2Body:
       "Open the template page to see the design in detail, read the features and verify compatibility with your workflow.",
