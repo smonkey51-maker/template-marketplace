@@ -54,32 +54,32 @@ export default function CommandPalette() {
         kind: "route",
         label: lang === "it" ? "Catalogo" : "Catalog",
         hint: lang === "it" ? "Sfoglia tutti i template" : "Browse all templates",
-        href: "/",
+        href: `/${lang}`,
       },
       {
         kind: "route",
         label: lang === "it" ? "AI Studio" : "AI Studio",
         hint:
           lang === "it" ? "Genera e personalizza con Claude" : "Generate and customize with Claude",
-        href: "/studio",
+        href: `/${lang}/studio`,
       },
       {
         kind: "route",
         label: lang === "it" ? "Guida" : "Guide",
         hint: lang === "it" ? "Guida all'acquisto" : "Buyer's guide",
-        href: "/guide",
+        href: `/${lang}/guide`,
       },
       {
         kind: "route",
         label: lang === "it" ? "Wishlist" : "Wishlist",
         hint: lang === "it" ? "I tuoi salvati" : "Your saved items",
-        href: "/wishlist",
+        href: `/${lang}/wishlist`,
       },
       {
         kind: "route",
         label: "Account",
         hint: lang === "it" ? "I tuoi acquisti" : "Your purchases",
-        href: "/account",
+        href: `/${lang}/account`,
       },
     ],
     [lang],
@@ -127,7 +127,7 @@ export default function CommandPalette() {
           id: tpl.id,
           name: tr?.name ?? tpl.name,
           description: tr?.description ?? tpl.description,
-          href: `/preview/${tpl.id}`,
+          href: `/${lang}/preview/${tpl.id}`,
         };
       });
     return list;

@@ -14,18 +14,22 @@ export default function MobileNav() {
   }, []);
   const pathname = usePathname();
   const { lang } = useLang();
+  // `pathname` always carries the locale segment (/it/..., /en/...), so every
+  // comparison below needs the prefix stripped first — matching against the
+  // raw pathname meant `hidden` was always false and no tab was ever "active".
+  const routeKey = pathname.replace(/^\/(it|en)/, "") || "/";
 
   // Only show on mobile (handled via CSS), hide on certain pages
   const hidden = ["/sign-in", "/sign-up", "/studio", "/preview"].some((p) =>
-    pathname.startsWith(p),
+    routeKey.startsWith(p),
   );
   if (hidden) return null;
 
   const tabs = [
     {
-      href: "/",
+      href: `/${lang}`,
       label: "Home",
-      active: pathname === "/",
+      active: routeKey === "/",
       icon: (active: boolean) => (
         <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden>
           <path
@@ -40,9 +44,9 @@ export default function MobileNav() {
       ),
     },
     {
-      href: "/catalogo",
+      href: `/${lang}/catalogo`,
       label: lang === "it" ? "Catalogo" : "Catalog",
-      active: pathname.startsWith("/catalogo") || pathname.startsWith("/templates"),
+      active: routeKey.startsWith("/catalogo") || routeKey.startsWith("/templates"),
       icon: (active: boolean) => (
         <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden>
           <rect
@@ -93,9 +97,9 @@ export default function MobileNav() {
       ),
     },
     {
-      href: "/ai-studio",
+      href: `/${lang}/ai-studio`,
       label: "Studio",
-      active: pathname === "/ai-studio" || pathname === "/studio",
+      active: routeKey === "/ai-studio" || routeKey === "/studio",
       icon: (active: boolean) => (
         <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden>
           <path
@@ -117,9 +121,9 @@ export default function MobileNav() {
       ),
     },
     {
-      href: "/account",
+      href: `/${lang}/account`,
       label: lang === "it" ? "Account" : "Account",
-      active: pathname === "/account",
+      active: routeKey === "/account",
       icon: (active: boolean) => (
         <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden>
           <circle
