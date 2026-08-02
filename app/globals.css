@@ -642,6 +642,32 @@ html.dark {
   }
 }
 
+/* Same material as .glass-surface, pill-shaped, no hover lift — for
+   segmented toggles and small controls that shouldn't jump on hover. */
+.glass-pill {
+  background: var(--glass-s-fill);
+  border: 1px solid var(--glass-s-rim);
+  border-radius: 999px;
+  backdrop-filter: var(--glass-s-blur);
+  -webkit-backdrop-filter: var(--glass-s-blur);
+  box-shadow:
+    var(--glass-s-cast-1),
+    inset 0 1px 0 var(--glass-s-sheen);
+  transition:
+    background var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    box-shadow var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+@media (hover: hover) {
+  .glass-pill:hover {
+    background: var(--glass-s-fill-hi);
+    border-color: var(--glass-s-rim-hi);
+    box-shadow:
+      var(--glass-s-cast-2),
+      inset 0 1px 0 var(--glass-s-sheen);
+  }
+}
+
 /* ═══════════════════════════════════════════════════════════
    GLOBAL TRANSITIONS & FONT
    ═══════════════════════════════════════════════════════════ */
