@@ -4357,23 +4357,33 @@ html.dark {
   border-radius: 999px;
   border: 1px solid var(--glass-s-rim);
   background: var(--glass-s-fill);
+  backdrop-filter: var(--glass-s-blur);
+  -webkit-backdrop-filter: var(--glass-s-blur);
+  box-shadow:
+    var(--glass-s-cast-1),
+    inset 0 1px 0 var(--glass-s-sheen);
   color: var(--muted);
   font: inherit;
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.01em;
   cursor: pointer;
-  /* Colour and border only. Animating size would reflow the whole row every
-     time the selection moves. */
+  /* Colour, border and shadow only. Animating size would reflow the whole
+     row every time the selection moves. */
   transition:
     background var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
     border-color var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    box-shadow var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
     color var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
 @media (hover: hover) {
   .fn-filter:hover {
     color: var(--text);
+    background: var(--glass-s-fill-hi);
     border-color: var(--glass-s-rim-hi);
+    box-shadow:
+      var(--glass-s-cast-2),
+      inset 0 1px 0 var(--glass-s-sheen);
   }
 }
 .fn-filter:focus-visible {
@@ -4387,6 +4397,7 @@ html.dark {
   background: var(--accent);
   border-color: var(--accent);
   color: #17130a;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
 .fn-filter__count {
