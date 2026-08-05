@@ -3,6 +3,59 @@
 @tailwind utilities;
 
 /* ═══════════════════════════════════════════════════════════
+   GLASS ENHANCEMENTS — specular highlight position + squircle radius
+   Typed as custom properties so browsers can interpolate them across a
+   transition/@keyframes (plain custom properties can only ever jump).
+   Registered globally here; set per-element by GlassEnhancements.tsx
+   (pointer tracking) or by the idle-sweep @keyframes below.
+   ═══════════════════════════════════════════════════════════ */
+@property --spec-x {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 30%;
+}
+@property --spec-y {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+@property --spec-o {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0.16;
+}
+
+/* Touch devices have no continuous pointer to chase, so the highlight
+   sweeps slowly on its own instead of sitting frozen at its default
+   position. Desktop/pointer devices get GlassEnhancements.tsx's live
+   tracking instead — this animation only runs where that can't apply. */
+@media (hover: none) and (prefers-reduced-motion: no-preference) {
+  .glass-surface,
+  .glass-surface-pill,
+  .forma-glass-card,
+  .fn-filter {
+    animation: glass-sweep 9s ease-in-out infinite;
+  }
+}
+@keyframes glass-sweep {
+  0% {
+    --spec-x: 10%;
+    --spec-y: -10%;
+    --spec-o: 0.16;
+  }
+  50% {
+    --spec-x: 90%;
+    --spec-y: 60%;
+    --spec-o: 0.26;
+  }
+  100% {
+    --spec-x: 10%;
+    --spec-y: -10%;
+    --spec-o: 0.16;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
    FORMA homepage sections
    ═══════════════════════════════════════════════════════════ */
 
@@ -59,7 +112,14 @@ body {
    A pane of glass, not a tinted box: the rim catches light along the
    top edge, and the cast shadow below sells the gap to the painting. */
 .forma-glass-card {
-  background: var(--glass-fill);
+  --squircle-radius: var(--r-md, 16px);
+  --squircle-n: 5;
+  background-color: var(--glass-fill);
+  background-image: radial-gradient(
+    circle at var(--spec-x) var(--spec-y),
+    rgba(255, 255, 255, var(--spec-o)),
+    transparent 60%
+  );
   border: 1px solid var(--glass-rim);
   border-top-color: rgba(255, 255, 255, 0.15); /* Specular highlight */
   border-radius: var(--r-md, 16px);
@@ -70,14 +130,21 @@ body {
     inset 0 2px 2px -1px rgba(255, 255, 255, 0.15),
     /* Inner liquid edge */ inset 0 1px 0 var(--glass-rim);
   transition:
-    background 0.5s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    background-color 0.5s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
     border-color 0.5s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
     box-shadow 0.5s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    transform 0.5s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+    transform 0.5s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    --spec-x 0.4s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    --spec-y 0.4s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    --spec-o 0.4s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+html.squircle-ready .forma-glass-card {
+  -webkit-mask-image: paint(squircle);
+  mask-image: paint(squircle);
 }
 @media (hover: hover) {
   .forma-glass-card:hover {
-    background: var(--glass-fill-hi);
+    background-color: var(--glass-fill-hi);
     border-color: var(--glass-rim-hi);
     box-shadow:
       var(--glass-cast-2),
@@ -617,7 +684,14 @@ html.dark {
 
 /* The shared sheet. Anything raised on an inner page builds on this. */
 .glass-surface {
-  background: var(--glass-s-fill);
+  --squircle-radius: var(--glass-radius);
+  --squircle-n: 5;
+  background-color: var(--glass-s-fill);
+  background-image: radial-gradient(
+    circle at var(--spec-x) var(--spec-y),
+    rgba(255, 255, 255, var(--spec-o)),
+    transparent 60%
+  );
   border: 1px solid var(--glass-s-rim);
   border-radius: var(--glass-radius);
   backdrop-filter: var(--glass-s-blur);
@@ -626,14 +700,25 @@ html.dark {
     var(--glass-s-cast-1),
     inset 0 1px 0 var(--glass-s-sheen);
   transition:
-    background var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    background-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
     border-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
     box-shadow var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    transform var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+    transform var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    --spec-x var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    --spec-y var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    --spec-o var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+html.squircle-ready .glass-surface {
+  -webkit-mask-image: paint(squircle);
+  mask-image: paint(squircle);
+}
+html.squircle-ready .glass-panel {
+  -webkit-mask-image: paint(squircle);
+  mask-image: paint(squircle);
 }
 @media (hover: hover) {
   .glass-surface:hover {
-    background: var(--glass-s-fill-hi);
+    background-color: var(--glass-s-fill-hi);
     border-color: var(--glass-s-rim-hi);
     transform: translateY(-2px);
     box-shadow:
@@ -643,9 +728,17 @@ html.dark {
 }
 
 /* Same material as .glass-surface, pill-shaped, no hover lift — for
-   segmented toggles and small controls that shouldn't jump on hover. */
-.glass-pill {
-  background: var(--glass-s-fill);
+   segmented toggles and small controls that shouldn't jump on hover.
+   Named .glass-surface-pill (not .glass-pill) — that name was already taken
+   by the older glassmorphism family below (noise-textured, over-artwork
+   tokens), still in use on the template detail breadcrumb. */
+.glass-surface-pill {
+  background-color: var(--glass-s-fill);
+  background-image: radial-gradient(
+    circle at var(--spec-x) var(--spec-y),
+    rgba(255, 255, 255, var(--spec-o)),
+    transparent 60%
+  );
   border: 1px solid var(--glass-s-rim);
   border-radius: 999px;
   backdrop-filter: var(--glass-s-blur);
@@ -654,13 +747,16 @@ html.dark {
     var(--glass-s-cast-1),
     inset 0 1px 0 var(--glass-s-sheen);
   transition:
-    background var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    background-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
     border-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    box-shadow var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+    box-shadow var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    --spec-x var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    --spec-y var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    --spec-o var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
 @media (hover: hover) {
-  .glass-pill:hover {
-    background: var(--glass-s-fill-hi);
+  .glass-surface-pill:hover {
+    background-color: var(--glass-s-fill-hi);
     border-color: var(--glass-s-rim-hi);
     box-shadow:
       var(--glass-s-cast-2),
@@ -712,7 +808,10 @@ body {
     color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.4s cubic-bezier(0.32, 1.1, 0.64, 1); /* Bouncier for tactile feedback */
+    transform 0.4s cubic-bezier(0.32, 1.1, 0.64, 1), /* Bouncier for tactile feedback */
+    --spec-x 0.4s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    --spec-y 0.4s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    --spec-o 0.4s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
 
 /* ── iOS-Like Haptic Feedback ── */
@@ -927,6 +1026,8 @@ html::-webkit-scrollbar-track {
 
   .glass-panel {
     position: relative;
+    --squircle-radius: var(--r-md);
+    --squircle-n: 5;
     border-radius: var(--r-md);
     backdrop-filter: blur(32px) saturate(200%);
     -webkit-backdrop-filter: blur(32px) saturate(200%);
@@ -4356,7 +4457,12 @@ html.dark {
   padding: 9px 16px;
   border-radius: 999px;
   border: 1px solid var(--glass-s-rim);
-  background: var(--glass-s-fill);
+  background-color: var(--glass-s-fill);
+  background-image: radial-gradient(
+    circle at var(--spec-x) var(--spec-y),
+    rgba(255, 255, 255, var(--spec-o)),
+    transparent 60%
+  );
   backdrop-filter: var(--glass-s-blur);
   -webkit-backdrop-filter: var(--glass-s-blur);
   box-shadow:
@@ -4371,15 +4477,18 @@ html.dark {
   /* Colour, border and shadow only. Animating size would reflow the whole
      row every time the selection moves. */
   transition:
-    background var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    background-color var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
     border-color var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
     box-shadow var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    color var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+    color var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    --spec-x var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    --spec-y var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    --spec-o var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
 @media (hover: hover) {
   .fn-filter:hover {
     color: var(--text);
-    background: var(--glass-s-fill-hi);
+    background-color: var(--glass-s-fill-hi);
     border-color: var(--glass-s-rim-hi);
     box-shadow:
       var(--glass-s-cast-2),

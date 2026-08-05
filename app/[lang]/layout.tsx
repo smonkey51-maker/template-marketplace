@@ -17,6 +17,7 @@ import { ToastProvider } from "@/components/Toast";
 import MobileNav from "@/components/MobileNav";
 import PageTransition from "@/components/PageTransition";
 import CommandPalette from "@/components/CommandPalette";
+import GlassEnhancements from "@/components/GlassEnhancements";
 import GsapProvider from "@/app/providers/GsapProvider";
 import "@/app/globals.css";
 
@@ -159,6 +160,7 @@ export default async function RootLayout({
       >
         <link rel="preload" as="image" href="/paintings/vermeer.jpg" />
         <body className="bg-page text-theme antialiased min-h-screen">
+          <GlassEnhancements />
           <PostHogProvider>
             <ThemeProvider>
               <LanguageProvider>

@@ -82,7 +82,7 @@ function ToastBubble({ toast: t, onDismiss }: { toast: ToastItem; onDismiss: () 
   return (
     <div
       onClick={onDismiss}
-      className="glass-pill pointer-events-auto cursor-pointer select-none flex items-center gap-3 pl-4 pr-5 py-3 text-[14px] font-medium"
+      className="glass-surface-pill pointer-events-auto cursor-pointer select-none flex items-center gap-3 pl-4 pr-5 py-3 text-[14px] font-medium"
       style={{
         color: "var(--text)",
         borderColor: `color-mix(in srgb, ${accentRgb} 19%, transparent)`,
