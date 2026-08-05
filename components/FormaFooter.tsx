@@ -35,8 +35,10 @@ function FooterAccordion({
           justifyContent: "space-between",
           alignItems: "center",
           width: "100%",
-          padding: 0,
           fontFamily: "inherit",
+          // Padding deliberately left to .fn-footer-accordion-trigger rather
+          // than set here: it only applies on mobile, where this is a real
+          // button, and an inline style cannot carry a media query.
         }}
       >
         {title}

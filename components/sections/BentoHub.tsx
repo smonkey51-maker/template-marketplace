@@ -8,7 +8,7 @@ import {
   BentoSubGrid,
   BentoSubBox,
 } from "@/components/BentoGrid";
-import { FormaLogoAnimated } from "@/components/FormaLogo";
+import { Bookmark, UserRound } from "lucide-react";
 import { useLang } from "@/components/LanguageProvider";
 import { copy } from "@/lib/formaCopy";
 
@@ -64,10 +64,11 @@ export default function BentoHub() {
         className="bento-order-hero justify-end p-6 sm:p-8"
       >
         <CellPainting src="/paintings/vermeer.jpg" position="center 20%" />
+        {/* No wordmark inside the hero. SectionNav already puts one in the
+            fixed bar directly above this cell, so on a phone the visitor met
+            FORMA twice within the first 240px — the second one reading as a
+            duplicate rather than as branding. */}
         <div className="relative flex flex-col gap-4">
-          <div className="sm:hidden mb-4">
-            <FormaLogoAnimated className="w-full h-auto max-w-[150px]" />
-          </div>
           <h1
             className="font-black text-white leading-[0.95] tracking-tight"
             style={{ fontSize: "clamp(2.1rem, 4.4vw, 3.6rem)" }}
@@ -139,7 +140,16 @@ export default function BentoHub() {
                 <p className="text-[16px] font-black text-theme leading-tight">{t.accountTitle}</p>
                 <p className="text-[12px] text-muted mt-1 leading-snug">{t.accountSub}</p>
               </div>
-              <span className="text-[20px] opacity-60 shrink-0 ml-3">👤</span>
+              {/* Line icons, not emoji. The two boxes used 👤 and 🔖, which a
+                  phone renders as full-colour system glyphs — a blue figure
+                  and a red tag — the only saturated non-gold marks anywhere on
+                  the page. These inherit the accent instead. */}
+              <UserRound
+                aria-hidden
+                className="shrink-0 ml-3 text-accent opacity-70"
+                size={20}
+                strokeWidth={1.5}
+              />
             </div>
           </BentoSubBox>
           <BentoSubBox href={`/${lang}/wishlist`} label={savedLabel}>
@@ -152,7 +162,12 @@ export default function BentoHub() {
                     : "The templates you set aside."}
                 </p>
               </div>
-              <span className="text-[20px] opacity-60 shrink-0 ml-3">🔖</span>
+              <Bookmark
+                aria-hidden
+                className="shrink-0 ml-3 text-accent opacity-70"
+                size={20}
+                strokeWidth={1.5}
+              />
             </div>
           </BentoSubBox>
         </BentoSubGrid>

@@ -40,7 +40,13 @@ export default function AIStudioPage() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(3,1fr)",
+              // Not `repeat(3,1fr)`: three fixed tracks on a 390px phone left
+              // each card ~120px wide and pushed the third one 48px past the
+              // viewport, where `.fn-bg`'s overflow-x:hidden clipped it — so
+              // the third step's heading and half its text were cut off with
+              // no way to scroll to them. auto-fit collapses to one column
+              // when the tracks no longer fit, which is what a phone needs.
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))",
               gap: 12,
             }}
           >

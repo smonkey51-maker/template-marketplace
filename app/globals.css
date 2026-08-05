@@ -1606,6 +1606,13 @@ html::-webkit-scrollbar-track {
 .link-muted {
   color: var(--muted);
   transition: color 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  /* Footer links are set at 12.5–13px, which left the box 23px tall — a pixel
+     under the 24px pointer-target floor of WCAG 2.2 SC 2.5.8, and exactly the
+     kind of miss that no visual review catches by eye. Every use of this class
+     is a standalone link in a footer column, so growing the box is free. */
+  display: flex;
+  align-items: center;
+  min-height: 24px;
 }
 .link-muted:hover,
 .link-muted:focus-visible {
@@ -3358,6 +3365,20 @@ html.dark {
 .fn-nav-right {
   justify-self: end;
 }
+/* The nav labels are set at 10px, so an unpadded link is only 19px tall —
+   under the 24×24 CSS px floor WCAG 2.2 asks of a pointer target (SC 2.5.8),
+   and the hardest kind of link to hit on a phone. The padding grows the hit
+   area without moving the text: the bar is a 56px grid row and the links are
+   centred in it, so there is room above and below either way. `.fn-drop` is
+   the dropdown trigger, which is an inline-flex of its own. */
+.fn-nav-left a,
+.fn-nav-right a,
+.fn-drop {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding-block: 3px;
+}
 .fn-nav-left a:hover,
 .fn-nav-right a:hover {
   color: var(--text);
@@ -4331,6 +4352,17 @@ html.dark {
   .fn-footer-accordion-trigger {
     cursor: default !important;
     pointer-events: none !important;
+    padding: 0;
+  }
+}
+
+/* Below 640px the trigger is a real button, and its 10px label left it 19px
+   tall — under WCAG 2.2's 24×24 target floor (SC 2.5.8). It is already full
+   width, so only the height was ever the problem. */
+@media (max-width: 639px) {
+  .fn-footer-accordion-trigger {
+    min-height: 32px;
+    padding-block: 6px;
   }
 }
 

@@ -266,7 +266,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
                     href={`/${lang}/preview/${activeTemplate.id}`}
                     target="_blank"
                     onClick={(e) => e.stopPropagation()}
-                    className={`text-[11px] font-semibold ${colors.text} hover:opacity-70 transition-opacity whitespace-nowrap`}
+                    className={`flex items-center min-h-[24px] text-[11px] font-semibold ${colors.text} hover:opacity-70 transition-opacity whitespace-nowrap`}
                   >
                     {t[lang].bundleDetail.openPreview}
                   </Link>
@@ -431,9 +431,10 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
           </div>
           <div className="border-t border-theme pt-3 space-y-1.5">
             <div className="flex items-center justify-between">
-              <span className="text-[13px] text-muted line-through">
-                {t[lang].bundleDetail.totalValue}
-              </span>
+              {/* The label is not struck through — only the figure is. Striking
+                  "Valore totale" too made the row read as a rendering fault
+                  rather than as a price that no longer applies. */}
+              <span className="text-[13px] text-muted">{t[lang].bundleDetail.totalValue}</span>
               <span className="text-[13px] text-muted line-through">
                 {formatPrice(bundle.regularPrice)}
               </span>
@@ -447,7 +448,9 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
               </span>
             </div>
             <div className="flex items-center justify-between pt-1">
-              <span className="text-[16px] font-black text-theme">Bundle price</span>
+              <span className="text-[16px] font-black text-theme">
+                {t[lang].bundleDetail.bundlePrice}
+              </span>
               <span className="text-[22px] font-black text-theme">{formatPrice(bundle.price)}</span>
             </div>
           </div>
