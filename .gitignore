@@ -32,3 +32,6 @@ flutter-craft/
 /probe*.mjs
 /shot*.mjs
 /pw.*.config.ts
+
+# Visual checks from scripts/screenshot.ts — for looking at, not committing.
+screenshots/
