@@ -147,7 +147,7 @@ export default function MobileNav() {
       className={`sm:hidden fixed bottom-6 inset-x-0 z-[90] flex justify-center pointer-events-none ${reduced ? "" : "transition-all duration-500 ease-out"} ${mounted ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
     >
       <nav
-        className="glass-pill pointer-events-auto flex items-center justify-between"
+        className="glass-surface-pill pointer-events-auto flex items-center justify-between"
         style={{ width: "calc(100% - 32px)", maxWidth: "360px", padding: "6px 8px" }}
       >
         {tabs.map((tab) => (

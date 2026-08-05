@@ -9,7 +9,7 @@ export default function LanguageToggle() {
     <button
       onClick={toggle}
       aria-label="Toggle language"
-      className="glass-pill relative flex items-center p-[2px] overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+      className="glass-surface-pill relative flex items-center p-[2px] overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
       style={{ width: "64px", height: "26px" }}
     >
       {/* IT side */}
