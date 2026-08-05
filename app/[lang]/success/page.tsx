@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Layers } from "lucide-react";
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
@@ -107,8 +108,8 @@ function SuccessContent() {
         />
 
         <div className="flex justify-center mb-6">
-          <div className="w-20 h-20 bg-accent/15 rounded-full flex items-center justify-center text-4xl">
-            {bundle.emoji}
+          <div className="w-20 h-20 bg-accent/15 rounded-full flex items-center justify-center">
+            <Layers aria-hidden size={34} strokeWidth={1.25} className="text-accent" />
           </div>
         </div>
 

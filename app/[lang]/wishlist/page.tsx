@@ -72,8 +72,8 @@ export default function WishlistPage() {
               </p>
               <p className="text-[14px] text-muted max-w-xs">
                 {lang === "it"
-                  ? "Clicca il ❤ su un template per salvarlo qui."
-                  : "Tap the ❤ on any template to save it here."}
+                  ? "Tocca l'icona a forma di cuore su un template per salvarlo qui."
+                  : "Tap the heart on any template to save it here."}
               </p>
             </div>
             <Link href={`/${lang}`} className="btn-brand">

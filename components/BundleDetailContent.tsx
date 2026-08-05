@@ -8,6 +8,8 @@ import { getBundle, getTemplate, formatPrice } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
 import { t, getLocalizedName, getLocalizedDesc } from "@/lib/i18n";
 import { useToast } from "@/components/Toast";
+import BackLink from "@/components/BackLink";
+import { Layers } from "lucide-react";
 
 const BRAND_COLOR = {
   bg: "bg-accent/10",
@@ -95,32 +97,23 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
 
   return (
     <div className="min-h-screen bg-page flex flex-col">
-      {/* ── Back button ── */}
-      <button
-        onClick={() => router.push(`/${lang}`)}
-        className="r-pill fixed top-4 left-4 z-50 flex items-center gap-1.5 px-3.5 py-2 border border-theme shadow-sm
-          text-theme text-[14px] font-semibold
-          hover:opacity-80 transition-opacity duration-200"
-        style={{ background: "var(--card-bg)" }}
-        aria-label={t[lang].bundleDetail.back}
-      >
-        <svg width="8" height="14" viewBox="0 0 8 14" fill="none" className="shrink-0" aria-hidden>
-          <path
-            d="M7 1L1.5 7L7 13"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-        <span className="hidden sm:inline">{t[lang].bundleDetail.back}</span>
-      </button>
+      {/* ── Back ── */}
+      <BackLink floating fallbackHref={`/${lang}/catalogo`} />
 
       <div className="flex-1 max-w-4xl mx-auto w-full px-4 sm:px-6 pt-20 pb-48">
         {/* ── Hero ── */}
         <div className={`r-glass ${colors.bg} border ${colors.border} p-6 sm:p-8 mb-8`}>
           <div className="flex items-start gap-4 mb-4">
-            <span className="text-5xl shrink-0">{bundle.emoji}</span>
+            {/* A bundle is layers of products. This replaced a per-bundle
+                emoji field on the Bundle type — full-colour system glyphs that
+                were the only saturated marks on the page and rendered
+                differently on every platform. */}
+            <Layers
+              aria-hidden
+              size={40}
+              strokeWidth={1.25}
+              className={`shrink-0 ${colors.text}`}
+            />
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap mb-1">
                 <span className={`text-[11px] font-black uppercase tracking-widest ${colors.text}`}>
@@ -266,7 +259,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
                     href={`/${lang}/preview/${activeTemplate.id}`}
                     target="_blank"
                     onClick={(e) => e.stopPropagation()}
-                    className={`text-[11px] font-semibold ${colors.text} hover:opacity-70 transition-opacity whitespace-nowrap`}
+                    className={`flex items-center min-h-[24px] text-[11px] font-semibold ${colors.text} hover:opacity-70 transition-opacity whitespace-nowrap`}
                   >
                     {t[lang].bundleDetail.openPreview}
                   </Link>
@@ -431,9 +424,10 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
           </div>
           <div className="border-t border-theme pt-3 space-y-1.5">
             <div className="flex items-center justify-between">
-              <span className="text-[13px] text-muted line-through">
-                {t[lang].bundleDetail.totalValue}
-              </span>
+              {/* The label is not struck through — only the figure is. Striking
+                  "Valore totale" too made the row read as a rendering fault
+                  rather than as a price that no longer applies. */}
+              <span className="text-[13px] text-muted">{t[lang].bundleDetail.totalValue}</span>
               <span className="text-[13px] text-muted line-through">
                 {formatPrice(bundle.regularPrice)}
               </span>
@@ -447,7 +441,9 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
               </span>
             </div>
             <div className="flex items-center justify-between pt-1">
-              <span className="text-[16px] font-black text-theme">Bundle price</span>
+              <span className="text-[16px] font-black text-theme">
+                {t[lang].bundleDetail.bundlePrice}
+              </span>
               <span className="text-[22px] font-black text-theme">{formatPrice(bundle.price)}</span>
             </div>
           </div>
@@ -472,7 +468,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
 
         <div className="max-w-4xl mx-auto px-4 py-3 sm:py-4">
           <div className="flex items-center gap-3 mb-3">
-            <span className="text-2xl shrink-0">{bundle.emoji}</span>
+            <Layers aria-hidden size={22} strokeWidth={1.5} className={`shrink-0 ${colors.text}`} />
             <div className="flex-1 min-w-0">
               <p className="text-[14px] font-bold text-theme leading-tight truncate">
                 {getLocalizedName(bundle, lang)}

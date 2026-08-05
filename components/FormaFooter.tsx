@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Check, Download, Lock } from "lucide-react";
 import { useState } from "react";
 import { useLang } from "@/components/LanguageProvider";
 import { copy } from "@/lib/formaCopy";
@@ -35,8 +36,10 @@ function FooterAccordion({
           justifyContent: "space-between",
           alignItems: "center",
           width: "100%",
-          padding: 0,
           fontFamily: "inherit",
+          // Padding deliberately left to .fn-footer-accordion-trigger rather
+          // than set here: it only applies on mobile, where this is a real
+          // button, and an inline style cannot carry a media query.
         }}
       >
         {title}
@@ -241,7 +244,8 @@ export function FormaFooter() {
                 gap: 6,
               }}
             >
-              <span style={{ color: "#D4AF37" }}>⚡</span> {t("secureCheckout")}
+              <Lock aria-hidden size={13} strokeWidth={1.75} style={{ color: "#D4AF37" }} />{" "}
+              {t("secureCheckout")}
             </span>
             <span
               style={{
@@ -252,7 +256,8 @@ export function FormaFooter() {
                 gap: 6,
               }}
             >
-              <span style={{ color: "#D4AF37" }}>✓</span> {t("moneyBack")}
+              <Check aria-hidden size={13} strokeWidth={2} style={{ color: "#D4AF37" }} />{" "}
+              {t("moneyBack")}
             </span>
             <span
               style={{
@@ -263,7 +268,7 @@ export function FormaFooter() {
                 gap: 6,
               }}
             >
-              <span style={{ color: "#D4AF37" }}>↓</span>{" "}
+              <Download aria-hidden size={13} strokeWidth={1.75} style={{ color: "#D4AF37" }} />{" "}
               {lang === "it" ? "Download immediato" : "Immediate download"}
             </span>
           </div>

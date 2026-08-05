@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { getTemplate, formatPrice, formatCount, getDownloadType } from "@/lib/templates";
 import DownloadButton from "@/components/DownloadButton";
+import BackLink from "@/components/BackLink";
 import RelatedTemplates from "@/components/RelatedTemplates";
 
 import { useLang } from "@/components/LanguageProvider";
@@ -240,32 +241,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
           left: "max(1rem, env(safe-area-inset-left, 1rem))",
         }}
       >
-        <button
-          onClick={() => router.push(`/${lang}`)}
-          className="r-pill flex items-center gap-1.5 px-3.5 py-2 border border-theme shadow-sm
-            text-theme text-[14px] font-semibold
-            hover:opacity-80 transition-opacity duration-200"
-          style={{ background: "var(--card-bg)" }}
-          aria-label={t[lang].preview.back}
-        >
-          <svg
-            width="8"
-            height="14"
-            viewBox="0 0 8 14"
-            fill="none"
-            className="shrink-0"
-            aria-hidden
-          >
-            <path
-              d="M7 1L1.5 7L7 13"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          <span className="hidden sm:inline">{t[lang].preview.back}</span>
-        </button>
+        <BackLink fallbackHref={`/${lang}/catalogo`} />
         {template && (
           <button
             onClick={() => toggle(template.id)}

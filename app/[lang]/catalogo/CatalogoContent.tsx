@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState, useRef } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
+import { Layers } from "lucide-react";
 import SiteNav from "@/components/SiteNav";
 import { useLang } from "@/components/LanguageProvider";
 import { copy } from "@/lib/formaCopy";
@@ -639,8 +640,13 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                     className="fn-body"
                     style={{ display: "flex", flexDirection: "column", flex: 1 }}
                   >
-                    <div style={{ fontSize: 34, lineHeight: 1, marginBottom: 14 }} aria-hidden>
-                      {b.emoji}
+                    <div style={{ marginBottom: 14 }}>
+                      <Layers
+                        aria-hidden
+                        size={30}
+                        strokeWidth={1.25}
+                        style={{ color: "var(--accent)" }}
+                      />
                     </div>
                     <h3
                       style={{

@@ -34,6 +34,19 @@ import { join, dirname } from "node:path";
 
 const DEFAULT_BASE = process.env.SCREENSHOT_BASE ?? "https://template-marketplace-psi.vercel.app";
 
+/**
+ * Playwright insists on the exact Chromium build its version pins, and refuses
+ * to start if that build was never downloaded. Some sandboxes ship a Chromium
+ * that is a few builds older and have no way to fetch another one, so the
+ * screenshot tool became unusable there for a reason that has nothing to do
+ * with the site. Set CHROMIUM_PATH to override which binary is launched — e.g.
+ * CHROMIUM_PATH=/opt/pw-browsers/chromium. Unset, nothing changes.
+ */
+function executablePath(): string | undefined {
+  const candidate = process.env.CHROMIUM_PATH;
+  return candidate && existsSync(candidate) ? candidate : undefined;
+}
+
 /** iPhone-ish and laptop-ish. The two shapes worth checking every time. */
 const VIEWPORTS = {
   mobile: { width: 390, height: 844 },
@@ -81,7 +94,7 @@ async function main() {
     .replace(/<script[^>]*>[\s\S]*?<\/script>/g, "")
     .replace("</head>", `<style>${css}</style></head>`);
 
-  const browser = await chromium.launch();
+  const browser = await chromium.launch({ executablePath: executablePath() });
   const page = await browser.newPage({ viewport, deviceScaleFactor: 2 });
 
   // The page is given a real origin rather than being injected with
@@ -93,7 +106,7 @@ async function main() {
   // exist.
   const ORIGIN = "http://forma.local";
 
-  await page.route("**/*", (route) => {
+  await page.route("**/*", async (route) => {
     const url = new URL(route.request().url());
 
     if (url.origin === ORIGIN && url.pathname === "/") {
@@ -103,6 +116,26 @@ async function main() {
       const file = join(process.cwd(), dir, url.pathname.replace(/^\/_next/, ""));
       if (existsSync(file) && !file.endsWith("/")) return route.fulfill({ path: file });
     }
+
+    // Anything else same-origin is a route the server has to answer — the
+    // product pages embed /api/preview/<id> in an iframe. Aborting those left a
+    // full-width broken-image placeholder in the middle of every preview panel,
+    // which reads as a broken page when the endpoint is in fact fine. Node can
+    // reach the server even though the browser cannot, so fetch it here and
+    // hand the bytes back.
+    if (url.origin === ORIGIN) {
+      try {
+        const upstream = await fetch(base + url.pathname + url.search);
+        return route.fulfill({
+          status: upstream.status,
+          contentType: upstream.headers.get("content-type") ?? undefined,
+          body: Buffer.from(await upstream.arrayBuffer()),
+        });
+      } catch {
+        return route.abort();
+      }
+    }
+
     return route.abort();
   });
 
@@ -110,6 +143,27 @@ async function main() {
   // The wordmark animates its letters in over ~1.8s. Screenshotting sooner
   // catches a half-drawn logo and reads as a rendering bug that is not there.
   await page.waitForTimeout(2200);
+
+  // Every thumbnail below the fold is loading="lazy", so a --full screenshot
+  // taken straight away shows ten empty grey boxes on /catalogo and looks like
+  // the images are broken. They are not — they were simply never asked for.
+  // Walking the page one viewport at a time puts each of them on screen long
+  // enough for the request to start. The walk deliberately does not scroll back
+  // to the top afterwards: Chromium cancels the in-flight fetch for an image
+  // that leaves the viewport again, which left the last card on /catalogo
+  // empty. Playwright handles scrolling itself when it captures a full page.
+  if (fullPage) {
+    await page.evaluate(async () => {
+      const step = window.innerHeight;
+      for (let y = 0; y < document.body.scrollHeight; y += step) {
+        window.scrollTo(0, y);
+        await new Promise((r) => setTimeout(r, 150));
+      }
+    });
+    // Give the last images kicked off by the walk time to arrive and decode.
+    await page.waitForLoadState("networkidle").catch(() => {});
+    await page.waitForTimeout(600);
+  }
 
   mkdirSync(dirname(out), { recursive: true });
   await page.screenshot({ path: out, fullPage });

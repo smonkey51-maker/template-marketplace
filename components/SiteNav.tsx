@@ -6,6 +6,7 @@ import { UserButton } from "@clerk/nextjs";
 import { copy } from "@/lib/formaCopy";
 import { useLang } from "@/components/LanguageProvider";
 import { FormaLogoAnimated } from "@/components/FormaLogo";
+import BackLink from "@/components/BackLink";
 
 interface DropItem {
   href: string;
@@ -143,9 +144,12 @@ export default function SiteNav() {
 
   return (
     <>
-      {/* Utility bar */}
+      {/* Utility bar. The left slot used to be an empty placeholder — every
+          inner page opened with a strip of nothing above the wordmark. It
+          holds "Indietro" now, which is how every page that carries this nav
+          gets a back control in the same place. */}
       <div className="fn-utility">
-        <div /> {/* Empty placeholder for left side */}
+        <BackLink fallbackHref={`/${lang}`} />
         <div className="fn-right">
           <UserButton />
         </div>

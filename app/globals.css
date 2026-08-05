@@ -1724,6 +1724,13 @@ html::-webkit-scrollbar-track {
 .link-muted {
   color: var(--muted);
   transition: color 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  /* Footer links are set at 12.5–13px, which left the box 23px tall — a pixel
+     under the 24px pointer-target floor of WCAG 2.2 SC 2.5.8, and exactly the
+     kind of miss that no visual review catches by eye. Every use of this class
+     is a standalone link in a footer column, so growing the box is free. */
+  display: flex;
+  align-items: center;
+  min-height: 24px;
 }
 .link-muted:hover,
 .link-muted:focus-visible {
@@ -3339,6 +3346,55 @@ html.dark {
   margin: 12px 0 0;
 }
 
+/* ── Board 10 — Jony Ive palette exploration ──
+   Scoped to .fp-ive so nothing here reaches --accent, --gold, or any surface
+   outside this one board. It borrows .fp-board's shell (border, radius,
+   padding) and only overrides the badge and adds its own swatch row. */
+.fp-ive-badge {
+  background: #e2570c;
+  color: #17150f;
+}
+.fp-ive-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+.fp-ive-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px 7px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.22);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+.fp-ive-chip i {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.fp-ive-cta {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 28px;
+  padding: 13px 24px;
+  border: none;
+  border-radius: 999px;
+  background: #e2570c;
+  color: #17150f;
+  font-size: 14px;
+  font-weight: 700;
+  /* disabled + aria-disabled: this is a swatch of what a button would look
+     like in the exploration, not a live control — it has nowhere to navigate. */
+  cursor: default;
+}
+
 /* ── Responsive ── */
 @media (max-width: 900px) {
   .fp-navlinks {
@@ -3420,8 +3476,11 @@ html.dark {
 /* ── Utility bar ── */
 .fn-utility {
   height: 42px;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  /* Two children, not three: the left slot holds "Indietro" now. The old
+     `1fr auto 1fr` grid left the right-hand group sitting in the middle
+     column, so it never reached the edge it was asking for. */
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   padding: 0 36px;
   font-size: 10px;
@@ -3476,6 +3535,20 @@ html.dark {
 .fn-nav-right {
   justify-self: end;
 }
+/* The nav labels are set at 10px, so an unpadded link is only 19px tall —
+   under the 24×24 CSS px floor WCAG 2.2 asks of a pointer target (SC 2.5.8),
+   and the hardest kind of link to hit on a phone. The padding grows the hit
+   area without moving the text: the bar is a 56px grid row and the links are
+   centred in it, so there is room above and below either way. `.fn-drop` is
+   the dropdown trigger, which is an inline-flex of its own. */
+.fn-nav-left a,
+.fn-nav-right a,
+.fn-drop {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding-block: 3px;
+}
 .fn-nav-left a:hover,
 .fn-nav-right a:hover {
   color: var(--text);
@@ -3496,6 +3569,37 @@ html.dark {
 }
 .fn-outline:hover {
   background: rgba(212, 175, 55, 0.09);
+}
+
+/* "Indietro" — see components/BackLink.tsx. One appearance for every page,
+   whether it sits in the utility bar of an inner page or floats over a
+   chromeless one. Glass, like every other control on a flat ground. */
+.fn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 5px 14px 5px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  /* Both explicit: this sits inside .fn-utility, which uppercases and widely
+     tracks its text. The floating copies on the chromeless pages do not, and
+     the point of one component is that the control reads the same everywhere. */
+  text-transform: none;
+  color: var(--muted);
+  border: 1px solid var(--glass-s-rim);
+  background: var(--glass-s-fill);
+  backdrop-filter: var(--glass-s-blur);
+  -webkit-backdrop-filter: var(--glass-s-blur);
+  box-shadow: inset 0 1px 0 var(--glass-s-sheen);
+  cursor: pointer;
+  transition:
+    color var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+.fn-back:hover {
+  color: var(--text);
 }
 
 /* IT/EN toggle */
@@ -4231,7 +4335,10 @@ html.dark {
   }
   .fn-utility {
     display: flex;
-    justify-content: flex-end;
+    /* Not flex-end. That was written when the left slot was an empty
+       placeholder and only the right-hand group had anywhere to be; it now
+       holds "Indietro", which flex-end pushed across to the right edge. */
+    justify-content: space-between;
     padding: 0 18px;
   }
   .fn-logo-svg {
@@ -4449,6 +4556,17 @@ html.dark {
   .fn-footer-accordion-trigger {
     cursor: default !important;
     pointer-events: none !important;
+    padding: 0;
+  }
+}
+
+/* Below 640px the trigger is a real button, and its 10px label left it 19px
+   tall — under WCAG 2.2's 24×24 target floor (SC 2.5.8). It is already full
+   width, so only the height was ever the problem. */
+@media (max-width: 639px) {
+  .fn-footer-accordion-trigger {
+    min-height: 32px;
+    padding-block: 6px;
   }
 }
 

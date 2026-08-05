@@ -86,7 +86,7 @@ function buildSql(): string {
           quoteArray(b.templateIds),
           quoteArray(b.tags),
           quoteArray(b.highlights),
-          quote(b.emoji),
+          quote(""), // column kept, value unused — see Bundle in lib/templates.ts
           quote(b.accentColor),
         ].join(",") +
         ");",
@@ -134,7 +134,7 @@ async function apply() {
     template_ids: b.templateIds ?? [],
     tags: b.tags ?? [],
     highlights: b.highlights ?? [],
-    emoji: b.emoji ?? "",
+    emoji: "", // column kept, value unused — see Bundle in lib/templates.ts
     accent_color: b.accentColor ?? "",
   }));
 

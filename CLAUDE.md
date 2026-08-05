@@ -69,7 +69,7 @@ template-marketplace/
 │   ├── FormaLogo.tsx           # Wordmark (animated / static)
 │   └── Footer.tsx / FormaFooter.tsx  # Site footers
 ├── lib/
-│   ├── templates.ts            # ⚠️ ALL template data lives here — single source of truth
+│   ├── templates.ts            # ALL template data lives here — single source of truth
 │   ├── i18n.ts                 # IT/EN translation strings + templateTranslations
 │   ├── claude.ts               # Anthropic SDK client (singleton)
 │   ├── email.ts                # Resend email helpers (purchase, newsletter)

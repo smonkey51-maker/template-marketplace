@@ -57,7 +57,7 @@ async function main() {
       unit_amount: tmpl.price,
       currency: "eur",
     });
-    console.log(`✅ ${tmpl.name}`);
+    console.log(`${tmpl.name}`);
     console.log(`   id: "${tmpl.id}"`);
     console.log(`   stripePriceId: "${price.id}"\n`);
   }

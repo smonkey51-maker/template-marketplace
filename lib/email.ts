@@ -28,7 +28,7 @@ export async function sendPurchaseEmail(params: PurchaseEmailParams) {
     type === "studio"
       ? `<a href="https://forma.design/studio" style="display:inline-block;background:${accentColor};color:#fff;font-weight:700;font-size:15px;padding:14px 28px;border-radius:14px;text-decoration:none;margin-top:8px;">Apri AI Studio →</a>`
       : downloadUrl
-        ? `<a href="${downloadUrl}" style="display:inline-block;background:${accentColor};color:#fff;font-weight:700;font-size:15px;padding:14px 28px;border-radius:14px;text-decoration:none;margin-top:8px;">⬇ Scarica il template</a>`
+        ? `<a href="${downloadUrl}" style="display:inline-block;background:${accentColor};color:#fff;font-weight:700;font-size:15px;padding:14px 28px;border-radius:14px;text-decoration:none;margin-top:8px;">Scarica il template</a>`
         : previewUrl
           ? `<a href="${previewUrl}" style="display:inline-block;background:${accentColor};color:#fff;font-weight:700;font-size:15px;padding:14px 28px;border-radius:14px;text-decoration:none;margin-top:8px;">Accedi al template →</a>`
           : "";

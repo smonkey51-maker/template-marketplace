@@ -3,7 +3,7 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 /**
  * Server-only Supabase client using the service-role key.
  *
- * ⚠️ Never import this from a client component — the service-role key
+ * Never import this from a client component — the service-role key
  * bypasses RLS and must never reach the browser.
  *
  * A fresh client per call, deliberately: `createClient` only assembles a small

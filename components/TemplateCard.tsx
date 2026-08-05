@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ClipboardList } from "lucide-react";
 import { useRef, useEffect, useState, useCallback } from "react";
 import { Template, formatPrice, getDownloadType } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
@@ -244,7 +245,7 @@ function PlatformPreview({ type }: { type: string }) {
         {/* Document */}
         <div className="flex-1 px-3 py-4 overflow-hidden">
           <div className="flex items-start gap-1.5 mb-3">
-            <span style={{ fontSize: "16px", lineHeight: 1 }}>📋</span>
+            <ClipboardList aria-hidden size={16} strokeWidth={1.75} style={{ color: "#37352F" }} />
             <div
               className="h-4 w-24 rounded-md mt-0.5"
               style={{ background: "#37352F", opacity: 0.85 }}
