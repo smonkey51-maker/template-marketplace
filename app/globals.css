@@ -3228,6 +3228,55 @@ html.dark {
   margin: 12px 0 0;
 }
 
+/* ── Board 10 — Jony Ive palette exploration ──
+   Scoped to .fp-ive so nothing here reaches --accent, --gold, or any surface
+   outside this one board. It borrows .fp-board's shell (border, radius,
+   padding) and only overrides the badge and adds its own swatch row. */
+.fp-ive-badge {
+  background: #e2570c;
+  color: #17150f;
+}
+.fp-ive-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+.fp-ive-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px 7px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.22);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+.fp-ive-chip i {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.fp-ive-cta {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 28px;
+  padding: 13px 24px;
+  border: none;
+  border-radius: 999px;
+  background: #e2570c;
+  color: #17150f;
+  font-size: 14px;
+  font-weight: 700;
+  /* disabled + aria-disabled: this is a swatch of what a button would look
+     like in the exploration, not a live control — it has nowhere to navigate. */
+  cursor: default;
+}
+
 /* ── Responsive ── */
 @media (max-width: 900px) {
   .fp-navlinks {

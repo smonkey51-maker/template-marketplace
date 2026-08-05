@@ -82,6 +82,52 @@ export default function BrandPage() {
             <div className="fp-orb" />
           </section>
         ))}
+
+        {/* ── Board 10 — a color exploration, not the live brand ──
+            Everything above renders FORMA's actual gold/terra system, the one
+            CLAUDE.md documents as a deliberate choice. This board is scoped to
+            its own custom properties (fp-ive-*) so it can sit here as a real,
+            navigable piece of the site without a single global token moving —
+            --accent, --gold and every catalogue and checkout surface are
+            untouched. */}
+        <section className="fp-board fp-ive" key="ive-exploration">
+          <span className="fp-badge fp-ive-badge">Esplorazione</span>
+          <h2>{lang === "it" ? "La palette di Jony Ive" : "The Jony Ive palette"}</h2>
+          <p>
+            {lang === "it"
+              ? "Quattro storie di colore raccontate da Ive negli anni — l'arancione tenuto nascosto, l'argento ereditato da suo padre, l'inchiostro e la carta di LoveFrom, il blu e il verde della Corona — applicate a superfici reali di FORMA: non il brand in uso, una direzione a parte."
+              : "Four color stories Ive has told over the years — the hidden orange, the silver he inherited from his father, LoveFrom's ink and paper, the Crown's blue and green — applied to real FORMA surfaces. Not the brand in use: a direction of its own."}
+          </p>
+          <div className="fp-ive-swatches">
+            <span className="fp-ive-chip">
+              <i style={{ background: "#E2570C" }} />
+              {lang === "it" ? "Arancione vivido" : "Vivid orange"}
+            </span>
+            <span className="fp-ive-chip">
+              <i style={{ background: "#83898D" }} />
+              {lang === "it" ? "Argento" : "Silver"}
+            </span>
+            <span className="fp-ive-chip">
+              <i style={{ background: "#17150F", border: "1px solid rgba(255,255,255,.25)" }} />
+              {lang === "it" ? "Inchiostro" : "Ink"}
+            </span>
+            <span className="fp-ive-chip">
+              <i style={{ background: "#F7F2E7", border: "1px solid rgba(0,0,0,.15)" }} />
+              {lang === "it" ? "Carta" : "Paper"}
+            </span>
+            <span className="fp-ive-chip">
+              <i style={{ background: "#1F5C4A" }} />
+              {lang === "it" ? "Smeraldo" : "Emerald"}
+            </span>
+            <span className="fp-ive-chip">
+              <i style={{ background: "#1E3A5F" }} />
+              {lang === "it" ? "Blu profondo" : "Deep blue"}
+            </span>
+          </div>
+          <button type="button" className="fp-ive-cta" disabled aria-disabled="true">
+            {lang === "it" ? "Bottone primario, in arancione" : "Primary button, in orange"}
+          </button>
+        </section>
       </div>
     </div>
   );
