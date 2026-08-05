@@ -544,7 +544,15 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                         </p>
 
                         <div className="fn-meta" style={{ marginTop: "auto" }}>
-                          <span>{item.tags.slice(0, 2).join(" · ")}</span>
+                          {/* Downloads, not tags. The tag pair repeated what
+                              the badge and the filters already said, while the
+                              download count is the only social proof the shop
+                              has: the reviews table is empty, so a visitor had
+                              nothing telling them anyone had bought this. */}
+                          <span>
+                            {item.downloads.toLocaleString(lang === "it" ? "it-IT" : "en-GB")}{" "}
+                            {lang === "it" ? "download" : "downloads"}
+                          </span>
                           <b
                             style={{
                               fontFamily: "var(--font-cormorant), Georgia, serif",

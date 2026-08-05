@@ -49,7 +49,18 @@ export default clerkMiddleware(async (auth, req) => {
   }
 
   if (isProtected(req)) {
-    await auth.protect();
+    // Send a logged-out visitor to the sign-in page instead of a 404.
+    // auth.protect() answers 404 on page routes when it has nowhere to send
+    // them, and /account sits in the main menu for everyone — so anyone not
+    // signed in clicked "Account" and landed on an error page rather than on
+    // a login, at the exact moment they were looking for what they had bought.
+    const locale = req.nextUrl.pathname.split("/")[1] || "it";
+    await auth.protect({
+      unauthenticatedUrl: new URL(
+        `/${locale}/sign-in?redirect_url=${encodeURIComponent(req.nextUrl.pathname)}`,
+        req.url,
+      ).toString(),
+    });
   }
 });
 
