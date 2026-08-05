@@ -5,9 +5,9 @@ import { useEffect } from "react";
 const GLASS_SELECTOR = ".glass-surface, .glass-surface-pill, .forma-glass-card, .fn-filter";
 
 /**
- * Two progressive enhancements layered on top of the CSS glass material,
- * neither of which changes anything if unsupported or if the visitor
- * prefers reduced motion:
+ * Three progressive enhancements layered on top of the CSS glass material,
+ * none of which change anything if unsupported or if the visitor prefers
+ * reduced motion:
  *
  * 1. Continuous ("squircle") corners via a CSS Paint API worklet — the mask
  *    only activates once the worklet is registered, so Safari/Firefox keep
@@ -16,6 +16,13 @@ const GLASS_SELECTOR = ".glass-surface, .glass-surface-pill, .forma-glass-card, 
  *    instead of sitting in one fixed spot. Touch devices get a slow ambient
  *    sweep (CSS-only, see globals.css) rather than pointer tracking, since
  *    there's no continuous pointer to follow.
+ * 3. Actual refraction: an SVG feDisplacementMap filter chained onto
+ *    backdrop-filter, warping what's behind the glass instead of just
+ *    blurring it. Gated behind the same Paint API check as (1) — combining
+ *    backdrop-filter with a custom SVG filter is inconsistent enough across
+ *    engines that some browsers render the element blank rather than
+ *    ignoring it, so this only ever reaches browsers already confirmed
+ *    Chromium-family by the worklet registration succeeding.
  */
 export default function GlassEnhancements() {
   useEffect(() => {
@@ -25,7 +32,10 @@ export default function GlassEnhancements() {
       };
       houdiniCSS.paintWorklet
         .addModule("/squircle-paint.js")
-        .then(() => document.documentElement.classList.add("squircle-ready"))
+        .then(() => {
+          document.documentElement.classList.add("squircle-ready");
+          document.documentElement.classList.add("glass-fx-ready");
+        })
         .catch(() => {});
     }
 
@@ -70,5 +80,49 @@ export default function GlassEnhancements() {
     };
   }, []);
 
-  return null;
+  // Zero-size and aria-hidden: these <filter> defs are never drawn on their
+  // own, only referenced via backdrop-filter: url(#...) from CSS once
+  // .glass-fx-ready is set. Two variants — large surfaces can take a wide
+  // displacement without it reading as noise; a 26px-tall pill can't, so it
+  // gets a much smaller scale.
+  return (
+    <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden>
+      <defs>
+        <filter id="glass-distortion-lg" x="-20%" y="-20%" width="140%" height="140%">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.012 0.015"
+            numOctaves="2"
+            seed="92"
+            result="noise"
+          />
+          <feGaussianBlur in="noise" stdDeviation="2" result="blurred" />
+          <feDisplacementMap
+            in="SourceGraphic"
+            in2="blurred"
+            scale="34"
+            xChannelSelector="R"
+            yChannelSelector="G"
+          />
+        </filter>
+        <filter id="glass-distortion-sm" x="-20%" y="-20%" width="140%" height="140%">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.05 0.09"
+            numOctaves="2"
+            seed="92"
+            result="noise"
+          />
+          <feGaussianBlur in="noise" stdDeviation="1" result="blurred" />
+          <feDisplacementMap
+            in="SourceGraphic"
+            in2="blurred"
+            scale="7"
+            xChannelSelector="R"
+            yChannelSelector="G"
+          />
+        </filter>
+      </defs>
+    </svg>
+  );
 }

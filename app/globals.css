@@ -142,6 +142,10 @@ html.squircle-ready .forma-glass-card {
   -webkit-mask-image: paint(squircle);
   mask-image: paint(squircle);
 }
+html.glass-fx-ready .forma-glass-card {
+  backdrop-filter: var(--glass-blur) url(#glass-distortion-lg);
+  -webkit-backdrop-filter: var(--glass-blur) url(#glass-distortion-lg);
+}
 @media (hover: hover) {
   .forma-glass-card:hover {
     background-color: var(--glass-fill-hi);
@@ -715,6 +719,19 @@ html.squircle-ready .glass-surface {
 html.squircle-ready .glass-panel {
   -webkit-mask-image: paint(squircle);
   mask-image: paint(squircle);
+}
+html.glass-fx-ready .glass-surface {
+  backdrop-filter: var(--glass-s-blur) url(#glass-distortion-lg);
+  -webkit-backdrop-filter: var(--glass-s-blur) url(#glass-distortion-lg);
+}
+html.glass-fx-ready .glass-panel {
+  backdrop-filter: blur(32px) saturate(200%) url(#glass-distortion-lg);
+  -webkit-backdrop-filter: blur(32px) saturate(200%) url(#glass-distortion-lg);
+}
+html.glass-fx-ready .glass-surface-pill,
+html.glass-fx-ready .fn-filter {
+  backdrop-filter: var(--glass-s-blur) url(#glass-distortion-sm);
+  -webkit-backdrop-filter: var(--glass-s-blur) url(#glass-distortion-sm);
 }
 @media (hover: hover) {
   .glass-surface:hover {
