@@ -49,7 +49,7 @@ function cutAtTagBoundary(body: string, limit: number): string {
   return nextClose === -1 ? body.slice(0, limit) : body.slice(0, nextClose + 1);
 }
 
-function gateMarkup(labels: { heading: string; blurb: string; cta: string }): string {
+function gateMarkup(labels: { heading: string; blurb: string; cta: string }, href: string): string {
   // Inline styles, and a stacking context of its own: this is injected into a
   // document whose CSS was written for the standalone file and knows nothing
   // about a paywall, so it cannot rely on any class defined there.
@@ -61,9 +61,16 @@ function gateMarkup(labels: { heading: string; blurb: string; cta: string }): st
     <p style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#9C7733;font-weight:700;margin:0 0 10px;">
       ${labels.heading}
     </p>
-    <p style="font-size:16px;line-height:1.6;color:#4a4a4a;margin:0;">
+    <p style="font-size:16px;line-height:1.6;color:#4a4a4a;margin:0 0 22px;">
       ${labels.blurb}
     </p>
+    <!-- target=_top: this document is inside an iframe on the preview page, so
+         without it the product page would open *inside* the preview frame. -->
+    <a href="${href}" target="_top"
+       style="display:inline-block;background:#9C7733;color:#fff;text-decoration:none;
+              font-size:15px;font-weight:700;padding:14px 32px;border-radius:999px;">
+      ${labels.cta}
+    </a>
   </div>
 </div>`;
 }
@@ -110,7 +117,7 @@ export function buildProductPreview(
           cta: "Buy",
         };
 
-  const html = `${parts.head}${revealed}${truncated ? gateMarkup(labels) : ""}</body></html>`;
+  const html = `${parts.head}${revealed}${truncated ? gateMarkup(labels, `/${lang}/templates/${templateId}`) : ""}</body></html>`;
 
   return { html, truncated };
 }
