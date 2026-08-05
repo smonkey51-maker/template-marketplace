@@ -29,7 +29,7 @@ if (fs.existsSync(envPath)) {
 
 const STRIPE_KEY = process.env.STRIPE_SECRET_KEY;
 if (!STRIPE_KEY) {
-  console.error("❌ STRIPE_SECRET_KEY not found. Set it in .env.local or environment.");
+  console.error("STRIPE_SECRET_KEY not found. Set it in .env.local or environment.");
   process.exit(1);
 }
 
@@ -100,7 +100,7 @@ function extractTemplates(source: string): ParsedItem[] {
 // ── Main ─────────────────────────────────────────────────────────────────────
 async function main() {
   const items = extractTemplates(src);
-  console.log(`\n📦 Found ${items.length} items (templates + bundles)\n`);
+  console.log(`\nFound ${items.length} items (templates + bundles)\n`);
 
   let valid = 0;
   let created = 0;
@@ -144,12 +144,12 @@ async function main() {
         },
       });
 
-      console.log(`  ✅ ${item.name} — CREATED ${price.id} (was: ${item.stripePriceId})`);
+      console.log(`  ${item.name} — CREATED ${price.id} (was: ${item.stripePriceId})`);
       replacements.push({ old: item.stripePriceId, new: price.id });
       created++;
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
-      console.error(`  ❌ ${item.name} — FAILED: ${msg}`);
+      console.error(`  ${item.name} — FAILED: ${msg}`);
       failed++;
     }
   }
@@ -160,7 +160,7 @@ async function main() {
       src = src.replaceAll(`"${oldId}"`, `"${newId}"`);
     }
     fs.writeFileSync(templatesPath, src, "utf-8");
-    console.log(`\n📝 Updated lib/templates.ts with ${replacements.length} new price IDs.`);
+    console.log(`\nUpdated lib/templates.ts with ${replacements.length} new price IDs.`);
   }
 
   console.log(`\n── Summary ──────────────────────────────────────────────`);
@@ -171,7 +171,7 @@ async function main() {
   console.log();
 
   if (created > 0) {
-    console.log(`💡 Run: git add lib/templates.ts && git commit -m "Update Stripe price IDs"`);
+    console.log(`Run: git add lib/templates.ts && git commit -m "Update Stripe price IDs"`);
   }
   if (failed > 0) {
     process.exit(1);
@@ -179,6 +179,6 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error("❌ Fatal:", err.message);
+  console.error("Fatal:", err.message);
   process.exit(1);
 });

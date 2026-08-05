@@ -18,13 +18,13 @@ if (fs.existsSync(envPath)) {
     if (m) process.env[m[1]] = m[2].trim();
   }
 } else {
-  console.error("❌ .env.local non trovato in", envPath);
+  console.error(".env.local non trovato in", envPath);
   process.exit(1);
 }
 
 const STRIPE_KEY = process.env.STRIPE_SECRET_KEY;
 if (!STRIPE_KEY) {
-  console.error("❌ STRIPE_SECRET_KEY non trovata in .env.local");
+  console.error("STRIPE_SECRET_KEY non trovata in .env.local");
   process.exit(1);
 }
 
@@ -162,12 +162,12 @@ async function createPrice(item: Item): Promise<{ placeholder: string; priceId: 
     metadata: { source: "forma", placeholder: item.placeholder },
   });
 
-  console.log(`  ✅ ${item.name.padEnd(40)} ${item.placeholder} → ${price.id}`);
+  console.log(`  ${item.name.padEnd(40)} ${item.placeholder} → ${price.id}`);
   return { placeholder: item.placeholder, priceId: price.id };
 }
 
 async function main() {
-  console.log("\n🔧 Creazione prezzi Stripe...\n");
+  console.log("\nCreazione prezzi Stripe...\n");
 
   const allItems = [...TEMPLATES, ...BUNDLES];
   const results: { placeholder: string; priceId: string }[] = [];
@@ -186,8 +186,8 @@ async function main() {
   }
 
   fs.writeFileSync(templatesPath, src, "utf-8");
-  console.log("\n✅ lib/templates.ts aggiornato con i veri price ID Stripe.");
-  console.log(`\n📋 Riepilogo (${results.length} prezzi creati):\n`);
+  console.log("\nlib/templates.ts aggiornato con i veri price ID Stripe.");
+  console.log(`\nRiepilogo (${results.length} prezzi creati):\n`);
   for (const r of results) {
     console.log(`  ${r.placeholder.padEnd(45)} → ${r.priceId}`);
   }
@@ -197,6 +197,6 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error("❌ Errore:", err.message);
+  console.error("Errore:", err.message);
   process.exit(1);
 });

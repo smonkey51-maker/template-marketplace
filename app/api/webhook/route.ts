@@ -68,7 +68,7 @@ export async function POST(req: NextRequest) {
       if (error) {
         console.error("Supabase bundle insert error:", error);
       } else {
-        console.log(`✅ Bundle salvato — userId: ${effectiveUserId}, bundleId: ${bundleId}`);
+        console.log(`Bundle salvato — userId: ${effectiveUserId}, bundleId: ${bundleId}`);
         if (guestEmail && bundle) {
           await sendPurchaseEmail({
             to: guestEmail,
@@ -95,7 +95,7 @@ export async function POST(req: NextRequest) {
       if (error) {
         console.error("Supabase insert error:", error);
       } else {
-        console.log(`✅ Acquisto salvato — userId: ${effectiveUserId}, templateId: ${templateId}`);
+        console.log(`Acquisto salvato — userId: ${effectiveUserId}, templateId: ${templateId}`);
         if (guestEmail) {
           const isStudio = isStudioProduct(templateId);
           const tmpl = isStudio ? null : await resolveTemplate(templateId);

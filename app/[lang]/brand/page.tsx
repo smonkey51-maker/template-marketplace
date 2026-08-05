@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import BackLink from "@/components/BackLink";
 import { FileText, Globe2, Palette } from "lucide-react";
 import { FormaLogoStatic } from "@/components/FormaLogo";
 
@@ -35,8 +36,11 @@ export default function BrandPage() {
     <div className="fp-page">
       {/* Nav */}
       <nav className="fp-nav">
-        <div style={{ width: 120 }}>
-          <FormaLogoStatic />
+        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          <BackLink />
+          <div style={{ width: 120 }}>
+            <FormaLogoStatic />
+          </div>
         </div>
         <div className="fp-lang">
           <button onClick={() => setLang("it")} className={lang === "it" ? "active" : ""}>

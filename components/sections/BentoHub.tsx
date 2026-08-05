@@ -140,10 +140,10 @@ export default function BentoHub() {
                 <p className="text-[16px] font-black text-theme leading-tight">{t.accountTitle}</p>
                 <p className="text-[12px] text-muted mt-1 leading-snug">{t.accountSub}</p>
               </div>
-              {/* Line icons, not emoji. The two boxes used 👤 and 🔖, which a
-                  phone renders as full-colour system glyphs — a blue figure
-                  and a red tag — the only saturated non-gold marks anywhere on
-                  the page. These inherit the accent instead. */}
+              {/* Line icons, not emoji. The two boxes used a bust and a
+                  bookmark glyph, which a phone renders in full colour — a blue
+                  figure and a red tag, the only saturated non-gold marks
+                  anywhere on the page. These inherit the accent instead. */}
               <UserRound
                 aria-hidden
                 className="shrink-0 ml-3 text-accent opacity-70"

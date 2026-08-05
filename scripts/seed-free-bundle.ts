@@ -56,7 +56,7 @@ async function main() {
     });
 
     priceIds[tmpl.id] = price.id;
-    console.log(`✅ ${tmpl.name}`);
+    console.log(`${tmpl.name}`);
     console.log(`   Product ID: ${product.id}`);
     console.log(`   Price ID:   ${price.id}\n`);
   }
@@ -75,7 +75,7 @@ async function main() {
   });
 
   priceIds[FREE_BUNDLE.id] = bundlePrice.id;
-  console.log(`✅ ${FREE_BUNDLE.name} (Bundle)`);
+  console.log(`${FREE_BUNDLE.name} (Bundle)`);
   console.log(`   Product ID: ${bundleProduct.id}`);
   console.log(`   Price ID:   ${bundlePrice.id}\n`);
 

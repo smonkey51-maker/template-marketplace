@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Check, Download, Lock } from "lucide-react";
 import { useState } from "react";
 import { useLang } from "@/components/LanguageProvider";
 import { copy } from "@/lib/formaCopy";
@@ -243,7 +244,8 @@ export function FormaFooter() {
                 gap: 6,
               }}
             >
-              <span style={{ color: "#D4AF37" }}>⚡</span> {t("secureCheckout")}
+              <Lock aria-hidden size={13} strokeWidth={1.75} style={{ color: "#D4AF37" }} />{" "}
+              {t("secureCheckout")}
             </span>
             <span
               style={{
@@ -254,7 +256,8 @@ export function FormaFooter() {
                 gap: 6,
               }}
             >
-              <span style={{ color: "#D4AF37" }}>✓</span> {t("moneyBack")}
+              <Check aria-hidden size={13} strokeWidth={2} style={{ color: "#D4AF37" }} />{" "}
+              {t("moneyBack")}
             </span>
             <span
               style={{
@@ -265,7 +268,7 @@ export function FormaFooter() {
                 gap: 6,
               }}
             >
-              <span style={{ color: "#D4AF37" }}>↓</span>{" "}
+              <Download aria-hidden size={13} strokeWidth={1.75} style={{ color: "#D4AF37" }} />{" "}
               {lang === "it" ? "Download immediato" : "Immediate download"}
             </span>
           </div>

@@ -84,13 +84,13 @@ ${url}
 ───────────────────────────────────────────
 Apri il link nel browser per aprire / duplicare il template.
 
-💡 Vuoi personalizzarlo con AI?
+Vuoi personalizzarlo con AI?
    Visita Forma per usare lo Studio AI integrato.
 `;
 }
 
 export function runExport(silent = false): void {
-  if (!silent) console.log("\n📦 Generazione exports/...\n");
+  if (!silent) console.log("\nGenerazione exports/...\n");
   ensureDir(OUT);
   const gumroadDir = path.join(OUT, "gumroad");
   const etsyDir = path.join(OUT, "etsy");
@@ -116,7 +116,7 @@ export function runExport(silent = false): void {
       ensureDir(dest);
       fs.writeFileSync(path.join(dest, filename), tailwindHtml(tmpl.name, tmpl.content), "utf-8");
       gumroadPath = `gumroad/html/${filename}`;
-      console.log(`  ✅ html     → ${gumroadPath}`);
+      console.log(`  html     → ${gumroadPath}`);
     } else {
       // canva, notion, excel, sheets, webflow, framer
       const filename = `${tmpl.id}.txt`;
@@ -127,14 +127,14 @@ export function runExport(silent = false): void {
       ensureDir(gDest);
       fs.writeFileSync(path.join(gDest, filename), content, "utf-8");
       gumroadPath = `gumroad/${dlType}/${filename}`;
-      console.log(`  ✅ ${dlType.padEnd(8)} → ${gumroadPath}`);
+      console.log(`  ${dlType.padEnd(8)} → ${gumroadPath}`);
 
       if ((ETSY_TYPES as string[]).includes(dlType)) {
         const eDest = path.join(etsyDir, dlType);
         ensureDir(eDest);
         fs.writeFileSync(path.join(eDest, filename), content, "utf-8");
         etsyPath = `etsy/${dlType}/${filename}`;
-        console.log(`  ✅ ${dlType.padEnd(8)} → ${etsyPath} (Etsy)`);
+        console.log(`  ${dlType.padEnd(8)} → ${etsyPath} (Etsy)`);
       }
     }
 
@@ -160,8 +160,8 @@ export function runExport(silent = false): void {
   fs.writeFileSync(path.join(OUT, "_INDEX.md"), indexRows.join("\n"), "utf-8");
 
   if (!silent) {
-    console.log(`\n✅ Esportazione completata!`);
-    console.log(`📁 ${OUT}\n`);
+    console.log(`\nEsportazione completata!`);
+    console.log(`${OUT}\n`);
   }
 }
 
