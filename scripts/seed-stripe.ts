@@ -23,7 +23,7 @@ async function main() {
       currency: "eur",
     });
 
-    console.log(`✅ ${template.name}`);
+    console.log(`${template.name}`);
     console.log(`   Product ID: ${product.id}`);
     console.log(`   Price ID:   ${price.id}\n`);
   }

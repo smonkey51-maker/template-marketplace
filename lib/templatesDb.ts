@@ -52,7 +52,6 @@ function rowToBundle(row: Record<string, unknown>): Bundle {
     templateIds: (row.template_ids as string[]) ?? [],
     tags: (row.tags as string[]) ?? [],
     highlights: (row.highlights as string[]) ?? [],
-    emoji: (row.emoji as string) ?? "",
     accentColor: (row.accent_color as string) ?? "",
   };
 }

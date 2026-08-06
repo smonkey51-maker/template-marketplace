@@ -10,8 +10,7 @@ export default function ThemeToggle() {
     <button
       onClick={toggle}
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-      className="relative flex items-center w-[52px] h-[28px] p-[3px] rounded-full transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
-      style={{ backgroundColor: isDark ? "rgba(255,255,255,0.10)" : "rgba(0,0,0,0.08)" }}
+      className="glass-surface-pill relative flex items-center w-[52px] h-[28px] p-[3px] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
     >
       {/* Sun icon — left side (active in light mode) */}
       <span

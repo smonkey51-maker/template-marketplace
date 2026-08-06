@@ -9,12 +9,8 @@ export default function LanguageToggle() {
     <button
       onClick={toggle}
       aria-label="Toggle language"
-      className="relative flex items-center p-[2px] rounded-full overflow-hidden transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] border border-theme"
-      style={{
-        width: "64px",
-        height: "26px",
-        background: "var(--card-bg)",
-      }}
+      className="glass-surface-pill relative flex items-center p-[2px] overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+      style={{ width: "64px", height: "26px" }}
     >
       {/* IT side */}
       <span

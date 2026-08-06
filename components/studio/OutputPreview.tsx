@@ -210,8 +210,8 @@ export default function OutputPreview({
               {showTimeoutHint && (
                 <p className="text-[12px] text-muted max-w-[260px] leading-relaxed">
                   {lang === "it"
-                    ? "Ci sta pensando su 🧠 — i template UI con extended thinking possono richiedere fino a 60 secondi."
-                    : "Still thinking 🧠 — UI templates with extended thinking can take up to 60 seconds."}
+                    ? "Ci sta pensando — i template UI con extended thinking possono richiedere fino a 60 secondi."
+                    : "Still thinking — UI templates with extended thinking can take up to 60 seconds."}
                 </p>
               )}
             </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useUser } from "@clerk/nextjs";
+import BackLink from "@/components/BackLink";
 import { useEffect, useState } from "react";
 
 export default function NewsletterAdminPage() {
@@ -66,6 +67,9 @@ export default function NewsletterAdminPage() {
   return (
     <div className="min-h-screen bg-page p-6 sm:p-10">
       <div className="max-w-5xl mx-auto">
+        <div className="mb-6">
+          <BackLink />
+        </div>
         <div className="mb-8">
           <p className="text-[11px] font-bold text-muted uppercase tracking-[0.2em] mb-1">Admin</p>
           <h1 className="text-2xl font-bold text-theme">Invia Newsletter</h1>

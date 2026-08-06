@@ -56,9 +56,20 @@
 
 ### Emoji Usage
 
-- ❌ No emoji in UI copy or headings
-- One exception: Notion template preview uses 📋 as a faithful recreation of the Notion UI
-- No decorative emoji anywhere in brand copy
+**No emoji. Anywhere. No exceptions.** Not in UI copy, not in headings, not as
+decoration, not in product HTML, not in console output.
+
+They render as full-colour system glyphs that differ on every platform, so they
+are the one thing on a page whose appearance the design system does not control
+— and next to a warm gold palette they are always the loudest mark on screen.
+
+Where a mark is genuinely needed, use a **lucide-react line icon**, sized in
+`px` and coloured from the palette (`var(--accent)` or `currentColor`). Where
+something reads as text, use a **typographic** character — `→ ← ↑ ↓ ✓ ✦ ★ ·` —
+which the page's own font sets, in the page's own colour.
+
+This rule previously carved out an exception for a clipboard glyph in the Notion
+preview card; that has been removed and the exception with it.
 
 ### Numbers & Prices
 

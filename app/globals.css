@@ -3,6 +3,59 @@
 @tailwind utilities;
 
 /* ═══════════════════════════════════════════════════════════
+   GLASS ENHANCEMENTS — specular highlight position + squircle radius
+   Typed as custom properties so browsers can interpolate them across a
+   transition/@keyframes (plain custom properties can only ever jump).
+   Registered globally here; set per-element by GlassEnhancements.tsx
+   (pointer tracking) or by the idle-sweep @keyframes below.
+   ═══════════════════════════════════════════════════════════ */
+@property --spec-x {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 30%;
+}
+@property --spec-y {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+@property --spec-o {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0.16;
+}
+
+/* Touch devices have no continuous pointer to chase, so the highlight
+   sweeps slowly on its own instead of sitting frozen at its default
+   position. Desktop/pointer devices get GlassEnhancements.tsx's live
+   tracking instead — this animation only runs where that can't apply. */
+@media (hover: none) and (prefers-reduced-motion: no-preference) {
+  .glass-surface,
+  .glass-surface-pill,
+  .forma-glass-card,
+  .fn-filter {
+    animation: glass-sweep 9s ease-in-out infinite;
+  }
+}
+@keyframes glass-sweep {
+  0% {
+    --spec-x: 10%;
+    --spec-y: -10%;
+    --spec-o: 0.16;
+  }
+  50% {
+    --spec-x: 90%;
+    --spec-y: 60%;
+    --spec-o: 0.26;
+  }
+  100% {
+    --spec-x: 10%;
+    --spec-y: -10%;
+    --spec-o: 0.16;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
    FORMA homepage sections
    ═══════════════════════════════════════════════════════════ */
 
@@ -59,7 +112,14 @@ body {
    A pane of glass, not a tinted box: the rim catches light along the
    top edge, and the cast shadow below sells the gap to the painting. */
 .forma-glass-card {
-  background: var(--glass-fill);
+  --squircle-radius: var(--r-md, 16px);
+  --squircle-n: 5;
+  background-color: var(--glass-fill);
+  background-image: radial-gradient(
+    circle at var(--spec-x) var(--spec-y),
+    rgba(255, 255, 255, var(--spec-o)),
+    transparent 60%
+  );
   border: 1px solid var(--glass-rim);
   border-top-color: rgba(255, 255, 255, 0.15); /* Specular highlight */
   border-radius: var(--r-md, 16px);
@@ -70,14 +130,25 @@ body {
     inset 0 2px 2px -1px rgba(255, 255, 255, 0.15),
     /* Inner liquid edge */ inset 0 1px 0 var(--glass-rim);
   transition:
-    background 0.5s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    background-color 0.5s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
     border-color 0.5s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
     box-shadow 0.5s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    transform 0.5s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+    transform 0.5s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    --spec-x 0.4s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    --spec-y 0.4s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    --spec-o 0.4s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+html.squircle-ready .forma-glass-card {
+  -webkit-mask-image: paint(squircle);
+  mask-image: paint(squircle);
+}
+html.glass-fx-ready .forma-glass-card {
+  backdrop-filter: var(--glass-blur) url(#glass-distortion-lg);
+  -webkit-backdrop-filter: var(--glass-blur) url(#glass-distortion-lg);
 }
 @media (hover: hover) {
   .forma-glass-card:hover {
-    background: var(--glass-fill-hi);
+    background-color: var(--glass-fill-hi);
     border-color: var(--glass-rim-hi);
     box-shadow:
       var(--glass-cast-2),
@@ -617,7 +688,14 @@ html.dark {
 
 /* The shared sheet. Anything raised on an inner page builds on this. */
 .glass-surface {
-  background: var(--glass-s-fill);
+  --squircle-radius: var(--glass-radius);
+  --squircle-n: 5;
+  background-color: var(--glass-s-fill);
+  background-image: radial-gradient(
+    circle at var(--spec-x) var(--spec-y),
+    rgba(255, 255, 255, var(--spec-o)),
+    transparent 60%
+  );
   border: 1px solid var(--glass-s-rim);
   border-radius: var(--glass-radius);
   backdrop-filter: var(--glass-s-blur);
@@ -626,16 +704,77 @@ html.dark {
     var(--glass-s-cast-1),
     inset 0 1px 0 var(--glass-s-sheen);
   transition:
-    background var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    background-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
     border-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
     box-shadow var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    transform var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+    transform var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    --spec-x var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    --spec-y var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    --spec-o var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+html.squircle-ready .glass-surface {
+  -webkit-mask-image: paint(squircle);
+  mask-image: paint(squircle);
+}
+html.squircle-ready .glass-panel {
+  -webkit-mask-image: paint(squircle);
+  mask-image: paint(squircle);
+}
+html.glass-fx-ready .glass-surface {
+  backdrop-filter: var(--glass-s-blur) url(#glass-distortion-lg);
+  -webkit-backdrop-filter: var(--glass-s-blur) url(#glass-distortion-lg);
+}
+html.glass-fx-ready .glass-panel {
+  backdrop-filter: blur(32px) saturate(200%) url(#glass-distortion-lg);
+  -webkit-backdrop-filter: blur(32px) saturate(200%) url(#glass-distortion-lg);
+}
+html.glass-fx-ready .glass-surface-pill,
+html.glass-fx-ready .fn-filter {
+  backdrop-filter: var(--glass-s-blur) url(#glass-distortion-sm);
+  -webkit-backdrop-filter: var(--glass-s-blur) url(#glass-distortion-sm);
 }
 @media (hover: hover) {
   .glass-surface:hover {
-    background: var(--glass-s-fill-hi);
+    background-color: var(--glass-s-fill-hi);
     border-color: var(--glass-s-rim-hi);
     transform: translateY(-2px);
+    box-shadow:
+      var(--glass-s-cast-2),
+      inset 0 1px 0 var(--glass-s-sheen);
+  }
+}
+
+/* Same material as .glass-surface, pill-shaped, no hover lift — for
+   segmented toggles and small controls that shouldn't jump on hover.
+   Named .glass-surface-pill (not .glass-pill) — that name was already taken
+   by the older glassmorphism family below (noise-textured, over-artwork
+   tokens), still in use on the template detail breadcrumb. */
+.glass-surface-pill {
+  background-color: var(--glass-s-fill);
+  background-image: radial-gradient(
+    circle at var(--spec-x) var(--spec-y),
+    rgba(255, 255, 255, var(--spec-o)),
+    transparent 60%
+  );
+  border: 1px solid var(--glass-s-rim);
+  border-radius: 999px;
+  backdrop-filter: var(--glass-s-blur);
+  -webkit-backdrop-filter: var(--glass-s-blur);
+  box-shadow:
+    var(--glass-s-cast-1),
+    inset 0 1px 0 var(--glass-s-sheen);
+  transition:
+    background-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    box-shadow var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    --spec-x var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    --spec-y var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    --spec-o var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+@media (hover: hover) {
+  .glass-surface-pill:hover {
+    background-color: var(--glass-s-fill-hi);
+    border-color: var(--glass-s-rim-hi);
     box-shadow:
       var(--glass-s-cast-2),
       inset 0 1px 0 var(--glass-s-sheen);
@@ -686,7 +825,10 @@ body {
     color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.4s cubic-bezier(0.32, 1.1, 0.64, 1); /* Bouncier for tactile feedback */
+    transform 0.4s cubic-bezier(0.32, 1.1, 0.64, 1), /* Bouncier for tactile feedback */
+    --spec-x 0.4s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    --spec-y 0.4s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    --spec-o 0.4s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
 
 /* ── iOS-Like Haptic Feedback ── */
@@ -901,6 +1043,8 @@ html::-webkit-scrollbar-track {
 
   .glass-panel {
     position: relative;
+    --squircle-radius: var(--r-md);
+    --squircle-n: 5;
     border-radius: var(--r-md);
     backdrop-filter: blur(32px) saturate(200%);
     -webkit-backdrop-filter: blur(32px) saturate(200%);
@@ -962,12 +1106,25 @@ html::-webkit-scrollbar-track {
     animation-delay: 400ms;
   }
 
-  /* ── Sheet / modal ─────────────────────── */
+  /* ── Sheet / modal ─────────────────────────
+     `backwards`, not `both`. Both of these end on `transform: translateY(0)`
+     / `scale(1)`, and with `both` the element keeps that transform forever
+     once the animation finishes. A transform other than `none` makes an
+     element the containing block for every `position: fixed` descendant —
+     the exact bug that put the page wrapper's fixed children at the bottom
+     of the document instead of on screen. These two are dialogs, which is
+     where a fixed child is most likely to turn up next.
+
+     `backwards` still applies the first keyframe during any delay, so the
+     entrance cannot flash at full opacity before it starts; it simply stops
+     holding the last keyframe after the animation is over. The end state is
+     `opacity: 1` with no transform, which is the elements' natural resting
+     state anyway, so dropping the fill changes nothing visually. */
   .sheet-enter {
-    animation: sheet-up 0.32s cubic-bezier(0.32, 1.1, 0.64, 1) both;
+    animation: sheet-up 0.32s cubic-bezier(0.32, 1.1, 0.64, 1) backwards;
   }
   .modal-enter {
-    animation: modal-in 0.26s cubic-bezier(0.32, 1.1, 0.64, 1) both;
+    animation: modal-in 0.26s cubic-bezier(0.32, 1.1, 0.64, 1) backwards;
   }
 
   /* ── Gradient border animation ─────────── */
@@ -1567,6 +1724,13 @@ html::-webkit-scrollbar-track {
 .link-muted {
   color: var(--muted);
   transition: color 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  /* Footer links are set at 12.5–13px, which left the box 23px tall — a pixel
+     under the 24px pointer-target floor of WCAG 2.2 SC 2.5.8, and exactly the
+     kind of miss that no visual review catches by eye. Every use of this class
+     is a standalone link in a footer column, so growing the box is free. */
+  display: flex;
+  align-items: center;
+  min-height: 24px;
 }
 .link-muted:hover,
 .link-muted:focus-visible {
@@ -3182,6 +3346,55 @@ html.dark {
   margin: 12px 0 0;
 }
 
+/* ── Board 10 — Jony Ive palette exploration ──
+   Scoped to .fp-ive so nothing here reaches --accent, --gold, or any surface
+   outside this one board. It borrows .fp-board's shell (border, radius,
+   padding) and only overrides the badge and adds its own swatch row. */
+.fp-ive-badge {
+  background: #e2570c;
+  color: #17150f;
+}
+.fp-ive-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+.fp-ive-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px 7px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.22);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+.fp-ive-chip i {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.fp-ive-cta {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 28px;
+  padding: 13px 24px;
+  border: none;
+  border-radius: 999px;
+  background: #e2570c;
+  color: #17150f;
+  font-size: 14px;
+  font-weight: 700;
+  /* disabled + aria-disabled: this is a swatch of what a button would look
+     like in the exploration, not a live control — it has nowhere to navigate. */
+  cursor: default;
+}
+
 /* ── Responsive ── */
 @media (max-width: 900px) {
   .fp-navlinks {
@@ -3263,8 +3476,11 @@ html.dark {
 /* ── Utility bar ── */
 .fn-utility {
   height: 42px;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  /* Two children, not three: the left slot holds "Indietro" now. The old
+     `1fr auto 1fr` grid left the right-hand group sitting in the middle
+     column, so it never reached the edge it was asking for. */
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   padding: 0 36px;
   font-size: 10px;
@@ -3319,6 +3535,20 @@ html.dark {
 .fn-nav-right {
   justify-self: end;
 }
+/* The nav labels are set at 10px, so an unpadded link is only 19px tall —
+   under the 24×24 CSS px floor WCAG 2.2 asks of a pointer target (SC 2.5.8),
+   and the hardest kind of link to hit on a phone. The padding grows the hit
+   area without moving the text: the bar is a 56px grid row and the links are
+   centred in it, so there is room above and below either way. `.fn-drop` is
+   the dropdown trigger, which is an inline-flex of its own. */
+.fn-nav-left a,
+.fn-nav-right a,
+.fn-drop {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding-block: 3px;
+}
 .fn-nav-left a:hover,
 .fn-nav-right a:hover {
   color: var(--text);
@@ -3339,6 +3569,37 @@ html.dark {
 }
 .fn-outline:hover {
   background: rgba(212, 175, 55, 0.09);
+}
+
+/* "Indietro" — see components/BackLink.tsx. One appearance for every page,
+   whether it sits in the utility bar of an inner page or floats over a
+   chromeless one. Glass, like every other control on a flat ground. */
+.fn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 5px 14px 5px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  /* Both explicit: this sits inside .fn-utility, which uppercases and widely
+     tracks its text. The floating copies on the chromeless pages do not, and
+     the point of one component is that the control reads the same everywhere. */
+  text-transform: none;
+  color: var(--muted);
+  border: 1px solid var(--glass-s-rim);
+  background: var(--glass-s-fill);
+  backdrop-filter: var(--glass-s-blur);
+  -webkit-backdrop-filter: var(--glass-s-blur);
+  box-shadow: inset 0 1px 0 var(--glass-s-sheen);
+  cursor: pointer;
+  transition:
+    color var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+.fn-back:hover {
+  color: var(--text);
 }
 
 /* IT/EN toggle */
@@ -4126,7 +4387,10 @@ html.dark {
   }
   .fn-utility {
     display: flex;
-    justify-content: flex-end;
+    /* Not flex-end. That was written when the left slot was an empty
+       placeholder and only the right-hand group had anywhere to be; it now
+       holds "Indietro", which flex-end pushed across to the right edge. */
+    justify-content: space-between;
     padding: 0 18px;
   }
   .fn-logo-svg {
@@ -4354,6 +4618,17 @@ html.dark {
   .fn-footer-accordion-trigger {
     cursor: default !important;
     pointer-events: none !important;
+    padding: 0;
+  }
+}
+
+/* Below 640px the trigger is a real button, and its 10px label left it 19px
+   tall — under WCAG 2.2's 24×24 target floor (SC 2.5.8). It is already full
+   width, so only the height was ever the problem. */
+@media (max-width: 639px) {
+  .fn-footer-accordion-trigger {
+    min-height: 32px;
+    padding-block: 6px;
   }
 }
 
@@ -4377,24 +4652,42 @@ html.dark {
   padding: 9px 16px;
   border-radius: 999px;
   border: 1px solid var(--glass-s-rim);
-  background: var(--glass-s-fill);
+  background-color: var(--glass-s-fill);
+  background-image: radial-gradient(
+    circle at var(--spec-x) var(--spec-y),
+    rgba(255, 255, 255, var(--spec-o)),
+    transparent 60%
+  );
+  backdrop-filter: var(--glass-s-blur);
+  -webkit-backdrop-filter: var(--glass-s-blur);
+  box-shadow:
+    var(--glass-s-cast-1),
+    inset 0 1px 0 var(--glass-s-sheen);
   color: var(--muted);
   font: inherit;
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.01em;
   cursor: pointer;
-  /* Colour and border only. Animating size would reflow the whole row every
-     time the selection moves. */
+  /* Colour, border and shadow only. Animating size would reflow the whole
+     row every time the selection moves. */
   transition:
-    background var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    background-color var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
     border-color var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    color var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+    box-shadow var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    color var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    --spec-x var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    --spec-y var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    --spec-o var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
 @media (hover: hover) {
   .fn-filter:hover {
     color: var(--text);
+    background-color: var(--glass-s-fill-hi);
     border-color: var(--glass-s-rim-hi);
+    box-shadow:
+      var(--glass-s-cast-2),
+      inset 0 1px 0 var(--glass-s-sheen);
   }
 }
 .fn-filter:focus-visible {
@@ -4408,6 +4701,7 @@ html.dark {
   background: var(--accent);
   border-color: var(--accent);
   color: #17130a;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
 /* A selected group chip takes that group's own colour, so the chip and the

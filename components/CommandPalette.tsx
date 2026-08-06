@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import { Zap } from "lucide-react";
 import { templates } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
 import { templateTranslations } from "@/lib/i18n";
@@ -352,7 +353,7 @@ export default function CommandPalette() {
                   onClick={() => execute(item)}
                   onMouseEnter={() => setIndex(itemIdx)}
                 >
-                  <span className="text-[14px] opacity-60">⚡</span>
+                  <Zap aria-hidden size={14} strokeWidth={1.75} className="opacity-60" />
                   <div className="flex-1 min-w-0">
                     <p className="text-[13px] font-semibold truncate">{item.label}</p>
                     <p className="text-[11px] truncate" style={{ color: "var(--muted)" }}>

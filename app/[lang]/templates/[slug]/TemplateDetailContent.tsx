@@ -37,15 +37,26 @@ export function TemplateDetailContent({
         {/* Navigation Breadcrumb (Floating Pill) */}
         <div className="flex justify-center mb-10">
           <nav className="glass-pill px-6 py-2 flex gap-3 text-[11px] font-semibold uppercase tracking-widest text-muted items-center">
-            <Link href={`/${lang}`} className="hover:text-accent transition-colors">
+            <Link
+              href={`/${lang}`}
+              className="flex items-center min-h-[24px] hover:text-accent transition-colors"
+            >
               FORMA
             </Link>
             <span>/</span>
-            <Link href={`/${lang}/catalogo`} className="hover:text-accent transition-colors">
+            <Link
+              href={`/${lang}/catalogo`}
+              className="flex items-center min-h-[24px] hover:text-accent transition-colors"
+            >
               {t("catalogo")}
             </Link>
-            <span>/</span>
-            <span className="text-accent">{name}</span>
+            {/* The current page's own crumb is hidden on phones. Uppercase with
+                wide tracking, a name like "Pacchetto Prompt ChatGPT per Creator"
+                wrapped to three lines inside the pill and dragged the other two
+                crumbs to the middle line, so the whole control read as broken.
+                Nothing is lost: the <h1> directly below says the same name. */}
+            <span className="hidden sm:inline">/</span>
+            <span className="text-accent hidden sm:inline">{name}</span>
           </nav>
         </div>
 

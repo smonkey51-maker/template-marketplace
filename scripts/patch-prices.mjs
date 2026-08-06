@@ -50,14 +50,14 @@ for (const [templateId, priceId] of Object.entries(mapping)) {
   const idMarker = `id: "${templateId}"`;
   const idPos = source.indexOf(idMarker);
   if (idPos === -1) {
-    console.warn(`⚠  id not found: ${templateId}`);
+    console.warn(`id not found: ${templateId}`);
     continue;
   }
 
   // Find the next  stripePriceId: "..."  after that position
   const afterId = source.indexOf('stripePriceId: "', idPos);
   if (afterId === -1) {
-    console.warn(`⚠  stripePriceId not found after: ${templateId}`);
+    console.warn(`stripePriceId not found after: ${templateId}`);
     continue;
   }
 
@@ -65,7 +65,7 @@ for (const [templateId, priceId] of Object.entries(mapping)) {
   const startQuote = afterId + 'stripePriceId: "'.length;
   const endQuote = source.indexOf('"', startQuote);
   if (endQuote === -1) {
-    console.warn(`⚠  closing quote not found: ${templateId}`);
+    console.warn(`closing quote not found: ${templateId}`);
     continue;
   }
 
@@ -77,5 +77,5 @@ for (const [templateId, priceId] of Object.entries(mapping)) {
 
 fs.writeFileSync(templatesPath, source, "utf8");
 console.log(
-  `\n✅  Patched ${patched}/${Object.keys(mapping).length} stripePriceId values in lib/templates.ts`,
+  `\nPatched ${patched}/${Object.keys(mapping).length} stripePriceId values in lib/templates.ts`,
 );

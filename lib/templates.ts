@@ -351,19 +351,18 @@ h1{font-size:28px;font-weight:800;line-height:1.2;margin-bottom:12px}
 p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
 .phases{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
 .ph{background:rgba(255,255,255,.1);border-radius:8px;padding:8px;font-size:12px;font-weight:600}
-.ph .icon{font-size:18px;display:block;margin-bottom:4px}
 </style>
 <div class="card">
   <div class="badge">✦ 6 PHASES · NOTHING SKIPPED · PRINT-READY</div>
   <h1>Digital Product Launch Checklist</h1>
   <p>Every step from idea to first sale. Use every launch. Never skip a step.</p>
   <div class="phases">
-    <div class="ph"><span class="icon">🎯</span>Foundation</div>
-    <div class="ph"><span class="icon">🔨</span>Build</div>
-    <div class="ph"><span class="icon">🛒</span>Gumroad</div>
-    <div class="ph"><span class="icon">📢</span>Pre-Launch</div>
-    <div class="ph"><span class="icon">🚀</span>Launch Day</div>
-    <div class="ph"><span class="icon">📈</span>Post-Launch</div>
+    <div class="ph">Foundation</div>
+    <div class="ph">Build</div>
+    <div class="ph">Gumroad</div>
+    <div class="ph">Pre-Launch</div>
+    <div class="ph">Launch Day</div>
+    <div class="ph">Post-Launch</div>
   </div>
 </div>`,
   },
@@ -462,8 +461,8 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
   <h1>Wedding Planning Budget Tracker</h1>
   <p>Every vendor, deposit, and payment deadline in one dashboard. Know exactly where you stand financially.</p>
   <div class="cats">
-    <div class="cat">📍 Venue</div><div class="cat">🍽️ Catering</div><div class="cat">📸 Photo/Video</div>
-    <div class="cat">🎵 Music</div><div class="cat">💐 Flowers</div><div class="cat">👗 Attire</div>
+    <div class="cat">Venue</div><div class="cat">Catering</div><div class="cat">Photo/Video</div>
+    <div class="cat">Music</div><div class="cat">Flowers</div><div class="cat">Attire</div>
   </div>
 </div>`,
   },
@@ -556,12 +555,12 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
 .sec{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:5px 14px;font-size:13px;font-weight:600}
 </style>
 <div class="card">
-  <div class="badge">🐾 VET RECORDS · VACCINATIONS · MEDICATIONS · PRINT-READY</div>
+  <div class="badge">✦ VET RECORDS · VACCINATIONS · MEDICATIONS · PRINT-READY</div>
   <h1>Pet Care &amp; Vet Visit Tracker</h1>
   <p>Everything in one place for your next vet visit. Works for dogs and cats. Print and keep in a binder.</p>
   <div class="sections">
     <div class="sec">Pet Profile</div><div class="sec">Vaccines</div><div class="sec">Vet Visits</div>
-    <div class="sec">Medications</div><div class="sec">Weight Log</div><div class="sec">Diet</div><div class="sec">🚨 Emergency</div>
+    <div class="sec">Medications</div><div class="sec">Weight Log</div><div class="sec">Diet</div><div class="sec">Emergency</div>
   </div>
 </div>`,
   },
@@ -603,7 +602,6 @@ export interface Bundle {
   /** Regular price (sum of individual templates) for savings display */
   regularPrice: number;
   stripePriceId: string;
-  emoji: string;
   accentColor: string; // Tailwind color class prefix, e.g. "blue"
   tags: string[];
   /** Optional: ID of the single template to spotlight on the bundle detail page */
@@ -631,7 +629,6 @@ export const bundles: Bundle[] = [
     price: 2700,
     regularPrice: 4200,
     stripePriceId: "price_1TzFSMBN003f1FovLExROHOi",
-    emoji: "🤖",
     accentColor: "violet",
     tags: ["ai", "chatgpt", "midjourney", "prompt", "creator"],
   },
@@ -655,7 +652,6 @@ export const bundles: Bundle[] = [
     price: 2800,
     regularPrice: 4500,
     stripePriceId: "price_1TzFSMBN003f1FovthA5W1QW",
-    emoji: "💪",
     accentColor: "emerald",
     tags: ["wellness", "fitness", "mindset", "productivity", "journal"],
   },
@@ -680,7 +676,6 @@ export const bundles: Bundle[] = [
     price: 3000,
     regularPrice: 4100,
     stripePriceId: "price_1TzFSNBN003f1FovnZjfRRiN",
-    emoji: "💰",
     accentColor: "amber",
     tags: ["finance", "freelance", "career", "remote work", "business"],
   },
@@ -703,7 +698,6 @@ export const bundles: Bundle[] = [
     price: 2000,
     regularPrice: 2600,
     stripePriceId: "price_1TzFSNBN003f1FovtPq77vi9",
-    emoji: "🏠",
     accentColor: "blue",
     tags: ["budget", "tracker", "apartment", "wedding", "pet"],
   },

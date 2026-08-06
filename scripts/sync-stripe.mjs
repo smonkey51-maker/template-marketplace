@@ -109,13 +109,13 @@ for (const tmpl of templateMeta) {
   const idMarker = `id: "${tmpl.id}"`;
   const idPos = source.indexOf(idMarker);
   if (idPos === -1) {
-    console.warn(`   ⚠ id not found in source: ${tmpl.id}`);
+    console.warn(`   id not found in source: ${tmpl.id}`);
     continue;
   }
 
   const priceKeyPos = source.indexOf('stripePriceId: "', idPos);
   if (priceKeyPos === -1) {
-    console.warn(`   ⚠ stripePriceId not found: ${tmpl.id}`);
+    console.warn(`   stripePriceId not found: ${tmpl.id}`);
     continue;
   }
 
@@ -126,4 +126,4 @@ for (const tmpl of templateMeta) {
 }
 
 fs.writeFileSync(templatesPath, source, "utf8");
-console.log(`\n✅  Done. Patched ${patched} price IDs in lib/templates.ts`);
+console.log(`\nDone. Patched ${patched} price IDs in lib/templates.ts`);

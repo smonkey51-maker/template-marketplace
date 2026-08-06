@@ -147,17 +147,8 @@ export default function MobileNav() {
       className={`sm:hidden fixed bottom-6 inset-x-0 z-[90] flex justify-center pointer-events-none ${reduced ? "" : "transition-all duration-500 ease-out"} ${mounted ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
     >
       <nav
-        className="pointer-events-auto flex items-center justify-between rounded-full"
-        style={{
-          width: "calc(100% - 32px)",
-          maxWidth: "360px",
-          backdropFilter: "blur(32px) saturate(200%)",
-          WebkitBackdropFilter: "blur(32px) saturate(200%)",
-          backgroundColor: "rgba(12,12,12,0.65)",
-          border: "1px solid rgba(255,255,255,0.08)",
-          boxShadow: "0 16px 40px -12px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.15)",
-          padding: "6px 8px",
-        }}
+        className="glass-surface-pill pointer-events-auto flex items-center justify-between"
+        style={{ width: "calc(100% - 32px)", maxWidth: "360px", padding: "6px 8px" }}
       >
         {tabs.map((tab) => (
           <Link
@@ -167,9 +158,14 @@ export default function MobileNav() {
             aria-current={tab.active ? "page" : undefined}
             className={`relative flex flex-col items-center justify-center gap-1 min-w-[64px] py-2 rounded-full transition-all duration-300 active:scale-95 ${
               tab.active
-                ? "bg-white/10 text-white"
-                : "text-white/50 hover:text-white/80 hover:bg-white/5"
+                ? "text-[var(--accent)]"
+                : "text-muted hover:text-theme hover:bg-[color:var(--glass-s-fill)]"
             }`}
+            style={
+              tab.active
+                ? { background: "color-mix(in srgb, var(--accent) 16%, transparent)" }
+                : undefined
+            }
           >
             <span className="relative">{tab.icon(tab.active)}</span>
             <span className="text-[10px] font-semibold leading-none tracking-wide">

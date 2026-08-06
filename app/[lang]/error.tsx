@@ -1,5 +1,6 @@
 "use client";
 
+import { TriangleAlert } from "lucide-react";
 import { useEffect } from "react";
 
 export default function Error({
@@ -15,9 +16,7 @@ export default function Error({
 
   return (
     <div className="min-h-[60vh] flex flex-col items-center justify-center gap-6 px-4 text-center">
-      <p className="text-[40px]" aria-hidden>
-        ⚠️
-      </p>
+      <TriangleAlert aria-hidden size={40} strokeWidth={1.25} className="text-muted" />
       <h2 className="text-[22px] font-bold text-theme">Qualcosa è andato storto</h2>
       <p className="text-[14px] text-muted max-w-sm">
         Si è verificato un errore imprevisto. Riprova o torna alla home.

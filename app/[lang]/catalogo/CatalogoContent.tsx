@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState, useRef } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
+import { Layers } from "lucide-react";
 import SiteNav from "@/components/SiteNav";
 import { useLang } from "@/components/LanguageProvider";
 import { copy } from "@/lib/formaCopy";
@@ -11,6 +12,7 @@ import { templatesMeta, bundles, formatPrice, type TemplateMeta } from "@/lib/te
 import { getLocalizedName, getLocalizedDesc, templateTranslations } from "@/lib/i18n";
 import { TemplateThumb } from "@/components/TemplateThumb";
 import { getKindLabel, getCatKey, GROUP_OF, type GroupKey } from "@/lib/categories";
+import { prefersReducedMotion, motionDuration } from "@/lib/reducedMotion";
 import gsap from "gsap";
 
 export type { GroupKey };
@@ -168,13 +170,18 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
     };
   }, [activeId, isClosing]);
 
-  // Background animation
+  // Background animation. The recede itself is motion, so with reduced motion
+  // the scale is left alone entirely and only the dimming is applied — that
+  // part is a colour change, and it is what tells you the page behind is no
+  // longer the thing you are interacting with.
   useEffect(() => {
     if (bgRef.current) {
+      const isOpen = activeId && !isClosing;
+      const reduced = prefersReducedMotion();
       gsap.to(bgRef.current, {
-        scale: activeId && !isClosing ? 0.985 : 1,
-        filter: activeId && !isClosing ? "brightness(0.88)" : "brightness(1)",
-        duration: 0.32,
+        scale: reduced ? 1 : isOpen ? 0.985 : 1,
+        filter: isOpen ? "brightness(0.88)" : "brightness(1)",
+        duration: motionDuration(0.32),
         ease: "power2.out",
       });
     }
@@ -200,16 +207,21 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
     }
     setIsClosing(true);
 
+    // Zero duration rather than an early return when motion is unwanted: the
+    // `onComplete` below is what unmounts the sheet and restores focus, so the
+    // tween has to run either way — it just arrives immediately.
+    const duration = motionDuration(0.3);
+
     gsap.to(modalRef.current, {
       y: 24,
       opacity: 0,
-      duration: 0.3,
+      duration,
       ease: "power2.in",
     });
 
     gsap.to(overlayRef.current, {
       opacity: 0,
-      duration: 0.3,
+      duration,
       onComplete: () => {
         setActiveId(null);
         setIsClosing(false);
@@ -596,8 +608,13 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                     className="fn-body"
                     style={{ display: "flex", flexDirection: "column", flex: 1 }}
                   >
-                    <div style={{ fontSize: 34, lineHeight: 1, marginBottom: 14 }} aria-hidden>
-                      {b.emoji}
+                    <div style={{ marginBottom: 14 }}>
+                      <Layers
+                        aria-hidden
+                        size={30}
+                        strokeWidth={1.25}
+                        style={{ color: "var(--accent)" }}
+                      />
                     </div>
                     <h3
                       style={{

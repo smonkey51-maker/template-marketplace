@@ -36,9 +36,23 @@ export default function GlobalError({
             textAlign: "center",
           }}
         >
-          <p style={{ fontSize: "3rem" }} aria-hidden>
-            ⚠️
-          </p>
+          {/* Inline SVG, not an emoji: this page renders its own <html> when
+              the app has already failed, so it must not depend on anything. */}
+          <svg
+            width="44"
+            height="44"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+          >
+            <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z" />
+            <path d="M12 9v4" />
+            <path d="M12 17h.01" />
+          </svg>
           <h1 style={{ fontSize: "1.5rem", fontWeight: 700, margin: 0 }}>Errore critico</h1>
           <p style={{ fontSize: "0.9rem", opacity: 0.6, maxWidth: "24rem", margin: 0 }}>
             L&apos;applicazione ha riscontrato un errore critico. Ricarica la pagina.
