@@ -44,24 +44,24 @@ export const clerkAppearance: Appearance = {
     // The primary CTA stays a solid gold pill everywhere else on the site
     // (globals.css: ".btn-brand ... not glass") — matched here rather than
     // left as Clerk's default rounded-rectangle blue button.
+    //
+    // No nested "&:hover" selector here: Clerk flags that as "structural
+    // CSS" because it reaches into the internal DOM of its own component
+    // (console warning, code=structural_css_pin_clerk_ui) and could break on
+    // a future Clerk update. Clerk already derives its own hover/focus shades
+    // from colorPrimary, which is good enough for a form button.
     formButtonPrimary: {
       backgroundColor: "var(--accent)",
       color: "var(--bg)",
       borderRadius: "var(--r-pill, 999px)",
       fontFamily: "var(--font-syne), sans-serif",
       textTransform: "none",
-      "&:hover, &:focus": {
-        backgroundColor: "var(--gold-soft)",
-      },
     },
     formFieldInput: {
       backgroundColor: "var(--input-bg)",
       borderColor: "var(--border)",
       borderRadius: "var(--r-md)",
       color: "var(--text)",
-      "&:focus": {
-        borderColor: "var(--accent)",
-      },
     },
     formFieldLabel: {
       color: "var(--text)",
