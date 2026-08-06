@@ -11,53 +11,13 @@ import { FormaFooter } from "@/components/FormaFooter";
 import { templatesMeta, bundles, formatPrice, type TemplateMeta } from "@/lib/templates";
 import { getLocalizedName, getLocalizedDesc, templateTranslations } from "@/lib/i18n";
 import { TemplateThumb } from "@/components/TemplateThumb";
+import { getKindLabel, getCatKey, GROUP_OF, type GroupKey } from "@/lib/categories";
 import { prefersReducedMotion, motionDuration } from "@/lib/reducedMotion";
 import gsap from "gsap";
 
-/**
- * What kind of thing this is, in the visitor's language.
- *
- * The badge used to read the download format, which was "HTML" on all sixteen
- * cards — the same word sixteen times, occupying the one spot on the card that
- * could carry information. Nothing on the site sells a Notion or Shopify file,
- * so the format never distinguished anything. `category` does: it is what the
- * filter chips group by, so the badge and the filters now say the same thing.
- */
-const KIND_LABELS: Record<TemplateMeta["category"], { it: string; en: string }> = {
-  prompt: { it: "Prompt", en: "Prompts" },
-  script: { it: "Script", en: "Scripts" },
-  guide: { it: "Guida", en: "Guide" },
-  worksheet: { it: "Foglio", en: "Worksheet" },
-  tracker: { it: "Tracker", en: "Tracker" },
-  ui: { it: "Template", en: "Template" },
-};
-
-function getKindLabel(t: TemplateMeta, lang: "it" | "en"): string {
-  return KIND_LABELS[t.category]?.[lang] ?? KIND_LABELS.ui[lang];
-}
+export type { GroupKey };
 
 const PAID_TEMPLATES = templatesMeta.filter((t) => !t.id.startsWith("free-"));
-
-/**
- * Buyer-facing groupings, not the raw `category` field.
- *
- * The categories as stored are prompt 3 · script 1 · guide 6 · worksheet 5 ·
- * tracker 1. Exposing those directly would give two filters that return a
- * single product each, which is worse than no filter — you click it and the
- * page looks broken. So `script` joins the prompts (both are copy you paste and
- * adapt) and `tracker` joins the worksheets (both are sheets you fill in),
- * leaving four groups that each hold a real handful.
- */
-export type GroupKey = "all" | "prompt" | "guide" | "sheet";
-
-const GROUP_OF: Record<TemplateMeta["category"], Exclude<GroupKey, "all">> = {
-  prompt: "prompt",
-  script: "prompt",
-  guide: "guide",
-  worksheet: "sheet",
-  tracker: "sheet",
-  ui: "guide",
-};
 
 const GROUPS: { key: GroupKey; it: string; en: string }[] = [
   { key: "all", it: "Tutti", en: "All" },
@@ -150,11 +110,14 @@ function FilterChip({
   active,
   count,
   onClick,
+  cat,
   children,
 }: {
   active: boolean;
   count: number;
   onClick: () => void;
+  /** Group chips only. Price and star chips have no category to colour. */
+  cat?: Exclude<GroupKey, "all">;
   children: React.ReactNode;
 }) {
   return (
@@ -162,6 +125,7 @@ function FilterChip({
       type="button"
       onClick={onClick}
       aria-pressed={active}
+      data-cat={cat}
       // Disabled rather than hidden when it would yield nothing: a row of chips
       // that reshuffles as you filter is disorienting, and knowing a combination
       // is empty *before* clicking is the point of showing counts at all.
@@ -396,6 +360,7 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                     active={group === g.key}
                     count={countWith(facets, needle, ratings, { group: g.key })}
                     onClick={() => setGroup(g.key)}
+                    cat={g.key === "all" ? undefined : g.key}
                   >
                     {lang === "it" ? g.it : g.en}
                   </FilterChip>
@@ -519,14 +484,17 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                             flexWrap: "wrap",
                           }}
                         >
-                          <span className="fn-badge">{getKindLabel(item, lang)}</span>
+                          <span className="fn-badge" data-cat={getCatKey(item)}>
+                            {getKindLabel(item, lang)}
+                          </span>
                           {item.editorsPick && (
                             <span
                               className="fn-badge"
                               style={{
                                 background: "transparent",
-                                border: "1px solid rgba(212,175,55,.5)",
-                                color: "#D4AF37",
+                                border:
+                                  "1px solid color-mix(in srgb, var(--cat-guide-ink) 45%, transparent)",
+                                color: "var(--cat-guide-ink)",
                               }}
                             >
                               ★ Editor
@@ -791,11 +759,17 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
 
                 <div className="p-8 sm:p-12">
                   <div className="flex gap-2 items-center flex-wrap mb-4">
-                    <span className="fn-badge bg-black/20">{getKindLabel(activeItem, lang)}</span>
+                    <span className="fn-badge bg-black/20" data-cat={getCatKey(activeItem)}>
+                      {getKindLabel(activeItem, lang)}
+                    </span>
                     {activeItem.editorsPick && (
                       <span
                         className="fn-badge"
-                        style={{ border: "1px solid rgba(212,175,55,.5)", color: "#D4AF37" }}
+                        style={{
+                          border:
+                            "1px solid color-mix(in srgb, var(--cat-guide-ink) 45%, transparent)",
+                          color: "var(--cat-guide-ink)",
+                        }}
                       >
                         ★ Editor
                       </span>

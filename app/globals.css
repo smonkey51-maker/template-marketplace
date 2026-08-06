@@ -4118,6 +4118,45 @@ html.dark {
   letter-spacing: 0.14em;
 }
 
+/* ═══════════════════════════════════════════════════════════
+   CATEGORY COLOUR
+   Three warm hues so a category is recognisable before its
+   nine-pixel label is read. Terracotta, gold and olive all
+   belong to the site's palette — gold, the house colour,
+   stays on the largest group and on the brand CTA.
+
+   Each hue is declared twice: an --ink for text and tinted
+   fills, and a --solid for a filled control. They differ
+   because the same swatch cannot both read as text on the
+   page and hold white text on itself.
+   ═══════════════════════════════════════════════════════════ */
+:root {
+  /* Ink: measured against --bg #fdfaf5, all ≥ 5:1. The badge used to hardcode
+     #d4af37, which is roughly 2:1 on cream — legible in dark mode, and not in
+     light. */
+  --cat-prompt-ink: #9c3d18;
+  --cat-guide-ink: #8a6829;
+  --cat-sheet-ink: #4d6135;
+
+  /* Solid: fill for a selected chip, with --cat-on as its text. */
+  --cat-prompt-solid: #9c3d18;
+  --cat-guide-solid: #8a6829;
+  --cat-sheet-solid: #4d6135;
+  --cat-on: #ffffff;
+}
+
+html.dark {
+  /* On near-black the same hues have to come up, not down. */
+  --cat-prompt-ink: #e08a5f;
+  --cat-guide-ink: #d4af37;
+  --cat-sheet-ink: #a8bd86;
+
+  --cat-prompt-solid: #e08a5f;
+  --cat-guide-solid: #d4af37;
+  --cat-sheet-solid: #a8bd86;
+  --cat-on: #17130a;
+}
+
 /* ── Badge ── */
 .fn-badge {
   display: inline-block;
@@ -4126,11 +4165,24 @@ html.dark {
   letter-spacing: 0.18em;
   padding: 5px 11px;
   border-radius: 999px;
-  background: rgba(212, 175, 55, 0.12);
-  color: #d4af37;
-  border: 1px solid rgba(212, 175, 55, 0.22);
+  /* Defaults to the house gold; [data-cat] below swaps the hue. Written with
+     color-mix off a single --cat-ink so a category needs one token, not three. */
+  --cat-ink: var(--cat-guide-ink);
+  background: color-mix(in srgb, var(--cat-ink) 12%, transparent);
+  color: var(--cat-ink);
+  border: 1px solid color-mix(in srgb, var(--cat-ink) 30%, transparent);
   font-family: var(--font-jakarta), sans-serif;
   font-weight: 600;
+}
+
+.fn-badge[data-cat="prompt"] {
+  --cat-ink: var(--cat-prompt-ink);
+}
+.fn-badge[data-cat="guide"] {
+  --cat-ink: var(--cat-guide-ink);
+}
+.fn-badge[data-cat="sheet"] {
+  --cat-ink: var(--cat-sheet-ink);
 }
 
 .fn-card-actions {
@@ -4482,8 +4534,8 @@ html.dark {
    frames at the from-state instead of flashing the finished cell first. */
 .bento-cell {
   min-width: 0; /* lets long words wrap instead of widening the track */
-  animation: bento-rise 0.72s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1))
-    var(--delay, 0ms) both;
+  animation: bento-rise 0.72s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)) var(--delay, 0ms)
+    both;
 }
 
 @keyframes bento-rise {
@@ -4532,11 +4584,21 @@ html.dark {
     justify-content: center;
   }
   /* Mobile cell ordering: Hero first, then Catalogo, Studio, Guida, Personal */
-  .bento-order-hero { order: 1; }
-  .bento-order-catalogo { order: 2; }
-  .bento-order-studio { order: 3; }
-  .bento-order-guida { order: 4; }
-  .bento-order-personal { order: 5; }
+  .bento-order-hero {
+    order: 1;
+  }
+  .bento-order-catalogo {
+    order: 2;
+  }
+  .bento-order-studio {
+    order: 3;
+  }
+  .bento-order-guida {
+    order: 4;
+  }
+  .bento-order-personal {
+    order: 5;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -4569,8 +4631,6 @@ html.dark {
     padding-block: 6px;
   }
 }
-
-
 
 /* ═══════════════════════════════════════════════════════════
    CATALOGUE FILTERS
@@ -4642,6 +4702,39 @@ html.dark {
   border-color: var(--accent);
   color: #17130a;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+/* A selected group chip takes that group's own colour, so the chip and the
+   badges it filters down to are visibly the same thing. "Tutti" keeps the house
+   gold above: it isn't a category, it's the absence of one. */
+.fn-filter[data-cat="prompt"].is-active {
+  background: var(--cat-prompt-solid);
+  border-color: var(--cat-prompt-solid);
+  color: var(--cat-on);
+}
+.fn-filter[data-cat="guide"].is-active {
+  background: var(--cat-guide-solid);
+  border-color: var(--cat-guide-solid);
+  color: var(--cat-on);
+}
+.fn-filter[data-cat="sheet"].is-active {
+  background: var(--cat-sheet-solid);
+  border-color: var(--cat-sheet-solid);
+  color: var(--cat-on);
+}
+
+/* Unselected, the chip stays glass — but its label carries a hint of the hue,
+   which is what makes the row scannable before anything is clicked. Not colour
+   alone: the text is still the label, and selection is still fill + border +
+   colour together. */
+.fn-filter[data-cat="prompt"]:not(.is-active, :disabled) {
+  color: var(--cat-prompt-ink);
+}
+.fn-filter[data-cat="guide"]:not(.is-active, :disabled) {
+  color: var(--cat-guide-ink);
+}
+.fn-filter[data-cat="sheet"]:not(.is-active, :disabled) {
+  color: var(--cat-sheet-ink);
 }
 
 .fn-filter__count {

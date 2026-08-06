@@ -8,21 +8,7 @@ import { BuyButton } from "./BuyButton";
 import { FormaFooter } from "@/components/FormaFooter";
 import { formatPrice, type TemplateMeta } from "@/lib/templates";
 import { getLocalizedName, getLocalizedDesc } from "@/lib/i18n";
-
-function getPlatformLabel(downloadType?: string): string {
-  const labels: Record<string, string> = {
-    html: "HTML",
-    notion: "Notion",
-    canva: "Canva",
-    excel: "Excel",
-    sheets: "Google Sheets",
-    framer: "Framer",
-    webflow: "Webflow",
-    shopify: "Shopify",
-    wordpress: "WordPress",
-  };
-  return labels[downloadType ?? "html"] ?? "HTML";
-}
+import { getKindLabel, getCatKey } from "@/lib/categories";
 
 export function TemplateDetailContent({
   item,
@@ -33,8 +19,6 @@ export function TemplateDetailContent({
 }) {
   const { lang } = useLang();
   const t = (k: keyof typeof copy.it) => copy[lang][k];
-  const dt = item.downloadType ?? "html";
-  const platform = getPlatformLabel(dt);
   const name = getLocalizedName(item, lang);
 
   return (
@@ -93,11 +77,21 @@ export function TemplateDetailContent({
 
           <div className="p-8 sm:p-14 lg:p-20">
             <div className="flex flex-wrap gap-2 items-center mb-6">
-              <span className="fn-badge bg-black/20 backdrop-blur-md">{platform}</span>
+              {/* The category, in the same colour it wears on its catalogue
+                  card. This badge used to read the download format, which is
+                  "HTML" on every product the shop sells — the catalogue fixed
+                  that and the product page was left behind, so the two pages
+                  labelled the same item differently. */}
+              <span className="fn-badge bg-black/20 backdrop-blur-md" data-cat={getCatKey(item)}>
+                {getKindLabel(item, lang)}
+              </span>
               {item.editorsPick && (
                 <span
                   className="fn-badge"
-                  style={{ border: "1px solid rgba(212,175,55,.4)", color: "#D4AF37" }}
+                  style={{
+                    border: "1px solid color-mix(in srgb, var(--cat-guide-ink) 40%, transparent)",
+                    color: "var(--cat-guide-ink)",
+                  }}
                 >
                   ★ Editor
                 </span>
