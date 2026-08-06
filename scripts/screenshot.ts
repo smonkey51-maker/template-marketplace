@@ -82,10 +82,18 @@ async function main() {
   if (!res.ok) throw new Error(`${base}${path} answered ${res.status}`);
   let html = await res.text();
 
-  const cssHref = html.match(/href="(\/_next\/static\/[^"]+\.css)"/)?.[1];
-  const css = cssHref ? await (await fetch(base + cssHref)).text() : "";
+  // Every stylesheet, in document order — not just the first. Next splits CSS
+  // per route chunk, so as soon as a page pulls in a second chunk (which
+  // /catalogo now does) taking only match[1] inlined a fraction of the styles
+  // and the screenshot came back as an unstyled document: no layout, no colour,
+  // blue underlined links. That looks exactly like a catastrophic CSS
+  // regression, and there wasn't one — the tool was only fetching half the CSS.
+  const cssHrefs = [...html.matchAll(/href="(\/_next\/static\/[^"]+\.css)"/g)].map((m) => m[1]);
+  const css = (
+    await Promise.all(cssHrefs.map(async (href) => (await fetch(base + href)).text()))
+  ).join("\n");
 
-  // The stylesheet is inlined and the scripts dropped. Without JavaScript the
+  // The stylesheets are inlined and the scripts dropped. Without JavaScript the
   // page is its server-rendered self, which is the honest thing to look at
   // anyway: it is what a visitor sees before hydration, and this site renders
   // its catalogue server-side on purpose.
