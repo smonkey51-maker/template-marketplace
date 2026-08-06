@@ -49,11 +49,15 @@ export default function SectionNav() {
 
   return (
     <>
-      {/* Fixed overlay nav bar — glassmorphism */}
+      {/* Fixed overlay nav bar — glassmorphism. The translucent strip stays
+          full-bleed (it's the visual anchor of the header), but its content
+          is capped to the same max-width as the bento grid below it —
+          otherwise "1fr auto 1fr" pins the side links to the literal screen
+          edges, and on a wide monitor that reads as two orphaned words with
+          a huge gap to the logo instead of a nav. */}
       <header
-        className="fixed top-0 inset-x-0 z-[70] grid items-center px-4 sm:px-6 lg:px-10"
+        className="fixed top-0 inset-x-0 z-[70] px-4 sm:px-6 lg:px-10"
         style={{
-          gridTemplateColumns: "1fr auto 1fr",
           height: "56px",
           paddingTop: "env(safe-area-inset-top, 0px)",
           background: "rgba(5,4,2,0.46)",
@@ -63,25 +67,30 @@ export default function SectionNav() {
           boxShadow: "0 8px 28px -12px rgba(0,0,0,0.6), inset 0 1px 0 var(--spatial-rim)",
         }}
       >
-        {/* Left side nav */}
-        <nav className="hidden lg:flex items-center gap-1" aria-label="Left navigation">
-          {renderNavLinks(LEFT_LINKS)}
-        </nav>
-
-        {/* Logo center */}
-        <div className="flex justify-center">
-          <Link href={`/${lang}`} aria-label="FORMA — Home" className="flex items-center">
-            <FormaLogoStatic className="w-24 sm:w-32 h-auto opacity-90 hover:opacity-100 transition-opacity" />
-          </Link>
-        </div>
-
-        {/* Right side nav */}
-        <nav
-          className="hidden lg:flex items-center gap-1 justify-self-end"
-          aria-label="Right navigation"
+        <div
+          className="grid items-center h-full mx-auto"
+          style={{ gridTemplateColumns: "1fr auto 1fr", maxWidth: "1400px" }}
         >
-          {renderNavLinks(RIGHT_LINKS)}
-        </nav>
+          {/* Left side nav */}
+          <nav className="hidden lg:flex items-center gap-1" aria-label="Left navigation">
+            {renderNavLinks(LEFT_LINKS)}
+          </nav>
+
+          {/* Logo center */}
+          <div className="flex justify-center">
+            <Link href={`/${lang}`} aria-label="FORMA — Home" className="flex items-center">
+              <FormaLogoStatic className="w-24 sm:w-32 h-auto opacity-90 hover:opacity-100 transition-opacity" />
+            </Link>
+          </div>
+
+          {/* Right side nav */}
+          <nav
+            className="hidden lg:flex items-center gap-1 justify-self-end"
+            aria-label="Right navigation"
+          >
+            {renderNavLinks(RIGHT_LINKS)}
+          </nav>
+        </div>
       </header>
     </>
   );
