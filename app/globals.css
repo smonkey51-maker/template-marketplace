@@ -4531,9 +4531,15 @@ html.dark {
 
 /* Entrance. Transform and opacity only, so this composites and the grid holds
    frame rate while every cell is appearing at once. `both` keeps the pre-delay
-   frames at the from-state instead of flashing the finished cell first. */
+   frames at the from-state instead of flashing the finished cell first.
+   `will-change` promotes each cell to its own compositor layer before the
+   animation starts, rather than while it's already running — five
+   `backdrop-filter` surfaces animating in at once, each newly promoted to a
+   layer mid-flight, is the textbook trigger for the flicker-then-blank
+   compositor glitch Chrome is known for on some external-monitor setups. */
 .bento-cell {
   min-width: 0; /* lets long words wrap instead of widening the track */
+  will-change: opacity, transform;
   animation: bento-rise 0.72s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)) var(--delay, 0ms)
     both;
 }

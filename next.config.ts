@@ -11,7 +11,7 @@ const CSP = [
   "font-src 'self' data: https://fonts.gstatic.com",
   "worker-src 'self' blob:",
   "img-src 'self' data: blob: https:",
-  "connect-src 'self' https://*.clerk.accounts.dev https://*.clerk.com https://api.stripe.com https://*.supabase.co https://*.posthog.com https://*.ingest.sentry.io",
+  "connect-src 'self' https://*.clerk.accounts.dev https://*.clerk.com https://clerk-telemetry.com https://api.stripe.com https://*.supabase.co https://*.posthog.com https://*.ingest.sentry.io",
   "frame-src 'self' https://js.stripe.com https://hooks.stripe.com https://*.clerk.accounts.dev",
   "frame-ancestors 'self'",
   "base-uri 'self'",
