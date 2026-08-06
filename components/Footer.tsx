@@ -87,7 +87,7 @@ export default function Footer() {
               { href: "/studio", label: f.studio },
               { href: "/account", label: f.account },
             ].map((l) => (
-              <Link key={l.href} href={l.href} className="text-[12.5px] link-muted">
+              <Link key={l.href} href={`/${lang}${l.href}`} className="text-[12.5px] link-muted">
                 <span className="link-underline">{l.label}</span>
               </Link>
             ))}
@@ -105,7 +105,7 @@ export default function Footer() {
               { href: "/privacy", label: f.privacy },
               { href: "/terms", label: f.terms },
             ].map((l) => (
-              <Link key={l.href} href={l.href} className="text-[12.5px] link-muted">
+              <Link key={l.href} href={`/${lang}${l.href}`} className="text-[12.5px] link-muted">
                 <span className="link-underline">{l.label}</span>
               </Link>
             ))}

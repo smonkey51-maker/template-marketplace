@@ -28,11 +28,11 @@ export default function SectionNav() {
   const renderNavLinks = (links: NavLink[]) => {
     return links.map((link) => {
       const label = lang === "it" ? link.labelIt : link.labelEn;
-      const active = pathname.startsWith(link.href);
+      const active = pathname.startsWith(`/${lang}${link.href}`);
       return (
         <Link
           key={link.href}
-          href={link.href}
+          href={`/${lang}${link.href}`}
           aria-current={active ? "page" : undefined}
           className="px-3 py-1.5 text-[11px] font-semibold tracking-widest uppercase transition-all duration-200"
           style={{
@@ -70,7 +70,7 @@ export default function SectionNav() {
 
         {/* Logo center */}
         <div className="flex justify-center">
-          <Link href="/" aria-label="FORMA — Home" className="flex items-center">
+          <Link href={`/${lang}`} aria-label="FORMA — Home" className="flex items-center">
             <FormaLogoStatic className="w-24 sm:w-32 h-auto opacity-90 hover:opacity-100 transition-opacity" />
           </Link>
         </div>

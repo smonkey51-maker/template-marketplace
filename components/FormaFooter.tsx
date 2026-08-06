@@ -88,7 +88,10 @@ export function FormaFooter() {
       style={{
         borderTop: "1px solid var(--fn-border, rgba(234,234,234,.10))",
         background: "var(--surface)",
-        padding: "64px 36px 32px",
+        // Bottom padding clears the floating MobileNav pill (bottom-6, ~56px
+        // tall): without it the trust badges row and copyright — the very
+        // last thing in the document — render right underneath it.
+        padding: "64px 36px calc(140px + env(safe-area-inset-bottom, 0px))",
       }}
     >
       <div style={{ maxWidth: 1220, margin: "0 auto" }}>
@@ -176,7 +179,7 @@ export function FormaFooter() {
             ].map((l) => (
               <Link
                 key={l.href + l.label}
-                href={l.href}
+                href={`/${lang}${l.href}`}
                 className="link-muted"
                 style={{ fontSize: 13, textDecoration: "none" }}
               >
@@ -194,7 +197,7 @@ export function FormaFooter() {
             ].map((l) => (
               <Link
                 key={l.label}
-                href={l.href}
+                href={l.href.startsWith("/") ? `/${lang}${l.href}` : l.href}
                 className="link-muted"
                 style={{ fontSize: 13, textDecoration: "none" }}
               >
@@ -212,7 +215,7 @@ export function FormaFooter() {
             ].map((l) => (
               <Link
                 key={l.label}
-                href={l.href}
+                href={`/${lang}${l.href}`}
                 className="link-muted"
                 style={{ fontSize: 13, textDecoration: "none" }}
               >
