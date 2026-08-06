@@ -19,8 +19,16 @@ export default function MobileNav() {
   // raw pathname meant `hidden` was always false and no tab was ever "active".
   const routeKey = pathname.replace(/^\/(it|en)/, "") || "/";
 
-  // Only show on mobile (handled via CSS), hide on certain pages
-  const hidden = ["/sign-in", "/sign-up", "/studio", "/preview"].some((p) =>
+  // Only show on mobile (handled via CSS), hide on pages that put their own bar
+  // at the bottom of the viewport. This pill is `bottom-6 z-[90]`, centred; a
+  // page-level bottom bar is `bottom-0 z-50`, full width — so the pill lands on
+  // top of it rather than beside it, and the page's own control loses.
+  //
+  // `/bundle` is here because that is exactly what was happening: the bundle
+  // page's fixed CTA bar carries the "Acquista bundle" button, and the floating
+  // pill sat over it on every phone. Of all the buttons on the site to cover,
+  // that is the one that costs a sale.
+  const hidden = ["/sign-in", "/sign-up", "/studio", "/preview", "/bundle"].some((p) =>
     routeKey.startsWith(p),
   );
   if (hidden) return null;
