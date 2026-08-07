@@ -10,6 +10,7 @@ import { getTemplate, formatPrice, getDownloadType } from "@/lib/templates";
 import DownloadButton from "@/components/DownloadButton";
 import { useLang } from "@/components/LanguageProvider";
 import { t, getLocalizedName } from "@/lib/i18n";
+import { Star } from "lucide-react";
 
 export default function AccountPage() {
   const { user, isLoaded } = useUser();
@@ -299,6 +300,23 @@ export default function AccountPage() {
                         downloadType={dlType}
                         variant="prominent"
                       />
+                      {/* The one place a review can actually come from.
+                          The review form only renders for someone who has
+                          bought the product — and it lives on /preview, the
+                          page a buyer has no reason to open again once they
+                          own the file. So the form existed and nobody was ever
+                          asked. Not hidden on mobile, unlike the two chips
+                          above: most buyers are on a phone, and this is the
+                          ask that turns zero reviews into some. */}
+                      <Link
+                        href={`/${lang}/preview/${tmpl.id}#recensioni`}
+                        className="mt-2.5 flex items-center justify-center gap-1.5 text-[12px] text-muted hover:text-accent transition-colors"
+                      >
+                        <Star size={13} strokeWidth={1.6} aria-hidden />
+                        {lang === "it"
+                          ? "Com'è andata? Lascia una recensione"
+                          : "How did it go? Leave a review"}
+                      </Link>
                     </div>
                   </div>
                 );
