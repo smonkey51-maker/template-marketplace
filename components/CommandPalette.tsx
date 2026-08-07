@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { Zap } from "lucide-react";
+import { Zap, ArrowUpRight } from "lucide-react";
 import { templates } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
 import { templateTranslations } from "@/lib/i18n";
@@ -270,7 +270,9 @@ export default function CommandPalette() {
                   onClick={() => execute(item)}
                   onMouseEnter={() => setIndex(itemIdx)}
                 >
-                  <span className="text-[14px] opacity-60">↗</span>
+                  <span className="cmdk-item__badge" aria-hidden>
+                    <ArrowUpRight size={15} strokeWidth={1.8} />
+                  </span>
                   <div className="flex-1 min-w-0">
                     <p className="text-[13px] font-semibold truncate">
                       {item.kind === "route" ? item.label : ""}
@@ -309,10 +311,7 @@ export default function CommandPalette() {
                   onClick={() => execute(item)}
                   onMouseEnter={() => setIndex(itemIdx)}
                 >
-                  <span
-                    className="w-6 h-6 shrink-0 flex items-center justify-center text-[11px] font-bold"
-                    style={{ background: "var(--accent-bg)", color: "var(--accent)" }}
-                  >
+                  <span className="cmdk-item__badge" aria-hidden>
                     {item.name.slice(0, 1).toUpperCase()}
                   </span>
                   <div className="flex-1 min-w-0">
