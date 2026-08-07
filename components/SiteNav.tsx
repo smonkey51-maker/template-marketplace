@@ -7,11 +7,18 @@ import { copy } from "@/lib/formaCopy";
 import { useLang } from "@/components/LanguageProvider";
 import { FormaLogoAnimated } from "@/components/FormaLogo";
 import BackLink from "@/components/BackLink";
+import { Layers, Sparkles, BookOpen, Table2, LayoutGrid, User, Heart } from "lucide-react";
 
 interface DropItem {
   href: string;
   labelIt: string;
   labelEn: string;
+  /** One line saying what is behind the link. */
+  descIt: string;
+  descEn: string;
+  icon: typeof Layers;
+  /** Ties the icon badge to the catalogue's category colours. */
+  cat?: "prompt" | "guide" | "sheet";
 }
 
 /**
@@ -24,16 +31,68 @@ interface DropItem {
 // menu silently landed on the unfiltered catalogue, and none of those four
 // categories has existed since the catalogue was rebuilt.
 const CATALOGO_ITEMS: DropItem[] = [
-  { href: "/catalogo", labelIt: "Tutti i template", labelEn: "All templates" },
-  { href: "/catalogo?gruppo=prompt", labelIt: "Prompt e script", labelEn: "Prompts & scripts" },
-  { href: "/catalogo?gruppo=guide", labelIt: "Guide", labelEn: "Guides" },
-  { href: "/catalogo?gruppo=sheet", labelIt: "Fogli e tracker", labelEn: "Sheets & trackers" },
-  { href: "/catalogo#bundle", labelIt: "Bundle", labelEn: "Bundles" },
+  {
+    href: "/catalogo",
+    labelIt: "Tutti i template",
+    labelEn: "All templates",
+    descIt: "16 prodotti pronti all'uso",
+    descEn: "16 products, ready to use",
+    icon: LayoutGrid,
+  },
+  {
+    href: "/catalogo?gruppo=prompt",
+    labelIt: "Prompt e script",
+    labelEn: "Prompts & scripts",
+    descIt: "Testo da copiare e adattare",
+    descEn: "Copy, adapt, paste",
+    icon: Sparkles,
+    cat: "prompt",
+  },
+  {
+    href: "/catalogo?gruppo=guide",
+    labelIt: "Guide",
+    labelEn: "Guides",
+    descIt: "Percorsi passo per passo",
+    descEn: "Step-by-step walkthroughs",
+    icon: BookOpen,
+    cat: "guide",
+  },
+  {
+    href: "/catalogo?gruppo=sheet",
+    labelIt: "Fogli e tracker",
+    labelEn: "Sheets & trackers",
+    descIt: "Da compilare e aggiornare",
+    descEn: "Fill in and keep updated",
+    icon: Table2,
+    cat: "sheet",
+  },
+  {
+    href: "/catalogo#bundle",
+    labelIt: "Bundle",
+    labelEn: "Bundles",
+    descIt: "Più prodotti, fino a €17 in meno",
+    descEn: "Several products, up to €17 off",
+    icon: Layers,
+  },
 ];
 
 const ACCOUNT_ITEMS: DropItem[] = [
-  { href: "/account", labelIt: "Il mio account", labelEn: "My account" },
-  { href: "/wishlist", labelIt: "Salvati", labelEn: "Saved" },
+  {
+    href: "/account",
+    labelIt: "Il mio account",
+    labelEn: "My account",
+    descIt: "Acquisti e download",
+    descEn: "Purchases and downloads",
+    icon: User,
+  },
+  {
+    href: "/wishlist",
+    labelIt: "Salvati",
+    labelEn: "Saved",
+    descIt: "I template messi da parte",
+    descEn: "Templates you set aside",
+    icon: Heart,
+  },
 ];
 
 /** Nav item with a real dropdown — opens on hover (pointer) and on focus/click. */
@@ -121,18 +180,32 @@ function NavDropdown({
       </Link>
 
       <div id={menuId} className="fn-menu" data-open={open ? "1" : undefined} role="menu">
-        {items.map((item) => (
-          <Link
-            key={item.href}
-            href={`/${lang}${item.href}`}
-            role="menuitem"
-            className="fn-menu-item"
-            tabIndex={open ? 0 : -1}
-            onClick={() => setOpen(false)}
-          >
-            {lang === "it" ? item.labelIt : item.labelEn}
-          </Link>
-        ))}
+        {items.map((item) => {
+          const Icon = item.icon;
+          return (
+            <Link
+              key={item.href}
+              href={`/${lang}${item.href}`}
+              role="menuitem"
+              className="fn-menu-item"
+              data-cat={item.cat}
+              tabIndex={open ? 0 : -1}
+              onClick={() => setOpen(false)}
+            >
+              <span className="fn-menu-item__badge" aria-hidden>
+                <Icon size={16} strokeWidth={1.6} />
+              </span>
+              <span className="fn-menu-item__text">
+                <span className="fn-menu-item__label">
+                  {lang === "it" ? item.labelIt : item.labelEn}
+                </span>
+                <span className="fn-menu-item__desc">
+                  {lang === "it" ? item.descIt : item.descEn}
+                </span>
+              </span>
+            </Link>
+          );
+        })}
       </div>
     </div>
   );
