@@ -2,7 +2,8 @@
 
 import { useEffect } from "react";
 
-const GLASS_SELECTOR = ".glass-surface, .glass-surface-pill, .forma-glass-card, .fn-filter";
+const GLASS_SELECTOR =
+  ".glass-surface, .glass-surface-pill, .glass-bar, .forma-glass-card, .fn-filter";
 
 /**
  * Three progressive enhancements layered on top of the CSS glass material,

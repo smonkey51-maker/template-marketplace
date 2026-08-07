@@ -32,6 +32,7 @@
 @media (hover: none) and (prefers-reduced-motion: no-preference) {
   .glass-surface,
   .glass-surface-pill,
+  .glass-bar,
   .forma-glass-card,
   .fn-filter {
     animation: glass-sweep 9s ease-in-out infinite;
@@ -123,8 +124,8 @@ body {
   border: 1px solid var(--glass-rim);
   border-top-color: rgba(255, 255, 255, 0.15); /* Specular highlight */
   border-radius: var(--r-md, 16px);
-  backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
   box-shadow:
     var(--glass-cast-1),
     inset 0 2px 2px -1px rgba(255, 255, 255, 0.15),
@@ -143,8 +144,8 @@ html.squircle-ready .forma-glass-card {
   mask-image: paint(squircle);
 }
 html.glass-fx-ready .forma-glass-card {
-  backdrop-filter: var(--glass-blur) url(#glass-distortion-lg);
   -webkit-backdrop-filter: var(--glass-blur) url(#glass-distortion-lg);
+  backdrop-filter: var(--glass-blur) url(#glass-distortion-lg);
 }
 @media (hover: hover) {
   .forma-glass-card:hover {
@@ -635,6 +636,21 @@ html.dark {
    State is never carried by shadow alone: a selected control
    also changes fill, rim colour and text colour, so it survives
    forced-colors mode and low-vision viewing (WCAG 1.4.11).
+
+   ⚠ ORDER MATTERS: -webkit-backdrop-filter must be written
+   BEFORE the unprefixed backdrop-filter, everywhere.
+
+   The production CSS pipeline collapses the two into one
+   declaration and keeps whichever came last. With the standard
+   property written first — which is how every one of these
+   rules used to read — the build shipped ONLY
+   -webkit-backdrop-filter, and engines that don't take the
+   prefixed alias dropped it entirely. So the blur, the one
+   property that makes this material glass rather than a tinted
+   box, was silently absent from every production build. Only
+   `npm run dev` ever showed it, because dev doesn't minify.
+   Rim, fill and shadow all worked, which is exactly why nobody
+   noticed the sheets weren't refracting anything.
    ═══════════════════════════════════════════════════════════ */
 :root {
   /* Tier 1 — glass over artwork */
@@ -657,10 +673,15 @@ html.dark {
   --glass-s-cast-1: 0 2px 6px -1px rgba(60, 48, 30, 0.1), 0 8px 20px -6px rgba(60, 48, 30, 0.14);
   --glass-s-cast-2: 0 6px 14px -2px rgba(60, 48, 30, 0.14), 0 18px 40px -10px rgba(60, 48, 30, 0.2);
 
+  /* Tier 3 — glass over the scrolling page (bottom bars). See .glass-bar. */
+  --glass-bar-fill: rgba(253, 250, 245, 0.95);
+  --glass-bar-blur: blur(28px) saturate(180%);
+
   /* Every glass sheet is rounded. There are no square corners. */
   --glass-radius: 22px;
 }
 html.dark {
+  --glass-bar-fill: rgba(10, 9, 7, 0.94);
   --glass-s-fill: rgba(255, 255, 255, 0.055);
   --glass-s-fill-hi: rgba(255, 255, 255, 0.095);
   --glass-s-fill-sunk: rgba(0, 0, 0, 0.28);
@@ -698,8 +719,8 @@ html.dark {
   );
   border: 1px solid var(--glass-s-rim);
   border-radius: var(--glass-radius);
-  backdrop-filter: var(--glass-s-blur);
   -webkit-backdrop-filter: var(--glass-s-blur);
+  backdrop-filter: var(--glass-s-blur);
   box-shadow:
     var(--glass-s-cast-1),
     inset 0 1px 0 var(--glass-s-sheen);
@@ -721,17 +742,17 @@ html.squircle-ready .glass-panel {
   mask-image: paint(squircle);
 }
 html.glass-fx-ready .glass-surface {
-  backdrop-filter: var(--glass-s-blur) url(#glass-distortion-lg);
   -webkit-backdrop-filter: var(--glass-s-blur) url(#glass-distortion-lg);
+  backdrop-filter: var(--glass-s-blur) url(#glass-distortion-lg);
 }
 html.glass-fx-ready .glass-panel {
-  backdrop-filter: blur(32px) saturate(200%) url(#glass-distortion-lg);
   -webkit-backdrop-filter: blur(32px) saturate(200%) url(#glass-distortion-lg);
+  backdrop-filter: blur(32px) saturate(200%) url(#glass-distortion-lg);
 }
 html.glass-fx-ready .glass-surface-pill,
 html.glass-fx-ready .fn-filter {
-  backdrop-filter: var(--glass-s-blur) url(#glass-distortion-sm);
   -webkit-backdrop-filter: var(--glass-s-blur) url(#glass-distortion-sm);
+  backdrop-filter: var(--glass-s-blur) url(#glass-distortion-sm);
 }
 @media (hover: hover) {
   .glass-surface:hover {
@@ -758,8 +779,8 @@ html.glass-fx-ready .fn-filter {
   );
   border: 1px solid var(--glass-s-rim);
   border-radius: 999px;
-  backdrop-filter: var(--glass-s-blur);
   -webkit-backdrop-filter: var(--glass-s-blur);
+  backdrop-filter: var(--glass-s-blur);
   box-shadow:
     var(--glass-s-cast-1),
     inset 0 1px 0 var(--glass-s-sheen);
@@ -780,6 +801,73 @@ html.glass-fx-ready .fn-filter {
       inset 0 1px 0 var(--glass-s-sheen);
   }
 }
+
+/* The same material, pinned to the bottom edge of the viewport.
+
+   The two sticky buy bars — the preview page's and the bundle page's — were
+   hand-rolled: a raw `backdrop-filter: blur(40px) saturate(200%)` inline,
+   `--nav-bg` as fill, a manually drawn hairline standing in for the rim, and no
+   cast shadow at all. So the two controls that take the visitor's money were
+   the only raised surfaces on the site outside the material: they did not
+   follow the fill and rim tokens, and GlassEnhancements never saw them, so the
+   panel that matters most was the one without the specular highlight, the
+   squircle corners or the refraction.
+
+   Two things differ from .glass-surface, both because this sheet is pinned to
+   an edge rather than floating on the page:
+
+   - It rounds and catches its rim light along the top edge only; the other
+     three sides run off the viewport.
+   - Its fill is far more opaque. .glass-surface is tuned for a panel on flat
+     ground with nothing behind it to read through; a bottom bar sits over the
+     scrolling page, and at card opacity the page's own body text showed
+     straight through the price and the buy button. The opacity here matches
+     what the hand-rolled bars already used (--nav-bg, 0.92–0.96), so putting
+     them on the material costs no readability. The glass reads as glass
+     through the blur, rim, specular sweep and refraction — not through
+     transparency.
+
+   No hover lift: a bar pinned to an edge cannot lift toward the viewer, and
+   these are containers, not buttons. */
+.glass-bar {
+  --squircle-radius: var(--glass-radius);
+  --squircle-n: 5;
+  background-color: var(--glass-bar-fill);
+  background-image: radial-gradient(
+    circle at var(--spec-x) var(--spec-y),
+    rgba(255, 255, 255, var(--spec-o)),
+    transparent 60%
+  );
+  border-top: 1px solid var(--glass-s-rim);
+  border-radius: var(--glass-radius) var(--glass-radius) 0 0;
+  -webkit-backdrop-filter: var(--glass-bar-blur);
+  backdrop-filter: var(--glass-bar-blur);
+  /* The cast is thrown upward, onto the content the bar overlaps — the only
+     direction there is anything to cast onto. */
+  box-shadow:
+    0 -6px 16px -4px rgba(60, 48, 30, 0.12),
+    0 -18px 40px -12px rgba(60, 48, 30, 0.16),
+    inset 0 1px 0 var(--glass-s-sheen);
+  transition:
+    background-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    --spec-x var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    --spec-y var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    --spec-o var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+html.dark .glass-bar {
+  box-shadow:
+    0 -6px 18px -4px rgba(0, 0, 0, 0.55),
+    0 -20px 44px -12px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 var(--glass-s-sheen);
+}
+html.glass-fx-ready .glass-bar {
+  -webkit-backdrop-filter: var(--glass-bar-blur) url(#glass-distortion-lg);
+  backdrop-filter: var(--glass-bar-blur) url(#glass-distortion-lg);
+}
+/* No squircle mask here on purpose: paint(squircle) rounds all four corners,
+   and this sheet's bottom two are off-screen — masking them would cut two
+   notches out of the bar where it meets the edge of the viewport. */
 
 /* ═══════════════════════════════════════════════════════════
    GLOBAL TRANSITIONS & FONT
@@ -825,8 +913,9 @@ body {
     color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.4s cubic-bezier(0.32, 1.1, 0.64, 1), /* Bouncier for tactile feedback */
-    --spec-x 0.4s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform 0.4s cubic-bezier(0.32, 1.1, 0.64, 1),
+    /* Bouncier for tactile feedback */ --spec-x 0.4s
+      var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
     --spec-y 0.4s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
     --spec-o 0.4s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
@@ -994,8 +1083,8 @@ html::-webkit-scrollbar-track {
 
   /* ── Surface utilities ── */
   .glass {
-    backdrop-filter: blur(16px) saturate(160%) brightness(var(--glass-bright));
     -webkit-backdrop-filter: blur(16px) saturate(160%) brightness(var(--glass-bright));
+    backdrop-filter: blur(16px) saturate(160%) brightness(var(--glass-bright));
     background: var(--glass-fill);
     box-shadow: var(--glass-shadow);
     border: 1px solid var(--glass-stroke);
@@ -1021,8 +1110,8 @@ html::-webkit-scrollbar-track {
   .glass-pill {
     position: relative;
     border-radius: 9999px;
-    backdrop-filter: blur(24px) saturate(180%);
     -webkit-backdrop-filter: blur(24px) saturate(180%);
+    backdrop-filter: blur(24px) saturate(180%);
     background: var(--glass-fill);
     box-shadow:
       0 12px 32px -8px rgba(0, 0, 0, 0.5),
@@ -1046,8 +1135,8 @@ html::-webkit-scrollbar-track {
     --squircle-radius: var(--r-md);
     --squircle-n: 5;
     border-radius: var(--r-md);
-    backdrop-filter: blur(32px) saturate(200%);
     -webkit-backdrop-filter: blur(32px) saturate(200%);
+    backdrop-filter: blur(32px) saturate(200%);
     background: var(--glass-fill);
     box-shadow:
       0 16px 40px -12px rgba(0, 0, 0, 0.6),
@@ -1244,14 +1333,14 @@ html::-webkit-scrollbar-track {
    SCROLL-LINKED NAV — blur progression
    ═══════════════════════════════════════════════════════════ */
 .nav-scrolled {
-  backdrop-filter: blur(24px) saturate(200%);
   -webkit-backdrop-filter: blur(24px) saturate(200%);
+  backdrop-filter: blur(24px) saturate(200%);
   background: color-mix(in oklab, var(--nav-bg) 92%, var(--accent) 8%);
   box-shadow: var(--elev-2);
 }
 .nav-default {
-  backdrop-filter: blur(12px) saturate(140%);
   -webkit-backdrop-filter: blur(12px) saturate(140%);
+  backdrop-filter: blur(12px) saturate(140%);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -1262,8 +1351,8 @@ html::-webkit-scrollbar-track {
   inset: 0;
   z-index: 100;
   background: color-mix(in oklab, var(--bg) 70%, transparent);
-  backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   animation: fade-in var(--t-sm) var(--ease-glide) forwards;
 }
 .cmdk-panel {
@@ -3590,8 +3679,8 @@ html.dark {
   color: var(--muted);
   border: 1px solid var(--glass-s-rim);
   background: var(--glass-s-fill);
-  backdrop-filter: var(--glass-s-blur);
   -webkit-backdrop-filter: var(--glass-s-blur);
+  backdrop-filter: var(--glass-s-blur);
   box-shadow: inset 0 1px 0 var(--glass-s-sheen);
   cursor: pointer;
   transition:
@@ -3612,8 +3701,8 @@ html.dark {
   border: 1px solid var(--glass-s-rim);
   border-radius: 999px;
   background: var(--glass-s-fill-sunk);
-  backdrop-filter: var(--glass-s-blur);
   -webkit-backdrop-filter: var(--glass-s-blur);
+  backdrop-filter: var(--glass-s-blur);
   box-shadow: inset 0 1px 0 var(--glass-s-sheen);
 }
 .fn-lang button {
@@ -3681,8 +3770,8 @@ html.dark {
   border-radius: var(--r-md, 16px);
   background: var(--fn-menu-bg, rgba(12, 10, 7, 0.82));
   border: 1px solid var(--fn-border, rgba(234, 234, 234, 0.12));
-  backdrop-filter: blur(22px) saturate(160%);
   -webkit-backdrop-filter: blur(22px) saturate(160%);
+  backdrop-filter: blur(22px) saturate(160%);
   box-shadow: var(--elev-4, 0 20px 50px rgba(0, 0, 0, 0.5));
   opacity: 0;
   transform: translateY(-6px) scale(0.98);
@@ -3884,8 +3973,8 @@ html.dark {
   padding: 14px 20px;
   outline: none;
   font: inherit;
-  backdrop-filter: var(--glass-s-blur);
   -webkit-backdrop-filter: var(--glass-s-blur);
+  backdrop-filter: var(--glass-s-blur);
   box-shadow: inset 0 1px 0 var(--glass-s-sheen);
   transition:
     background var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
@@ -3920,8 +4009,8 @@ html.dark {
   border: 1px solid var(--glass-s-rim);
   border-radius: 999px;
   color: var(--muted);
-  backdrop-filter: var(--glass-s-blur);
   -webkit-backdrop-filter: var(--glass-s-blur);
+  backdrop-filter: var(--glass-s-blur);
   /* Resting: a glass pill sitting just above the page */
   box-shadow:
     var(--glass-s-cast-1),
@@ -4076,8 +4165,8 @@ html.dark {
   background: var(--glass-s-fill);
   border: 1px solid var(--glass-s-rim);
   border-radius: var(--glass-radius);
-  backdrop-filter: var(--glass-s-blur);
   -webkit-backdrop-filter: var(--glass-s-blur);
+  backdrop-filter: var(--glass-s-blur);
   box-shadow:
     var(--glass-s-cast-1),
     inset 0 1px 0 var(--glass-s-sheen);
@@ -4236,8 +4325,8 @@ html.dark {
   border: 1px solid var(--glass-s-rim);
   border-radius: var(--glass-radius);
   background: var(--glass-s-fill);
-  backdrop-filter: var(--glass-s-blur);
   -webkit-backdrop-filter: var(--glass-s-blur);
+  backdrop-filter: var(--glass-s-blur);
   box-shadow:
     var(--glass-s-cast-1),
     inset 0 1px 0 var(--glass-s-sheen);
@@ -4274,8 +4363,8 @@ html.dark {
   padding: 26px;
   margin-top: 24px;
   background: var(--glass-s-fill);
-  backdrop-filter: var(--glass-s-blur);
   -webkit-backdrop-filter: var(--glass-s-blur);
+  backdrop-filter: var(--glass-s-blur);
   box-shadow:
     var(--glass-s-cast-1),
     inset 0 1px 0 var(--glass-s-sheen);
@@ -4658,8 +4747,8 @@ html.dark {
     rgba(255, 255, 255, var(--spec-o)),
     transparent 60%
   );
-  backdrop-filter: var(--glass-s-blur);
   -webkit-backdrop-filter: var(--glass-s-blur);
+  backdrop-filter: var(--glass-s-blur);
   box-shadow:
     var(--glass-s-cast-1),
     inset 0 1px 0 var(--glass-s-sheen);
