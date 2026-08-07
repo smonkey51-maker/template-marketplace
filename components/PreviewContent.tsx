@@ -276,18 +276,17 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
       </div>
 
       {/* ── Mobile/Desktop toggle (UI only) ── */}
+      {/* A segmented control, which is exactly what .glass-surface-pill is for.
+          It was hand-rolled with a raw blur and, having no radius at all, was
+          one of the few genuinely square-cornered surfaces left on a site whose
+          design system says there are none. */}
       {template.category === "ui" && (
         <div
-          className="fixed z-50 flex items-center border"
+          className="glass-surface-pill fixed z-50 flex items-center"
           style={{
             top: "max(1rem, env(safe-area-inset-top, 1rem))",
             left: "50%",
             transform: "translateX(-50%)",
-            background: "var(--nav-bg)",
-            borderColor: "var(--border)",
-            backdropFilter: "blur(16px) saturate(160%)",
-            WebkitBackdropFilter: "blur(16px) saturate(160%)",
-            boxShadow: "0 4px 24px rgba(0,0,0,0.18)",
             padding: "3px",
             gap: "2px",
           }}
@@ -424,19 +423,10 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
       </div>
 
       {/* ── Fixed bottom CTA bar ── */}
-      <div
-        className="fixed bottom-0 inset-x-0 z-50 border-t border-theme cta-bar-enter"
-        style={{
-          backdropFilter: "blur(40px) saturate(200%)",
-          WebkitBackdropFilter: "blur(40px) saturate(200%)",
-          backgroundColor: "var(--nav-bg)",
-        }}
-      >
-        <div
-          className="absolute inset-x-8 top-0 h-px rounded-full"
-          style={{ background: "var(--glass-top-edge)" }}
-        />
-
+      {/* .glass-bar, not a hand-rolled blur — see the class in globals.css. The
+          manually drawn top hairline went with it: the rim is part of the
+          material now. */}
+      <div className="glass-bar cta-bar-enter fixed bottom-0 inset-x-0 z-50">
         <div className="max-w-2xl mx-auto px-4 py-3 sm:py-4">
           {/* Price — hero element, immediately visible */}
           <div className="flex items-center justify-between mb-2">
@@ -459,7 +449,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
               </span>
               {template.downloads >= 700 && (
                 <span
-                  className="text-[10px] font-bold px-1.5 py-0.5"
+                  className="r-pill text-[10px] font-bold px-2 py-0.5"
                   style={{
                     color: "var(--accent)",
                     background: "var(--accent-bg)",

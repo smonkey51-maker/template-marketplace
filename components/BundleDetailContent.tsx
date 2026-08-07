@@ -451,21 +451,11 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
       </div>
 
       {/* ── Fixed bottom CTA bar ── */}
-      <div
-        className="fixed bottom-0 inset-x-0 z-50 border-t border-theme"
-        style={{
-          backdropFilter: "blur(40px) saturate(200%)",
-          WebkitBackdropFilter: "blur(40px) saturate(200%)",
-          backgroundColor: "var(--nav-bg)",
-        }}
-      >
-        <div
-          className="absolute inset-x-8 top-0 h-px rounded-full"
-          style={{
-            background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent)",
-          }}
-        />
-
+      {/* .glass-bar, not a hand-rolled blur: the rim, fill and cast now come
+          from the same tokens as every other panel, and the bar picks up the
+          specular highlight and refraction it never had. The hand-drawn
+          hairline that stood in for the rim is gone with it. */}
+      <div className="glass-bar fixed bottom-0 inset-x-0 z-50">
         <div className="max-w-4xl mx-auto px-4 py-3 sm:py-4">
           <div className="flex items-center gap-3 mb-3">
             <Layers aria-hidden size={22} strokeWidth={1.5} className={`shrink-0 ${colors.text}`} />
@@ -489,9 +479,9 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
           </div>
 
           {purchasesLoading ? (
-            <div className="w-full h-[50px] bg-theme/10 animate-pulse" />
+            <div className="w-full h-[50px] r-pill bg-theme/10 animate-pulse" />
           ) : isFullyOwned ? (
-            <div className="w-full py-3 bg-accent/10 text-accent text-[14px] font-bold text-center border border-accent/20">
+            <div className="w-full py-3 r-pill bg-accent/10 text-accent text-[14px] font-bold text-center border border-accent/20">
               {t[lang].bundleDetail.fullyOwned}
             </div>
           ) : (
