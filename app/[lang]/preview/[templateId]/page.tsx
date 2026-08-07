@@ -91,7 +91,14 @@ export default async function PreviewPage({
         />
       )}
       <PreviewContent templateId={templateId} />
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10 border-t border-theme">
+      {/* id + scroll-mt: the account page links straight here, and the sticky
+          buy bar sits at the bottom while the header floats at the top — an
+          un-offset anchor lands the heading under the chrome. */}
+      <div
+        id="recensioni"
+        className="max-w-5xl mx-auto px-4 sm:px-6 py-10 border-t border-theme"
+        style={{ scrollMarginTop: "96px" }}
+      >
         <h2 className="text-[15px] font-bold text-theme mb-6">Recensioni</h2>
         <Suspense fallback={<div className="h-20 animate-pulse bg-theme/5" />}>
           <ReviewSection templateId={templateId} />
