@@ -3,6 +3,7 @@
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
+import { ArtHeader, PAINTINGS } from "@/components/ArtHeader";
 import { useState } from "react";
 import { usePurchases } from "@/lib/usePurchases";
 import { hasStudioAccess } from "@/lib/purchases";
@@ -59,37 +60,20 @@ export default function AccountPage() {
             marginBottom: "clamp(32px, 4vw, 48px)",
           }}
         >
-          <p
-            style={{
-              fontFamily: "monospace",
-              fontSize: "10px",
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: "var(--accent)",
-              marginBottom: "12px",
-            }}
-          >
-            {lang === "it" ? "Il tuo account" : "Your account"}
-          </p>
-          <h1
-            style={{
-              fontFamily: "var(--font-cormorant), 'Cormorant Garamond', serif",
-              fontSize: "clamp(36px, 5vw, 56px)",
-              fontWeight: 400,
-              letterSpacing: "0.01em",
-              lineHeight: 1.1,
-              color: "var(--text)",
-              margin: 0,
-            }}
-          >
-            {user?.firstName
-              ? lang === "it"
-                ? `Ciao, ${user.firstName}`
-                : `Hello, ${user.firstName}`
-              : lang === "it"
-                ? "Il mio spazio"
-                : "My space"}
-          </h1>
+          <ArtHeader
+            compact
+            painting={PAINTINGS.account}
+            kicker={lang === "it" ? "Il tuo account" : "Your account"}
+            title={
+              user?.firstName
+                ? lang === "it"
+                  ? `Ciao, ${user.firstName}`
+                  : `Hello, ${user.firstName}`
+                : lang === "it"
+                  ? "Il mio spazio"
+                  : "My space"
+            }
+          />
         </div>
 
         {/* Profile card */}
