@@ -4843,6 +4843,76 @@ html.dark {
 }
 
 /* ═══════════════════════════════════════════════════════════
+   CATALOGUE HEADER — the homepage's art language, once
+   ═══════════════════════════════════════════════════════════
+   Painting, dark veil, editorial text on top: the same three
+   layers BentoHub's CellPainting builds, so arriving here from
+   the homepage's Seurat cell reads as one continuous move.
+
+   It ends at the header. The product grid below keeps its flat
+   ground — a card has to answer "what am I buying", and a
+   painting behind nine thumbnails is how that answer is lost.
+   ═══════════════════════════════════════════════════════════ */
+.fn-cat-hero {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 32px;
+  padding: clamp(32px, 6vw, 72px) clamp(24px, 4vw, 56px);
+  isolation: isolate;
+}
+.fn-cat-hero__art {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center 42%;
+  /* Fixed would fight the page's own scroll containers; this is a header, not
+     a parallax layer. */
+  background-attachment: scroll;
+}
+.fn-cat-hero__veil {
+  position: absolute;
+  inset: 0;
+  /* Weighted to the left, not even.
+     The homepage cells are small and crop their painting tight, so a flat 0.72
+     veil is enough there. This band is wide, and an even veil put the title over
+     the busiest part of the Grande Jatte — legible by measurement, restless to
+     read. Darkening the side the text occupies gives the words a calm ground and
+     leaves the painting visible where nothing sits on top of it, which is how an
+     editorial cover handles the same problem. */
+  background:
+    linear-gradient(
+      100deg,
+      rgba(5, 3, 2, 0.92) 0%,
+      rgba(5, 3, 2, 0.86) 32%,
+      rgba(5, 3, 2, 0.6) 62%,
+      rgba(5, 3, 2, 0.45) 100%
+    ),
+    linear-gradient(to bottom, rgba(5, 3, 2, 0.25), rgba(5, 3, 2, 0.5));
+}
+.fn-cat-hero__text {
+  position: relative;
+  /* Kept off the bright side of the painting, so the veil above only has to do
+     its work where the words actually are. */
+  max-width: 62%;
+}
+@media (max-width: 700px) {
+  .fn-cat-hero__text {
+    max-width: 100%;
+  }
+  /* The sideways weighting only works while the text occupies one side. Once it
+     wraps across the full width it runs into the lighter end of the gradient, so
+     narrow screens get an even veil instead. */
+  .fn-cat-hero__veil {
+    background: linear-gradient(to bottom, rgba(5, 3, 2, 0.82), rgba(5, 3, 2, 0.9));
+  }
+}
+/* The kicker is gold on the page ground; on a painting it needs to be the
+   light end of that gold or it disappears into the Seurat's blues. */
+.fn-cat-hero__text .fn-kicker {
+  color: #d4af37;
+}
+
+/* ═══════════════════════════════════════════════════════════
    CATALOGUE FILTERS
    A single-select segmented control. The groups don't overlap,
    so multi-select would be meaningless.
