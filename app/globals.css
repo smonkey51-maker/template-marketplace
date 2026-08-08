@@ -231,14 +231,22 @@ html.glass-fx-ready .forma-glass-card {
   }
   to {
     opacity: 1;
-    filter: blur(0);
+    filter: none;
   }
 }
 @keyframes forma-fade-up {
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
+    /* `none`, not `translateY(0) scale(1)` / `blur(0)`. With fill-mode `both`
+       the final keyframe is retained forever, and a zero-valued transform or
+       filter is still a transform or filter: either one makes the element the
+       containing block for every `position: fixed` descendant, and a retained
+       blur filter also pins it to its own compositing layer for the life of
+       the page. This runs on every bento cell of the homepage. Same trap the
+       JS side already guards against with gsap's clearProps — see
+       PageTransition.tsx. */
+    transform: none;
+    filter: none;
   }
 }
 
@@ -1311,7 +1319,7 @@ html::-webkit-scrollbar-track {
     transform: translateY(108%);
   }
   to {
-    transform: translateY(0);
+    transform: none;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -1628,7 +1636,7 @@ html::-webkit-scrollbar-track {
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
   }
 }
 
@@ -1648,7 +1656,7 @@ html::-webkit-scrollbar-track {
   }
   to {
     opacity: 1;
-    transform: scale(1);
+    transform: none;
   }
 }
 
@@ -1707,13 +1715,22 @@ html::-webkit-scrollbar-track {
 }
 
 /* ── CTA bar slide-up entrance (preview page) ── */
+/* Ends at `none`, not `translateY(0)`.
+   These animations run with fill-mode `both`, which retains the final keyframe
+   forever — and `translateY(0)` is a transform, not the absence of one. An
+   element with any transform becomes the containing block for every
+   `position: fixed` descendant it has, which is exactly the bug that once put
+   the catalogue's quick-view sheet below the end of the page and left the buy
+   bars at the bottom of a long document instead of on screen (see the note in
+   PageTransition.tsx, where the same trap was fixed on the JS side with
+   gsap's clearProps). `none` animates identically and retains nothing. */
 @keyframes cta-slide-up {
   from {
     transform: translateY(100%);
     opacity: 0;
   }
   to {
-    transform: translateY(0);
+    transform: none;
     opacity: 1;
   }
 }
@@ -1980,7 +1997,8 @@ html::-webkit-scrollbar-track {
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    /* See forma-fade-up: `both` retains this, and translateY(0) is a transform. */
+    transform: none;
   }
 }
 .hero-title-reveal {
@@ -2012,7 +2030,7 @@ html::-webkit-scrollbar-track {
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: none;
   }
 }
 
@@ -2024,7 +2042,7 @@ html::-webkit-scrollbar-track {
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: none;
   }
 }
 
@@ -2764,7 +2782,7 @@ html.dark {
     transform: scale(1.01);
   }
   100% {
-    transform: scale(1);
+    transform: none;
   }
 }
 
@@ -2962,7 +2980,7 @@ html.dark {
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
   }
 }
 .forma-fade-in {
@@ -4737,7 +4755,7 @@ html.dark {
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: none;
   }
 }
 

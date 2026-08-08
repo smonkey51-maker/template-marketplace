@@ -52,11 +52,17 @@ export default function PageTransition({ children }: PageTransitionProps) {
     if (containerRef.current) {
       gsap.fromTo(
         containerRef.current,
-        { opacity: 0, y: 15 },
+        { opacity: 0, y: 8 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.6,
+          // 260ms, not 600. This is the most repeated motion on the site — it
+          // runs on every navigation, and a visitor browsing a catalogue makes
+          // a lot of them. At 600ms it was longer than the budget for a modal,
+          // spent on a transition nobody asked for, and the page felt slow to
+          // arrive rather than considered. Under 300ms it reads as the page
+          // settling; over it, as waiting.
+          duration: 0.26,
           ease: "power3.out",
           clearProps: "all",
         },
