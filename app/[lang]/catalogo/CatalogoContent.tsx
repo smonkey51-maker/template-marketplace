@@ -16,6 +16,7 @@ import {
 } from "@/lib/templates";
 import { getLocalizedName, getLocalizedDesc, templateTranslations } from "@/lib/i18n";
 import { TemplateThumb } from "@/components/TemplateThumb";
+import { ArtHeader, PAINTINGS } from "@/components/ArtHeader";
 import { getKindLabel, getCatKey, GROUP_OF, type GroupKey } from "@/lib/categories";
 import { prefersReducedMotion, motionDuration } from "@/lib/reducedMotion";
 import gsap from "gsap";
@@ -364,44 +365,20 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
           <SiteNav />
 
           <section className="fn-section">
-            {/* The same painting the homepage's Catalogo cell wears, under the
-                same dark veil, with the title on top — so clicking that cell
-                and arriving here is one continuous move rather than a jump from
-                an art-led homepage onto a plain page. Seurat is not a decorative
-                choice: it is the image already standing for this destination.
-
-                The painting stops at the header. The grid below stays on a flat
-                ground on purpose — a product card has to answer "what am I
-                buying", and putting a painting behind sixteen thumbnails is how
+            {/* The painting stops at the header. The grid below stays on a
+                flat ground on purpose — a product card has to answer "what am I
+                buying", and putting a painting behind nine thumbnails is how
                 that answer gets lost. */}
-            <div className="fn-cat-hero r-glass">
-              <div
-                aria-hidden
-                className="fn-cat-hero__art"
-                style={{ backgroundImage: "url('/paintings/seurat.jpg')" }}
-              />
-              <div aria-hidden className="fn-cat-hero__veil" />
-              <div className="fn-cat-hero__text">
-                <div className="fn-kicker">{t("browseAll")}</div>
-                <h2
-                  style={{
-                    fontFamily: "var(--font-cormorant), Georgia, serif",
-                    fontWeight: 300,
-                    fontSize: "clamp(42px,5vw,72px)",
-                    margin: "0 0 6px",
-                    color: "#fff",
-                  }}
-                >
-                  {t("templates")}
-                </h2>
-                <p style={{ color: "rgba(255,255,255,0.72)", fontSize: 17, margin: 0 }}>
-                  {filtered.length}{" "}
-                  {lang === "it"
-                    ? "prodotti pronti all'uso — prompt, guide, fogli e tracker"
-                    : "ready-to-use products — prompts, guides, sheets and trackers"}
-                </p>
-              </div>
-            </div>
+            <ArtHeader
+              painting={PAINTINGS.catalogo}
+              kicker={t("browseAll")}
+              title={t("templates")}
+              subtitle={`${filtered.length} ${
+                lang === "it"
+                  ? "prodotti pronti all'uso — prompt, guide, fogli e tracker"
+                  : "ready-to-use products — prompts, guides, sheets and trackers"
+              }`}
+            />
 
             <div className="fn-toolbar">
               <input

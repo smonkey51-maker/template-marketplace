@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
+import { ArtHeader, PAINTINGS } from "@/components/ArtHeader";
 import { useLang } from "@/components/LanguageProvider";
 import { copy } from "@/lib/formaCopy";
 import { FormaFooter } from "@/components/FormaFooter";
@@ -27,11 +28,12 @@ export default function AIStudioPage() {
       <div className="fn-shell">
         <SiteNav />
         <main className="fn-simple">
-          <div className="fn-kicker" style={{ marginBottom: 12 }}>
-            {t("aiStudioKicker")}
-          </div>
-          <h1>{t("aiStudioTitle")}</h1>
-          <p>{t("aiStudioSub")}</p>
+          <ArtHeader
+            painting={PAINTINGS.studio}
+            kicker={t("aiStudioKicker")}
+            title={t("aiStudioTitle")}
+            subtitle={t("aiStudioSub")}
+          />
 
           {/* How it works */}
           <div className="fn-kicker" style={{ marginTop: 48, marginBottom: 16 }}>

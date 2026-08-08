@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
+import { ArtHeader, PAINTINGS } from "@/components/ArtHeader";
 import { useLang } from "@/components/LanguageProvider";
 import { copy } from "@/lib/formaCopy";
 import { FormaFooter } from "@/components/FormaFooter";
@@ -30,11 +31,12 @@ export default function GuidaPage() {
       <div className="fn-shell">
         <SiteNav />
         <main className="fn-simple">
-          <div className="fn-kicker" style={{ marginBottom: 12 }}>
-            {t("guideKicker")}
-          </div>
-          <h1>{t("guideTitle")}</h1>
-          <p>{t("guideSub")}</p>
+          <ArtHeader
+            painting={PAINTINGS.guida}
+            kicker={t("guideKicker")}
+            title={t("guideTitle")}
+            subtitle={t("guideSub")}
+          />
 
           {/* Steps */}
           <div

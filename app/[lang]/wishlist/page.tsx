@@ -6,6 +6,7 @@ import { getTemplate } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
 import TemplateCard from "@/components/TemplateCard";
 import SiteNav from "@/components/SiteNav";
+import { ArtHeader, PAINTINGS } from "@/components/ArtHeader";
 import Footer from "@/components/Footer";
 import { usePurchases } from "@/lib/usePurchases";
 
@@ -28,31 +29,12 @@ export default function WishlistPage() {
             marginBottom: "clamp(32px, 4vw, 48px)",
           }}
         >
-          <p
-            style={{
-              fontFamily: "monospace",
-              fontSize: "10px",
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: "var(--accent)",
-              marginBottom: "12px",
-            }}
-          >
-            {lang === "it" ? "Collezione personale" : "Personal collection"}
-          </p>
-          <h1
-            style={{
-              fontFamily: "var(--font-cormorant), 'Cormorant Garamond', serif",
-              fontSize: "clamp(36px, 5vw, 56px)",
-              fontWeight: 400,
-              letterSpacing: "0.01em",
-              lineHeight: 1.1,
-              color: "var(--text)",
-              margin: 0,
-            }}
-          >
-            {lang === "it" ? "Salvati" : "Wishlist"}
-          </h1>
+          <ArtHeader
+            compact
+            painting={PAINTINGS.account}
+            kicker={lang === "it" ? "Collezione personale" : "Personal collection"}
+            title={lang === "it" ? "Salvati" : "Wishlist"}
+          />
         </div>
         {saved.length === 0 ? (
           <div className="flex flex-col items-center gap-5 py-24 text-center">

@@ -4860,6 +4860,17 @@ html.dark {
   padding: clamp(32px, 6vw, 72px) clamp(24px, 4vw, 56px);
   isolation: isolate;
 }
+/* Shorter, for the pages you use rather than browse — see ArtHeader's
+   `compact`. The title comes down with it: a 72px display face over a 120px
+   band is a headline wearing a room that no longer fits it. */
+.fn-cat-hero--compact {
+  padding: clamp(22px, 3vw, 34px) clamp(20px, 3vw, 40px);
+  margin-bottom: 24px;
+}
+.fn-cat-hero--compact .fn-art-title {
+  font-size: clamp(30px, 3.4vw, 44px);
+}
+
 .fn-cat-hero__art {
   position: absolute;
   inset: 0;
@@ -4907,9 +4918,31 @@ html.dark {
   }
 }
 /* The kicker is gold on the page ground; on a painting it needs to be the
-   light end of that gold or it disappears into the Seurat's blues. */
+   light end of that gold or it disappears into the darker canvases. */
 .fn-cat-hero__text .fn-kicker {
   color: #d4af37;
+}
+
+/* Title and subtitle sit on the veil, not on the page, so they are white in
+   both themes — the band is a plate, and a plate does not change colour when
+   the page around it does. */
+.fn-art-title {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 300;
+  font-size: clamp(42px, 5vw, 72px);
+  line-height: 1.05;
+  margin: 0 0 6px;
+  color: #fff;
+}
+/* Scoped to the band so the inner pages' own `p` rules — .fn-simple sets a
+   generous paragraph margin — do not push the subtitle away from the title it
+   belongs to. */
+.fn-cat-hero__text .fn-art-sub {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 17px;
+  margin: 10px 0 0;
+  max-width: 46ch;
+  line-height: 1.5;
 }
 
 /* ═══════════════════════════════════════════════════════════
