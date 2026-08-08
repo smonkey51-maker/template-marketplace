@@ -97,9 +97,8 @@ interface Change {
 }
 
 async function main() {
-  const { templates, bundles, sellableTemplates, sellableBundles } = await import(
-    "../lib/templates"
-  );
+  const { templates, bundles, sellableTemplates, sellableBundles } =
+    await import("../lib/templates");
 
   // Every product named in the ladder must still be on sale, and every product
   // on sale must be named. A silent gap here reprices some of the shop and
@@ -133,7 +132,8 @@ async function main() {
     const sum = b.templateIds.reduce((n, id) => n + (TEMPLATE_PRICES[id] ?? 0), 0);
     const next = sum - saving;
     if (next <= 0) throw new Error(`bundle ${b.id}: saving exceeds the sum of its parts`);
-    if (saving % 100 !== 0) throw new Error(`bundle ${b.id}: saving is not a whole number of euros`);
+    if (saving % 100 !== 0)
+      throw new Error(`bundle ${b.id}: saving is not a whole number of euros`);
     changes.push({
       id: b.id,
       kind: "bundle",
@@ -161,7 +161,9 @@ async function main() {
   for (const c of changes) {
     const existing = await stripe.prices.retrieve(c.oldPriceId);
     const productId =
-      typeof existing.product === "string" ? existing.product : (existing.product as { id: string }).id;
+      typeof existing.product === "string"
+        ? existing.product
+        : (existing.product as { id: string }).id;
     const created = await stripe.prices.create({
       product: productId,
       unit_amount: c.newPrice,

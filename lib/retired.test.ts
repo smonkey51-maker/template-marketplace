@@ -45,10 +45,7 @@ describe("retired products", () => {
     const retiredIds = new Set(retired.map((t) => t.id));
     for (const b of sellableBundles) {
       for (const id of b.templateIds) {
-        expect(
-          retiredIds.has(id),
-          `bundle ${b.id} still sells retired product ${id}`,
-        ).toBe(false);
+        expect(retiredIds.has(id), `bundle ${b.id} still sells retired product ${id}`).toBe(false);
       }
     }
   });
