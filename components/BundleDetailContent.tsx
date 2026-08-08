@@ -35,7 +35,9 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
   const [activeTemplateIdx, setActiveTemplateIdx] = useState(0);
   const toast = useToast();
 
-  const bundle = getBundle(bundleId);
+  // Same as a retired product: this page prices a basket and sells it.
+  const foundBundle = getBundle(bundleId);
+  const bundle = foundBundle?.retired ? undefined : foundBundle;
 
   if (!bundle) {
     return (
@@ -304,11 +306,6 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
                         />
                       </svg>
                       Il nostro prodotto più forte
-                    </span>
-                    <span className="text-[10px] text-muted/60 font-medium">
-                      {lang === "it"
-                        ? `${featured.downloads.toLocaleString("it-IT")} download`
-                        : `${featured.downloads.toLocaleString()} downloads`}
                     </span>
                   </div>
 

@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { templates } from "@/lib/templates";
+import { sellableTemplates } from "@/lib/templates";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://forma.design";
 
@@ -36,7 +36,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.5,
     },
-    ...templates.map((t) => ({
+    ...sellableTemplates.map((t) => ({
       url: `${SITE_URL}/templates/${t.id}`,
       lastModified: new Date(),
       changeFrequency: "weekly" as const,

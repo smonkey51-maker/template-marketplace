@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { Template, templates, formatPrice } from "@/lib/templates";
+import { Template, sellableTemplates, formatPrice } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
 import { templateTranslations } from "@/lib/i18n";
 
 function getRelated(current: Template, count = 3): Template[] {
-  const scored = templates
+  const scored = sellableTemplates
     .filter((t) => t.id !== current.id)
     .map((t) => {
       const overlap = t.tags.filter((tag) => current.tags.includes(tag)).length;

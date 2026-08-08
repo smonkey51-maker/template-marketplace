@@ -18,6 +18,15 @@ export interface Template {
   price: number; // cents
   stripePriceId: string;
   tags: string[];
+  /**
+   * @deprecated Decorative, and no longer displayed anywhere.
+   *
+   * Nothing has ever incremented this — the only writes are the seed scripts
+   * copying the literal into the database — so it was a number typed by hand
+   * and shown to shoppers as a sales count. The catalogue card and the 404
+   * page's "popular" ranking both used to read it; neither does now. Kept only
+   * because the `templates` table has the column.
+   */
   downloads: number;
   content: string;
   /** Override download type (defaults to "html") */
@@ -35,6 +44,21 @@ export interface Template {
    * template and clear it when it stops being new.
    */
   isNew?: boolean;
+  /**
+   * Withdrawn from sale, but not deleted.
+   *
+   * A retired product disappears from the catalogue, the search, the bundles,
+   * the sitemap and the related rail — everywhere a visitor could still buy it.
+   * It stays in this array on purpose: `/api/download` resolves a purchase by
+   * template id, so deleting the record would turn every past buyer's download
+   * into a 404. Retiring is reversible and costs a boolean; deleting is not.
+   *
+   * The seven retired here are the B2C lifestyle and self-help half of the
+   * catalogue — the categories the 2026 market report flags as saturated
+   * ("generic productivity", broad fitness, self-help). They are not bad
+   * products; they are the ones competing in the crowded half of the market.
+   */
+  retired?: boolean;
 }
 
 /** Returns the effective download type, falling back to "html" */
@@ -177,6 +201,7 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
 
   {
     id: "home-gym-4-week-guide",
+    retired: true,
     name: "Home Gym 4-Week Programming Guide",
     description:
       "A complete, progressive 4-week training program for home workouts with minimal equipment. Beginner to intermediate, 3–4 sessions/week.",
@@ -208,6 +233,7 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
 
   {
     id: "social-media-detox-7day",
+    retired: true,
     name: "7-Day Social Media Detox Protocol",
     description:
       "A structured 7-day daily-action plan to break compulsive scrolling and rebuild an intentional relationship with social media.",
@@ -239,6 +265,7 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
 
   {
     id: "anti-procrastination-playbook",
+    retired: true,
     name: "Anti-Procrastination Playbook",
     description:
       "Root causes, 8 behavioral frameworks, and systems that actually override procrastination. Based on behavioral psychology, not motivation.",
@@ -271,6 +298,7 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
 
   {
     id: "mindset-reset-7day-journal",
+    retired: true,
     name: "7-Day Mindset Reset Journal",
     description:
       "A guided daily journal for clearing mental blocks, surfacing limiting beliefs, and reconnecting with what you actually want to build.",
@@ -439,6 +467,7 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
 
   {
     id: "wedding-budget-tracker",
+    retired: true,
     name: "Wedding Planning Budget Tracker",
     description:
       "Track every vendor, deposit, and payment deadline across 6 wedding categories. Complete overview of what's booked, paid, and still owed.",
@@ -502,6 +531,7 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
 
   {
     id: "first-apartment-budget-planner",
+    retired: true,
     name: "First Apartment Checklist & Budget Planner",
     description:
       "Everything to buy, set up, and budget for your first apartment — prioritized by urgency so you don't overspend on things you don't need yet.",
@@ -537,6 +567,7 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
 
   {
     id: "pet-care-vet-tracker",
+    retired: true,
     name: "Pet Care & Vet Visit Tracker",
     description:
       "A complete health record and care organizer for your pet — vet visits, vaccinations, medications, weight log, diet, and emergency contacts. Print-ready.",
@@ -570,6 +601,17 @@ export function getTemplate(id: string): Template | undefined {
   return templates.find((t) => t.id === id);
 }
 
+/**
+ * The products a visitor may actually be offered.
+ *
+ * Defined once and exported, rather than filtered at each call site: a retired
+ * product must vanish from the catalogue, the search, the related rail, the
+ * 404 page's "popular" list, the Studio picker and the sitemap, and a filter
+ * repeated in seven files is a filter that will be forgotten in the eighth.
+ * `templates` itself stays complete so past buyers can still download.
+ */
+export const sellableTemplates: Template[] = templates.filter((t) => !t.retired);
+
 export function formatPrice(cents: number): string {
   return `€${(cents / 100).toFixed(2)}`;
 }
@@ -579,6 +621,9 @@ export type TemplateMeta = Omit<Template, "content">;
 
 /** All templates without their content strings — safe for client-side catalog imports. */
 export const templatesMeta: TemplateMeta[] = templates.map(({ content: _c, ...meta }) => meta);
+
+/** Listing-safe metadata: the sellable products, without their inline content. */
+export const sellableTemplatesMeta: TemplateMeta[] = templatesMeta.filter((t) => !t.retired);
 
 /** Abbreviated count: 1240 → "1.2k", 14500 → "15k" */
 export function formatCount(n: number): string {
@@ -606,6 +651,14 @@ export interface Bundle {
   tags: string[];
   /** Optional: ID of the single template to spotlight on the bundle detail page */
   featuredProductId?: string;
+  /**
+   * Withdrawn from sale — see Template.retired, same reasoning.
+   *
+   * A bundle whose members are all retired has to go with them: it would
+   * otherwise sell, and its detail page would price a basket of products no
+   * longer on offer.
+   */
+  retired?: boolean;
 }
 
 export const bundles: Bundle[] = [
@@ -634,6 +687,7 @@ export const bundles: Bundle[] = [
   },
   {
     id: "bundle-wellness-mindset",
+    retired: true,
     name: "Wellness & Mindset Bundle",
     tagline: "Rimetti a fuoco corpo, mente e abitudini",
     description:
@@ -681,6 +735,7 @@ export const bundles: Bundle[] = [
   },
   {
     id: "bundle-life-admin",
+    retired: true,
     name: "Life Admin Bundle",
     tagline: "Tieni tutto sotto controllo senza stress",
     description:
@@ -706,3 +761,6 @@ export const bundles: Bundle[] = [
 export function getBundle(id: string): Bundle | undefined {
   return bundles.find((b) => b.id === id);
 }
+
+/** Bundles still on offer — see sellableTemplates. */
+export const sellableBundles: Bundle[] = bundles.filter((b) => !b.retired);

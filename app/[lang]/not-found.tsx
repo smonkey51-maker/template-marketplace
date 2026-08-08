@@ -3,11 +3,19 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useLang } from "@/components/LanguageProvider";
-import { templates, formatPrice } from "@/lib/templates";
+import { sellableTemplates, formatPrice } from "@/lib/templates";
 import { templateTranslations } from "@/lib/i18n";
 
-// Pick 3 popular templates as suggestions
-const popularTemplates = [...templates].sort((a, b) => b.downloads - a.downloads).slice(0, 3);
+// Three suggestions, editor's picks first.
+//
+// This used to sort by `downloads`, and so ranked by a number nobody ever
+// computes: no code increments that field, so the "most popular" products were
+// whichever happened to have been typed with the biggest literal. Editor's pick
+// is a real editorial decision, which is the only signal the shop actually has
+// until reviews arrive.
+const popularTemplates = [...sellableTemplates]
+  .sort((a, b) => Number(b.editorsPick ?? false) - Number(a.editorsPick ?? false))
+  .slice(0, 3);
 
 export default function NotFound() {
   const { lang } = useLang();
