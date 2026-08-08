@@ -1,13 +1,21 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import SiteNav from "@/components/SiteNav";
-import { templates, getTemplate, formatPrice, templatesMeta } from "@/lib/templates";
+import {
+  sellableTemplates,
+  getTemplate,
+  formatPrice,
+  sellableTemplatesMeta,
+} from "@/lib/templates";
 import { getLocalizedName, getLocalizedDesc } from "@/lib/i18n";
 import { toLocale } from "@/lib/locales";
 import { TemplateDetailContent } from "./TemplateDetailContent";
 
 export function generateStaticParams() {
-  return templates.map((t) => ({ slug: t.id }));
+  // Retired products get no page: they are withdrawn from sale, and this page
+  // sells. Past buyers reach their file through /account, which resolves the
+  // template by id from the full list and never comes through here.
+  return sellableTemplates.map((t) => ({ slug: t.id }));
 }
 
 export async function generateMetadata({
@@ -44,14 +52,14 @@ export default async function TemplatePage({
   const { slug, lang: rawLang } = await params;
   const lang = toLocale(rawLang);
   const item = getTemplate(slug);
-  if (!item) notFound();
+  if (!item || item.retired) notFound();
 
   // Strip content field — pass only metadata to the client component
 
   const { content: _content, ...meta } = item;
 
   // Related: same tags, different id, max 3
-  const related = templatesMeta
+  const related = sellableTemplatesMeta
     .filter((t) => t.id !== item.id && t.tags.some((tag) => item.tags.includes(tag)))
     .slice(0, 3);
 

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { templates, formatPrice, getTemplate } from "@/lib/templates";
+import { sellableTemplates, formatPrice, getTemplate } from "@/lib/templates";
 
 type CustomizePanelProps = {
   selectedId: string;
@@ -70,7 +70,7 @@ export default function CustomizePanel({
               — {lang === "it" ? "Scegli un template" : "Choose a template"} —
             </option>
             {["ui", "prompt"].map((cat) => {
-              const group = templates.filter(
+              const group = sellableTemplates.filter(
                 (t) => t.category === cat && (hasStudioAccess || purchasedIds.includes(t.id)),
               );
               if (group.length === 0) return null;

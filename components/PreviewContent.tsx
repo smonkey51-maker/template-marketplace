@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { getTemplate, formatPrice, formatCount, getDownloadType } from "@/lib/templates";
+import { getTemplate, formatPrice, getDownloadType } from "@/lib/templates";
 import DownloadButton from "@/components/DownloadButton";
 import BackLink from "@/components/BackLink";
 import RelatedTemplates from "@/components/RelatedTemplates";
@@ -161,7 +161,10 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
   const { track } = useRecentlyViewed();
   const [viewMode, setViewMode] = useState<"desktop" | "mobile">("desktop");
 
-  const template = getTemplate(templateId);
+  // A retired product is treated exactly like one that never existed: this
+  // page carries a buy bar, so showing it would sell something withdrawn.
+  const found = getTemplate(templateId);
+  const template = found?.retired ? undefined : found;
 
   // Track this template as recently viewed
   useEffect(() => {
@@ -447,18 +450,6 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
               <span className="text-[10px] font-bold text-muted uppercase tracking-widest">
                 {categoryLabel}
               </span>
-              {template.downloads >= 700 && (
-                <span
-                  className="r-pill text-[10px] font-bold px-2 py-0.5"
-                  style={{
-                    color: "var(--accent)",
-                    background: "var(--accent-bg)",
-                    border: "1px solid var(--accent-muted)",
-                  }}
-                >
-                  {t[lang].card.bestseller}
-                </span>
-              )}
             </div>
           </div>
           <div className="mb-2.5">
@@ -477,36 +468,14 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
                 {tag}
               </Link>
             ))}
-            <span className="text-[10px] text-muted flex items-center gap-1 ml-1">
-              <svg width="10" height="10" viewBox="0 0 12 12" fill="none" className="opacity-50">
-                <path
-                  d="M6 1v7M3 6l3 3 3-3M2 10h8"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              {formatCount(template.downloads)}
-            </span>
-            {/* Live viewing indicator */}
-            <span className="text-[10px] text-muted flex items-center gap-1.5 ml-2">
-              <span className="relative flex h-1.5 w-1.5">
-                <span
-                  className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
-                  style={{ background: "var(--success)" }}
-                />
-                <span
-                  className="relative inline-flex rounded-full h-1.5 w-1.5"
-                  style={{ background: "var(--success)" }}
-                />
-              </span>
-              {(() => {
-                const seed = templateId.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
-                return 3 + (seed % 18) + (new Date().getHours() % 5);
-              })()}
-              {lang === "it" ? " stanno guardando" : " viewing"}
-            </span>
+            {/* A download count and a live "N viewing" counter used to sit
+                here, next to a pulsing green dot. Neither measured anything:
+                `downloads` is a hand-typed literal nothing increments, and the
+                viewer number was `3 + (hash(templateId) % 18) + (hour % 5)` —
+                invented presence, animated to look like real time. Both are
+                prohibited commercial practices, and the badge above them
+                declared a product a "bestseller" whenever the invented figure
+                passed 700. */}
           </div>
 
           {purchasesLoading ? (

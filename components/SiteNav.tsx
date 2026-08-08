@@ -8,6 +8,9 @@ import { useLang } from "@/components/LanguageProvider";
 import { FormaLogoAnimated } from "@/components/FormaLogo";
 import BackLink from "@/components/BackLink";
 import { Layers, Sparkles, BookOpen, Table2, LayoutGrid, User, Heart } from "lucide-react";
+import { sellableTemplatesMeta } from "@/lib/templates";
+
+const SELLABLE_COUNT = sellableTemplatesMeta.filter((t) => t.price > 0).length;
 
 interface DropItem {
   href: string;
@@ -35,8 +38,10 @@ const CATALOGO_ITEMS: DropItem[] = [
     href: "/catalogo",
     labelIt: "Tutti i template",
     labelEn: "All templates",
-    descIt: "16 prodotti pronti all'uso",
-    descEn: "16 products, ready to use",
+    // Counted, not typed. Written as a literal it said "16" the moment seven
+    // products were withdrawn, which is the kind of number nobody re-reads.
+    descIt: `${SELLABLE_COUNT} prodotti pronti all'uso`,
+    descEn: `${SELLABLE_COUNT} products, ready to use`,
     icon: LayoutGrid,
   },
   {

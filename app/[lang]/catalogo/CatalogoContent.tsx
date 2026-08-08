@@ -8,7 +8,12 @@ import SiteNav from "@/components/SiteNav";
 import { useLang } from "@/components/LanguageProvider";
 import { copy } from "@/lib/formaCopy";
 import { FormaFooter } from "@/components/FormaFooter";
-import { templatesMeta, bundles, formatPrice, type TemplateMeta } from "@/lib/templates";
+import {
+  sellableTemplatesMeta,
+  sellableBundles,
+  formatPrice,
+  type TemplateMeta,
+} from "@/lib/templates";
 import { getLocalizedName, getLocalizedDesc, templateTranslations } from "@/lib/i18n";
 import { TemplateThumb } from "@/components/TemplateThumb";
 import { getKindLabel, getCatKey, GROUP_OF, type GroupKey } from "@/lib/categories";
@@ -17,7 +22,7 @@ import gsap from "gsap";
 
 export type { GroupKey };
 
-const PAID_TEMPLATES = templatesMeta.filter((t) => !t.id.startsWith("free-"));
+const PAID_TEMPLATES = sellableTemplatesMeta.filter((t) => !t.id.startsWith("free-"));
 
 const GROUPS: { key: GroupKey; it: string; en: string }[] = [
   { key: "all", it: "Tutti", en: "All" },
@@ -34,13 +39,57 @@ const GROUPS: { key: GroupKey; it: string; en: string }[] = [
  * groups above were shaped to avoid. Two bands split it 11 / 5, which is a split
  * a buyer can actually act on.
  */
-type PriceKey = "all" | "under10" | "from10";
+type PriceKey = "all" | "under" | "from";
 
-const PRICE_BANDS: { key: PriceKey; it: string; en: string }[] = [
-  { key: "all", it: "Qualsiasi prezzo", en: "Any price" },
-  { key: "under10", it: "Fino a €9", en: "Up to €9" },
-  { key: "from10", it: "€10 e oltre", en: "€10 and up" },
-];
+/**
+ * The boundary is computed, not typed.
+ *
+ * It used to be €9/€10 as literals, which described the catalogue at the moment
+ * someone wrote them. Withdraw a few products or move the ladder and one of the
+ * two chips quietly returns nothing for every product on the shelf — a filter
+ * that is permanently empty and disabled, which is exactly the broken-looking
+ * page the bands were shaped to avoid.
+ *
+ * So: of the distinct prices on offer, take the boundary that splits the
+ * catalogue most evenly. With one distinct price there is nothing to split and
+ * the band row hides itself.
+ */
+const PRICE_BOUNDARY: number | null = (() => {
+  const prices = [...new Set(PAID_TEMPLATES.map((t) => t.price))].sort((a, b) => a - b);
+  if (prices.length < 2) return null;
+  let best = prices[0];
+  let bestGap = Infinity;
+  for (const p of prices.slice(0, -1)) {
+    const below = PAID_TEMPLATES.filter((t) => t.price <= p).length;
+    const gap = Math.abs(below - (PAID_TEMPLATES.length - below));
+    // <= so a tie picks the higher boundary. Both splits are equally balanced
+    // when they tie, but the lower one is always the minimum price, and "Up to
+    // €7" when €7 is the cheapest thing on sale means "exactly €7" — a band
+    // that reads like a range and isn't one.
+    if (gap <= bestGap) {
+      bestGap = gap;
+      best = p;
+    }
+  }
+  return best;
+})();
+
+const PRICE_BANDS: { key: PriceKey; it: string; en: string }[] =
+  PRICE_BOUNDARY === null
+    ? []
+    : [
+        { key: "all", it: "Qualsiasi prezzo", en: "Any price" },
+        {
+          key: "under",
+          it: `Fino a ${formatPrice(PRICE_BOUNDARY)}`,
+          en: `Up to ${formatPrice(PRICE_BOUNDARY)}`,
+        },
+        {
+          key: "from",
+          it: `Oltre ${formatPrice(PRICE_BOUNDARY)}`,
+          en: `Over ${formatPrice(PRICE_BOUNDARY)}`,
+        },
+      ];
 
 /** Minimum stars; 0 means the facet is off. */
 type StarsKey = 0 | 3 | 4 | 5;
@@ -59,8 +108,8 @@ function matchesGroup(x: TemplateMeta, key: GroupKey) {
   return key === "all" || GROUP_OF[x.category] === key;
 }
 function matchesPrice(x: TemplateMeta, key: PriceKey) {
-  if (key === "all") return true;
-  return key === "under10" ? x.price < 1000 : x.price >= 1000;
+  if (key === "all" || PRICE_BOUNDARY === null) return true;
+  return key === "under" ? x.price <= PRICE_BOUNDARY : x.price > PRICE_BOUNDARY;
 }
 function matchesStars(x: TemplateMeta, key: StarsKey, ratings: Ratings) {
   if (key === 0) return true;
@@ -367,22 +416,26 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                 ))}
               </div>
 
-              <div
-                className="fn-filters"
-                role="group"
-                aria-label={lang === "it" ? "Filtra per prezzo" : "Filter by price"}
-              >
-                {PRICE_BANDS.map((b) => (
-                  <FilterChip
-                    key={b.key}
-                    active={price === b.key}
-                    count={countWith(facets, needle, ratings, { price: b.key })}
-                    onClick={() => setPrice(b.key)}
-                  >
-                    {lang === "it" ? b.it : b.en}
-                  </FilterChip>
-                ))}
-              </div>
+              {/* Hidden entirely when every product costs the same — a row whose
+                  only honest split does not exist. */}
+              {PRICE_BANDS.length > 0 && (
+                <div
+                  className="fn-filters"
+                  role="group"
+                  aria-label={lang === "it" ? "Filtra per prezzo" : "Filter by price"}
+                >
+                  {PRICE_BANDS.map((b) => (
+                    <FilterChip
+                      key={b.key}
+                      active={price === b.key}
+                      count={countWith(facets, needle, ratings, { price: b.key })}
+                      onClick={() => setPrice(b.key)}
+                    >
+                      {lang === "it" ? b.it : b.en}
+                    </FilterChip>
+                  ))}
+                </div>
+              )}
 
               {/* Only once something has actually been rated. Before that every
                   option would return nothing, which is the same broken-looking
@@ -524,15 +577,18 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                         </p>
 
                         <div className="fn-meta" style={{ marginTop: "auto" }}>
-                          {/* Downloads, not tags. The tag pair repeated what
-                              the badge and the filters already said, while the
-                              download count is the only social proof the shop
-                              has: the reviews table is empty, so a visitor had
-                              nothing telling them anyone had bought this. */}
-                          <span>
-                            {item.downloads.toLocaleString(lang === "it" ? "it-IT" : "en-GB")}{" "}
-                            {lang === "it" ? "download" : "downloads"}
-                          </span>
+                          {/* The download count used to sit here, described in
+                              this very comment as "the only social proof the
+                              shop has". It was not proof of anything: nothing
+                              in the codebase ever increments `downloads` — the
+                              only writes are seed scripts copying the literal
+                              from lib/templates.ts — so the figures were
+                              invented and shown to shoppers as sales. Made-up
+                              popularity indicators are a prohibited commercial
+                              practice, the same family as the inflated
+                              crossed-out bundle prices already corrected.
+                              Real social proof is the reviews, which arrive
+                              when buyers write them. */}
                           <b
                             style={{
                               fontFamily: "var(--font-cormorant), Georgia, serif",
@@ -597,7 +653,7 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
             </p>
 
             <div className="fn-grid">
-              {bundles.map((b) => (
+              {sellableBundles.map((b) => (
                 <Link
                   key={b.id}
                   href={`/${lang}/bundle/${b.id}`}

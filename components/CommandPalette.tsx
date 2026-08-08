@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Zap, ArrowUpRight } from "lucide-react";
-import { templates } from "@/lib/templates";
+import { sellableTemplates } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
 import { templateTranslations } from "@/lib/i18n";
 
@@ -112,7 +112,7 @@ export default function CommandPalette() {
 
   const templateItems: PaletteItem[] = useMemo(() => {
     const q = query.trim().toLowerCase();
-    const list = templates
+    const list = sellableTemplates
       .filter((tpl) => {
         if (!q) return true;
         const tr = lang === "it" ? templateTranslations[tpl.id] : undefined;
