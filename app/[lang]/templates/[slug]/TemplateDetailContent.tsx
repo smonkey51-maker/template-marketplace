@@ -135,7 +135,7 @@ export function TemplateDetailContent({
                 </ul>
               </div>
 
-              <div className="fn-buy-box flex flex-col justify-end bg-black/10 rounded-3xl p-8 border border-theme">
+              <div className="fn-buy-box flex flex-col justify-end bg-black/10 r-glass p-8 border border-theme">
                 <span className="text-xs uppercase tracking-widest text-muted mb-2">
                   Prezzo una tantum
                 </span>

@@ -135,39 +135,35 @@ export default function BentoHub() {
         <BentoEyebrow>{lang === "it" ? "Area personale" : "Your area"}</BentoEyebrow>
         <BentoSubGrid>
           <BentoSubBox href={`/${lang}/account`} label={t.accountTitle}>
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-[16px] font-black text-theme leading-tight">{t.accountTitle}</p>
-                <p className="text-[12px] text-muted mt-1 leading-snug">{t.accountSub}</p>
-              </div>
+            <div className="flex flex-col items-center text-center gap-1.5">
               {/* Line icons, not emoji. The two boxes used a bust and a
                   bookmark glyph, which a phone renders in full colour — a blue
                   figure and a red tag, the only saturated non-gold marks
                   anywhere on the page. These inherit the accent instead. */}
               <UserRound
                 aria-hidden
-                className="shrink-0 ml-3 text-accent opacity-70"
+                className="text-accent opacity-70"
                 size={20}
                 strokeWidth={1.5}
               />
+              <p className="text-[16px] font-black text-theme leading-tight">{t.accountTitle}</p>
+              <p className="text-[12px] text-muted leading-snug">{t.accountSub}</p>
             </div>
           </BentoSubBox>
           <BentoSubBox href={`/${lang}/wishlist`} label={savedLabel}>
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-[16px] font-black text-theme leading-tight">{savedLabel}</p>
-                <p className="text-[12px] text-muted mt-1 leading-snug">
-                  {lang === "it"
-                    ? "I template che hai messo da parte."
-                    : "The templates you set aside."}
-                </p>
-              </div>
+            <div className="flex flex-col items-center text-center gap-1.5">
               <Bookmark
                 aria-hidden
-                className="shrink-0 ml-3 text-accent opacity-70"
+                className="text-accent opacity-70"
                 size={20}
                 strokeWidth={1.5}
               />
+              <p className="text-[16px] font-black text-theme leading-tight">{savedLabel}</p>
+              <p className="text-[12px] text-muted leading-snug">
+                {lang === "it"
+                  ? "I template che hai messo da parte."
+                  : "The templates you set aside."}
+              </p>
             </div>
           </BentoSubBox>
         </BentoSubGrid>
