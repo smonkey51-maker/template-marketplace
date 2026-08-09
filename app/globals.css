@@ -345,11 +345,12 @@ html.glass-fx-ready .forma-glass-card {
   --input-bg: rgba(26, 14, 6, 0.05);
   --btn-ghost-border: rgba(26, 14, 6, 0.18);
   --btn-ghost-border-hover: rgba(26, 14, 6, 0.72);
-  /* Border radius tokens - Squircle/Pill shift */
-  --r-sm: 24px;
-  --r-md: 32px;
-  --r-lg: 40px;
-  --r-xl: 48px;
+  /* Border radius tokens. Kept equal to the .r-sm/.r-md utility fallbacks
+     below so the two can never drift apart again — a var() fallback is only
+     ever used when the custom property is undefined, so a stale value here
+     silently wins over the "documented" fallback every time. */
+  --r-sm: 10px;
+  --r-md: 16px;
   /* Glassmorphism tokens - Liquid Glass */
   --glass-fill: rgba(253, 250, 245, 0.7);
   --glass-shadow: 0 8px 32px rgba(26, 14, 6, 0.15), 0 2px 2px -1px rgba(255, 255, 255, 0.8) inset;
@@ -1140,9 +1141,9 @@ html::-webkit-scrollbar-track {
 
   .glass-panel {
     position: relative;
-    --squircle-radius: var(--r-md);
+    --squircle-radius: var(--glass-radius);
     --squircle-n: 5;
-    border-radius: var(--r-md);
+    border-radius: var(--glass-radius);
     -webkit-backdrop-filter: blur(32px) saturate(200%);
     backdrop-filter: blur(32px) saturate(200%);
     background: var(--glass-fill);
