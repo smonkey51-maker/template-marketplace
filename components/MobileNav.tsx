@@ -159,8 +159,8 @@ export default function MobileNav() {
       className={`sm:hidden fixed bottom-6 inset-x-0 z-[90] flex justify-center pointer-events-none ${reduced ? "" : "transition-all duration-500 ease-out"} ${mounted ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
     >
       <nav
-        className="glass-surface-pill pointer-events-auto flex items-center justify-between"
-        style={{ width: "calc(100% - 32px)", maxWidth: "360px", padding: "6px 8px" }}
+        className="glass-surface-pill pointer-events-auto flex items-center justify-center gap-2"
+        style={{ padding: "8px 12px" }}
       >
         {tabs.map((tab) => (
           <Link
@@ -168,21 +168,38 @@ export default function MobileNav() {
             href={tab.href}
             aria-label={tab.label}
             aria-current={tab.active ? "page" : undefined}
-            className={`relative flex flex-col items-center justify-center gap-1 min-w-[64px] py-2 rounded-full transition-all duration-300 active:scale-95 ${
+            className={`relative flex items-center justify-center w-12 h-12 rounded-full transition-all duration-300 active:scale-95 ${
               tab.active
                 ? "text-[var(--accent)]"
                 : "text-muted hover:text-theme hover:bg-[color:var(--glass-s-fill)]"
             }`}
             style={
               tab.active
-                ? { background: "color-mix(in srgb, var(--accent) 16%, transparent)" }
+                ? {
+                    // A soft accent-tinted glow behind the active icon, plus a
+                    // small glowing dot beneath it — same structure as the
+                    // reference pill, recoloured from its neon blue to the
+                    // site's own gold accent so it reads as this brand rather
+                    // than a mismatched one-off.
+                    background:
+                      "radial-gradient(circle at 50% 38%, rgba(var(--accent-rgb), 0.4), rgba(var(--accent-rgb), 0.12) 60%, transparent 76%)",
+                    boxShadow:
+                      "0 0 22px 4px rgba(var(--accent-rgb), 0.35), inset 0 0 0 1px rgba(var(--accent-rgb), 0.4)",
+                  }
                 : undefined
             }
           >
-            <span className="relative">{tab.icon(tab.active)}</span>
-            <span className="text-[10px] font-semibold leading-none tracking-wide">
-              {tab.label}
-            </span>
+            {tab.icon(tab.active)}
+            {tab.active && (
+              <span
+                aria-hidden
+                className="absolute bottom-0.5 w-1.5 h-1.5 rounded-full"
+                style={{
+                  background: "var(--accent)",
+                  boxShadow: "0 0 8px 2px rgba(var(--accent-rgb), 0.7)",
+                }}
+              />
+            )}
           </Link>
         ))}
       </nav>
