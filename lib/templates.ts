@@ -361,6 +361,102 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
 </div>`,
   },
 
+  {
+    id: "ride-booking-ui",
+    name: "Ride Booking Mobile UI Kit",
+    description:
+      "Dark travel-app home screen: destination search with recent-trip suggestions, a from/to route card and a recent-trips list. Pure HTML/CSS.",
+    category: "ui",
+    price: 1900,
+    stripePriceId: "price_PLACEHOLDER_ride_booking_ui",
+    tags: ["mobile ui", "travel", "ride", "booking", "dark mode"],
+    downloads: 0,
+    isNew: true,
+    content: `<style>
+body{font-family:'Segoe UI',sans-serif;background:#1c1712;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
+.card{background:linear-gradient(135deg,#241d13,#050402);color:#f2ebd9;border-radius:22px;padding:48px 40px;max-width:480px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.4);border:1px solid rgba(200,169,110,.2)}
+.badge{display:inline-block;background:rgba(200,169,110,.12);border:1px solid rgba(200,169,110,.3);border-radius:999px;padding:5px 16px;font-size:12px;letter-spacing:.5px;margin-bottom:20px;color:#c8a96e}
+h1{font-size:28px;font-weight:800;line-height:1.2;margin-bottom:12px}
+p{font-size:15px;opacity:.7;margin-bottom:24px;line-height:1.6}
+.stats{display:flex;gap:28px;justify-content:center}
+.stat strong{display:block;font-size:28px;font-weight:800;color:#c8a96e}.stat span{font-size:12px;opacity:.6}
+</style>
+<div class="card">
+  <div class="badge">✦ MOBILE UI KIT · HTML/CSS</div>
+  <h1>Ride Booking Mobile UI Kit</h1>
+  <p>Destination search, a from/to route card and a recent-trips list — a complete ride-booking home screen.</p>
+  <div class="stats">
+    <div class="stat"><strong>390px</strong><span>Mobile frame</span></div>
+    <div class="stat"><strong>4</strong><span>UI sections</span></div>
+    <div class="stat"><strong>0</strong><span>Dependencies</span></div>
+  </div>
+</div>`,
+  },
+
+  {
+    id: "health-insights-ui",
+    name: "Health Insight Cards Mobile UI Kit",
+    description:
+      "Wine-red glass insight cards over a deep gradient background: a steps progress card, a personalised health-score message, and a sleep-deficit alert.",
+    category: "ui",
+    price: 1500,
+    stripePriceId: "price_PLACEHOLDER_health_insights_ui",
+    tags: ["mobile ui", "health", "wellness", "cards", "dark mode"],
+    downloads: 0,
+    isNew: true,
+    content: `<style>
+body{font-family:'Segoe UI',sans-serif;background:#170707;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
+.card{background:radial-gradient(90% 100% at 50% 0%,#4a1414 0%,transparent 60%),#170707;color:#fbeee7;border-radius:22px;padding:48px 40px;max-width:480px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.4);border:1px solid rgba(251,238,231,.14)}
+.badge{display:inline-block;background:rgba(251,238,231,.1);border:1px solid rgba(251,238,231,.25);border-radius:999px;padding:5px 16px;font-size:12px;letter-spacing:.5px;margin-bottom:20px}
+h1{font-size:28px;font-weight:800;line-height:1.2;margin-bottom:12px}
+p{font-size:15px;opacity:.75;margin-bottom:24px;line-height:1.6}
+.stats{display:flex;gap:28px;justify-content:center}
+.stat strong{display:block;font-size:28px;font-weight:800;color:#e8a06a}.stat span{font-size:12px;opacity:.65}
+</style>
+<div class="card">
+  <div class="badge">✦ MOBILE UI KIT · HTML/CSS</div>
+  <h1>Health Insight Cards Mobile UI Kit</h1>
+  <p>A steps progress card, a personalised score message and a sleep alert — three glass cards over a wine-red gradient.</p>
+  <div class="stats">
+    <div class="stat"><strong>390px</strong><span>Mobile frame</span></div>
+    <div class="stat"><strong>3</strong><span>Insight cards</span></div>
+    <div class="stat"><strong>0</strong><span>Dependencies</span></div>
+  </div>
+</div>`,
+  },
+
+  {
+    id: "sleep-tracker-ui",
+    name: "Sleep Tracker Mobile UI Kit",
+    description:
+      "Dark sleep-detail screen: a segmented sleep-stages timeline, stage stat grid, a recovery insight banner and a stage breakdown table. Pure HTML/CSS.",
+    category: "ui",
+    price: 1700,
+    stripePriceId: "price_PLACEHOLDER_sleep_tracker_ui",
+    tags: ["mobile ui", "health", "sleep", "charts", "dark mode"],
+    downloads: 0,
+    isNew: true,
+    content: `<style>
+body{font-family:'Segoe UI',sans-serif;background:#1c1712;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
+.card{background:linear-gradient(135deg,#241d13,#050402);color:#f2ebd9;border-radius:22px;padding:48px 40px;max-width:480px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.4);border:1px solid rgba(200,169,110,.2)}
+.badge{display:inline-block;background:rgba(200,169,110,.12);border:1px solid rgba(200,169,110,.3);border-radius:999px;padding:5px 16px;font-size:12px;letter-spacing:.5px;margin-bottom:20px;color:#c8a96e}
+h1{font-size:28px;font-weight:800;line-height:1.2;margin-bottom:12px}
+p{font-size:15px;opacity:.7;margin-bottom:24px;line-height:1.6}
+.stats{display:flex;gap:28px;justify-content:center}
+.stat strong{display:block;font-size:28px;font-weight:800;color:#c8a96e}.stat span{font-size:12px;opacity:.6}
+</style>
+<div class="card">
+  <div class="badge">✦ MOBILE UI KIT · HTML/CSS</div>
+  <h1>Sleep Tracker Mobile UI Kit</h1>
+  <p>A segmented sleep-stages timeline, stat grid, recovery insight and stage breakdown — a complete sleep-detail screen.</p>
+  <div class="stats">
+    <div class="stat"><strong>390px</strong><span>Mobile frame</span></div>
+    <div class="stat"><strong>4</strong><span>Sleep stages</span></div>
+    <div class="stat"><strong>0</strong><span>Dependencies</span></div>
+  </div>
+</div>`,
+  },
+
   // ── SCRIPT PACKS ─────────────────────────────────────────────────────────
 
   {

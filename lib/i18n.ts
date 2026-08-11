@@ -544,6 +544,21 @@ export const templateTranslations: Record<string, { name: string; description: s
     description:
       "Pillole di suggerimento in glassmorphism su sfondo sfumato caldo, con barra prompt flottante — schermata home per assistente AI.",
   },
+  "ride-booking-ui": {
+    name: "UI Kit Mobile — Prenotazione Corsa",
+    description:
+      "Schermata home scura per app di viaggio: ricerca destinazione con suggerimenti, card percorso da/a e lista viaggi recenti. Solo HTML/CSS.",
+  },
+  "health-insights-ui": {
+    name: "UI Kit Mobile — Card Insight Salute",
+    description:
+      "Card glass in tonalità vinaccia su sfondo sfumato: progresso passi, messaggio con punteggio salute personalizzato, alert sonno insufficiente.",
+  },
+  "sleep-tracker-ui": {
+    name: "UI Kit Mobile — Sleep Tracker",
+    description:
+      "Schermata scura di dettaglio sonno: timeline a segmenti delle fasi, griglia statistiche, banner di recupero e tabella di riepilogo.",
+  },
 
   // ── Prompt e script AI ──────────────────────────────────────────────────
   "chatgpt-prompt-library-freelancers": {

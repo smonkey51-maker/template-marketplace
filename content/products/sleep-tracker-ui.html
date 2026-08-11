@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Sleep Tracker Mobile UI Kit</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --accent: #c8a96e;
+        --accent-rgb: 200, 169, 110;
+        --terra: #c4622d;
+        --deep: #7a5a2e;
+        --rem: #6fa393;
+        --bg: #050402;
+        --text: #f2ebd9;
+        --muted: rgba(242, 235, 217, 0.55);
+        --line: rgba(242, 235, 217, 0.1);
+      }
+      html,
+      body {
+        background: #1c1712;
+      }
+      body {
+        font-family:
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        min-height: 100vh;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 32px 16px;
+      }
+      .screen {
+        position: relative;
+        width: 390px;
+        max-width: 100%;
+        min-height: 844px;
+        background: radial-gradient(120% 55% at 50% -10%, #241d13 0%, var(--bg) 55%) var(--bg);
+        color: var(--text);
+        overflow: hidden;
+        border-radius: 40px;
+        box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55);
+        padding: 26px 20px 100px;
+      }
+
+      .head-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 22px;
+      }
+      .icon-btn {
+        width: 34px;
+        height: 34px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: rgba(242, 235, 217, 0.04);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .head-title {
+        font-size: 14.5px;
+        font-weight: 700;
+      }
+
+      .stage-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 4px;
+      }
+      .stage-head h1 {
+        font-size: 15px;
+        font-weight: 700;
+      }
+      .period-chip {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--muted);
+        background: rgba(242, 235, 217, 0.06);
+        border-radius: 999px;
+        padding: 4px 10px;
+      }
+      .stage-date {
+        font-size: 11.5px;
+        color: var(--muted);
+        margin-bottom: 14px;
+      }
+
+      .legend-row {
+        display: flex;
+        gap: 14px;
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 10.5px;
+        color: var(--muted);
+        font-weight: 600;
+      }
+      .legend-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 999px;
+      }
+
+      .timeline-chart {
+        display: flex;
+        align-items: flex-end;
+        gap: 2px;
+        height: 68px;
+        margin-bottom: 8px;
+      }
+      .tl-block {
+        flex: 1;
+        border-radius: 3px;
+      }
+      .x-labels {
+        display: flex;
+        justify-content: space-between;
+        font-size: 10px;
+        color: var(--muted);
+        margin-bottom: 20px;
+      }
+
+      .stat-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+        margin-bottom: 18px;
+      }
+      .stat-cell {
+        text-align: center;
+        padding: 10px 4px;
+        border-radius: 14px;
+        background: rgba(242, 235, 217, 0.04);
+        border: 1px solid var(--line);
+      }
+      .stat-cell .v {
+        font-size: 14.5px;
+        font-weight: 700;
+      }
+      .stat-cell .l {
+        font-size: 9.5px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+
+      .insight-banner {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: rgba(126, 208, 138, 0.1);
+        border: 1px solid rgba(126, 208, 138, 0.28);
+        border-radius: 18px;
+        padding: 14px 16px;
+        margin-bottom: 20px;
+      }
+      .insight-banner .score {
+        flex-shrink: 0;
+        width: 38px;
+        height: 38px;
+        border-radius: 999px;
+        border: 2px solid #7ed08a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11.5px;
+        font-weight: 800;
+        color: #7ed08a;
+      }
+      .insight-banner .t {
+        font-size: 12.5px;
+        font-weight: 700;
+        margin-bottom: 2px;
+      }
+      .insight-banner .d {
+        font-size: 11px;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .breakdown {
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        overflow: hidden;
+      }
+      .breakdown-head,
+      .breakdown-row {
+        display: grid;
+        grid-template-columns: 1.4fr 0.6fr 0.8fr;
+        padding: 12px 16px;
+        font-size: 12px;
+        align-items: center;
+      }
+      .breakdown-head {
+        color: var(--muted);
+        font-weight: 700;
+        font-size: 10.5px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        border-bottom: 1px solid var(--line);
+      }
+      .breakdown-row {
+        border-bottom: 1px solid var(--line);
+      }
+      .breakdown-row:last-child {
+        border-bottom: none;
+      }
+      .breakdown-row .stage {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+      }
+      .breakdown-row .pct,
+      .breakdown-row .dur {
+        color: var(--muted);
+        font-weight: 600;
+      }
+
+      .bottom-nav {
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        bottom: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: rgba(13, 11, 8, 0.85);
+        backdrop-filter: blur(12px);
+        border: 1px solid var(--line);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+      }
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+        font-size: 9.5px;
+        color: var(--muted);
+        font-weight: 600;
+      }
+      .nav-item.active {
+        color: var(--accent);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="screen">
+      <div class="head-row">
+        <div class="icon-btn">‹</div>
+        <div class="head-title">Qualità del sonno</div>
+        <div class="icon-btn">⋮</div>
+      </div>
+
+      <div class="stage-head">
+        <h1>Fasi del sonno</h1>
+        <div class="period-chip">1G ⌄</div>
+      </div>
+      <div class="stage-date">Oggi, 14 maggio</div>
+
+      <div class="legend-row">
+        <div class="legend-item"><span class="legend-dot" style="background: var(--terra)"></span>Sveglio</div>
+        <div class="legend-item"><span class="legend-dot" style="background: var(--accent)"></span>Sonno leggero</div>
+        <div class="legend-item"><span class="legend-dot" style="background: var(--deep)"></span>Sonno profondo</div>
+        <div class="legend-item"><span class="legend-dot" style="background: var(--rem)"></span>REM</div>
+      </div>
+
+      <div class="timeline-chart">
+        <div class="tl-block" style="height: 30%; background: var(--terra)"></div>
+        <div class="tl-block" style="height: 90%; background: var(--accent)"></div>
+        <div class="tl-block" style="height: 90%; background: var(--accent)"></div>
+        <div class="tl-block" style="height: 60%; background: var(--deep)"></div>
+        <div class="tl-block" style="height: 60%; background: var(--deep)"></div>
+        <div class="tl-block" style="height: 90%; background: var(--accent)"></div>
+        <div class="tl-block" style="height: 40%; background: var(--terra)"></div>
+        <div class="tl-block" style="height: 90%; background: var(--accent)"></div>
+        <div class="tl-block" style="height: 45%; background: var(--rem)"></div>
+        <div class="tl-block" style="height: 90%; background: var(--accent)"></div>
+        <div class="tl-block" style="height: 90%; background: var(--accent)"></div>
+        <div class="tl-block" style="height: 25%; background: var(--terra)"></div>
+        <div class="tl-block" style="height: 80%; background: var(--accent)"></div>
+        <div class="tl-block" style="height: 80%; background: var(--accent)"></div>
+      </div>
+      <div class="x-labels"><span>23</span><span>00</span><span>01</span><span>02</span><span>03</span><span>04</span><span>05</span></div>
+
+      <div class="stat-grid">
+        <div class="stat-cell"><div class="v">4:12m</div><div class="l">Leggero</div></div>
+        <div class="stat-cell"><div class="v">1:38m</div><div class="l">Profondo</div></div>
+        <div class="stat-cell"><div class="v">0:30m</div><div class="l">Sveglio</div></div>
+        <div class="stat-cell"><div class="v">0:40m</div><div class="l">REM</div></div>
+      </div>
+
+      <div class="insight-banner">
+        <div class="score">80</div>
+        <div>
+          <div class="t">Molto bene!</div>
+          <div class="d">Hai dormito più a lungo del tuo obiettivo la scorsa notte, un buon recupero completo.</div>
+        </div>
+      </div>
+
+      <div class="breakdown">
+        <div class="breakdown-head"><span>Fase</span><span>Pct</span><span>Durata</span></div>
+        <div class="breakdown-row">
+          <span class="stage"><span class="legend-dot" style="background: var(--terra)"></span>Sveglio</span>
+          <span class="pct">3%</span><span class="dur">0:30m</span>
+        </div>
+        <div class="breakdown-row">
+          <span class="stage"><span class="legend-dot" style="background: var(--accent)"></span>Leggero</span>
+          <span class="pct">52%</span><span class="dur">4:12m</span>
+        </div>
+        <div class="breakdown-row">
+          <span class="stage"><span class="legend-dot" style="background: var(--deep)"></span>Profondo</span>
+          <span class="pct">20%</span><span class="dur">1:38m</span>
+        </div>
+        <div class="breakdown-row">
+          <span class="stage"><span class="legend-dot" style="background: var(--rem)"></span>REM</span>
+          <span class="pct">8%</span><span class="dur">0:40m</span>
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <div class="nav-item">⌂<span>Home</span></div>
+        <div class="nav-item active">◔<span>Progressi</span></div>
+        <div class="nav-item">▲<span>Workout</span></div>
+        <div class="nav-item">◍<span>Profilo</span></div>
+      </div>
+    </div>
+  </body>
+</html>
