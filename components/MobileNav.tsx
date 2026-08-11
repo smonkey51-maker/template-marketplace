@@ -162,85 +162,92 @@ export default function MobileNav() {
         className="glass-surface-pill pointer-events-auto flex items-center justify-center"
         style={{ padding: "5px 24px", gap: "36px" }}
       >
-        {tabs.map((tab) =>
-          tab.active ? (
-            // Active tab: reproduces the reference pill's layered circle —
-            // an elliptical glow hugging the bottom edge, a frosted-glass
-            // disc on top of it, the icon, then a small glowing dot beneath
-            // — 1:1 on structure and sizing, recoloured from the reference's
-            // neon blue to the site's own gold accent.
-            <Link
-              key={tab.href}
-              href={tab.href}
-              aria-label={tab.label}
-              aria-current="page"
-              className="relative flex items-center justify-center rounded-full text-[var(--accent)] transition-transform duration-300 active:scale-95"
-              style={{ width: "64px", height: "64px" }}
+        {tabs.map((tab) => (
+          // Every tab renders the same four layers (glow, frosted disc, icon,
+          // dot) regardless of active state — only their size/opacity differ.
+          // A previous version swapped between two structurally different
+          // <Link> trees depending on tab.active, so switching tabs meant
+          // React tearing down one subtree and mounting another with no
+          // shared elements to interpolate between: the glow and the size
+          // change just snapped in on the next paint, with a beat of visible
+          // lag from the route change in front of it. Keeping one consistent
+          // tree per tab lets the browser actually transition width, height,
+          // opacity and color instead of hard-cutting between two states.
+          <Link
+            key={tab.href}
+            href={tab.href}
+            aria-label={tab.label}
+            aria-current={tab.active ? "page" : undefined}
+            className={`relative flex items-center justify-center rounded-full active:scale-95 ${
+              tab.active ? "" : "text-muted hover:text-theme"
+            }`}
+            style={{
+              width: tab.active ? "64px" : "40px",
+              height: tab.active ? "64px" : "40px",
+              color: tab.active ? "var(--accent)" : undefined,
+              transition:
+                "width 200ms ease-out, height 200ms ease-out, color 200ms ease-out, transform 150ms ease-out",
+            }}
+          >
+            <span
+              aria-hidden
+              className="absolute left-1/2 -translate-x-1/2 rounded-full pointer-events-none"
+              style={{
+                bottom: "-6px",
+                width: "56px",
+                height: "32px",
+                background:
+                  "radial-gradient(closest-side, rgba(var(--accent-rgb), 0.45) 0%, rgba(var(--accent-rgb), 0.15) 55%, transparent 80%)",
+                filter: "blur(10px)",
+                zIndex: 0,
+                opacity: tab.active ? 1 : 0,
+                transition: "opacity 200ms ease-out",
+              }}
+            />
+            <span
+              aria-hidden
+              className="absolute inset-0 rounded-full pointer-events-none"
+              style={{
+                background: "rgba(255, 255, 255, 0.06)",
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
+                border: "1px solid rgba(255, 255, 255, 0.1)",
+                boxShadow: "inset 0 1px 0 rgba(255, 255, 255, 0.12)",
+                zIndex: 1,
+                opacity: tab.active ? 1 : 0,
+                transition: "opacity 200ms ease-out",
+              }}
+            />
+            <span
+              className="relative flex items-center justify-center"
+              style={{
+                zIndex: 2,
+                width: tab.active ? "26px" : "25px",
+                height: tab.active ? "26px" : "25px",
+                transition: "width 200ms ease-out, height 200ms ease-out",
+              }}
             >
-              <span
-                aria-hidden
-                className="absolute left-1/2 -translate-x-1/2 rounded-full"
-                style={{
-                  bottom: "-6px",
-                  width: "56px",
-                  height: "32px",
-                  background:
-                    "radial-gradient(closest-side, rgba(var(--accent-rgb), 0.45) 0%, rgba(var(--accent-rgb), 0.15) 55%, transparent 80%)",
-                  filter: "blur(10px)",
-                  zIndex: 0,
-                }}
-              />
-              <span
-                aria-hidden
-                className="absolute inset-0 rounded-full"
-                style={{
-                  background: "rgba(255, 255, 255, 0.06)",
-                  backdropFilter: "blur(10px)",
-                  WebkitBackdropFilter: "blur(10px)",
-                  border: "1px solid rgba(255, 255, 255, 0.1)",
-                  boxShadow: "inset 0 1px 0 rgba(255, 255, 255, 0.12)",
-                  zIndex: 1,
-                }}
-              />
-              <span
-                className="relative flex items-center justify-center"
-                style={{ zIndex: 2, width: "26px", height: "26px" }}
-              >
-                {tab.icon(true)}
-              </span>
-              <span
-                aria-hidden
-                className="absolute rounded-sm"
-                style={{
-                  bottom: "-9px",
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  width: "12px",
-                  height: "4px",
-                  borderRadius: "2px",
-                  background: "#fbead0",
-                  boxShadow: "0 0 12px 4px rgba(var(--accent-rgb), 0.9)",
-                  zIndex: 2,
-                }}
-              />
-            </Link>
-          ) : (
-            <Link
-              key={tab.href}
-              href={tab.href}
-              aria-label={tab.label}
-              className="relative flex items-center justify-center rounded-full text-muted transition-colors duration-300 hover:text-theme active:scale-95"
-              style={{ width: "40px", height: "40px" }}
-            >
-              <span
-                className="flex items-center justify-center"
-                style={{ width: "25px", height: "25px" }}
-              >
-                {tab.icon(false)}
-              </span>
-            </Link>
-          ),
-        )}
+              {tab.icon(tab.active)}
+            </span>
+            <span
+              aria-hidden
+              className="absolute rounded-sm pointer-events-none"
+              style={{
+                bottom: "-9px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                width: "12px",
+                height: "4px",
+                borderRadius: "2px",
+                background: "#fbead0",
+                boxShadow: "0 0 12px 4px rgba(var(--accent-rgb), 0.9)",
+                zIndex: 2,
+                opacity: tab.active ? 1 : 0,
+                transition: "opacity 200ms ease-out",
+              }}
+            />
+          </Link>
+        ))}
       </nav>
     </div>
   );
