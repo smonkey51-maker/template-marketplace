@@ -159,49 +159,80 @@ export default function MobileNav() {
       className={`sm:hidden fixed bottom-6 inset-x-0 z-[90] flex justify-center pointer-events-none ${reduced ? "" : "transition-all duration-500 ease-out"} ${mounted ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
     >
       <nav
-        className="glass-surface-pill pointer-events-auto flex items-center justify-center gap-2"
-        style={{ padding: "8px 12px" }}
+        className="glass-surface-pill pointer-events-auto flex items-center justify-center"
+        style={{ padding: "10px 26px", gap: "36px" }}
       >
-        {tabs.map((tab) => (
-          <Link
-            key={tab.href}
-            href={tab.href}
-            aria-label={tab.label}
-            aria-current={tab.active ? "page" : undefined}
-            className={`relative flex items-center justify-center w-12 h-12 rounded-full transition-all duration-300 active:scale-95 ${
-              tab.active
-                ? "text-[var(--accent)]"
-                : "text-muted hover:text-theme hover:bg-[color:var(--glass-s-fill)]"
-            }`}
-            style={
-              tab.active
-                ? {
-                    // A soft accent-tinted glow behind the active icon, plus a
-                    // small glowing dot beneath it — same structure as the
-                    // reference pill, recoloured from its neon blue to the
-                    // site's own gold accent so it reads as this brand rather
-                    // than a mismatched one-off.
-                    background:
-                      "radial-gradient(circle at 50% 38%, rgba(var(--accent-rgb), 0.4), rgba(var(--accent-rgb), 0.12) 60%, transparent 76%)",
-                    boxShadow:
-                      "0 0 22px 4px rgba(var(--accent-rgb), 0.35), inset 0 0 0 1px rgba(var(--accent-rgb), 0.4)",
-                  }
-                : undefined
-            }
-          >
-            {tab.icon(tab.active)}
-            {tab.active && (
+        {tabs.map((tab) =>
+          tab.active ? (
+            // Active tab: reproduces the reference pill's layered circle —
+            // an elliptical glow hugging the bottom edge, a frosted-glass
+            // disc on top of it, the icon, then a small glowing dot beneath
+            // — 1:1 on structure and sizing, recoloured from the reference's
+            // neon blue to the site's own gold accent.
+            <Link
+              key={tab.href}
+              href={tab.href}
+              aria-label={tab.label}
+              aria-current="page"
+              className="relative flex items-center justify-center rounded-full text-[var(--accent)] transition-transform duration-300 active:scale-95"
+              style={{ width: "64px", height: "64px" }}
+            >
               <span
                 aria-hidden
-                className="absolute bottom-0.5 w-1.5 h-1.5 rounded-full"
+                className="absolute left-1/2 -translate-x-1/2 rounded-full"
                 style={{
-                  background: "var(--accent)",
-                  boxShadow: "0 0 8px 2px rgba(var(--accent-rgb), 0.7)",
+                  bottom: "-6px",
+                  width: "56px",
+                  height: "32px",
+                  background:
+                    "radial-gradient(closest-side, rgba(var(--accent-rgb), 0.65) 0%, rgba(var(--accent-rgb), 0.25) 55%, transparent 80%)",
+                  filter: "blur(9px)",
+                  zIndex: 0,
                 }}
               />
-            )}
-          </Link>
-        ))}
+              <span
+                aria-hidden
+                className="absolute inset-0 rounded-full"
+                style={{
+                  background: "rgba(255, 255, 255, 0.06)",
+                  backdropFilter: "blur(10px)",
+                  WebkitBackdropFilter: "blur(10px)",
+                  border: "1px solid rgba(255, 255, 255, 0.1)",
+                  boxShadow: "inset 0 1px 0 rgba(255, 255, 255, 0.12)",
+                  zIndex: 1,
+                }}
+              />
+              <span className="relative" style={{ zIndex: 2, width: "26px", height: "26px" }}>
+                {tab.icon(true)}
+              </span>
+              <span
+                aria-hidden
+                className="absolute rounded-sm"
+                style={{
+                  bottom: "-9px",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  width: "12px",
+                  height: "4px",
+                  borderRadius: "2px",
+                  background: "#fbead0",
+                  boxShadow: "0 0 12px 4px rgba(var(--accent-rgb), 0.9)",
+                  zIndex: 2,
+                }}
+              />
+            </Link>
+          ) : (
+            <Link
+              key={tab.href}
+              href={tab.href}
+              aria-label={tab.label}
+              className="relative flex items-center justify-center rounded-full text-muted transition-colors duration-300 hover:text-theme active:scale-95"
+              style={{ width: "40px", height: "40px" }}
+            >
+              <span style={{ width: "25px", height: "25px" }}>{tab.icon(false)}</span>
+            </Link>
+          ),
+        )}
       </nav>
     </div>
   );
