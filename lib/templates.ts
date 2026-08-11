@@ -233,6 +233,134 @@ p{font-size:15px;opacity:.7;margin-bottom:24px;line-height:1.6}
 </div>`,
   },
 
+  {
+    id: "workspace-dashboard-ui",
+    name: "Workspace Management Dashboard UI Kit",
+    description:
+      "Desktop SaaS admin dashboard: sidebar nav, KPI cards, and a live isometric floor map with a room-detail popover. Pure HTML/CSS, no framework.",
+    category: "ui",
+    price: 2400,
+    stripePriceId: "price_PLACEHOLDER_workspace_dashboard_ui",
+    tags: ["dashboard", "saas", "admin", "desktop ui", "dark mode"],
+    downloads: 0,
+    isNew: true,
+    content: `<style>
+body{font-family:'Segoe UI',sans-serif;background:#08070a;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
+.card{background:linear-gradient(135deg,#16130d,#08070a);color:#f2ebd9;border-radius:22px;padding:48px 40px;max-width:480px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.4);border:1px solid rgba(200,169,110,.2)}
+.badge{display:inline-block;background:rgba(200,169,110,.12);border:1px solid rgba(200,169,110,.3);border-radius:999px;padding:5px 16px;font-size:12px;letter-spacing:.5px;margin-bottom:20px;color:#c8a96e}
+h1{font-size:28px;font-weight:800;line-height:1.2;margin-bottom:12px}
+p{font-size:15px;opacity:.7;margin-bottom:24px;line-height:1.6}
+.stats{display:flex;gap:28px;justify-content:center}
+.stat strong{display:block;font-size:28px;font-weight:800;color:#c8a96e}.stat span{font-size:12px;opacity:.6}
+</style>
+<div class="card">
+  <div class="badge">✦ DESKTOP UI KIT · HTML/CSS</div>
+  <h1>Workspace Management Dashboard UI Kit</h1>
+  <p>Sidebar nav, KPI cards and a live isometric floor map with room booking — a complete facility-management admin screen.</p>
+  <div class="stats">
+    <div class="stat"><strong>3</strong><span>KPI cards</span></div>
+    <div class="stat"><strong>1</strong><span>3D floor map</span></div>
+    <div class="stat"><strong>0</strong><span>Dependencies</span></div>
+  </div>
+</div>`,
+  },
+
+  {
+    id: "fitness-tracker-ui",
+    name: "Fitness Tracker Mobile UI Kit",
+    description:
+      "Dark, gold-accented fitness home screen: weekly training bars, a cardio line chart, hydration and sleep-quality widgets, and a recovery insight card.",
+    category: "ui",
+    price: 1900,
+    stripePriceId: "price_PLACEHOLDER_fitness_tracker_ui",
+    tags: ["mobile ui", "fitness", "health", "charts", "dark mode"],
+    downloads: 0,
+    isNew: true,
+    content: `<style>
+body{font-family:'Segoe UI',sans-serif;background:#1c1712;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
+.card{background:linear-gradient(135deg,#241d13,#050402);color:#f2ebd9;border-radius:22px;padding:48px 40px;max-width:480px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.4);border:1px solid rgba(200,169,110,.2)}
+.badge{display:inline-block;background:rgba(200,169,110,.12);border:1px solid rgba(200,169,110,.3);border-radius:999px;padding:5px 16px;font-size:12px;letter-spacing:.5px;margin-bottom:20px;color:#c8a96e}
+h1{font-size:28px;font-weight:800;line-height:1.2;margin-bottom:12px}
+p{font-size:15px;opacity:.7;margin-bottom:24px;line-height:1.6}
+.stats{display:flex;gap:28px;justify-content:center}
+.stat strong{display:block;font-size:28px;font-weight:800;color:#c8a96e}.stat span{font-size:12px;opacity:.6}
+</style>
+<div class="card">
+  <div class="badge">✦ MOBILE UI KIT · HTML/CSS</div>
+  <h1>Fitness Tracker Mobile UI Kit</h1>
+  <p>Training bars, a cardio chart, hydration and sleep widgets, plus a recovery insight card — a complete fitness home screen.</p>
+  <div class="stats">
+    <div class="stat"><strong>390px</strong><span>Mobile frame</span></div>
+    <div class="stat"><strong>4</strong><span>Chart widgets</span></div>
+    <div class="stat"><strong>0</strong><span>Dependencies</span></div>
+  </div>
+</div>`,
+  },
+
+  {
+    id: "banking-app-ui",
+    name: "Banking App Mobile UI Kit",
+    description:
+      "Light, warm-toned banking home screen: quick actions, a physical card mockup, recent contacts, card details and upcoming bills. Pure HTML/CSS.",
+    category: "ui",
+    price: 1900,
+    stripePriceId: "price_PLACEHOLDER_banking_app_ui",
+    tags: ["mobile ui", "fintech", "banking", "light mode"],
+    downloads: 0,
+    isNew: true,
+    content: `<style>
+body{font-family:'Segoe UI',sans-serif;background:#e9e2d2;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
+.card{background:#fdfaf5;color:#1c1610;border-radius:22px;padding:48px 40px;max-width:480px;text-align:center;box-shadow:0 24px 64px rgba(28,22,16,.15);border:1px solid rgba(28,22,16,.1)}
+.badge{display:inline-block;background:rgba(156,119,51,.12);border:1px solid rgba(156,119,51,.3);border-radius:999px;padding:5px 16px;font-size:12px;letter-spacing:.5px;margin-bottom:20px;color:#9c7733}
+h1{font-size:28px;font-weight:800;line-height:1.2;margin-bottom:12px}
+p{font-size:15px;opacity:.7;margin-bottom:24px;line-height:1.6}
+.stats{display:flex;gap:28px;justify-content:center}
+.stat strong{display:block;font-size:28px;font-weight:800;color:#9c7733}.stat span{font-size:12px;opacity:.6}
+</style>
+<div class="card">
+  <div class="badge">✦ MOBILE UI KIT · HTML/CSS</div>
+  <h1>Banking App Mobile UI Kit</h1>
+  <p>Quick actions, a card mockup, recent contacts and upcoming bills — a complete light-theme banking home screen.</p>
+  <div class="stats">
+    <div class="stat"><strong>390px</strong><span>Mobile frame</span></div>
+    <div class="stat"><strong>5</strong><span>UI sections</span></div>
+    <div class="stat"><strong>0</strong><span>Dependencies</span></div>
+  </div>
+</div>`,
+  },
+
+  {
+    id: "ai-assistant-suggestions-ui",
+    name: "AI Assistant Suggestions Mobile UI Kit",
+    description:
+      "Glass suggestion pills floating over a warm gradient-mesh background, plus a floating prompt bar — a ready-to-adapt AI assistant home screen.",
+    category: "ui",
+    price: 1500,
+    stripePriceId: "price_PLACEHOLDER_ai_assistant_suggestions_ui",
+    tags: ["mobile ui", "ai", "assistant", "glassmorphism", "gradient"],
+    downloads: 0,
+    isNew: true,
+    content: `<style>
+body{font-family:'Segoe UI',sans-serif;background:#1c1712;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
+.card{background:radial-gradient(120% 100% at 20% 0%,#f3b04a 0%,transparent 55%),radial-gradient(120% 100% at 100% 30%,#c4622d 0%,transparent 55%),#4a1f22;color:#fff8ec;border-radius:22px;padding:48px 40px;max-width:480px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.4)}
+.badge{display:inline-block;background:rgba(255,248,236,.14);border:1px solid rgba(255,248,236,.3);border-radius:999px;padding:5px 16px;font-size:12px;letter-spacing:.5px;margin-bottom:20px}
+h1{font-size:28px;font-weight:800;line-height:1.2;margin-bottom:12px}
+p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
+.stats{display:flex;gap:28px;justify-content:center}
+.stat strong{display:block;font-size:28px;font-weight:800}.stat span{font-size:12px;opacity:.7}
+</style>
+<div class="card">
+  <div class="badge">✦ MOBILE UI KIT · HTML/CSS</div>
+  <h1>AI Assistant Suggestions Mobile UI Kit</h1>
+  <p>Glass suggestion pills over a warm gradient mesh, with a floating prompt bar — ready to reskin for any AI assistant.</p>
+  <div class="stats">
+    <div class="stat"><strong>390px</strong><span>Mobile frame</span></div>
+    <div class="stat"><strong>4</strong><span>Suggestion pills</span></div>
+    <div class="stat"><strong>0</strong><span>Dependencies</span></div>
+  </div>
+</div>`,
+  },
+
   // ── SCRIPT PACKS ─────────────────────────────────────────────────────────
 
   {

@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Banking App Mobile UI Kit</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --accent: #9c7733;
+        --accent-rgb: 156, 119, 51;
+        --terra: #b5501f;
+        --bg: #fdfaf5;
+        --surface: #f5efe3;
+        --text: #1c1610;
+        --muted: #7a6b56;
+        --line: rgba(28, 22, 16, 0.1);
+      }
+      html,
+      body {
+        background: #e9e2d2;
+      }
+      body {
+        font-family:
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        min-height: 100vh;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 32px 16px;
+      }
+      .screen {
+        position: relative;
+        width: 390px;
+        max-width: 100%;
+        min-height: 844px;
+        background: var(--bg);
+        color: var(--text);
+        overflow: hidden;
+        border-radius: 40px;
+        box-shadow: 0 40px 90px rgba(0, 0, 0, 0.25);
+        padding: 26px 20px 100px;
+      }
+
+      .head-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      .greeting .hi {
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 600;
+      }
+      .greeting .name {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 21px;
+        margin-top: 2px;
+      }
+      .head-icons {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .icon-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 999px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+      .icon-btn .dot {
+        position: absolute;
+        top: 7px;
+        right: 8px;
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: var(--terra);
+      }
+      .avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--accent), var(--terra));
+      }
+
+      .quick-actions {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      .qa-pill {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        padding: 11px;
+        border-radius: 999px;
+        font-size: 12.5px;
+        font-weight: 700;
+      }
+      .qa-pill.primary {
+        background: var(--text);
+        color: #fdfaf5;
+      }
+      .qa-pill.outline {
+        border: 1px solid var(--line);
+        background: var(--surface);
+        color: var(--text);
+      }
+
+      .card-visual {
+        position: relative;
+        border-radius: 22px;
+        padding: 20px 22px;
+        background: linear-gradient(150deg, #241d13, #0c0a06);
+        color: #f2ebd9;
+        margin-bottom: 22px;
+        box-shadow: 0 20px 40px rgba(28, 22, 16, 0.35);
+      }
+      .card-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 30px;
+      }
+      .card-chip {
+        width: 30px;
+        height: 22px;
+        border-radius: 5px;
+        background: linear-gradient(135deg, var(--accent), #e8cf9c);
+      }
+      .card-brand {
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        color: var(--accent);
+      }
+      .card-number {
+        font-size: 17px;
+        letter-spacing: 0.12em;
+        font-weight: 600;
+        margin-bottom: 16px;
+      }
+      .card-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+      .card-bottom .l {
+        font-size: 9px;
+        opacity: 0.6;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+      .card-bottom .v {
+        font-size: 12.5px;
+        font-weight: 600;
+        margin-top: 2px;
+      }
+
+      .section {
+        margin-bottom: 20px;
+      }
+      .section-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+      .section-head h2 {
+        font-size: 14.5px;
+        font-weight: 700;
+      }
+      .section-head a {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--accent);
+      }
+
+      .avatar-row {
+        display: flex;
+        gap: 14px;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+      .avatar-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        flex-shrink: 0;
+      }
+      .avatar-item .circle {
+        width: 46px;
+        height: 46px;
+        border-radius: 999px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+      }
+      .avatar-item .circle.add {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent);
+        font-weight: 800;
+        font-size: 16px;
+        border: 1px dashed rgba(var(--accent-rgb), 0.4);
+      }
+      .avatar-item span {
+        font-size: 10px;
+        color: var(--muted);
+        font-weight: 600;
+      }
+
+      .detail-card {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 14px 16px;
+      }
+      .detail-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 9px 0;
+        font-size: 12.5px;
+        border-bottom: 1px solid var(--line);
+      }
+      .detail-row:last-child {
+        border-bottom: none;
+      }
+      .detail-row .l {
+        color: var(--muted);
+        font-weight: 600;
+      }
+      .detail-row .v {
+        font-weight: 700;
+      }
+
+      .bill-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 0;
+      }
+      .bill-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 13px;
+        flex-shrink: 0;
+      }
+      .bill-info {
+        flex: 1;
+        min-width: 0;
+      }
+      .bill-info .n {
+        font-size: 12.5px;
+        font-weight: 700;
+      }
+      .bill-info .d {
+        font-size: 10.5px;
+        color: var(--muted);
+        margin-top: 1px;
+      }
+      .pay-btn {
+        font-size: 11.5px;
+        font-weight: 700;
+        color: #fff;
+        background: var(--accent);
+        border-radius: 999px;
+        padding: 6px 14px;
+      }
+
+      .bottom-nav {
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        bottom: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: rgba(28, 22, 16, 0.92);
+        box-shadow: 0 16px 40px rgba(28, 22, 16, 0.35);
+      }
+      .nav-item {
+        width: 34px;
+        height: 34px;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(242, 235, 217, 0.5);
+      }
+      .nav-item.active {
+        background: var(--accent);
+        color: #1c1610;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="screen">
+      <div class="head-row">
+        <div class="greeting">
+          <div class="hi">Buongiorno</div>
+          <div class="name">Sofia</div>
+        </div>
+        <div class="head-icons">
+          <div class="icon-btn"><span class="dot"></span>🔔</div>
+          <div class="avatar"></div>
+        </div>
+      </div>
+
+      <div class="quick-actions">
+        <div class="qa-pill outline">+ Aggiungi</div>
+        <div class="qa-pill outline">↗ Invia</div>
+        <div class="qa-pill primary">▤ Paga</div>
+      </div>
+
+      <div class="card-visual">
+        <div class="card-top">
+          <div class="card-chip"></div>
+          <div class="card-brand">NOVA</div>
+        </div>
+        <div class="card-number">2781 8191 6671 3190</div>
+        <div class="card-bottom">
+          <div><div class="l">Titolare</div><div class="v">Sofia Marin</div></div>
+          <div><div class="l">Scadenza</div><div class="v">09/29</div></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-head"><h2>Transazioni recenti</h2><a href="#">Vedi tutte</a></div>
+        <div class="avatar-row">
+          <div class="avatar-item"><div class="circle"></div><span>Marcus</span></div>
+          <div class="avatar-item"><div class="circle"></div><span>Priya</span></div>
+          <div class="avatar-item"><div class="circle"></div><span>Elena</span></div>
+          <div class="avatar-item"><div class="circle"></div><span>Theo</span></div>
+          <div class="avatar-item"><div class="circle add">+</div><span>Nuovo</span></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-head"><h2>Dettaglio carta</h2><a href="#">Mostra</a></div>
+        <div class="detail-card">
+          <div class="detail-row"><span class="l">Titolare</span><span class="v">Sofia Marin</span></div>
+          <div class="detail-row"><span class="l">Numero carta</span><span class="v">•••• 3190</span></div>
+          <div class="detail-row"><span class="l">Scadenza</span><span class="v">09/29</span></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-head"><h2>Bollette in scadenza</h2><span style="font-size: 12px; font-weight: 700; color: var(--muted)">€4.320,00</span></div>
+        <div class="bill-row">
+          <div class="bill-icon" style="background: var(--accent)">W</div>
+          <div class="bill-info"><div class="n">Private Wealth Mgmt</div><div class="d">Scade il 12 ago</div></div>
+          <div class="pay-btn">Paga</div>
+        </div>
+        <div class="bill-row">
+          <div class="bill-icon" style="background: var(--terra)">C</div>
+          <div class="bill-info"><div class="n">City Power &amp; Light</div><div class="d">Scade il 15 ago</div></div>
+          <div class="pay-btn">Paga</div>
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <div class="nav-item">⌂</div>
+        <div class="nav-item">▤</div>
+        <div class="nav-item active">⇄</div>
+        <div class="nav-item">▥</div>
+        <div class="nav-item">◍</div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -524,6 +524,26 @@ export const templateTranslations: Record<string, { name: string; description: s
     description:
       "Schermata agenda scura ed editoriale: intestazione giorno, strip date, note in timeline e card appuntamento con luogo integrato. Solo HTML/CSS.",
   },
+  "workspace-dashboard-ui": {
+    name: "UI Kit Desktop — Dashboard Workspace",
+    description:
+      "Dashboard SaaS desktop: menu laterale, card KPI e una mappa piano isometrica live con popover di dettaglio stanza. Solo HTML/CSS.",
+  },
+  "fitness-tracker-ui": {
+    name: "UI Kit Mobile — Fitness Tracker",
+    description:
+      "Schermata fitness scura con accenti oro: barre allenamenti settimanali, grafico cardio, widget idratazione e sonno, card di recupero.",
+  },
+  "banking-app-ui": {
+    name: "UI Kit Mobile — App Bancaria",
+    description:
+      "Schermata bancaria chiara e calda: azioni rapide, mockup carta fisica, contatti recenti, dettaglio carta e bollette in scadenza.",
+  },
+  "ai-assistant-suggestions-ui": {
+    name: "UI Kit Mobile — Suggerimenti Assistente AI",
+    description:
+      "Pillole di suggerimento in glassmorphism su sfondo sfumato caldo, con barra prompt flottante — schermata home per assistente AI.",
+  },
 
   // ── Prompt e script AI ──────────────────────────────────────────────────
   "chatgpt-prompt-library-freelancers": {
