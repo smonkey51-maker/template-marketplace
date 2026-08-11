@@ -202,7 +202,10 @@ export default function MobileNav() {
                   zIndex: 1,
                 }}
               />
-              <span className="relative" style={{ zIndex: 2, width: "26px", height: "26px" }}>
+              <span
+                className="relative flex items-center justify-center"
+                style={{ zIndex: 2, width: "26px", height: "26px" }}
+              >
                 {tab.icon(true)}
               </span>
               <span
@@ -229,7 +232,12 @@ export default function MobileNav() {
               className="relative flex items-center justify-center rounded-full text-muted transition-colors duration-300 hover:text-theme active:scale-95"
               style={{ width: "40px", height: "40px" }}
             >
-              <span style={{ width: "25px", height: "25px" }}>{tab.icon(false)}</span>
+              <span
+                className="flex items-center justify-center"
+                style={{ width: "25px", height: "25px" }}
+              >
+                {tab.icon(false)}
+              </span>
             </Link>
           ),
         )}
