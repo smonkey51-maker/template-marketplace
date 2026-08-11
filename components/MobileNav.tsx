@@ -14,6 +14,21 @@ export default function MobileNav() {
   }, []);
   const pathname = usePathname();
   const { lang } = useLang();
+
+  // `tab.active` (below) only flips once `pathname` reflects the *completed*
+  // navigation — and on a real phone on a real network, an App Router route
+  // change means waiting for the new page's RSC payload before that happens.
+  // That gap was dead time: nothing moved until the network round-trip
+  // finished, then the (now genuinely smooth) transition played — but the
+  // wait in front of it is what actually read as "very slow", not the
+  // transition itself. Highlighting the tapped tab immediately, without
+  // waiting for the network, closes that gap; this resyncs to the real route
+  // the moment it lands (or if navigation happened some other way, e.g. the
+  // back button).
+  const [pendingHref, setPendingHref] = useState<string | null>(null);
+  useEffect(() => {
+    setPendingHref(null);
+  }, [pathname]);
   // `pathname` always carries the locale segment (/it/..., /en/...), so every
   // comparison below needs the prefix stripped first — matching against the
   // raw pathname meant `hidden` was always false and no tab was ever "active".
@@ -162,92 +177,98 @@ export default function MobileNav() {
         className="glass-surface-pill pointer-events-auto flex items-center justify-center"
         style={{ padding: "5px 24px", gap: "36px" }}
       >
-        {tabs.map((tab) => (
-          // Every tab renders the same four layers (glow, frosted disc, icon,
-          // dot) regardless of active state — only their size/opacity differ.
-          // A previous version swapped between two structurally different
-          // <Link> trees depending on tab.active, so switching tabs meant
-          // React tearing down one subtree and mounting another with no
-          // shared elements to interpolate between: the glow and the size
-          // change just snapped in on the next paint, with a beat of visible
-          // lag from the route change in front of it. Keeping one consistent
-          // tree per tab lets the browser actually transition width, height,
-          // opacity and color instead of hard-cutting between two states.
-          <Link
-            key={tab.href}
-            href={tab.href}
-            aria-label={tab.label}
-            aria-current={tab.active ? "page" : undefined}
-            className={`relative flex items-center justify-center rounded-full active:scale-95 ${
-              tab.active ? "" : "text-muted hover:text-theme"
-            }`}
-            style={{
-              width: tab.active ? "64px" : "40px",
-              height: tab.active ? "64px" : "40px",
-              color: tab.active ? "var(--accent)" : undefined,
-              transition:
-                "width 200ms ease-out, height 200ms ease-out, color 200ms ease-out, transform 150ms ease-out",
-            }}
-          >
-            <span
-              aria-hidden
-              className="absolute left-1/2 -translate-x-1/2 rounded-full pointer-events-none"
+        {tabs.map((tab) => {
+          const active = pendingHref ? tab.href === pendingHref : tab.active;
+          return (
+            // Every tab is a fixed 64×64 slot at all times — the pill's total
+            // width is invariant by construction, not just "constant if the
+            // math works out". Only the circle *inside* the slot grows or
+            // shrinks, via `transform: scale()` rather than animating
+            // width/height directly: a width/height transition forces a
+            // layout recalculation on every frame, which is exactly the kind
+            // of animation that looks fine on a dev machine and janks on a
+            // real phone. transform + opacity are compositor-only — no
+            // layout, no repaint of surrounding elements.
+            <Link
+              key={tab.href}
+              href={tab.href}
+              aria-label={tab.label}
+              aria-current={active ? "page" : undefined}
+              onClick={() => setPendingHref(tab.href)}
+              className={`relative flex items-center justify-center rounded-full active:scale-95 ${
+                active ? "" : "text-muted hover:text-theme"
+              }`}
               style={{
-                bottom: "-6px",
-                width: "56px",
-                height: "32px",
-                background:
-                  "radial-gradient(closest-side, rgba(var(--accent-rgb), 0.45) 0%, rgba(var(--accent-rgb), 0.15) 55%, transparent 80%)",
-                filter: "blur(10px)",
-                zIndex: 0,
-                opacity: tab.active ? 1 : 0,
-                transition: "opacity 200ms ease-out",
-              }}
-            />
-            <span
-              aria-hidden
-              className="absolute inset-0 rounded-full pointer-events-none"
-              style={{
-                background: "rgba(255, 255, 255, 0.06)",
-                backdropFilter: "blur(10px)",
-                WebkitBackdropFilter: "blur(10px)",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
-                boxShadow: "inset 0 1px 0 rgba(255, 255, 255, 0.12)",
-                zIndex: 1,
-                opacity: tab.active ? 1 : 0,
-                transition: "opacity 200ms ease-out",
-              }}
-            />
-            <span
-              className="relative flex items-center justify-center"
-              style={{
-                zIndex: 2,
-                width: tab.active ? "26px" : "25px",
-                height: tab.active ? "26px" : "25px",
-                transition: "width 200ms ease-out, height 200ms ease-out",
+                width: "64px",
+                height: "64px",
+                color: active ? "var(--accent)" : undefined,
+                // Both properties in one inline `transition`, deliberately:
+                // an inline `transition` shorthand overrides a class-based
+                // `transition-property` for any longhand it touches, so a
+                // separate Tailwind `transition-transform` class here would
+                // have silently lost the color transition (or vice versa).
+                transition: "color 200ms ease-out, transform 150ms ease-out",
               }}
             >
-              {tab.icon(tab.active)}
-            </span>
-            <span
-              aria-hidden
-              className="absolute rounded-sm pointer-events-none"
-              style={{
-                bottom: "-9px",
-                left: "50%",
-                transform: "translateX(-50%)",
-                width: "12px",
-                height: "4px",
-                borderRadius: "2px",
-                background: "#fbead0",
-                boxShadow: "0 0 12px 4px rgba(var(--accent-rgb), 0.9)",
-                zIndex: 2,
-                opacity: tab.active ? 1 : 0,
-                transition: "opacity 200ms ease-out",
-              }}
-            />
-          </Link>
-        ))}
+              <span
+                aria-hidden
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  transform: active ? "scale(1)" : "scale(0.625)",
+                  opacity: active ? 1 : 0,
+                  transition: "transform 200ms ease-out, opacity 200ms ease-out",
+                }}
+              >
+                <span
+                  className="absolute left-1/2 -translate-x-1/2 rounded-full"
+                  style={{
+                    bottom: "-6px",
+                    width: "56px",
+                    height: "32px",
+                    background:
+                      "radial-gradient(closest-side, rgba(var(--accent-rgb), 0.45) 0%, rgba(var(--accent-rgb), 0.15) 55%, transparent 80%)",
+                    filter: "blur(10px)",
+                    zIndex: 0,
+                  }}
+                />
+                <span
+                  className="absolute inset-0 rounded-full"
+                  style={{
+                    background: "rgba(255, 255, 255, 0.06)",
+                    backdropFilter: "blur(10px)",
+                    WebkitBackdropFilter: "blur(10px)",
+                    border: "1px solid rgba(255, 255, 255, 0.1)",
+                    boxShadow: "inset 0 1px 0 rgba(255, 255, 255, 0.12)",
+                    zIndex: 1,
+                  }}
+                />
+              </span>
+              <span
+                className="relative flex items-center justify-center"
+                style={{ zIndex: 2, width: "25px", height: "25px" }}
+              >
+                {tab.icon(active)}
+              </span>
+              <span
+                aria-hidden
+                className="absolute rounded-sm pointer-events-none"
+                style={{
+                  bottom: "-9px",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  width: "12px",
+                  height: "4px",
+                  borderRadius: "2px",
+                  background: "#fbead0",
+                  boxShadow: "0 0 12px 4px rgba(var(--accent-rgb), 0.9)",
+                  zIndex: 2,
+                  opacity: active ? 1 : 0,
+                  transition: "opacity 200ms ease-out",
+                }}
+              />
+            </Link>
+          );
+        })}
       </nav>
     </div>
   );
