@@ -160,7 +160,7 @@ export default function MobileNav() {
     >
       <nav
         className="glass-surface-pill pointer-events-auto flex items-center justify-center"
-        style={{ padding: "10px 26px", gap: "36px" }}
+        style={{ padding: "5px 24px", gap: "36px" }}
       >
         {tabs.map((tab) =>
           tab.active ? (
@@ -185,8 +185,8 @@ export default function MobileNav() {
                   width: "56px",
                   height: "32px",
                   background:
-                    "radial-gradient(closest-side, rgba(var(--accent-rgb), 0.65) 0%, rgba(var(--accent-rgb), 0.25) 55%, transparent 80%)",
-                  filter: "blur(9px)",
+                    "radial-gradient(closest-side, rgba(var(--accent-rgb), 0.45) 0%, rgba(var(--accent-rgb), 0.15) 55%, transparent 80%)",
+                  filter: "blur(10px)",
                   zIndex: 0,
                 }}
               />
