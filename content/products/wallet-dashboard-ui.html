@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Wallet Dashboard UI Kit</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --accent: #c8a96e;
+        --accent-rgb: 200, 169, 110;
+        --terra: #c4622d;
+        --bg: #050402;
+        --surface: #0d0b08;
+        --surface-2: #16130d;
+        --text: #f2ebd9;
+        --muted: rgba(242, 235, 217, 0.55);
+        --line: rgba(242, 235, 217, 0.1);
+      }
+      html,
+      body {
+        background: #1c1712;
+      }
+      body {
+        font-family:
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        min-height: 100vh;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 32px 16px;
+      }
+      .screen {
+        position: relative;
+        width: 390px;
+        max-width: 100%;
+        min-height: 844px;
+        background: radial-gradient(120% 60% at 50% -10%, #241d13 0%, var(--bg) 55%) var(--bg);
+        color: var(--text);
+        overflow: hidden;
+        border-radius: 40px;
+        box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55);
+      }
+
+      /* ── Top bar ─────────────────────────────────────────── */
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 28px 24px 8px;
+      }
+      .avatar-name {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--accent), var(--terra));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 13px;
+        color: #1c1610;
+      }
+      .topbar-title {
+        font-size: 15px;
+        font-weight: 700;
+      }
+      .topbar-sub {
+        font-size: 11px;
+        color: var(--muted);
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-top: 1px;
+      }
+      .dot-live {
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: #7ed08a;
+        display: inline-block;
+      }
+      .icon-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: rgba(242, 235, 217, 0.04);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text);
+      }
+
+      /* ── Currency chip ───────────────────────────────────── */
+      .currency-chip {
+        margin: 18px auto 0;
+        width: fit-content;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: rgba(242, 235, 217, 0.04);
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        color: var(--muted);
+        font-weight: 600;
+      }
+
+      /* ── Balance ─────────────────────────────────────────── */
+      .balance-block {
+        text-align: center;
+        margin: 18px 0 22px;
+      }
+      .balance-label {
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--muted);
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .balance-amount {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 42px;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        background: linear-gradient(135deg, #f2ebd9, var(--accent) 70%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      /* ── Quick actions ───────────────────────────────────── */
+      .quick-actions {
+        display: flex;
+        justify-content: center;
+        gap: 28px;
+        padding: 0 24px 26px;
+      }
+      .qa {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+      }
+      .qa-btn {
+        width: 52px;
+        height: 52px;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(var(--accent-rgb), 0.35);
+        background: rgba(var(--accent-rgb), 0.1);
+        color: var(--accent);
+      }
+      .qa-btn.primary {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #1c1610;
+      }
+      .qa span {
+        font-size: 11px;
+        color: var(--muted);
+        font-weight: 600;
+      }
+
+      /* ── Card ────────────────────────────────────────────── */
+      .card-panel {
+        margin: 0 20px 22px;
+        padding: 18px 20px;
+        border-radius: 22px;
+        border: 1px solid var(--line);
+        background: linear-gradient(160deg, rgba(242, 235, 217, 0.06), rgba(242, 235, 217, 0.02));
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .card-masked {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        color: var(--text);
+        font-weight: 600;
+      }
+      .card-masked .dots {
+        display: flex;
+        gap: 3px;
+        margin-right: 4px;
+      }
+      .card-masked .dots span {
+        width: 4px;
+        height: 4px;
+        border-radius: 999px;
+        background: var(--muted);
+        display: inline-block;
+      }
+      .card-brand {
+        display: flex;
+        align-items: center;
+      }
+      .card-brand span {
+        width: 20px;
+        height: 20px;
+        border-radius: 999px;
+        display: inline-block;
+      }
+      .card-brand span:first-child {
+        background: var(--terra);
+        margin-right: -8px;
+        z-index: 1;
+      }
+      .card-brand span:last-child {
+        background: var(--accent);
+        opacity: 0.85;
+      }
+
+      .add-account {
+        display: block;
+        margin: 0 20px 28px;
+        text-align: center;
+        padding: 12px;
+        border-radius: 999px;
+        border: 1px dashed var(--line);
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+      }
+
+      /* ── Transactions panel ──────────────────────────────── */
+      .tx-panel {
+        background: var(--surface);
+        border-top: 1px solid var(--line);
+        border-radius: 28px 28px 0 0;
+        padding: 22px 20px 110px;
+      }
+      .tx-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 14px;
+      }
+      .tx-head h2 {
+        font-size: 15px;
+        font-weight: 700;
+      }
+      .tx-head a {
+        font-size: 12px;
+        color: var(--accent);
+        font-weight: 700;
+        text-decoration: none;
+      }
+      .tx-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
+        border-radius: 16px;
+        margin-bottom: 8px;
+      }
+      .tx-item.highlight {
+        background: rgba(var(--accent-rgb), 0.1);
+        border: 1px solid rgba(var(--accent-rgb), 0.2);
+      }
+      .tx-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 13px;
+        color: #1c1610;
+      }
+      .tx-info {
+        flex: 1;
+        min-width: 0;
+      }
+      .tx-info .name {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text);
+      }
+      .tx-info .meta {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 1px;
+      }
+      .tx-amount {
+        font-size: 13px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .tx-amount.in {
+        color: #8fd39a;
+      }
+      .tx-amount.out {
+        color: var(--muted);
+      }
+
+      /* ── Bottom nav ──────────────────────────────────────── */
+      .bottom-nav {
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        bottom: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: 10px 18px;
+        border-radius: 999px;
+        background: rgba(13, 11, 8, 0.85);
+        backdrop-filter: blur(12px);
+        border: 1px solid var(--line);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+      }
+      .nav-item {
+        width: 34px;
+        height: 34px;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--muted);
+      }
+      .nav-item.active {
+        background: var(--accent);
+        color: #1c1610;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="screen">
+      <div class="topbar">
+        <div class="avatar-name">
+          <div class="avatar">MR</div>
+          <div>
+            <div class="topbar-title">Il tuo Wallet</div>
+            <div class="topbar-sub"><span class="dot-live"></span>Sincronizzato ora</div>
+          </div>
+        </div>
+        <div class="icon-btn" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+            <path
+              d="M8 1.5c-2.2 0-4 1.8-4 4v2.3c0 .5-.2 1-.5 1.4L2.5 10.7c-.5.6-.1 1.5.7 1.5h9.6c.8 0 1.2-.9.7-1.5l-1-1.5c-.3-.4-.5-.9-.5-1.4V5.5c0-2.2-1.8-4-4-4z"
+              stroke="currentColor"
+              stroke-width="1.3"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M6.3 13.5a1.8 1.8 0 003.4 0"
+              stroke="currentColor"
+              stroke-width="1.3"
+              stroke-linecap="round"
+            />
+          </svg>
+        </div>
+      </div>
+
+      <div class="currency-chip">EUR ⌄</div>
+
+      <div class="balance-block">
+        <div class="balance-label">Saldo disponibile</div>
+        <div class="balance-amount">€ 12.630,00</div>
+      </div>
+
+      <div class="quick-actions">
+        <div class="qa">
+          <div class="qa-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 13V3M3.5 7.5L8 3l4.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span>Invia</span>
+        </div>
+        <div class="qa">
+          <div class="qa-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3.5 8.5L8 13l4.5-4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span>Ricevi</span>
+        </div>
+        <div class="qa">
+          <div class="qa-btn primary"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+          <span>Aggiungi</span>
+        </div>
+      </div>
+
+      <div class="card-panel">
+        <div class="card-masked">
+          <span class="dots"><span></span><span></span><span></span><span></span></span>
+          4471
+        </div>
+        <div class="card-brand"><span></span><span></span></div>
+      </div>
+
+      <div class="add-account">+ Aggiungi un altro conto</div>
+
+      <div class="tx-panel">
+        <div class="tx-head">
+          <h2>Transazioni</h2>
+          <a href="#">Vedi tutte →</a>
+        </div>
+
+        <div class="tx-item highlight">
+          <div class="tx-icon" style="background: var(--accent)">✦</div>
+          <div class="tx-info">
+            <div class="name">Studio Access — Abbonamento</div>
+            <div class="meta">Oggi, 09:12</div>
+          </div>
+          <div class="tx-amount out">−€9,99</div>
+        </div>
+
+        <div class="tx-item">
+          <div class="tx-icon" style="background: var(--terra)">SL</div>
+          <div class="tx-info">
+            <div class="name">Sara Leone</div>
+            <div class="meta">Bonifico ricevuto</div>
+          </div>
+          <div class="tx-amount in">+€320,00</div>
+        </div>
+
+        <div class="tx-item">
+          <div class="tx-icon" style="background: #7a6b56">JM</div>
+          <div class="tx-info">
+            <div class="name">Jonas Milev</div>
+            <div class="meta">Rimborso cena</div>
+          </div>
+          <div class="tx-amount in">+€48,50</div>
+        </div>
+
+        <div class="tx-item">
+          <div class="tx-icon" style="background: #4a4038">EN</div>
+          <div class="tx-info">
+            <div class="name">Energia domestica</div>
+            <div class="meta">Addebito automatico</div>
+          </div>
+          <div class="tx-amount out">−€64,20</div>
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <div class="nav-item active"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M2 7.5L8 2l6 5.5V14a1 1 0 01-1 1h-3v-4.5H6V15H3a1 1 0 01-1-1V7.5z" fill="currentColor"/></svg></div>
+        <div class="nav-item"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M2 13V9M6 13V3M10 13V6M14 13v-8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+        <div class="nav-item"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5.5" r="2.5" stroke="currentColor" stroke-width="1.4"/><path d="M3 14c.6-2.8 2.6-4.3 5-4.3s4.4 1.5 5 4.3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+        <div class="nav-item"><svg width="15" height="4" viewBox="0 0 16 4" fill="none"><circle cx="2" cy="2" r="1.6" fill="currentColor"/><circle cx="8" cy="2" r="1.6" fill="currentColor"/><circle cx="14" cy="2" r="1.6" fill="currentColor"/></svg></div>
+      </div>
+    </div>
+  </body>
+</html>

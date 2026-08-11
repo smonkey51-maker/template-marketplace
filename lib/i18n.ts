@@ -513,6 +513,18 @@ export const t = {
 // first-100-online-guide.html says "$100" six times. Translating the cover to
 // euros would promise a figure the file does not deliver.
 export const templateTranslations: Record<string, { name: string; description: string }> = {
+  // ── UI mobile ────────────────────────────────────────────────────────────
+  "wallet-dashboard-ui": {
+    name: "UI Kit Mobile — Dashboard Wallet",
+    description:
+      "Schermata wallet fintech scura con accenti oro: saldo in evidenza, azioni rapide, carta mascherata e lista transazioni. Solo HTML/CSS, pronto da adattare.",
+  },
+  "daily-agenda-ui": {
+    name: "UI Kit Mobile — Agenda Timeline",
+    description:
+      "Schermata agenda scura ed editoriale: intestazione giorno, strip date, note in timeline e card appuntamento con luogo integrato. Solo HTML/CSS.",
+  },
+
   // ── Prompt e script AI ──────────────────────────────────────────────────
   "chatgpt-prompt-library-freelancers": {
     name: "Libreria di Prompt ChatGPT per Freelance",

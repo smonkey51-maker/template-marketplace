@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Daily Agenda Timeline UI Kit</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --accent: #c8a96e;
+        --accent-rgb: 200, 169, 110;
+        --terra: #c4622d;
+        --bg: #050402;
+        --surface: #0d0b08;
+        --text: #f2ebd9;
+        --muted: rgba(242, 235, 217, 0.55);
+        --line: rgba(242, 235, 217, 0.1);
+      }
+      html,
+      body {
+        background: #1c1712;
+      }
+      body {
+        font-family:
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        min-height: 100vh;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 32px 16px;
+      }
+      .screen {
+        position: relative;
+        width: 390px;
+        max-width: 100%;
+        min-height: 844px;
+        background: radial-gradient(120% 55% at 50% -10%, #241d13 0%, var(--bg) 55%) var(--bg);
+        color: var(--text);
+        overflow: hidden;
+        border-radius: 40px;
+        box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55);
+        padding-bottom: 100px;
+      }
+
+      /* ── Header ──────────────────────────────────────────── */
+      .agenda-header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        padding: 30px 24px 18px;
+      }
+      .day-title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 34px;
+        font-weight: 500;
+      }
+      .day-title .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: var(--terra);
+        margin-bottom: 6px;
+      }
+      .date-num {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 34px;
+        color: var(--muted);
+      }
+
+      /* ── Date strip ──────────────────────────────────────── */
+      .date-strip {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px 20px;
+      }
+      .date-cell {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        width: 38px;
+        padding: 8px 0;
+        border-radius: 14px;
+        color: var(--muted);
+      }
+      .date-cell .n {
+        font-size: 14px;
+        font-weight: 700;
+      }
+      .date-cell .d {
+        font-size: 9px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .date-cell.selected {
+        background: var(--accent);
+        color: #1c1610;
+      }
+      .date-cell .mark {
+        width: 3px;
+        height: 3px;
+        border-radius: 999px;
+        background: var(--terra);
+        margin-top: -2px;
+      }
+
+      /* ── Timeline ────────────────────────────────────────── */
+      .timeline {
+        padding: 4px 20px 0;
+        position: relative;
+      }
+      .tl-row {
+        display: flex;
+        gap: 14px;
+        margin-bottom: 16px;
+      }
+      .tl-time {
+        width: 40px;
+        flex-shrink: 0;
+        font-size: 11px;
+        color: var(--muted);
+        padding-top: 14px;
+        font-weight: 600;
+      }
+      .tl-card {
+        flex: 1;
+        background: rgba(242, 235, 217, 0.05);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 14px 16px;
+      }
+      .tl-card p {
+        font-size: 12.5px;
+        line-height: 1.55;
+        color: var(--text);
+        opacity: 0.9;
+      }
+
+      .now-marker {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 4px 0 14px;
+      }
+      .now-badge {
+        font-size: 10px;
+        font-weight: 800;
+        color: #1c1610;
+        background: var(--terra);
+        border-radius: 999px;
+        padding: 3px 9px;
+        letter-spacing: 0.03em;
+      }
+      .now-line {
+        flex: 1;
+        height: 1px;
+        background: var(--terra);
+        opacity: 0.6;
+      }
+
+      .event-card {
+        margin-left: 54px;
+        margin-bottom: 18px;
+        background: rgba(242, 235, 217, 0.06);
+        border: 1px solid rgba(var(--accent-rgb), 0.25);
+        border-radius: 20px;
+        padding: 16px;
+      }
+      .event-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+      .event-name {
+        font-size: 15px;
+        font-weight: 700;
+      }
+      .event-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .event-actions .call-btn {
+        width: 30px;
+        height: 30px;
+        border-radius: 999px;
+        background: rgba(var(--accent-rgb), 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent);
+      }
+      .event-actions .avatar {
+        width: 30px;
+        height: 30px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--terra), var(--accent));
+      }
+      .event-desc {
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.55;
+        margin-bottom: 12px;
+      }
+      .place-card {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(0, 0, 0, 0.25);
+        border-radius: 14px;
+        padding: 10px;
+      }
+      .place-thumb {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        background: linear-gradient(160deg, var(--terra), #6f2e12);
+        flex-shrink: 0;
+        position: relative;
+      }
+      .place-thumb .badge {
+        position: absolute;
+        top: -6px;
+        left: -6px;
+        background: var(--text);
+        color: #1c1610;
+        font-size: 8px;
+        font-weight: 800;
+        border-radius: 999px;
+        padding: 2px 5px;
+        line-height: 1.3;
+      }
+      .place-info {
+        flex: 1;
+        min-width: 0;
+      }
+      .place-info .pname {
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .place-info .paddr {
+        font-size: 10px;
+        color: var(--muted);
+        margin-top: 1px;
+      }
+      .place-actions {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 8px;
+      }
+      .eta-chip {
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--text);
+        background: rgba(242, 235, 217, 0.08);
+        border-radius: 999px;
+        padding: 4px 9px;
+      }
+      .route-chip {
+        font-size: 10px;
+        font-weight: 700;
+        color: #1c1610;
+        background: var(--accent);
+        border-radius: 999px;
+        padding: 4px 10px;
+      }
+
+      /* ── Bottom nav ──────────────────────────────────────── */
+      .bottom-nav {
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        bottom: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: rgba(13, 11, 8, 0.85);
+        backdrop-filter: blur(12px);
+        border: 1px solid var(--line);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+      }
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+        font-size: 9px;
+        color: var(--muted);
+        font-weight: 600;
+        padding: 4px 8px;
+      }
+      .nav-item.active {
+        color: var(--accent);
+      }
+      .nav-add {
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        background: var(--accent);
+        color: #1c1610;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="screen">
+      <div class="agenda-header">
+        <div class="day-title">Mer.<span class="dot"></span></div>
+        <div class="date-num">24</div>
+      </div>
+
+      <div class="date-strip">
+        <div class="date-cell"><span class="n">20</span><span class="d">Sab</span></div>
+        <div class="date-cell"><span class="n">21</span><span class="d">Dom</span></div>
+        <div class="date-cell"><span class="n">22</span><span class="d">Lun</span></div>
+        <div class="date-cell"><span class="n">23</span><span class="d">Mar</span></div>
+        <div class="date-cell selected"><span class="n">24</span><span class="d">Mer</span></div>
+        <div class="date-cell"><span class="n">25</span><span class="d">Gio</span><span class="mark"></span></div>
+        <div class="date-cell"><span class="n">26</span><span class="d">Ven</span><span class="mark"></span></div>
+      </div>
+
+      <div class="timeline">
+        <div class="tl-row">
+          <div class="tl-time">10:30</div>
+          <div class="tl-card">
+            <p>
+              Pronto a condividere il nuovo design dell'app Task Manager: semplice, intuitiva e
+              pensata per la produttività quotidiana.
+            </p>
+          </div>
+        </div>
+
+        <div class="now-marker">
+          <div class="tl-time" style="padding-top: 0"></div>
+          <div class="now-badge">12:36</div>
+          <div class="now-line"></div>
+        </div>
+
+        <div class="event-card">
+          <div class="event-top">
+            <div class="event-name">Lucia Daniels</div>
+            <div class="event-actions">
+              <div class="call-btn">
+                <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+                  <path
+                    d="M3.5 2.5c.4-.4 1-.4 1.4 0l1.4 1.6c.3.4.3.9 0 1.3l-.8.9c.5 1 1.4 1.9 2.4 2.4l.9-.8c.4-.3.9-.3 1.3 0l1.6 1.4c.4.4.4 1 0 1.4l-1 1c-.5.5-1.3.7-2 .5-2.6-.8-4.9-3.1-5.7-5.7-.2-.7 0-1.5.5-2z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+              <div class="avatar"></div>
+            </div>
+          </div>
+          <p class="event-desc">
+            Pranzo di lavoro. Discutiamo l'ambito del progetto e decidiamo dove trovare gli
+            sviluppatori.
+          </p>
+          <div class="place-card">
+            <div class="place-thumb"><span class="badge">2.3 km</span></div>
+            <div class="place-info">
+              <div class="pname">Midtown Residences</div>
+              <div class="paddr">Market St, San Francisco, CA</div>
+            </div>
+          </div>
+          <div class="place-actions">
+            <span class="eta-chip">45 min</span>
+            <span class="route-chip">Percorso →</span>
+          </div>
+        </div>
+
+        <div class="tl-row">
+          <div class="tl-time">14:30</div>
+          <div class="tl-card">
+            <p>Le nuove grafiche sono pronte per la pubblicazione. Ultimi ritocchi e via.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <div class="nav-item active">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="5" height="5" rx="1.2" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="2" width="5" height="5" rx="1.2" stroke="currentColor" stroke-width="1.3"/><rect x="2" y="9" width="5" height="5" rx="1.2" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="9" width="5" height="5" rx="1.2" stroke="currentColor" stroke-width="1.3"/></svg>
+          <span>Diario</span>
+        </div>
+        <div class="nav-item">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="1.6" stroke="currentColor" stroke-width="1.3"/><path d="M2 6.5h12M5.5 2v3M10.5 2v3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          <span>Calendario</span>
+        </div>
+        <div class="nav-add">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div class="nav-item">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M8 1.5l1.8 3.7 4 .6-3 2.9.7 4-3.5-1.9-3.5 1.9.7-4-3-2.9 4-.6z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+          <span>Eventi</span>
+        </div>
+        <div class="nav-item">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="2" stroke="currentColor" stroke-width="1.3"/><path d="M8 2v1.6M8 12.4V14M14 8h-1.6M3.6 8H2M12.2 3.8l-1.1 1.1M4.9 11.1l-1.1 1.1M12.2 12.2l-1.1-1.1M4.9 4.9L3.8 3.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <span>Impostazioni</span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -163,6 +163,76 @@ p{font-size:15px;opacity:.8;margin-bottom:24px;line-height:1.6}
 </div>`,
   },
 
+  // ── UI TEMPLATES ─────────────────────────────────────────────────────────
+  // NOTE: stripePriceId below is a PLACEHOLDER — no live Stripe Price exists
+  // for these yet. Run `npm run ensure-stripe` (or seed-stripe.ts) with a real
+  // STRIPE_SECRET_KEY and paste the returned price_... id here before this
+  // template is sellable. See CLAUDE.md: "never fabricate one".
+
+  {
+    id: "wallet-dashboard-ui",
+    name: "Wallet Dashboard Mobile UI Kit",
+    description:
+      "Dark, gold-accented fintech wallet screen: hero balance, quick-action pills, masked card and a transaction list. Pure HTML/CSS, no framework, ready to adapt.",
+    category: "ui",
+    price: 1900,
+    stripePriceId: "price_PLACEHOLDER_wallet_dashboard_ui",
+    tags: ["mobile ui", "fintech", "wallet", "dashboard", "dark mode"],
+    downloads: 0,
+    isNew: true,
+    content: `<style>
+body{font-family:'Segoe UI',sans-serif;background:#1c1712;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
+.card{background:linear-gradient(135deg,#241d13,#050402);color:#f2ebd9;border-radius:22px;padding:48px 40px;max-width:480px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.4);border:1px solid rgba(200,169,110,.2)}
+.badge{display:inline-block;background:rgba(200,169,110,.12);border:1px solid rgba(200,169,110,.3);border-radius:999px;padding:5px 16px;font-size:12px;letter-spacing:.5px;margin-bottom:20px;color:#c8a96e}
+h1{font-size:28px;font-weight:800;line-height:1.2;margin-bottom:12px}
+p{font-size:15px;opacity:.7;margin-bottom:24px;line-height:1.6}
+.stats{display:flex;gap:28px;justify-content:center}
+.stat strong{display:block;font-size:28px;font-weight:800;color:#c8a96e}.stat span{font-size:12px;opacity:.6}
+</style>
+<div class="card">
+  <div class="badge">✦ MOBILE UI KIT · HTML/CSS</div>
+  <h1>Wallet Dashboard Mobile UI Kit</h1>
+  <p>Balance hero, quick actions, masked card and transaction feed — a complete fintech wallet screen, ready to customise.</p>
+  <div class="stats">
+    <div class="stat"><strong>390px</strong><span>Mobile frame</span></div>
+    <div class="stat"><strong>4</strong><span>UI sections</span></div>
+    <div class="stat"><strong>0</strong><span>Dependencies</span></div>
+  </div>
+</div>`,
+  },
+
+  {
+    id: "daily-agenda-ui",
+    name: "Daily Agenda Timeline Mobile UI Kit",
+    description:
+      "Dark editorial agenda screen: day header, horizontal date strip, timeline notes and a contact/meeting card with an embedded place card. Pure HTML/CSS.",
+    category: "ui",
+    price: 1900,
+    stripePriceId: "price_PLACEHOLDER_daily_agenda_ui",
+    tags: ["mobile ui", "calendar", "agenda", "productivity", "dark mode"],
+    downloads: 0,
+    isNew: true,
+    content: `<style>
+body{font-family:'Segoe UI',sans-serif;background:#1c1712;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
+.card{background:linear-gradient(135deg,#241d13,#050402);color:#f2ebd9;border-radius:22px;padding:48px 40px;max-width:480px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.4);border:1px solid rgba(200,169,110,.2)}
+.badge{display:inline-block;background:rgba(196,98,45,.14);border:1px solid rgba(196,98,45,.35);border-radius:999px;padding:5px 16px;font-size:12px;letter-spacing:.5px;margin-bottom:20px;color:#e08a5c}
+h1{font-size:28px;font-weight:800;line-height:1.2;margin-bottom:12px}
+p{font-size:15px;opacity:.7;margin-bottom:24px;line-height:1.6}
+.stats{display:flex;gap:28px;justify-content:center}
+.stat strong{display:block;font-size:28px;font-weight:800;color:#c8a96e}.stat span{font-size:12px;opacity:.6}
+</style>
+<div class="card">
+  <div class="badge">✦ MOBILE UI KIT · HTML/CSS</div>
+  <h1>Daily Agenda Timeline Mobile UI Kit</h1>
+  <p>Day header, date strip, timeline notes and a meeting card with embedded location — a complete agenda screen, ready to customise.</p>
+  <div class="stats">
+    <div class="stat"><strong>390px</strong><span>Mobile frame</span></div>
+    <div class="stat"><strong>4</strong><span>UI sections</span></div>
+    <div class="stat"><strong>0</strong><span>Dependencies</span></div>
+  </div>
+</div>`,
+  },
+
   // ── SCRIPT PACKS ─────────────────────────────────────────────────────────
 
   {
