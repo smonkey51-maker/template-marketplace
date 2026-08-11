@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Health Insight Cards Mobile UI Kit</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --text: #fbeee7;
+        --muted: rgba(251, 238, 231, 0.62);
+        --line: rgba(251, 238, 231, 0.14);
+        --good: #e8a06a;
+        --low: #e8746a;
+      }
+      html,
+      body {
+        background: #170707;
+      }
+      body {
+        font-family:
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        min-height: 100vh;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 32px 16px;
+      }
+      .screen {
+        position: relative;
+        width: 390px;
+        max-width: 100%;
+        min-height: 844px;
+        overflow: hidden;
+        border-radius: 40px;
+        box-shadow: 0 40px 90px rgba(0, 0, 0, 0.6);
+        color: var(--text);
+        background:
+          radial-gradient(90% 55% at 50% 0%, #4a1414 0%, transparent 60%),
+          radial-gradient(120% 80% at 50% 100%, #2a0a0a 0%, transparent 70%),
+          #170707;
+        padding: 30px 20px 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 16px;
+      }
+
+      .card {
+        border-radius: 24px;
+        border: 1px solid var(--line);
+        background: linear-gradient(160deg, rgba(251, 238, 231, 0.07), rgba(251, 238, 231, 0.02));
+        padding: 20px 22px;
+      }
+      .card-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+      }
+      .card-top .left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 14.5px;
+        font-weight: 700;
+      }
+      .tag {
+        font-size: 10.5px;
+        font-weight: 700;
+        padding: 3px 10px;
+        border-radius: 999px;
+      }
+      .tag.good {
+        color: #7ed08a;
+        background: rgba(126, 208, 138, 0.14);
+      }
+      .tag.low {
+        color: var(--low);
+        background: rgba(232, 116, 106, 0.14);
+      }
+      .chev {
+        width: 30px;
+        height: 30px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--muted);
+        flex-shrink: 0;
+      }
+
+      .metric-row {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        margin-bottom: 14px;
+      }
+      .metric-row .v {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 32px;
+      }
+      .metric-row .of {
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .progress-track {
+        height: 5px;
+        border-radius: 999px;
+        background: rgba(251, 238, 231, 0.12);
+        margin-bottom: 12px;
+        overflow: hidden;
+      }
+      .progress-fill {
+        height: 100%;
+        border-radius: 999px;
+      }
+      .progress-fill.good {
+        background: var(--good);
+      }
+      .progress-fill.low {
+        background: var(--low);
+      }
+      .card p.note {
+        font-size: 12.5px;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .greet-card .msg {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .greet-card .sub {
+        font-size: 12.5px;
+        color: var(--muted);
+        line-height: 1.5;
+        margin-bottom: 14px;
+      }
+      .score-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: rgba(126, 208, 138, 0.1);
+        font-size: 12.5px;
+        font-weight: 700;
+      }
+      .score-pill .dot {
+        color: #7ed08a;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="screen">
+      <div class="card">
+        <div class="card-top">
+          <div class="left">👣 Passi <span class="tag good">Buono</span></div>
+          <div class="chev">›</div>
+        </div>
+        <div class="metric-row"><span class="v">7.234</span><span class="of">/ 10.000</span></div>
+        <div class="progress-track"><div class="progress-fill good" style="width: 72%"></div></div>
+        <p class="note">Ottimi progressi verso il tuo obiettivo giornaliero di passi.</p>
+      </div>
+
+      <div class="card greet-card">
+        <div class="card-top" style="margin-bottom: 0">
+          <div class="msg" style="margin: 0">Ciao Alex,</div>
+          <div class="chev">›</div>
+        </div>
+        <div class="sub">Stai andando bene.<br />Continua a concentrarti sulla costanza.</div>
+        <div class="score-pill"><span class="dot">📈</span> 89 Punteggio salute</div>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <div class="left">⏱ Sonno <span class="tag low">Basso</span></div>
+          <div class="chev">›</div>
+        </div>
+        <div class="metric-row"><span class="v">5h 23m</span><span class="of">/ 8h</span></div>
+        <div class="progress-track"><div class="progress-fill low" style="width: 67%"></div></div>
+        <p class="note">Dare priorità al riposo stasera potrebbe aiutare il tuo recupero.</p>
+      </div>
+    </div>
+  </body>
+</html>

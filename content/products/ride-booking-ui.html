@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Ride Booking Mobile UI Kit</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --accent: #c8a96e;
+        --accent-rgb: 200, 169, 110;
+        --terra: #c4622d;
+        --terra-rgb: 196, 98, 45;
+        --bg: #050402;
+        --surface: #0d0b08;
+        --text: #f2ebd9;
+        --muted: rgba(242, 235, 217, 0.55);
+        --line: rgba(242, 235, 217, 0.1);
+      }
+      html,
+      body {
+        background: #1c1712;
+      }
+      body {
+        font-family:
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        min-height: 100vh;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 32px 16px;
+      }
+      .screen {
+        position: relative;
+        width: 390px;
+        max-width: 100%;
+        min-height: 844px;
+        background: radial-gradient(120% 55% at 50% -10%, #241d13 0%, var(--bg) 55%) var(--bg);
+        color: var(--text);
+        overflow: hidden;
+        border-radius: 40px;
+        box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55);
+        padding: 28px 20px 100px;
+      }
+
+      .head {
+        margin-bottom: 18px;
+      }
+      .head h1 {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 1.25;
+      }
+      .head p {
+        font-size: 12.5px;
+        color: var(--muted);
+        margin-top: 4px;
+      }
+
+      .search-wrap {
+        position: relative;
+        margin-bottom: 18px;
+      }
+      .search-box {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 15px 16px;
+        border-radius: 18px;
+        border: 1px solid rgba(var(--accent-rgb), 0.5);
+        background: rgba(var(--accent-rgb), 0.08);
+        box-shadow: 0 0 0 4px rgba(var(--accent-rgb), 0.08);
+        font-size: 14px;
+      }
+      .search-box .ph {
+        color: var(--muted);
+      }
+      .search-box .caret {
+        width: 1.5px;
+        height: 16px;
+        background: var(--accent);
+      }
+
+      .suggest-label {
+        font-size: 11px;
+        color: var(--muted);
+        font-weight: 600;
+        margin: 16px 0 10px;
+      }
+      .suggest-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 4px;
+      }
+      .suggest-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 999px;
+        background: rgba(var(--terra-rgb), 0.16);
+        color: var(--terra);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 17px;
+      }
+      .suggest-text .t {
+        font-size: 13.5px;
+        font-weight: 700;
+      }
+      .suggest-text .d {
+        font-size: 11.5px;
+        color: var(--muted);
+        margin-top: 1px;
+      }
+
+      .divider {
+        height: 1px;
+        background: var(--line);
+        margin: 22px 0;
+      }
+
+      .route-card {
+        background: rgba(242, 235, 217, 0.05);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        padding: 18px;
+        margin-bottom: 22px;
+      }
+      .route-title {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 18px;
+        margin-bottom: 14px;
+      }
+      .ride-pill {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px;
+        border-radius: 999px;
+        background: var(--accent);
+        color: #1c1610;
+        font-weight: 700;
+        font-size: 13.5px;
+        margin-bottom: 16px;
+      }
+      .route-fields {
+        display: flex;
+        gap: 12px;
+      }
+      .route-track {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        padding-top: 6px;
+      }
+      .route-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        border: 2px solid var(--accent);
+      }
+      .route-line {
+        width: 1px;
+        flex: 1;
+        min-height: 26px;
+        background: repeating-linear-gradient(
+          to bottom,
+          var(--line) 0 4px,
+          transparent 4px 8px
+        );
+      }
+      .route-pin {
+        width: 10px;
+        height: 10px;
+        border-radius: 3px 999px 999px 999px;
+        background: var(--terra);
+        transform: rotate(45deg);
+      }
+      .route-rows {
+        flex: 1;
+      }
+      .route-row {
+        margin-bottom: 22px;
+      }
+      .route-row:last-child {
+        margin-bottom: 0;
+      }
+      .route-row .l {
+        font-size: 10.5px;
+        color: var(--muted);
+        font-weight: 600;
+        margin-bottom: 2px;
+      }
+      .route-row .v {
+        font-size: 13.5px;
+        font-weight: 700;
+      }
+
+      .section-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+      .section-head h2 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14.5px;
+        font-weight: 700;
+      }
+
+      .trip-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
+        border-radius: 16px;
+        background: rgba(242, 235, 217, 0.04);
+        margin-bottom: 8px;
+      }
+      .trip-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--muted);
+        flex-shrink: 0;
+      }
+      .trip-info {
+        flex: 1;
+        min-width: 0;
+      }
+      .trip-info .route {
+        font-size: 13px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .trip-info .route .sep {
+        color: var(--muted);
+        font-weight: 400;
+      }
+      .trip-info .meta {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+
+      .bottom-nav {
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        bottom: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: rgba(13, 11, 8, 0.85);
+        backdrop-filter: blur(12px);
+        border: 1px solid var(--line);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+      }
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+        font-size: 9.5px;
+        color: var(--muted);
+        font-weight: 600;
+        padding: 4px 12px;
+        border-radius: 999px;
+      }
+      .nav-item.active {
+        background: rgba(var(--accent-rgb), 0.14);
+        color: var(--accent);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="screen">
+      <div class="head">
+        <h1>Dove andiamo?</h1>
+      </div>
+
+      <div class="search-wrap">
+        <div class="search-box">🔍 <span class="ph">Cerca destinazione…</span><span class="caret"></span></div>
+      </div>
+
+      <div class="suggest-label">In base ai tuoi ultimi viaggi</div>
+      <div class="suggest-item">
+        <div class="suggest-icon">🏛️</div>
+        <div class="suggest-text">
+          <div class="t">Philadelphia, PA</div>
+          <div class="d">Per storia, cibo e musei</div>
+        </div>
+      </div>
+      <div class="suggest-item">
+        <div class="suggest-icon">🌊</div>
+        <div class="suggest-text">
+          <div class="t">Jersey City, NJ</div>
+          <div class="d">Vista sullo skyline e lungomare</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="route-card">
+        <div class="route-title">Trova il modo migliore per viaggiare</div>
+        <div class="ride-pill">🚗 Corsa</div>
+        <div class="route-fields">
+          <div class="route-track">
+            <div class="route-dot"></div>
+            <div class="route-line"></div>
+            <div class="route-pin"></div>
+          </div>
+          <div class="route-rows">
+            <div class="route-row">
+              <div class="l">Da</div>
+              <div class="v">SoHo, New York</div>
+            </div>
+            <div class="route-row">
+              <div class="l">A</div>
+              <div class="v">Boston Station</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-head">
+        <h2>📍 Viaggi recenti</h2>
+      </div>
+      <div class="trip-item">
+        <div class="trip-icon">🕐</div>
+        <div class="trip-info">
+          <div class="route">Chelsea <span class="sep">···</span> Boston Station</div>
+          <div class="meta">Sab, 26 mar · 1 viaggiatore</div>
+        </div>
+      </div>
+      <div class="trip-item">
+        <div class="trip-icon">🕐</div>
+        <div class="trip-info">
+          <div class="route">Jersey City <span class="sep">···</span> Philadelphia</div>
+          <div class="meta">Dom, 12 mar · 2 viaggiatori</div>
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <div class="nav-item active">⌂<span>Home</span></div>
+        <div class="nav-item">◈<span>Offerte</span></div>
+        <div class="nav-item">◍<span>Viaggi</span></div>
+      </div>
+    </div>
+  </body>
+</html>
