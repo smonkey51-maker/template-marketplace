@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>AI Assistant Suggestions Mobile UI Kit</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --text: #fff8ec;
+        --muted: rgba(255, 248, 236, 0.75);
+        --line: rgba(255, 248, 236, 0.28);
+      }
+      html,
+      body {
+        background: #1c1712;
+      }
+      body {
+        font-family:
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        min-height: 100vh;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 32px 16px;
+      }
+      .screen {
+        position: relative;
+        width: 390px;
+        max-width: 100%;
+        min-height: 844px;
+        overflow: hidden;
+        border-radius: 40px;
+        box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55);
+        color: var(--text);
+        background:
+          radial-gradient(120% 70% at 15% 0%, #f3b04a 0%, transparent 55%),
+          radial-gradient(120% 70% at 100% 20%, #c4622d 0%, transparent 55%),
+          radial-gradient(140% 90% at 40% 110%, #7a2740 0%, transparent 60%),
+          radial-gradient(160% 100% at 90% 100%, #3a1f30 0%, transparent 65%),
+          #4a1f22;
+        padding: 30px 20px 40px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .head {
+        margin-bottom: 26px;
+      }
+      .head .greet {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 26px;
+        margin-bottom: 4px;
+      }
+      .head .sub {
+        font-size: 12.5px;
+        color: var(--muted);
+      }
+
+      .suggestions {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        flex: 1;
+        justify-content: center;
+      }
+      .sug-pill {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 16px 18px;
+        border-radius: 26px;
+        border: 1px solid var(--line);
+        background: rgba(255, 248, 236, 0.1);
+        backdrop-filter: blur(14px);
+      }
+      .sug-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 999px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        background: rgba(255, 248, 236, 0.14);
+        border: 1px solid var(--line);
+      }
+      .sug-text .t {
+        font-size: 15.5px;
+        font-weight: 700;
+        margin-bottom: 2px;
+      }
+      .sug-text .d {
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .prompt-bar {
+        margin-top: 24px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 18px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: rgba(255, 248, 236, 0.12);
+        backdrop-filter: blur(14px);
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .prompt-bar .send {
+        margin-left: auto;
+        width: 30px;
+        height: 30px;
+        border-radius: 999px;
+        background: var(--text);
+        color: #4a1f22;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        flex-shrink: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="screen">
+      <div class="head">
+        <div class="greet">Come posso aiutarti?</div>
+        <div class="sub">Alcune idee per iniziare</div>
+      </div>
+
+      <div class="suggestions">
+        <div class="sug-pill">
+          <div class="sug-icon">🧳</div>
+          <div class="sug-text">
+            <div class="t">Pianifica un viaggio lampo</div>
+            <div class="d">Idee su dove andare e cosa portare</div>
+          </div>
+        </div>
+        <div class="sug-pill">
+          <div class="sug-icon">✎</div>
+          <div class="sug-text">
+            <div class="t">Scrivi un biglietto di ringraziamento</div>
+            <div class="d">Semplice, caloroso e pronto da inviare</div>
+          </div>
+        </div>
+        <div class="sug-pill">
+          <div class="sug-icon">🍽️</div>
+          <div class="sug-text">
+            <div class="t">Trova qualcosa di buono per cena</div>
+            <div class="d">Idee veloci che fanno venire fame</div>
+          </div>
+        </div>
+        <div class="sug-pill">
+          <div class="sug-icon">🖼️</div>
+          <div class="sug-text">
+            <div class="t">Trasforma la mia foto</div>
+            <div class="d">Prova uno stile o un mood diverso</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-bar">
+        Chiedi qualsiasi cosa…
+        <div class="send">↑</div>
+      </div>
+    </div>
+  </body>
+</html>
