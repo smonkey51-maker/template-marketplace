@@ -274,6 +274,24 @@ function StudioContent() {
       )}
 
       <div className="flex-1 max-w-7xl mx-auto w-full px-6 py-10 relative z-10">
+        {/* "Come funziona" strip — compact, always visible at the top of the
+            tool itself. The explanation used to live only on /ai-studio, a
+            separate page you had to cross before reaching the tool; now
+            whoever lands directly on /studio (from the nav) sees it right
+            away, with no extra hop. "Come funziona" at the end stays a link
+            for anyone who wants the fuller walkthrough with examples. */}
+        <div className="flex items-center gap-4 sm:gap-6 flex-wrap mb-6 px-4 py-3 bg-card border border-theme r-md text-[12px] text-muted">
+          <span className="text-accent font-semibold shrink-0">
+            {lang === "it" ? "Come funziona" : "How it works"}
+          </span>
+          <span>1 → {lang === "it" ? "Descrivi cosa vuoi" : "Describe what you want"}</span>
+          <span>2 → {lang === "it" ? "Genera con Claude" : "Generate with Claude"}</span>
+          <span>3 → {lang === "it" ? "Copia o scarica" : "Copy or download"}</span>
+          <a href={`/${lang}/ai-studio`} className="ml-auto text-accent hover:underline shrink-0">
+            {lang === "it" ? "Esempi e dettagli →" : "Examples & details →"}
+          </a>
+        </div>
+
         <div className="mb-8">
           <h1 className="text-[28px] font-bold mb-1 tracking-tight">AI Template Studio</h1>
           <p className="text-[15px] text-muted">

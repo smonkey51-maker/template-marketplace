@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FormaLogoStatic } from "@/components/FormaLogo";
 import { useLang } from "@/components/LanguageProvider";
+import { Search, User } from "lucide-react";
 
 interface NavLink {
   href: string;
@@ -16,10 +17,7 @@ const LEFT_LINKS: NavLink[] = [
   { href: "/guida", labelIt: "Guida", labelEn: "Guide" },
 ];
 
-const RIGHT_LINKS: NavLink[] = [
-  { href: "/ai-studio", labelIt: "Studio", labelEn: "Studio" },
-  { href: "/account", labelIt: "Account", labelEn: "Account" },
-];
+const RIGHT_LINKS: NavLink[] = [{ href: "/ai-studio", labelIt: "Studio", labelEn: "Studio" }];
 
 export default function SectionNav() {
   const pathname = usePathname();
@@ -36,7 +34,7 @@ export default function SectionNav() {
           aria-current={active ? "page" : undefined}
           className="px-3 py-1.5 text-[11px] font-semibold tracking-widest uppercase transition-all duration-200"
           style={{
-            color: active ? "var(--accent)" : "rgba(255,255,255,0.65)",
+            color: active ? "var(--accent)" : "rgba(255,255,255,0.82)",
             borderBottom: active ? "1px solid var(--accent)" : "1px solid transparent",
             letterSpacing: "0.12em",
           }}
@@ -54,13 +52,20 @@ export default function SectionNav() {
           is capped to the same max-width as the bento grid below it —
           otherwise "1fr auto 1fr" pins the side links to the literal screen
           edges, and on a wide monitor that reads as two orphaned words with
-          a huge gap to the logo instead of a nav. */}
+          a huge gap to the logo instead of a nav.
+
+          The background is a fixed dark gradient scrim, not pure blur — link
+          contrast used to depend on how light the photo scrolling underneath
+          was at that instant, which could drop below the WCAG AA 4.5:1
+          ratio over the brighter parts of the garden shot. The scrim makes
+          contrast independent of what's behind it; blur stays as a surface
+          detail on top. */}
       <header
         className="fixed top-0 inset-x-0 z-[70] px-4 sm:px-6 lg:px-10"
         style={{
           height: "56px",
           paddingTop: "env(safe-area-inset-top, 0px)",
-          background: "rgba(5,4,2,0.46)",
+          background: "linear-gradient(180deg, rgba(5,4,2,0.85), rgba(5,4,2,0.75))",
           backdropFilter: "blur(30px) saturate(190%)",
           WebkitBackdropFilter: "blur(30px) saturate(190%)",
           borderBottom: "1px solid var(--spatial-rim)",
@@ -83,13 +88,36 @@ export default function SectionNav() {
             </Link>
           </div>
 
-          {/* Right side nav */}
-          <nav
-            className="hidden lg:flex items-center gap-1 justify-self-end"
-            aria-label="Right navigation"
-          >
-            {renderNavLinks(RIGHT_LINKS)}
-          </nav>
+          {/* Right side nav + utility (search, account) — matches SiteNav's
+              utility bar, so the Home doesn't behave like a separate landing
+              page missing the shortcuts every inner page has. */}
+          <div className="hidden lg:flex items-center gap-3 justify-self-end">
+            <nav className="flex items-center gap-1" aria-label="Right navigation">
+              {renderNavLinks(RIGHT_LINKS)}
+            </nav>
+            <Link
+              href={`/${lang}/catalogo`}
+              aria-label={lang === "it" ? "Cerca template" : "Search templates"}
+              className="flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-widest transition-colors"
+              style={{ color: "rgba(255,255,255,0.82)", letterSpacing: "0.12em" }}
+            >
+              <Search size={13} strokeWidth={1.8} aria-hidden />
+              <span className="hidden xl:inline">{lang === "it" ? "Cerca" : "Search"}</span>
+            </Link>
+            <Link
+              href={`/${lang}/account`}
+              aria-label={lang === "it" ? "Il mio account" : "My account"}
+              className="flex items-center justify-center w-7 h-7 rounded-full transition-colors"
+              style={{
+                color: pathname.startsWith(`/${lang}/account`)
+                  ? "var(--accent)"
+                  : "rgba(255,255,255,0.82)",
+                border: "1px solid rgba(255,255,255,0.25)",
+              }}
+            >
+              <User size={13} strokeWidth={1.8} aria-hidden />
+            </Link>
+          </div>
         </div>
       </header>
     </>

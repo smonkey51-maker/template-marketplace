@@ -240,7 +240,12 @@ export default function SiteNav() {
         <FormaLogoAnimated className="fn-logo-svg" />
       </Link>
 
-      {/* Navbar */}
+      {/* Navbar
+          "Studio" portava a /ai-studio (brochure statica), obbligando chi
+          vuole usare lo strumento a passare sempre di là prima di arrivare a
+          /studio. Ora porta direttamente a /studio; il secondo link, che
+          prima duplicava la stessa destinazione, ora porta a /ai-studio come
+          approfondimento opzionale. */}
       <nav className="fn-navbar" aria-label="Main navigation">
         <div className="fn-nav-left">
           <NavDropdown
@@ -250,7 +255,7 @@ export default function SiteNav() {
             lang={lang}
           />
           <Link href={`/${lang}/guida`}>{t("guida")}</Link>
-          <Link href={`/${lang}/ai-studio`}>{t("studioAi")}</Link>
+          <Link href={`/${lang}/studio`}>{t("studioAi")}</Link>
           <NavDropdown
             label={t("account")}
             href={`/${lang}/account`}
@@ -263,8 +268,8 @@ export default function SiteNav() {
           <Link href={`/${lang}/catalogo`}>
             {t("cerca")} <span className="fn-kbd">Ctrl K</span>
           </Link>
-          <Link className="fn-outline" href={`/${lang}/studio`}>
-            {t("studio")}
+          <Link className="fn-outline" href={`/${lang}/ai-studio`}>
+            {lang === "it" ? "Come funziona" : "How it works"}
           </Link>
         </div>
       </nav>
