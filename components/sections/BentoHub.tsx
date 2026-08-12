@@ -41,9 +41,15 @@ export default function BentoHub() {
       ariaLabel={lang === "it" ? "Sezioni del sito" : "Site sections"}
     >
       {/* ── AI Studio — left column, spans 2 rows ────────────────────── */}
+      {/* Links straight to the tool. This used to point at /ai-studio, a
+          brochure page whose only live control forwards to /studio — so
+          every visit from Home paid for a stop nobody asked to make. The
+          brochure's "how it works" explanation is still one click away from
+          /studio itself, and reachable directly via SiteNav on every inner
+          page for anyone who wants it first. */}
       <BentoCell
         rows={2}
-        href={`/${lang}/ai-studio`}
+        href={`/${lang}/studio`}
         label={t.aiTitle}
         delay={180}
         className="bento-order-studio justify-end p-5"

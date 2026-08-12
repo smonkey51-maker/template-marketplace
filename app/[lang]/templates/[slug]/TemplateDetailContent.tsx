@@ -8,7 +8,7 @@ import { BuyButton } from "./BuyButton";
 import { FormaFooter } from "@/components/FormaFooter";
 import { formatPrice, type TemplateMeta } from "@/lib/templates";
 import { getLocalizedName, getLocalizedDesc } from "@/lib/i18n";
-import { getKindLabel, getCatKey } from "@/lib/categories";
+import { getKindLabel, getCatKey, getFormatLabel, prettifyTag } from "@/lib/categories";
 
 export function TemplateDetailContent({
   item,
@@ -20,6 +20,14 @@ export function TemplateDetailContent({
   const { lang } = useLang();
   const t = (k: keyof typeof copy.it) => copy[lang][k];
   const name = getLocalizedName(item, lang);
+
+  // What this specific product is, not what every product on the shelf is.
+  // Format is a real fact (downloadType); the other two are the product's own
+  // tags, only reformatted for display — see lib/categories.ts.
+  const insideChips = [
+    getFormatLabel(item.downloadType ?? "html", lang),
+    ...item.tags.slice(0, 2).map(prettifyTag),
+  ];
 
   return (
     <>
@@ -117,22 +125,25 @@ export function TemplateDetailContent({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 border-t border-theme pt-12">
               <div>
                 <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-accent mb-6">
-                  Features
+                  {t("whatsIncluded")}
                 </h3>
-                <ul className="space-y-3 text-muted text-sm sm:text-base">
-                  <li className="flex items-center gap-3">
-                    <span className="text-accent">✓</span> Accesso immediato
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="text-accent">✓</span> Uso commerciale limitato
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="text-accent">✓</span> Supporto prioritario
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="text-accent">✓</span> Rimborso entro 14 giorni
-                  </li>
-                </ul>
+                {/* Per-product, not the same four lines on all sixteen items:
+                    format is a real fact (downloadType), the rest are this
+                    product's own tags. See lib/categories.ts. */}
+                <div className="flex flex-wrap gap-2 mb-5">
+                  {insideChips.map((chip) => (
+                    <span
+                      key={chip}
+                      className="fn-badge bg-black/20"
+                      style={{ textTransform: "none", letterSpacing: "normal" }}
+                    >
+                      {chip}
+                    </span>
+                  ))}
+                </div>
+                <p className="text-muted text-sm">
+                  {t("immediateAccess")} · {t("moneyBackShort")}
+                </p>
               </div>
 
               <div className="fn-buy-box flex flex-col justify-end bg-black/10 rounded-3xl p-8 border border-theme">

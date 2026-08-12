@@ -1,4 +1,4 @@
-import type { TemplateMeta } from "@/lib/templates";
+import type { TemplateMeta, DownloadType } from "@/lib/templates";
 
 /**
  * What kind of thing a product is, and which colour says so.
@@ -63,4 +63,54 @@ export const GROUP_OF: Record<TemplateMeta["category"], Exclude<GroupKey, "all">
  */
 export function getCatKey(t: TemplateMeta): Exclude<GroupKey, "all"> {
   return GROUP_OF[t.category] ?? "guide";
+}
+
+/**
+ * How a product actually arrives — what `downloadType` means in plain words.
+ *
+ * Used on the product page's "what's inside" chips, which used to be four
+ * lines identical on every product regardless of whether it was a prompt pack
+ * or an Excel tracker. This is the one fact that genuinely differs and is
+ * already stored per product, so it costs nothing to get right.
+ */
+const FORMAT_LABELS: Record<DownloadType, { it: string; en: string }> = {
+  html: { it: "File HTML", en: "HTML file" },
+  canva: { it: "Link Canva", en: "Canva link" },
+  excel: { it: "File Excel", en: "Excel file" },
+  sheets: { it: "Foglio Google", en: "Google Sheet" },
+  notion: { it: "Template Notion", en: "Notion template" },
+  webflow: { it: "Progetto Webflow", en: "Webflow project" },
+  framer: { it: "Progetto Framer", en: "Framer project" },
+  shopify: { it: "Tema Shopify", en: "Shopify theme" },
+  wordpress: { it: "Tema WordPress", en: "WordPress theme" },
+};
+
+export function getFormatLabel(type: DownloadType, lang: "it" | "en"): string {
+  return FORMAT_LABELS[type]?.[lang] ?? FORMAT_LABELS.html[lang];
+}
+
+/**
+ * A tag as written in `Template.tags` ("chatgpt", "mobile ui", "ai tools") is
+ * lowercase, space-joined editorial shorthand — fine as a search keyword,
+ * not fine set in a UI chip next to properly-cased text. This is display
+ * formatting only; it does not translate the tag; the tags themselves are
+ * English-only across both locales, which is the existing convention (see
+ * `matchesQuery` in CatalogoContent.tsx, which searches them regardless of
+ * `lang` for the same reason).
+ */
+const TAG_ACRONYMS: Record<string, string> = {
+  ai: "AI",
+  ui: "UI",
+  ux: "UX",
+  chatgpt: "ChatGPT",
+  crm: "CRM",
+  saas: "SaaS",
+  dm: "DM",
+};
+
+export function prettifyTag(tag: string): string {
+  return tag
+    .split(" ")
+    .map((word) => TAG_ACRONYMS[word.toLowerCase()] ?? word[0]?.toUpperCase() + word.slice(1))
+    .join(" ");
 }

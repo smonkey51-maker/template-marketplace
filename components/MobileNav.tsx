@@ -121,7 +121,8 @@ export default function MobileNav() {
       ),
     },
     {
-      href: `/${lang}/ai-studio`,
+      // Straight to the tool, not the /ai-studio brochure — see BentoHub.tsx.
+      href: `/${lang}/studio`,
       label: "Studio",
       active: routeKey === "/ai-studio" || routeKey === "/studio",
       icon: (active: boolean) => (

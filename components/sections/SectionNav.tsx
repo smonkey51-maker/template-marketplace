@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { UserButton } from "@clerk/nextjs";
 import { FormaLogoStatic } from "@/components/FormaLogo";
 import { useLang } from "@/components/LanguageProvider";
 
@@ -16,8 +17,13 @@ const LEFT_LINKS: NavLink[] = [
   { href: "/guida", labelIt: "Guida", labelEn: "Guide" },
 ];
 
+// Points straight at the tool, not at /ai-studio's brochure. SiteNav (every
+// inner page) already keeps those as two separate links — a descriptive
+// "AI Studio" entry and a one-hop "Studio" CTA — because the brochure is
+// still useful reading, it just should not sit between a returning visitor
+// and the tool on every single visit.
 const RIGHT_LINKS: NavLink[] = [
-  { href: "/ai-studio", labelIt: "Studio", labelEn: "Studio" },
+  { href: "/studio", labelIt: "Studio", labelEn: "Studio" },
   { href: "/account", labelIt: "Account", labelEn: "Account" },
 ];
 
@@ -60,7 +66,13 @@ export default function SectionNav() {
         style={{
           height: "56px",
           paddingTop: "env(safe-area-inset-top, 0px)",
-          background: "rgba(5,4,2,0.46)",
+          // A near-opaque scrim, not just blur. The bento cells directly under
+          // this bar scroll a painting under it on mobile, and blur alone
+          // doesn't guarantee WCAG 1.4.11 contrast against an arbitrarily
+          // light patch of that image — the fill has to do the work on its
+          // own. 0.85 keeps ~5:1+ contrast for the 65%-white link text even
+          // over a pure-white patch scrolling underneath.
+          background: "rgba(5,4,2,0.85)",
           backdropFilter: "blur(30px) saturate(190%)",
           WebkitBackdropFilter: "blur(30px) saturate(190%)",
           borderBottom: "1px solid var(--spatial-rim)",
@@ -83,12 +95,36 @@ export default function SectionNav() {
             </Link>
           </div>
 
-          {/* Right side nav */}
+          {/* Right side nav. Search and account used to exist only on inner
+              pages via SiteNav, so a visitor who wanted either had to leave
+              the Home before finding them. Ctrl/Cmd K already opens the
+              command palette from anywhere (mounted globally in the root
+              layout) — this link is the same discoverability hint SiteNav
+              gives it on every other page, not a second implementation. */}
           <nav
-            className="hidden lg:flex items-center gap-1 justify-self-end"
+            className="hidden lg:flex items-center gap-2 justify-self-end"
             aria-label="Right navigation"
           >
             {renderNavLinks(RIGHT_LINKS)}
+            <Link
+              href={`/${lang}/catalogo`}
+              className="px-3 py-1.5 text-[11px] font-semibold tracking-widest uppercase transition-all duration-200 flex items-center"
+              style={{ color: "rgba(255,255,255,0.65)", letterSpacing: "0.12em" }}
+            >
+              {lang === "it" ? "Cerca" : "Search"}
+              <span
+                className="ml-1.5 text-[10px] normal-case tracking-normal font-medium rounded-md px-1.5 py-0.5"
+                style={{
+                  border: "1px solid rgba(255,255,255,0.22)",
+                  color: "rgba(255,255,255,0.55)",
+                }}
+              >
+                Ctrl K
+              </span>
+            </Link>
+            <div className="flex items-center">
+              <UserButton />
+            </div>
           </nav>
         </div>
       </header>

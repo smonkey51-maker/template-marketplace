@@ -886,7 +886,7 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                           document.body.style.overflow = "";
                         }}
                       >
-                        Acquista Ora
+                        {t("buyNow")}
                       </Link>
                     </div>
                   </div>
