@@ -55,7 +55,7 @@ export default function GuidaPage() {
                   gap: 28,
                   padding: "30px 26px",
                 }}
-                className="glass-surface"
+                className="m3-surface"
               >
                 <div
                   style={{
@@ -111,7 +111,7 @@ export default function GuidaPage() {
               }}
             >
               {faqs.map((faq) => (
-                <div key={faq.q} className="glass-surface" style={{ padding: "22px 26px" }}>
+                <div key={faq.q} className="m3-surface" style={{ padding: "22px 26px" }}>
                   <h4
                     style={{
                       fontFamily: "var(--font-cormorant), Georgia, serif",

@@ -3,60 +3,6 @@
 @tailwind utilities;
 
 /* ═══════════════════════════════════════════════════════════
-   GLASS ENHANCEMENTS — specular highlight position + squircle radius
-   Typed as custom properties so browsers can interpolate them across a
-   transition/@keyframes (plain custom properties can only ever jump).
-   Registered globally here; set per-element by GlassEnhancements.tsx
-   (pointer tracking) or by the idle-sweep @keyframes below.
-   ═══════════════════════════════════════════════════════════ */
-@property --spec-x {
-  syntax: "<percentage>";
-  inherits: false;
-  initial-value: 30%;
-}
-@property --spec-y {
-  syntax: "<percentage>";
-  inherits: false;
-  initial-value: 0%;
-}
-@property --spec-o {
-  syntax: "<number>";
-  inherits: false;
-  initial-value: 0.16;
-}
-
-/* Touch devices have no continuous pointer to chase, so the highlight
-   sweeps slowly on its own instead of sitting frozen at its default
-   position. Desktop/pointer devices get GlassEnhancements.tsx's live
-   tracking instead — this animation only runs where that can't apply. */
-@media (hover: none) and (prefers-reduced-motion: no-preference) {
-  .glass-surface,
-  .glass-surface-pill,
-  .glass-bar,
-  .forma-glass-card,
-  .fn-filter {
-    animation: glass-sweep 9s ease-in-out infinite;
-  }
-}
-@keyframes glass-sweep {
-  0% {
-    --spec-x: 10%;
-    --spec-y: -10%;
-    --spec-o: 0.16;
-  }
-  50% {
-    --spec-x: 90%;
-    --spec-y: 60%;
-    --spec-o: 0.26;
-  }
-  100% {
-    --spec-x: 10%;
-    --spec-y: -10%;
-    --spec-o: 0.16;
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════
    FORMA homepage sections
    ═══════════════════════════════════════════════════════════ */
 
@@ -95,9 +41,9 @@ body {
     perspective: 1400px;
   }
   .catalogo-card:hover > div {
-    /* Raised: shadow travels further and softens, rim light brightens */
+    /* Raised: tonal elevation goes up a tier */
     box-shadow:
-      var(--glass-cast-2),
+      var(--elev-4),
       inset 0 2px 3px -1px rgba(255, 255, 255, 0.4);
     border-color: rgba(212, 175, 55, 0.6);
     transform: rotateX(4deg) rotateY(-4deg) translateY(-8px) scale(1.02);
@@ -107,55 +53,6 @@ body {
   outline: 2px solid var(--accent);
   outline-offset: 4px;
   border-radius: var(--r-md, 16px);
-}
-
-/* ── Spatial glass: shared surface for panels sitting on artwork ──
-   A pane of glass, not a tinted box: the rim catches light along the
-   top edge, and the cast shadow below sells the gap to the painting. */
-.forma-glass-card {
-  --squircle-radius: var(--r-md, 16px);
-  --squircle-n: 5;
-  background-color: var(--glass-fill);
-  background-image: radial-gradient(
-    circle at var(--spec-x) var(--spec-y),
-    rgba(255, 255, 255, var(--spec-o)),
-    transparent 60%
-  );
-  border: 1px solid var(--glass-rim);
-  border-top-color: rgba(255, 255, 255, 0.15); /* Specular highlight */
-  border-radius: var(--r-md, 16px);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-  box-shadow:
-    var(--glass-cast-1),
-    inset 0 2px 2px -1px rgba(255, 255, 255, 0.15),
-    /* Inner liquid edge */ inset 0 1px 0 var(--glass-rim);
-  transition:
-    background-color 0.5s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    border-color 0.5s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    box-shadow 0.5s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    transform 0.5s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    --spec-x 0.4s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    --spec-y 0.4s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    --spec-o 0.4s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
-}
-html.squircle-ready .forma-glass-card {
-  -webkit-mask-image: paint(squircle);
-  mask-image: paint(squircle);
-}
-html.glass-fx-ready .forma-glass-card {
-  -webkit-backdrop-filter: var(--glass-blur) url(#glass-distortion-lg);
-  backdrop-filter: var(--glass-blur) url(#glass-distortion-lg);
-}
-@media (hover: hover) {
-  .forma-glass-card:hover {
-    background-color: var(--glass-fill-hi);
-    border-color: var(--glass-rim-hi);
-    box-shadow:
-      var(--glass-cast-2),
-      inset 0 1px 0 var(--glass-rim-hi);
-    transform: translateY(-4px);
-  }
 }
 
 /* ── Hero: floating mockup cards passive hover parallax ── */
@@ -350,18 +247,6 @@ html.glass-fx-ready .forma-glass-card {
   --r-md: 32px;
   --r-lg: 40px;
   --r-xl: 48px;
-  /* Glassmorphism tokens - Liquid Glass */
-  --glass-fill: rgba(253, 250, 245, 0.7);
-  --glass-shadow: 0 8px 32px rgba(26, 14, 6, 0.15), 0 2px 2px -1px rgba(255, 255, 255, 0.8) inset;
-  --glass-stroke: rgba(255, 255, 255, 0.4);
-  --glass-top-edge: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 248, 230, 0.95) 20%,
-    rgba(255, 248, 230, 0.95) 80%,
-    transparent
-  );
-  --glass-bright: 1.01;
   --spec-hot: rgba(212, 175, 55, 0.65);
   --spec-mid: rgba(212, 175, 55, 0.28);
   --divider: rgba(26, 14, 6, 0.09);
@@ -508,18 +393,6 @@ html.dark {
   --input-bg: rgba(234, 234, 234, 0.05);
   --btn-ghost-border: rgba(234, 234, 234, 0.18);
   --btn-ghost-border-hover: rgba(234, 234, 234, 0.7);
-  /* Glassmorphism tokens — dark - Liquid Glass */
-  --glass-fill: rgba(15, 15, 15, 0.65);
-  --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.7), 0 2px 2px -1px rgba(255, 255, 255, 0.12) inset;
-  --glass-stroke: rgba(255, 255, 255, 0.08);
-  --glass-top-edge: linear-gradient(
-    90deg,
-    transparent,
-    rgba(212, 175, 55, 0.14) 20%,
-    rgba(212, 175, 55, 0.14) 80%,
-    transparent
-  );
-  --glass-bright: 1;
   --spec-hot: rgba(212, 175, 55, 0.18);
   --spec-mid: rgba(212, 175, 55, 0.09);
   --divider: rgba(234, 234, 234, 0.08);
@@ -622,82 +495,22 @@ html.dark {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   DEPTH — ONE MATERIAL: LIQUID GLASS
+   DEPTH — ONE MATERIAL: MATERIAL 3 TONAL SURFACES
    ═══════════════════════════════════════════════════════════
-   Every raised surface on the site is the same material: a
-   translucent sheet that refracts what sits behind it, catches
-   a rim light along its top edge, and casts a shadow onto the
-   ground. Panels LIFT toward the viewer — nothing is ever
-   extruded out of the page or pressed into it.
-
-   Two tiers, differing only in how much they let through:
-
-   OVER-ART  (--glass-*)      panels floating above the
-                              paintings on the snap homepage.
-   ON-SURFACE (--glass-s-*)   controls and cards on the inner
-                              pages, whose ground is flat cream
-                              or near-black. Less transparent,
-                              because there is little behind
-                              them to refract — but the same
-                              rim light, cast shadow and lift.
-
-   State is never carried by shadow alone: a selected control
-   also changes fill, rim colour and text colour, so it survives
-   forced-colors mode and low-vision viewing (WCAG 1.4.11).
-
-   ⚠ ORDER MATTERS: -webkit-backdrop-filter must be written
-   BEFORE the unprefixed backdrop-filter, everywhere.
-
-   The production CSS pipeline collapses the two into one
-   declaration and keeps whichever came last. With the standard
-   property written first — which is how every one of these
-   rules used to read — the build shipped ONLY
-   -webkit-backdrop-filter, and engines that don't take the
-   prefixed alias dropped it entirely. So the blur, the one
-   property that makes this material glass rather than a tinted
-   box, was silently absent from every production build. Only
-   `npm run dev` ever showed it, because dev doesn't minify.
-   Rim, fill and shadow all worked, which is exactly why nobody
-   noticed the sheets weren't refracting anything.
+   Every raised surface on the site is the same material: a flat,
+   opaque tonal fill (no blur, no transparency, no refraction) that
+   sits one step up the tonal scale from what it's on, plus an
+   --elev-* shadow that scales with state. See the "MATERIAL 3"
+   section further down for the .m3-* surface/button/state-layer
+   classes built on this. --glass-radius survives below only
+   because it is a *radius* token ("every sheet is rounded, no
+   square corners"), still consumed by .r-glass and several
+   `border-radius: var(--glass-radius)` call sites — it has nothing
+   to do with the retired blur material and is not being removed.
    ═══════════════════════════════════════════════════════════ */
 :root {
-  /* Tier 1 — glass over artwork */
-  --glass-fill: rgba(255, 250, 235, 0.15);
-  --glass-fill-hi: rgba(255, 250, 235, 0.25);
-  --glass-rim: rgba(255, 255, 255, 0.3);
-  --glass-rim-hi: rgba(255, 255, 255, 0.6);
-  --glass-blur: blur(36px) saturate(220%);
-  --glass-cast-1: 0 16px 40px -8px rgba(0, 0, 0, 0.65);
-  --glass-cast-2: 0 32px 70px -12px rgba(0, 0, 0, 0.75);
-
-  /* Tier 2 — glass on a flat ground (inner pages) */
-  --glass-s-fill: rgba(255, 255, 255, 0.55);
-  --glass-s-fill-hi: rgba(255, 255, 255, 0.75);
-  --glass-s-fill-sunk: rgba(255, 255, 255, 0.32);
-  --glass-s-rim: rgba(28, 22, 16, 0.09);
-  --glass-s-rim-hi: rgba(28, 22, 16, 0.16);
-  --glass-s-sheen: rgba(255, 255, 255, 0.75);
-  --glass-s-blur: blur(20px) saturate(160%);
-  --glass-s-cast-1: 0 2px 6px -1px rgba(60, 48, 30, 0.1), 0 8px 20px -6px rgba(60, 48, 30, 0.14);
-  --glass-s-cast-2: 0 6px 14px -2px rgba(60, 48, 30, 0.14), 0 18px 40px -10px rgba(60, 48, 30, 0.2);
-
-  /* Tier 3 — glass over the scrolling page (bottom bars). See .glass-bar. */
-  --glass-bar-fill: rgba(253, 250, 245, 0.95);
-  --glass-bar-blur: blur(28px) saturate(180%);
-
-  /* Every glass sheet is rounded. There are no square corners. */
+  /* Every raised surface is rounded. There are no square corners. */
   --glass-radius: 22px;
-}
-html.dark {
-  --glass-bar-fill: rgba(10, 9, 7, 0.94);
-  --glass-s-fill: rgba(255, 255, 255, 0.055);
-  --glass-s-fill-hi: rgba(255, 255, 255, 0.095);
-  --glass-s-fill-sunk: rgba(0, 0, 0, 0.28);
-  --glass-s-rim: rgba(242, 235, 217, 0.1);
-  --glass-s-rim-hi: rgba(242, 235, 217, 0.2);
-  --glass-s-sheen: rgba(255, 255, 255, 0.12);
-  --glass-s-cast-1: 0 2px 6px -1px rgba(0, 0, 0, 0.5), 0 8px 22px -6px rgba(0, 0, 0, 0.6);
-  --glass-s-cast-2: 0 6px 16px -2px rgba(0, 0, 0, 0.6), 0 20px 44px -10px rgba(0, 0, 0, 0.75);
 }
 
 /* Radius utilities — every surface picks one of these, never a raw pixel
@@ -715,180 +528,205 @@ html.dark {
   border-radius: 999px;
 }
 
-/* The shared sheet. Anything raised on an inner page builds on this. */
-.glass-surface {
-  --squircle-radius: var(--glass-radius);
-  --squircle-n: 5;
-  background-color: var(--glass-s-fill);
-  background-image: radial-gradient(
-    circle at var(--spec-x) var(--spec-y),
-    rgba(255, 255, 255, var(--spec-o)),
-    transparent 60%
-  );
-  border: 1px solid var(--glass-s-rim);
-  border-radius: var(--glass-radius);
-  -webkit-backdrop-filter: var(--glass-s-blur);
-  backdrop-filter: var(--glass-s-blur);
-  box-shadow:
-    var(--glass-s-cast-1),
-    inset 0 1px 0 var(--glass-s-sheen);
+/* ═══════════════════════════════════════════════════════════
+   MATERIAL 3 — TONAL SURFACES, STATE LAYERS, BUTTONS
+   Additive replacement for "liquid glass" (the old .glass-surface /
+   .glass-surface-pill / .glass-bar / .glass-panel / .glass-pill /
+   .forma-glass-card / .glass / .glass-subtle / .glass-noise family below,
+   plus the specular-highlight and squircle-mask machinery driving it).
+   Elevation reads through flat background-color tiers (card → surface-2)
+   plus the existing --elev-* shadow scale — no blur, no transparency, no
+   pointer-tracked highlight. Interactive state reads through a state-layer
+   overlay (a currentColor wash whose opacity rises on hover/focus/press),
+   not through blur or a lift-toward-viewer transform. Built entirely on the
+   existing color tokens (--accent/--terra/--bg/--surface/--surface-2/--text/
+   --muted/--border/--card-bg) and existing radius tokens (--r-sm/md/lg,
+   .r-glass, .r-pill above) — no new palette, no new radii.
+   ═══════════════════════════════════════════════════════════ */
+
+/* Tonal surface tiers -------------------------------------------------- */
+
+/* m3-surface: resting card/panel on a flat page. Tier 1 — .glass-surface's
+   replacement for controls and cards on inner pages. */
+.m3-surface {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md, 16px);
+  box-shadow: var(--elev-1);
   transition:
-    background-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    border-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    box-shadow var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    transform var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    --spec-x var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    --spec-y var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    --spec-o var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
-}
-html.squircle-ready .glass-surface {
-  -webkit-mask-image: paint(squircle);
-  mask-image: paint(squircle);
-}
-html.squircle-ready .glass-panel {
-  -webkit-mask-image: paint(squircle);
-  mask-image: paint(squircle);
-}
-html.glass-fx-ready .glass-surface {
-  -webkit-backdrop-filter: var(--glass-s-blur) url(#glass-distortion-lg);
-  backdrop-filter: var(--glass-s-blur) url(#glass-distortion-lg);
-}
-/* The bento hub is the one place five `.glass-surface` cards are ever
-   composited at once (every other `.glass-surface` on the site appears one or
-   two at a time). Five simultaneous `feDisplacementMap` refractions chained
-   onto `backdrop-filter` measurably cost more idle frame budget than the rest
-   of the homepage combined — confirmed by profiling, not assumed. Blur and
-   saturation (the actual glass material — translucency, rim light, cast
-   shadow) are untouched; only the extra per-pixel warp drops here, and only
-   here. Declared after the rule above so the cascade lets it win by source
-   order without needing higher specificity. */
-html.glass-fx-ready .bento-cell {
-  -webkit-backdrop-filter: var(--glass-s-blur);
-  backdrop-filter: var(--glass-s-blur);
-}
-html.glass-fx-ready .glass-panel {
-  -webkit-backdrop-filter: blur(32px) saturate(200%) url(#glass-distortion-lg);
-  backdrop-filter: blur(32px) saturate(200%) url(#glass-distortion-lg);
-}
-html.glass-fx-ready .glass-surface-pill,
-html.glass-fx-ready .fn-filter {
-  -webkit-backdrop-filter: var(--glass-s-blur) url(#glass-distortion-sm);
-  backdrop-filter: var(--glass-s-blur) url(#glass-distortion-sm);
-}
-@media (hover: hover) {
-  .glass-surface:hover {
-    background-color: var(--glass-s-fill-hi);
-    border-color: var(--glass-s-rim-hi);
-    transform: translateY(-2px);
-    box-shadow:
-      var(--glass-s-cast-2),
-      inset 0 1px 0 var(--glass-s-sheen);
-  }
+    background-color 0.2s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color 0.2s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    box-shadow 0.2s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
 
-/* Same material as .glass-surface, pill-shaped, no hover lift — for
-   segmented toggles and small controls that shouldn't jump on hover.
-   Named .glass-surface-pill (not .glass-pill) — that name was already taken
-   by the older glassmorphism family below (noise-textured, over-artwork
-   tokens), still in use on the template detail breadcrumb. */
-.glass-surface-pill {
-  background-color: var(--glass-s-fill);
-  background-image: radial-gradient(
-    circle at var(--spec-x) var(--spec-y),
-    rgba(255, 255, 255, var(--spec-o)),
-    transparent 60%
-  );
-  border: 1px solid var(--glass-s-rim);
+/* m3-surface-container: one tone up — a raised tier nested inside another
+   surface (e.g. a buy box inside a hero panel), or a standalone card that
+   should read as slightly more present than .m3-surface. */
+.m3-surface-container {
+  background-color: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md, 16px);
+  box-shadow: var(--elev-1);
+  transition:
+    background-color 0.2s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color 0.2s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+/* m3-panel: the large hero/article sheet — .glass-panel's replacement. */
+.m3-panel {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-glass, var(--r-lg, 24px));
+  box-shadow: var(--elev-3);
+}
+
+/* m3-surface-pill: pill-shaped tonal surface for segmented controls, small
+   chips and breadcrumbs — .glass-surface-pill / .glass-pill's replacement. */
+.m3-surface-pill {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
   border-radius: 999px;
-  -webkit-backdrop-filter: var(--glass-s-blur);
-  backdrop-filter: var(--glass-s-blur);
-  box-shadow:
-    var(--glass-s-cast-1),
-    inset 0 1px 0 var(--glass-s-sheen);
+  box-shadow: var(--elev-1);
   transition:
-    background-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    border-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    box-shadow var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    --spec-x var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    --spec-y var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    --spec-o var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+    background-color 0.2s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color 0.2s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+/* m3-bar: bottom/top pinned bar (sticky buy bar, mobile nav) — .glass-bar's
+   replacement. Opaque tonal fill; elevation reads via --elev-4 rather than
+   blur. Round only the edge away from the viewport edge it's pinned to,
+   per usage (e.g. `border-radius: var(--r-glass) var(--r-glass) 0 0` for a
+   bar pinned to the bottom). */
+.m3-bar {
+  background-color: var(--card-bg);
+  border-top: 1px solid var(--border);
+  box-shadow: var(--elev-4);
+}
+
+/* Interactive state layer ----------------------------------------------
+   M3's "state layer": an overlay of currentColor whose opacity increases on
+   hover / focus / press, applied via ::after so it never fights the
+   surface's own background-color transition. Opt in with `.m3-interactive`
+   on any element (it sets its own `position: relative`). */
+.m3-interactive {
+  position: relative;
+  isolation: isolate;
+  cursor: pointer;
+  transition:
+    box-shadow 0.2s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color 0.2s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+.m3-interactive::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: currentColor;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
 @media (hover: hover) {
-  .glass-surface-pill:hover {
-    background-color: var(--glass-s-fill-hi);
-    border-color: var(--glass-s-rim-hi);
-    box-shadow:
-      var(--glass-s-cast-2),
-      inset 0 1px 0 var(--glass-s-sheen);
+  .m3-interactive:hover::after {
+    opacity: 0.06;
+  }
+  .m3-interactive:hover {
+    box-shadow: var(--elev-2);
   }
 }
+.m3-interactive:focus-visible::after {
+  opacity: 0.1;
+}
+.m3-interactive:active::after {
+  opacity: 0.12;
+}
+.m3-interactive:active {
+  box-shadow: var(--elev-1);
+}
+/* Selected state never relies on the state layer alone — fill, rim and text
+   colour all move together too, so it survives forced-colors mode, matching
+   the "state is never carried by shadow alone" rule the old glass system
+   followed. */
+.m3-interactive[aria-pressed="true"],
+.m3-interactive[aria-selected="true"],
+.m3-interactive.is-selected {
+  background-color: color-mix(in srgb, var(--accent) 14%, var(--card-bg));
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  color: var(--accent);
+}
 
-/* The same material, pinned to the bottom edge of the viewport.
-
-   The two sticky buy bars — the preview page's and the bundle page's — were
-   hand-rolled: a raw `backdrop-filter: blur(40px) saturate(200%)` inline,
-   `--nav-bg` as fill, a manually drawn hairline standing in for the rim, and no
-   cast shadow at all. So the two controls that take the visitor's money were
-   the only raised surfaces on the site outside the material: they did not
-   follow the fill and rim tokens, and GlassEnhancements never saw them, so the
-   panel that matters most was the one without the specular highlight, the
-   squircle corners or the refraction.
-
-   Two things differ from .glass-surface, both because this sheet is pinned to
-   an edge rather than floating on the page:
-
-   - It rounds and catches its rim light along the top edge only; the other
-     three sides run off the viewport.
-   - Its fill is far more opaque. .glass-surface is tuned for a panel on flat
-     ground with nothing behind it to read through; a bottom bar sits over the
-     scrolling page, and at card opacity the page's own body text showed
-     straight through the price and the buy button. The opacity here matches
-     what the hand-rolled bars already used (--nav-bg, 0.92–0.96), so putting
-     them on the material costs no readability. The glass reads as glass
-     through the blur, rim, specular sweep and refraction — not through
-     transparency.
-
-   No hover lift: a bar pinned to an edge cannot lift toward the viewer, and
-   these are containers, not buttons. */
-.glass-bar {
-  --squircle-radius: var(--glass-radius);
-  --squircle-n: 5;
-  background-color: var(--glass-bar-fill);
-  background-image: radial-gradient(
-    circle at var(--spec-x) var(--spec-y),
-    rgba(255, 255, 255, var(--spec-o)),
-    transparent 60%
-  );
-  border-top: 1px solid var(--glass-s-rim);
-  border-radius: var(--glass-radius) var(--glass-radius) 0 0;
-  -webkit-backdrop-filter: var(--glass-bar-blur);
-  backdrop-filter: var(--glass-bar-blur);
-  /* The cast is thrown upward, onto the content the bar overlaps — the only
-     direction there is anything to cast onto. */
-  box-shadow:
-    0 -6px 16px -4px rgba(60, 48, 30, 0.12),
-    0 -18px 40px -12px rgba(60, 48, 30, 0.16),
-    inset 0 1px 0 var(--glass-s-sheen);
+/* Buttons ---------------------------------------------------------------
+   Additive alongside .btn-brand / .btn-brand-sm (the site's solid-gold pill
+   CTA, which stays the primary button everywhere). These are for secondary
+   and tertiary actions next to it. */
+.btn-m3-filled,
+.btn-m3-tonal,
+.btn-m3-outlined {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  cursor: pointer;
   transition:
-    background-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    border-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    --spec-x var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    --spec-y var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    --spec-o var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+    background-color 0.18s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color 0.18s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    box-shadow 0.18s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    color 0.18s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    filter 0.18s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
-html.dark .glass-bar {
-  box-shadow:
-    0 -6px 18px -4px rgba(0, 0, 0, 0.55),
-    0 -20px 44px -12px rgba(0, 0, 0, 0.7),
-    inset 0 1px 0 var(--glass-s-sheen);
+.btn-m3-filled {
+  background-color: var(--accent);
+  color: var(--bg);
+  box-shadow: var(--elev-1);
 }
-html.glass-fx-ready .glass-bar {
-  -webkit-backdrop-filter: var(--glass-bar-blur) url(#glass-distortion-lg);
-  backdrop-filter: var(--glass-bar-blur) url(#glass-distortion-lg);
+@media (hover: hover) {
+  .btn-m3-filled:hover {
+    box-shadow: var(--elev-2);
+    filter: brightness(1.05);
+  }
 }
-/* No squircle mask here on purpose: paint(squircle) rounds all four corners,
-   and this sheet's bottom two are off-screen — masking them would cut two
-   notches out of the bar where it meets the edge of the viewport. */
+.btn-m3-filled:active {
+  box-shadow: var(--elev-1);
+  filter: brightness(0.97);
+}
+.btn-m3-tonal {
+  background-color: var(--surface-2);
+  color: var(--text);
+}
+@media (hover: hover) {
+  .btn-m3-tonal:hover {
+    background-color: color-mix(in srgb, var(--accent) 12%, var(--surface-2));
+  }
+}
+.btn-m3-tonal:active {
+  background-color: color-mix(in srgb, var(--accent) 18%, var(--surface-2));
+}
+.btn-m3-outlined {
+  background-color: transparent;
+  border-color: var(--border);
+  color: var(--text);
+}
+@media (hover: hover) {
+  .btn-m3-outlined:hover {
+    background-color: color-mix(in srgb, var(--text) 6%, transparent);
+    border-color: color-mix(in srgb, var(--text) 24%, var(--border));
+  }
+}
+.btn-m3-outlined:active {
+  background-color: color-mix(in srgb, var(--text) 10%, transparent);
+}
+.btn-m3-outlined:disabled,
+.btn-m3-tonal:disabled,
+.btn-m3-filled:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
 
 /* ═══════════════════════════════════════════════════════════
    GLOBAL TRANSITIONS & FONT
@@ -925,20 +763,14 @@ body {
 .bg-card,
 .text-theme,
 .text-muted,
-.border-theme,
-.glass,
-.forma-glass-card {
+.border-theme {
   transition:
     background-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     background 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.4s cubic-bezier(0.32, 1.1, 0.64, 1),
-    /* Bouncier for tactile feedback */ --spec-x 0.4s
-      var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    --spec-y 0.4s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    --spec-o 0.4s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+    transform 0.4s cubic-bezier(0.32, 1.1, 0.64, 1);
 }
 
 /* ── iOS-Like Haptic Feedback ── */
@@ -1100,81 +932,6 @@ html::-webkit-scrollbar-track {
   }
   .border-theme {
     border-color: var(--border);
-  }
-
-  /* ── Surface utilities ── */
-  .glass {
-    -webkit-backdrop-filter: blur(16px) saturate(160%) brightness(var(--glass-bright));
-    backdrop-filter: blur(16px) saturate(160%) brightness(var(--glass-bright));
-    background: var(--glass-fill);
-    box-shadow: var(--glass-shadow);
-    border: 1px solid var(--glass-stroke);
-  }
-  .glass-subtle {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-  }
-
-  /* ── Liquid Glass ── */
-  .glass-noise::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    border-radius: inherit;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.04;
-    mix-blend-mode: overlay;
-    pointer-events: none;
-  }
-
-  .glass-pill {
-    position: relative;
-    border-radius: 9999px;
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-    backdrop-filter: blur(24px) saturate(180%);
-    background: var(--glass-fill);
-    box-shadow:
-      0 12px 32px -8px rgba(0, 0, 0, 0.5),
-      inset 0 4px 20px rgba(255, 255, 255, 0.1),
-      /* Liquid inner glow */ inset 0 1px 1px rgba(255, 255, 255, 0.3); /* Specular top edge highlight */
-    border: 1px solid var(--glass-stroke);
-  }
-  .glass-pill::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.04;
-    mix-blend-mode: overlay;
-    pointer-events: none;
-  }
-
-  .glass-panel {
-    position: relative;
-    --squircle-radius: var(--r-md);
-    --squircle-n: 5;
-    border-radius: var(--r-md);
-    -webkit-backdrop-filter: blur(32px) saturate(200%);
-    backdrop-filter: blur(32px) saturate(200%);
-    background: var(--glass-fill);
-    box-shadow:
-      0 16px 40px -12px rgba(0, 0, 0, 0.6),
-      inset 0 4px 20px rgba(255, 255, 255, 0.08),
-      /* Liquid inner glow */ inset 0 2px 2px -1px rgba(255, 255, 255, 0.25); /* Specular highlight */
-    border: 1px solid var(--glass-stroke);
-    border-top: 1px solid rgba(255, 255, 255, 0.25);
-  }
-  .glass-panel::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.05;
-    mix-blend-mode: overlay;
-    pointer-events: none;
   }
 
   /* ── Springs & easing ──────────────────── */
@@ -1348,20 +1105,6 @@ html::-webkit-scrollbar-track {
 .magnetic {
   transition: transform var(--t-md) var(--ease-snap);
   will-change: transform;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   SCROLL-LINKED NAV — blur progression
-   ═══════════════════════════════════════════════════════════ */
-.nav-scrolled {
-  -webkit-backdrop-filter: blur(24px) saturate(200%);
-  backdrop-filter: blur(24px) saturate(200%);
-  background: color-mix(in oklab, var(--nav-bg) 92%, var(--accent) 8%);
-  box-shadow: var(--elev-2);
-}
-.nav-default {
-  -webkit-backdrop-filter: blur(12px) saturate(140%);
-  backdrop-filter: blur(12px) saturate(140%);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -3736,11 +3479,9 @@ html.dark {
      the point of one component is that the control reads the same everywhere. */
   text-transform: none;
   color: var(--muted);
-  border: 1px solid var(--glass-s-rim);
-  background: var(--glass-s-fill);
-  -webkit-backdrop-filter: var(--glass-s-blur);
-  backdrop-filter: var(--glass-s-blur);
-  box-shadow: inset 0 1px 0 var(--glass-s-sheen);
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  box-shadow: var(--elev-1);
   cursor: pointer;
   transition:
     color var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
@@ -3757,12 +3498,10 @@ html.dark {
   display: flex;
   gap: 2px;
   padding: 3px;
-  border: 1px solid var(--glass-s-rim);
+  border: 1px solid var(--border);
   border-radius: 999px;
-  background: var(--glass-s-fill-sunk);
-  -webkit-backdrop-filter: var(--glass-s-blur);
-  backdrop-filter: var(--glass-s-blur);
-  box-shadow: inset 0 1px 0 var(--glass-s-sheen);
+  background: var(--surface-2);
+  box-shadow: var(--elev-1);
 }
 .fn-lang button {
   border: 0;
@@ -3787,7 +3526,7 @@ html.dark {
   color: #060606;
   font-weight: 700;
   box-shadow:
-    var(--glass-s-cast-1),
+    var(--elev-2),
     inset 0 1px 0 rgba(255, 255, 255, 0.45);
 }
 .fn-lang button:focus-visible {
@@ -3833,12 +3572,8 @@ html.dark {
   padding: 8px;
   border-radius: var(--glass-radius);
   background: var(--fn-menu-bg, rgba(12, 10, 7, 0.82));
-  border: 1px solid var(--glass-s-rim);
-  -webkit-backdrop-filter: var(--glass-s-blur);
-  backdrop-filter: var(--glass-s-blur);
-  box-shadow:
-    var(--glass-s-cast-2),
-    inset 0 1px 0 var(--glass-s-sheen);
+  border: 1px solid var(--border);
+  box-shadow: var(--elev-2);
   opacity: 0;
   transform: translateY(-6px) scale(0.98);
   pointer-events: none;
@@ -4094,16 +3829,14 @@ html.dark {
 .fn-search {
   flex: 1;
   min-width: 200px;
-  background: var(--glass-s-fill-sunk);
-  border: 1px solid var(--glass-s-rim);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
   border-radius: 999px;
   color: var(--text);
   padding: 14px 20px;
   outline: none;
   font: inherit;
-  -webkit-backdrop-filter: var(--glass-s-blur);
-  backdrop-filter: var(--glass-s-blur);
-  box-shadow: inset 0 1px 0 var(--glass-s-sheen);
+  box-shadow: var(--elev-1);
   transition:
     background var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
     box-shadow var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
@@ -4113,10 +3846,10 @@ html.dark {
   color: var(--muted);
 }
 .fn-search:focus {
-  background: var(--glass-s-fill);
+  background: var(--card-bg);
   border-color: rgba(212, 175, 55, 0.45);
   box-shadow:
-    inset 0 1px 0 var(--glass-s-sheen),
+    var(--elev-1),
     0 0 0 3px rgba(212, 175, 55, 0.14);
 }
 
@@ -4133,16 +3866,12 @@ html.dark {
   padding: 10px 18px;
   cursor: pointer;
   font: inherit;
-  background: var(--glass-s-fill);
-  border: 1px solid var(--glass-s-rim);
+  background: var(--card-bg);
+  border: 1px solid var(--border);
   border-radius: 999px;
   color: var(--muted);
-  -webkit-backdrop-filter: var(--glass-s-blur);
-  backdrop-filter: var(--glass-s-blur);
   /* Resting: a glass pill sitting just above the page */
-  box-shadow:
-    var(--glass-s-cast-1),
-    inset 0 1px 0 var(--glass-s-sheen);
+  box-shadow: var(--elev-1);
   transition:
     background var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
     border-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
@@ -4153,12 +3882,10 @@ html.dark {
 @media (hover: hover) {
   .fn-chip:hover {
     color: var(--text);
-    background: var(--glass-s-fill-hi);
-    border-color: var(--glass-s-rim-hi);
+    background: var(--surface-2);
+    border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
     transform: translateY(-2px);
-    box-shadow:
-      var(--glass-s-cast-2),
-      inset 0 1px 0 var(--glass-s-sheen);
+    box-shadow: var(--elev-2);
   }
 }
 .fn-chip:active {
@@ -4170,11 +3897,11 @@ html.dark {
 .fn-chip.active {
   color: var(--accent);
   font-weight: 700;
-  background: var(--glass-s-fill-hi);
+  background: var(--surface-2);
   border-color: rgba(212, 175, 55, 0.55);
   transform: none;
   box-shadow:
-    inset 0 1px 0 var(--glass-s-sheen),
+    var(--elev-1),
     0 0 0 1px rgba(212, 175, 55, 0.22);
 }
 .fn-chip:focus-visible {
@@ -4226,12 +3953,12 @@ html.dark {
    Rests just above the page and lifts toward the viewer on hover. Same
    gesture as the panels over the paintings; only the transparency differs. */
 .fn-card {
-  background: var(--glass-s-fill);
+  background: var(--card-bg);
   display: flex;
   flex-direction: column;
   position: relative;
   overflow: hidden;
-  border: 1px solid var(--glass-s-rim);
+  border: 1px solid var(--border);
   border-radius: var(--glass-radius);
   /* No backdrop-filter here, unlike .glass-surface — and the material is
      unchanged, because behind these cards there is nothing to refract. The
@@ -4241,9 +3968,7 @@ html.dark {
      compositor layer and a blur pass per card, sixteen times over, on the page
      that felt slowest. Fill, rim, cast shadow and hover lift all stay, which is
      what the on-flat-ground tier in CLAUDE.md actually asks for. */
-  box-shadow:
-    var(--glass-s-cast-1),
-    inset 0 1px 0 var(--glass-s-sheen);
+  box-shadow: var(--elev-1);
   transition:
     background var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
     border-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
@@ -4252,19 +3977,15 @@ html.dark {
 }
 @media (hover: hover) {
   .fn-card:hover {
-    background: var(--glass-s-fill-hi);
-    border-color: var(--glass-s-rim-hi);
+    background: var(--surface-2);
+    border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
     transform: translateY(-3px);
-    box-shadow:
-      var(--glass-s-cast-2),
-      inset 0 1px 0 var(--glass-s-sheen);
+    box-shadow: var(--elev-2);
   }
 }
 .fn-card:focus-within {
-  border-color: var(--glass-s-rim-hi);
-  box-shadow:
-    var(--glass-s-cast-2),
-    inset 0 1px 0 var(--glass-s-sheen);
+  border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
+  box-shadow: var(--elev-2);
 }
 
 /* ── Category tile (replaces inline onMouseEnter/Leave) ── */
@@ -4290,14 +4011,10 @@ html.dark {
   text-decoration: none;
   display: block;
   padding: 32px 24px;
-  background: var(--glass-s-fill);
-  border: 1px solid var(--glass-s-rim);
+  background: var(--card-bg);
+  border: 1px solid var(--border);
   border-radius: var(--glass-radius);
-  -webkit-backdrop-filter: var(--glass-s-blur);
-  backdrop-filter: var(--glass-s-blur);
-  box-shadow:
-    var(--glass-s-cast-1),
-    inset 0 1px 0 var(--glass-s-sheen);
+  box-shadow: var(--elev-1);
   transition:
     background var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
     border-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
@@ -4306,12 +4023,10 @@ html.dark {
 }
 @media (hover: hover) {
   .fn-cat-tile:hover {
-    background: var(--glass-s-fill-hi);
-    border-color: var(--glass-s-rim-hi);
+    background: var(--surface-2);
+    border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
     transform: translateY(-3px);
-    box-shadow:
-      var(--glass-s-cast-2),
-      inset 0 1px 0 var(--glass-s-sheen);
+    box-shadow: var(--elev-2);
   }
 }
 .fn-body {
@@ -4450,14 +4165,10 @@ html.dark {
   align-items: start;
 }
 .fn-panel {
-  border: 1px solid var(--glass-s-rim);
+  border: 1px solid var(--border);
   border-radius: var(--glass-radius);
-  background: var(--glass-s-fill);
-  -webkit-backdrop-filter: var(--glass-s-blur);
-  backdrop-filter: var(--glass-s-blur);
-  box-shadow:
-    var(--glass-s-cast-1),
-    inset 0 1px 0 var(--glass-s-sheen);
+  background: var(--card-bg);
+  box-shadow: var(--elev-1);
   padding: 28px;
 }
 .fn-sticky {
@@ -4486,16 +4197,12 @@ html.dark {
   max-width: 680px;
 }
 .fn-box {
-  border: 1px solid var(--glass-s-rim);
+  border: 1px solid var(--border);
   border-radius: var(--glass-radius);
   padding: 26px;
   margin-top: 24px;
-  background: var(--glass-s-fill);
-  -webkit-backdrop-filter: var(--glass-s-blur);
-  backdrop-filter: var(--glass-s-blur);
-  box-shadow:
-    var(--glass-s-cast-1),
-    inset 0 1px 0 var(--glass-s-sheen);
+  background: var(--card-bg);
+  box-shadow: var(--elev-1);
   color: var(--muted);
   line-height: 1.7;
 }
@@ -4977,18 +4684,14 @@ html.dark {
   gap: 8px;
   padding: 9px 16px;
   border-radius: 999px;
-  border: 1px solid var(--glass-s-rim);
-  background-color: var(--glass-s-fill);
+  border: 1px solid var(--border);
+  background-color: var(--card-bg);
   background-image: radial-gradient(
     circle at var(--spec-x) var(--spec-y),
     rgba(255, 255, 255, var(--spec-o)),
     transparent 60%
   );
-  -webkit-backdrop-filter: var(--glass-s-blur);
-  backdrop-filter: var(--glass-s-blur);
-  box-shadow:
-    var(--glass-s-cast-1),
-    inset 0 1px 0 var(--glass-s-sheen);
+  box-shadow: var(--elev-1);
   color: var(--muted);
   font: inherit;
   font-size: 13px;
@@ -5009,11 +4712,9 @@ html.dark {
 @media (hover: hover) {
   .fn-filter:hover {
     color: var(--text);
-    background-color: var(--glass-s-fill-hi);
-    border-color: var(--glass-s-rim-hi);
-    box-shadow:
-      var(--glass-s-cast-2),
-      inset 0 1px 0 var(--glass-s-sheen);
+    background-color: var(--surface-2);
+    border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
+    box-shadow: var(--elev-2);
   }
 }
 .fn-filter:focus-visible {
@@ -5127,7 +4828,7 @@ html.dark {
 @media (hover: hover) {
   .fn-filter:disabled:hover {
     color: var(--muted);
-    border-color: var(--glass-s-rim);
+    border-color: var(--border);
   }
 }
 

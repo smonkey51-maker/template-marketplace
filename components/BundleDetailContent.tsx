@@ -392,7 +392,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
           })()}
 
         {/* ── Price breakdown ── */}
-        <div className="r-glass glass-subtle border border-theme p-5 mb-4">
+        <div className="r-glass m3-surface-container border border-theme p-5 mb-4">
           <h2 className="text-[13px] font-black text-muted/60 uppercase tracking-widest mb-4">
             {t[lang].bundleDetail.totalValue}
           </h2>
@@ -448,11 +448,11 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
       </div>
 
       {/* ── Fixed bottom CTA bar ── */}
-      {/* .glass-bar, not a hand-rolled blur: the rim, fill and cast now come
+      {/* .m3-bar, not a hand-rolled blur: the rim, fill and cast now come
           from the same tokens as every other panel, and the bar picks up the
           specular highlight and refraction it never had. The hand-drawn
           hairline that stood in for the rim is gone with it. */}
-      <div className="glass-bar fixed bottom-0 inset-x-0 z-50">
+      <div className="m3-bar fixed bottom-0 inset-x-0 z-50">
         <div className="max-w-4xl mx-auto px-4 py-3 sm:py-4">
           <div className="flex items-center gap-3 mb-3">
             <Layers aria-hidden size={22} strokeWidth={1.5} className={`shrink-0 ${colors.text}`} />

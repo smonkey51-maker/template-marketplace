@@ -129,6 +129,31 @@ export const copy = {
     heroCtaSnap: "Esplora il catalogo →",
     heroCtaGuidaSnap: "Come funziona",
 
+    /* homepage — catalog preview section */
+    homeCatalogKicker: "Catalogo",
+    homeCatalogTitle: "Gli ultimi arrivi",
+    homeCatalogSub: "Una selezione di template pronti all'uso, scelti dal team.",
+    homeCatalogCta: "Vedi tutto il catalogo →",
+
+    /* homepage — features grid ("Perché scegliere FORMA") */
+    homeFeaturesKicker: "Perché FORMA",
+    homeFeaturesTitle: "Fatto bene, non fatto in fretta",
+    homeFeature1Title: "Qualità curata",
+    homeFeature1Desc: "Ogni template è rifinito a mano, non generato in serie. Nessun filler.",
+    homeFeature2Title: "Pronto all'uso",
+    homeFeature2Desc: "Scarica e personalizza in minuti: nessuna dipendenza da installare.",
+    homeFeature3Title: "AI integrata",
+    homeFeature3Desc: "Genera varianti o adatta un template esistente con Claude, incluso.",
+    homeFeature4Title: "Pagamento sicuro",
+    homeFeature4Desc: "Checkout Stripe, fattura automatica, rimborso entro 14 giorni.",
+
+    /* homepage — AI Studio CTA banner */
+    homeStudioKicker: "AI Studio",
+    homeStudioTitle: "Genera il tuo template su misura",
+    homeStudioSub:
+      "Descrivi cosa ti serve in una frase: FORMA con Claude AI genera la struttura, tu la rifinisci.",
+    homeStudioCta: "Apri lo Studio →",
+
     /* shared */
     studioTitle: "Studio",
     studioSub: "Un ambiente per generare, adattare e rifinire template.",
@@ -330,6 +355,31 @@ export const copy = {
     heroSubSnap: "Templates, prompts and tools for creators.",
     heroCtaSnap: "Explore the catalog →",
     heroCtaGuidaSnap: "How it works",
+
+    /* homepage — catalog preview section */
+    homeCatalogKicker: "Catalog",
+    homeCatalogTitle: "Latest arrivals",
+    homeCatalogSub: "A selection of ready-to-use templates, picked by the team.",
+    homeCatalogCta: "See the full catalog →",
+
+    /* homepage — features grid ("Why choose FORMA") */
+    homeFeaturesKicker: "Why FORMA",
+    homeFeaturesTitle: "Done well, not done fast",
+    homeFeature1Title: "Curated quality",
+    homeFeature1Desc: "Every template is hand-finished, not mass-generated. No filler.",
+    homeFeature2Title: "Ready to use",
+    homeFeature2Desc: "Download and customize in minutes: nothing to install.",
+    homeFeature3Title: "AI built in",
+    homeFeature3Desc: "Generate variants or adapt an existing template with Claude, included.",
+    homeFeature4Title: "Secure payment",
+    homeFeature4Desc: "Stripe checkout, automatic invoice, refund within 14 days.",
+
+    /* homepage — AI Studio CTA banner */
+    homeStudioKicker: "AI Studio",
+    homeStudioTitle: "Generate your own template",
+    homeStudioSub:
+      "Describe what you need in one sentence: FORMA with Claude AI generates the structure, you refine it.",
+    homeStudioCta: "Open the Studio →",
 
     /* shared */
     studioTitle: "Studio",

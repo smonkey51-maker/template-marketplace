@@ -764,7 +764,7 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
               aria-modal="true"
               aria-labelledby="sheet-title"
               tabIndex={-1}
-              className={`relative w-full max-w-[1000px] glass-panel fn-sheet-panel flex flex-col pointer-events-auto z-10 outline-none${
+              className={`relative w-full max-w-[1000px] m3-panel fn-sheet-panel flex flex-col pointer-events-auto z-10 outline-none${
                 isClosing ? "" : " sheet-enter"
               }`}
               style={{

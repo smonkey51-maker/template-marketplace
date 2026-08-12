@@ -82,11 +82,11 @@ function ToastBubble({ toast: t, onDismiss }: { toast: ToastItem; onDismiss: () 
   return (
     <div
       onClick={onDismiss}
-      className="glass-surface-pill pointer-events-auto cursor-pointer select-none flex items-center gap-3 pl-4 pr-5 py-3 text-[14px] font-medium"
+      className="m3-surface-pill pointer-events-auto cursor-pointer select-none flex items-center gap-3 pl-4 pr-5 py-3 text-[14px] font-medium"
       style={{
         color: "var(--text)",
         borderColor: `color-mix(in srgb, ${accentRgb} 19%, transparent)`,
-        boxShadow: `var(--glass-s-cast-1), inset 0 1px 0 var(--glass-s-sheen), 0 0 0 1px color-mix(in srgb, ${accentRgb} 9%, transparent)`,
+        boxShadow: `var(--elev-3), 0 0 0 1px color-mix(in srgb, ${accentRgb} 9%, transparent)`,
         transition: reduced
           ? "none"
           : "opacity 0.25s ease, transform 0.3s cubic-bezier(.34,1.2,.64,1)",

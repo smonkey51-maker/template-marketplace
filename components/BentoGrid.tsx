@@ -81,7 +81,8 @@ export function BentoCell({
   // A bento grid outside a section would stay invisible forever. `.bento-cell`
   // carries its own entrance so a cell can never get stuck unpainted.
   const shared =
-    "bento-cell glass-surface r-glass relative overflow-hidden flex flex-col " + className;
+    "bento-cell m3-surface m3-interactive r-glass relative overflow-hidden flex flex-col " +
+    className;
 
   // `.bento-cell` keeps `will-change: opacity, transform` in the stylesheet
   // permanently — needed so the *entrance* promotes every cell to its own
@@ -195,8 +196,8 @@ export function BentoSubBox({ children, href, label }: BentoSubBoxProps) {
       // visual gain and cost a compositor layer per box — so fill and rim only.
       className="r-md flex flex-col justify-end p-4 min-h-[104px] border transition-colors duration-200"
       style={{
-        background: "var(--glass-s-fill)",
-        borderColor: "var(--glass-s-rim)",
+        background: "var(--surface-2)",
+        borderColor: "var(--border)",
       }}
     >
       {children}

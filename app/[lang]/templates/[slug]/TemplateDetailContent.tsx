@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ShieldCheck, Zap, RotateCcw } from "lucide-react";
 import { useLang } from "@/components/LanguageProvider";
 import { copy } from "@/lib/formaCopy";
 import { TemplateThumb } from "@/components/TemplateThumb";
@@ -36,7 +37,7 @@ export function TemplateDetailContent({
       >
         {/* Navigation Breadcrumb (Floating Pill) */}
         <div className="flex justify-center mb-10">
-          <nav className="glass-pill px-6 py-2 flex gap-3 text-[11px] font-semibold uppercase tracking-widest text-muted items-center">
+          <nav className="m3-surface-pill px-6 py-2 flex gap-3 text-[11px] font-semibold uppercase tracking-widest text-muted items-center">
             <Link
               href={`/${lang}`}
               className="flex items-center min-h-[24px] hover:text-accent transition-colors"
@@ -61,7 +62,7 @@ export function TemplateDetailContent({
         </div>
 
         {/* The Glass Sheet */}
-        <article className="glass-panel overflow-hidden mb-24">
+        <article className="m3-panel overflow-hidden mb-24">
           {/* The static thumbnail, not the live iframe.
               TemplatePreview lays the template out at its 1440px design width
               and scales the whole thing down to the container — on a ~390px
@@ -82,7 +83,7 @@ export function TemplateDetailContent({
                   "HTML" on every product the shop sells — the catalogue fixed
                   that and the product page was left behind, so the two pages
                   labelled the same item differently. */}
-              <span className="fn-badge bg-black/20 backdrop-blur-md" data-cat={getCatKey(item)}>
+              <span className="fn-badge" data-cat={getCatKey(item)}>
                 {getKindLabel(item, lang)}
               </span>
               {item.editorsPick && (
@@ -110,34 +111,61 @@ export function TemplateDetailContent({
               {name}
             </h1>
 
-            <p className="text-muted text-lg sm:text-xl leading-relaxed max-w-2xl mb-12">
+            <p className="text-muted text-lg sm:text-xl leading-relaxed max-w-2xl mb-8">
               {getLocalizedDesc(item, lang)}
             </p>
+
+            {/* Trust badges — the same three guarantees for every product
+                (secure Stripe checkout, instant access, 14-day refund), not
+                invented per-item signal. Real download format is read off
+                the item itself (getKindLabel), not hard-coded. */}
+            <div className="flex flex-wrap gap-2 mb-12">
+              <span className="m3-surface-pill inline-flex items-center gap-1.5 px-3 py-1.5 text-[12px] font-medium text-muted">
+                <ShieldCheck size={14} className="text-accent" aria-hidden />
+                {lang === "it" ? "Pagamento sicuro Stripe" : "Secure Stripe payment"}
+              </span>
+              <span className="m3-surface-pill inline-flex items-center gap-1.5 px-3 py-1.5 text-[12px] font-medium text-muted">
+                <Zap size={14} className="text-accent" aria-hidden />
+                {lang === "it" ? "Accesso immediato" : "Instant access"}
+              </span>
+              <span className="m3-surface-pill inline-flex items-center gap-1.5 px-3 py-1.5 text-[12px] font-medium text-muted">
+                <RotateCcw size={14} className="text-accent" aria-hidden />
+                {lang === "it" ? "Rimborso 14 giorni" : "14-day refund"}
+              </span>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 border-t border-theme pt-12">
               <div>
                 <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-accent mb-6">
-                  Features
+                  {lang === "it" ? "Cosa include" : "What's included"}
                 </h3>
                 <ul className="space-y-3 text-muted text-sm sm:text-base">
                   <li className="flex items-center gap-3">
-                    <span className="text-accent">✓</span> Accesso immediato
+                    <span className="text-accent">✓</span>
+                    {lang === "it"
+                      ? `File ${getKindLabel(item, lang)} pronto all'uso`
+                      : `Ready-to-use ${getKindLabel(item, lang)} file`}
                   </li>
                   <li className="flex items-center gap-3">
-                    <span className="text-accent">✓</span> Uso commerciale limitato
+                    <span className="text-accent">✓</span>
+                    {lang === "it" ? "Uso commerciale limitato" : "Limited commercial use"}
                   </li>
                   <li className="flex items-center gap-3">
-                    <span className="text-accent">✓</span> Supporto prioritario
+                    <span className="text-accent">✓</span>
+                    {lang === "it"
+                      ? "Personalizzabile con AI Studio"
+                      : "Customizable with AI Studio"}
                   </li>
                   <li className="flex items-center gap-3">
-                    <span className="text-accent">✓</span> Rimborso entro 14 giorni
+                    <span className="text-accent">✓</span>
+                    {lang === "it" ? "Rimborso entro 14 giorni" : "Refund within 14 days"}
                   </li>
                 </ul>
               </div>
 
-              <div className="fn-buy-box flex flex-col justify-end bg-black/10 rounded-3xl p-8 border border-theme">
+              <div className="m3-surface-container r-glass flex flex-col justify-end p-8">
                 <span className="text-xs uppercase tracking-widest text-muted mb-2">
-                  Prezzo una tantum
+                  {lang === "it" ? "Prezzo una tantum" : "One-time price"}
                 </span>
                 <div className="font-cormorant text-5xl mb-8">{formatPrice(item.price)}</div>
 
@@ -145,9 +173,9 @@ export function TemplateDetailContent({
                   <BuyButton templateId={item.id} price={formatPrice(item.price)} />
                   <Link
                     href={`/${lang}/preview/${item.id}`}
-                    className="fn-btn justify-center bg-white/5 hover:bg-white/10 r-pill"
+                    className="btn-m3-outlined justify-center"
                   >
-                    Preview dal vivo
+                    {lang === "it" ? "Preview dal vivo" : "Live preview"}
                   </Link>
                 </div>
               </div>

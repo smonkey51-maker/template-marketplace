@@ -131,7 +131,7 @@ function StudioAccessGate({ lang }: { lang: string }) {
           <button
             onClick={() => startCheckout("studio-access-lifetime", "lifetime")}
             disabled={loading !== null}
-            className="r-pill px-6 py-2.5 glass-subtle border border-theme font-semibold text-[14px] text-theme transition-all duration-200 active:scale-[0.97] ios-spring"
+            className="btn-m3-outlined px-6 py-2.5 font-semibold text-[14px] transition-all duration-200 active:scale-[0.97] ios-spring"
           >
             {loading === "lifetime"
               ? lang === "it"

@@ -84,9 +84,9 @@ export default function BentoHub() {
               href={`/${lang}/guida`}
               className="r-pill px-5 py-2.5 text-[14px] font-bold text-white transition-all"
               style={{
-                background: "rgba(255,255,255,0.15)",
-                border: "1px solid rgba(255,255,255,0.25)",
-                backdropFilter: "blur(12px)",
+                background: "rgba(255,255,255,0.16)",
+                border: "1px solid rgba(255,255,255,0.28)",
+                boxShadow: "var(--elev-1)",
               }}
             >
               {t.heroCtaGuidaSnap}
