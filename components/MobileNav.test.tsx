@@ -3,13 +3,14 @@ import { render } from "@testing-library/react";
 import MobileNav from "./MobileNav";
 
 /**
- * The floating pill must stay off any page that puts its own bar at the bottom
- * of the viewport.
+ * MobileNav must stay off any page that puts its own bar at the bottom of the
+ * viewport.
  *
- * It is `bottom-6 z-[90]` and centred; a page-level bottom bar is `bottom-0
- * z-50` and full width — so the pill lands *on top of* the page's control
- * rather than beside it. On /bundle that control is the "Acquista bundle"
- * button, which the pill covered on every phone.
+ * It is `bottom-0 z-[90]` and full width; a page-level bottom bar is also
+ * `bottom-0`, at `z-50` — same edge, and the higher z-index means MobileNav
+ * would render directly on top of the page's own control, hiding it entirely.
+ * On /bundle that control is the "Acquista bundle" button, which MobileNav
+ * covered on every phone before this list existed.
  *
  * Two ways this regresses, and both are caught here: a new bottom-bar page gets
  * added and nobody adds it to the list, or the locale prefix stops being
