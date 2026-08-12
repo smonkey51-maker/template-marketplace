@@ -81,7 +81,8 @@ export function BentoCell({
   // A bento grid outside a section would stay invisible forever. `.bento-cell`
   // carries its own entrance so a cell can never get stuck unpainted.
   const shared =
-    "bento-cell m3-surface m3-interactive r-glass relative overflow-hidden flex flex-col " + className;
+    "bento-cell m3-surface m3-interactive r-glass relative overflow-hidden flex flex-col " +
+    className;
 
   // `.bento-cell` keeps `will-change: opacity, transform` in the stylesheet
   // permanently — needed so the *entrance* promotes every cell to its own
