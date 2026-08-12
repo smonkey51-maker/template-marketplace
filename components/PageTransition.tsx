@@ -1,74 +1,27 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
-import gsap from "gsap";
+import React, { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { prefersReducedMotion } from "@/lib/reducedMotion";
 
 interface PageTransitionProps {
   children: React.ReactNode;
 }
 
 /**
- * Fades and lifts each route into place.
- *
- * The animation is driven by gsap rather than a CSS class, and the reason is
- * `clearProps: "all"`: it removes the transform once the tween finishes. A
- * `transform` other than `none` makes an element the containing block for every
- * `position: fixed` descendant, and this wrapper is around every page — so a
- * transform left behind here anchors fixed children to the document instead of
- * the viewport. That broke real things: the catalogue's quick-view sheet
- * (`inset-0` + `items-end`) opened below the end of the page while the scroll
- * lock made it impossible to reach, and the sticky buy bars on the preview and
- * bundle pages sat at the bottom of a long document rather than on screen.
- *
- * The CSS `.anim-page-enter` utility this used to rely on is gone from
- * globals.css for the same reason — declared `animation-fill-mode: both`, it
- * kept `translateY(0)` applied forever.
+ * No entrance animation: a fresh page painting with `opacity: 0` for even a
+ * couple frames reads as a flash, and animating a wrapper around every route
+ * (transform/opacity) forces a fresh compositing layer for the whole page on
+ * every navigation, which is what showed up as a flash + tilt on entry. The
+ * page just appears.
  */
 export default function PageTransition({ children }: PageTransitionProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
-  // Strip the language prefix so switching language doesn't re-run the fade — it
-  // is the same page, and flashing it implies a navigation that didn't happen.
-  const routeKey = pathname.replace(/^\/(it|en)/, "") || "/";
-
   // The scroll lock belongs to whatever set it, but a navigation can unmount
-  // that component before its cleanup runs. Keyed on the raw pathname, not the
-  // route key, so it also fires on a language switch.
+  // that component before its cleanup runs.
   useEffect(() => {
     document.body.style.overflow = "";
   }, [pathname]);
 
-  useEffect(() => {
-    // Skipped outright rather than run at zero duration: `fromTo` applies its
-    // start state the moment it is created, so a zero-length tween would still
-    // paint one transparent frame before snapping back. There is nothing here
-    // that depends on the tween finishing, so not starting it is the honest
-    // way to have no animation.
-    if (prefersReducedMotion()) return;
-
-    if (containerRef.current) {
-      gsap.fromTo(
-        containerRef.current,
-        { opacity: 0, y: 8 },
-        {
-          opacity: 1,
-          y: 0,
-          // 260ms, not 600. This is the most repeated motion on the site — it
-          // runs on every navigation, and a visitor browsing a catalogue makes
-          // a lot of them. At 600ms it was longer than the budget for a modal,
-          // spent on a transition nobody asked for, and the page felt slow to
-          // arrive rather than considered. Under 300ms it reads as the page
-          // settling; over it, as waiting.
-          duration: 0.26,
-          ease: "power3.out",
-          clearProps: "all",
-        },
-      );
-    }
-  }, [routeKey]);
-
-  return <div ref={containerRef}>{children}</div>;
+  return <>{children}</>;
 }

@@ -13,13 +13,14 @@ export function useTheme() {
 }
 
 export default function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("light");
+  // A blocking inline script in the root layout already applies the stored
+  // theme to <html> before first paint (see app/[lang]/layout.tsx), so this
+  // only needs to sync React state to what's already on the DOM — not
+  // re-decide and re-toggle it, which would risk a second, redundant flash.
+  const [theme, setTheme] = useState<Theme>("dark");
 
   useEffect(() => {
-    const stored = localStorage.getItem("theme") as Theme | null;
-    const initial = stored ?? "dark";
-    setTheme(initial);
-    document.documentElement.classList.toggle("dark", initial === "dark");
+    setTheme(document.documentElement.classList.contains("dark") ? "dark" : "light");
   }, []);
 
   const toggle = () => {
