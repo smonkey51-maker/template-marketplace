@@ -81,6 +81,57 @@ export default function GlassEnhancements() {
     };
   }, []);
 
+  // 4. Pause the idle ambient sweep (the touch-only `glass-sweep` @keyframes
+  // in globals.css) on glass surfaces currently scrolled off-screen. Nothing
+  // about the sweep's own cost changes for a card the visitor is looking at;
+  // this only stops paying for the ones they aren't. Scoped to touch/no-hover
+  // devices because that's the only place the animation is ever running —
+  // hover-capable devices use the pointer-tracking highlight above instead,
+  // so there is nothing here for them to pause.
+  useEffect(() => {
+    if (typeof IntersectionObserver === "undefined") return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const touch = window.matchMedia("(hover: none)").matches;
+    if (reduced || !touch) return;
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          (entry.target as HTMLElement).style.animationPlayState = entry.isIntersecting
+            ? "running"
+            : "paused";
+        }
+      },
+      { rootMargin: "200px" }, // resume a little before it scrolls into view, not the instant it does
+    );
+
+    const observeAll = () => {
+      document.querySelectorAll(GLASS_SELECTOR).forEach((el) => io.observe(el));
+    };
+    observeAll();
+
+    // Client-side navigation mounts a fresh set of glass elements the
+    // observer above never saw. Re-scanning on every DOM mutation would be
+    // wasteful during something like search-as-you-type, so this only
+    // re-scans once per animation frame no matter how many mutations land in
+    // it — one full re-scan per burst of DOM changes, not one per node.
+    let scanQueued = false;
+    const mo = new MutationObserver(() => {
+      if (scanQueued) return;
+      scanQueued = true;
+      requestAnimationFrame(() => {
+        scanQueued = false;
+        observeAll();
+      });
+    });
+    mo.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      io.disconnect();
+      mo.disconnect();
+    };
+  }, []);
+
   // Zero-size and aria-hidden: these <filter> defs are never drawn on their
   // own, only referenced via backdrop-filter: url(#...) from CSS once
   // .glass-fx-ready is set. Two variants — large surfaces can take a wide

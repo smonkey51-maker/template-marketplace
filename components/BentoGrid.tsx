@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useCallback } from "react";
 import type { CSSProperties, ReactNode } from "react";
 
 /**
@@ -82,16 +83,39 @@ export function BentoCell({
   const shared =
     "bento-cell glass-surface r-glass relative overflow-hidden flex flex-col " + className;
 
+  // `.bento-cell` keeps `will-change: opacity, transform` in the stylesheet
+  // permanently — needed so the *entrance* promotes every cell to its own
+  // compositor layer before bento-rise starts, rather than mid-flight (see
+  // the comment on that rule). But nothing un-promotes them once the 0.72s
+  // animation is long over, so five `backdrop-filter` surfaces sit pinned to
+  // their own GPU layers for the rest of the visit for an animation that already
+  // finished. Dropping `will-change` back to `auto` here, once, right after
+  // `bento-rise` ends, costs nothing visually — it's a compositor hint, not a
+  // style — and gives that memory/compositing overhead back.
+  const settleWillChange = useCallback((el: HTMLElement | null) => {
+    if (!el) return;
+    const onEnd = (e: AnimationEvent) => {
+      if (e.animationName === "bento-rise") el.style.willChange = "auto";
+    };
+    el.addEventListener("animationend", onEnd, { once: true });
+  }, []);
+
   if (href) {
     return (
-      <Link href={href} aria-label={label} className={`${shared} group`} style={cellStyle}>
+      <Link
+        ref={settleWillChange}
+        href={href}
+        aria-label={label}
+        className={`${shared} group`}
+        style={cellStyle}
+      >
         {children}
       </Link>
     );
   }
 
   return (
-    <div className={shared} style={cellStyle}>
+    <div ref={settleWillChange} className={shared} style={cellStyle}>
       {children}
     </div>
   );
