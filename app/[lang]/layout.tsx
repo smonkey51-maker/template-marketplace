@@ -159,7 +159,19 @@ export default async function RootLayout({
         className={`dark ${montserrat.variable} ${jakarta.variable} ${dmSerif.variable} ${cormorant.variable} ${fraunces.variable} ${inter.variable}`}
         style={{ colorScheme: "dark" }}
       >
-        <link rel="preload" as="image" href="/paintings/vermeer.jpg" />
+        <head>
+          <link rel="preload" as="image" href="/paintings/vermeer.jpg" />
+          {/* Applies the stored theme before first paint. Without this, the
+              page always paints dark (the SSR default above) and ThemeProvider's
+              effect only flips it to light after hydration — a flash on every
+              full page load for anyone who has switched to light mode. */}
+          <script
+            dangerouslySetInnerHTML={{
+              __html:
+                "(function(){try{var t=localStorage.getItem('theme');if(t==='light'){document.documentElement.classList.remove('dark');document.documentElement.style.colorScheme='light';}}catch(e){}})();",
+            }}
+          />
+        </head>
         <body className="bg-page text-theme antialiased min-h-screen">
           <GlassEnhancements />
           <PostHogProvider>
