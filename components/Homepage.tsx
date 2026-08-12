@@ -3,6 +3,9 @@
 import BentoHub from "@/components/sections/BentoHub";
 import SectionNav from "@/components/sections/SectionNav";
 import GallerySpotlight from "@/components/sections/GallerySpotlight";
+import CatalogPreview from "@/components/sections/CatalogPreview";
+import FeaturesGrid from "@/components/sections/FeaturesGrid";
+import StudioCTA from "@/components/sections/StudioCTA";
 import { FormaFooter } from "@/components/FormaFooter";
 
 /**
@@ -22,6 +25,14 @@ import { FormaFooter } from "@/components/FormaFooter";
  * The five section components are gone rather than left unused: the homepage
  * was their only caller, and each shipped its own copy of the page's content
  * to the client for a screen most visitors scrolled straight past.
+ *
+ * Below the hub — which carries the hero and quick links to every other
+ * destination — three flat M3 sections give the homepage the mobile-first
+ * structure product asked for (hero → catalog → features → studio CTA →
+ * footer): a real slice of the catalog grid, a "why FORMA" features grid,
+ * and an AI Studio CTA banner. All three are plain document flow, same as
+ * the hub — no parallax, no scroll hijacking, nothing added here that the
+ * hub above doesn't already do.
  */
 export default function Homepage() {
   return (
@@ -31,6 +42,9 @@ export default function Homepage() {
       <GallerySpotlight />
       <SectionNav />
       <BentoHub />
+      <CatalogPreview />
+      <FeaturesGrid />
+      <StudioCTA />
       <FormaFooter />
     </main>
   );
