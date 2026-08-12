@@ -753,6 +753,19 @@ html.glass-fx-ready .glass-surface {
   -webkit-backdrop-filter: var(--glass-s-blur) url(#glass-distortion-lg);
   backdrop-filter: var(--glass-s-blur) url(#glass-distortion-lg);
 }
+/* The bento hub is the one place five `.glass-surface` cards are ever
+   composited at once (every other `.glass-surface` on the site appears one or
+   two at a time). Five simultaneous `feDisplacementMap` refractions chained
+   onto `backdrop-filter` measurably cost more idle frame budget than the rest
+   of the homepage combined — confirmed by profiling, not assumed. Blur and
+   saturation (the actual glass material — translucency, rim light, cast
+   shadow) are untouched; only the extra per-pixel warp drops here, and only
+   here. Declared after the rule above so the cascade lets it win by source
+   order without needing higher specificity. */
+html.glass-fx-ready .bento-cell {
+  -webkit-backdrop-filter: var(--glass-s-blur);
+  backdrop-filter: var(--glass-s-blur);
+}
 html.glass-fx-ready .glass-panel {
   -webkit-backdrop-filter: blur(32px) saturate(200%) url(#glass-distortion-lg);
   backdrop-filter: blur(32px) saturate(200%) url(#glass-distortion-lg);
