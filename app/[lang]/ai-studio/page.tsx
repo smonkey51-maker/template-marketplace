@@ -53,7 +53,7 @@ export default function AIStudioPage() {
             }}
           >
             {steps.map((step) => (
-              <div key={step.icon} className="glass-surface" style={{ padding: "28px 24px" }}>
+              <div key={step.icon} className="m3-surface" style={{ padding: "28px 24px" }}>
                 <div
                   style={{
                     fontFamily: "var(--font-cormorant), Georgia, serif",
@@ -109,7 +109,7 @@ export default function AIStudioPage() {
               {examples.map((ex) => (
                 <div
                   key={ex.prompt}
-                  className="glass-surface"
+                  className="m3-surface"
                   style={{
                     padding: "20px 24px",
                     display: "flex",

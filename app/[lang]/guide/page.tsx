@@ -108,7 +108,7 @@ export default function GuidePage() {
                 {g.uiTags.map((tag: string) => (
                   <span
                     key={tag}
-                    className="r-pill glass-subtle px-2.5 py-1 text-[11px] font-semibold text-muted"
+                    className="r-pill m3-surface-container px-2.5 py-1 text-[11px] font-semibold text-muted"
                   >
                     {tag}
                   </span>
@@ -156,7 +156,7 @@ export default function GuidePage() {
                 {g.promptTags.map((tag: string) => (
                   <span
                     key={tag}
-                    className="r-pill glass-subtle px-2.5 py-1 text-[11px] font-semibold text-muted"
+                    className="r-pill m3-surface-container px-2.5 py-1 text-[11px] font-semibold text-muted"
                   >
                     {tag}
                   </span>

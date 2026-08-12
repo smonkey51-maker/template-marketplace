@@ -743,8 +743,7 @@ function UIThumbnail({
       <div
         className="absolute top-2 left-2 z-20 flex items-center gap-1 px-1.5 py-0.5"
         style={{
-          background: "rgba(0,0,0,0.48)",
-          backdropFilter: "blur(6px)",
+          background: "rgba(0,0,0,0.62)",
           border: "1px solid rgba(255,255,255,0.12)",
         }}
       >
@@ -758,8 +757,7 @@ function UIThumbnail({
         <div
           className="absolute top-2 right-2 z-20 px-1.5 py-0.5"
           style={{
-            background: template.editorsPick ? "var(--accent)" : "rgba(0,0,0,0.48)",
-            backdropFilter: "blur(6px)",
+            background: template.editorsPick ? "var(--accent)" : "rgba(0,0,0,0.62)",
             border: template.editorsPick ? "none" : "1px solid rgba(255,255,255,0.18)",
           }}
         >
@@ -784,7 +782,7 @@ function UIThumbnail({
 function PurchasedBadge({ lang }: { lang: Lang }) {
   return (
     <span
-      className="absolute bottom-3 left-3 z-10 flex items-center gap-1 px-2.5 py-1 text-[11px] font-semibold backdrop-blur-sm"
+      className="absolute bottom-3 left-3 z-10 flex items-center gap-1 px-2.5 py-1 text-[11px] font-semibold"
       style={{ background: "var(--success)", color: "var(--bg)" }}
     >
       <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden>
@@ -934,7 +932,7 @@ export default function TemplateCard({
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-250 pointer-events-none flex items-center justify-center">
             <span
               className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-[11px] font-bold uppercase tracking-widest text-white/90 border border-white/30 px-3 py-1.5"
-              style={{ background: "rgba(0,0,0,0.45)", backdropFilter: "blur(4px)" }}
+              style={{ background: "rgba(0,0,0,0.62)" }}
             >
               {lang === "it" ? "Anteprima" : "Preview"}
             </span>

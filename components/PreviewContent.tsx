@@ -279,13 +279,13 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
       </div>
 
       {/* ── Mobile/Desktop toggle (UI only) ── */}
-      {/* A segmented control, which is exactly what .glass-surface-pill is for.
+      {/* A segmented control, which is exactly what .m3-surface-pill is for.
           It was hand-rolled with a raw blur and, having no radius at all, was
           one of the few genuinely square-cornered surfaces left on a site whose
           design system says there are none. */}
       {template.category === "ui" && (
         <div
-          className="glass-surface-pill fixed z-50 flex items-center"
+          className="m3-surface-pill fixed z-50 flex items-center"
           style={{
             top: "max(1rem, env(safe-area-inset-top, 1rem))",
             left: "50%",
@@ -426,10 +426,10 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
       </div>
 
       {/* ── Fixed bottom CTA bar ── */}
-      {/* .glass-bar, not a hand-rolled blur — see the class in globals.css. The
+      {/* .m3-bar, not a hand-rolled blur — see the class in globals.css. The
           manually drawn top hairline went with it: the rim is part of the
           material now. */}
-      <div className="glass-bar cta-bar-enter fixed bottom-0 inset-x-0 z-50">
+      <div className="m3-bar cta-bar-enter fixed bottom-0 inset-x-0 z-50">
         <div className="max-w-2xl mx-auto px-4 py-3 sm:py-4">
           {/* Price — hero element, immediately visible */}
           <div className="flex items-center justify-between mb-2">
@@ -462,7 +462,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
               <Link
                 key={tag}
                 href={`/${lang}?q=${encodeURIComponent(tag)}`}
-                className="r-pill text-[10px] text-muted glass-subtle px-2 py-0.5 border border-theme
+                className="r-pill text-[10px] text-muted m3-surface-container px-2 py-0.5 border border-theme
                   hover:text-theme hover:border-theme/60 transition-colors duration-200"
               >
                 {tag}
@@ -489,7 +489,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
               />
               <Link
                 href={`/${lang}/studio?templateId=${template.id}`}
-                className="r-pill block w-full px-5 py-3 glass-subtle font-bold text-[14px] text-theme text-center transition-all duration-200 active:scale-[0.97] ios-spring"
+                className="r-pill block w-full px-5 py-3 m3-surface-container font-bold text-[14px] text-theme text-center transition-all duration-200 active:scale-[0.97] ios-spring"
               >
                 {t[lang].preview.openStudio}
               </Link>

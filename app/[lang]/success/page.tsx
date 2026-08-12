@@ -152,7 +152,7 @@ function SuccessContent() {
           {isSignedIn && (
             <Link
               href={`/${lang}/studio`}
-              className="r-pill block w-full px-6 py-3.5 glass-subtle font-bold text-[14px] text-theme text-center transition-all duration-200 active:scale-[0.97] ios-spring"
+              className="r-pill block w-full px-6 py-3.5 m3-surface-container font-bold text-[14px] text-theme text-center transition-all duration-200 active:scale-[0.97] ios-spring"
             >
               {lang === "it" ? "Personalizza con AI Studio →" : "Customize with AI Studio →"}
             </Link>
@@ -238,7 +238,7 @@ function SuccessContent() {
                 </p>
                 <Link
                   href={`/${lang}/sign-up?redirect_url=${encodeURIComponent(`/${lang}/account`)}`}
-                  className="r-pill block w-full px-5 py-3 glass-subtle font-bold text-[14px] text-theme text-center transition-all duration-200 active:scale-[0.97] ios-spring"
+                  className="r-pill block w-full px-5 py-3 m3-surface-container font-bold text-[14px] text-theme text-center transition-all duration-200 active:scale-[0.97] ios-spring"
                 >
                   {lang === "it" ? "Crea account gratuito →" : "Create free account →"}
                 </Link>
@@ -248,7 +248,7 @@ function SuccessContent() {
             {isSignedIn && template && (
               <Link
                 href={`/${lang}/studio?templateId=${template.id}`}
-                className="r-pill block w-full px-6 py-3.5 glass-subtle font-bold text-[15px] text-theme text-center transition-all duration-200 active:scale-[0.97] ios-spring"
+                className="r-pill block w-full px-6 py-3.5 m3-surface-container font-bold text-[15px] text-theme text-center transition-all duration-200 active:scale-[0.97] ios-spring"
               >
                 {t[lang].success.customizeStudio}
               </Link>

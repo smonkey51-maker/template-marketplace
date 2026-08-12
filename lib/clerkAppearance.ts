@@ -32,7 +32,7 @@ export const clerkAppearance: Appearance = {
       backgroundColor: "var(--card-bg)",
       border: "1px solid var(--card-border)",
       borderRadius: "var(--glass-radius)",
-      boxShadow: "var(--glass-shadow)",
+      boxShadow: "var(--elev-3)",
     },
     headerTitle: {
       fontFamily: "var(--font-syne), sans-serif",

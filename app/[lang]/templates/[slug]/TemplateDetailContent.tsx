@@ -36,7 +36,7 @@ export function TemplateDetailContent({
       >
         {/* Navigation Breadcrumb (Floating Pill) */}
         <div className="flex justify-center mb-10">
-          <nav className="glass-pill px-6 py-2 flex gap-3 text-[11px] font-semibold uppercase tracking-widest text-muted items-center">
+          <nav className="m3-surface-pill px-6 py-2 flex gap-3 text-[11px] font-semibold uppercase tracking-widest text-muted items-center">
             <Link
               href={`/${lang}`}
               className="flex items-center min-h-[24px] hover:text-accent transition-colors"
@@ -61,7 +61,7 @@ export function TemplateDetailContent({
         </div>
 
         {/* The Glass Sheet */}
-        <article className="glass-panel overflow-hidden mb-24">
+        <article className="m3-panel overflow-hidden mb-24">
           {/* The static thumbnail, not the live iframe.
               TemplatePreview lays the template out at its 1440px design width
               and scales the whole thing down to the container — on a ~390px

@@ -60,11 +60,9 @@ export default function SectionNav() {
         style={{
           height: "56px",
           paddingTop: "env(safe-area-inset-top, 0px)",
-          background: "rgba(5,4,2,0.46)",
-          backdropFilter: "blur(30px) saturate(190%)",
-          WebkitBackdropFilter: "blur(30px) saturate(190%)",
+          background: "rgba(5,4,2,0.86)",
           borderBottom: "1px solid var(--spatial-rim)",
-          boxShadow: "0 8px 28px -12px rgba(0,0,0,0.6), inset 0 1px 0 var(--spatial-rim)",
+          boxShadow: "var(--elev-2)",
         }}
       >
         <div

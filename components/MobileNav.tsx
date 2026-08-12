@@ -172,7 +172,7 @@ export default function MobileNav() {
 
   return (
     <nav
-      className={`glass-bar sm:hidden fixed bottom-0 inset-x-0 z-[90] flex ${reduced ? "" : "transition-all duration-500 ease-out"} ${mounted ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
+      className={`m3-bar sm:hidden fixed bottom-0 inset-x-0 z-[90] flex ${reduced ? "" : "transition-all duration-500 ease-out"} ${mounted ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
       style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
     >
       {tabs.map((tab) => {
