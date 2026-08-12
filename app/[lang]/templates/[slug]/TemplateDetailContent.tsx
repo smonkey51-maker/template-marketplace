@@ -21,6 +21,13 @@ export function TemplateDetailContent({
   const t = (k: keyof typeof copy.it) => copy[lang][k];
   const name = getLocalizedName(item, lang);
 
+  // "Features" used to be a fixed list of 4 lines identical on all 16
+  // products — it said nothing about the specific one. These chips derive
+  // from what the product already has: its kind label and its own tags.
+  const highlights = Array.from(
+    new Set([getKindLabel(item, lang), ...item.tags.slice(0, 2)]),
+  ).slice(0, 3);
+
   return (
     <>
       <main
@@ -117,22 +124,27 @@ export function TemplateDetailContent({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 border-t border-theme pt-12">
               <div>
                 <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-accent mb-6">
-                  Features
+                  {lang === "it" ? "Cosa contiene" : "What's inside"}
                 </h3>
-                <ul className="space-y-3 text-muted text-sm sm:text-base">
-                  <li className="flex items-center gap-3">
-                    <span className="text-accent">✓</span> Accesso immediato
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="text-accent">✓</span> Uso commerciale limitato
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="text-accent">✓</span> Supporto prioritario
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="text-accent">✓</span> Rimborso entro 14 giorni
-                  </li>
-                </ul>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {highlights.map((h) => (
+                    <span
+                      key={h}
+                      className="r-pill text-sm px-3 py-1.5"
+                      style={{
+                        border: "1px solid rgba(var(--accent-rgb), 0.3)",
+                        color: "var(--accent)",
+                      }}
+                    >
+                      {h}
+                    </span>
+                  ))}
+                </div>
+                <p className="text-muted text-xs uppercase tracking-wide">
+                  {lang === "it"
+                    ? "Accesso immediato · Rimborso entro 14 giorni"
+                    : "Immediate access · 14-day refund"}
+                </p>
               </div>
 
               <div className="fn-buy-box flex flex-col justify-end bg-black/10 rounded-3xl p-8 border border-theme">

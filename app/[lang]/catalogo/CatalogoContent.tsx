@@ -877,7 +877,7 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                           document.body.style.overflow = "";
                         }}
                       >
-                        {t("download")}
+                        {lang === "it" ? "Anteprima" : "Preview"}
                       </Link>
                       <Link
                         href={`/${lang}/templates/${activeItem.id}`}
@@ -886,7 +886,7 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                           document.body.style.overflow = "";
                         }}
                       >
-                        Acquista Ora
+                        {lang === "it" ? "Acquista ora" : "Buy now"}
                       </Link>
                     </div>
                   </div>
