@@ -35,9 +35,10 @@ export default function MobileNav() {
   const routeKey = pathname.replace(/^\/(it|en)/, "") || "/";
 
   // Only show on mobile (handled via CSS), hide on pages that put their own bar
-  // at the bottom of the viewport. This pill is `bottom-6 z-[90]`, centred; a
-  // page-level bottom bar is `bottom-0 z-50`, full width — so the pill lands on
-  // top of it rather than beside it, and the page's own control loses.
+  // at the bottom of the viewport. This nav is `bottom-0 z-[90]`, full width;
+  // a page-level bottom bar is `bottom-0 z-50` — same edge, and the higher
+  // z-index means this one would render directly on top of it, hiding it
+  // completely rather than sharing the edge, and the page's own control loses.
   //
   // `/bundle` is here because that is exactly what was happening: the bundle
   // page's fixed CTA bar carries the "Acquista bundle" button, and the floating
@@ -170,106 +171,47 @@ export default function MobileNav() {
   ];
 
   return (
-    <div
-      className={`sm:hidden fixed bottom-6 inset-x-0 z-[90] flex justify-center pointer-events-none ${reduced ? "" : "transition-all duration-500 ease-out"} ${mounted ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
+    <nav
+      className={`glass-bar sm:hidden fixed bottom-0 inset-x-0 z-[90] flex ${reduced ? "" : "transition-all duration-500 ease-out"} ${mounted ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
+      style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
     >
-      <nav
-        className="glass-surface-pill pointer-events-auto flex items-center justify-center"
-        style={{ padding: "5px 24px", gap: "36px" }}
-      >
-        {tabs.map((tab) => {
-          const active = pendingHref ? tab.href === pendingHref : tab.active;
-          return (
-            // Every tab is a fixed 64×64 slot at all times — the pill's total
-            // width is invariant by construction, not just "constant if the
-            // math works out". Only the circle *inside* the slot grows or
-            // shrinks, via `transform: scale()` rather than animating
-            // width/height directly: a width/height transition forces a
-            // layout recalculation on every frame, which is exactly the kind
-            // of animation that looks fine on a dev machine and janks on a
-            // real phone. transform + opacity are compositor-only — no
-            // layout, no repaint of surrounding elements.
-            <Link
-              key={tab.href}
-              href={tab.href}
-              aria-label={tab.label}
-              aria-current={active ? "page" : undefined}
-              onClick={() => setPendingHref(tab.href)}
-              className={`relative flex items-center justify-center rounded-full active:scale-95 ${
-                active ? "" : "text-muted hover:text-theme"
-              }`}
+      {tabs.map((tab) => {
+        const active = pendingHref ? tab.href === pendingHref : tab.active;
+        return (
+          <Link
+            key={tab.href}
+            href={tab.href}
+            aria-label={tab.label}
+            aria-current={active ? "page" : undefined}
+            onClick={() => setPendingHref(tab.href)}
+            className="relative flex-1 flex flex-col items-center justify-center gap-1 py-2.5 active:scale-95 transition-transform duration-150"
+          >
+            <span
+              aria-hidden
+              className="flex items-center justify-center r-md"
               style={{
-                width: "64px",
-                height: "64px",
-                color: active ? "var(--accent)" : undefined,
-                // Both properties in one inline `transition`, deliberately:
-                // an inline `transition` shorthand overrides a class-based
-                // `transition-property` for any longhand it touches, so a
-                // separate Tailwind `transition-transform` class here would
-                // have silently lost the color transition (or vice versa).
-                transition: "color 200ms ease-out, transform 150ms ease-out",
+                width: "38px",
+                height: "30px",
+                color: active ? "var(--accent)" : "var(--muted)",
+                background: active ? "rgba(var(--accent-rgb), 0.16)" : "transparent",
+                transition: "background-color 200ms ease-out, color 200ms ease-out",
               }}
             >
-              <span
-                aria-hidden
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  transform: active ? "scale(1)" : "scale(0.625)",
-                  opacity: active ? 1 : 0,
-                  transition: "transform 200ms ease-out, opacity 200ms ease-out",
-                }}
-              >
-                <span
-                  className="absolute left-1/2 -translate-x-1/2 rounded-full"
-                  style={{
-                    bottom: "-6px",
-                    width: "56px",
-                    height: "32px",
-                    background:
-                      "radial-gradient(closest-side, rgba(var(--accent-rgb), 0.45) 0%, rgba(var(--accent-rgb), 0.15) 55%, transparent 80%)",
-                    filter: "blur(10px)",
-                    zIndex: 0,
-                  }}
-                />
-                <span
-                  className="absolute inset-0 rounded-full"
-                  style={{
-                    background: "rgba(255, 255, 255, 0.06)",
-                    backdropFilter: "blur(10px)",
-                    WebkitBackdropFilter: "blur(10px)",
-                    border: "1px solid rgba(255, 255, 255, 0.1)",
-                    boxShadow: "inset 0 1px 0 rgba(255, 255, 255, 0.12)",
-                    zIndex: 1,
-                  }}
-                />
-              </span>
-              <span
-                className="relative flex items-center justify-center"
-                style={{ zIndex: 2, width: "25px", height: "25px" }}
-              >
-                {tab.icon(active)}
-              </span>
-              <span
-                aria-hidden
-                className="absolute rounded-sm pointer-events-none"
-                style={{
-                  bottom: "-9px",
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  width: "12px",
-                  height: "4px",
-                  borderRadius: "2px",
-                  background: "#fbead0",
-                  boxShadow: "0 0 12px 4px rgba(var(--accent-rgb), 0.9)",
-                  zIndex: 2,
-                  opacity: active ? 1 : 0,
-                  transition: "opacity 200ms ease-out",
-                }}
-              />
-            </Link>
-          );
-        })}
-      </nav>
-    </div>
+              {tab.icon(active)}
+            </span>
+            <span
+              className="text-[10.5px] leading-none tracking-wide"
+              style={{
+                color: active ? "var(--text)" : "var(--muted)",
+                fontWeight: active ? 700 : 600,
+                transition: "color 200ms ease-out",
+              }}
+            >
+              {tab.label}
+            </span>
+          </Link>
+        );
+      })}
+    </nav>
   );
 }

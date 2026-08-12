@@ -88,8 +88,9 @@ export function FormaFooter() {
       style={{
         borderTop: "1px solid var(--fn-border, rgba(234,234,234,.10))",
         background: "var(--surface)",
-        // Bottom padding clears the floating MobileNav pill (bottom-6, ~56px
-        // tall): without it the trust badges row and copyright — the very
+        // Bottom padding clears MobileNav, the full-width tab bar pinned to
+        // the viewport edge (~65px tall, plus the safe-area inset added
+        // below): without it the trust badges row and copyright — the very
         // last thing in the document — render right underneath it.
         padding: "64px 36px calc(140px + env(safe-area-inset-bottom, 0px))",
       }}
