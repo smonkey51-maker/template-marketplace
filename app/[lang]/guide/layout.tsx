@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "How to Use Atelier Nove — Guide",
+  title: "How to Use FORMA — Guide",
   description:
-    "Learn how to use Atelier Nove: browse premium HTML and prompt templates, customize them with Claude AI, and deploy in seconds. No code required.",
+    "Learn how to use FORMA: browse premium HTML and prompt templates, customize them with Claude AI, and deploy in seconds. No code required.",
   openGraph: {
-    title: "How to Use Atelier Nove — Guide",
+    title: "How to Use FORMA — Guide",
     description:
       "Browse premium templates, customize with AI, and deploy instantly. Step-by-step guide.",
   },

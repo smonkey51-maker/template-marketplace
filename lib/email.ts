@@ -1,7 +1,6 @@
 import { Resend } from "resend";
 
-const FROM =
-  process.env.RESEND_FROM ?? "Atelier Nove <noreply@template-marketplace-psi.vercel.app>";
+const FROM = process.env.RESEND_FROM ?? "FORMA <noreply@template-marketplace-psi.vercel.app>";
 
 type PurchaseEmailParams = {
   to: string;
@@ -20,7 +19,7 @@ export async function sendPurchaseEmail(params: PurchaseEmailParams) {
 
   const subject =
     type === "studio"
-      ? "✦ Studio Access attivato — Atelier Nove"
+      ? "✦ Studio Access attivato — FORMA"
       : `Il tuo acquisto è pronto — ${itemName}`;
 
   const accentColor = type === "studio" ? "#C4622D" : "#C8A96E";
@@ -55,7 +54,7 @@ export async function sendPurchaseEmail(params: PurchaseEmailParams) {
       <table width="560" cellpadding="0" cellspacing="0" role="presentation" style="background:#1c1c1e;border-radius:24px;overflow:hidden;max-width:100%;">
         <!-- Header -->
         <tr><td style="background:linear-gradient(135deg,#0a84ff 0%,#5e5ce6 100%);padding:28px 36px;">
-          <p style="margin:0;font-size:20px;font-weight:800;color:#fff;letter-spacing:-0.5px;">Atelier Nove</p>
+          <p style="margin:0;font-size:20px;font-weight:800;color:#fff;letter-spacing:-0.5px;">FORMA</p>
           <p style="margin:4px 0 0;font-size:13px;color:rgba(255,255,255,0.65);">AI-Powered Template Marketplace</p>
         </td></tr>
         <!-- Body -->
@@ -72,7 +71,7 @@ export async function sendPurchaseEmail(params: PurchaseEmailParams) {
         </td></tr>
         <!-- Footer -->
         <tr><td style="background:#111113;padding:16px 36px;text-align:center;">
-          <p style="margin:0;font-size:11px;color:#3a3a3c;">© 2026 Atelier Nove. Tutti i diritti riservati.</p>
+          <p style="margin:0;font-size:11px;color:#3a3a3c;">© 2026 FORMA. Tutti i diritti riservati.</p>
         </td></tr>
       </table>
     </td></tr>
@@ -99,7 +98,7 @@ export function buildNewsletterHtml(title: string, body: string): string {
     <tr><td align="center" style="padding:40px 16px;">
       <table width="560" cellpadding="0" cellspacing="0" role="presentation" style="background:#1c1c1e;border-radius:24px;overflow:hidden;max-width:100%;">
         <tr><td style="background:linear-gradient(135deg,#0a84ff 0%,#5e5ce6 100%);padding:28px 36px;">
-          <p style="margin:0;font-size:20px;font-weight:800;color:#fff;letter-spacing:-0.5px;">Atelier Nove</p>
+          <p style="margin:0;font-size:20px;font-weight:800;color:#fff;letter-spacing:-0.5px;">FORMA</p>
           <p style="margin:4px 0 0;font-size:13px;color:rgba(255,255,255,0.65);">AI-Powered Template Marketplace</p>
         </td></tr>
         <tr><td style="padding:32px 36px;">
@@ -112,7 +111,7 @@ export function buildNewsletterHtml(title: string, body: string): string {
           </p>
         </td></tr>
         <tr><td style="background:#111113;padding:16px 36px;text-align:center;">
-          <p style="margin:0;font-size:11px;color:#3a3a3c;">© 2026 Atelier Nove. Tutti i diritti riservati.</p>
+          <p style="margin:0;font-size:11px;color:#3a3a3c;">© 2026 FORMA. Tutti i diritti riservati.</p>
         </td></tr>
       </table>
     </td></tr>

@@ -25,7 +25,7 @@ test.describe("Home page", () => {
     const response = await request.get("/");
     expect(response.status()).toBe(200);
     expect(response.url()).toMatch(/\/(it|en)\/?$/);
-    expect(await response.text()).toMatch(/<title>[^<]*Atelier Nove[^<]*<\/title>/i);
+    expect(await response.text()).toMatch(/<title>[^<]*FORMA[^<]*<\/title>/i);
   });
 
   test("sitemap is accessible", async ({ request }) => {

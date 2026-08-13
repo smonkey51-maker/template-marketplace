@@ -12,7 +12,7 @@ import { FormaFooter } from "@/components/FormaFooter";
  * This replaced the bento hub (four destination cells over painting
  * backgrounds), which itself had replaced five stacked full-viewport
  * sections — see git history for that migration's reasoning. This one
- * follows the Atelier Nove rebrand's Figma prototype: a static editorial
+ * follows the FORMA rebrand's Figma prototype: a static editorial
  * hero next to/above a masonry gallery wall, rather than a grid of
  * destination tiles. The four destinations the bento hub surfaced
  * (Catalogo/Guida/Studio/Account) live in SectionNav and SiteNav instead,

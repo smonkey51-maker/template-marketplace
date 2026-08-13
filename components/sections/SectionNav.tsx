@@ -79,7 +79,7 @@ export default function SectionNav() {
           {/* Logo center — bigger and bolder than the old snap-nav treatment,
               so the wordmark reads as the site's identity, not a footnote. */}
           <div className="flex justify-center">
-            <Link href={`/${lang}`} aria-label="Atelier Nove — Home" className="flex items-center">
+            <Link href={`/${lang}`} aria-label="FORMA — Home" className="flex items-center">
               <FormaLogoStatic className="w-36 sm:w-48 h-auto opacity-95 hover:opacity-100 transition-opacity" />
             </Link>
           </div>

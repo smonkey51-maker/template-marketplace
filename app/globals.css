@@ -4,7 +4,7 @@
 
 /* ═══════════════════════════════════════════════════════════
    Specular-highlight custom properties — kept registered (some card rules
-   still reference them) but pinned to zero. The Atelier Nove rebrand
+   still reference them) but pinned to zero. The FORMA rebrand
    retired the liquid-glass material (pointer-tracked highlight, idle sweep,
    squircle masking); GlassEnhancements.tsx is no longer mounted, and
    surfaces read as flat paper instead of glass.
@@ -26,7 +26,7 @@
 }
 
 /* ═══════════════════════════════════════════════════════════
-   ATELIER NOVE homepage sections
+   FORMA homepage sections
    ═══════════════════════════════════════════════════════════ */
 
 /* One viewport tall as a floor, not a ceiling: `height` clipped any section
@@ -273,7 +273,7 @@ body {
    THEME VARIABLES
    ═══════════════════════════════════════════════════════════ */
 :root {
-  /* ── Light mode: Atelier Nove — warm paper + bordeaux ── */
+  /* ── Light mode: FORMA — warm paper + bordeaux ── */
   --bg: #f4f0e8;
   --surface: #fbf9f4;
   --surface-2: #e7e0d3;
@@ -288,7 +288,7 @@ body {
   --input-bg: rgba(28, 26, 23, 0.04);
   --btn-ghost-border: rgba(28, 26, 23, 0.18);
   --btn-ghost-border-hover: rgba(28, 26, 23, 0.72);
-  /* Border radius tokens — Atelier Nove editorial scale. Sharp corners on
+  /* Border radius tokens — FORMA editorial scale. Sharp corners on
      purpose: this replaced the rounded squircle/pill system (see the DEPTH
      block below for the flat-paper material that replaced liquid glass). */
   --r-sm: 2px;
@@ -302,7 +302,7 @@ body {
   --spec-hot: transparent;
   --spec-mid: transparent;
   --divider: rgba(28, 26, 23, 0.1);
-  /* Atelier Nove accent — bordeaux, one accent for the whole site (no more
+  /* FORMA accent — bordeaux, one accent for the whole site (no more
      per-room "gallery" accents; the [data-section] overrides below were
      removed so every page reads as one coherent gallery, not separate
      rooms). --gold/--gold-soft keep their historical names for compat with
@@ -359,7 +359,7 @@ body {
   --skeleton-bg: #f2f2f7;
   /* Pillar heading */
   --pillar-name-color: var(--gold-soft);
-  /* Atelier Nove tokens — light */
+  /* FORMA tokens — light */
   --forma-bg: var(--bg);
   --forma-bg-alt: var(--surface);
   --forma-bg-dark-section: #f0e4cc;
@@ -374,7 +374,7 @@ body {
   /* Fraunces — primary display font for the entire site. Named --font-gatsunaga
      for compat with existing references (Slingday, its predecessor, is gone). */
   --font-gatsunaga: var(--font-fraunces), Georgia, serif;
-  /* ATELIER NOVE spacing scale */
+  /* FORMA spacing scale */
   --sp-1: 8px;
   --sp-2: 16px;
   --sp-3: 24px;
@@ -383,7 +383,7 @@ body {
   --sp-6: 120px;
 }
 
-/* Atelier Nove is one gallery, not separate rooms: the former
+/* FORMA is one gallery, not separate rooms: the former
    [data-section] per-room accent overrides (catalogo/guida/studio/account)
    were retired in the rebrand so --accent stays bordeaux everywhere.
    SectionAccent.tsx still sets [data-section] on <html> for anything that
@@ -444,7 +444,7 @@ h6 {
 }
 
 html.dark {
-  /* ── Dark mode: Atelier Nove — ink + warm paper text, lightened bordeaux ──
+  /* ── Dark mode: FORMA — ink + warm paper text, lightened bordeaux ──
      The Figma prototype only specifies a light "paper" mode; this is its
      coherent dark companion (same bordeaux family, tuned to read on ink
      instead of paper), kept as the site's optional dark theme. */
@@ -470,7 +470,7 @@ html.dark {
   --spec-hot: transparent;
   --spec-mid: transparent;
   --divider: rgba(242, 236, 224, 0.1);
-  /* Atelier Nove accent — bordeaux, lightened for contrast on ink. Same
+  /* FORMA accent — bordeaux, lightened for contrast on ink. Same
      single-accent system as light mode; see the light :root note above. */
   --accent: #c1716a;
   --gold: var(--accent);
@@ -523,7 +523,7 @@ html.dark {
   --prompt-label: rgba(234, 234, 234, 0.45);
   /* Modal skeleton */
   --skeleton-bg: #1e1e1e;
-  /* Pillar heading — ATELIER NOVE gold in dark mode */
+  /* Pillar heading — FORMA gold in dark mode */
   --pillar-name-color: var(--gold-soft);
 }
 
@@ -643,7 +643,7 @@ html.dark {
   --glass-bar-fill: var(--surface);
   --glass-bar-blur: none;
 
-  /* Atelier Nove editorial radius — sharp corners, not rounded glass. */
+  /* FORMA editorial radius — sharp corners, not rounded glass. */
   --glass-radius: var(--r-md);
 }
 html.dark {
@@ -671,7 +671,7 @@ html.dark {
 }
 .r-pill {
   /* Kept for compat with existing className references; the pill shape
-     itself was retired in the Atelier Nove rebrand, so this now renders
+     itself was retired in the FORMA rebrand, so this now renders
      the same sharp radius as everything else. */
   border-radius: var(--r-md);
 }
@@ -679,7 +679,7 @@ html.dark {
 /* The shared sheet. Anything raised on an inner page builds on this — a flat
    paper card: opaque fill, one load-bearing rim border, a small cast shadow.
    No blur, no specular highlight, no squircle mask: the liquid-glass material
-   was retired in the Atelier Nove rebrand. */
+   was retired in the FORMA rebrand. */
 .glass-surface {
   background-color: var(--glass-s-fill);
   border: 1px solid var(--glass-s-rim);
@@ -813,7 +813,7 @@ button:active,
     filter 0.6s ease;
 }
 
-/* ── Dark mode: Atelier Nove ink, flat (no ambient glow) ── */
+/* ── Dark mode: FORMA ink, flat (no ambient glow) ── */
 html.dark {
   background-color: var(--bg);
   background-image: none;
@@ -2736,7 +2736,7 @@ html.dark {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   ATELIER NOVE V2 — legacy named tokens (kept for component compat)
+   FORMA V2 — legacy named tokens (kept for component compat)
    ═══════════════════════════════════════════════════════════ */
 :root {
   --sumi: #1a0e06;
@@ -2748,7 +2748,7 @@ html.dark {
   --border-sumi-strong: rgba(26, 14, 6, 0.22);
 }
 
-/* ── Atelier Nove v2 typography helpers ── */
+/* ── FORMA v2 typography helpers ── */
 .forma-serif {
   font-family: var(--font-fraunces), Georgia, serif;
   font-weight: 400;
@@ -2795,7 +2795,7 @@ html.dark {
   opacity: 0.14;
 }
 
-/* ── Atelier Nove v2 fade-in on scroll ──
+/* ── FORMA v2 fade-in on scroll ──
    NOTE: keyframe is namespaced (forma-v2-fade-up). It used to be called
    forma-fade-up, which silently overrode the snap-section entrance
    keyframe of the same name defined at the top of this file. */
@@ -2813,7 +2813,7 @@ html.dark {
   animation: forma-v2-fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* ── Atelier Nove v2 theming CSS vars — defined in :root and .dark above ── */
+/* ── FORMA v2 theming CSS vars — defined in :root and .dark above ── */
 .dark {
   --forma-bg: var(--bg);
   --forma-bg-alt: rgba(26, 18, 9, 0.95);
@@ -2853,7 +2853,7 @@ html.dark {
   }
 }
 
-/* ── Atelier Nove masthead — responsive letter-spacing for mobile ── */
+/* ── FORMA masthead — responsive letter-spacing for mobile ── */
 @media (max-width: 639px) {
   .forma-masthead {
     letter-spacing: 0.18em !important;
@@ -2878,7 +2878,7 @@ html.dark {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   ATELIER NOVE APPLE — multiplatform design system (v2)
+   FORMA APPLE — multiplatform design system (v2)
    ═══════════════════════════════════════════════════════════ */
 
 /* ── Page wrapper ── */
@@ -3390,7 +3390,7 @@ html.dark {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   ATELIER NOVE — editorial system (v5)
+   FORMA — editorial system (v5)
    Palette adapts to theme via CSS vars.
    Dark:  bg #060606 · surface #0f0f0f · text #eaeaea · muted #8a8a8a
    Light: bg #FDFAF5 · surface #F5EFE3 · text #1C1610 · muted rgba(26,14,6,.55)

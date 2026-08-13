@@ -20,7 +20,7 @@ export default function PrivacyPage() {
             marginBottom: "16px",
           }}
         >
-          Privacy · Atelier Nove
+          Privacy · FORMA
         </p>
         <h1
           style={{
@@ -45,9 +45,9 @@ export default function PrivacyPage() {
               Dati raccolti
             </h2>
             <p>
-              Atelier Nove raccoglie i dati minimi necessari per fornire il servizio: indirizzo
-              email (tramite Clerk per l'autenticazione), dati di pagamento processati da Stripe
-              (non archiviamo numeri di carta), e indirizzi email degli iscritti alla newsletter.
+              FORMA raccoglie i dati minimi necessari per fornire il servizio: indirizzo email
+              (tramite Clerk per l'autenticazione), dati di pagamento processati da Stripe (non
+              archiviamo numeri di carta), e indirizzi email degli iscritti alla newsletter.
             </p>
           </section>
 

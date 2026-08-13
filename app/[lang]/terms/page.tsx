@@ -20,7 +20,7 @@ export default function TermsPage() {
             marginBottom: "16px",
           }}
         >
-          Legale · Atelier Nove
+          Legale · FORMA
         </p>
         <h1
           style={{
@@ -45,9 +45,9 @@ export default function TermsPage() {
               Acquisto e licenza
             </h2>
             <p>
-              Acquistando un template su Atelier Nove ottieni una licenza personale, non esclusiva e
-              non trasferibile per utilizzarlo in un progetto commerciale o personale. Non è
-              consentita la rivendita, redistribuzione o sub-licenza del template.
+              Acquistando un template su FORMA ottieni una licenza personale, non esclusiva e non
+              trasferibile per utilizzarlo in un progetto commerciale o personale. Non è consentita
+              la rivendita, redistribuzione o sub-licenza del template.
             </p>
           </section>
 
@@ -87,7 +87,7 @@ export default function TermsPage() {
               Proprietà intellettuale
             </h2>
             <p>
-              I template sono di proprietà di Atelier Nove. L'utilizzo è consentito nei limiti della
+              I template sono di proprietà di FORMA. L'utilizzo è consentito nei limiti della
               licenza acquistata. Il codice generato dall'AI Studio è di tua proprietà una volta
               scaricato.
             </p>
@@ -101,8 +101,8 @@ export default function TermsPage() {
               Limitazione di responsabilità
             </h2>
             <p>
-              Atelier Nove fornisce i template "così come sono". Non siamo responsabili per danni
-              indiretti derivanti dall'uso dei template o dell'AI Studio.
+              FORMA fornisce i template "così come sono". Non siamo responsabili per danni indiretti
+              derivanti dall'uso dei template o dell'AI Studio.
             </p>
           </section>
         </div>

@@ -80,7 +80,7 @@ export async function GET(req: NextRequest) {
               textTransform: "uppercase",
             }}
           >
-            Atelier Nove
+            FORMA
           </div>
           <div style={{ width: "1px", height: "18px", background: "rgba(28,26,23,0.14)" }} />
           <div style={{ fontSize: "14px", color: "rgba(28,26,23,0.4)", fontWeight: 500 }}>
@@ -212,7 +212,7 @@ export async function GET(req: NextRequest) {
             textTransform: "uppercase",
           }}
         >
-          Atelier Nove
+          FORMA
         </div>
         <div
           style={{

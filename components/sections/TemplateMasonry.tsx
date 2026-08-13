@@ -8,7 +8,7 @@ import { getKindLabel, getCatKey } from "@/lib/categories";
 import { TemplateThumb } from "@/components/TemplateThumb";
 
 /**
- * The homepage catalogue, as a masonry wall — the Atelier Nove rebrand's
+ * The homepage catalogue, as a masonry wall — the FORMA rebrand's
  * replacement for the bento hub's four destination cells. Every sellable
  * template gets one card (not a curated teaser): the brief was "tutti i
  * template", the gallery-wall read the Figma prototype's masonry direction

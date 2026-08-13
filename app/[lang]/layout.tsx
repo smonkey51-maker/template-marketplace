@@ -81,12 +81,12 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://template-marketpla
 // previews, where it is least likely to be noticed and most likely to matter.
 const SITE_META = {
   it: {
-    title: "Atelier Nove — Template come oggetti curati.",
+    title: "FORMA — Template come oggetti curati.",
     description:
       "Template digitali pronti all'uso: prompt AI, guide, fogli di calcolo e tracker. Ogni file è un gesto preciso, non una soluzione generica.",
   },
   en: {
-    title: "Atelier Nove — Templates as considered objects.",
+    title: "FORMA — Templates as considered objects.",
     description:
       "Ready-to-use digital templates: AI prompts, guides, spreadsheets and trackers. Every file is a precise gesture, not a generic solution.",
   },
@@ -106,15 +106,15 @@ export async function generateMetadata({
       default: m.title,
       // Pages set a bare title; this appends the brand. A page that spells the
       // suffix out itself gets it twice.
-      template: "%s — Atelier Nove",
+      template: "%s — FORMA",
     },
     description: m.description,
     openGraph: {
       type: "website",
-      siteName: "Atelier Nove",
+      siteName: "FORMA",
       title: m.title,
       description: m.description,
-      images: [{ url: `/api/og?lang=${lang}`, width: 1200, height: 630, alt: "Atelier Nove" }],
+      images: [{ url: `/api/og?lang=${lang}`, width: 1200, height: 630, alt: "FORMA" }],
     },
     twitter: {
       card: "summary_large_image",

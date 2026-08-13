@@ -6,7 +6,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        // Atelier Nove: Fraunces (display) + Inter (body). These utility
+        // FORMA: Fraunces (display) + Inter (body). These utility
         // names are kept for compat with existing className references
         // across the site, but now all resolve through the new pairing.
         gatsunaga: ["var(--font-gatsunaga)"],

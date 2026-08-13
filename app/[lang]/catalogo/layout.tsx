@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { toLocale } from "@/lib/locales";
 
-// The `title` field carries no " — Atelier Nove" suffix on purpose: the root layout
-// declares `template: "%s — Atelier Nove"`, which appends it. Spelling it out here too
-// produced "Catalogo Template — Atelier Nove — Atelier Nove" in the tab and in search results.
+// The `title` field carries no " — FORMA" suffix on purpose: the root layout
+// declares `template: "%s — FORMA"`, which appends it. Spelling it out here too
+// produced "Catalogo Template — FORMA — FORMA" in the tab and in search results.
 // The openGraph and twitter titles *do* keep the suffix, because the title
 // template is not applied to those fields.
 const META = {
@@ -35,14 +35,14 @@ export async function generateMetadata({
     title: m.title,
     description: m.description,
     openGraph: {
-      title: `${m.title} — Atelier Nove`,
+      title: `${m.title} — FORMA`,
       description: m.ogDescription,
       type: "website",
-      images: [{ url: "/api/og", width: 1200, height: 630, alt: "Atelier Nove" }],
+      images: [{ url: "/api/og", width: 1200, height: 630, alt: "FORMA" }],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${m.title} — Atelier Nove`,
+      title: `${m.title} — FORMA`,
       description: m.ogDescription,
     },
   };

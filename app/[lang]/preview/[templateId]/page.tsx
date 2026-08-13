@@ -36,7 +36,7 @@ export async function generateMetadata({
     description: description,
     alternates: { canonical: canonicalUrl },
     openGraph: {
-      title: `${name} — Atelier Nove`,
+      title: `${name} — FORMA`,
       description: description,
       type: "website",
       url: canonicalUrl,
@@ -44,7 +44,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: `${name} — Atelier Nove`,
+      title: `${name} — FORMA`,
       description: description,
       images: [ogImage],
     },
@@ -68,9 +68,9 @@ export default async function PreviewPage({
         description: getLocalizedDesc(template, lang),
         url: `${SITE_URL}/preview/${templateId}`,
         image: `${SITE_URL}/api/og?id=${templateId}&lang=${lang}`,
-        brand: { "@type": "Brand", name: "Atelier Nove" },
+        brand: { "@type": "Brand", name: "FORMA" },
         category: "UI Template",
-        seller: { "@type": "Organization", name: "Atelier Nove", url: SITE_URL },
+        seller: { "@type": "Organization", name: "FORMA", url: SITE_URL },
         offers: {
           "@type": "Offer",
           price: (template.price / 100).toFixed(2),
