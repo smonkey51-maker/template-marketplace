@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 
-const FROM = process.env.RESEND_FROM ?? "Atelier Nove <noreply@ateliernove.com>";
+const FROM =
+  process.env.RESEND_FROM ?? "Atelier Nove <noreply@template-marketplace-psi.vercel.app>";
 
 type PurchaseEmailParams = {
   to: string;
@@ -26,7 +27,7 @@ export async function sendPurchaseEmail(params: PurchaseEmailParams) {
 
   const ctaBlock =
     type === "studio"
-      ? `<a href="https://ateliernove.com/studio" style="display:inline-block;background:${accentColor};color:#fff;font-weight:700;font-size:15px;padding:14px 28px;border-radius:14px;text-decoration:none;margin-top:8px;">Apri AI Studio →</a>`
+      ? `<a href="https://template-marketplace-psi.vercel.app/studio" style="display:inline-block;background:${accentColor};color:#fff;font-weight:700;font-size:15px;padding:14px 28px;border-radius:14px;text-decoration:none;margin-top:8px;">Apri AI Studio →</a>`
       : downloadUrl
         ? `<a href="${downloadUrl}" style="display:inline-block;background:${accentColor};color:#fff;font-weight:700;font-size:15px;padding:14px 28px;border-radius:14px;text-decoration:none;margin-top:8px;">Scarica il template</a>`
         : previewUrl
@@ -64,9 +65,9 @@ export async function sendPurchaseEmail(params: PurchaseEmailParams) {
           ${ctaBlock}
           <hr style="border:none;border-top:1px solid #2c2c2e;margin:28px 0;"/>
           <p style="margin:0;font-size:12px;color:#48484a;line-height:1.7;">
-            Hai domande? Scrivici a <a href="mailto:support@ateliernove.com" style="color:#0a84ff;text-decoration:none;">support@ateliernove.com</a><br/>
-            <a href="https://ateliernove.com/account" style="color:#48484a;">Vedi i tuoi acquisti</a> &nbsp;·&nbsp;
-            <a href="https://ateliernove.com" style="color:#48484a;">Marketplace</a>
+            Hai domande? Scrivici a <a href="mailto:support@template-marketplace-psi.vercel.app" style="color:#0a84ff;text-decoration:none;">support@template-marketplace-psi.vercel.app</a><br/>
+            <a href="https://template-marketplace-psi.vercel.app/account" style="color:#48484a;">Vedi i tuoi acquisti</a> &nbsp;·&nbsp;
+            <a href="https://template-marketplace-psi.vercel.app" style="color:#48484a;">Marketplace</a>
           </p>
         </td></tr>
         <!-- Footer -->
@@ -106,8 +107,8 @@ export function buildNewsletterHtml(title: string, body: string): string {
           ${lines}
           <hr style="border:none;border-top:1px solid #2c2c2e;margin:28px 0;"/>
           <p style="margin:0;font-size:12px;color:#48484a;line-height:1.7;">
-            Hai domande? Scrivici a <a href="mailto:support@ateliernove.com" style="color:#0a84ff;text-decoration:none;">support@ateliernove.com</a><br/>
-            <a href="https://ateliernove.com" style="color:#48484a;">Visita il Marketplace</a>
+            Hai domande? Scrivici a <a href="mailto:support@template-marketplace-psi.vercel.app" style="color:#0a84ff;text-decoration:none;">support@template-marketplace-psi.vercel.app</a><br/>
+            <a href="https://template-marketplace-psi.vercel.app" style="color:#48484a;">Visita il Marketplace</a>
           </p>
         </td></tr>
         <tr><td style="background:#111113;padding:16px 36px;text-align:center;">

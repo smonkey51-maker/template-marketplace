@@ -7,7 +7,7 @@ import ReviewSection from "@/components/ReviewSection";
 import { getLocalizedName, getLocalizedDesc } from "@/lib/i18n";
 import { toLocale } from "@/lib/locales";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ateliernove.com";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://template-marketplace-psi.vercel.app";
 
 export async function generateStaticParams() {
   try {

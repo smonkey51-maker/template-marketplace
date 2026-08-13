@@ -66,7 +66,7 @@ For deeper changes, edit the Liquid/HTML directly or use Atelier Nove AI Studio.
 
 ---
 
-Made with Atelier Nove · ateliernove.com
+Made with Atelier Nove · template-marketplace-psi.vercel.app
 `;
 
   const files: Record<string, Uint8Array> = {
@@ -87,9 +87,9 @@ export function buildWordPressZip(template: Template, displayName: string): Uint
 
   const styleCss = `/*
 Theme Name: ${themeName}
-Theme URI: https://ateliernove.com
+Theme URI: https://template-marketplace-psi.vercel.app
 Author: Atelier Nove
-Author URI: https://ateliernove.com
+Author URI: https://template-marketplace-psi.vercel.app
 Description: ${template.description}
 Version: 1.0.0
 License: GNU General Public License v2 or later
@@ -216,7 +216,7 @@ ${template.content}
 
 ---
 
-Made with Atelier Nove · ateliernove.com
+Made with Atelier Nove · template-marketplace-psi.vercel.app
 `;
 
   const files: Record<string, Uint8Array> = {

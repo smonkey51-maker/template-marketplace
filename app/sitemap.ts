@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 import { sellableTemplates } from "@/lib/templates";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ateliernove.com";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://template-marketplace-psi.vercel.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
