@@ -21,9 +21,9 @@ export async function register() {
         const fs = require("node:fs");
         const path = require("node:path");
 
-        console.log("\n[Atelier Nove] Generazione exports/...");
+        console.log("\n[FORMA] Generazione exports/...");
         runExport();
-        console.log("[Atelier Nove] exports/ aggiornato.\n");
+        console.log("[FORMA] exports/ aggiornato.\n");
 
         const getCwd = () => process.cwd();
         const templatesPath = path.resolve(getCwd(), "lib", "templates.ts");
@@ -32,19 +32,19 @@ export async function register() {
         fs.watch(templatesPath, () => {
           if (debounceTimer) clearTimeout(debounceTimer);
           debounceTimer = setTimeout(() => {
-            console.log("\n[Atelier Nove] templates.ts modificato — rigenero exports/...");
+            console.log("\n[FORMA] templates.ts modificato — rigenero exports/...");
             try {
               runExport();
-              console.log("[Atelier Nove] exports/ aggiornato.\n");
+              console.log("[FORMA] exports/ aggiornato.\n");
             } catch (err) {
-              console.error("[Atelier Nove] Errore durante l'export:", err);
+              console.error("[FORMA] Errore durante l'export:", err);
             }
           }, 300);
         });
 
-        console.log("[Atelier Nove] Watcher attivo su lib/templates.ts\n");
+        console.log("[FORMA] Watcher attivo su lib/templates.ts\n");
       } catch (err) {
-        console.error("[Atelier Nove] Errore durante l'export iniziale:", err);
+        console.error("[FORMA] Errore durante l'export iniziale:", err);
       }
     }
   }

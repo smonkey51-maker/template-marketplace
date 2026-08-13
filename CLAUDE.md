@@ -1,14 +1,14 @@
-# CLAUDE.md — Atelier Nove
+# CLAUDE.md — FORMA
 
-AI assistant reference for the **Atelier Nove** codebase. Read this before making changes.
+AI assistant reference for the **FORMA** codebase. Read this before making changes.
 
 ---
 
 ## Project Overview
 
-**Atelier Nove** (formerly FORMA/TemplateLab) is an AI-powered template marketplace built with Next.js 16 (App Router). Users browse, purchase, and download premium UI/prompt templates, then customise them in real-time with Claude AI via the built-in Studio.
+**FORMA** is an AI-powered template marketplace built with Next.js 16 (App Router). Users browse, purchase, and download premium UI/prompt templates, then customise them in real-time with Claude AI via the built-in Studio.
 
-The Atelier Nove rebrand (2026) replaced FORMA's near-black/gold "liquid glass" identity with a warm paper/bordeaux editorial system — see **Fonts**, **Brand Colors**, **Design Tokens** and **Depth** below. It did not change the product: still one catalogue of digital templates (no physical-art second catalogue), same routing, same Stripe/Supabase/Clerk stack.
+A 2026 visual refresh (explored under the working name "Atelier Nove", not adopted — the brand stayed FORMA) replaced the near-black/gold "liquid glass" identity with a warm paper/bordeaux editorial system — see **Fonts**, **Brand Colors**, **Design Tokens** and **Depth** below. The wordmark is the one deliberate exception: it kept its original gold gradient and letter-drawn animation rather than moving to bordeaux, see `FormaLogo.tsx`. The refresh did not change the product: still one catalogue of digital templates (no physical-art second catalogue), same routing, same Stripe/Supabase/Clerk stack.
 
 **Tech stack:** Next.js 16 · React 19 · TypeScript 5 · Tailwind CSS 3 · Clerk (auth) · Stripe (payments) · Supabase (purchases DB) · Anthropic Claude API · PostHog (analytics) · Resend (email)
 
@@ -169,7 +169,7 @@ The lifetime button is behind `NEXT_PUBLIC_STUDIO_LIFETIME_AVAILABLE === "true"`
 - `sendPurchaseEmail()` — sends post-purchase confirmation with download link.
 - `sendNewsletterEmail()` — batch sends up to 100 emails per Resend API call.
 - Silently no-ops if `RESEND_API_KEY` is not set (safe in dev).
-- From address: `RESEND_FROM` env var, defaults to `Atelier Nove <noreply@template-marketplace-psi.vercel.app>`.
+- From address: `RESEND_FROM` env var, defaults to `FORMA <noreply@template-marketplace-psi.vercel.app>`.
 
 ### Template Export Script
 
@@ -248,12 +248,12 @@ ClerkProvider
 
 ### Fonts
 
-Atelier Nove pairing — **Fraunces** (display) + **Inter** (body), everywhere:
+**Fraunces** (display) + **Inter** (body), everywhere:
 
-- **Fraunces** (`--font-fraunces`) — h1–h3, hero/section headings, the wordmark, prices and other display moments.
+- **Fraunces** (`--font-fraunces`) — h1–h3, hero/section headings, prices and other display moments.
 - **Inter** (`--font-inter`) — body text, labels, buttons, nav.
 
-The pre-rebrand font variables (`--font-syne`, `--font-montserrat`, `--font-cormorant`, `--font-dm-serif`, `--font-jakarta`, `--font-gatsunaga`) are still loaded/defined and still referenced by class name across older components, but each now resolves to Fraunces or Inter — see the "Atelier Nove typography" comment block near the top of `app/globals.css` and the `fontFamily` map in `tailwind.config.ts`. Prefer `var(--font-fraunces)` / `var(--font-inter)` directly in new code rather than reaching for a legacy name.
+The FormaLogo wordmark is the exception — it's set in `system-ui` at a fixed weight/size as part of its SVG letterforms, not Fraunces. The pre-refresh font variables (`--font-syne`, `--font-montserrat`, `--font-cormorant`, `--font-dm-serif`, `--font-jakarta`, `--font-gatsunaga`) are still loaded/defined and still referenced by class name across older components, but each now resolves to Fraunces or Inter — see the typography comment block near the top of `app/globals.css` and the `fontFamily` map in `tailwind.config.ts`. Prefer `var(--font-fraunces)` / `var(--font-inter)` directly in new code rather than reaching for a legacy name.
 
 ### Brand Colors
 
@@ -276,7 +276,7 @@ The brand is a warm **paper + bordeaux** palette — light by default:
 
 ### Depth: one material — flat paper
 
-**There is no glass on this site.** The pre-rebrand "liquid glass" material (backdrop blur, pointer-tracked specular highlight, squircle masking, SVG refraction) was removed wholesale in the Atelier Nove rebrand — `GlassEnhancements.tsx` and `public/squircle-paint.js` are deleted, and the `--glass-*` / `--glass-s-*` / `--glass-bar-*` tokens now resolve to an opaque paper fill with **no blur** and **no specular highlight**. Every raised surface is the same material: an opaque paper sheet, one load-bearing rim border, and a small flat cast shadow. Panels still **lift** slightly toward the viewer on hover (a small `translateY`), but nothing refracts, blurs or shimmers.
+**There is no glass on this site.** The pre-refresh "liquid glass" material (backdrop blur, pointer-tracked specular highlight, squircle masking, SVG refraction) was removed wholesale — `GlassEnhancements.tsx` and `public/squircle-paint.js` are deleted, and the `--glass-*` / `--glass-s-*` / `--glass-bar-*` tokens now resolve to an opaque paper fill with **no blur** and **no specular highlight**. Every raised surface is the same material: an opaque paper sheet, one load-bearing rim border, and a small flat cast shadow. Panels still **lift** slightly toward the viewer on hover (a small `translateY`), but nothing refracts, blurs or shimmers.
 
 The class names are unchanged on purpose — `.glass-surface`, `.glass-surface-pill`, `.glass-bar`, `.forma-glass-card`, `.glass-pill`, `.glass-panel` — so existing components didn't need touching; only what those classes render changed. `.glass-surface` is still the shared base — reach for it before hand-rolling a panel.
 
@@ -285,11 +285,11 @@ Two rules the material still depends on:
 - **The rim border is load-bearing.** It is what keeps a card or control findable against the page (WCAG 1.4.11); never drop it for a "cleaner" look.
 - **State is never carried by shadow alone.** A selected control also changes fill, rim colour and text colour, so it survives forced-colors mode and low-vision viewing. The primary CTA stays solid bordeaux — it is not glass.
 
-There used to be a "gallery rooms" system where `[data-section]` on `<html>` (set by `SectionAccent.tsx`) gave each site section (`catalogo`/`guida`/`studio`/`account`) its own accent colour. That was retired in the rebrand: `--accent` is bordeaux everywhere, one gallery rather than separate rooms. `SectionAccent.tsx` still sets the attribute, but no CSS reads it anymore.
+There used to be a "gallery rooms" system where `[data-section]` on `<html>` (set by `SectionAccent.tsx`) gave each site section (`catalogo`/`guida`/`studio`/`account`) its own accent colour. That was retired in the same pass: `--accent` is bordeaux everywhere, one gallery rather than separate rooms. `SectionAccent.tsx` still sets the attribute, but no CSS reads it anymore.
 
 ### Theme
 
-Tailwind `darkMode: "class"`. The `<html>` element starts **without** `class="dark"` (light/paper is the default, matching the Atelier Nove brand); dark mode is opt-in via the toggle, which adds the class and persists the choice to `localStorage`. `ThemeProvider` defaults its own state to `"light"`. Custom theme tokens are defined in `app/globals.css` (e.g. `bg-page`, `text-theme`).
+Tailwind `darkMode: "class"`. The `<html>` element starts **without** `class="dark"` (light/paper is the default); dark mode is opt-in via the toggle, which adds the class and persists the choice to `localStorage`. `ThemeProvider` defaults its own state to `"light"`. Custom theme tokens are defined in `app/globals.css` (e.g. `bg-page`, `text-theme`).
 
 ### API Route Patterns
 

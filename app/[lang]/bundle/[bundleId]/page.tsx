@@ -33,14 +33,14 @@ export async function generateMetadata({
     description: `${bundle.tagline}. ${bundle.highlights.join(" · ")}`,
     alternates: { canonical: canonicalUrl },
     openGraph: {
-      title: `${name} — Atelier Nove`,
+      title: `${name} — FORMA`,
       description: `${bundle.tagline}. ${formatPrice(bundle.price)} invece di ${formatPrice(bundle.regularPrice)}. Risparmia ${formatPrice(savings)}.`,
       type: "website",
       url: canonicalUrl,
     },
     twitter: {
       card: "summary_large_image",
-      title: `${name} — Atelier Nove`,
+      title: `${name} — FORMA`,
       description: bundle.tagline,
     },
   };
@@ -62,8 +62,8 @@ export default async function BundlePage({
         name: getLocalizedName(bundle, lang),
         description: getLocalizedDesc(bundle, lang),
         url: `${SITE_URL}/bundle/${bundleId}`,
-        brand: { "@type": "Brand", name: "Atelier Nove" },
-        seller: { "@type": "Organization", name: "Atelier Nove", url: SITE_URL },
+        brand: { "@type": "Brand", name: "FORMA" },
+        seller: { "@type": "Organization", name: "FORMA", url: SITE_URL },
         offers: {
           "@type": "Offer",
           price: (bundle.price / 100).toFixed(2),

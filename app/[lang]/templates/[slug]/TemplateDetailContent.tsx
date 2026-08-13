@@ -48,7 +48,7 @@ export function TemplateDetailContent({
               href={`/${lang}`}
               className="flex items-center min-h-[24px] hover:text-accent transition-colors"
             >
-              Atelier Nove
+              FORMA
             </Link>
             <span>/</span>
             <Link

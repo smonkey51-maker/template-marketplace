@@ -29,8 +29,8 @@ export default function BrandPage() {
       : "Nine coordinated boards: logo, system, templates, product, campaigns and social.";
   const boardDesc =
     lang === "it"
-      ? "Una tavola editoriale coerente con il sistema Atelier Nove: nero profondo, oro opaco, griglie pulite e template multipiattaforma."
-      : "An editorial board consistent with Atelier Nove: deep black, matte gold, clean grids and multiplatform templates.";
+      ? "Una tavola editoriale coerente con il sistema FORMA: nero profondo, oro opaco, griglie pulite e template multipiattaforma."
+      : "An editorial board consistent with FORMA: deep black, matte gold, clean grids and multiplatform templates.";
 
   return (
     <div className="fp-page">
@@ -84,7 +84,7 @@ export default function BrandPage() {
         ))}
 
         {/* ── Board 10 — a color exploration, not the live brand ──
-            Everything above renders Atelier Nove's actual gold/terra system, the one
+            Everything above renders FORMA's actual gold/terra system, the one
             CLAUDE.md documents as a deliberate choice. This board is scoped to
             its own custom properties (fp-ive-*) so it can sit here as a real,
             navigable piece of the site without a single global token moving —
@@ -95,8 +95,8 @@ export default function BrandPage() {
           <h2>{lang === "it" ? "La palette di Jony Ive" : "The Jony Ive palette"}</h2>
           <p>
             {lang === "it"
-              ? "Quattro storie di colore raccontate da Ive negli anni — l'arancione tenuto nascosto, l'argento ereditato da suo padre, l'inchiostro e la carta di LoveFrom, il blu e il verde della Corona — applicate a superfici reali di Atelier Nove: non il brand in uso, una direzione a parte."
-              : "Four color stories Ive has told over the years — the hidden orange, the silver he inherited from his father, LoveFrom's ink and paper, the Crown's blue and green — applied to real Atelier Nove surfaces. Not the brand in use: a direction of its own."}
+              ? "Quattro storie di colore raccontate da Ive negli anni — l'arancione tenuto nascosto, l'argento ereditato da suo padre, l'inchiostro e la carta di LoveFrom, il blu e il verde della Corona — applicate a superfici reali di FORMA: non il brand in uso, una direzione a parte."
+              : "Four color stories Ive has told over the years — the hidden orange, the silver he inherited from his father, LoveFrom's ink and paper, the Crown's blue and green — applied to real FORMA surfaces. Not the brand in use: a direction of its own."}
           </p>
           <div className="fp-ive-swatches">
             <span className="fp-ive-chip">

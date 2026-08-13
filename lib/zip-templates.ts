@@ -10,7 +10,7 @@ export function buildShopifyZip(template: Template, displayName: string): Uint8A
 
   // Convert Tailwind HTML to a Liquid section with schema
   const liquidSection = `{% comment %}
-  ${displayName} — Atelier Nove
+  ${displayName} — FORMA
   Shopify Liquid Section
   Drop this file into sections/ in your theme.
 {% endcomment %}
@@ -49,7 +49,7 @@ ${template.content}
 
   const readmeMd = `# ${displayName}
 
-> Shopify Liquid section by Atelier Nove
+> Shopify Liquid section by FORMA
 
 ## Installation
 
@@ -62,11 +62,11 @@ ${template.content}
 ## Customization
 
 Use the Theme Editor to modify settings (heading text, accent color).
-For deeper changes, edit the Liquid/HTML directly or use Atelier Nove AI Studio.
+For deeper changes, edit the Liquid/HTML directly or use FORMA AI Studio.
 
 ---
 
-Made with Atelier Nove · template-marketplace-psi.vercel.app
+Made with FORMA · template-marketplace-psi.vercel.app
 `;
 
   const files: Record<string, Uint8Array> = {
@@ -88,7 +88,7 @@ export function buildWordPressZip(template: Template, displayName: string): Uint
   const styleCss = `/*
 Theme Name: ${themeName}
 Theme URI: https://template-marketplace-psi.vercel.app
-Author: Atelier Nove
+Author: FORMA
 Author URI: https://template-marketplace-psi.vercel.app
 Description: ${template.description}
 Version: 1.0.0
@@ -191,7 +191,7 @@ ${template.content}
 
   const readmeMd = `# ${themeName}
 
-> WordPress theme by Atelier Nove
+> WordPress theme by FORMA
 
 ## Installation
 
@@ -203,7 +203,7 @@ ${template.content}
 ## Customization
 
 - Edit template files directly, or
-- Use Atelier Nove AI Studio for AI-powered customization
+- Use FORMA AI Studio for AI-powered customization
 
 ## Files included
 
@@ -216,7 +216,7 @@ ${template.content}
 
 ---
 
-Made with Atelier Nove · template-marketplace-psi.vercel.app
+Made with FORMA · template-marketplace-psi.vercel.app
 `;
 
   const files: Record<string, Uint8Array> = {
