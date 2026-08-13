@@ -9,19 +9,19 @@ export default function Icon() {
       style={{
         width: 32,
         height: 32,
-        borderRadius: 8,
-        background: "linear-gradient(135deg, #D4A84B 0%, #C49A3C 100%)",
+        borderRadius: 4,
+        background: "#7A2E28",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        fontFamily: "sans-serif",
-        fontWeight: 900,
-        fontSize: 18,
-        color: "white",
-        letterSpacing: "-0.5px",
+        fontFamily: "Georgia, serif",
+        fontStyle: "italic",
+        fontWeight: 600,
+        fontSize: 20,
+        color: "#F4F0E8",
       }}
     >
-      T
+      A
     </div>,
     { ...size },
   );
