@@ -251,7 +251,7 @@ export default function SiteNav() {
       <div className="fn-topline" />
 
       {/* SVG logo */}
-      <Link href={`/${lang}`} className="fn-logo-hero" aria-label="FORMA home">
+      <Link href={`/${lang}`} className="fn-logo-hero" aria-label="Atelier Nove home">
         <FormaLogoAnimated className="fn-logo-svg" />
       </Link>
 

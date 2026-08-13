@@ -18,7 +18,6 @@ import { ToastProvider } from "@/components/Toast";
 import MobileNav from "@/components/MobileNav";
 import PageTransition from "@/components/PageTransition";
 import CommandPalette from "@/components/CommandPalette";
-import GlassEnhancements from "@/components/GlassEnhancements";
 import SectionAccent from "@/components/SectionAccent";
 import GsapProvider from "@/app/providers/GsapProvider";
 import "@/app/globals.css";
@@ -73,7 +72,7 @@ const fraunces = Fraunces({
   axes: ["SOFT", "opsz"],
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://forma.design";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ateliernove.com";
 
 // Localised per route segment rather than a single static object. The site is
 // Italian-first, but middleware.ts routes any non-Italian browser to /en, and a
@@ -82,12 +81,12 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://forma.design";
 // previews, where it is least likely to be noticed and most likely to matter.
 const SITE_META = {
   it: {
-    title: "FORMA — Template come oggetti curati.",
+    title: "Atelier Nove — Template come oggetti curati.",
     description:
       "Template digitali pronti all'uso: prompt AI, guide, fogli di calcolo e tracker. Ogni file è un gesto preciso, non una soluzione generica.",
   },
   en: {
-    title: "FORMA — Templates as considered objects.",
+    title: "Atelier Nove — Templates as considered objects.",
     description:
       "Ready-to-use digital templates: AI prompts, guides, spreadsheets and trackers. Every file is a precise gesture, not a generic solution.",
   },
@@ -107,15 +106,15 @@ export async function generateMetadata({
       default: m.title,
       // Pages set a bare title; this appends the brand. A page that spells the
       // suffix out itself gets it twice.
-      template: "%s — FORMA",
+      template: "%s — Atelier Nove",
     },
     description: m.description,
     openGraph: {
       type: "website",
-      siteName: "FORMA",
+      siteName: "Atelier Nove",
       title: m.title,
       description: m.description,
-      images: [{ url: `/api/og?lang=${lang}`, width: 1200, height: 630, alt: "FORMA" }],
+      images: [{ url: `/api/og?lang=${lang}`, width: 1200, height: 630, alt: "Atelier Nove" }],
     },
     twitter: {
       card: "summary_large_image",
@@ -157,25 +156,23 @@ export default async function RootLayout({
     <ClerkProvider appearance={clerkAppearance}>
       <html
         lang={lang}
-        className={`dark ${montserrat.variable} ${jakarta.variable} ${dmSerif.variable} ${cormorant.variable} ${fraunces.variable} ${inter.variable}`}
-        style={{ colorScheme: "dark" }}
+        className={`${montserrat.variable} ${jakarta.variable} ${dmSerif.variable} ${cormorant.variable} ${fraunces.variable} ${inter.variable}`}
+        style={{ colorScheme: "light" }}
       >
         <head>
-          <link rel="preload" as="image" href="/paintings/vermeer.jpg" />
           {/* Applies the stored theme before first paint. Without this, the
-              page always paints dark (the SSR default above) and ThemeProvider's
-              effect only flips it to light after hydration — a flash on every
-              full page load for anyone who has switched to light mode. */}
+              page always paints light (the SSR default above) and ThemeProvider's
+              effect only flips it to dark after hydration — a flash on every
+              full page load for anyone who has switched to dark mode. */}
           <script
             dangerouslySetInnerHTML={{
               __html:
-                "(function(){try{var t=localStorage.getItem('theme');if(t==='light'){document.documentElement.classList.remove('dark');document.documentElement.style.colorScheme='light';}}catch(e){}})();",
+                "(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.classList.add('dark');document.documentElement.style.colorScheme='dark';}}catch(e){}})();",
             }}
           />
         </head>
         <body className="bg-page text-theme antialiased min-h-screen">
           <SectionAccent />
-          <GlassEnhancements />
           <PostHogProvider>
             <ThemeProvider>
               <LanguageProvider>

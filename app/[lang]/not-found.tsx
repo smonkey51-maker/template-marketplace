@@ -43,7 +43,7 @@ export default function NotFound() {
         <p
           className="text-[100px] sm:text-[120px] leading-none tracking-tighter select-none"
           style={{
-            fontFamily: "var(--font-cormorant), 'Cormorant Garamond', Georgia, serif",
+            fontFamily: "var(--font-fraunces), Georgia, serif",
             fontStyle: "italic",
             fontWeight: 300,
             color: "var(--accent)",

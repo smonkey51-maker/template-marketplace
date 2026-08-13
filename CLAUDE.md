@@ -1,12 +1,14 @@
-# CLAUDE.md — TemplateLab
+# CLAUDE.md — Atelier Nove
 
-AI assistant reference for the **TemplateLab** codebase. Read this before making changes.
+AI assistant reference for the **Atelier Nove** codebase. Read this before making changes.
 
 ---
 
 ## Project Overview
 
-**TemplateLab** is an AI-powered template marketplace built with Next.js 16 (App Router). Users browse, purchase, and download premium UI/prompt templates, then customise them in real-time with Claude AI via the built-in Studio.
+**Atelier Nove** (formerly FORMA/TemplateLab) is an AI-powered template marketplace built with Next.js 16 (App Router). Users browse, purchase, and download premium UI/prompt templates, then customise them in real-time with Claude AI via the built-in Studio.
+
+The Atelier Nove rebrand (2026) replaced FORMA's near-black/gold "liquid glass" identity with a warm paper/bordeaux editorial system — see **Fonts**, **Brand Colors**, **Design Tokens** and **Depth** below. It did not change the product: still one catalogue of digital templates (no physical-art second catalogue), same routing, same Stripe/Supabase/Clerk stack.
 
 **Tech stack:** Next.js 16 · React 19 · TypeScript 5 · Tailwind CSS 3 · Clerk (auth) · Stripe (payments) · Supabase (purchases DB) · Anthropic Claude API · PostHog (analytics) · Resend (email)
 
@@ -17,7 +19,7 @@ AI assistant reference for the **TemplateLab** codebase. Read this before making
 ```
 template-marketplace/
 ├── app/                        # Next.js App Router
-│   ├── layout.tsx              # Root layout — providers, fonts (Syne + Plus Jakarta Sans)
+│   ├── layout.tsx              # Root layout — providers, fonts (Fraunces + Inter)
 │   ├── page.tsx                # Home / marketplace listing
 │   ├── studio/page.tsx         # AI Studio (generate & customise templates)
 │   ├── preview/[templateId]/   # Template detail / preview page
@@ -167,7 +169,7 @@ The lifetime button is behind `NEXT_PUBLIC_STUDIO_LIFETIME_AVAILABLE === "true"`
 - `sendPurchaseEmail()` — sends post-purchase confirmation with download link.
 - `sendNewsletterEmail()` — batch sends up to 100 emails per Resend API call.
 - Silently no-ops if `RESEND_API_KEY` is not set (safe in dev).
-- From address: `RESEND_FROM` env var, defaults to `TemplateLab <noreply@templatelab.io>`.
+- From address: `RESEND_FROM` env var, defaults to `Atelier Nove <noreply@ateliernove.com>`.
 
 ### Template Export Script
 
@@ -192,7 +194,7 @@ Generates `exports/gumroad/` and `exports/etsy/` from all templates in `lib/temp
 | `STUDIO_ACCESS_LIFETIME_PRICE_ID`   | Yes (for lifetime) | Stripe price ID for lifetime Studio Access           |
 | `SUPABASE_URL`                      | Yes                | Supabase project URL                                 |
 | `SUPABASE_SERVICE_ROLE_KEY`         | Yes                | Supabase service role key (server-only)              |
-| `NEXT_PUBLIC_SITE_URL`              | Yes                | Full site URL e.g. `https://templatelab.io`          |
+| `NEXT_PUBLIC_SITE_URL`              | Yes                | Full site URL e.g. `https://ateliernove.com`          |
 | `NEXT_PUBLIC_APP_URL`               | Optional           | Fallback for checkout redirect URLs                  |
 | `RESEND_API_KEY`                    | Optional           | Resend email API key                                 |
 | `RESEND_FROM`                       | Optional           | Sender address for emails                            |
@@ -246,48 +248,48 @@ ClerkProvider
 
 ### Fonts
 
-- **Syne** (`--font-syne`) — headings, display text, CTA buttons
-- **Plus Jakarta Sans** (`--font-jakarta`) — body text
-- **DM Serif Display** (`--font-dm-serif`) — decorative accent text (prices, edition badges, editorial headings)
+Atelier Nove pairing — **Fraunces** (display) + **Inter** (body), everywhere:
+
+- **Fraunces** (`--font-fraunces`) — h1–h3, hero/section headings, the wordmark, prices and other display moments.
+- **Inter** (`--font-inter`) — body text, labels, buttons, nav.
+
+The pre-rebrand font variables (`--font-syne`, `--font-montserrat`, `--font-cormorant`, `--font-dm-serif`, `--font-jakarta`, `--font-gatsunaga`) are still loaded/defined and still referenced by class name across older components, but each now resolves to Fraunces or Inter — see the "Atelier Nove typography" comment block near the top of `app/globals.css` and the `fontFamily` map in `tailwind.config.ts`. Prefer `var(--font-fraunces)` / `var(--font-inter)` directly in new code rather than reaching for a legacy name.
 
 ### Brand Colors
 
-The brand uses a warm **gold/terra** palette — not bright orange:
+The brand is a warm **paper + bordeaux** palette — light by default:
 
-| Token       | Light     | Dark                     | Usage                   |
-| ----------- | --------- | ------------------------ | ----------------------- |
-| `--accent`  | `#9C7733` | `#C8A96E`                | Primary gold accent     |
-| `--terra`   | `#B5501F` | `#C4622D`                | Secondary warm accent   |
-| `--bg`      | `#FDFAF5` | `#050402`                | Page background         |
-| `--surface` | `#F5EFE3` | `#0d0b08`                | Card/section background |
-| `--text`    | `#1C1610` | `#F2EBD9`                | Primary text            |
-| `--muted`   | `#7A6B56` | `rgba(242,235,217,0.55)` | Secondary text          |
+| Token       | Light     | Dark                      | Usage                   |
+| ----------- | --------- | -------------------------- | ------------------------ |
+| `--accent`  | `#7A2E28` | `#C1716A`                  | Primary bordeaux accent (single accent site-wide — no more per-section "gallery room" colours) |
+| `--terra`   | derived from `--accent` via `color-mix` | derived from `--accent` | Secondary warm accent   |
+| `--bg`      | `#F4F0E8` | `#14110D`                  | Page background (paper / ink) |
+| `--surface` | `#FBF9F4` | `#1C1814`                  | Card/section background |
+| `--text`    | `#1C1A17` | `#F2ECE0`                  | Primary text            |
+| `--muted`   | `#7A7266` | `#A89A86`                  | Secondary text          |
 
 ### Design Tokens
 
-- **Border radius**: **Nothing on this site has a square corner.** Use the radius utilities rather than raw pixel values, so the whole site rounds together if a token moves: `.r-glass` (`--glass-radius`, 22px — panels, cards, sheets), `.r-md` (16px — inputs, textareas), `.r-sm` (10px — small chips), `.r-pill` (999px — buttons, badges, segmented tracks, filter chips). The underlying scale is `--r-sm` / `--r-md` / `--r-lg` / `--r-xl`. When adding any surface with a background or a border, give it one of these — a bare `bg-*` or `border` class is a bug.
+- **Border radius**: editorial and sharp — **not** rounded/pill. Use the radius utilities rather than raw pixel values: `.r-glass` (`--glass-radius`, tracks `--r-md`), `.r-md` (`--r-md`, 4px — cards, panels, buttons), `.r-sm` (`--r-sm`, 2px — small chips), `.r-pill` (kept as a class name for compat; now renders `--r-md`, not a true pill). The underlying scale is `--r-sm` (2px) / `--r-md` (4px) / `--r-lg` (6px) / `--r-xl` (8px). Only genuinely circular elements (avatars, small icon badges, dots) still use `border-radius: 50%` directly. When adding any surface with a background or a border, give it one of these tokens — a bare `bg-*` or `border` class is a bug.
 - **Shadows**: Use CSS custom properties `--shadow-sm`, `--shadow-md`, `--shadow-lg`, `--shadow-xl` defined in `globals.css`.
-- **Buttons**: All primary CTA buttons use the `.btn-brand` CSS class (gold pill, lift on hover). Use `.btn-brand-sm` for compact variant. Defined in `globals.css`.
+- **Buttons**: All primary CTA buttons use the `.btn-brand` CSS class (solid bordeaux, sharp corners, lift on hover). Use `.btn-brand-sm` for compact variant. Defined in `globals.css`.
 
-### Depth: one material — liquid glass
+### Depth: one material — flat paper
 
-**There is no neumorphism on this site.** It was removed; do not reintroduce extruded or pressed-in surfaces. Every raised surface is the same material: a translucent sheet that refracts what is behind it, catches a rim light along its top edge, and casts a shadow onto the ground. Panels **lift** toward the viewer on hover — they never swell out of the page or sink into it.
+**There is no glass on this site.** The pre-rebrand "liquid glass" material (backdrop blur, pointer-tracked specular highlight, squircle masking, SVG refraction) was removed wholesale in the Atelier Nove rebrand — `GlassEnhancements.tsx` and `public/squircle-paint.js` are deleted, and the `--glass-*` / `--glass-s-*` / `--glass-bar-*` tokens now resolve to an opaque paper fill with **no blur** and **no specular highlight**. Every raised surface is the same material: an opaque paper sheet, one load-bearing rim border, and a small flat cast shadow. Panels still **lift** slightly toward the viewer on hover (a small `translateY`), but nothing refracts, blurs or shimmers.
 
-Two tiers, differing only in how much they let through:
+The class names are unchanged on purpose — `.glass-surface`, `.glass-surface-pill`, `.glass-bar`, `.forma-glass-card`, `.glass-pill`, `.glass-panel` — so existing components didn't need touching; only what those classes render changed. `.glass-surface` is still the shared base — reach for it before hand-rolling a panel.
 
-- **Over artwork** (`--glass-*`, `.forma-glass-card`) — panels floating above the **paintings** on the snap homepage. Paintings also carry a scroll parallax via `.parallax-layer`.
-- **On a flat ground** (`--glass-s-*`, `.glass-surface`) — controls and cards on the **inner pages** (`/catalogo`, `/guida`, `/account`, `/ai-studio`). Less transparent, because there is little behind them to refract, but the same rim light, cast shadow and lift.
+Two rules the material still depends on:
 
-`.glass-surface` is the shared base — reach for it before hand-rolling a panel.
+- **The rim border is load-bearing.** It is what keeps a card or control findable against the page (WCAG 1.4.11); never drop it for a "cleaner" look.
+- **State is never carried by shadow alone.** A selected control also changes fill, rim colour and text colour, so it survives forced-colors mode and low-vision viewing. The primary CTA stays solid bordeaux — it is not glass.
 
-Two rules the material depends on:
-
-- **The rim border is load-bearing.** It is what keeps a glass control findable against the page (WCAG 1.4.11); never drop it for a "cleaner" look.
-- **State is never carried by shadow alone.** A selected control also changes fill, rim colour and text colour, so it survives forced-colors mode and low-vision viewing. The primary CTA stays solid gold — it is not glass.
+There used to be a "gallery rooms" system where `[data-section]` on `<html>` (set by `SectionAccent.tsx`) gave each site section (`catalogo`/`guida`/`studio`/`account`) its own accent colour. That was retired in the rebrand: `--accent` is bordeaux everywhere, one gallery rather than separate rooms. `SectionAccent.tsx` still sets the attribute, but no CSS reads it anymore.
 
 ### Theme
 
-Tailwind `darkMode: "class"`. The `<html>` element starts with `class="dark"`. `ThemeProvider` manages toggling. Custom theme tokens are defined in `app/globals.css` (e.g. `bg-page`, `text-theme`).
+Tailwind `darkMode: "class"`. The `<html>` element starts **without** `class="dark"` (light/paper is the default, matching the Atelier Nove brand); dark mode is opt-in via the toggle, which adds the class and persists the choice to `localStorage`. `ThemeProvider` defaults its own state to `"light"`. Custom theme tokens are defined in `app/globals.css` (e.g. `bg-page`, `text-theme`).
 
 ### API Route Patterns
 

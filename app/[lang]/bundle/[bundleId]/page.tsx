@@ -5,7 +5,7 @@ import BundleDetailContent from "@/components/BundleDetailContent";
 import { getLocalizedName, getLocalizedDesc } from "@/lib/i18n";
 import { toLocale } from "@/lib/locales";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://forma.design";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ateliernove.com";
 
 export async function generateStaticParams() {
   try {
@@ -33,14 +33,14 @@ export async function generateMetadata({
     description: `${bundle.tagline}. ${bundle.highlights.join(" · ")}`,
     alternates: { canonical: canonicalUrl },
     openGraph: {
-      title: `${name} — Forma`,
+      title: `${name} — Atelier Nove`,
       description: `${bundle.tagline}. ${formatPrice(bundle.price)} invece di ${formatPrice(bundle.regularPrice)}. Risparmia ${formatPrice(savings)}.`,
       type: "website",
       url: canonicalUrl,
     },
     twitter: {
       card: "summary_large_image",
-      title: `${name} — Forma`,
+      title: `${name} — Atelier Nove`,
       description: bundle.tagline,
     },
   };
@@ -62,8 +62,8 @@ export default async function BundlePage({
         name: getLocalizedName(bundle, lang),
         description: getLocalizedDesc(bundle, lang),
         url: `${SITE_URL}/bundle/${bundleId}`,
-        brand: { "@type": "Brand", name: "Forma" },
-        seller: { "@type": "Organization", name: "Forma", url: SITE_URL },
+        brand: { "@type": "Brand", name: "Atelier Nove" },
+        seller: { "@type": "Organization", name: "Atelier Nove", url: SITE_URL },
         offers: {
           "@type": "Offer",
           price: (bundle.price / 100).toFixed(2),

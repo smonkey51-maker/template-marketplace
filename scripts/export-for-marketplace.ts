@@ -85,7 +85,7 @@ ${url}
 Apri il link nel browser per aprire / duplicare il template.
 
 Vuoi personalizzarlo con AI?
-   Visita Forma per usare lo Studio AI integrato.
+   Visita Atelier Nove per usare lo Studio AI integrato.
 `;
 }
 
@@ -96,7 +96,7 @@ export function runExport(silent = false): void {
   const etsyDir = path.join(OUT, "etsy");
 
   const indexRows: string[] = [
-    "# Forma — Export per Gumroad / Etsy",
+    "# Atelier Nove — Export per Gumroad / Etsy",
     "",
     `Generato: ${new Date().toLocaleString("it-IT")}`,
     "",
@@ -154,7 +154,7 @@ export function runExport(silent = false): void {
     "  I template HTML puri sono fuori scope per Etsy.",
     "",
     "**Suggerimento descrizione**: aggiungi sempre:",
-    "> *Personalizza questo template con AI su Forma — studio AI integrato, nessun abbonamento.*",
+    "> *Personalizza questo template con AI su Atelier Nove — studio AI integrato, nessun abbonamento.*",
   );
 
   fs.writeFileSync(path.join(OUT, "_INDEX.md"), indexRows.join("\n"), "utf-8");

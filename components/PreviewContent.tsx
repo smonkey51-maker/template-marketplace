@@ -436,7 +436,7 @@ export default function PreviewContent({ templateId }: { templateId: string }) {
             <div className="flex items-baseline gap-2">
               <span
                 className="price-gold leading-none"
-                style={{ fontFamily: "var(--font-dm-serif)", fontSize: "28px" }}
+                style={{ fontFamily: "var(--font-fraunces)", fontSize: "28px" }}
               >
                 {template.price === 0
                   ? lang === "it"

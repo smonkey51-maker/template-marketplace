@@ -33,11 +33,11 @@ export async function generateMetadata({
   const name = getLocalizedName(item, lang);
   const description = getLocalizedDesc(item, lang);
   return {
-    // Bare title: the root layout appends " — FORMA" via its title template.
+    // Bare title: the root layout appends " — Atelier Nove" via its title template.
     title: name,
     description,
     openGraph: {
-      title: `${name} — FORMA`,
+      title: `${name} — Atelier Nove`,
       description,
       type: "website",
     },
@@ -74,7 +74,7 @@ export default async function TemplatePage({
       price: (item.price / 100).toFixed(2),
       priceCurrency: "EUR",
       availability: "https://schema.org/InStock",
-      seller: { "@type": "Organization", name: "FORMA" },
+      seller: { "@type": "Organization", name: "Atelier Nove" },
     },
   };
 

@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 type Theme = "dark" | "light";
 const ThemeCtx = createContext<{ theme: Theme; toggle: () => void }>({
-  theme: "dark",
+  theme: "light",
   toggle: () => {},
 });
 
@@ -17,7 +17,7 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
   // theme to <html> before first paint (see app/[lang]/layout.tsx), so this
   // only needs to sync React state to what's already on the DOM — not
   // re-decide and re-toggle it, which would risk a second, redundant flash.
-  const [theme, setTheme] = useState<Theme>("dark");
+  const [theme, setTheme] = useState<Theme>("light");
 
   useEffect(() => {
     setTheme(document.documentElement.classList.contains("dark") ? "dark" : "light");

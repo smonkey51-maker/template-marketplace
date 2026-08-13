@@ -6,11 +6,15 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
+        // Atelier Nove: Fraunces (display) + Inter (body). These utility
+        // names are kept for compat with existing className references
+        // across the site, but now all resolve through the new pairing.
         gatsunaga: ["var(--font-gatsunaga)"],
-        "dm-serif": ["var(--font-dm-serif)", "Georgia", "serif"],
-        cormorant: ["var(--font-cormorant)", "Georgia", "serif"],
-        jakarta: ["var(--font-jakarta)", "system-ui", "sans-serif"],
+        "dm-serif": ["var(--font-fraunces)", "Georgia", "serif"],
+        cormorant: ["var(--font-fraunces)", "Georgia", "serif"],
+        jakarta: ["var(--font-inter)", "system-ui", "sans-serif"],
         inter: ["var(--font-inter)", "system-ui", "sans-serif"],
+        fraunces: ["var(--font-fraunces)", "Georgia", "serif"],
       },
       colors: {
         sumi: "#1A1815",

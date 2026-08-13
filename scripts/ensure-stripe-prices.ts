@@ -125,7 +125,7 @@ async function main() {
       const product = await stripe.products.create({
         name: item.name,
         description: (
-          item.description || `${item.type === "bundle" ? "Bundle" : "UI Template"} — Forma`
+          item.description || `${item.type === "bundle" ? "Bundle" : "UI Template"} — Atelier Nove`
         ).slice(0, 500),
         metadata: {
           [`${item.type}Id`]: item.id,

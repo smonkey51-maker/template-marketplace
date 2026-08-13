@@ -358,7 +358,7 @@ export default function BundleDetailContent({ bundleId }: { bundleId: string }) 
                           {lang === "it" ? "Solo" : "Only"}{" "}
                           <span
                             className="font-black text-accent text-[14px]"
-                            style={{ fontFamily: "var(--font-dm-serif)" }}
+                            style={{ fontFamily: "var(--font-fraunces)" }}
                           >
                             {(featured.price / 100).toFixed(2).replace(".", ",")}€
                           </span>

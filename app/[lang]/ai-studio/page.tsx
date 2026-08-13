@@ -56,7 +56,7 @@ export default function AIStudioPage() {
               <div key={step.icon} className="glass-surface" style={{ padding: "28px 24px" }}>
                 <div
                   style={{
-                    fontFamily: "var(--font-cormorant), Georgia, serif",
+                    fontFamily: "var(--font-fraunces), Georgia, serif",
                     fontSize: 40,
                     fontWeight: 300,
                     color: "var(--accent)",
@@ -68,7 +68,7 @@ export default function AIStudioPage() {
                 </div>
                 <h3
                   style={{
-                    fontFamily: "var(--font-cormorant), Georgia, serif",
+                    fontFamily: "var(--font-fraunces), Georgia, serif",
                     fontWeight: 400,
                     fontSize: 22,
                     margin: "0 0 8px",
@@ -91,7 +91,7 @@ export default function AIStudioPage() {
             </div>
             <h2
               style={{
-                fontFamily: "var(--font-cormorant), Georgia, serif",
+                fontFamily: "var(--font-fraunces), Georgia, serif",
                 fontWeight: 300,
                 fontSize: "clamp(26px,4vw,42px)",
                 margin: "0 0 22px",

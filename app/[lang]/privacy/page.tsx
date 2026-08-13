@@ -19,11 +19,11 @@ export default function PrivacyPage() {
             marginBottom: "16px",
           }}
         >
-          Privacy · Forma
+          Privacy · Atelier Nove
         </p>
         <h1
           style={{
-            fontFamily: "var(--font-cormorant), 'Cormorant Garamond', serif",
+            fontFamily: "var(--font-fraunces), Georgia, serif",
             fontSize: "clamp(36px, 5vw, 52px)",
             fontWeight: 400,
             letterSpacing: "0.01em",
@@ -39,21 +39,21 @@ export default function PrivacyPage() {
           <section>
             <h2
               className="text-[15px] font-semibold text-theme mb-2"
-              style={{ fontFamily: "var(--font-montserrat), sans-serif", letterSpacing: "0.02em" }}
+              style={{ fontFamily: "var(--font-fraunces), sans-serif", letterSpacing: "0.02em" }}
             >
               Dati raccolti
             </h2>
             <p>
-              Forma raccoglie i dati minimi necessari per fornire il servizio: indirizzo email
-              (tramite Clerk per l'autenticazione), dati di pagamento processati da Stripe (non
-              archiviamo numeri di carta), e indirizzi email degli iscritti alla newsletter.
+              Atelier Nove raccoglie i dati minimi necessari per fornire il servizio: indirizzo
+              email (tramite Clerk per l'autenticazione), dati di pagamento processati da Stripe
+              (non archiviamo numeri di carta), e indirizzi email degli iscritti alla newsletter.
             </p>
           </section>
 
           <section>
             <h2
               className="text-[15px] font-semibold text-theme mb-2"
-              style={{ fontFamily: "var(--font-montserrat), sans-serif", letterSpacing: "0.02em" }}
+              style={{ fontFamily: "var(--font-fraunces), sans-serif", letterSpacing: "0.02em" }}
             >
               Utilizzo dei dati
             </h2>
@@ -67,7 +67,7 @@ export default function PrivacyPage() {
           <section>
             <h2
               className="text-[15px] font-semibold text-theme mb-2"
-              style={{ fontFamily: "var(--font-montserrat), sans-serif", letterSpacing: "0.02em" }}
+              style={{ fontFamily: "var(--font-fraunces), sans-serif", letterSpacing: "0.02em" }}
             >
               Cookie e tracciamento
             </h2>
@@ -80,7 +80,7 @@ export default function PrivacyPage() {
           <section>
             <h2
               className="text-[15px] font-semibold text-theme mb-2"
-              style={{ fontFamily: "var(--font-montserrat), sans-serif", letterSpacing: "0.02em" }}
+              style={{ fontFamily: "var(--font-fraunces), sans-serif", letterSpacing: "0.02em" }}
             >
               I tuoi diritti
             </h2>
@@ -93,7 +93,7 @@ export default function PrivacyPage() {
           <section>
             <h2
               className="text-[15px] font-semibold text-theme mb-2"
-              style={{ fontFamily: "var(--font-montserrat), sans-serif", letterSpacing: "0.02em" }}
+              style={{ fontFamily: "var(--font-fraunces), sans-serif", letterSpacing: "0.02em" }}
             >
               Servizi terzi
             </h2>
