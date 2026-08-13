@@ -28,11 +28,11 @@ export default function HomeSplash() {
 
   return (
     <main
-      className="relative flex min-h-screen flex-col"
+      className="relative flex min-h-[100svh] flex-col"
       style={{ background: "var(--bg)", color: "var(--text)" }}
     >
       {/* Utility row */}
-      <div className="flex items-center justify-end gap-3 px-6 py-6 md:px-10">
+      <div className="flex items-center justify-end gap-3 px-6 py-4 md:px-10 md:py-6">
         <ThemeToggle />
         <Link
           href={`/${lang}/account`}
@@ -47,7 +47,7 @@ export default function HomeSplash() {
           full-bleed backdrop (the homepage's original hero painting before
           the splash rewrite) rather than a hard-edged image, so the wordmark
           still reads as the only real content on the screen. */}
-      <div className="relative flex flex-1 flex-col items-center justify-center px-6 text-center overflow-hidden">
+      <div className="relative flex flex-1 flex-col items-center justify-center px-6 py-4 text-center overflow-hidden min-h-0">
         <div
           aria-hidden
           className="absolute inset-0 pointer-events-none"
@@ -61,9 +61,9 @@ export default function HomeSplash() {
               "radial-gradient(ellipse 70% 65% at center, black 40%, transparent 90%)",
           }}
         />
-        <FormaLogoAnimated className="relative w-full max-w-[22em]" />
+        <FormaLogoAnimated className="relative w-full max-w-[16em] sm:max-w-[22em]" />
         <p
-          className="relative mt-6 text-[0.8rem] uppercase"
+          className="relative mt-3 text-[0.65rem] uppercase sm:mt-6 sm:text-[0.8rem]"
           style={{ color: "var(--muted)", letterSpacing: "0.3em" }}
         >
           {t.heroTagline}
@@ -80,7 +80,7 @@ export default function HomeSplash() {
             >
               <Link
                 href={`/${lang}${e.href}`}
-                className="group flex items-center justify-between px-6 py-6 transition-colors duration-200 md:px-10 hover:bg-[var(--surface)]"
+                className="group flex items-center justify-between px-6 py-4 transition-colors duration-200 sm:py-6 md:px-10 hover:bg-[var(--surface)]"
               >
                 {/* 0.8x on phones — sm: and up restores the full size. */}
                 <span className="flex items-baseline gap-3">
