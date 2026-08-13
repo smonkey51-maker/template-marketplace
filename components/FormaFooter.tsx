@@ -119,9 +119,9 @@ export function FormaFooter() {
                 style={{
                   display: "flex",
                   gap: 4,
-                  background: "var(--bg)",
-                  border: "1px solid rgba(255,255,255,0.18)",
-                  borderRadius: 999,
+                  background: "var(--glass-s-fill-sunk)",
+                  border: "1px solid var(--border)",
+                  borderRadius: "var(--r-md)",
                   padding: "4px",
                   alignItems: "center",
                 }}
@@ -130,17 +130,17 @@ export function FormaFooter() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  // r-pill, not a bare background: the field carries its own
+                  // r-md, not a bare background: the field carries its own
                   // fill, and a filled surface with no radius is a square
-                  // corner — here a rectangle sitting inside the pill-shaped
+                  // corner — here a rectangle sitting inside the sharp-cornered
                   // form that wraps it, which is what made it look broken.
-                  className="fn-newsletter-input r-pill"
+                  className="fn-newsletter-input r-md"
                   placeholder={lang === "it" ? "La tua email" : "Your email"}
                   style={{
                     flex: 1,
                     minWidth: 0,
                     padding: "10px 16px",
-                    background: "rgba(255,255,255,0.06)",
+                    background: "transparent",
                     border: "none",
                     color: "var(--text)",
                     fontSize: 12,

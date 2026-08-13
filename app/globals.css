@@ -957,8 +957,6 @@ html::-webkit-scrollbar-track {
 
   /* ── Surface utilities ── */
   .glass {
-    -webkit-backdrop-filter: blur(16px) saturate(160%) brightness(var(--glass-bright));
-    backdrop-filter: blur(16px) saturate(160%) brightness(var(--glass-bright));
     background: var(--glass-fill);
     box-shadow: var(--glass-shadow);
     border: 1px solid var(--glass-stroke);
