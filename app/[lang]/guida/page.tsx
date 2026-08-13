@@ -1,6 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
+import { Minus, Plus } from "lucide-react";
 import SiteNav from "@/components/SiteNav";
 import { ArtHeader, PAINTINGS } from "@/components/ArtHeader";
 import { useLang } from "@/components/LanguageProvider";
@@ -10,6 +12,9 @@ import { FormaFooter } from "@/components/FormaFooter";
 export default function GuidaPage() {
   const { lang } = useLang();
   const t = (k: keyof typeof copy.it) => copy[lang][k];
+  // Only one FAQ open at a time, matching the Figma prototype's accordion —
+  // this used to be a static list of always-expanded Q&A cards.
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   const steps = [
     { n: "01", title: t("guideStep1Title"), body: t("guideStep1Body") },
@@ -104,31 +109,59 @@ export default function GuidaPage() {
             >
               {t("guideFaqTitle")}
             </h2>
-            <div
-              style={{
-                display: "grid",
-                gap: 12,
-              }}
-            >
-              {faqs.map((faq) => (
-                <div key={faq.q} className="glass-surface" style={{ padding: "22px 26px" }}>
-                  <h4
-                    style={{
-                      fontFamily: "var(--font-fraunces), Georgia, serif",
-                      fontWeight: 400,
-                      fontSize: 19,
-                      margin: "0 0 7px",
-                      color: "var(--text)",
-                    }}
-                  >
-                    {faq.q}
-                  </h4>
-                  <p style={{ color: "var(--muted)", fontSize: 14, lineHeight: 1.65, margin: 0 }}>
-                    {faq.a}
-                  </p>
-                </div>
-              ))}
-            </div>
+            <ul className="border-t border-theme">
+              {faqs.map((faq, i) => {
+                const isOpen = openFaq === i;
+                return (
+                  <li key={faq.q} className="border-b border-theme">
+                    <button
+                      onClick={() => setOpenFaq(isOpen ? null : i)}
+                      aria-expanded={isOpen}
+                      className="flex w-full items-center justify-between gap-6 py-6 text-left"
+                    >
+                      <span
+                        style={{
+                          fontFamily: "var(--font-fraunces), Georgia, serif",
+                          fontWeight: 500,
+                          color: "var(--text)",
+                        }}
+                        className="text-[1.1rem]"
+                      >
+                        {faq.q}
+                      </span>
+                      {isOpen ? (
+                        <Minus
+                          size={18}
+                          strokeWidth={1.8}
+                          className="shrink-0"
+                          style={{ color: "var(--accent)" }}
+                        />
+                      ) : (
+                        <Plus
+                          size={18}
+                          strokeWidth={1.8}
+                          className="shrink-0"
+                          style={{ color: "var(--muted)" }}
+                        />
+                      )}
+                    </button>
+                    <div
+                      className="grid transition-all duration-300 ease-out"
+                      style={{ gridTemplateRows: isOpen ? "1fr" : "0fr", opacity: isOpen ? 1 : 0 }}
+                    >
+                      <div className="overflow-hidden">
+                        <p
+                          className="max-w-xl pb-6 text-[14px] leading-relaxed"
+                          style={{ color: "var(--muted)" }}
+                        >
+                          {faq.a}
+                        </p>
+                      </div>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
 
           <div style={{ marginTop: 48, display: "flex", gap: 14, flexWrap: "wrap" }}>

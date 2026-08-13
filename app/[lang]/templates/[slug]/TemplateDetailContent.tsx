@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ShoppingBag, Check } from "lucide-react";
 import { useLang } from "@/components/LanguageProvider";
 import { copy } from "@/lib/formaCopy";
 import { TemplateThumb } from "@/components/TemplateThumb";
@@ -9,6 +10,7 @@ import { FormaFooter } from "@/components/FormaFooter";
 import { formatPrice, type TemplateMeta } from "@/lib/templates";
 import { getLocalizedName, getLocalizedDesc } from "@/lib/i18n";
 import { getKindLabel, getCatKey } from "@/lib/categories";
+import { useCart } from "@/lib/useCart";
 
 export function TemplateDetailContent({
   item,
@@ -20,6 +22,8 @@ export function TemplateDetailContent({
   const { lang } = useLang();
   const t = (k: keyof typeof copy.it) => copy[lang][k];
   const name = getLocalizedName(item, lang);
+  const { add, has } = useCart();
+  const inCart = has(item.id);
 
   // "Features" used to be a fixed list of 4 lines identical on all 16
   // products — it said nothing about the specific one. These chips derive
@@ -158,6 +162,24 @@ export function TemplateDetailContent({
 
                 <div className="flex flex-col gap-3">
                   <BuyButton templateId={item.id} price={formatPrice(item.price)} />
+                  <button
+                    onClick={() => add(item.id)}
+                    disabled={inCart}
+                    className="fn-btn justify-center r-md inline-flex items-center gap-2"
+                    style={{ background: "var(--surface-2)" }}
+                  >
+                    {inCart ? (
+                      <>
+                        <Check size={14} strokeWidth={2} aria-hidden />
+                        {lang === "it" ? "Nel carrello" : "In cart"}
+                      </>
+                    ) : (
+                      <>
+                        <ShoppingBag size={14} strokeWidth={1.8} aria-hidden />
+                        {lang === "it" ? "Aggiungi al carrello" : "Add to cart"}
+                      </>
+                    )}
+                  </button>
                   <Link
                     href={`/${lang}/preview/${item.id}`}
                     className="fn-btn justify-center r-md"
