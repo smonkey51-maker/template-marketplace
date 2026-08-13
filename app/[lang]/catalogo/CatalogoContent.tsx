@@ -387,6 +387,21 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                 onChange={(e) => setQ(e.target.value)}
                 placeholder={t("searchPlaceholder")}
               />
+              {/* Bundles used to be reachable only by scrolling past the whole
+                  product grid — nothing above the fold pointed at them. This
+                  is the same visible-without-scrolling fix SiteNav's dropdown
+                  already gets, just for visitors who land on /catalogo
+                  directly. */}
+              {sellableBundles.length > 0 && (
+                <a
+                  href="#bundle"
+                  className="fn-filter"
+                  style={{ borderColor: "var(--accent)", color: "var(--accent)" }}
+                >
+                  <Layers size={14} strokeWidth={1.8} aria-hidden />
+                  {lang === "it" ? "Vedi i bundle" : "See bundles"}
+                </a>
+              )}
             </div>
 
             {/* Facets. Each row is single-select, because the options within a
