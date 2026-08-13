@@ -504,7 +504,7 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                         style={{
                           position: "relative",
                           aspectRatio: "16/10",
-                          borderRadius: "12px",
+                          borderRadius: "var(--r-md)",
                           overflow: "hidden",
                           marginBottom: "16px",
                           flexShrink: 0,

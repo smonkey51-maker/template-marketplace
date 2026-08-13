@@ -1515,6 +1515,30 @@ html::-webkit-scrollbar-track {
   }
 }
 
+/* ── Theme toggle icon swap ── */
+@keyframes theme-toggle-spin {
+  from {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  @keyframes theme-toggle-spin {
+    from {
+      opacity: 1;
+      transform: none;
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
 /* ── Heart pop — wishlist spring animation ── */
 @keyframes heart-pop {
   0% {
