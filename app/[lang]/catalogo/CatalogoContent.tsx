@@ -3,7 +3,8 @@
 import { useCallback, useEffect, useMemo, useState, useRef } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
-import { Layers } from "lucide-react";
+import { Layers, ShoppingBag, Check } from "lucide-react";
+import { useCart } from "@/lib/useCart";
 import SiteNav from "@/components/SiteNav";
 import { useLang } from "@/components/LanguageProvider";
 import { copy } from "@/lib/formaCopy";
@@ -12,6 +13,7 @@ import {
   sellableTemplatesMeta,
   sellableBundles,
   formatPrice,
+  getTemplate,
   type TemplateMeta,
 } from "@/lib/templates";
 import { getLocalizedName, getLocalizedDesc, templateTranslations } from "@/lib/i18n";
@@ -191,6 +193,7 @@ function FilterChip({
 export default function CatalogoContent({ initialGroup }: { initialGroup: GroupKey }) {
   const { lang } = useLang();
   const t = (k: keyof typeof copy.it) => copy[lang][k];
+  const { add: addToCart, has: inCart } = useCart();
   const [q, setQ] = useState("");
   const [group, setGroup] = useState<GroupKey>(initialGroup);
   const [price, setPrice] = useState<PriceKey>("all");
@@ -387,21 +390,6 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                 onChange={(e) => setQ(e.target.value)}
                 placeholder={t("searchPlaceholder")}
               />
-              {/* Bundles used to be reachable only by scrolling past the whole
-                  product grid — nothing above the fold pointed at them. This
-                  is the same visible-without-scrolling fix SiteNav's dropdown
-                  already gets, just for visitors who land on /catalogo
-                  directly. */}
-              {sellableBundles.length > 0 && (
-                <a
-                  href="#bundle"
-                  className="fn-filter"
-                  style={{ borderColor: "var(--accent)", color: "var(--accent)" }}
-                >
-                  <Layers size={14} strokeWidth={1.8} aria-hidden />
-                  {lang === "it" ? "Vedi i bundle" : "See bundles"}
-                </a>
-              )}
             </div>
 
             {/* Facets. Each row is single-select, because the options within a
@@ -476,6 +464,129 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                 </div>
               )}
             </div>
+
+            {/*
+              Bundles used to sit below the whole product grid — nothing above
+              the fold pointed at them, so on a catalogue with more than a
+              screenful of products they read as invisible. Right after the
+              filters is the first thing anyone scrolling the page sees.
+            */}
+            {sellableBundles.length > 0 && (
+              <section
+                className="fn-section"
+                id="bundle"
+                style={{ scrollMarginTop: 24, marginBottom: 40 }}
+              >
+                <div className="fn-kicker">{lang === "it" ? "Risparmia" : "Save"}</div>
+                <h2
+                  style={{
+                    fontFamily: "var(--font-fraunces), Georgia, serif",
+                    fontWeight: 300,
+                    fontSize: "clamp(24px, 3vw, 34px)",
+                    margin: "0 0 20px",
+                    color: "var(--text)",
+                  }}
+                >
+                  {lang === "it" ? "Bundle" : "Bundles"}
+                </h2>
+
+                <div className="fn-grid">
+                  {sellableBundles.map((b) => (
+                    <Link
+                      key={b.id}
+                      href={`/${lang}/bundle/${b.id}`}
+                      className="fn-card"
+                      style={{ display: "flex", flexDirection: "column", height: "100%" }}
+                    >
+                      <div
+                        className="fn-body"
+                        style={{ display: "flex", flexDirection: "column", flex: 1 }}
+                      >
+                        <div style={{ marginBottom: 14 }}>
+                          <Layers
+                            aria-hidden
+                            size={26}
+                            strokeWidth={1.25}
+                            style={{ color: "var(--accent)" }}
+                          />
+                        </div>
+                        <h3
+                          style={{
+                            fontFamily: "var(--font-fraunces), Georgia, serif",
+                            fontWeight: 400,
+                            fontSize: 22,
+                            margin: "0 0 8px",
+                            lineHeight: 1.2,
+                          }}
+                        >
+                          {getLocalizedName(b, lang)}
+                        </h3>
+                        <ul
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: 4,
+                            margin: "0 0 16px",
+                            listStyle: "none",
+                            padding: 0,
+                          }}
+                        >
+                          {b.templateIds.slice(0, 3).map((tid) => {
+                            const included = getTemplate(tid);
+                            return (
+                              <li
+                                key={tid}
+                                style={{
+                                  display: "flex",
+                                  alignItems: "flex-start",
+                                  gap: 6,
+                                  fontSize: 13,
+                                  color: "var(--muted)",
+                                  lineHeight: 1.4,
+                                }}
+                              >
+                                <span aria-hidden style={{ color: "var(--border)", flexShrink: 0 }}>
+                                  •
+                                </span>
+                                {included ? getLocalizedName(included, lang) : tid}
+                              </li>
+                            );
+                          })}
+                        </ul>
+                        <div className="fn-meta" style={{ marginTop: "auto" }}>
+                          <span>
+                            {b.templateIds.length}{" "}
+                            {lang === "it" ? "prodotti inclusi" : "products included"}
+                          </span>
+                          <span style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
+                            <s style={{ color: "var(--muted)", fontSize: 14 }}>
+                              {formatPrice(b.regularPrice)}
+                            </s>
+                            <b
+                              style={{
+                                fontFamily: "var(--font-fraunces), Georgia, serif",
+                                fontSize: 22,
+                                fontWeight: 400,
+                                color: "var(--text)",
+                              }}
+                            >
+                              {formatPrice(b.price)}
+                            </b>
+                          </span>
+                        </div>
+                        <div className="fn-card-actions" style={{ marginTop: 18 }}>
+                          <span className="fn-btn primary w-full justify-center">
+                            {lang === "it"
+                              ? `Risparmia ${formatPrice(b.regularPrice - b.price)}`
+                              : `Save ${formatPrice(b.regularPrice - b.price)}`}
+                          </span>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            )}
 
             {filtered.length === 0 ? (
               <div style={{ padding: "60px 0", textAlign: "center", color: "var(--muted)" }}>
@@ -577,16 +688,39 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                         >
                           {getLocalizedName(item, lang)}
                         </h3>
-                        <p
+                        {/* Two tags as bullets, not the full description — a
+                            shopper scanning a grid of nine cards reads a bolded
+                            fragment faster than a sentence, and the description
+                            is still one tap away on the product page. */}
+                        <ul
                           style={{
-                            color: "var(--muted)",
-                            fontSize: 14,
-                            lineHeight: 1.55,
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: 4,
                             margin: "0 0 16px",
+                            listStyle: "none",
+                            padding: 0,
                           }}
                         >
-                          {getLocalizedDesc(item, lang)}
-                        </p>
+                          {item.tags.slice(0, 2).map((tag) => (
+                            <li
+                              key={tag}
+                              style={{
+                                display: "flex",
+                                alignItems: "flex-start",
+                                gap: 6,
+                                fontSize: 13,
+                                color: "var(--muted)",
+                                lineHeight: 1.4,
+                              }}
+                            >
+                              <span aria-hidden style={{ color: "var(--border)", flexShrink: 0 }}>
+                                •
+                              </span>
+                              {tag}
+                            </li>
+                          ))}
+                        </ul>
 
                         <div className="fn-meta" style={{ marginTop: "auto" }}>
                           {/* The download count used to sit here, described in
@@ -615,10 +749,39 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                       </div>
                     </Link>
 
-                    {/* Outside the link on purpose — a button nested in an
-                        anchor is invalid, and this one opens the sheet rather
-                        than navigating. */}
-                    <div className="fn-card-actions" style={{ marginTop: 18 }}>
+                    {/* Outside the link on purpose — buttons nested in an
+                        anchor are invalid, and neither of these navigates:
+                        one adds to the cart in place, the other opens the
+                        quick-view sheet. Compact and side by side rather than
+                        one full-width button — nine of these stacked in a
+                        grid is where a large CTA per card stopped reading as
+                        "call to action" and started reading as visual noise. */}
+                    <div
+                      className="fn-card-actions"
+                      style={{ marginTop: 18, display: "flex", alignItems: "center", gap: 8 }}
+                    >
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          addToCart(item.id);
+                        }}
+                        disabled={inCart(item.id)}
+                        className="fn-btn primary"
+                        style={{ flex: 1, justifyContent: "center", gap: 6, fontSize: 12 }}
+                      >
+                        {inCart(item.id) ? (
+                          <>
+                            <Check size={13} strokeWidth={2} aria-hidden />
+                            {lang === "it" ? "Aggiunto" : "Added"}
+                          </>
+                        ) : (
+                          <>
+                            <ShoppingBag size={13} strokeWidth={1.8} aria-hidden />
+                            {lang === "it" ? "Aggiungi" : "Add"}
+                          </>
+                        )}
+                      </button>
                       <button
                         type="button"
                         onClick={(e) => {
@@ -626,7 +789,7 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                           openerRef.current = e.currentTarget;
                           setActiveId(item.id);
                         }}
-                        className="fn-btn primary w-full justify-center"
+                        style={{ fontSize: 12, color: "var(--muted)", whiteSpace: "nowrap" }}
                       >
                         {t("details")}
                       </button>
@@ -635,108 +798,6 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                 ))}
               </div>
             )}
-          </section>
-
-          {/*
-            Bundles had no way in. Nothing on the site linked to /bundle/[id] —
-            the only links pointing at that route used the id `studio-access`,
-            which is not one of them and answers "Bundle non trovato". So the
-            four most expensive items in the shop, €19.99 to €29.99, could be
-            bought only by someone who guessed the URL. They belong on the page
-            people actually browse.
-          */}
-          <section className="fn-section" id="bundle" style={{ scrollMarginTop: 24 }}>
-            <div className="fn-kicker">{lang === "it" ? "Risparmia" : "Save"}</div>
-            <h2
-              style={{
-                fontFamily: "var(--font-fraunces), Georgia, serif",
-                fontWeight: 300,
-                fontSize: "clamp(32px, 4vw, 52px)",
-                margin: "0 0 6px",
-                color: "var(--text)",
-              }}
-            >
-              {lang === "it" ? "Bundle" : "Bundles"}
-            </h2>
-            <p style={{ color: "var(--muted)", fontSize: 17, marginBottom: 32 }}>
-              {lang === "it"
-                ? "Più prodotti insieme, a meno di quanto costerebbero singolarmente."
-                : "Several products together, for less than they cost apart."}
-            </p>
-
-            <div className="fn-grid">
-              {sellableBundles.map((b) => (
-                <Link
-                  key={b.id}
-                  href={`/${lang}/bundle/${b.id}`}
-                  className="fn-card"
-                  style={{ display: "flex", flexDirection: "column", height: "100%" }}
-                >
-                  <div
-                    className="fn-body"
-                    style={{ display: "flex", flexDirection: "column", flex: 1 }}
-                  >
-                    <div style={{ marginBottom: 14 }}>
-                      <Layers
-                        aria-hidden
-                        size={30}
-                        strokeWidth={1.25}
-                        style={{ color: "var(--accent)" }}
-                      />
-                    </div>
-                    <h3
-                      style={{
-                        fontFamily: "var(--font-fraunces), Georgia, serif",
-                        fontWeight: 400,
-                        fontSize: 26,
-                        margin: "0 0 8px",
-                        lineHeight: 1.2,
-                      }}
-                    >
-                      {getLocalizedName(b, lang)}
-                    </h3>
-                    <p
-                      style={{
-                        color: "var(--muted)",
-                        fontSize: 14,
-                        lineHeight: 1.55,
-                        margin: "0 0 16px",
-                      }}
-                    >
-                      {getLocalizedDesc(b, lang)}
-                    </p>
-                    <div className="fn-meta" style={{ marginTop: "auto" }}>
-                      <span>
-                        {b.templateIds.length}{" "}
-                        {lang === "it" ? "prodotti inclusi" : "products included"}
-                      </span>
-                      <span style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
-                        <s style={{ color: "var(--muted)", fontSize: 14 }}>
-                          {formatPrice(b.regularPrice)}
-                        </s>
-                        <b
-                          style={{
-                            fontFamily: "var(--font-fraunces), Georgia, serif",
-                            fontSize: 22,
-                            fontWeight: 400,
-                            color: "var(--text)",
-                          }}
-                        >
-                          {formatPrice(b.price)}
-                        </b>
-                      </span>
-                    </div>
-                    <div className="fn-card-actions" style={{ marginTop: 18 }}>
-                      <span className="fn-btn primary w-full justify-center">
-                        {lang === "it"
-                          ? `Risparmia ${formatPrice(b.regularPrice - b.price)}`
-                          : `Save ${formatPrice(b.regularPrice - b.price)}`}
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
           </section>
           <FormaFooter />
         </div>
