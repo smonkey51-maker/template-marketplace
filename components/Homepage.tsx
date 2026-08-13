@@ -3,6 +3,7 @@
 import SectionNav from "@/components/sections/SectionNav";
 import Hero from "@/components/Hero";
 import TemplateMasonry from "@/components/sections/TemplateMasonry";
+import HowItWorks from "@/components/sections/HowItWorks";
 import { FormaFooter } from "@/components/FormaFooter";
 
 /**
@@ -20,6 +21,11 @@ import { FormaFooter } from "@/components/FormaFooter";
  *
  * Scrolling stays whatever the browser does by default — nothing here
  * touches scroll position.
+ *
+ * HowItWorks sits between the masonry wall and the footer: a closing
+ * trust/process strip (mono step index, bordered grid) borrowed from the
+ * Figma editorial redesign's structure, adapted to FORMA's bordeaux/paper
+ * tokens rather than a new visual language.
  */
 export default function Homepage() {
   return (
@@ -29,6 +35,7 @@ export default function Homepage() {
       <SectionNav />
       <Hero />
       <TemplateMasonry />
+      <HowItWorks />
       <FormaFooter />
     </main>
   );
