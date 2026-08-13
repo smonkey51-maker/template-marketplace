@@ -100,13 +100,6 @@ function SuccessContent() {
   if (bundle && isFree) {
     return (
       <div className="relative z-10 bg-surface border border-theme r-glass p-8 max-w-md w-full mx-auto text-center shadow-[0_8px_40px_rgba(0,0,0,0.12)]">
-        <div
-          className="absolute inset-x-8 top-0 h-px rounded-full"
-          style={{
-            background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)",
-          }}
-        />
-
         <div className="flex justify-center mb-6">
           <div className="w-20 h-20 bg-accent/15 rounded-full flex items-center justify-center">
             <Layers aria-hidden size={34} strokeWidth={1.25} className="text-accent" />
@@ -170,14 +163,6 @@ function SuccessContent() {
 
   return (
     <div className="relative z-10 bg-surface border border-theme r-glass p-8 max-w-md w-full mx-auto text-center shadow-[0_8px_40px_rgba(0,0,0,0.12)]">
-      {/* Top glint */}
-      <div
-        className="absolute inset-x-8 top-0 h-px rounded-full"
-        style={{
-          background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)",
-        }}
-      />
-
       {/* Success icon */}
       <div className="flex justify-center mb-6">
         <div className="w-20 h-20 bg-accent/15 rounded-full flex items-center justify-center">
