@@ -2,306 +2,168 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useId, useRef, useState } from "react";
-import { UserButton } from "@clerk/nextjs";
+import { useEffect, useState } from "react";
+import { UserButton, useAuth } from "@clerk/nextjs";
 import { copy } from "@/lib/formaCopy";
 import { useLang } from "@/components/LanguageProvider";
 import { FormaLogoAnimated } from "@/components/FormaLogo";
 import BackLink from "@/components/BackLink";
-import { Layers, Sparkles, BookOpen, Table2, LayoutGrid, User, Heart } from "lucide-react";
-import { sellableTemplatesMeta } from "@/lib/templates";
+import ThemeToggle from "@/components/ThemeToggle";
+import { useWishlist } from "@/lib/useWishlist";
+import { Menu, X, Heart, User } from "lucide-react";
 
-const SELLABLE_COUNT = sellableTemplatesMeta.filter((t) => t.price > 0).length;
-
-interface DropItem {
-  href: string;
-  labelIt: string;
-  labelEn: string;
-  /** One line saying what is behind the link. */
-  descIt: string;
-  descEn: string;
-  icon: typeof Layers;
-  /** Ties the icon badge to the catalogue's category colours. */
-  cat?: "prompt" | "guide" | "sheet";
-}
+const LINKS: { href: string; key: keyof typeof copy.it }[] = [
+  { href: "/catalogo", key: "catalogo" },
+  { href: "/studio", key: "studioAi" },
+  { href: "/guida", key: "guida" },
+];
 
 /**
- * Nav entries. Only entries with `items` render a disclosure caret — a link
- * without a submenu must not advertise one.
+ * Site header — sticky compact bar, matching the Figma Make prototype's
+ * Header.tsx: wordmark left, three links, theme toggle + wishlist + account
+ * on the right, hamburger on mobile. Replaced the two-tier utility-bar +
+ * logo-hero + mega-dropdown navbar this used to be (see git history) — same
+ * spot, same import, every page that renders `<SiteNav />` picks this up
+ * automatically.
+ *
+ * No framer-motion in this codebase (unlike the prototype), so the mobile
+ * drawer uses a plain max-height CSS transition — same technique already
+ * used by FormaFooter's mobile accordion.
  */
-// These mirror the filter chips on /catalogo, and the values match the
-// GroupKey union there. They used to be Web / Notion / App / Shop pointing at
-// ?cat=, which the catalogue never read — four of the five items in the main
-// menu silently landed on the unfiltered catalogue, and none of those four
-// categories has existed since the catalogue was rebuilt.
-const CATALOGO_ITEMS: DropItem[] = [
-  {
-    href: "/catalogo",
-    labelIt: "Tutti i template",
-    labelEn: "All templates",
-    // Counted, not typed. Written as a literal it said "16" the moment seven
-    // products were withdrawn, which is the kind of number nobody re-reads.
-    descIt: `${SELLABLE_COUNT} prodotti pronti all'uso`,
-    descEn: `${SELLABLE_COUNT} products, ready to use`,
-    icon: LayoutGrid,
-  },
-  {
-    href: "/catalogo?gruppo=prompt",
-    labelIt: "Prompt e script",
-    labelEn: "Prompts & scripts",
-    descIt: "Testo da copiare e adattare",
-    descEn: "Copy, adapt, paste",
-    icon: Sparkles,
-    cat: "prompt",
-  },
-  {
-    href: "/catalogo?gruppo=guide",
-    labelIt: "Guide",
-    labelEn: "Guides",
-    descIt: "Percorsi passo per passo",
-    descEn: "Step-by-step walkthroughs",
-    icon: BookOpen,
-    cat: "guide",
-  },
-  {
-    href: "/catalogo?gruppo=sheet",
-    labelIt: "Fogli e tracker",
-    labelEn: "Sheets & trackers",
-    descIt: "Da compilare e aggiornare",
-    descEn: "Fill in and keep updated",
-    icon: Table2,
-    cat: "sheet",
-  },
-  {
-    href: "/catalogo#bundle",
-    labelIt: "Bundle",
-    labelEn: "Bundles",
-    descIt: "Più prodotti, fino a €17 in meno",
-    descEn: "Several products, up to €17 off",
-    icon: Layers,
-  },
-];
-
-const ACCOUNT_ITEMS: DropItem[] = [
-  {
-    href: "/account",
-    labelIt: "Il mio account",
-    labelEn: "My account",
-    descIt: "Acquisti e download",
-    descEn: "Purchases and downloads",
-    icon: User,
-  },
-  {
-    href: "/wishlist",
-    labelIt: "Salvati",
-    labelEn: "Saved",
-    descIt: "I template messi da parte",
-    descEn: "Templates you set aside",
-    icon: Heart,
-  },
-];
-
-/** Nav item with a real dropdown — opens on hover (pointer) and on focus/click. */
-function NavDropdown({
-  label,
-  href,
-  items,
-  lang,
-  active,
-}: {
-  label: string;
-  href: string;
-  items: DropItem[];
-  lang: "it" | "en";
-  active?: boolean;
-}) {
-  const [open, setOpen] = useState(false);
-  const wrapRef = useRef<HTMLDivElement>(null);
-  const closeTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
-  const menuId = useId();
-
-  // Close on outside click and on Escape.
-  useEffect(() => {
-    if (!open) return;
-    const onDown = (e: MouseEvent) => {
-      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) setOpen(false);
-    };
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-    };
-    document.addEventListener("mousedown", onDown);
-    document.addEventListener("keydown", onKey);
-    return () => {
-      document.removeEventListener("mousedown", onDown);
-      document.removeEventListener("keydown", onKey);
-    };
-  }, [open]);
-
-  useEffect(() => () => clearTimeout(closeTimer.current), []);
-
-  const openNow = () => {
-    clearTimeout(closeTimer.current);
-    setOpen(true);
-  };
-  // Small grace period so the pointer can travel from trigger to panel.
-  const closeSoon = () => {
-    clearTimeout(closeTimer.current);
-    closeTimer.current = setTimeout(() => setOpen(false), 120);
-  };
-
-  return (
-    <div
-      className="fn-nav-item"
-      ref={wrapRef}
-      onMouseEnter={openNow}
-      onMouseLeave={closeSoon}
-      onFocus={openNow}
-      onBlur={(e) => {
-        if (!wrapRef.current?.contains(e.relatedTarget as Node)) setOpen(false);
-      }}
-    >
-      <Link
-        href={href}
-        className={active ? "fn-drop active" : "fn-drop"}
-        aria-current={active ? "page" : undefined}
-        aria-expanded={open}
-        aria-haspopup="true"
-        aria-controls={menuId}
-      >
-        {label}
-        <svg
-          className="fn-caret"
-          width="8"
-          height="5"
-          viewBox="0 0 8 5"
-          fill="none"
-          aria-hidden
-          data-open={open ? "1" : undefined}
-        >
-          <path
-            d="M1 1l3 3 3-3"
-            stroke="currentColor"
-            strokeWidth="1.3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </Link>
-
-      <div id={menuId} className="fn-menu" data-open={open ? "1" : undefined} role="menu">
-        {items.map((item) => {
-          const Icon = item.icon;
-          return (
-            <Link
-              key={item.href}
-              href={`/${lang}${item.href}`}
-              role="menuitem"
-              className="fn-menu-item"
-              data-cat={item.cat}
-              tabIndex={open ? 0 : -1}
-              onClick={() => setOpen(false)}
-            >
-              <span className="fn-menu-item__badge" aria-hidden>
-                <Icon size={16} strokeWidth={1.6} />
-              </span>
-              <span className="fn-menu-item__text">
-                <span className="fn-menu-item__label">
-                  {lang === "it" ? item.labelIt : item.labelEn}
-                </span>
-                <span className="fn-menu-item__desc">
-                  {lang === "it" ? item.descIt : item.descEn}
-                </span>
-              </span>
-            </Link>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
 export default function SiteNav() {
-  const { lang, toggle } = useLang();
+  const { lang } = useLang();
   const t = (k: keyof typeof copy.it) => copy[lang][k];
   const pathname = usePathname();
   const withoutLang = pathname.replace(/^\/(it|en)(?=\/|$)/, "");
-  const inCatalogo =
-    withoutLang.startsWith("/catalogo") ||
-    withoutLang.startsWith("/bundle") ||
-    withoutLang.startsWith("/templates") ||
-    withoutLang.startsWith("/preview") ||
-    withoutLang.startsWith("/wishlist");
-  const inGuida = withoutLang.startsWith("/guida") || withoutLang.startsWith("/guide");
-  const inStudio = withoutLang.startsWith("/studio") || withoutLang.startsWith("/ai-studio");
-  const inAccount = withoutLang.startsWith("/account") || withoutLang.startsWith("/success");
+  const { isSignedIn } = useAuth();
+  const { ids } = useWishlist();
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 16);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => setOpen(false), [pathname]);
+
+  const isActive = (href: string) => withoutLang.startsWith(href);
 
   return (
-    <>
-      {/* Utility bar. The left slot used to be an empty placeholder — every
-          inner page opened with a strip of nothing above the wordmark. It
-          holds "Indietro" now, which is how every page that carries this nav
-          gets a back control in the same place. */}
-      <div className="fn-utility">
-        <BackLink fallbackHref={`/${lang}`} />
-        <div className="fn-right">
-          <UserButton />
+    <header
+      className="sticky top-0 z-50 border-b border-theme transition-shadow duration-300"
+      style={{
+        background: "var(--bg)",
+        paddingTop: "env(safe-area-inset-top, 0px)",
+        boxShadow: scrolled ? "var(--shadow-sm)" : "none",
+      }}
+    >
+      <div className="mx-auto flex max-w-[1400px] items-center justify-between px-4 py-4 sm:px-6 lg:px-10">
+        <div className="flex items-center gap-3">
+          <BackLink fallbackHref={`/${lang}`} />
+          <Link href={`/${lang}`} aria-label="FORMA — home" className="flex items-center">
+            <FormaLogoAnimated className="w-24" />
+          </Link>
+        </div>
+
+        <nav className="hidden items-center gap-8 md:flex" aria-label="Main navigation">
+          {LINKS.map((l) => (
+            <Link
+              key={l.href}
+              href={`/${lang}${l.href}`}
+              aria-current={isActive(l.href) ? "page" : undefined}
+              className="text-sm transition-colors"
+              style={{ color: isActive(l.href) ? "var(--text)" : "var(--muted)" }}
+            >
+              {t(l.key)}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
+
+          <Link
+            href={`/${lang}/wishlist`}
+            aria-label={lang === "it" ? "Salvati" : "Saved"}
+            className="relative flex h-9 w-9 items-center justify-center border border-theme r-md transition-colors hover:bg-[var(--surface)]"
+          >
+            <Heart size={16} strokeWidth={1.8} aria-hidden style={{ color: "var(--text)" }} />
+            {ids.length > 0 && (
+              <span
+                className="absolute -right-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center px-1 text-[10px] r-sm"
+                style={{ background: "var(--accent)", color: "var(--bg)" }}
+              >
+                {ids.length}
+              </span>
+            )}
+          </Link>
+
+          {isSignedIn ? (
+            <UserButton />
+          ) : (
+            <Link
+              href={`/${lang}/account`}
+              aria-label={t("account")}
+              className="flex h-9 w-9 items-center justify-center border border-theme r-md transition-colors hover:bg-[var(--surface)]"
+              style={{ color: isActive("/account") ? "var(--accent)" : "var(--text)" }}
+            >
+              <User size={16} strokeWidth={1.8} aria-hidden />
+            </Link>
+          )}
+
+          <button
+            onClick={() => setOpen((v) => !v)}
+            aria-label={
+              open
+                ? lang === "it"
+                  ? "Chiudi menu"
+                  : "Close menu"
+                : lang === "it"
+                  ? "Apri menu"
+                  : "Open menu"
+            }
+            aria-expanded={open}
+            className="flex h-9 w-9 items-center justify-center md:hidden"
+            style={{ color: "var(--text)" }}
+          >
+            {open ? <X size={22} /> : <Menu size={22} />}
+          </button>
         </div>
       </div>
 
-      <div className="fn-topline" />
-
-      {/* SVG logo */}
-      <Link href={`/${lang}`} className="fn-logo-hero" aria-label="FORMA home">
-        <FormaLogoAnimated className="fn-logo-svg" />
-      </Link>
-
-      {/* Navbar
-          "Studio" portava a /ai-studio (brochure statica), obbligando chi
-          vuole usare lo strumento a passare sempre di là prima di arrivare a
-          /studio. Ora porta direttamente a /studio; il secondo link, che
-          prima duplicava la stessa destinazione, ora porta a /ai-studio come
-          approfondimento opzionale. */}
-      <nav className="fn-navbar" aria-label="Main navigation">
-        <div className="fn-nav-left">
-          <NavDropdown
-            label={t("catalogo")}
-            href={`/${lang}/catalogo`}
-            items={CATALOGO_ITEMS}
-            lang={lang}
-            active={inCatalogo}
-          />
-          <Link
-            href={`/${lang}/guida`}
-            className={inGuida ? "active" : undefined}
-            aria-current={inGuida ? "page" : undefined}
-          >
-            {t("guida")}
-          </Link>
-          <Link
-            href={`/${lang}/studio`}
-            className={inStudio ? "active" : undefined}
-            aria-current={inStudio ? "page" : undefined}
-          >
-            {t("studioAi")}
-          </Link>
-          <NavDropdown
-            label={t("account")}
-            href={`/${lang}/account`}
-            items={ACCOUNT_ITEMS}
-            lang={lang}
-            active={inAccount}
-          />
-        </div>
-        <div />
-        <div className="fn-nav-right">
-          <Link href={`/${lang}/catalogo`}>
-            {t("cerca")} <span className="fn-kbd">Ctrl K</span>
-          </Link>
-          <Link className="fn-outline" href={`/${lang}/ai-studio`}>
-            {lang === "it" ? "Come funziona" : "How it works"}
-          </Link>
-        </div>
-      </nav>
-    </>
+      {/* Mobile drawer */}
+      <div
+        className="overflow-hidden border-t border-theme md:hidden"
+        style={{
+          maxHeight: open ? 260 : 0,
+          transition: "max-height 0.28s ease",
+          background: "var(--bg)",
+        }}
+      >
+        <ul className="px-4 py-2 sm:px-6">
+          {LINKS.map((l, i) => (
+            <li key={l.href} className={i > 0 ? "border-t border-theme" : undefined}>
+              <Link
+                href={`/${lang}${l.href}`}
+                aria-current={isActive(l.href) ? "page" : undefined}
+                className="flex items-center justify-between py-4"
+                style={{ color: isActive(l.href) ? "var(--text)" : "var(--muted)" }}
+              >
+                <span
+                  style={{ fontFamily: "var(--font-fraunces), Georgia, serif", fontWeight: 500 }}
+                  className="text-[1.05rem]"
+                >
+                  {t(l.key)}
+                </span>
+                <span aria-hidden>→</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </header>
   );
 }

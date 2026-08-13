@@ -1,42 +1,20 @@
 "use client";
 
-import SectionNav from "@/components/sections/SectionNav";
-import Hero from "@/components/Hero";
-import TemplateMasonry from "@/components/sections/TemplateMasonry";
-import HowItWorks from "@/components/sections/HowItWorks";
-import { FormaFooter } from "@/components/FormaFooter";
+import HomeSplash from "@/components/HomeSplash";
 
 /**
- * The homepage: an editorial hero, then a masonry wall of every template,
- * then the footer.
+ * The homepage: a minimal splash — giant wordmark, one-line claim, three
+ * index-numbered entries (Catalogo/Studio/Guida). See HomeSplash.tsx for the
+ * implementation and its own history note.
  *
- * This replaced the bento hub (four destination cells over painting
- * backgrounds), which itself had replaced five stacked full-viewport
- * sections — see git history for that migration's reasoning. This one
- * follows the FORMA rebrand's Figma prototype: a static editorial
- * hero next to/above a masonry gallery wall, rather than a grid of
- * destination tiles. The four destinations the bento hub surfaced
- * (Catalogo/Guida/Studio/Account) live in SectionNav and SiteNav instead,
- * same as every other page.
- *
- * Scrolling stays whatever the browser does by default — nothing here
- * touches scroll position.
- *
- * HowItWorks sits between the masonry wall and the footer: a closing
- * trust/process strip (mono step index, bordered grid) borrowed from the
- * Figma editorial redesign's structure, adapted to FORMA's bordeaux/paper
- * tokens rather than a new visual language.
+ * This replaced the editorial Hero + template masonry + how-it-works +
+ * footer stack, which itself had replaced a four-cell bento hub, which had
+ * replaced five stacked full-viewport sections — see git history on this
+ * file for that lineage. Product browsing, the sales pitch and the footer
+ * now live one click away on /catalogo, /studio and /guida, each of which
+ * carries SiteNav and FormaFooter — this screen intentionally carries
+ * neither.
  */
 export default function Homepage() {
-  return (
-    // <main> rather than <div>: every page needs one main landmark so screen
-    // readers can skip past the nav straight to the content.
-    <main className="relative flex flex-col" style={{ overflowX: "hidden" }}>
-      <SectionNav />
-      <Hero />
-      <TemplateMasonry />
-      <HowItWorks />
-      <FormaFooter />
-    </main>
-  );
+  return <HomeSplash />;
 }
