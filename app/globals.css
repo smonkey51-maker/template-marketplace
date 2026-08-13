@@ -4220,6 +4220,11 @@ html.dark {
 }
 
 /* ── Badge ── */
+/* Plain mono category label — no per-category hue. Matches the Figma
+   editorial prototype's ProductCard eyebrow (muted uppercase text, no
+   colour-coding) and the site's single-accent rule; a saturated colour per
+   category was the busiest thing on the catalogue card next to the
+   thumbnail itself. */
 .fn-badge {
   display: inline-block;
   font-size: 9px;
@@ -4227,24 +4232,11 @@ html.dark {
   letter-spacing: 0.18em;
   padding: 5px 11px;
   border-radius: var(--r-md);
-  /* Defaults to the house gold; [data-cat] below swaps the hue. Written with
-     color-mix off a single --cat-ink so a category needs one token, not three. */
-  --cat-ink: var(--cat-guide-ink);
-  background: color-mix(in srgb, var(--cat-ink) 12%, transparent);
-  color: var(--cat-ink);
-  border: 1px solid color-mix(in srgb, var(--cat-ink) 30%, transparent);
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border);
   font-family: var(--font-inter), sans-serif;
   font-weight: 600;
-}
-
-.fn-badge[data-cat="prompt"] {
-  --cat-ink: var(--cat-prompt-ink);
-}
-.fn-badge[data-cat="guide"] {
-  --cat-ink: var(--cat-guide-ink);
-}
-.fn-badge[data-cat="sheet"] {
-  --cat-ink: var(--cat-sheet-ink);
 }
 
 .fn-card-actions {
@@ -4875,38 +4867,12 @@ html.dark {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
-/* A selected group chip takes that group's own colour, so the chip and the
-   badges it filters down to are visibly the same thing. "Tutti" keeps the house
-   gold above: it isn't a category, it's the absence of one. */
-.fn-filter[data-cat="prompt"].is-active {
-  background: var(--cat-prompt-solid);
-  border-color: var(--cat-prompt-solid);
-  color: var(--cat-on);
-}
-.fn-filter[data-cat="guide"].is-active {
-  background: var(--cat-guide-solid);
-  border-color: var(--cat-guide-solid);
-  color: var(--cat-on);
-}
-.fn-filter[data-cat="sheet"].is-active {
-  background: var(--cat-sheet-solid);
-  border-color: var(--cat-sheet-solid);
-  color: var(--cat-on);
-}
-
-/* Unselected, the chip stays glass — but its label carries a hint of the hue,
-   which is what makes the row scannable before anything is clicked. Not colour
-   alone: the text is still the label, and selection is still fill + border +
-   colour together. */
-.fn-filter[data-cat="prompt"]:not(.is-active, :disabled) {
-  color: var(--cat-prompt-ink);
-}
-.fn-filter[data-cat="guide"]:not(.is-active, :disabled) {
-  color: var(--cat-guide-ink);
-}
-.fn-filter[data-cat="sheet"]:not(.is-active, :disabled) {
-  color: var(--cat-sheet-ink);
-}
+/* Every group chip takes the same house accent when selected — one accent
+   site-wide (see CLAUDE.md "Brand Colors"), not a colour per category. The
+   per-category hue system this used to carry (prompt/guide/sheet each in
+   their own colour, active and idle) read as busy next to the rest of the
+   site's single-accent minimal language, so selection is back to being
+   carried by fill + border + colour together, same as every other chip. */
 
 .fn-filter__count {
   font-size: 11px;
