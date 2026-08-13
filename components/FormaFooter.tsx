@@ -26,7 +26,7 @@ function FooterAccordion({
           fontSize: 10,
           textTransform: "uppercase" as const,
           letterSpacing: ".22em",
-          color: "#D4AF37",
+          color: "var(--accent)",
           marginBottom: open ? 16 : 0,
           fontWeight: 600,
           background: "none",
@@ -159,7 +159,7 @@ export function FormaFooter() {
             ) : (
               <p
                 style={{
-                  color: "#D4AF37",
+                  color: "var(--accent)",
                   fontSize: 12,
                   letterSpacing: ".12em",
                   textTransform: "uppercase",
@@ -248,7 +248,7 @@ export function FormaFooter() {
                 gap: 6,
               }}
             >
-              <Lock aria-hidden size={13} strokeWidth={1.75} style={{ color: "#D4AF37" }} />{" "}
+              <Lock aria-hidden size={13} strokeWidth={1.75} style={{ color: "var(--accent)" }} />{" "}
               {t("secureCheckout")}
             </span>
             <span
@@ -260,7 +260,7 @@ export function FormaFooter() {
                 gap: 6,
               }}
             >
-              <Check aria-hidden size={13} strokeWidth={2} style={{ color: "#D4AF37" }} />{" "}
+              <Check aria-hidden size={13} strokeWidth={2} style={{ color: "var(--accent)" }} />{" "}
               {t("moneyBack")}
             </span>
             <span
@@ -272,7 +272,12 @@ export function FormaFooter() {
                 gap: 6,
               }}
             >
-              <Download aria-hidden size={13} strokeWidth={1.75} style={{ color: "#D4AF37" }} />{" "}
+              <Download
+                aria-hidden
+                size={13}
+                strokeWidth={1.75}
+                style={{ color: "var(--accent)" }}
+              />{" "}
               {lang === "it" ? "Download immediato" : "Immediate download"}
             </span>
           </div>

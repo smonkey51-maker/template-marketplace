@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 import { UserButton } from "@clerk/nextjs";
 import { copy } from "@/lib/formaCopy";
@@ -106,11 +107,13 @@ function NavDropdown({
   href,
   items,
   lang,
+  active,
 }: {
   label: string;
   href: string;
   items: DropItem[];
   lang: "it" | "en";
+  active?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -159,7 +162,8 @@ function NavDropdown({
     >
       <Link
         href={href}
-        className="fn-drop"
+        className={active ? "fn-drop active" : "fn-drop"}
+        aria-current={active ? "page" : undefined}
         aria-expanded={open}
         aria-haspopup="true"
         aria-controls={menuId}
@@ -219,6 +223,17 @@ function NavDropdown({
 export default function SiteNav() {
   const { lang, toggle } = useLang();
   const t = (k: keyof typeof copy.it) => copy[lang][k];
+  const pathname = usePathname();
+  const withoutLang = pathname.replace(/^\/(it|en)(?=\/|$)/, "");
+  const inCatalogo =
+    withoutLang.startsWith("/catalogo") ||
+    withoutLang.startsWith("/bundle") ||
+    withoutLang.startsWith("/templates") ||
+    withoutLang.startsWith("/preview") ||
+    withoutLang.startsWith("/wishlist");
+  const inGuida = withoutLang.startsWith("/guida") || withoutLang.startsWith("/guide");
+  const inStudio = withoutLang.startsWith("/studio") || withoutLang.startsWith("/ai-studio");
+  const inAccount = withoutLang.startsWith("/account") || withoutLang.startsWith("/success");
 
   return (
     <>
@@ -253,14 +268,28 @@ export default function SiteNav() {
             href={`/${lang}/catalogo`}
             items={CATALOGO_ITEMS}
             lang={lang}
+            active={inCatalogo}
           />
-          <Link href={`/${lang}/guida`}>{t("guida")}</Link>
-          <Link href={`/${lang}/studio`}>{t("studioAi")}</Link>
+          <Link
+            href={`/${lang}/guida`}
+            className={inGuida ? "active" : undefined}
+            aria-current={inGuida ? "page" : undefined}
+          >
+            {t("guida")}
+          </Link>
+          <Link
+            href={`/${lang}/studio`}
+            className={inStudio ? "active" : undefined}
+            aria-current={inStudio ? "page" : undefined}
+          >
+            {t("studioAi")}
+          </Link>
           <NavDropdown
             label={t("account")}
             href={`/${lang}/account`}
             items={ACCOUNT_ITEMS}
             lang={lang}
+            active={inAccount}
           />
         </div>
         <div />

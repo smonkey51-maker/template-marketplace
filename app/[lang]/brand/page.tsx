@@ -67,15 +67,15 @@ export default function BrandPage() {
             <p>{boardDesc}</p>
             <div className="fp-board-grid">
               <div className="fp-mini">
-                <Palette color="#d4af37" size={22} />
+                <Palette color="var(--accent)" size={22} />
                 <h3>Visual system</h3>
               </div>
               <div className="fp-mini">
-                <FileText color="#d4af37" size={22} />
+                <FileText color="var(--accent)" size={22} />
                 <h3>Template</h3>
               </div>
               <div className="fp-mini">
-                <Globe2 color="#d4af37" size={22} />
+                <Globe2 color="var(--accent)" size={22} />
                 <h3>Campaign</h3>
               </div>
             </div>
