@@ -39,8 +39,8 @@ export function TemplateThumb({ id, name, height = 220, priority = false }: Prop
         overflow: "hidden",
         position: "relative",
         // Shows through until the image decodes. Without it a slow decode left
-        // a white block that flashed against the dark card.
-        background: "#0f0f0f",
+        // a blank block flashing against the card.
+        background: "var(--surface-2)",
         flexShrink: 0,
         borderRadius: "inherit",
       }}

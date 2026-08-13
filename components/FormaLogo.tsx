@@ -18,7 +18,7 @@ export function FormaLogoAnimated({ className }: { className?: string }) {
   const gid = useId();
   return (
     <svg
-      viewBox="0 0 620 90"
+      viewBox="0 0 560 90"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
       aria-label="Atelier Nove"
@@ -28,15 +28,17 @@ export function FormaLogoAnimated({ className }: { className?: string }) {
       <defs>
         <linearGradient id={gid} x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="var(--accent)" />
-          <stop offset="100%" stopColor="var(--gold-soft)" />
+          <stop offset="100%" stopColor="var(--terra)" />
         </linearGradient>
       </defs>
       <text
-        x="0"
-        y="62"
+        x="6"
+        y="64"
+        textLength="530"
+        lengthAdjust="spacingAndGlyphs"
         fill={`url(#${gid})`}
-        fontSize="56"
-        fontWeight="500"
+        fontSize="62"
+        fontWeight="650"
         fontStyle="italic"
         fontFamily="var(--font-fraunces), Georgia, serif"
         opacity="0"
@@ -52,7 +54,7 @@ export function FormaLogoStatic({ className }: { className?: string }) {
   const gid = useId();
   return (
     <svg
-      viewBox="0 0 620 90"
+      viewBox="0 0 560 90"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
       aria-label="Atelier Nove"
@@ -62,15 +64,17 @@ export function FormaLogoStatic({ className }: { className?: string }) {
       <defs>
         <linearGradient id={gid} x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="var(--accent)" />
-          <stop offset="100%" stopColor="var(--gold-soft)" />
+          <stop offset="100%" stopColor="var(--terra)" />
         </linearGradient>
       </defs>
       <text
-        x="0"
-        y="62"
+        x="6"
+        y="64"
+        textLength="530"
+        lengthAdjust="spacingAndGlyphs"
         fill={`url(#${gid})`}
-        fontSize="56"
-        fontWeight="500"
+        fontSize="62"
+        fontWeight="650"
         fontStyle="italic"
         fontFamily="var(--font-fraunces), Georgia, serif"
       >
@@ -96,7 +100,7 @@ export function FormaLogoIcon({ size = 32, className }: { size?: number; classNa
       <defs>
         <linearGradient id={gid} x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="var(--accent)" />
-          <stop offset="100%" stopColor="var(--gold-soft)" />
+          <stop offset="100%" stopColor="var(--terra)" />
         </linearGradient>
       </defs>
       <text
@@ -105,7 +109,7 @@ export function FormaLogoIcon({ size = 32, className }: { size?: number; classNa
         textAnchor="middle"
         fill={`url(#${gid})`}
         fontSize="70"
-        fontWeight="500"
+        fontWeight="650"
         fontStyle="italic"
         fontFamily="var(--font-fraunces), Georgia, serif"
       >
