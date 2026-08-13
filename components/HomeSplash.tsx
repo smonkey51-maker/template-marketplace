@@ -65,8 +65,15 @@ export default function HomeSplash() {
         </p>
       </div>
 
-      {/* Minimal entries into the three destinations */}
-      <nav className="border-t border-theme" aria-label="Main navigation">
+      {/* Minimal entries into the three destinations.
+          Bottom padding on small screens only — MobileNav (components/MobileNav.tsx)
+          is a `fixed bottom-0` tab bar shown below the `sm` breakpoint, and
+          without this the last entry sat underneath it, unreachable/unreadable
+          on a phone. FormaFooter clears the same bar with the same value. */}
+      <nav
+        className="border-t border-theme pb-[calc(140px_+_env(safe-area-inset-bottom,0px))] sm:pb-0"
+        aria-label="Main navigation"
+      >
         <ul className="mx-auto grid max-w-[1400px] grid-cols-1 sm:grid-cols-3">
           {ENTRIES.map((e, i) => (
             <li
