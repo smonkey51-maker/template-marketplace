@@ -38,11 +38,27 @@ export default function HomeSplash() {
         <ThemeToggle />
       </div>
 
-      {/* Wordmark + claim — protagonist */}
-      <div className="flex flex-1 flex-col items-center justify-center px-6 text-center">
-        <FormaLogoAnimated className="w-full max-w-[15em]" />
+      {/* Wordmark + claim — protagonist. Vermeer sits behind it as a faint,
+          full-bleed backdrop (the homepage's original hero painting before
+          the splash rewrite) rather than a hard-edged image, so the wordmark
+          still reads as the only real content on the screen. */}
+      <div className="relative flex flex-1 flex-col items-center justify-center px-6 text-center overflow-hidden">
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: "url('/paintings/vermeer.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center 30%",
+            opacity: 0.16,
+            maskImage: "radial-gradient(ellipse 70% 65% at center, black 40%, transparent 90%)",
+            WebkitMaskImage:
+              "radial-gradient(ellipse 70% 65% at center, black 40%, transparent 90%)",
+          }}
+        />
+        <FormaLogoAnimated className="relative w-full max-w-[22em]" />
         <p
-          className="mt-6 text-[0.8rem] uppercase"
+          className="relative mt-6 text-[0.8rem] uppercase"
           style={{ color: "var(--muted)", letterSpacing: "0.3em" }}
         >
           {t.heroTagline}

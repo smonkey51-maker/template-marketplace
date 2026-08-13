@@ -7,62 +7,42 @@ import { useLang } from "@/components/LanguageProvider";
 import { copy } from "@/lib/formaCopy";
 import { FormaLogoStatic } from "@/components/FormaLogo";
 
-function FooterAccordion({
-  title,
-  children,
-  lang,
-}: {
-  title: string;
-  children: React.ReactNode;
-  lang: string;
-}) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div>
-      <button
-        onClick={() => setOpen(!open)}
-        className="fn-footer-accordion-trigger"
-        style={{
-          fontSize: 10,
-          textTransform: "uppercase" as const,
-          letterSpacing: ".22em",
-          color: "var(--accent)",
-          marginBottom: open ? 16 : 0,
-          fontWeight: 600,
-          background: "none",
-          border: "none",
-          cursor: "pointer",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          width: "100%",
-          fontFamily: "inherit",
-          // Padding deliberately left to .fn-footer-accordion-trigger rather
-          // than set here: it only applies on mobile, where this is a real
-          // button, and an inline style cannot carry a media query.
-        }}
-      >
-        {title}
-        <span className="fn-footer-accordion-icon" style={{ fontSize: 16, lineHeight: 1 }}>
-          {open ? "−" : "+"}
-        </span>
-      </button>
-      <nav
-        className="fn-footer-accordion-content"
-        style={{
-          display: "flex",
-          flexDirection: "column" as const,
-          gap: 14,
-          maxHeight: open ? 300 : 0,
-          overflow: "hidden",
-          transition: "max-height 0.3s ease, margin 0.3s ease",
-        }}
-      >
-        {children}
-      </nav>
-    </div>
-  );
-}
+/**
+ * Site footer — newsletter + three always-open link columns, matching the
+ * Figma Make prototype's Footer.tsx structure (mono uppercase column
+ * headers, hairline top border, wordmark + copyright closing row). Replaced
+ * the mobile accordion (columns collapsed behind a +/- trigger) with plain
+ * always-visible columns, same as the prototype, on every breakpoint.
+ */
+const COLUMNS: {
+  titleKey: keyof typeof copy.it;
+  items: { href: string; labelKey: keyof typeof copy.it }[];
+}[] = [
+  {
+    titleKey: "footerCatalog",
+    items: [
+      { href: "/catalogo", labelKey: "footerTemplates" },
+      { href: "/catalogo#bundle", labelKey: "footerBundles" },
+      { href: "/studio", labelKey: "studioAi" },
+    ],
+  },
+  {
+    titleKey: "footerSupport",
+    items: [
+      { href: "/guida", labelKey: "footerFaq" },
+      { href: "/guida", labelKey: "footerGuide" },
+      { href: "mailto:supporto@template-marketplace-psi.vercel.app", labelKey: "footerContact" },
+    ],
+  },
+  {
+    titleKey: "footerLegal",
+    items: [
+      { href: "/terms", labelKey: "footerTerms" },
+      { href: "/privacy", labelKey: "footerPrivacy" },
+      { href: "/guida#rimborsi", labelKey: "footerRefund" },
+    ],
+  },
+];
 
 export function FormaFooter() {
   const { lang } = useLang();
@@ -85,216 +65,113 @@ export function FormaFooter() {
 
   return (
     <footer
+      className="border-t border-theme"
       style={{
-        borderTop: "1px solid var(--fn-border, rgba(234,234,234,.10))",
         background: "var(--surface)",
         // Bottom padding clears MobileNav, the full-width tab bar pinned to
         // the viewport edge (~65px tall, plus the safe-area inset added
-        // below): without it the trust badges row and copyright — the very
-        // last thing in the document — render right underneath it.
-        padding: "64px 36px calc(140px + env(safe-area-inset-bottom, 0px))",
+        // below): without it the copyright row — the very last thing in the
+        // document — renders right underneath it.
+        padding: "80px 24px calc(140px + env(safe-area-inset-bottom, 0px))",
       }}
     >
-      <div style={{ maxWidth: 1220, margin: "0 auto" }}>
-        {/* Top row: logo + cols */}
-        <div className="fn-footer-grid">
-          {/* Brand col */}
-          <div>
-            <FormaLogoStatic className="w-32 h-auto opacity-90 mb-3" />
-            <p
-              style={{
-                color: "var(--muted)",
-                fontSize: 13,
-                lineHeight: 1.65,
-                maxWidth: 260,
-                marginBottom: 24,
-              }}
-            >
-              {t("footerTagline")}
-            </p>
-            {/* Newsletter */}
-            {!sent ? (
-              <form
-                onSubmit={handleSubscribe}
-                style={{
-                  display: "flex",
-                  gap: 4,
-                  background: "var(--glass-s-fill-sunk)",
-                  border: "1px solid var(--border)",
-                  borderRadius: "var(--r-md)",
-                  padding: "4px",
-                  alignItems: "center",
-                }}
-              >
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  // r-md, not a bare background: the field carries its own
-                  // fill, and a filled surface with no radius is a square
-                  // corner — here a rectangle sitting inside the sharp-cornered
-                  // form that wraps it, which is what made it look broken.
-                  className="fn-newsletter-input r-md"
-                  placeholder={lang === "it" ? "La tua email" : "Your email"}
-                  style={{
-                    flex: 1,
-                    minWidth: 0,
-                    padding: "10px 16px",
-                    background: "transparent",
-                    border: "none",
-                    color: "var(--text)",
-                    fontSize: 12,
-                    outline: "none",
-                    fontFamily: "inherit",
-                  }}
-                />
-                <button
-                  type="submit"
-                  className="fn-btn primary"
-                  style={{ padding: "10px 20px", fontSize: 10, whiteSpace: "nowrap" }}
-                >
-                  {t("newsletterCta")}
-                </button>
-              </form>
-            ) : (
-              <p
-                style={{
-                  color: "var(--accent)",
-                  fontSize: 12,
-                  letterSpacing: ".12em",
-                  textTransform: "uppercase",
-                  padding: "10px 0",
-                }}
-              >
-                ✓ {lang === "it" ? "Iscritto." : "Subscribed."}
-              </p>
-            )}
-          </div>
-
-          {/* Catalog col */}
-          <FooterAccordion title={t("footerCatalog")} lang={lang}>
-            {[
-              { href: "/catalogo", label: t("footerTemplates") },
-              { href: "/catalogo#bundle", label: t("footerBundles") },
-              { href: "/ai-studio", label: "AI Studio" },
-            ].map((l) => (
-              <Link
-                key={l.href + l.label}
-                href={`/${lang}${l.href}`}
-                className="link-muted"
-                style={{ fontSize: 13, textDecoration: "none" }}
-              >
-                {l.label}
-              </Link>
-            ))}
-          </FooterAccordion>
-
-          {/* Support col */}
-          <FooterAccordion title={t("footerSupport")} lang={lang}>
-            {[
-              { href: "/guida", label: t("footerFaq") },
-              { href: "/guida", label: t("footerGuide") },
-              {
-                href: "mailto:supporto@template-marketplace-psi.vercel.app",
-                label: t("footerContact"),
-              },
-            ].map((l) => (
-              <Link
-                key={l.label}
-                href={l.href.startsWith("/") ? `/${lang}${l.href}` : l.href}
-                className="link-muted"
-                style={{ fontSize: 13, textDecoration: "none" }}
-              >
-                {l.label}
-              </Link>
-            ))}
-          </FooterAccordion>
-
-          {/* Legal col */}
-          <FooterAccordion title={t("footerLegal")} lang={lang}>
-            {[
-              { href: "/terms", label: t("footerTerms") },
-              { href: "/privacy", label: t("footerPrivacy") },
-              { href: "/guida#rimborsi", label: t("footerRefund") },
-            ].map((l) => (
-              <Link
-                key={l.label}
-                href={`/${lang}${l.href}`}
-                className="link-muted"
-                style={{ fontSize: 13, textDecoration: "none" }}
-              >
-                {l.label}
-              </Link>
-            ))}
-          </FooterAccordion>
-        </div>
-
-        {/* Trust badges */}
-        <div
-          style={{
-            borderTop: "1px solid var(--fn-border, rgba(234,234,234,.08))",
-            paddingTop: 24,
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
-            gap: 16,
-          }}
-        >
-          <div style={{ display: "flex", gap: 20, alignItems: "center", flexWrap: "wrap" }}>
-            <span
-              style={{
-                fontSize: 11,
-                color: "var(--muted)",
-                display: "flex",
-                alignItems: "center",
-                gap: 6,
-              }}
-            >
-              <Lock aria-hidden size={13} strokeWidth={1.75} style={{ color: "var(--accent)" }} />{" "}
-              {t("secureCheckout")}
-            </span>
-            <span
-              style={{
-                fontSize: 11,
-                color: "var(--muted)",
-                display: "flex",
-                alignItems: "center",
-                gap: 6,
-              }}
-            >
-              <Check aria-hidden size={13} strokeWidth={2} style={{ color: "var(--accent)" }} />{" "}
-              {t("moneyBack")}
-            </span>
-            <span
-              style={{
-                fontSize: 11,
-                color: "var(--muted)",
-                display: "flex",
-                alignItems: "center",
-                gap: 6,
-              }}
-            >
-              <Download
-                aria-hidden
-                size={13}
-                strokeWidth={1.75}
-                style={{ color: "var(--accent)" }}
-              />{" "}
-              {lang === "it" ? "Download immediato" : "Immediate download"}
-            </span>
-          </div>
+      <div className="mx-auto grid max-w-[1400px] grid-cols-1 gap-12 lg:grid-cols-12">
+        {/* Brand + newsletter */}
+        <div className="lg:col-span-5">
           <p
             style={{
-              color: "var(--muted)",
-              fontSize: 11,
-              textTransform: "uppercase",
-              letterSpacing: ".18em",
+              fontFamily: "var(--font-fraunces), Georgia, serif",
+              fontWeight: 500,
+              letterSpacing: "-0.01em",
+              color: "var(--text)",
             }}
+            className="text-[clamp(1.75rem,3.5vw,2.5rem)]"
           >
-            {t("footerCopyright")}
+            {t("footerTagline")}
           </p>
+
+          {!sent ? (
+            <form onSubmit={handleSubscribe} className="mt-6 flex max-w-md items-center gap-3">
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder={lang === "it" ? "La tua email" : "Your email"}
+                className="w-full bg-transparent py-3 text-sm outline-none"
+                style={{
+                  borderBottom: "1px solid var(--border)",
+                  color: "var(--text)",
+                }}
+              />
+              <button type="submit" className="btn-brand-sm shrink-0 whitespace-nowrap">
+                {t("newsletterCta")}
+              </button>
+            </form>
+          ) : (
+            <p
+              className="mt-6 text-[12px] uppercase"
+              style={{ color: "var(--accent)", letterSpacing: "0.12em" }}
+            >
+              ✓ {lang === "it" ? "Iscritto." : "Subscribed."}
+            </p>
+          )}
         </div>
+
+        {/* Link columns */}
+        <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-7">
+          {COLUMNS.map((col) => (
+            <div key={col.titleKey}>
+              <p
+                className="text-[11px] font-semibold uppercase"
+                style={{ color: "var(--muted)", letterSpacing: "0.15em" }}
+              >
+                {t(col.titleKey)}
+              </p>
+              <ul className="mt-4 space-y-2.5">
+                {col.items.map((item) => (
+                  <li key={item.href + item.labelKey}>
+                    <Link
+                      href={item.href.startsWith("/") ? `/${lang}${item.href}` : item.href}
+                      className="text-sm transition-colors hover:text-[var(--accent)]"
+                      style={{ color: "var(--text)" }}
+                    >
+                      {t(item.labelKey)}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Trust badges */}
+      <div
+        className="mx-auto mt-16 flex max-w-[1400px] flex-wrap items-center justify-between gap-4 border-t border-theme pt-6"
+        style={{ borderTop: "1px solid var(--border)" }}
+      >
+        <div className="flex flex-wrap items-center gap-5">
+          <span className="flex items-center gap-1.5 text-[11px]" style={{ color: "var(--muted)" }}>
+            <Lock aria-hidden size={13} strokeWidth={1.75} style={{ color: "var(--accent)" }} />
+            {t("secureCheckout")}
+          </span>
+          <span className="flex items-center gap-1.5 text-[11px]" style={{ color: "var(--muted)" }}>
+            <Check aria-hidden size={13} strokeWidth={2} style={{ color: "var(--accent)" }} />
+            {t("moneyBack")}
+          </span>
+          <span className="flex items-center gap-1.5 text-[11px]" style={{ color: "var(--muted)" }}>
+            <Download aria-hidden size={13} strokeWidth={1.75} style={{ color: "var(--accent)" }} />
+            {lang === "it" ? "Download immediato" : "Immediate download"}
+          </span>
+        </div>
+        <FormaLogoStatic className="h-5 w-auto opacity-90" />
+        <p
+          className="text-[11px] uppercase"
+          style={{ color: "var(--muted)", letterSpacing: "0.15em" }}
+        >
+          {t("footerCopyright")}
+        </p>
       </div>
     </footer>
   );
