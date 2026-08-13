@@ -4972,21 +4972,6 @@ html.dark {
   }
 }
 
-/* ═══════════════════════════════════════════════════════════
-   CLEARANCE FOR THE FLOATING MOBILE NAV
-   The pill stays; the content moves out from under it.
-   ═══════════════════════════════════════════════════════════ */
-
-/* The pill sits 24px off the bottom and stands ~56px tall. Anything that ends
-   within that band is unreachable: taps land on the nav instead. This gives the
-   buy box its own clearance so the button can always be scrolled clear of it,
-   rather than relying on whatever happens to follow on the page. */
-@media (max-width: 639px) {
-  .fn-buy-box {
-    margin-bottom: calc(88px + env(safe-area-inset-bottom, 0px));
-  }
-}
-
 /* ── Catalogue detail sheet ───────────────────────────────────────────────
    The sheet keeps the glass material — rim light, blur, cast shadow — but not
    the standard 0.65 fill. It opens directly over the catalogue grid, and the

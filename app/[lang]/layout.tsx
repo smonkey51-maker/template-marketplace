@@ -15,7 +15,6 @@ import ThemeProvider from "@/components/ThemeProvider";
 import LanguageProvider from "@/components/LanguageProvider";
 import { PostHogProvider } from "@/components/PostHogProvider";
 import { ToastProvider } from "@/components/Toast";
-import MobileNav from "@/components/MobileNav";
 import PageTransition from "@/components/PageTransition";
 import CommandPalette from "@/components/CommandPalette";
 import SectionAccent from "@/components/SectionAccent";
@@ -181,7 +180,6 @@ export default async function RootLayout({
                     <PageTransition>
                       <div id="main-content">{children}</div>
                     </PageTransition>
-                    <MobileNav />
                     <CommandPalette />
                   </GsapProvider>
                 </ToastProvider>

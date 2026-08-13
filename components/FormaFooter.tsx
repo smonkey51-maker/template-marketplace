@@ -31,7 +31,7 @@ const COLUMNS: {
     items: [
       { href: "/guida", labelKey: "footerFaq" },
       { href: "/guida", labelKey: "footerGuide" },
-      { href: "mailto:supporto@template-marketplace-psi.vercel.app", labelKey: "footerContact" },
+      { href: "mailto:nicolo.forcolin.1992@gmail.com", labelKey: "footerContact" },
     ],
   },
   {
@@ -68,11 +68,7 @@ export function FormaFooter() {
       className="border-t border-theme"
       style={{
         background: "var(--surface)",
-        // Bottom padding clears MobileNav, the full-width tab bar pinned to
-        // the viewport edge (~65px tall, plus the safe-area inset added
-        // below): without it the copyright row — the very last thing in the
-        // document — renders right underneath it.
-        padding: "80px 24px calc(140px + env(safe-area-inset-bottom, 0px))",
+        padding: "80px 24px calc(48px + env(safe-area-inset-bottom, 0px))",
       }}
     >
       <div className="mx-auto grid max-w-[1400px] grid-cols-1 gap-12 lg:grid-cols-12">

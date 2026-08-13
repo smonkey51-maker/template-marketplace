@@ -182,7 +182,7 @@ export default function NewsletterAdminPage() {
                   style={{ border: "none", borderTop: "1px solid var(--border)", margin: "20px 0" }}
                 />
                 <p style={{ margin: 0, fontSize: 11, color: "var(--muted)", lineHeight: 1.7 }}>
-                  support@template-marketplace-psi.vercel.app · template-marketplace-psi.vercel.app
+                  nicolo.forcolin.1992@gmail.com · template-marketplace-psi.vercel.app
                 </p>
               </div>
               {/* Footer */}

@@ -94,7 +94,7 @@ export const copy = {
       "Descrivi il template che vuoi (tipo, stile, sezioni, tono). L'AI genera una struttura HTML o Notion pronta all'uso in pochi secondi. Puoi poi personalizzarla nell'editor integrato.",
     guideFaq5Q: "Esiste assistenza dopo l'acquisto?",
     guideFaq5A:
-      "Sì. Per ogni domanda tecnica scrivi a supporto@template-marketplace-psi.vercel.app — risposta entro 24 ore lavorative.",
+      "Sì. Per ogni domanda tecnica scrivi a nicolo.forcolin.1992@gmail.com — risposta entro 24 ore lavorative.",
 
     /* ai-studio page */
     aiStudioKicker: "Intelligenza artificiale",
@@ -183,7 +183,7 @@ export const copy = {
     forCreators: "Creator e professionisti digitali",
 
     /* footer */
-    footerTagline: "Template digitali di qualità editoriale.",
+    footerTagline: "Teniamoci in contatto.",
     footerCatalog: "Catalogo",
     footerTemplates: "Tutti i template",
     footerBundles: "Bundle",
@@ -297,7 +297,7 @@ export const copy = {
       "Describe the template you want (type, style, sections, tone). The AI generates an HTML or Notion structure ready to use in seconds. You can then customise it in the integrated editor.",
     guideFaq5Q: "Is there support after purchase?",
     guideFaq5A:
-      "Yes. For any technical question write to support@template-marketplace-psi.vercel.app — reply within 24 business hours.",
+      "Yes. For any technical question write to nicolo.forcolin.1992@gmail.com — reply within 24 business hours.",
 
     /* ai-studio page */
     aiStudioKicker: "Artificial intelligence",
@@ -385,7 +385,7 @@ export const copy = {
     forCreators: "Digital creators and professionals",
 
     /* footer */
-    footerTagline: "Editorial-quality digital templates.",
+    footerTagline: "Let's keep in touch.",
     footerCatalog: "Catalog",
     footerTemplates: "All templates",
     footerBundles: "Bundles",

@@ -64,7 +64,7 @@ export async function sendPurchaseEmail(params: PurchaseEmailParams) {
           ${ctaBlock}
           <hr style="border:none;border-top:1px solid #2c2c2e;margin:28px 0;"/>
           <p style="margin:0;font-size:12px;color:#48484a;line-height:1.7;">
-            Hai domande? Scrivici a <a href="mailto:support@template-marketplace-psi.vercel.app" style="color:#0a84ff;text-decoration:none;">support@template-marketplace-psi.vercel.app</a><br/>
+            Hai domande? Scrivici a <a href="mailto:nicolo.forcolin.1992@gmail.com" style="color:#0a84ff;text-decoration:none;">nicolo.forcolin.1992@gmail.com</a><br/>
             <a href="https://template-marketplace-psi.vercel.app/account" style="color:#48484a;">Vedi i tuoi acquisti</a> &nbsp;·&nbsp;
             <a href="https://template-marketplace-psi.vercel.app" style="color:#48484a;">Marketplace</a>
           </p>
@@ -106,7 +106,7 @@ export function buildNewsletterHtml(title: string, body: string): string {
           ${lines}
           <hr style="border:none;border-top:1px solid #2c2c2e;margin:28px 0;"/>
           <p style="margin:0;font-size:12px;color:#48484a;line-height:1.7;">
-            Hai domande? Scrivici a <a href="mailto:support@template-marketplace-psi.vercel.app" style="color:#0a84ff;text-decoration:none;">support@template-marketplace-psi.vercel.app</a><br/>
+            Hai domande? Scrivici a <a href="mailto:nicolo.forcolin.1992@gmail.com" style="color:#0a84ff;text-decoration:none;">nicolo.forcolin.1992@gmail.com</a><br/>
             <a href="https://template-marketplace-psi.vercel.app" style="color:#48484a;">Visita il Marketplace</a>
           </p>
         </td></tr>
