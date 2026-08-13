@@ -25,9 +25,14 @@ export const checkoutSchema = z
   .object({
     templateId: z.string().max(100).optional(),
     bundleId: z.string().max(100).optional(),
+    // Cart checkout: several standalone templates in one Stripe session.
+    // Capped at 20 — comfortably above anything a real cart holds, and short
+    // enough that a malformed request can't be used to build an
+    // arbitrarily large line_items array.
+    templateIds: z.array(z.string().max(100)).min(1).max(20).optional(),
   })
-  .refine((data) => data.templateId || data.bundleId, {
-    message: "templateId or bundleId is required",
+  .refine((data) => data.templateId || data.bundleId || data.templateIds, {
+    message: "templateId, bundleId or templateIds is required",
   });
 
 export type CheckoutInput = z.infer<typeof checkoutSchema>;

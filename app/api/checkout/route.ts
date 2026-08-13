@@ -86,7 +86,7 @@ export async function POST(req: NextRequest) {
       { status: 400 },
     );
   }
-  const { templateId, bundleId } = parsed.data;
+  const { templateId, bundleId, templateIds } = parsed.data;
   // Never derive redirect URLs from Origin/Referer — those are client-controlled
   // and would let an attacker point Stripe's success_url at their own domain.
   const appUrl = siteUrl();
@@ -117,6 +117,38 @@ export async function POST(req: NextRequest) {
       cancel_url: `${appUrl}/`,
       payment_intent_data: { metadata: bundleMeta },
       metadata: bundleMeta,
+    });
+  }
+
+  // ── Cart checkout — several standalone templates in one session, guest
+  //    checkout allowed, same as a single template. ─────────────────────────
+  if (templateIds) {
+    const resolved = await Promise.all(templateIds.map((id) => resolveTemplate(id)));
+    // Silently drops anything that no longer exists (withdrawn since it was
+    // added to the cart) or is free (nothing to charge — a free item in a
+    // cart has no Stripe price to line up against the paid ones, and the
+    // catalogue has none today, so this only guards against a future one).
+    const valid = resolved.filter(
+      (tpl): tpl is NonNullable<typeof tpl> => tpl !== null && tpl.price > 0,
+    );
+    if (valid.length === 0) {
+      return NextResponse.json(
+        { error: "Nessun articolo acquistabile nel carrello" },
+        { status: 400 },
+      );
+    }
+
+    const cartMeta = {
+      templateIds: valid.map((tpl) => tpl.id).join(","),
+      ...(userId ? { userId } : {}),
+    };
+    return createSession(stripe, {
+      mode: "payment",
+      line_items: valid.map((tpl) => ({ price: tpl.stripePriceId, quantity: 1 })),
+      success_url: `${appUrl}/account?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${appUrl}/carrello`,
+      payment_intent_data: { metadata: cartMeta },
+      metadata: cartMeta,
     });
   }
 

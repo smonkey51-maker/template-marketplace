@@ -81,6 +81,36 @@ export async function POST(req: NextRequest) {
           }).catch(console.error);
         }
       }
+    } else if (templateIds && effectiveUserId) {
+      // Cart purchase — several standalone templates in one session. Same
+      // upsert-on-natural-key shape as a bundle, just without a bundleId to
+      // key the purchase rows on.
+      const ids = templateIds.split(",").filter(Boolean);
+      const rows = ids.map((tid) => ({
+        user_id: effectiveUserId,
+        template_id: tid,
+        stripe_session_id: session.id,
+        guest_email: userId ? null : guestEmail,
+      }));
+      const { error } = await supabase
+        .from("purchases")
+        .upsert(rows, { onConflict: "user_id,template_id", ignoreDuplicates: true });
+      if (error) {
+        console.error("Supabase cart insert error:", error);
+      } else {
+        console.log(`Carrello salvato — userId: ${effectiveUserId}, templateIds: ${templateIds}`);
+        if (guestEmail) {
+          await sendPurchaseEmail({
+            to: guestEmail,
+            type: "bundle",
+            itemName: "Il tuo ordine",
+            previewUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/`,
+            bundleTemplates: await Promise.all(
+              ids.map(async (tid) => (await resolveTemplate(tid))?.name ?? tid),
+            ),
+          }).catch(console.error);
+        }
+      }
     } else if (templateId && effectiveUserId) {
       // Single template purchase (authenticated or guest)
       const { error } = await supabase.from("purchases").upsert(

@@ -10,7 +10,8 @@ import { FormaLogoAnimated } from "@/components/FormaLogo";
 import BackLink from "@/components/BackLink";
 import ThemeToggle from "@/components/ThemeToggle";
 import { useWishlist } from "@/lib/useWishlist";
-import { Menu, X, Heart, User } from "lucide-react";
+import { useCart } from "@/lib/useCart";
+import { Menu, X, Heart, User, ShoppingBag } from "lucide-react";
 
 const LINKS: { href: string; key: keyof typeof copy.it }[] = [
   { href: "/catalogo", key: "catalogo" },
@@ -37,6 +38,7 @@ export default function SiteNav() {
   const withoutLang = pathname.replace(/^\/(it|en)(?=\/|$)/, "");
   const { isSignedIn } = useAuth();
   const { ids } = useWishlist();
+  const { ids: cartIds } = useCart();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -97,6 +99,22 @@ export default function SiteNav() {
                 style={{ background: "var(--accent)", color: "var(--bg)" }}
               >
                 {ids.length}
+              </span>
+            )}
+          </Link>
+
+          <Link
+            href={`/${lang}/carrello`}
+            aria-label={lang === "it" ? "Carrello" : "Cart"}
+            className="relative flex h-9 w-9 items-center justify-center border border-theme r-md transition-colors hover:bg-[var(--surface)]"
+          >
+            <ShoppingBag size={16} strokeWidth={1.8} aria-hidden style={{ color: "var(--text)" }} />
+            {cartIds.length > 0 && (
+              <span
+                className="absolute -right-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center px-1 text-[10px] r-sm"
+                style={{ background: "var(--accent)", color: "var(--bg)" }}
+              >
+                {cartIds.length}
               </span>
             )}
           </Link>
