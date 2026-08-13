@@ -34,7 +34,7 @@ export default function SectionNav() {
           aria-current={active ? "page" : undefined}
           className="px-3 py-1.5 text-[11px] font-semibold tracking-widest uppercase transition-all duration-200"
           style={{
-            color: active ? "var(--accent)" : "rgba(255,255,255,0.82)",
+            color: active ? "var(--accent)" : "var(--muted)",
             borderBottom: active ? "1px solid var(--accent)" : "1px solid transparent",
             letterSpacing: "0.12em",
           }}
@@ -47,29 +47,24 @@ export default function SectionNav() {
 
   return (
     <>
-      {/* Fixed overlay nav bar — glassmorphism. The translucent strip stays
-          full-bleed (it's the visual anchor of the header), but its content
-          is capped to the same max-width as the bento grid below it —
-          otherwise "1fr auto 1fr" pins the side links to the literal screen
-          edges, and on a wide monitor that reads as two orphaned words with
-          a huge gap to the logo instead of a nav.
+      {/* Fixed overlay nav bar. The strip stays full-bleed (it's the visual
+          anchor of the header), but its content is capped to the same
+          max-width as the masonry grid below it — otherwise "1fr auto 1fr"
+          pins the side links to the literal screen edges, and on a wide
+          monitor that reads as two orphaned words with a huge gap to the
+          logo instead of a nav.
 
-          The background is a fixed dark gradient scrim, not pure blur — link
-          contrast used to depend on how light the photo scrolling underneath
-          was at that instant, which could drop below the WCAG AA 4.5:1
-          ratio over the brighter parts of the garden shot. The scrim makes
-          contrast independent of what's behind it; blur stays as a surface
-          detail on top. */}
+          Flat paper, not glass: the homepage hero is no longer a photo the
+          nav floats over, so there is nothing left to blur or refract — an
+          opaque bar with a hairline border reads the same as every other
+          raised surface on the site. */}
       <header
         className="fixed top-0 inset-x-0 z-[70] px-4 sm:px-6 lg:px-10"
         style={{
           height: "56px",
           paddingTop: "env(safe-area-inset-top, 0px)",
-          background: "linear-gradient(180deg, rgba(5,4,2,0.85), rgba(5,4,2,0.75))",
-          backdropFilter: "blur(30px) saturate(190%)",
-          WebkitBackdropFilter: "blur(30px) saturate(190%)",
-          borderBottom: "1px solid var(--spatial-rim)",
-          boxShadow: "0 8px 28px -12px rgba(0,0,0,0.6), inset 0 1px 0 var(--spatial-rim)",
+          background: "var(--nav-bg)",
+          borderBottom: "1px solid var(--border)",
         }}
       >
         <div
@@ -81,10 +76,11 @@ export default function SectionNav() {
             {renderNavLinks(LEFT_LINKS)}
           </nav>
 
-          {/* Logo center */}
+          {/* Logo center — bigger and bolder than the old snap-nav treatment,
+              so the wordmark reads as the site's identity, not a footnote. */}
           <div className="flex justify-center">
             <Link href={`/${lang}`} aria-label="Atelier Nove — Home" className="flex items-center">
-              <FormaLogoStatic className="w-24 sm:w-32 h-auto opacity-90 hover:opacity-100 transition-opacity" />
+              <FormaLogoStatic className="w-36 sm:w-48 h-auto opacity-95 hover:opacity-100 transition-opacity" />
             </Link>
           </div>
 
@@ -99,7 +95,7 @@ export default function SectionNav() {
               href={`/${lang}/catalogo`}
               aria-label={lang === "it" ? "Cerca template" : "Search templates"}
               className="flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-widest transition-colors"
-              style={{ color: "rgba(255,255,255,0.82)", letterSpacing: "0.12em" }}
+              style={{ color: "var(--muted)", letterSpacing: "0.12em" }}
             >
               <Search size={13} strokeWidth={1.8} aria-hidden />
               <span className="hidden xl:inline">{lang === "it" ? "Cerca" : "Search"}</span>
@@ -109,10 +105,8 @@ export default function SectionNav() {
               aria-label={lang === "it" ? "Il mio account" : "My account"}
               className="flex items-center justify-center w-7 h-7 rounded-full transition-colors"
               style={{
-                color: pathname.startsWith(`/${lang}/account`)
-                  ? "var(--accent)"
-                  : "rgba(255,255,255,0.82)",
-                border: "1px solid rgba(255,255,255,0.25)",
+                color: pathname.startsWith(`/${lang}/account`) ? "var(--accent)" : "var(--muted)",
+                border: "1px solid var(--border)",
               }}
             >
               <User size={13} strokeWidth={1.8} aria-hidden />
