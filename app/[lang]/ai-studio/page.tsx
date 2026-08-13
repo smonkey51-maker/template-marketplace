@@ -59,7 +59,7 @@ export default function AIStudioPage() {
                     fontFamily: "var(--font-cormorant), Georgia, serif",
                     fontSize: 40,
                     fontWeight: 300,
-                    color: "#D4AF37",
+                    color: "var(--accent)",
                     lineHeight: 1,
                     marginBottom: 14,
                   }}
@@ -133,7 +133,7 @@ export default function AIStudioPage() {
                   </p>
                   <span
                     style={{
-                      color: "#D4AF37",
+                      color: "var(--accent)",
                       fontSize: 11,
                       textTransform: "uppercase",
                       letterSpacing: ".14em",

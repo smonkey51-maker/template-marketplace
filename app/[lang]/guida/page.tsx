@@ -62,7 +62,7 @@ export default function GuidaPage() {
                     fontFamily: "var(--font-cormorant), Georgia, serif",
                     fontSize: 44,
                     fontWeight: 300,
-                    color: "#D4AF37",
+                    color: "var(--accent)",
                     lineHeight: 1,
                   }}
                 >

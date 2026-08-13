@@ -365,18 +365,23 @@ html.glass-fx-ready .forma-glass-card {
   --spec-hot: rgba(212, 175, 55, 0.65);
   --spec-mid: rgba(212, 175, 55, 0.28);
   --divider: rgba(26, 14, 6, 0.09);
-  /* FORMA gold accent */
-  --accent: #d4af37;
-  --gold: #d4af37;
-  --gold-soft: #b8962e;
-  --accent-bg: rgba(212, 175, 55, 0.1);
-  --accent-rgb: 212, 175, 55;
-  --accent-muted: rgba(212, 175, 55, 0.18);
+  /* FORMA accent — "gallery" system: each site section is a room with its
+     own accent (wayfinding), layered on the same neutral walls. Values below
+     are the default room (no section context — home, legal pages, sign-in);
+     [data-section] blocks further down override them per room. --gold/
+     --gold-soft keep their historical names for compat with existing
+     references, but now track the current room's accent, not a fixed gold. */
+  --accent: #8c6a2b;
+  --gold: var(--accent);
+  --gold-soft: color-mix(in srgb, var(--accent) 80%, black 20%);
+  --accent-bg: rgba(140, 106, 43, 0.1);
+  --accent-rgb: 140, 106, 43;
+  --accent-muted: rgba(140, 106, 43, 0.18);
   /* Palette tokens */
-  --gold-dim: rgba(212, 175, 55, 0.12);
-  --gold-mid: rgba(212, 175, 55, 0.3);
-  --terra: #7a1c2e;
-  --terra-dim: rgba(122, 28, 46, 0.12);
+  --gold-dim: rgba(140, 106, 43, 0.12);
+  --gold-mid: rgba(140, 106, 43, 0.3);
+  --terra: color-mix(in srgb, var(--accent) 75%, black 25%);
+  --terra-dim: color-mix(in srgb, var(--terra) 12%, transparent);
   --cream: #f2e8d0;
   --cream-60: rgba(242, 232, 208, 0.6);
   --cream-30: rgba(242, 232, 208, 0.3);
@@ -417,7 +422,7 @@ html.glass-fx-ready .forma-glass-card {
   /* Modal skeleton */
   --skeleton-bg: #f2f2f7;
   /* Pillar heading */
-  --pillar-name-color: #b8962e;
+  --pillar-name-color: var(--gold-soft);
   /* Forma tokens — light */
   --forma-bg: var(--bg);
   --forma-bg-alt: var(--surface);
@@ -439,6 +444,39 @@ html.glass-fx-ready .forma-glass-card {
   --sp-4: 40px;
   --sp-5: 64px;
   --sp-6: 120px;
+}
+
+/* ── Gallery rooms — light: one accent per site section ──
+   SectionAccent.tsx sets [data-section] on <html> from the route. Neutral
+   walls (--bg/--surface/--text/--muted), the glass material (--card-border,
+   --glow-gold, --spec-*, --glass-top-edge), and category badge colours
+   (--cat-*) stay fixed across every room on purpose — a raised surface is
+   the same material everywhere, and a product's category doesn't change
+   because you're standing in a different room. Only the room's own signage
+   (accent) changes: nav's active link, CTAs, focus rings, price labels. */
+:root[data-section="catalogo"] {
+  --accent: #a6321a;
+  --accent-rgb: 166, 50, 26;
+  --accent-bg: rgba(166, 50, 26, 0.1);
+  --accent-muted: rgba(166, 50, 26, 0.18);
+}
+:root[data-section="guida"] {
+  --accent: #1e3a8a;
+  --accent-rgb: 30, 58, 138;
+  --accent-bg: rgba(30, 58, 138, 0.1);
+  --accent-muted: rgba(30, 58, 138, 0.18);
+}
+:root[data-section="studio"] {
+  --accent: #4b5842;
+  --accent-rgb: 75, 88, 66;
+  --accent-bg: rgba(75, 88, 66, 0.1);
+  --accent-muted: rgba(75, 88, 66, 0.18);
+}
+:root[data-section="account"] {
+  --accent: #82580b;
+  --accent-rgb: 130, 88, 11;
+  --accent-bg: rgba(130, 88, 11, 0.1);
+  --accent-muted: rgba(130, 88, 11, 0.18);
 }
 
 /* ── Font pairing: Slingday (h1–h3 + .font-gatsunaga) + Jakarta (everything else) ──
@@ -523,19 +561,21 @@ html.dark {
   --spec-hot: rgba(212, 175, 55, 0.18);
   --spec-mid: rgba(212, 175, 55, 0.09);
   --divider: rgba(234, 234, 234, 0.08);
-  /* FORMA gold accent */
-  --accent: #d4af37;
-  --gold: #d4af37;
-  --gold-soft: #b8962e;
-  --gold2: #b8962e;
-  --accent-bg: rgba(212, 175, 55, 0.12);
-  --accent-rgb: 212, 175, 55;
-  --accent-muted: rgba(212, 175, 55, 0.2);
+  /* FORMA accent — see the light :root for the "gallery rooms" rationale.
+     Same default room, same [data-section] mechanism; values below are
+     tuned to read on the near-black dark ground instead of the cream one. */
+  --accent: #d1a550;
+  --gold: var(--accent);
+  --gold-soft: color-mix(in srgb, var(--accent) 82%, white 18%);
+  --gold2: var(--gold-soft);
+  --accent-bg: rgba(209, 165, 80, 0.12);
+  --accent-rgb: 209, 165, 80;
+  --accent-muted: rgba(209, 165, 80, 0.2);
   /* Palette tokens */
-  --gold-dim: rgba(212, 175, 55, 0.12);
-  --gold-mid: rgba(212, 175, 55, 0.28);
-  --terra: #8b2635;
-  --terra-dim: rgba(139, 38, 53, 0.15);
+  --gold-dim: rgba(209, 165, 80, 0.12);
+  --gold-mid: rgba(209, 165, 80, 0.28);
+  --terra: color-mix(in srgb, var(--accent) 80%, white 20%);
+  --terra-dim: color-mix(in srgb, var(--terra) 15%, transparent);
   --cream: #eaeaea;
   --cream-60: rgba(234, 234, 234, 0.6);
   --cream-30: rgba(234, 234, 234, 0.3);
@@ -576,7 +616,34 @@ html.dark {
   /* Modal skeleton */
   --skeleton-bg: #1e1e1e;
   /* Pillar heading — FORMA gold in dark mode */
-  --pillar-name-color: #d4af37;
+  --pillar-name-color: var(--gold-soft);
+}
+
+/* ── Gallery rooms — dark: same four rooms, tuned for the near-black ground.
+   See the light [data-section] block above for the full rationale. ── */
+html.dark[data-section="catalogo"] {
+  --accent: #e2734f;
+  --accent-rgb: 226, 115, 79;
+  --accent-bg: rgba(226, 115, 79, 0.12);
+  --accent-muted: rgba(226, 115, 79, 0.2);
+}
+html.dark[data-section="guida"] {
+  --accent: #6b85e8;
+  --accent-rgb: 107, 133, 232;
+  --accent-bg: rgba(107, 133, 232, 0.12);
+  --accent-muted: rgba(107, 133, 232, 0.2);
+}
+html.dark[data-section="studio"] {
+  --accent: #9cae84;
+  --accent-rgb: 156, 174, 132;
+  --accent-bg: rgba(156, 174, 132, 0.12);
+  --accent-muted: rgba(156, 174, 132, 0.2);
+}
+html.dark[data-section="account"] {
+  --accent: #d9a54b;
+  --accent-rgb: 217, 165, 75;
+  --accent-bg: rgba(217, 165, 75, 0.12);
+  --accent-muted: rgba(217, 165, 75, 0.2);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -3701,6 +3768,16 @@ html.dark {
 .fn-nav-right a:hover {
   color: var(--text);
 }
+/* Active section — the room you're standing in. Colour plus an underline,
+   not colour alone, so the state still reads under forced-colors/low vision. */
+.fn-nav-left a.active,
+.fn-nav-left .fn-drop.active {
+  color: var(--accent);
+  box-shadow: inset 0 -2px 0 var(--accent);
+  transition:
+    color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    box-shadow var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
 .fn-kbd {
   border: 1px solid var(--fn-border, rgba(234, 234, 234, 0.14));
   border-radius: 6px;
@@ -3709,14 +3786,16 @@ html.dark {
   margin-left: 7px;
 }
 .fn-outline {
-  border: 1px solid rgba(212, 175, 55, 0.45);
+  border: 1px solid rgba(var(--accent-rgb), 0.45);
   border-radius: 999px;
   padding: 10px 20px;
   color: var(--text);
-  transition: background var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+  transition:
+    background var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
 .fn-outline:hover {
-  background: rgba(212, 175, 55, 0.09);
+  background: rgba(var(--accent-rgb), 0.09);
 }
 
 /* "Indietro" — see components/BackLink.tsx. One appearance for every page,
@@ -3958,9 +4037,10 @@ html.dark {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.26em;
-  color: #d4af37;
+  color: var(--accent);
   font-weight: 600;
   font-family: var(--font-jakarta), sans-serif;
+  transition: color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
 .fn-hero h1 {
   font-family: var(--font-cormorant), Georgia, serif;
@@ -4016,26 +4096,34 @@ html.dark {
   transform: none;
 }
 .fn-btn:hover {
-  background: rgba(212, 175, 55, 0.07);
-  border-color: rgba(212, 175, 55, 0.3);
+  background: rgba(var(--accent-rgb), 0.07);
+  border-color: rgba(var(--accent-rgb), 0.3);
 }
 .fn-btn.primary {
-  background: linear-gradient(135deg, #d4af37, #b8962e);
-  color: #060606;
+  background: linear-gradient(135deg, var(--accent), var(--gold-soft));
+  color: var(--bg);
   border: 0;
   font-weight: 700;
+  transition:
+    background var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
 .fn-btn.primary:hover {
-  background: linear-gradient(135deg, #dfc040, #c9a238);
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent) 85%, white 15%),
+    color-mix(in srgb, var(--gold-soft) 85%, white 15%)
+  );
 }
 .fn-btn.gold {
-  color: #d4af37;
+  color: var(--accent);
   border: 0;
   background: transparent;
   padding-left: 0;
+  transition: color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
 .fn-btn.gold:hover {
-  color: #e8c94a;
+  color: color-mix(in srgb, var(--accent) 85%, white 15%);
 }
 
 /* ── Stats ── */
@@ -4114,10 +4202,10 @@ html.dark {
 }
 .fn-search:focus {
   background: var(--glass-s-fill);
-  border-color: rgba(212, 175, 55, 0.45);
+  border-color: rgba(var(--accent-rgb), 0.45);
   box-shadow:
     inset 0 1px 0 var(--glass-s-sheen),
-    0 0 0 3px rgba(212, 175, 55, 0.14);
+    0 0 0 3px rgba(var(--accent-rgb), 0.14);
 }
 
 .fn-chips {
@@ -4171,11 +4259,11 @@ html.dark {
   color: var(--accent);
   font-weight: 700;
   background: var(--glass-s-fill-hi);
-  border-color: rgba(212, 175, 55, 0.55);
+  border-color: rgba(var(--accent-rgb), 0.55);
   transform: none;
   box-shadow:
     inset 0 1px 0 var(--glass-s-sheen),
-    0 0 0 1px rgba(212, 175, 55, 0.22);
+    0 0 0 1px rgba(var(--accent-rgb), 0.22);
 }
 .fn-chip:focus-visible {
   outline: 2px solid var(--accent);
@@ -4514,7 +4602,7 @@ html.dark {
   margin-bottom: 10px;
 }
 .fn-line.gold {
-  background: rgba(212, 175, 55, 0.35);
+  background: rgba(var(--accent-rgb), 0.35);
 }
 
 /* ── Footer ── */
@@ -4930,10 +5018,10 @@ html.dark {
     background: linear-gradient(to bottom, rgba(5, 3, 2, 0.82), rgba(5, 3, 2, 0.9));
   }
 }
-/* The kicker is gold on the page ground; on a painting it needs to be the
-   light end of that gold or it disappears into the darker canvases. */
+/* The kicker is the room's accent on the page ground; on a painting it needs
+   the light end of that accent or it disappears into the darker canvases. */
 .fn-cat-hero__text .fn-kicker {
-  color: #d4af37;
+  color: color-mix(in srgb, var(--accent) 78%, white 22%);
 }
 
 /* Title and subtitle sit on the veil, not on the page, so they are white in

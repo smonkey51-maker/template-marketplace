@@ -19,6 +19,7 @@ import MobileNav from "@/components/MobileNav";
 import PageTransition from "@/components/PageTransition";
 import CommandPalette from "@/components/CommandPalette";
 import GlassEnhancements from "@/components/GlassEnhancements";
+import SectionAccent from "@/components/SectionAccent";
 import GsapProvider from "@/app/providers/GsapProvider";
 import "@/app/globals.css";
 
@@ -173,6 +174,7 @@ export default async function RootLayout({
           />
         </head>
         <body className="bg-page text-theme antialiased min-h-screen">
+          <SectionAccent />
           <GlassEnhancements />
           <PostHogProvider>
             <ThemeProvider>
