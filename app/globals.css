@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 /* ═══════════════════════════════════════════════════════════
-   GLASS ENHANCEMENTS — specular highlight position + squircle radius
-   Typed as custom properties so browsers can interpolate them across a
-   transition/@keyframes (plain custom properties can only ever jump).
-   Registered globally here; set per-element by GlassEnhancements.tsx
-   (pointer tracking) or by the idle-sweep @keyframes below.
+   Specular-highlight custom properties — kept registered (some card rules
+   still reference them) but pinned to zero. The Atelier Nove rebrand
+   retired the liquid-glass material (pointer-tracked highlight, idle sweep,
+   squircle masking); GlassEnhancements.tsx is no longer mounted, and
+   surfaces read as flat paper instead of glass.
    ═══════════════════════════════════════════════════════════ */
 @property --spec-x {
   syntax: "<percentage>";
@@ -22,42 +22,11 @@
 @property --spec-o {
   syntax: "<number>";
   inherits: false;
-  initial-value: 0.16;
-}
-
-/* Touch devices have no continuous pointer to chase, so the highlight
-   sweeps slowly on its own instead of sitting frozen at its default
-   position. Desktop/pointer devices get GlassEnhancements.tsx's live
-   tracking instead — this animation only runs where that can't apply. */
-@media (hover: none) and (prefers-reduced-motion: no-preference) {
-  .glass-surface,
-  .glass-surface-pill,
-  .glass-bar,
-  .forma-glass-card,
-  .fn-filter {
-    animation: glass-sweep 9s ease-in-out infinite;
-  }
-}
-@keyframes glass-sweep {
-  0% {
-    --spec-x: 10%;
-    --spec-y: -10%;
-    --spec-o: 0.16;
-  }
-  50% {
-    --spec-x: 90%;
-    --spec-y: 60%;
-    --spec-o: 0.26;
-  }
-  100% {
-    --spec-x: 10%;
-    --spec-y: -10%;
-    --spec-o: 0.16;
-  }
+  initial-value: 0;
 }
 
 /* ═══════════════════════════════════════════════════════════
-   FORMA homepage sections
+   ATELIER NOVE homepage sections
    ═══════════════════════════════════════════════════════════ */
 
 /* One viewport tall as a floor, not a ceiling: `height` clipped any section
@@ -113,47 +82,21 @@ body {
    A pane of glass, not a tinted box: the rim catches light along the
    top edge, and the cast shadow below sells the gap to the painting. */
 .forma-glass-card {
-  --squircle-radius: var(--r-md, 16px);
-  --squircle-n: 5;
   background-color: var(--glass-fill);
-  background-image: radial-gradient(
-    circle at var(--spec-x) var(--spec-y),
-    rgba(255, 255, 255, var(--spec-o)),
-    transparent 60%
-  );
   border: 1px solid var(--glass-rim);
-  border-top-color: rgba(255, 255, 255, 0.15); /* Specular highlight */
-  border-radius: var(--r-md, 16px);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-  box-shadow:
-    var(--glass-cast-1),
-    inset 0 2px 2px -1px rgba(255, 255, 255, 0.15),
-    /* Inner liquid edge */ inset 0 1px 0 var(--glass-rim);
+  border-radius: var(--r-md);
+  box-shadow: var(--glass-cast-1);
   transition:
     background-color 0.5s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
     border-color 0.5s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
     box-shadow 0.5s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    transform 0.5s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    --spec-x 0.4s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    --spec-y 0.4s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    --spec-o 0.4s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
-}
-html.squircle-ready .forma-glass-card {
-  -webkit-mask-image: paint(squircle);
-  mask-image: paint(squircle);
-}
-html.glass-fx-ready .forma-glass-card {
-  -webkit-backdrop-filter: var(--glass-blur) url(#glass-distortion-lg);
-  backdrop-filter: var(--glass-blur) url(#glass-distortion-lg);
+    transform 0.5s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
 @media (hover: hover) {
   .forma-glass-card:hover {
     background-color: var(--glass-fill-hi);
     border-color: var(--glass-rim-hi);
-    box-shadow:
-      var(--glass-cast-2),
-      inset 0 1px 0 var(--glass-rim-hi);
+    box-shadow: var(--glass-cast-2);
     transform: translateY(-4px);
   }
 }
@@ -330,66 +273,59 @@ html.glass-fx-ready .forma-glass-card {
    THEME VARIABLES
    ═══════════════════════════════════════════════════════════ */
 :root {
-  /* ── Light mode: soft warm neutral ── */
-  --bg: #fdfaf5;
-  --surface: #f5efe3;
-  --surface-2: #ede5d4;
-  --text: #1c1610;
-  --muted: rgba(26, 14, 6, 0.55);
-  --border: rgba(26, 14, 6, 0.12);
-  --fn-border: rgba(28, 22, 16, 0.12);
-  --fn-menu-bg: rgba(253, 250, 245, 0.88);
-  --nav-bg: rgba(253, 250, 245, 0.96);
-  --card-bg: rgba(253, 250, 245, 0.95);
-  --card-border: rgba(26, 14, 6, 0.1);
-  --input-bg: rgba(26, 14, 6, 0.05);
-  --btn-ghost-border: rgba(26, 14, 6, 0.18);
-  --btn-ghost-border-hover: rgba(26, 14, 6, 0.72);
-  /* Border radius tokens - Squircle/Pill shift */
-  --r-sm: 24px;
-  --r-md: 32px;
-  --r-lg: 40px;
-  --r-xl: 48px;
-  /* Glassmorphism tokens - Liquid Glass */
-  --glass-fill: rgba(253, 250, 245, 0.7);
-  --glass-shadow: 0 8px 32px rgba(26, 14, 6, 0.15), 0 2px 2px -1px rgba(255, 255, 255, 0.8) inset;
-  --glass-stroke: rgba(255, 255, 255, 0.4);
-  --glass-top-edge: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 248, 230, 0.95) 20%,
-    rgba(255, 248, 230, 0.95) 80%,
-    transparent
-  );
-  --glass-bright: 1.01;
-  --spec-hot: rgba(212, 175, 55, 0.65);
-  --spec-mid: rgba(212, 175, 55, 0.28);
-  --divider: rgba(26, 14, 6, 0.09);
-  /* FORMA accent — "gallery" system: each site section is a room with its
-     own accent (wayfinding), layered on the same neutral walls. Values below
-     are the default room (no section context — home, legal pages, sign-in);
-     [data-section] blocks further down override them per room. --gold/
-     --gold-soft keep their historical names for compat with existing
-     references, but now track the current room's accent, not a fixed gold. */
-  --accent: #8c6a2b;
+  /* ── Light mode: Atelier Nove — warm paper + bordeaux ── */
+  --bg: #f4f0e8;
+  --surface: #fbf9f4;
+  --surface-2: #e7e0d3;
+  --text: #1c1a17;
+  --muted: #7a7266;
+  --border: rgba(28, 26, 23, 0.12);
+  --fn-border: rgba(28, 26, 23, 0.12);
+  --fn-menu-bg: rgba(251, 249, 244, 0.98);
+  --nav-bg: rgba(244, 240, 232, 0.97);
+  --card-bg: rgba(251, 249, 244, 0.98);
+  --card-border: rgba(28, 26, 23, 0.12);
+  --input-bg: rgba(28, 26, 23, 0.04);
+  --btn-ghost-border: rgba(28, 26, 23, 0.18);
+  --btn-ghost-border-hover: rgba(28, 26, 23, 0.72);
+  /* Border radius tokens — Atelier Nove editorial scale. Sharp corners on
+     purpose: this replaced the rounded squircle/pill system (see the DEPTH
+     block below for the flat-paper material that replaced liquid glass). */
+  --r-sm: 2px;
+  --r-md: 4px;
+  --r-lg: 6px;
+  --r-xl: 8px;
+  --glass-shadow: 0 1px 2px rgba(28, 26, 23, 0.06), 0 8px 24px rgba(28, 26, 23, 0.08);
+  --glass-stroke: rgba(28, 26, 23, 0.12);
+  --glass-top-edge: none;
+  --glass-bright: 1;
+  --spec-hot: transparent;
+  --spec-mid: transparent;
+  --divider: rgba(28, 26, 23, 0.1);
+  /* Atelier Nove accent — bordeaux, one accent for the whole site (no more
+     per-room "gallery" accents; the [data-section] overrides below were
+     removed so every page reads as one coherent gallery, not separate
+     rooms). --gold/--gold-soft keep their historical names for compat with
+     existing references, but now track bordeaux, not gold. */
+  --accent: #7a2e28;
   --gold: var(--accent);
   --gold-soft: color-mix(in srgb, var(--accent) 80%, black 20%);
-  --accent-bg: rgba(140, 106, 43, 0.1);
-  --accent-rgb: 140, 106, 43;
-  --accent-muted: rgba(140, 106, 43, 0.18);
+  --accent-bg: rgba(122, 46, 40, 0.1);
+  --accent-rgb: 122, 46, 40;
+  --accent-muted: rgba(122, 46, 40, 0.18);
   /* Palette tokens */
-  --gold-dim: rgba(140, 106, 43, 0.12);
-  --gold-mid: rgba(140, 106, 43, 0.3);
+  --gold-dim: rgba(122, 46, 40, 0.12);
+  --gold-mid: rgba(122, 46, 40, 0.3);
   --terra: color-mix(in srgb, var(--accent) 75%, black 25%);
   --terra-dim: color-mix(in srgb, var(--terra) 12%, transparent);
-  --cream: #f2e8d0;
-  --cream-60: rgba(242, 232, 208, 0.6);
-  --cream-30: rgba(242, 232, 208, 0.3);
-  --cream-08: rgba(242, 232, 208, 0.08);
-  --obsidian-2: #eee0c4;
-  --obsidian-3: #e6d5b0;
-  --obsidian-4: #ddd1b8; /* unused, keep for compat */
-  --border-gold: 1px solid rgba(212, 175, 55, 0.28);
+  --cream: #f4f0e8;
+  --cream-60: rgba(244, 240, 232, 0.6);
+  --cream-30: rgba(244, 240, 232, 0.3);
+  --cream-08: rgba(244, 240, 232, 0.08);
+  --obsidian-2: #e7e0d3;
+  --obsidian-3: #ded4c0;
+  --obsidian-4: #d5c9b0; /* unused, keep for compat */
+  --border-gold: 1px solid rgba(122, 46, 40, 0.28);
   /* Semantic state colors */
   --success: #5a7a32;
   --success-dim: rgba(90, 122, 50, 0.12);
@@ -423,7 +359,7 @@ html.glass-fx-ready .forma-glass-card {
   --skeleton-bg: #f2f2f7;
   /* Pillar heading */
   --pillar-name-color: var(--gold-soft);
-  /* Forma tokens — light */
+  /* Atelier Nove tokens — light */
   --forma-bg: var(--bg);
   --forma-bg-alt: var(--surface);
   --forma-bg-dark-section: #f0e4cc;
@@ -435,9 +371,10 @@ html.glass-fx-ready .forma-glass-card {
   --forma-accent-sabi: var(--terra);
   --forma-kinari: #1c1610;
   --bg-outer: #f0e4cc;
-  /* Slingday — primary font for the entire site */
-  --font-gatsunaga: var(--font-montserrat), "Slingday", "Georgia", serif;
-  /* FORMA spacing scale */
+  /* Fraunces — primary display font for the entire site. Named --font-gatsunaga
+     for compat with existing references (Slingday, its predecessor, is gone). */
+  --font-gatsunaga: var(--font-fraunces), Georgia, serif;
+  /* ATELIER NOVE spacing scale */
   --sp-1: 8px;
   --sp-2: 16px;
   --sp-3: 24px;
@@ -446,47 +383,20 @@ html.glass-fx-ready .forma-glass-card {
   --sp-6: 120px;
 }
 
-/* ── Gallery rooms — light: one accent per site section ──
-   SectionAccent.tsx sets [data-section] on <html> from the route. Neutral
-   walls (--bg/--surface/--text/--muted), the glass material (--card-border,
-   --glow-gold, --spec-*, --glass-top-edge), and category badge colours
-   (--cat-*) stay fixed across every room on purpose — a raised surface is
-   the same material everywhere, and a product's category doesn't change
-   because you're standing in a different room. Only the room's own signage
-   (accent) changes: nav's active link, CTAs, focus rings, price labels. */
-:root[data-section="catalogo"] {
-  --accent: #a6321a;
-  --accent-rgb: 166, 50, 26;
-  --accent-bg: rgba(166, 50, 26, 0.1);
-  --accent-muted: rgba(166, 50, 26, 0.18);
-}
-:root[data-section="guida"] {
-  --accent: #1e3a8a;
-  --accent-rgb: 30, 58, 138;
-  --accent-bg: rgba(30, 58, 138, 0.1);
-  --accent-muted: rgba(30, 58, 138, 0.18);
-}
-:root[data-section="studio"] {
-  --accent: #4b5842;
-  --accent-rgb: 75, 88, 66;
-  --accent-bg: rgba(75, 88, 66, 0.1);
-  --accent-muted: rgba(75, 88, 66, 0.18);
-}
-:root[data-section="account"] {
-  --accent: #82580b;
-  --accent-rgb: 130, 88, 11;
-  --accent-bg: rgba(130, 88, 11, 0.1);
-  --accent-muted: rgba(130, 88, 11, 0.18);
-}
+/* Atelier Nove is one gallery, not separate rooms: the former
+   [data-section] per-room accent overrides (catalogo/guida/studio/account)
+   were retired in the rebrand so --accent stays bordeaux everywhere.
+   SectionAccent.tsx still sets [data-section] on <html> for anything that
+   wants to key off the current route, but no CSS here reads it anymore. */
 
 /* ── Font pairing: Slingday (h1–h3 + .font-gatsunaga) + Jakarta (everything else) ──
    Small/medium text always uses Jakarta for readability.
 ── */
 
-/* Body + all default text: Jakarta */
+/* Body + all default text: Inter */
 body {
   font-family:
-    var(--font-jakarta),
+    var(--font-inter),
     -apple-system,
     sans-serif;
   font-size: 15px;
@@ -504,86 +414,84 @@ p {
   outline-offset: -2px;
 }
 
-/* --font-syne → Montserrat (Syne not loaded; kept for legacy references in .btn-brand etc.) */
+/* --font-syne isn't loaded by next/font (no competing definition), so it's
+   safe to redirect here for every existing reference at once. The other
+   legacy font variables (--font-montserrat, --font-cormorant,
+   --font-dm-serif) ARE set by next/font via a class on <html>, which beats
+   a plain `html { }` rule on specificity regardless of source order — so
+   those are redirected at each call site instead (see below). */
 html {
-  --font-syne: var(--font-montserrat), sans-serif;
-  /* --font-dm-serif and --font-cormorant resolve to their actual loaded fonts (DM Serif Display, Cormorant Garamond) */
+  --font-syne: var(--font-inter), sans-serif;
 }
 
-/* h1–h3: Montserrat Bold */
+/* h1–h3: Fraunces */
 h1,
 h2,
 h3 {
-  font-family: var(--font-montserrat), sans-serif;
-  font-weight: 700;
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-weight: 600;
   line-height: 1.15;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   text-wrap: balance;
 }
 
-/* h4–h6 and all smaller: Jakarta */
+/* h4–h6 and all smaller: Inter */
 h4,
 h5,
 h6 {
-  font-family: var(--font-jakarta), sans-serif;
+  font-family: var(--font-inter), sans-serif;
   line-height: 1.4;
 }
 
 html.dark {
-  /* ── Dark mode: FORMA — near-black, warm white, matte gold ── */
-  --bg: #060606;
-  --surface: #0f0f0f;
-  --surface-2: #1a1a1a;
-  --text: #eaeaea;
-  --muted: #8a8a8a;
-  --border: rgba(234, 234, 234, 0.1);
-  --fn-border: rgba(234, 234, 234, 0.1);
-  --fn-menu-bg: rgba(12, 10, 7, 0.82);
-  --panel: rgba(234, 234, 234, 0.045);
-  --nav-bg: rgba(6, 6, 6, 0.92);
-  --card-bg: rgba(15, 15, 15, 0.97);
-  --card-border: rgba(212, 175, 55, 0.14);
-  --input-bg: rgba(234, 234, 234, 0.05);
-  --btn-ghost-border: rgba(234, 234, 234, 0.18);
-  --btn-ghost-border-hover: rgba(234, 234, 234, 0.7);
-  /* Glassmorphism tokens — dark - Liquid Glass */
-  --glass-fill: rgba(15, 15, 15, 0.65);
-  --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.7), 0 2px 2px -1px rgba(255, 255, 255, 0.12) inset;
-  --glass-stroke: rgba(255, 255, 255, 0.08);
-  --glass-top-edge: linear-gradient(
-    90deg,
-    transparent,
-    rgba(212, 175, 55, 0.14) 20%,
-    rgba(212, 175, 55, 0.14) 80%,
-    transparent
-  );
+  /* ── Dark mode: Atelier Nove — ink + warm paper text, lightened bordeaux ──
+     The Figma prototype only specifies a light "paper" mode; this is its
+     coherent dark companion (same bordeaux family, tuned to read on ink
+     instead of paper), kept as the site's optional dark theme. */
+  --bg: #14110d;
+  --surface: #1c1814;
+  --surface-2: #262019;
+  --text: #f2ece0;
+  --muted: #a89a86;
+  --border: rgba(242, 236, 224, 0.14);
+  --fn-border: rgba(242, 236, 224, 0.14);
+  --fn-menu-bg: rgba(20, 17, 13, 0.98);
+  --panel: rgba(242, 236, 224, 0.05);
+  --nav-bg: rgba(20, 17, 13, 0.97);
+  --card-bg: rgba(28, 24, 20, 0.98);
+  --card-border: rgba(242, 236, 224, 0.14);
+  --input-bg: rgba(242, 236, 224, 0.06);
+  --btn-ghost-border: rgba(242, 236, 224, 0.18);
+  --btn-ghost-border-hover: rgba(242, 236, 224, 0.7);
+  --glass-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 32px rgba(0, 0, 0, 0.5);
+  --glass-stroke: rgba(242, 236, 224, 0.1);
+  --glass-top-edge: none;
   --glass-bright: 1;
-  --spec-hot: rgba(212, 175, 55, 0.18);
-  --spec-mid: rgba(212, 175, 55, 0.09);
-  --divider: rgba(234, 234, 234, 0.08);
-  /* FORMA accent — see the light :root for the "gallery rooms" rationale.
-     Same default room, same [data-section] mechanism; values below are
-     tuned to read on the near-black dark ground instead of the cream one. */
-  --accent: #d1a550;
+  --spec-hot: transparent;
+  --spec-mid: transparent;
+  --divider: rgba(242, 236, 224, 0.1);
+  /* Atelier Nove accent — bordeaux, lightened for contrast on ink. Same
+     single-accent system as light mode; see the light :root note above. */
+  --accent: #c1716a;
   --gold: var(--accent);
   --gold-soft: color-mix(in srgb, var(--accent) 82%, white 18%);
   --gold2: var(--gold-soft);
-  --accent-bg: rgba(209, 165, 80, 0.12);
-  --accent-rgb: 209, 165, 80;
-  --accent-muted: rgba(209, 165, 80, 0.2);
+  --accent-bg: rgba(193, 113, 106, 0.14);
+  --accent-rgb: 193, 113, 106;
+  --accent-muted: rgba(193, 113, 106, 0.22);
   /* Palette tokens */
-  --gold-dim: rgba(209, 165, 80, 0.12);
-  --gold-mid: rgba(209, 165, 80, 0.28);
+  --gold-dim: rgba(193, 113, 106, 0.12);
+  --gold-mid: rgba(193, 113, 106, 0.28);
   --terra: color-mix(in srgb, var(--accent) 80%, white 20%);
   --terra-dim: color-mix(in srgb, var(--terra) 15%, transparent);
-  --cream: #eaeaea;
-  --cream-60: rgba(234, 234, 234, 0.6);
-  --cream-30: rgba(234, 234, 234, 0.3);
-  --cream-08: rgba(234, 234, 234, 0.08);
-  --obsidian-2: #141414;
-  --obsidian-3: #0d0d0d;
-  --obsidian-4: #080808;
-  --border-gold: 1px solid rgba(212, 175, 55, 0.22);
+  --cream: #f2ece0;
+  --cream-60: rgba(242, 236, 224, 0.6);
+  --cream-30: rgba(242, 236, 224, 0.3);
+  --cream-08: rgba(242, 236, 224, 0.08);
+  --obsidian-2: #1c1814;
+  --obsidian-3: #16130f;
+  --obsidian-4: #100d0a;
+  --border-gold: 1px solid rgba(193, 113, 106, 0.24);
   /* Semantic state colors */
   --success: #5a7a32;
   --success-dim: rgba(90, 122, 50, 0.12);
@@ -615,36 +523,12 @@ html.dark {
   --prompt-label: rgba(234, 234, 234, 0.45);
   /* Modal skeleton */
   --skeleton-bg: #1e1e1e;
-  /* Pillar heading — FORMA gold in dark mode */
+  /* Pillar heading — ATELIER NOVE gold in dark mode */
   --pillar-name-color: var(--gold-soft);
 }
 
-/* ── Gallery rooms — dark: same four rooms, tuned for the near-black ground.
-   See the light [data-section] block above for the full rationale. ── */
-html.dark[data-section="catalogo"] {
-  --accent: #e2734f;
-  --accent-rgb: 226, 115, 79;
-  --accent-bg: rgba(226, 115, 79, 0.12);
-  --accent-muted: rgba(226, 115, 79, 0.2);
-}
-html.dark[data-section="guida"] {
-  --accent: #6b85e8;
-  --accent-rgb: 107, 133, 232;
-  --accent-bg: rgba(107, 133, 232, 0.12);
-  --accent-muted: rgba(107, 133, 232, 0.2);
-}
-html.dark[data-section="studio"] {
-  --accent: #9cae84;
-  --accent-rgb: 156, 174, 132;
-  --accent-bg: rgba(156, 174, 132, 0.12);
-  --accent-muted: rgba(156, 174, 132, 0.2);
-}
-html.dark[data-section="account"] {
-  --accent: #d9a54b;
-  --accent-rgb: 217, 165, 75;
-  --accent-bg: rgba(217, 165, 75, 0.12);
-  --accent-muted: rgba(217, 165, 75, 0.2);
-}
+/* Dark mode is the same single bordeaux accent everywhere too — see the
+   light-mode note above. No per-section overrides. */
 
 /* ═══════════════════════════════════════════════════════════
    DESIGN TOKENS — motion, space, elevation
@@ -728,43 +612,44 @@ html.dark {
    noticed the sheets weren't refracting anything.
    ═══════════════════════════════════════════════════════════ */
 :root {
-  /* Tier 1 — glass over artwork */
-  --glass-fill: rgba(255, 250, 235, 0.15);
-  --glass-fill-hi: rgba(255, 250, 235, 0.25);
-  --glass-rim: rgba(255, 255, 255, 0.3);
-  --glass-rim-hi: rgba(255, 255, 255, 0.6);
-  --glass-blur: blur(36px) saturate(220%);
-  --glass-cast-1: 0 16px 40px -8px rgba(0, 0, 0, 0.65);
-  --glass-cast-2: 0 32px 70px -12px rgba(0, 0, 0, 0.75);
+  /* Tier 1 — was "glass over artwork" on the old snap-scroll homepage.
+     Flattened to an opaque paper sheet: no blur, no translucency. */
+  --glass-fill: var(--card-bg);
+  --glass-fill-hi: var(--surface);
+  --glass-rim: var(--border);
+  --glass-rim-hi: rgba(28, 26, 23, 0.32);
+  --glass-blur: none;
+  --glass-cast-1: 0 1px 2px rgba(28, 26, 23, 0.06), 0 6px 16px rgba(28, 26, 23, 0.07);
+  --glass-cast-2: 0 2px 4px rgba(28, 26, 23, 0.08), 0 12px 28px rgba(28, 26, 23, 0.1);
 
-  /* Tier 2 — glass on a flat ground (inner pages) */
-  --glass-s-fill: rgba(255, 255, 255, 0.55);
-  --glass-s-fill-hi: rgba(255, 255, 255, 0.75);
-  --glass-s-fill-sunk: rgba(255, 255, 255, 0.32);
-  --glass-s-rim: rgba(28, 22, 16, 0.09);
-  --glass-s-rim-hi: rgba(28, 22, 16, 0.16);
-  --glass-s-sheen: rgba(255, 255, 255, 0.75);
-  --glass-s-blur: blur(20px) saturate(160%);
-  --glass-s-cast-1: 0 2px 6px -1px rgba(60, 48, 30, 0.1), 0 8px 20px -6px rgba(60, 48, 30, 0.14);
-  --glass-s-cast-2: 0 6px 14px -2px rgba(60, 48, 30, 0.14), 0 18px 40px -10px rgba(60, 48, 30, 0.2);
+  /* Tier 2 — cards and controls on inner pages */
+  --glass-s-fill: var(--card-bg);
+  --glass-s-fill-hi: var(--surface);
+  --glass-s-fill-sunk: var(--surface-2);
+  --glass-s-rim: var(--border);
+  --glass-s-rim-hi: rgba(28, 26, 23, 0.28);
+  --glass-s-sheen: transparent;
+  --glass-s-blur: none;
+  --glass-s-cast-1: 0 1px 2px rgba(28, 26, 23, 0.05), 0 4px 12px rgba(28, 26, 23, 0.06);
+  --glass-s-cast-2: 0 2px 4px rgba(28, 26, 23, 0.07), 0 8px 20px rgba(28, 26, 23, 0.08);
 
-  /* Tier 3 — glass over the scrolling page (bottom bars). See .glass-bar. */
-  --glass-bar-fill: rgba(253, 250, 245, 0.95);
-  --glass-bar-blur: blur(28px) saturate(180%);
+  /* Tier 3 — sheet pinned to the bottom edge (mobile nav / buy bars) */
+  --glass-bar-fill: var(--nav-bg);
+  --glass-bar-blur: none;
 
-  /* Every glass sheet is rounded. There are no square corners. */
-  --glass-radius: 22px;
+  /* Atelier Nove editorial radius — sharp corners, not rounded glass. */
+  --glass-radius: var(--r-md);
 }
 html.dark {
-  --glass-bar-fill: rgba(10, 9, 7, 0.94);
-  --glass-s-fill: rgba(255, 255, 255, 0.055);
-  --glass-s-fill-hi: rgba(255, 255, 255, 0.095);
-  --glass-s-fill-sunk: rgba(0, 0, 0, 0.28);
-  --glass-s-rim: rgba(242, 235, 217, 0.1);
-  --glass-s-rim-hi: rgba(242, 235, 217, 0.2);
-  --glass-s-sheen: rgba(255, 255, 255, 0.12);
-  --glass-s-cast-1: 0 2px 6px -1px rgba(0, 0, 0, 0.5), 0 8px 22px -6px rgba(0, 0, 0, 0.6);
-  --glass-s-cast-2: 0 6px 16px -2px rgba(0, 0, 0, 0.6), 0 20px 44px -10px rgba(0, 0, 0, 0.75);
+  --glass-bar-fill: var(--nav-bg);
+  --glass-s-fill: var(--card-bg);
+  --glass-s-fill-hi: var(--surface);
+  --glass-s-fill-sunk: var(--surface-2);
+  --glass-s-rim: var(--border);
+  --glass-s-rim-hi: rgba(242, 236, 224, 0.24);
+  --glass-s-sheen: transparent;
+  --glass-s-cast-1: 0 1px 2px rgba(0, 0, 0, 0.35), 0 4px 14px rgba(0, 0, 0, 0.4);
+  --glass-s-cast-2: 0 2px 4px rgba(0, 0, 0, 0.4), 0 10px 26px rgba(0, 0, 0, 0.5);
 }
 
 /* Radius utilities — every surface picks one of these, never a raw pixel
@@ -779,183 +664,79 @@ html.dark {
   border-radius: var(--r-sm, 10px);
 }
 .r-pill {
-  border-radius: 999px;
+  /* Kept for compat with existing className references; the pill shape
+     itself was retired in the Atelier Nove rebrand, so this now renders
+     the same sharp radius as everything else. */
+  border-radius: var(--r-md);
 }
 
-/* The shared sheet. Anything raised on an inner page builds on this. */
+/* The shared sheet. Anything raised on an inner page builds on this — a flat
+   paper card: opaque fill, one load-bearing rim border, a small cast shadow.
+   No blur, no specular highlight, no squircle mask: the liquid-glass material
+   was retired in the Atelier Nove rebrand. */
 .glass-surface {
-  --squircle-radius: var(--glass-radius);
-  --squircle-n: 5;
   background-color: var(--glass-s-fill);
-  background-image: radial-gradient(
-    circle at var(--spec-x) var(--spec-y),
-    rgba(255, 255, 255, var(--spec-o)),
-    transparent 60%
-  );
   border: 1px solid var(--glass-s-rim);
   border-radius: var(--glass-radius);
-  -webkit-backdrop-filter: var(--glass-s-blur);
-  backdrop-filter: var(--glass-s-blur);
-  box-shadow:
-    var(--glass-s-cast-1),
-    inset 0 1px 0 var(--glass-s-sheen);
+  box-shadow: var(--glass-s-cast-1);
   transition:
     background-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
     border-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
     box-shadow var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    transform var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    --spec-x var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    --spec-y var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    --spec-o var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
-}
-html.squircle-ready .glass-surface {
-  -webkit-mask-image: paint(squircle);
-  mask-image: paint(squircle);
-}
-html.squircle-ready .glass-panel {
-  -webkit-mask-image: paint(squircle);
-  mask-image: paint(squircle);
-}
-html.glass-fx-ready .glass-surface {
-  -webkit-backdrop-filter: var(--glass-s-blur) url(#glass-distortion-lg);
-  backdrop-filter: var(--glass-s-blur) url(#glass-distortion-lg);
-}
-/* The bento hub is the one place five `.glass-surface` cards are ever
-   composited at once (every other `.glass-surface` on the site appears one or
-   two at a time). Five simultaneous `feDisplacementMap` refractions chained
-   onto `backdrop-filter` measurably cost more idle frame budget than the rest
-   of the homepage combined — confirmed by profiling, not assumed. Blur and
-   saturation (the actual glass material — translucency, rim light, cast
-   shadow) are untouched; only the extra per-pixel warp drops here, and only
-   here. Declared after the rule above so the cascade lets it win by source
-   order without needing higher specificity. */
-html.glass-fx-ready .bento-cell {
-  -webkit-backdrop-filter: var(--glass-s-blur);
-  backdrop-filter: var(--glass-s-blur);
-}
-html.glass-fx-ready .glass-panel {
-  -webkit-backdrop-filter: blur(32px) saturate(200%) url(#glass-distortion-lg);
-  backdrop-filter: blur(32px) saturate(200%) url(#glass-distortion-lg);
-}
-html.glass-fx-ready .glass-surface-pill,
-html.glass-fx-ready .fn-filter {
-  -webkit-backdrop-filter: var(--glass-s-blur) url(#glass-distortion-sm);
-  backdrop-filter: var(--glass-s-blur) url(#glass-distortion-sm);
+    transform var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
 @media (hover: hover) {
   .glass-surface:hover {
     background-color: var(--glass-s-fill-hi);
     border-color: var(--glass-s-rim-hi);
     transform: translateY(-2px);
-    box-shadow:
-      var(--glass-s-cast-2),
-      inset 0 1px 0 var(--glass-s-sheen);
+    box-shadow: var(--glass-s-cast-2);
   }
 }
 
 /* Same material as .glass-surface, pill-shaped, no hover lift — for
-   segmented toggles and small controls that shouldn't jump on hover.
-   Named .glass-surface-pill (not .glass-pill) — that name was already taken
-   by the older glassmorphism family below (noise-textured, over-artwork
-   tokens), still in use on the template detail breadcrumb. */
+   segmented toggles and small controls that shouldn't jump on hover. */
 .glass-surface-pill {
   background-color: var(--glass-s-fill);
-  background-image: radial-gradient(
-    circle at var(--spec-x) var(--spec-y),
-    rgba(255, 255, 255, var(--spec-o)),
-    transparent 60%
-  );
   border: 1px solid var(--glass-s-rim);
-  border-radius: 999px;
-  -webkit-backdrop-filter: var(--glass-s-blur);
-  backdrop-filter: var(--glass-s-blur);
-  box-shadow:
-    var(--glass-s-cast-1),
-    inset 0 1px 0 var(--glass-s-sheen);
+  border-radius: var(--r-md);
+  box-shadow: var(--glass-s-cast-1);
   transition:
     background-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
     border-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    box-shadow var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    --spec-x var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    --spec-y var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    --spec-o var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+    box-shadow var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
 @media (hover: hover) {
   .glass-surface-pill:hover {
     background-color: var(--glass-s-fill-hi);
     border-color: var(--glass-s-rim-hi);
-    box-shadow:
-      var(--glass-s-cast-2),
-      inset 0 1px 0 var(--glass-s-sheen);
+    box-shadow: var(--glass-s-cast-2);
   }
 }
 
-/* The same material, pinned to the bottom edge of the viewport.
-
-   The two sticky buy bars — the preview page's and the bundle page's — were
-   hand-rolled: a raw `backdrop-filter: blur(40px) saturate(200%)` inline,
-   `--nav-bg` as fill, a manually drawn hairline standing in for the rim, and no
-   cast shadow at all. So the two controls that take the visitor's money were
-   the only raised surfaces on the site outside the material: they did not
-   follow the fill and rim tokens, and GlassEnhancements never saw them, so the
-   panel that matters most was the one without the specular highlight, the
-   squircle corners or the refraction.
-
-   Two things differ from .glass-surface, both because this sheet is pinned to
-   an edge rather than floating on the page:
-
-   - It rounds and catches its rim light along the top edge only; the other
-     three sides run off the viewport.
-   - Its fill is far more opaque. .glass-surface is tuned for a panel on flat
-     ground with nothing behind it to read through; a bottom bar sits over the
-     scrolling page, and at card opacity the page's own body text showed
-     straight through the price and the buy button. The opacity here matches
-     what the hand-rolled bars already used (--nav-bg, 0.92–0.96), so putting
-     them on the material costs no readability. The glass reads as glass
-     through the blur, rim, specular sweep and refraction — not through
-     transparency.
-
-   No hover lift: a bar pinned to an edge cannot lift toward the viewer, and
-   these are containers, not buttons. */
+/* The same flat material, pinned to the bottom edge of the viewport (mobile
+   nav, sticky buy bars). Rounds and catches its border on the top edge only;
+   the other three sides run off the viewport. No hover lift: a bar pinned to
+   an edge cannot lift toward the viewer, and these are containers, not
+   buttons. */
 .glass-bar {
-  --squircle-radius: var(--glass-radius);
-  --squircle-n: 5;
   background-color: var(--glass-bar-fill);
-  background-image: radial-gradient(
-    circle at var(--spec-x) var(--spec-y),
-    rgba(255, 255, 255, var(--spec-o)),
-    transparent 60%
-  );
   border-top: 1px solid var(--glass-s-rim);
   border-radius: var(--glass-radius) var(--glass-radius) 0 0;
-  -webkit-backdrop-filter: var(--glass-bar-blur);
-  backdrop-filter: var(--glass-bar-blur);
   /* The cast is thrown upward, onto the content the bar overlaps — the only
      direction there is anything to cast onto. */
   box-shadow:
-    0 -6px 16px -4px rgba(60, 48, 30, 0.12),
-    0 -18px 40px -12px rgba(60, 48, 30, 0.16),
-    inset 0 1px 0 var(--glass-s-sheen);
+    0 -6px 16px -4px rgba(28, 26, 23, 0.1),
+    0 -18px 40px -12px rgba(28, 26, 23, 0.12);
   transition:
     background-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    border-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    --spec-x var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    --spec-y var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    --spec-o var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+    border-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
 html.dark .glass-bar {
   box-shadow:
-    0 -6px 18px -4px rgba(0, 0, 0, 0.55),
-    0 -20px 44px -12px rgba(0, 0, 0, 0.7),
-    inset 0 1px 0 var(--glass-s-sheen);
+    0 -6px 18px -4px rgba(0, 0, 0, 0.5),
+    0 -20px 44px -12px rgba(0, 0, 0, 0.6);
 }
-html.glass-fx-ready .glass-bar {
-  -webkit-backdrop-filter: var(--glass-bar-blur) url(#glass-distortion-lg);
-  backdrop-filter: var(--glass-bar-blur) url(#glass-distortion-lg);
-}
-/* No squircle mask here on purpose: paint(squircle) rounds all four corners,
-   and this sheet's bottom two are off-screen — masking them would cut two
-   notches out of the bar where it meets the edge of the viewport. */
 
 /* ═══════════════════════════════════════════════════════════
    GLOBAL TRANSITIONS & FONT
@@ -963,8 +744,7 @@ html.glass-fx-ready .glass-bar {
 html,
 body {
   font-family:
-    var(--font-jakarta),
-    var(--font-geist),
+    var(--font-inter),
     -apple-system,
     BlinkMacSystemFont,
     "SF Pro Display",
@@ -1027,14 +807,14 @@ button:active,
     filter 0.6s ease;
 }
 
-/* ── Dark mode: FORMA — near-black with gold glow at top ── */
+/* ── Dark mode: Atelier Nove ink, flat (no ambient glow) ── */
 html.dark {
-  background-color: #060606;
-  background-image: radial-gradient(circle at 50% -10%, rgba(212, 175, 55, 0.12), transparent 38%);
+  background-color: var(--bg);
+  background-image: none;
   background-attachment: fixed;
 }
 html:not(.dark) {
-  background-color: #fdfaf5;
+  background-color: var(--bg);
   background-image: none;
 }
 
@@ -1182,66 +962,29 @@ html::-webkit-scrollbar-track {
     border: 1px solid var(--card-border);
   }
 
-  /* ── Liquid Glass ── */
+  /* ── Flat paper (formerly "Liquid Glass") ──
+     .glass-noise/.glass-pill/.glass-panel are legacy names kept so existing
+     className references don't need touching; the material itself is now
+     the same flat paper card as .glass-surface — no blur, no noise texture,
+     no specular highlight. */
   .glass-noise::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    border-radius: inherit;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.04;
-    mix-blend-mode: overlay;
-    pointer-events: none;
+    content: none;
   }
 
   .glass-pill {
     position: relative;
-    border-radius: 9999px;
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-    backdrop-filter: blur(24px) saturate(180%);
+    border-radius: var(--r-md);
     background: var(--glass-fill);
-    box-shadow:
-      0 12px 32px -8px rgba(0, 0, 0, 0.5),
-      inset 0 4px 20px rgba(255, 255, 255, 0.1),
-      /* Liquid inner glow */ inset 0 1px 1px rgba(255, 255, 255, 0.3); /* Specular top edge highlight */
+    box-shadow: var(--glass-cast-1);
     border: 1px solid var(--glass-stroke);
-  }
-  .glass-pill::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.04;
-    mix-blend-mode: overlay;
-    pointer-events: none;
   }
 
   .glass-panel {
     position: relative;
-    --squircle-radius: var(--r-md);
-    --squircle-n: 5;
     border-radius: var(--r-md);
-    -webkit-backdrop-filter: blur(32px) saturate(200%);
-    backdrop-filter: blur(32px) saturate(200%);
     background: var(--glass-fill);
-    box-shadow:
-      0 16px 40px -12px rgba(0, 0, 0, 0.6),
-      inset 0 4px 20px rgba(255, 255, 255, 0.08),
-      /* Liquid inner glow */ inset 0 2px 2px -1px rgba(255, 255, 255, 0.25); /* Specular highlight */
+    box-shadow: var(--glass-cast-1);
     border: 1px solid var(--glass-stroke);
-    border-top: 1px solid rgba(255, 255, 255, 0.25);
-  }
-  .glass-panel::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.05;
-    mix-blend-mode: overlay;
-    pointer-events: none;
   }
 
   /* ── Springs & easing ──────────────────── */
@@ -1514,7 +1257,7 @@ html::-webkit-scrollbar-track {
   transition: background var(--t-xs) var(--ease-glide);
 }
 .cmdk-kbd {
-  font-family: var(--font-montserrat), sans-serif;
+  font-family: var(--font-fraunces), Georgia, serif;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -2772,7 +2515,7 @@ html.dark body::before {
 
 /* Gold price text */
 .price-gold {
-  font-family: var(--font-jakarta), sans-serif;
+  font-family: var(--font-inter), sans-serif;
   font-weight: 600;
   color: var(--gold, #c8a96e);
 }
@@ -2824,7 +2567,7 @@ html.dark {
   background: var(--accent);
   color: var(--bg);
   padding: 14px 30px;
-  border-radius: 999px;
+  border-radius: var(--r-md);
   transition:
     background var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
     color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
@@ -2917,7 +2660,7 @@ html.dark {
   background: transparent;
   color: var(--text);
   padding: 13px 26px;
-  border-radius: 999px;
+  border-radius: var(--r-md);
   transition:
     border-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
     background var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
@@ -2989,7 +2732,7 @@ html.dark {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   FORMA V2 — legacy named tokens (kept for component compat)
+   ATELIER NOVE V2 — legacy named tokens (kept for component compat)
    ═══════════════════════════════════════════════════════════ */
 :root {
   --sumi: #1a0e06;
@@ -3001,9 +2744,9 @@ html.dark {
   --border-sumi-strong: rgba(26, 14, 6, 0.22);
 }
 
-/* ── Forma v2 typography helpers ── */
+/* ── Atelier Nove v2 typography helpers ── */
 .forma-serif {
-  font-family: var(--font-cormorant), "Cormorant Garamond", "EB Garamond", Georgia, serif;
+  font-family: var(--font-fraunces), Georgia, serif;
   font-weight: 400;
   line-height: 1.1;
   letter-spacing: 0.01em;
@@ -3012,7 +2755,6 @@ html.dark {
 .forma-sans {
   font-family:
     var(--font-inter),
-    var(--font-jakarta),
     system-ui,
     -apple-system,
     sans-serif;
@@ -3049,7 +2791,7 @@ html.dark {
   opacity: 0.14;
 }
 
-/* ── Forma v2 fade-in on scroll ──
+/* ── Atelier Nove v2 fade-in on scroll ──
    NOTE: keyframe is namespaced (forma-v2-fade-up). It used to be called
    forma-fade-up, which silently overrode the snap-section entrance
    keyframe of the same name defined at the top of this file. */
@@ -3067,7 +2809,7 @@ html.dark {
   animation: forma-v2-fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* ── Forma v2 theming CSS vars — defined in :root and .dark above ── */
+/* ── Atelier Nove v2 theming CSS vars — defined in :root and .dark above ── */
 .dark {
   --forma-bg: var(--bg);
   --forma-bg-alt: rgba(26, 18, 9, 0.95);
@@ -3107,7 +2849,7 @@ html.dark {
   }
 }
 
-/* ── Forma masthead — responsive letter-spacing for mobile ── */
+/* ── Atelier Nove masthead — responsive letter-spacing for mobile ── */
 @media (max-width: 639px) {
   .forma-masthead {
     letter-spacing: 0.18em !important;
@@ -3132,7 +2874,7 @@ html.dark {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   FORMA APPLE — multiplatform design system (v2)
+   ATELIER NOVE APPLE — multiplatform design system (v2)
    ═══════════════════════════════════════════════════════════ */
 
 /* ── Page wrapper ── */
@@ -3178,7 +2920,7 @@ html.dark {
 .fp-lang {
   display: flex;
   border: 1px solid var(--border);
-  border-radius: 999px;
+  border-radius: var(--r-md);
   padding: 4px;
   background: rgba(255, 255, 255, 0.04);
 }
@@ -3187,7 +2929,7 @@ html.dark {
   background: transparent;
   color: var(--muted);
   padding: 7px 12px;
-  border-radius: 999px;
+  border-radius: var(--r-md);
   cursor: pointer;
   font: inherit;
   transition:
@@ -3213,7 +2955,7 @@ html.dark {
   gap: 8px;
   align-items: center;
   border: 1px solid var(--border);
-  border-radius: 999px;
+  border-radius: var(--r-md);
   padding: 9px 14px;
   color: var(--muted);
   font-size: 14px;
@@ -3254,7 +2996,7 @@ html.dark {
 .fp-btn {
   border: 1px solid var(--border);
   padding: 14px 22px;
-  border-radius: 999px;
+  border-radius: var(--r-md);
   background: rgba(255, 255, 255, 0.06);
   color: var(--text);
   cursor: pointer;
@@ -3339,7 +3081,7 @@ html.dark {
   color: #080808;
   background: var(--gold);
   padding: 6px 9px;
-  border-radius: 999px;
+  border-radius: var(--r-md);
   font-size: 12px;
   font-weight: 700;
 }
@@ -3347,7 +3089,7 @@ html.dark {
   position: absolute;
   width: 220px;
   height: 220px;
-  border-radius: 999px;
+  border-radius: var(--r-md);
   background: radial-gradient(circle, var(--gold), transparent 64%);
   opacity: 0.14;
   right: -80px;
@@ -3469,7 +3211,7 @@ html.dark {
 .fp-chip {
   border: 1px solid var(--border);
   background: rgba(255, 255, 255, 0.04);
-  border-radius: 999px;
+  border-radius: var(--r-md);
   padding: 9px 13px;
   color: var(--muted);
   cursor: pointer;
@@ -3580,7 +3322,7 @@ html.dark {
   align-items: center;
   gap: 8px;
   padding: 7px 14px 7px 8px;
-  border-radius: 999px;
+  border-radius: var(--r-md);
   border: 1px solid var(--border);
   background: rgba(0, 0, 0, 0.22);
   font-size: 13px;
@@ -3600,7 +3342,7 @@ html.dark {
   margin-top: 28px;
   padding: 13px 24px;
   border: none;
-  border-radius: 999px;
+  border-radius: var(--r-md);
   background: #e2570c;
   color: #17150f;
   font-size: 14px;
@@ -3644,7 +3386,7 @@ html.dark {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   FORMA — editorial system (v5)
+   ATELIER NOVE — editorial system (v5)
    Palette adapts to theme via CSS vars.
    Dark:  bg #060606 · surface #0f0f0f · text #eaeaea · muted #8a8a8a
    Light: bg #FDFAF5 · surface #F5EFE3 · text #1C1610 · muted rgba(26,14,6,.55)
@@ -3658,14 +3400,8 @@ html.dark {
   position: relative;
   overflow: hidden;
 }
-/* Radial gold glow — subtler in light mode via opacity cascade */
 .fn-bg::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background: radial-gradient(ellipse at 50% -5%, rgba(212, 175, 55, 0.07), transparent 50%);
+  content: none;
 }
 
 .fn-shell {
@@ -3739,7 +3475,7 @@ html.dark {
   text-transform: uppercase;
   font-size: 10px;
   letter-spacing: 0.22em;
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--muted);
 }
 .fn-nav-left,
 .fn-nav-right {
@@ -3787,7 +3523,7 @@ html.dark {
 }
 .fn-outline {
   border: 1px solid rgba(var(--accent-rgb), 0.45);
-  border-radius: 999px;
+  border-radius: var(--r-md);
   padding: 10px 20px;
   color: var(--text);
   transition:
@@ -3837,11 +3573,8 @@ html.dark {
   gap: 2px;
   padding: 3px;
   border: 1px solid var(--glass-s-rim);
-  border-radius: 999px;
+  border-radius: var(--r-md);
   background: var(--glass-s-fill-sunk);
-  -webkit-backdrop-filter: var(--glass-s-blur);
-  backdrop-filter: var(--glass-s-blur);
-  box-shadow: inset 0 1px 0 var(--glass-s-sheen);
 }
 .fn-lang button {
   border: 0;
@@ -3851,23 +3584,19 @@ html.dark {
   padding: 5px 11px;
   cursor: pointer;
   font: inherit;
-  border-radius: 999px;
+  border-radius: var(--r-sm);
   transition:
     background var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    color var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    box-shadow var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+    color var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
 .fn-lang button:hover {
   color: var(--text);
 }
-/* The selected segment is a lit glass pill riding above the track. */
+/* The selected segment is the accent, riding above the track. */
 .fn-lang .active {
-  background: #d4af37;
-  color: #060606;
+  background: var(--accent);
+  color: var(--bg);
   font-weight: 700;
-  box-shadow:
-    var(--glass-s-cast-1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.45);
 }
 .fn-lang button:focus-visible {
   outline: 2px solid var(--accent);
@@ -4039,11 +3768,11 @@ html.dark {
   letter-spacing: 0.26em;
   color: var(--accent);
   font-weight: 600;
-  font-family: var(--font-jakarta), sans-serif;
+  font-family: var(--font-inter), sans-serif;
   transition: color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
 }
 .fn-hero h1 {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-fraunces), Georgia, serif;
   font-size: clamp(40px, 5vw, 68px);
   line-height: 1.02;
   font-weight: 300;
@@ -4070,7 +3799,7 @@ html.dark {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  font-family: var(--font-jakarta), sans-serif;
+  font-family: var(--font-inter), sans-serif;
   font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.2em;
@@ -4079,7 +3808,7 @@ html.dark {
   cursor: pointer;
   border: 1px solid var(--fn-border, rgba(234, 234, 234, 0.18));
   color: var(--text);
-  border-radius: 999px;
+  border-radius: var(--r-md);
   background: transparent;
   white-space: nowrap;
   transition:
@@ -4135,7 +3864,7 @@ html.dark {
 }
 .fn-stat b {
   display: block;
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-fraunces), Georgia, serif;
   font-size: 40px;
   font-weight: 300;
   color: var(--text);
@@ -4154,7 +3883,7 @@ html.dark {
   padding: 72px 36px;
 }
 .fn-section h2 {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-fraunces), Georgia, serif;
   font-weight: 300;
   font-size: clamp(38px, 5vw, 60px);
   margin: 0 0 8px;
@@ -4184,7 +3913,7 @@ html.dark {
   min-width: 200px;
   background: var(--glass-s-fill-sunk);
   border: 1px solid var(--glass-s-rim);
-  border-radius: 999px;
+  border-radius: var(--r-md);
   color: var(--text);
   padding: 14px 20px;
   outline: none;
@@ -4223,7 +3952,7 @@ html.dark {
   font: inherit;
   background: var(--glass-s-fill);
   border: 1px solid var(--glass-s-rim);
-  border-radius: 999px;
+  border-radius: var(--r-md);
   color: var(--muted);
   -webkit-backdrop-filter: var(--glass-s-blur);
   backdrop-filter: var(--glass-s-blur);
@@ -4469,14 +4198,14 @@ html.dark {
   text-transform: uppercase;
   letter-spacing: 0.18em;
   padding: 5px 11px;
-  border-radius: 999px;
+  border-radius: var(--r-md);
   /* Defaults to the house gold; [data-cat] below swaps the hue. Written with
      color-mix off a single --cat-ink so a category needs one token, not three. */
   --cat-ink: var(--cat-guide-ink);
   background: color-mix(in srgb, var(--cat-ink) 12%, transparent);
   color: var(--cat-ink);
   border: 1px solid color-mix(in srgb, var(--cat-ink) 30%, transparent);
-  font-family: var(--font-jakarta), sans-serif;
+  font-family: var(--font-inter), sans-serif;
   font-weight: 600;
 }
 
@@ -4560,7 +4289,7 @@ html.dark {
   padding: 88px 36px 80px;
 }
 .fn-simple h1 {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-fraunces), Georgia, serif;
   font-size: clamp(44px, 8vw, 80px);
   font-weight: 300;
   margin: 0 0 18px;
@@ -5028,7 +4757,7 @@ html.dark {
    both themes — the band is a plate, and a plate does not change colour when
    the page around it does. */
 .fn-art-title {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-fraunces), Georgia, serif;
   font-weight: 300;
   font-size: clamp(42px, 5vw, 72px);
   line-height: 1.05;
@@ -5064,7 +4793,7 @@ html.dark {
   align-items: center;
   gap: 8px;
   padding: 9px 16px;
-  border-radius: 999px;
+  border-radius: var(--r-md);
   border: 1px solid var(--glass-s-rim);
   background-color: var(--glass-s-fill);
   background-image: radial-gradient(

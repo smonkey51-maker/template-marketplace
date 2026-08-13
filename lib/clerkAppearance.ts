@@ -5,7 +5,7 @@ type Appearance = ComponentProps<typeof ClerkProvider>["appearance"];
 
 /**
  * Re-skins Clerk's hosted auth UI — sign-in, sign-up, and the UserButton
- * menu — to match FORMA's own design system instead of Clerk's default blue
+ * menu — to match Atelier Nove's own design system instead of Clerk's default blue
  * theme. Set once on <ClerkProvider> so every Clerk component picks it up,
  * rather than passed separately to each one.
  *
@@ -25,7 +25,7 @@ export const clerkAppearance: Appearance = {
     colorDanger: "var(--error)",
     colorSuccess: "var(--success)",
     borderRadius: "var(--r-md)",
-    fontFamily: "var(--font-jakarta), sans-serif",
+    fontFamily: "var(--font-inter), sans-serif",
   },
   elements: {
     card: {

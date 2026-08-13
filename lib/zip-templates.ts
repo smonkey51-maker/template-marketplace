@@ -10,7 +10,7 @@ export function buildShopifyZip(template: Template, displayName: string): Uint8A
 
   // Convert Tailwind HTML to a Liquid section with schema
   const liquidSection = `{% comment %}
-  ${displayName} — Forma
+  ${displayName} — Atelier Nove
   Shopify Liquid Section
   Drop this file into sections/ in your theme.
 {% endcomment %}
@@ -49,7 +49,7 @@ ${template.content}
 
   const readmeMd = `# ${displayName}
 
-> Shopify Liquid section by Forma
+> Shopify Liquid section by Atelier Nove
 
 ## Installation
 
@@ -62,11 +62,11 @@ ${template.content}
 ## Customization
 
 Use the Theme Editor to modify settings (heading text, accent color).
-For deeper changes, edit the Liquid/HTML directly or use Forma AI Studio.
+For deeper changes, edit the Liquid/HTML directly or use Atelier Nove AI Studio.
 
 ---
 
-Made with Forma · forma.design
+Made with Atelier Nove · ateliernove.com
 `;
 
   const files: Record<string, Uint8Array> = {
@@ -87,9 +87,9 @@ export function buildWordPressZip(template: Template, displayName: string): Uint
 
   const styleCss = `/*
 Theme Name: ${themeName}
-Theme URI: https://forma.design
-Author: Forma
-Author URI: https://forma.design
+Theme URI: https://ateliernove.com
+Author: Atelier Nove
+Author URI: https://ateliernove.com
 Description: ${template.description}
 Version: 1.0.0
 License: GNU General Public License v2 or later
@@ -191,7 +191,7 @@ ${template.content}
 
   const readmeMd = `# ${themeName}
 
-> WordPress theme by Forma
+> WordPress theme by Atelier Nove
 
 ## Installation
 
@@ -203,7 +203,7 @@ ${template.content}
 ## Customization
 
 - Edit template files directly, or
-- Use Forma AI Studio for AI-powered customization
+- Use Atelier Nove AI Studio for AI-powered customization
 
 ## Files included
 
@@ -216,7 +216,7 @@ ${template.content}
 
 ---
 
-Made with Forma · forma.design
+Made with Atelier Nove · ateliernove.com
 `;
 
   const files: Record<string, Uint8Array> = {

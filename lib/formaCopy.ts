@@ -34,7 +34,7 @@ export const copy = {
 
     /* home AI callout */
     aiKicker: "Intelligenza artificiale",
-    aiCalloutTitle: "Descrivi. FORMA costruisce.",
+    aiCalloutTitle: "Descrivi. Atelier Nove costruisce.",
     aiCalloutSub:
       "L'AI Studio genera strutture su misura a partire da un'idea. Prompt → template → download in pochi secondi.",
     aiCalloutCta: "Apri AI Studio →",
@@ -63,7 +63,7 @@ export const copy = {
     /* guida page */
     guideKicker: "Documentazione",
     guideTitle: "Guida all'uso",
-    guideSub: "Come scegliere, acquistare e usare i template FORMA.",
+    guideSub: "Come scegliere, acquistare e usare i template Atelier Nove.",
     guideCta1: "Sfoglia il catalogo",
     guideCta2: "AI Studio →",
     guideFaqKicker: "FAQ",
@@ -94,12 +94,13 @@ export const copy = {
       "Descrivi il template che vuoi (tipo, stile, sezioni, tono). L'AI genera una struttura HTML o Notion pronta all'uso in pochi secondi. Puoi poi personalizzarla nell'editor integrato.",
     guideFaq5Q: "Esiste assistenza dopo l'acquisto?",
     guideFaq5A:
-      "Sì. Per ogni domanda tecnica scrivi a supporto@forma.design — risposta entro 24 ore lavorative.",
+      "Sì. Per ogni domanda tecnica scrivi a supporto@ateliernove.com — risposta entro 24 ore lavorative.",
 
     /* ai-studio page */
     aiStudioKicker: "Intelligenza artificiale",
     aiStudioTitle: "AI Studio",
-    aiStudioSub: "Descrivi cosa ti serve. FORMA genera la struttura corretta in pochi secondi.",
+    aiStudioSub:
+      "Descrivi cosa ti serve. Atelier Nove genera la struttura corretta in pochi secondi.",
     aiStudioHowKicker: "Come funziona",
     aiStep1Icon: "01",
     aiStep1Title: "Descrivi",
@@ -133,7 +134,7 @@ export const copy = {
     studioTitle: "Studio",
     studioSub: "Un ambiente per generare, adattare e rifinire template.",
     aiTitle: "AI Studio",
-    aiSub: "Descrivi cosa ti serve. FORMA ti propone la struttura corretta.",
+    aiSub: "Descrivi cosa ti serve. Atelier Nove ti propone la struttura corretta.",
     guidePageTitle: "Guida",
     backHome: "Torna alla landing",
     footerHome: "Home",
@@ -196,7 +197,7 @@ export const copy = {
     footerTerms: "Termini di servizio",
     footerPrivacy: "Privacy policy",
     footerRefund: "Politica rimborsi",
-    footerCopyright: "© 2026 FORMA. Tutti i diritti riservati.",
+    footerCopyright: "© 2026 Atelier Nove. Tutti i diritti riservati.",
     footerMadeWith: "Fatto con precisione.",
     newsletterTitle: "Ricevi i nuovi template",
     newsletterSub: "Solo lanci e aggiornamenti — niente spam.",
@@ -237,7 +238,7 @@ export const copy = {
 
     /* home AI callout */
     aiKicker: "Artificial intelligence",
-    aiCalloutTitle: "Describe it. FORMA builds it.",
+    aiCalloutTitle: "Describe it. Atelier Nove builds it.",
     aiCalloutSub:
       "The AI Studio generates custom structures from an idea. Prompt → template → download in seconds.",
     aiCalloutCta: "Open AI Studio →",
@@ -266,7 +267,7 @@ export const copy = {
     /* guida page */
     guideKicker: "Documentation",
     guideTitle: "User Guide",
-    guideSub: "How to choose, buy and use FORMA templates.",
+    guideSub: "How to choose, buy and use Atelier Nove templates.",
     guideCta1: "Browse catalog",
     guideCta2: "AI Studio →",
     guideFaqKicker: "FAQ",
@@ -297,12 +298,12 @@ export const copy = {
       "Describe the template you want (type, style, sections, tone). The AI generates an HTML or Notion structure ready to use in seconds. You can then customise it in the integrated editor.",
     guideFaq5Q: "Is there support after purchase?",
     guideFaq5A:
-      "Yes. For any technical question write to support@forma.design — reply within 24 business hours.",
+      "Yes. For any technical question write to support@ateliernove.com — reply within 24 business hours.",
 
     /* ai-studio page */
     aiStudioKicker: "Artificial intelligence",
     aiStudioTitle: "AI Studio",
-    aiStudioSub: "Describe what you need. FORMA generates the right structure in seconds.",
+    aiStudioSub: "Describe what you need. Atelier Nove generates the right structure in seconds.",
     aiStudioHowKicker: "How it works",
     aiStep1Icon: "01",
     aiStep1Title: "Describe",
@@ -335,7 +336,7 @@ export const copy = {
     studioTitle: "Studio",
     studioSub: "A place to generate, adapt and refine templates.",
     aiTitle: "AI Studio",
-    aiSub: "Describe what you need. FORMA proposes the right structure.",
+    aiSub: "Describe what you need. Atelier Nove proposes the right structure.",
     guidePageTitle: "Guide",
     backHome: "Back to landing",
     footerHome: "Home",
@@ -398,7 +399,7 @@ export const copy = {
     footerTerms: "Terms of service",
     footerPrivacy: "Privacy policy",
     footerRefund: "Refund policy",
-    footerCopyright: "© 2026 FORMA. All rights reserved.",
+    footerCopyright: "© 2026 Atelier Nove. All rights reserved.",
     footerMadeWith: "Made with precision.",
     newsletterTitle: "Get new templates",
     newsletterSub: "Launches and updates only — no spam.",

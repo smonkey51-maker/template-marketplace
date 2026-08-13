@@ -49,7 +49,7 @@ export function renderStandaloneHtml({
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>${escapeHtml(title)} — Forma</title>
+  <title>${escapeHtml(title)} — Atelier Nove</title>
   <script src="${TAILWIND_CDN}"></script>
   <style>body { margin: 0; }</style>
 </head>

@@ -59,7 +59,7 @@ export default function GuidaPage() {
               >
                 <div
                   style={{
-                    fontFamily: "var(--font-cormorant), Georgia, serif",
+                    fontFamily: "var(--font-fraunces), Georgia, serif",
                     fontSize: 44,
                     fontWeight: 300,
                     color: "var(--accent)",
@@ -71,7 +71,7 @@ export default function GuidaPage() {
                 <div>
                   <h3
                     style={{
-                      fontFamily: "var(--font-cormorant), Georgia, serif",
+                      fontFamily: "var(--font-fraunces), Georgia, serif",
                       fontWeight: 400,
                       fontSize: 22,
                       margin: "4px 0 8px",
@@ -95,7 +95,7 @@ export default function GuidaPage() {
             </div>
             <h2
               style={{
-                fontFamily: "var(--font-cormorant), Georgia, serif",
+                fontFamily: "var(--font-fraunces), Georgia, serif",
                 fontWeight: 300,
                 fontSize: "clamp(28px,4vw,44px)",
                 margin: "0 0 24px",
@@ -114,7 +114,7 @@ export default function GuidaPage() {
                 <div key={faq.q} className="glass-surface" style={{ padding: "22px 26px" }}>
                   <h4
                     style={{
-                      fontFamily: "var(--font-cormorant), Georgia, serif",
+                      fontFamily: "var(--font-fraunces), Georgia, serif",
                       fontWeight: 400,
                       fontSize: 19,
                       margin: "0 0 7px",

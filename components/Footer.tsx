@@ -48,7 +48,7 @@ export default function Footer() {
             <span
               className="text-[18px] leading-none tracking-[0.04em] uppercase select-none"
               style={{
-                fontFamily: "var(--font-montserrat)",
+                fontFamily: "var(--font-fraunces)",
                 fontWeight: 800,
                 color: "var(--text)",
               }}
@@ -76,7 +76,7 @@ export default function Footer() {
           <div className="flex flex-col gap-2.5">
             <p
               className="text-[10px] font-bold uppercase tracking-[0.2em] mb-1"
-              style={{ fontFamily: "var(--font-montserrat)", color: "var(--accent)" }}
+              style={{ fontFamily: "var(--font-fraunces)", color: "var(--accent)" }}
             >
               {lang === "it" ? "Prodotto" : "Product"}
             </p>
@@ -97,7 +97,7 @@ export default function Footer() {
           <div className="flex flex-col gap-2.5">
             <p
               className="text-[10px] font-bold uppercase tracking-[0.2em] mb-1"
-              style={{ fontFamily: "var(--font-montserrat)", color: "var(--accent)" }}
+              style={{ fontFamily: "var(--font-fraunces)", color: "var(--accent)" }}
             >
               {lang === "it" ? "Legale" : "Legal"}
             </p>
@@ -115,7 +115,7 @@ export default function Footer() {
           <div className="flex flex-col gap-2.5">
             <p
               className="text-[10px] font-bold uppercase tracking-[0.2em] mb-1"
-              style={{ fontFamily: "var(--font-montserrat)", color: "var(--accent)" }}
+              style={{ fontFamily: "var(--font-fraunces)", color: "var(--accent)" }}
             >
               {lang === "it" ? "Filosofia" : "Philosophy"}
             </p>
@@ -150,7 +150,7 @@ export default function Footer() {
               <span
                 style={{
                   color: "var(--accent)",
-                  fontFamily: "var(--font-montserrat)",
+                  fontFamily: "var(--font-fraunces)",
                   fontWeight: 600,
                 }}
               >

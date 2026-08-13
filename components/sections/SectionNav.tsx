@@ -83,7 +83,7 @@ export default function SectionNav() {
 
           {/* Logo center */}
           <div className="flex justify-center">
-            <Link href={`/${lang}`} aria-label="FORMA — Home" className="flex items-center">
+            <Link href={`/${lang}`} aria-label="Atelier Nove — Home" className="flex items-center">
               <FormaLogoStatic className="w-24 sm:w-32 h-auto opacity-90 hover:opacity-100 transition-opacity" />
             </Link>
           </div>

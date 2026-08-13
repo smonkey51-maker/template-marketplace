@@ -66,7 +66,7 @@ export default function BentoHub() {
         <CellPainting src="/paintings/vermeer.jpg" position="center 20%" />
         {/* No wordmark inside the hero. SectionNav already puts one in the
             fixed bar directly above this cell, so on a phone the visitor met
-            FORMA twice within the first 240px — the second one reading as a
+            Atelier Nove twice within the first 240px — the second one reading as a
             duplicate rather than as branding. */}
         <div className="relative flex flex-col gap-4">
           <h1

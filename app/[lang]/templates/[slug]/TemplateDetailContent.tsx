@@ -48,7 +48,7 @@ export function TemplateDetailContent({
               href={`/${lang}`}
               className="flex items-center min-h-[24px] hover:text-accent transition-colors"
             >
-              FORMA
+              Atelier Nove
             </Link>
             <span>/</span>
             <Link
@@ -107,7 +107,7 @@ export function TemplateDetailContent({
 
             <h1
               style={{
-                fontFamily: "var(--font-cormorant), Georgia, serif",
+                fontFamily: "var(--font-fraunces), Georgia, serif",
                 fontSize: "clamp(36px, 6vw, 64px)",
                 lineHeight: 1.05,
                 fontWeight: 300,

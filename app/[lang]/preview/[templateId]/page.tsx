@@ -7,7 +7,7 @@ import ReviewSection from "@/components/ReviewSection";
 import { getLocalizedName, getLocalizedDesc } from "@/lib/i18n";
 import { toLocale } from "@/lib/locales";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://forma.design";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ateliernove.com";
 
 export async function generateStaticParams() {
   try {
@@ -36,7 +36,7 @@ export async function generateMetadata({
     description: description,
     alternates: { canonical: canonicalUrl },
     openGraph: {
-      title: `${name} — Forma`,
+      title: `${name} — Atelier Nove`,
       description: description,
       type: "website",
       url: canonicalUrl,
@@ -44,7 +44,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: `${name} — Forma`,
+      title: `${name} — Atelier Nove`,
       description: description,
       images: [ogImage],
     },
@@ -68,9 +68,9 @@ export default async function PreviewPage({
         description: getLocalizedDesc(template, lang),
         url: `${SITE_URL}/preview/${templateId}`,
         image: `${SITE_URL}/api/og?id=${templateId}&lang=${lang}`,
-        brand: { "@type": "Brand", name: "Forma" },
+        brand: { "@type": "Brand", name: "Atelier Nove" },
         category: "UI Template",
-        seller: { "@type": "Organization", name: "Forma", url: SITE_URL },
+        seller: { "@type": "Organization", name: "Atelier Nove", url: SITE_URL },
         offers: {
           "@type": "Offer",
           price: (template.price / 100).toFixed(2),

@@ -11,7 +11,7 @@ import type { TemplateMeta } from "@/lib/templates";
  * hues: a filtered catalogue should be recognisable at a glance, not by
  * reading.
  *
- * The hues stay inside FORMA's warm world — terracotta, gold, olive — rather
+ * The hues stay inside Atelier Nove's warm world — terracotta, gold, olive — rather
  * than being borrowed from a system palette. Gold is the house colour and stays
  * on the largest group and on the brand CTA, so the page still reads as this
  * site and not as a generic one.

@@ -2,7 +2,6 @@
 
 import BentoHub from "@/components/sections/BentoHub";
 import SectionNav from "@/components/sections/SectionNav";
-import GallerySpotlight from "@/components/sections/GallerySpotlight";
 import { FormaFooter } from "@/components/FormaFooter";
 
 /**
@@ -28,7 +27,6 @@ export default function Homepage() {
     // <main> rather than <div>: every page needs one main landmark so screen
     // readers can skip past the nav straight to the content.
     <main className="relative flex flex-col" style={{ overflowX: "hidden" }}>
-      <GallerySpotlight />
       <SectionNav />
       <BentoHub />
       <FormaFooter />

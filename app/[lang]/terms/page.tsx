@@ -19,11 +19,11 @@ export default function TermsPage() {
             marginBottom: "16px",
           }}
         >
-          Legale · Forma
+          Legale · Atelier Nove
         </p>
         <h1
           style={{
-            fontFamily: "var(--font-cormorant), 'Cormorant Garamond', serif",
+            fontFamily: "var(--font-fraunces), Georgia, serif",
             fontSize: "clamp(36px, 5vw, 52px)",
             fontWeight: 400,
             letterSpacing: "0.01em",
@@ -39,21 +39,21 @@ export default function TermsPage() {
           <section>
             <h2
               className="text-[15px] font-semibold text-theme mb-2"
-              style={{ fontFamily: "var(--font-montserrat), sans-serif", letterSpacing: "0.02em" }}
+              style={{ fontFamily: "var(--font-fraunces), sans-serif", letterSpacing: "0.02em" }}
             >
               Acquisto e licenza
             </h2>
             <p>
-              Acquistando un template su Forma ottieni una licenza personale, non esclusiva e non
-              trasferibile per utilizzarlo in un progetto commerciale o personale. Non è consentita
-              la rivendita, redistribuzione o sub-licenza del template.
+              Acquistando un template su Atelier Nove ottieni una licenza personale, non esclusiva e
+              non trasferibile per utilizzarlo in un progetto commerciale o personale. Non è
+              consentita la rivendita, redistribuzione o sub-licenza del template.
             </p>
           </section>
 
           <section>
             <h2
               className="text-[15px] font-semibold text-theme mb-2"
-              style={{ fontFamily: "var(--font-montserrat), sans-serif", letterSpacing: "0.02em" }}
+              style={{ fontFamily: "var(--font-fraunces), sans-serif", letterSpacing: "0.02em" }}
             >
               Pagamenti e rimborsi
             </h2>
@@ -67,7 +67,7 @@ export default function TermsPage() {
           <section>
             <h2
               className="text-[15px] font-semibold text-theme mb-2"
-              style={{ fontFamily: "var(--font-montserrat), sans-serif", letterSpacing: "0.02em" }}
+              style={{ fontFamily: "var(--font-fraunces), sans-serif", letterSpacing: "0.02em" }}
             >
               Studio Access
             </h2>
@@ -81,12 +81,12 @@ export default function TermsPage() {
           <section>
             <h2
               className="text-[15px] font-semibold text-theme mb-2"
-              style={{ fontFamily: "var(--font-montserrat), sans-serif", letterSpacing: "0.02em" }}
+              style={{ fontFamily: "var(--font-fraunces), sans-serif", letterSpacing: "0.02em" }}
             >
               Proprietà intellettuale
             </h2>
             <p>
-              I template sono di proprietà di Forma. L'utilizzo è consentito nei limiti della
+              I template sono di proprietà di Atelier Nove. L'utilizzo è consentito nei limiti della
               licenza acquistata. Il codice generato dall'AI Studio è di tua proprietà una volta
               scaricato.
             </p>
@@ -95,13 +95,13 @@ export default function TermsPage() {
           <section>
             <h2
               className="text-[15px] font-semibold text-theme mb-2"
-              style={{ fontFamily: "var(--font-montserrat), sans-serif", letterSpacing: "0.02em" }}
+              style={{ fontFamily: "var(--font-fraunces), sans-serif", letterSpacing: "0.02em" }}
             >
               Limitazione di responsabilità
             </h2>
             <p>
-              Forma fornisce i template "così come sono". Non siamo responsabili per danni indiretti
-              derivanti dall'uso dei template o dell'AI Studio.
+              Atelier Nove fornisce i template "così come sono". Non siamo responsabili per danni
+              indiretti derivanti dall'uso dei template o dell'AI Studio.
             </p>
           </section>
         </div>

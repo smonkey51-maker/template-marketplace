@@ -553,7 +553,7 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                         </div>
                         <h3
                           style={{
-                            fontFamily: "var(--font-cormorant), Georgia, serif",
+                            fontFamily: "var(--font-fraunces), Georgia, serif",
                             fontWeight: 400,
                             fontSize: 26,
                             margin: "0 0 8px",
@@ -588,7 +588,7 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                               when buyers write them. */}
                           <b
                             style={{
-                              fontFamily: "var(--font-cormorant), Georgia, serif",
+                              fontFamily: "var(--font-fraunces), Georgia, serif",
                               fontSize: 22,
                               fontWeight: 400,
                               color: "var(--text)",
@@ -634,7 +634,7 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
             <div className="fn-kicker">{lang === "it" ? "Risparmia" : "Save"}</div>
             <h2
               style={{
-                fontFamily: "var(--font-cormorant), Georgia, serif",
+                fontFamily: "var(--font-fraunces), Georgia, serif",
                 fontWeight: 300,
                 fontSize: "clamp(32px, 4vw, 52px)",
                 margin: "0 0 6px",
@@ -671,7 +671,7 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                     </div>
                     <h3
                       style={{
-                        fontFamily: "var(--font-cormorant), Georgia, serif",
+                        fontFamily: "var(--font-fraunces), Georgia, serif",
                         fontWeight: 400,
                         fontSize: 26,
                         margin: "0 0 8px",
@@ -701,7 +701,7 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                         </s>
                         <b
                           style={{
-                            fontFamily: "var(--font-cormorant), Georgia, serif",
+                            fontFamily: "var(--font-fraunces), Georgia, serif",
                             fontSize: 22,
                             fontWeight: 400,
                             color: "var(--text)",
@@ -832,7 +832,7 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                   <h2
                     id="sheet-title"
                     style={{
-                      fontFamily: "var(--font-cormorant), Georgia, serif",
+                      fontFamily: "var(--font-fraunces), Georgia, serif",
                       fontSize: "clamp(32px, 4vw, 48px)",
                       lineHeight: 1.1,
                       marginBottom: 16,
@@ -860,7 +860,7 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                       </span>
                       <b
                         style={{
-                          fontFamily: "var(--font-cormorant), Georgia, serif",
+                          fontFamily: "var(--font-fraunces), Georgia, serif",
                           fontSize: 32,
                         }}
                       >

@@ -37,7 +37,7 @@ export async function GET(req: NextRequest) {
           flexDirection: "column",
           width: "100%",
           height: "100%",
-          background: "linear-gradient(135deg, #000000 0%, #0A0A0A 60%, #111111 100%)",
+          background: "linear-gradient(135deg, #F4F0E8 0%, #EFE9DC 60%, #E7E0D3 100%)",
           fontFamily: "system-ui, -apple-system, sans-serif",
           position: "relative",
           overflow: "hidden",
@@ -53,7 +53,7 @@ export async function GET(req: NextRequest) {
             transform: "translateX(-50%)",
             width: "900px",
             height: "500px",
-            background: "radial-gradient(ellipse, rgba(200,169,110,0.18) 0%, transparent 65%)",
+            background: "radial-gradient(ellipse, rgba(122,46,40,0.14) 0%, transparent 65%)",
             borderRadius: "50%",
           }}
         />
@@ -64,7 +64,7 @@ export async function GET(req: NextRequest) {
             right: "-100px",
             width: "400px",
             height: "400px",
-            background: "radial-gradient(ellipse, rgba(196,98,45,0.10) 0%, transparent 70%)",
+            background: "radial-gradient(ellipse, rgba(122,46,40,0.08) 0%, transparent 70%)",
             borderRadius: "50%",
           }}
         />
@@ -75,15 +75,15 @@ export async function GET(req: NextRequest) {
             style={{
               fontSize: "18px",
               fontWeight: 700,
-              color: "#C8A96E",
+              color: "#7A2E28",
               letterSpacing: "0.08em",
               textTransform: "uppercase",
             }}
           >
-            Forma
+            Atelier Nove
           </div>
-          <div style={{ width: "1px", height: "18px", background: "rgba(255,255,255,0.15)" }} />
-          <div style={{ fontSize: "14px", color: "rgba(255,255,255,0.35)", fontWeight: 500 }}>
+          <div style={{ width: "1px", height: "18px", background: "rgba(28,26,23,0.14)" }} />
+          <div style={{ fontSize: "14px", color: "rgba(28,26,23,0.4)", fontWeight: 500 }}>
             {categoryLabel}
           </div>
         </div>
@@ -93,7 +93,7 @@ export async function GET(req: NextRequest) {
           style={{
             fontSize: "56px",
             fontWeight: 900,
-            color: "#FFFFFF",
+            color: "#1C1A17",
             letterSpacing: "-0.03em",
             lineHeight: 1.08,
             marginBottom: "24px",
@@ -107,7 +107,7 @@ export async function GET(req: NextRequest) {
         <div
           style={{
             fontSize: "22px",
-            color: "rgba(255,255,255,0.45)",
+            color: "rgba(28,26,23,0.55)",
             lineHeight: 1.5,
             maxWidth: "800px",
             marginBottom: "48px",
@@ -120,12 +120,12 @@ export async function GET(req: NextRequest) {
         <div style={{ display: "flex", alignItems: "center", gap: "16px", marginTop: "auto" }}>
           <div
             style={{
-              background: "rgba(200,169,110,0.15)",
-              border: "1px solid rgba(200,169,110,0.3)",
+              background: "rgba(122,46,40,0.1)",
+              border: "1px solid rgba(122,46,40,0.3)",
               borderRadius: "100px",
               padding: "10px 22px",
               fontSize: "18px",
-              color: "#C8A96E",
+              color: "#7A2E28",
               fontWeight: 700,
             }}
           >
@@ -135,12 +135,12 @@ export async function GET(req: NextRequest) {
             <div
               key={tag}
               style={{
-                background: "rgba(255,255,255,0.07)",
-                border: "1px solid rgba(255,255,255,0.12)",
+                background: "rgba(28,26,23,0.05)",
+                border: "1px solid rgba(28,26,23,0.14)",
                 borderRadius: "100px",
                 padding: "10px 22px",
                 fontSize: "15px",
-                color: "rgba(255,255,255,0.55)",
+                color: "rgba(28,26,23,0.6)",
                 fontWeight: 600,
               }}
             >
@@ -163,7 +163,7 @@ export async function GET(req: NextRequest) {
         justifyContent: "center",
         width: "100%",
         height: "100%",
-        background: "linear-gradient(135deg, #000000 0%, #0A0A0A 60%, #111111 100%)",
+        background: "linear-gradient(135deg, #F4F0E8 0%, #EFE9DC 60%, #E7E0D3 100%)",
         fontFamily: "system-ui, -apple-system, sans-serif",
         position: "relative",
         overflow: "hidden",
@@ -177,7 +177,7 @@ export async function GET(req: NextRequest) {
           transform: "translateX(-50%)",
           width: "900px",
           height: "500px",
-          background: "radial-gradient(ellipse, rgba(200,169,110,0.18) 0%, transparent 65%)",
+          background: "radial-gradient(ellipse, rgba(122,46,40,0.14) 0%, transparent 65%)",
           borderRadius: "50%",
         }}
       />
@@ -188,7 +188,7 @@ export async function GET(req: NextRequest) {
           right: "-100px",
           width: "400px",
           height: "400px",
-          background: "radial-gradient(ellipse, rgba(196,98,45,0.10) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse, rgba(122,46,40,0.08) 0%, transparent 70%)",
           borderRadius: "50%",
         }}
       />
@@ -207,18 +207,18 @@ export async function GET(req: NextRequest) {
           style={{
             fontSize: "20px",
             fontWeight: 700,
-            color: "#C8A96E",
+            color: "#7A2E28",
             letterSpacing: "0.08em",
             textTransform: "uppercase",
           }}
         >
-          Forma
+          Atelier Nove
         </div>
         <div
           style={{
             fontSize: "60px",
             fontWeight: 900,
-            color: "#FFFFFF",
+            color: "#1C1A17",
             textAlign: "center",
             letterSpacing: "-0.03em",
             lineHeight: 1.08,
@@ -229,7 +229,7 @@ export async function GET(req: NextRequest) {
         <div
           style={{
             fontSize: "22px",
-            color: "rgba(255,255,255,0.45)",
+            color: "rgba(28,26,23,0.55)",
             textAlign: "center",
             maxWidth: "620px",
             lineHeight: 1.5,
@@ -242,12 +242,12 @@ export async function GET(req: NextRequest) {
             <div
               key={label}
               style={{
-                background: "rgba(255,255,255,0.07)",
-                border: "1px solid rgba(255,255,255,0.12)",
+                background: "rgba(28,26,23,0.05)",
+                border: "1px solid rgba(28,26,23,0.14)",
                 borderRadius: "100px",
                 padding: "10px 22px",
                 fontSize: "15px",
-                color: "rgba(255,255,255,0.65)",
+                color: "rgba(28,26,23,0.65)",
                 fontWeight: 600,
               }}
             >

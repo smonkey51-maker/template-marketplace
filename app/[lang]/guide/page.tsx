@@ -44,7 +44,7 @@ export default function GuidePage() {
           <h1
             className="text-[2rem] sm:text-[2.6rem] leading-[1.1] text-theme mb-4"
             style={{
-              fontFamily: "var(--font-cormorant), 'Cormorant Garamond', Georgia, serif",
+              fontFamily: "var(--font-fraunces), Georgia, serif",
               fontWeight: 400,
               letterSpacing: "0.01em",
               lineHeight: 1.1,
@@ -95,7 +95,7 @@ export default function GuidePage() {
                 <h2
                   className="text-[16px] font-semibold text-theme mb-1.5"
                   style={{
-                    fontFamily: "var(--font-cormorant), serif",
+                    fontFamily: "var(--font-fraunces), serif",
                     fontSize: "18px",
                     fontWeight: 500,
                   }}
@@ -143,7 +143,7 @@ export default function GuidePage() {
                 <h2
                   className="text-[16px] font-semibold text-theme mb-1.5"
                   style={{
-                    fontFamily: "var(--font-cormorant), serif",
+                    fontFamily: "var(--font-fraunces), serif",
                     fontSize: "18px",
                     fontWeight: 500,
                   }}
@@ -298,7 +298,7 @@ export default function GuidePage() {
               <h2
                 className="text-[1.6rem] sm:text-[2rem] text-theme mb-3"
                 style={{
-                  fontFamily: "var(--font-cormorant), 'Cormorant Garamond', Georgia, serif",
+                  fontFamily: "var(--font-fraunces), Georgia, serif",
                   fontWeight: 400,
                   letterSpacing: "0.01em",
                   lineHeight: 1.1,

@@ -134,7 +134,7 @@ export const t = {
     guide: {
       pageTitle: "Guida",
       badge: "Come funziona",
-      title: "Come usare Forma",
+      title: "Come usare Atelier Nove",
       subtitle: "Dalla scelta all'utilizzo in pochi minuti.",
       // Tipi di template
       sectionTypes: "I due tipi di template",
@@ -178,7 +178,7 @@ export const t = {
       bundleBadge: "Risparmio garantito",
       // CTA
       ctaLabel: "Inizia ora",
-      ctaTitle: "Pronto a usare Forma?",
+      ctaTitle: "Pronto a usare Atelier Nove?",
       ctaSubtitle: "Sfoglia i template, scegli quello che fa per te e personalizzalo con AI.",
       ctaBtn: "Sfoglia i template →",
     },
@@ -244,7 +244,7 @@ export const t = {
       account: "Account",
       privacy: "Privacy Policy",
       terms: "Termini di servizio",
-      copyright: "© 2026 Forma. Tutti i diritti riservati.",
+      copyright: "© 2026 Atelier Nove. Tutti i diritti riservati.",
     },
   },
   en: {
@@ -380,7 +380,7 @@ export const t = {
     guide: {
       pageTitle: "Guide",
       badge: "How it works",
-      title: "How to use Forma",
+      title: "How to use Atelier Nove",
       subtitle: "From choosing to using in minutes.",
       // Template types
       sectionTypes: "Two types of templates",
@@ -424,7 +424,7 @@ export const t = {
       bundleBadge: "Guaranteed savings",
       // CTA
       ctaLabel: "Get started",
-      ctaTitle: "Ready to use Forma?",
+      ctaTitle: "Ready to use Atelier Nove?",
       ctaSubtitle: "Browse the templates, pick the one that suits you and customize it with AI.",
       ctaBtn: "Browse templates →",
     },
@@ -490,7 +490,7 @@ export const t = {
       account: "Account",
       privacy: "Privacy Policy",
       terms: "Terms of Service",
-      copyright: "© 2026 Forma. All rights reserved.",
+      copyright: "© 2026 Atelier Nove. All rights reserved.",
     },
   },
 } as const;
