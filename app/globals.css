@@ -633,15 +633,21 @@ html.dark {
   --glass-s-cast-1: 0 1px 2px rgba(28, 26, 23, 0.05), 0 4px 12px rgba(28, 26, 23, 0.06);
   --glass-s-cast-2: 0 2px 4px rgba(28, 26, 23, 0.07), 0 8px 20px rgba(28, 26, 23, 0.08);
 
-  /* Tier 3 — sheet pinned to the bottom edge (mobile nav / buy bars) */
-  --glass-bar-fill: var(--nav-bg);
+  /* Tier 3 — sheet pinned to the bottom edge (mobile nav / buy bars).
+     Solid --surface, not --nav-bg (which carries alpha): these bars sit
+     directly over an embedded template <iframe> on /bundle and /preview,
+     and Chromium doesn't reliably respect z-index stacking against an
+     iframe's own compositing layer — even a few percent of alpha let the
+     iframe's content show crisply through once --glass-bar-blur stopped
+     smearing it away. Fully opaque removes the possibility outright. */
+  --glass-bar-fill: var(--surface);
   --glass-bar-blur: none;
 
   /* Atelier Nove editorial radius — sharp corners, not rounded glass. */
   --glass-radius: var(--r-md);
 }
 html.dark {
-  --glass-bar-fill: var(--nav-bg);
+  --glass-bar-fill: var(--surface);
   --glass-s-fill: var(--card-bg);
   --glass-s-fill-hi: var(--surface);
   --glass-s-fill-sunk: var(--surface-2);
