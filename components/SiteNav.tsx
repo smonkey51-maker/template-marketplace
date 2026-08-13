@@ -87,10 +87,14 @@ export default function SiteNav() {
         <div className="flex items-center gap-3">
           <ThemeToggle />
 
+          {/* Wishlist/cart/account move into the mobile drawer below md —
+              four 36px icon buttons plus BackLink and the logo do not fit a
+              375px-wide phone without wrapping or overlapping. Desktop keeps
+              them here since there's room and no drawer to put them in. */}
           <Link
             href={`/${lang}/wishlist`}
             aria-label={lang === "it" ? "Salvati" : "Saved"}
-            className="relative flex h-9 w-9 items-center justify-center border border-theme r-md transition-colors hover:bg-[var(--surface)]"
+            className="relative hidden h-9 w-9 items-center justify-center border border-theme r-md transition-colors hover:bg-[var(--surface)] md:flex"
           >
             <Heart size={16} strokeWidth={1.8} aria-hidden style={{ color: "var(--text)" }} />
             {ids.length > 0 && (
@@ -106,7 +110,7 @@ export default function SiteNav() {
           <Link
             href={`/${lang}/carrello`}
             aria-label={lang === "it" ? "Carrello" : "Cart"}
-            className="relative flex h-9 w-9 items-center justify-center border border-theme r-md transition-colors hover:bg-[var(--surface)]"
+            className="relative hidden h-9 w-9 items-center justify-center border border-theme r-md transition-colors hover:bg-[var(--surface)] md:flex"
           >
             <ShoppingBag size={16} strokeWidth={1.8} aria-hidden style={{ color: "var(--text)" }} />
             {cartIds.length > 0 && (
@@ -120,12 +124,14 @@ export default function SiteNav() {
           </Link>
 
           {isSignedIn ? (
-            <UserButton />
+            <div className="hidden md:block">
+              <UserButton />
+            </div>
           ) : (
             <Link
               href={`/${lang}/account`}
               aria-label={t("account")}
-              className="flex h-9 w-9 items-center justify-center border border-theme r-md transition-colors hover:bg-[var(--surface)]"
+              className="hidden h-9 w-9 items-center justify-center border border-theme r-md transition-colors hover:bg-[var(--surface)] md:flex"
               style={{ color: isActive("/account") ? "var(--accent)" : "var(--text)" }}
             >
               <User size={16} strokeWidth={1.8} aria-hidden />
@@ -152,11 +158,12 @@ export default function SiteNav() {
         </div>
       </div>
 
-      {/* Mobile drawer */}
+      {/* Mobile drawer — also carries wishlist/cart/account, hidden from the
+          top bar below md (see the comment above those buttons). */}
       <div
         className="overflow-hidden border-t border-theme md:hidden"
         style={{
-          maxHeight: open ? 260 : 0,
+          maxHeight: open ? 520 : 0,
           transition: "max-height 0.28s ease",
           background: "var(--bg)",
         }}
@@ -180,6 +187,53 @@ export default function SiteNav() {
               </Link>
             </li>
           ))}
+          <li className="border-t border-theme">
+            <Link
+              href={`/${lang}/wishlist`}
+              className="flex items-center justify-between py-4"
+              style={{ color: isActive("/wishlist") ? "var(--text)" : "var(--muted)" }}
+            >
+              <span
+                style={{ fontFamily: "var(--font-fraunces), Georgia, serif", fontWeight: 500 }}
+                className="text-[1.05rem]"
+              >
+                {lang === "it" ? "Salvati" : "Saved"}
+                {ids.length > 0 ? ` (${ids.length})` : ""}
+              </span>
+              <span aria-hidden>→</span>
+            </Link>
+          </li>
+          <li className="border-t border-theme">
+            <Link
+              href={`/${lang}/carrello`}
+              className="flex items-center justify-between py-4"
+              style={{ color: isActive("/carrello") ? "var(--text)" : "var(--muted)" }}
+            >
+              <span
+                style={{ fontFamily: "var(--font-fraunces), Georgia, serif", fontWeight: 500 }}
+                className="text-[1.05rem]"
+              >
+                {lang === "it" ? "Carrello" : "Cart"}
+                {cartIds.length > 0 ? ` (${cartIds.length})` : ""}
+              </span>
+              <span aria-hidden>→</span>
+            </Link>
+          </li>
+          <li className="border-t border-theme">
+            <Link
+              href={`/${lang}/account`}
+              className="flex items-center justify-between py-4"
+              style={{ color: isActive("/account") ? "var(--text)" : "var(--muted)" }}
+            >
+              <span
+                style={{ fontFamily: "var(--font-fraunces), Georgia, serif", fontWeight: 500 }}
+                className="text-[1.05rem]"
+              >
+                {t("account")}
+              </span>
+              <span aria-hidden>→</span>
+            </Link>
+          </li>
         </ul>
       </div>
     </header>

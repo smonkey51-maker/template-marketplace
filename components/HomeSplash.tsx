@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { User } from "lucide-react";
 import { useLang } from "@/components/LanguageProvider";
 import { copy } from "@/lib/formaCopy";
 import { FormaLogoAnimated } from "@/components/FormaLogo";
@@ -18,10 +19,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 const ENTRIES = [
   { labelIt: "Catalogo", labelEn: "Catalog", href: "/catalogo", index: "01" },
   { labelIt: "Studio AI", labelEn: "AI Studio", href: "/studio", index: "02" },
-  // Points at /guida — FORMA's existing guide page already doubles as the
-  // "how it works" walkthrough, so the label says what the page does rather
-  // than what section of the site it lives in.
-  { labelIt: "Come funziona", labelEn: "How it works", href: "/guida", index: "03" },
+  { labelIt: "Guida", labelEn: "Guide", href: "/guida", index: "03" },
 ] as const;
 
 export default function HomeSplash() {
@@ -34,8 +32,15 @@ export default function HomeSplash() {
       style={{ background: "var(--bg)", color: "var(--text)" }}
     >
       {/* Utility row */}
-      <div className="flex items-center justify-end px-6 py-6 md:px-10">
+      <div className="flex items-center justify-end gap-3 px-6 py-6 md:px-10">
         <ThemeToggle />
+        <Link
+          href={`/${lang}/account`}
+          aria-label={lang === "it" ? "Il mio account" : "My account"}
+          className="flex h-9 w-9 items-center justify-center border border-theme r-md transition-colors hover:bg-[var(--surface)]"
+        >
+          <User size={16} strokeWidth={1.8} aria-hidden style={{ color: "var(--text)" }} />
+        </Link>
       </div>
 
       {/* Wordmark + claim — protagonist. Vermeer sits behind it as a faint,
@@ -65,15 +70,8 @@ export default function HomeSplash() {
         </p>
       </div>
 
-      {/* Minimal entries into the three destinations.
-          Bottom padding on small screens only — MobileNav (components/MobileNav.tsx)
-          is a `fixed bottom-0` tab bar shown below the `sm` breakpoint, and
-          without this the last entry sat underneath it, unreachable/unreadable
-          on a phone. FormaFooter clears the same bar with the same value. */}
-      <nav
-        className="border-t border-theme pb-[calc(140px_+_env(safe-area-inset-bottom,0px))] sm:pb-0"
-        aria-label="Main navigation"
-      >
+      {/* Minimal entries into the three destinations */}
+      <nav className="border-t border-theme" aria-label="Main navigation">
         <ul className="mx-auto grid max-w-[1400px] grid-cols-1 sm:grid-cols-3">
           {ENTRIES.map((e, i) => (
             <li
@@ -84,9 +82,10 @@ export default function HomeSplash() {
                 href={`/${lang}${e.href}`}
                 className="group flex items-center justify-between px-6 py-6 transition-colors duration-200 md:px-10 hover:bg-[var(--surface)]"
               >
+                {/* 0.8x on phones — sm: and up restores the full size. */}
                 <span className="flex items-baseline gap-3">
                   <span
-                    className="text-[0.7rem]"
+                    className="text-[0.56rem] sm:text-[0.7rem]"
                     style={{ color: "var(--muted)", letterSpacing: "0.05em" }}
                   >
                     [{e.index}]
@@ -97,7 +96,7 @@ export default function HomeSplash() {
                       fontWeight: 500,
                       color: "var(--text)",
                     }}
-                    className="text-[1.25rem]"
+                    className="text-[1rem] sm:text-[1.25rem]"
                   >
                     {lang === "it" ? e.labelIt : e.labelEn}
                   </span>

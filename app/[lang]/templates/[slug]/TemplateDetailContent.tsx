@@ -38,11 +38,7 @@ export function TemplateDetailContent({
         style={{
           maxWidth: 960,
           margin: "0 auto",
-          // The bottom figure clears the floating mobile nav: it sits 24px off
-          // the bottom and stands ~56px tall, so anything less leaves the last
-          // screenful of the page — including the buy button — sitting under it
-          // with no way to scroll clear.
-          padding: "40px clamp(16px, 3vw, 36px) calc(140px + env(safe-area-inset-bottom, 0px))",
+          padding: "40px clamp(16px, 3vw, 36px) calc(48px + env(safe-area-inset-bottom, 0px))",
         }}
       >
         {/* Navigation Breadcrumb (Floating Pill) */}

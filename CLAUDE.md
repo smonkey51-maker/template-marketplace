@@ -47,7 +47,6 @@ template-marketplace/
 │       └── og/route.tsx        # Dynamic Open Graph image
 ├── components/                 # Shared React components
 │   ├── SiteNav.tsx             # Inner-page navigation (with dropdowns)
-│   ├── MobileNav.tsx           # Mobile bottom navigation
 │   ├── SnapHomepage.tsx        # Snap-scroll homepage shell + parallax driver
 │   ├── sections/               # The five homepage sections + SectionNav
 │   ├── studio/                 # AI Studio panels
@@ -242,7 +241,6 @@ ClerkProvider
         ToastProvider
           GsapProvider
             PageTransition > {children}
-            MobileNav
             CommandPalette
 ```
 
