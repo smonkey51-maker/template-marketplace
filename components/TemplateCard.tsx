@@ -7,6 +7,7 @@ import { Template, formatPrice, getDownloadType } from "@/lib/templates";
 import { useLang } from "@/components/LanguageProvider";
 import { templateTranslations } from "@/lib/i18n";
 import { useWishlist } from "@/lib/useWishlist";
+import { getKindLabel } from "@/lib/categories";
 
 type Lang = "it" | "en";
 
@@ -946,6 +947,15 @@ export default function TemplateCard({
           className="px-4 py-4 flex flex-col flex-1"
           style={{ borderTop: "1px solid var(--border)" }}
         >
+          {/* Category eyebrow — mono index label, matching the Figma
+              editorial redesign's ProductCard structure */}
+          <span
+            className="mb-1.5 text-[9px] font-semibold uppercase"
+            style={{ color: "var(--muted)", letterSpacing: "0.12em" }}
+          >
+            {getKindLabel(template, lang)}
+          </span>
+
           {/* Name */}
           <h3
             className="text-[13px] font-semibold leading-snug mb-1.5 tracking-[-0.01em]"
