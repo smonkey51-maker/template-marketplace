@@ -169,7 +169,7 @@ The lifetime button is behind `NEXT_PUBLIC_STUDIO_LIFETIME_AVAILABLE === "true"`
 - `sendPurchaseEmail()` — sends post-purchase confirmation with download link.
 - `sendNewsletterEmail()` — batch sends up to 100 emails per Resend API call.
 - Silently no-ops if `RESEND_API_KEY` is not set (safe in dev).
-- From address: `RESEND_FROM` env var, defaults to `Atelier Nove <noreply@ateliernove.com>`.
+- From address: `RESEND_FROM` env var, defaults to `Atelier Nove <noreply@template-marketplace-psi.vercel.app>`.
 
 ### Template Export Script
 
@@ -194,7 +194,7 @@ Generates `exports/gumroad/` and `exports/etsy/` from all templates in `lib/temp
 | `STUDIO_ACCESS_LIFETIME_PRICE_ID`   | Yes (for lifetime) | Stripe price ID for lifetime Studio Access           |
 | `SUPABASE_URL`                      | Yes                | Supabase project URL                                 |
 | `SUPABASE_SERVICE_ROLE_KEY`         | Yes                | Supabase service role key (server-only)              |
-| `NEXT_PUBLIC_SITE_URL`              | Yes                | Full site URL e.g. `https://ateliernove.com`          |
+| `NEXT_PUBLIC_SITE_URL`              | Yes                | Full site URL e.g. `https://template-marketplace-psi.vercel.app`          |
 | `NEXT_PUBLIC_APP_URL`               | Optional           | Fallback for checkout redirect URLs                  |
 | `RESEND_API_KEY`                    | Optional           | Resend email API key                                 |
 | `RESEND_FROM`                       | Optional           | Sender address for emails                            |

@@ -72,7 +72,7 @@ const fraunces = Fraunces({
   axes: ["SOFT", "opsz"],
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ateliernove.com";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://template-marketplace-psi.vercel.app";
 
 // Localised per route segment rather than a single static object. The site is
 // Italian-first, but middleware.ts routes any non-Italian browser to /en, and a

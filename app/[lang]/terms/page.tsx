@@ -2,7 +2,7 @@
 
 import type { Metadata } from "next";
 import SiteNav from "@/components/SiteNav";
-import Footer from "@/components/Footer";
+import { FormaFooter } from "@/components/FormaFooter";
 
 export default function TermsPage() {
   return (
@@ -11,8 +11,9 @@ export default function TermsPage() {
       <div className="relative z-10 max-w-2xl mx-auto px-4 sm:px-6 py-12">
         <p
           style={{
-            fontFamily: "monospace",
+            fontFamily: "var(--font-inter), sans-serif",
             fontSize: "10px",
+            fontWeight: 600,
             letterSpacing: "0.18em",
             textTransform: "uppercase",
             color: "var(--accent)",
@@ -106,7 +107,7 @@ export default function TermsPage() {
           </section>
         </div>
       </div>
-      <Footer />
+      <FormaFooter />
     </div>
   );
 }

@@ -194,7 +194,10 @@ export function FormaFooter() {
             {[
               { href: "/guida", label: t("footerFaq") },
               { href: "/guida", label: t("footerGuide") },
-              { href: "mailto:supporto@ateliernove.com", label: t("footerContact") },
+              {
+                href: "mailto:supporto@template-marketplace-psi.vercel.app",
+                label: t("footerContact"),
+              },
             ].map((l) => (
               <Link
                 key={l.label}

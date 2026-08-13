@@ -7,7 +7,7 @@ import { useLang } from "@/components/LanguageProvider";
 import TemplateCard from "@/components/TemplateCard";
 import SiteNav from "@/components/SiteNav";
 import { ArtHeader, PAINTINGS } from "@/components/ArtHeader";
-import Footer from "@/components/Footer";
+import { FormaFooter } from "@/components/FormaFooter";
 import { usePurchases } from "@/lib/usePurchases";
 
 export default function WishlistPage() {
@@ -95,7 +95,7 @@ export default function WishlistPage() {
           </>
         )}
       </div>
-      <Footer />
+      <FormaFooter />
     </div>
   );
 }

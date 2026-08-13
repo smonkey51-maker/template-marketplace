@@ -94,7 +94,7 @@ export const copy = {
       "Descrivi il template che vuoi (tipo, stile, sezioni, tono). L'AI genera una struttura HTML o Notion pronta all'uso in pochi secondi. Puoi poi personalizzarla nell'editor integrato.",
     guideFaq5Q: "Esiste assistenza dopo l'acquisto?",
     guideFaq5A:
-      "Sì. Per ogni domanda tecnica scrivi a supporto@ateliernove.com — risposta entro 24 ore lavorative.",
+      "Sì. Per ogni domanda tecnica scrivi a supporto@template-marketplace-psi.vercel.app — risposta entro 24 ore lavorative.",
 
     /* ai-studio page */
     aiStudioKicker: "Intelligenza artificiale",
@@ -298,7 +298,7 @@ export const copy = {
       "Describe the template you want (type, style, sections, tone). The AI generates an HTML or Notion structure ready to use in seconds. You can then customise it in the integrated editor.",
     guideFaq5Q: "Is there support after purchase?",
     guideFaq5A:
-      "Yes. For any technical question write to support@ateliernove.com — reply within 24 business hours.",
+      "Yes. For any technical question write to support@template-marketplace-psi.vercel.app — reply within 24 business hours.",
 
     /* ai-studio page */
     aiStudioKicker: "Artificial intelligence",
