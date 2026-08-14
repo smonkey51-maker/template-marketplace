@@ -9,13 +9,12 @@ import { FormaFooter } from "@/components/FormaFooter";
 
 /**
  * Standalone brand-statement page — not part of the homepage, which stays a
- * minimal splash on purpose (see HomeSplash.tsx). The text mirrors what this
- * codebase already does in practice, not aspirational marketing copy: fake
- * download counts and inflated crossed-out prices were removed from the
- * catalogue as prohibited commercial practices (see CatalogoContent.tsx and
- * PreviewContent.tsx), saturated categories were retired rather than
- * discounted (see the `retired` field in lib/templates.ts). The manifesto
- * just says that plainly, once, in one place.
+ * minimal splash on purpose (see HomeSplash.tsx). One quote, one short
+ * paragraph, one link out: gallery wall text, not a product page. It still
+ * says something true about this codebase — saturated categories get
+ * retired rather than discounted, see the `retired` field in
+ * lib/templates.ts — but states it once, briefly, instead of arguing the
+ * case with pricing and review language a catalogue page already carries.
  */
 export default function ManifestoPage() {
   const { lang } = useLang();
@@ -55,23 +54,19 @@ export default function ManifestoPage() {
             </p>
           </blockquote>
 
-          <div
+          <p
             style={{
               marginTop: 40,
-              display: "grid",
-              gap: 20,
-              maxWidth: 640,
+              maxWidth: 560,
+              color: "var(--muted)",
+              fontSize: 16,
+              lineHeight: 1.75,
             }}
           >
-            <p style={{ color: "var(--muted)", fontSize: 16, lineHeight: 1.75, margin: 0 }}>
-              {t("manifestoBody1")}
-            </p>
-            <p style={{ color: "var(--muted)", fontSize: 16, lineHeight: 1.75, margin: 0 }}>
-              {t("manifestoBody2")}
-            </p>
-          </div>
+            {t("manifestoBody1")}
+          </p>
 
-          <div style={{ marginTop: 48 }}>
+          <div style={{ marginTop: 40 }}>
             <Link className="fn-btn primary" href={`/${lang}/catalogo`}>
               {t("manifestoCta")}
             </Link>

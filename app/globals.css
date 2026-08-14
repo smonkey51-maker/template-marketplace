@@ -530,6 +530,26 @@ html.dark {
 /* Dark mode is the same single bordeaux accent everywhere too — see the
    light-mode note above. No per-section overrides. */
 
+/* ── Footer: always closes in ink, on every interior page ──
+   Not the dark theme — the light/dark toggle stays untouched everywhere
+   else. This is a deliberate closing beat, the same move a gallery makes
+   ending a room on a dark wall regardless of the lighting elsewhere in the
+   building. Scopes the same values as html.dark above, so every existing
+   var(--bg)/var(--surface)/var(--text)/var(--muted)/var(--accent)/
+   var(--border) reference already inside FormaFooter resolves to them
+   without the component needing to know about it. The homepage never
+   renders FormaFooter (see HomeSplash.tsx), so it never sees this. */
+.forma-footer-ink {
+  --bg: #14110d;
+  --surface: #1c1814;
+  --text: #f2ece0;
+  --muted: #a89a86;
+  --border: rgba(242, 236, 224, 0.14);
+  --accent: #c1716a;
+  --terra: color-mix(in srgb, var(--accent) 80%, white 20%);
+  --success: #5a7a32;
+}
+
 /* ═══════════════════════════════════════════════════════════
    DESIGN TOKENS — motion, space, elevation
    ═══════════════════════════════════════════════════════════ */
