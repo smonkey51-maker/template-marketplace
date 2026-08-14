@@ -31,6 +31,7 @@ const COLUMNS: {
     items: [
       { href: "/guida", labelKey: "footerFaq" },
       { href: "/guida", labelKey: "footerGuide" },
+      { href: "/manifesto", labelKey: "footerManifesto" },
       { href: "mailto:nicolo.forcolin.1992@gmail.com", labelKey: "footerContact" },
     ],
   },

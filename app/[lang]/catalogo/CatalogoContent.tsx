@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState, useRef } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
-import { Layers, ShoppingBag, Check } from "lucide-react";
+import { Layers, ShoppingBag, Check, Sparkles, BookOpen, Table2 } from "lucide-react";
 import { useCart } from "@/lib/useCart";
 import SiteNav from "@/components/SiteNav";
 import { useLang } from "@/components/LanguageProvider";
@@ -27,11 +27,75 @@ export type { GroupKey };
 
 const PAID_TEMPLATES = sellableTemplatesMeta.filter((t) => !t.id.startsWith("free-"));
 
+/** Total count per format, ignoring the active facets — the showcase tile is
+ * an entry point into the catalogue, not a live filtered result, so it
+ * always states what the format actually holds. */
+const FORMAT_COUNTS: Record<Exclude<GroupKey, "all">, number> = PAID_TEMPLATES.reduce(
+  (acc, x) => {
+    const key = GROUP_OF[x.category];
+    acc[key] = (acc[key] ?? 0) + 1;
+    return acc;
+  },
+  { prompt: 0, guide: 0, sheet: 0 } as Record<Exclude<GroupKey, "all">, number>,
+);
+
 const GROUPS: { key: GroupKey; it: string; en: string }[] = [
   { key: "all", it: "Tutti", en: "All" },
   { key: "prompt", it: "Prompt e script", en: "Prompts & scripts" },
   { key: "guide", it: "Guide", en: "Guides" },
   { key: "sheet", it: "Fogli e tracker", en: "Sheets & trackers" },
+];
+
+/**
+ * The catalogue's entry point: three real formats, not the fictional
+ * multi-platform grid (Notion/Canva/Figma…) a redesign mockup proposed. Every
+ * sellable product here is one of these three shapes — checked against
+ * lib/categories.ts's own GROUP_OF mapping rather than invented — so each
+ * tile links to a real, non-empty facet instead of promising a platform this
+ * catalogue doesn't actually sell on.
+ */
+const FORMAT_TILES: {
+  key: Exclude<GroupKey, "all">;
+  icon: typeof Sparkles;
+  it: { title: string; desc: string };
+  en: { title: string; desc: string };
+}[] = [
+  {
+    key: "prompt",
+    icon: Sparkles,
+    it: {
+      title: "Prompt e script",
+      desc: "Librerie di prompt e automazioni pronte in formato testo — copia, adatta, usa.",
+    },
+    en: {
+      title: "Prompts & scripts",
+      desc: "Ready-to-use prompt libraries and automations as plain text — copy, adapt, use.",
+    },
+  },
+  {
+    key: "guide",
+    icon: BookOpen,
+    it: {
+      title: "Guide e template",
+      desc: "Guide operative passo-passo e kit UI pronti all'uso, per lavorare da subito.",
+    },
+    en: {
+      title: "Guides & templates",
+      desc: "Step-by-step operating guides and ready-to-use UI kits, to get to work right away.",
+    },
+  },
+  {
+    key: "sheet",
+    icon: Table2,
+    it: {
+      title: "Fogli e tracker",
+      desc: "Fogli di calcolo e tracker per pianificare, monitorare e tenere sotto controllo numeri e scadenze.",
+    },
+    en: {
+      title: "Sheets & trackers",
+      desc: "Spreadsheets and trackers to plan, monitor and keep numbers and deadlines under control.",
+    },
+  },
 ];
 
 /**
@@ -205,6 +269,7 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
   const bgRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
+  const gridAreaRef = useRef<HTMLDivElement>(null);
   // Whatever opened the sheet, so focus returns there on close instead of
   // dropping to the top of the document.
   const openerRef = useRef<HTMLElement | null>(null);
@@ -376,14 +441,79 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
               painting={PAINTINGS.catalogo}
               kicker={t("browseAll")}
               title={t("templates")}
-              subtitle={`${filtered.length} ${
-                lang === "it"
-                  ? "prodotti pronti all'uso — prompt, guide, fogli e tracker"
-                  : "ready-to-use products — prompts, guides, sheets and trackers"
-              }`}
             />
 
-            <div className="fn-toolbar">
+            {/* Format showcase — the catalogue's real entry point. Three
+                tiles, one per format this shop actually sells, each linking
+                straight into the existing group facet below rather than
+                duplicating its filtering logic. Replaces the old text-only
+                subtitle under the header, which stated the same three
+                formats as a sentence instead of a way in. */}
+            <div
+              style={{
+                marginTop: 40,
+                marginBottom: 8,
+                display: "grid",
+                gap: 16,
+                gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+              }}
+            >
+              {FORMAT_TILES.map((tile) => {
+                const Icon = tile.icon;
+                const label = lang === "it" ? tile.it : tile.en;
+                return (
+                  <button
+                    key={tile.key}
+                    type="button"
+                    onClick={() => {
+                      setGroup(tile.key);
+                      gridAreaRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }}
+                    className="glass-surface text-left"
+                    style={{
+                      padding: "22px 20px",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 10,
+                    }}
+                  >
+                    <Icon
+                      aria-hidden
+                      size={22}
+                      strokeWidth={1.5}
+                      style={{ color: "var(--accent)" }}
+                    />
+                    <span
+                      style={{
+                        fontFamily: "var(--font-fraunces), Georgia, serif",
+                        fontWeight: 400,
+                        fontSize: 19,
+                        color: "var(--text)",
+                      }}
+                    >
+                      {label.title}
+                    </span>
+                    <span style={{ fontSize: 13, lineHeight: 1.5, color: "var(--muted)" }}>
+                      {label.desc}
+                    </span>
+                    <span
+                      style={{
+                        marginTop: "auto",
+                        paddingTop: 6,
+                        fontSize: 11,
+                        textTransform: "uppercase",
+                        letterSpacing: "0.12em",
+                        color: "var(--muted)",
+                      }}
+                    >
+                      {FORMAT_COUNTS[tile.key]} {lang === "it" ? "prodotti" : "products"}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div ref={gridAreaRef} className="fn-toolbar" style={{ scrollMarginTop: 24 }}>
               <input
                 className="fn-search"
                 value={q}
@@ -651,6 +781,12 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                           flex: 1,
                         }}
                       >
+                        {/* Just the format badge here now — "★ Editor" still
+                            shows in the quick-view sheet below, but a second
+                            badge on every grid card was clutter the showcase
+                            tiles above already relieve by sorting products
+                            into formats before a shopper ever reaches the
+                            grid. */}
                         <div
                           style={{
                             display: "flex",
@@ -663,19 +799,6 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                           <span className="fn-badge" data-cat={getCatKey(item)}>
                             {getKindLabel(item, lang)}
                           </span>
-                          {item.editorsPick && (
-                            <span
-                              className="fn-badge"
-                              style={{
-                                background: "transparent",
-                                border:
-                                  "1px solid color-mix(in srgb, var(--cat-guide-ink) 45%, transparent)",
-                                color: "var(--cat-guide-ink)",
-                              }}
-                            >
-                              ★ Editor
-                            </span>
-                          )}
                         </div>
                         <h3
                           style={{
@@ -688,10 +811,13 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                         >
                           {getLocalizedName(item, lang)}
                         </h3>
-                        {/* Two tags as bullets, not the full description — a
+                        {/* One tag as a bullet, not the full description — a
                             shopper scanning a grid of nine cards reads a bolded
                             fragment faster than a sentence, and the description
-                            is still one tap away on the product page. */}
+                            is still one tap away on the product page. Cut from
+                            two bullets to one: with the format showcase above
+                            now doing the sorting, the card's job is a single
+                            recognisable hook, not a mini spec sheet. */}
                         <ul
                           style={{
                             display: "flex",
@@ -702,7 +828,7 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                             padding: 0,
                           }}
                         >
-                          {item.tags.slice(0, 2).map((tag) => (
+                          {item.tags.slice(0, 1).map((tag) => (
                             <li
                               key={tag}
                               style={{

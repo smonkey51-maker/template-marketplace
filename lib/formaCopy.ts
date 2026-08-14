@@ -96,6 +96,17 @@ export const copy = {
     guideFaq5A:
       "Sì. Per ogni domanda tecnica scrivi a nicolo.forcolin.1992@gmail.com — risposta entro 24 ore lavorative.",
 
+    /* manifesto page */
+    manifestoKicker: "Il nostro pensiero",
+    manifestoTitle: "Manifesto della semplicità digitale",
+    manifestoQuote:
+      "Nessun bundle gonfiato, nessuna promessa vaga, nessun numero inventato per sembrare più popolari di quanto siamo. Ogni prodotto che entra nel catalogo FORMA è un oggetto a sé, pensato per fare una cosa sola e farla bene.",
+    manifestoBody1:
+      "Crediamo nella cura, non nell'abbondanza. Il mercato dei template digitali premia chi accumula: mille varianti dello stesso layout, badge di urgenza finti, contatori di download che nessuno aggiorna davvero. FORMA fa l'opposto — un catalogo piccolo, curato a mano, dove ogni prompt, guida, foglio di lavoro o kit UI è stato scritto, testato e, quando non funzionava più, ritirato — non nascosto sotto uno sconto.",
+    manifestoBody2:
+      "Questo significa meno scelta apparente e più scelta reale. Un prezzo onesto invece di uno sbarrato per sembrare più conveniente. Recensioni vere quando arrivano, non stelle di partenza. È un impegno lento, ma è l'unico che ci interessa mantenere.",
+    manifestoCta: "Esplora il catalogo →",
+
     /* ai-studio page */
     aiStudioKicker: "Intelligenza artificiale",
     aiStudioTitle: "AI Studio",
@@ -191,6 +202,7 @@ export const copy = {
     footerSupport: "Supporto",
     footerFaq: "FAQ",
     footerGuide: "Guida all'uso",
+    footerManifesto: "Manifesto",
     footerContact: "Contatti",
     footerLegal: "Legale",
     footerTerms: "Termini di servizio",
@@ -299,6 +311,17 @@ export const copy = {
     guideFaq5A:
       "Yes. For any technical question write to nicolo.forcolin.1992@gmail.com — reply within 24 business hours.",
 
+    /* manifesto page */
+    manifestoKicker: "Our thinking",
+    manifestoTitle: "A manifesto for digital simplicity",
+    manifestoQuote:
+      "No bloated bundles, no vague promises, no invented numbers to look more popular than we are. Every product that enters the FORMA catalogue is its own object, built to do one thing and do it well.",
+    manifestoBody1:
+      "We believe in care, not abundance. The digital template market rewards accumulation — a thousand variations of the same layout, fake urgency badges, download counters nobody actually updates. FORMA does the opposite — a small, hand-curated catalogue, where every prompt, guide, worksheet or UI kit has been written, tested and, the moment it stopped holding up, retired — not hidden under a discount.",
+    manifestoBody2:
+      "That means less apparent choice and more real choice. An honest price instead of a crossed-out one meant to look like a deal. Real reviews when they arrive, not a head start of stars. It's a slower commitment, but the only one worth keeping.",
+    manifestoCta: "Explore the catalogue →",
+
     /* ai-studio page */
     aiStudioKicker: "Artificial intelligence",
     aiStudioTitle: "AI Studio",
@@ -393,6 +416,7 @@ export const copy = {
     footerSupport: "Support",
     footerFaq: "FAQ",
     footerGuide: "User guide",
+    footerManifesto: "Manifesto",
     footerContact: "Contact",
     footerLegal: "Legal",
     footerTerms: "Terms of service",
