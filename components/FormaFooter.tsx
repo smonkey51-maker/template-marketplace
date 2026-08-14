@@ -9,7 +9,7 @@ import { FormaLogoStatic } from "@/components/FormaLogo";
 import { sellableTemplatesMeta } from "@/lib/templates";
 import { GROUP_OF } from "@/lib/categories";
 
-/** Same honest count CatalogoContent.tsx shows in its format showcase —
+/** Same honest count lib/catalogFormats.ts derives for the catalogue hub —
  * computed here too rather than imported, since duplicating three lines of
  * arithmetic beats threading a cross-page constant through for a caption. */
 const FOOTER_PRODUCT_COUNT = sellableTemplatesMeta.filter((t) => !t.id.startsWith("free-")).length;
@@ -30,7 +30,7 @@ const COLUMNS: {
     titleKey: "footerCatalog",
     items: [
       { href: "/catalogo", labelKey: "footerTemplates" },
-      { href: "/catalogo#bundle", labelKey: "footerBundles" },
+      { href: "/catalogo/bundle", labelKey: "footerBundles" },
       { href: "/studio", labelKey: "studioAi" },
     ],
   },

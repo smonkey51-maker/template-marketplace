@@ -41,9 +41,14 @@ export const clerkAppearance: Appearance = {
     headerSubtitle: {
       color: "var(--muted)",
     },
-    // The primary CTA stays a solid gold pill everywhere else on the site
-    // (globals.css: ".btn-brand ... not glass") — matched here rather than
-    // left as Clerk's default rounded-rectangle blue button.
+    // The primary CTA matches .btn-brand everywhere else on the site: solid
+    // bordeaux, sharp corners. It used to fall back to a 999px pill via
+    // var(--r-pill, 999px) — a token that was never actually defined
+    // anywhere in globals.css, so the fallback was silently always in
+    // effect. That predates the 2026 editorial refresh (see CLAUDE.md's
+    // Design Tokens section: sharp corners, not rounded/pill), and nobody
+    // had touched this file since, so Clerk's own auth UI was the one
+    // fully-rounded surface left in an otherwise sharp-cornered site.
     //
     // No nested "&:hover" selector here: Clerk flags that as "structural
     // CSS" because it reaches into the internal DOM of its own component
@@ -53,7 +58,7 @@ export const clerkAppearance: Appearance = {
     formButtonPrimary: {
       backgroundColor: "var(--accent)",
       color: "var(--bg)",
-      borderRadius: "var(--r-pill, 999px)",
+      borderRadius: "var(--r-md)",
       fontFamily: "var(--font-syne), sans-serif",
       textTransform: "none",
     },
@@ -72,7 +77,7 @@ export const clerkAppearance: Appearance = {
     socialButtonsBlockButton: {
       backgroundColor: "var(--card-bg)",
       borderColor: "var(--border)",
-      borderRadius: "var(--r-pill, 999px)",
+      borderRadius: "var(--r-md)",
       color: "var(--text)",
     },
     dividerLine: {
