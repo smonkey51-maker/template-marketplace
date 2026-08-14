@@ -4015,6 +4015,30 @@ html.dark {
   background: transparent;
 }
 
+/* A small, quiet thumbnail rather than a loud full-size screenshot: the
+   product shots (app UI, bold banner colours) read as noisy against the
+   flat paper/bordeaux system at full size and saturation. Muted by
+   default, full colour on hover/focus — the editorial-portfolio
+   convention for "here's a preview, not a poster". */
+.thumb-quiet img {
+  filter: saturate(0.55) brightness(1.02);
+  transition:
+    filter var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
+}
+@media (hover: hover) {
+  .fn-card:hover .thumb-quiet img,
+  .thumb-quiet:hover img {
+    filter: saturate(1) brightness(1);
+    transform: scale(1.03);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .thumb-quiet img {
+    transition: none;
+  }
+}
+
 /* No double-width cards. An editor's pick used to span two tracks, which gave
    the grid a bento rhythm but cost it evenness: the wide cards stranded a gap
    whenever one arrived with a single track left, and two products at two

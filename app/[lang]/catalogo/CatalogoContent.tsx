@@ -501,9 +501,9 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                       }}
                     >
                       <div
+                        className="thumb-quiet"
                         style={{
                           position: "relative",
-                          aspectRatio: "16/10",
                           borderRadius: "12px",
                           overflow: "hidden",
                           marginBottom: "16px",
@@ -514,6 +514,7 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                           id={item.id}
                           name={getLocalizedName(item, lang)}
                           priority={idx < 3}
+                          height={120}
                         />
                       </div>
 
