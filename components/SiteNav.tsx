@@ -88,9 +88,13 @@ export default function SiteNav() {
           <ThemeToggle />
 
           {/* Wishlist/cart/account move into the mobile drawer below md —
-              four 36px icon buttons plus BackLink and the logo do not fit a
+              four icon buttons plus BackLink and the logo do not fit a
               375px-wide phone without wrapping or overlapping. Desktop keeps
-              them here since there's room and no drawer to put them in. */}
+              them here since there's room and no drawer to put them in.
+              Left at 36px on purpose: below md these are mouse-only
+              (desktop), so the 44px touch-target guidance that bumped
+              ThemeToggle and the hamburger button — both live on mobile —
+              doesn't apply here. */}
           <Link
             href={`/${lang}/wishlist`}
             aria-label={lang === "it" ? "Salvati" : "Saved"}
@@ -150,7 +154,7 @@ export default function SiteNav() {
                   : "Open menu"
             }
             aria-expanded={open}
-            className="flex h-9 w-9 items-center justify-center md:hidden"
+            className="flex h-11 w-11 items-center justify-center md:hidden"
             style={{ color: "var(--text)" }}
           >
             {open ? <X size={22} /> : <Menu size={22} />}

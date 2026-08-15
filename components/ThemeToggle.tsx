@@ -18,7 +18,7 @@ export default function ThemeToggle() {
     <button
       onClick={toggle}
       aria-label={isDark ? "Attiva tema chiaro" : "Attiva tema scuro"}
-      className="relative flex h-9 w-9 items-center justify-center overflow-hidden border border-theme r-md transition-colors hover:bg-[var(--surface)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+      className="relative flex h-11 w-11 items-center justify-center overflow-hidden border border-theme r-md transition-colors hover:bg-[var(--surface)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
     >
       <span
         key={theme}
