@@ -278,7 +278,14 @@ body {
   --surface: #fbf9f4;
   --surface-2: #e7e0d3;
   --text: #1c1a17;
-  --muted: #7a7266;
+  /* Darkened from #7a7266: that value gave 4.17:1 against --bg (#f4f0e8) —
+     below WCAG AA's 4.5:1 for normal text — anywhere muted text sits
+     directly on the page background rather than a card surface (kickers,
+     footer stat line, price labels). This gives 4.94:1 on --bg / 5.34:1 on
+     --surface, with a comfortable margin rather than scraping the
+     threshold. Dark mode's --muted was already well clear (6.8:1+) and is
+     unchanged. */
+  --muted: #6d665b;
   --border: rgba(28, 26, 23, 0.12);
   --fn-border: rgba(28, 26, 23, 0.12);
   --fn-menu-bg: rgba(251, 249, 244, 0.98);
