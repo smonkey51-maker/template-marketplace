@@ -17,6 +17,7 @@ export const PAINTINGS = {
   guida: "/paintings/monet.jpg",
   studio: "/paintings/kandinsky.jpg",
   account: "/paintings/vangogh.jpg",
+  manifesto: "/paintings/vermeer.jpg",
 } as const;
 
 export function ArtHeader({

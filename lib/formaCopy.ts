@@ -96,6 +96,15 @@ export const copy = {
     guideFaq5A:
       "Sì. Per ogni domanda tecnica scrivi a nicolo.forcolin.1992@gmail.com — risposta entro 24 ore lavorative.",
 
+    /* manifesto page */
+    manifestoKicker: "Il nostro pensiero",
+    manifestoTitle: "Manifesto della semplicità digitale",
+    manifestoQuote:
+      "Un catalogo piccolo è una scelta, non un limite. Ogni pezzo che vi entra ha una funzione precisa — il resto lo lasciamo fuori.",
+    manifestoBody1:
+      "Trattiamo ogni prompt, guida, foglio di lavoro o interfaccia come un pezzo esposto, non come una scorta. Quello che smette di reggersi lo ritiriamo, non lo scontiamo. Meno pagine, meno rumore, più spazio intorno a ciò che resta.",
+    manifestoCta: "Esplora il catalogo →",
+
     /* ai-studio page */
     aiStudioKicker: "Intelligenza artificiale",
     aiStudioTitle: "AI Studio",
@@ -191,6 +200,7 @@ export const copy = {
     footerSupport: "Supporto",
     footerFaq: "FAQ",
     footerGuide: "Guida all'uso",
+    footerManifesto: "Manifesto",
     footerContact: "Contatti",
     footerLegal: "Legale",
     footerTerms: "Termini di servizio",
@@ -299,6 +309,15 @@ export const copy = {
     guideFaq5A:
       "Yes. For any technical question write to nicolo.forcolin.1992@gmail.com — reply within 24 business hours.",
 
+    /* manifesto page */
+    manifestoKicker: "Our thinking",
+    manifestoTitle: "A manifesto for digital simplicity",
+    manifestoQuote:
+      "A small catalogue is a choice, not a limit. Every piece that enters it does one thing precisely — everything else stays out.",
+    manifestoBody1:
+      "We treat every prompt, guide, worksheet or interface as a piece on display, not stock. What stops holding up gets retired, not discounted. Fewer pages, less noise, more room around what remains.",
+    manifestoCta: "Explore the catalogue →",
+
     /* ai-studio page */
     aiStudioKicker: "Artificial intelligence",
     aiStudioTitle: "AI Studio",
@@ -393,6 +412,7 @@ export const copy = {
     footerSupport: "Support",
     footerFaq: "FAQ",
     footerGuide: "User guide",
+    footerManifesto: "Manifesto",
     footerContact: "Contact",
     footerLegal: "Legal",
     footerTerms: "Terms of service",

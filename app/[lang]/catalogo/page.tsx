@@ -1,27 +1,12 @@
-import CatalogoContent, { type GroupKey } from "./CatalogoContent";
+import CatalogoHub from "./CatalogoHub";
 
 /**
- * Server shell for the catalogue.
- *
- * It exists to read `?gruppo=` — the parameter the Catalogo menu links to —
- * without dragging the page out of server rendering. The obvious alternative,
- * `useSearchParams` inside the client component, requires a Suspense boundary,
- * and that boundary renders on the server instead of the page: the catalogue
- * shipped **zero product cards in its initial HTML**, leaving a shop's most
- * important page blank until JavaScript ran. Reading the parameter here keeps
- * all twenty cards in the server-rendered markup.
- *
- * Validation happens here too, so the client component receives a GroupKey and
- * never has to defend itself against `?gruppo=<script>`.
+ * The catalogue hub: three format tiles + bundles, each a real navigation
+ * into its own page (catalogo/[gruppo], catalogo/bundle) — see CatalogoHub
+ * for why. This route used to read `?gruppo=` and render the whole grid
+ * itself; that state now lives in the URL path instead of a query param, so
+ * there's nothing left for this server shell to do beyond rendering the hub.
  */
-export default async function CatalogoPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ gruppo?: string }>;
-}) {
-  const { gruppo } = await searchParams;
-  const initialGroup: GroupKey =
-    gruppo === "prompt" || gruppo === "guide" || gruppo === "sheet" ? gruppo : "all";
-
-  return <CatalogoContent initialGroup={initialGroup} />;
+export default function CatalogoPage() {
+  return <CatalogoHub />;
 }

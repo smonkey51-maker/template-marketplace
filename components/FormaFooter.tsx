@@ -6,6 +6,14 @@ import { useState } from "react";
 import { useLang } from "@/components/LanguageProvider";
 import { copy } from "@/lib/formaCopy";
 import { FormaLogoStatic } from "@/components/FormaLogo";
+import { sellableTemplatesMeta } from "@/lib/templates";
+import { GROUP_OF } from "@/lib/categories";
+
+/** Same honest count lib/catalogFormats.ts derives for the catalogue hub —
+ * computed here too rather than imported, since duplicating three lines of
+ * arithmetic beats threading a cross-page constant through for a caption. */
+const FOOTER_PRODUCT_COUNT = sellableTemplatesMeta.filter((t) => !t.id.startsWith("free-")).length;
+const FOOTER_FORMAT_COUNT = new Set(Object.values(GROUP_OF)).size;
 
 /**
  * Site footer — newsletter + three always-open link columns, matching the
@@ -22,7 +30,7 @@ const COLUMNS: {
     titleKey: "footerCatalog",
     items: [
       { href: "/catalogo", labelKey: "footerTemplates" },
-      { href: "/catalogo#bundle", labelKey: "footerBundles" },
+      { href: "/catalogo/bundle", labelKey: "footerBundles" },
       { href: "/studio", labelKey: "studioAi" },
     ],
   },
@@ -31,6 +39,7 @@ const COLUMNS: {
     items: [
       { href: "/guida", labelKey: "footerFaq" },
       { href: "/guida", labelKey: "footerGuide" },
+      { href: "/manifesto", labelKey: "footerManifesto" },
       { href: "mailto:nicolo.forcolin.1992@gmail.com", labelKey: "footerContact" },
     ],
   },
@@ -65,9 +74,10 @@ export function FormaFooter() {
 
   return (
     <footer
-      className="border-t border-theme"
+      className="forma-footer-ink border-t border-theme"
       style={{
-        background: "var(--surface)",
+        background: "var(--bg)",
+        color: "var(--text)",
         padding: "80px 24px calc(48px + env(safe-area-inset-bottom, 0px))",
       }}
     >
@@ -84,6 +94,17 @@ export function FormaFooter() {
             className="text-[clamp(1.75rem,3.5vw,2.5rem)]"
           >
             {t("footerTagline")}
+          </p>
+
+          {/* Honest, computed counts — not the invented "500+/50K+" a
+              redesign mockup proposed. Same numbers the catalogue's format
+              showcase already states, just closing the page with them too. */}
+          <p
+            className="mt-3 text-[11px] uppercase"
+            style={{ color: "var(--muted)", letterSpacing: "0.15em" }}
+          >
+            {FOOTER_PRODUCT_COUNT} {lang === "it" ? "prodotti curati" : "curated products"} ·{" "}
+            {FOOTER_FORMAT_COUNT} {lang === "it" ? "formati" : "formats"}
           </p>
 
           {!sent ? (

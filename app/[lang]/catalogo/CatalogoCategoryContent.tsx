@@ -3,36 +3,22 @@
 import { useCallback, useEffect, useMemo, useState, useRef } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
-import { Layers, ShoppingBag, Check } from "lucide-react";
+import { ShoppingBag, Check } from "lucide-react";
 import { useCart } from "@/lib/useCart";
 import SiteNav from "@/components/SiteNav";
 import { useLang } from "@/components/LanguageProvider";
 import { copy } from "@/lib/formaCopy";
 import { FormaFooter } from "@/components/FormaFooter";
-import {
-  sellableTemplatesMeta,
-  sellableBundles,
-  formatPrice,
-  getTemplate,
-  type TemplateMeta,
-} from "@/lib/templates";
+import { formatPrice, type TemplateMeta } from "@/lib/templates";
 import { getLocalizedName, getLocalizedDesc, templateTranslations } from "@/lib/i18n";
 import { TemplateThumb } from "@/components/TemplateThumb";
 import { ArtHeader, PAINTINGS } from "@/components/ArtHeader";
-import { getKindLabel, getCatKey, GROUP_OF, type GroupKey } from "@/lib/categories";
+import { getKindLabel, getCatKey, type GroupKey } from "@/lib/categories";
 import { prefersReducedMotion, motionDuration } from "@/lib/reducedMotion";
+import { PAID_TEMPLATES, getFormatTile } from "@/lib/catalogFormats";
 import gsap from "gsap";
 
-export type { GroupKey };
-
-const PAID_TEMPLATES = sellableTemplatesMeta.filter((t) => !t.id.startsWith("free-"));
-
-const GROUPS: { key: GroupKey; it: string; en: string }[] = [
-  { key: "all", it: "Tutti", en: "All" },
-  { key: "prompt", it: "Prompt e script", en: "Prompts & scripts" },
-  { key: "guide", it: "Guide", en: "Guides" },
-  { key: "sheet", it: "Fogli e tracker", en: "Sheets & trackers" },
-];
+type Group = Exclude<GroupKey, "all">;
 
 /**
  * Two price bands, not five.
@@ -56,6 +42,11 @@ type PriceKey = "all" | "under" | "from";
  * So: of the distinct prices on offer, take the boundary that splits the
  * catalogue most evenly. With one distinct price there is nothing to split and
  * the band row hides itself.
+ *
+ * Computed once against the whole paid catalogue, not per-format: a boundary
+ * that shifts depending on which format page you're on would make "Fino a
+ * €X" mean a different X on each page, which is worse than one boundary that
+ * occasionally splits a single format lopsidedly.
  */
 const PRICE_BOUNDARY: number | null = (() => {
   const prices = [...new Set(PAID_TEMPLATES.map((t) => t.price))].sort((a, b) => a - b);
@@ -65,10 +56,6 @@ const PRICE_BOUNDARY: number | null = (() => {
   for (const p of prices.slice(0, -1)) {
     const below = PAID_TEMPLATES.filter((t) => t.price <= p).length;
     const gap = Math.abs(below - (PAID_TEMPLATES.length - below));
-    // <= so a tie picks the higher boundary. Both splits are equally balanced
-    // when they tie, but the lower one is always the minimum price, and "Up to
-    // €7" when €7 is the cheapest thing on sale means "exactly €7" — a band
-    // that reads like a range and isn't one.
     if (gap <= bestGap) {
       bestGap = gap;
       best = p;
@@ -100,16 +87,12 @@ type StarsKey = 0 | 3 | 4 | 5;
 const STAR_BANDS: StarsKey[] = [0, 3, 4, 5];
 
 interface Facets {
-  group: GroupKey;
   price: PriceKey;
   stars: StarsKey;
 }
 
 type Ratings = Record<string, { avg: number; count: number }>;
 
-function matchesGroup(x: TemplateMeta, key: GroupKey) {
-  return key === "all" || GROUP_OF[x.category] === key;
-}
 function matchesPrice(x: TemplateMeta, key: PriceKey) {
   if (key === "all" || PRICE_BOUNDARY === null) return true;
   return key === "under" ? x.price <= PRICE_BOUNDARY : x.price > PRICE_BOUNDARY;
@@ -121,27 +104,13 @@ function matchesStars(x: TemplateMeta, key: StarsKey, ratings: Ratings) {
 }
 function matchesQuery(x: TemplateMeta, needle: string) {
   if (!needle) return true;
-  // Both languages are searched regardless of the current locale. The tags are
-  // English-only, so an Italian visitor typing "matrimonio" would otherwise
-  // miss the wedding tracker whose card in front of them says "Matrimonio",
-  // and an English visitor searching a product they were linked to in Italian
-  // would miss it too. Matching the union costs one string concat and makes
-  // the search agree with whatever the visitor can actually see.
   const tr = templateTranslations[x.id];
   const haystack = `${x.name} ${x.description} ${x.tags.join(" ")} ${tr?.name ?? ""} ${tr?.description ?? ""}`;
   return haystack.toLowerCase().includes(needle);
 }
 
-/**
- * How many products a chip would show **given whatever else is already
- * selected** — not how many exist in the catalogue overall.
- *
- * This is the difference between a facet count that helps and one that lies. A
- * chip reading "6" that yields two results once clicked is worse than no number
- * at all, because it was believed. So each count is computed with its own
- * dimension overridden and every other filter left as the user has it.
- */
 function countWith(
+  group: Group,
   facets: Facets,
   needle: string,
   ratings: Ratings,
@@ -150,26 +119,22 @@ function countWith(
   const f = { ...facets, ...override };
   return PAID_TEMPLATES.filter(
     (x) =>
-      matchesGroup(x, f.group) &&
+      getCatKey(x) === group &&
       matchesPrice(x, f.price) &&
       matchesStars(x, f.stars, ratings) &&
       matchesQuery(x, needle),
   ).length;
 }
 
-/** One facet chip. Label, plus what selecting it would actually yield. */
 function FilterChip({
   active,
   count,
   onClick,
-  cat,
   children,
 }: {
   active: boolean;
   count: number;
   onClick: () => void;
-  /** Group chips only. Price and star chips have no category to colour. */
-  cat?: Exclude<GroupKey, "all">;
   children: React.ReactNode;
 }) {
   return (
@@ -177,10 +142,6 @@ function FilterChip({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      data-cat={cat}
-      // Disabled rather than hidden when it would yield nothing: a row of chips
-      // that reshuffles as you filter is disorienting, and knowing a combination
-      // is empty *before* clicking is the point of showing counts at all.
       disabled={count === 0 && !active}
       className={`fn-filter${active ? " is-active" : ""}`}
     >
@@ -190,12 +151,11 @@ function FilterChip({
   );
 }
 
-export default function CatalogoContent({ initialGroup }: { initialGroup: GroupKey }) {
+export default function CatalogoCategoryContent({ group }: { group: Group }) {
   const { lang } = useLang();
   const t = (k: keyof typeof copy.it) => copy[lang][k];
   const { add: addToCart, has: inCart } = useCart();
   const [q, setQ] = useState("");
-  const [group, setGroup] = useState<GroupKey>(initialGroup);
   const [price, setPrice] = useState<PriceKey>("all");
   const [stars, setStars] = useState<StarsKey>(0);
   const [ratings, setRatings] = useState<Ratings>({});
@@ -205,13 +165,18 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
   const bgRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
-  // Whatever opened the sheet, so focus returns there on close instead of
-  // dropping to the top of the document.
   const openerRef = useRef<HTMLElement | null>(null);
 
-  const activeItem = useMemo(() => PAID_TEMPLATES.find((t) => t.id === activeId), [activeId]);
+  const tile = getFormatTile(group);
+  const tileLabel = lang === "it" ? tile.it : tile.en;
 
-  // Lock body scroll when modal is open
+  const groupItems = useMemo(() => PAID_TEMPLATES.filter((x) => getCatKey(x) === group), [group]);
+
+  const activeItem = useMemo(
+    () => groupItems.find((t) => t.id === activeId),
+    [groupItems, activeId],
+  );
+
   useEffect(() => {
     if (activeId && !isClosing) {
       document.body.style.overflow = "hidden";
@@ -223,10 +188,6 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
     };
   }, [activeId, isClosing]);
 
-  // Background animation. The recede itself is motion, so with reduced motion
-  // the scale is left alone entirely and only the dimming is applied — that
-  // part is a colour change, and it is what tells you the page behind is no
-  // longer the thing you are interacting with.
   useEffect(() => {
     if (bgRef.current) {
       const isOpen = activeId && !isClosing;
@@ -240,29 +201,12 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
     }
   }, [activeId, isClosing]);
 
-  // No entrance effect here on purpose. The sheet used to start at inline
-  // `opacity: 0` and rely on gsap to animate it up, which had two failure modes:
-  // the sheet was invisible whenever that animation did not run — it mounted and
-  // locked scroll, so clicking a template appeared to do nothing at all — and
-  // React owns the `style` attribute, so the first re-render reset opacity back
-  // to 0 and wiped what gsap had written. The entrance is CSS now, which means
-  // the resting state is visible and animation is decoration rather than a
-  // precondition. gsap still drives the close and the background recede, where
-  // it earns its place: the close has to finish before the element unmounts.
-
-  // Closing animation, then unmount.
   const handleClose = useCallback(() => {
-    // Without the refs there is nothing to animate, but the sheet still has to
-    // go — closing it must never depend on the animation being available.
     if (!overlayRef.current || !modalRef.current) {
       setActiveId(null);
       return;
     }
     setIsClosing(true);
-
-    // Zero duration rather than an early return when motion is unwanted: the
-    // `onComplete` below is what unmounts the sheet and restores focus, so the
-    // tween has to run either way — it just arrives immediately.
     const duration = motionDuration(0.3);
 
     gsap.to(modalRef.current, {
@@ -278,26 +222,13 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
       onComplete: () => {
         setActiveId(null);
         setIsClosing(false);
-        // Same reason on the way back: the card that opened the sheet may be
-        // far up a long grid, and returning focus to it must not yank the page
-        // to it — the browser restores the scroll position on its own.
         openerRef.current?.focus({ preventScroll: true });
       },
     });
   }, []);
 
-  // Escape closes the sheet, and focus moves into it on open. Neither worked
-  // before: the only way out was the small × with a pointer, and focus stayed on
-  // the card behind the overlay, so Tab wandered through the catalogue
-  // underneath instead of the dialog on top of it.
   useEffect(() => {
     if (!activeId || isClosing) return;
-    // preventScroll matters here. The sheet's entrance starts at
-    // translateY(100%), so at the moment focus lands it is still below the
-    // viewport — and the browser's job on focus is to scroll whatever received
-    // it into view. That scrolled the document to the bottom of the catalogue
-    // before the sheet slid up, which read as the page jumping to the end to
-    // open it.
     modalRef.current?.focus({ preventScroll: true });
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") handleClose();
@@ -306,10 +237,6 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
     return () => document.removeEventListener("keydown", onKey);
   }, [activeId, isClosing, handleClose]);
 
-  // Ratings come from one aggregate request, not one per card. An empty object
-  // is the honest resting state: it means "no ratings known", which is also
-  // what the catalogue shows before the first review is ever written — and it
-  // is what keeps a failed request from taking the grid down over a facet.
   useEffect(() => {
     let cancelled = false;
     fetch("/api/reviews/summary")
@@ -317,40 +244,25 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
       .then((d) => {
         if (!cancelled) setRatings(d?.summary ?? {});
       })
-      .catch(() => {
-        /* leave ratings empty — the star filter simply stays hidden */
-      });
+      .catch(() => {});
     return () => {
       cancelled = true;
     };
   }, []);
 
-  /**
-   * Whether any template has a rating at all.
-   *
-   * The star filter is hidden until this is true. A facet whose every option
-   * returns nothing is the same broken-looking page as a one-result filter, and
-   * with no reviews written yet that is exactly what it would be. It appears on
-   * its own the moment the first review lands — no deploy needed.
-   */
   const hasRatings = useMemo(() => Object.values(ratings).some((r) => r.count > 0), [ratings]);
 
   const needle = q.trim().toLowerCase();
-  const facets: Facets = useMemo(() => ({ group, price, stars }), [group, price, stars]);
+  const facets: Facets = useMemo(() => ({ price, stars }), [price, stars]);
 
   const filtered = useMemo(() => {
-    // Uniform cards mean the grid tiles by itself, so there is no ordering
-    // trick here any more. Source order — which groups by category — is the
-    // honest order to browse in, and every facet composes with the others
-    // rather than replacing them.
-    return PAID_TEMPLATES.filter(
+    return groupItems.filter(
       (x) =>
-        matchesGroup(x, facets.group) &&
         matchesPrice(x, facets.price) &&
         matchesStars(x, facets.stars, ratings) &&
         matchesQuery(x, needle),
     );
-  }, [facets, needle, ratings]);
+  }, [groupItems, facets, needle, ratings]);
 
   return (
     <>
@@ -368,20 +280,22 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
           <SiteNav />
 
           <section className="fn-section">
-            {/* The painting stops at the header. The grid below stays on a
-                flat ground on purpose — a product card has to answer "what am I
-                buying", and putting a painting behind nine thumbnails is how
-                that answer gets lost. */}
-            <ArtHeader
-              painting={PAINTINGS.catalogo}
-              kicker={t("browseAll")}
-              title={t("templates")}
-              subtitle={`${filtered.length} ${
-                lang === "it"
-                  ? "prodotti pronti all'uso — prompt, guide, fogli e tracker"
-                  : "ready-to-use products — prompts, guides, sheets and trackers"
-              }`}
-            />
+            <Link
+              href={`/${lang}/catalogo`}
+              style={{ fontSize: 13, color: "var(--muted)" }}
+              className="hover:text-[var(--accent)] transition-colors"
+            >
+              {t("backToCatalog")}
+            </Link>
+
+            <div style={{ marginTop: 8 }}>
+              <ArtHeader
+                painting={PAINTINGS.catalogo}
+                kicker={t("browseAll")}
+                title={tileLabel.title}
+                subtitle={tileLabel.desc}
+              />
+            </div>
 
             <div className="fn-toolbar">
               <input
@@ -392,32 +306,7 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
               />
             </div>
 
-            {/* Facets. Each row is single-select, because the options within a
-                row do not overlap — more than one at a time would be
-                meaningless. Counts are computed against the other active
-                filters, so a chip never promises more than clicking it
-                delivers. */}
             <div className="fn-facets">
-              <div
-                className="fn-filters"
-                role="group"
-                aria-label={lang === "it" ? "Filtra per tipo" : "Filter by type"}
-              >
-                {GROUPS.map((g) => (
-                  <FilterChip
-                    key={g.key}
-                    active={group === g.key}
-                    count={countWith(facets, needle, ratings, { group: g.key })}
-                    onClick={() => setGroup(g.key)}
-                    cat={g.key === "all" ? undefined : g.key}
-                  >
-                    {lang === "it" ? g.it : g.en}
-                  </FilterChip>
-                ))}
-              </div>
-
-              {/* Hidden entirely when every product costs the same — a row whose
-                  only honest split does not exist. */}
               {PRICE_BANDS.length > 0 && (
                 <div
                   className="fn-filters"
@@ -428,7 +317,7 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                     <FilterChip
                       key={b.key}
                       active={price === b.key}
-                      count={countWith(facets, needle, ratings, { price: b.key })}
+                      count={countWith(group, facets, needle, ratings, { price: b.key })}
                       onClick={() => setPrice(b.key)}
                     >
                       {lang === "it" ? b.it : b.en}
@@ -437,10 +326,6 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                 </div>
               )}
 
-              {/* Only once something has actually been rated. Before that every
-                  option would return nothing, which is the same broken-looking
-                  page as a filter that finds one item. It appears by itself when
-                  the first review lands. */}
               {hasRatings && (
                 <div
                   className="fn-filters"
@@ -451,7 +336,7 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                     <FilterChip
                       key={sKey}
                       active={stars === sKey}
-                      count={countWith(facets, needle, ratings, { stars: sKey })}
+                      count={countWith(group, facets, needle, ratings, { stars: sKey })}
                       onClick={() => setStars(sKey)}
                     >
                       {sKey === 0
@@ -465,129 +350,6 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
               )}
             </div>
 
-            {/*
-              Bundles used to sit below the whole product grid — nothing above
-              the fold pointed at them, so on a catalogue with more than a
-              screenful of products they read as invisible. Right after the
-              filters is the first thing anyone scrolling the page sees.
-            */}
-            {sellableBundles.length > 0 && (
-              <section
-                className="fn-section"
-                id="bundle"
-                style={{ scrollMarginTop: 24, marginBottom: 40 }}
-              >
-                <div className="fn-kicker">{lang === "it" ? "Risparmia" : "Save"}</div>
-                <h2
-                  style={{
-                    fontFamily: "var(--font-fraunces), Georgia, serif",
-                    fontWeight: 300,
-                    fontSize: "clamp(24px, 3vw, 34px)",
-                    margin: "0 0 20px",
-                    color: "var(--text)",
-                  }}
-                >
-                  {lang === "it" ? "Bundle" : "Bundles"}
-                </h2>
-
-                <div className="fn-grid">
-                  {sellableBundles.map((b) => (
-                    <Link
-                      key={b.id}
-                      href={`/${lang}/bundle/${b.id}`}
-                      className="fn-card"
-                      style={{ display: "flex", flexDirection: "column", height: "100%" }}
-                    >
-                      <div
-                        className="fn-body"
-                        style={{ display: "flex", flexDirection: "column", flex: 1 }}
-                      >
-                        <div style={{ marginBottom: 14 }}>
-                          <Layers
-                            aria-hidden
-                            size={26}
-                            strokeWidth={1.25}
-                            style={{ color: "var(--accent)" }}
-                          />
-                        </div>
-                        <h3
-                          style={{
-                            fontFamily: "var(--font-fraunces), Georgia, serif",
-                            fontWeight: 400,
-                            fontSize: 22,
-                            margin: "0 0 8px",
-                            lineHeight: 1.2,
-                          }}
-                        >
-                          {getLocalizedName(b, lang)}
-                        </h3>
-                        <ul
-                          style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: 4,
-                            margin: "0 0 16px",
-                            listStyle: "none",
-                            padding: 0,
-                          }}
-                        >
-                          {b.templateIds.slice(0, 3).map((tid) => {
-                            const included = getTemplate(tid);
-                            return (
-                              <li
-                                key={tid}
-                                style={{
-                                  display: "flex",
-                                  alignItems: "flex-start",
-                                  gap: 6,
-                                  fontSize: 13,
-                                  color: "var(--muted)",
-                                  lineHeight: 1.4,
-                                }}
-                              >
-                                <span aria-hidden style={{ color: "var(--border)", flexShrink: 0 }}>
-                                  •
-                                </span>
-                                {included ? getLocalizedName(included, lang) : tid}
-                              </li>
-                            );
-                          })}
-                        </ul>
-                        <div className="fn-meta" style={{ marginTop: "auto" }}>
-                          <span>
-                            {b.templateIds.length}{" "}
-                            {lang === "it" ? "prodotti inclusi" : "products included"}
-                          </span>
-                          <span style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
-                            <s style={{ color: "var(--muted)", fontSize: 14 }}>
-                              {formatPrice(b.regularPrice)}
-                            </s>
-                            <b
-                              style={{
-                                fontFamily: "var(--font-fraunces), Georgia, serif",
-                                fontSize: 22,
-                                fontWeight: 400,
-                                color: "var(--text)",
-                              }}
-                            >
-                              {formatPrice(b.price)}
-                            </b>
-                          </span>
-                        </div>
-                        <div className="fn-card-actions" style={{ marginTop: 18 }}>
-                          <span className="fn-btn primary w-full justify-center">
-                            {lang === "it"
-                              ? `Risparmia ${formatPrice(b.regularPrice - b.price)}`
-                              : `Save ${formatPrice(b.regularPrice - b.price)}`}
-                          </span>
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </section>
-            )}
-
             {filtered.length === 0 ? (
               <div style={{ padding: "60px 0", textAlign: "center", color: "var(--muted)" }}>
                 {t("noResults")}
@@ -599,8 +361,6 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                     className="fn-card cursor-pointer"
                     key={item.id}
                     onClick={(e) => {
-                      // Plain click opens the sheet; the modified clicks belong
-                      // to the browser, so the link underneath can do its job.
                       if (!e.metaKey && !e.ctrlKey && !e.shiftKey) {
                         e.preventDefault();
                         openerRef.current = e.currentTarget as HTMLElement;
@@ -613,10 +373,6 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                       height: "100%",
                     }}
                   >
-                    {/* A real link around the card, even though a plain click
-                        opens the sheet instead of following it. It is what makes
-                        the card middle-clickable, cmd-clickable and copyable as a
-                        URL — an onClick handler on its own is none of those. */}
                     <Link
                       href={`/${lang}/templates/${item.id}`}
                       className="block no-underline text-inherit flex-1 flex flex-col"
@@ -663,19 +419,6 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                           <span className="fn-badge" data-cat={getCatKey(item)}>
                             {getKindLabel(item, lang)}
                           </span>
-                          {item.editorsPick && (
-                            <span
-                              className="fn-badge"
-                              style={{
-                                background: "transparent",
-                                border:
-                                  "1px solid color-mix(in srgb, var(--cat-guide-ink) 45%, transparent)",
-                                color: "var(--cat-guide-ink)",
-                              }}
-                            >
-                              ★ Editor
-                            </span>
-                          )}
                         </div>
                         <h3
                           style={{
@@ -688,10 +431,6 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                         >
                           {getLocalizedName(item, lang)}
                         </h3>
-                        {/* Two tags as bullets, not the full description — a
-                            shopper scanning a grid of nine cards reads a bolded
-                            fragment faster than a sentence, and the description
-                            is still one tap away on the product page. */}
                         <ul
                           style={{
                             display: "flex",
@@ -702,7 +441,7 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                             padding: 0,
                           }}
                         >
-                          {item.tags.slice(0, 2).map((tag) => (
+                          {item.tags.slice(0, 1).map((tag) => (
                             <li
                               key={tag}
                               style={{
@@ -723,18 +462,6 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                         </ul>
 
                         <div className="fn-meta" style={{ marginTop: "auto" }}>
-                          {/* The download count used to sit here, described in
-                              this very comment as "the only social proof the
-                              shop has". It was not proof of anything: nothing
-                              in the codebase ever increments `downloads` — the
-                              only writes are seed scripts copying the literal
-                              from lib/templates.ts — so the figures were
-                              invented and shown to shoppers as sales. Made-up
-                              popularity indicators are a prohibited commercial
-                              practice, the same family as the inflated
-                              crossed-out bundle prices already corrected.
-                              Real social proof is the reviews, which arrive
-                              when buyers write them. */}
                           <b
                             style={{
                               fontFamily: "var(--font-fraunces), Georgia, serif",
@@ -749,13 +476,6 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                       </div>
                     </Link>
 
-                    {/* Outside the link on purpose — buttons nested in an
-                        anchor are invalid, and neither of these navigates:
-                        one adds to the cart in place, the other opens the
-                        quick-view sheet. Compact and side by side rather than
-                        one full-width button — nine of these stacked in a
-                        grid is where a large CTA per card stopped reading as
-                        "call to action" and started reading as visual noise. */}
                     <div
                       className="fn-card-actions"
                       style={{ marginTop: 18, display: "flex", alignItems: "center", gap: 8 }}
@@ -803,26 +523,10 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
         </div>
       </div>
 
-      {/* Rendered into document.body rather than here.
-          A modal has no business being positioned relative to whatever happens
-          to wrap the page. It was, and it cost: PageTransition's wrapper kept a
-          `transform: translateY(0)` after its animation finished (declared
-          `both`), and any transform other than `none` makes an element the
-          containing block for its fixed descendants — so `inset-0` resolved
-          against the whole document and `items-end` parked this sheet below
-          the end of the page, unreachable behind the scroll lock. It opened,
-          and nothing appeared.
-          PageTransition no longer leaves that transform behind, so this portal
-          is not what fixes the reported bug. It is here so that the next
-          wrapper someone adds cannot reintroduce it. */}
-      {/* No mounted guard: the branch is only reached once something has been
-          clicked, so it is never evaluated during the server render and
-          document.body is never touched there. */}
       {(activeId || isClosing) &&
         activeItem &&
         createPortal(
           <div className="fixed inset-0 z-[100] flex items-end justify-center pointer-events-none sm:p-4">
-            {/* Overlay invisibile per cliccare fuori e chiudere */}
             <div
               ref={overlayRef}
               className={`absolute inset-0 pointer-events-auto bg-black/65 backdrop-blur-sm${
@@ -833,9 +537,6 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
 
             <div
               ref={modalRef}
-              // A real dialog: without these a screen reader announced nothing on
-              // open and went on reading the catalogue behind as though the sheet
-              // were not there.
               role="dialog"
               aria-modal="true"
               aria-labelledby="sheet-title"
@@ -849,7 +550,6 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                 overflow: "hidden",
               }}
             >
-              {/* Bottone Chiudi */}
               <button
                 type="button"
                 onClick={handleClose}
@@ -872,11 +572,6 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
               </button>
 
               <div className="flex-1 overflow-y-auto overflow-x-hidden">
-                {/* Same reason as the detail page: TemplatePreview lays the
-                  template out at 1440px and scales it to fit, so on a phone the
-                  product was drawn at roughly a quarter size and could not be
-                  read. The thumbnail is cropped to the template's own bounds and
-                  stays legible. "Anteprima" below opens the live one. */}
                 <div className="fn-sheet-shot">
                   <TemplateThumb
                     id={activeItem.id}
@@ -945,7 +640,6 @@ export default function CatalogoContent({ initialGroup }: { initialGroup: GroupK
                     </div>
 
                     <div className="flex-1 flex justify-end gap-3">
-                      {/* Aggiunto /${lang} ai percorsi e sblocco scroll su click */}
                       <Link
                         href={`/${lang}/preview/${activeItem.id}`}
                         className="fn-btn"
