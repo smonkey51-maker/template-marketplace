@@ -13,11 +13,11 @@ import type { ReactNode } from "react";
  * so none of its call sites needed touching.
  */
 export const PAINTINGS = {
-  catalogo: "/paintings/seurat.jpg",
-  guida: "/paintings/monet.jpg",
-  studio: "/paintings/kandinsky.jpg",
-  account: "/paintings/vangogh.jpg",
-  manifesto: "/paintings/vermeer.jpg",
+  catalogo: "/paintings/seurat.webp",
+  guida: "/paintings/monet.webp",
+  studio: "/paintings/kandinsky.webp",
+  account: "/paintings/vangogh.webp",
+  manifesto: "/paintings/vermeer.webp",
 } as const;
 
 export function ArtHeader({

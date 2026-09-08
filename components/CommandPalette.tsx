@@ -68,7 +68,7 @@ export default function CommandPalette() {
         kind: "route",
         label: lang === "it" ? "Guida" : "Guide",
         hint: lang === "it" ? "Guida all'acquisto" : "Buyer's guide",
-        href: `/${lang}/guide`,
+        href: `/${lang}/guida`,
       },
       {
         kind: "route",

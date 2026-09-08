@@ -80,7 +80,11 @@ template-marketplace/
 │   └── useWishlist.ts          # localStorage hook for wishlist
 ├── scripts/
 │   ├── export-for-marketplace.ts  # Generates exports/ dir for Gumroad/Etsy
-│   └── *.mjs / *.ts            # One-off Stripe/Notion/Supabase seed scripts
+│   ├── generate-thumbs.ts      # Regenerates public/thumbs/
+│   ├── ensure-stripe-prices.ts # Verifies/creates the Stripe Prices
+│   ├── seed-stripe.ts / seed-templates.ts / seed-free-bundle.ts  # Seeding
+│   ├── sync-templates-to-db.ts # Pushes lib/templates.ts into Supabase
+│   └── screenshot.ts           # Local visual checks (output is gitignored)
 ├── middleware.ts               # Clerk auth middleware — protects /studio, /account, /admin, /api/generate, /api/customize, /api/stripe-portal, /api/admin
 ├── instrumentation.ts          # Next.js instrumentation (runs export-for-marketplace on startup)
 ├── next.config.ts              # Next.js config — security headers, image optimisation
@@ -115,7 +119,7 @@ This is the **single source of truth** for all templates. It is a large file (~3
 
 - The site is primarily **Italian**, with English support.
 - `Lang = "it" | "en"`. Default is Italian.
-- All UI strings live in the `t` object keyed by language.
+- Two string tables coexist. Most page copy lives in `lib/formaCopy.ts` (`copy[lang]`); the older `t` object in `lib/i18n.ts` is now trimmed to the sections still read by a component — `card`, `preview`, `account`, `success`, `bundleDetail`. Sections nothing rendered any more (`nav`, `hero`, `howItWorks`, `studioAccessBanner`, `search`, `sections`, `guide`, `bundleCard`, `footer`) were removed, along with the unused `SEARCH_SYNONYMS` map. Prefer `formaCopy` for new copy.
 - Use `useLang()` from `LanguageProvider` in client components to get `{ lang, setLang, t: tStrings }`.
 - Template names/descriptions have Italian overrides in `templateTranslations`.
 
@@ -182,23 +186,23 @@ Generates `exports/gumroad/` and `exports/etsy/` from all templates in `lib/temp
 
 ## Environment Variables
 
-| Variable                            | Required           | Description                                          |
-| ----------------------------------- | ------------------ | ---------------------------------------------------- |
-| `ANTHROPIC_API_KEY`                 | Yes                | Claude API key                                       |
-| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Yes                | Clerk publishable key                                |
-| `CLERK_SECRET_KEY`                  | Yes                | Clerk secret key                                     |
-| `STRIPE_SECRET_KEY`                 | Yes                | Stripe secret key                                    |
-| `STRIPE_WEBHOOK_SECRET`             | Yes                | Stripe webhook signing secret                        |
-| `STUDIO_ACCESS_PRICE_ID`            | Optional           | Overrides the built-in €9.99/month Studio price      |
-| `STUDIO_ACCESS_LIFETIME_PRICE_ID`   | Yes (for lifetime) | Stripe price ID for lifetime Studio Access           |
-| `SUPABASE_URL`                      | Yes                | Supabase project URL                                 |
-| `SUPABASE_SERVICE_ROLE_KEY`         | Yes                | Supabase service role key (server-only)              |
-| `NEXT_PUBLIC_SITE_URL`              | Yes                | Full site URL e.g. `https://template-marketplace-psi.vercel.app`          |
-| `NEXT_PUBLIC_APP_URL`               | Optional           | Fallback for checkout redirect URLs                  |
-| `RESEND_API_KEY`                    | Optional           | Resend email API key                                 |
-| `RESEND_FROM`                       | Optional           | Sender address for emails                            |
-| `NEXT_PUBLIC_POSTHOG_KEY`           | Optional           | PostHog project API key                              |
-| `NEXT_PUBLIC_POSTHOG_HOST`          | Optional           | PostHog host (defaults to `https://app.posthog.com`) |
+| Variable                            | Required           | Description                                                      |
+| ----------------------------------- | ------------------ | ---------------------------------------------------------------- |
+| `ANTHROPIC_API_KEY`                 | Yes                | Claude API key                                                   |
+| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Yes                | Clerk publishable key                                            |
+| `CLERK_SECRET_KEY`                  | Yes                | Clerk secret key                                                 |
+| `STRIPE_SECRET_KEY`                 | Yes                | Stripe secret key                                                |
+| `STRIPE_WEBHOOK_SECRET`             | Yes                | Stripe webhook signing secret                                    |
+| `STUDIO_ACCESS_PRICE_ID`            | Optional           | Overrides the built-in €9.99/month Studio price                  |
+| `STUDIO_ACCESS_LIFETIME_PRICE_ID`   | Yes (for lifetime) | Stripe price ID for lifetime Studio Access                       |
+| `SUPABASE_URL`                      | Yes                | Supabase project URL                                             |
+| `SUPABASE_SERVICE_ROLE_KEY`         | Yes                | Supabase service role key (server-only)                          |
+| `NEXT_PUBLIC_SITE_URL`              | Yes                | Full site URL e.g. `https://template-marketplace-psi.vercel.app` |
+| `NEXT_PUBLIC_APP_URL`               | Optional           | Fallback for checkout redirect URLs                              |
+| `RESEND_API_KEY`                    | Optional           | Resend email API key                                             |
+| `RESEND_FROM`                       | Optional           | Sender address for emails                                        |
+| `NEXT_PUBLIC_POSTHOG_KEY`           | Optional           | PostHog project API key                                          |
+| `NEXT_PUBLIC_POSTHOG_HOST`          | Optional           | PostHog host (defaults to `https://app.posthog.com`)             |
 
 Copy `.env.local.example` to `.env.local` and fill in values before running locally.
 
@@ -239,9 +243,8 @@ ClerkProvider
     ThemeProvider
       LanguageProvider
         ToastProvider
-          GsapProvider
-            PageTransition > {children}
-            CommandPalette
+          PageTransition > {children}
+          CommandPalette
 ```
 
 ### Fonts
@@ -251,20 +254,22 @@ ClerkProvider
 - **Fraunces** (`--font-fraunces`) — h1–h3, hero/section headings, prices and other display moments.
 - **Inter** (`--font-inter`) — body text, labels, buttons, nav.
 
-The FormaLogo wordmark is the exception — it's set in `system-ui` at a fixed weight/size as part of its SVG letterforms, not Fraunces. The pre-refresh font variables (`--font-syne`, `--font-montserrat`, `--font-cormorant`, `--font-dm-serif`, `--font-jakarta`, `--font-gatsunaga`) are still loaded/defined and still referenced by class name across older components, but each now resolves to Fraunces or Inter — see the typography comment block near the top of `app/globals.css` and the `fontFamily` map in `tailwind.config.ts`. Prefer `var(--font-fraunces)` / `var(--font-inter)` directly in new code rather than reaching for a legacy name.
+The FormaLogo wordmark is the exception — it's set in `system-ui` at a fixed weight/size as part of its SVG letterforms, not Fraunces.
+
+Only these two families are downloaded. The pre-refresh names (`--font-syne`, `--font-montserrat`, `--font-cormorant`, `--font-dm-serif`, `--font-jakarta`, `--font-gatsunaga`, and the local Slingday face) are gone entirely: their `next/font` loaders, CSS variables and Tailwind aliases were removed and every call site now names `var(--font-fraunces)` or `var(--font-inter)` directly. Use those two variables in new code; a legacy name will simply not resolve.
 
 ### Brand Colors
 
 The brand is a warm **paper + bordeaux** palette — light by default:
 
-| Token       | Light     | Dark                      | Usage                   |
-| ----------- | --------- | -------------------------- | ------------------------ |
-| `--accent`  | `#7A2E28` | `#C1716A`                  | Primary bordeaux accent (single accent site-wide — no more per-section "gallery room" colours) |
-| `--terra`   | derived from `--accent` via `color-mix` | derived from `--accent` | Secondary warm accent   |
-| `--bg`      | `#F4F0E8` | `#14110D`                  | Page background (paper / ink) |
-| `--surface` | `#FBF9F4` | `#1C1814`                  | Card/section background |
-| `--text`    | `#1C1A17` | `#F2ECE0`                  | Primary text            |
-| `--muted`   | `#7A7266` | `#A89A86`                  | Secondary text          |
+| Token       | Light                                   | Dark                    | Usage                                                                                          |
+| ----------- | --------------------------------------- | ----------------------- | ---------------------------------------------------------------------------------------------- |
+| `--accent`  | `#7A2E28`                               | `#C1716A`               | Primary bordeaux accent (single accent site-wide — no more per-section "gallery room" colours) |
+| `--terra`   | derived from `--accent` via `color-mix` | derived from `--accent` | Secondary warm accent                                                                          |
+| `--bg`      | `#F4F0E8`                               | `#14110D`               | Page background (paper / ink)                                                                  |
+| `--surface` | `#FBF9F4`                               | `#1C1814`               | Card/section background                                                                        |
+| `--text`    | `#1C1A17`                               | `#F2ECE0`               | Primary text                                                                                   |
+| `--muted`   | `#7A7266`                               | `#A89A86`               | Secondary text                                                                                 |
 
 ### Design Tokens
 
@@ -283,7 +288,7 @@ Two rules the material still depends on:
 - **The rim border is load-bearing.** It is what keeps a card or control findable against the page (WCAG 1.4.11); never drop it for a "cleaner" look.
 - **State is never carried by shadow alone.** A selected control also changes fill, rim colour and text colour, so it survives forced-colors mode and low-vision viewing. The primary CTA stays solid bordeaux — it is not glass.
 
-There used to be a "gallery rooms" system where `[data-section]` on `<html>` (set by `SectionAccent.tsx`) gave each site section (`catalogo`/`guida`/`studio`/`account`) its own accent colour. That was retired in the same pass: `--accent` is bordeaux everywhere, one gallery rather than separate rooms. `SectionAccent.tsx` still sets the attribute, but no CSS reads it anymore.
+There used to be a "gallery rooms" system where `[data-section]` on `<html>` (set by `SectionAccent.tsx`) gave each site section (`catalogo`/`guida`/`studio`/`account`) its own accent colour. That was retired in the same pass: `--accent` is bordeaux everywhere, one gallery rather than separate rooms. `SectionAccent.tsx` has now been deleted too — no CSS read the attribute, so nothing needed to keep setting it.
 
 ### Theme
 

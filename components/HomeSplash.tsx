@@ -52,7 +52,7 @@ export default function HomeSplash() {
           aria-hidden
           className="absolute inset-0 pointer-events-none"
           style={{
-            backgroundImage: "url('/paintings/vermeer.jpg')",
+            backgroundImage: "url('/paintings/vermeer.webp')",
             backgroundSize: "cover",
             backgroundPosition: "center 30%",
             opacity: 0.16,

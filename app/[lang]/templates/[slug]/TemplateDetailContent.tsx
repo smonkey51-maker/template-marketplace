@@ -154,7 +154,7 @@ export function TemplateDetailContent({
                 <span className="text-xs uppercase tracking-widest text-muted mb-2">
                   Prezzo una tantum
                 </span>
-                <div className="font-cormorant text-5xl mb-8">{formatPrice(item.price)}</div>
+                <div className="font-fraunces text-5xl mb-8">{formatPrice(item.price)}</div>
 
                 <div className="flex flex-col gap-3">
                   <BuyButton templateId={item.id} price={formatPrice(item.price)} />
@@ -219,7 +219,7 @@ export function TemplateDetailContent({
                         />
                       </div>
                       <div className="p-5 text-center w-full">
-                        <div className="font-cormorant text-2xl mb-1">
+                        <div className="font-fraunces text-2xl mb-1">
                           {getLocalizedName(rel, lang)}
                         </div>
                         <div className="text-accent text-sm tracking-widest">

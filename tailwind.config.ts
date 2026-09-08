@@ -6,13 +6,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        // FORMA: Fraunces (display) + Inter (body). These utility
-        // names are kept for compat with existing className references
-        // across the site, but now all resolve through the new pairing.
-        gatsunaga: ["var(--font-gatsunaga)"],
-        "dm-serif": ["var(--font-fraunces)", "Georgia", "serif"],
-        cormorant: ["var(--font-fraunces)", "Georgia", "serif"],
-        jakarta: ["var(--font-inter)", "system-ui", "sans-serif"],
+        // FORMA: Fraunces (display) + Inter (body).
         inter: ["var(--font-inter)", "system-ui", "sans-serif"],
         fraunces: ["var(--font-fraunces)", "Georgia", "serif"],
       },

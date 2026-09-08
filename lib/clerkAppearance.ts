@@ -35,7 +35,7 @@ export const clerkAppearance: Appearance = {
       boxShadow: "var(--glass-shadow)",
     },
     headerTitle: {
-      fontFamily: "var(--font-syne), sans-serif",
+      fontFamily: "var(--font-inter), system-ui, sans-serif",
       color: "var(--text)",
     },
     headerSubtitle: {
@@ -59,7 +59,7 @@ export const clerkAppearance: Appearance = {
       backgroundColor: "var(--accent)",
       color: "var(--bg)",
       borderRadius: "var(--r-md)",
-      fontFamily: "var(--font-syne), sans-serif",
+      fontFamily: "var(--font-inter), system-ui, sans-serif",
       textTransform: "none",
     },
     formFieldInput: {

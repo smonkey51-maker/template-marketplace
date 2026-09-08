@@ -43,6 +43,13 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "*.supabase.co" },
     ],
   },
+  async redirects() {
+    return [
+      // The old English-copy guide page was retired; /guida is the one guide,
+      // localised. Permanent so search engines move over too.
+      { source: "/:lang(it|en)/guide", destination: "/:lang/guida", permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

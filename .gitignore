@@ -35,3 +35,7 @@ flutter-craft/
 
 # Visual checks from scripts/screenshot.ts — for looking at, not committing.
 screenshots/
+
+# Playwright output: CI uploads it as an artifact, never commit it
+playwright-report/
+test-results/

@@ -16,7 +16,6 @@ import { ArtHeader, PAINTINGS } from "@/components/ArtHeader";
 import { getKindLabel, getCatKey, type GroupKey } from "@/lib/categories";
 import { prefersReducedMotion, motionDuration } from "@/lib/reducedMotion";
 import { PAID_TEMPLATES, getFormatTile } from "@/lib/catalogFormats";
-import gsap from "gsap";
 
 type Group = Exclude<GroupKey, "all">;
 
@@ -188,43 +187,53 @@ export default function CatalogoCategoryContent({ group }: { group: Group }) {
     };
   }, [activeId, isClosing]);
 
+  // The page behind the sheet settles back a touch and dims while it is open.
+  // A CSS transition on the element does what a gsap tween used to: the
+  // duration collapses to zero under reduced motion, so the end state still
+  // applies instantly.
   useEffect(() => {
-    if (bgRef.current) {
-      const isOpen = activeId && !isClosing;
-      const reduced = prefersReducedMotion();
-      gsap.to(bgRef.current, {
-        scale: reduced ? 1 : isOpen ? 0.985 : 1,
-        filter: isOpen ? "brightness(0.88)" : "brightness(1)",
-        duration: motionDuration(0.32),
-        ease: "power2.out",
-      });
-    }
+    const el = bgRef.current;
+    if (!el) return;
+    const isOpen = activeId && !isClosing;
+    const reduced = prefersReducedMotion();
+    el.style.transition = `transform ${motionDuration(0.32)}s cubic-bezier(0.22, 1, 0.36, 1), filter ${motionDuration(0.32)}s cubic-bezier(0.22, 1, 0.36, 1)`;
+    el.style.transform = !reduced && isOpen ? "scale(0.985)" : "scale(1)";
+    el.style.filter = isOpen ? "brightness(0.88)" : "brightness(1)";
   }, [activeId, isClosing]);
 
   const handleClose = useCallback(() => {
-    if (!overlayRef.current || !modalRef.current) {
+    const overlay = overlayRef.current;
+    const modal = modalRef.current;
+    if (!overlay || !modal) {
       setActiveId(null);
       return;
     }
     setIsClosing(true);
-    const duration = motionDuration(0.3);
+    const duration = motionDuration(0.3) * 1000;
+    const finish = () => {
+      setActiveId(null);
+      setIsClosing(false);
+      openerRef.current?.focus({ preventScroll: true });
+    };
 
-    gsap.to(modalRef.current, {
-      y: 24,
-      opacity: 0,
-      duration,
-      ease: "power2.in",
-    });
-
-    gsap.to(overlayRef.current, {
-      opacity: 0,
-      duration,
-      onComplete: () => {
-        setActiveId(null);
-        setIsClosing(false);
-        openerRef.current?.focus({ preventScroll: true });
-      },
-    });
+    // Web Animations API instead of gsap: same two tweens, no library. `fill:
+    // "forwards"` keeps the end state until React unmounts the sheet, and the
+    // overlay's `finished` promise plays the part of gsap's onComplete —
+    // resolving at once when the duration is zero.
+    if (typeof modal.animate !== "function") {
+      finish();
+      return;
+    }
+    modal.animate(
+      [
+        { transform: "translateY(0)", opacity: 1 },
+        { transform: "translateY(24px)", opacity: 0 },
+      ],
+      { duration, easing: "cubic-bezier(0.55, 0, 1, 0.45)", fill: "forwards" },
+    );
+    overlay
+      .animate([{ opacity: 1 }, { opacity: 0 }], { duration, fill: "forwards" })
+      .finished.then(finish, finish);
   }, []);
 
   useEffect(() => {

@@ -2,118 +2,6 @@ export type Lang = "it" | "en";
 
 export const t = {
   it: {
-    nav: {
-      guide: "Guida",
-      studio: "AI Studio",
-      account: "Account",
-      signIn: "Accedi",
-    },
-    hero: {
-      badge: "Powered by Claude AI · Anthropic",
-      titleStart: "Template premium,",
-      titleGradient: "personalizzati\ncon AI",
-      titleEnd: "per te",
-      subtitle:
-        "Acquista un template professionale, poi adattalo in secondi con Claude AI. Nessun codice. Nessuna attesa.",
-      cta1: "Sfoglia i template →",
-      cta2: "Prova l'AI Studio",
-      statTemplates: "template pronti",
-      statDownloads: "acquisti",
-      statPayment: "Pagamento sicuro Stripe",
-    },
-    howItWorks: {
-      title: "Come funziona",
-      step1Title: "Scegli un template",
-      step1Desc: "Sfoglia i template professionali. Anteprima completa prima di acquistare.",
-      step2Title: "Acquista in un click",
-      step2Desc: "Pagamento sicuro con Stripe. Accesso immediato al template e all'AI Studio.",
-      step3Title: "Personalizza con AI",
-      step3Desc:
-        "Descrivi le modifiche in italiano. Claude AI le applica in secondi — senza codice.",
-    },
-    studioAccessBanner: {
-      badge: "Studio Access",
-      title: "Non trovi quello che cerchi? Generalo con l'AI.",
-      subtitle: "Componenti UI, prompt, landing page — illimitati.",
-      price: "€9,99 / mese",
-      cta: "Inizia con Studio Access →",
-    },
-    search: {
-      placeholder: "Cerca template…",
-      chipAll: "Tutti",
-      chipUI: "UI Template",
-      chipPrompt: "Prompt",
-      found: "{{n}} template trovati",
-      notFound: "Nessun template trovato",
-      notFoundDesc: "Prova con un termine diverso o cambia categoria.",
-      resetCta: "Sfoglia tutti",
-      sortPopular: "Più scaricati",
-      sortRecent: "Più recenti",
-      styleAll: "Tutti",
-      styleDark: "Dark",
-      styleMinimal: "Minimal",
-      styleGradient: "Gradient",
-      styleGlass: "Glassmorphic",
-      styleCards: "Cards",
-    },
-    sections: {
-      professionals: {
-        label: "Professionisti",
-        subtitle: "Agenti immobiliari, psicologi, studi legali",
-      },
-      "lifestyle-finance": {
-        label: "Lifestyle & Finanza personale",
-        subtitle: "Affitti brevi, budget tracker, gestione patrimonio",
-      },
-      business: {
-        label: "Imprenditori & Business",
-        subtitle: "Cataloghi, analytics, pricing per piccole imprese",
-      },
-      startup: {
-        label: "Startup & Lancio prodotto",
-        subtitle: "Landing page, hero section, pagine di lancio",
-      },
-      creative: {
-        label: "Agenzie & Freelance",
-        subtitle: "Portfolio, profili developer, blog",
-      },
-      "copywriting-ai": {
-        label: "Copywriting & AI Prompt",
-        subtitle: "Prompt pronti per vendite, SEO, LinkedIn e YouTube",
-      },
-      "ai-productivity": {
-        label: "AI & Produttività",
-        subtitle: "Claude Project pack, workflow automation, focus tracker",
-      },
-      hospitality: {
-        label: "Ristorazione & Hospitality",
-        subtitle: "Ristoranti, café, hotel e strutture ricettive",
-      },
-      "digital-product": {
-        label: "App & Prodotto Digitale",
-        subtitle: "Showcase app, dashboard SaaS, feature page",
-      },
-      "personal-brand": {
-        label: "Identità & Personal Brand",
-        subtitle: "CV digitale, link in bio, newsletter landing",
-      },
-      "notion-workspace": {
-        label: "Notion Workspace",
-        subtitle: "Template Notion pronti: CRM, project management, finanze, PKM",
-      },
-      elearning: {
-        label: "E-learning & Corsi",
-        subtitle: "Landing page corsi, webinar, curriculum AI, email onboarding",
-      },
-      "shopify-ecommerce": {
-        label: "Shopify E-commerce",
-        subtitle: "Sezioni Liquid pronte per il tuo negozio Shopify",
-      },
-      "wordpress-themes": {
-        label: "Temi WordPress",
-        subtitle: "Temi PHP completi per WordPress: business, blog, portfolio",
-      },
-    },
     card: {
       categoryUI: "UI Template",
       bestseller: "★ Bestseller",
@@ -130,57 +18,6 @@ export const t = {
       loading: "Caricamento...",
       notFound: "Template non trovato.",
       notFoundBack: "← Torna al marketplace",
-    },
-    guide: {
-      pageTitle: "Guida",
-      badge: "Come funziona",
-      title: "Come usare FORMA",
-      subtitle: "Dalla scelta all'utilizzo in pochi minuti.",
-      // Tipi di template
-      sectionTypes: "I due tipi di template",
-      uiTitle: "UI Template",
-      uiDesc:
-        "Pagine HTML complete, pronte da copiare e incollare nel tuo progetto. Compatibili con qualsiasi framework.",
-      uiTags: ["HTML", "Tailwind CSS", "Copy & Paste"],
-      promptTitle: "Prompt Template",
-      promptDesc:
-        "Istruzioni AI pronte da usare in ChatGPT, Claude, Gemini e altri. Copia il testo e ottieni risultati professionali subito.",
-      promptTags: ["ChatGPT", "Claude", "Gemini"],
-      // Flusso
-      sectionFlow: "Come funziona",
-      flowStep1Title: "Scegli un template",
-      flowStep1Desc:
-        "Sfoglia il marketplace, filtra per categoria e anteprima il template prima di acquistare.",
-      flowStep2Title: "Acquista con Stripe",
-      flowStep2Desc:
-        "Pagamento sicuro in un click. Il template è subito disponibile nel tuo account.",
-      flowStep3Title: "Personalizza con AI Studio",
-      flowStep3Desc:
-        "Apri il template in AI Studio e descrivi le modifiche. Claude le applica in pochi secondi.",
-      flowStep4Title: "Copia e usa",
-      flowStep4Desc:
-        "Un click per copiare il codice o il testo. Incollalo nel tuo progetto — zero dipendenze.",
-      // AI Studio
-      sectionStudio: "L'AI Studio",
-      studioCustomTitle: "Personalizza un template",
-      studioCustomDesc:
-        "Hai acquistato un template? Aprilo in AI Studio e descrivi cosa vuoi cambiare: colori, testi, layout. Claude riscrive il codice in secondi.",
-      studioCustomBadge: "Incluso con ogni acquisto",
-      studioGenTitle: "Genera da zero",
-      studioGenDesc:
-        "Con Studio Access puoi creare template HTML o Prompt completamente nuovi. Descrivi l'idea e Claude li costruisce per te.",
-      studioGenBadge: "Studio Access",
-      // Bundle
-      sectionBundles: "I Bundle",
-      bundleTitle: "Più template, prezzo ridotto",
-      bundleDesc:
-        "I bundle raccolgono più template correlati in un unico acquisto scontato. Ideali se hai bisogno di coprire più casi d'uso.",
-      bundleBadge: "Risparmio garantito",
-      // CTA
-      ctaLabel: "Inizia ora",
-      ctaTitle: "Pronto a usare FORMA?",
-      ctaSubtitle: "Sfoglia i template, scegli quello che fa per te e personalizzalo con AI.",
-      ctaBtn: "Sfoglia i template →",
     },
     account: {
       title: "Account",
@@ -208,16 +45,6 @@ export const t = {
       customizeStudio: "Personalizza in AI Studio →",
       backToMarketplace: "Torna al marketplace",
     },
-    bundleCard: {
-      includes: "Include",
-      alreadyYours: "(già tuo)",
-      fullyOwned: "✓ Bundle già acquistato",
-      buyBundle: "Acquista il bundle — {{price}}",
-      loading: "Caricamento...",
-      youOwn: "Possiedi già {{owned}}/{{total}} template",
-      save: "Risparmi",
-      seeDetails: "Vedi cosa include →",
-    },
     bundleDetail: {
       back: "Indietro",
       whatsIncluded: "Cosa include il bundle",
@@ -235,131 +62,8 @@ export const t = {
       notFoundBack: "← Torna al marketplace",
       owned: "{{n}}/{{total}} template già posseduti",
     },
-    footer: {
-      tagline: "Design per chi costruisce.",
-      bundles: "Bundle",
-      saved: "Salvati",
-      guide: "Guida",
-      studio: "AI Studio",
-      account: "Account",
-      privacy: "Privacy Policy",
-      terms: "Termini di servizio",
-      copyright: "© 2026 FORMA. Tutti i diritti riservati.",
-    },
   },
   en: {
-    nav: {
-      guide: "Guide",
-      studio: "AI Studio",
-      account: "Account",
-      signIn: "Sign in",
-    },
-    hero: {
-      badge: "Powered by Claude AI · Anthropic",
-      titleStart: "Premium templates,",
-      titleGradient: "customized\nwith AI",
-      titleEnd: "for you",
-      subtitle:
-        "Buy a professional template, then adapt it in seconds with Claude AI. No code. No waiting.",
-      cta1: "Browse templates →",
-      cta2: "Try AI Studio",
-      statTemplates: "templates ready",
-      statDownloads: "purchases",
-      statPayment: "Secure Stripe payment",
-    },
-    howItWorks: {
-      title: "How it works",
-      step1Title: "Choose a template",
-      step1Desc: "Browse professional templates. Full preview before purchasing.",
-      step2Title: "Buy in one click",
-      step2Desc: "Secure payment with Stripe. Immediate access to the template and AI Studio.",
-      step3Title: "Customize with AI",
-      step3Desc:
-        "Describe your changes in plain language. Claude AI applies them in seconds — no code.",
-    },
-    studioAccessBanner: {
-      badge: "Studio Access",
-      title: "Can't find what you need? Generate it with AI.",
-      subtitle: "UI components, prompts, landing pages — unlimited.",
-      price: "€9.99 / month",
-      cta: "Start with Studio Access →",
-    },
-    search: {
-      placeholder: "Search templates…",
-      chipAll: "All",
-      chipUI: "UI Template",
-      chipPrompt: "Prompt",
-      found: "{{n}} templates found",
-      notFound: "No templates found",
-      notFoundDesc: "Try a different term or change the category.",
-      resetCta: "Browse all",
-      sortPopular: "Most downloaded",
-      sortRecent: "Most recent",
-      styleAll: "All",
-      styleDark: "Dark",
-      styleMinimal: "Minimal",
-      styleGradient: "Gradient",
-      styleGlass: "Glassmorphic",
-      styleCards: "Cards",
-    },
-    sections: {
-      professionals: {
-        label: "Professionals",
-        subtitle: "Real estate agents, therapists, law firms",
-      },
-      "lifestyle-finance": {
-        label: "Lifestyle & Personal Finance",
-        subtitle: "Short-term rentals, budget tracker, wealth management",
-      },
-      business: {
-        label: "Entrepreneurs & Business",
-        subtitle: "Catalogs, analytics, pricing for small businesses",
-      },
-      startup: {
-        label: "Startup & Product Launch",
-        subtitle: "Landing pages, hero sections, launch pages",
-      },
-      creative: {
-        label: "Agencies & Freelancers",
-        subtitle: "Portfolio, developer profiles, blog",
-      },
-      "copywriting-ai": {
-        label: "Copywriting & AI Prompts",
-        subtitle: "Ready-made prompts for sales, SEO, LinkedIn and YouTube",
-      },
-      "ai-productivity": {
-        label: "AI & Productivity",
-        subtitle: "Claude Project pack, workflow automation, focus tracker",
-      },
-      hospitality: {
-        label: "Food & Hospitality",
-        subtitle: "Restaurants, cafés, hotels and accommodations",
-      },
-      "notion-workspace": {
-        label: "Notion Workspace",
-        subtitle: "Ready-to-use Notion templates: CRM, project management, finance, PKM",
-      },
-      elearning: {
-        label: "E-learning & Courses",
-        subtitle: "Course landing pages, webinar registration, AI curriculum, onboarding emails",
-      },
-      "digital-product": {
-        label: "App & Digital Product",
-        subtitle: "App showcase, SaaS dashboard, feature page",
-      },
-      "personal-brand": {
-        label: "Identity & Personal Brand",
-        subtitle: "Digital resume, link in bio, newsletter landing",
-      },
-      "shopify-ecommerce": {
-        label: "Shopify E-commerce",
-        subtitle: "Ready-to-use Liquid sections for your Shopify store",
-      },
-      "wordpress-themes": {
-        label: "WordPress Themes",
-        subtitle: "Complete PHP themes for WordPress: business, blog, portfolio",
-      },
-    },
     card: {
       categoryUI: "UI Template",
       bestseller: "★ Bestseller",
@@ -376,57 +80,6 @@ export const t = {
       loading: "Loading...",
       notFound: "Template not found.",
       notFoundBack: "← Back to marketplace",
-    },
-    guide: {
-      pageTitle: "Guide",
-      badge: "How it works",
-      title: "How to use FORMA",
-      subtitle: "From choosing to using in minutes.",
-      // Template types
-      sectionTypes: "Two types of templates",
-      uiTitle: "UI Template",
-      uiDesc:
-        "Complete HTML pages, ready to copy and paste into any project. Works with any framework.",
-      uiTags: ["HTML", "Tailwind CSS", "Copy & Paste"],
-      promptTitle: "Prompt Template",
-      promptDesc:
-        "AI-ready instructions for ChatGPT, Claude, Gemini and others. Copy the text and get professional results instantly.",
-      promptTags: ["ChatGPT", "Claude", "Gemini"],
-      // Flow
-      sectionFlow: "How it works",
-      flowStep1Title: "Pick a template",
-      flowStep1Desc:
-        "Browse the marketplace, filter by category and preview the template before buying.",
-      flowStep2Title: "Buy with Stripe",
-      flowStep2Desc:
-        "Secure one-click payment. The template is immediately available in your account.",
-      flowStep3Title: "Customize with AI Studio",
-      flowStep3Desc:
-        "Open the template in AI Studio and describe your changes. Claude applies them in seconds.",
-      flowStep4Title: "Copy and use",
-      flowStep4Desc:
-        "One click to copy the code or text. Paste it into your project — zero dependencies.",
-      // AI Studio
-      sectionStudio: "The AI Studio",
-      studioCustomTitle: "Customize a template",
-      studioCustomDesc:
-        "Bought a template? Open it in AI Studio and describe what you want to change: colours, text, layout. Claude rewrites the code in seconds.",
-      studioCustomBadge: "Included with every purchase",
-      studioGenTitle: "Generate from scratch",
-      studioGenDesc:
-        "With Studio Access you can create brand new HTML or Prompt templates. Describe the idea and Claude builds it for you.",
-      studioGenBadge: "Studio Access",
-      // Bundles
-      sectionBundles: "Bundles",
-      bundleTitle: "More templates, lower price",
-      bundleDesc:
-        "Bundles group multiple related templates into one discounted purchase. Perfect when you need to cover more use cases.",
-      bundleBadge: "Guaranteed savings",
-      // CTA
-      ctaLabel: "Get started",
-      ctaTitle: "Ready to use FORMA?",
-      ctaSubtitle: "Browse the templates, pick the one that suits you and customize it with AI.",
-      ctaBtn: "Browse templates →",
     },
     account: {
       title: "Account",
@@ -454,16 +107,6 @@ export const t = {
       customizeStudio: "Customize in AI Studio →",
       backToMarketplace: "Back to marketplace",
     },
-    bundleCard: {
-      includes: "Includes",
-      alreadyYours: "(already yours)",
-      fullyOwned: "✓ Already owned",
-      buyBundle: "Get the bundle — {{price}}",
-      loading: "Loading...",
-      youOwn: "You own {{owned}}/{{total}} templates",
-      save: "Save",
-      seeDetails: "See what's included →",
-    },
     bundleDetail: {
       back: "Back",
       whatsIncluded: "What's included",
@@ -480,17 +123,6 @@ export const t = {
       notFound: "Bundle not found.",
       notFoundBack: "← Back to marketplace",
       owned: "{{n}}/{{total}} templates already owned",
-    },
-    footer: {
-      tagline: "Design for those who build.",
-      bundles: "Bundles",
-      saved: "Saved",
-      guide: "Guide",
-      studio: "AI Studio",
-      account: "Account",
-      privacy: "Privacy Policy",
-      terms: "Terms of Service",
-      copyright: "© 2026 FORMA. All rights reserved.",
     },
   },
 } as const;
@@ -667,83 +299,6 @@ export const templateTranslations: Record<string, { name: string; description: s
     description:
       "Planner budget primo appartamento, tracker budget matrimonio e registro cure veterinarie. I tre tracker essenziali per le grandi tappe della vita.",
   },
-};
-
-// Per la ricerca bilingue: mappa termini italiani → tag inglesi
-export const SEARCH_SYNONYMS: Record<string, string[]> = {
-  // Italian → English mappings
-  ristorante: ["restaurant", "food", "menu", "hospitality"],
-  caffe: ["coffee", "café"],
-  bar: ["coffee", "café"],
-  albergo: ["hotel", "booking", "hospitality", "travel"],
-  affitto: ["rental", "airbnb", "property"],
-  casa: ["property", "real estate", "airbnb"],
-  immobiliare: ["real estate", "property", "listings"],
-  psicologo: ["therapist", "health", "psychology"],
-  psicologa: ["therapist", "health"],
-  avvocato: ["law", "legal", "firm"],
-  legale: ["law", "legal", "firm"],
-  curriculum: ["cv", "resume", "personal"],
-  profilo: ["profile", "personal", "portfolio"],
-  agenzia: ["agency", "portfolio", "creative"],
-  freelance: ["freelance", "portfolio", "crm"],
-  email: ["email", "cold-email", "copywriting"],
-  negozio: ["catalog", "product", "ecom", "shop", "store"],
-  prodotto: ["product", "ecom", "catalog"],
-  startup: ["startup", "landing", "saas"],
-  landing: ["landing", "saas", "startup", "hero"],
-  app: ["app", "mobile", "ios"],
-  blog: ["blog", "articles", "cards"],
-  prezzo: ["pricing", "saas", "table"],
-  prenotazione: ["booking", "hotel", "hospitality"],
-  newsletter: ["newsletter", "email", "signup"],
-  link: ["link in bio", "creator", "social"],
-  contabilita: ["budget", "finance", "spreadsheet", "tracker"],
-  finanza: ["finance", "investments", "budget", "tracker"],
-  dashboard: ["dashboard", "analytics", "saas"],
-  // English → expanded terms
-  restaurant: ["ristorante", "food", "menu", "hospitality"],
-  hotel: ["albergo", "booking", "hospitality", "travel"],
-  portfolio: ["agenzia", "agency", "creative", "portfolio"],
-  resume: ["curriculum", "cv", "personal"],
-  cv: ["curriculum", "resume", "personal"],
-  shop: ["negozio", "ecom", "store", "catalog"],
-  store: ["negozio", "ecom", "shop", "catalog"],
-  price: ["pricing", "prezzo", "table"],
-  pricing: ["prezzo", "price", "table", "saas"],
-  finance: ["finanza", "budget", "tracker", "contabilita"],
-  budget: ["finanza", "finance", "tracker", "contabilita"],
-  crm: ["freelance", "client", "contacts"],
-  notion: ["notion", "template", "workspace", "productivity"],
-  canva: ["canva", "design", "social", "template"],
-  excel: ["excel", "spreadsheet", "sheets", "tracker"],
-  sheets: ["excel", "spreadsheet", "google", "tracker"],
-  social: ["social", "instagram", "linkedin", "link in bio"],
-  instagram: ["social", "stories", "post"],
-  linkedin: ["social", "professional", "networking"],
-  sito: ["website", "landing", "web", "hero"],
-  website: ["sito", "landing", "web", "hero"],
-  progetto: ["project", "hub", "management"],
-  project: ["progetto", "hub", "management"],
-  lavoro: ["job", "career", "tracker", "work"],
-  job: ["lavoro", "career", "tracker", "work"],
-  cliente: ["client", "crm", "freelance", "portal"],
-  client: ["cliente", "crm", "freelance", "portal"],
-  contenuto: ["content", "calendar", "blog", "social"],
-  content: ["contenuto", "calendar", "blog", "social"],
-  calendario: ["calendar", "content", "planner"],
-  calendar: ["calendario", "content", "planner"],
-  organizzazione: ["organization", "productivity", "planner", "second brain"],
-  prompt: ["prompt", "ai", "copywriting", "template"],
-  template: ["template", "modello"],
-  modello: ["template", "model"],
-  gratuito: ["free", "gratis"],
-  free: ["gratuito", "gratis"],
-  shopify: ["shopify", "ecommerce", "liquid", "negozio", "store"],
-  wordpress: ["wordpress", "php", "theme", "blog", "cms"],
-  tema: ["theme", "wordpress", "shopify"],
-  theme: ["tema", "wordpress", "shopify"],
-  ecommerce: ["shopify", "negozio", "store", "product"],
 };
 
 /** Returns the localized name for a template (falls back to EN name). */

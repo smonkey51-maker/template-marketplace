@@ -3,56 +3,19 @@ import { notFound } from "next/navigation";
 import { ClerkProvider } from "@clerk/nextjs";
 import { clerkAppearance } from "@/lib/clerkAppearance";
 import { LOCALES, isLocale, toLocale } from "@/lib/locales";
-import {
-  Montserrat,
-  DM_Serif_Display,
-  Instrument_Sans,
-  Cormorant_Garamond,
-  Fraunces,
-  Inter,
-} from "next/font/google";
+import { Fraunces, Inter } from "next/font/google";
 import ThemeProvider from "@/components/ThemeProvider";
 import LanguageProvider from "@/components/LanguageProvider";
 import { PostHogProvider } from "@/components/PostHogProvider";
 import { ToastProvider } from "@/components/Toast";
 import PageTransition from "@/components/PageTransition";
 import CommandPalette from "@/components/CommandPalette";
-import SectionAccent from "@/components/SectionAccent";
-import GsapProvider from "@/app/providers/GsapProvider";
 import "@/app/globals.css";
 
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  variable: "--font-montserrat",
-  weight: ["400", "600", "700", "900"],
-  display: "swap",
-});
-
-const dmSerif = DM_Serif_Display({
-  subsets: ["latin"],
-  variable: "--font-dm-serif",
-  weight: ["400"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
-
-// Cormorant Garamond — calligraphic high-contrast serif, zen editorial aesthetic
-// Replaces Gatsunaga (paid). Same brush-like stroke contrast, free on Google Fonts.
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  variable: "--font-cormorant",
-  weight: ["300", "400", "600"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
-
-const jakarta = Instrument_Sans({
-  subsets: ["latin"],
-  variable: "--font-jakarta",
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
-
+// Only the two brand families are loaded. The pre-refresh names
+// (--font-syne, --font-montserrat, --font-cormorant, --font-dm-serif,
+// --font-jakarta, --font-gatsunaga) are gone: every call site now uses
+// --font-fraunces or --font-inter directly.
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -155,7 +118,7 @@ export default async function RootLayout({
     <ClerkProvider appearance={clerkAppearance}>
       <html
         lang={lang}
-        className={`${montserrat.variable} ${jakarta.variable} ${dmSerif.variable} ${cormorant.variable} ${fraunces.variable} ${inter.variable}`}
+        className={`${fraunces.variable} ${inter.variable}`}
         style={{ colorScheme: "light" }}
       >
         <head>
@@ -171,17 +134,14 @@ export default async function RootLayout({
           />
         </head>
         <body className="bg-page text-theme antialiased min-h-screen">
-          <SectionAccent />
           <PostHogProvider>
             <ThemeProvider>
               <LanguageProvider>
                 <ToastProvider>
-                  <GsapProvider>
-                    <PageTransition>
-                      <div id="main-content">{children}</div>
-                    </PageTransition>
-                    <CommandPalette />
-                  </GsapProvider>
+                  <PageTransition>
+                    <div id="main-content">{children}</div>
+                  </PageTransition>
+                  <CommandPalette />
                 </ToastProvider>
               </LanguageProvider>
             </ThemeProvider>

@@ -38,19 +38,43 @@ function isPlaceholderPrice(priceId: string): boolean {
 const STUDIO_ACCESS_MONTHLY_PRICE_ID = "price_1TBsiXBN003f1FovSn41HKlj";
 
 /**
+ * The Stripe client, built on first use rather than on every request.
+ *
+ * `new Stripe(undefined)` throws immediately ("Neither apiKey nor
+ * config.authenticator provided"), so constructing it at the top of the handler
+ * meant a deployment missing STRIPE_SECRET_KEY answered *every* call with a
+ * bare 500 — a malformed body, an unknown template id and a genuine outage all
+ * looked identical, and the request never reached its own validation. Building
+ * it here keeps the 400/401/404 answers intact whatever the environment, and
+ * lets the paths that never touch Stripe (free templates, free bundles) work
+ * without a key at all.
+ */
+function getStripe(): Stripe | null {
+  const key = process.env.STRIPE_SECRET_KEY;
+  if (!key) return null;
+  return new Stripe(key);
+}
+
+/**
  * Stripe throws on any rejected request — an unhandled one leaves the route
  * returning a bare 500 with nothing in it, which is what the buyer saw. Log the
  * real reason and answer with something the UI can show.
  */
-async function createSession(
-  stripe: Stripe,
-  params: Stripe.Checkout.SessionCreateParams,
-): Promise<NextResponse> {
+async function createSession(params: Stripe.Checkout.SessionCreateParams): Promise<NextResponse> {
   const priceId = params.line_items?.[0]?.price;
   if (typeof priceId === "string" && isPlaceholderPrice(priceId)) {
     console.error(`[checkout] placeholder price ID never created in Stripe: ${priceId}`);
     return NextResponse.json(
       { error: "Questo articolo non è ancora acquistabile. Riprova più tardi." },
+      { status: 503 },
+    );
+  }
+
+  const stripe = getStripe();
+  if (!stripe) {
+    console.error("[checkout] STRIPE_SECRET_KEY is not set; cannot start a payment");
+    return NextResponse.json(
+      { error: "Il pagamento non è disponibile in questo momento. Riprova più tardi." },
       { status: 503 },
     );
   }
@@ -68,8 +92,6 @@ async function createSession(
 }
 
 export async function POST(req: NextRequest) {
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-
   // userId is optional — single-template purchases allow guest checkout
   let userId: string | null = null;
   try {
@@ -110,7 +132,7 @@ export async function POST(req: NextRequest) {
     }
 
     const bundleMeta = { userId, bundleId, templateIds: bundle.templateIds.join(",") };
-    return createSession(stripe, {
+    return createSession({
       mode: "payment",
       line_items: [{ price: bundle.stripePriceId, quantity: 1 }],
       success_url: `${appUrl}/success?bundleId=${bundleId}&session_id={CHECKOUT_SESSION_ID}`,
@@ -142,7 +164,7 @@ export async function POST(req: NextRequest) {
       templateIds: valid.map((tpl) => tpl.id).join(","),
       ...(userId ? { userId } : {}),
     };
-    return createSession(stripe, {
+    return createSession({
       mode: "payment",
       line_items: valid.map((tpl) => ({ price: tpl.stripePriceId, quantity: 1 })),
       success_url: `${appUrl}/account?session_id={CHECKOUT_SESSION_ID}`,
@@ -184,7 +206,7 @@ export async function POST(req: NextRequest) {
       );
     }
     const isSubscription = templateId === "studio-access";
-    return createSession(stripe, {
+    return createSession({
       mode: isSubscription ? "subscription" : "payment",
       line_items: [{ price: priceId, quantity: 1 }],
       success_url: `${appUrl}/success?templateId=${templateId}&session_id={CHECKOUT_SESSION_ID}`,
@@ -208,7 +230,7 @@ export async function POST(req: NextRequest) {
   }
 
   const templateMeta = { templateId: templateId as string, ...(userId ? { userId } : {}) };
-  return createSession(stripe, {
+  return createSession({
     mode: "payment",
     line_items: [{ price: template.stripePriceId, quantity: 1 }],
     success_url: `${appUrl}/success?templateId=${templateId}&session_id={CHECKOUT_SESSION_ID}`,

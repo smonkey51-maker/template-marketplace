@@ -157,7 +157,7 @@ function LangModal({
           >
             <span
               className="text-[11px] font-black uppercase tracking-[0.15em] text-muted"
-              style={{ fontFamily: "var(--font-syne)" }}
+              style={{ fontFamily: "var(--font-inter)" }}
             >
               IT
             </span>
@@ -171,7 +171,7 @@ function LangModal({
           >
             <span
               className="text-[11px] font-black uppercase tracking-[0.15em] text-muted"
-              style={{ fontFamily: "var(--font-syne)" }}
+              style={{ fontFamily: "var(--font-inter)" }}
             >
               EN
             </span>
@@ -314,7 +314,7 @@ export default function DownloadButton({
           <span className="flex flex-col items-start text-left flex-1 min-w-0">
             <span
               className="text-[15px] font-bold truncate"
-              style={{ fontFamily: "var(--font-syne)" }}
+              style={{ fontFamily: "var(--font-inter)" }}
             >
               {lang === "it" ? "Scarica il template" : "Download template"}
             </span>
