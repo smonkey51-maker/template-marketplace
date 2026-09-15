@@ -1,145 +1,42 @@
 "use client";
 
 import Link from "next/link";
-import { Layers } from "lucide-react";
 import SiteNav from "@/components/SiteNav";
-import { ArtHeader, PAINTINGS } from "@/components/ArtHeader";
 import { useLang } from "@/components/LanguageProvider";
-import { copy } from "@/lib/formaCopy";
 import { FormaFooter } from "@/components/FormaFooter";
 import { sellableBundles } from "@/lib/templates";
 import { FORMAT_TILES, FORMAT_COUNTS } from "@/lib/catalogFormats";
 
-/**
- * The catalogue itself, now just a hub: three format tiles plus bundles,
- * each a real navigation into its own page — clicking one is a route
- * change, the same as Catalogo/Studio/Guida off the homepage splash, not an
- * in-page filter. The product grid, search and price/rating facets moved to
- * catalogo/[gruppo]/page.tsx and catalogo/bundle/page.tsx.
- */
 export default function CatalogoHub() {
   const { lang } = useLang();
-  const t = (k: keyof typeof copy.it) => copy[lang][k];
-
   return (
-    <div className="fn-bg">
-      <div className="fn-shell">
-        <SiteNav />
-
-        <section className="fn-section">
-          <ArtHeader painting={PAINTINGS.catalogo} kicker={t("browseAll")} title={t("templates")} />
-
-          <div
-            style={{
-              marginTop: 40,
-              display: "grid",
-              gap: 16,
-              gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-            }}
-          >
-            {FORMAT_TILES.map((tile) => {
-              const Icon = tile.icon;
-              const label = lang === "it" ? tile.it : tile.en;
-              return (
-                <Link
-                  key={tile.key}
-                  href={`/${lang}/catalogo/${tile.key}`}
-                  className="glass-surface"
-                  style={{
-                    padding: "22px 20px",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 10,
-                  }}
-                >
-                  <Icon
-                    aria-hidden
-                    size={22}
-                    strokeWidth={1.5}
-                    style={{ color: "var(--accent)" }}
-                  />
-                  <span
-                    style={{
-                      fontFamily: "var(--font-fraunces), Georgia, serif",
-                      fontWeight: 400,
-                      fontSize: 19,
-                      color: "var(--text)",
-                    }}
-                  >
-                    {label.title}
-                  </span>
-                  <span style={{ fontSize: 13, lineHeight: 1.5, color: "var(--muted)" }}>
-                    {label.desc}
-                  </span>
-                  <span
-                    style={{
-                      marginTop: "auto",
-                      paddingTop: 6,
-                      fontSize: 11,
-                      textTransform: "uppercase",
-                      letterSpacing: "0.12em",
-                      color: "var(--muted)",
-                    }}
-                  >
-                    {FORMAT_COUNTS[tile.key]} {lang === "it" ? "prodotti" : "products"}
-                  </span>
-                </Link>
-              );
-            })}
-
-            {/* Bundles cut across the three formats above, so they get their
-                own tile rather than being folded into one of them. */}
-            {sellableBundles.length > 0 && (
-              <Link
-                href={`/${lang}/catalogo/bundle`}
-                className="glass-surface"
-                style={{
-                  padding: "22px 20px",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 10,
-                }}
-              >
-                <Layers
-                  aria-hidden
-                  size={22}
-                  strokeWidth={1.5}
-                  style={{ color: "var(--accent)" }}
-                />
-                <span
-                  style={{
-                    fontFamily: "var(--font-fraunces), Georgia, serif",
-                    fontWeight: 400,
-                    fontSize: 19,
-                    color: "var(--text)",
-                  }}
-                >
-                  {lang === "it" ? "Bundle" : "Bundles"}
-                </span>
-                <span style={{ fontSize: 13, lineHeight: 1.5, color: "var(--muted)" }}>
-                  {lang === "it"
-                    ? "Più prodotti insieme, a un prezzo più basso."
-                    : "Multiple products together, at a lower price."}
-                </span>
-                <span
-                  style={{
-                    marginTop: "auto",
-                    paddingTop: 6,
-                    fontSize: 11,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.12em",
-                    color: "var(--muted)",
-                  }}
-                >
-                  {sellableBundles.length} {lang === "it" ? "bundle" : "bundles"}
-                </span>
-              </Link>
-            )}
+    <div className="fn-bg"><div className="fn-shell">
+      <SiteNav />
+      <main className="fn-section">
+        <header className="grid grid-cols-1 md:grid-cols-12 gap-8 border-b border-theme pb-10 md:pb-16">
+          <div className="md:col-span-8">
+            <span className="text-[10px] text-muted tracking-[.14em]">[01]</span>
+            <h1 className="mt-4 text-[clamp(3.5rem,9vw,8rem)] leading-[.88] font-normal">{lang === "it" ? "Catalogo" : "Catalog"}</h1>
           </div>
-        </section>
+          <p className="md:col-span-4 md:self-end text-sm text-muted max-w-sm">{lang === "it" ? "Collezioni digitali curate. Scegli un oggetto, usalo così com’è o portalo nello Studio per renderlo tuo." : "Curated digital collections. Choose an object, use it as it is, or take it into the Studio and make it yours."}</p>
+        </header>
 
-        <FormaFooter />
-      </div>
-    </div>
+        <div className="mt-4">
+          {FORMAT_TILES.map((tile, i) => {
+            const label = lang === "it" ? tile.it : tile.en;
+            return <Link key={tile.key} href={`/${lang}/catalogo/${tile.key}`} className="group grid grid-cols-[48px_1fr_auto] md:grid-cols-[80px_1.2fr_1fr_auto] items-center gap-4 py-7 md:py-10 border-b border-theme hover:bg-[var(--surface)] transition-colors md:px-3">
+              <span className="text-[10px] text-muted">[{String(i+1).padStart(3,"0")}]</span>
+              <span className="text-[clamp(1.7rem,4vw,3.5rem)] leading-none" style={{fontFamily:"var(--font-fraunces), Georgia, serif"}}>{label.title}</span>
+              <span className="hidden md:block text-xs text-muted max-w-md">{label.desc}<br/><span className="uppercase tracking-[.12em] text-[9px]">{FORMAT_COUNTS[tile.key]} {lang === "it" ? "edizioni" : "editions"}</span></span>
+              <span className="text-xl group-hover:translate-x-1 transition-transform">→</span>
+            </Link>;
+          })}
+          {sellableBundles.length > 0 && <Link href={`/${lang}/catalogo/bundle`} className="group grid grid-cols-[48px_1fr_auto] md:grid-cols-[80px_1.2fr_1fr_auto] items-center gap-4 py-7 md:py-10 border-b border-theme hover:bg-[var(--surface)] transition-colors md:px-3">
+            <span className="text-[10px] text-muted">[004]</span><span className="text-[clamp(1.7rem,4vw,3.5rem)] leading-none" style={{fontFamily:"var(--font-fraunces), Georgia, serif"}}>Bundle</span><span className="hidden md:block text-xs text-muted">{lang === "it" ? "Collezioni di più oggetti, raccolti come un’unica edizione." : "Multiple objects collected as a single edition."}</span><span className="text-xl group-hover:translate-x-1 transition-transform">→</span>
+          </Link>}
+        </div>
+      </main>
+      <FormaFooter />
+    </div></div>
   );
 }
