@@ -6,7 +6,15 @@ import { useEffect, useRef, useState } from "react";
  * Small count badge (wishlist/cart) that pops when its value changes,
  * instead of just silently re-rendering a new number.
  */
-export default function CountBadge({ count, className, style }: { count: number; className?: string; style?: React.CSSProperties }) {
+export default function CountBadge({
+  count,
+  className,
+  style,
+}: {
+  count: number;
+  className?: string;
+  style?: React.CSSProperties;
+}) {
   const [popping, setPopping] = useState(false);
   const prevCount = useRef(count);
 
