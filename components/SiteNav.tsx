@@ -11,6 +11,7 @@ import BackLink from "@/components/BackLink";
 import ThemeToggle from "@/components/ThemeToggle";
 import { useWishlist } from "@/lib/useWishlist";
 import { useCart } from "@/lib/useCart";
+import CountBadge from "@/components/CountBadge";
 import { Menu, X, Heart, User, ShoppingBag } from "lucide-react";
 
 const LINKS: { href: string; key: keyof typeof copy.it }[] = [
@@ -97,14 +98,11 @@ export default function SiteNav() {
             className="relative hidden h-9 w-9 items-center justify-center border border-theme r-md transition-colors hover:bg-[var(--surface)] md:flex"
           >
             <Heart size={16} strokeWidth={1.8} aria-hidden style={{ color: "var(--text)" }} />
-            {ids.length > 0 && (
-              <span
-                className="absolute -right-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center px-1 text-[10px] r-sm"
-                style={{ background: "var(--accent)", color: "var(--bg)" }}
-              >
-                {ids.length}
-              </span>
-            )}
+            <CountBadge
+              count={ids.length}
+              className="absolute -right-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center px-1 text-[10px] r-sm"
+              style={{ background: "var(--accent)", color: "var(--bg)" }}
+            />
           </Link>
 
           <Link
@@ -113,14 +111,11 @@ export default function SiteNav() {
             className="relative hidden h-9 w-9 items-center justify-center border border-theme r-md transition-colors hover:bg-[var(--surface)] md:flex"
           >
             <ShoppingBag size={16} strokeWidth={1.8} aria-hidden style={{ color: "var(--text)" }} />
-            {cartIds.length > 0 && (
-              <span
-                className="absolute -right-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center px-1 text-[10px] r-sm"
-                style={{ background: "var(--accent)", color: "var(--bg)" }}
-              >
-                {cartIds.length}
-              </span>
-            )}
+            <CountBadge
+              count={cartIds.length}
+              className="absolute -right-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center px-1 text-[10px] r-sm"
+              style={{ background: "var(--accent)", color: "var(--bg)" }}
+            />
           </Link>
 
           {isSignedIn ? (

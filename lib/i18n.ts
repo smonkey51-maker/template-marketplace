@@ -191,6 +191,11 @@ export const templateTranslations: Record<string, { name: string; description: s
     description:
       "Schermata scura di dettaglio sonno: timeline a segmenti delle fasi, griglia statistiche, banner di recupero e tabella di riepilogo.",
   },
+  "micro-interactions-pack-ui": {
+    name: "Pack di Micro-Interazioni",
+    description:
+      "Sei micro-interazioni funzionanti: like button con burst, badge di notifica animato, tab scorrevoli, stack di card, contatore con pop-in numerico e slider elastico. Solo HTML/CSS/JS, pronto da copiare.",
+  },
 
   // ── Prompt e script AI ──────────────────────────────────────────────────
   "chatgpt-prompt-library-freelancers": {
