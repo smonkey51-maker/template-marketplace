@@ -4,7 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 import { Minus, Plus } from "lucide-react";
 import SiteNav from "@/components/SiteNav";
-import { ArtHeader, PAINTINGS } from "@/components/ArtHeader";
 import { useLang } from "@/components/LanguageProvider";
 import { copy } from "@/lib/formaCopy";
 import { FormaFooter } from "@/components/FormaFooter";
@@ -12,8 +11,6 @@ import { FormaFooter } from "@/components/FormaFooter";
 export default function GuidaPage() {
   const { lang } = useLang();
   const t = (k: keyof typeof copy.it) => copy[lang][k];
-  // Only one FAQ open at a time, matching the Figma prototype's accordion —
-  // this used to be a static list of always-expanded Q&A cards.
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   const steps = [
@@ -22,159 +19,43 @@ export default function GuidaPage() {
     { n: "03", title: t("guideStep3Title"), body: t("guideStep3Body") },
     { n: "04", title: t("guideStep4Title"), body: t("guideStep4Body") },
   ];
-
   const faqs = [
-    { q: t("guideFaq1Q"), a: t("guideFaq1A") },
-    { q: t("guideFaq2Q"), a: t("guideFaq2A") },
-    { q: t("guideFaq3Q"), a: t("guideFaq3A") },
-    { q: t("guideFaq4Q"), a: t("guideFaq4A") },
+    { q: t("guideFaq1Q"), a: t("guideFaq1A") }, { q: t("guideFaq2Q"), a: t("guideFaq2A") },
+    { q: t("guideFaq3Q"), a: t("guideFaq3A") }, { q: t("guideFaq4Q"), a: t("guideFaq4A") },
     { q: t("guideFaq5Q"), a: t("guideFaq5A") },
   ];
 
-  return (
-    <div className="fn-bg">
-      <div className="fn-shell">
-        <SiteNav />
-        <main className="fn-simple">
-          <ArtHeader
-            painting={PAINTINGS.guida}
-            kicker={t("guideKicker")}
-            title={t("guideTitle")}
-            subtitle={t("guideSub")}
-          />
+  return <div className="fn-bg"><div className="fn-shell"><SiteNav />
+    <main className="mx-auto w-full max-w-[1400px] px-6 py-12 md:px-10 md:py-20">
+      <header className="grid gap-8 border-b border-theme pb-12 md:grid-cols-[180px_1fr]">
+        <div className="text-[11px] uppercase tracking-[.16em] text-muted">[03] {lang === "it" ? "Manuale" : "Manual"}</div>
+        <div><h1 className="text-[clamp(3.2rem,9vw,8rem)] font-normal leading-[.88]">{t("guideTitle")}</h1>
+          <p className="mt-6 max-w-xl text-[15px] text-muted">{t("guideSub")}</p></div>
+      </header>
 
-          {/* Steps */}
-          <div
-            style={{
-              marginTop: 52,
-              display: "grid",
-              gap: 12,
-            }}
-          >
-            {steps.map((step) => (
-              <div
-                key={step.n}
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "72px 1fr",
-                  gap: 28,
-                  padding: "30px 26px",
-                }}
-                className="glass-surface"
-              >
-                <div
-                  style={{
-                    fontFamily: "var(--font-fraunces), Georgia, serif",
-                    fontSize: 44,
-                    fontWeight: 300,
-                    color: "var(--accent)",
-                    lineHeight: 1,
-                  }}
-                >
-                  {step.n}
-                </div>
-                <div>
-                  <h3
-                    style={{
-                      fontFamily: "var(--font-fraunces), Georgia, serif",
-                      fontWeight: 400,
-                      fontSize: 22,
-                      margin: "4px 0 8px",
-                      color: "var(--text)",
-                    }}
-                  >
-                    {step.title}
-                  </h3>
-                  <p style={{ color: "var(--muted)", fontSize: 15, lineHeight: 1.65, margin: 0 }}>
-                    {step.body}
-                  </p>
-                </div>
-              </div>
-            ))}
+      <div className="grid md:grid-cols-[180px_1fr]">
+        <aside className="hidden border-r border-theme py-10 pr-8 md:block">
+          <div className="sticky top-28 space-y-4 text-[11px] uppercase tracking-[.12em] text-muted">
+            {steps.map(s => <a key={s.n} href={`#step-${s.n}`} className="block hover:text-theme">{s.n} — {s.title}</a>)}
+            <a href="#faq" className="block hover:text-theme">05 — FAQ</a>
           </div>
+        </aside>
+        <div className="md:pl-12 lg:pl-20">
+          {steps.map(step => <section id={`step-${step.n}`} key={step.n} className="grid gap-5 border-b border-theme py-12 md:grid-cols-[90px_1fr] md:py-16">
+            <div className="text-[12px] tracking-[.12em] text-muted">[{step.n}]</div>
+            <div><h2 className="text-[clamp(2rem,4vw,3.5rem)] font-normal">{step.title}</h2><p className="mt-5 max-w-2xl text-[15px] leading-7 text-muted">{step.body}</p></div>
+          </section>)}
 
-          {/* FAQ */}
-          <div style={{ marginTop: 60 }}>
-            <div className="fn-kicker" style={{ marginBottom: 10 }}>
-              {t("guideFaqKicker")}
-            </div>
-            <h2
-              style={{
-                fontFamily: "var(--font-fraunces), Georgia, serif",
-                fontWeight: 300,
-                fontSize: "clamp(28px,4vw,44px)",
-                margin: "0 0 24px",
-                color: "var(--text)",
-              }}
-            >
-              {t("guideFaqTitle")}
-            </h2>
-            <ul className="border-t border-theme">
-              {faqs.map((faq, i) => {
-                const isOpen = openFaq === i;
-                return (
-                  <li key={faq.q} className="border-b border-theme">
-                    <button
-                      onClick={() => setOpenFaq(isOpen ? null : i)}
-                      aria-expanded={isOpen}
-                      className="flex w-full items-center justify-between gap-6 py-6 text-left"
-                    >
-                      <span
-                        style={{
-                          fontFamily: "var(--font-fraunces), Georgia, serif",
-                          fontWeight: 500,
-                          color: "var(--text)",
-                        }}
-                        className="text-[1.1rem]"
-                      >
-                        {faq.q}
-                      </span>
-                      {isOpen ? (
-                        <Minus
-                          size={18}
-                          strokeWidth={1.8}
-                          className="shrink-0"
-                          style={{ color: "var(--accent)" }}
-                        />
-                      ) : (
-                        <Plus
-                          size={18}
-                          strokeWidth={1.8}
-                          className="shrink-0"
-                          style={{ color: "var(--muted)" }}
-                        />
-                      )}
-                    </button>
-                    <div
-                      className="grid transition-all duration-300 ease-out"
-                      style={{ gridTemplateRows: isOpen ? "1fr" : "0fr", opacity: isOpen ? 1 : 0 }}
-                    >
-                      <div className="overflow-hidden">
-                        <p
-                          className="max-w-xl pb-6 text-[14px] leading-relaxed"
-                          style={{ color: "var(--muted)" }}
-                        >
-                          {faq.a}
-                        </p>
-                      </div>
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-
-          <div style={{ marginTop: 48, display: "flex", gap: 14, flexWrap: "wrap" }}>
-            <Link className="fn-btn primary" href={`/${lang}/catalogo`}>
-              {t("guideCta1")}
-            </Link>
-            <Link className="fn-btn" href={`/${lang}/ai-studio`}>
-              {t("guideCta2")}
-            </Link>
-          </div>
-        </main>
-        <FormaFooter />
+          <section id="faq" className="py-16"><div className="text-[11px] uppercase tracking-[.14em] text-muted">[05] {t("guideFaqKicker")}</div>
+            <h2 className="mt-3 text-[clamp(2.2rem,5vw,4rem)] font-normal">{t("guideFaqTitle")}</h2>
+            <ul className="mt-8 border-t border-theme">{faqs.map((faq,i)=>{const open=openFaq===i; return <li key={faq.q} className="border-b border-theme">
+              <button onClick={()=>setOpenFaq(open?null:i)} aria-expanded={open} className="flex w-full items-center justify-between gap-6 py-6 text-left">
+                <span className="text-[1.05rem] font-medium">{String(i+1).padStart(2,"0")} — {faq.q}</span>{open?<Minus size={17}/>:<Plus size={17}/>}</button>
+              <div className="grid transition-all duration-300" style={{gridTemplateRows:open?"1fr":"0fr",opacity:open?1:0}}><div className="overflow-hidden"><p className="max-w-2xl pb-7 text-[14px] leading-7 text-muted">{faq.a}</p></div></div>
+            </li>})}</ul>
+          </section>
+          <div className="flex flex-wrap gap-6 border-t border-theme py-12 text-[13px]"><Link href={`/${lang}/catalogo`} className="underline underline-offset-4">{t("guideCta1")} →</Link><Link href={`/${lang}/studio`} className="underline underline-offset-4">{t("guideCta2")} →</Link></div>
+        </div>
       </div>
-    </div>
-  );
+    </main><FormaFooter /></div></div>;
 }
