@@ -21,6 +21,15 @@ const PlatformPreview = dynamic(() => import("@/components/PlatformPreview"), {
 
 type Lang = "it" | "en";
 
+const HEART_BURST_OFFSETS: [number, number][] = [
+  [-11, -9],
+  [11, -9],
+  [-14, 3],
+  [14, 3],
+  [0, -15],
+  [0, 13],
+];
+
 /* ── Lazy iframe thumbnail ──────────────────────────────────────────── */
 function UIThumbnail({
   template,
@@ -254,6 +263,7 @@ export default function TemplateCard({
   const { lang } = useLang();
   const { toggle, isWishlisted } = useWishlist();
   const [heartPopping, setHeartPopping] = useState(false);
+  const [bursting, setBursting] = useState(false);
   const isPurchased = purchasedIds.includes(template.id);
   const displayName =
     lang === "it" ? (templateTranslations[template.id]?.name ?? template.name) : template.name;
@@ -268,11 +278,16 @@ export default function TemplateCard({
     (e: React.MouseEvent) => {
       e.preventDefault();
       e.stopPropagation();
+      const wasSaved = isWishlisted(template.id);
       toggle(template.id);
       setHeartPopping(true);
       setTimeout(() => setHeartPopping(false), 400);
+      if (!wasSaved) {
+        setBursting(true);
+        setTimeout(() => setBursting(false), 500);
+      }
     },
-    [toggle, template.id],
+    [toggle, isWishlisted, template.id],
   );
 
   return (
@@ -378,7 +393,7 @@ export default function TemplateCard({
                     ? "Salva"
                     : "Save"
               }
-              className={`p-1 transition-colors duration-200 ${
+              className={`relative p-1 transition-colors duration-200 ${
                 saved
                   ? "text-[var(--terra)]"
                   : "text-muted hover:text-[var(--terra)] opacity-0 group-hover:opacity-100"
@@ -398,6 +413,26 @@ export default function TemplateCard({
                   fill={saved ? "currentColor" : "none"}
                 />
               </svg>
+              {/* Mini-heart burst — thrown outward on save, matching the
+                  like-button pattern in the Micro-Interactions template. */}
+              {bursting && (
+                <span className="pointer-events-none absolute inset-0" aria-hidden>
+                  {HEART_BURST_OFFSETS.map(([bx, by], i) => (
+                    <span
+                      key={i}
+                      className="absolute left-1/2 top-1/2 h-[3px] w-[3px] rounded-full"
+                      style={
+                        {
+                          background: "var(--terra)",
+                          animation: "heart-burst 0.5s ease-out forwards",
+                          "--bx": `${bx}px`,
+                          "--by": `${by}px`,
+                        } as React.CSSProperties
+                      }
+                    />
+                  ))}
+                </span>
+              )}
             </button>
           </div>
         </div>

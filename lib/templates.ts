@@ -457,6 +457,148 @@ p{font-size:15px;opacity:.7;margin-bottom:24px;line-height:1.6}
 </div>`,
   },
 
+  {
+    id: "micro-interactions-pack-ui",
+    name: "Micro-Interactions Component Pack",
+    description:
+      "Six live, working micro-interactions — like button burst, notification badge pop, sliding tabs, card stack fan, number pop-in counter and an elastic slider. Pure HTML/CSS/JS, no framework, copy-paste ready.",
+    category: "ui",
+    price: 2400,
+    stripePriceId: "price_PLACEHOLDER_micro_interactions_pack_ui",
+    tags: ["ui kit", "micro-interactions", "animation", "components", "dark mode"],
+    downloads: 0,
+    isNew: true,
+    editorsPick: true,
+    content: `<style>
+*{box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:#1c1712;color:#f2ebd9;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;padding:32px}
+.wrap{max-width:560px;width:100%}
+.badge{display:inline-block;background:rgba(200,169,110,.12);border:1px solid rgba(200,169,110,.3);border-radius:999px;padding:5px 16px;font-size:12px;letter-spacing:.5px;margin-bottom:14px;color:#c8a96e}
+h1{font-size:26px;font-weight:800;line-height:1.2;margin:0 0 8px}
+.lede{font-size:14px;opacity:.65;margin:0 0 26px;line-height:1.6}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.tile{background:linear-gradient(135deg,#241d13,#050402);border:1px solid rgba(200,169,110,.18);border-radius:18px;padding:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;min-height:150px;position:relative;overflow:hidden}
+.tile-label{position:absolute;top:10px;left:12px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;opacity:.45}
+
+/* 1. Like button burst */
+.like-btn{background:none;border:0;cursor:pointer;position:relative;color:#e08a5c;padding:6px}
+.like-btn svg{width:30px;height:30px;transition:transform .25s cubic-bezier(.34,1.56,.64,1)}
+.like-btn.on svg{transform:scale(1.25)}
+.like-btn .burst{position:absolute;inset:0;pointer-events:none}
+.like-btn .burst span{position:absolute;left:50%;top:50%;width:5px;height:5px;border-radius:50%;background:#e08a5c;opacity:0;transform:translate(-50%,-50%)}
+.like-btn.on .burst span{animation:burst .55s ease-out forwards}
+.like-btn .burst span:nth-child(1){--x:-22px;--y:-18px}
+.like-btn .burst span:nth-child(2){--x:22px;--y:-18px}
+.like-btn .burst span:nth-child(3){--x:-28px;--y:6px}
+.like-btn .burst span:nth-child(4){--x:28px;--y:6px}
+.like-btn .burst span:nth-child(5){--x:0px;--y:-30px}
+.like-btn .burst span:nth-child(6){--x:0px;--y:26px}
+@keyframes burst{0%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(.3)}}
+
+/* 2. Notification badge pop */
+.bell-wrap{position:relative}
+.bell-btn{background:rgba(255,255,255,.06);border:0;border-radius:12px;width:44px;height:44px;display:grid;place-items:center;cursor:pointer;color:#f2ebd9}
+.bell-badge{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;padding:0 4px;border-radius:999px;background:#c8a96e;color:#1c1712;font-size:10px;font-weight:800;display:grid;place-items:center;transform:scale(0)}
+.bell-badge.show{animation:badge-pop .4s cubic-bezier(.34,1.56,.64,1) forwards}
+@keyframes badge-pop{0%{transform:scale(0)}60%{transform:scale(1.3)}100%{transform:scale(1)}}
+
+/* 3. Sliding tabs */
+.tabs{position:relative;display:flex;background:rgba(255,255,255,.05);border-radius:999px;padding:4px;gap:2px;width:100%}
+.tab{flex:1;border:0;background:none;padding:8px 0;font-size:11px;font-weight:700;color:#a89476;cursor:pointer;position:relative;z-index:1;transition:color .25s ease}
+.tab.active{color:#1c1712}
+.tab-pill{position:absolute;top:4px;bottom:4px;left:4px;width:calc(33.33% - 4px);background:#c8a96e;border-radius:999px;transition:transform .3s cubic-bezier(.65,0,.35,1)}
+
+/* 4. Card stack fan */
+.stack{position:relative;width:80px;height:56px}
+.stack .c{position:absolute;inset:0;border-radius:10px;background:linear-gradient(135deg,#3a2f1c,#1c1712);border:1px solid rgba(200,169,110,.25);transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
+.stack .c:nth-child(1){transform:rotate(0deg) translateY(0)}
+.stack .c:nth-child(2){transform:rotate(-4deg) translateY(2px)}
+.stack .c:nth-child(3){transform:rotate(-8deg) translateY(4px)}
+.tile:hover .stack .c:nth-child(1){transform:rotate(-8deg) translateX(-18px)}
+.tile:hover .stack .c:nth-child(2){transform:rotate(0deg) translateY(0)}
+.tile:hover .stack .c:nth-child(3){transform:rotate(8deg) translateX(18px)}
+
+/* 5. Number pop-in counter */
+.counter-btn{background:none;border:1px solid rgba(200,169,110,.3);border-radius:10px;padding:6px 14px;color:#c8a96e;font-size:12px;font-weight:700;cursor:pointer}
+.counter-val{font-size:34px;font-weight:800;font-variant-numeric:tabular-nums}
+.counter-val span{display:inline-block}
+.counter-val span.pop{animation:num-pop .3s cubic-bezier(.34,1.56,.64,1)}
+@keyframes num-pop{0%{opacity:0;transform:translateY(8px) scale(.7);filter:blur(3px)}100%{opacity:1;transform:none;filter:none}}
+
+/* 6. Elastic-feel slider */
+.slider-row{width:100%;display:flex;align-items:center;gap:10px}
+input[type=range]{-webkit-appearance:none;width:100%;height:4px;border-radius:999px;background:rgba(255,255,255,.12);outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#c8a96e;cursor:pointer;transition:transform .15s ease;box-shadow:0 0 0 4px rgba(200,169,110,.15)}
+input[type=range]:active::-webkit-slider-thumb{transform:scale(1.3)}
+.slider-val{font-size:12px;font-weight:700;color:#c8a96e;min-width:32px;text-align:right}
+</style>
+<div class="wrap">
+  <div class="badge">✦ COMPONENT PACK · HTML/CSS/JS</div>
+  <h1>Micro-Interactions Component Pack</h1>
+  <p class="lede">Six small, working interaction patterns — press each tile. Copy the markup you like straight into your own project.</p>
+  <div class="grid">
+    <div class="tile">
+      <span class="tile-label">Like button</span>
+      <button class="like-btn" onclick="this.classList.toggle('on')" aria-label="Like">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.7-10-9.3C.3 7.9 2.4 4 6.2 4c2 0 3.6 1 4.8 2.6C12.2 5 13.8 4 15.8 4 19.6 4 21.7 7.9 20 11.7 19.5 16.3 12 21 12 21z"/></svg>
+        <span class="burst"><span></span><span></span><span></span><span></span><span></span><span></span></span>
+      </button>
+    </div>
+    <div class="tile">
+      <span class="tile-label">Notification badge</span>
+      <div class="bell-wrap">
+        <button class="bell-btn" onclick="var b=this.nextElementSibling;b.textContent=(parseInt(b.textContent||0)+1);b.classList.remove('show');void b.offsetWidth;b.classList.add('show')" aria-label="Notify">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0112 0c0 5 2 6 2 6H4s2-1 2-6z"/><path d="M10 21a2 2 0 004 0"/></svg>
+        </button>
+        <span class="bell-badge">0</span>
+      </div>
+    </div>
+    <div class="tile">
+      <span class="tile-label">Sliding tabs</span>
+      <div class="tabs" id="tabs">
+        <div class="tab-pill" id="tabPill"></div>
+        <button class="tab active" onclick="selectTab(this,0)">Plan</button>
+        <button class="tab" onclick="selectTab(this,1)">Debug</button>
+        <button class="tab" onclick="selectTab(this,2)">Ask</button>
+      </div>
+    </div>
+    <div class="tile">
+      <span class="tile-label">Card stack</span>
+      <div class="stack"><div class="c"></div><div class="c"></div><div class="c"></div></div>
+    </div>
+    <div class="tile">
+      <span class="tile-label">Number pop-in</span>
+      <div class="counter-val" id="counterVal"><span>0</span></div>
+      <button class="counter-btn" onclick="bumpCounter()">+1</button>
+    </div>
+    <div class="tile">
+      <span class="tile-label">Elastic slider</span>
+      <div class="slider-row">
+        <input type="range" min="0" max="100" value="50" oninput="document.getElementById('sliderVal').textContent=this.value">
+        <span class="slider-val" id="sliderVal">50</span>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+function selectTab(el,i){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tabPill').style.transform='translateX('+ (i*100) +'%)';
+}
+var counter=0;
+function bumpCounter(){
+  counter++;
+  var holder=document.getElementById('counterVal');
+  holder.innerHTML='';
+  var span=document.createElement('span');
+  span.className='pop';
+  span.textContent=counter;
+  holder.appendChild(span);
+}
+</script>`,
+  },
+
   // ── SCRIPT PACKS ─────────────────────────────────────────────────────────
 
   {
