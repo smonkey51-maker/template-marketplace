@@ -1,16 +1,32 @@
-# CLAUDE.md — FORMA
+# CLAUDE.md — ACUME
 
-AI assistant reference for the **FORMA** codebase. Read this before making changes.
+AI assistant reference for the **ACUME** codebase. Read this before making changes.
 
 ---
 
 ## Project Overview
 
-**FORMA** is an AI-powered template marketplace built with Next.js 16 (App Router). Users browse, purchase, and download premium UI/prompt templates, then customise them in real-time with Claude AI via the built-in Studio.
+**ACUME** is a static, bilingual content site (Italian primary, English secondary) built with Next.js 16 (App Router). It publishes two kinds of writing:
 
-A 2026 visual refresh (explored under the working name "Atelier Nove", not adopted — the brand stayed FORMA) replaced the near-black/gold "liquid glass" identity with a warm paper/bordeaux editorial system — see **Fonts**, **Brand Colors**, **Design Tokens** and **Depth** below. The wordmark is the one deliberate exception: it kept its original gold gradient and letter-drawn animation rather than moving to bordeaux, see `FormaLogo.tsx`. The refresh did not change the product: still one catalogue of digital templates (no physical-art second catalogue), same routing, same Stripe/Supabase/Clerk stack.
+1. **Fan commentary** on "The Mentalist" and the character of Patrick Jane — his observation method, cold-reading-style techniques as portrayed in the show, character analysis. Written in the site's own words, as commentary and analysis, never verbatim dialogue, episode transcripts or reproduced show material.
+2. **Practical psychology guides** — body language, active listening, memory techniques, cold reading (how it works and how to spot it), persuasion principles, observation training.
 
-**Tech stack:** Next.js 16 · React 19 · TypeScript 5 · Tailwind CSS 3 · Clerk (auth) · Stripe (payments) · Supabase (purchases DB) · Anthropic Claude API · PostHog (analytics) · Resend (email)
+This project used to be **FORMA**, a template marketplace (Stripe payments, Clerk auth, Supabase DB, an Anthropic-powered "AI Studio", a product catalogue). All of that was removed in a full repurposing: there is no e-commerce, no user accounts, no database, no AI generation feature. What remains is a simple editorial site plus a newsletter signup. If you find references to the old product anywhere (variable names, stale comments), they are leftovers — do not resurrect Stripe/Clerk/Supabase/Anthropic integration to "restore" functionality; that functionality was deliberately removed.
+
+**Tech stack:** Next.js 16 · React 19 · TypeScript 5 · Tailwind CSS 3 · Resend (newsletter notification email) · PostHog (analytics, optional) · Vitest (unit tests) · Playwright (e2e tooling, kept but currently has no suite)
+
+---
+
+## IMPORTANT — IP and disclaimer requirements (read before touching content)
+
+"The Mentalist" and "Patrick Jane" are copyrighted properties of CBS / Warner Bros. Television. This site must always read as **unrestricted fan commentary**, never as an official or affiliated product. When adding or editing content:
+
+- Every page that discusses the show must make clear this is an unofficial fan project — the footer disclaimer (`FormaFooter.tsx`, key `disclaimerShort` in `lib/i18n.ts`) must never be removed, and `/[lang]/chi-siamo` must keep its explicit non-affiliation statement.
+- Never write or accept verbatim scripts, episode transcripts, screenshots, or any reproduction of the show's actual footage or images. Character/method analysis and educational technique write-ups in original words are fine.
+- Never use copyrighted images of the actor or the show. `public/paintings/` holds public-domain artwork used purely as atmospheric page backdrops (see `components/ArtHeader.tsx`) — don't replace these with stills from the series.
+- Never present the site as official, licensed, or as selling anything using the character's name or likeness.
+
+If a request would violate any of the above, push back rather than implementing it.
 
 ---
 
@@ -18,326 +34,155 @@ A 2026 visual refresh (explored under the working name "Atelier Nove", not adopt
 
 ```
 template-marketplace/
-├── app/                        # Next.js App Router
-│   ├── layout.tsx              # Root layout — providers, fonts (Fraunces + Inter)
-│   ├── page.tsx                # Home / marketplace listing
-│   ├── studio/page.tsx         # AI Studio (generate & customise templates)
-│   ├── preview/[templateId]/   # Template detail / preview page
-│   ├── bundle/[bundleId]/      # Bundle detail page
-│   ├── account/                # User account & purchase history (auth required)
-│   ├── success/                # Post-checkout success page
-│   ├── admin/newsletter/       # Admin newsletter sender (auth required)
-│   ├── wishlist/               # Client-side wishlist page
-│   ├── guide/                  # Buyer's guide
-│   ├── sign-in/ sign-up/       # Clerk auth pages
-│   ├── terms/ privacy/         # Legal pages
-│   ├── not-found.tsx           # 404 page
+├── app/
+│   ├── [lang]/                  # /it and /en — everything user-facing lives here
+│   │   ├── layout.tsx           # Providers, fonts (Fraunces + Inter), metadata
+│   │   ├── page.tsx             # Homepage — hero, featured articles, category teasers
+│   │   ├── articoli/
+│   │   │   ├── page.tsx         # Article index with Mentalist/Psicologia filter
+│   │   │   └── [slug]/page.tsx  # Article detail — metadata/OG, related articles
+│   │   ├── chi-siamo/page.tsx   # About — states the fan-project disclaimer plainly
+│   │   ├── privacy/ terms/      # Simple content-site policies (no payments language)
+│   │   ├── error.tsx            # Route-level error boundary
+│   │   └── not-found.tsx        # 404 with a few suggested articles
+│   ├── global-error.tsx         # Top-level error boundary (renders its own <html>)
+│   ├── robots.ts / sitemap.ts   # SEO — sitemap enumerates every article in both locales
+│   ├── icon.tsx                 # Favicon (dynamic ImageResponse)
 │   └── api/
-│       ├── checkout/route.ts   # Stripe checkout session creation
-│       ├── webhook/route.ts    # Stripe webhook → Supabase insert + email
-│       ├── download/[templateId]/route.ts  # Authenticated template download
-│       ├── download-session/route.ts       # Guest download (via Stripe session ID)
-│       ├── preview/[templateId]/route.ts   # Template HTML preview (sandboxed iframe)
-│       ├── generate/route.ts   # Claude AI generation (streaming)
-│       ├── customize/route.ts  # Claude AI customisation (streaming)
-│       ├── purchases/route.ts  # List user purchases
-│       ├── subscribe/route.ts  # Newsletter subscription
-│       ├── stripe-portal/route.ts  # Stripe customer portal redirect
-│       ├── admin/newsletter/route.ts  # Admin newsletter send
-│       └── og/route.tsx        # Dynamic Open Graph image
-├── components/                 # Shared React components
-│   ├── SiteNav.tsx             # Inner-page navigation (with dropdowns)
-│   ├── SnapHomepage.tsx        # Snap-scroll homepage shell + parallax driver
-│   ├── sections/               # The five homepage sections + SectionNav
-│   ├── studio/                 # AI Studio panels
-│   ├── ArtSection.tsx          # Snap section wrapper (entrance observer)
-│   ├── TemplateCard.tsx        # Individual template card (wishlist)
-│   ├── TemplatePreview.tsx     # Scaled live iframe preview of a template
-│   ├── BundleDetailContent.tsx # Bundle detail view
-│   ├── PreviewContent.tsx      # Iframe preview of HTML templates
-│   ├── DownloadButton.tsx      # Download + auth gate button
-│   ├── RelatedTemplates.tsx    # Related templates carousel
-│   ├── ReviewSection.tsx       # Reviews (list + form)
-│   ├── EmailCapture.tsx        # Newsletter sign-up form
-│   ├── CommandPalette.tsx      # Ctrl-K palette
-│   ├── Toast.tsx               # Toast notification system (Context + hook)
-│   ├── ThemeProvider.tsx       # Dark/light theme context
-│   ├── ThemeToggle.tsx         # Theme toggle button
-│   ├── LanguageProvider.tsx    # IT/EN language context
-│   ├── LanguageToggle.tsx      # Language toggle button
-│   ├── PostHogProvider.tsx     # PostHog analytics wrapper
-│   ├── PageTransition.tsx      # Route transition wrapper
-│   ├── FormaLogo.tsx           # Wordmark (animated / static)
-│   └── Footer.tsx / FormaFooter.tsx  # Site footers
+│       ├── og/route.tsx         # Dynamic OG image — generic or per-article
+│       └── subscribe/route.ts   # Newsletter signup (rate-limited, emails a notification)
+├── components/
+│   ├── SiteNav.tsx              # Header — wordmark, nav links, theme toggle
+│   ├── FormaFooter.tsx          # Footer — newsletter form, link columns, fan disclaimer
+│   ├── FormaLogo.tsx            # ACUME wordmark (kept the pre-refresh filename/export names)
+│   ├── HomeHero.tsx             # Homepage hero section
+│   ├── ArticleBody.tsx          # Renders the tiny markdown grammar used by lib/articles.ts
+│   ├── ArtHeader.tsx            # Page header with a faint painting backdrop
+│   ├── BackLink.tsx             # "Indietro" back-navigation control
+│   ├── CommandPalette.tsx       # Ctrl/Cmd-K — searches articles + site navigation
+│   ├── Toast.tsx                # Toast notification system (Context + hook)
+│   ├── ThemeProvider.tsx / ThemeToggle.tsx   # Dark/light theme
+│   ├── LanguageProvider.tsx     # IT/EN language context, reads the [lang] route param
+│   ├── PostHogProvider.tsx      # Analytics wrapper (no-ops without a key)
+│   └── PageTransition.tsx       # Route transition wrapper
 ├── lib/
-│   ├── templates.ts            # ALL template data lives here — single source of truth
-│   ├── i18n.ts                 # IT/EN translation strings + templateTranslations
-│   ├── claude.ts               # Anthropic SDK client (singleton)
-│   ├── email.ts                # Resend email helpers (purchase, newsletter)
-│   ├── purchases.ts            # Supabase purchases query
-│   ├── rateLimit.ts            # In-memory sliding-window rate limiter
-│   ├── useRecentlyViewed.ts    # localStorage hook for recently viewed templates
-│   └── useWishlist.ts          # localStorage hook for wishlist
+│   ├── articles.ts              # ALL article content lives here — single source of truth
+│   ├── i18n.ts                  # UI copy strings, IT + EN, one `copy` table
+│   ├── locales.ts                # Locale list/guards (`LOCALES`, `isLocale`, `toLocale`)
+│   ├── email.ts                  # Resend: newsletter signup notification only
+│   ├── rateLimit.ts               # In-memory sliding-window rate limiter
+│   ├── schemas.ts                 # Zod schemas — just `subscribeSchema` now
+│   ├── siteUrl.ts                 # Canonical server-trusted base URL
+│   └── reducedMotion.ts           # prefers-reduced-motion helpers
 ├── scripts/
-│   ├── export-for-marketplace.ts  # Generates exports/ dir for Gumroad/Etsy
-│   ├── generate-thumbs.ts      # Regenerates public/thumbs/
-│   ├── ensure-stripe-prices.ts # Verifies/creates the Stripe Prices
-│   ├── seed-stripe.ts / seed-templates.ts / seed-free-bundle.ts  # Seeding
-│   ├── sync-templates-to-db.ts # Pushes lib/templates.ts into Supabase
-│   └── screenshot.ts           # Local visual checks (output is gitignored)
-├── middleware.ts               # Clerk auth middleware — protects /studio, /account, /admin, /api/generate, /api/customize, /api/stripe-portal, /api/admin
-├── instrumentation.ts          # Next.js instrumentation (runs export-for-marketplace on startup)
-├── next.config.ts              # Next.js config — security headers, image optimisation
-├── tailwind.config.ts          # Tailwind — darkMode: "class"
-└── .env.local.example          # Required env vars (see Environment Variables section)
+│   └── screenshot.ts             # Local visual checks (output is gitignored)
+├── middleware.ts                 # Locale detection + redirect only — no auth, no route protection
+├── next.config.ts                # Security headers, CSP (much shorter — no third-party checkout/DB origins)
+├── tailwind.config.ts             # Tailwind — darkMode: "class"
+└── .env.local.example             # Required env vars (see below — a short list now)
 ```
 
 ---
 
-## Key Conventions
+## Content Model (`lib/articles.ts`)
 
-### Template Data (`lib/templates.ts`)
+Single source of truth for every article, mirroring the old `lib/templates.ts` pattern:
 
-This is the **single source of truth** for all templates. It is a large file (~300 KB).
+- `Article` = `{ slug, category, publishedAt, tags, it: ArticleLocale, en: ArticleLocale }`.
+- `category` is `"mentalist" | "psicologia"`.
+- `ArticleLocale` = `{ title, description, body }`. `body` uses a deliberately tiny markdown grammar — blank-line paragraphs, `"## "` headings, `"- "` bullet lists, `**bold**` spans — rendered by `components/ArticleBody.tsx`. No markdown dependency; don't add one for this.
+- Helpers: `getArticle(slug)`, `getArticlesByCategory(category)`, `getAllArticlesSorted()`, `getRelatedArticles(current, limit)`.
 
-- Every template is a `Template` object in the exported `templates` array.
-- `price` is always in **cents** (e.g. `1299` = €12.99).
-- `stripePriceId` must match a live Stripe Price object — never fabricate one.
-- `downloadType` defaults to `"html"` for `category: "ui"` and `"prompt"` for `category: "prompt"`. Set it explicitly for Canva/Notion/Excel/Sheets/Webflow/Framer types.
-- External-link types (`canva`, `notion`, `excel`, `sheets`, `webflow`, `framer`) require `downloadUrl`.
-- `content` holds the raw HTML or prompt text inline.
-- Helper functions: `getTemplate(id)`, `getBundle(id)`, `formatPrice(cents)`, `getDownloadType(template)`.
+**When adding a new article:**
 
-**When adding a new template:**
+1. Add an `Article` object to the `articles` array in `lib/articles.ts`, with full `it` and `en` content — never publish IT-only or EN-only.
+2. Keep body content original commentary/analysis — see the IP section above.
+3. A few hundred words minimum, structured with `## ` headings; this is an editorial site, not a filler blog.
+4. No new build step is needed — `app/sitemap.ts`, the article index and `generateStaticParams` on the detail page all read `lib/articles.ts` directly.
 
-1. Add the `Template` object to `lib/templates.ts`.
-2. Add a real `stripePriceId` (create a Stripe Price if needed via `scripts/seed-stripe.ts`).
-3. Add Italian translations in `lib/i18n.ts` under `templateTranslations`.
-4. Run `npm run export-templates` to regenerate `exports/`.
+## Internationalisation (`lib/i18n.ts`)
 
-### Internationalisation (`lib/i18n.ts`)
+- The site is primarily **Italian**, with English support. `Lang = "it" | "en"`. Default is Italian.
+- One `copy` table (`copy.it` / `copy.en`) holds all UI strings — nav, homepage, footer, page kickers, error/404 copy. There is no separate `formaCopy.ts` any more; that split existed only because the old site had far more copy than this one does.
+- Use `useLang()` from `LanguageProvider` in client components to get `{ lang, toggle }`.
+- Article content is localised separately, inline on each `Article` (`it`/`en` fields) — not through the `copy` table.
 
-- The site is primarily **Italian**, with English support.
-- `Lang = "it" | "en"`. Default is Italian.
-- Two string tables coexist. Most page copy lives in `lib/formaCopy.ts` (`copy[lang]`); the older `t` object in `lib/i18n.ts` is now trimmed to the sections still read by a component — `card`, `preview`, `account`, `success`, `bundleDetail`. Sections nothing rendered any more (`nav`, `hero`, `howItWorks`, `studioAccessBanner`, `search`, `sections`, `guide`, `bundleCard`, `footer`) were removed, along with the unused `SEARCH_SYNONYMS` map. Prefer `formaCopy` for new copy.
-- Use `useLang()` from `LanguageProvider` in client components to get `{ lang, setLang, t: tStrings }`.
-- Template names/descriptions have Italian overrides in `templateTranslations`.
+## Routing / Middleware
 
-### Authentication (Clerk)
+- `middleware.ts` only detects the visitor's language (from `Accept-Language`) and redirects an un-prefixed path to `/it` or `/en`. There is no auth, no protected route matcher — that whole concern was Clerk's and is gone.
+- No route requires sign-in. There are no `/account`, `/admin`, `/sign-in` routes any more.
 
-- Auth is handled entirely by Clerk (`@clerk/nextjs`).
-- Protected routes are declared in `middleware.ts`: `/studio`, `/account`, `/admin`, `/api/generate`, `/api/customize`, `/api/stripe-portal`, `/api/admin`.
-- In Server Components/Route Handlers use `auth()` from `@clerk/nextjs/server`.
-- Guest checkout is **allowed** for single-template purchases — `userId` may be null.
+## Newsletter (`/api/subscribe`)
 
-### Payments (Stripe)
+- Rate-limited via `lib/rateLimit.ts` (in-memory; fine at this traffic level — resets on redeploy, not shared across instances, and that's an accepted tradeoff, not a bug to fix with Redis).
+- Validates the email with `subscribeSchema` (`lib/schemas.ts`).
+- There is **no database**. A signup does not get stored server-side; instead `lib/email.ts`'s `sendNewsletterSignupNotification()` emails the site owner (`RESEND_NOTIFY_TO`, falling back to `RESEND_FROM`) so they can add the address to whatever list tool they use. Silently no-ops without `RESEND_API_KEY` (safe in dev/preview).
 
-Three purchase flows:
+## Design System — kept as-is from the FORMA refresh
 
-1. **Single template** — guest or authenticated, `mode: "payment"`.
-2. **Bundle** — requires auth, `mode: "payment"`, expands to multiple template rows in Supabase.
-3. **Studio Access** — requires auth, subscription (`mode: "subscription"`) or lifetime (`mode: "payment"`).
+The 2026 visual refresh (warm paper/bordeaux editorial look, replacing an older near-black/gold "liquid glass" identity) fits this project well and was **not** redone:
 
-The Stripe webhook (`/api/webhook`) writes purchase records to Supabase and sends a confirmation email via Resend.
+- **Fonts**: Fraunces (display — h1–h3, article titles) + Inter (body/UI). Only these two families are loaded.
+- **Brand colors**: warm paper + bordeaux, light by default. `--accent` (`#7A2E28` light / `#C1716A` dark) is the one accent color site-wide. See `app/globals.css` for the full token list (`--bg`, `--surface`, `--text`, `--muted`, etc.).
+- **Radius tokens**: editorial and sharp, not rounded. Use `.r-md` (4px — cards, panels, buttons), `.r-sm` (2px — chips), `.r-lg`/`.r-xl` for larger surfaces. Only genuinely circular elements use `border-radius: 50%` directly.
+- **Shadows**: `--shadow-sm` / `--shadow-md` / `--shadow-lg` / `--shadow-xl` in `globals.css`.
+- **Buttons**: `.btn-brand` (solid bordeaux CTA) / `.btn-brand-sm` (compact variant).
+- **Depth**: one material — flat opaque paper, no blur, no glass, no specular highlight. The `.glass-surface` etc. class names persist from the earlier naming (see the CSS for why) but render flat paper, not glass. The rim border on any panel is load-bearing for contrast (WCAG 1.4.11) — never drop it.
+- Theme is `dark`-class-based (`tailwind.config.ts` `darkMode: "class"`), opt-in via `ThemeToggle`, default light.
 
-The €9.99/month Studio Access subscription has a **default price ID in `app/api/checkout/route.ts`** (`STUDIO_ACCESS_MONTHLY_PRICE_ID`), so the subscription is sellable with no env var set. `STUDIO_ACCESS_PRICE_ID` overrides it when you need a different account or a different price. A Stripe price ID is not a secret — the twenty template prices live in `lib/templates.ts` for the same reason.
-
-The lifetime option is env-only (`STUDIO_ACCESS_LIFETIME_PRICE_ID`) and no such Price exists in the account, but the button is behind `NEXT_PUBLIC_STUDIO_LIFETIME_AVAILABLE === "true"` and stays hidden, so nothing is broken by leaving it unset.
-
-The lifetime button is behind `NEXT_PUBLIC_STUDIO_LIFETIME_AVAILABLE === "true"` and is hidden otherwise, so `STUDIO_ACCESS_LIFETIME_PRICE_ID` is only needed if that flag is on.
-
-### Database (Supabase)
-
-- Single table: **`purchases`** with columns `user_id`, `template_id`, `stripe_session_id`, `guest_email`.
-- Guest purchases use `user_id = "guest:<email>"`.
-- `lib/purchases.ts` provides `getUserPurchases(userId): Promise<string[]>`.
-- Always use `SUPABASE_SERVICE_ROLE_KEY` (server-side only, never expose to client).
-
-### Claude AI Integration
-
-- Client singleton: `lib/claude.ts` exports `anthropic` (Anthropic SDK instance).
-- **`/api/generate`** — generates new templates from scratch. Uses `claude-opus-4-6`. UI templates use extended thinking (`betas: ["interleaved-thinking-2025-05-14"]`, `budget_tokens: 3000`). Prompt templates use standard streaming. Rate limit: 10 req/min per IP.
-- **`/api/customize`** — customises an existing template. Uses `claude-opus-4-6` with standard streaming. Rate limit: 20 req/min per IP.
-- Both endpoints stream plain text (`text/plain; charset=utf-8`) back to the client.
-- Both require `ANTHROPIC_API_KEY` env var.
-
-### Rate Limiting
-
-`lib/rateLimit.ts` — simple **in-memory** sliding-window limiter. Resets on server restart. Not suitable for multi-instance deployments without Redis. Keyed by `"generate:<ip>"` and `"customize:<ip>"`.
-
-### Email (Resend)
-
-`lib/email.ts`:
-
-- `sendPurchaseEmail()` — sends post-purchase confirmation with download link.
-- `sendNewsletterEmail()` — batch sends up to 100 emails per Resend API call.
-- Silently no-ops if `RESEND_API_KEY` is not set (safe in dev).
-- From address: `RESEND_FROM` env var, defaults to `FORMA <noreply@template-marketplace-psi.vercel.app>`.
-
-### Template Export Script
-
-```bash
-npm run export-templates
-```
-
-Generates `exports/gumroad/` and `exports/etsy/` from all templates in `lib/templates.ts`. Called automatically during `npm run build`. Do not commit the `exports/` directory — it is generated.
+When adding a new page or component, reuse these tokens rather than hand-rolling new colors/radii/shadows.
 
 ---
 
 ## Environment Variables
 
-| Variable                            | Required           | Description                                                      |
-| ----------------------------------- | ------------------ | ---------------------------------------------------------------- |
-| `ANTHROPIC_API_KEY`                 | Yes                | Claude API key                                                   |
-| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Yes                | Clerk publishable key                                            |
-| `CLERK_SECRET_KEY`                  | Yes                | Clerk secret key                                                 |
-| `STRIPE_SECRET_KEY`                 | Yes                | Stripe secret key                                                |
-| `STRIPE_WEBHOOK_SECRET`             | Yes                | Stripe webhook signing secret                                    |
-| `STUDIO_ACCESS_PRICE_ID`            | Optional           | Overrides the built-in €9.99/month Studio price                  |
-| `STUDIO_ACCESS_LIFETIME_PRICE_ID`   | Yes (for lifetime) | Stripe price ID for lifetime Studio Access                       |
-| `SUPABASE_URL`                      | Yes                | Supabase project URL                                             |
-| `SUPABASE_SERVICE_ROLE_KEY`         | Yes                | Supabase service role key (server-only)                          |
-| `NEXT_PUBLIC_SITE_URL`              | Yes                | Full site URL e.g. `https://template-marketplace-psi.vercel.app` |
-| `NEXT_PUBLIC_APP_URL`               | Optional           | Fallback for checkout redirect URLs                              |
-| `RESEND_API_KEY`                    | Optional           | Resend email API key                                             |
-| `RESEND_FROM`                       | Optional           | Sender address for emails                                        |
-| `NEXT_PUBLIC_POSTHOG_KEY`           | Optional           | PostHog project API key                                          |
-| `NEXT_PUBLIC_POSTHOG_HOST`          | Optional           | PostHog host (defaults to `https://app.posthog.com`)             |
+| Variable                   | Required  | Description                                                     |
+| --------------------------- | --------- | ----------------------------------------------------------------|
+| `NEXT_PUBLIC_SITE_URL`       | Yes       | Full canonical site URL, e.g. `https://acume.example.com`        |
+| `RESEND_API_KEY`             | Optional  | Enables the newsletter-signup notification email                 |
+| `RESEND_FROM`                | Optional  | Sender address for that email                                    |
+| `RESEND_NOTIFY_TO`           | Optional  | Who receives the "new subscriber" notification (defaults to `RESEND_FROM`) |
+| `NEXT_PUBLIC_POSTHOG_KEY`    | Optional  | PostHog project API key                                          |
+| `NEXT_PUBLIC_POSTHOG_HOST`   | Optional  | PostHog host (defaults to `https://eu.i.posthog.com`)             |
 
-Copy `.env.local.example` to `.env.local` and fill in values before running locally.
+Copy `.env.local.example` to `.env.local` and fill in values before running locally. All of the above are optional except `NEXT_PUBLIC_SITE_URL` — the site works locally without any of them set.
 
 ---
 
 ## Development Workflow
 
 ```bash
-# Install dependencies
-npm install
-
-# Run dev server (also runs export-templates via instrumentation.ts)
-npm run dev
-
-# Production build (runs export-templates first, then next build)
-npm run build
-
-# Start production server
-npm start
-
-# Manually regenerate exports/ directory
-npm run export-templates
+npm install       # Install dependencies
+npm run dev        # Run dev server
+npm run build       # Production build
+npm start            # Start production server
+npm run test          # Vitest unit tests
+npm run test:e2e       # Playwright — no suite currently checked in, tooling only
+npm run typecheck        # tsc --noEmit
+npm run lint               # eslint .
 ```
-
-**No test suite is configured.** Validate changes manually in the browser.
-
----
-
-## Architecture Notes
-
-### Providers (Root Layout)
-
-The root layout (`app/layout.tsx`) wraps everything in this order:
-
-```
-ClerkProvider
-  PostHogProvider
-    ThemeProvider
-      LanguageProvider
-        ToastProvider
-          PageTransition > {children}
-          CommandPalette
-```
-
-### Fonts
-
-**Fraunces** (display) + **Inter** (body), everywhere:
-
-- **Fraunces** (`--font-fraunces`) — h1–h3, hero/section headings, prices and other display moments.
-- **Inter** (`--font-inter`) — body text, labels, buttons, nav.
-
-The FormaLogo wordmark is the exception — it's set in `system-ui` at a fixed weight/size as part of its SVG letterforms, not Fraunces.
-
-Only these two families are downloaded. The pre-refresh names (`--font-syne`, `--font-montserrat`, `--font-cormorant`, `--font-dm-serif`, `--font-jakarta`, `--font-gatsunaga`, and the local Slingday face) are gone entirely: their `next/font` loaders, CSS variables and Tailwind aliases were removed and every call site now names `var(--font-fraunces)` or `var(--font-inter)` directly. Use those two variables in new code; a legacy name will simply not resolve.
-
-### Brand Colors
-
-The brand is a warm **paper + bordeaux** palette — light by default:
-
-| Token       | Light                                   | Dark                    | Usage                                                                                          |
-| ----------- | --------------------------------------- | ----------------------- | ---------------------------------------------------------------------------------------------- |
-| `--accent`  | `#7A2E28`                               | `#C1716A`               | Primary bordeaux accent (single accent site-wide — no more per-section "gallery room" colours) |
-| `--terra`   | derived from `--accent` via `color-mix` | derived from `--accent` | Secondary warm accent                                                                          |
-| `--bg`      | `#F4F0E8`                               | `#14110D`               | Page background (paper / ink)                                                                  |
-| `--surface` | `#FBF9F4`                               | `#1C1814`               | Card/section background                                                                        |
-| `--text`    | `#1C1A17`                               | `#F2ECE0`               | Primary text                                                                                   |
-| `--muted`   | `#7A7266`                               | `#A89A86`               | Secondary text                                                                                 |
-
-### Design Tokens
-
-- **Border radius**: editorial and sharp — **not** rounded/pill. Use the radius utilities rather than raw pixel values: `.r-glass` (`--glass-radius`, tracks `--r-md`), `.r-md` (`--r-md`, 4px — cards, panels, buttons), `.r-sm` (`--r-sm`, 2px — small chips), `.r-pill` (kept as a class name for compat; now renders `--r-md`, not a true pill). The underlying scale is `--r-sm` (2px) / `--r-md` (4px) / `--r-lg` (6px) / `--r-xl` (8px). Only genuinely circular elements (avatars, small icon badges, dots) still use `border-radius: 50%` directly. When adding any surface with a background or a border, give it one of these tokens — a bare `bg-*` or `border` class is a bug.
-- **Shadows**: Use CSS custom properties `--shadow-sm`, `--shadow-md`, `--shadow-lg`, `--shadow-xl` defined in `globals.css`.
-- **Buttons**: All primary CTA buttons use the `.btn-brand` CSS class (solid bordeaux, sharp corners, lift on hover). Use `.btn-brand-sm` for compact variant. Defined in `globals.css`.
-
-### Depth: one material — flat paper
-
-**There is no glass on this site.** The pre-refresh "liquid glass" material (backdrop blur, pointer-tracked specular highlight, squircle masking, SVG refraction) was removed wholesale — `GlassEnhancements.tsx` and `public/squircle-paint.js` are deleted, and the `--glass-*` / `--glass-s-*` / `--glass-bar-*` tokens now resolve to an opaque paper fill with **no blur** and **no specular highlight**. Every raised surface is the same material: an opaque paper sheet, one load-bearing rim border, and a small flat cast shadow. Panels still **lift** slightly toward the viewer on hover (a small `translateY`), but nothing refracts, blurs or shimmers.
-
-The class names are unchanged on purpose — `.glass-surface`, `.glass-surface-pill`, `.glass-bar`, `.forma-glass-card`, `.glass-pill`, `.glass-panel` — so existing components didn't need touching; only what those classes render changed. `.glass-surface` is still the shared base — reach for it before hand-rolling a panel.
-
-Two rules the material still depends on:
-
-- **The rim border is load-bearing.** It is what keeps a card or control findable against the page (WCAG 1.4.11); never drop it for a "cleaner" look.
-- **State is never carried by shadow alone.** A selected control also changes fill, rim colour and text colour, so it survives forced-colors mode and low-vision viewing. The primary CTA stays solid bordeaux — it is not glass.
-
-There used to be a "gallery rooms" system where `[data-section]` on `<html>` (set by `SectionAccent.tsx`) gave each site section (`catalogo`/`guida`/`studio`/`account`) its own accent colour. That was retired in the same pass: `--accent` is bordeaux everywhere, one gallery rather than separate rooms. `SectionAccent.tsx` has now been deleted too — no CSS read the attribute, so nothing needed to keep setting it.
-
-### Theme
-
-Tailwind `darkMode: "class"`. The `<html>` element starts **without** `class="dark"` (light/paper is the default); dark mode is opt-in via the toggle, which adds the class and persists the choice to `localStorage`. `ThemeProvider` defaults its own state to `"light"`. Custom theme tokens are defined in `app/globals.css` (e.g. `bg-page`, `text-theme`).
-
-### API Route Patterns
-
-- All API routes use the Next.js App Router convention (`app/api/.../route.ts`).
-- Auth-protected routes call `await auth()` from `@clerk/nextjs/server` at the top.
-- Streaming responses return `new Response(readableStream, { headers: { "Content-Type": "text/plain; charset=utf-8", "Transfer-Encoding": "chunked", "Cache-Control": "no-cache" } })`.
-- Error responses always include a meaningful message string in the body.
-
-### Security Headers (next.config.ts)
-
-- `X-Content-Type-Options: nosniff`
-- `X-XSS-Protection: 1; mode=block`
-- `Referrer-Policy: strict-origin-when-cross-origin`
-- `X-Frame-Options: SAMEORIGIN` — **except** `/api/preview/*` which must be embeddable in same-origin iframes.
-- Static assets cached with `Cache-Control: public, max-age=31536000, immutable`.
-
-### Preview Iframe
-
-`/api/preview/[templateId]` serves raw HTML for template previews. The `/preview/[templateId]` page loads it in a sandboxed `<iframe>`. The `X-Frame-Options` exemption in `next.config.ts` is intentional and required.
 
 ---
 
 ## Common Tasks
 
-### Add a new UI template
+### Add a new article
 
-1. Add to `lib/templates.ts` `templates` array with a unique `id`, `category: "ui"`, `price` in cents, valid `stripePriceId`, and inline HTML in `content`.
-2. Add Italian name/description override in `lib/i18n.ts` `templateTranslations`.
-3. Run `npm run export-templates` to update `exports/`.
+1. Add an `Article` object to `lib/articles.ts` with a unique `slug`, `category`, `publishedAt`, `tags`, and full `it`/`en` `title`/`description`/`body`.
+2. Keep it original commentary — see the IP section at the top of this file.
+3. No other file needs to change — the index, sitemap and static params all read the array.
 
-### Add a new template category/section
+### Add a new UI copy string
 
-1. Add the section key to `lib/i18n.ts` under `sections` for both `it` and `en`.
-2. Add matching accent colour in `app/globals.css` or wherever category colours are defined.
-3. Add the filter chip in `app/catalogo/page.tsx` (`FilterKey` + `FILTERS`), and a matching entry in `CATALOGO_ITEMS` in `components/SiteNav.tsx` so it appears in the nav dropdown.
+Add the key to both `copy.it` and `copy.en` in `lib/i18n.ts`. Never add a key to only one locale — every `copy[lang][key]` lookup assumes both exist.
 
-### Modify Claude prompts
+### Add a new top-level page
 
-Edit the `system` prompt strings in `app/api/generate/route.ts` or `app/api/customize/route.ts`. Keep the "output ONLY" constraint to avoid unwanted preamble in streamed output.
+1. Create `app/[lang]/<route>/page.tsx`.
+2. Read `params` for `lang`, call `toLocale()` on it.
+3. Render `<SiteNav />` … content … `<FormaFooter />`, matching the existing pages' structure.
+4. Add the route to `SiteNav.tsx` / `FormaFooter.tsx` if it should appear in navigation, and to `app/sitemap.ts`.
 
-### Add a new Stripe product
+### Debug the newsletter signup
 
-1. Create the Price in Stripe Dashboard (or run the relevant seed script in `scripts/`).
-2. Copy the `price_...` ID into the template definition in `lib/templates.ts`.
-
-### Debug purchases
-
-Query the Supabase `purchases` table directly. Guest purchases have `user_id` like `guest:user@example.com`. Check `stripe_session_id` against the Stripe Dashboard if a purchase is missing.
+There's no database to query. If a signup isn't producing a notification email, check `RESEND_API_KEY` is set and check the Resend dashboard's activity log — `lib/email.ts` no-ops silently without a key, which is expected in local dev.
