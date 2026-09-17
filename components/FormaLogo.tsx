@@ -3,7 +3,7 @@
 import { useId } from "react";
 
 /**
- * The ACUME wordmark.
+ * The INSPO wordmark.
  *
  * Kept in its own file (and kept the filename `FormaLogo.tsx`, and the
  * exported names `FormaLogoAnimated` / `FormaLogoStatic` / `FormaLogoIcon`)
@@ -17,7 +17,8 @@ import { useId } from "react";
  * document-scoped, and two copies of the logo on one page (header + footer)
  * would otherwise collide.
  */
-const O_CIRC = 314; // 2π × r=50
+const LETTERS = ["I", "N", "S", "P", "O"];
+const LETTER_X = [60, 230, 400, 570, 740];
 
 export function FormaLogoAnimated({ className }: { className?: string }) {
   const gid = useId();
@@ -25,7 +26,7 @@ export function FormaLogoAnimated({ className }: { className?: string }) {
     <svg
       viewBox="0 0 900 200"
       xmlns="http://www.w3.org/2000/svg"
-      aria-label="ACUME"
+      aria-label="INSPO"
       className={className}
       style={{ display: "block" }}
     >
@@ -35,77 +36,28 @@ export function FormaLogoAnimated({ className }: { className?: string }) {
           <stop offset="100%" stopColor="#B8962E" />
         </linearGradient>
       </defs>
-
-      {/* A */}
-      <path
-        d="M40 140 L90 20 L140 140 M55 100 L125 100"
-        stroke={`url(#${gid})`}
-        strokeWidth="20"
-        fill="none"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-
-      {/* C — draws itself */}
-      <circle
-        cx="230"
-        cy="80"
-        r="50"
-        stroke={`url(#${gid})`}
-        strokeWidth="20"
-        fill="none"
-        strokeDasharray={O_CIRC}
-        strokeDashoffset={O_CIRC * 0.28}
-        transform="rotate(35 230 80)"
-      >
-        <animate
-          attributeName="stroke-dashoffset"
-          from={O_CIRC}
-          to={O_CIRC * 0.28}
-          dur="0.9s"
-          fill="freeze"
-        />
-      </circle>
-
-      {/* U */}
-      <path
-        d="M340 20 L340 100 A45 45 0 0 0 430 100 L430 20"
-        stroke={`url(#${gid})`}
-        strokeWidth="20"
-        fill="none"
-        strokeLinecap="round"
-        opacity="0"
-      >
-        <animate attributeName="opacity" from="0" to="1" dur="0.5s" begin="0.7s" fill="freeze" />
-      </path>
-
-      {/* M */}
-      <text
-        x="480"
-        y="140"
-        fill={`url(#${gid})`}
-        fontSize="120"
-        fontWeight="800"
-        fontFamily="system-ui, sans-serif"
-        opacity="0"
-      >
-        M
-        <animate attributeName="opacity" from="0" to="1" dur="0.5s" begin="0.9s" fill="freeze" />
-      </text>
-
-      {/* E */}
-      <text
-        x="650"
-        y="140"
-        fill={`url(#${gid})`}
-        fontSize="120"
-        fontWeight="800"
-        fontFamily="system-ui, sans-serif"
-        opacity="0"
-      >
-        E
-        <animate attributeName="opacity" from="0" to="1" dur="0.5s" begin="1.1s" fill="freeze" />
-      </text>
+      {LETTERS.map((letter, i) => (
+        <text
+          key={letter + i}
+          x={LETTER_X[i]}
+          y="140"
+          fill={`url(#${gid})`}
+          fontSize="120"
+          fontWeight="800"
+          fontFamily="system-ui, sans-serif"
+          opacity="0"
+        >
+          {letter}
+          <animate
+            attributeName="opacity"
+            from="0"
+            to="1"
+            dur="0.5s"
+            begin={`${i * 0.2}s`}
+            fill="freeze"
+          />
+        </text>
+      ))}
     </svg>
   );
 }
@@ -116,7 +68,7 @@ export function FormaLogoStatic({ className }: { className?: string }) {
     <svg
       viewBox="0 0 900 200"
       xmlns="http://www.w3.org/2000/svg"
-      aria-label="ACUME"
+      aria-label="INSPO"
       className={className}
       style={{ display: "block" }}
     >
@@ -126,52 +78,19 @@ export function FormaLogoStatic({ className }: { className?: string }) {
           <stop offset="100%" stopColor="#B8962E" />
         </linearGradient>
       </defs>
-      <path
-        d="M40 140 L90 20 L140 140 M55 100 L125 100"
-        stroke={`url(#${gid})`}
-        strokeWidth="20"
-        fill="none"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <circle
-        cx="230"
-        cy="80"
-        r="50"
-        stroke={`url(#${gid})`}
-        strokeWidth="20"
-        fill="none"
-        strokeDasharray={O_CIRC}
-        strokeDashoffset={O_CIRC * 0.28}
-        transform="rotate(35 230 80)"
-      />
-      <path
-        d="M340 20 L340 100 A45 45 0 0 0 430 100 L430 20"
-        stroke={`url(#${gid})`}
-        strokeWidth="20"
-        fill="none"
-        strokeLinecap="round"
-      />
-      <text
-        x="480"
-        y="140"
-        fill={`url(#${gid})`}
-        fontSize="120"
-        fontWeight="800"
-        fontFamily="system-ui, sans-serif"
-      >
-        M
-      </text>
-      <text
-        x="650"
-        y="140"
-        fill={`url(#${gid})`}
-        fontSize="120"
-        fontWeight="800"
-        fontFamily="system-ui, sans-serif"
-      >
-        E
-      </text>
+      {LETTERS.map((letter, i) => (
+        <text
+          key={letter + i}
+          x={LETTER_X[i]}
+          y="140"
+          fill={`url(#${gid})`}
+          fontSize="120"
+          fontWeight="800"
+          fontFamily="system-ui, sans-serif"
+        >
+          {letter}
+        </text>
+      ))}
     </svg>
   );
 }
@@ -182,7 +101,7 @@ export function FormaLogoIcon({ size = 32, className }: { size?: number; classNa
     <svg
       viewBox="0 0 120 120"
       xmlns="http://www.w3.org/2000/svg"
-      aria-label="ACUME"
+      aria-label="INSPO"
       width={size}
       height={size}
       className={className}

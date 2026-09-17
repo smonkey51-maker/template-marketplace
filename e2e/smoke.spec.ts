@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("ACUME smoke", () => {
+test.describe("INSPO smoke", () => {
   test("homepage renders in Italian with the fan disclaimer", async ({ page }) => {
     await page.goto("/it");
     await expect(page).toHaveTitle(/./);

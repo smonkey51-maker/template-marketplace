@@ -28,19 +28,19 @@ const fraunces = Fraunces({
   axes: ["SOFT", "opsz"],
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://acume.example.com";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://inspo.example.com";
 
 // Localised per route segment rather than a single static object — an
 // Italian-first site with English secondary needs the <title>/description
 // that reach search results to match the locale actually being served.
 const SITE_META = {
   it: {
-    title: "ACUME — Il Mentalist e la psicologia dell'osservazione",
+    title: "INSPO — Il Mentalist e la psicologia dell'osservazione",
     description:
       'Analisi da fan su Patrick Jane e "Il Mentalist", più guide pratiche di psicologia: linguaggio del corpo, memoria, ascolto attivo, persuasione. Sito non ufficiale.',
   },
   en: {
-    title: "ACUME — The Mentalist and the psychology of observation",
+    title: "INSPO — The Mentalist and the psychology of observation",
     description:
       'Fan analysis of Patrick Jane and "The Mentalist", plus practical psychology guides: body language, memory, active listening, persuasion. Unofficial fan site.',
   },
@@ -60,15 +60,15 @@ export async function generateMetadata({
       default: m.title,
       // Pages set a bare title; this appends the brand. A page that spells the
       // suffix out itself gets it twice.
-      template: "%s — ACUME",
+      template: "%s — INSPO",
     },
     description: m.description,
     openGraph: {
       type: "website",
-      siteName: "ACUME",
+      siteName: "INSPO",
       title: m.title,
       description: m.description,
-      images: [{ url: `/api/og?lang=${lang}`, width: 1200, height: 630, alt: "ACUME" }],
+      images: [{ url: `/api/og?lang=${lang}`, width: 1200, height: 630, alt: "INSPO" }],
     },
     twitter: {
       card: "summary_large_image",

@@ -9,11 +9,11 @@ import { ArtHeader, PAINTINGS } from "@/components/ArtHeader";
 
 const META = {
   it: {
-    title: "Articoli — ACUME",
+    title: "Articoli — INSPO",
     description: 'Fan commentary su "Il Mentalist" e guide pratiche di psicologia.',
   },
   en: {
-    title: "Articles — ACUME",
+    title: "Articles — INSPO",
     description: 'Fan commentary on "The Mentalist" and practical psychology guides.',
   },
 } as const;

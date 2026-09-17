@@ -1,12 +1,12 @@
-# CLAUDE.md — ACUME
+# CLAUDE.md — INSPO
 
-AI assistant reference for the **ACUME** codebase. Read this before making changes.
+AI assistant reference for the **INSPO** codebase. Read this before making changes.
 
 ---
 
 ## Project Overview
 
-**ACUME** is a static, bilingual content site (Italian primary, English secondary) built with Next.js 16 (App Router). It publishes two kinds of writing:
+**INSPO** is a static, bilingual content site (Italian primary, English secondary) built with Next.js 16 (App Router). It publishes two kinds of writing:
 
 1. **Fan commentary** on "The Mentalist" and the character of Patrick Jane — his observation method, cold-reading-style techniques as portrayed in the show, character analysis. Written in the site's own words, as commentary and analysis, never verbatim dialogue, episode transcripts or reproduced show material.
 2. **Practical psychology guides** — body language, active listening, memory techniques, cold reading (how it works and how to spot it), persuasion principles, observation training.
@@ -54,7 +54,7 @@ template-marketplace/
 ├── components/
 │   ├── SiteNav.tsx              # Header — wordmark, nav links, theme toggle
 │   ├── FormaFooter.tsx          # Footer — newsletter form, link columns, fan disclaimer
-│   ├── FormaLogo.tsx            # ACUME wordmark (kept the pre-refresh filename/export names)
+│   ├── FormaLogo.tsx            # INSPO wordmark (kept the pre-refresh filename/export names)
 │   ├── HomeHero.tsx             # Homepage hero section
 │   ├── ArticleBody.tsx          # Renders the tiny markdown grammar used by lib/articles.ts
 │   ├── ArtHeader.tsx            # Page header with a faint painting backdrop
@@ -138,7 +138,7 @@ When adding a new page or component, reuse these tokens rather than hand-rolling
 
 | Variable                   | Required  | Description                                                     |
 | --------------------------- | --------- | ----------------------------------------------------------------|
-| `NEXT_PUBLIC_SITE_URL`       | Yes       | Full canonical site URL, e.g. `https://acume.example.com`        |
+| `NEXT_PUBLIC_SITE_URL`       | Yes       | Full canonical site URL, e.g. `https://inspo.example.com`        |
 | `RESEND_API_KEY`             | Optional  | Enables the newsletter-signup notification email                 |
 | `RESEND_FROM`                | Optional  | Sender address for that email                                    |
 | `RESEND_NOTIFY_TO`           | Optional  | Who receives the "new subscriber" notification (defaults to `RESEND_FROM`) |

@@ -9,12 +9,12 @@ import HomeHero from "@/components/HomeHero";
 
 const META = {
   it: {
-    title: "ACUME — Il Mentalist e la psicologia dell'osservazione",
+    title: "INSPO — Il Mentalist e la psicologia dell'osservazione",
     description:
       'Analisi da fan su Patrick Jane e "Il Mentalist", più guide pratiche di psicologia.',
   },
   en: {
-    title: "ACUME — The Mentalist and the psychology of observation",
+    title: "INSPO — The Mentalist and the psychology of observation",
     description:
       'Fan analysis of Patrick Jane and "The Mentalist", plus practical psychology guides.',
   },
@@ -36,7 +36,7 @@ export async function generateMetadata({
       title: m.title,
       description: m.description,
       type: "website",
-      images: [{ url: ogImage, width: 1200, height: 630, alt: "ACUME" }],
+      images: [{ url: ogImage, width: 1200, height: 630, alt: "INSPO" }],
     },
     twitter: {
       card: "summary_large_image",

@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import { articles } from "@/lib/articles";
 import { LOCALES } from "@/lib/locales";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://acume.example.com";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://inspo.example.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];
