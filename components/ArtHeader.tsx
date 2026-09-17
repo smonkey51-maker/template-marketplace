@@ -1,23 +1,17 @@
 import type { ReactNode } from "react";
 
 /**
- * Page header — eyebrow, big Fraunces title, optional description, with the
- * page's painting as a faint full-bleed backdrop behind the text (same
- * masked-opacity treatment as the homepage splash's Vermeer, see
- * HomeSplash.tsx). Matches the Figma Make prototype's PageIntro.tsx layout
- * while keeping FORMA's paintings rather than a flat ground — plain
- * everywhere was tried first and read as decoration lost, not gained.
- *
- * Keeps the same export names and prop shape (`ArtHeader`, `PAINTINGS`,
- * `painting`/`kicker`/`title`/`subtitle`/`compact`) as a drop-in replacement,
- * so none of its call sites needed touching.
+ * Page header — eyebrow, big Fraunces title, optional description, with a
+ * faint full-bleed painting as backdrop behind the text. These are public
+ * domain paintings (Seurat, Monet, Kandinsky, Vermeer) used purely as
+ * atmospheric backdrops — never stills or artwork from "The Mentalist"
+ * itself, in line with this site's fan-content guidelines (see CLAUDE.md).
  */
 export const PAINTINGS = {
-  catalogo: "/paintings/seurat.webp",
-  guida: "/paintings/monet.webp",
-  studio: "/paintings/kandinsky.webp",
-  account: "/paintings/vangogh.webp",
-  manifesto: "/paintings/vermeer.webp",
+  articoli: "/paintings/seurat.webp",
+  mentalist: "/paintings/kandinsky.webp",
+  psicologia: "/paintings/monet.webp",
+  chiSiamo: "/paintings/vermeer.webp",
 } as const;
 
 export function ArtHeader({

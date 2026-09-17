@@ -19,10 +19,10 @@
  * stylesheet, same thumbnails.
  *
  * Usage:
- *   npx tsx scripts/screenshot.ts /it/catalogo
- *   npx tsx scripts/screenshot.ts /it/catalogo --desktop
- *   npx tsx scripts/screenshot.ts /it/catalogo --full --out shots/catalogo.png
- *   npx tsx scripts/screenshot.ts /it/catalogo --base http://127.0.0.1:3000
+ *   npx tsx scripts/screenshot.ts /it/articoli
+ *   npx tsx scripts/screenshot.ts /it/articoli --desktop
+ *   npx tsx scripts/screenshot.ts /it/articoli --full --out shots/catalogo.png
+ *   npx tsx scripts/screenshot.ts /it/articoli --base http://127.0.0.1:3000
  *
  * Output goes to screenshots/ by default, which is gitignored — these are for
  * looking at, not for committing.
@@ -32,7 +32,7 @@ import { chromium } from "playwright";
 import { existsSync, mkdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 
-const DEFAULT_BASE = process.env.SCREENSHOT_BASE ?? "https://template-marketplace-psi.vercel.app";
+const DEFAULT_BASE = process.env.SCREENSHOT_BASE ?? "https://inspo.example.com";
 
 /**
  * Playwright insists on the exact Chromium build its version pins, and refuses
@@ -62,7 +62,7 @@ async function main() {
   const path = process.argv[2];
   if (!path || path.startsWith("--")) {
     console.error(
-      "Usage: npx tsx scripts/screenshot.ts /it/catalogo [--desktop] [--full] [--out f.png]",
+      "Usage: npx tsx scripts/screenshot.ts /it/articoli [--desktop] [--full] [--out f.png]",
     );
     process.exit(1);
   }

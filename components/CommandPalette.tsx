@@ -3,15 +3,16 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Zap, ArrowUpRight } from "lucide-react";
-import { sellableTemplates } from "@/lib/templates";
+import { articles } from "@/lib/articles";
 import { useLang } from "@/components/LanguageProvider";
-import { templateTranslations } from "@/lib/i18n";
 
 type PaletteItem =
-  | { kind: "template"; id: string; name: string; description?: string; href: string }
+  | { kind: "article"; slug: string; title: string; description?: string; href: string }
   | { kind: "route"; label: string; hint: string; href: string }
   | { kind: "action"; label: string; hint: string; run: () => void };
 
+/** Ctrl/Cmd-K search — repurposed from the old catalogue search to search
+ * articles instead, now that there's no product catalogue. */
 export default function CommandPalette() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -53,34 +54,21 @@ export default function CommandPalette() {
     () => [
       {
         kind: "route",
-        label: lang === "it" ? "Catalogo" : "Catalog",
-        hint: lang === "it" ? "Sfoglia tutti i template" : "Browse all templates",
+        label: lang === "it" ? "Home" : "Home",
+        hint: lang === "it" ? "Torna alla home" : "Back to the homepage",
         href: `/${lang}`,
       },
       {
         kind: "route",
-        label: lang === "it" ? "AI Studio" : "AI Studio",
-        hint:
-          lang === "it" ? "Genera e personalizza con Claude" : "Generate and customize with Claude",
-        href: `/${lang}/studio`,
+        label: lang === "it" ? "Articoli" : "Articles",
+        hint: lang === "it" ? "Tutti gli articoli" : "All articles",
+        href: `/${lang}/articoli`,
       },
       {
         kind: "route",
-        label: lang === "it" ? "Guida" : "Guide",
-        hint: lang === "it" ? "Guida all'acquisto" : "Buyer's guide",
-        href: `/${lang}/guida`,
-      },
-      {
-        kind: "route",
-        label: lang === "it" ? "Wishlist" : "Wishlist",
-        hint: lang === "it" ? "I tuoi salvati" : "Your saved items",
-        href: `/${lang}/wishlist`,
-      },
-      {
-        kind: "route",
-        label: "Account",
-        hint: lang === "it" ? "I tuoi acquisti" : "Your purchases",
-        href: `/${lang}/account`,
+        label: lang === "it" ? "Chi siamo" : "About",
+        hint: lang === "it" ? "Il progetto e il disclaimer" : "The project and the disclaimer",
+        href: `/${lang}/chi-siamo`,
       },
     ],
     [lang],
@@ -110,28 +98,26 @@ export default function CommandPalette() {
     [lang, toggleLang],
   );
 
-  const templateItems: PaletteItem[] = useMemo(() => {
+  const articleItems: PaletteItem[] = useMemo(() => {
     const q = query.trim().toLowerCase();
-    const list = sellableTemplates
-      .filter((tpl) => {
+    return articles
+      .filter((a) => {
         if (!q) return true;
-        const tr = lang === "it" ? templateTranslations[tpl.id] : undefined;
-        const name = (tr?.name ?? tpl.name).toLowerCase();
-        const desc = (tr?.description ?? tpl.description).toLowerCase();
-        return name.includes(q) || desc.includes(q) || tpl.id.toLowerCase().includes(q);
+        const locale = a[lang];
+        return (
+          locale.title.toLowerCase().includes(q) ||
+          locale.description.toLowerCase().includes(q) ||
+          a.tags.some((tag) => tag.toLowerCase().includes(q))
+        );
       })
       .slice(0, q ? 12 : 6)
-      .map<PaletteItem>((tpl) => {
-        const tr = lang === "it" ? templateTranslations[tpl.id] : undefined;
-        return {
-          kind: "template",
-          id: tpl.id,
-          name: tr?.name ?? tpl.name,
-          description: tr?.description ?? tpl.description,
-          href: `/${lang}/preview/${tpl.id}`,
-        };
-      });
-    return list;
+      .map<PaletteItem>((a) => ({
+        kind: "article",
+        slug: a.slug,
+        title: a[lang].title,
+        description: a[lang].description,
+        href: `/${lang}/articoli/${a.slug}`,
+      }));
   }, [query, lang]);
 
   const allItems = useMemo<PaletteItem[]>(() => {
@@ -150,8 +136,8 @@ export default function CommandPalette() {
             (a.label.toLowerCase().includes(q) || a.hint.toLowerCase().includes(q)),
         )
       : actions;
-    return [...filteredRoutes, ...templateItems, ...filteredActions];
-  }, [routes, actions, templateItems, query]);
+    return [...filteredRoutes, ...articleItems, ...filteredActions];
+  }, [routes, actions, articleItems, query]);
 
   useEffect(() => setIndex(0), [query]);
 
@@ -159,7 +145,7 @@ export default function CommandPalette() {
     (item: PaletteItem) => {
       setOpen(false);
       if (item.kind === "route") router.push(item.href);
-      else if (item.kind === "template") router.push(item.href);
+      else if (item.kind === "article") router.push(item.href);
       else if (item.kind === "action") item.run();
     },
     [router],
@@ -200,7 +186,6 @@ export default function CommandPalette() {
         aria-modal="true"
         aria-label={lang === "it" ? "Palette comandi" : "Command palette"}
       >
-        {/* Input */}
         <div
           className="flex items-center gap-3 px-4 py-3.5 border-b"
           style={{ borderColor: "var(--border)" }}
@@ -226,11 +211,7 @@ export default function CommandPalette() {
             ref={inputRef}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder={
-              lang === "it"
-                ? "Cerca template, azioni, pagine…"
-                : "Search templates, actions, pages…"
-            }
+            placeholder={lang === "it" ? "Cerca articoli, pagine…" : "Search articles, pages…"}
             className="flex-1 bg-transparent outline-none text-[14px] placeholder:text-[var(--muted)]"
             style={{ color: "var(--text)" }}
             aria-label={lang === "it" ? "Cerca" : "Search"}
@@ -238,7 +219,6 @@ export default function CommandPalette() {
           <span className="cmdk-kbd">ESC</span>
         </div>
 
-        {/* List */}
         <div ref={listRef} className="max-h-[55vh] overflow-y-auto py-2">
           {allItems.length === 0 && (
             <div className="px-4 py-8 text-center text-[13px]" style={{ color: "var(--muted)" }}>
@@ -246,7 +226,6 @@ export default function CommandPalette() {
             </div>
           )}
 
-          {/* Routes group */}
           {allItems.some((i) => i.kind === "route") && (
             <div
               className="px-3 pt-2 pb-1 text-[9px] font-bold uppercase tracking-[0.18em]"
@@ -261,9 +240,10 @@ export default function CommandPalette() {
               cursor += 1;
               const active = cursor === index;
               const itemIdx = cursor;
+              if (item.kind !== "route") return null;
               return (
                 <div
-                  key={`r-${item.kind === "route" ? item.href : ""}`}
+                  key={`r-${item.href}`}
                   data-idx={itemIdx}
                   data-active={active}
                   className="cmdk-item"
@@ -274,11 +254,9 @@ export default function CommandPalette() {
                     <ArrowUpRight size={15} strokeWidth={1.8} />
                   </span>
                   <div className="flex-1 min-w-0">
-                    <p className="text-[13px] font-semibold truncate">
-                      {item.kind === "route" ? item.label : ""}
-                    </p>
+                    <p className="text-[13px] font-semibold truncate">{item.label}</p>
                     <p className="text-[11px] truncate" style={{ color: "var(--muted)" }}>
-                      {item.kind === "route" ? item.hint : ""}
+                      {item.hint}
                     </p>
                   </div>
                   {active && <span className="cmdk-kbd">↵</span>}
@@ -286,25 +264,24 @@ export default function CommandPalette() {
               );
             })}
 
-          {/* Templates group */}
-          {allItems.some((i) => i.kind === "template") && (
+          {allItems.some((i) => i.kind === "article") && (
             <div
               className="px-3 pt-3 pb-1 text-[9px] font-bold uppercase tracking-[0.18em]"
               style={{ color: "var(--muted)" }}
             >
-              {lang === "it" ? "Template" : "Templates"}
+              {lang === "it" ? "Articoli" : "Articles"}
             </div>
           )}
           {allItems
-            .filter((i) => i.kind === "template")
+            .filter((i) => i.kind === "article")
             .map((item) => {
               cursor += 1;
               const active = cursor === index;
               const itemIdx = cursor;
-              if (item.kind !== "template") return null;
+              if (item.kind !== "article") return null;
               return (
                 <div
-                  key={`t-${item.id}`}
+                  key={`a-${item.slug}`}
                   data-idx={itemIdx}
                   data-active={active}
                   className="cmdk-item"
@@ -312,10 +289,10 @@ export default function CommandPalette() {
                   onMouseEnter={() => setIndex(itemIdx)}
                 >
                   <span className="cmdk-item__badge" aria-hidden>
-                    {item.name.slice(0, 1).toUpperCase()}
+                    {item.title.slice(0, 1).toUpperCase()}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <p className="text-[13px] font-semibold truncate">{item.name}</p>
+                    <p className="text-[13px] font-semibold truncate">{item.title}</p>
                     {item.description && (
                       <p className="text-[11px] truncate" style={{ color: "var(--muted)" }}>
                         {item.description}
@@ -327,7 +304,6 @@ export default function CommandPalette() {
               );
             })}
 
-          {/* Actions group */}
           {allItems.some((i) => i.kind === "action") && (
             <div
               className="px-3 pt-3 pb-1 text-[9px] font-bold uppercase tracking-[0.18em]"
@@ -345,7 +321,7 @@ export default function CommandPalette() {
               if (item.kind !== "action") return null;
               return (
                 <div
-                  key={`a-${item.label}`}
+                  key={`ac-${item.label}`}
                   data-idx={itemIdx}
                   data-active={active}
                   className="cmdk-item"
@@ -365,7 +341,6 @@ export default function CommandPalette() {
             })}
         </div>
 
-        {/* Footer */}
         <div
           className="flex items-center justify-between px-4 py-2.5 border-t text-[10px]"
           style={{ borderColor: "var(--border)", color: "var(--muted)" }}

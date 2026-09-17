@@ -1,17 +1,13 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse, type NextRequest } from "next/server";
 
-// Routes che richiedono login
-const isProtected = createRouteMatcher([
-  "/:locale/studio(.*)",
-  "/:locale/account(.*)",
-  "/:locale/admin(.*)",
-]);
-
+// Only two concerns remain here now that Clerk is gone: detect the visitor's
+// language and redirect any un-prefixed path to /it or /en. No route is
+// auth-protected any more — this is a static content site.
 const locales = ["it", "en"];
+
 function getLocale(req: NextRequest): string {
   const acceptLanguage = req.headers.get("accept-language");
-  if (!acceptLanguage) return "en";
+  if (!acceptLanguage) return "it";
 
   const langs = acceptLanguage
     .split(",")
@@ -21,20 +17,14 @@ function getLocale(req: NextRequest): string {
     if (lang === "it") return "it";
     if (lang === "en") return "en";
   }
-  return "en"; // Fallback globale ad inglese se la lingua non è tra quelle supportate
+  return "it"; // Italian is the site default.
 }
 
-export default clerkMiddleware(async (auth, req) => {
+export default function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // API routes authenticate themselves and answer with a JSON 401. Calling
-  // auth.protect() here instead redirected the request into a page render,
-  // which then threw — so an unauthenticated POST to /api/generate came back
-  // as a 500 HTML error page rather than a 401. Every protected route under
-  // /api (generate, customize, stripe-portal, admin/*) already checks auth()
-  // and returns 401 itself, so the middleware just gets out of the way.
   if (pathname.startsWith("/api") || pathname.startsWith("/_next") || pathname.includes(".")) {
-    return;
+    return NextResponse.next();
   }
 
   const pathnameHasLocale = locales.some(
@@ -48,30 +38,11 @@ export default clerkMiddleware(async (auth, req) => {
     return NextResponse.redirect(url);
   }
 
-  if (isProtected(req)) {
-    // Send a logged-out visitor to the sign-in page instead of a 404.
-    // auth.protect() answers 404 on page routes when it has nowhere to send
-    // them, and /account sits in the main menu for everyone — so anyone not
-    // signed in clicked "Account" and landed on an error page rather than on
-    // a login, at the exact moment they were looking for what they had bought.
-    const locale = req.nextUrl.pathname.split("/")[1] || "it";
-    await auth.protect({
-      unauthenticatedUrl: new URL(
-        `/${locale}/sign-in?redirect_url=${encodeURIComponent(req.nextUrl.pathname)}`,
-        req.url,
-      ).toString(),
-    });
-  }
-});
+  return NextResponse.next();
+}
 
 export const config = {
   matcher: [
-    // /api/preview is deliberately outside Clerk's reach: it serves a public
-    // teaser, and running the middleware over it made each of the catalogue's
-    // 16 preview iframes trigger an authentication handshake redirect.
-    // This single pattern already covers /api/*; it is written as one negative
-    // lookahead because path-to-regexp only accepts (?!...) at the start of a
-    // group, so the exclusion cannot be bolted onto a separate /(api|trpc) entry.
-    "/((?!_next|api/preview|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|webmanifest)).*)",
   ],
 };

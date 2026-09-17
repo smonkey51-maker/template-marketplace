@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ClerkProvider } from "@clerk/nextjs";
-import { clerkAppearance } from "@/lib/clerkAppearance";
 import { LOCALES, isLocale, toLocale } from "@/lib/locales";
 import { Fraunces, Inter } from "next/font/google";
 import ThemeProvider from "@/components/ThemeProvider";
@@ -12,10 +10,7 @@ import PageTransition from "@/components/PageTransition";
 import CommandPalette from "@/components/CommandPalette";
 import "@/app/globals.css";
 
-// Only the two brand families are loaded. The pre-refresh names
-// (--font-syne, --font-montserrat, --font-cormorant, --font-dm-serif,
-// --font-jakarta, --font-gatsunaga) are gone: every call site now uses
-// --font-fraunces or --font-inter directly.
+// Only the two brand families are loaded.
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -23,9 +18,8 @@ const inter = Inter({
   display: "swap",
 });
 
-// Fraunces — variable display serif, editorial magazine feel.
-// Used only for hero/display headlines (h1, .display-serif). Tuned with higher
-// optical size + soft axis for a more calligraphic Japandi tone.
+// Fraunces — variable display serif, editorial magazine feel. Used for
+// hero/display headlines (h1, article titles).
 const fraunces = Fraunces({
   subsets: ["latin"],
   variable: "--font-fraunces",
@@ -34,23 +28,21 @@ const fraunces = Fraunces({
   axes: ["SOFT", "opsz"],
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://template-marketplace-psi.vercel.app";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://inspo.example.com";
 
-// Localised per route segment rather than a single static object. The site is
-// Italian-first, but middleware.ts routes any non-Italian browser to /en, and a
-// visitor who lands there was still served an Italian <title> and an Italian
-// description — the part of the page that reaches search results and link
-// previews, where it is least likely to be noticed and most likely to matter.
+// Localised per route segment rather than a single static object — an
+// Italian-first site with English secondary needs the <title>/description
+// that reach search results to match the locale actually being served.
 const SITE_META = {
   it: {
-    title: "FORMA — Template come oggetti curati.",
+    title: "INSPO — Il Mentalist e la psicologia dell'osservazione",
     description:
-      "Template digitali pronti all'uso: prompt AI, guide, fogli di calcolo e tracker. Ogni file è un gesto preciso, non una soluzione generica.",
+      'Analisi da fan su Patrick Jane e "Il Mentalist", più guide pratiche di psicologia: linguaggio del corpo, memoria, ascolto attivo, persuasione. Sito non ufficiale.',
   },
   en: {
-    title: "FORMA — Templates as considered objects.",
+    title: "INSPO — The Mentalist and the psychology of observation",
     description:
-      "Ready-to-use digital templates: AI prompts, guides, spreadsheets and trackers. Every file is a precise gesture, not a generic solution.",
+      'Fan analysis of Patrick Jane and "The Mentalist", plus practical psychology guides: body language, memory, active listening, persuasion. Unofficial fan site.',
   },
 } as const;
 
@@ -68,15 +60,15 @@ export async function generateMetadata({
       default: m.title,
       // Pages set a bare title; this appends the brand. A page that spells the
       // suffix out itself gets it twice.
-      template: "%s — FORMA",
+      template: "%s — INSPO",
     },
     description: m.description,
     openGraph: {
       type: "website",
-      siteName: "FORMA",
+      siteName: "INSPO",
       title: m.title,
       description: m.description,
-      images: [{ url: `/api/og?lang=${lang}`, width: 1200, height: 630, alt: "FORMA" }],
+      images: [{ url: `/api/og?lang=${lang}`, width: 1200, height: 630, alt: "INSPO" }],
     },
     twitter: {
       card: "summary_large_image",
@@ -106,48 +98,45 @@ export default async function RootLayout({
   const resolvedParams = await params;
 
   // `[lang]` matches any single segment, so scanners requesting /wp-login.php
-  // or /index.php rendered the homepage with lang="wp-login.php" — every
-  // `copy[lang]` lookup then returned undefined and the page threw a 500 while
-  // reading `.heroTagline` off it. An unsupported locale is a missing page.
+  // or /index.php would render the homepage with lang="wp-login.php" — an
+  // unsupported locale is a missing page, not a broken render.
   if (!isLocale(resolvedParams?.lang)) {
     notFound();
   }
   const lang = resolvedParams.lang;
 
   return (
-    <ClerkProvider appearance={clerkAppearance}>
-      <html
-        lang={lang}
-        className={`${fraunces.variable} ${inter.variable}`}
-        style={{ colorScheme: "light" }}
-      >
-        <head>
-          {/* Applies the stored theme before first paint. Without this, the
-              page always paints light (the SSR default above) and ThemeProvider's
-              effect only flips it to dark after hydration — a flash on every
-              full page load for anyone who has switched to dark mode. */}
-          <script
-            dangerouslySetInnerHTML={{
-              __html:
-                "(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.classList.add('dark');document.documentElement.style.colorScheme='dark';}}catch(e){}})();",
-            }}
-          />
-        </head>
-        <body className="bg-page text-theme antialiased min-h-screen">
-          <PostHogProvider>
-            <ThemeProvider>
-              <LanguageProvider>
-                <ToastProvider>
-                  <PageTransition>
-                    <div id="main-content">{children}</div>
-                  </PageTransition>
-                  <CommandPalette />
-                </ToastProvider>
-              </LanguageProvider>
-            </ThemeProvider>
-          </PostHogProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html
+      lang={lang}
+      className={`${fraunces.variable} ${inter.variable}`}
+      style={{ colorScheme: "light" }}
+    >
+      <head>
+        {/* Applies the stored theme before first paint. Without this, the
+            page always paints light (the SSR default above) and ThemeProvider's
+            effect only flips it to dark after hydration — a flash on every
+            full page load for anyone who has switched to dark mode. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.classList.add('dark');document.documentElement.style.colorScheme='dark';}}catch(e){}})();",
+          }}
+        />
+      </head>
+      <body className="bg-page text-theme antialiased min-h-screen">
+        <PostHogProvider>
+          <ThemeProvider>
+            <LanguageProvider>
+              <ToastProvider>
+                <PageTransition>
+                  <div id="main-content">{children}</div>
+                </PageTransition>
+                <CommandPalette />
+              </ToastProvider>
+            </LanguageProvider>
+          </ThemeProvider>
+        </PostHogProvider>
+      </body>
+    </html>
   );
 }
