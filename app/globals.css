@@ -310,8 +310,7 @@ html.dark {
    building. Scopes the same values as html.dark above, so every existing
    var(--bg)/var(--surface)/var(--text)/var(--muted)/var(--accent)/
    var(--border) reference already inside FormaFooter resolves to them
-   without the component needing to know about it. The homepage never
-   renders FormaFooter (see HomeSplash.tsx), so it never sees this. */
+   without the component needing to know about it. */
 .forma-footer-ink {
   --bg: #14110d;
   --surface: #1c1814;

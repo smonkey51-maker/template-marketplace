@@ -2,8 +2,9 @@
  * The canonical, server-trusted base URL of the site.
  *
  * Deliberately does NOT read the request's `Origin` / `Referer` headers:
- * those are attacker-controlled, and feeding them into Stripe's
- * `success_url` / `cancel_url` turns checkout into an open redirect.
+ * those are attacker-controlled, and feeding attacker-controlled input into
+ * a server-built redirect or absolute link is exactly how an open redirect
+ * happens.
  */
 export function siteUrl(): string {
   const raw =

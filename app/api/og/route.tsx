@@ -1,34 +1,22 @@
 import { ImageResponse } from "next/og";
 import { NextRequest } from "next/server";
-import { getTemplate } from "@/lib/templates";
-import { getLocalizedName, getLocalizedDesc } from "@/lib/i18n";
+import { getArticle } from "@/lib/articles";
 import { toLocale } from "@/lib/locales";
 
 export const runtime = "edge";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const templateId = searchParams.get("id");
-  const template = templateId ? getTemplate(templateId) : null;
-  // Callers that omit ?lang get Italian, matching the site default; the pages
-  // that embed this image pass their own locale so the card matches the page
-  // that was shared.
+  const slug = searchParams.get("slug");
+  const article = slug ? getArticle(slug) : null;
+  // Callers that omit ?lang get Italian, matching the site default; pages
+  // that embed this image pass their own locale so the card matches the
+  // page that was shared.
   const lang = toLocale(searchParams.get("lang"));
 
-  if (template) {
-    const categoryLabel =
-      template.category === "ui"
-        ? "UI Template"
-        : template.category === "guide"
-          ? "Guide"
-          : template.category === "worksheet"
-            ? "Worksheet"
-            : template.category === "tracker"
-              ? "Tracker"
-              : template.category === "script"
-                ? "Script Pack"
-                : "Prompt Pack";
-    const priceLabel = `€${(template.price / 100).toFixed(2)}`;
+  if (article) {
+    const locale = article[lang];
+    const categoryLabel = article.category === "mentalist" ? "The Mentalist" : "Psicologia";
 
     return new ImageResponse(
       <div
@@ -44,7 +32,6 @@ export async function GET(req: NextRequest) {
           padding: "80px",
         }}
       >
-        {/* Glows */}
         <div
           style={{
             position: "absolute",
@@ -57,19 +44,7 @@ export async function GET(req: NextRequest) {
             borderRadius: "50%",
           }}
         />
-        <div
-          style={{
-            position: "absolute",
-            top: "100px",
-            right: "-100px",
-            width: "400px",
-            height: "400px",
-            background: "radial-gradient(ellipse, rgba(122,46,40,0.08) 0%, transparent 70%)",
-            borderRadius: "50%",
-          }}
-        />
 
-        {/* Brand */}
         <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "48px" }}>
           <div
             style={{
@@ -80,7 +55,7 @@ export async function GET(req: NextRequest) {
               textTransform: "uppercase",
             }}
           >
-            FORMA
+            ACUME
           </div>
           <div style={{ width: "1px", height: "18px", background: "rgba(28,26,23,0.14)" }} />
           <div style={{ fontSize: "14px", color: "rgba(28,26,23,0.4)", fontWeight: 500 }}>
@@ -88,50 +63,34 @@ export async function GET(req: NextRequest) {
           </div>
         </div>
 
-        {/* Template name */}
         <div
           style={{
-            fontSize: "56px",
+            fontSize: "48px",
             fontWeight: 900,
             color: "#1C1A17",
             letterSpacing: "-0.03em",
-            lineHeight: 1.08,
+            lineHeight: 1.1,
             marginBottom: "24px",
             maxWidth: "900px",
           }}
         >
-          {getLocalizedName(template, lang)}
+          {locale.title}
         </div>
 
-        {/* Description */}
         <div
           style={{
-            fontSize: "22px",
+            fontSize: "20px",
             color: "rgba(28,26,23,0.55)",
             lineHeight: 1.5,
             maxWidth: "800px",
             marginBottom: "48px",
           }}
         >
-          {getLocalizedDesc(template, lang)}
+          {locale.description}
         </div>
 
-        {/* Bottom row */}
         <div style={{ display: "flex", alignItems: "center", gap: "16px", marginTop: "auto" }}>
-          <div
-            style={{
-              background: "rgba(122,46,40,0.1)",
-              border: "1px solid rgba(122,46,40,0.3)",
-              borderRadius: "100px",
-              padding: "10px 22px",
-              fontSize: "18px",
-              color: "#7A2E28",
-              fontWeight: 700,
-            }}
-          >
-            {priceLabel}
-          </div>
-          {template.tags.slice(0, 3).map((tag) => (
+          {article.tags.slice(0, 3).map((tag) => (
             <div
               key={tag}
               style={{
@@ -181,17 +140,6 @@ export async function GET(req: NextRequest) {
           borderRadius: "50%",
         }}
       />
-      <div
-        style={{
-          position: "absolute",
-          top: "100px",
-          right: "-100px",
-          width: "400px",
-          height: "400px",
-          background: "radial-gradient(ellipse, rgba(122,46,40,0.08) 0%, transparent 70%)",
-          borderRadius: "50%",
-        }}
-      />
 
       <div
         style={{
@@ -212,19 +160,19 @@ export async function GET(req: NextRequest) {
             textTransform: "uppercase",
           }}
         >
-          FORMA
+          ACUME
         </div>
         <div
           style={{
-            fontSize: "60px",
+            fontSize: "56px",
             fontWeight: 900,
             color: "#1C1A17",
             textAlign: "center",
             letterSpacing: "-0.03em",
-            lineHeight: 1.08,
+            lineHeight: 1.1,
           }}
         >
-          Template premium,{"\n"}personalizzati con AI
+          Il Mentalist &amp; la psicologia{"\n"}dell&apos;osservazione
         </div>
         <div
           style={{
@@ -235,10 +183,11 @@ export async function GET(req: NextRequest) {
             lineHeight: 1.5,
           }}
         >
-          Template UI e Prompt AI pronti all&apos;uso — personalizzabili in secondi con Claude.
+          Analisi da fan e guide pratiche di psicologia — osservazione, memoria, ascolto,
+          persuasione.
         </div>
         <div style={{ display: "flex", gap: "12px", marginTop: "12px" }}>
-          {["UI Templates", "AI Prompts", "Claude AI"].map((label) => (
+          {["Fan commentary", "Psicologia", "Osservazione"].map((label) => (
             <div
               key={label}
               style={{
