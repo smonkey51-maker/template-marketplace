@@ -5,6 +5,9 @@ import {
   getArticlesByCategory,
   getAllArticlesSorted,
   getRelatedArticles,
+  getDossierArticles,
+  getGuideArticles,
+  ARTICLE_CATEGORIES,
 } from "./articles";
 
 describe("articles data", () => {
@@ -23,13 +26,22 @@ describe("articles data", () => {
       expect(a.en.title.length).toBeGreaterThan(0);
       expect(a.it.body.length).toBeGreaterThan(200);
       expect(a.en.body.length).toBeGreaterThan(200);
-      expect(["mentalist", "psicologia"]).toContain(a.category);
+      expect(ARTICLE_CATEGORIES).toContain(a.category);
     }
   });
 
-  it("includes both categories", () => {
-    expect(articles.some((a) => a.category === "mentalist")).toBe(true);
-    expect(articles.some((a) => a.category === "psicologia")).toBe(true);
+  it("includes all four categories", () => {
+    for (const category of ARTICLE_CATEGORIES) {
+      expect(articles.some((a) => a.category === category)).toBe(true);
+    }
+  });
+
+  it("has at least two dossier (person-tagged) articles", () => {
+    expect(getDossierArticles().length).toBeGreaterThanOrEqual(2);
+  });
+
+  it("has at least one guide-flagged article", () => {
+    expect(getGuideArticles().length).toBeGreaterThanOrEqual(1);
   });
 });
 
@@ -46,9 +58,9 @@ describe("getArticle", () => {
 
 describe("getArticlesByCategory", () => {
   it("only returns articles of the requested category", () => {
-    const result = getArticlesByCategory("mentalist");
+    const result = getArticlesByCategory("mentalismo");
     expect(result.length).toBeGreaterThan(0);
-    expect(result.every((a) => a.category === "mentalist")).toBe(true);
+    expect(result.every((a) => a.category === "mentalismo")).toBe(true);
   });
 });
 
@@ -70,9 +82,9 @@ describe("getRelatedArticles", () => {
   });
 
   it("prefers the same category first", () => {
-    const current = articles.find((a) => a.category === "mentalist")!;
+    const current = articles.find((a) => a.category === "mentalismo")!;
     const related = getRelatedArticles(current, 2);
-    expect(related[0]?.category).toBe("mentalist");
+    expect(related[0]?.category).toBe("mentalismo");
   });
 
   it("respects the limit", () => {

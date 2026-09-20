@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { articles } from "@/lib/articles";
+import { articles, getDossierArticles } from "@/lib/articles";
 import { LOCALES } from "@/lib/locales";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://inspo.example.com";
@@ -22,6 +22,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.9,
       },
       {
+        url: `${SITE_URL}/${lang}/dossier`,
+        lastModified: new Date(),
+        changeFrequency: "weekly",
+        priority: 0.7,
+      },
+      {
+        url: `${SITE_URL}/${lang}/guide-pratiche`,
+        lastModified: new Date(),
+        changeFrequency: "weekly",
+        priority: 0.7,
+      },
+      {
+        url: `${SITE_URL}/${lang}/biblioteca`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.6,
+      },
+      {
         url: `${SITE_URL}/${lang}/chi-siamo`,
         lastModified: new Date(),
         changeFrequency: "monthly",
@@ -32,6 +50,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
         lastModified: new Date(a.publishedAt),
         changeFrequency: "monthly" as const,
         priority: 0.8,
+      })),
+      ...getDossierArticles().map((a) => ({
+        url: `${SITE_URL}/${lang}/dossier/${a.slug}`,
+        lastModified: new Date(a.publishedAt),
+        changeFrequency: "monthly" as const,
+        priority: 0.6,
       })),
     );
   }
