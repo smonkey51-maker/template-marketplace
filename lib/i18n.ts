@@ -28,7 +28,7 @@ export const copy = {
 
     /* homepage */
     heroKicker: "Osservazione · Psicologia · Finzione",
-    heroTitle: "L'acume non è un potere. È un metodo.",
+    heroTitle: "Nulla sfugge a chi osserva davvero.",
     heroTagline: "L'arte di osservare ciò che gli altri vedono soltanto.",
     heroSub:
       'Analisi da fan su Patrick Jane e "Il Mentalist", insieme a guide pratiche di psicologia — linguaggio del corpo, memoria, ascolto, persuasione — per usare davvero ciò che il personaggio simula in TV.',
@@ -138,7 +138,7 @@ export const copy = {
 
     /* homepage */
     heroKicker: "Observation · Psychology · Fiction",
-    heroTitle: "Acumen isn't a power. It's a method.",
+    heroTitle: "Nothing escapes those who truly observe.",
     heroTagline: "The art of observing what others only see.",
     heroSub:
       'Fan analysis of Patrick Jane and "The Mentalist", alongside practical psychology guides — body language, memory, listening, persuasion — for actually using what the character simulates on screen.',

@@ -699,6 +699,188 @@ For understandable dramatic reasons, the show compresses into a close-up freeze-
 The scientific core behind the character is real, though: emotions do leave involuntary muscular traces on the face, and it is possible to train yourself to notice them better than the average person does. It's a skill built through repeated practice and feedback — not a magical intuition — and it's exactly the kind of detail that makes a fictional character a good starting point for curiosity, never a substitute for actually studying the subject.`,
     },
   },
+
+  // ── Persuasion & reading the body — deeper dives ───────────────────────────
+  {
+    slug: "le-armi-della-persuasione-cialdini",
+    category: "persuasione",
+    isGuide: true,
+    publishedAt: "2026-03-23",
+    tags: ["Cialdini", "persuasione", "reciprocità", "riprova sociale", "autorità"],
+    it: {
+      title:
+        "Le armi della persuasione: come Robert Cialdini spiega i trucchi dei manipolatori (e come difendersi)",
+      description:
+        "Reciprocità, riprova sociale e autorità: i tre principi di Cialdini che i manipolatori usano per farci dire sì — e il manuale per disinnescarli.",
+      body: `C'è una sottile differenza tra un mentalista sul palcoscenico e un truffatore professionista. Il primo dichiara apertamente di volerti ingannare; il secondo lo fa mentre ti stringe la mano, lasciandoti convinto che l'idea sia stata tua. Patrick Jane, nella sua lunga caccia ai criminali più scaltri, ripete spesso che la mente umana è prevedibile perché risponde a stimoli automatici.
+
+Nel mondo reale della psicologia scientifica, l'uomo che ha codificato questi automatismi si chiama Robert Cialdini.
+
+Nel suo capolavoro "Le armi della persuasione", Cialdini ha dimostrato che il nostro cervello, per risparmiare energia, utilizza delle scorciatoie mentali (chiamate euristiche). Se un manipolatore impara a premere i pulsanti giusti, può spingerci a dire di sì a qualsiasi cosa, bypassando il nostro pensiero logico. Vediamo i tre meccanismi più letali e come neutralizzarli.
+
+## Il Principio di Reciprocità: la trappola del debito inconscio
+
+La regola è scritta nel nostro DNA: se qualcuno ci fa un favore, ci sentiamo profondamente in obbligo di contraccambiare. È il pilastro su cui si fondano le società umane, ma è anche l'arma preferita di chi vuole manipolarti.
+
+- **Come funziona il trucco:** il persuasore ti offre un piccolo omaggio non richiesto (un caffè, un complimento sincero, un aiuto inaspettato). Pochi minuti dopo, avanza la sua vera richiesta, decisamente più grande del favore iniziale. Il tuo cervello avverte una tensione fastidiosa — il senso di colpa del debito — e cede pur di liberarsene.
+- **L'osservazione alla Patrick Jane:** nota quando il favore iniziale arriva dal nulla e non richiede alcuno sforzo da parte di chi lo fa. Se il "regalo" sembra pianificato per metterti a disagio, non sei di fronte a un gesto di generosità, ma a un'esca.
+
+## Riprova Sociale: la mente del gregge
+
+Quando siamo incerti su cosa fare, non guardiamo dentro di noi: guardiamo cosa fanno gli altri. Pensiamo che se molte persone si comportano in un certo modo, quel modo deve essere per forza quello giusto.
+
+- **Come funziona il trucco:** i manipolatori creano un'illusione di consenso. Un venditore ti dirà che "il prodotto è quasi esaurito perché tutti lo stanno comprando". Nel social engineering, un truffatore ti approccerà dicendo che i tuoi colleghi o vicini di casa hanno già accettato la sua proposta.
+- **La scienza dietro l'inganno:** Cialdini definisce questo fenomeno "ignoranza pluralistica". Più persone sono presenti in una situazione di incertezza, più ognuno guarderà l'altro per capire cosa fare, bloccando di fatto il pensiero critico individuale.
+
+## Il Principio di Autorità: l'illusione della divisa
+
+Siamo educati fin da bambini a obbedire all'autorità legittima. Il problema sorge quando smettiamo di valutare cosa ci viene chiesto e iniziamo a obbedire solo per via di chi lo sta chiedendo.
+
+- **Come funziona il trucco:** al cervello non serve una vera autorità; basta l'apparenza. Un abito sartoriale costoso, una sedia dietro una scrivania imponente, o un titolo accademico sbandierato all'inizio di una frase ("Come scienziato vi dico che...") riducono istantaneamente le nostre difese del 50%.
+- **La nota del Mentalista:** ricordi come Patrick Jane si muove sulla scena del delitto? Spesso ignora i distintivi della polizia e si concentra sull'arroganza di chi indossa camici bianchi o completi firmati. L'autorità è l'abito più facile da contraffare.
+
+:::callout Manuale di Autodifesa: come disinnescare le armi di Cialdini
+Per non cadere in questi automatismi psicologici, installa tre filtri mentali coscienti:
+
+- **1. Ridefinisci il dono:** se ti accorgi che il favore iniziale era solo una tattica di reciprocità, accetta l'omaggio ma catalogalo mentalmente come "trucco commerciale", non come cortesia. La regola della reciprocità dice che i favori vanno ricambiati con favori, non i trucchi con favori.
+- **2. Isola la folla:** quando ti dicono che "tutti lo fanno", fermati e chiediti: "Se fossi da solo in una stanza, senza sapere cosa fa il resto del mondo, farei comunque questa scelta?". Scollegati dal gregge.
+- **3. Verifica la pertinenza:** di fronte a un'autorità, fatti due domande: "Questa persona è davvero un esperto in questo specifico campo?" e "Quanto è onesta in questo momento?". Un medico che ti vende un investimento finanziario non ha alcuna autorità.
+:::
+
+I meccanismi di Cialdini funzionano solo finché rimangono nell'ombra del tuo subconscio. Illuminarli significa disarmarli.`,
+    },
+    en: {
+      title:
+        "The weapons of influence: how Robert Cialdini explains the manipulator's playbook (and how to defend yourself)",
+      description:
+        "Reciprocity, social proof and authority: the three Cialdini principles manipulators use to make us say yes — and the manual for disarming them.",
+      body: `There's a subtle difference between a mentalist on stage and a professional con artist. The first openly admits he's about to deceive you; the second does it while shaking your hand, leaving you convinced the idea was yours all along. Patrick Jane, over his long hunt for the shrewdest criminals, often repeats that the human mind is predictable because it responds to automatic triggers.
+
+In the real world of scientific psychology, the man who codified these automatic responses is Robert Cialdini.
+
+In his landmark book "Influence: The Psychology of Persuasion", Cialdini showed that our brains, to save energy, rely on mental shortcuts (heuristics). If a manipulator learns which buttons to press, they can get us to say yes to almost anything, bypassing our logical thinking entirely. Here are the three most effective mechanisms — and how to neutralise them.
+
+## The Principle of Reciprocity: the trap of an unspoken debt
+
+The rule is written into our biology: if someone does us a favour, we feel a deep obligation to return it. It's one of the pillars human societies are built on — and also the manipulator's favourite weapon.
+
+- **How the trick works:** the persuader offers you a small, unasked-for gift (a coffee, a sincere compliment, unexpected help). A few minutes later, they make their real request — noticeably bigger than the initial favour. Your brain registers an uncomfortable tension — the guilt of an open debt — and gives in just to be rid of it.
+- **The Patrick Jane observation:** notice when the initial favour appears out of nowhere and costs the giver nothing. If the "gift" looks engineered to make you uneasy, you're not looking at generosity — you're looking at bait.
+
+## Social Proof: the mind of the herd
+
+When we're unsure what to do, we don't look inward — we look at what everyone else is doing. We assume that if enough people behave a certain way, that way must be the right one.
+
+- **How the trick works:** manipulators manufacture an illusion of consensus. A salesperson will tell you the product is "almost sold out because everyone's buying it." In social engineering, a scammer will approach you claiming your colleagues or neighbours have already agreed to the same proposal.
+- **The science behind the trick:** Cialdini calls this phenomenon "pluralistic ignorance." The more people present in an uncertain situation, the more each one looks to the others to figure out what to do — which effectively shuts down individual critical thinking.
+
+## The Principle of Authority: the illusion of the uniform
+
+We're raised from childhood to obey legitimate authority. The problem starts when we stop evaluating what's being asked of us and simply obey because of who's asking.
+
+- **How the trick works:** the brain doesn't need real authority — the appearance of it is enough. An expensive tailored suit, a chair behind an imposing desk, or an academic title dropped at the start of a sentence ("As a scientist, I can tell you...") instantly cut our defences by half.
+- **The Mentalist's note:** remember how Patrick Jane moves through a crime scene? He often ignores police badges and focuses instead on the arrogance of whoever's wearing a lab coat or a designer suit. Authority is the easiest costume to fake.
+
+:::callout Self-Defence Manual: how to disarm Cialdini's weapons
+To avoid falling for these psychological automatisms, install three conscious mental filters:
+
+- **1. Reframe the gift:** if you notice the initial favour was just a reciprocity tactic, accept it but mentally file it as a "sales trick," not as kindness. The rule of reciprocity says favours should be repaid with favours — not tricks with favours.
+- **2. Isolate yourself from the crowd:** when you're told "everyone's doing it," stop and ask yourself: "If I were alone in a room, with no idea what the rest of the world was doing, would I still make this choice?" Disconnect from the herd.
+- **3. Check the relevance:** faced with an authority figure, ask yourself two questions: "Is this person actually an expert in this specific field?" and "How honest are they being right now?" A doctor selling you a financial investment holds no authority at all.
+:::
+
+Cialdini's mechanisms only work as long as they stay hidden in your subconscious. Shining a light on them is how you disarm them.`,
+    },
+  },
+  {
+    slug: "bugie-in-faccia-microespressioni",
+    category: "corpo",
+    isGuide: true,
+    publishedAt: "2026-03-30",
+    tags: ["microespressioni", "Paul Ekman", "linguaggio del corpo", "baseline"],
+    it: {
+      title:
+        "Bugie in faccia: come leggere le microespressioni facciali (e i segnali di stress del corpo)",
+      description:
+        "La seconda parte della guida al Cold Reading: i segnali involontari del viso e del corpo sotto stress, e la regola della Baseline per non sbagliare interpretazione.",
+      body: `Nelle stanze degli interrogatori, Patrick Jane non ascolta quasi mai le risposte verbali dei sospettati. Cerca qualcos'altro: un battito di ciglia accelerato, una frazione di secondo in cui le labbra si stringono, o una mano che sfiora il collo. Quando le persone mentono, la loro mente conscia è troppo occupata a fabbricare una storia coerente per riuscire a controllare anche i muscoli involontari del corpo.
+
+La scienza conferma che non possiamo nascondere la verità a lungo. Il pioniere di questi studi, lo psicologo Paul Ekman, ha dimostrato che le emozioni umane lasciano sul viso delle tracce fulminee e universali, chiamate microespressioni facciali.
+
+Questi lampi emotivi durano meno di un quinto di secondo. Sono riflessi neurologici puri: la parte più istintiva della mente che sabota la menzogna conscia. Imparare a vederli ti permetterà di leggere la tensione emotiva dietro una maschera di calma apparente.
+
+## I Segnali del Viso: dove la verità lampeggia
+
+Il viso ha oltre diecimila combinazioni muscolari, ma quando una persona tenta di reprimere ciò che prova veramente, sono tre le aree da monitorare istantaneamente:
+
+- **Le sopracciglia della tristezza:** quando una persona simula una calma distaccata ma prova un profondo disagio o senso di colpa, gli angoli interni delle sopracciglia si sollevano verso l'alto e si avvicinano. È un movimento controllato dal muscolo frontale mediale, quasi impossibile da replicare volontariamente.
+- **Il sorriso asimmetrico (il disprezzo):** un sorriso autentico (il sorriso di Duchenne) solleva gli angoli della bocca e crea le classiche rughe intorno agli occhi. Un sorriso falso coinvolge solo le labbra. Ma il segnale più pericoloso è il sorriso asimmetrico, che solleva un solo angolo della bocca: è la microespressione del disprezzo e del senso di superiorità.
+- **La tensione delle labbra (la rabbia repressa):** se durante un negoziato o una discussione noti che le labbra del tuo interlocutore si assottigliano e formano una linea rossa stretta, stai guardando una rabbia trattenuta a stento. La persona sta cercando di contenersi, ma il corpo si sta già preparando a un conflitto.
+
+## Il Corpo non sa Mentire: i segnali di autoconsolazione
+
+Mentre il viso può essere parzialmente controllato con l'abitudine, gli arti inferiori e le mani sono totalmente abbandonati al subconscio. Quando il cervello percepisce il pericolo di essere scoperto o si trova sotto stress psicologico, attiva dei meccanismi di pacificazione (autoconsolazione).
+
+- **Il tocco del collo (l'area vulnerabile):** gli ex agenti dell'FBI specializzati in controspionaggio sanno che l'atto di toccarsi, grattarsi o coprirsi la fossetta del collo (soprattutto per le donne) o sistemarsi la cravatta (per gli uomini) è una risposta diretta allo stress. Il cervello tenta di proteggere la zona della carotide, la parte più vulnerabile del corpo, per calmare il battito cardiaco.
+- **La barriera invisibile:** se una persona incrocia improvvisamente le braccia o posiziona un oggetto (una tazza di caffè, una cartella, un computer) tra sé e te subito dopo una tua domanda specifica, ha appena eretto una barriera difensiva. Quel tema la mette a disagio.
+
+## La Regola d'Oro del Mentalista: il concetto di "Baseline"
+
+Vedere una microespressione o un tocco sul collo non significa aver scovato una bugia. Questo è l'errore dei dilettanti. Patrick Jane e gli psicologi comportamentali utilizzano la regola della Baseline (il comportamento di base).
+
+:::callout L'Avvertimento del Mentalista
+Prima di giudicare un segnale, devi capire come si comporta quella persona quando è rilassata e dice la verità:
+
+- Qual è il suo ritmo normale di ammiccamento?
+- Come muove le mani quando parla del più e del meno?
+
+La menzogna o lo stress si nascondono solo nelle anomalie rispetto a questa base. Non concludere mai nulla da un singolo segnale isolato.
+:::
+
+Se poni una domanda spinosa e noti tre segnali di stress (un cluster) concentrati nei quattro secondi successivi, solo allora hai trovato una crepa nella sua storia. La caccia agli indizi può cominciare.`,
+    },
+    en: {
+      title:
+        "Lies on the face: how to read facial microexpressions (and the body's stress signals)",
+      description:
+        "Part two of the Cold Reading guide: the involuntary signals the face and body give off under stress, and the Baseline rule that keeps you from reading them wrong.",
+      body: `In interrogation rooms, Patrick Jane rarely listens to a suspect's actual words. He's looking for something else: a faster blink rate, a split second where the lips tighten, or a hand brushing against the neck. When people lie, their conscious mind is too busy fabricating a coherent story to also control the body's involuntary muscles.
+
+Science confirms we can't hide the truth for long. The pioneer of this research, psychologist Paul Ekman, showed that human emotions leave fast, universal traces on the face, called facial microexpressions.
+
+These emotional flashes last less than a fifth of a second. They're pure neurological reflexes — the more instinctive part of the mind sabotaging the conscious lie. Learning to spot them lets you read the emotional tension hiding behind a mask of calm.
+
+## The Face's Signals: where the truth flickers
+
+The face has over ten thousand possible muscle combinations, but when someone is trying to suppress what they actually feel, there are three areas worth watching instantly:
+
+- **The eyebrows of sadness:** when someone fakes detached calm but feels deep discomfort or guilt, the inner corners of the eyebrows rise and pull together. It's a movement controlled by the medial frontal muscle, almost impossible to replicate on purpose.
+- **The asymmetric smile (contempt):** a genuine smile (a Duchenne smile) lifts the corners of the mouth and creates the classic creases around the eyes. A fake smile only involves the lips. But the most telling signal is the asymmetric smile, which raises only one corner of the mouth — it's the microexpression of contempt and a sense of superiority.
+- **Lip tension (suppressed anger):** if, during a negotiation or an argument, you notice your counterpart's lips thinning into a tight line, you're looking at anger being held back by force. The person is trying to contain themselves, but the body is already preparing for conflict.
+
+## The Body Can't Lie: self-soothing signals
+
+While the face can be partly controlled through habit, the lower limbs and hands are left almost entirely to the subconscious. When the brain senses the danger of being caught, or is under psychological stress, it triggers pacifying behaviours (self-soothing).
+
+- **The neck touch (the vulnerable spot):** former FBI counterintelligence agents know that touching, scratching or covering the hollow of the neck (especially common in women) or adjusting a tie (in men) is a direct response to stress. The brain is trying to protect the carotid area, the body's most vulnerable spot, to calm the heart rate.
+- **The invisible barrier:** if someone suddenly crosses their arms or places an object (a coffee cup, a folder, a laptop) between themselves and you right after a specific question, they've just built a defensive barrier. That particular topic makes them uncomfortable.
+
+## The Mentalist's Golden Rule: the "Baseline" concept
+
+Spotting a microexpression or a hand on the neck doesn't mean you've caught a lie. That's the amateur's mistake. Patrick Jane, like real behavioural psychologists, relies on the rule of Baseline — a person's normal behaviour.
+
+:::callout The Mentalist's Warning
+Before judging any single signal, you first need to know how that person behaves when relaxed and telling the truth:
+
+- What's their normal blink rate?
+- How do their hands move when they're talking about nothing in particular?
+
+Lying or stress only show up as a deviation from this baseline. Never draw a conclusion from one isolated signal.
+:::
+
+If you ask a pointed question and notice three stress signals (a cluster) within the next four seconds, only then have you found a genuine crack in their story. The hunt for clues can begin.`,
+    },
+  },
 ];
 
 export function getArticle(slug: string): Article | undefined {

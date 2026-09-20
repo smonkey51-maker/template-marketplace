@@ -1261,10 +1261,14 @@ html:not(.dark) body::before {
   color: var(--accent);
   margin: 0 0 8px;
 }
-.fn-callout p {
+.fn-callout p,
+.fn-callout ul {
   margin: 0;
 }
-.fn-callout p + p {
+/* Spacing between any two body blocks inside a callout — not just p+p, since
+   a callout can mix paragraphs and bullet lists (e.g. a closing sentence
+   after a "- " list) and both need the same gap. */
+.fn-callout > * + * {
   margin-top: 10px;
 }
 
