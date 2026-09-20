@@ -8,7 +8,7 @@ export type Lang = "it" | "en";
 export const copy = {
   it: {
     /* brand */
-    siteName: "INSPO",
+    siteName: "OSSERVATORIO",
     siteTagline: "Osservazione, psicologia e Il Mentalist.",
 
     /* nav — "L'Archivio" is the display label for /articoli (kept as the
@@ -105,7 +105,7 @@ export const copy = {
     footerPrivacy: "Privacy",
     footerContact: "Contatti",
     footerCopyright:
-      "© 2026 INSPO. Progetto di fan indipendente — non affiliato a CBS o Warner Bros.",
+      "© 2026 OSSERVATORIO. Progetto di fan indipendente — non affiliato a CBS o Warner Bros.",
 
     /* 404 */
     notFoundTitle: "Pagina non trovata",
@@ -121,7 +121,7 @@ export const copy = {
 
   en: {
     /* brand */
-    siteName: "INSPO",
+    siteName: "OSSERVATORIO",
     siteTagline: "Observation, psychology and The Mentalist.",
 
     /* nav */
@@ -213,7 +213,7 @@ export const copy = {
     footerPrivacy: "Privacy",
     footerContact: "Contact",
     footerCopyright:
-      "© 2026 INSPO. An independent fan project — not affiliated with CBS or Warner Bros.",
+      "© 2026 OSSERVATORIO. An independent fan project — not affiliated with CBS or Warner Bros.",
 
     /* 404 */
     notFoundTitle: "Page not found",

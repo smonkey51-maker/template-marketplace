@@ -8,11 +8,11 @@ import { ArtHeader, PAINTINGS } from "@/components/ArtHeader";
 
 const META = {
   it: {
-    title: "La Biblioteca — INSPO",
+    title: "La Biblioteca — OSSERVATORIO",
     description: "Libri consigliati per approfondire linguaggio del corpo e persuasione.",
   },
   en: {
-    title: "The Library — INSPO",
+    title: "The Library — OSSERVATORIO",
     description: "Recommended books on body language and persuasion.",
   },
 } as const;

@@ -32,7 +32,7 @@ import { chromium } from "playwright";
 import { existsSync, mkdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 
-const DEFAULT_BASE = process.env.SCREENSHOT_BASE ?? "https://inspo.example.com";
+const DEFAULT_BASE = process.env.SCREENSHOT_BASE ?? "https://osservatorio.example.com";
 
 /**
  * Playwright insists on the exact Chromium build its version pins, and refuses
