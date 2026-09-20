@@ -9,12 +9,12 @@ import { ArtHeader, PAINTINGS } from "@/components/ArtHeader";
 
 const META = {
   it: {
-    title: "Dossier Personaggi — INSPO",
+    title: "Dossier Personaggi — OSSERVATORIO",
     description:
       "Analisi psicologiche originali di personaggi di finzione: Patrick Jane, Cal Lightman e altri.",
   },
   en: {
-    title: "Character Dossiers — INSPO",
+    title: "Character Dossiers — OSSERVATORIO",
     description:
       "Original psychological analysis of fictional characters: Patrick Jane, Cal Lightman and more.",
   },

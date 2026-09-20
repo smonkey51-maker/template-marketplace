@@ -55,7 +55,7 @@ export async function GET(req: NextRequest) {
               textTransform: "uppercase",
             }}
           >
-            INSPO
+            OSSERVATORIO
           </div>
           <div style={{ width: "1px", height: "18px", background: "rgba(27, 54, 47, 0.14)" }} />
           <div style={{ fontSize: "14px", color: "rgba(27, 54, 47, 0.4)", fontWeight: 500 }}>
@@ -160,7 +160,7 @@ export async function GET(req: NextRequest) {
             textTransform: "uppercase",
           }}
         >
-          INSPO
+          OSSERVATORIO
         </div>
         <div
           style={{

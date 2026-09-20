@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 
-const FROM = process.env.RESEND_FROM ?? "INSPO <onboarding@resend.dev>";
+const FROM = process.env.RESEND_FROM ?? "OSSERVATORIO <onboarding@resend.dev>";
 const NOTIFY_TO = process.env.RESEND_NOTIFY_TO ?? undefined;
 
 /**
@@ -22,7 +22,7 @@ export async function sendNewsletterSignupNotification(email: string): Promise<v
   await resend.emails.send({
     from: FROM,
     to,
-    subject: "Nuova iscrizione alla newsletter — INSPO",
+    subject: "Nuova iscrizione alla newsletter — OSSERVATORIO",
     html: `<p style="font-family:sans-serif;font-size:14px;">Nuovo iscritto: <strong>${email}</strong></p>`,
   });
 }

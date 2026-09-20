@@ -7,14 +7,14 @@ import { ArtHeader, PAINTINGS } from "@/components/ArtHeader";
 
 const META = {
   it: {
-    title: "Chi siamo — INSPO",
+    title: "Chi siamo — OSSERVATORIO",
     description:
-      'INSPO è un progetto di fan indipendente su "Il Mentalist" e la psicologia dell\'osservazione.',
+      'OSSERVATORIO è un progetto di fan indipendente su "Il Mentalist" e la psicologia dell\'osservazione.',
   },
   en: {
-    title: "About — INSPO",
+    title: "About — OSSERVATORIO",
     description:
-      'INSPO is an independent fan project about "The Mentalist" and the psychology of observation.',
+      'OSSERVATORIO is an independent fan project about "The Mentalist" and the psychology of observation.',
   },
 } as const;
 
@@ -31,12 +31,12 @@ export async function generateMetadata({
 const CONTENT = {
   it: [
     {
-      heading: "Cos'è INSPO",
-      body: 'INSPO è un sito di commento e approfondimento nato dalla passione per "Il Mentalist" e per il personaggio di Patrick Jane, unita a un interesse concreto per la psicologia applicabile alla vita di tutti i giorni. Pubblichiamo due tipi di contenuti: analisi da fan sul personaggio, i suoi metodi e la serie, e guide pratiche su tecniche psicologiche reali — osservazione, linguaggio del corpo, memoria, ascolto attivo, persuasione, cold reading.',
+      heading: "Cos'è Osservatorio",
+      body: 'Osservatorio è un sito di commento e approfondimento nato dalla passione per "Il Mentalist" e per il personaggio di Patrick Jane, unita a un interesse concreto per la psicologia applicabile alla vita di tutti i giorni. Pubblichiamo due tipi di contenuti: analisi da fan sul personaggio, i suoi metodi e la serie, e guide pratiche su tecniche psicologiche reali — osservazione, linguaggio del corpo, memoria, ascolto attivo, persuasione, cold reading.',
     },
     {
       heading: "Non siamo un prodotto ufficiale",
-      body: 'INSPO è un progetto indipendente, gestito da fan, senza alcuna relazione contrattuale, commerciale o editoriale con CBS, Warner Bros. Television, i produttori, gli sceneggiatori o il cast de "Il Mentalist". Non siamo autorizzati, sponsorizzati, avallati o in alcun modo affiliati ai detentori dei diritti della serie. "The Mentalist" e i nomi dei personaggi sono marchi e opere protette dai rispettivi proprietari, citati qui esclusivamente a scopo di commento, critica e analisi — un uso che riteniamo rientri nelle pratiche comuni di fan commentary.',
+      body: 'Osservatorio è un progetto indipendente, gestito da fan, senza alcuna relazione contrattuale, commerciale o editoriale con CBS, Warner Bros. Television, i produttori, gli sceneggiatori o il cast de "Il Mentalist". Non siamo autorizzati, sponsorizzati, avallati o in alcun modo affiliati ai detentori dei diritti della serie. "The Mentalist" e i nomi dei personaggi sono marchi e opere protette dai rispettivi proprietari, citati qui esclusivamente a scopo di commento, critica e analisi — un uso che riteniamo rientri nelle pratiche comuni di fan commentary.',
     },
     {
       heading: "Come trattiamo i contenuti della serie",
@@ -53,12 +53,12 @@ const CONTENT = {
   ],
   en: [
     {
-      heading: "What INSPO is",
-      body: 'INSPO is a commentary and deep-dive site born from a passion for "The Mentalist" and the character of Patrick Jane, combined with a genuine interest in psychology applicable to everyday life. We publish two kinds of content: fan analysis of the character, his methods and the show, and practical guides on real psychological techniques — observation, body language, memory, active listening, persuasion, cold reading.',
+      heading: "What Osservatorio is",
+      body: 'Osservatorio is a commentary and deep-dive site born from a passion for "The Mentalist" and the character of Patrick Jane, combined with a genuine interest in psychology applicable to everyday life. We publish two kinds of content: fan analysis of the character, his methods and the show, and practical guides on real psychological techniques — observation, body language, memory, active listening, persuasion, cold reading.',
     },
     {
       heading: "We are not an official product",
-      body: 'INSPO is an independent, fan-run project with no contractual, commercial or editorial relationship with CBS, Warner Bros. Television, the producers, writers or cast of "The Mentalist". We are not authorised, sponsored, endorsed or in any way affiliated with the rights holders of the show. "The Mentalist" and its character names are trademarks and protected works belonging to their respective owners, referenced here solely for commentary, criticism and analysis — a use we believe falls within common fan-commentary practice.',
+      body: 'Osservatorio is an independent, fan-run project with no contractual, commercial or editorial relationship with CBS, Warner Bros. Television, the producers, writers or cast of "The Mentalist". We are not authorised, sponsored, endorsed or in any way affiliated with the rights holders of the show. "The Mentalist" and its character names are trademarks and protected works belonging to their respective owners, referenced here solely for commentary, criticism and analysis — a use we believe falls within common fan-commentary practice.',
     },
     {
       heading: "How we treat the show's material",

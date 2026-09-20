@@ -9,11 +9,11 @@ import { ArtHeader, PAINTINGS } from "@/components/ArtHeader";
 
 const META = {
   it: {
-    title: "Guide Pratiche — INSPO",
+    title: "Guide Pratiche — OSSERVATORIO",
     description: "Guide lunghe, passo dopo passo, su difesa psicologica e comunicazione.",
   },
   en: {
-    title: "Practical Guides — INSPO",
+    title: "Practical Guides — OSSERVATORIO",
     description: "Long-form, step-by-step guides on psychological self-defense and communication.",
   },
 } as const;

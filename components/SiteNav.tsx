@@ -59,7 +59,7 @@ export default function SiteNav() {
             aria-label={`${copy[lang].siteName} — home`}
             className="flex items-center"
           >
-            <FormaLogoAnimated className="w-28" />
+            <FormaLogoAnimated className="w-44" />
           </Link>
         </div>
 

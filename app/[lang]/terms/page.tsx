@@ -9,15 +9,15 @@ const SECTIONS = {
   it: [
     {
       title: "Natura del sito",
-      body: "INSPO è un sito editoriale di commento e approfondimento, gratuito, senza vendita di prodotti, abbonamenti o servizi. Tutti i contenuti sono accessibili liberamente.",
+      body: "Osservatorio è un sito editoriale di commento e approfondimento, gratuito, senza vendita di prodotti, abbonamenti o servizi. Tutti i contenuti sono accessibili liberamente.",
     },
     {
       title: "Sito di fan non ufficiale",
-      body: 'INSPO non è affiliato, sponsorizzato, avallato o in alcun modo collegato a CBS, Warner Bros. Television, o ai creatori, produttori e cast de "Il Mentalist". Ogni riferimento alla serie, ai personaggi o al titolo ha esclusivamente finalità di commento, critica e analisi, nei limiti dell\'uso corretto (fair use / fair dealing) applicabile al commento e alla critica.',
+      body: 'Osservatorio non è affiliato, sponsorizzato, avallato o in alcun modo collegato a CBS, Warner Bros. Television, o ai creatori, produttori e cast de "Il Mentalist". Ogni riferimento alla serie, ai personaggi o al titolo ha esclusivamente finalità di commento, critica e analisi, nei limiti dell\'uso corretto (fair use / fair dealing) applicabile al commento e alla critica.',
     },
     {
       title: "Proprietà dei contenuti",
-      body: 'I testi pubblicati su INSPO (analisi, articoli, guide) sono opera originale degli autori del sito e non possono essere copiati o ripubblicati senza autorizzazione. "The Mentalist", i nomi dei personaggi e ogni marchio associato restano di proprietà dei rispettivi titolari dei diritti.',
+      body: 'I testi pubblicati su Osservatorio (analisi, articoli, guide) sono opera originale degli autori del sito e non possono essere copiati o ripubblicati senza autorizzazione. "The Mentalist", i nomi dei personaggi e ogni marchio associato restano di proprietà dei rispettivi titolari dei diritti.',
     },
     {
       title: "Contenuti di psicologia",
@@ -31,15 +31,15 @@ const SECTIONS = {
   en: [
     {
       title: "Nature of the site",
-      body: "INSPO is a free editorial commentary and deep-dive site, with no products, subscriptions or services for sale. All content is freely accessible.",
+      body: "Osservatorio is a free editorial commentary and deep-dive site, with no products, subscriptions or services for sale. All content is freely accessible.",
     },
     {
       title: "Unofficial fan site",
-      body: 'INSPO is not affiliated with, sponsored by, endorsed by, or in any way connected to CBS, Warner Bros. Television, or the creators, producers and cast of "The Mentalist". Any reference to the show, its characters or its title is solely for commentary, criticism and analysis purposes, within the bounds of fair use / fair dealing applicable to commentary and criticism.',
+      body: 'Osservatorio is not affiliated with, sponsored by, endorsed by, or in any way connected to CBS, Warner Bros. Television, or the creators, producers and cast of "The Mentalist". Any reference to the show, its characters or its title is solely for commentary, criticism and analysis purposes, within the bounds of fair use / fair dealing applicable to commentary and criticism.',
     },
     {
       title: "Content ownership",
-      body: 'The text published on INSPO (analysis, articles, guides) is original work by the site\'s authors and may not be copied or republished without permission. "The Mentalist", its character names and any associated trademarks remain the property of their respective rights holders.',
+      body: 'The text published on Osservatorio (analysis, articles, guides) is original work by the site\'s authors and may not be copied or republished without permission. "The Mentalist", its character names and any associated trademarks remain the property of their respective rights holders.',
     },
     {
       title: "Psychology content",

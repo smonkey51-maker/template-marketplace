@@ -14,11 +14,11 @@ import { ArtHeader, PAINTINGS } from "@/components/ArtHeader";
 
 const META = {
   it: {
-    title: "Articoli — INSPO",
+    title: "Articoli — OSSERVATORIO",
     description: 'Fan commentary su "Il Mentalist" e guide pratiche di psicologia.',
   },
   en: {
-    title: "Articles — INSPO",
+    title: "Articles — OSSERVATORIO",
     description: 'Fan commentary on "The Mentalist" and practical psychology guides.',
   },
 } as const;
