@@ -69,104 +69,63 @@ body {
    THEME VARIABLES
    ═══════════════════════════════════════════════════════════ */
 :root {
-  /* ── Light mode: FORMA — warm paper + bordeaux ── */
-  --bg: #f4f0e8;
-  --surface: #fbf9f4;
-  --surface-2: #e7e0d3;
-  --text: #1c1a17;
-  --muted: #7a7266;
-  --border: rgba(28, 26, 23, 0.12);
-  --fn-border: rgba(28, 26, 23, 0.12);
-  --fn-menu-bg: rgba(251, 249, 244, 0.98);
-  --nav-bg: rgba(244, 240, 232, 0.97);
-  --card-bg: rgba(251, 249, 244, 0.98);
-  --card-border: rgba(28, 26, 23, 0.12);
-  --input-bg: rgba(28, 26, 23, 0.04);
-  --btn-ghost-border: rgba(28, 26, 23, 0.18);
-  --btn-ghost-border-hover: rgba(28, 26, 23, 0.72);
-  /* Border radius tokens — FORMA editorial scale. Sharp corners on
-     purpose: this replaced the rounded squircle/pill system (see the DEPTH
-     block below for the flat-paper material that replaced liquid glass). */
+  /* ── Light mode: INSPO — a strict 3-colour palette, all three taken
+     from the moodboard's Pantone swatches:
+       Pantone 2411 U  → GREEN  #4b5d46  (ink / text)
+       Pantone 2347 U  → RED    #e14a30  (the one accent hue)
+       Pantone P179-1 U → CREAM #f1ece3  (paper / background)
+     Every other token below is a literal shade or opacity of one of
+     these three — never a fourth hue. --accent is a darkened shade of
+     the red (kept legible as text/button colour on cream — the raw
+     swatch red only hits ~3.4:1 there); --terra is the swatch red at
+     full saturation, used where it sits behind dark text instead. */
+  --bg: #f1ece3;
+  --surface: #f7f4ee;
+  --surface-2: #e3ded5;
+  --text: #4b5d46;
+  --muted: #969d8d;
+  --border: rgba(75, 93, 70, 0.14);
+  --fn-border: rgba(75, 93, 70, 0.14);
+  --fn-menu-bg: rgba(247, 244, 238, 0.98);
+  --nav-bg: rgba(241, 236, 227, 0.97);
+  --card-bg: rgba(247, 244, 238, 0.98);
+  --card-border: rgba(75, 93, 70, 0.14);
+  --input-bg: rgba(75, 93, 70, 0.05);
+  --btn-ghost-border: rgba(75, 93, 70, 0.2);
+  --btn-ghost-border-hover: rgba(75, 93, 70, 0.72);
+  /* Border radius tokens — editorial scale, sharp corners on purpose. */
   --r-sm: 2px;
   --r-md: 4px;
   --r-lg: 6px;
   --r-xl: 8px;
-  --glass-shadow: 0 1px 2px rgba(28, 26, 23, 0.06), 0 8px 24px rgba(28, 26, 23, 0.08);
-  --glass-stroke: rgba(28, 26, 23, 0.12);
+  --glass-shadow: 0 1px 2px rgba(75, 93, 70, 0.06), 0 8px 24px rgba(75, 93, 70, 0.08);
+  --glass-stroke: rgba(75, 93, 70, 0.12);
   --glass-top-edge: none;
   --glass-bright: 1;
   --spec-hot: transparent;
   --spec-mid: transparent;
-  --divider: rgba(28, 26, 23, 0.1);
-  /* FORMA accent — bordeaux, one accent for the whole site (no more
-     per-room "gallery" accents; the [data-section] overrides below were
-     removed so every page reads as one coherent gallery, not separate
-     rooms). --gold/--gold-soft keep their historical names for compat with
-     existing references, but now track bordeaux, not gold. */
-  --accent: #7a2e28;
+  --divider: rgba(75, 93, 70, 0.12);
+  /* One accent for the whole site (no per-room "gallery" accents).
+     --gold/--gold-soft keep their historical names for compat with
+     existing references, but now track the swatch red, not gold. */
+  --accent: #b43b26;
   --gold: var(--accent);
   --gold-soft: color-mix(in srgb, var(--accent) 80%, black 20%);
-  --accent-bg: rgba(122, 46, 40, 0.1);
-  --accent-rgb: 122, 46, 40;
-  --accent-muted: rgba(122, 46, 40, 0.18);
-  /* Palette tokens */
-  --gold-dim: rgba(122, 46, 40, 0.12);
-  --gold-mid: rgba(122, 46, 40, 0.3);
-  --terra: color-mix(in srgb, var(--accent) 75%, black 25%);
+  --accent-bg: rgba(180, 59, 38, 0.1);
+  --accent-rgb: 180, 59, 38;
+  --accent-muted: rgba(180, 59, 38, 0.18);
+  /* The swatch red at full saturation — used for surfaces that carry
+     dark text on top (e.g. an active filter chip), where it reads more
+     legibly than the darker --accent shade above. */
+  --terra: #e14a30;
   --terra-dim: color-mix(in srgb, var(--terra) 12%, transparent);
-  --cream: #f4f0e8;
-  --cream-60: rgba(244, 240, 232, 0.6);
-  --cream-30: rgba(244, 240, 232, 0.3);
-  --cream-08: rgba(244, 240, 232, 0.08);
-  --obsidian-2: #e7e0d3;
-  --obsidian-3: #ded4c0;
-  --obsidian-4: #d5c9b0; /* unused, keep for compat */
-  --border-gold: 1px solid rgba(122, 46, 40, 0.28);
-  /* Semantic state colors */
-  --success: #5a7a32;
-  --success-dim: rgba(90, 122, 50, 0.12);
-  --error: #7a1c2e;
-  --error-dim: rgba(122, 28, 46, 0.12);
-  /* Ambient glow */
-  --glow-gold: rgba(212, 175, 55, 0.18);
-  --glow-terra: rgba(122, 28, 46, 0.12);
-  /* Platform brand colors (download buttons) */
-  --platform-canva: #7b61ff;
-  --platform-excel: #1d6f42;
-  --platform-sheets: #0f9d58;
-  --platform-notion: #6e6e6e;
-  --platform-webflow: #4353ff;
-  --platform-framer: #0055ff;
-  --platform-shopify: #95bf47;
-  --platform-wordpress: #21759b;
-  /* Phone bezel (preview) */
-  --bezel-bg: #e8e4de;
-  --bezel-ring: #d4cfc7;
-  --bezel-ring-2: #c8c3ba;
-  --bezel-button: #c8c3ba;
-  --bezel-notch-bg: #f5f2ed;
-  --bezel-notch-border: #d4cfc7;
-  /* Prompt viewer */
-  --prompt-bg: #fffef7;
-  --prompt-header: #f7f6ee;
-  --prompt-text: #1c1814;
-  --prompt-label: #8e8e93;
-  /* Modal skeleton */
-  --skeleton-bg: #f2f2f7;
-  /* Pillar heading */
-  --pillar-name-color: var(--gold-soft);
-  /* FORMA tokens — light */
-  --forma-bg: var(--bg);
-  --forma-bg-alt: var(--surface);
-  --forma-bg-dark-section: #f0e4cc;
-  --forma-text: var(--text);
-  --forma-text-muted: var(--muted);
-  --forma-text-accent: var(--accent);
-  --forma-border: var(--border);
-  --forma-border-card: var(--card-border);
-  --forma-accent-sabi: var(--terra);
-  --forma-kinari: #1c1610;
-  --bg-outer: #f0e4cc;
+  /* Semantic state colors — reuse the two hues already in the palette
+     rather than introducing green-for-success/red-for-error as new
+     colours. */
+  --success: var(--text);
+  --success-dim: rgba(75, 93, 70, 0.12);
+  --error: var(--accent);
+  --error-dim: rgba(180, 59, 38, 0.15);
   /* FORMA spacing scale */
   --sp-1: 8px;
   --sp-2: 16px;
@@ -175,10 +134,6 @@ body {
   --sp-5: 64px;
   --sp-6: 120px;
 }
-
-/* FORMA is one gallery, not separate rooms: the former [data-section]
-   per-room accent overrides were retired in the rebrand so --accent stays
-   bordeaux everywhere. */
 
 /* ── Font pairing: Fraunces (h1–h3, display) + Inter (everything else) ── */
 
@@ -217,90 +172,50 @@ h6 {
 }
 
 html.dark {
-  /* ── Dark mode: FORMA — ink + warm paper text, lightened bordeaux ──
-     The Figma prototype only specifies a light "paper" mode; this is its
-     coherent dark companion (same bordeaux family, tuned to read on ink
-     instead of paper), kept as the site's optional dark theme. */
-  --bg: #14110d;
-  --surface: #1c1814;
-  --surface-2: #262019;
-  --text: #f2ece0;
-  --muted: #a89a86;
-  --border: rgba(242, 236, 224, 0.14);
-  --fn-border: rgba(242, 236, 224, 0.14);
-  --fn-menu-bg: rgba(20, 17, 13, 0.98);
-  --panel: rgba(242, 236, 224, 0.05);
-  --nav-bg: rgba(20, 17, 13, 0.97);
-  --card-bg: rgba(28, 24, 20, 0.98);
-  --card-border: rgba(242, 236, 224, 0.14);
-  --input-bg: rgba(242, 236, 224, 0.06);
-  --btn-ghost-border: rgba(242, 236, 224, 0.18);
-  --btn-ghost-border-hover: rgba(242, 236, 224, 0.7);
+  /* ── Dark mode: the same 3-colour palette, re-mixed for a dark ground ──
+     --bg/--surface/--surface-2 are the swatch GREEN mixed toward black;
+     --text is the swatch CREAM; --accent is the swatch RED lightened
+     until it clears 4.5:1 on the dark green background (the raw swatch
+     red only hits ~3.3:1 there). --terra stays the swatch red at full
+     saturation for decorative use. */
+  --bg: #293326;
+  --surface: #313c2e;
+  --surface-2: #3c4a38;
+  --text: #f1ece3;
+  --muted: #97998e;
+  --border: rgba(241, 236, 227, 0.14);
+  --fn-border: rgba(241, 236, 227, 0.14);
+  --fn-menu-bg: rgba(41, 51, 38, 0.98);
+  --nav-bg: rgba(41, 51, 38, 0.97);
+  --card-bg: rgba(49, 60, 46, 0.98);
+  --card-border: rgba(241, 236, 227, 0.14);
+  --input-bg: rgba(241, 236, 227, 0.06);
+  --btn-ghost-border: rgba(241, 236, 227, 0.18);
+  --btn-ghost-border-hover: rgba(241, 236, 227, 0.7);
   --glass-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 32px rgba(0, 0, 0, 0.5);
-  --glass-stroke: rgba(242, 236, 224, 0.1);
+  --glass-stroke: rgba(241, 236, 227, 0.1);
   --glass-top-edge: none;
   --glass-bright: 1;
   --spec-hot: transparent;
   --spec-mid: transparent;
-  --divider: rgba(242, 236, 224, 0.1);
-  /* FORMA accent — bordeaux, lightened for contrast on ink. Same
-     single-accent system as light mode; see the light :root note above. */
-  --accent: #c1716a;
+  --divider: rgba(241, 236, 227, 0.1);
+  /* Same single-accent system as light mode; see the light :root note above. */
+  --accent: #e87764;
   --gold: var(--accent);
   --gold-soft: color-mix(in srgb, var(--accent) 82%, white 18%);
-  --gold2: var(--gold-soft);
-  --accent-bg: rgba(193, 113, 106, 0.14);
-  --accent-rgb: 193, 113, 106;
-  --accent-muted: rgba(193, 113, 106, 0.22);
-  /* Palette tokens */
-  --gold-dim: rgba(193, 113, 106, 0.12);
-  --gold-mid: rgba(193, 113, 106, 0.28);
-  --terra: color-mix(in srgb, var(--accent) 80%, white 20%);
+  --accent-bg: rgba(232, 119, 100, 0.14);
+  --accent-rgb: 232, 119, 100;
+  --accent-muted: rgba(232, 119, 100, 0.22);
+  --terra: #e14a30;
   --terra-dim: color-mix(in srgb, var(--terra) 15%, transparent);
-  --cream: #f2ece0;
-  --cream-60: rgba(242, 236, 224, 0.6);
-  --cream-30: rgba(242, 236, 224, 0.3);
-  --cream-08: rgba(242, 236, 224, 0.08);
-  --obsidian-2: #1c1814;
-  --obsidian-3: #16130f;
-  --obsidian-4: #100d0a;
-  --border-gold: 1px solid rgba(193, 113, 106, 0.24);
   /* Semantic state colors */
-  --success: #5a7a32;
-  --success-dim: rgba(90, 122, 50, 0.12);
-  --error: #8b2635;
-  --error-dim: rgba(139, 38, 53, 0.15);
-  /* Ambient glow */
-  --glow-gold: rgba(212, 175, 55, 0.22);
-  --glow-terra: rgba(139, 38, 53, 0.16);
-  /* Platform brand colors (download buttons) */
-  --platform-canva: #7b61ff;
-  --platform-excel: #1d6f42;
-  --platform-sheets: #0f9d58;
-  --platform-notion: #787878;
-  --platform-webflow: #4353ff;
-  --platform-framer: #0055ff;
-  --platform-shopify: #95bf47;
-  --platform-wordpress: #21759b;
-  /* Phone bezel (preview) */
-  --bezel-bg: #141414;
-  --bezel-ring: #1e1e1e;
-  --bezel-ring-2: #282828;
-  --bezel-button: #141414;
-  --bezel-notch-bg: #0d0d0d;
-  --bezel-notch-border: #1e1e1e;
-  /* Prompt viewer */
-  --prompt-bg: #0d0d0d;
-  --prompt-header: #141414;
-  --prompt-text: #eaeaea;
-  --prompt-label: rgba(234, 234, 234, 0.45);
-  /* Modal skeleton */
-  --skeleton-bg: #1e1e1e;
-  /* Pillar heading — FORMA gold in dark mode */
-  --pillar-name-color: var(--gold-soft);
+  --success: var(--text);
+  --success-dim: rgba(241, 236, 227, 0.12);
+  --error: var(--accent);
+  --error-dim: rgba(232, 119, 100, 0.16);
 }
 
-/* Dark mode is the same single bordeaux accent everywhere too — see the
+/* Dark mode is the same single accent everywhere too — see the
    light-mode note above. No per-section overrides. */
 
 /* ── Footer: always closes in ink, on every interior page ──
@@ -312,14 +227,14 @@ html.dark {
    var(--border) reference already inside FormaFooter resolves to them
    without the component needing to know about it. */
 .forma-footer-ink {
-  --bg: #14110d;
-  --surface: #1c1814;
-  --text: #f2ece0;
-  --muted: #a89a86;
-  --border: rgba(242, 236, 224, 0.14);
-  --accent: #c1716a;
-  --terra: color-mix(in srgb, var(--accent) 80%, white 20%);
-  --success: #5a7a32;
+  --bg: #293326;
+  --surface: #313c2e;
+  --text: #f1ece3;
+  --muted: #97998e;
+  --border: rgba(241, 236, 227, 0.14);
+  --accent: #e87764;
+  --terra: #e14a30;
+  --success: var(--text);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -868,9 +783,8 @@ html::-webkit-scrollbar-track {
   justify-content: center;
   font-size: 12px;
   font-weight: 700;
-  /* --cat-guide-ink, not --accent: --accent is #d4af37 in both themes, which is
-     about 2:1 on the cream light-mode ground. The category inks are declared
-     per theme and measured. */
+  /* --cat-guide-ink is just an alias for --accent now — see the CATEGORY
+     COLOUR block above. */
   color: var(--cat-guide-ink);
   background: color-mix(in srgb, var(--cat-guide-ink) 14%, transparent);
   border: 1px solid color-mix(in srgb, var(--cat-guide-ink) 26%, transparent);
@@ -1226,7 +1140,7 @@ html::-webkit-scrollbar-track {
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, var(--accent), var(--terra, #c4622d));
+  background: linear-gradient(90deg, var(--accent), var(--terra));
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s ease;
@@ -1284,23 +1198,18 @@ html.dark body::before {
 
 /* Hybrid ticker animation */
 
-/* Gold price text */
-.price-gold {
-  font-family: var(--font-inter), sans-serif;
-  font-weight: 600;
-  color: var(--gold, #c8a96e);
-}
-
 /* ═══════════════════════════════════════════════════════════
-   SHADOW TOKENS
+   SHADOW TOKENS — tinted with the palette's GREEN rather than a
+   generic near-black, so shadows read as part of the same 3-colour
+   system instead of a stray fourth neutral.
    ═══════════════════════════════════════════════════════════ */
 :root {
-  --shadow-sm: 0 1px 3px rgba(28, 22, 16, 0.06), 0 1px 2px rgba(28, 22, 16, 0.04);
-  --shadow-md: 0 4px 16px rgba(28, 22, 16, 0.08), 0 2px 6px rgba(28, 22, 16, 0.05);
-  --shadow-lg: 0 8px 40px rgba(28, 22, 16, 0.1), 0 4px 12px rgba(28, 22, 16, 0.06);
-  --shadow-xl: 0 20px 60px rgba(28, 22, 16, 0.14), 0 8px 20px rgba(28, 22, 16, 0.08);
-  --overlay: rgba(28, 22, 16, 0.8);
-  --overlay-light: rgba(28, 22, 16, 0.5);
+  --shadow-sm: 0 1px 3px rgba(75, 93, 70, 0.08), 0 1px 2px rgba(75, 93, 70, 0.05);
+  --shadow-md: 0 4px 16px rgba(75, 93, 70, 0.1), 0 2px 6px rgba(75, 93, 70, 0.06);
+  --shadow-lg: 0 8px 40px rgba(75, 93, 70, 0.12), 0 4px 12px rgba(75, 93, 70, 0.07);
+  --shadow-xl: 0 20px 60px rgba(75, 93, 70, 0.16), 0 8px 20px rgba(75, 93, 70, 0.09);
+  --overlay: rgba(41, 51, 38, 0.8);
+  --overlay-light: rgba(41, 51, 38, 0.5);
 }
 html.dark {
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.14);
@@ -1406,39 +1315,6 @@ html.dark {
 
 /* ── Typing cursor blink ── */
 
-/* ═══════════════════════════════════════════════════════════
-   FORMA V2 — legacy named tokens (kept for component compat)
-   ═══════════════════════════════════════════════════════════ */
-:root {
-  --sumi: #1a0e06;
-  --tsuchi: #9c6e20;
-  --kinari: #f2e8d0;
-  --sabi: #7a1c2e;
-  --sumi-dim: #4a3020;
-  --border-sumi: rgba(26, 14, 6, 0.14);
-  --border-sumi-strong: rgba(26, 14, 6, 0.22);
-}
-
-/* ── FORMA v2 fade-in on scroll ──
-   NOTE: keyframe is namespaced (forma-v2-fade-up). It used to be called
-   forma-fade-up, which silently overrode the snap-section entrance
-   keyframe of the same name defined at the top of this file. */
-
-/* ── FORMA v2 theming CSS vars — defined in :root and .dark above ── */
-.dark {
-  --forma-bg: var(--bg);
-  --forma-bg-alt: rgba(26, 18, 9, 0.95);
-  --forma-bg-dark-section: #080503;
-  --forma-text: var(--text);
-  --forma-text-muted: var(--muted);
-  --forma-text-accent: var(--accent);
-  --forma-border: var(--border);
-  --forma-border-card: var(--card-border);
-  --forma-accent-sabi: var(--terra);
-  --forma-kinari: #f8f0dc;
-  --bg-outer: #050302;
-}
-
 /* Mobile: always single column */
 
 /* ── FORMA masthead — responsive letter-spacing for mobile ── */
@@ -1448,11 +1324,10 @@ html.dark {
 /* ── Responsive ── */
 
 /* ═══════════════════════════════════════════════════════════
-   FORMA — editorial system (v5)
-   Palette adapts to theme via CSS vars.
-   Dark:  bg #060606 · surface #0f0f0f · text #eaeaea · muted #8a8a8a
-   Light: bg #FDFAF5 · surface #F5EFE3 · text #1C1610 · muted rgba(26,14,6,.55)
-   Gold:  #D4AF37 → #B8962E
+   INSPO — editorial system
+   Palette adapts to theme via CSS vars — see the THEME VARIABLES
+   block near the top of this file for the 3-colour source values
+   (Pantone 2411 U green / 2347 U red / P179-1 U cream).
    ═══════════════════════════════════════════════════════════ */
 
 /* ── Background — theme-aware + Caravaggio tenebrism overlay ── */
@@ -1736,41 +1611,15 @@ html.dark {
 
 /* ═══════════════════════════════════════════════════════════
    CATEGORY COLOUR
-   Three warm hues so a category is recognisable before its
-   nine-pixel label is read. Terracotta, gold and olive all
-   belong to the site's palette — gold, the house colour,
-   stays on the largest group and on the brand CTA.
-
-   Each hue is declared twice: an --ink for text and tinted
-   fills, and a --solid for a filled control. They differ
-   because the same swatch cannot both read as text on the
-   page and hold white text on itself.
+   Used only by the command-palette result badge now — the
+   marketplace's per-category (prompt/guide/sheet) colour-coding
+   this once distinguished is gone along with the catalogue.
+   --cat-guide-ink is kept as an alias for the one site accent
+   rather than a separate hue, so the badge still tracks the
+   3-colour palette automatically in both themes.
    ═══════════════════════════════════════════════════════════ */
 :root {
-  /* Ink: measured against --bg #fdfaf5, all ≥ 5:1. The badge used to hardcode
-     #d4af37, which is roughly 2:1 on cream — legible in dark mode, and not in
-     light. */
-  --cat-prompt-ink: #9c3d18;
-  --cat-guide-ink: #8a6829;
-  --cat-sheet-ink: #4d6135;
-
-  /* Solid: fill for a selected chip, with --cat-on as its text. */
-  --cat-prompt-solid: #9c3d18;
-  --cat-guide-solid: #8a6829;
-  --cat-sheet-solid: #4d6135;
-  --cat-on: #ffffff;
-}
-
-html.dark {
-  /* On near-black the same hues have to come up, not down. */
-  --cat-prompt-ink: #e08a5f;
-  --cat-guide-ink: #d4af37;
-  --cat-sheet-ink: #a8bd86;
-
-  --cat-prompt-solid: #e08a5f;
-  --cat-guide-solid: #d4af37;
-  --cat-sheet-solid: #a8bd86;
-  --cat-on: #17130a;
+  --cat-guide-ink: var(--accent);
 }
 
 /* ── Badge ── */
@@ -1955,8 +1804,13 @@ html.dark {
 /* Selection is carried by fill, border AND text colour together — never by one
    of them alone, so it survives forced-colors mode and low-vision viewing. */
 .fn-filter.is-active {
-  background: var(--accent);
-  border-color: var(--accent);
+  /* --terra, not --accent: --terra is the swatch red at full saturation,
+     which reads far better under dark text than the darkened --accent
+     shade used for buttons/links on top of --bg (4.6:1 vs 3.2:1). */
+  background: var(--terra);
+  border-color: var(--terra);
+  /* Near-black ink, not a brand hue — the only way to clear 4.5:1 on the
+     saturated red chip in both themes; --text (green) only gets to 1.8:1. */
   color: #17130a;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }

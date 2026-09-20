@@ -118,19 +118,31 @@ Single source of truth for every article, mirroring the old `lib/templates.ts` p
 - Validates the email with `subscribeSchema` (`lib/schemas.ts`).
 - There is **no database**. A signup does not get stored server-side; instead `lib/email.ts`'s `sendNewsletterSignupNotification()` emails the site owner (`RESEND_NOTIFY_TO`, falling back to `RESEND_FROM`) so they can add the address to whatever list tool they use. Silently no-ops without `RESEND_API_KEY` (safe in dev/preview).
 
-## Design System — kept as-is from the FORMA refresh
+## Design System — strict 3-colour palette
 
-The 2026 visual refresh (warm paper/bordeaux editorial look, replacing an older near-black/gold "liquid glass" identity) fits this project well and was **not** redone:
+The site's entire palette is exactly three colours, taken from a moodboard's Pantone swatches — **never add a fourth hue**:
+
+| Role  | Pantone       | Hex       | Used as                                                |
+| ----- | ------------- | --------- | ------------------------------------------------------- |
+| Green | 2411 U        | `#4B5D46` | `--text` (light mode ink)                                |
+| Red   | 2347 U        | `#E14A30` | the one accent hue (`--terra` = literal swatch value)    |
+| Cream | P 179-1 U     | `#F1ECE3` | `--bg` (light mode paper)                                |
+
+Every other token in `app/globals.css` (`--surface`, `--muted`, `--border`, dark-mode `--bg`/`--text`, `--accent`, shadows, etc.) is a literal shade, tint or opacity of one of these three — computed via `color-mix()` or plain rgba, not a new hue. Two things to know before touching colour:
+
+- **`--accent` vs `--terra` are not interchangeable.** The raw swatch red (`--terra`, `#E14A30`) only measures ~3.4:1 against the cream background — enough for large text and decorative fills, not enough for small UI text. `--accent` is a darkened shade of the same red (`#B43B26` light / `#E87764` dark) used wherever red sits behind or under body-sized text (buttons, links, kickers) so it clears 4.5:1. `--terra` is for surfaces that carry *dark* text instead (e.g. the active filter chip) — dark text reads better on the brighter red than on the darkened one.
+- **No stray neutrals.** Shadows and overlays are tinted with the green (`rgba(75, 93, 70, …)`), not a generic black/brown. The one exception is a literal near-black (`#17130A`) used as text on the `--terra` chip, purely because no shade of the palette's green or red clears 4.5:1 there — see the comment at `.fn-filter.is-active` in `globals.css`.
+
+Other tokens:
 
 - **Fonts**: Fraunces (display — h1–h3, article titles) + Inter (body/UI). Only these two families are loaded.
-- **Brand colors**: warm paper + bordeaux, light by default. `--accent` (`#7A2E28` light / `#C1716A` dark) is the one accent color site-wide. See `app/globals.css` for the full token list (`--bg`, `--surface`, `--text`, `--muted`, etc.).
 - **Radius tokens**: editorial and sharp, not rounded. Use `.r-md` (4px — cards, panels, buttons), `.r-sm` (2px — chips), `.r-lg`/`.r-xl` for larger surfaces. Only genuinely circular elements use `border-radius: 50%` directly.
 - **Shadows**: `--shadow-sm` / `--shadow-md` / `--shadow-lg` / `--shadow-xl` in `globals.css`.
-- **Buttons**: `.btn-brand` (solid bordeaux CTA) / `.btn-brand-sm` (compact variant).
+- **Buttons**: `.btn-brand` (solid red CTA, uses `--accent`) / `.btn-brand-sm` (compact variant).
 - **Depth**: one material — flat opaque paper, no blur, no glass, no specular highlight. The `.glass-surface` etc. class names persist from the earlier naming (see the CSS for why) but render flat paper, not glass. The rim border on any panel is load-bearing for contrast (WCAG 1.4.11) — never drop it.
-- Theme is `dark`-class-based (`tailwind.config.ts` `darkMode: "class"`), opt-in via `ThemeToggle`, default light.
+- Theme is `dark`-class-based (`tailwind.config.ts` `darkMode: "class"`), opt-in via `ThemeToggle`, default light. Dark mode remaps the same three colours onto a dark-green ground rather than introducing a fourth "ink" hue.
 
-When adding a new page or component, reuse these tokens rather than hand-rolling new colors/radii/shadows.
+When adding a new page or component, reuse these tokens rather than hand-rolling new colors/radii/shadows — and if a design calls for a colour outside this table, that's a decision for the site owner, not something to add unilaterally.
 
 ---
 

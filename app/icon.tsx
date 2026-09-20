@@ -10,17 +10,17 @@ export default function Icon() {
         width: 32,
         height: 32,
         borderRadius: 4,
-        background: "linear-gradient(135deg, #D4AF37 0%, #B8962E 100%)",
+        background: "linear-gradient(135deg, #E14A30 0%, #B43B26 100%)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         fontFamily: "system-ui, sans-serif",
         fontWeight: 800,
         fontSize: 20,
-        color: "#1C1A17",
+        color: "#F1ECE3",
       }}
     >
-      A
+      I
     </div>,
     { ...size },
   );

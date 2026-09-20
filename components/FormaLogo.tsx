@@ -9,9 +9,9 @@ import { useId } from "react";
  * exported names `FormaLogoAnimated` / `FormaLogoStatic` / `FormaLogoIcon`)
  * for the same reason CLAUDE.md documents for the rest of the pre-refresh
  * naming: every call site already imports these names, and renaming them
- * would touch a dozen files for no visible benefit. The wordmark itself kept
- * its gold gradient and letter-drawn animation deliberately — see CLAUDE.md,
- * "Fonts" / brand exceptions.
+ * would touch a dozen files for no visible benefit. The wordmark's gradient
+ * runs red → dark red (the site's one accent, tinted for depth) rather than
+ * a flat fill, keeping the letter-drawn animation from the earlier version.
  *
  * Each instance mints its own gradient id with `useId` — SVG ids are
  * document-scoped, and two copies of the logo on one page (header + footer)
@@ -32,8 +32,8 @@ export function FormaLogoAnimated({ className }: { className?: string }) {
     >
       <defs>
         <linearGradient id={gid} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#D4AF37" />
-          <stop offset="100%" stopColor="#B8962E" />
+          <stop offset="0%" stopColor="#E14A30" />
+          <stop offset="100%" stopColor="#B43B26" />
         </linearGradient>
       </defs>
       {LETTERS.map((letter, i) => (
@@ -74,8 +74,8 @@ export function FormaLogoStatic({ className }: { className?: string }) {
     >
       <defs>
         <linearGradient id={gid} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#D4AF37" />
-          <stop offset="100%" stopColor="#B8962E" />
+          <stop offset="0%" stopColor="#E14A30" />
+          <stop offset="100%" stopColor="#B43B26" />
         </linearGradient>
       </defs>
       {LETTERS.map((letter, i) => (
@@ -109,8 +109,8 @@ export function FormaLogoIcon({ size = 32, className }: { size?: number; classNa
     >
       <defs>
         <linearGradient id={gid} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#D4AF37" />
-          <stop offset="100%" stopColor="#B8962E" />
+          <stop offset="0%" stopColor="#E14A30" />
+          <stop offset="100%" stopColor="#B43B26" />
         </linearGradient>
       </defs>
       <circle cx="60" cy="60" r="46" stroke={`url(#${gid})`} strokeWidth="14" fill="none" />
