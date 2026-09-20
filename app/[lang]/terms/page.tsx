@@ -76,7 +76,7 @@ export default function TermsPage() {
         </p>
         <h1
           style={{
-            fontFamily: "var(--font-fraunces), Georgia, serif",
+            fontFamily: "var(--font-display), Georgia, serif",
             fontSize: "clamp(36px, 5vw, 52px)",
             fontWeight: 400,
             letterSpacing: "0.01em",
@@ -95,7 +95,7 @@ export default function TermsPage() {
             <section key={s.title}>
               <h2
                 className="text-[15px] font-semibold text-theme mb-2"
-                style={{ fontFamily: "var(--font-fraunces), sans-serif", letterSpacing: "0.02em" }}
+                style={{ fontFamily: "var(--font-display), sans-serif", letterSpacing: "0.02em" }}
               >
                 {s.title}
               </h2>

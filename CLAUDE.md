@@ -36,11 +36,16 @@ If a request would violate any of the above, push back rather than implementing 
 template-marketplace/
 ├── app/
 │   ├── [lang]/                  # /it and /en — everything user-facing lives here
-│   │   ├── layout.tsx           # Providers, fonts (Fraunces + Inter), metadata
-│   │   ├── page.tsx             # Homepage — hero, featured articles, category teasers
-│   │   ├── articoli/
-│   │   │   ├── page.tsx         # Article index with Mentalist/Psicologia filter
+│   │   ├── layout.tsx           # Providers, fonts (Playfair Display + Inter), metadata
+│   │   ├── page.tsx             # Homepage — hero, tagline, featured articles, section teasers
+│   │   ├── articoli/            # "L'Archivio" — display label only, route path kept as /articoli
+│   │   │   ├── page.tsx         # Article index — 4-category filter, one featured lead + grid
 │   │   │   └── [slug]/page.tsx  # Article detail — metadata/OG, related articles
+│   │   ├── dossier/
+│   │   │   ├── page.tsx         # Dossier Personaggi index — every `person`-tagged article
+│   │   │   └── [slug]/page.tsx  # Dossier article detail
+│   │   ├── guide-pratiche/page.tsx  # Guide Pratiche index — every `isGuide` article (links into /articoli/[slug])
+│   │   ├── biblioteca/page.tsx  # La Biblioteca — recommended books, reads lib/books.ts
 │   │   ├── chi-siamo/page.tsx   # About — states the fan-project disclaimer plainly
 │   │   ├── privacy/ terms/      # Simple content-site policies (no payments language)
 │   │   ├── error.tsx            # Route-level error boundary
@@ -67,6 +72,7 @@ template-marketplace/
 │   └── PageTransition.tsx       # Route transition wrapper
 ├── lib/
 │   ├── articles.ts              # ALL article content lives here — single source of truth
+│   ├── books.ts                  # "La Biblioteca" reading list — 2 books, bilingual, no cover art
 │   ├── i18n.ts                  # UI copy strings, IT + EN, one `copy` table
 │   ├── locales.ts                # Locale list/guards (`LOCALES`, `isLocale`, `toLocale`)
 │   ├── email.ts                  # Resend: newsletter signup notification only
@@ -88,10 +94,11 @@ template-marketplace/
 
 Single source of truth for every article, mirroring the old `lib/templates.ts` pattern:
 
-- `Article` = `{ slug, category, publishedAt, tags, it: ArticleLocale, en: ArticleLocale }`.
-- `category` is `"mentalist" | "psicologia"`.
-- `ArticleLocale` = `{ title, description, body }`. `body` uses a deliberately tiny markdown grammar — blank-line paragraphs, `"## "` headings, `"- "` bullet lists, `**bold**` spans — rendered by `components/ArticleBody.tsx`. No markdown dependency; don't add one for this.
-- Helpers: `getArticle(slug)`, `getArticlesByCategory(category)`, `getAllArticlesSorted()`, `getRelatedArticles(current, limit)`.
+- `Article` = `{ slug, category, person?, isGuide?, publishedAt, tags, it: ArticleLocale, en: ArticleLocale }`.
+- `category` is one of the four "Il Taccuino di Jane" macro-categories: `"corpo" | "persuasione" | "mentalismo" | "contro-manipolazione"` (see `CATEGORY_LABELS` / `getCategoryLabel()` for their IT/EN display labels — never hardcode a category label string at a call site).
+- `person?: string` marks a "Dossier Personaggi" piece (e.g. `"patrick-jane"`, `"cal-lightman"`) — it still belongs to one of the four categories and appears in both `/articoli` and `/dossier`. `isGuide?: boolean` marks a long-form "Guide Pratiche" piece, surfaced in `/guide-pratiche` in addition to `/articoli`. Both flags are independent of `category` and of each other.
+- `ArticleLocale` = `{ title, description, body }`. `body` uses a deliberately tiny markdown grammar — blank-line paragraphs, `"## "` headings, `"- "` bullet lists, `**bold**` spans, and a `":::callout Title"` ... `":::"` fenced block (the "L'Osservazione Chiave" / "The Key Observation" highlight box; title optional) — rendered by `components/ArticleBody.tsx`. No markdown dependency; don't add one for this.
+- Helpers: `getArticle(slug)`, `getArticlesByCategory(category)`, `getAllArticlesSorted()`, `getRelatedArticles(current, limit)`, `getDossierArticles()` / `getDossierArticlesForPerson(person)`, `getGuideArticles()`.
 
 **When adding a new article:**
 
@@ -118,29 +125,32 @@ Single source of truth for every article, mirroring the old `lib/templates.ts` p
 - Validates the email with `subscribeSchema` (`lib/schemas.ts`).
 - There is **no database**. A signup does not get stored server-side; instead `lib/email.ts`'s `sendNewsletterSignupNotification()` emails the site owner (`RESEND_NOTIFY_TO`, falling back to `RESEND_FROM`) so they can add the address to whatever list tool they use. Silently no-ops without `RESEND_API_KEY` (safe in dev/preview).
 
-## Design System — strict 3-colour palette
+## Design System — "Il Taccuino di Jane" exact-hex palette
 
-The site's entire palette is exactly three colours, taken from a moodboard's Pantone swatches — **never add a fourth hue**:
+The site's palette is the site owner's exact hex codes from the "Il Taccuino di Jane" content/design brief — a vintage-notebook / investigative-club look. **Never add a fifth colour**; every other token is a literal shade, tint or opacity of these four:
 
-| Role  | Pantone       | Hex       | Used as                                                |
-| ----- | ------------- | --------- | ------------------------------------------------------- |
-| Green | 2411 U        | `#4B5D46` | `--text` (light mode ink)                                |
-| Red   | 2347 U        | `#E14A30` | the one accent hue (`--terra` = literal swatch value)    |
-| Cream | P 179-1 U     | `#F1ECE3` | `--bg` (light mode paper)                                |
+| Element          | Name                    | Hex       | Role                                                          |
+| ----------------- | ----------------------- | --------- | -------------------------------------------------------------- |
+| Sfondo Dominante   | Panna Vintage            | `#FDFBF7` | `--bg` — dominant page/article background                     |
+| Testo e Struttura  | Verde Abete / Oxford     | `#1B362F` | `--text` — headings, menus, body text, thin divider lines      |
+| Accento e Focus    | Rosso Tè / Cremisi Muto  | `#8B2635` | `--accent` — CTAs, important links, highlighted detail (~10% of the page) |
+| Sfondi Secondari   | Grigio-Verde Salvia      | `#EAEFE9` | `--surface-2` — callout boxes, quotes, card previews           |
 
-Every other token in `app/globals.css` (`--surface`, `--muted`, `--border`, dark-mode `--bg`/`--text`, `--accent`, shadows, etc.) is a literal shade, tint or opacity of one of these three — computed via `color-mix()` or plain rgba, not a new hue. Two things to know before touching colour:
+Two things to know before touching colour:
 
-- **`--accent` vs `--terra` are not interchangeable.** The raw swatch red (`--terra`, `#E14A30`) only measures ~3.4:1 against the cream background — enough for large text and decorative fills, not enough for small UI text. `--accent` is a darkened shade of the same red (`#B43B26` light / `#E87764` dark) used wherever red sits behind or under body-sized text (buttons, links, kickers) so it clears 4.5:1. `--terra` is for surfaces that carry *dark* text instead (e.g. the active filter chip) — dark text reads better on the brighter red than on the darkened one.
-- **No stray neutrals.** Shadows and overlays are tinted with the green (`rgba(75, 93, 70, …)`), not a generic black/brown. The one exception is a literal near-black (`#17130A`) used as text on the `--terra` chip, purely because no shade of the palette's green or red clears 4.5:1 there — see the comment at `.fn-filter.is-active` in `globals.css`.
+- **`#8B2635` needs no separate "text-safe" shade** — checked against the WCAG 2.2 relative-luminance formula, it measures 8.4:1 on `#FDFBF7` and cream text on a solid `#8B2635` fill measures 8.65:1, both comfortably above the 4.5:1 AA floor. Unlike the previous (Pantone-swatch) palette pass, `--accent` and `--terra` are therefore the *same* colour now — `--terra` is kept only as a backward-compat CSS variable alias, not a second red.
+- **No stray neutrals.** Shadows and overlays are tinted with the green (`rgba(27, 54, 47, …)`), not a generic black/brown. Dark mode remaps the same four colours onto a dark-green ground (`#0C1815` background, `#FDFBF7` text, `#B4727C` — the accent red lightened toward white until it clears 4.5:1 on that dark ground) rather than introducing a fifth hue.
 
 Other tokens:
 
-- **Fonts**: Fraunces (display — h1–h3, article titles) + Inter (body/UI). Only these two families are loaded.
+- **Fonts**: Playfair Display (display — h1–h3, article titles; CSS variable `--font-display`, still named that even though it once loaded Fraunces — see the layout.tsx comment) + Inter (body/UI). Only these two families are loaded. Playfair Display is a static-weight family, not a variable font, so display type is tuned with `font-weight`/`font-style`, not `font-variation-settings`.
 - **Radius tokens**: editorial and sharp, not rounded. Use `.r-md` (4px — cards, panels, buttons), `.r-sm` (2px — chips), `.r-lg`/`.r-xl` for larger surfaces. Only genuinely circular elements use `border-radius: 50%` directly.
 - **Shadows**: `--shadow-sm` / `--shadow-md` / `--shadow-lg` / `--shadow-xl` in `globals.css`.
 - **Buttons**: `.btn-brand` (solid red CTA, uses `--accent`) / `.btn-brand-sm` (compact variant).
+- **Callout box**: `.fn-callout` — the "L'Osservazione Chiave" / "The Key Observation" highlight box, salvia (`--surface-2`) background with a load-bearing accent-red left rule. Written via a tiny `:::callout Title` ... `:::` grammar in article bodies — see `components/ArticleBody.tsx`.
+- **Texture & separators**: a barely-perceptible SVG-turbulence grain sits behind every page in both themes (`body::before` in `globals.css`, fainter in light mode than dark — paper reads noisier at a given opacity than a near-black ground). `.fn-separator` renders a small retro diamond-glyph section break.
 - **Depth**: one material — flat opaque paper, no blur, no glass, no specular highlight. The `.glass-surface` etc. class names persist from the earlier naming (see the CSS for why) but render flat paper, not glass. The rim border on any panel is load-bearing for contrast (WCAG 1.4.11) — never drop it.
-- Theme is `dark`-class-based (`tailwind.config.ts` `darkMode: "class"`), opt-in via `ThemeToggle`, default light. Dark mode remaps the same three colours onto a dark-green ground rather than introducing a fourth "ink" hue.
+- Theme is `dark`-class-based (`tailwind.config.ts` `darkMode: "class"`), opt-in via `ThemeToggle`, default light.
 
 When adding a new page or component, reuse these tokens rather than hand-rolling new colors/radii/shadows — and if a design calls for a colour outside this table, that's a decision for the site owner, not something to add unilaterally.
 

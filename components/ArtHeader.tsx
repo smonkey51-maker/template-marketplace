@@ -9,9 +9,15 @@ import type { ReactNode } from "react";
  */
 export const PAINTINGS = {
   articoli: "/paintings/seurat.webp",
-  mentalist: "/paintings/kandinsky.webp",
-  psicologia: "/paintings/monet.webp",
   chiSiamo: "/paintings/vermeer.webp",
+  dossier: "/paintings/kandinsky.webp",
+  guide: "/paintings/vangogh.webp",
+  biblioteca: "/paintings/vermeer.webp",
+  // Per article-category backdrop — see lib/articles.ts ArticleCategory.
+  corpo: "/paintings/monet.webp",
+  persuasione: "/paintings/vangogh.webp",
+  mentalismo: "/paintings/kandinsky.webp",
+  "contro-manipolazione": "/paintings/seurat.webp",
 } as const;
 
 export function ArtHeader({
@@ -64,7 +70,7 @@ export function ArtHeader({
               : "mt-4 text-[clamp(2.25rem,5.5vw,4rem)]"
           }
           style={{
-            fontFamily: "var(--font-fraunces), Georgia, serif",
+            fontFamily: "var(--font-display), Georgia, serif",
             fontWeight: 500,
             lineHeight: 1,
             letterSpacing: "-0.01em",

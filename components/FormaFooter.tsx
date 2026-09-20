@@ -14,8 +14,9 @@ const COLUMNS: {
     titleKey: "footerColumnsExplore",
     items: [
       { href: "/articoli", labelKey: "navArticoli" },
-      { href: "/articoli?categoria=mentalist", labelKey: "navMentalist" },
-      { href: "/articoli?categoria=psicologia", labelKey: "navPsicologia" },
+      { href: "/dossier", labelKey: "navDossier" },
+      { href: "/guide-pratiche", labelKey: "navGuide" },
+      { href: "/biblioteca", labelKey: "navBiblioteca" },
       { href: "/chi-siamo", labelKey: "navChiSiamo" },
     ],
   },
@@ -69,7 +70,7 @@ export function FormaFooter() {
         <div className="lg:col-span-5">
           <p
             style={{
-              fontFamily: "var(--font-fraunces), Georgia, serif",
+              fontFamily: "var(--font-display), Georgia, serif",
               fontWeight: 500,
               letterSpacing: "-0.01em",
               color: "var(--text)",
