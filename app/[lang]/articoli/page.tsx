@@ -2,7 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { toLocale } from "@/lib/locales";
 import { copy } from "@/lib/i18n";
-import { getAllArticlesSorted, type ArticleCategory } from "@/lib/articles";
+import {
+  getAllArticlesSorted,
+  getCategoryLabel,
+  ARTICLE_CATEGORIES,
+  type ArticleCategory,
+} from "@/lib/articles";
 import SiteNav from "@/components/SiteNav";
 import { FormaFooter } from "@/components/FormaFooter";
 import { ArtHeader, PAINTINGS } from "@/components/ArtHeader";
@@ -28,11 +33,12 @@ export async function generateMetadata({
   return { title: META[lang].title, description: META[lang].description };
 }
 
-const FILTERS: { key: ArticleCategory | "all"; labelKey: keyof typeof copy.it }[] = [
-  { key: "all", labelKey: "filterAll" },
-  { key: "mentalist", labelKey: "filterMentalist" },
-  { key: "psicologia", labelKey: "filterPsicologia" },
-];
+const FILTER_LABEL_KEYS: Record<ArticleCategory, keyof typeof copy.it> = {
+  corpo: "filterCorpo",
+  persuasione: "filterPersuasione",
+  mentalismo: "filterMentalismo",
+  "contro-manipolazione": "filterContromanipolazione",
+};
 
 export default async function ArticoliPage({
   params,
@@ -46,11 +52,17 @@ export default async function ArticoliPage({
   const lang = toLocale(rawLang);
   const t = (k: keyof typeof copy.it) => copy[lang][k];
 
-  const active: ArticleCategory | "all" =
-    categoria === "mentalist" || categoria === "psicologia" ? categoria : "all";
+  const active: ArticleCategory | "all" = ARTICLE_CATEGORIES.includes(categoria as ArticleCategory)
+    ? (categoria as ArticleCategory)
+    : "all";
 
   const all = getAllArticlesSorted();
   const list = active === "all" ? all : all.filter((a) => a.category === active);
+  // Asymmetric editorial layout, brief §12: the first (most recent) piece of
+  // an unfiltered archive reads as a large featured lead, the rest as a
+  // regular grid — instead of every card at the same weight.
+  const featured = active === "all" ? list[0] : undefined;
+  const rest = active === "all" ? list.slice(1) : list;
 
   return (
     <div className="min-h-screen bg-page relative overflow-x-hidden">
@@ -67,21 +79,35 @@ export default async function ArticoliPage({
       <div className="mx-auto max-w-[1100px] px-4 py-10 sm:px-6 lg:px-10">
         {/* Category filter */}
         <div className="flex flex-wrap gap-2">
-          {FILTERS.map((f) => (
+          <Link
+            href={`/${lang}/articoli`}
+            className="r-md border px-4 py-2 text-[13px] font-semibold transition-colors"
+            style={{
+              borderColor: active === "all" ? "var(--accent)" : "var(--border)",
+              color: active === "all" ? "var(--accent)" : "var(--text)",
+              background:
+                active === "all"
+                  ? "color-mix(in srgb, var(--accent) 8%, transparent)"
+                  : "transparent",
+            }}
+          >
+            {t("filterAll")}
+          </Link>
+          {ARTICLE_CATEGORIES.map((cat) => (
             <Link
-              key={f.key}
-              href={f.key === "all" ? `/${lang}/articoli` : `/${lang}/articoli?categoria=${f.key}`}
+              key={cat}
+              href={`/${lang}/articoli?categoria=${cat}`}
               className="r-md border px-4 py-2 text-[13px] font-semibold transition-colors"
               style={{
-                borderColor: active === f.key ? "var(--accent)" : "var(--border)",
-                color: active === f.key ? "var(--accent)" : "var(--text)",
+                borderColor: active === cat ? "var(--accent)" : "var(--border)",
+                color: active === cat ? "var(--accent)" : "var(--text)",
                 background:
-                  active === f.key
+                  active === cat
                     ? "color-mix(in srgb, var(--accent) 8%, transparent)"
                     : "transparent",
               }}
             >
-              {t(f.labelKey)}
+              {t(FILTER_LABEL_KEYS[cat])}
             </Link>
           ))}
         </div>
@@ -92,38 +118,80 @@ export default async function ArticoliPage({
             {t("noArticles")}
           </p>
         ) : (
-          <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
-            {list.map((article) => (
+          <>
+            {featured ? (
               <Link
-                key={article.slug}
-                href={`/${lang}/articoli/${article.slug}`}
-                className="group block border border-theme r-md p-6 transition-colors hover:border-[var(--accent)]"
+                href={`/${lang}/articoli/${featured.slug}`}
+                className="group mt-10 grid grid-cols-1 gap-6 border border-theme r-md p-8 transition-colors hover:border-[var(--accent)] md:grid-cols-[1.4fr_1fr] md:p-10"
                 style={{ background: "var(--surface)" }}
               >
-                <span
-                  className="text-[10px] font-semibold uppercase"
-                  style={{ color: "var(--accent)", letterSpacing: "0.14em" }}
+                <div>
+                  <span
+                    className="text-[10px] font-semibold uppercase"
+                    style={{ color: "var(--accent)", letterSpacing: "0.14em" }}
+                  >
+                    {getCategoryLabel(featured.category, lang)}
+                  </span>
+                  <h2
+                    className="mt-3 text-[clamp(1.5rem,3vw,2.1rem)] leading-tight transition-colors group-hover:text-[var(--accent)]"
+                    style={{ fontFamily: "var(--font-display), Georgia, serif", fontWeight: 700 }}
+                  >
+                    {featured[lang].title}
+                  </h2>
+                  <span
+                    className="mt-4 inline-block text-[12px] font-semibold"
+                    style={{ color: "var(--accent)" }}
+                  >
+                    {t("readMore")}
+                  </span>
+                </div>
+                <p
+                  className="self-center text-[14px] leading-relaxed md:border-l md:pl-6"
+                  style={{ color: "var(--muted)", borderColor: "var(--border)" }}
                 >
-                  {article.category === "mentalist" ? t("navMentalist") : t("navPsicologia")}
-                </span>
-                <h2
-                  className="mt-2 text-[1.2rem] leading-snug transition-colors group-hover:text-[var(--accent)]"
-                  style={{ fontFamily: "var(--font-fraunces), Georgia, serif", fontWeight: 500 }}
-                >
-                  {article[lang].title}
-                </h2>
-                <p className="mt-2 text-[13px] leading-relaxed" style={{ color: "var(--muted)" }}>
-                  {article[lang].description}
+                  {featured[lang].description}
                 </p>
-                <span
-                  className="mt-4 inline-block text-[12px] font-semibold"
-                  style={{ color: "var(--accent)" }}
-                >
-                  {t("readMore")}
-                </span>
               </Link>
-            ))}
-          </div>
+            ) : null}
+
+            {rest.length > 0 && (
+              <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
+                {rest.map((article) => (
+                  <Link
+                    key={article.slug}
+                    href={`/${lang}/articoli/${article.slug}`}
+                    className="group block border border-theme r-md p-6 transition-colors hover:border-[var(--accent)]"
+                    style={{ background: "var(--surface)" }}
+                  >
+                    <span
+                      className="text-[10px] font-semibold uppercase"
+                      style={{ color: "var(--accent)", letterSpacing: "0.14em" }}
+                    >
+                      {getCategoryLabel(article.category, lang)}
+                    </span>
+                    <h2
+                      className="mt-2 text-[1.2rem] leading-snug transition-colors group-hover:text-[var(--accent)]"
+                      style={{ fontFamily: "var(--font-display), Georgia, serif", fontWeight: 700 }}
+                    >
+                      {article[lang].title}
+                    </h2>
+                    <p
+                      className="mt-2 text-[13px] leading-relaxed"
+                      style={{ color: "var(--muted)" }}
+                    >
+                      {article[lang].description}
+                    </p>
+                    <span
+                      className="mt-4 inline-block text-[12px] font-semibold"
+                      style={{ color: "var(--accent)" }}
+                    >
+                      {t("readMore")}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </>
         )}
       </div>
 

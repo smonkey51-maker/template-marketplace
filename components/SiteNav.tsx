@@ -12,8 +12,9 @@ import { Menu, X } from "lucide-react";
 
 const LINKS: { href: string; key: keyof typeof copy.it }[] = [
   { href: "/articoli", key: "navArticoli" },
-  { href: "/articoli?categoria=mentalist", key: "navMentalist" },
-  { href: "/articoli?categoria=psicologia", key: "navPsicologia" },
+  { href: "/dossier", key: "navDossier" },
+  { href: "/guide-pratiche", key: "navGuide" },
+  { href: "/biblioteca", key: "navBiblioteca" },
   { href: "/chi-siamo", key: "navChiSiamo" },
 ];
 
@@ -117,7 +118,7 @@ export default function SiteNav() {
                 style={{ color: isActive(l.href) ? "var(--text)" : "var(--muted)" }}
               >
                 <span
-                  style={{ fontFamily: "var(--font-fraunces), Georgia, serif", fontWeight: 500 }}
+                  style={{ fontFamily: "var(--font-display), Georgia, serif", fontWeight: 500 }}
                   className="text-[1.05rem]"
                 >
                   {t(l.key)}

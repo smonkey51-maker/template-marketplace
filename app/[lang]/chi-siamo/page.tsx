@@ -99,7 +99,7 @@ export default async function ChiSiamoPage({ params }: { params: Promise<{ lang:
               <h2
                 className="mb-2 text-[1.1rem]"
                 style={{
-                  fontFamily: "var(--font-fraunces), Georgia, serif",
+                  fontFamily: "var(--font-display), Georgia, serif",
                   fontWeight: 500,
                   color: "var(--text)",
                 }}

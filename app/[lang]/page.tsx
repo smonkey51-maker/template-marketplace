@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { toLocale } from "@/lib/locales";
 import { copy } from "@/lib/i18n";
-import { getAllArticlesSorted } from "@/lib/articles";
+import { getAllArticlesSorted, getCategoryLabel } from "@/lib/articles";
 import SiteNav from "@/components/SiteNav";
 import { FormaFooter } from "@/components/FormaFooter";
 import HomeHero from "@/components/HomeHero";
@@ -68,7 +68,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
         </span>
         <h2
           className="mt-3 text-[clamp(1.75rem,4vw,2.5rem)]"
-          style={{ fontFamily: "var(--font-fraunces), Georgia, serif", fontWeight: 500 }}
+          style={{ fontFamily: "var(--font-display), Georgia, serif", fontWeight: 500 }}
         >
           {t("featuredTitle")}
         </h2>
@@ -88,11 +88,11 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
                 className="text-[10px] font-semibold uppercase"
                 style={{ color: "var(--accent)", letterSpacing: "0.14em" }}
               >
-                {article.category === "mentalist" ? t("navMentalist") : t("navPsicologia")}
+                {getCategoryLabel(article.category, lang)}
               </span>
               <h3
                 className="mt-2 text-[1.15rem] leading-snug transition-colors group-hover:text-[var(--accent)]"
-                style={{ fontFamily: "var(--font-fraunces), Georgia, serif", fontWeight: 500 }}
+                style={{ fontFamily: "var(--font-display), Georgia, serif", fontWeight: 500 }}
               >
                 {article[lang].title}
               </h3>
@@ -117,35 +117,35 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
         </div>
       </section>
 
-      {/* Category teasers */}
+      {/* Section teasers — Dossier Personaggi + Guide Pratiche */}
       <section className="mx-auto max-w-[1200px] px-4 pb-16 sm:px-6 lg:px-10">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <Link
-            href={`/${lang}/articoli?categoria=mentalist`}
+            href={`/${lang}/dossier`}
             className="group block border border-theme r-md p-8 transition-colors hover:border-[var(--accent)]"
           >
             <h3
               className="text-[1.5rem] transition-colors group-hover:text-[var(--accent)]"
-              style={{ fontFamily: "var(--font-fraunces), Georgia, serif", fontWeight: 500 }}
+              style={{ fontFamily: "var(--font-display), Georgia, serif", fontWeight: 700 }}
             >
-              {t("categoryTeaserMentalistTitle")}
+              {t("categoryTeaserDossierTitle")}
             </h3>
             <p className="mt-2 text-[14px]" style={{ color: "var(--muted)" }}>
-              {t("categoryTeaserMentalistSub")}
+              {t("categoryTeaserDossierSub")}
             </p>
           </Link>
           <Link
-            href={`/${lang}/articoli?categoria=psicologia`}
+            href={`/${lang}/guide-pratiche`}
             className="group block border border-theme r-md p-8 transition-colors hover:border-[var(--accent)]"
           >
             <h3
               className="text-[1.5rem] transition-colors group-hover:text-[var(--accent)]"
-              style={{ fontFamily: "var(--font-fraunces), Georgia, serif", fontWeight: 500 }}
+              style={{ fontFamily: "var(--font-display), Georgia, serif", fontWeight: 700 }}
             >
-              {t("categoryTeaserPsicologiaTitle")}
+              {t("categoryTeaserGuideTitle")}
             </h3>
             <p className="mt-2 text-[14px]" style={{ color: "var(--muted)" }}>
-              {t("categoryTeaserPsicologiaSub")}
+              {t("categoryTeaserGuideSub")}
             </p>
           </Link>
         </div>

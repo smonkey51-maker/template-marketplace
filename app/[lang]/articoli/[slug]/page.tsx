@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { toLocale } from "@/lib/locales";
 import { copy } from "@/lib/i18n";
-import { articles, getArticle, getRelatedArticles } from "@/lib/articles";
+import { articles, getArticle, getRelatedArticles, getCategoryLabel } from "@/lib/articles";
 import SiteNav from "@/components/SiteNav";
 import { FormaFooter } from "@/components/FormaFooter";
 import ArticleBody from "@/components/ArticleBody";
@@ -77,8 +77,8 @@ export default async function ArticlePage({
       <div className="mx-auto max-w-[800px] px-4 sm:px-6">
         <ArtHeader
           compact
-          painting={article.category === "mentalist" ? PAINTINGS.mentalist : PAINTINGS.psicologia}
-          kicker={article.category === "mentalist" ? t("navMentalist") : t("navPsicologia")}
+          painting={PAINTINGS[article.category]}
+          kicker={getCategoryLabel(article.category, lang)}
           title={locale.title}
         />
 
@@ -124,7 +124,7 @@ export default async function ArticlePage({
         <div className="mx-auto max-w-[1000px] px-4 py-16 sm:px-6">
           <h2
             className="text-[1.3rem]"
-            style={{ fontFamily: "var(--font-fraunces), Georgia, serif", fontWeight: 500 }}
+            style={{ fontFamily: "var(--font-display), Georgia, serif", fontWeight: 500 }}
           >
             {t("relatedTitle")}
           </h2>
@@ -140,11 +140,11 @@ export default async function ArticlePage({
                   className="text-[10px] font-semibold uppercase"
                   style={{ color: "var(--accent)", letterSpacing: "0.14em" }}
                 >
-                  {r.category === "mentalist" ? t("navMentalist") : t("navPsicologia")}
+                  {getCategoryLabel(r.category, lang)}
                 </span>
                 <h3
                   className="mt-2 text-[1rem] leading-snug transition-colors group-hover:text-[var(--accent)]"
-                  style={{ fontFamily: "var(--font-fraunces), Georgia, serif", fontWeight: 500 }}
+                  style={{ fontFamily: "var(--font-display), Georgia, serif", fontWeight: 500 }}
                 >
                   {r[lang].title}
                 </h3>

@@ -32,8 +32,8 @@ export default function HomeHero({ lang }: { lang: Lang }) {
         <h1
           className="mt-5 text-[clamp(2.25rem,6vw,3.75rem)]"
           style={{
-            fontFamily: "var(--font-fraunces), Georgia, serif",
-            fontWeight: 500,
+            fontFamily: "var(--font-display), Georgia, serif",
+            fontWeight: 700,
             lineHeight: 1.05,
             letterSpacing: "-0.01em",
             color: "var(--text)",
@@ -41,6 +41,16 @@ export default function HomeHero({ lang }: { lang: Lang }) {
         >
           {t("heroTitle")}
         </h1>
+        <p
+          className="mx-auto mt-4 max-w-[520px] text-[clamp(1.05rem,2.4vw,1.3rem)] italic"
+          style={{
+            fontFamily: "var(--font-display), Georgia, serif",
+            fontWeight: 500,
+            color: "var(--accent)",
+          }}
+        >
+          {t("heroTagline")}
+        </p>
         <p
           className="mx-auto mt-6 max-w-[620px] text-[16px] leading-relaxed"
           style={{ color: "var(--muted)" }}

@@ -11,11 +11,15 @@ export const copy = {
     siteName: "INSPO",
     siteTagline: "Osservazione, psicologia e Il Mentalist.",
 
-    /* nav */
+    /* nav — "L'Archivio" is the display label for /articoli (kept as the
+       route path to avoid URL churn); Dossier Personaggi, Guide Pratiche and
+       La Biblioteca are the three new sections from the "Il Taccuino di
+       Jane" content brief. */
     navHome: "Home",
-    navArticoli: "Articoli",
-    navMentalist: "Il Mentalist",
-    navPsicologia: "Psicologia",
+    navArticoli: "L'Archivio",
+    navDossier: "Dossier Personaggi",
+    navGuide: "Guide Pratiche",
+    navBiblioteca: "La Biblioteca",
     navChiSiamo: "Chi siamo",
 
     /* fan-site disclaimer (short, used in header/footer contexts) */
@@ -24,7 +28,8 @@ export const copy = {
 
     /* homepage */
     heroKicker: "Osservazione · Psicologia · Finzione",
-    heroTitle: "L'acume non è un potere. È un metodo.",
+    heroTitle: "Nulla sfugge a chi osserva davvero.",
+    heroTagline: "L'arte di osservare ciò che gli altri vedono soltanto.",
     heroSub:
       'Analisi da fan su Patrick Jane e "Il Mentalist", insieme a guide pratiche di psicologia — linguaggio del corpo, memoria, ascolto, persuasione — per usare davvero ciò che il personaggio simula in TV.',
     heroCtaArticoli: "Leggi gli articoli",
@@ -33,29 +38,51 @@ export const copy = {
     featuredTitle: "Ultimi articoli",
     featuredSub: "I pezzi più recenti, tra analisi della serie e psicologia applicata.",
     seeAllArticles: "Vedi tutti gli articoli →",
-    categoryTeaserMentalistTitle: "Il Mentalist",
-    categoryTeaserMentalistSub:
-      "Analisi del personaggio, del metodo, degli episodi — commento da fan.",
-    categoryTeaserPsicologiaTitle: "Psicologia pratica",
-    categoryTeaserPsicologiaSub: "Tecniche vere: osservazione, memoria, ascolto, persuasione.",
-    newsletterKicker: "Newsletter",
-    newsletterTitle: "Un articolo nuovo, ogni tanto",
-    newsletterSub: "Niente spam — solo un'email quando pubblichiamo qualcosa di nuovo.",
+    categoryTeaserDossierTitle: "Dossier Personaggi",
+    categoryTeaserDossierSub:
+      "Psicologia, linguaggio del corpo e tecniche di personaggi come Patrick Jane e Cal Lightman — commento da fan.",
+    categoryTeaserGuideTitle: "Guide Pratiche",
+    categoryTeaserGuideSub: "Tecniche vere, passo dopo passo: osservazione, difesa, persuasione.",
+    newsletterKicker: "Il Taccuino",
+    newsletterTitle: "Il Taccuino di Jane",
+    newsletterSub:
+      "Ogni settimana, un'analisi psicologica esclusiva direttamente nella tua casella di posta. Tecniche che non pubblico sul sito.",
     newsletterPlaceholder: "La tua email",
-    newsletterCta: "Iscriviti",
+    newsletterCta: "Iscriviti al Taccuino",
     newsletterSuccess: "Iscritto — grazie!",
     newsletterError: "Qualcosa è andato storto. Riprova.",
 
     /* articoli listing */
-    articoliKicker: "Blog",
-    articoliTitle: "Articoli",
+    articoliKicker: "L'Archivio",
+    articoliTitle: "L'Archivio",
     articoliSub: 'Fan commentary su "Il Mentalist" e guide pratiche di psicologia.',
     filterAll: "Tutti",
-    filterMentalist: "Il Mentalist",
-    filterPsicologia: "Psicologia",
+    filterCorpo: "Linguaggio del Corpo",
+    filterPersuasione: "Persuasione",
+    filterMentalismo: "Mentalismo & Cold Reading",
+    filterContromanipolazione: "Contro-Manipolazione",
     noArticles: "Nessun articolo in questa categoria, per ora.",
     readMore: "Leggi →",
     minRead: "min di lettura",
+
+    /* dossier personaggi */
+    dossierKicker: "Dossier",
+    dossierTitle: "Dossier Personaggi",
+    dossierSub:
+      "Analisi psicologiche originali di personaggi di finzione che leggono le persone per mestiere — Patrick Jane, Cal Lightman e altri. Commento da fan, mai trascrizioni di scene o dialoghi.",
+    dossierBackToDossier: "← Tutti i dossier",
+
+    /* guide pratiche */
+    guideKicker: "Guide",
+    guideTitle: "Guide Pratiche",
+    guideSub:
+      "Articoli lunghi, passo dopo passo, su difesa psicologica e miglioramento della comunicazione.",
+
+    /* la biblioteca */
+    bibliotecaKicker: "Biblioteca",
+    bibliotecaTitle: "La Biblioteca",
+    bibliotecaSub:
+      "I testi fondamentali per chi vuole andare oltre la fiction e approfondire la materia sul serio.",
 
     /* article detail */
     backToArticles: "← Tutti gli articoli",
@@ -99,9 +126,10 @@ export const copy = {
 
     /* nav */
     navHome: "Home",
-    navArticoli: "Articles",
-    navMentalist: "The Mentalist",
-    navPsicologia: "Psychology",
+    navArticoli: "The Archive",
+    navDossier: "Character Dossiers",
+    navGuide: "Practical Guides",
+    navBiblioteca: "The Library",
     navChiSiamo: "About",
 
     /* fan-site disclaimer */
@@ -110,7 +138,8 @@ export const copy = {
 
     /* homepage */
     heroKicker: "Observation · Psychology · Fiction",
-    heroTitle: "Acumen isn't a power. It's a method.",
+    heroTitle: "Nothing escapes those who truly observe.",
+    heroTagline: "The art of observing what others only see.",
     heroSub:
       'Fan analysis of Patrick Jane and "The Mentalist", alongside practical psychology guides — body language, memory, listening, persuasion — for actually using what the character simulates on screen.',
     heroCtaArticoli: "Read the articles",
@@ -119,29 +148,49 @@ export const copy = {
     featuredTitle: "Latest articles",
     featuredSub: "The most recent pieces, between show analysis and applied psychology.",
     seeAllArticles: "See all articles →",
-    categoryTeaserMentalistTitle: "The Mentalist",
-    categoryTeaserMentalistSub:
-      "Character and method analysis, episode commentary — fan discussion.",
-    categoryTeaserPsicologiaTitle: "Practical psychology",
-    categoryTeaserPsicologiaSub: "Real techniques: observation, memory, listening, persuasion.",
-    newsletterKicker: "Newsletter",
-    newsletterTitle: "A new article, now and then",
-    newsletterSub: "No spam — just an email whenever we publish something new.",
+    categoryTeaserDossierTitle: "Character Dossiers",
+    categoryTeaserDossierSub:
+      "Psychology, body language and technique, character by character — Patrick Jane, Cal Lightman and more. Fan commentary.",
+    categoryTeaserGuideTitle: "Practical Guides",
+    categoryTeaserGuideSub: "Real techniques, step by step: observation, defense, persuasion.",
+    newsletterKicker: "The Notebook",
+    newsletterTitle: "Jane's Notebook",
+    newsletterSub:
+      "Every week, one exclusive psychological analysis straight to your inbox. Techniques I don't publish on the site.",
     newsletterPlaceholder: "Your email",
-    newsletterCta: "Subscribe",
+    newsletterCta: "Subscribe to the Notebook",
     newsletterSuccess: "Subscribed — thank you!",
     newsletterError: "Something went wrong. Try again.",
 
     /* articles listing */
-    articoliKicker: "Blog",
-    articoliTitle: "Articles",
+    articoliKicker: "The Archive",
+    articoliTitle: "The Archive",
     articoliSub: 'Fan commentary on "The Mentalist" and practical psychology guides.',
     filterAll: "All",
-    filterMentalist: "The Mentalist",
-    filterPsicologia: "Psychology",
+    filterCorpo: "Body Language",
+    filterPersuasione: "Persuasion",
+    filterMentalismo: "Mentalism & Cold Reading",
+    filterContromanipolazione: "Counter-Manipulation",
     noArticles: "No articles in this category yet.",
     readMore: "Read →",
     minRead: "min read",
+
+    /* character dossiers */
+    dossierKicker: "Dossier",
+    dossierTitle: "Character Dossiers",
+    dossierSub:
+      "Original psychological analysis of fictional characters who read people for a living — Patrick Jane, Cal Lightman and others. Fan commentary, never a transcript of scenes or dialogue.",
+    dossierBackToDossier: "← All dossiers",
+
+    /* practical guides */
+    guideKicker: "Guides",
+    guideTitle: "Practical Guides",
+    guideSub: "Long-form, step-by-step pieces on psychological self-defense and communication.",
+
+    /* the library */
+    bibliotecaKicker: "Library",
+    bibliotecaTitle: "The Library",
+    bibliotecaSub: "The essential books for going beyond the fiction and studying this for real.",
 
     /* article detail */
     backToArticles: "← All articles",

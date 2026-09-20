@@ -69,104 +69,67 @@ body {
    THEME VARIABLES
    ═══════════════════════════════════════════════════════════ */
 :root {
-  /* ── Light mode: FORMA — warm paper + bordeaux ── */
-  --bg: #f4f0e8;
-  --surface: #fbf9f4;
-  --surface-2: #e7e0d3;
-  --text: #1c1a17;
-  --muted: #7a7266;
-  --border: rgba(28, 26, 23, 0.12);
-  --fn-border: rgba(28, 26, 23, 0.12);
-  --fn-menu-bg: rgba(251, 249, 244, 0.98);
-  --nav-bg: rgba(244, 240, 232, 0.97);
-  --card-bg: rgba(251, 249, 244, 0.98);
-  --card-border: rgba(28, 26, 23, 0.12);
-  --input-bg: rgba(28, 26, 23, 0.04);
-  --btn-ghost-border: rgba(28, 26, 23, 0.18);
-  --btn-ghost-border-hover: rgba(28, 26, 23, 0.72);
-  /* Border radius tokens — FORMA editorial scale. Sharp corners on
-     purpose: this replaced the rounded squircle/pill system (see the DEPTH
-     block below for the flat-paper material that replaced liquid glass). */
+  /* ── Light mode: INSPO — "Il Taccuino di Jane" palette, the site owner's
+     exact hex codes (a vintage-notebook / investigative-club look,
+     replacing the earlier 3-Pantone-swatch pass):
+       Panna Vintage        #FDFBF7  — dominant page/article background
+       Verde Abete / Oxford #1B362F  — headings, menus, body text, divider lines
+       Rosso Tè / Cremisi   #8B2635  — CTAs, important links, highlighted detail (~10% of the page)
+       Grigio-Verde Salvia  #EAEFE9  — secondary surfaces: callout boxes, quotes, card backdrops
+     Checked against WCAG 2.2 contrast (relative-luminance formula) before
+     use: #8B2635 on #FDFBF7 is 8.4:1, and cream text (#FDFBF7) on a solid
+     #8B2635 button/chip is 8.65:1 — both comfortably clear the 4.5:1 AA
+     floor for body-sized text, so unlike the previous palette pass this one
+     needs no separate darkened "text-safe" shade of the accent: the exact
+     brief hex works everywhere, undiluted. --terra is kept only as a
+     backward-compat alias (a few rules still reference it) and is now
+     identical to --accent — there is no second red any more. */
+  --bg: #fdfbf7;
+  --surface: #f8f5ee;
+  --surface-2: #eaefe9;
+  --text: #1b362f;
+  --muted: #6b7f76;
+  --border: rgba(27, 54, 47, 0.14);
+  --fn-border: rgba(27, 54, 47, 0.14);
+  --fn-menu-bg: rgba(248, 245, 238, 0.98);
+  --nav-bg: rgba(253, 251, 247, 0.97);
+  --card-bg: rgba(248, 245, 238, 0.98);
+  --card-border: rgba(27, 54, 47, 0.14);
+  --input-bg: rgba(27, 54, 47, 0.05);
+  --btn-ghost-border: rgba(27, 54, 47, 0.2);
+  --btn-ghost-border-hover: rgba(27, 54, 47, 0.72);
+  /* Border radius tokens — editorial scale, sharp corners on purpose. */
   --r-sm: 2px;
   --r-md: 4px;
   --r-lg: 6px;
   --r-xl: 8px;
-  --glass-shadow: 0 1px 2px rgba(28, 26, 23, 0.06), 0 8px 24px rgba(28, 26, 23, 0.08);
-  --glass-stroke: rgba(28, 26, 23, 0.12);
+  --glass-shadow: 0 1px 2px rgba(27, 54, 47, 0.06), 0 8px 24px rgba(27, 54, 47, 0.08);
+  --glass-stroke: rgba(27, 54, 47, 0.12);
   --glass-top-edge: none;
   --glass-bright: 1;
   --spec-hot: transparent;
   --spec-mid: transparent;
-  --divider: rgba(28, 26, 23, 0.1);
-  /* FORMA accent — bordeaux, one accent for the whole site (no more
-     per-room "gallery" accents; the [data-section] overrides below were
-     removed so every page reads as one coherent gallery, not separate
-     rooms). --gold/--gold-soft keep their historical names for compat with
-     existing references, but now track bordeaux, not gold. */
-  --accent: #7a2e28;
+  --divider: rgba(27, 54, 47, 0.12);
+  /* One accent for the whole site (no per-room "gallery" accents).
+     --gold/--gold-soft keep their historical names for compat with
+     existing references, but now track the brief's exact red. */
+  --accent: #8b2635;
   --gold: var(--accent);
   --gold-soft: color-mix(in srgb, var(--accent) 80%, black 20%);
-  --accent-bg: rgba(122, 46, 40, 0.1);
-  --accent-rgb: 122, 46, 40;
-  --accent-muted: rgba(122, 46, 40, 0.18);
-  /* Palette tokens */
-  --gold-dim: rgba(122, 46, 40, 0.12);
-  --gold-mid: rgba(122, 46, 40, 0.3);
-  --terra: color-mix(in srgb, var(--accent) 75%, black 25%);
+  --accent-bg: rgba(139, 38, 53, 0.1);
+  --accent-rgb: 139, 38, 53;
+  --accent-muted: rgba(139, 38, 53, 0.18);
+  /* Backward-compat alias — see the palette note above: there is only one
+     red now, so --terra is simply --accent. */
+  --terra: var(--accent);
   --terra-dim: color-mix(in srgb, var(--terra) 12%, transparent);
-  --cream: #f4f0e8;
-  --cream-60: rgba(244, 240, 232, 0.6);
-  --cream-30: rgba(244, 240, 232, 0.3);
-  --cream-08: rgba(244, 240, 232, 0.08);
-  --obsidian-2: #e7e0d3;
-  --obsidian-3: #ded4c0;
-  --obsidian-4: #d5c9b0; /* unused, keep for compat */
-  --border-gold: 1px solid rgba(122, 46, 40, 0.28);
-  /* Semantic state colors */
-  --success: #5a7a32;
-  --success-dim: rgba(90, 122, 50, 0.12);
-  --error: #7a1c2e;
-  --error-dim: rgba(122, 28, 46, 0.12);
-  /* Ambient glow */
-  --glow-gold: rgba(212, 175, 55, 0.18);
-  --glow-terra: rgba(122, 28, 46, 0.12);
-  /* Platform brand colors (download buttons) */
-  --platform-canva: #7b61ff;
-  --platform-excel: #1d6f42;
-  --platform-sheets: #0f9d58;
-  --platform-notion: #6e6e6e;
-  --platform-webflow: #4353ff;
-  --platform-framer: #0055ff;
-  --platform-shopify: #95bf47;
-  --platform-wordpress: #21759b;
-  /* Phone bezel (preview) */
-  --bezel-bg: #e8e4de;
-  --bezel-ring: #d4cfc7;
-  --bezel-ring-2: #c8c3ba;
-  --bezel-button: #c8c3ba;
-  --bezel-notch-bg: #f5f2ed;
-  --bezel-notch-border: #d4cfc7;
-  /* Prompt viewer */
-  --prompt-bg: #fffef7;
-  --prompt-header: #f7f6ee;
-  --prompt-text: #1c1814;
-  --prompt-label: #8e8e93;
-  /* Modal skeleton */
-  --skeleton-bg: #f2f2f7;
-  /* Pillar heading */
-  --pillar-name-color: var(--gold-soft);
-  /* FORMA tokens — light */
-  --forma-bg: var(--bg);
-  --forma-bg-alt: var(--surface);
-  --forma-bg-dark-section: #f0e4cc;
-  --forma-text: var(--text);
-  --forma-text-muted: var(--muted);
-  --forma-text-accent: var(--accent);
-  --forma-border: var(--border);
-  --forma-border-card: var(--card-border);
-  --forma-accent-sabi: var(--terra);
-  --forma-kinari: #1c1610;
-  --bg-outer: #f0e4cc;
+  /* Semantic state colors — reuse the two hues already in the palette
+     rather than introducing green-for-success/red-for-error as new
+     colours. */
+  --success: var(--text);
+  --success-dim: rgba(27, 54, 47, 0.12);
+  --error: var(--accent);
+  --error-dim: rgba(139, 38, 53, 0.15);
   /* FORMA spacing scale */
   --sp-1: 8px;
   --sp-2: 16px;
@@ -175,10 +138,6 @@ body {
   --sp-5: 64px;
   --sp-6: 120px;
 }
-
-/* FORMA is one gallery, not separate rooms: the former [data-section]
-   per-room accent overrides were retired in the rebrand so --accent stays
-   bordeaux everywhere. */
 
 /* ── Font pairing: Fraunces (h1–h3, display) + Inter (everything else) ── */
 
@@ -201,7 +160,7 @@ p {
 h1,
 h2,
 h3 {
-  font-family: var(--font-fraunces), Georgia, serif;
+  font-family: var(--font-display), Georgia, serif;
   font-weight: 600;
   line-height: 1.15;
   letter-spacing: -0.01em;
@@ -217,90 +176,50 @@ h6 {
 }
 
 html.dark {
-  /* ── Dark mode: FORMA — ink + warm paper text, lightened bordeaux ──
-     The Figma prototype only specifies a light "paper" mode; this is its
-     coherent dark companion (same bordeaux family, tuned to read on ink
-     instead of paper), kept as the site's optional dark theme. */
-  --bg: #14110d;
-  --surface: #1c1814;
-  --surface-2: #262019;
-  --text: #f2ece0;
-  --muted: #a89a86;
-  --border: rgba(242, 236, 224, 0.14);
-  --fn-border: rgba(242, 236, 224, 0.14);
-  --fn-menu-bg: rgba(20, 17, 13, 0.98);
-  --panel: rgba(242, 236, 224, 0.05);
-  --nav-bg: rgba(20, 17, 13, 0.97);
-  --card-bg: rgba(28, 24, 20, 0.98);
-  --card-border: rgba(242, 236, 224, 0.14);
-  --input-bg: rgba(242, 236, 224, 0.06);
-  --btn-ghost-border: rgba(242, 236, 224, 0.18);
-  --btn-ghost-border-hover: rgba(242, 236, 224, 0.7);
+  /* ── Dark mode: the same exact-hex palette, re-mixed for a dark ground ──
+     --bg/--surface/--surface-2 are Verde Abete (#1B362F) mixed toward
+     black; --text is Panna Vintage (#FDFBF7); --accent is Rosso Tè
+     lightened (mixed 35% toward white) until it clears 4.5:1 against the
+     dark green background — the raw brief red only manages ~3.0:1 there.
+     --terra stays an alias of --accent (see the light-mode note above). */
+  --bg: #0c1815;
+  --surface: #101f1b;
+  --surface-2: #16281f;
+  --text: #fdfbf7;
+  --muted: #8fa89d;
+  --border: rgba(253, 251, 247, 0.14);
+  --fn-border: rgba(253, 251, 247, 0.14);
+  --fn-menu-bg: rgba(12, 24, 21, 0.98);
+  --nav-bg: rgba(12, 24, 21, 0.97);
+  --card-bg: rgba(16, 31, 27, 0.98);
+  --card-border: rgba(253, 251, 247, 0.14);
+  --input-bg: rgba(253, 251, 247, 0.06);
+  --btn-ghost-border: rgba(253, 251, 247, 0.18);
+  --btn-ghost-border-hover: rgba(253, 251, 247, 0.7);
   --glass-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 32px rgba(0, 0, 0, 0.5);
-  --glass-stroke: rgba(242, 236, 224, 0.1);
+  --glass-stroke: rgba(253, 251, 247, 0.1);
   --glass-top-edge: none;
   --glass-bright: 1;
   --spec-hot: transparent;
   --spec-mid: transparent;
-  --divider: rgba(242, 236, 224, 0.1);
-  /* FORMA accent — bordeaux, lightened for contrast on ink. Same
-     single-accent system as light mode; see the light :root note above. */
-  --accent: #c1716a;
+  --divider: rgba(253, 251, 247, 0.1);
+  /* Same single-accent system as light mode; see the light :root note above. */
+  --accent: #b4727c;
   --gold: var(--accent);
   --gold-soft: color-mix(in srgb, var(--accent) 82%, white 18%);
-  --gold2: var(--gold-soft);
-  --accent-bg: rgba(193, 113, 106, 0.14);
-  --accent-rgb: 193, 113, 106;
-  --accent-muted: rgba(193, 113, 106, 0.22);
-  /* Palette tokens */
-  --gold-dim: rgba(193, 113, 106, 0.12);
-  --gold-mid: rgba(193, 113, 106, 0.28);
-  --terra: color-mix(in srgb, var(--accent) 80%, white 20%);
+  --accent-bg: rgba(180, 114, 124, 0.14);
+  --accent-rgb: 180, 114, 124;
+  --accent-muted: rgba(180, 114, 124, 0.22);
+  --terra: var(--accent);
   --terra-dim: color-mix(in srgb, var(--terra) 15%, transparent);
-  --cream: #f2ece0;
-  --cream-60: rgba(242, 236, 224, 0.6);
-  --cream-30: rgba(242, 236, 224, 0.3);
-  --cream-08: rgba(242, 236, 224, 0.08);
-  --obsidian-2: #1c1814;
-  --obsidian-3: #16130f;
-  --obsidian-4: #100d0a;
-  --border-gold: 1px solid rgba(193, 113, 106, 0.24);
   /* Semantic state colors */
-  --success: #5a7a32;
-  --success-dim: rgba(90, 122, 50, 0.12);
-  --error: #8b2635;
-  --error-dim: rgba(139, 38, 53, 0.15);
-  /* Ambient glow */
-  --glow-gold: rgba(212, 175, 55, 0.22);
-  --glow-terra: rgba(139, 38, 53, 0.16);
-  /* Platform brand colors (download buttons) */
-  --platform-canva: #7b61ff;
-  --platform-excel: #1d6f42;
-  --platform-sheets: #0f9d58;
-  --platform-notion: #787878;
-  --platform-webflow: #4353ff;
-  --platform-framer: #0055ff;
-  --platform-shopify: #95bf47;
-  --platform-wordpress: #21759b;
-  /* Phone bezel (preview) */
-  --bezel-bg: #141414;
-  --bezel-ring: #1e1e1e;
-  --bezel-ring-2: #282828;
-  --bezel-button: #141414;
-  --bezel-notch-bg: #0d0d0d;
-  --bezel-notch-border: #1e1e1e;
-  /* Prompt viewer */
-  --prompt-bg: #0d0d0d;
-  --prompt-header: #141414;
-  --prompt-text: #eaeaea;
-  --prompt-label: rgba(234, 234, 234, 0.45);
-  /* Modal skeleton */
-  --skeleton-bg: #1e1e1e;
-  /* Pillar heading — FORMA gold in dark mode */
-  --pillar-name-color: var(--gold-soft);
+  --success: var(--text);
+  --success-dim: rgba(253, 251, 247, 0.12);
+  --error: var(--accent);
+  --error-dim: rgba(180, 114, 124, 0.16);
 }
 
-/* Dark mode is the same single bordeaux accent everywhere too — see the
+/* Dark mode is the same single accent everywhere too — see the
    light-mode note above. No per-section overrides. */
 
 /* ── Footer: always closes in ink, on every interior page ──
@@ -312,14 +231,14 @@ html.dark {
    var(--border) reference already inside FormaFooter resolves to them
    without the component needing to know about it. */
 .forma-footer-ink {
-  --bg: #14110d;
-  --surface: #1c1814;
-  --text: #f2ece0;
-  --muted: #a89a86;
-  --border: rgba(242, 236, 224, 0.14);
-  --accent: #c1716a;
-  --terra: color-mix(in srgb, var(--accent) 80%, white 20%);
-  --success: #5a7a32;
+  --bg: #0c1815;
+  --surface: #101f1b;
+  --text: #fdfbf7;
+  --muted: #8fa89d;
+  --border: rgba(253, 251, 247, 0.14);
+  --accent: #b4727c;
+  --terra: var(--accent);
+  --success: var(--text);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -774,23 +693,20 @@ html::-webkit-scrollbar-track {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   DISPLAY TYPE — Fraunces editorial hero
+   DISPLAY TYPE — Playfair Display editorial hero
+   Playfair Display ships as static weight cuts, not a variable font, so
+   (unlike the Fraunces version this replaced) there is no
+   font-variation-settings axis to tune — weight/style do the work instead.
    ═══════════════════════════════════════════════════════════ */
 .display-serif {
-  font-family: var(--font-fraunces), "DM Serif Display", Georgia, serif;
-  font-variation-settings:
-    "opsz" 144,
-    "SOFT" 100;
-  font-weight: 400;
-  letter-spacing: -0.035em;
-  line-height: 1.02;
+  font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
   font-variant-numeric: tabular-nums;
 }
 .display-serif em {
   font-style: italic;
-  font-variation-settings:
-    "opsz" 144,
-    "SOFT" 100;
   color: var(--accent);
 }
 
@@ -868,16 +784,15 @@ html::-webkit-scrollbar-track {
   justify-content: center;
   font-size: 12px;
   font-weight: 700;
-  /* --cat-guide-ink, not --accent: --accent is #d4af37 in both themes, which is
-     about 2:1 on the cream light-mode ground. The category inks are declared
-     per theme and measured. */
+  /* --cat-guide-ink is just an alias for --accent now — see the CATEGORY
+     COLOUR block above. */
   color: var(--cat-guide-ink);
   background: color-mix(in srgb, var(--cat-guide-ink) 14%, transparent);
   border: 1px solid color-mix(in srgb, var(--cat-guide-ink) 26%, transparent);
   transition: background var(--t-xs) var(--ease-glide);
 }
 .cmdk-kbd {
-  font-family: var(--font-fraunces), Georgia, serif;
+  font-family: var(--font-display), Georgia, serif;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -1226,7 +1141,7 @@ html::-webkit-scrollbar-track {
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, var(--accent), var(--terra, #c4622d));
+  background: linear-gradient(90deg, var(--accent), var(--terra));
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s ease;
@@ -1270,7 +1185,11 @@ html::-webkit-scrollbar-track {
   border-color: rgba(255, 255, 255, 0.18);
 }
 
-/* Warm grain overlay on dark bg — z-index below modals/toasts */
+/* Warm grain overlay — a barely-perceptible paper/notebook texture behind
+   every page, "Il Taccuino di Jane" brief calls for "una texture leggera che
+   ricordi la carta ruvida di un taccuino". Same turbulence filter both
+   themes, tuned even fainter on the cream ground (paper reads noisier at a
+   given opacity than a near-black ground does) — z-index below modals/toasts. */
 html.dark body::before {
   content: "";
   position: fixed;
@@ -1281,34 +1200,100 @@ html.dark body::before {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 180px 180px;
 }
+html:not(.dark) body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.014;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+/* ── Retro section separator — "Il Taccuino di Jane" brief calls for a
+   small classic graphic detail (a stylised diamond, or a line with a
+   centred dot) between article sections instead of a plain <hr>. Both a
+   utility class (.fn-separator) for markup and the ArticleBody callout
+   grammar use this. */
+.fn-separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 40px 0;
+  color: var(--text);
+  opacity: 0.5;
+}
+.fn-separator::before,
+.fn-separator::after {
+  content: "";
+  height: 1px;
+  width: 64px;
+  background: var(--text);
+  opacity: 0.35;
+}
+.fn-separator__glyph {
+  font-size: 11px;
+  transform: rotate(45deg);
+  display: inline-block;
+  border: 1px solid currentColor;
+  width: 7px;
+  height: 7px;
+}
+
+/* ── "L'Osservazione Chiave" callout box — see ArticleBody.tsx's ":::callout"
+   grammar. Salvia background, load-bearing accent-red left rule (WCAG
+   1.4.11 — never dropped), small uppercase title treatment. */
+.fn-callout {
+  background: var(--surface-2);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--r-md);
+  padding: 20px 22px;
+  margin: 28px 0;
+}
+.fn-callout__title {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  margin: 0 0 8px;
+}
+.fn-callout p,
+.fn-callout ul {
+  margin: 0;
+}
+/* Spacing between any two body blocks inside a callout — not just p+p, since
+   a callout can mix paragraphs and bullet lists (e.g. a closing sentence
+   after a "- " list) and both need the same gap. */
+.fn-callout > * + * {
+  margin-top: 10px;
+}
 
 /* Hybrid ticker animation */
 
-/* Gold price text */
-.price-gold {
-  font-family: var(--font-inter), sans-serif;
-  font-weight: 600;
-  color: var(--gold, #c8a96e);
-}
-
 /* ═══════════════════════════════════════════════════════════
-   SHADOW TOKENS
+   SHADOW TOKENS — tinted with the palette's GREEN rather than a
+   generic near-black, so shadows read as part of the same 3-colour
+   system instead of a stray fourth neutral.
    ═══════════════════════════════════════════════════════════ */
 :root {
-  --shadow-sm: 0 1px 3px rgba(28, 22, 16, 0.06), 0 1px 2px rgba(28, 22, 16, 0.04);
-  --shadow-md: 0 4px 16px rgba(28, 22, 16, 0.08), 0 2px 6px rgba(28, 22, 16, 0.05);
-  --shadow-lg: 0 8px 40px rgba(28, 22, 16, 0.1), 0 4px 12px rgba(28, 22, 16, 0.06);
-  --shadow-xl: 0 20px 60px rgba(28, 22, 16, 0.14), 0 8px 20px rgba(28, 22, 16, 0.08);
-  --overlay: rgba(28, 22, 16, 0.8);
-  --overlay-light: rgba(28, 22, 16, 0.5);
+  --shadow-sm: 0 1px 3px rgba(27, 54, 47, 0.08), 0 1px 2px rgba(27, 54, 47, 0.05);
+  --shadow-md: 0 4px 16px rgba(27, 54, 47, 0.1), 0 2px 6px rgba(27, 54, 47, 0.06);
+  --shadow-lg: 0 8px 40px rgba(27, 54, 47, 0.12), 0 4px 12px rgba(27, 54, 47, 0.07);
+  --shadow-xl: 0 20px 60px rgba(27, 54, 47, 0.16), 0 8px 20px rgba(27, 54, 47, 0.09);
+  --overlay: rgba(12, 24, 21, 0.8);
+  --overlay-light: rgba(12, 24, 21, 0.5);
 }
 html.dark {
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.14);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.28), 0 2px 6px rgba(0, 0, 0, 0.18);
   --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.35), 0 4px 12px rgba(0, 0, 0, 0.22);
   --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.45), 0 8px 20px rgba(0, 0, 0, 0.28);
-  --overlay: rgba(5, 4, 2, 0.85);
-  --overlay-light: rgba(5, 4, 2, 0.55);
+  --overlay: rgba(3, 6, 5, 0.85);
+  --overlay-light: rgba(3, 6, 5, 0.55);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -1406,39 +1391,6 @@ html.dark {
 
 /* ── Typing cursor blink ── */
 
-/* ═══════════════════════════════════════════════════════════
-   FORMA V2 — legacy named tokens (kept for component compat)
-   ═══════════════════════════════════════════════════════════ */
-:root {
-  --sumi: #1a0e06;
-  --tsuchi: #9c6e20;
-  --kinari: #f2e8d0;
-  --sabi: #7a1c2e;
-  --sumi-dim: #4a3020;
-  --border-sumi: rgba(26, 14, 6, 0.14);
-  --border-sumi-strong: rgba(26, 14, 6, 0.22);
-}
-
-/* ── FORMA v2 fade-in on scroll ──
-   NOTE: keyframe is namespaced (forma-v2-fade-up). It used to be called
-   forma-fade-up, which silently overrode the snap-section entrance
-   keyframe of the same name defined at the top of this file. */
-
-/* ── FORMA v2 theming CSS vars — defined in :root and .dark above ── */
-.dark {
-  --forma-bg: var(--bg);
-  --forma-bg-alt: rgba(26, 18, 9, 0.95);
-  --forma-bg-dark-section: #080503;
-  --forma-text: var(--text);
-  --forma-text-muted: var(--muted);
-  --forma-text-accent: var(--accent);
-  --forma-border: var(--border);
-  --forma-border-card: var(--card-border);
-  --forma-accent-sabi: var(--terra);
-  --forma-kinari: #f8f0dc;
-  --bg-outer: #050302;
-}
-
 /* Mobile: always single column */
 
 /* ── FORMA masthead — responsive letter-spacing for mobile ── */
@@ -1448,11 +1400,10 @@ html.dark {
 /* ── Responsive ── */
 
 /* ═══════════════════════════════════════════════════════════
-   FORMA — editorial system (v5)
-   Palette adapts to theme via CSS vars.
-   Dark:  bg #060606 · surface #0f0f0f · text #eaeaea · muted #8a8a8a
-   Light: bg #FDFAF5 · surface #F5EFE3 · text #1C1610 · muted rgba(26,14,6,.55)
-   Gold:  #D4AF37 → #B8962E
+   INSPO — editorial system
+   Palette adapts to theme via CSS vars — see the THEME VARIABLES
+   block near the top of this file for the 3-colour source values
+   (Pantone 2411 U green / 2347 U red / P179-1 U cream).
    ═══════════════════════════════════════════════════════════ */
 
 /* ── Background — theme-aware + Caravaggio tenebrism overlay ── */
@@ -1582,7 +1533,7 @@ html.dark {
   padding: 72px 36px;
 }
 .fn-section h2 {
-  font-family: var(--font-fraunces), Georgia, serif;
+  font-family: var(--font-display), Georgia, serif;
   font-weight: 300;
   font-size: clamp(38px, 5vw, 60px);
   margin: 0 0 8px;
@@ -1736,41 +1687,15 @@ html.dark {
 
 /* ═══════════════════════════════════════════════════════════
    CATEGORY COLOUR
-   Three warm hues so a category is recognisable before its
-   nine-pixel label is read. Terracotta, gold and olive all
-   belong to the site's palette — gold, the house colour,
-   stays on the largest group and on the brand CTA.
-
-   Each hue is declared twice: an --ink for text and tinted
-   fills, and a --solid for a filled control. They differ
-   because the same swatch cannot both read as text on the
-   page and hold white text on itself.
+   Used only by the command-palette result badge now — the
+   marketplace's per-category (prompt/guide/sheet) colour-coding
+   this once distinguished is gone along with the catalogue.
+   --cat-guide-ink is kept as an alias for the one site accent
+   rather than a separate hue, so the badge still tracks the
+   3-colour palette automatically in both themes.
    ═══════════════════════════════════════════════════════════ */
 :root {
-  /* Ink: measured against --bg #fdfaf5, all ≥ 5:1. The badge used to hardcode
-     #d4af37, which is roughly 2:1 on cream — legible in dark mode, and not in
-     light. */
-  --cat-prompt-ink: #9c3d18;
-  --cat-guide-ink: #8a6829;
-  --cat-sheet-ink: #4d6135;
-
-  /* Solid: fill for a selected chip, with --cat-on as its text. */
-  --cat-prompt-solid: #9c3d18;
-  --cat-guide-solid: #8a6829;
-  --cat-sheet-solid: #4d6135;
-  --cat-on: #ffffff;
-}
-
-html.dark {
-  /* On near-black the same hues have to come up, not down. */
-  --cat-prompt-ink: #e08a5f;
-  --cat-guide-ink: #d4af37;
-  --cat-sheet-ink: #a8bd86;
-
-  --cat-prompt-solid: #e08a5f;
-  --cat-guide-solid: #d4af37;
-  --cat-sheet-solid: #a8bd86;
-  --cat-on: #17130a;
+  --cat-guide-ink: var(--accent);
 }
 
 /* ── Badge ── */
@@ -1817,7 +1742,7 @@ html.dark {
   padding: 88px 36px 80px;
 }
 .fn-simple h1 {
-  font-family: var(--font-fraunces), Georgia, serif;
+  font-family: var(--font-display), Georgia, serif;
   font-size: clamp(44px, 8vw, 80px);
   font-weight: 300;
   margin: 0 0 18px;
@@ -1955,9 +1880,13 @@ html.dark {
 /* Selection is carried by fill, border AND text colour together — never by one
    of them alone, so it survives forced-colors mode and low-vision viewing. */
 .fn-filter.is-active {
+  /* The exact brief red, undiluted — see the palette note in the THEME
+     VARIABLES block: #8B2635 clears 4.5:1 with cream text directly, so
+     unlike the previous palette pass this no longer needs a separate
+     near-black "legibility exception" ink colour on top of it. */
   background: var(--accent);
   border-color: var(--accent);
-  color: #17130a;
+  color: var(--bg);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 

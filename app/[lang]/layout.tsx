@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { LOCALES, isLocale, toLocale } from "@/lib/locales";
-import { Fraunces, Inter } from "next/font/google";
+import { Playfair_Display, Inter } from "next/font/google";
 import ThemeProvider from "@/components/ThemeProvider";
 import LanguageProvider from "@/components/LanguageProvider";
 import { PostHogProvider } from "@/components/PostHogProvider";
@@ -18,14 +18,18 @@ const inter = Inter({
   display: "swap",
 });
 
-// Fraunces — variable display serif, editorial magazine feel. Used for
-// hero/display headlines (h1, article titles).
-const fraunces = Fraunces({
+// Playfair Display — elegant, slightly retro serif: old psychology books,
+// investigation dossiers, Jane's own sartorial style. Used for hero/display
+// headlines (h1–h3, article titles). Replaced Fraunces in the "Il Taccuino
+// di Jane" content redesign — the CSS variable keeps the name --font-display
+// (not --font-fraunces) so it names what it does rather than what it once
+// loaded.
+const playfairDisplay = Playfair_Display({
   subsets: ["latin"],
-  variable: "--font-fraunces",
+  variable: "--font-display",
   style: ["normal", "italic"],
+  weight: ["500", "600", "700", "800", "900"],
   display: "swap",
-  axes: ["SOFT", "opsz"],
 });
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://inspo.example.com";
@@ -108,7 +112,7 @@ export default async function RootLayout({
   return (
     <html
       lang={lang}
-      className={`${fraunces.variable} ${inter.variable}`}
+      className={`${playfairDisplay.variable} ${inter.variable}`}
       style={{ colorScheme: "light" }}
     >
       <head>
