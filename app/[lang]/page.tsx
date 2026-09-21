@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { toLocale } from "@/lib/locales";
 import { copy } from "@/lib/i18n";
-import { getAllArticlesSorted, getCategoryLabel } from "@/lib/articles";
+import { getAllArticlesSorted, getCategoryLabel, getHomepageFeature } from "@/lib/articles";
 import SiteNav from "@/components/SiteNav";
-import { FormaFooter } from "@/components/FormaFooter";
+import { OsservatorioFooter } from "@/components/OsservatorioFooter";
 import HomeHero from "@/components/HomeHero";
 
 const META = {
@@ -89,7 +89,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
   const lang = toLocale(rawLang);
   const t = (k: keyof typeof copy.it) => copy[lang][k];
   const all = getAllArticlesSorted();
-  const jane = all.find((article) => article.person === "patrick-jane") ?? all[0];
+  const jane = getHomepageFeature();
   const recent = all.filter((article) => article.slug !== jane.slug).slice(0, 2);
 
   return (
@@ -213,7 +213,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
             className="group block border border-theme r-md p-8 transition-colors hover:border-[var(--accent)]"
           >
             <span className="text-[10px] font-semibold uppercase" style={{ color: "var(--accent)", letterSpacing: "0.16em" }}>
-              Fiction → Psychology
+              {lang === "it" ? "Finzione → Psicologia" : "Fiction → Psychology"}
             </span>
             <h3
               className="mt-3 text-[1.7rem] transition-colors group-hover:text-[var(--accent)]"
@@ -231,7 +231,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
             className="group block border border-theme r-md p-8 transition-colors hover:border-[var(--accent)]"
           >
             <span className="text-[10px] font-semibold uppercase" style={{ color: "var(--accent)", letterSpacing: "0.16em" }}>
-              Psychology → Practice
+              {lang === "it" ? "Psicologia → Pratica" : "Psychology → Practice"}
             </span>
             <h3
               className="mt-3 text-[1.7rem] transition-colors group-hover:text-[var(--accent)]"
@@ -246,7 +246,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
         </div>
       </section>
 
-      <FormaFooter />
+      <OsservatorioFooter />
     </div>
   );
 }
