@@ -901,7 +901,7 @@ export function getAllArticlesSorted(): Article[] {
 }
 
 export function getHomepageFeature(): Article {
-  return articles.find((article) => article.homepageFeature) ?? getAllArticlesSorted()[0];
+  return articles.find((article) => article.homepageFeature) ?? getAllArticlesSorted()[0]!;
 }
 
 /** "Dossier Personaggi" pieces — any article tagged with a `person`. */
