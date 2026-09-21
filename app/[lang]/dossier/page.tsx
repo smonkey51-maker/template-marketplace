@@ -4,7 +4,7 @@ import { toLocale } from "@/lib/locales";
 import { copy } from "@/lib/i18n";
 import { getDossierArticles, getCategoryLabel } from "@/lib/articles";
 import SiteNav from "@/components/SiteNav";
-import { FormaFooter } from "@/components/FormaFooter";
+import { OsservatorioFooter } from "@/components/OsservatorioFooter";
 import { ArtHeader, PAINTINGS } from "@/components/ArtHeader";
 
 const META = {
@@ -66,12 +66,18 @@ export default async function DossierPage({ params }: { params: Promise<{ lang: 
               className="group block border border-theme r-md p-6 transition-colors hover:border-[var(--accent)]"
               style={{ background: "var(--surface)" }}
             >
-              <span
-                className="text-[10px] font-semibold uppercase"
-                style={{ color: "var(--accent)", letterSpacing: "0.14em" }}
-              >
-                {personLabel(article.person!)} · {getCategoryLabel(article.category, lang)}
-              </span>
+              <div className="flex flex-wrap items-center gap-2 text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.14em" }}>
+                <span style={{ color: "var(--accent)" }}>{personLabel(article.person!)}</span>
+                <span style={{ color: "var(--muted)" }}>·</span>
+                <span style={{ color: "var(--muted)" }}>{getCategoryLabel(article.category, lang)}</span>
+              </div>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {(lang === "it" ? ["Finzione", "Evidenza", "Tecnica"] : ["Fiction", "Evidence", "Technique"]).map((label) => (
+                  <span key={label} className="r-sm border px-2 py-1 text-[9px] font-semibold uppercase" style={{ borderColor: "var(--border)", color: "var(--muted)", letterSpacing: "0.12em" }}>
+                    {label}
+                  </span>
+                ))}
+              </div>
               <h2
                 className="mt-2 text-[1.2rem] leading-snug transition-colors group-hover:text-[var(--accent)]"
                 style={{ fontFamily: "var(--font-display), Georgia, serif", fontWeight: 700 }}
@@ -92,7 +98,7 @@ export default async function DossierPage({ params }: { params: Promise<{ lang: 
         </div>
       </div>
 
-      <FormaFooter />
+      <OsservatorioFooter />
     </div>
   );
 }
