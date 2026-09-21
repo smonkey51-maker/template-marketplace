@@ -1,7 +1,7 @@
 "use client";
 
 import SiteNav from "@/components/SiteNav";
-import { FormaFooter } from "@/components/FormaFooter";
+import { OsservatorioFooter } from "@/components/OsservatorioFooter";
 import { useLang } from "@/components/LanguageProvider";
 import { copy } from "@/lib/i18n";
 
@@ -104,7 +104,7 @@ export default function TermsPage() {
           ))}
         </div>
       </div>
-      <FormaFooter />
+      <OsservatorioFooter />
     </div>
   );
 }
