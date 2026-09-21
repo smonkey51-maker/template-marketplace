@@ -30,11 +30,6 @@ const COLUMNS: {
   },
 ];
 
-/**
- * Site footer — newsletter signup, link columns, and the permanent
- * fan-disclaimer required by CLAUDE.md: this project is not affiliated with
- * CBS, Warner Bros. or the creators of "The Mentalist".
- */
 export function FormaFooter() {
   const { lang } = useLang();
   const t = (k: keyof typeof copy.it) => copy[lang][k];
@@ -58,108 +53,109 @@ export function FormaFooter() {
 
   return (
     <footer
-      className="forma-footer-ink border-t border-theme"
+      className="border-t border-theme"
       style={{
         background: "var(--bg)",
         color: "var(--text)",
-        padding: "80px 24px calc(48px + env(safe-area-inset-bottom, 0px))",
+        padding: "72px 24px calc(36px + env(safe-area-inset-bottom, 0px))",
       }}
     >
-      <div className="mx-auto grid max-w-[1400px] grid-cols-1 gap-12 lg:grid-cols-12">
-        {/* Brand + newsletter */}
-        <div className="lg:col-span-5">
-          <p
-            style={{
-              fontFamily: "var(--font-display), Georgia, serif",
-              fontWeight: 500,
-              letterSpacing: "-0.01em",
-              color: "var(--text)",
-            }}
-            className="text-[clamp(1.75rem,3.5vw,2.5rem)]"
-          >
-            {t("newsletterTitle")}
-          </p>
-          <p className="mt-3 max-w-sm text-[13px]" style={{ color: "var(--muted)" }}>
-            {t("newsletterSub")}
-          </p>
-
-          {status !== "sent" ? (
-            <form onSubmit={handleSubscribe} className="mt-6 flex max-w-md items-center gap-3">
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder={t("newsletterPlaceholder")}
-                className="w-full bg-transparent py-3 text-sm outline-none"
-                style={{
-                  borderBottom: "1px solid var(--border)",
-                  color: "var(--text)",
-                }}
-              />
-              <button type="submit" className="btn-brand-sm shrink-0 whitespace-nowrap">
-                {t("newsletterCta")}
-              </button>
-            </form>
-          ) : (
-            <p
-              className="mt-6 text-[12px] uppercase"
-              style={{ color: "var(--accent)", letterSpacing: "0.12em" }}
+      <div className="mx-auto max-w-[1200px]">
+        <div className="grid grid-cols-1 gap-12 border-b border-theme pb-14 lg:grid-cols-12">
+          <div className="lg:col-span-7">
+            <span
+              className="text-[10px] font-semibold uppercase"
+              style={{ color: "var(--accent)", letterSpacing: "0.18em" }}
             >
-              ✓ {t("newsletterSuccess")}
+              {t("newsletterKicker")}
+            </span>
+            <p
+              className="mt-3 text-[clamp(2rem,4vw,3.4rem)] leading-none"
+              style={{
+                fontFamily: "var(--font-display), Georgia, serif",
+                fontWeight: 600,
+                letterSpacing: "-0.025em",
+              }}
+            >
+              {t("newsletterTitle")}
             </p>
-          )}
-          {status === "error" && (
-            <p className="mt-2 text-[12px]" style={{ color: "var(--muted)" }}>
-              {t("newsletterError")}
+            <p className="mt-4 max-w-xl text-[14px] leading-6" style={{ color: "var(--muted)" }}>
+              {t("newsletterSub")}
             </p>
-          )}
-        </div>
 
-        {/* Link columns */}
-        <div className="grid grid-cols-2 gap-8 lg:col-span-7">
-          {COLUMNS.map((col) => (
-            <div key={col.titleKey}>
+            {status !== "sent" ? (
+              <form onSubmit={handleSubscribe} className="mt-7 flex max-w-xl flex-col gap-3 sm:flex-row">
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder={t("newsletterPlaceholder")}
+                  className="min-w-0 flex-1 bg-transparent px-0 py-3 text-sm outline-none"
+                  style={{
+                    borderBottom: "1px solid var(--border)",
+                    color: "var(--text)",
+                  }}
+                />
+                <button type="submit" className="btn-brand-sm shrink-0 whitespace-nowrap">
+                  {t("newsletterCta")}
+                </button>
+              </form>
+            ) : (
               <p
-                className="text-[11px] font-semibold uppercase"
-                style={{ color: "var(--muted)", letterSpacing: "0.15em" }}
+                className="mt-6 text-[12px] uppercase"
+                style={{ color: "var(--accent)", letterSpacing: "0.12em" }}
               >
-                {t(col.titleKey)}
+                ✓ {t("newsletterSuccess")}
               </p>
-              <ul className="mt-4 space-y-2.5">
-                {col.items.map((item) => (
-                  <li key={item.href + item.labelKey}>
-                    <Link
-                      href={item.href.startsWith("/") ? `/${lang}${item.href}` : item.href}
-                      className="text-sm transition-colors hover:text-[var(--accent)]"
-                      style={{ color: "var(--text)" }}
-                    >
-                      {t(item.labelKey)}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </div>
+            )}
+            {status === "error" && (
+              <p className="mt-2 text-[12px]" style={{ color: "var(--muted)" }}>
+                {t("newsletterError")}
+              </p>
+            )}
+          </div>
 
-      {/* Fan disclaimer + closing row */}
-      <div
-        className="mx-auto mt-16 max-w-[1400px] border-t border-theme pt-6"
-        style={{ borderTop: "1px solid var(--border)" }}
-      >
-        <p className="max-w-2xl text-[12px] leading-relaxed" style={{ color: "var(--muted)" }}>
-          {t("disclaimerShort")}
-        </p>
-        <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
-          <FormaLogoStatic className="h-5 w-auto opacity-90" />
-          <p
-            className="text-[11px] uppercase"
-            style={{ color: "var(--muted)", letterSpacing: "0.15em" }}
-          >
-            {t("footerCopyright")}
+          <div className="grid grid-cols-2 gap-8 lg:col-span-5">
+            {COLUMNS.map((col) => (
+              <div key={col.titleKey}>
+                <p
+                  className="text-[10px] font-semibold uppercase"
+                  style={{ color: "var(--muted)", letterSpacing: "0.16em" }}
+                >
+                  {t(col.titleKey)}
+                </p>
+                <ul className="mt-4 space-y-2.5">
+                  {col.items.map((item) => (
+                    <li key={item.href + item.labelKey}>
+                      <Link
+                        href={item.href.startsWith("/") ? `/${lang}${item.href}` : item.href}
+                        className="text-sm transition-colors hover:text-[var(--accent)]"
+                        style={{ color: "var(--text)" }}
+                      >
+                        {t(item.labelKey)}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="pt-7">
+          <p className="max-w-2xl text-[12px] leading-relaxed" style={{ color: "var(--muted)" }}>
+            {t("disclaimerShort")}
           </p>
+          <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+            <FormaLogoStatic className="h-5 w-auto opacity-90" />
+            <p
+              className="text-[10px] uppercase"
+              style={{ color: "var(--muted)", letterSpacing: "0.14em" }}
+            >
+              {t("footerCopyright")}
+            </p>
+          </div>
         </div>
       </div>
     </footer>
