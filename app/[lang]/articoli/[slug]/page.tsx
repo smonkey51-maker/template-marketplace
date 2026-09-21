@@ -44,6 +44,13 @@ export async function generateMetadata({
       description: locale.description,
       images: [ogImage],
     },
+    alternates: {
+      canonical: `/${lang}/articoli/${article.slug}`,
+      languages: {
+        it: `/it/articoli/${article.slug}`,
+        en: `/en/articoli/${article.slug}`,
+      },
+    },
   };
 }
 
