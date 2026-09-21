@@ -27,7 +27,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang: rawLang } = await params;
   const lang = toLocale(rawLang);
-  return { title: META[lang].title, description: META[lang].description };
+  return {
+    title: META[lang].title,
+    description: META[lang].description,
+    alternates: {
+      canonical: `/${lang}/dossier`,
+      languages: { it: "/it/dossier", en: "/en/dossier" },
+    },
+  };
 }
 
 /** Readable label for a `person` id — the dossier grammar only stores a
