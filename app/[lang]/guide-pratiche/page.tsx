@@ -4,7 +4,7 @@ import { toLocale } from "@/lib/locales";
 import { copy } from "@/lib/i18n";
 import { getGuideArticles, getCategoryLabel } from "@/lib/articles";
 import SiteNav from "@/components/SiteNav";
-import { FormaFooter } from "@/components/FormaFooter";
+import { OsservatorioFooter } from "@/components/OsservatorioFooter";
 import { ArtHeader, PAINTINGS } from "@/components/ArtHeader";
 
 const META = {
@@ -81,7 +81,7 @@ export default async function GuidePratichePage({ params }: { params: Promise<{ 
         </div>
       </div>
 
-      <FormaFooter />
+      <OsservatorioFooter />
     </div>
   );
 }
