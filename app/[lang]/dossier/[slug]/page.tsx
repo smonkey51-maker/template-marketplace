@@ -40,6 +40,13 @@ export async function generateMetadata({
       description: locale.description,
       images: [ogImage],
     },
+    alternates: {
+      canonical: `/${lang}/dossier/${article.slug}`,
+      languages: {
+        it: `/it/dossier/${article.slug}`,
+        en: `/en/dossier/${article.slug}`,
+      },
+    },
   };
 }
 
