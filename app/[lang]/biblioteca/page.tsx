@@ -123,7 +123,7 @@ export default async function BibliotecaPage({ params }: { params: Promise<{ lan
                 href: "https://pubmed.ncbi.nlm.nih.gov/32528361/",
               },
               {
-                label: "Matsumoto & Hwang et al. (2018) — Microexpressions and deception: critical review + experiment",
+                label: "Frontiers in Psychology (2018) — Microexpressions and deception: critical review + experiment",
                 href: "https://pmc.ncbi.nlm.nih.gov/articles/PMC6305322/",
               },
               {
