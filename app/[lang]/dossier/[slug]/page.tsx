@@ -5,8 +5,9 @@ import { toLocale } from "@/lib/locales";
 import { copy } from "@/lib/i18n";
 import { getArticle, getDossierArticles, getCategoryLabel } from "@/lib/articles";
 import SiteNav from "@/components/SiteNav";
-import { FormaFooter } from "@/components/FormaFooter";
+import { OsservatorioFooter } from "@/components/OsservatorioFooter";
 import ArticleBody from "@/components/ArticleBody";
+import EditorialLens from "@/components/EditorialLens";
 import { ArtHeader, PAINTINGS } from "@/components/ArtHeader";
 
 export function generateStaticParams() {
@@ -66,6 +67,16 @@ export default async function DossierArticlePage({
           title={locale.title}
         />
 
+        <div className="mt-4 flex flex-wrap gap-2">
+          <span className="r-sm border px-2.5 py-1 text-[10px] font-semibold uppercase" style={{ borderColor: "var(--border)", color: "var(--accent)", letterSpacing: "0.12em" }}>
+            {article.person.split("-").map((w) => w[0].toUpperCase() + w.slice(1)).join(" ")}
+          </span>
+          <span className="r-sm border px-2.5 py-1 text-[10px] font-semibold uppercase" style={{ borderColor: "var(--border)", color: "var(--muted)", letterSpacing: "0.12em" }}>
+            {getCategoryLabel(article.category, lang)}
+          </span>
+        </div>
+
+        <EditorialLens lang={lang} />
         <ArticleBody body={locale.body} />
 
         <div className="mt-10 border-t border-theme pt-6">
@@ -79,7 +90,7 @@ export default async function DossierArticlePage({
         </div>
       </div>
       <div className="mt-16">
-        <FormaFooter />
+        <OsservatorioFooter />
       </div>
     </div>
   );
