@@ -102,7 +102,7 @@ Nel modo in cui il personaggio viene scritto, si possono distinguere tre livelli
 - **Il corpo delle persone** — postura, contatto visivo, dove vanno le mani quando qualcuno risponde a una domanda scomoda.
 - **La coerenza tra parole e comportamento** — non tanto "sta mentendo" quanto "quello che dice e quello che fa non tornano".
 
-Il terzo livello è quello più interessante da un punto di vista psicologico reale, perché è il più trasferibile: non richiede leggere microespressioni impossibili da cogliere a occhio nudo, richiede solo notare le incongruenze, e le incongruenze sono alla portata di chiunque presti attenzione con costanza.
+Il terzo livello è quello più interessante da un punto di vista psicologico reale, perché è il più trasferibile: non richiede interpretare microespressioni difficili da cogliere e valutare affidabilmente in tempo reale, richiede soprattutto notare le incongruenze, e le incongruenze sono alla portata di chiunque presti attenzione con costanza.
 
 ## Cosa prendere, cosa lasciare
 
@@ -130,7 +130,7 @@ In how the character is written, you can pick out three layers of what he notice
 - **People's bodies** — posture, eye contact, where hands go when someone answers an uncomfortable question.
 - **The mismatch between words and behaviour** — less "they're lying", more "what they say and what they do don't line up".
 
-That third layer is the most interesting from a real psychological standpoint, because it's the most transferable one: it doesn't require reading microexpressions no one can actually catch with the naked eye, it only requires noticing inconsistencies — and inconsistencies are available to anyone who pays consistent attention.
+That third layer is the most interesting from a real psychological standpoint, because it's the most transferable one: it doesn't require interpreting microexpressions that are difficult to catch and assess reliably in real time; it mainly requires noticing inconsistencies — and inconsistencies are available to anyone who pays consistent attention.
 
 ## What to keep, what to leave behind
 
