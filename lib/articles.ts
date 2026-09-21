@@ -65,6 +65,8 @@ export type Article = {
    * /guide-pratiche in addition to /articoli. An article can be both a
    * category member and a guide. */
   isGuide?: boolean;
+  /** Explicit homepage anchor; avoids coupling editorial priority to publish date. */
+  homepageFeature?: boolean;
   publishedAt: string; // ISO date
   tags: string[];
   it: ArticleLocale;
@@ -77,6 +79,7 @@ export const articles: Article[] = [
     slug: "metodo-jane-osservazione",
     category: "mentalismo",
     person: "patrick-jane",
+    homepageFeature: true,
     publishedAt: "2026-01-12",
     tags: ["Patrick Jane", "osservazione", "deduzione"],
     it: {
@@ -895,6 +898,10 @@ export function getArticlesByCategory(category: ArticleCategory): Article[] {
 
 export function getAllArticlesSorted(): Article[] {
   return [...articles].sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
+}
+
+export function getHomepageFeature(): Article {
+  return articles.find((article) => article.homepageFeature) ?? getAllArticlesSorted()[0];
 }
 
 /** "Dossier Personaggi" pieces — any article tagged with a `person`. */
