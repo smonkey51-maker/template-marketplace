@@ -673,7 +673,7 @@ Knowing these mechanics — whether you're dealing with a salesperson, a colleag
 
 ## Cosa sono davvero le microespressioni
 
-Le microespressioni sono espressioni facciali involontarie, brevissime — nell'ordine di una frazione di secondo — che secondo la ricerca di Ekman rivelano un'emozione che la persona sta cercando di sopprimere o mascherare. A differenza del "linguaggio del corpo" generico discusso altrove su questo sito, le microespressioni hanno alle spalle un sistema di codifica più formale, il FACS (Facial Action Coding System), che classifica i movimenti dei singoli muscoli facciali.
+Le microespressioni sono espressioni facciali molto brevi studiate nella ricerca sull'espressione emotiva. Il FACS (Facial Action Coding System) offre un sistema formale per descrivere i movimenti facciali osservabili, ma passare da un movimento a un'emozione nascosta — e soprattutto da un'emozione a una menzogna — richiede molta più cautela di quanto suggerisca la fiction. Una microespressione può essere un dato da contestualizzare, non un verdetto.
 
 ## Dove la scrittura esagera
 
@@ -691,7 +691,7 @@ Il nucleo scientifico dietro il personaggio, però, è reale: le emozioni lascia
 
 ## What microexpressions actually are
 
-Microexpressions are involuntary facial expressions, extremely brief — on the order of a fraction of a second — that, according to Ekman's research, reveal an emotion the person is trying to suppress or mask. Unlike the general "body language" discussed elsewhere on this site, microexpressions sit behind a more formal coding system, FACS (the Facial Action Coding System), which classifies the movement of individual facial muscles.
+Microexpressions are very brief facial expressions studied in emotion research. FACS (the Facial Action Coding System) provides a formal way to describe observable facial movements, but moving from a movement to a hidden emotion — and especially from an emotion to deception — requires much more caution than fiction suggests. A microexpression can be a clue to contextualise, not a verdict.
 
 ## Where the writing exaggerates
 
@@ -808,7 +808,7 @@ Cialdini's mechanisms only work as long as they stay hidden in your subconscious
         "La seconda parte della guida al Cold Reading: i segnali involontari del viso e del corpo sotto stress, e la regola della Baseline per non sbagliare interpretazione.",
       body: `Nelle stanze degli interrogatori, Patrick Jane non ascolta quasi mai le risposte verbali dei sospettati. Cerca qualcos'altro: un battito di ciglia accelerato, una frazione di secondo in cui le labbra si stringono, o una mano che sfiora il collo. Quando le persone mentono, la loro mente conscia è troppo occupata a fabbricare una storia coerente per riuscire a controllare anche i muscoli involontari del corpo.
 
-La scienza conferma che non possiamo nascondere la verità a lungo. Il pioniere di questi studi, lo psicologo Paul Ekman, ha dimostrato che le emozioni umane lasciano sul viso delle tracce fulminee e universali, chiamate microespressioni facciali.
+La ricerca sulle espressioni facciali mostra che alcuni movimenti molto brevi possono comparire durante stati emotivi, ma non esiste un singolo segnale facciale che permetta di leggere con certezza la verità o la menzogna. Il lavoro di Paul Ekman ha contribuito a rendere note le microespressioni e il FACS; la ricerca successiva invita però a interpretarle nel contesto, non come un rilevatore di bugie.
 
 Questi lampi emotivi durano meno di un quinto di secondo. Sono riflessi neurologici puri: la parte più istintiva della mente che sabota la menzogna conscia. Imparare a vederli ti permetterà di leggere la tensione emotiva dietro una maschera di calma apparente.
 
@@ -817,7 +817,7 @@ Questi lampi emotivi durano meno di un quinto di secondo. Sono riflessi neurolog
 Il viso ha oltre diecimila combinazioni muscolari, ma quando una persona tenta di reprimere ciò che prova veramente, sono tre le aree da monitorare istantaneamente:
 
 - **Le sopracciglia della tristezza:** quando una persona simula una calma distaccata ma prova un profondo disagio o senso di colpa, gli angoli interni delle sopracciglia si sollevano verso l'alto e si avvicinano. È un movimento controllato dal muscolo frontale mediale, quasi impossibile da replicare volontariamente.
-- **Il sorriso asimmetrico (il disprezzo):** un sorriso autentico (il sorriso di Duchenne) solleva gli angoli della bocca e crea le classiche rughe intorno agli occhi. Un sorriso falso coinvolge solo le labbra. Ma il segnale più pericoloso è il sorriso asimmetrico, che solleva un solo angolo della bocca: è la microespressione del disprezzo e del senso di superiorità.
+- **Il sorriso asimmetrico:** può comparire in configurazioni facciali associate al disprezzo, ma non permette da solo di dedurre cosa una persona pensa o se sta mentendo. Anche la distinzione tra sorriso "autentico" e "falso" va trattata come un'ipotesi contestuale, non come una diagnosi istantanea.
 - **La tensione delle labbra (la rabbia repressa):** se durante un negoziato o una discussione noti che le labbra del tuo interlocutore si assottigliano e formano una linea rossa stretta, stai guardando una rabbia trattenuta a stento. La persona sta cercando di contenersi, ma il corpo si sta già preparando a un conflitto.
 
 ## Il Corpo non sa Mentire: i segnali di autoconsolazione
@@ -829,7 +829,7 @@ Mentre il viso può essere parzialmente controllato con l'abitudine, gli arti in
 
 ## La Regola d'Oro del Mentalista: il concetto di "Baseline"
 
-Vedere una microespressione o un tocco sul collo non significa aver scovato una bugia. Questo è l'errore dei dilettanti. Patrick Jane e gli psicologi comportamentali utilizzano la regola della Baseline (il comportamento di base).
+Vedere una microespressione o un tocco sul collo non significa aver scovato una bugia. Un confronto utile è la baseline: capire come quella persona si comporta normalmente e osservare eventuali cambiamenti, senza attribuire automaticamente a quei cambiamenti un significato unico.
 
 :::callout L'Avvertimento del Mentalista
 Prima di giudicare un segnale, devi capire come si comporta quella persona quando è rilassata e dice la verità:
@@ -849,7 +849,7 @@ Se poni una domanda spinosa e noti tre segnali di stress (un cluster) concentrat
         "Part two of the Cold Reading guide: the involuntary signals the face and body give off under stress, and the Baseline rule that keeps you from reading them wrong.",
       body: `In interrogation rooms, Patrick Jane rarely listens to a suspect's actual words. He's looking for something else: a faster blink rate, a split second where the lips tighten, or a hand brushing against the neck. When people lie, their conscious mind is too busy fabricating a coherent story to also control the body's involuntary muscles.
 
-Science confirms we can't hide the truth for long. The pioneer of this research, psychologist Paul Ekman, showed that human emotions leave fast, universal traces on the face, called facial microexpressions.
+Research on facial expression shows that very brief movements can occur during emotional states, but there is no single facial cue that reliably reveals truth or deception. Paul Ekman's work helped popularise microexpressions and FACS; later research calls for interpreting such signals in context rather than treating them as a lie detector.
 
 These emotional flashes last less than a fifth of a second. They're pure neurological reflexes — the more instinctive part of the mind sabotaging the conscious lie. Learning to spot them lets you read the emotional tension hiding behind a mask of calm.
 
@@ -858,7 +858,7 @@ These emotional flashes last less than a fifth of a second. They're pure neurolo
 The face has over ten thousand possible muscle combinations, but when someone is trying to suppress what they actually feel, there are three areas worth watching instantly:
 
 - **The eyebrows of sadness:** when someone fakes detached calm but feels deep discomfort or guilt, the inner corners of the eyebrows rise and pull together. It's a movement controlled by the medial frontal muscle, almost impossible to replicate on purpose.
-- **The asymmetric smile (contempt):** a genuine smile (a Duchenne smile) lifts the corners of the mouth and creates the classic creases around the eyes. A fake smile only involves the lips. But the most telling signal is the asymmetric smile, which raises only one corner of the mouth — it's the microexpression of contempt and a sense of superiority.
+- **The asymmetric smile:** it can appear in facial configurations associated with contempt, but by itself it cannot tell you what someone thinks or whether they are lying. Even the distinction between a "genuine" and "fake" smile is better treated as a contextual hypothesis than an instant diagnosis.
 - **Lip tension (suppressed anger):** if, during a negotiation or an argument, you notice your counterpart's lips thinning into a tight line, you're looking at anger being held back by force. The person is trying to contain themselves, but the body is already preparing for conflict.
 
 ## The Body Can't Lie: self-soothing signals
@@ -870,7 +870,7 @@ While the face can be partly controlled through habit, the lower limbs and hands
 
 ## The Mentalist's Golden Rule: the "Baseline" concept
 
-Spotting a microexpression or a hand on the neck doesn't mean you've caught a lie. That's the amateur's mistake. Patrick Jane, like real behavioural psychologists, relies on the rule of Baseline — a person's normal behaviour.
+Spotting a microexpression or a hand on the neck doesn't mean you've caught a lie. A useful comparison is a person's baseline: understand how they normally behave and notice changes without automatically assigning those changes a single meaning.
 
 :::callout The Mentalist's Warning
 Before judging any single signal, you first need to know how that person behaves when relaxed and telling the truth:
