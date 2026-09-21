@@ -5,8 +5,9 @@ import { toLocale } from "@/lib/locales";
 import { copy } from "@/lib/i18n";
 import { articles, getArticle, getRelatedArticles, getCategoryLabel } from "@/lib/articles";
 import SiteNav from "@/components/SiteNav";
-import { FormaFooter } from "@/components/FormaFooter";
+import { OsservatorioFooter } from "@/components/OsservatorioFooter";
 import ArticleBody from "@/components/ArticleBody";
+import EditorialLens from "@/components/EditorialLens";
 import { ArtHeader, PAINTINGS } from "@/components/ArtHeader";
 
 export function generateStaticParams() {
@@ -95,6 +96,7 @@ export default async function ArticlePage({
           </span>
         </div>
 
+        <EditorialLens lang={lang} />
         <ArticleBody body={locale.body} />
 
         <div className="mt-12 flex flex-wrap gap-2">
@@ -109,7 +111,21 @@ export default async function ArticlePage({
           ))}
         </div>
 
-        <div className="mt-10 border-t border-theme pt-6">
+        <div className="mt-12 border-t border-theme pt-6">
+          <p className="text-[10px] font-semibold uppercase" style={{ color: "var(--muted)", letterSpacing: "0.14em" }}>
+            {lang === "it" ? "Fonti e approfondimenti" : "Sources & further reading"}
+          </p>
+          <p className="mt-2 max-w-2xl text-[13px] leading-5" style={{ color: "var(--muted)" }}>
+            {lang === "it"
+              ? "OSSERVATORIO distingue commento sulla fiction, interpretazione e psicologia applicata. Per i testi di riferimento e gli approfondimenti utilizzati dal progetto, consulta La Biblioteca."
+              : "OSSERVATORIO separates fiction commentary, interpretation and applied psychology. For the project's reference texts and further reading, see The Library."}
+          </p>
+          <Link href={`/${lang}/biblioteca`} className="mt-3 inline-block text-sm font-semibold" style={{ color: "var(--accent)" }}>
+            {lang === "it" ? "Apri La Biblioteca →" : "Open The Library →"}
+          </Link>
+        </div>
+
+        <div className="mt-8 border-t border-theme pt-6">
           <Link
             href={`/${lang}/articoli`}
             className="text-sm font-semibold"
@@ -154,7 +170,7 @@ export default async function ArticlePage({
         </div>
       )}
 
-      <FormaFooter />
+      <OsservatorioFooter />
     </div>
   );
 }
