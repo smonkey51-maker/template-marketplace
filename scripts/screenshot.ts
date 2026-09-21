@@ -112,7 +112,7 @@ async function main() {
   // With an origin, "/thumbs/x.webp" resolves normally; the route handler below
   // answers it from disk before any socket is opened, so this host never has to
   // exist.
-  const ORIGIN = "http://forma.local";
+  const ORIGIN = "http://osservatorio.local";
 
   await page.route("**/*", async (route) => {
     const url = new URL(route.request().url());
