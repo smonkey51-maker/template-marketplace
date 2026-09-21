@@ -9,7 +9,7 @@ import {
   type ArticleCategory,
 } from "@/lib/articles";
 import SiteNav from "@/components/SiteNav";
-import { FormaFooter } from "@/components/FormaFooter";
+import { OsservatorioFooter } from "@/components/OsservatorioFooter";
 import { ArtHeader, PAINTINGS } from "@/components/ArtHeader";
 
 const META = {
@@ -195,7 +195,7 @@ export default async function ArticoliPage({
         )}
       </div>
 
-      <FormaFooter />
+      <OsservatorioFooter />
     </div>
   );
 }
