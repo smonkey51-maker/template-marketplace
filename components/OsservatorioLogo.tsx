@@ -5,9 +5,9 @@ import { useId } from "react";
 /**
  * The OSSERVATORIO wordmark.
  *
- * This component owns the OSSERVATORIO wordmark and icon.\n */ Unlike the earlier 5-letter wordmarks (ACUME, then INSPO), "OSSERVATORIO"
- * is 12 characters — too long for individually hand-placed letter x
- * coordinates. It's rendered as a single `<text>` with `textLength` +
+ * This component owns the OSSERVATORIO wordmark and icon.
+ * "OSSERVATORIO" is 12 characters, so the wordmark uses textLength rather
+ * than individually hand-placed letter coordinates. It's rendered as a single `<text>` with `textLength` +
  * `lengthAdjust="spacingAndGlyphs"` so it always fills the same width
  * regardless of font metrics, with per-letter `<tspan>`s carrying the
  * staggered fade-in (natural text flow positions each one, no manual
