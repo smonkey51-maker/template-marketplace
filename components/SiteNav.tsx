@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { copy } from "@/lib/i18n";
 import { useLang } from "@/components/LanguageProvider";
-import { FormaLogoAnimated } from "@/components/FormaLogo";
+import { OsservatorioLogoAnimated } from "@/components/OsservatorioLogo";
 import BackLink from "@/components/BackLink";
 import ThemeToggle from "@/components/ThemeToggle";
 import { Menu, X } from "lucide-react";
@@ -18,16 +18,12 @@ const LINKS: { href: string; key: keyof typeof copy.it }[] = [
   { href: "/chi-siamo", key: "navChiSiamo" },
 ];
 
-/**
- * Site header — sticky compact bar: wordmark left, nav links, theme toggle
- * on the right, hamburger on mobile. No auth, no cart, no wishlist — this is
- * a static content site.
- */
 export default function SiteNav() {
-  const { lang } = useLang();
+  const { lang, toggle } = useLang();
   const t = (k: keyof typeof copy.it) => copy[lang][k];
   const pathname = usePathname();
   const withoutLang = pathname.replace(/^\/(it|en)(?=\/|$)/, "");
+  const isHome = withoutLang === "" || withoutLang === "/";
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -52,18 +48,14 @@ export default function SiteNav() {
       }}
     >
       <div className="mx-auto flex max-w-[1400px] items-center justify-between px-4 py-4 sm:px-6 lg:px-10">
-        <div className="flex items-center gap-3">
-          <BackLink fallbackHref={`/${lang}`} />
-          <Link
-            href={`/${lang}`}
-            aria-label={`${copy[lang].siteName} — home`}
-            className="flex items-center"
-          >
-            <FormaLogoAnimated className="w-44" />
+        <div className="flex min-w-0 items-center gap-3">
+          {!isHome && <BackLink fallbackHref={`/${lang}`} />}
+          <Link href={`/${lang}`} aria-label={`${copy[lang].siteName} — home`} className="flex min-w-0 items-center">
+            <OsservatorioLogoAnimated className="w-40 sm:w-44" />
           </Link>
         </div>
 
-        <nav className="hidden items-center gap-8 md:flex" aria-label="Main navigation">
+        <nav className="hidden items-center gap-7 md:flex" aria-label="Main navigation">
           {LINKS.map((l) => (
             <Link
               key={l.href}
@@ -77,20 +69,20 @@ export default function SiteNav() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={toggle}
+            aria-label={lang === "it" ? "Switch to English" : "Passa all'italiano"}
+            className="r-sm border border-theme px-2.5 py-2 text-[11px] font-semibold transition-colors hover:bg-[var(--surface)]"
+            style={{ color: "var(--text)", letterSpacing: "0.08em" }}
+          >
+            {lang === "it" ? "IT / EN" : "EN / IT"}
+          </button>
           <ThemeToggle />
-
           <button
             onClick={() => setOpen((v) => !v)}
-            aria-label={
-              open
-                ? lang === "it"
-                  ? "Chiudi menu"
-                  : "Close menu"
-                : lang === "it"
-                  ? "Apri menu"
-                  : "Open menu"
-            }
+            aria-label={open ? (lang === "it" ? "Chiudi menu" : "Close menu") : lang === "it" ? "Apri menu" : "Open menu"}
             aria-expanded={open}
             className="flex h-9 w-9 items-center justify-center md:hidden"
             style={{ color: "var(--text)" }}
@@ -103,7 +95,7 @@ export default function SiteNav() {
       <div
         className="overflow-hidden border-t border-theme md:hidden"
         style={{
-          maxHeight: open ? 320 : 0,
+          maxHeight: open ? 360 : 0,
           transition: "max-height 0.28s ease",
           background: "var(--bg)",
         }}
@@ -117,10 +109,7 @@ export default function SiteNav() {
                 className="flex items-center justify-between py-4"
                 style={{ color: isActive(l.href) ? "var(--text)" : "var(--muted)" }}
               >
-                <span
-                  style={{ fontFamily: "var(--font-display), Georgia, serif", fontWeight: 500 }}
-                  className="text-[1.05rem]"
-                >
+                <span style={{ fontFamily: "var(--font-display), Georgia, serif", fontWeight: 500 }} className="text-[1.05rem]">
                   {t(l.key)}
                 </span>
                 <span aria-hidden>→</span>
