@@ -4,7 +4,7 @@
 
 /* ═══════════════════════════════════════════════════════════
    Specular-highlight custom properties — kept registered (some card rules
-   still reference them) but pinned to zero. The FORMA rebrand
+   still reference them) but pinned to zero. The OSSERVATORIO rebrand
    retired the liquid-glass material (pointer-tracked highlight, idle sweep,
    squircle masking); GlassEnhancements.tsx is no longer mounted, and
    surfaces read as flat paper instead of glass.
@@ -26,7 +26,7 @@
 }
 
 /* ═══════════════════════════════════════════════════════════
-   FORMA homepage sections
+   OSSERVATORIO homepage sections
    ═══════════════════════════════════════════════════════════ */
 
 /* One viewport tall as a floor, not a ceiling: `height` clipped any section
@@ -130,7 +130,7 @@ body {
   --success-dim: rgba(27, 54, 47, 0.12);
   --error: var(--accent);
   --error-dim: rgba(139, 38, 53, 0.15);
-  /* FORMA spacing scale */
+  /* OSSERVATORIO spacing scale */
   --sp-1: 8px;
   --sp-2: 16px;
   --sp-3: 24px;
@@ -221,25 +221,6 @@ html.dark {
 
 /* Dark mode is the same single accent everywhere too — see the
    light-mode note above. No per-section overrides. */
-
-/* ── Footer: always closes in ink, on every interior page ──
-   Not the dark theme — the light/dark toggle stays untouched everywhere
-   else. This is a deliberate closing beat, the same move a gallery makes
-   ending a room on a dark wall regardless of the lighting elsewhere in the
-   building. Scopes the same values as html.dark above, so every existing
-   var(--bg)/var(--surface)/var(--text)/var(--muted)/var(--accent)/
-   var(--border) reference already inside FormaFooter resolves to them
-   without the component needing to know about it. */
-.forma-footer-ink {
-  --bg: #0c1815;
-  --surface: #101f1b;
-  --text: #fdfbf7;
-  --muted: #8fa89d;
-  --border: rgba(253, 251, 247, 0.14);
-  --accent: #b4727c;
-  --terra: var(--accent);
-  --success: var(--text);
-}
 
 /* ═══════════════════════════════════════════════════════════
    DESIGN TOKENS — motion, space, elevation
@@ -354,7 +335,7 @@ html.dark {
   --glass-bar-fill: var(--surface);
   --glass-bar-blur: none;
 
-  /* FORMA editorial radius — sharp corners, not rounded glass. */
+  /* OSSERVATORIO editorial radius — sharp corners, not rounded glass. */
   --glass-radius: var(--r-md);
 }
 html.dark {
@@ -382,7 +363,7 @@ html.dark {
 }
 .r-pill {
   /* Kept for compat with existing className references; the pill shape
-     itself was retired in the FORMA rebrand, so this now renders
+     itself was retired in the OSSERVATORIO rebrand, so this now renders
      the same sharp radius as everything else. */
   border-radius: var(--r-md);
 }
@@ -390,7 +371,7 @@ html.dark {
 /* The shared sheet. Anything raised on an inner page builds on this — a flat
    paper card: opaque fill, one load-bearing rim border, a small cast shadow.
    No blur, no specular highlight, no squircle mask: the liquid-glass material
-   was retired in the FORMA rebrand. */
+   was retired in the OSSERVATORIO rebrand. */
 .glass-surface {
   background-color: var(--glass-s-fill);
   border: 1px solid var(--glass-s-rim);
@@ -512,7 +493,7 @@ button:active,
   transition-duration: 0.15s !important;
 }
 
-/* ── Dark mode: FORMA ink, flat (no ambient glow) ── */
+/* ── Dark mode: OSSERVATORIO ink, flat (no ambient glow) ── */
 html.dark {
   background-color: var(--bg);
   background-image: none;
@@ -1393,7 +1374,7 @@ html.dark {
 
 /* Mobile: always single column */
 
-/* ── FORMA masthead — responsive letter-spacing for mobile ── */
+/* ── OSSERVATORIO masthead — responsive letter-spacing for mobile ── */
 
 /* ── News ticker animation ── */
 

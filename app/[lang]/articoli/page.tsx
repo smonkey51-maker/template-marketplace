@@ -9,7 +9,7 @@ import {
   type ArticleCategory,
 } from "@/lib/articles";
 import SiteNav from "@/components/SiteNav";
-import { FormaFooter } from "@/components/FormaFooter";
+import { OsservatorioFooter } from "@/components/OsservatorioFooter";
 import { ArtHeader, PAINTINGS } from "@/components/ArtHeader";
 
 const META = {
@@ -30,7 +30,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang: rawLang } = await params;
   const lang = toLocale(rawLang);
-  return { title: META[lang].title, description: META[lang].description };
+  return {
+    title: META[lang].title,
+    description: META[lang].description,
+    alternates: {
+      canonical: `/${lang}/articoli`,
+      languages: { it: "/it/articoli", en: "/en/articoli" },
+    },
+  };
 }
 
 const FILTER_LABEL_KEYS: Record<ArticleCategory, keyof typeof copy.it> = {
@@ -195,7 +202,7 @@ export default async function ArticoliPage({
         )}
       </div>
 
-      <FormaFooter />
+      <OsservatorioFooter />
     </div>
   );
 }

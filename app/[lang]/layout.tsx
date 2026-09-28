@@ -62,9 +62,7 @@ export async function generateMetadata({
     metadataBase: new URL(SITE_URL),
     title: {
       default: m.title,
-      // Pages set a bare title; this appends the brand. A page that spells the
-      // suffix out itself gets it twice.
-      template: "%s — OSSERVATORIO",
+      template: "%s",
     },
     description: m.description,
     openGraph: {
@@ -79,10 +77,6 @@ export async function generateMetadata({
       title: m.title,
       description: m.description,
       images: [`/api/og?lang=${lang}`],
-    },
-    alternates: {
-      canonical: `${SITE_URL}/${lang}`,
-      languages: { it: `${SITE_URL}/it`, en: `${SITE_URL}/en` },
     },
   };
 }

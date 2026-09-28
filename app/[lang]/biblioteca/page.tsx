@@ -3,7 +3,7 @@ import { toLocale } from "@/lib/locales";
 import { copy } from "@/lib/i18n";
 import { books } from "@/lib/books";
 import SiteNav from "@/components/SiteNav";
-import { FormaFooter } from "@/components/FormaFooter";
+import { OsservatorioFooter } from "@/components/OsservatorioFooter";
 import { ArtHeader, PAINTINGS } from "@/components/ArtHeader";
 
 const META = {
@@ -24,7 +24,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang: rawLang } = await params;
   const lang = toLocale(rawLang);
-  return { title: META[lang].title, description: META[lang].description };
+  return {
+    title: META[lang].title,
+    description: META[lang].description,
+    alternates: {
+      canonical: `/${lang}/biblioteca`,
+      languages: { it: "/it/biblioteca", en: "/en/biblioteca" },
+    },
+  };
 }
 
 export default async function BibliotecaPage({ params }: { params: Promise<{ lang: string }> }) {
@@ -97,9 +104,50 @@ export default async function BibliotecaPage({ params }: { params: Promise<{ lan
             );
           })}
         </div>
+        <section className="mt-16 border-t border-theme pt-10">
+          <span className="text-[10px] font-semibold uppercase" style={{ color: "var(--accent)", letterSpacing: "0.16em" }}>
+            {lang === "it" ? "Note di ricerca" : "Research notes"}
+          </span>
+          <h2 className="mt-3 text-[clamp(1.6rem,3vw,2.3rem)]" style={{ fontFamily: "var(--font-display), Georgia, serif", fontWeight: 600 }}>
+            {lang === "it" ? "Fonti per distinguere osservazione e inferenza" : "Sources for separating observation from inference"}
+          </h2>
+          <p className="mt-3 max-w-2xl text-[14px] leading-6" style={{ color: "var(--muted)" }}>
+            {lang === "it"
+              ? "Queste letture non trasformano il comportamento non verbale in un rilevatore di bugie: servono soprattutto a capire cosa misurano FACS e microespressioni, e quali limiti emergono quando si tenta di inferire emozioni o inganno."
+              : "These readings do not turn nonverbal behaviour into a lie detector. They help clarify what FACS and microexpressions measure, and the limits that appear when inferring emotion or deception."}
+          </p>
+          <div className="mt-6 grid grid-cols-1 gap-4">
+            {[
+              {
+                label: "Clark et al. (2020) — Systematic review of FACS use",
+                href: "https://pubmed.ncbi.nlm.nih.gov/32528361/",
+              },
+              {
+                label: "Frontiers in Psychology (2018) — Microexpressions and deception: critical review + experiment",
+                href: "https://pmc.ncbi.nlm.nih.gov/articles/PMC6305322/",
+              },
+              {
+                label: "Burgoon (2018) — Why microexpressions are not a simple lie detector",
+                href: "https://pmc.ncbi.nlm.nih.gov/articles/PMC6158306/",
+              },
+            ].map((source) => (
+              <a
+                key={source.href}
+                href={source.href}
+                target="_blank"
+                rel="noreferrer"
+                className="group flex items-start justify-between gap-4 border border-theme r-md p-5 transition-colors hover:border-[var(--accent)]"
+                style={{ background: "var(--surface)" }}
+              >
+                <span className="text-[13px] leading-5" style={{ color: "var(--text)" }}>{source.label}</span>
+                <span aria-hidden style={{ color: "var(--accent)" }}>↗</span>
+              </a>
+            ))}
+          </div>
+        </section>
       </div>
 
-      <FormaFooter />
+      <OsservatorioFooter />
     </div>
   );
 }

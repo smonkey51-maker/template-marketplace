@@ -11,7 +11,7 @@ AI assistant reference for the **OSSERVATORIO** codebase. Read this before makin
 1. **Fan commentary** on "The Mentalist" and the character of Patrick Jane — his observation method, cold-reading-style techniques as portrayed in the show, character analysis. Written in the site's own words, as commentary and analysis, never verbatim dialogue, episode transcripts or reproduced show material.
 2. **Practical psychology guides** — body language, active listening, memory techniques, cold reading (how it works and how to spot it), persuasion principles, observation training.
 
-This project used to be **FORMA**, a template marketplace (Stripe payments, Clerk auth, Supabase DB, an Anthropic-powered "AI Studio", a product catalogue). All of that was removed in a full repurposing: there is no e-commerce, no user accounts, no database, no AI generation feature. What remains is a simple editorial site plus a newsletter signup. If you find references to the old product anywhere (variable names, stale comments), they are leftovers — do not resurrect Stripe/Clerk/Supabase/Anthropic integration to "restore" functionality; that functionality was deliberately removed.
+OSSERVATORIO is an editorial fan project. It has no e-commerce, user accounts, database-backed catalogue, checkout or AI-generation product surface. The application is intentionally focused on editorial content, bilingual navigation and the newsletter signup.
 
 **Tech stack:** Next.js 16 · React 19 · TypeScript 5 · Tailwind CSS 3 · Resend (newsletter notification email) · PostHog (analytics, optional) · Vitest (unit tests) · Playwright (e2e tooling, kept but currently has no suite)
 
@@ -21,7 +21,7 @@ This project used to be **FORMA**, a template marketplace (Stripe payments, Cler
 
 "The Mentalist" and "Patrick Jane" are copyrighted properties of CBS / Warner Bros. Television. This site must always read as **unrestricted fan commentary**, never as an official or affiliated product. When adding or editing content:
 
-- Every page that discusses the show must make clear this is an unofficial fan project — the footer disclaimer (`FormaFooter.tsx`, key `disclaimerShort` in `lib/i18n.ts`) must never be removed, and `/[lang]/chi-siamo` must keep its explicit non-affiliation statement.
+- Every page that discusses the show must make clear this is an unofficial fan project — the footer disclaimer (`OsservatorioFooter.tsx`, key `disclaimerShort` in `lib/i18n.ts`) must never be removed, and `/[lang]/chi-siamo` must keep its explicit non-affiliation statement.
 - Never write or accept verbatim scripts, episode transcripts, screenshots, or any reproduction of the show's actual footage or images. Character/method analysis and educational technique write-ups in original words are fine.
 - Never use copyrighted images of the actor or the show. `public/paintings/` holds public-domain artwork used purely as atmospheric page backdrops (see `components/ArtHeader.tsx`) — don't replace these with stills from the series.
 - Never present the site as official, licensed, or as selling anything using the character's name or likeness.
@@ -57,13 +57,13 @@ template-marketplace/
 │       ├── og/route.tsx         # Dynamic OG image — generic or per-article
 │       └── subscribe/route.ts   # Newsletter signup (rate-limited, emails a notification)
 ├── components/
-│   ├── SiteNav.tsx              # Header — wordmark, nav links, theme toggle
-│   ├── FormaFooter.tsx          # Footer — newsletter form, link columns, fan disclaimer
-│   ├── FormaLogo.tsx            # OSSERVATORIO wordmark (kept the pre-refresh filename/export names)
+│   ├── SiteNav.tsx              # Header — wordmark, nav links, IT/EN switcher, theme toggle
+│   ├── OsservatorioFooter.tsx          # Footer — newsletter form, link columns, fan disclaimer
+│   ├── OsservatorioLogo.tsx            # OSSERVATORIO wordmark (kept the pre-refresh filename/export names)
 │   ├── HomeHero.tsx             # Homepage hero section
 │   ├── ArticleBody.tsx          # Renders the tiny markdown grammar used by lib/articles.ts
 │   ├── ArtHeader.tsx            # Page header with a faint painting backdrop
-│   ├── BackLink.tsx             # "Indietro" back-navigation control
+│   ├── BackLink.tsx             # Contextual back-navigation control (hidden on home)\n│   ├── EditorialLens.tsx        # Fiction / evidence / practice framing + Library link
 │   ├── CommandPalette.tsx       # Ctrl/Cmd-K — searches articles + site navigation
 │   ├── Toast.tsx                # Toast notification system (Context + hook)
 │   ├── ThemeProvider.tsx / ThemeToggle.tsx   # Dark/light theme
@@ -94,11 +94,11 @@ template-marketplace/
 
 Single source of truth for every article, mirroring the old `lib/templates.ts` pattern:
 
-- `Article` = `{ slug, category, person?, isGuide?, publishedAt, tags, it: ArticleLocale, en: ArticleLocale }`.
+- `Article` = `{ slug, category, person?, isGuide?, homepageFeature?, publishedAt, tags, it: ArticleLocale, en: ArticleLocale }`.
 - `category` is one of the four "Il Taccuino di Jane" macro-categories: `"corpo" | "persuasione" | "mentalismo" | "contro-manipolazione"` (see `CATEGORY_LABELS` / `getCategoryLabel()` for their IT/EN display labels — never hardcode a category label string at a call site).
-- `person?: string` marks a "Dossier Personaggi" piece (e.g. `"patrick-jane"`, `"cal-lightman"`) — it still belongs to one of the four categories and appears in both `/articoli` and `/dossier`. `isGuide?: boolean` marks a long-form "Guide Pratiche" piece, surfaced in `/guide-pratiche` in addition to `/articoli`. Both flags are independent of `category` and of each other.
+- `person?: string` marks a "Dossier Personaggi" piece (e.g. `"patrick-jane"`, `"cal-lightman"`) — it still belongs to one of the four categories and appears in both `/articoli` and `/dossier`. `isGuide?: boolean` marks a long-form "Guide Pratiche" piece, surfaced in `/guide-pratiche` in addition to `/articoli`. These flags are independent of `category`. `homepageFeature?: boolean` explicitly marks the editorial anchor used on the homepage, so homepage priority never depends on publish date.
 - `ArticleLocale` = `{ title, description, body }`. `body` uses a deliberately tiny markdown grammar — blank-line paragraphs, `"## "` headings, `"- "` bullet lists, `**bold**` spans, and a `":::callout Title"` ... `":::"` fenced block (the "L'Osservazione Chiave" / "The Key Observation" highlight box; title optional) — rendered by `components/ArticleBody.tsx`. No markdown dependency; don't add one for this.
-- Helpers: `getArticle(slug)`, `getArticlesByCategory(category)`, `getAllArticlesSorted()`, `getRelatedArticles(current, limit)`, `getDossierArticles()` / `getDossierArticlesForPerson(person)`, `getGuideArticles()`.
+- Helpers: `getArticle(slug)`, `getArticlesByCategory(category)`, `getAllArticlesSorted()`, `getHomepageFeature()`, `getRelatedArticles(current, limit)`, `getDossierArticles()` / `getDossierArticlesForPerson(person)`, `getGuideArticles()`.
 
 **When adding a new article:**
 
@@ -202,8 +202,8 @@ Add the key to both `copy.it` and `copy.en` in `lib/i18n.ts`. Never add a key to
 
 1. Create `app/[lang]/<route>/page.tsx`.
 2. Read `params` for `lang`, call `toLocale()` on it.
-3. Render `<SiteNav />` … content … `<FormaFooter />`, matching the existing pages' structure.
-4. Add the route to `SiteNav.tsx` / `FormaFooter.tsx` if it should appear in navigation, and to `app/sitemap.ts`.
+3. Render `<SiteNav />` … content … `<OsservatorioFooter />`, matching the existing pages' structure.
+4. Add the route to `SiteNav.tsx` / `OsservatorioFooter.tsx` if it should appear in navigation, and to `app/sitemap.ts`.
 
 ### Debug the newsletter signup
 

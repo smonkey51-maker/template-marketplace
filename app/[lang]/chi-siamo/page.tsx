@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { toLocale } from "@/lib/locales";
 import { copy } from "@/lib/i18n";
 import SiteNav from "@/components/SiteNav";
-import { FormaFooter } from "@/components/FormaFooter";
+import { OsservatorioFooter } from "@/components/OsservatorioFooter";
 import { ArtHeader, PAINTINGS } from "@/components/ArtHeader";
 
 const META = {
@@ -25,7 +25,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang: rawLang } = await params;
   const lang = toLocale(rawLang);
-  return { title: META[lang].title, description: META[lang].description };
+  return {
+    title: META[lang].title,
+    description: META[lang].description,
+    alternates: {
+      canonical: `/${lang}/chi-siamo`,
+      languages: { it: "/it/chi-siamo", en: "/en/chi-siamo" },
+    },
+  };
 }
 
 const CONTENT = {
@@ -111,7 +118,7 @@ export default async function ChiSiamoPage({ params }: { params: Promise<{ lang:
           ))}
         </div>
       </div>
-      <FormaFooter />
+      <OsservatorioFooter />
     </div>
   );
 }

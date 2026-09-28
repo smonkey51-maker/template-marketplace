@@ -4,7 +4,7 @@ import { toLocale } from "@/lib/locales";
 import { copy } from "@/lib/i18n";
 import { getGuideArticles, getCategoryLabel } from "@/lib/articles";
 import SiteNav from "@/components/SiteNav";
-import { FormaFooter } from "@/components/FormaFooter";
+import { OsservatorioFooter } from "@/components/OsservatorioFooter";
 import { ArtHeader, PAINTINGS } from "@/components/ArtHeader";
 
 const META = {
@@ -25,7 +25,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang: rawLang } = await params;
   const lang = toLocale(rawLang);
-  return { title: META[lang].title, description: META[lang].description };
+  return {
+    title: META[lang].title,
+    description: META[lang].description,
+    alternates: {
+      canonical: `/${lang}/guide-pratiche`,
+      languages: { it: "/it/guide-pratiche", en: "/en/guide-pratiche" },
+    },
+  };
 }
 
 export default async function GuidePratichePage({ params }: { params: Promise<{ lang: string }> }) {
@@ -81,7 +88,7 @@ export default async function GuidePratichePage({ params }: { params: Promise<{ 
         </div>
       </div>
 
-      <FormaFooter />
+      <OsservatorioFooter />
     </div>
   );
 }

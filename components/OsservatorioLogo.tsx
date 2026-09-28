@@ -5,15 +5,9 @@ import { useId } from "react";
 /**
  * The OSSERVATORIO wordmark.
  *
- * Kept in its own file (and kept the filename `FormaLogo.tsx`, and the
- * exported names `FormaLogoAnimated` / `FormaLogoStatic` / `FormaLogoIcon`)
- * for the same reason CLAUDE.md documents for the rest of the pre-refresh
- * naming: every call site already imports these names, and renaming them
- * would touch a dozen files for no visible benefit.
- *
- * Unlike the earlier 5-letter wordmarks (ACUME, then INSPO), "OSSERVATORIO"
- * is 12 characters — too long for individually hand-placed letter x
- * coordinates. It's rendered as a single `<text>` with `textLength` +
+ * This component owns the OSSERVATORIO wordmark and icon.
+ * "OSSERVATORIO" is 12 characters, so the wordmark uses textLength rather
+ * than individually hand-placed letter coordinates. It's rendered as a single `<text>` with `textLength` +
  * `lengthAdjust="spacingAndGlyphs"` so it always fills the same width
  * regardless of font metrics, with per-letter `<tspan>`s carrying the
  * staggered fade-in (natural text flow positions each one, no manual
@@ -30,7 +24,7 @@ const WORD = "OSSERVATORIO";
 const VIEWBOX_WIDTH = 1400;
 const TEXT_LENGTH = VIEWBOX_WIDTH - 40;
 
-export function FormaLogoAnimated({ className }: { className?: string }) {
+export function OsservatorioLogoAnimated({ className }: { className?: string }) {
   const gid = useId();
   return (
     <svg
@@ -74,7 +68,7 @@ export function FormaLogoAnimated({ className }: { className?: string }) {
   );
 }
 
-export function FormaLogoStatic({ className }: { className?: string }) {
+export function OsservatorioLogoStatic({ className }: { className?: string }) {
   const gid = useId();
   return (
     <svg
@@ -106,7 +100,7 @@ export function FormaLogoStatic({ className }: { className?: string }) {
   );
 }
 
-export function FormaLogoIcon({ size = 32, className }: { size?: number; className?: string }) {
+export function OsservatorioLogoIcon({ size = 32, className }: { size?: number; className?: string }) {
   const gid = useId();
   return (
     <svg
