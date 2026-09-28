@@ -25,7 +25,7 @@ export async function GET(req: NextRequest) {
           flexDirection: "column",
           width: "100%",
           height: "100%",
-          background: "linear-gradient(135deg, #FDFBF7 0%, #F8F2E6 60%, #EAEFE9 100%)",
+          background: "linear-gradient(135deg, #F9F3F2 0%, #FCF9F8 60%, #E4E0E8 100%)",
           fontFamily: "system-ui, -apple-system, sans-serif",
           position: "relative",
           overflow: "hidden",
@@ -50,7 +50,7 @@ export async function GET(req: NextRequest) {
             style={{
               fontSize: "18px",
               fontWeight: 700,
-              color: "#8B2635",
+              color: "#8A625E",
               letterSpacing: "0.08em",
               textTransform: "uppercase",
             }}
@@ -67,7 +67,7 @@ export async function GET(req: NextRequest) {
           style={{
             fontSize: "48px",
             fontWeight: 900,
-            color: "#1B362F",
+            color: "#26348C",
             letterSpacing: "-0.03em",
             lineHeight: 1.1,
             marginBottom: "24px",
@@ -122,7 +122,7 @@ export async function GET(req: NextRequest) {
         justifyContent: "center",
         width: "100%",
         height: "100%",
-        background: "linear-gradient(135deg, #FDFBF7 0%, #F8F2E6 60%, #EAEFE9 100%)",
+        background: "linear-gradient(135deg, #F9F3F2 0%, #FCF9F8 60%, #E4E0E8 100%)",
         fontFamily: "system-ui, -apple-system, sans-serif",
         position: "relative",
         overflow: "hidden",
@@ -155,7 +155,7 @@ export async function GET(req: NextRequest) {
           style={{
             fontSize: "20px",
             fontWeight: 700,
-            color: "#8B2635",
+            color: "#8A625E",
             letterSpacing: "0.08em",
             textTransform: "uppercase",
           }}
@@ -166,7 +166,7 @@ export async function GET(req: NextRequest) {
           style={{
             fontSize: "56px",
             fontWeight: 900,
-            color: "#1B362F",
+            color: "#26348C",
             textAlign: "center",
             letterSpacing: "-0.03em",
             lineHeight: 1.1,

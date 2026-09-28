@@ -75,10 +75,23 @@ export default async function DossierArticlePage({
         />
 
         <div className="mt-4 flex flex-wrap gap-2">
-          <span className="r-sm border px-2.5 py-1 text-[10px] font-semibold uppercase" style={{ borderColor: "var(--border)", color: "var(--accent)", letterSpacing: "0.12em" }}>
-            {article.person.split("-").map((w) => w[0].toUpperCase() + w.slice(1)).join(" ")}
+          <span
+            className="r-sm border px-2.5 py-1 text-[10px] font-semibold uppercase"
+            style={{
+              borderColor: "var(--border)",
+              color: "var(--accent)",
+              letterSpacing: "0.12em",
+            }}
+          >
+            {article.person
+              .split("-")
+              .map((w) => w[0].toUpperCase() + w.slice(1))
+              .join(" ")}
           </span>
-          <span className="r-sm border px-2.5 py-1 text-[10px] font-semibold uppercase" style={{ borderColor: "var(--border)", color: "var(--muted)", letterSpacing: "0.12em" }}>
+          <span
+            className="r-sm border px-2.5 py-1 text-[10px] font-semibold uppercase"
+            style={{ borderColor: "var(--border)", color: "var(--muted)", letterSpacing: "0.12em" }}
+          >
             {getCategoryLabel(article.category, lang)}
           </span>
         </div>

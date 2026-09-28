@@ -19,8 +19,8 @@ export default function GlobalError({
         style={{
           margin: 0,
           fontFamily: "system-ui, sans-serif",
-          background: "#0C1815",
-          color: "#FDFBF7",
+          background: "#10163B",
+          color: "#F9F3F2",
         }}
       >
         <div
@@ -60,8 +60,8 @@ export default function GlobalError({
             onClick={reset}
             style={{
               padding: "0.625rem 1.5rem",
-              background: "#8B2635",
-              color: "#FDFBF7",
+              background: "#8A625E",
+              color: "#F9F3F2",
               border: "none",
               cursor: "pointer",
               fontWeight: 600,

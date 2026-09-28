@@ -84,7 +84,10 @@ export function OsservatorioFooter() {
             </p>
 
             {status !== "sent" ? (
-              <form onSubmit={handleSubscribe} className="mt-7 flex max-w-xl flex-col gap-3 sm:flex-row">
+              <form
+                onSubmit={handleSubscribe}
+                className="mt-7 flex max-w-xl flex-col gap-3 sm:flex-row"
+              >
                 <input
                   type="email"
                   required

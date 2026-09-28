@@ -58,12 +58,13 @@ template-marketplace/
 │       └── subscribe/route.ts   # Newsletter signup (rate-limited, emails a notification)
 ├── components/
 │   ├── SiteNav.tsx              # Header — wordmark, nav links, IT/EN switcher, theme toggle
-│   ├── OsservatorioFooter.tsx          # Footer — newsletter form, link columns, fan disclaimer
-│   ├── OsservatorioLogo.tsx            # OSSERVATORIO wordmark (kept the pre-refresh filename/export names)
+│   ├── OsservatorioFooter.tsx   # Footer — newsletter form, link columns, fan disclaimer
+│   ├── OsservatorioLogo.tsx     # OSSERVATORIO wordmark + icon
 │   ├── HomeHero.tsx             # Homepage hero section
 │   ├── ArticleBody.tsx          # Renders the tiny markdown grammar used by lib/articles.ts
 │   ├── ArtHeader.tsx            # Page header with a faint painting backdrop
-│   ├── BackLink.tsx             # Contextual back-navigation control (hidden on home)\n│   ├── EditorialLens.tsx        # Fiction / evidence / practice framing + Library link
+│   ├── BackLink.tsx             # Contextual back-navigation control (hidden on home)
+│   ├── EditorialLens.tsx        # Fiction / evidence / practice framing + Library link
 │   ├── CommandPalette.tsx       # Ctrl/Cmd-K — searches articles + site navigation
 │   ├── Toast.tsx                # Toast notification system (Context + hook)
 │   ├── ThemeProvider.tsx / ThemeToggle.tsx   # Dark/light theme
@@ -125,29 +126,27 @@ Single source of truth for every article, mirroring the old `lib/templates.ts` p
 - Validates the email with `subscribeSchema` (`lib/schemas.ts`).
 - There is **no database**. A signup does not get stored server-side; instead `lib/email.ts`'s `sendNewsletterSignupNotification()` emails the site owner (`RESEND_NOTIFY_TO`, falling back to `RESEND_FROM`) so they can add the address to whatever list tool they use. Silently no-ops without `RESEND_API_KEY` (safe in dev/preview).
 
-## Design System — "Il Taccuino di Jane" exact-hex palette
+## Design System — "Ultramarine & Dusty Rose" palette
 
-The site's palette is the site owner's exact hex codes from the "Il Taccuino di Jane" content/design brief — a vintage-notebook / investigative-club look. **Never add a fifth colour**; every other token is a literal shade, tint or opacity of these four:
+The site's palette is two hues from the site owner's moodboard — replacing the earlier "Il Taccuino di Jane" exact-hex palette, which itself replaced a 3-Pantone-swatch pass before that (see git history for those). **Never add a third hue**; every other token is a literal shade, tint or opacity of these two:
 
-| Element          | Name                    | Hex       | Role                                                          |
-| ----------------- | ----------------------- | --------- | -------------------------------------------------------------- |
-| Sfondo Dominante   | Panna Vintage            | `#FDFBF7` | `--bg` — dominant page/article background                     |
-| Testo e Struttura  | Verde Abete / Oxford     | `#1B362F` | `--text` — headings, menus, body text, thin divider lines      |
-| Accento e Focus    | Rosso Tè / Cremisi Muto  | `#8B2635` | `--accent` — CTAs, important links, highlighted detail (~10% of the page) |
-| Sfondi Secondari   | Grigio-Verde Salvia      | `#EAEFE9` | `--surface-2` — callout boxes, quotes, card previews           |
+| Hue        | Hex       | Role                                                                 |
+| ---------- | --------- | --------------------------------------------------------------------- |
+| Ultramarine | `#26348C` | `--text` — headings, menus, body text, thin divider lines            |
+| Dusty Rose  | `#C08882` | the source for `--accent` — CTAs, important links, highlighted detail |
 
 Two things to know before touching colour:
 
-- **`#8B2635` needs no separate "text-safe" shade** — checked against the WCAG 2.2 relative-luminance formula, it measures 8.4:1 on `#FDFBF7` and cream text on a solid `#8B2635` fill measures 8.65:1, both comfortably above the 4.5:1 AA floor. Unlike the previous (Pantone-swatch) palette pass, `--accent` and `--terra` are therefore the *same* colour now — `--terra` is kept only as a backward-compat CSS variable alias, not a second red.
-- **No stray neutrals.** Shadows and overlays are tinted with the green (`rgba(27, 54, 47, …)`), not a generic black/brown. Dark mode remaps the same four colours onto a dark-green ground (`#0C1815` background, `#FDFBF7` text, `#B4727C` — the accent red lightened toward white until it clears 4.5:1 on that dark ground) rather than introducing a fifth hue.
+- **`--accent` is a darkened shade of the swatch, not the swatch itself.** The raw Dusty Rose (`#C08882`) only measures ~2.7:1 against the page background — well under the 4.5:1 AA floor for body-sized text. `--accent` is `#8A625E` (light mode) / `#CEA29E` (dark mode, lightened toward white for contrast on the dark ultramarine ground) — both checked against the WCAG 2.2 relative-luminance formula at ≥4.5:1. `--terra` is kept only as a backward-compat CSS variable alias of `--accent` — there's no second, "more decorative" rose tier the way the previous Pantone-swatch pass needed one, since every place that used to need it (e.g. the active filter chip) pairs `--accent` with light text, which already clears contrast on its own.
+- **No stray neutrals.** Shadows and overlays are tinted with ultramarine (`rgba(38, 52, 140, …)`), not a generic black/brown. Dark mode remaps the same two hues onto a dark-ultramarine ground (`#10163B` background, the light mode's pale-blush `#F9F3F2` reused as dark-mode text) rather than introducing a third hue.
 
 Other tokens:
 
 - **Fonts**: Playfair Display (display — h1–h3, article titles; CSS variable `--font-display`, still named that even though it once loaded Fraunces — see the layout.tsx comment) + Inter (body/UI). Only these two families are loaded. Playfair Display is a static-weight family, not a variable font, so display type is tuned with `font-weight`/`font-style`, not `font-variation-settings`.
 - **Radius tokens**: editorial and sharp, not rounded. Use `.r-md` (4px — cards, panels, buttons), `.r-sm` (2px — chips), `.r-lg`/`.r-xl` for larger surfaces. Only genuinely circular elements use `border-radius: 50%` directly.
 - **Shadows**: `--shadow-sm` / `--shadow-md` / `--shadow-lg` / `--shadow-xl` in `globals.css`.
-- **Buttons**: `.btn-brand` (solid red CTA, uses `--accent`) / `.btn-brand-sm` (compact variant).
-- **Callout box**: `.fn-callout` — the "L'Osservazione Chiave" / "The Key Observation" highlight box, salvia (`--surface-2`) background with a load-bearing accent-red left rule. Written via a tiny `:::callout Title` ... `:::` grammar in article bodies — see `components/ArticleBody.tsx`.
+- **Buttons**: `.btn-brand` (solid rose CTA, uses `--accent`) / `.btn-brand-sm` (compact variant).
+- **Callout box**: `.fn-callout` — the "L'Osservazione Chiave" / "The Key Observation" highlight box, a pale ultramarine-tinted (`--surface-2`) background with a load-bearing accent left rule. Written via a tiny `:::callout Title` ... `:::` grammar in article bodies — see `components/ArticleBody.tsx`.
 - **Texture & separators**: a barely-perceptible SVG-turbulence grain sits behind every page in both themes (`body::before` in `globals.css`, fainter in light mode than dark — paper reads noisier at a given opacity than a near-black ground). `.fn-separator` renders a small retro diamond-glyph section break.
 - **Depth**: one material — flat opaque paper, no blur, no glass, no specular highlight. The `.glass-surface` etc. class names persist from the earlier naming (see the CSS for why) but render flat paper, not glass. The rim border on any panel is load-bearing for contrast (WCAG 1.4.11) — never drop it.
 - Theme is `dark`-class-based (`tailwind.config.ts` `darkMode: "class"`), opt-in via `ThemeToggle`, default light.

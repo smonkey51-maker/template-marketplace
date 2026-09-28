@@ -25,7 +25,8 @@ export const copy = {
 
     featuredKicker: "In evidenza",
     featuredTitle: "Dalla fiction al metodo",
-    featuredSub: "Un articolo principale e due letture recenti per passare dalla scena alla psicologia applicata.",
+    featuredSub:
+      "Un articolo principale e due letture recenti per passare dalla scena alla psicologia applicata.",
     seeAllArticles: "Vedi tutto l'Archivio →",
 
     janeKicker: "Patrick Jane · Dossier centrale",
