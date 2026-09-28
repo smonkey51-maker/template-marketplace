@@ -6,7 +6,10 @@ export default function EditorialLens({ lang }: { lang: Lang }) {
     lang === "it"
       ? [
           ["Finzione", "Che cosa mostra il personaggio o suggerisce la narrazione."],
-          ["Evidenza", "Che cosa la psicologia può sostenere, con limiti e alternative plausibili."],
+          [
+            "Evidenza",
+            "Che cosa la psicologia può sostenere, con limiti e alternative plausibili.",
+          ],
           ["Pratica", "Che cosa è utile applicare senza trasformare un indizio in una certezza."],
         ]
       : [
@@ -16,7 +19,10 @@ export default function EditorialLens({ lang }: { lang: Lang }) {
         ];
 
   return (
-    <aside className="my-10 border-y border-theme py-6" aria-label={lang === "it" ? "Lente editoriale" : "Editorial lens"}>
+    <aside
+      className="my-10 border-y border-theme py-6"
+      aria-label={lang === "it" ? "Lente editoriale" : "Editorial lens"}
+    >
       <p
         className="text-[10px] font-semibold uppercase"
         style={{ color: "var(--accent)", letterSpacing: "0.16em" }}
@@ -48,7 +54,9 @@ export default function EditorialLens({ lang }: { lang: Lang }) {
         className="mt-4 inline-block text-[12px] font-semibold"
         style={{ color: "var(--accent)" }}
       >
-        {lang === "it" ? "Fonti e approfondimenti: La Biblioteca →" : "Sources & further reading: The Library →"}
+        {lang === "it"
+          ? "Fonti e approfondimenti: La Biblioteca →"
+          : "Sources & further reading: The Library →"}
       </Link>
     </aside>
   );

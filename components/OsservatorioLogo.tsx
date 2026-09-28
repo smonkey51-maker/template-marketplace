@@ -5,16 +5,15 @@ import { useId } from "react";
 /**
  * The OSSERVATORIO wordmark.
  *
- * This component owns the OSSERVATORIO wordmark and icon.
- * "OSSERVATORIO" is 12 characters, so the wordmark uses textLength rather
- * than individually hand-placed letter coordinates. It's rendered as a single `<text>` with `textLength` +
- * `lengthAdjust="spacingAndGlyphs"` so it always fills the same width
- * regardless of font metrics, with per-letter `<tspan>`s carrying the
+ * "OSSERVATORIO" is 12 characters, so the wordmark uses `textLength` rather
+ * than individually hand-placed letter coordinates: a single `<text>` with
+ * `textLength` + `lengthAdjust="spacingAndGlyphs"` always fills the same
+ * width regardless of font metrics, with per-letter `<tspan>`s carrying the
  * staggered fade-in (natural text flow positions each one, no manual
- * placement needed). The gradient runs Rosso Tè (#8B2635) → a darker
- * maroon shade of the same hue — the site's one accent, tinted for depth —
- * matching the exact-hex "Il Taccuino di Jane" palette (see CLAUDE.md
- * "Design System").
+ * placement needed). The gradient runs a darkened Dusty Rose (#8A625E) → an
+ * even darker shade of the same hue — not the raw swatch rose, for the same
+ * legibility reason `--accent` isn't the raw swatch either — matching the
+ * "Ultramarine & Dusty Rose" palette (see CLAUDE.md "Design System").
  *
  * Each instance mints its own gradient id with `useId` — SVG ids are
  * document-scoped, and two copies of the logo on one page (header + footer)
@@ -36,8 +35,8 @@ export function OsservatorioLogoAnimated({ className }: { className?: string }) 
     >
       <defs>
         <linearGradient id={gid} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#8B2635" />
-          <stop offset="100%" stopColor="#5F1A26" />
+          <stop offset="0%" stopColor="#8A625E" />
+          <stop offset="100%" stopColor="#614542" />
         </linearGradient>
       </defs>
       <text
@@ -80,8 +79,8 @@ export function OsservatorioLogoStatic({ className }: { className?: string }) {
     >
       <defs>
         <linearGradient id={gid} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#8B2635" />
-          <stop offset="100%" stopColor="#5F1A26" />
+          <stop offset="0%" stopColor="#8A625E" />
+          <stop offset="100%" stopColor="#614542" />
         </linearGradient>
       </defs>
       <text
@@ -100,7 +99,13 @@ export function OsservatorioLogoStatic({ className }: { className?: string }) {
   );
 }
 
-export function OsservatorioLogoIcon({ size = 32, className }: { size?: number; className?: string }) {
+export function OsservatorioLogoIcon({
+  size = 32,
+  className,
+}: {
+  size?: number;
+  className?: string;
+}) {
   const gid = useId();
   return (
     <svg
@@ -114,8 +119,8 @@ export function OsservatorioLogoIcon({ size = 32, className }: { size?: number; 
     >
       <defs>
         <linearGradient id={gid} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#8B2635" />
-          <stop offset="100%" stopColor="#5F1A26" />
+          <stop offset="0%" stopColor="#8A625E" />
+          <stop offset="100%" stopColor="#614542" />
         </linearGradient>
       </defs>
       <circle cx="60" cy="60" r="46" stroke={`url(#${gid})`} strokeWidth="14" fill="none" />

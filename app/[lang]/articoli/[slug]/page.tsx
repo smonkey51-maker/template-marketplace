@@ -119,7 +119,10 @@ export default async function ArticlePage({
         </div>
 
         <div className="mt-12 border-t border-theme pt-6">
-          <p className="text-[10px] font-semibold uppercase" style={{ color: "var(--muted)", letterSpacing: "0.14em" }}>
+          <p
+            className="text-[10px] font-semibold uppercase"
+            style={{ color: "var(--muted)", letterSpacing: "0.14em" }}
+          >
             {lang === "it" ? "Fonti e approfondimenti" : "Sources & further reading"}
           </p>
           <p className="mt-2 max-w-2xl text-[13px] leading-5" style={{ color: "var(--muted)" }}>
@@ -127,7 +130,11 @@ export default async function ArticlePage({
               ? "OSSERVATORIO distingue commento sulla fiction, interpretazione e psicologia applicata. Per i testi di riferimento e gli approfondimenti utilizzati dal progetto, consulta La Biblioteca."
               : "OSSERVATORIO separates fiction commentary, interpretation and applied psychology. For the project's reference texts and further reading, see The Library."}
           </p>
-          <Link href={`/${lang}/biblioteca`} className="mt-3 inline-block text-sm font-semibold" style={{ color: "var(--accent)" }}>
+          <Link
+            href={`/${lang}/biblioteca`}
+            className="mt-3 inline-block text-sm font-semibold"
+            style={{ color: "var(--accent)" }}
+          >
             {lang === "it" ? "Apri La Biblioteca →" : "Open The Library →"}
           </Link>
         </div>

@@ -73,14 +73,30 @@ export default async function DossierPage({ params }: { params: Promise<{ lang: 
               className="group block border border-theme r-md p-6 transition-colors hover:border-[var(--accent)]"
               style={{ background: "var(--surface)" }}
             >
-              <div className="flex flex-wrap items-center gap-2 text-[10px] font-semibold uppercase" style={{ letterSpacing: "0.14em" }}>
+              <div
+                className="flex flex-wrap items-center gap-2 text-[10px] font-semibold uppercase"
+                style={{ letterSpacing: "0.14em" }}
+              >
                 <span style={{ color: "var(--accent)" }}>{personLabel(article.person!)}</span>
                 <span style={{ color: "var(--muted)" }}>·</span>
-                <span style={{ color: "var(--muted)" }}>{getCategoryLabel(article.category, lang)}</span>
+                <span style={{ color: "var(--muted)" }}>
+                  {getCategoryLabel(article.category, lang)}
+                </span>
               </div>
               <div className="mt-4 flex flex-wrap gap-2">
-                {(lang === "it" ? ["Finzione", "Evidenza", "Tecnica"] : ["Fiction", "Evidence", "Technique"]).map((label) => (
-                  <span key={label} className="r-sm border px-2 py-1 text-[9px] font-semibold uppercase" style={{ borderColor: "var(--border)", color: "var(--muted)", letterSpacing: "0.12em" }}>
+                {(lang === "it"
+                  ? ["Finzione", "Evidenza", "Tecnica"]
+                  : ["Fiction", "Evidence", "Technique"]
+                ).map((label) => (
+                  <span
+                    key={label}
+                    className="r-sm border px-2 py-1 text-[9px] font-semibold uppercase"
+                    style={{
+                      borderColor: "var(--border)",
+                      color: "var(--muted)",
+                      letterSpacing: "0.12em",
+                    }}
+                  >
                     {label}
                   </span>
                 ))}

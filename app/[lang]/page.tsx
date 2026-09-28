@@ -73,13 +73,19 @@ function ArticleCard({
         {getCategoryLabel(article.category, lang)}
       </span>
       <h3
-        className={compact ? "mt-2 text-[1.1rem] leading-snug" : "mt-3 text-[1.45rem] leading-tight"}
+        className={
+          compact ? "mt-2 text-[1.1rem] leading-snug" : "mt-3 text-[1.45rem] leading-tight"
+        }
         style={{ fontFamily: "var(--font-display), Georgia, serif", fontWeight: 600 }}
       >
         {article[lang].title}
       </h3>
       <p
-        className={compact ? "mt-2 text-[13px] leading-relaxed line-clamp-3" : "mt-3 text-[14px] leading-relaxed line-clamp-4"}
+        className={
+          compact
+            ? "mt-2 text-[13px] leading-relaxed line-clamp-3"
+            : "mt-3 text-[14px] leading-relaxed line-clamp-4"
+        }
         style={{ color: "var(--muted)" }}
       >
         {article[lang].description}
@@ -132,14 +138,24 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
             </span>
             <h3
               className="mt-5 max-w-[680px] text-[clamp(2rem,4vw,3.5rem)] leading-[1.02]"
-              style={{ fontFamily: "var(--font-display), Georgia, serif", fontWeight: 700, letterSpacing: "-0.025em" }}
+              style={{
+                fontFamily: "var(--font-display), Georgia, serif",
+                fontWeight: 700,
+                letterSpacing: "-0.025em",
+              }}
             >
               {jane[lang].title}
             </h3>
-            <p className="mt-5 max-w-[650px] text-[15px] leading-7" style={{ color: "var(--muted)" }}>
+            <p
+              className="mt-5 max-w-[650px] text-[15px] leading-7"
+              style={{ color: "var(--muted)" }}
+            >
               {jane[lang].description}
             </p>
-            <span className="mt-8 inline-block text-sm font-semibold" style={{ color: "var(--accent)" }}>
+            <span
+              className="mt-8 inline-block text-sm font-semibold"
+              style={{ color: "var(--accent)" }}
+            >
               {t("janeRead")}
             </span>
             <span
@@ -159,7 +175,11 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
         </div>
 
         <div className="mt-8">
-          <Link href={`/${lang}/articoli`} className="text-sm font-semibold" style={{ color: "var(--accent)" }}>
+          <Link
+            href={`/${lang}/articoli`}
+            className="text-sm font-semibold"
+            style={{ color: "var(--accent)" }}
+          >
             {t("seeAllArticles")}
           </Link>
         </div>
@@ -216,7 +236,10 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
             href={`/${lang}/dossier`}
             className="group block border border-theme r-md p-8 transition-colors hover:border-[var(--accent)]"
           >
-            <span className="text-[10px] font-semibold uppercase" style={{ color: "var(--accent)", letterSpacing: "0.16em" }}>
+            <span
+              className="text-[10px] font-semibold uppercase"
+              style={{ color: "var(--accent)", letterSpacing: "0.16em" }}
+            >
               {lang === "it" ? "Finzione → Psicologia" : "Fiction → Psychology"}
             </span>
             <h3
@@ -234,7 +257,10 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
             href={`/${lang}/guide-pratiche`}
             className="group block border border-theme r-md p-8 transition-colors hover:border-[var(--accent)]"
           >
-            <span className="text-[10px] font-semibold uppercase" style={{ color: "var(--accent)", letterSpacing: "0.16em" }}>
+            <span
+              className="text-[10px] font-semibold uppercase"
+              style={{ color: "var(--accent)", letterSpacing: "0.16em" }}
+            >
               {lang === "it" ? "Psicologia → Pratica" : "Psychology → Practice"}
             </span>
             <h3

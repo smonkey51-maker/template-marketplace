@@ -105,11 +105,19 @@ export default async function BibliotecaPage({ params }: { params: Promise<{ lan
           })}
         </div>
         <section className="mt-16 border-t border-theme pt-10">
-          <span className="text-[10px] font-semibold uppercase" style={{ color: "var(--accent)", letterSpacing: "0.16em" }}>
+          <span
+            className="text-[10px] font-semibold uppercase"
+            style={{ color: "var(--accent)", letterSpacing: "0.16em" }}
+          >
             {lang === "it" ? "Note di ricerca" : "Research notes"}
           </span>
-          <h2 className="mt-3 text-[clamp(1.6rem,3vw,2.3rem)]" style={{ fontFamily: "var(--font-display), Georgia, serif", fontWeight: 600 }}>
-            {lang === "it" ? "Fonti per distinguere osservazione e inferenza" : "Sources for separating observation from inference"}
+          <h2
+            className="mt-3 text-[clamp(1.6rem,3vw,2.3rem)]"
+            style={{ fontFamily: "var(--font-display), Georgia, serif", fontWeight: 600 }}
+          >
+            {lang === "it"
+              ? "Fonti per distinguere osservazione e inferenza"
+              : "Sources for separating observation from inference"}
           </h2>
           <p className="mt-3 max-w-2xl text-[14px] leading-6" style={{ color: "var(--muted)" }}>
             {lang === "it"
@@ -123,7 +131,8 @@ export default async function BibliotecaPage({ params }: { params: Promise<{ lan
                 href: "https://pubmed.ncbi.nlm.nih.gov/32528361/",
               },
               {
-                label: "Frontiers in Psychology (2018) — Microexpressions and deception: critical review + experiment",
+                label:
+                  "Frontiers in Psychology (2018) — Microexpressions and deception: critical review + experiment",
                 href: "https://pmc.ncbi.nlm.nih.gov/articles/PMC6305322/",
               },
               {
@@ -139,8 +148,12 @@ export default async function BibliotecaPage({ params }: { params: Promise<{ lan
                 className="group flex items-start justify-between gap-4 border border-theme r-md p-5 transition-colors hover:border-[var(--accent)]"
                 style={{ background: "var(--surface)" }}
               >
-                <span className="text-[13px] leading-5" style={{ color: "var(--text)" }}>{source.label}</span>
-                <span aria-hidden style={{ color: "var(--accent)" }}>↗</span>
+                <span className="text-[13px] leading-5" style={{ color: "var(--text)" }}>
+                  {source.label}
+                </span>
+                <span aria-hidden style={{ color: "var(--accent)" }}>
+                  ↗
+                </span>
               </a>
             ))}
           </div>

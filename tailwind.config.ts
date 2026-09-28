@@ -13,9 +13,9 @@ const config: Config = {
       colors: {
         // Kept as Tailwind utilities for parity with the CSS custom
         // properties of the same name in globals.css — see CLAUDE.md
-        // "Design System" for the exact-hex palette these track.
-        gold: "#8B2635",
-        "gold-soft": "#B23A4A",
+        // "Design System" for the palette these track.
+        gold: "#8A625E",
+        "gold-soft": "#614542",
       },
     },
   },

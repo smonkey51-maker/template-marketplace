@@ -69,67 +69,67 @@ body {
    THEME VARIABLES
    ═══════════════════════════════════════════════════════════ */
 :root {
-  /* ── Light mode: INSPO — "Il Taccuino di Jane" palette, the site owner's
-     exact hex codes (a vintage-notebook / investigative-club look,
-     replacing the earlier 3-Pantone-swatch pass):
-       Panna Vintage        #FDFBF7  — dominant page/article background
-       Verde Abete / Oxford #1B362F  — headings, menus, body text, divider lines
-       Rosso Tè / Cremisi   #8B2635  — CTAs, important links, highlighted detail (~10% of the page)
-       Grigio-Verde Salvia  #EAEFE9  — secondary surfaces: callout boxes, quotes, card backdrops
-     Checked against WCAG 2.2 contrast (relative-luminance formula) before
-     use: #8B2635 on #FDFBF7 is 8.4:1, and cream text (#FDFBF7) on a solid
-     #8B2635 button/chip is 8.65:1 — both comfortably clear the 4.5:1 AA
-     floor for body-sized text, so unlike the previous palette pass this one
-     needs no separate darkened "text-safe" shade of the accent: the exact
-     brief hex works everywhere, undiluted. --terra is kept only as a
-     backward-compat alias (a few rules still reference it) and is now
-     identical to --accent — there is no second red any more. */
-  --bg: #fdfbf7;
-  --surface: #f8f5ee;
-  --surface-2: #eaefe9;
-  --text: #1b362f;
-  --muted: #6b7f76;
-  --border: rgba(27, 54, 47, 0.14);
-  --fn-border: rgba(27, 54, 47, 0.14);
-  --fn-menu-bg: rgba(248, 245, 238, 0.98);
-  --nav-bg: rgba(253, 251, 247, 0.97);
-  --card-bg: rgba(248, 245, 238, 0.98);
-  --card-border: rgba(27, 54, 47, 0.14);
-  --input-bg: rgba(27, 54, 47, 0.05);
-  --btn-ghost-border: rgba(27, 54, 47, 0.2);
-  --btn-ghost-border-hover: rgba(27, 54, 47, 0.72);
+  /* ── Light mode: OSSERVATORIO — "Ultramarine & Dusty Rose" palette,
+     replacing the earlier "Il Taccuino di Jane" exact-hex pass. Two source
+     hues from the site owner's moodboard:
+       Ultramarine  #26348C  — headings, menus, body text, divider lines
+       Dusty Rose   #C08882  — the accent family (CTAs, links, highlights)
+     Everything else here is a literal tint/shade of one of the two, mixed
+     with white/black via color-mix() or plain rgba — never a third hue.
+     The raw swatch rose (#C08882) only measures ~2.7:1 against the page
+     background, well under the 4.5:1 AA floor for body-sized text, so
+     --accent is a darkened shade of it (#8A625E, 4.8:1) rather than the
+     undiluted swatch — same reasoning as the Pantone-swatch pass before
+     "Il Taccuino di Jane" (see git history for that version's comments).
+     --terra stays a backward-compat alias of --accent — there's no
+     separate "decorative, less legible" red/rose tier needed here, since
+     every place that used to need one (e.g. the active filter chip) pairs
+     --accent with light text, which already clears contrast. */
+  --bg: #f9f3f2;
+  --surface: #fcf9f8;
+  --surface-2: #e4e0e8;
+  --text: #26348c;
+  --muted: #5b64a6;
+  --border: rgba(38, 52, 140, 0.14);
+  --fn-border: rgba(38, 52, 140, 0.14);
+  --fn-menu-bg: rgba(252, 249, 248, 0.98);
+  --nav-bg: rgba(249, 243, 242, 0.97);
+  --card-bg: rgba(252, 249, 248, 0.98);
+  --card-border: rgba(38, 52, 140, 0.14);
+  --input-bg: rgba(38, 52, 140, 0.05);
+  --btn-ghost-border: rgba(38, 52, 140, 0.2);
+  --btn-ghost-border-hover: rgba(38, 52, 140, 0.72);
   /* Border radius tokens — editorial scale, sharp corners on purpose. */
   --r-sm: 2px;
   --r-md: 4px;
   --r-lg: 6px;
   --r-xl: 8px;
-  --glass-shadow: 0 1px 2px rgba(27, 54, 47, 0.06), 0 8px 24px rgba(27, 54, 47, 0.08);
-  --glass-stroke: rgba(27, 54, 47, 0.12);
+  --glass-shadow: 0 1px 2px rgba(38, 52, 140, 0.06), 0 8px 24px rgba(38, 52, 140, 0.08);
+  --glass-stroke: rgba(38, 52, 140, 0.12);
   --glass-top-edge: none;
   --glass-bright: 1;
   --spec-hot: transparent;
   --spec-mid: transparent;
-  --divider: rgba(27, 54, 47, 0.12);
+  --divider: rgba(38, 52, 140, 0.12);
   /* One accent for the whole site (no per-room "gallery" accents).
      --gold/--gold-soft keep their historical names for compat with
-     existing references, but now track the brief's exact red. */
-  --accent: #8b2635;
+     existing references, but now track dusty rose, not gold or red. */
+  --accent: #8a625e;
   --gold: var(--accent);
   --gold-soft: color-mix(in srgb, var(--accent) 80%, black 20%);
-  --accent-bg: rgba(139, 38, 53, 0.1);
-  --accent-rgb: 139, 38, 53;
-  --accent-muted: rgba(139, 38, 53, 0.18);
-  /* Backward-compat alias — see the palette note above: there is only one
-     red now, so --terra is simply --accent. */
+  --accent-bg: rgba(138, 98, 94, 0.1);
+  --accent-rgb: 138, 98, 94;
+  --accent-muted: rgba(138, 98, 94, 0.18);
+  /* Backward-compat alias — see the palette note above. */
   --terra: var(--accent);
   --terra-dim: color-mix(in srgb, var(--terra) 12%, transparent);
   /* Semantic state colors — reuse the two hues already in the palette
      rather than introducing green-for-success/red-for-error as new
      colours. */
   --success: var(--text);
-  --success-dim: rgba(27, 54, 47, 0.12);
+  --success-dim: rgba(38, 52, 140, 0.12);
   --error: var(--accent);
-  --error-dim: rgba(139, 38, 53, 0.15);
+  --error-dim: rgba(138, 98, 94, 0.15);
   /* OSSERVATORIO spacing scale */
   --sp-1: 8px;
   --sp-2: 16px;
@@ -176,47 +176,48 @@ h6 {
 }
 
 html.dark {
-  /* ── Dark mode: the same exact-hex palette, re-mixed for a dark ground ──
-     --bg/--surface/--surface-2 are Verde Abete (#1B362F) mixed toward
-     black; --text is Panna Vintage (#FDFBF7); --accent is Rosso Tè
-     lightened (mixed 35% toward white) until it clears 4.5:1 against the
-     dark green background — the raw brief red only manages ~3.0:1 there.
-     --terra stays an alias of --accent (see the light-mode note above). */
-  --bg: #0c1815;
-  --surface: #101f1b;
-  --surface-2: #16281f;
-  --text: #fdfbf7;
-  --muted: #8fa89d;
-  --border: rgba(253, 251, 247, 0.14);
-  --fn-border: rgba(253, 251, 247, 0.14);
-  --fn-menu-bg: rgba(12, 24, 21, 0.98);
-  --nav-bg: rgba(12, 24, 21, 0.97);
-  --card-bg: rgba(16, 31, 27, 0.98);
-  --card-border: rgba(253, 251, 247, 0.14);
-  --input-bg: rgba(253, 251, 247, 0.06);
-  --btn-ghost-border: rgba(253, 251, 247, 0.18);
-  --btn-ghost-border-hover: rgba(253, 251, 247, 0.7);
+  /* ── Dark mode: the same two hues, re-mixed for a dark ground ──
+     --bg/--surface/--surface-2 are Ultramarine (#26348C) mixed toward
+     black; --text is the light-mode's pale blush background, reused as
+     dark-mode ink; --accent is Dusty Rose lightened (mixed ~78% toward
+     white) until it clears 4.5:1 against the dark ultramarine ground — the
+     raw swatch rose manages only ~2:1 there. --terra stays an alias of
+     --accent (see the light-mode note above). */
+  --bg: #10163b;
+  --surface: #151d4d;
+  --surface-2: #1b2462;
+  --text: #f9f3f2;
+  --muted: #9090a0;
+  --border: rgba(249, 243, 242, 0.14);
+  --fn-border: rgba(249, 243, 242, 0.14);
+  --fn-menu-bg: rgba(16, 22, 59, 0.98);
+  --nav-bg: rgba(16, 22, 59, 0.97);
+  --card-bg: rgba(21, 29, 77, 0.98);
+  --card-border: rgba(249, 243, 242, 0.14);
+  --input-bg: rgba(249, 243, 242, 0.06);
+  --btn-ghost-border: rgba(249, 243, 242, 0.18);
+  --btn-ghost-border-hover: rgba(249, 243, 242, 0.7);
   --glass-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 32px rgba(0, 0, 0, 0.5);
-  --glass-stroke: rgba(253, 251, 247, 0.1);
+  --glass-stroke: rgba(249, 243, 242, 0.1);
   --glass-top-edge: none;
   --glass-bright: 1;
   --spec-hot: transparent;
   --spec-mid: transparent;
-  --divider: rgba(253, 251, 247, 0.1);
+  --divider: rgba(249, 243, 242, 0.1);
   /* Same single-accent system as light mode; see the light :root note above. */
-  --accent: #b4727c;
+  --accent: #cea29e;
   --gold: var(--accent);
   --gold-soft: color-mix(in srgb, var(--accent) 82%, white 18%);
-  --accent-bg: rgba(180, 114, 124, 0.14);
-  --accent-rgb: 180, 114, 124;
-  --accent-muted: rgba(180, 114, 124, 0.22);
+  --accent-bg: rgba(206, 162, 158, 0.14);
+  --accent-rgb: 206, 162, 158;
+  --accent-muted: rgba(206, 162, 158, 0.22);
   --terra: var(--accent);
   --terra-dim: color-mix(in srgb, var(--terra) 15%, transparent);
   /* Semantic state colors */
   --success: var(--text);
-  --success-dim: rgba(253, 251, 247, 0.12);
+  --success-dim: rgba(249, 243, 242, 0.12);
   --error: var(--accent);
-  --error-dim: rgba(180, 114, 124, 0.16);
+  --error-dim: rgba(206, 162, 158, 0.16);
 }
 
 /* Dark mode is the same single accent everywhere too — see the
@@ -1256,25 +1257,25 @@ html:not(.dark) body::before {
 /* Hybrid ticker animation */
 
 /* ═══════════════════════════════════════════════════════════
-   SHADOW TOKENS — tinted with the palette's GREEN rather than a
-   generic near-black, so shadows read as part of the same 3-colour
-   system instead of a stray fourth neutral.
+   SHADOW TOKENS — tinted with the palette's ULTRAMARINE rather than a
+   generic near-black, so shadows read as part of the same 2-hue
+   system instead of a stray third neutral.
    ═══════════════════════════════════════════════════════════ */
 :root {
-  --shadow-sm: 0 1px 3px rgba(27, 54, 47, 0.08), 0 1px 2px rgba(27, 54, 47, 0.05);
-  --shadow-md: 0 4px 16px rgba(27, 54, 47, 0.1), 0 2px 6px rgba(27, 54, 47, 0.06);
-  --shadow-lg: 0 8px 40px rgba(27, 54, 47, 0.12), 0 4px 12px rgba(27, 54, 47, 0.07);
-  --shadow-xl: 0 20px 60px rgba(27, 54, 47, 0.16), 0 8px 20px rgba(27, 54, 47, 0.09);
-  --overlay: rgba(12, 24, 21, 0.8);
-  --overlay-light: rgba(12, 24, 21, 0.5);
+  --shadow-sm: 0 1px 3px rgba(38, 52, 140, 0.08), 0 1px 2px rgba(38, 52, 140, 0.05);
+  --shadow-md: 0 4px 16px rgba(38, 52, 140, 0.1), 0 2px 6px rgba(38, 52, 140, 0.06);
+  --shadow-lg: 0 8px 40px rgba(38, 52, 140, 0.12), 0 4px 12px rgba(38, 52, 140, 0.07);
+  --shadow-xl: 0 20px 60px rgba(38, 52, 140, 0.16), 0 8px 20px rgba(38, 52, 140, 0.09);
+  --overlay: rgba(16, 22, 59, 0.8);
+  --overlay-light: rgba(16, 22, 59, 0.5);
 }
 html.dark {
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.14);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.28), 0 2px 6px rgba(0, 0, 0, 0.18);
   --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.35), 0 4px 12px rgba(0, 0, 0, 0.22);
   --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.45), 0 8px 20px rgba(0, 0, 0, 0.28);
-  --overlay: rgba(3, 6, 5, 0.85);
-  --overlay-light: rgba(3, 6, 5, 0.55);
+  --overlay: rgba(3, 4, 12, 0.85);
+  --overlay-light: rgba(3, 4, 12, 0.55);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -1861,10 +1862,10 @@ html.dark {
 /* Selection is carried by fill, border AND text colour together — never by one
    of them alone, so it survives forced-colors mode and low-vision viewing. */
 .fn-filter.is-active {
-  /* The exact brief red, undiluted — see the palette note in the THEME
-     VARIABLES block: #8B2635 clears 4.5:1 with cream text directly, so
-     unlike the previous palette pass this no longer needs a separate
-     near-black "legibility exception" ink colour on top of it. */
+  /* --accent (the darkened dusty rose), not the raw swatch — see the
+     palette note in the THEME VARIABLES block: #8A625E clears 4.5:1 with
+     cream text directly, so this needs no separate near-black "legibility
+     exception" ink colour on top of it. */
   background: var(--accent);
   border-color: var(--accent);
   color: var(--bg);

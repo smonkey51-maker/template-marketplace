@@ -50,7 +50,11 @@ export default function SiteNav() {
       <div className="mx-auto flex max-w-[1400px] items-center justify-between px-4 py-4 sm:px-6 lg:px-10">
         <div className="flex min-w-0 items-center gap-3">
           {!isHome && <BackLink fallbackHref={`/${lang}`} />}
-          <Link href={`/${lang}`} aria-label={`${copy[lang].siteName} — home`} className="flex min-w-0 items-center">
+          <Link
+            href={`/${lang}`}
+            aria-label={`${copy[lang].siteName} — home`}
+            className="flex min-w-0 items-center"
+          >
             <OsservatorioLogoAnimated className="w-40 sm:w-44" />
           </Link>
         </div>
@@ -82,7 +86,15 @@ export default function SiteNav() {
           <ThemeToggle />
           <button
             onClick={() => setOpen((v) => !v)}
-            aria-label={open ? (lang === "it" ? "Chiudi menu" : "Close menu") : lang === "it" ? "Apri menu" : "Open menu"}
+            aria-label={
+              open
+                ? lang === "it"
+                  ? "Chiudi menu"
+                  : "Close menu"
+                : lang === "it"
+                  ? "Apri menu"
+                  : "Open menu"
+            }
             aria-expanded={open}
             className="flex h-9 w-9 items-center justify-center md:hidden"
             style={{ color: "var(--text)" }}
@@ -109,7 +121,10 @@ export default function SiteNav() {
                 className="flex items-center justify-between py-4"
                 style={{ color: isActive(l.href) ? "var(--text)" : "var(--muted)" }}
               >
-                <span style={{ fontFamily: "var(--font-display), Georgia, serif", fontWeight: 500 }} className="text-[1.05rem]">
+                <span
+                  style={{ fontFamily: "var(--font-display), Georgia, serif", fontWeight: 500 }}
+                  className="text-[1.05rem]"
+                >
                   {t(l.key)}
                 </span>
                 <span aria-hidden>→</span>
