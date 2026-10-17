@@ -6,7 +6,7 @@ import { useEffect, useRef } from "react";
  * Three small interactions, all decorative and all off for reduced motion:
  *   - a dot that replaces the pointer arrow and grows over links and buttons (hover devices
  *     only; text fields keep the native text cursor);
- *   - magnetic buttons: `[data-magnet]` leans a few pixels toward the pointer;
+ *   - magnetic buttons: every `.btn` leans a few pixels toward the pointer;
  *   - scroll reveal: `[data-reveal]` fades up the first time it enters the viewport.
  *     Content is fully visible without JavaScript; elements already on screen at load are
  *     never hidden, so nothing flashes.
@@ -88,8 +88,8 @@ export default function InteractionFx() {
         }
         if (!raf) raf = requestAnimationFrame(tick);
 
-        const m = (e.target as Element | null)?.closest<HTMLElement>("[data-magnet]");
-        document.querySelectorAll<HTMLElement>("[data-magnet][data-lean]").forEach((el) => {
+        const m = (e.target as Element | null)?.closest<HTMLElement>(".btn");
+        document.querySelectorAll<HTMLElement>(".btn[data-lean]").forEach((el) => {
           if (el !== m) {
             el.style.removeProperty("--mx");
             el.style.removeProperty("--my");
@@ -124,6 +124,19 @@ export default function InteractionFx() {
         html.classList.remove("fx-cursor");
       });
     }
+
+    // Focus rings only for keyboard users: after a click (or when focus returns to the
+    // "Indice" button) a ring on top of the border reads as a doubled outline.
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Tab") document.documentElement.classList.add("kbd-nav");
+    };
+    const onPointer = () => document.documentElement.classList.remove("kbd-nav");
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("pointerdown", onPointer, { passive: true });
+    cleanups.push(() => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("pointerdown", onPointer);
+    });
 
     return () => cleanups.forEach((fn) => fn());
   }, []);
