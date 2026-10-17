@@ -55,23 +55,23 @@ export default function GlassLenses() {
         // (it blocks the main thread), so every lens shares a single call and a low
         // resolution: the lens only ever shows a frosted, refracted view of what is behind.
         if (document.querySelector(".lens-bar, .lens-dock")) {
-          lenses.push(
-            liquidGL({
-              target: ".lens-bar, .lens-dock",
-              snapshot: "body",
-              resolution: RESOLUTION,
-              zIndex: Z,
-              reveal: "none",
-              refraction: 0.012,
-              bevelDepth: 0.04,
-              bevelWidth: 0.12,
-              aberration: 0.12,
-              frost: 6,
-              shadow: false,
-              specular: false,
-              tilt: false,
-            }),
-          );
+          // With several targets liquidGL returns an array of lenses, not one lens.
+          const made = liquidGL({
+            target: ".lens-bar, .lens-dock",
+            snapshot: "body",
+            resolution: RESOLUTION,
+            zIndex: Z,
+            reveal: "none",
+            refraction: 0.012,
+            bevelDepth: 0.04,
+            bevelWidth: 0.12,
+            aberration: 0.12,
+            frost: 6,
+            shadow: false,
+            specular: false,
+            tilt: false,
+          });
+          lenses = Array.isArray(made) ? made : made ? [made] : [];
         }
       } catch (err) {
         console.warn("[liquid-gl] disabled:", err);

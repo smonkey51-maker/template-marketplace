@@ -24,5 +24,7 @@ declare module "liquid-gl" {
   export interface LiquidGLLens {
     destroy?: () => void;
   }
-  export default function liquidGL(options: LiquidGLOptions): LiquidGLLens;
+  export default function liquidGL(
+    options: LiquidGLOptions,
+  ): LiquidGLLens | LiquidGLLens[] | undefined;
 }
