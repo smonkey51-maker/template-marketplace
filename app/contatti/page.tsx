@@ -3,6 +3,7 @@ import { pageMeta } from "@/lib/meta";
 import PageShell from "@/components/PageShell";
 import PageHeader from "@/components/PageHeader";
 import ContactForm from "@/components/ContactForm";
+import Band from "@/components/Band";
 
 export const metadata: Metadata = pageMeta(
   "/contatti",
@@ -19,7 +20,7 @@ export default function ContattiPage() {
         subtitle="Raccontaci in breve l'esigenza: ti ricontatteremo per fissare un primo colloquio."
       />
 
-      <div className="mx-auto grid max-w-[1200px] gap-10 px-4 py-12 sm:px-6 lg:grid-cols-12">
+      <Band tone="warm" className="band-pad" inner="grid gap-12 lg:grid-cols-12">
         <div className="lg:col-span-8">
           <ContactForm />
         </div>
@@ -30,24 +31,24 @@ export default function ContattiPage() {
           >
             Cosa succede dopo
           </h2>
-          <ol className="mt-4 space-y-4 text-[15px]">
+          <ol className="mt-4 space-y-5 text-[16px]">
             <li>
-              <span className="font-medium">1. Ti ricontattiamo</span>
+              <span className="font-semibold">Ti ricontattiamo</span>
               <span className="block text-muted">per fissare un primo colloquio conoscitivo.</span>
             </li>
             <li>
-              <span className="font-medium">2. Ascoltiamo l&apos;esigenza</span>
+              <span className="font-semibold">Ascoltiamo l&apos;esigenza</span>
               <span className="block text-muted">
                 senza impegno e nel rispetto della riservatezza.
               </span>
             </li>
             <li>
-              <span className="font-medium">3. Ricevi una proposta</span>
+              <span className="font-semibold">Ricevi una proposta</span>
               <span className="block text-muted">con attività, tempi e indicatori.</span>
             </li>
           </ol>
         </aside>
-      </div>
+      </Band>
     </PageShell>
   );
 }

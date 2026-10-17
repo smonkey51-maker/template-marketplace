@@ -3,6 +3,7 @@ import { pageMeta } from "@/lib/meta";
 import { SITE } from "@/lib/site";
 import PageShell from "@/components/PageShell";
 import PageHeader from "@/components/PageHeader";
+import Band from "@/components/Band";
 import SectionIndex from "@/components/SectionIndex";
 
 export const metadata: Metadata = pageMeta(
@@ -49,25 +50,25 @@ export default function PrivacyPage() {
         subtitle="Come trattiamo i dati personali raccolti tramite questo sito."
       />
 
-      <div className="mx-auto grid max-w-[1200px] gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[minmax(0,1fr)_220px]">
-        <div className="space-y-8">
+      <Band tone="warm" className="band-pad" inner="grid gap-12 lg:grid-cols-[minmax(0,1fr)_220px]">
+        <div className="space-y-10">
           {SITE.draft && (
-            <aside className="glass-panel max-w-2xl p-5" aria-label="Avviso sulla bozza">
-              <p className="text-[14px]">
-                <span className="font-medium">Bozza.</span> Questo testo è provvisorio e va
+            <aside className="panel max-w-2xl p-5" aria-label="Avviso sulla bozza">
+              <p className="text-[15px]">
+                <span className="font-semibold">Bozza.</span> Questo testo è provvisorio e va
                 verificato da un professionista legale prima della pubblicazione.
               </p>
             </aside>
           )}
           {SECTIONS.map(([title, text]) => (
             <section key={title} id={slug(title)} className="max-w-2xl scroll-mt-32">
-              <h2 className="text-[1.15rem]">{title}</h2>
-              <p className="mt-2 text-[15px] text-muted">{text}</p>
+              <h2 className="text-[1.3rem] font-semibold tracking-tight">{title}</h2>
+              <p className="mt-2 text-[16px] text-muted">{text}</p>
             </section>
           ))}
         </div>
         <SectionIndex items={SECTIONS.map(([title]) => ({ id: slug(title), label: title }))} />
-      </div>
+      </Band>
     </PageShell>
   );
 }

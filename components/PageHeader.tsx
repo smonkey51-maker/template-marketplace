@@ -2,7 +2,7 @@ import Link from "next/link";
 
 type Crumb = { label: string; href?: string };
 
-/** Breadcrumb + title + optional subtitle, shared by every inner page. */
+/** Breadcrumb, a big title and an optional subtitle, as a dark band at the top of every inner page. */
 export default function PageHeader({
   crumbs,
   title,
@@ -13,8 +13,8 @@ export default function PageHeader({
   subtitle?: string;
 }) {
   return (
-    <div className="mx-auto max-w-[1200px] px-4 pt-8 sm:px-6 sm:pt-10">
-      <div className="glass-panel px-6 py-8 sm:px-10 sm:py-12">
+    <header className="band tone-dark border-b border-line">
+      <div className="mx-auto max-w-[1200px] px-4 pb-14 pt-10 sm:px-6 sm:pb-20 sm:pt-14">
         <nav aria-label="Breadcrumb">
           <ol className="flex flex-wrap items-center gap-2 text-[13px] text-muted">
             {crumbs.map((c, i) => (
@@ -31,9 +31,9 @@ export default function PageHeader({
             ))}
           </ol>
         </nav>
-        <h1 className="mt-6 max-w-3xl text-[clamp(1.75rem,4vw,2.5rem)]">{title}</h1>
-        {subtitle && <p className="mt-3 max-w-2xl text-[16px] text-muted">{subtitle}</p>}
+        <h1 className="band-title mt-8 max-w-4xl">{title}</h1>
+        {subtitle && <p className="mt-5 max-w-2xl text-[18px] text-muted">{subtitle}</p>}
       </div>
-    </div>
+    </header>
   );
 }

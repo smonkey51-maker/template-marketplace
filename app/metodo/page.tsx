@@ -3,6 +3,7 @@ import Link from "next/link";
 import { pageMeta } from "@/lib/meta";
 import PageShell from "@/components/PageShell";
 import PageHeader from "@/components/PageHeader";
+import Band from "@/components/Band";
 
 export const metadata: Metadata = pageMeta(
   "/metodo",
@@ -32,31 +33,33 @@ export default function MetodoPage() {
         subtitle="Un percorso in quattro passaggi, uguale per ogni servizio."
       />
 
-      <div className="mx-auto max-w-[1200px] px-4 py-12 sm:px-6">
-        <ol className="grid gap-4 md:grid-cols-2">
+      <Band tone="warm" className="band-pad">
+        <ol className="col-rule grid gap-10 md:grid-cols-4 md:gap-8">
           {STEPS.map(([title, text]) => (
-            <li key={title} className="glass-panel p-6">
-              <h2 className="mt-1 text-[1.25rem]">{title}</h2>
-              <p className="mt-2 text-[15px] text-muted">{text}</p>
+            <li key={title}>
+              <h2 className="text-[1.5rem] font-semibold tracking-tight">{title}</h2>
+              <p className="mt-3 text-[16px] text-muted">{text}</p>
             </li>
           ))}
         </ol>
+      </Band>
 
-        <section className="mt-12 max-w-2xl" aria-labelledby="riservatezza">
-          <h2 id="riservatezza" className="text-[1.35rem]">
+      <Band tone="dark" label="Riservatezza" className="band-pad">
+        <section aria-labelledby="riservatezza" className="max-w-3xl">
+          <h2 id="riservatezza" className="band-title">
             Riservatezza e dati personali
           </h2>
-          <p className="mt-3 text-[16px] text-muted">
+          <p className="mt-6 text-[18px] text-muted">
             In ambito HR si trattano informazioni delicate. Le usiamo solo per il progetto per cui
             ci vengono affidate, le condividiamo con il minor numero possibile di persone e le
             gestiamo secondo l&apos;
-            <Link href="/privacy" className="underline">
+            <Link href="/privacy" className="text-ink underline">
               informativa privacy
             </Link>
             .
           </p>
         </section>
-      </div>
+      </Band>
     </PageShell>
   );
 }

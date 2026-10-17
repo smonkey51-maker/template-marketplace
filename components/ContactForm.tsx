@@ -11,7 +11,7 @@ type State =
   | { kind: "error"; message: string; fields: Fields };
 
 const label = "block text-[13px] font-medium";
-const err = "mt-1 text-[13px] text-[#b3261e] dark:text-[#ffb4ab]";
+const err = "mt-1 text-[13px] text-danger";
 
 /** Contact form: posts to /api/contact, shows per-field and general errors accessibly. */
 export default function ContactForm() {
@@ -61,7 +61,7 @@ export default function ContactForm() {
 
   if (state.kind === "sent") {
     return (
-      <div role="status" className="glass-panel p-8">
+      <div role="status" className="panel p-8">
         <h2 className="text-[1.25rem]">Messaggio inviato</h2>
         <p className="mt-2 text-muted">
           Grazie per averci scritto. Ti ricontatteremo per fissare un primo colloquio.
@@ -101,7 +101,7 @@ export default function ContactForm() {
   );
 
   return (
-    <form onSubmit={onSubmit} noValidate className="glass-panel space-y-5 p-6 sm:p-8">
+    <form onSubmit={onSubmit} noValidate className="panel space-y-5 p-6 sm:p-8">
       <div className="grid gap-5 sm:grid-cols-2">
         {input("name", "Nome e cognome *", { required: true, autoComplete: "name" })}
         {input("company", "Azienda *", { required: true, autoComplete: "organization" })}
@@ -162,7 +162,7 @@ export default function ContactForm() {
       </div>
 
       {state.kind === "error" && (
-        <p role="alert" className="text-[14px] font-medium text-[#b3261e] dark:text-[#ffb4ab]">
+        <p role="alert" className="text-[14px] font-medium text-danger">
           {state.message}
         </p>
       )}
