@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { SITE } from "@/lib/site";
 import PageShell from "@/components/PageShell";
-import Marquee from "@/components/Marquee";
 
 export const metadata: Metadata = {
   title: { absolute: `${SITE.name} — ${SITE.tagline}` },
@@ -94,18 +93,6 @@ export default function HomePage() {
           </div>
         </section>
       </div>
-
-      {/* Marquee band */}
-      <Marquee
-        items={[
-          "Selezione",
-          "Sviluppo delle persone",
-          "Formazione",
-          "Leadership",
-          "Organizzazione",
-          "Clima aziendale",
-        ]}
-      />
 
       {/* Statement: words light up as the paragraph scrolls into view */}
       <section className="mx-auto max-w-[1200px] px-4 py-20 sm:px-6 sm:py-28">

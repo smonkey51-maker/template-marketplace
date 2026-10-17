@@ -90,9 +90,17 @@ const COLLECT = () => {
   const floating = [];
   for (const f of document.querySelectorAll("body *")) {
     const fcs = getComputedStyle(f);
-    if (fcs.position !== "fixed" || fcs.display === "none" || fcs.visibility === "hidden") continue;
+    if (
+      (fcs.position !== "fixed" && fcs.position !== "sticky") ||
+      fcs.display === "none" ||
+      fcs.visibility === "hidden"
+    )
+      continue;
     const fr = f.getBoundingClientRect();
-    if (fr.width > 0 && fr.height > 0 && fr.width < innerWidth * 0.9) floating.push(fr);
+    // Floating UI and the sticky nav: text that scrolls under them is not fully visible there.
+    // (The pointer-events:none lens canvas lets elementFromPoint see through to that text.)
+    if (fr.width > 0 && fr.height > 0 && (fcs.position === "sticky" || fr.width < innerWidth * 0.9))
+      floating.push(fr);
   }
   const vw = innerWidth;
   const vh = innerHeight;
