@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { Menu, Search, X } from "lucide-react";
 import { SITE } from "@/lib/site";
 import SiteLogo from "@/components/SiteLogo";
-import ThemeToggle from "@/components/ThemeToggle";
 import GlassLenses from "@/components/GlassLenses";
 
 const LINKS = [
@@ -87,7 +86,6 @@ export default function SiteNav() {
                   Area riservata
                 </Link>
               </div>
-              <ThemeToggle />
               <button
                 type="button"
                 onClick={() => setOpen((v) => !v)}
