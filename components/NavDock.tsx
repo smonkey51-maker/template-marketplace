@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import IndexMenu from "@/components/IndexMenu";
 
 const LINKS = [
   { href: "/servizi", label: "Servizi" },
@@ -14,7 +15,8 @@ const LINKS = [
  * Floating navigation dock, fixed at the bottom centre (desktop only). liquid-gl turns
  * `.lens-dock` into a refracting lens; the `.glass-lens` layer inside it is the legible
  * glass that works with or without the lens. A second route to the same pages as the
- * top nav, kept within thumb/pointer reach while the page scrolls.
+ * top nav, kept within thumb/pointer reach while the page scrolls; its last item opens the
+ * full-screen index.
  */
 export default function NavDock() {
   const pathname = usePathname();
@@ -41,6 +43,10 @@ export default function NavDock() {
             </li>
           );
         })}
+        <li aria-hidden className="mx-1 h-6 w-px bg-line" />
+        <li>
+          <IndexMenu className="flex min-h-11 items-center rounded-full px-4 text-sm font-medium text-ink transition-colors hover:bg-surface-2" />
+        </li>
       </ul>
     </nav>
   );

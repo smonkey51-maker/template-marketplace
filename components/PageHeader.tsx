@@ -13,7 +13,7 @@ export default function PageHeader({
   subtitle?: string;
 }) {
   return (
-    <header className="band tone-dark border-b border-line">
+    <header className="band tone-blue">
       <div className="mx-auto max-w-[1200px] px-4 pb-14 pt-10 sm:px-6 sm:pb-20 sm:pt-14">
         <nav aria-label="Breadcrumb">
           <ol className="flex flex-wrap items-center gap-2 text-[13px] text-muted">

@@ -62,12 +62,12 @@ export default function HomePage() {
   return (
     <PageShell>
       {/* 1 · Hero: a full-screen photo and a giant headline that rises word by word */}
-      <div className="relative isolate flex min-h-[calc(100svh-6rem)] flex-col overflow-hidden">
+      <div className="tone-blue relative isolate flex min-h-[calc(100svh-6rem)] flex-col overflow-hidden text-ink">
         {/* The photo is in the page flow on purpose: the glass lenses refract what the page
             snapshot contains, and the snapshot ignores fixed elements. */}
         <div className="hero-wipe absolute inset-0 -z-10">
           <Image
-            src="/hero.webp"
+            src="/hero-2.webp"
             alt=""
             fill
             priority
@@ -94,7 +94,7 @@ export default function HomePage() {
               nell&apos;organizzazione del lavoro, con un consulente di riferimento dedicato.
             </p>
             <div className="flex flex-wrap gap-3 md:col-span-5 md:justify-end">
-              <Link href="/contatti" data-magnet className="btn btn-light">
+              <Link href="/contatti" data-magnet className="btn btn-accent">
                 Richiedi un colloquio
               </Link>
               <Link href="/area-riservata" data-magnet className="btn btn-outline">
@@ -106,7 +106,7 @@ export default function HomePage() {
       </div>
 
       {/* 2 · Warm band: the human statement */}
-      <Band tone="warm" label="Chi siamo in una frase" className="band-pad">
+      <Band tone="blue" label="Chi siamo in una frase" className="band-pad">
         <p className="statement">
           {STATEMENT.split(" ").map((w, i) => (
             <Fragment key={`${w}-${i}`}>
@@ -119,7 +119,7 @@ export default function HomePage() {
       </Band>
 
       {/* 3 · Dark band: services as hairline rows */}
-      <Band tone="dark" label="Servizi" className="band-pad">
+      <Band tone="white" label="Servizi" className="band-pad">
         <h2 data-reveal className="band-title max-w-3xl">
           Cosa facciamo per le imprese
         </h2>
@@ -141,7 +141,7 @@ export default function HomePage() {
       </Band>
 
       {/* 4 · Warm band: how we start */}
-      <Band tone="warm" label="Come iniziamo" className="band-pad">
+      <Band tone="soft" label="Come iniziamo" className="band-pad">
         <h2 data-reveal className="band-title max-w-3xl">
           Si comincia ascoltando
         </h2>
@@ -162,7 +162,7 @@ export default function HomePage() {
 
       {/* 5 · Dark band: the people, and how we work */}
       <Band
-        tone="dark"
+        tone="white"
         label="Come lavoriamo"
         className="band-pad"
         inner="grid gap-12 lg:grid-cols-12"
@@ -193,7 +193,7 @@ export default function HomePage() {
       </Band>
 
       {/* 6 · Warm band: the client area */}
-      <Band tone="warm" label="Area riservata" className="band-pad">
+      <Band tone="blue" label="Area riservata" className="band-pad">
         <h2 data-reveal className="band-title max-w-3xl">
           Un posto tuo, per seguire il lavoro
         </h2>
@@ -216,7 +216,7 @@ export default function HomePage() {
       </Band>
 
       {/* 7 · Terracotta band: the one thing to do */}
-      <Band tone="clay" label="Contattaci" className="band-pad">
+      <Band tone="yellow" label="Contattaci" className="band-pad">
         <h2 data-reveal className="band-title max-w-4xl">
           Parliamo di persone.
         </h2>

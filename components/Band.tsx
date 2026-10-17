@@ -1,15 +1,15 @@
 import type { ReactNode } from "react";
 
-type Tone = "dark" | "warm" | "clay";
+type Tone = "white" | "soft" | "blue" | "yellow";
 
 /**
  * A full-width section band. The site is divided into bands of different tones instead of
- * floating rounded cards: black, warm paper, and a terracotta accent. A tone only redefines
+ * floating rounded cards: white, soft blue-white, blue and yellow. A tone only redefines
  * the colour tokens (see `.tone-*` in globals.css), so every `text-ink`, `text-muted`,
  * `border-line` and button inside adapts on its own.
  */
 export default function Band({
-  tone = "dark",
+  tone = "white",
   id,
   label,
   className = "",

@@ -21,8 +21,8 @@ export default function GlobalError({
         style={{
           margin: 0,
           fontFamily: "system-ui, sans-serif",
-          background: "#000000",
-          color: "#f2f2f2",
+          background: "#ffffff",
+          color: "#0b1c3d",
         }}
       >
         <div
@@ -39,12 +39,12 @@ export default function GlobalError({
           }}
         >
           <h1 style={{ fontSize: "1.5rem", margin: 0 }}>Si è verificato un errore</h1>
-          <p style={{ margin: 0, color: "#bdbdbd" }}>Qualcosa non ha funzionato. Riprova.</p>
+          <p style={{ margin: 0, color: "#43506b" }}>Qualcosa non ha funzionato. Riprova.</p>
           <button
             onClick={reset}
             style={{
-              background: "#ececec",
-              color: "#0a0a0a",
+              background: "#1740b5",
+              color: "#ffffff",
               border: 0,
               borderRadius: 4,
               padding: "10px 18px",

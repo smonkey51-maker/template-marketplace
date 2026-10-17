@@ -21,7 +21,7 @@ export default function ChiSiamoPage() {
         subtitle="Uno studio che mette al centro le persone e il modo in cui un'organizzazione lavora."
       />
 
-      <Band tone="warm" className="band-pad">
+      <Band tone="white" className="band-pad">
         <section aria-labelledby="approccio" className="max-w-3xl">
           <h2 id="approccio" className="band-title">
             Il nostro approccio
@@ -46,7 +46,7 @@ export default function ChiSiamoPage() {
         )}
       </Band>
 
-      <Band tone="clay" label="Contattaci" className="band-pad">
+      <Band tone="yellow" label="Contattaci" className="band-pad">
         <h2 className="band-title max-w-3xl">Conosciamoci.</h2>
         <div className="mt-10">
           <Link href="/contatti" className="btn btn-primary">
