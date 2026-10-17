@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { toLocale } from "@/lib/locales";
 import { copy } from "@/lib/i18n";
 import { getGuideArticles, getCategoryLabel } from "@/lib/articles";
 import SiteNav from "@/components/SiteNav";
 import { OsservatorioFooter } from "@/components/OsservatorioFooter";
 import { ArtHeader, PAINTINGS } from "@/components/ArtHeader";
-import GuideListAntd from "@/components/GuideListAntd";
 
 const META = {
   it: {
@@ -54,16 +54,38 @@ export default async function GuidePratichePage({ params }: { params: Promise<{ 
       </div>
 
       <div className="mx-auto max-w-[1100px] px-4 py-10 sm:px-6 lg:px-10">
-        <GuideListAntd
-          items={list.map((article) => ({
-            slug: article.slug,
-            href: `/${lang}/articoli/${article.slug}`,
-            category: getCategoryLabel(article.category, lang),
-            title: article[lang].title,
-            description: article[lang].description,
-            cta: t("readMore"),
-          }))}
-        />
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {list.map((article) => (
+            <Link
+              key={article.slug}
+              href={`/${lang}/articoli/${article.slug}`}
+              className="group block border border-theme r-md p-6 transition-colors hover:border-(--accent)"
+              style={{ background: "var(--surface)" }}
+            >
+              <span
+                className="text-[10px] font-semibold uppercase"
+                style={{ color: "var(--accent)", letterSpacing: "0.14em" }}
+              >
+                {getCategoryLabel(article.category, lang)}
+              </span>
+              <h2
+                className="mt-2 text-[1.2rem] leading-snug transition-colors group-hover:text-(--accent)"
+                style={{ fontFamily: "var(--font-display), Georgia, serif", fontWeight: 700 }}
+              >
+                {article[lang].title}
+              </h2>
+              <p className="mt-2 text-[13px] leading-relaxed" style={{ color: "var(--muted)" }}>
+                {article[lang].description}
+              </p>
+              <span
+                className="mt-4 inline-block text-[12px] font-semibold"
+                style={{ color: "var(--accent)" }}
+              >
+                {t("readMore")}
+              </span>
+            </Link>
+          ))}
+        </div>
       </div>
 
       <OsservatorioFooter />
