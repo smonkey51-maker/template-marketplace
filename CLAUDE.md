@@ -10,11 +10,11 @@ AI assistant reference for the **SANDBOX** codebase. Read this before making cha
 
 It has **three pages** per locale and nothing else:
 
-| Route                    | Purpose                                                                                             |
-| ------------------------ | --------------------------------------------------------------------------------------------------- |
-| `/[lang]/test`           | "Test" — base page: environment status, typography, buttons/fields, callout                         |
-| `/[lang]/test-ma-di-piu` | "Test ma di più" — the same base plus Ark UI primitives, data table, long-form text, palette        |
-| `/[lang]/rickrolled`     | A single GIF, nothing else. `noindex`; **expects the file `public/rickrolled.gif`** (not committed) |
+| Route                    | Purpose                                                                                                                                             |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/[lang]/test`           | "Test" — base page: environment status, typography, buttons/fields, callout                                                                         |
+| `/[lang]/test-ma-di-piu` | "Test ma di più" — the same base plus Ark UI primitives, data table, long-form text, palette                                                        |
+| `/[lang]/rickrolled`     | A single image, nothing else. `noindex`; shows `public/rickrolled.png` (a static still — to animate it, add a GIF and change the `src` in the page) |
 
 `/[lang]` redirects to `/[lang]/test`. `middleware.ts` redirects un-prefixed paths to `/it` or `/en` from `Accept-Language`.
 
@@ -87,4 +87,4 @@ npm run test:e2e   # Playwright smoke spec
 
 - **Add a page:** create `app/[lang]/<route>/page.tsx` (read `params`, call `toLocale`), render `<SiteNav /> … <SiteFooter />`, add it to `SiteNav.tsx`, `SiteFooter.tsx`, the command palette and `app/sitemap.ts`.
 - **Add a UI string:** add the key to both locales in `lib/i18n.ts`.
-- **Add the GIF:** put the file at `public/rickrolled.gif`.
+- **Animate the Rickrolled page:** add a GIF under `public/` and point the `<img>` in `app/[lang]/rickrolled/page.tsx` at it.

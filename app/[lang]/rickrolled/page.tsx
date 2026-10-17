@@ -15,7 +15,7 @@ export async function generateMetadata({
   return { ...m, robots: { index: false, follow: false } };
 }
 
-/** The whole page is one GIF. Drop the file at public/rickrolled.gif. */
+/** The whole page is one image: public/rickrolled.png (swap in a .gif to animate it). */
 export default async function RickrolledPage({ params }: { params: Promise<{ lang: string }> }) {
   const lang = toLocale((await params).lang);
 
@@ -23,10 +23,10 @@ export default async function RickrolledPage({ params }: { params: Promise<{ lan
     <div className="flex min-h-screen flex-col bg-bg">
       <SiteNav />
       <main className="flex flex-1 items-center justify-center px-4 py-12">
-        {/* A plain <img>: next/image would not animate a GIF it optimises. */}
+        {/* A plain <img>, so a GIF dropped in later would still animate. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/rickrolled.gif"
+          src="/rickrolled.png"
           alt="Rickrolled"
           width={447}
           height={447}
