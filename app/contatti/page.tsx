@@ -25,10 +25,7 @@ export default function ContattiPage() {
           <ContactForm />
         </div>
         <aside className="lg:col-span-4" aria-labelledby="dopo">
-          <h2
-            id="dopo"
-            className="font-mono text-[12px] font-medium uppercase tracking-[0.1em] text-muted"
-          >
+          <h2 id="dopo" className="text-[1.25rem] font-semibold tracking-tight">
             Cosa succede dopo
           </h2>
           <ol className="mt-4 space-y-5 text-[16px]">

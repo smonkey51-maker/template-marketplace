@@ -35,10 +35,7 @@ export default function ChiSiamoPage() {
 
         {SITE.draft && (
           <aside className="panel mt-12 max-w-2xl p-6" aria-label="Contenuto da completare">
-            <p className="font-mono text-[12px] font-medium uppercase tracking-[0.1em] text-muted">
-              Da completare
-            </p>
-            <p className="mt-2 text-[16px]">
+            <p className="text-[16px]">
               Questa sezione presenterà il team, le esperienze e le certificazioni dello studio. I
               contenuti verranno inseriti quando saranno definitivi.
             </p>
