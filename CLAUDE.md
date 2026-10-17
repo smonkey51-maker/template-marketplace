@@ -13,7 +13,7 @@ AI assistant reference for the **OSSERVATORIO** codebase. Read this before makin
 
 OSSERVATORIO is an editorial fan project. It has no e-commerce, user accounts, database-backed catalogue, checkout or AI-generation product surface. The application is intentionally focused on editorial content, bilingual navigation and the newsletter signup.
 
-**Tech stack:** Next.js 16 · React 19 · TypeScript 5 · Tailwind CSS 3 · Resend (newsletter notification email) · PostHog (analytics, optional) · Vitest (unit tests) · Playwright (e2e tooling, kept but currently has no suite)
+**Tech stack:** Next.js 16 · React 19 · TypeScript 5 · Tailwind CSS 4 · Ark UI (headless primitives) · Resend (newsletter notification email) · PostHog (analytics, optional) · Vitest (unit tests) · Playwright (e2e tooling, kept but currently has no suite)
 
 ---
 
@@ -85,7 +85,7 @@ template-marketplace/
 │   └── screenshot.ts             # Local visual checks (output is gitignored)
 ├── middleware.ts                 # Locale detection + redirect only — no auth, no route protection
 ├── next.config.ts                # Security headers, CSP (much shorter — no third-party checkout/DB origins)
-├── tailwind.config.ts             # Tailwind — darkMode: "class"
+├── postcss.config.mjs             # Tailwind v4 via @tailwindcss/postcss — config is CSS-first (see `@theme` in app/globals.css)
 └── .env.local.example             # Required env vars (see below — a short list now)
 ```
 
@@ -126,6 +126,12 @@ Single source of truth for every article, mirroring the old `lib/templates.ts` p
 - Validates the email with `subscribeSchema` (`lib/schemas.ts`).
 - There is **no database**. A signup does not get stored server-side; instead `lib/email.ts`'s `sendNewsletterSignupNotification()` emails the site owner (`RESEND_NOTIFY_TO`, falling back to `RESEND_FROM`) so they can add the address to whatever list tool they use. Silently no-ops without `RESEND_API_KEY` (safe in dev/preview).
 
+## UI primitives (Tailwind v4 + Ark UI)
+
+The site migrated to Tailwind CSS 4 (CSS-first config: fonts and the `gold` colours live in `@theme` in `app/globals.css`; there is no `tailwind.config.ts`). **Ark UI** (`@ark-ui/react`) is the one component library kept: headless Tabs/Accordion/Switch, styled with the site's own tokens. See `components/BibliotecaArk.tsx` (La Biblioteca) and the noindex `/[lang]/lab` page.
+
+HeroUI and Ant Design were trialled and removed (see PR history): HeroUI doubled the JS on every page because it sat in the shared footer and needed its tokens and radius remapped to fit the palette; Ant Design needed a full theme remap and read as generic for an editorial site. Don't reintroduce a second component library without a reason.
+
 ## Design System — "Ultramarine & Dusty Rose" palette
 
 The site's palette is two hues from the site owner's moodboard — replacing the earlier "Il Taccuino di Jane" exact-hex palette, which itself replaced a 3-Pantone-swatch pass before that (see git history for those). **Never add a third hue**; every other token is a literal shade, tint or opacity of these two:
@@ -149,7 +155,7 @@ Other tokens:
 - **Callout box**: `.fn-callout` — the "L'Osservazione Chiave" / "The Key Observation" highlight box, a pale ultramarine-tinted (`--surface-2`) background with a load-bearing accent left rule. Written via a tiny `:::callout Title` ... `:::` grammar in article bodies — see `components/ArticleBody.tsx`.
 - **Texture & separators**: a barely-perceptible SVG-turbulence grain sits behind every page in both themes (`body::before` in `globals.css`, fainter in light mode than dark — paper reads noisier at a given opacity than a near-black ground). `.fn-separator` renders a small retro diamond-glyph section break.
 - **Depth**: one material — flat opaque paper, no blur, no glass, no specular highlight. The `.glass-surface` etc. class names persist from the earlier naming (see the CSS for why) but render flat paper, not glass. The rim border on any panel is load-bearing for contrast (WCAG 1.4.11) — never drop it.
-- Theme is `dark`-class-based (`tailwind.config.ts` `darkMode: "class"`), opt-in via `ThemeToggle`, default light.
+- Theme is `dark`-class-based (`@custom-variant dark` in `app/globals.css`), opt-in via `ThemeToggle`, default light.
 
 When adding a new page or component, reuse these tokens rather than hand-rolling new colors/radii/shadows — and if a design calls for a colour outside this table, that's a decision for the site owner, not something to add unilaterally.
 

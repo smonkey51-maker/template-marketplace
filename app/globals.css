@@ -1,26 +1,10 @@
 @import "tailwindcss";
-@import "@heroui/styles";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --font-inter: var(--font-inter), system-ui, sans-serif;
   --font-display: var(--font-display), Georgia, serif;
-}
-
-/* HeroUI reads its own token names; point the neutral ones at the site's
-   palette so its components stay inside the two-hue system. */
-:root,
-.dark {
-  --foreground: var(--text);
-  --default: var(--surface-2);
-  --default-foreground: var(--text);
-  --segment: var(--surface);
-  --segment-foreground: var(--text);
-  --field-background: transparent;
-  --field-foreground: var(--text);
-  --accent-foreground: #fff;
-  --radius: 0.25rem;
 }
 
 @theme {
