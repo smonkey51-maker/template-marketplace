@@ -96,10 +96,10 @@ export default function HomePage() {
               nell&apos;organizzazione del lavoro, con un consulente di riferimento dedicato.
             </p>
             <div className="flex flex-wrap gap-3 md:col-span-5 md:justify-end">
-              <Link href="/contatti" data-magnet className="btn btn-accent">
+              <Link href="/contatti" className="btn btn-accent">
                 Richiedi un colloquio
               </Link>
-              <Link href="/area-riservata" data-magnet className="btn btn-outline">
+              <Link href="/area-riservata" className="btn btn-outline">
                 Area riservata
               </Link>
             </div>
@@ -156,7 +156,7 @@ export default function HomePage() {
           ))}
         </ol>
         <div className="mt-12">
-          <Link href="/metodo" data-magnet className="btn btn-primary">
+          <Link href="/metodo" className="btn btn-primary">
             Scopri il metodo
           </Link>
         </div>
@@ -211,7 +211,7 @@ export default function HomePage() {
           ))}
         </ul>
         <div className="mt-12">
-          <Link href="/area-riservata" data-magnet className="btn btn-outline">
+          <Link href="/area-riservata" className="btn btn-outline">
             Scopri l&apos;area riservata
           </Link>
         </div>
@@ -226,7 +226,7 @@ export default function HomePage() {
           Raccontaci il contesto: ti rispondiamo con una proposta chiara.
         </p>
         <div className="mt-10">
-          <Link href="/contatti" data-magnet className="btn btn-primary">
+          <Link href="/contatti" className="btn btn-primary">
             Richiedi un colloquio
           </Link>
         </div>
