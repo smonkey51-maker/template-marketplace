@@ -604,53 +604,9 @@ html.fx-cursor textarea {
   }
 }
 
-/* ── Scenic layer: parallax, marquee, scroll-lit statement, wordmark ─────────
+/* ── Scenic layer: parallax, scroll-lit statement, wordmark ─────────
    Scroll-driven animations are progressive enhancement: without support, or with reduced
    motion, everything simply sits still and fully visible. */
-.marquee {
-  overflow: hidden;
-  border-block: 1px solid var(--line);
-  padding-block: 1.1rem;
-  user-select: none;
-}
-.marquee-track {
-  display: flex;
-  width: max-content;
-  animation: marquee 48s linear infinite;
-}
-.marquee:hover .marquee-track {
-  animation-play-state: paused;
-}
-.marquee-half {
-  display: flex;
-  flex: none;
-  align-items: center;
-}
-.marquee-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 2.5rem;
-  padding-right: 2.5rem;
-  font-size: clamp(2.5rem, 6vw, 5rem);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  white-space: nowrap;
-  color: transparent;
-  -webkit-text-stroke: 1px rgb(255 255 255 / 0.4);
-}
-.marquee-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: rgb(255 255 255 / 0.5);
-}
-@keyframes marquee {
-  to {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
-
 .statement {
   max-width: 62rem;
   font-size: clamp(1.75rem, 4.2vw, 3.5rem);
@@ -706,10 +662,4 @@ html.fx-cursor textarea {
   color: transparent;
   -webkit-text-stroke: 1px rgb(255 255 255 / 0.2);
   user-select: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track {
-    animation: none;
-  }
 }
