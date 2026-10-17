@@ -67,7 +67,7 @@ export default function TestPlusPage() {
           <h2 id="ark" className={h2}>
             Primitive Ark UI
           </h2>
-          <div className="glass mt-4 max-w-2xl p-6 sm:p-8">
+          <div className="glass-panel mt-4 max-w-2xl p-6 sm:p-8">
             <ArkDemo />
           </div>
         </section>
@@ -76,7 +76,7 @@ export default function TestPlusPage() {
           <h2 id="table" className={h2}>
             Tabella dati
           </h2>
-          <div className="glass mt-4 overflow-x-auto">
+          <div className="glass-panel mt-4 overflow-x-auto">
             <table className="w-full min-w-[480px] border-collapse text-left text-[14px]">
               <thead className="bg-surface/50">
                 <tr className="border-b border-line-strong">

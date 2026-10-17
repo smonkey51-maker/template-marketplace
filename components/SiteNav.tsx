@@ -7,7 +7,7 @@ import { Menu, Search, X } from "lucide-react";
 import { SITE } from "@/lib/site";
 import SiteLogo from "@/components/SiteLogo";
 import ThemeToggle from "@/components/ThemeToggle";
-import GlassNavLens from "@/components/GlassNavLens";
+import GlassLenses from "@/components/GlassLenses";
 
 const LINKS = [
   { href: "/servizi", label: "Servizi" },
@@ -42,7 +42,7 @@ export default function SiteNav() {
 
       {/* Nav row: sticky under the draft bar; liquid-gl turns it into a glass lens. */}
       <header
-        className={`liquidGL sticky z-50 border-b border-line ${SITE.draft ? "top-8" : "top-0"}`}
+        className={`lens-bar sticky z-50 border-b border-line ${SITE.draft ? "top-8" : "top-0"}`}
       >
         <div className="glass-nav">
           <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between gap-3 px-4 sm:gap-6 sm:px-6">
@@ -117,7 +117,7 @@ export default function SiteNav() {
           </ul>
         )}
       </header>
-      <GlassNavLens />
+      <GlassLenses />
     </>
   );
 }

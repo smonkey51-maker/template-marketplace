@@ -52,7 +52,7 @@ export function SiteFooter() {
   );
 
   return (
-    <footer className="glass-bar mt-12 border-t border-line pb-[env(safe-area-inset-bottom)] text-ink">
+    <footer className="glass-bar mt-12 border-t border-line pb-[env(safe-area-inset-bottom)] text-ink md:pb-20">
       <div className="mx-auto max-w-[1200px] px-4 py-12 sm:px-6">
         <div className="grid gap-10 md:grid-cols-12">
           <div className="md:col-span-4">

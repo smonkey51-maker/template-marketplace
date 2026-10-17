@@ -15,7 +15,7 @@ export default function ErrorBoundary({
 
   return (
     <div className="flex min-h-[60vh] items-center justify-center px-6 py-16">
-      <div className="glass max-w-md p-8">
+      <div className="glass-panel max-w-md p-8">
         <h1 className="text-[1.75rem]">Si è verificato un errore</h1>
         <p className="mt-3 text-muted">Qualcosa non ha funzionato. Riprova o torna alla home.</p>
         <div className="mt-6 flex gap-3">

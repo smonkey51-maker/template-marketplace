@@ -3,12 +3,19 @@ import { pageMeta } from "@/lib/meta";
 import { SITE } from "@/lib/site";
 import PageShell from "@/components/PageShell";
 import PageHeader from "@/components/PageHeader";
+import SectionIndex from "@/components/SectionIndex";
 
 export const metadata: Metadata = pageMeta(
   "/privacy",
   "Informativa privacy",
   "Come trattiamo i dati personali raccolti tramite il sito.",
 );
+
+const slug = (t: string) =>
+  t
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 
 const SECTIONS: [string, string][] = [
   [
@@ -43,21 +50,24 @@ export default function PrivacyPage() {
         subtitle="Come trattiamo i dati personali raccolti tramite questo sito."
       />
 
-      <div className="mx-auto max-w-[1200px] space-y-8 px-4 py-12 sm:px-6">
-        {SITE.draft && (
-          <aside className="glass max-w-2xl p-5" aria-label="Avviso sulla bozza">
-            <p className="text-[14px]">
-              <span className="font-medium">Bozza.</span> Questo testo è provvisorio e va verificato
-              da un professionista legale prima della pubblicazione.
-            </p>
-          </aside>
-        )}
-        {SECTIONS.map(([title, text]) => (
-          <section key={title} className="max-w-2xl">
-            <h2 className="text-[1.15rem]">{title}</h2>
-            <p className="mt-2 text-[15px] text-muted">{text}</p>
-          </section>
-        ))}
+      <div className="mx-auto grid max-w-[1200px] gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[minmax(0,1fr)_220px]">
+        <div className="space-y-8">
+          {SITE.draft && (
+            <aside className="glass-panel max-w-2xl p-5" aria-label="Avviso sulla bozza">
+              <p className="text-[14px]">
+                <span className="font-medium">Bozza.</span> Questo testo è provvisorio e va
+                verificato da un professionista legale prima della pubblicazione.
+              </p>
+            </aside>
+          )}
+          {SECTIONS.map(([title, text]) => (
+            <section key={title} id={slug(title)} className="max-w-2xl scroll-mt-32">
+              <h2 className="text-[1.15rem]">{title}</h2>
+              <p className="mt-2 text-[15px] text-muted">{text}</p>
+            </section>
+          ))}
+        </div>
+        <SectionIndex items={SECTIONS.map(([title]) => ({ id: slug(title), label: title }))} />
       </div>
     </PageShell>
   );

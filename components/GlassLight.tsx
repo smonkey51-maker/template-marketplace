@@ -5,7 +5,7 @@ import { useEffect } from "react";
 /**
  * A specular highlight that follows the pointer across glass panels.
  *
- * One document-level listener finds the `.glass` panel under the pointer, marks it
+ * One document-level listener finds the `.glass-panel` panel under the pointer, marks it
  * `data-lit` and eases `--lx`/`--ly` (the light's position inside it) toward the
  * pointer, so the light has weight instead of snapping. Decorative, so: only for
  * devices with a real hover pointer, and never with reduced motion.
@@ -43,7 +43,7 @@ export default function GlassLight() {
     };
 
     const onMove = (e: PointerEvent) => {
-      const hit = (e.target as Element | null)?.closest<HTMLElement>(".glass") ?? null;
+      const hit = (e.target as Element | null)?.closest<HTMLElement>(".glass-panel") ?? null;
       if (hit !== panel) {
         release();
         panel = hit;

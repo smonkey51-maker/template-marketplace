@@ -61,7 +61,7 @@ export default function ContactForm() {
 
   if (state.kind === "sent") {
     return (
-      <div role="status" className="glass p-8">
+      <div role="status" className="glass-panel p-8">
         <h2 className="text-[1.25rem]">Messaggio inviato</h2>
         <p className="mt-2 text-muted">
           Grazie per averci scritto. Ti ricontatteremo per fissare un primo colloquio.
@@ -101,7 +101,7 @@ export default function ContactForm() {
   );
 
   return (
-    <form onSubmit={onSubmit} noValidate className="glass space-y-5 p-6 sm:p-8">
+    <form onSubmit={onSubmit} noValidate className="glass-panel space-y-5 p-6 sm:p-8">
       <div className="grid gap-5 sm:grid-cols-2">
         {input("name", "Nome e cognome *", { required: true, autoComplete: "name" })}
         {input("company", "Azienda *", { required: true, autoComplete: "organization" })}
