@@ -92,10 +92,7 @@ export default function ServiziPage() {
                   <p className="mt-3 text-[16px] text-muted">{s.text}</p>
                 </div>
                 <div className="md:col-span-7">
-                  <h3 className="font-mono text-[12px] font-medium uppercase tracking-[0.1em] text-muted">
-                    Cosa include
-                  </h3>
-                  <ul className="mt-3 list-disc space-y-2 pl-5 text-[16px]">
+                  <ul className="list-disc space-y-2 pl-5 text-[16px]">
                     {s.items.map((item) => (
                       <li key={item}>{item}</li>
                     ))}

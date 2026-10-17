@@ -42,10 +42,7 @@ export default function AreaRiservataPage() {
 
       <Band tone="blue" label="Accesso" className="band-pad">
         <div className="max-w-2xl">
-          <p className="font-mono text-[12px] font-medium uppercase tracking-[0.1em] text-muted">
-            In arrivo
-          </p>
-          <p className="mt-3 text-[20px]">
+          <p className="text-[20px]">
             L&apos;accesso non è ancora attivo. Se sei già nostro cliente, contattaci: ti avviseremo
             appena potrai entrare.
           </p>

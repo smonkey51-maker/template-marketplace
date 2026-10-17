@@ -29,10 +29,7 @@ export default function SectionIndex({ items }: { items: SectionItem[] }) {
 
   return (
     <aside aria-label="In questa pagina" className="sticky top-32 hidden self-start lg:block">
-      <p className="font-mono text-[12px] font-medium uppercase tracking-[0.1em] text-muted">
-        In questa pagina
-      </p>
-      <ul className="mt-4 border-l border-line">
+      <ul className="border-l border-line">
         {items.map((i) => (
           <li key={i.id}>
             <a
