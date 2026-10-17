@@ -4,8 +4,8 @@ import { useEffect, useRef } from "react";
 
 /**
  * Three small interactions, all decorative and all off for reduced motion:
- *   - a ring that follows the pointer and grows over links and buttons (hover devices only;
- *     the native cursor stays, the ring is an accent, not a replacement);
+ *   - a dot that replaces the pointer arrow and grows over links and buttons (hover devices
+ *     only; text fields keep the native text cursor);
  *   - magnetic buttons: `[data-magnet]` leans a few pixels toward the pointer;
  *   - scroll reveal: `[data-reveal]` fades up the first time it enters the viewport.
  *     Content is fully visible without JavaScript; elements already on screen at load are
@@ -69,8 +69,8 @@ export default function InteractionFx() {
       let seen = false;
 
       const tick = () => {
-        cx += (tx - cx) * 0.35;
-        cy += (ty - cy) * 0.35;
+        cx += (tx - cx) * 0.7;
+        cy += (ty - cy) * 0.7;
         if (dot) dot.style.transform = `translate3d(${cx}px, ${cy}px, 0) translate(-50%, -50%)`;
         raf = Math.abs(tx - cx) + Math.abs(ty - cy) > 0.2 ? requestAnimationFrame(tick) : 0;
       };
@@ -84,6 +84,7 @@ export default function InteractionFx() {
           cx = tx;
           cy = ty;
           dot?.setAttribute("data-on", "");
+          html.classList.add("fx-cursor"); // from now on the dot is the only cursor
         }
         if (!raf) raf = requestAnimationFrame(tick);
 
@@ -104,8 +105,15 @@ export default function InteractionFx() {
 
         const hot = (e.target as Element | null)?.closest("a, button, summary, [data-cursor]");
         dot?.toggleAttribute("data-hot", !!hot);
+        // In a text field the native text cursor takes over.
+        const typing = !!(e.target as Element | null)?.closest("input, textarea, select");
+        dot?.toggleAttribute("data-on", !typing);
       };
-      const onLeave = () => dot?.removeAttribute("data-on");
+      const onLeave = () => {
+        dot?.removeAttribute("data-on");
+        html.classList.remove("fx-cursor");
+        seen = false;
+      };
 
       document.addEventListener("pointermove", onMove, { passive: true });
       document.documentElement.addEventListener("pointerleave", onLeave);
@@ -113,6 +121,7 @@ export default function InteractionFx() {
         document.removeEventListener("pointermove", onMove);
         document.documentElement.removeEventListener("pointerleave", onLeave);
         cancelAnimationFrame(raf);
+        html.classList.remove("fx-cursor");
       });
     }
 
