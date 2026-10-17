@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { SITE } from "@/lib/site";
 import PageShell from "@/components/PageShell";
@@ -44,46 +45,59 @@ export default function HomePage() {
   return (
     <PageShell>
       {/* Hero */}
-      <section className="mx-auto max-w-[1200px] px-4 pt-8 sm:px-6 sm:pt-10">
-        <div className="glass-panel grid gap-10 px-6 py-10 sm:px-10 sm:py-14 lg:grid-cols-12">
-          <div className="lg:col-span-7">
-            <h1 className="mt-3 text-[clamp(2rem,4.6vw,3.25rem)]">
-              Persone e organizzazione, al passo con la tua impresa.
-            </h1>
-            <p className="mt-5 max-w-xl text-[17px] text-muted">
-              Affianchiamo imprese e responsabili HR nella selezione, nella crescita delle persone e
-              nell&apos;organizzazione del lavoro, con un consulente di riferimento dedicato.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/contatti" className="btn btn-primary">
-                Richiedi un colloquio
-              </Link>
-              <Link href="/servizi" className="btn btn-outline">
-                Scopri i servizi
-              </Link>
+      <div className="relative isolate overflow-hidden">
+        {/* The photo is in the page flow on purpose: the glass lenses refract what the page
+            snapshot contains, and the snapshot ignores fixed elements. */}
+        <Image
+          src="/hero.webp"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="-z-10 object-cover object-center"
+        />
+        <div aria-hidden className="hero-wash absolute inset-0 -z-10" />
+        <section className="mx-auto max-w-[1200px] px-4 py-12 sm:px-6 sm:py-20">
+          <div className="glass-panel grid gap-10 px-6 py-10 sm:px-10 sm:py-14 lg:grid-cols-12">
+            <div className="lg:col-span-7">
+              <h1 className="mt-3 text-[clamp(2rem,4.6vw,3.25rem)]">
+                Persone e organizzazione, al passo con la tua impresa.
+              </h1>
+              <p className="mt-5 max-w-xl text-[17px] text-muted">
+                Affianchiamo imprese e responsabili HR nella selezione, nella crescita delle persone
+                e nell&apos;organizzazione del lavoro, con un consulente di riferimento dedicato.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link href="/contatti" className="btn btn-primary">
+                  Richiedi un colloquio
+                </Link>
+                <Link href="/servizi" className="btn btn-outline">
+                  Scopri i servizi
+                </Link>
+              </div>
             </div>
-          </div>
 
-          <aside className="lg:col-span-5" aria-labelledby="come-iniziamo">
-            <h2
-              id="come-iniziamo"
-              className="font-mono text-[12px] font-medium uppercase tracking-[0.1em] text-muted"
-            >
-              Come iniziamo
-            </h2>
-            <ol className="mt-4 space-y-4">
-              {STEPS.map(([title, text]) => (
-                <li key={title} className="flex gap-4">
-                  <span>
-                    <span className="block font-medium">{title}</span>
-                    <span className="block text-[14px] text-muted">{text}</span>
-                  </span>
-                </li>
-              ))}
-            </ol>
-          </aside>
-        </div>
-      </section>
+            <aside className="lg:col-span-5" aria-labelledby="come-iniziamo">
+              <h2
+                id="come-iniziamo"
+                className="font-mono text-[12px] font-medium uppercase tracking-[0.1em] text-muted"
+              >
+                Come iniziamo
+              </h2>
+              <ol className="mt-4 space-y-4">
+                {STEPS.map(([title, text]) => (
+                  <li key={title} className="flex gap-4">
+                    <span>
+                      <span className="block font-medium">{title}</span>
+                      <span className="block text-[14px] text-muted">{text}</span>
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </aside>
+          </div>
+        </section>
+      </div>
 
       {/* Services */}
       <section className="mx-auto max-w-[1200px] px-4 py-14 sm:px-6">
