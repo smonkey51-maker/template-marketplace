@@ -56,7 +56,6 @@ export default function TestPlusPage() {
     <PageShell>
       <PageHeader
         crumbs={[{ label: "Home", href: "/" }, { label: "Test ma di più" }]}
-        kicker="Pagina 2"
         title="Test ma di più"
         subtitle="Stessa base, più materiale: primitive Ark UI, testo lungo, tabella dati e palette."
       />

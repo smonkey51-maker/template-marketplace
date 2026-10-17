@@ -14,7 +14,6 @@ export default function TestPage() {
     <PageShell>
       <PageHeader
         crumbs={[{ label: "Home", href: "/" }, { label: "Test" }]}
-        kicker="Pagina 1"
         title="Test"
         subtitle="Pagina di base: stato dell'ambiente, tipografia, pulsanti, campi e callout."
       />

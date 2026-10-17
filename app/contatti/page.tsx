@@ -15,7 +15,6 @@ export default function ContattiPage() {
     <PageShell>
       <PageHeader
         crumbs={[{ label: "Home", href: "/" }, { label: "Contatti" }]}
-        kicker="Contatti"
         title="Richiedi un colloquio"
         subtitle="Raccontaci in breve l'esigenza: ti ricontatteremo per fissare un primo colloquio."
       />

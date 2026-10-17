@@ -24,7 +24,6 @@ export default function AreaRiservataPage() {
     <PageShell>
       <PageHeader
         crumbs={[{ label: "Home", href: "/" }, { label: "Area riservata" }]}
-        kicker="Clienti"
         title="Area riservata"
         subtitle="Uno spazio personale per seguire il lavoro con il tuo consulente."
       />

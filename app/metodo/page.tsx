@@ -28,18 +28,14 @@ export default function MetodoPage() {
     <PageShell>
       <PageHeader
         crumbs={[{ label: "Home", href: "/" }, { label: "Metodo" }]}
-        kicker="Metodo"
         title="Come lavoriamo"
         subtitle="Un percorso in quattro passaggi, uguale per ogni servizio."
       />
 
       <div className="mx-auto max-w-[1200px] px-4 py-12 sm:px-6">
         <ol className="grid gap-4 md:grid-cols-2">
-          {STEPS.map(([title, text], i) => (
+          {STEPS.map(([title, text]) => (
             <li key={title} className="glass-panel p-6">
-              <span className="font-mono text-[12px] text-muted">
-                {String(i + 1).padStart(2, "0")}
-              </span>
               <h2 className="mt-1 text-[1.25rem]">{title}</h2>
               <p className="mt-2 text-[15px] text-muted">{text}</p>
             </li>

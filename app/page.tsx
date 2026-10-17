@@ -9,8 +9,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-const kicker = "font-mono text-[12px] font-medium uppercase tracking-[0.1em] text-accent";
-
 const STEPS = [
   ["Colloquio conoscitivo", "Ascoltiamo le esigenze dell'azienda e il contesto in cui operate."],
   ["Analisi e proposta", "Definiamo obiettivi, attività e tempi in una proposta chiara."],
@@ -49,7 +47,6 @@ export default function HomePage() {
       <section className="mx-auto max-w-[1200px] px-4 pt-8 sm:px-6 sm:pt-10">
         <div className="glass-panel grid gap-10 px-6 py-10 sm:px-10 sm:py-14 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            <p className={kicker}>Consulenza HR</p>
             <h1 className="mt-3 text-[clamp(2rem,4.6vw,3.25rem)]">
               Persone e organizzazione, al passo con la tua impresa.
             </h1>
@@ -75,11 +72,8 @@ export default function HomePage() {
               Come iniziamo
             </h2>
             <ol className="mt-4 space-y-4">
-              {STEPS.map(([title, text], i) => (
+              {STEPS.map(([title, text]) => (
                 <li key={title} className="flex gap-4">
-                  <span className="mt-0.5 font-mono text-[13px] text-muted">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
                   <span>
                     <span className="block font-medium">{title}</span>
                     <span className="block text-[14px] text-muted">{text}</span>
@@ -93,7 +87,6 @@ export default function HomePage() {
 
       {/* Services */}
       <section className="mx-auto max-w-[1200px] px-4 py-14 sm:px-6">
-        <p className={kicker}>Servizi</p>
         <h2 className="mt-2 text-[1.75rem]">Cosa facciamo per le imprese</h2>
         <ul className="mt-8 grid gap-4 sm:grid-cols-2">
           {SERVICES.map(([title, text]) => (
@@ -112,7 +105,6 @@ export default function HomePage() {
 
       {/* Principles */}
       <section className="mx-auto max-w-[1200px] px-4 pb-14 sm:px-6">
-        <p className={kicker}>Metodo</p>
         <h2 className="mt-2 text-[1.75rem]">Come lavoriamo</h2>
         <ul className="mt-8 grid gap-4 md:grid-cols-3">
           {PRINCIPLES.map(([title, text]) => (
