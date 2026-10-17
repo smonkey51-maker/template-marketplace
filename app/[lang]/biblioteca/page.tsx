@@ -145,7 +145,7 @@ export default async function BibliotecaPage({ params }: { params: Promise<{ lan
                 href={source.href}
                 target="_blank"
                 rel="noreferrer"
-                className="group flex items-start justify-between gap-4 border border-theme r-md p-5 transition-colors hover:border-[var(--accent)]"
+                className="group flex items-start justify-between gap-4 border border-theme r-md p-5 transition-colors hover:border-(--accent)"
                 style={{ background: "var(--surface)" }}
               >
                 <span className="text-[13px] leading-5" style={{ color: "var(--text)" }}>

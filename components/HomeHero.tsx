@@ -60,7 +60,7 @@ export default function HomeHero({ lang }: { lang: Lang }) {
             </Link>
             <Link
               href={`/${lang}/chi-siamo`}
-              className="r-md inline-flex items-center justify-center border border-theme px-6 py-3 text-[15px] font-semibold transition-colors hover:bg-[var(--surface)]"
+              className="r-md inline-flex items-center justify-center border border-theme px-6 py-3 text-[15px] font-semibold transition-colors hover:bg-surface"
               style={{ color: "var(--text)" }}
             >
               {t("heroCtaChiSiamo")}

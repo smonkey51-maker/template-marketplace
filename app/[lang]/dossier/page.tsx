@@ -70,7 +70,7 @@ export default async function DossierPage({ params }: { params: Promise<{ lang: 
             <Link
               key={article.slug}
               href={`/${lang}/dossier/${article.slug}`}
-              className="group block border border-theme r-md p-6 transition-colors hover:border-[var(--accent)]"
+              className="group block border border-theme r-md p-6 transition-colors hover:border-(--accent)"
               style={{ background: "var(--surface)" }}
             >
               <div
@@ -102,7 +102,7 @@ export default async function DossierPage({ params }: { params: Promise<{ lang: 
                 ))}
               </div>
               <h2
-                className="mt-2 text-[1.2rem] leading-snug transition-colors group-hover:text-[var(--accent)]"
+                className="mt-2 text-[1.2rem] leading-snug transition-colors group-hover:text-(--accent)"
                 style={{ fontFamily: "var(--font-display), Georgia, serif", fontWeight: 700 }}
               >
                 {article[lang].title}

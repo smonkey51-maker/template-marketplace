@@ -25,7 +25,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
         role="status"
         aria-live="polite"
         aria-atomic="false"
-        className="fixed bottom-6 inset-x-0 z-[300] flex flex-col items-center gap-2.5 pointer-events-none px-4"
+        className="fixed bottom-6 inset-x-0 z-300 flex flex-col items-center gap-2.5 pointer-events-none px-4"
       >
         {toasts.map((t) => (
           <ToastBubble
@@ -94,7 +94,7 @@ function ToastBubble({ toast: t, onDismiss }: { toast: ToastItem; onDismiss: () 
         transform: visible || reduced ? "translateY(0) scale(1)" : "translateY(12px) scale(0.96)",
       }}
     >
-      <span className="flex-shrink-0">{icon}</span>
+      <span className="shrink-0">{icon}</span>
       <span className="flex-1">{t.message}</span>
       <svg
         width="10"
@@ -102,7 +102,7 @@ function ToastBubble({ toast: t, onDismiss }: { toast: ToastItem; onDismiss: () 
         viewBox="0 0 10 10"
         fill="none"
         aria-hidden
-        className="flex-shrink-0 opacity-40 ml-1"
+        className="shrink-0 opacity-40 ml-1"
       >
         <path d="M2 2l6 6M8 2L2 8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
       </svg>

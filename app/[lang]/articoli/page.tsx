@@ -129,7 +129,7 @@ export default async function ArticoliPage({
             {featured ? (
               <Link
                 href={`/${lang}/articoli/${featured.slug}`}
-                className="group mt-10 grid grid-cols-1 gap-6 border border-theme r-md p-8 transition-colors hover:border-[var(--accent)] md:grid-cols-[1.4fr_1fr] md:p-10"
+                className="group mt-10 grid grid-cols-1 gap-6 border border-theme r-md p-8 transition-colors hover:border-(--accent) md:grid-cols-[1.4fr_1fr] md:p-10"
                 style={{ background: "var(--surface)" }}
               >
                 <div>
@@ -140,7 +140,7 @@ export default async function ArticoliPage({
                     {getCategoryLabel(featured.category, lang)}
                   </span>
                   <h2
-                    className="mt-3 text-[clamp(1.5rem,3vw,2.1rem)] leading-tight transition-colors group-hover:text-[var(--accent)]"
+                    className="mt-3 text-[clamp(1.5rem,3vw,2.1rem)] leading-tight transition-colors group-hover:text-(--accent)"
                     style={{ fontFamily: "var(--font-display), Georgia, serif", fontWeight: 700 }}
                   >
                     {featured[lang].title}
@@ -167,7 +167,7 @@ export default async function ArticoliPage({
                   <Link
                     key={article.slug}
                     href={`/${lang}/articoli/${article.slug}`}
-                    className="group block border border-theme r-md p-6 transition-colors hover:border-[var(--accent)]"
+                    className="group block border border-theme r-md p-6 transition-colors hover:border-(--accent)"
                     style={{ background: "var(--surface)" }}
                   >
                     <span
@@ -177,7 +177,7 @@ export default async function ArticoliPage({
                       {getCategoryLabel(article.category, lang)}
                     </span>
                     <h2
-                      className="mt-2 text-[1.2rem] leading-snug transition-colors group-hover:text-[var(--accent)]"
+                      className="mt-2 text-[1.2rem] leading-snug transition-colors group-hover:text-(--accent)"
                       style={{ fontFamily: "var(--font-display), Georgia, serif", fontWeight: 700 }}
                     >
                       {article[lang].title}

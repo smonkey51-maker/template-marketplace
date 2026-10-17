@@ -63,7 +63,7 @@ function ArticleCard({
   return (
     <Link
       href={`/${lang}/articoli/${article.slug}`}
-      className="group block border border-theme r-md p-6 transition-colors hover:border-[var(--accent)]"
+      className="group block border border-theme r-md p-6 transition-colors hover:border-(--accent)"
       style={{ background: "var(--surface)" }}
     >
       <span
@@ -127,7 +127,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
         <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-12">
           <Link
             href={`/${lang}/articoli/${jane.slug}`}
-            className="group relative overflow-hidden border border-theme r-md p-8 transition-colors hover:border-[var(--accent)] lg:col-span-8 lg:p-10"
+            className="group relative overflow-hidden border border-theme r-md p-8 transition-colors hover:border-(--accent) lg:col-span-8 lg:p-10"
             style={{ background: "var(--surface)" }}
           >
             <span
@@ -209,11 +209,11 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
               <Link
                 key={title}
                 href={href}
-                className="group min-h-[220px] p-7 transition-colors hover:bg-[var(--bg)]"
+                className="group min-h-[220px] p-7 transition-colors hover:bg-page"
                 style={{ background: "var(--surface)" }}
               >
                 <h3
-                  className="text-[1.45rem] group-hover:text-[var(--accent)]"
+                  className="text-[1.45rem] group-hover:text-(--accent)"
                   style={{ fontFamily: "var(--font-display), Georgia, serif", fontWeight: 600 }}
                 >
                   {title}
@@ -234,7 +234,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <Link
             href={`/${lang}/dossier`}
-            className="group block border border-theme r-md p-8 transition-colors hover:border-[var(--accent)]"
+            className="group block border border-theme r-md p-8 transition-colors hover:border-(--accent)"
           >
             <span
               className="text-[10px] font-semibold uppercase"
@@ -243,7 +243,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
               {lang === "it" ? "Finzione → Psicologia" : "Fiction → Psychology"}
             </span>
             <h3
-              className="mt-3 text-[1.7rem] transition-colors group-hover:text-[var(--accent)]"
+              className="mt-3 text-[1.7rem] transition-colors group-hover:text-(--accent)"
               style={{ fontFamily: "var(--font-display), Georgia, serif", fontWeight: 700 }}
             >
               {t("categoryTeaserDossierTitle")}
@@ -255,7 +255,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
 
           <Link
             href={`/${lang}/guide-pratiche`}
-            className="group block border border-theme r-md p-8 transition-colors hover:border-[var(--accent)]"
+            className="group block border border-theme r-md p-8 transition-colors hover:border-(--accent)"
           >
             <span
               className="text-[10px] font-semibold uppercase"
@@ -264,7 +264,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
               {lang === "it" ? "Psicologia → Pratica" : "Psychology → Practice"}
             </span>
             <h3
-              className="mt-3 text-[1.7rem] transition-colors group-hover:text-[var(--accent)]"
+              className="mt-3 text-[1.7rem] transition-colors group-hover:text-(--accent)"
               style={{ fontFamily: "var(--font-display), Georgia, serif", fontWeight: 700 }}
             >
               {t("categoryTeaserGuideTitle")}

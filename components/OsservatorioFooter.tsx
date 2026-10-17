@@ -94,7 +94,7 @@ export function OsservatorioFooter() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder={t("newsletterPlaceholder")}
-                  className="min-w-0 flex-1 bg-transparent px-0 py-3 text-sm outline-none"
+                  className="min-w-0 flex-1 bg-transparent px-0 py-3 text-sm outline-hidden"
                   style={{
                     borderBottom: "1px solid var(--border)",
                     color: "var(--text)",
@@ -133,7 +133,7 @@ export function OsservatorioFooter() {
                     <li key={item.href + item.labelKey}>
                       <Link
                         href={item.href.startsWith("/") ? `/${lang}${item.href}` : item.href}
-                        className="text-sm transition-colors hover:text-[var(--accent)]"
+                        className="text-sm transition-colors hover:text-(--accent)"
                         style={{ color: "var(--text)" }}
                       >
                         {t(item.labelKey)}

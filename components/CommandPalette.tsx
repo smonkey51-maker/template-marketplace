@@ -212,7 +212,7 @@ export default function CommandPalette() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={lang === "it" ? "Cerca articoli, pagine…" : "Search articles, pages…"}
-            className="flex-1 bg-transparent outline-none text-[14px] placeholder:text-[var(--muted)]"
+            className="flex-1 bg-transparent outline-hidden text-[14px] placeholder:text-muted"
             style={{ color: "var(--text)" }}
             aria-label={lang === "it" ? "Cerca" : "Search"}
           />

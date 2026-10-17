@@ -59,7 +59,7 @@ export default async function GuidePratichePage({ params }: { params: Promise<{ 
             <Link
               key={article.slug}
               href={`/${lang}/articoli/${article.slug}`}
-              className="group block border border-theme r-md p-6 transition-colors hover:border-[var(--accent)]"
+              className="group block border border-theme r-md p-6 transition-colors hover:border-(--accent)"
               style={{ background: "var(--surface)" }}
             >
               <span
@@ -69,7 +69,7 @@ export default async function GuidePratichePage({ params }: { params: Promise<{ 
                 {getCategoryLabel(article.category, lang)}
               </span>
               <h2
-                className="mt-2 text-[1.2rem] leading-snug transition-colors group-hover:text-[var(--accent)]"
+                className="mt-2 text-[1.2rem] leading-snug transition-colors group-hover:text-(--accent)"
                 style={{ fontFamily: "var(--font-display), Georgia, serif", fontWeight: 700 }}
               >
                 {article[lang].title}

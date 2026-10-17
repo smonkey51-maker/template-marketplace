@@ -78,7 +78,7 @@ export default function SiteNav() {
             type="button"
             onClick={toggle}
             aria-label={lang === "it" ? "Switch to English" : "Passa all'italiano"}
-            className="r-sm border border-theme px-2.5 py-2 text-[11px] font-semibold transition-colors hover:bg-[var(--surface)]"
+            className="r-sm border border-theme px-2.5 py-2 text-[11px] font-semibold transition-colors hover:bg-surface"
             style={{ color: "var(--text)", letterSpacing: "0.08em" }}
           >
             {lang === "it" ? "IT / EN" : "EN / IT"}
