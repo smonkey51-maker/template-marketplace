@@ -11,7 +11,6 @@ import {
 import SiteNav from "@/components/SiteNav";
 import { OsservatorioFooter } from "@/components/OsservatorioFooter";
 import { ArtHeader, PAINTINGS } from "@/components/ArtHeader";
-import CategoryTabs from "@/components/CategoryTabs";
 
 const META = {
   it: {
@@ -86,14 +85,39 @@ export default async function ArticoliPage({
 
       <div className="mx-auto max-w-[1100px] px-4 py-10 sm:px-6 lg:px-10">
         {/* Category filter */}
-        <CategoryTabs
-          lang={lang}
-          active={active}
-          items={[
-            { key: "all", label: t("filterAll") },
-            ...ARTICLE_CATEGORIES.map((cat) => ({ key: cat, label: t(FILTER_LABEL_KEYS[cat]) })),
-          ]}
-        />
+        <div className="flex flex-wrap gap-2">
+          <Link
+            href={`/${lang}/articoli`}
+            className="r-md border px-4 py-2 text-[13px] font-semibold transition-colors"
+            style={{
+              borderColor: active === "all" ? "var(--accent)" : "var(--border)",
+              color: active === "all" ? "var(--accent)" : "var(--text)",
+              background:
+                active === "all"
+                  ? "color-mix(in srgb, var(--accent) 8%, transparent)"
+                  : "transparent",
+            }}
+          >
+            {t("filterAll")}
+          </Link>
+          {ARTICLE_CATEGORIES.map((cat) => (
+            <Link
+              key={cat}
+              href={`/${lang}/articoli?categoria=${cat}`}
+              className="r-md border px-4 py-2 text-[13px] font-semibold transition-colors"
+              style={{
+                borderColor: active === cat ? "var(--accent)" : "var(--border)",
+                color: active === cat ? "var(--accent)" : "var(--text)",
+                background:
+                  active === cat
+                    ? "color-mix(in srgb, var(--accent) 8%, transparent)"
+                    : "transparent",
+              }}
+            >
+              {t(FILTER_LABEL_KEYS[cat])}
+            </Link>
+          ))}
+        </div>
 
         {/* List */}
         {list.length === 0 ? (
