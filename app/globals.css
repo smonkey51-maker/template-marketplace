@@ -119,25 +119,6 @@ body {
 /* The ground the glass sits on: soft blue light and a few large shapes, fixed so
    panels refract something while the page scrolls. Not on body itself, so it
    stays beneath page content. */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(46% 40% at 10% 6%, rgb(15 95 166 / 0.18), transparent 70%),
-    radial-gradient(40% 36% at 92% 12%, rgb(125 180 234 / 0.34), transparent 70%),
-    radial-gradient(44% 42% at 78% 96%, rgb(11 53 88 / 0.1), transparent 70%),
-    radial-gradient(34% 34% at 4% 78%, rgb(125 180 234 / 0.26), transparent 70%);
-}
-.dark body::before {
-  background:
-    radial-gradient(46% 40% at 10% 6%, rgb(47 111 176 / 0.34), transparent 70%),
-    radial-gradient(40% 36% at 92% 12%, rgb(15 95 166 / 0.3), transparent 70%),
-    radial-gradient(44% 42% at 78% 96%, rgb(125 180 234 / 0.12), transparent 70%),
-    radial-gradient(34% 34% at 4% 78%, rgb(47 111 176 / 0.26), transparent 70%);
-}
 
 /* A fine blueprint grid on the ground: glass only reads as glass when there is
    something behind it to bend, and the grid shows the refraction at every panel
