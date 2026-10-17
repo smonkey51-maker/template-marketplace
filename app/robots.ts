@@ -1,14 +1,16 @@
 import { MetadataRoute } from "next";
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://sandbox.example.com";
+import { SITE, SITE_URL } from "@/lib/site";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: {
-      userAgent: "*",
-      allow: "/",
-      disallow: ["/api/"],
-    },
+    // While the site is a draft, ask crawlers to stay away entirely.
+    rules: SITE.draft
+      ? { userAgent: "*", disallow: "/" }
+      : {
+          userAgent: "*",
+          allow: "/",
+          disallow: ["/api/", "/test", "/test-ma-di-piu", "/rickrolled"],
+        },
     sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }

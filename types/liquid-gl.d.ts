@@ -12,6 +12,7 @@ declare module "liquid-gl" {
     specular?: boolean;
     reveal?: string;
     tilt?: boolean;
+    tint?: string | null;
   }
   export interface LiquidGLLens {
     destroy?: () => void;

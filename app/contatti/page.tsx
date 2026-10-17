@@ -1,0 +1,54 @@
+import type { Metadata } from "next";
+import { pageMeta } from "@/lib/meta";
+import PageShell from "@/components/PageShell";
+import PageHeader from "@/components/PageHeader";
+import ContactForm from "@/components/ContactForm";
+
+export const metadata: Metadata = pageMeta(
+  "/contatti",
+  "Contatti",
+  "Richiedi un primo colloquio di consulenza HR: compila il modulo e ti ricontatteremo.",
+);
+
+export default function ContattiPage() {
+  return (
+    <PageShell>
+      <PageHeader
+        crumbs={[{ label: "Home", href: "/" }, { label: "Contatti" }]}
+        kicker="Contatti"
+        title="Richiedi un colloquio"
+        subtitle="Raccontaci in breve l'esigenza: ti ricontatteremo per fissare un primo colloquio."
+      />
+
+      <div className="mx-auto grid max-w-[1200px] gap-10 px-4 py-12 sm:px-6 lg:grid-cols-12">
+        <div className="lg:col-span-8">
+          <ContactForm />
+        </div>
+        <aside className="lg:col-span-4" aria-labelledby="dopo">
+          <h2
+            id="dopo"
+            className="font-mono text-[12px] font-medium uppercase tracking-[0.1em] text-muted"
+          >
+            Cosa succede dopo
+          </h2>
+          <ol className="mt-4 space-y-4 text-[15px]">
+            <li>
+              <span className="font-medium">1. Ti ricontattiamo</span>
+              <span className="block text-muted">per fissare un primo colloquio conoscitivo.</span>
+            </li>
+            <li>
+              <span className="font-medium">2. Ascoltiamo l&apos;esigenza</span>
+              <span className="block text-muted">
+                senza impegno e nel rispetto della riservatezza.
+              </span>
+            </li>
+            <li>
+              <span className="font-medium">3. Ricevi una proposta</span>
+              <span className="block text-muted">con attività, tempi e indicatori.</span>
+            </li>
+          </ol>
+        </aside>
+      </div>
+    </PageShell>
+  );
+}

@@ -42,7 +42,7 @@ export default function GlassNavLens() {
           refraction: 0.006,
           bevelDepth: 0,
           bevelWidth: 0.02,
-          frost: 0,
+          frost: 10,
           shadow: false,
           specular: false,
           reveal: "none",

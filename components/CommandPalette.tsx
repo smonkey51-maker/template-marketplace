@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowUpRight, Zap } from "lucide-react";
-import { useLang } from "@/components/LanguageProvider";
 
 type Item = { id: string; label: string; hint: string; kind: "route" | "action"; run: () => void };
 
@@ -14,8 +13,6 @@ export default function CommandPalette() {
   const [index, setIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
-  const { lang, toggle: toggleLang } = useLang();
-  const it = lang === "it";
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -44,35 +41,27 @@ export default function CommandPalette() {
   }, [open]);
 
   const items: Item[] = useMemo(() => {
-    const go = (path: string) => () => router.push(`/${lang}${path}`);
+    const go = (path: string) => () => router.push(path);
+    const page = (id: string, label: string, hint: string, path: string): Item => ({
+      id,
+      kind: "route",
+      label,
+      hint,
+      run: go(path),
+    });
     return [
-      {
-        id: "test",
-        kind: "route",
-        label: "Test",
-        hint: it ? "Pagina di base" : "Base page",
-        run: go("/test"),
-      },
-      {
-        id: "plus",
-        kind: "route",
-        label: it ? "Test ma di più" : "Test, but more",
-        hint: it ? "Più componenti" : "More components",
-        run: go("/test-ma-di-piu"),
-      },
-      { id: "rick", kind: "route", label: "Rickrolled", hint: "GIF", run: go("/rickrolled") },
-      {
-        id: "lang",
-        kind: "action",
-        label: it ? "Cambia lingua → EN" : "Switch language → IT",
-        hint: it ? "Passa all'inglese" : "Switch to Italian",
-        run: toggleLang,
-      },
+      page("home", "Home", "Torna alla home", "/"),
+      page("servizi", "Servizi", "Cosa facciamo per le imprese", "/servizi"),
+      page("metodo", "Metodo", "Come lavoriamo", "/metodo"),
+      page("chi", "Chi siamo", "Lo studio e il team", "/chi-siamo"),
+      page("contatti", "Contatti", "Richiedi un colloquio", "/contatti"),
+      page("area", "Area riservata", "Accesso clienti", "/area-riservata"),
+      page("privacy", "Privacy", "Informativa sul trattamento dei dati", "/privacy"),
       {
         id: "theme",
         kind: "action",
-        label: it ? "Tema chiaro/scuro" : "Light/dark theme",
-        hint: it ? "Cambia tema" : "Switch theme",
+        label: "Tema chiaro/scuro",
+        hint: "Cambia tema",
         run: () => {
           const html = document.documentElement;
           html.classList.toggle("dark");
@@ -82,7 +71,7 @@ export default function CommandPalette() {
         },
       },
     ];
-  }, [lang, it, router, toggleLang]);
+  }, [router]);
 
   const q = query.trim().toLowerCase();
   const results = q
@@ -99,12 +88,7 @@ export default function CommandPalette() {
   return (
     <>
       <div className="cmdk-backdrop" onClick={() => setOpen(false)} aria-hidden />
-      <div
-        className="cmdk-panel"
-        role="dialog"
-        aria-modal="true"
-        aria-label={it ? "Cerca" : "Search"}
-      >
+      <div className="cmdk-panel" role="dialog" aria-modal="true" aria-label="Cerca">
         <div className="flex items-center gap-3 border-b border-line px-4 py-3">
           <input
             ref={inputRef}
@@ -125,17 +109,15 @@ export default function CommandPalette() {
                 choose(results[index]);
               }
             }}
-            placeholder={it ? "Cerca una pagina o un'azione" : "Search a page or an action"}
-            aria-label={it ? "Cerca" : "Search"}
+            placeholder="Cerca una pagina o un'azione"
+            aria-label="Cerca"
             className="min-w-0 flex-1 bg-transparent text-[15px] outline-hidden placeholder:text-muted"
           />
           <span className="cmdk-kbd">ESC</span>
         </div>
         <div className="max-h-[50vh] overflow-y-auto py-1">
           {results.length === 0 ? (
-            <p className="px-4 py-8 text-center text-[13px] text-muted">
-              {it ? "Nessun risultato" : "No results"}
-            </p>
+            <p className="px-4 py-8 text-center text-[13px] text-muted">Nessun risultato</p>
           ) : (
             results.map((item, i) => (
               <button

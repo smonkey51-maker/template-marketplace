@@ -1,23 +1,11 @@
 import type { Metadata } from "next";
-import type { Locale } from "@/lib/locales";
+import { SITE } from "@/lib/site";
 
-/** Title, description and canonical/hreflang alternates for a localised route. */
-export function pageMeta(lang: Locale, path: string, title: string, description: string): Metadata {
+/** Title, description and canonical URL for a route. The title is suffixed with the site name. */
+export function pageMeta(path: string, title: string, description: string): Metadata {
   return {
-    title,
+    title: `${title} — ${SITE.name}`,
     description,
-    alternates: {
-      canonical: `/${lang}${path}`,
-      languages: { it: `/it${path}`, en: `/en${path}` },
-    },
+    alternates: { canonical: path || "/" },
   };
-}
-
-/** Formats an ISO date for display in the given locale. */
-export function formatDate(iso: string, lang: Locale): string {
-  return new Date(iso).toLocaleDateString(lang === "it" ? "it-IT" : "en-GB", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
 }

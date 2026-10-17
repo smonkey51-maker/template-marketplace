@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { SITE } from "@/lib/site";
 
 export const size = { width: 32, height: 32 };
 export const contentType = "image/png";
@@ -20,7 +21,7 @@ export default function Icon() {
         color: "#FFFFFF",
       }}
     >
-      S
+      {SITE.name.charAt(0)}
     </div>,
     { ...size },
   );

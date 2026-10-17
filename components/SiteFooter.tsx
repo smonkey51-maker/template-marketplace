@@ -2,22 +2,22 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { useLang } from "@/components/LanguageProvider";
-import { copy } from "@/lib/i18n";
+import { SITE } from "@/lib/site";
 import SiteLogo from "@/components/SiteLogo";
 
-type Item = { href: string; labelKey: keyof typeof copy.it };
-
-const EXPLORE: Item[] = [
-  { href: "/test", labelKey: "navTest" },
-  { href: "/test-ma-di-piu", labelKey: "navTestPlus" },
-  { href: "/rickrolled", labelKey: "navRick" },
-  { href: "mailto:nicoloforcolinprivata@gmail.com", labelKey: "footerContact" },
+const SERVICES = [
+  { href: "/servizi", label: "Servizi" },
+  { href: "/metodo", label: "Metodo" },
+  { href: "/chi-siamo", label: "Chi siamo" },
+  { href: "/contatti", label: "Contatti" },
+  { href: "/area-riservata", label: "Area riservata" },
 ];
 
+const LEGAL = [{ href: "/privacy", label: "Privacy" }];
+
+const heading = "font-mono text-[12px] font-medium uppercase tracking-[0.1em] text-muted";
+
 export function SiteFooter() {
-  const { lang } = useLang();
-  const t = (k: keyof typeof copy.it) => copy[lang][k];
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "sent" | "error">("idle");
 
@@ -36,23 +36,15 @@ export function SiteFooter() {
     }
   }
 
-  const column = (titleKey: keyof typeof copy.it, items: Item[]) => (
+  const column = (title: string, items: { href: string; label: string }[]) => (
     <div>
-      <h2 className="font-mono text-[12px] font-medium uppercase tracking-[0.1em] text-muted">
-        {t(titleKey)}
-      </h2>
-      <ul className="mt-4 space-y-2.5">
+      <h2 className={heading}>{title}</h2>
+      <ul className="mt-3 space-y-0.5">
         {items.map((item) => (
           <li key={item.href}>
-            {item.href.startsWith("mailto:") ? (
-              <a href={item.href} className="text-[14px] hover:underline">
-                {t(item.labelKey)}
-              </a>
-            ) : (
-              <Link href={`/${lang}${item.href}`} className="text-[14px] hover:underline">
-                {t(item.labelKey)}
-              </Link>
-            )}
+            <Link href={item.href} className="inline-block py-1.5 text-[14px] hover:underline">
+              {item.label}
+            </Link>
           </li>
         ))}
       </ul>
@@ -60,21 +52,24 @@ export function SiteFooter() {
   );
 
   return (
-    <footer className="glass-bar mt-12 border-t border-line text-ink">
+    <footer className="glass-bar mt-12 border-t border-line pb-[env(safe-area-inset-bottom)] text-ink">
       <div className="mx-auto max-w-[1200px] px-4 py-12 sm:px-6">
         <div className="grid gap-10 md:grid-cols-12">
-          <div className="md:col-span-5">
+          <div className="md:col-span-4">
             <SiteLogo />
-            <p className="mt-4 max-w-sm text-[14px] text-muted">{t("footerNote")}</p>
+            <p className="mt-4 max-w-sm text-[14px] text-muted">{SITE.tagline}.</p>
           </div>
 
-          <div className="md:col-span-3">{column("footerColumnsExplore", EXPLORE)}</div>
+          <div className="grid grid-cols-2 gap-8 md:col-span-4">
+            {column("Pagine", SERVICES)}
+            {column("Note legali", LEGAL)}
+          </div>
 
           <div className="md:col-span-4">
-            <h2 className="font-mono text-[12px] font-medium uppercase tracking-[0.1em] text-muted">
-              {t("newsletterKicker")}
-            </h2>
-            <p className="mt-4 text-[14px] text-muted">{t("newsletterSub")}</p>
+            <h2 className={heading}>Newsletter</h2>
+            <p className="mt-4 text-[14px] text-muted">
+              Novità e approfondimenti su HR e organizzazione, senza rumore.
+            </p>
             {status !== "sent" ? (
               <form onSubmit={handleSubscribe} className="mt-4 flex flex-col gap-2 sm:flex-row">
                 <input
@@ -82,30 +77,39 @@ export function SiteFooter() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder={t("newsletterPlaceholder")}
-                  aria-label={t("newsletterPlaceholder")}
+                  placeholder="Indirizzo email"
+                  aria-label="Indirizzo email"
                   className="field min-w-0 flex-1"
                 />
                 <button type="submit" className="btn btn-primary shrink-0">
-                  {t("newsletterCta")}
+                  Iscriviti
                 </button>
               </form>
             ) : (
               <p role="status" className="mt-4 text-[14px] font-medium text-accent">
-                {t("newsletterSuccess")}
+                Iscrizione registrata. Grazie.
               </p>
             )}
             {status === "error" && (
               <p role="alert" className="mt-2 text-[13px] text-muted">
-                {t("newsletterError")}
+                Non è stato possibile completare l&apos;iscrizione. Riprova più tardi.
               </p>
             )}
+            <p className="mt-3 text-[12px] text-muted">
+              Iscrivendoti accetti l&apos;
+              <Link href="/privacy" className="underline">
+                informativa privacy
+              </Link>
+              .
+            </p>
           </div>
         </div>
 
         <div className="mt-10 flex flex-col gap-2 border-t border-line pt-6 font-mono text-[12px] text-muted sm:flex-row sm:justify-between">
-          <p>© 2026 {t("footerCopyright")}</p>
-          <p>ENV: TEST · CONTENT: SAMPLE</p>
+          <p>
+            © {new Date().getFullYear()} {SITE.name}
+          </p>
+          {SITE.draft && <p>BOZZA · CONTENUTI PROVVISORI</p>}
         </div>
       </div>
     </footer>
