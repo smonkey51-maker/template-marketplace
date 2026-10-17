@@ -109,3 +109,5 @@ Before pushing: typecheck, lint, `npm test`, `npm run build`, `npx prettier --ch
 - **Animate the Rickrolled page:** add a GIF under `public/` and point the `<img>` in `app/rickrolled/page.tsx` at it.
 
 - **liquidGL returns an array when the target matches several elements** (nav + dock); destroy every lens, or the old ones stay on top with a stale snapshot (the nav vanished after toggling the theme).
+
+- **Hero photo:** `public/hero.webp` sits behind the home hero as an in-flow `next/image` (not a fixed background: the liquid-gl snapshot ignores fixed elements, so only in-flow content is refracted by the sticky nav and dock lenses), with a light/dark `.hero-wash`. Contrast audit on `/` passes (lowest 4.85:1).

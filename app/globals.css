@@ -514,3 +514,11 @@ div.glass {
     transform: translateY(-6px);
   }
 }
+
+/* Light wash over the hero photo: keeps it visible but calm behind the glass. */
+.hero-wash {
+  background: linear-gradient(to bottom, rgb(244 247 251 / 0.18), rgb(244 247 251 / 0.42));
+}
+.dark .hero-wash {
+  background: linear-gradient(to bottom, rgb(8 14 22 / 0.5), rgb(8 14 22 / 0.66));
+}
