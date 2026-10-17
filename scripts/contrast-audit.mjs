@@ -96,14 +96,17 @@ const COLLECT = () => {
   }
   const vw = innerWidth;
   const vh = innerHeight;
+  // Any CSS colour syntax (rgb, oklab, color-mix from `text-white/80`, ...) -> [r, g, b, a],
+  // by painting one pixel: a regex over getComputedStyle misreads the modern formats.
+  const px = document.createElement("canvas").getContext("2d", { willReadFrequently: true });
+  px.canvas.width = px.canvas.height = 1;
   const parse = (s) => {
-    const m = s.match(/rgba?\(([^)]+)\)/);
-    if (!m) return [0, 0, 0, 1];
-    const p = m[1]
-      .split(/[ ,/]+/)
-      .filter(Boolean)
-      .map(Number);
-    return [p[0], p[1], p[2], p.length > 3 ? p[3] : 1];
+    px.clearRect(0, 0, 1, 1);
+    px.fillStyle = "#000";
+    px.fillStyle = s;
+    px.fillRect(0, 0, 1, 1);
+    const d = px.getImageData(0, 0, 1, 1).data;
+    return [d[0], d[1], d[2], d[3] / 255];
   };
   for (const el of document.querySelectorAll("body *")) {
     if (["SCRIPT", "STYLE", "SVG", "CANVAS", "PATH", "IMG"].includes(el.tagName.toUpperCase()))

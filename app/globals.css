@@ -522,3 +522,60 @@ div.glass {
 .dark .hero-wash {
   background: linear-gradient(to bottom, rgb(8 14 22 / 0.5), rgb(8 14 22 / 0.66));
 }
+
+/* ── Home bands (the section rhythm of a long corporate page) ─────────────── */
+.band-tint {
+  background: rgb(11 53 88 / 0.05);
+}
+.dark .band-tint {
+  background: rgb(125 180 234 / 0.06);
+}
+.band-dark {
+  background: linear-gradient(180deg, #0b2540, #0d2f4f);
+  color: #fff;
+}
+.band-slate {
+  background: #16222f;
+  color: #fff;
+}
+.dark .band-dark {
+  background: linear-gradient(180deg, #071522, #0a1c2f);
+}
+.dark .band-slate {
+  background: #0c141d;
+}
+.band-card {
+  background: rgb(255 255 255 / 0.07);
+  border: 1px solid rgb(255 255 255 / 0.18);
+  border-radius: 12px;
+}
+.btn-light {
+  background: #fff;
+  color: #0b3558;
+  border-color: rgb(255 255 255 / 0.6);
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn-light:hover {
+    background: #e8eff6;
+  }
+}
+/* A drawn check mark: no icon library, no emoji. */
+.check-mark {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--brand);
+  position: relative;
+}
+.check-mark::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 4px;
+  width: 5px;
+  height: 9px;
+  border: solid var(--brand-fg);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
