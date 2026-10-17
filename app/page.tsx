@@ -27,6 +27,8 @@ const SERVICES = [
   ["Organizzazione e clima aziendale", "Ruoli, processi e benessere organizzativo."],
 ];
 
+const HERO_TITLE = "Persone e organizzazione, al passo con la tua impresa.";
+
 const STATEMENT =
   "Persone, ruoli e organizzazione: un lavoro concreto, fatto insieme a chi guida l'impresa, con obiettivi chiari e risultati che si possono verificare.";
 
@@ -58,37 +60,45 @@ const PRINCIPLES = [
 export default function HomePage() {
   return (
     <PageShell>
-      {/* 1 · Hero: headline, two actions, the photo behind the glass */}
-      <div className="relative isolate overflow-hidden">
+      {/* 1 · Hero: a full-screen photo and a giant headline that rises word by word */}
+      <div className="relative isolate flex min-h-[calc(100svh-6rem)] flex-col overflow-hidden">
         {/* The photo is in the page flow on purpose: the glass lenses refract what the page
             snapshot contains, and the snapshot ignores fixed elements. */}
-        <Image
-          src="/hero.webp"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="hero-photo -z-10 object-cover object-center"
-        />
+        <div className="hero-wipe absolute inset-0 -z-10">
+          <Image
+            src="/hero.webp"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="hero-photo object-cover object-center"
+          />
+        </div>
         <div aria-hidden className="hero-wash absolute inset-0 -z-10" />
-        <section className="mx-auto max-w-[1200px] px-4 pb-24 pt-12 sm:px-6 sm:pt-20">
-          <div className="mx-auto max-w-3xl">
-            <div className="glass-hero px-6 py-10 text-center sm:px-12 sm:py-14">
-              <h1 className="text-[clamp(2rem,4.6vw,3.25rem)]">
-                Persone e organizzazione, al passo con la tua impresa.
-              </h1>
-              <p className="mx-auto mt-5 max-w-xl text-[17px] text-ink">
-                Affianchiamo imprese e responsabili HR nella selezione, nella crescita delle persone
-                e nell&apos;organizzazione del lavoro, con un consulente di riferimento dedicato.
-              </p>
-              <div className="mt-8 flex flex-wrap justify-center gap-3">
-                <Link href="/contatti" data-magnet className="btn btn-primary">
-                  Richiedi un colloquio
-                </Link>
-                <Link href="/area-riservata" data-magnet className="btn btn-outline">
-                  Area riservata
-                </Link>
-              </div>
+        <section className="mx-auto flex w-full max-w-[1200px] flex-1 flex-col justify-end px-4 pb-28 pt-24 sm:px-6 sm:pb-28">
+          <h1 className="hero-title">
+            {HERO_TITLE.split(" ").map((w, i) => (
+              <Fragment key={`${w}-${i}`}>
+                <span className="hero-word-mask">
+                  <span className="hero-word" style={{ ["--i" as string]: i }}>
+                    {w}
+                  </span>
+                </span>{" "}
+              </Fragment>
+            ))}
+          </h1>
+          <div className="hero-sub mt-8 grid items-end gap-6 md:grid-cols-12">
+            <p className="max-w-xl text-[17px] text-ink md:col-span-7">
+              Affianchiamo imprese e responsabili HR nella selezione, nella crescita delle persone e
+              nell&apos;organizzazione del lavoro, con un consulente di riferimento dedicato.
+            </p>
+            <div className="flex flex-wrap gap-3 md:col-span-5 md:justify-end">
+              <Link href="/contatti" data-magnet className="btn btn-primary">
+                Richiedi un colloquio
+              </Link>
+              <Link href="/area-riservata" data-magnet className="btn btn-outline">
+                Area riservata
+              </Link>
             </div>
           </div>
         </section>

@@ -429,10 +429,12 @@ div.glass {
 
 /* Light wash over the hero photo: keeps it visible but calm behind the glass. */
 .hero-wash {
-  background: linear-gradient(to bottom, rgb(244 247 251 / 0), rgb(244 247 251 / 0.18));
-}
-.dark .hero-wash {
-  background: linear-gradient(to bottom, rgb(0 0 0 / 0.35), rgb(0 0 0 / 0.55));
+  background: linear-gradient(
+    to bottom,
+    rgb(0 0 0 / 0.5) 0%,
+    rgb(0 0 0 / 0.68) 35%,
+    rgb(0 0 0 / 0.94) 100%
+  );
 }
 
 /* ── Home bands (the section rhythm of a long corporate page) ─────────────── */
@@ -630,4 +632,139 @@ html.fx-cursor textarea {
   color: transparent;
   -webkit-text-stroke: 1px rgb(255 255 255 / 0.2);
   user-select: none;
+}
+
+/* ── Van Schneider-style hero: huge type that rises word by word, photo wipes in ── */
+.hero-title {
+  font-size: clamp(2.6rem, 9.2vw, 8.5rem);
+  font-weight: 700;
+  line-height: 0.94;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+.hero-word-mask {
+  display: inline-block;
+  overflow: hidden;
+  /* room for descenders and the tight line height */
+  padding-block: 0.08em;
+  margin-block: -0.08em;
+  vertical-align: top;
+}
+.hero-word {
+  display: inline-block;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-word {
+    animation: word-rise 1.1s var(--ease-out) both;
+    animation-delay: calc(0.25s + var(--i) * 0.09s);
+  }
+  .hero-sub {
+    animation: unblur 1s var(--ease-out) 1.1s both;
+  }
+  .hero-wipe {
+    animation: wipe-up 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+@keyframes word-rise {
+  from {
+    transform: translateY(110%);
+    filter: blur(10px);
+  }
+  to {
+    transform: none;
+    filter: blur(0);
+  }
+}
+@keyframes unblur {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: none;
+  }
+}
+@keyframes wipe-up {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+
+/* Reveals also come out of a blur, as the section titles do on the reference site. */
+html.reveal-ready [data-reveal]:not(.in) {
+  filter: blur(8px);
+}
+[data-reveal] {
+  transition:
+    opacity 0.7s var(--ease-out),
+    transform 0.7s var(--ease-out),
+    filter 0.7s var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  a.glass-panel {
+    transition: transform 0.2s var(--ease-out);
+  }
+  a.glass-panel:hover {
+    transform: scale(1.01);
+  }
+}
+
+/* ── Full-screen index ─────────────────────────────────────────────────────── */
+.index-btn {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition:
+    opacity 0.25s var(--ease-out),
+    transform 0.25s var(--ease-out);
+}
+.index-btn[data-shown] {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+.index-overlay {
+  background: rgb(0 0 0 / 0.94);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+.index-link {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 2rem;
+  padding-block: 0.6rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+}
+.index-label {
+  font-size: clamp(2.5rem, 8.5vw, 7rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+.index-hint {
+  font-size: 15px;
+  color: var(--muted);
+}
+@media (hover: hover) and (pointer: fine) {
+  .index-link:hover .index-label {
+    translate: 0.6rem 0;
+  }
+}
+.index-label {
+  transition: translate 0.25s var(--ease-out);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .index-item {
+    animation: unblur 0.7s var(--ease-out) both;
+    animation-delay: calc(0.05s + var(--i) * 0.07s);
+  }
 }
