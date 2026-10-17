@@ -21,7 +21,7 @@ export default function GlobalError({
         style={{
           margin: 0,
           fontFamily: "system-ui, sans-serif",
-          background: "#050505",
+          background: "#000000",
           color: "#f2f2f2",
         }}
       >
