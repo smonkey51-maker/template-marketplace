@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { SITE } from "@/lib/site";
 import SiteLogo from "@/components/SiteLogo";
-import GlassLenses from "@/components/GlassLenses";
 import IndexMenu from "@/components/IndexMenu";
 
 const LINKS = [
@@ -107,7 +106,6 @@ export default function SiteNav() {
           </ul>
         )}
       </header>
-      <GlassLenses />
     </>
   );
 }

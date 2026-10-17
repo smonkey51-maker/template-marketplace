@@ -203,8 +203,8 @@ h3 {
    without the lens: without them scrolled text shows through, sharp, behind the links. */
 .glass-nav {
   background: var(--glass-fill-strong);
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(170%);
-  backdrop-filter: blur(var(--glass-blur)) saturate(170%);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
 /* Full-width bar (nav, footer). Borders come from utility classes. */
@@ -441,9 +441,11 @@ html.reveal-ready [data-reveal]:not(.in) {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: #fff;
-  /* Difference blend: visible on light and dark grounds alike. */
-  mix-blend-mode: difference;
+  /* Yellow with a navy rim: visible on every band, and no blend mode (a blend over the
+     whole page forces it to be re-composited on every pointer move). */
+  background: #ffd23f;
+  border: 2px solid #0b1c3d;
+  box-sizing: border-box;
   opacity: 0;
   pointer-events: none;
   transition:
@@ -493,11 +495,6 @@ html.fx-cursor textarea {
       animation-timeline: view();
       animation-range: entry calc(var(--i) * 2.2%) entry calc(22% + var(--i) * 2.2%);
     }
-    .hero-photo {
-      animation: hero-drift linear both;
-      animation-timeline: scroll(root);
-      animation-range: 0 90vh;
-    }
   }
 }
 /* Dim, never invisible: the resting state stays readable (>= 4.5:1 on the ground). */
@@ -509,14 +506,6 @@ html.fx-cursor textarea {
   to {
     opacity: 1;
     transform: none;
-  }
-}
-@keyframes hero-drift {
-  from {
-    transform: scale(1.04) translateY(0);
-  }
-  to {
-    transform: scale(1.16) translateY(9%);
   }
 }
 
@@ -587,11 +576,9 @@ html.fx-cursor textarea {
 @keyframes wipe-up {
   from {
     opacity: 0;
-    transform: scale(1.06);
   }
   to {
     opacity: 1;
-    transform: none;
   }
 }
 
