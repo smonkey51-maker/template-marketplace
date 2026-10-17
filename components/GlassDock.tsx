@@ -49,7 +49,7 @@ export default function GlassDock() {
         zIndex: 40,
       }}
     >
-      {/* A brand-coloured glass button: the navy fill keeps the white label legible whatever
+      {/* A brand-coloured (light, on the dark site) glass button: the light fill keeps the dark label legible whatever
           is behind it, and the library still bends the backdrop at the rim. (The library also
           names its inner element `glass`, which is why our own panel class is `glass-panel`.) */}
       <Link

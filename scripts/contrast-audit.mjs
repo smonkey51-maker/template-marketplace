@@ -167,7 +167,7 @@ const failures = [];
 let checked = 0;
 let lowest = { ratio: Infinity };
 
-for (const theme of ["light", "dark"]) {
+for (const theme of ["dark"]) {
   const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
   await context.addInitScript((t) => {
     try {
@@ -204,7 +204,7 @@ for (const theme of ["light", "dark"]) {
       const targets = await page.evaluate(COLLECT);
       const hider = await page.addStyleTag({
         content:
-          "*,*::before,*::after{color:transparent!important;-webkit-text-fill-color:transparent!important;text-shadow:none!important;caret-color:transparent!important;transition:none!important}::placeholder{color:transparent!important}",
+          ".fx-ring{display:none!important}*,*::before,*::after{color:transparent!important;-webkit-text-fill-color:transparent!important;text-shadow:none!important;caret-color:transparent!important;transition:none!important}::placeholder{color:transparent!important}",
       });
       await page.waitForTimeout(250);
       const shot = await page.screenshot();

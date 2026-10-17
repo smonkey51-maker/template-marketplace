@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
-import ThemeProvider from "@/components/ThemeProvider";
 import { PostHogProvider } from "@/components/PostHogProvider";
 import PageTransition from "@/components/PageTransition";
 import CommandPalette from "@/components/CommandPalette";
@@ -49,46 +48,31 @@ export const metadata: Metadata = {
 };
 
 // viewport-fit=cover lets env(safe-area-inset-*) work on notched phones; the
-// theme colour follows the colour scheme so the browser chrome matches.
+// theme colour matches the dark page so the browser chrome does too.
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
   interactiveWidget: "resizes-content",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b1219" },
-  ],
+  themeColor: "#050505",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="it"
-      className={`${plexSans.variable} ${plexMono.variable}`}
-      style={{ colorScheme: "light" }}
+      className={`dark ${plexSans.variable} ${plexMono.variable}`}
+      style={{ colorScheme: "dark" }}
     >
-      <head>
-        {/* Applies the stored theme before first paint, avoiding a flash for
-            anyone who has switched to dark mode. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.classList.add('dark');document.documentElement.style.colorScheme='dark';}}catch(e){}})();",
-          }}
-        />
-      </head>
       <body className="min-h-screen text-ink antialiased">
         <PostHogProvider>
-          <ThemeProvider>
-            <PageTransition>
-              <div id="main-content">{children}</div>
-            </PageTransition>
-            <CommandPalette />
-            <GlassDock />
-            <GlassLight />
-            <InteractionFx />
-          </ThemeProvider>
+          <PageTransition>
+            <div id="main-content">{children}</div>
+          </PageTransition>
+          <CommandPalette />
+          <GlassDock />
+          <GlassLight />
+          <InteractionFx />
         </PostHogProvider>
       </body>
     </html>

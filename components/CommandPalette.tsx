@@ -57,19 +57,6 @@ export default function CommandPalette() {
       page("contatti", "Contatti", "Richiedi un colloquio", "/contatti"),
       page("area", "Area riservata", "Accesso clienti", "/area-riservata"),
       page("privacy", "Privacy", "Informativa sul trattamento dei dati", "/privacy"),
-      {
-        id: "theme",
-        kind: "action",
-        label: "Tema chiaro/scuro",
-        hint: "Cambia tema",
-        run: () => {
-          const html = document.documentElement;
-          html.classList.toggle("dark");
-          try {
-            localStorage.setItem("theme", html.classList.contains("dark") ? "dark" : "light");
-          } catch {}
-        },
-      },
     ];
   }, [router]);
 
