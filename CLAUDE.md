@@ -82,7 +82,7 @@ app/            layout.tsx · page.tsx · servizi/ metodo/ chi-siamo/ contatti/ 
                 test/ test-ma-di-piu/ rickrolled/ · not-found · error · global-error · icon · robots · sitemap
                 api/{contact,subscribe,og}/route.ts
 components/     SiteNav · SiteFooter · SiteLogo · PageShell · PageHeader · ContactForm
-                GlassLenses · NavDock · SectionIndex · GlassDock · GlassLight · ArticleBody · TestBase · lab/ArkDemo
+                GlassLenses · NavDock · IndexMenu · SectionIndex · GlassDock · GlassLight · InteractionFx · BigWordmark · ArticleBody · TestBase · lab/ArkDemo
 lib/            site.ts · meta.ts · schemas.ts · email.ts · rateLimit.ts · siteUrl.ts · reducedMotion.ts
 types/          liquid-gl.d.ts
 scripts/        contrast-audit.mjs (npm run audit:contrast)
@@ -115,3 +115,5 @@ Before pushing: typecheck, lint, `npm test`, `npm run build`, `npx prettier --ch
 - **Motion accents** (`components/InteractionFx.tsx`, inspired by the interactions of diventaredesigner.com, own code): a dot that replaces the pointer arrow and grows over links (hover devices only; fields keep the text cursor), `[data-magnet]` buttons that lean toward the pointer (CSS `translate`, composes with the `:active` scale), and `[data-reveal]` fade-up on first view (hidden only after JS runs and only if below the fold; all off for reduced motion). Do not put `data-reveal` on `.glass-panel`: an ancestor with opacity < 1 switches its backdrop blur off.
 
 - **Scenic layer** (home): a hero photo that drifts and zooms with the scroll, a statement whose words brighten as it scrolls in (resting state stays ≥ 4.5:1), and a `BigWordmark` (the name fitted to the footer width). Scroll-driven animations are `@supports (animation-timeline: …)` progressive enhancement; reduced motion keeps everything still. Decorative pieces are `aria-hidden`. There is no site search / command palette any more.
+
+- **Van Schneider-style layer** (home + site): a full-screen hero with a giant headline that rises word by word out of a blur (`.hero-word`, masked per word) over a photo that wipes in (`.hero-wipe`) and a heavy black wash (`.hero-wash`, tuned so the headline stays ≥ 3:1 on the brightest photo pixels); `[data-reveal]` also comes out of a blur; cards scale to 1.01 on hover (`a.glass-panel`); and `IndexMenu` (a fixed "Indice" button that appears after scrolling, desktop only, opening a full-screen list of huge links, Escape/backdrop closes it, focus returns to the button). Not taken on purpose: numbered sections, kicker labels and the outlined marquee (removed earlier at the owner's request).
