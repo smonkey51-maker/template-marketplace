@@ -67,22 +67,24 @@ export default function HomePage() {
           className="-z-10 object-cover object-center"
         />
         <div aria-hidden className="hero-wash absolute inset-0 -z-10" />
-        <section className="mx-auto max-w-[1200px] px-4 py-12 sm:px-6 sm:py-24">
-          <div className="glass-panel mx-auto max-w-3xl px-6 py-10 text-center sm:px-12 sm:py-14">
-            <h1 className="text-[clamp(2rem,4.6vw,3.25rem)]">
-              Persone e organizzazione, al passo con la tua impresa.
-            </h1>
-            <p className="mx-auto mt-5 max-w-xl text-[17px] text-muted">
-              Affianchiamo imprese e responsabili HR nella selezione, nella crescita delle persone e
-              nell&apos;organizzazione del lavoro, con un consulente di riferimento dedicato.
-            </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <Link href="/contatti" className="btn btn-primary">
-                Richiedi un colloquio
-              </Link>
-              <Link href="/area-riservata" className="btn btn-outline">
-                Area riservata
-              </Link>
+        <section className="mx-auto max-w-[1200px] px-4 pb-24 pt-12 sm:px-6 sm:pt-20">
+          <div className="mx-auto max-w-3xl">
+            <div className="glass-hero px-6 py-10 text-center sm:px-12 sm:py-14">
+              <h1 className="text-[clamp(2rem,4.6vw,3.25rem)]">
+                Persone e organizzazione, al passo con la tua impresa.
+              </h1>
+              <p className="mx-auto mt-5 max-w-xl text-[17px] text-ink">
+                Affianchiamo imprese e responsabili HR nella selezione, nella crescita delle persone
+                e nell&apos;organizzazione del lavoro, con un consulente di riferimento dedicato.
+              </p>
+              <div className="mt-8 flex flex-wrap justify-center gap-3">
+                <Link href="/contatti" className="btn btn-primary">
+                  Richiedi un colloquio
+                </Link>
+                <Link href="/area-riservata" className="btn btn-outline">
+                  Area riservata
+                </Link>
+              </div>
             </div>
           </div>
         </section>
