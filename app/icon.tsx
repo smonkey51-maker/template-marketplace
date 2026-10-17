@@ -9,18 +9,18 @@ export default function Icon() {
       style={{
         width: 32,
         height: 32,
-        borderRadius: 4,
-        background: "linear-gradient(135deg, #8A625E 0%, #614542 100%)",
+        borderRadius: 2,
+        background: "#0B3558",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        fontFamily: "system-ui, sans-serif",
-        fontWeight: 800,
+        fontFamily: "ui-monospace, monospace",
+        fontWeight: 600,
         fontSize: 20,
-        color: "#F9F3F2",
+        color: "#FFFFFF",
       }}
     >
-      O
+      S
     </div>,
     { ...size },
   );

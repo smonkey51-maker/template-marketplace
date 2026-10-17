@@ -19,10 +19,10 @@
  * stylesheet, same thumbnails.
  *
  * Usage:
- *   npx tsx scripts/screenshot.ts /it/articoli
- *   npx tsx scripts/screenshot.ts /it/articoli --desktop
- *   npx tsx scripts/screenshot.ts /it/articoli --full --out shots/catalogo.png
- *   npx tsx scripts/screenshot.ts /it/articoli --base http://127.0.0.1:3000
+ *   npx tsx scripts/screenshot.ts /it/test
+ *   npx tsx scripts/screenshot.ts /it/test --desktop
+ *   npx tsx scripts/screenshot.ts /it/test --full --out shots/catalogo.png
+ *   npx tsx scripts/screenshot.ts /it/test --base http://127.0.0.1:3000
  *
  * Output goes to screenshots/ by default, which is gitignored — these are for
  * looking at, not for committing.
@@ -32,7 +32,7 @@ import { chromium } from "playwright";
 import { existsSync, mkdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 
-const DEFAULT_BASE = process.env.SCREENSHOT_BASE ?? "https://osservatorio.example.com";
+const DEFAULT_BASE = process.env.SCREENSHOT_BASE ?? "https://sandbox.example.com";
 
 /**
  * Playwright insists on the exact Chromium build its version pins, and refuses
@@ -62,7 +62,7 @@ async function main() {
   const path = process.argv[2];
   if (!path || path.startsWith("--")) {
     console.error(
-      "Usage: npx tsx scripts/screenshot.ts /it/articoli [--desktop] [--full] [--out f.png]",
+      "Usage: npx tsx scripts/screenshot.ts /it/test [--desktop] [--full] [--out f.png]",
     );
     process.exit(1);
   }
@@ -112,7 +112,7 @@ async function main() {
   // With an origin, "/thumbs/x.webp" resolves normally; the route handler below
   // answers it from disk before any socket is opened, so this host never has to
   // exist.
-  const ORIGIN = "http://osservatorio.local";
+  const ORIGIN = "http://sandbox.local";
 
   await page.route("**/*", async (route) => {
     const url = new URL(route.request().url());

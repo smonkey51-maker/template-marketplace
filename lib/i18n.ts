@@ -1,234 +1,109 @@
 export type Lang = "it" | "en";
 
+/** One copy table for every UI string. Keys must exist in both locales. */
 export const copy = {
   it: {
-    siteName: "OSSERVATORIO",
-    siteTagline: "The Mentalist, osservazione e psicologia.",
+    siteName: "SANDBOX",
+    siteTagline: "Ambiente di prova",
+    envLabel: "Test environment",
+    envNote: "Contenuti di esempio. Il sito non rappresenta un'organizzazione reale.",
 
-    navHome: "Home",
-    navArticoli: "L'Archivio",
-    navDossier: "Dossier Personaggi",
-    navGuide: "Guide Pratiche",
-    navBiblioteca: "La Biblioteca",
-    navChiSiamo: "Chi siamo",
+    navTest: "Test",
+    navTestPlus: "Test ma di più",
+    navRick: "Rickrolled",
+    searchCta: "Cerca",
+    breadcrumbHome: "Home",
 
-    disclaimerShort:
-      'Sito di fan non ufficiale, non affiliato a CBS, Warner Bros. o ai creatori de "Il Mentalist".',
+    testKicker: "Pagina 1",
+    testTitle: "Test",
+    testSub: "Pagina di base: stato dell'ambiente, tipografia, pulsanti, campi e callout.",
+    testPlusKicker: "Pagina 2",
+    testPlusTitle: "Test ma di più",
+    testPlusSub:
+      "Stessa base, più materiale: primitive Ark UI, testo lungo, tabella dati e palette.",
 
-    heroKicker: "THE MENTALIST · OSSERVAZIONE · PSICOLOGIA",
-    heroTitle: "Osservare come Jane. Capire cosa c'è di vero.",
-    heroTagline: "La fiction come punto di partenza, la psicologia come metodo.",
-    heroSub:
-      'OSSERVATORIO analizza Patrick Jane e "Il Mentalist" con gli strumenti della psicologia reale: osservazione, linguaggio del corpo, memoria, ascolto, persuasione e cold reading — distinguendo ciò che funziona nella fiction da ciò che possiamo davvero sostenere.',
-    heroCtaArticoli: "Esplora l'Archivio",
-    heroCtaChiSiamo: "Scopri il progetto",
+    statusTitle: "Stato dell'ambiente",
+    statusEnv: "Ambiente",
+    statusEnvValue: "Test",
+    statusContent: "Contenuti",
+    statusContentValue: "Esempio",
+    statusLangs: "Lingue",
+    statusStack: "Stack",
 
-    featuredKicker: "In evidenza",
-    featuredTitle: "Dalla fiction al metodo",
-    featuredSub:
-      "Un articolo principale e due letture recenti per passare dalla scena alla psicologia applicata.",
-    seeAllArticles: "Vedi tutto l'Archivio →",
-
-    janeKicker: "Patrick Jane · Dossier centrale",
-    janeRead: "Leggi il dossier →",
-
-    journeyKicker: "Tre modi di leggere OSSERVATORIO",
-    journeyTitle: "Osserva. Comprendi. Applica.",
-    journeyObserveTitle: "01 · Osserva",
-    journeyObserveSub:
-      "Parti dai personaggi: Patrick Jane, Cal Lightman e altri osservatori della fiction.",
-    journeyUnderstandTitle: "02 · Comprendi",
-    journeyUnderstandSub:
-      "Separa intuizione narrativa, ricerca psicologica e limiti delle interpretazioni.",
-    journeyApplyTitle: "03 · Applica",
-    journeyApplySub:
-      "Trasforma ciò che regge in tecniche pratiche di osservazione, comunicazione e difesa.",
-
-    categoryTeaserDossierTitle: "Dossier Personaggi",
-    categoryTeaserDossierSub:
-      "Personaggi che leggono le persone per mestiere, analizzati tra tecnica narrativa e psicologia reale.",
-    categoryTeaserGuideTitle: "Guide Pratiche",
-    categoryTeaserGuideSub:
-      "Tecniche reali, passo dopo passo: osservazione, comunicazione, persuasione e difesa.",
-
-    newsletterKicker: "Il Taccuino",
-    newsletterTitle: "Il Taccuino di Jane",
-    newsletterSub:
-      "Una volta a settimana: un'osservazione, una tecnica e un dettaglio da guardare meglio. Niente rumore.",
-    newsletterPlaceholder: "La tua email",
+    newsletterKicker: "Aggiornamenti",
+    newsletterSub: "Un messaggio periodico dall'ambiente di prova.",
+    newsletterPlaceholder: "Indirizzo email",
     newsletterCta: "Iscriviti",
-    newsletterSuccess: "Iscritto — grazie!",
-    newsletterError: "Qualcosa è andato storto. Riprova.",
+    newsletterSuccess: "Iscrizione registrata. Grazie.",
+    newsletterError: "Non è stato possibile completare l'iscrizione. Riprova più tardi.",
 
-    articoliKicker: "L'Archivio",
-    articoliTitle: "L'Archivio",
-    articoliSub: 'Fan commentary su "Il Mentalist" e guide pratiche di psicologia.',
-    filterAll: "Tutti",
-    filterCorpo: "Linguaggio del Corpo",
-    filterPersuasione: "Persuasione",
-    filterMentalismo: "Mentalismo & Cold Reading",
-    filterContromanipolazione: "Contro-Manipolazione",
-    noArticles: "Nessun articolo in questa categoria, per ora.",
-    readMore: "Leggi →",
-    minRead: "min di lettura",
-
-    dossierKicker: "Dossier",
-    dossierTitle: "Dossier Personaggi",
-    dossierSub:
-      "Analisi psicologiche originali di personaggi di finzione che leggono le persone per mestiere — Patrick Jane, Cal Lightman e altri. Commento da fan, mai trascrizioni di scene o dialoghi.",
-    dossierBackToDossier: "← Tutti i dossier",
-
-    guideKicker: "Guide",
-    guideTitle: "Guide Pratiche",
-    guideSub:
-      "Articoli lunghi, passo dopo passo, su difesa psicologica e miglioramento della comunicazione.",
-
-    bibliotecaKicker: "Biblioteca",
-    bibliotecaTitle: "La Biblioteca",
-    bibliotecaSub:
-      "I testi fondamentali per chi vuole andare oltre la fiction e approfondire la materia sul serio.",
-
-    backToArticles: "← Tutti gli articoli",
-    relatedTitle: "Continua a leggere",
-    publishedOn: "Pubblicato il",
-
-    chiSiamoKicker: "Chi siamo",
-    chiSiamoTitle: "Un progetto di fan, non un prodotto ufficiale",
-
-    privacyKicker: "Privacy",
-    termsKicker: "Termini",
-    lastUpdated: "Ultimo aggiornamento",
-
-    footerColumnsExplore: "Esplora",
-    footerColumnsLegal: "Legale",
-    footerTerms: "Termini",
-    footerPrivacy: "Privacy",
+    footerColumnsExplore: "Pagine",
     footerContact: "Contatti",
-    footerCopyright:
-      "© 2026 OSSERVATORIO. Progetto di fan indipendente — non affiliato a CBS o Warner Bros.",
+    footerNote:
+      "Ambiente di prova. I contenuti sono esempi e non rappresentano un'organizzazione reale.",
+    footerCopyright: "Sandbox. Ambiente di test.",
 
     notFoundTitle: "Pagina non trovata",
-    notFoundSub: "La pagina che cerchi non esiste o è stata rimossa.",
-    notFoundCta: "Torna alla home",
-
-    errorTitle: "Qualcosa è andato storto",
-    errorSub: "Si è verificato un errore imprevisto. Riprova o torna alla home.",
+    notFoundSub: "L'indirizzo richiesto non esiste o è stato spostato.",
+    notFoundCta: "Vai a Test",
+    errorTitle: "Si è verificato un errore",
+    errorSub: "Qualcosa non ha funzionato. Riprova o torna alla pagina Test.",
     errorRetry: "Riprova",
-    errorHome: "← Home",
+    errorHome: "Test",
   },
-
   en: {
-    siteName: "OSSERVATORIO",
-    siteTagline: "The Mentalist, observation and psychology.",
+    siteName: "SANDBOX",
+    siteTagline: "Test environment",
+    envLabel: "Test environment",
+    envNote: "Sample content. This site does not represent a real organisation.",
 
-    navHome: "Home",
-    navArticoli: "The Archive",
-    navDossier: "Character Dossiers",
-    navGuide: "Practical Guides",
-    navBiblioteca: "The Library",
-    navChiSiamo: "About",
+    navTest: "Test",
+    navTestPlus: "Test, but more",
+    navRick: "Rickrolled",
+    searchCta: "Search",
+    breadcrumbHome: "Home",
 
-    disclaimerShort:
-      'Unofficial fan site, not affiliated with CBS, Warner Bros., or the creators of "The Mentalist".',
+    testKicker: "Page 1",
+    testTitle: "Test",
+    testSub: "Base page: environment status, typography, buttons, fields and callouts.",
+    testPlusKicker: "Page 2",
+    testPlusTitle: "Test, but more",
+    testPlusSub:
+      "Same base, more material: Ark UI primitives, long-form text, a data table and the palette.",
 
-    heroKicker: "THE MENTALIST · OBSERVATION · PSYCHOLOGY",
-    heroTitle: "Observe like Jane. Understand what is real.",
-    heroTagline: "Fiction as the starting point, psychology as the method.",
-    heroSub:
-      'OSSERVATORIO looks at Patrick Jane and "The Mentalist" through real psychology: observation, body language, memory, listening, persuasion and cold reading — separating what works in fiction from what the evidence can actually support.',
-    heroCtaArticoli: "Explore the Archive",
-    heroCtaChiSiamo: "About the project",
+    statusTitle: "Environment status",
+    statusEnv: "Environment",
+    statusEnvValue: "Test",
+    statusContent: "Content",
+    statusContentValue: "Sample",
+    statusLangs: "Languages",
+    statusStack: "Stack",
 
-    featuredKicker: "Featured",
-    featuredTitle: "From fiction to method",
-    featuredSub: "One lead story and two recent reads moving from the scene to applied psychology.",
-    seeAllArticles: "See the full Archive →",
-
-    janeKicker: "Patrick Jane · Core dossier",
-    janeRead: "Read the dossier →",
-
-    journeyKicker: "Three ways to read OSSERVATORIO",
-    journeyTitle: "Observe. Understand. Apply.",
-    journeyObserveTitle: "01 · Observe",
-    journeyObserveSub:
-      "Start with the characters: Patrick Jane, Cal Lightman and other fictional observers.",
-    journeyUnderstandTitle: "02 · Understand",
-    journeyUnderstandSub:
-      "Separate narrative intuition, psychological research and the limits of interpretation.",
-    journeyApplyTitle: "03 · Apply",
-    journeyApplySub:
-      "Turn what holds up into practical observation, communication and self-defense techniques.",
-
-    categoryTeaserDossierTitle: "Character Dossiers",
-    categoryTeaserDossierSub:
-      "Characters who read people for a living, analysed between narrative technique and real psychology.",
-    categoryTeaserGuideTitle: "Practical Guides",
-    categoryTeaserGuideSub:
-      "Real techniques, step by step: observation, communication, persuasion and self-defense.",
-
-    newsletterKicker: "The Notebook",
-    newsletterTitle: "Jane's Notebook",
-    newsletterSub:
-      "Once a week: one observation, one technique and one detail worth looking at again. No noise.",
-    newsletterPlaceholder: "Your email",
+    newsletterKicker: "Updates",
+    newsletterSub: "An occasional message from the test environment.",
+    newsletterPlaceholder: "Email address",
     newsletterCta: "Subscribe",
-    newsletterSuccess: "Subscribed — thank you!",
-    newsletterError: "Something went wrong. Try again.",
+    newsletterSuccess: "Subscription recorded. Thank you.",
+    newsletterError: "We could not complete the subscription. Please try again later.",
 
-    articoliKicker: "The Archive",
-    articoliTitle: "The Archive",
-    articoliSub: 'Fan commentary on "The Mentalist" and practical psychology guides.',
-    filterAll: "All",
-    filterCorpo: "Body Language",
-    filterPersuasione: "Persuasion",
-    filterMentalismo: "Mentalism & Cold Reading",
-    filterContromanipolazione: "Counter-Manipulation",
-    noArticles: "No articles in this category yet.",
-    readMore: "Read →",
-    minRead: "min read",
-
-    dossierKicker: "Dossier",
-    dossierTitle: "Character Dossiers",
-    dossierSub:
-      "Original psychological analysis of fictional characters who read people for a living — Patrick Jane, Cal Lightman and others. Fan commentary, never a transcript of scenes or dialogue.",
-    dossierBackToDossier: "← All dossiers",
-
-    guideKicker: "Guides",
-    guideTitle: "Practical Guides",
-    guideSub: "Long-form, step-by-step pieces on psychological self-defense and communication.",
-
-    bibliotecaKicker: "Library",
-    bibliotecaTitle: "The Library",
-    bibliotecaSub: "The essential books for going beyond the fiction and studying this for real.",
-
-    backToArticles: "← All articles",
-    relatedTitle: "Keep reading",
-    publishedOn: "Published on",
-
-    chiSiamoKicker: "About",
-    chiSiamoTitle: "A fan project, not an official product",
-
-    privacyKicker: "Privacy",
-    termsKicker: "Terms",
-    lastUpdated: "Last updated",
-
-    footerColumnsExplore: "Explore",
-    footerColumnsLegal: "Legal",
-    footerTerms: "Terms",
-    footerPrivacy: "Privacy",
+    footerColumnsExplore: "Pages",
     footerContact: "Contact",
-    footerCopyright:
-      "© 2026 OSSERVATORIO. An independent fan project — not affiliated with CBS or Warner Bros.",
+    footerNote:
+      "Test environment. Content is sample material and does not represent a real organisation.",
+    footerCopyright: "Sandbox. Test environment.",
 
     notFoundTitle: "Page not found",
-    notFoundSub: "The page you're looking for doesn't exist or has been removed.",
-    notFoundCta: "Back to home",
-
-    errorTitle: "Something went wrong",
-    errorSub: "An unexpected error occurred. Try again or go back home.",
+    notFoundSub: "The requested address does not exist or has been moved.",
+    notFoundCta: "Go to Test",
+    errorTitle: "An error occurred",
+    errorSub: "Something went wrong. Try again or go back to the Test page.",
     errorRetry: "Try again",
-    errorHome: "← Home",
+    errorHome: "Test",
   },
 } as const;
 
 export type CopyKey = keyof typeof copy.it;
+
+// Compile-time guarantee that both locales define exactly the same keys.
+const _localeKeysMatch: Record<CopyKey, string> = copy.en;
+void _localeKeysMatch;

@@ -1,209 +1,90 @@
-# CLAUDE.md — OSSERVATORIO
+# CLAUDE.md — SANDBOX
 
-AI assistant reference for the **OSSERVATORIO** codebase. Read this before making changes.
+AI assistant reference for the **SANDBOX** codebase. Read this before making changes.
 
 ---
 
 ## Project Overview
 
-**OSSERVATORIO** is a static, bilingual content site (Italian primary, English secondary) built with Next.js 16 (App Router). It publishes two kinds of writing:
+**SANDBOX** is a bilingual (Italian primary, English secondary) test environment built with Next.js 16 (App Router). It exists to try out layouts, copy and UI components. Everything on it is sample material; it does not represent a real organisation.
 
-1. **Fan commentary** on "The Mentalist" and the character of Patrick Jane — his observation method, cold-reading-style techniques as portrayed in the show, character analysis. Written in the site's own words, as commentary and analysis, never verbatim dialogue, episode transcripts or reproduced show material.
-2. **Practical psychology guides** — body language, active listening, memory techniques, cold reading (how it works and how to spot it), persuasion principles, observation training.
+It has **three pages** per locale and nothing else:
 
-OSSERVATORIO is an editorial fan project. It has no e-commerce, user accounts, database-backed catalogue, checkout or AI-generation product surface. The application is intentionally focused on editorial content, bilingual navigation and the newsletter signup.
+| Route                    | Purpose                                                                                                                                             |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/[lang]/test`           | "Test" — base page: environment status, typography, buttons/fields, callout                                                                         |
+| `/[lang]/test-ma-di-piu` | "Test ma di più" — the same base plus Ark UI primitives, data table, long-form text, palette                                                        |
+| `/[lang]/rickrolled`     | A single image, nothing else. `noindex`; shows `public/rickrolled.png` (a static still — to animate it, add a GIF and change the `src` in the page) |
 
-**Tech stack:** Next.js 16 · React 19 · TypeScript 5 · Tailwind CSS 3 · Resend (newsletter notification email) · PostHog (analytics, optional) · Vitest (unit tests) · Playwright (e2e tooling, kept but currently has no suite)
+`/[lang]` redirects to `/[lang]/test`. `middleware.ts` redirects un-prefixed paths to `/it` or `/en` from `Accept-Language`.
 
----
+The site used to be an editorial fan site about a TV series. That identity was removed on purpose: **do not reintroduce show-related names, characters, imagery or quotes.**
 
-## IMPORTANT — IP and disclaimer requirements (read before touching content)
-
-"The Mentalist" and "Patrick Jane" are copyrighted properties of CBS / Warner Bros. Television. This site must always read as **unrestricted fan commentary**, never as an official or affiliated product. When adding or editing content:
-
-- Every page that discusses the show must make clear this is an unofficial fan project — the footer disclaimer (`OsservatorioFooter.tsx`, key `disclaimerShort` in `lib/i18n.ts`) must never be removed, and `/[lang]/chi-siamo` must keep its explicit non-affiliation statement.
-- Never write or accept verbatim scripts, episode transcripts, screenshots, or any reproduction of the show's actual footage or images. Character/method analysis and educational technique write-ups in original words are fine.
-- Never use copyrighted images of the actor or the show. `public/paintings/` holds public-domain artwork used purely as atmospheric page backdrops (see `components/ArtHeader.tsx`) — don't replace these with stills from the series.
-- Never present the site as official, licensed, or as selling anything using the character's name or likeness.
-
-If a request would violate any of the above, push back rather than implementing it.
+**Tech stack:** Next.js 16 · React 19 · TypeScript 5 · Tailwind CSS 4 (CSS-first config) · Ark UI (headless primitives) · Resend (newsletter notification email) · PostHog (analytics, optional) · Vitest · Playwright (e2e, one smoke spec)
 
 ---
 
-## Repository Structure
+## Look and feel — "corporate"
+
+- **Fonts:** IBM Plex Sans (text and headings) + IBM Plex Mono (labels, dates, figures), via `next/font/google` in `app/[lang]/layout.tsx`. Variables `--font-sans` / `--font-mono`. **Do not use Inter** or other defaults of generic AI-generated sites.
+- **Palette:** one navy brand hue, cool neutrals, one link blue. Tokens live in `app/globals.css` (`:root` light, `.dark` dark): `--bg --surface --surface-2 --ink --muted --line --line-strong --brand --accent --bar`. They are exposed as Tailwind colours (`bg-surface`, `text-ink`, `border-line`, `text-accent`, …) through `@theme inline`. Text pairs are checked at ≥ 4.5:1; `--line-strong` (form controls) at ≥ 3:1.
+- **Shape:** radii 2–4 px, 1 px borders, no gradients, no glass/blur, no grain texture, no pills, no decorative emoji or icons.
+- **Environment bar:** `SiteNav.tsx` always shows a dark "TEST ENVIRONMENT" bar above the header, and the footer repeats `ENV: TEST · CONTENT: SAMPLE`. Keep both: the site must never read as production.
+- Shared classes in `globals.css`: `.btn .btn-primary .btn-outline`, `.field`, `.article-body`, `.callout`, `.cmdk-*` (command palette).
+- Dark mode is `.dark`-class based (`@custom-variant dark`), toggled by `ThemeToggle`; default light.
+
+## Structure
 
 ```
-template-marketplace/
-├── app/
-│   ├── [lang]/                  # /it and /en — everything user-facing lives here
-│   │   ├── layout.tsx           # Providers, fonts (Playfair Display + Inter), metadata
-│   │   ├── page.tsx             # Homepage — hero, tagline, featured articles, section teasers
-│   │   ├── articoli/            # "L'Archivio" — display label only, route path kept as /articoli
-│   │   │   ├── page.tsx         # Article index — 4-category filter, one featured lead + grid
-│   │   │   └── [slug]/page.tsx  # Article detail — metadata/OG, related articles
-│   │   ├── dossier/
-│   │   │   ├── page.tsx         # Dossier Personaggi index — every `person`-tagged article
-│   │   │   └── [slug]/page.tsx  # Dossier article detail
-│   │   ├── guide-pratiche/page.tsx  # Guide Pratiche index — every `isGuide` article (links into /articoli/[slug])
-│   │   ├── biblioteca/page.tsx  # La Biblioteca — recommended books, reads lib/books.ts
-│   │   ├── chi-siamo/page.tsx   # About — states the fan-project disclaimer plainly
-│   │   ├── privacy/ terms/      # Simple content-site policies (no payments language)
-│   │   ├── error.tsx            # Route-level error boundary
-│   │   └── not-found.tsx        # 404 with a few suggested articles
-│   ├── global-error.tsx         # Top-level error boundary (renders its own <html>)
-│   ├── robots.ts / sitemap.ts   # SEO — sitemap enumerates every article in both locales
-│   ├── icon.tsx                 # Favicon (dynamic ImageResponse)
-│   └── api/
-│       ├── og/route.tsx         # Dynamic OG image — generic or per-article
-│       └── subscribe/route.ts   # Newsletter signup (rate-limited, emails a notification)
-├── components/
-│   ├── SiteNav.tsx              # Header — wordmark, nav links, IT/EN switcher, theme toggle
-│   ├── OsservatorioFooter.tsx   # Footer — newsletter form, link columns, fan disclaimer
-│   ├── OsservatorioLogo.tsx     # OSSERVATORIO wordmark + icon
-│   ├── HomeHero.tsx             # Homepage hero section
-│   ├── ArticleBody.tsx          # Renders the tiny markdown grammar used by lib/articles.ts
-│   ├── ArtHeader.tsx            # Page header with a faint painting backdrop
-│   ├── BackLink.tsx             # Contextual back-navigation control (hidden on home)
-│   ├── EditorialLens.tsx        # Fiction / evidence / practice framing + Library link
-│   ├── CommandPalette.tsx       # Ctrl/Cmd-K — searches articles + site navigation
-│   ├── Toast.tsx                # Toast notification system (Context + hook)
-│   ├── ThemeProvider.tsx / ThemeToggle.tsx   # Dark/light theme
-│   ├── LanguageProvider.tsx     # IT/EN language context, reads the [lang] route param
-│   ├── PostHogProvider.tsx      # Analytics wrapper (no-ops without a key)
-│   └── PageTransition.tsx       # Route transition wrapper
-├── lib/
-│   ├── articles.ts              # ALL article content lives here — single source of truth
-│   ├── books.ts                  # "La Biblioteca" reading list — 2 books, bilingual, no cover art
-│   ├── i18n.ts                  # UI copy strings, IT + EN, one `copy` table
-│   ├── locales.ts                # Locale list/guards (`LOCALES`, `isLocale`, `toLocale`)
-│   ├── email.ts                  # Resend: newsletter signup notification only
-│   ├── rateLimit.ts               # In-memory sliding-window rate limiter
-│   ├── schemas.ts                 # Zod schemas — just `subscribeSchema` now
-│   ├── siteUrl.ts                 # Canonical server-trusted base URL
-│   └── reducedMotion.ts           # prefers-reduced-motion helpers
-├── scripts/
-│   └── screenshot.ts             # Local visual checks (output is gitignored)
-├── middleware.ts                 # Locale detection + redirect only — no auth, no route protection
-├── next.config.ts                # Security headers, CSP (much shorter — no third-party checkout/DB origins)
-├── tailwind.config.ts             # Tailwind — darkMode: "class"
-└── .env.local.example             # Required env vars (see below — a short list now)
+app/
+├── [lang]/{layout,page,not-found,error}.tsx
+├── [lang]/test/page.tsx · test-ma-di-piu/page.tsx · rickrolled/page.tsx
+├── global-error.tsx · icon.tsx · robots.ts · sitemap.ts   (sitemap lists the two Test pages)
+└── api/{og,subscribe}/route.ts
+components/
+├── SiteNav · SiteFooter · SiteLogo · PageHeader · ThemeToggle · CommandPalette
+├── TestBase.tsx      # base sections shared by both Test pages
+├── ArticleBody.tsx   # tiny markdown grammar: paragraphs, "## ", "- ", **bold**, :::callout
+└── lab/ArkDemo.tsx   # Ark UI Tabs / Accordion / Switch
+lib/  i18n.ts · locales.ts · meta.ts · email.ts · rateLimit.ts · schemas.ts · siteUrl.ts · reducedMotion.ts
 ```
 
----
+## Internationalisation
 
-## Content Model (`lib/articles.ts`)
-
-Single source of truth for every article, mirroring the old `lib/templates.ts` pattern:
-
-- `Article` = `{ slug, category, person?, isGuide?, homepageFeature?, publishedAt, tags, it: ArticleLocale, en: ArticleLocale }`.
-- `category` is one of the four "Il Taccuino di Jane" macro-categories: `"corpo" | "persuasione" | "mentalismo" | "contro-manipolazione"` (see `CATEGORY_LABELS` / `getCategoryLabel()` for their IT/EN display labels — never hardcode a category label string at a call site).
-- `person?: string` marks a "Dossier Personaggi" piece (e.g. `"patrick-jane"`, `"cal-lightman"`) — it still belongs to one of the four categories and appears in both `/articoli` and `/dossier`. `isGuide?: boolean` marks a long-form "Guide Pratiche" piece, surfaced in `/guide-pratiche` in addition to `/articoli`. These flags are independent of `category`. `homepageFeature?: boolean` explicitly marks the editorial anchor used on the homepage, so homepage priority never depends on publish date.
-- `ArticleLocale` = `{ title, description, body }`. `body` uses a deliberately tiny markdown grammar — blank-line paragraphs, `"## "` headings, `"- "` bullet lists, `**bold**` spans, and a `":::callout Title"` ... `":::"` fenced block (the "L'Osservazione Chiave" / "The Key Observation" highlight box; title optional) — rendered by `components/ArticleBody.tsx`. No markdown dependency; don't add one for this.
-- Helpers: `getArticle(slug)`, `getArticlesByCategory(category)`, `getAllArticlesSorted()`, `getHomepageFeature()`, `getRelatedArticles(current, limit)`, `getDossierArticles()` / `getDossierArticlesForPerson(person)`, `getGuideArticles()`.
-
-**When adding a new article:**
-
-1. Add an `Article` object to the `articles` array in `lib/articles.ts`, with full `it` and `en` content — never publish IT-only or EN-only.
-2. Keep body content original commentary/analysis — see the IP section above.
-3. A few hundred words minimum, structured with `## ` headings; this is an editorial site, not a filler blog.
-4. No new build step is needed — `app/sitemap.ts`, the article index and `generateStaticParams` on the detail page all read `lib/articles.ts` directly.
-
-## Internationalisation (`lib/i18n.ts`)
-
-- The site is primarily **Italian**, with English support. `Lang = "it" | "en"`. Default is Italian.
-- One `copy` table (`copy.it` / `copy.en`) holds all UI strings — nav, homepage, footer, page kickers, error/404 copy. There is no separate `formaCopy.ts` any more; that split existed only because the old site had far more copy than this one does.
-- Use `useLang()` from `LanguageProvider` in client components to get `{ lang, toggle }`.
-- Article content is localised separately, inline on each `Article` (`it`/`en` fields) — not through the `copy` table.
-
-## Routing / Middleware
-
-- `middleware.ts` only detects the visitor's language (from `Accept-Language`) and redirects an un-prefixed path to `/it` or `/en`. There is no auth, no protected route matcher — that whole concern was Clerk's and is gone.
-- No route requires sign-in. There are no `/account`, `/admin`, `/sign-in` routes any more.
+`lib/i18n.ts` holds one `copy` table (`copy.it` / `copy.en`). Add every key to **both** locales; a compile-time check enforces it. Use `useLang()` in client components; server pages call `toLocale(params.lang)`.
 
 ## Newsletter (`/api/subscribe`)
 
-- Rate-limited via `lib/rateLimit.ts` (in-memory; fine at this traffic level — resets on redeploy, not shared across instances, and that's an accepted tradeoff, not a bug to fix with Redis).
-- Validates the email with `subscribeSchema` (`lib/schemas.ts`).
-- There is **no database**. A signup does not get stored server-side; instead `lib/email.ts`'s `sendNewsletterSignupNotification()` emails the site owner (`RESEND_NOTIFY_TO`, falling back to `RESEND_FROM`) so they can add the address to whatever list tool they use. Silently no-ops without `RESEND_API_KEY` (safe in dev/preview).
+Rate-limited in memory (`lib/rateLimit.ts`; resets on redeploy, accepted tradeoff). Validated with `subscribeSchema`. No database: `lib/email.ts` emails the owner (`RESEND_NOTIFY_TO`, falling back to `RESEND_FROM`) and silently no-ops without `RESEND_API_KEY`.
 
-## Design System — "Ultramarine & Dusty Rose" palette
+## UI libraries
 
-The site's palette is two hues from the site owner's moodboard — replacing the earlier "Il Taccuino di Jane" exact-hex palette, which itself replaced a 3-Pantone-swatch pass before that (see git history for those). **Never add a third hue**; every other token is a literal shade, tint or opacity of these two:
+**Ark UI** is the only component library. HeroUI and Ant Design were trialled and removed (see PR history): HeroUI doubled the JS on every page because it sat in the shared footer and needed its tokens remapped; Ant Design needed a full theme remap and read as generic. Do not add a second library without a reason.
 
-| Hue        | Hex       | Role                                                                 |
-| ---------- | --------- | --------------------------------------------------------------------- |
-| Ultramarine | `#26348C` | `--text` — headings, menus, body text, thin divider lines            |
-| Dusty Rose  | `#C08882` | the source for `--accent` — CTAs, important links, highlighted detail |
+## Environment variables
 
-Two things to know before touching colour:
+| Variable                                               | Required | Description                                            |
+| ------------------------------------------------------ | -------- | ------------------------------------------------------ |
+| `NEXT_PUBLIC_SITE_URL`                                 | Yes      | Canonical site URL, e.g. `https://sandbox.example.com` |
+| `RESEND_API_KEY` / `RESEND_FROM` / `RESEND_NOTIFY_TO`  | Optional | Newsletter signup notification email                   |
+| `NEXT_PUBLIC_POSTHOG_KEY` / `NEXT_PUBLIC_POSTHOG_HOST` | Optional | PostHog analytics                                      |
 
-- **`--accent` is a darkened shade of the swatch, not the swatch itself.** The raw Dusty Rose (`#C08882`) only measures ~2.7:1 against the page background — well under the 4.5:1 AA floor for body-sized text. `--accent` is `#8A625E` (light mode) / `#CEA29E` (dark mode, lightened toward white for contrast on the dark ultramarine ground) — both checked against the WCAG 2.2 relative-luminance formula at ≥4.5:1. `--terra` is kept only as a backward-compat CSS variable alias of `--accent` — there's no second, "more decorative" rose tier the way the previous Pantone-swatch pass needed one, since every place that used to need it (e.g. the active filter chip) pairs `--accent` with light text, which already clears contrast on its own.
-- **No stray neutrals.** Shadows and overlays are tinted with ultramarine (`rgba(38, 52, 140, …)`), not a generic black/brown. Dark mode remaps the same two hues onto a dark-ultramarine ground (`#10163B` background, the light mode's pale-blush `#F9F3F2` reused as dark-mode text) rather than introducing a third hue.
+Copy `.env.local.example` to `.env.local`. The site runs locally with none of them set.
 
-Other tokens:
-
-- **Fonts**: Playfair Display (display — h1–h3, article titles; CSS variable `--font-display`, still named that even though it once loaded Fraunces — see the layout.tsx comment) + Inter (body/UI). Only these two families are loaded. Playfair Display is a static-weight family, not a variable font, so display type is tuned with `font-weight`/`font-style`, not `font-variation-settings`.
-- **Radius tokens**: editorial and sharp, not rounded. Use `.r-md` (4px — cards, panels, buttons), `.r-sm` (2px — chips), `.r-lg`/`.r-xl` for larger surfaces. Only genuinely circular elements use `border-radius: 50%` directly.
-- **Shadows**: `--shadow-sm` / `--shadow-md` / `--shadow-lg` / `--shadow-xl` in `globals.css`.
-- **Buttons**: `.btn-brand` (solid rose CTA, uses `--accent`) / `.btn-brand-sm` (compact variant).
-- **Callout box**: `.fn-callout` — the "L'Osservazione Chiave" / "The Key Observation" highlight box, a pale ultramarine-tinted (`--surface-2`) background with a load-bearing accent left rule. Written via a tiny `:::callout Title` ... `:::` grammar in article bodies — see `components/ArticleBody.tsx`.
-- **Texture & separators**: a barely-perceptible SVG-turbulence grain sits behind every page in both themes (`body::before` in `globals.css`, fainter in light mode than dark — paper reads noisier at a given opacity than a near-black ground). `.fn-separator` renders a small retro diamond-glyph section break.
-- **Depth**: one material — flat opaque paper, no blur, no glass, no specular highlight. The `.glass-surface` etc. class names persist from the earlier naming (see the CSS for why) but render flat paper, not glass. The rim border on any panel is load-bearing for contrast (WCAG 1.4.11) — never drop it.
-- Theme is `dark`-class-based (`tailwind.config.ts` `darkMode: "class"`), opt-in via `ThemeToggle`, default light.
-
-When adding a new page or component, reuse these tokens rather than hand-rolling new colors/radii/shadows — and if a design calls for a colour outside this table, that's a decision for the site owner, not something to add unilaterally.
-
----
-
-## Environment Variables
-
-| Variable                   | Required  | Description                                                     |
-| --------------------------- | --------- | ----------------------------------------------------------------|
-| `NEXT_PUBLIC_SITE_URL`       | Yes       | Full canonical site URL, e.g. `https://osservatorio.example.com`        |
-| `RESEND_API_KEY`             | Optional  | Enables the newsletter-signup notification email                 |
-| `RESEND_FROM`                | Optional  | Sender address for that email                                    |
-| `RESEND_NOTIFY_TO`           | Optional  | Who receives the "new subscriber" notification (defaults to `RESEND_FROM`) |
-| `NEXT_PUBLIC_POSTHOG_KEY`    | Optional  | PostHog project API key                                          |
-| `NEXT_PUBLIC_POSTHOG_HOST`   | Optional  | PostHog host (defaults to `https://eu.i.posthog.com`)             |
-
-Copy `.env.local.example` to `.env.local` and fill in values before running locally. All of the above are optional except `NEXT_PUBLIC_SITE_URL` — the site works locally without any of them set.
-
----
-
-## Development Workflow
+## Development workflow
 
 ```bash
-npm install       # Install dependencies
-npm run dev        # Run dev server
-npm run build       # Production build
-npm start            # Start production server
-npm run test          # Vitest unit tests
-npm run test:e2e       # Playwright — no suite currently checked in, tooling only
-npm run typecheck        # tsc --noEmit
-npm run lint               # eslint .
+npm install
+npm run dev        # dev server
+npm run build      # production build
+npm run typecheck  # tsc --noEmit
+npm run lint       # eslint .
+npm test           # Vitest
+npm run test:e2e   # Playwright smoke spec
 ```
 
----
+## Common tasks
 
-## Common Tasks
-
-### Add a new article
-
-1. Add an `Article` object to `lib/articles.ts` with a unique `slug`, `category`, `publishedAt`, `tags`, and full `it`/`en` `title`/`description`/`body`.
-2. Keep it original commentary — see the IP section at the top of this file.
-3. No other file needs to change — the index, sitemap and static params all read the array.
-
-### Add a new UI copy string
-
-Add the key to both `copy.it` and `copy.en` in `lib/i18n.ts`. Never add a key to only one locale — every `copy[lang][key]` lookup assumes both exist.
-
-### Add a new top-level page
-
-1. Create `app/[lang]/<route>/page.tsx`.
-2. Read `params` for `lang`, call `toLocale()` on it.
-3. Render `<SiteNav />` … content … `<OsservatorioFooter />`, matching the existing pages' structure.
-4. Add the route to `SiteNav.tsx` / `OsservatorioFooter.tsx` if it should appear in navigation, and to `app/sitemap.ts`.
-
-### Debug the newsletter signup
-
-There's no database to query. If a signup isn't producing a notification email, check `RESEND_API_KEY` is set and check the Resend dashboard's activity log — `lib/email.ts` no-ops silently without a key, which is expected in local dev.
+- **Add a page:** create `app/[lang]/<route>/page.tsx` (read `params`, call `toLocale`), render `<SiteNav /> … <SiteFooter />`, add it to `SiteNav.tsx`, `SiteFooter.tsx`, the command palette and `app/sitemap.ts`.
+- **Add a UI string:** add the key to both locales in `lib/i18n.ts`.
+- **Animate the Rickrolled page:** add a GIF under `public/` and point the `<img>` in `app/[lang]/rickrolled/page.tsx` at it.

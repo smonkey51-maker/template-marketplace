@@ -1,52 +1,42 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { LOCALES, isLocale, toLocale } from "@/lib/locales";
-import { Playfair_Display, Inter } from "next/font/google";
+import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import ThemeProvider from "@/components/ThemeProvider";
 import LanguageProvider from "@/components/LanguageProvider";
 import { PostHogProvider } from "@/components/PostHogProvider";
-import { ToastProvider } from "@/components/Toast";
 import PageTransition from "@/components/PageTransition";
 import CommandPalette from "@/components/CommandPalette";
 import "@/app/globals.css";
 
-// Only the two brand families are loaded.
-const inter = Inter({
+// IBM Plex: a neutral, institutional grotesque for text and headings, with its
+// matching mono for labels, dates and figures. Only these two are loaded.
+const plexSans = IBM_Plex_Sans({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-sans",
+  weight: ["400", "500", "600"],
+  display: "swap",
+});
+
+const plexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
   weight: ["400", "500"],
   display: "swap",
 });
 
-// Playfair Display — elegant, slightly retro serif: old psychology books,
-// investigation dossiers, Jane's own sartorial style. Used for hero/display
-// headlines (h1–h3, article titles). Replaced Fraunces in the "Il Taccuino
-// di Jane" content redesign — the CSS variable keeps the name --font-display
-// (not --font-fraunces) so it names what it does rather than what it once
-// loaded.
-const playfairDisplay = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-display",
-  style: ["normal", "italic"],
-  weight: ["500", "600", "700", "800", "900"],
-  display: "swap",
-});
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://sandbox.example.com";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://osservatorio.example.com";
-
-// Localised per route segment rather than a single static object — an
-// Italian-first site with English secondary needs the <title>/description
-// that reach search results to match the locale actually being served.
 const SITE_META = {
   it: {
-    title: "OSSERVATORIO — Il Mentalist e la psicologia dell'osservazione",
+    title: "Sandbox — ambiente di prova",
     description:
-      'Analisi da fan su Patrick Jane e "Il Mentalist", più guide pratiche di psicologia: linguaggio del corpo, memoria, ascolto attivo, persuasione. Sito non ufficiale.',
+      "Ambiente di test per layout, contenuti e componenti. I contenuti sono materiale di esempio.",
   },
   en: {
-    title: "OSSERVATORIO — The Mentalist and the psychology of observation",
+    title: "Sandbox — test environment",
     description:
-      'Fan analysis of Patrick Jane and "The Mentalist", plus practical psychology guides: body language, memory, active listening, persuasion. Unofficial fan site.',
+      "Test environment for layouts, content and components. Content is sample material.",
   },
 } as const;
 
@@ -60,17 +50,14 @@ export async function generateMetadata({
   const m = SITE_META[lang];
   return {
     metadataBase: new URL(SITE_URL),
-    title: {
-      default: m.title,
-      template: "%s",
-    },
+    title: { default: m.title, template: "%s" },
     description: m.description,
     openGraph: {
       type: "website",
-      siteName: "OSSERVATORIO",
+      siteName: "Sandbox",
       title: m.title,
       description: m.description,
-      images: [{ url: `/api/og?lang=${lang}`, width: 1200, height: 630, alt: "OSSERVATORIO" }],
+      images: [{ url: `/api/og?lang=${lang}`, width: 1200, height: 630, alt: "Sandbox" }],
     },
     twitter: {
       card: "summary_large_image",
@@ -91,29 +78,26 @@ export default async function RootLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ lang: string }> | any;
+  params: Promise<{ lang: string }>;
 }) {
-  const resolvedParams = await params;
+  const { lang } = await params;
 
   // `[lang]` matches any single segment, so scanners requesting /wp-login.php
-  // or /index.php would render the homepage with lang="wp-login.php" — an
-  // unsupported locale is a missing page, not a broken render.
-  if (!isLocale(resolvedParams?.lang)) {
+  // would render the homepage with lang="wp-login.php" — an unsupported locale
+  // is a missing page, not a broken render.
+  if (!isLocale(lang)) {
     notFound();
   }
-  const lang = resolvedParams.lang;
 
   return (
     <html
       lang={lang}
-      className={`${playfairDisplay.variable} ${inter.variable}`}
+      className={`${plexSans.variable} ${plexMono.variable}`}
       style={{ colorScheme: "light" }}
     >
       <head>
-        {/* Applies the stored theme before first paint. Without this, the
-            page always paints light (the SSR default above) and ThemeProvider's
-            effect only flips it to dark after hydration — a flash on every
-            full page load for anyone who has switched to dark mode. */}
+        {/* Applies the stored theme before first paint, avoiding a flash for
+            anyone who has switched to dark mode. */}
         <script
           dangerouslySetInnerHTML={{
             __html:
@@ -121,16 +105,14 @@ export default async function RootLayout({
           }}
         />
       </head>
-      <body className="bg-page text-theme antialiased min-h-screen">
+      <body className="min-h-screen bg-bg text-ink antialiased">
         <PostHogProvider>
           <ThemeProvider>
             <LanguageProvider>
-              <ToastProvider>
-                <PageTransition>
-                  <div id="main-content">{children}</div>
-                </PageTransition>
-                <CommandPalette />
-              </ToastProvider>
+              <PageTransition>
+                <div id="main-content">{children}</div>
+              </PageTransition>
+              <CommandPalette />
             </LanguageProvider>
           </ThemeProvider>
         </PostHogProvider>
