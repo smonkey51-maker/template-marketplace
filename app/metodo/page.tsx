@@ -34,7 +34,7 @@ export default function MetodoPage() {
       />
 
       <Band tone="soft" className="band-pad">
-        <ol className="col-rule grid gap-10 md:grid-cols-4 md:gap-8">
+        <ol className="grid gap-10 text-center md:grid-cols-4 md:gap-8">
           {STEPS.map(([title, text]) => (
             <li key={title}>
               <h2 className="text-[1.5rem] font-semibold tracking-tight">{title}</h2>
@@ -45,7 +45,7 @@ export default function MetodoPage() {
       </Band>
 
       <Band tone="blue" label="Riservatezza" className="band-pad">
-        <section aria-labelledby="riservatezza" className="max-w-3xl">
+        <section aria-labelledby="riservatezza" className="mx-auto max-w-3xl text-center">
           <h2 id="riservatezza" className="band-title">
             Riservatezza e dati personali
           </h2>

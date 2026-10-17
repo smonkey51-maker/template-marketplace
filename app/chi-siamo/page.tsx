@@ -22,7 +22,7 @@ export default function ChiSiamoPage() {
       />
 
       <Band tone="white" className="band-pad">
-        <section aria-labelledby="approccio" className="max-w-3xl">
+        <section aria-labelledby="approccio" className="mx-auto max-w-3xl text-center">
           <h2 id="approccio" className="band-title">
             Il nostro approccio
           </h2>
@@ -34,7 +34,10 @@ export default function ChiSiamoPage() {
         </section>
 
         {SITE.draft && (
-          <aside className="panel mt-12 max-w-2xl p-6" aria-label="Contenuto da completare">
+          <aside
+            className="panel mx-auto mt-12 max-w-2xl p-6 text-center"
+            aria-label="Contenuto da completare"
+          >
             <p className="text-[16px]">
               Questa sezione presenterà il team, le esperienze e le certificazioni dello studio. I
               contenuti verranno inseriti quando saranno definitivi.
@@ -44,8 +47,8 @@ export default function ChiSiamoPage() {
       </Band>
 
       <Band tone="yellow" label="Contattaci" className="band-pad">
-        <h2 className="band-title max-w-3xl">Conosciamoci.</h2>
-        <div className="mt-10">
+        <h2 className="band-title mx-auto max-w-3xl text-center">Conosciamoci.</h2>
+        <div className="mt-10 flex justify-center">
           <Link href="/contatti" className="btn btn-primary">
             Parla con noi
           </Link>

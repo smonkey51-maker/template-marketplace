@@ -79,9 +79,9 @@ export default function ServiziPage() {
               key={s.id}
               id={s.id}
               aria-labelledby={`${s.id}-title`}
-              className="row-line scroll-mt-32 py-10 first:border-t-0 first:pt-0"
+              className="scroll-mt-32 py-10 first:pt-0"
             >
-              <div className="grid gap-6 md:grid-cols-12">
+              <div className="grid gap-6 md:grid-cols-12 md:items-center">
                 <div className="md:col-span-5">
                   <h2
                     id={`${s.id}-title`}
@@ -106,11 +106,11 @@ export default function ServiziPage() {
       </Band>
 
       <Band tone="yellow" label="Contattaci" className="band-pad">
-        <h2 className="band-title max-w-3xl">Non sai da dove partire?</h2>
-        <p className="mt-5 max-w-xl text-[18px] text-muted">
+        <h2 className="band-title mx-auto max-w-3xl text-center">Non sai da dove partire?</h2>
+        <p className="mx-auto mt-5 max-w-xl text-center text-[18px] text-muted">
           Parliamone in un primo colloquio: ascoltiamo, poi ti diciamo cosa ha senso fare.
         </p>
-        <div className="mt-10">
+        <div className="mt-10 flex justify-center">
           <Link href="/contatti" className="btn btn-primary">
             Richiedi un colloquio
           </Link>

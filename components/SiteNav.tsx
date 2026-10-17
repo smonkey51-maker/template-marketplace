@@ -37,9 +37,7 @@ export default function SiteNav() {
       )}
 
       {/* Nav row: sticky under the draft bar; liquid-gl turns it into a glass lens. */}
-      <header
-        className={`lens-bar sticky z-50 border-b border-line ${SITE.draft ? "top-8" : "top-0"}`}
-      >
+      <header className={`lens-bar sticky z-50 ${SITE.draft ? "top-8" : "top-0"}`}>
         <div className="glass-nav">
           <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between gap-3 px-4 sm:gap-6 sm:px-6">
             <Link href="/" aria-label={`${SITE.name} — home`}>
@@ -55,10 +53,8 @@ export default function SiteNav() {
                   key={l.href}
                   href={l.href}
                   aria-current={isActive(l.href) ? "page" : undefined}
-                  className={`flex items-center border-b-2 px-3 text-sm font-medium transition-colors ${
-                    isActive(l.href)
-                      ? "border-brand text-ink"
-                      : "border-transparent text-muted hover:text-ink"
+                  className={`flex items-center px-3 text-sm font-medium transition-colors ${
+                    isActive(l.href) ? "text-ink" : "text-muted hover:text-ink"
                   }`}
                 >
                   {l.label}
@@ -86,9 +82,9 @@ export default function SiteNav() {
         </div>
 
         {open && (
-          <ul className="menu-enter glass-nav border-t border-line px-4 py-2 md:hidden sm:px-6">
-            {[...LINKS, { href: "/area-riservata", label: "Area riservata" }].map((l, i) => (
-              <li key={l.href} className={i > 0 ? "border-t border-line" : undefined}>
+          <ul className="menu-enter glass-nav px-4 py-2 md:hidden sm:px-6">
+            {[...LINKS, { href: "/area-riservata", label: "Area riservata" }].map((l) => (
+              <li key={l.href}>
                 <Link
                   href={l.href}
                   aria-current={isActive(l.href) ? "page" : undefined}

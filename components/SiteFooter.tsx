@@ -110,7 +110,7 @@ export function SiteFooter() {
           <BigWordmark text={SITE.name.toUpperCase()} />
         </div>
 
-        <div className="mt-10 flex flex-col gap-2 border-t border-line pt-6 font-mono text-[12px] text-muted sm:flex-row sm:justify-between">
+        <div className="mt-10 flex flex-col gap-2 pt-6 font-mono text-[12px] text-muted sm:flex-row sm:justify-between">
           <p>
             © {new Date().getFullYear()} {SITE.name}
           </p>
