@@ -6,7 +6,6 @@ import PageTransition from "@/components/PageTransition";
 import CommandPalette from "@/components/CommandPalette";
 import GlassDock from "@/components/GlassDock";
 import GlassLight from "@/components/GlassLight";
-import GlassRefract from "@/components/GlassRefract";
 import { SITE, SITE_URL } from "@/lib/site";
 import "@/app/globals.css";
 
@@ -87,7 +86,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <CommandPalette />
             <GlassDock />
             <GlassLight />
-            <GlassRefract />
           </ThemeProvider>
         </PostHogProvider>
       </body>
