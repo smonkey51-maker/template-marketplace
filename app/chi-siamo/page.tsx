@@ -34,7 +34,7 @@ export default function ChiSiamoPage() {
         </section>
 
         {SITE.draft && (
-          <aside className="glass max-w-2xl p-6" aria-label="Contenuto da completare">
+          <aside className="glass-panel max-w-2xl p-6" aria-label="Contenuto da completare">
             <p className="font-mono text-[12px] font-medium uppercase tracking-[0.1em] text-muted">
               Da completare
             </p>

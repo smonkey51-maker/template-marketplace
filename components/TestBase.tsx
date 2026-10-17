@@ -17,7 +17,7 @@ export default function TestBase() {
         <h2 id="status" className={h2}>
           Stato dell&apos;ambiente
         </h2>
-        <div className="glass mt-4 overflow-hidden">
+        <div className="glass-panel mt-4 overflow-hidden">
           <dl>
             {STATUS.map(([k, v]) => (
               <div

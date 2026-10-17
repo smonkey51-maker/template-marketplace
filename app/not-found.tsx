@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function NotFound() {
   return (
     <div className="flex min-h-dvh items-center justify-center px-6 py-16">
-      <div className="glass max-w-md p-8">
+      <div className="glass-panel max-w-md p-8">
         <p className="font-mono text-[12px] font-medium uppercase tracking-[0.1em] text-muted">
           404
         </p>

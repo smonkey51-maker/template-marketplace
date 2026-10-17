@@ -32,14 +32,14 @@ export default function AreaRiservataPage() {
       <div className="mx-auto max-w-[1200px] space-y-8 px-4 py-12 sm:px-6">
         <ul className="grid gap-4 md:grid-cols-3">
           {CONTENTS.map(([title, text]) => (
-            <li key={title} className="glass p-6">
+            <li key={title} className="glass-panel p-6">
               <h2 className="text-[1.1rem]">{title}</h2>
               <p className="mt-2 text-[15px] text-muted">{text}</p>
             </li>
           ))}
         </ul>
 
-        <div className="glass max-w-2xl p-6">
+        <div className="glass-panel max-w-2xl p-6">
           <p className="font-mono text-[12px] font-medium uppercase tracking-[0.1em] text-muted">
             In arrivo
           </p>

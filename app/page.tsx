@@ -47,7 +47,7 @@ export default function HomePage() {
     <PageShell>
       {/* Hero */}
       <section className="mx-auto max-w-[1200px] px-4 pt-8 sm:px-6 sm:pt-10">
-        <div className="glass grid gap-10 px-6 py-10 sm:px-10 sm:py-14 lg:grid-cols-12">
+        <div className="glass-panel grid gap-10 px-6 py-10 sm:px-10 sm:py-14 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <p className={kicker}>Consulenza HR</p>
             <h1 className="mt-3 text-[clamp(2rem,4.6vw,3.25rem)]">
@@ -98,7 +98,10 @@ export default function HomePage() {
         <ul className="mt-8 grid gap-4 sm:grid-cols-2">
           {SERVICES.map(([title, text]) => (
             <li key={title}>
-              <Link href="/servizi" className="glass block h-full p-6 hover:border-line-strong">
+              <Link
+                href="/servizi"
+                className="glass-panel block h-full p-6 hover:border-line-strong"
+              >
                 <span className="block text-[17px] font-semibold">{title}</span>
                 <span className="mt-2 block text-[14px] text-muted">{text}</span>
               </Link>
@@ -123,7 +126,7 @@ export default function HomePage() {
 
       {/* Client area teaser */}
       <section className="mx-auto max-w-[1200px] px-4 pb-6 sm:px-6">
-        <div className="glass flex flex-col items-start justify-between gap-6 p-8 sm:flex-row sm:items-center">
+        <div className="glass-panel flex flex-col items-start justify-between gap-6 p-8 sm:flex-row sm:items-center">
           <div>
             <h2 className="text-[1.25rem]">Area riservata per i clienti</h2>
             <p className="mt-2 max-w-xl text-[15px] text-muted">

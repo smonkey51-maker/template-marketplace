@@ -3,6 +3,7 @@ import Link from "next/link";
 import { pageMeta } from "@/lib/meta";
 import PageShell from "@/components/PageShell";
 import PageHeader from "@/components/PageHeader";
+import SectionIndex from "@/components/SectionIndex";
 
 export const metadata: Metadata = pageMeta(
   "/servizi",
@@ -67,44 +68,49 @@ export default function ServiziPage() {
         subtitle="Quattro aree di lavoro, che si possono affrontare separatamente o come un unico percorso."
       />
 
-      <div className="mx-auto grid max-w-[1200px] gap-6 px-4 py-12 sm:px-6">
-        {SERVICES.map((s, i) => (
-          <section
-            key={s.id}
-            id={s.id}
-            aria-labelledby={`${s.id}-title`}
-            className="glass p-6 sm:p-8"
-          >
-            <div className="grid gap-6 md:grid-cols-12">
-              <div className="md:col-span-5">
-                <p className="font-mono text-[12px] text-muted">{String(i + 1).padStart(2, "0")}</p>
-                <h2 id={`${s.id}-title`} className="mt-1 text-[1.35rem]">
-                  {s.title}
-                </h2>
-                <p className="mt-3 text-[15px] text-muted">{s.text}</p>
+      <div className="mx-auto grid max-w-[1200px] gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[minmax(0,1fr)_220px]">
+        <div className="grid gap-6">
+          {SERVICES.map((s, i) => (
+            <section
+              key={s.id}
+              id={s.id}
+              aria-labelledby={`${s.id}-title`}
+              className="glass-panel p-6 sm:p-8"
+            >
+              <div className="grid gap-6 md:grid-cols-12">
+                <div className="md:col-span-5">
+                  <p className="font-mono text-[12px] text-muted">
+                    {String(i + 1).padStart(2, "0")}
+                  </p>
+                  <h2 id={`${s.id}-title`} className="mt-1 text-[1.35rem]">
+                    {s.title}
+                  </h2>
+                  <p className="mt-3 text-[15px] text-muted">{s.text}</p>
+                </div>
+                <div className="md:col-span-7">
+                  <h3 className="font-mono text-[12px] font-medium uppercase tracking-[0.1em] text-muted">
+                    Cosa include
+                  </h3>
+                  <ul className="mt-3 list-disc space-y-2 pl-5 text-[15px]">
+                    {s.items.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-              <div className="md:col-span-7">
-                <h3 className="font-mono text-[12px] font-medium uppercase tracking-[0.1em] text-muted">
-                  Cosa include
-                </h3>
-                <ul className="mt-3 list-disc space-y-2 pl-5 text-[15px]">
-                  {s.items.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </section>
-        ))}
+            </section>
+          ))}
 
-        <div className="flex flex-col items-start gap-4 pt-4 sm:flex-row sm:items-center">
-          <p className="text-[15px] text-muted">
-            Non sai da dove partire? Parliamone in un primo colloquio.
-          </p>
-          <Link href="/contatti" className="btn btn-primary">
-            Richiedi un colloquio
-          </Link>
+          <div className="flex flex-col items-start gap-4 pt-4 sm:flex-row sm:items-center">
+            <p className="text-[15px] text-muted">
+              Non sai da dove partire? Parliamone in un primo colloquio.
+            </p>
+            <Link href="/contatti" className="btn btn-primary">
+              Richiedi un colloquio
+            </Link>
+          </div>
         </div>
+        <SectionIndex items={SERVICES.map((s) => ({ id: s.id, label: s.title }))} />
       </div>
     </PageShell>
   );

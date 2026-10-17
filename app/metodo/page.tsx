@@ -36,7 +36,7 @@ export default function MetodoPage() {
       <div className="mx-auto max-w-[1200px] px-4 py-12 sm:px-6">
         <ol className="grid gap-4 md:grid-cols-2">
           {STEPS.map(([title, text], i) => (
-            <li key={title} className="glass p-6">
+            <li key={title} className="glass-panel p-6">
               <span className="font-mono text-[12px] text-muted">
                 {String(i + 1).padStart(2, "0")}
               </span>
