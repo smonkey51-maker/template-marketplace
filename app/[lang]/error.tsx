@@ -19,8 +19,8 @@ export default function ErrorBoundary({
   }, [error]);
 
   return (
-    <div className="flex min-h-[60vh] items-center justify-center bg-bg px-6 py-16">
-      <div className="max-w-md">
+    <div className="flex min-h-[60vh] items-center justify-center px-6 py-16">
+      <div className="glass max-w-md p-8">
         <h1 className="text-[1.75rem]">{t("errorTitle")}</h1>
         <p className="mt-3 text-muted">{t("errorSub")}</p>
         <div className="mt-6 flex gap-3">

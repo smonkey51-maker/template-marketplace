@@ -7,6 +7,7 @@ import LanguageProvider from "@/components/LanguageProvider";
 import { PostHogProvider } from "@/components/PostHogProvider";
 import PageTransition from "@/components/PageTransition";
 import CommandPalette from "@/components/CommandPalette";
+import GlassDock from "@/components/GlassDock";
 import "@/app/globals.css";
 
 // IBM Plex: a neutral, institutional grotesque for text and headings, with its
@@ -105,7 +106,7 @@ export default async function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen bg-bg text-ink antialiased">
+      <body className="min-h-screen text-ink antialiased">
         <PostHogProvider>
           <ThemeProvider>
             <LanguageProvider>
@@ -113,6 +114,7 @@ export default async function RootLayout({
                 <div id="main-content">{children}</div>
               </PageTransition>
               <CommandPalette />
+              <GlassDock />
             </LanguageProvider>
           </ThemeProvider>
         </PostHogProvider>

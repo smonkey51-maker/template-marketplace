@@ -22,17 +22,19 @@ export default function TestBase({ lang }: { lang: Locale }) {
         <h2 id="status" className={h2}>
           {t("statusTitle")}
         </h2>
-        <dl className="mt-4 rounded-md border border-line-strong">
-          {status.map(([k, v]) => (
-            <div
-              key={k}
-              className="flex flex-col gap-1 border-b border-line px-5 py-3 last:border-b-0 sm:flex-row sm:items-baseline sm:justify-between"
-            >
-              <dt className="text-[14px] text-muted">{k}</dt>
-              <dd className="font-mono text-[14px] font-medium">{v}</dd>
-            </div>
-          ))}
-        </dl>
+        <div className="glass mt-4 overflow-hidden">
+          <dl>
+            {status.map(([k, v]) => (
+              <div
+                key={k}
+                className="flex flex-col gap-1 border-b border-line px-5 py-3 last:border-b-0 sm:flex-row sm:items-baseline sm:justify-between"
+              >
+                <dt className="text-[14px] text-muted">{k}</dt>
+                <dd className="font-mono text-[14px] font-medium">{v}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
       </section>
 
       <section aria-labelledby="type">

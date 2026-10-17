@@ -8,6 +8,7 @@ import { copy } from "@/lib/i18n";
 import { useLang } from "@/components/LanguageProvider";
 import SiteLogo from "@/components/SiteLogo";
 import ThemeToggle from "@/components/ThemeToggle";
+import GlassNavLens from "@/components/GlassNavLens";
 
 const LINKS: { href: string; key: keyof typeof copy.it }[] = [
   { href: "/test", key: "navTest" },
@@ -29,10 +30,10 @@ export default function SiteNav() {
     window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", ctrlKey: true, metaKey: true }));
 
   return (
-    <header className="sticky top-0 z-50 bg-bg">
-      {/* Environment bar — always visible so the site never reads as production. */}
-      <div className="bg-bar text-bar-fg">
-        <div className="mx-auto flex max-w-[1200px] items-center justify-between gap-4 px-4 py-1.5 sm:px-6">
+    <>
+      {/* Environment bar: always visible, so the site never reads as production. */}
+      <div className="sticky top-0 z-50 h-8 bg-bar text-bar-fg">
+        <div className="mx-auto flex h-full max-w-[1200px] items-center justify-between gap-4 px-4 sm:px-6">
           <p className="min-w-0 truncate font-mono text-[11px] uppercase tracking-[0.08em]">
             <span className="font-medium text-white">{t("envLabel")}</span>
             <span className="hidden sm:inline"> — {t("envNote")}</span>
@@ -48,7 +49,8 @@ export default function SiteNav() {
         </div>
       </div>
 
-      <div className="border-b border-line">
+      {/* Nav row: sticky under the env bar; liquid-gl turns it into a glass lens. */}
+      <header className="liquidGL glass-bar sticky top-8 z-50 border-b border-line">
         <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between gap-6 px-4 sm:px-6">
           <Link href={`/${lang}`} aria-label={`${copy[lang].siteName} — home`}>
             <SiteLogo />
@@ -75,7 +77,7 @@ export default function SiteNav() {
             <button
               type="button"
               onClick={openSearch}
-              className="hidden h-9 items-center gap-2 rounded-md border border-line-strong px-3 text-sm text-muted hover:bg-surface sm:flex"
+              className="glass-ctl hidden h-10 items-center gap-2 px-3.5 text-sm text-muted hover:text-ink sm:flex"
             >
               <Search size={15} aria-hidden />
               <span>{t("searchCta")}</span>
@@ -109,7 +111,8 @@ export default function SiteNav() {
             ))}
           </ul>
         )}
-      </div>
-    </header>
+      </header>
+      <GlassNavLens />
+    </>
   );
 }

@@ -15,8 +15,8 @@ export default function PageHeader({
   subtitle?: string;
 }) {
   return (
-    <div className="border-b border-line bg-surface">
-      <div className="mx-auto max-w-[1200px] px-4 py-10 sm:px-6 sm:py-14">
+    <div className="mx-auto max-w-[1200px] px-4 pt-8 sm:px-6 sm:pt-10">
+      <div className="glass px-6 py-8 sm:px-10 sm:py-12">
         <nav aria-label="Breadcrumb">
           <ol className="flex flex-wrap items-center gap-2 text-[13px] text-muted">
             {crumbs.map((c, i) => (

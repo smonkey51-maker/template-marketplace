@@ -23,6 +23,17 @@
   /* Aliases kept for components that read the older token names. */
   --text: var(--ink);
   --border: var(--line);
+
+  /* Liquid glass: translucent fill, bright rim, inner highlight, soft cast shadow. */
+  --glass-fill: rgb(255 255 255 / 0.62);
+  --glass-fill-strong: rgb(255 255 255 / 0.8);
+  --glass-fill-input: rgb(255 255 255 / 0.55);
+  --glass-rim: rgb(255 255 255 / 0.7);
+  --glass-hi: rgb(255 255 255 / 0.95);
+  --glass-lo: rgb(11 53 88 / 0.06);
+  --glass-sheen: rgb(255 255 255 / 0.55);
+  --glass-shadow: 0 10px 34px rgb(11 53 88 / 0.13), 0 2px 6px rgb(11 53 88 / 0.07);
+  --glass-blur: 18px;
 }
 
 .dark {
@@ -39,6 +50,15 @@
   --bar: #060b10;
   --bar-fg: #b9c9d9;
   --focus: #7db4ea;
+
+  --glass-fill: rgb(17 27 38 / 0.56);
+  --glass-fill-strong: rgb(12 20 30 / 0.78);
+  --glass-fill-input: rgb(8 14 22 / 0.5);
+  --glass-rim: rgb(255 255 255 / 0.14);
+  --glass-hi: rgb(255 255 255 / 0.2);
+  --glass-lo: rgb(0 0 0 / 0.25);
+  --glass-sheen: rgb(255 255 255 / 0.1);
+  --glass-shadow: 0 12px 38px rgb(0 0 0 / 0.5), 0 2px 6px rgb(0 0 0 / 0.35);
 }
 
 @theme inline {
@@ -58,9 +78,9 @@
   --color-bar: var(--bar);
   --color-bar-fg: var(--bar-fg);
 
-  --radius-sm: 2px;
-  --radius-md: 4px;
-  --radius-lg: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
 }
 
 /* ── Base ─────────────────────────────────────────────────────────────────── */
@@ -76,6 +96,29 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+}
+
+/* The ground the glass sits on: soft blue light and a few large shapes, fixed so
+   panels refract something while the page scrolls. Not on body itself, so it
+   stays beneath page content. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(46% 40% at 10% 6%, rgb(15 95 166 / 0.26), transparent 70%),
+    radial-gradient(40% 36% at 92% 12%, rgb(125 180 234 / 0.5), transparent 70%),
+    radial-gradient(44% 42% at 78% 96%, rgb(11 53 88 / 0.2), transparent 70%),
+    radial-gradient(34% 34% at 4% 78%, rgb(125 180 234 / 0.38), transparent 70%);
+}
+.dark body::before {
+  background:
+    radial-gradient(46% 40% at 10% 6%, rgb(47 111 176 / 0.5), transparent 70%),
+    radial-gradient(40% 36% at 92% 12%, rgb(15 95 166 / 0.42), transparent 70%),
+    radial-gradient(44% 42% at 78% 96%, rgb(125 180 234 / 0.18), transparent 70%),
+    radial-gradient(34% 34% at 4% 78%, rgb(47 111 176 / 0.36), transparent 70%);
 }
 
 h1,
@@ -96,41 +139,128 @@ h3 {
   outline-offset: 2px;
 }
 
+/* ── Glass surfaces ───────────────────────────────────────────────────────── */
+.glass,
+.glass-ctl,
+.glass-bar {
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(170%);
+  backdrop-filter: blur(var(--glass-blur)) saturate(170%);
+}
+
+/* Panel: rounded, bright rim, inner highlight, soft shadow, a specular sheen. */
+.glass {
+  position: relative;
+  isolation: isolate;
+  border: 1px solid var(--glass-rim);
+  border-radius: 20px;
+  box-shadow:
+    inset 0 1px 0 var(--glass-hi),
+    inset 0 -1px 0 var(--glass-lo),
+    var(--glass-shadow);
+}
+.glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(135deg, var(--glass-sheen) 0%, transparent 38%);
+}
+
+/* liquid-gl sets pointer-events: none on the element it turns into a lens, which
+   would make the whole nav unclickable. Give the content inside it back. */
+.liquidGL > * {
+  pointer-events: auto;
+}
+
+/* Small control (icon buttons, search): glass at control size. */
+.glass-ctl {
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  box-shadow: inset 0 1px 0 var(--glass-hi);
+}
+
+/* Full-width bar (nav, footer). Borders come from utility classes. */
+.glass-bar {
+  background: var(--glass-fill-strong);
+  box-shadow: inset 0 1px 0 var(--glass-hi);
+}
+
+/* No backdrop-filter, or the user asked for less transparency: solid surfaces. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass,
+  .glass-ctl,
+  .glass-bar,
+  .cmdk-panel {
+    background: var(--surface);
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .glass,
+  .glass-ctl,
+  .glass-bar,
+  .cmdk-panel,
+  .field,
+  .btn-outline {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: var(--surface);
+  }
+  .glass::before {
+    display: none;
+  }
+}
+
 /* ── Buttons ──────────────────────────────────────────────────────────────── */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  min-height: 40px;
-  padding: 0 18px;
+  min-height: 42px;
+  padding: 0 20px;
   border: 1px solid transparent;
-  border-radius: 4px;
+  border-radius: 14px;
   font-size: 14px;
   font-weight: 500;
   line-height: 1;
   cursor: pointer;
   transition:
-    background-color 120ms ease,
-    border-color 120ms ease,
-    color 120ms ease;
+    background-color 140ms ease,
+    box-shadow 140ms ease,
+    transform 140ms ease;
+}
+.btn:active {
+  transform: scale(0.98);
 }
 
+/* Tinted glass: the brand colour at high alpha, rim light on top. */
 .btn-primary {
-  background: var(--brand);
+  background: color-mix(in srgb, var(--brand) 90%, transparent);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  backdrop-filter: blur(10px) saturate(160%);
   color: var(--brand-fg);
+  border-color: rgb(255 255 255 / 0.28);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.4),
+    0 6px 18px rgb(11 53 88 / 0.28);
 }
 .btn-primary:hover {
-  background: color-mix(in srgb, var(--brand) 88%, black);
+  background: color-mix(in srgb, var(--brand) 100%, black 8%);
 }
 
 .btn-outline {
-  background: transparent;
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  backdrop-filter: blur(10px) saturate(160%);
   color: var(--ink);
   border-color: var(--line-strong);
+  box-shadow: inset 0 1px 0 var(--glass-hi);
 }
 .btn-outline:hover {
-  background: var(--surface);
+  background: var(--glass-fill-strong);
 }
 
 .btn:disabled {
@@ -141,13 +271,16 @@ h3 {
 /* ── Form controls ────────────────────────────────────────────────────────── */
 .field {
   width: 100%;
-  min-height: 40px;
-  padding: 0 12px;
-  background: var(--bg);
+  min-height: 42px;
+  padding: 0 14px;
+  background: var(--glass-fill-input);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   color: var(--ink);
   border: 1px solid var(--line-strong);
-  border-radius: 4px;
+  border-radius: 12px;
   font-size: 14px;
+  box-shadow: inset 0 1px 2px var(--glass-lo);
 }
 .field::placeholder {
   color: var(--muted);
@@ -171,11 +304,16 @@ h3 {
   margin-top: 0.4rem;
 }
 .callout {
-  border: 1px solid var(--line);
+  border: 1px solid var(--glass-rim);
   border-left: 3px solid var(--brand);
-  background: var(--surface);
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur));
+  box-shadow:
+    inset 0 1px 0 var(--glass-hi),
+    var(--glass-shadow);
   padding: 16px 20px;
-  border-radius: 2px;
+  border-radius: 14px;
 }
 .dark .callout {
   border-left-color: var(--accent);
@@ -204,11 +342,15 @@ h3 {
   transform: translateX(-50%);
   width: min(640px, calc(100vw - 32px));
   z-index: 101;
-  background: var(--bg);
-  border: 1px solid var(--line-strong);
-  border-radius: 4px;
+  background: var(--glass-fill-strong);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+  backdrop-filter: blur(24px) saturate(170%);
+  border: 1px solid var(--glass-rim);
+  border-radius: 22px;
   overflow: hidden;
-  box-shadow: 0 12px 32px rgb(11 18 25 / 0.25);
+  box-shadow:
+    inset 0 1px 0 var(--glass-hi),
+    0 24px 60px rgb(11 18 25 / 0.35);
 }
 .cmdk-item {
   display: flex;

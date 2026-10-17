@@ -88,7 +88,7 @@ export default async function TestPlusPage({ params }: { params: Promise<{ lang:
   ];
 
   return (
-    <div className="min-h-screen bg-bg">
+    <div className="min-h-screen">
       <SiteNav />
       <PageHeader
         crumbs={[{ label: t("siteName") }, { label: t("testPlusTitle") }]}
@@ -103,7 +103,7 @@ export default async function TestPlusPage({ params }: { params: Promise<{ lang:
           <h2 id="ark" className={h2}>
             {L("Primitive Ark UI", "Ark UI primitives")}
           </h2>
-          <div className="mt-4 max-w-2xl">
+          <div className="glass mt-4 max-w-2xl p-6 sm:p-8">
             <ArkDemo />
           </div>
         </section>
@@ -112,9 +112,9 @@ export default async function TestPlusPage({ params }: { params: Promise<{ lang:
           <h2 id="table" className={h2}>
             {L("Tabella dati", "Data table")}
           </h2>
-          <div className="mt-4 overflow-x-auto rounded-md border border-line-strong">
+          <div className="glass mt-4 overflow-x-auto">
             <table className="w-full min-w-[480px] border-collapse text-left text-[14px]">
-              <thead className="bg-surface">
+              <thead className="bg-surface/50">
                 <tr className="border-b border-line-strong">
                   {[L("Componente", "Component"), L("Origine", "Source"), L("Stato", "Status")].map(
                     (h) => (
@@ -159,7 +159,7 @@ export default async function TestPlusPage({ params }: { params: Promise<{ lang:
             {SWATCHES.map((s) => (
               <li key={s}>
                 <div
-                  className="h-14 rounded-sm border border-line-strong"
+                  className="h-14 rounded-xl border border-line-strong"
                   style={{ background: `var(--${s})` }}
                 />
                 <p className="mt-1.5 font-mono text-[11px] text-muted">--{s}</p>

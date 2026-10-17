@@ -9,8 +9,8 @@ export default function NotFound() {
   const t = (k: keyof typeof copy.it) => copy[lang][k];
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-bg px-6 py-16">
-      <div className="max-w-md">
+    <div className="flex min-h-screen items-center justify-center px-6 py-16">
+      <div className="glass max-w-md p-8">
         <p className="font-mono text-[12px] font-medium uppercase tracking-[0.1em] text-muted">
           404
         </p>

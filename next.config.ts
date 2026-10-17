@@ -10,6 +10,8 @@ const CSP = [
   "font-src 'self' data: https://fonts.gstatic.com",
   "img-src 'self' data: blob: https:",
   "connect-src 'self' https://*.posthog.com",
+  // liquid-gl rasterises the page snapshot in a blob: web worker.
+  "worker-src 'self' blob:",
   "frame-src 'none'",
   "frame-ancestors 'self'",
   "base-uri 'self'",

@@ -21,7 +21,7 @@ export default async function TestPage({ params }: { params: Promise<{ lang: str
   const t = (k: keyof typeof copy.it) => copy[lang][k];
 
   return (
-    <div className="min-h-screen bg-bg">
+    <div className="min-h-screen">
       <SiteNav />
       <PageHeader
         crumbs={[{ label: t("siteName") }, { label: t("testTitle") }]}
