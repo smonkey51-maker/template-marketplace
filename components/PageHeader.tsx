@@ -2,15 +2,13 @@ import Link from "next/link";
 
 type Crumb = { label: string; href?: string };
 
-/** Breadcrumb + kicker + title + optional subtitle, shared by every inner page. */
+/** Breadcrumb + title + optional subtitle, shared by every inner page. */
 export default function PageHeader({
   crumbs,
-  kicker,
   title,
   subtitle,
 }: {
   crumbs: Crumb[];
-  kicker?: string;
   title: string;
   subtitle?: string;
 }) {
@@ -33,14 +31,7 @@ export default function PageHeader({
             ))}
           </ol>
         </nav>
-        {kicker && (
-          <p className="mt-6 font-mono text-[12px] font-medium uppercase tracking-[0.1em] text-accent">
-            {kicker}
-          </p>
-        )}
-        <h1 className={`${kicker ? "mt-2" : "mt-6"} max-w-3xl text-[clamp(1.75rem,4vw,2.5rem)]`}>
-          {title}
-        </h1>
+        <h1 className="mt-6 max-w-3xl text-[clamp(1.75rem,4vw,2.5rem)]">{title}</h1>
         {subtitle && <p className="mt-3 max-w-2xl text-[16px] text-muted">{subtitle}</p>}
       </div>
     </div>

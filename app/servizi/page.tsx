@@ -63,14 +63,13 @@ export default function ServiziPage() {
     <PageShell>
       <PageHeader
         crumbs={[{ label: "Home", href: "/" }, { label: "Servizi" }]}
-        kicker="Servizi"
         title="Cosa facciamo per le imprese"
         subtitle="Quattro aree di lavoro, che si possono affrontare separatamente o come un unico percorso."
       />
 
       <div className="mx-auto grid max-w-[1200px] gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[minmax(0,1fr)_220px]">
         <div className="grid gap-6">
-          {SERVICES.map((s, i) => (
+          {SERVICES.map((s) => (
             <section
               key={s.id}
               id={s.id}
@@ -79,9 +78,6 @@ export default function ServiziPage() {
             >
               <div className="grid gap-6 md:grid-cols-12">
                 <div className="md:col-span-5">
-                  <p className="font-mono text-[12px] text-muted">
-                    {String(i + 1).padStart(2, "0")}
-                  </p>
                   <h2 id={`${s.id}-title`} className="mt-1 text-[1.35rem]">
                     {s.title}
                   </h2>

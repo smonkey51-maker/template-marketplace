@@ -45,7 +45,6 @@ export default function PrivacyPage() {
     <PageShell>
       <PageHeader
         crumbs={[{ label: "Home", href: "/" }, { label: "Privacy" }]}
-        kicker="Privacy"
         title="Informativa privacy"
         subtitle="Come trattiamo i dati personali raccolti tramite questo sito."
       />
