@@ -83,7 +83,7 @@ app/            layout.tsx · page.tsx · servizi/ metodo/ chi-siamo/ contatti/ 
                 test/ test-ma-di-piu/ rickrolled/ · not-found · error · global-error · icon · robots · sitemap
                 api/{contact,subscribe,og}/route.ts
 components/     SiteNav · SiteFooter · SiteLogo · PageShell · PageHeader · ContactForm
-                GlassLenses · IndexMenu · SectionIndex · FloatingCta · HeroReady · InteractionFx · BigWordmark · ArticleBody · TestBase · lab/ArkDemo
+                SectionIndex · FloatingCta · HeroReady · InteractionFx · BigWordmark · ArticleBody · TestBase · lab/ArkDemo
 lib/            site.ts · meta.ts · schemas.ts · email.ts · rateLimit.ts · siteUrl.ts · reducedMotion.ts
 types/          liquid-gl.d.ts
 scripts/        contrast-audit.mjs (npm run audit:contrast)
@@ -117,7 +117,7 @@ Before pushing: typecheck, lint, `npm test`, `npm run build`, `npx prettier --ch
 
 - **Scenic layer** (home): a hero photo that drifts and zooms with the scroll, a statement whose words brighten as it scrolls in (resting state stays ≥ 4.5:1), and a `BigWordmark` (the name fitted to the footer width). Scroll-driven animations are `@supports (animation-timeline: …)` progressive enhancement; reduced motion keeps everything still. Decorative pieces are `aria-hidden`. There is no site search / command palette any more.
 
-- **Van Schneider-style layer** (home + site): a full-screen hero with a giant headline that rises word by word (`.hero-word`, masked per word) over a photo that fades/zooms in (`.hero-wipe`) and a blue wash (`.hero-wash`, tuned so the headline stays ≥ 3:1 on the brightest photo pixels); `[data-reveal]` fades up; cards scale to 1.01 on hover (`a.glass-panel`); and `IndexMenu` (the "Indice" button of the top nav, opening a full-screen blue list of huge links, portalled to `<body>`; Escape/backdrop closes it, focus returns to the button). Not taken on purpose: numbered sections, kicker labels and the outlined marquee (removed earlier at the owner's request).
+- **Van Schneider-style layer** (home + site): a full-screen hero with a giant headline that rises word by word (`.hero-word`, masked per word) over a photo that fades/zooms in (`.hero-wipe`) and a blue wash (`.hero-wash`, tuned so the headline stays ≥ 3:1 on the brightest photo pixels); `[data-reveal]` fades up; cards scale to 1.01 on hover (`a.glass-panel`). The "Indice" menu was removed at the owner's request Not taken on purpose: numbered sections, kicker labels and the outlined marquee (removed earlier at the owner's request).
 
 - **Arrival animation must stay smooth:** animate only `transform` and `opacity` (no `filter: blur`, no `clip-path`: both repaint every frame), and start the liquid-gl lenses only after the intro (`GlassLenses` waits 2.6 s) because their page snapshot blocks the main thread.
 
