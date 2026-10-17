@@ -626,25 +626,35 @@ html.reveal-ready [data-reveal]:not(.in) {
   left: 0;
   top: 0;
   z-index: 60;
-  width: 16px;
-  height: 16px;
-  border: 1.5px solid var(--brand);
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
+  background: #fff;
+  /* Difference blend: visible on light and dark grounds alike. */
+  mix-blend-mode: difference;
   opacity: 0;
   pointer-events: none;
   transition:
     width 0.2s var(--ease-out),
     height 0.2s var(--ease-out),
-    opacity 0.2s,
-    background-color 0.2s;
+    opacity 0.2s;
 }
 .fx-ring[data-on] {
-  opacity: 0.7;
+  opacity: 1;
 }
 .fx-ring[data-hot] {
-  width: 44px;
-  height: 44px;
-  background: color-mix(in srgb, var(--brand) 12%, transparent);
+  width: 40px;
+  height: 40px;
+}
+/* The dot is the cursor: hide the arrow once it is running, but keep the text cursor
+   in fields so the caret position stays readable. */
+html.fx-cursor,
+html.fx-cursor * {
+  cursor: none !important;
+}
+html.fx-cursor input,
+html.fx-cursor textarea {
+  cursor: text !important;
 }
 @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
   .fx-ring {
