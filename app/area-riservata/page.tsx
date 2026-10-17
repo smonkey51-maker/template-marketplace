@@ -3,6 +3,7 @@ import Link from "next/link";
 import { pageMeta } from "@/lib/meta";
 import PageShell from "@/components/PageShell";
 import PageHeader from "@/components/PageHeader";
+import Band from "@/components/Band";
 
 export const metadata: Metadata = pageMeta(
   "/area-riservata",
@@ -28,29 +29,31 @@ export default function AreaRiservataPage() {
         subtitle="Uno spazio personale per seguire il lavoro con il tuo consulente."
       />
 
-      <div className="mx-auto max-w-[1200px] space-y-8 px-4 py-12 sm:px-6">
-        <ul className="grid gap-4 md:grid-cols-3">
+      <Band tone="warm" className="band-pad">
+        <ul className="col-rule grid gap-10 md:grid-cols-3 md:gap-8">
           {CONTENTS.map(([title, text]) => (
-            <li key={title} className="glass-panel p-6">
-              <h2 className="text-[1.1rem]">{title}</h2>
-              <p className="mt-2 text-[15px] text-muted">{text}</p>
+            <li key={title}>
+              <h2 className="text-[1.4rem] font-semibold tracking-tight">{title}</h2>
+              <p className="mt-3 text-[16px] text-muted">{text}</p>
             </li>
           ))}
         </ul>
+      </Band>
 
-        <div className="glass-panel max-w-2xl p-6">
+      <Band tone="dark" label="Accesso" className="band-pad">
+        <div className="max-w-2xl">
           <p className="font-mono text-[12px] font-medium uppercase tracking-[0.1em] text-muted">
             In arrivo
           </p>
-          <p className="mt-2 text-[15px]">
+          <p className="mt-3 text-[20px]">
             L&apos;accesso non è ancora attivo. Se sei già nostro cliente, contattaci: ti avviseremo
             appena potrai entrare.
           </p>
-          <Link href="/contatti" className="btn btn-outline mt-4">
+          <Link href="/contatti" className="btn btn-outline mt-8">
             Contattaci
           </Link>
         </div>
-      </div>
+      </Band>
     </PageShell>
   );
 }

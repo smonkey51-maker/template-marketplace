@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { SITE } from "@/lib/site";
 import PageShell from "@/components/PageShell";
+import Band from "@/components/Band";
 
 export const metadata: Metadata = {
   title: { absolute: `${SITE.name} — ${SITE.tagline}` },
@@ -30,7 +31,7 @@ const SERVICES = [
 const HERO_TITLE = "Persone e organizzazione, al passo con la tua impresa.";
 
 const STATEMENT =
-  "Persone, ruoli e organizzazione: un lavoro concreto, fatto insieme a chi guida l'impresa, con obiettivi chiari e risultati che si possono verificare.";
+  "Dietro ogni organizzazione ci sono persone. Il nostro lavoro è aiutarle a trovarsi, a crescere e a lavorare bene insieme.";
 
 const CLIENT_AREA = [
   ["Il tuo profilo", "Le tue generalità e i dati dell'azienda per cui lavori."],
@@ -75,7 +76,7 @@ export default function HomePage() {
           />
         </div>
         <div aria-hidden className="hero-wash absolute inset-0 -z-10" />
-        <section className="mx-auto flex w-full max-w-[1200px] flex-1 flex-col justify-end px-4 pb-28 pt-24 sm:px-6 sm:pb-28">
+        <section className="mx-auto flex w-full max-w-[1200px] flex-1 flex-col justify-end px-4 pb-28 pt-24 sm:px-6">
           <h1 className="hero-title">
             {HERO_TITLE.split(" ").map((w, i) => (
               <Fragment key={`${w}-${i}`}>
@@ -93,7 +94,7 @@ export default function HomePage() {
               nell&apos;organizzazione del lavoro, con un consulente di riferimento dedicato.
             </p>
             <div className="flex flex-wrap gap-3 md:col-span-5 md:justify-end">
-              <Link href="/contatti" data-magnet className="btn btn-primary">
+              <Link href="/contatti" data-magnet className="btn btn-light">
                 Richiedi un colloquio
               </Link>
               <Link href="/area-riservata" data-magnet className="btn btn-outline">
@@ -104,8 +105,8 @@ export default function HomePage() {
         </section>
       </div>
 
-      {/* Statement: words light up as the paragraph scrolls into view */}
-      <section className="mx-auto max-w-[1200px] px-4 py-20 sm:px-6 sm:py-28">
+      {/* 2 · Warm band: the human statement */}
+      <Band tone="warm" label="Chi siamo in una frase" className="band-pad">
         <p className="statement">
           {STATEMENT.split(" ").map((w, i) => (
             <Fragment key={`${w}-${i}`}>
@@ -115,136 +116,119 @@ export default function HomePage() {
             </Fragment>
           ))}
         </p>
-      </section>
+      </Band>
 
-      {/* 2 · Highlight banner */}
-      <section className="mx-auto max-w-[1200px] px-4 py-14 sm:px-6">
-        <div className="glass-panel grid items-center gap-8 p-8 sm:p-10 lg:grid-cols-12">
-          <div className="lg:col-span-8">
-            <h2 data-reveal className="text-[1.75rem]">
-              Il primo passo è un colloquio conoscitivo
-            </h2>
-            <p className="mt-3 max-w-2xl text-[16px] text-muted">
-              Ascoltiamo le esigenze dell&apos;azienda e il contesto in cui operate, poi definiamo
-              insieme obiettivi, attività e tempi.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-3 lg:col-span-4 lg:justify-end">
-            <Link href="/contatti" data-magnet className="btn btn-primary">
-              Richiedi un colloquio
-            </Link>
-            <Link href="/metodo" data-magnet className="btn btn-outline">
-              Il metodo
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* 3 · Services */}
-      <div className="band-tint">
-        <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6">
-          <h2 data-reveal className="text-center text-[1.75rem]">
-            Cosa facciamo per le imprese
-          </h2>
-          <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {SERVICES.map(([title, text]) => (
-              <li key={title}>
-                <Link
-                  href="/servizi"
-                  className="glass-panel block h-full p-6 hover:border-line-strong"
-                >
-                  <span className="block text-[17px] font-semibold">{title}</span>
-                  <span className="mt-2 block text-[14px] text-muted">{text}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
-      </div>
-
-      {/* 4 · Dark band: how we start, three connected steps */}
-      <div className="band-dark">
-        <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6">
-          <h2 data-reveal className="text-center text-[1.75rem] text-white">
-            Come iniziamo
-          </h2>
-          <ol className="mt-10 grid gap-4 md:grid-cols-3">
-            {STEPS.map(([title, text]) => (
-              <li key={title} data-reveal className="band-card p-6">
-                <h3 className="text-[17px] text-white">{title}</h3>
-                <p className="mt-2 text-[14px] text-white/80">{text}</p>
-              </li>
-            ))}
-          </ol>
-          <div className="mt-10 flex justify-center">
-            <Link href="/metodo" data-magnet className="btn btn-light">
-              Scopri il metodo
-            </Link>
-          </div>
-        </section>
-      </div>
-
-      {/* 5 · Principles as a checklist */}
-      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6">
-        <div className="glass-panel grid gap-8 p-8 sm:p-10 lg:grid-cols-12">
-          <h2 data-reveal className="text-[1.75rem] lg:col-span-4">
-            Come lavoriamo
-          </h2>
-          <ul className="space-y-5 lg:col-span-8">
-            {PRINCIPLES.map(([title, text]) => (
-              <li key={title} className="flex gap-4">
-                <span aria-hidden className="check-mark mt-1" />
-                <span>
-                  <span className="block text-[17px] font-semibold">{title}</span>
-                  <span className="mt-1 block text-[14px] text-muted">{text}</span>
+      {/* 3 · Dark band: services as hairline rows */}
+      <Band tone="dark" label="Servizi" className="band-pad">
+        <h2 data-reveal className="band-title max-w-3xl">
+          Cosa facciamo per le imprese
+        </h2>
+        <ul className="mt-12 sm:mt-16">
+          {SERVICES.map(([title, text]) => (
+            <li key={title} data-reveal>
+              <Link href="/servizi" className="row-link">
+                <span className="row-title text-[1.35rem] font-semibold tracking-tight sm:text-[1.6rem]">
+                  {title}
                 </span>
+                <span className="text-[16px] text-muted">{text}</span>
+                <span aria-hidden className="row-arrow text-[1.4rem]">
+                  →
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </Band>
+
+      {/* 4 · Warm band: how we start */}
+      <Band tone="warm" label="Come iniziamo" className="band-pad">
+        <h2 data-reveal className="band-title max-w-3xl">
+          Si comincia ascoltando
+        </h2>
+        <ol className="col-rule mt-12 grid gap-10 sm:mt-16 md:grid-cols-3 md:gap-8">
+          {STEPS.map(([title, text]) => (
+            <li key={title} data-reveal>
+              <h3 className="text-[1.35rem] font-semibold tracking-tight">{title}</h3>
+              <p className="mt-3 text-[16px] text-muted">{text}</p>
+            </li>
+          ))}
+        </ol>
+        <div className="mt-12">
+          <Link href="/metodo" data-magnet className="btn btn-primary">
+            Scopri il metodo
+          </Link>
+        </div>
+      </Band>
+
+      {/* 5 · Dark band: the people, and how we work */}
+      <Band
+        tone="dark"
+        label="Come lavoriamo"
+        className="band-pad"
+        inner="grid gap-12 lg:grid-cols-12"
+      >
+        <div className="relative aspect-[4/5] overflow-hidden lg:col-span-5">
+          <Image
+            src="/hero.webp"
+            alt="Un gruppo di persone che parla attorno a un tavolo di lavoro"
+            fill
+            sizes="(min-width: 1024px) 40vw, 100vw"
+            className="object-cover"
+            style={{ objectPosition: "42% 50%" }}
+          />
+        </div>
+        <div className="lg:col-span-7 lg:pl-8">
+          <h2 data-reveal className="band-title">
+            Persone che lavorano con persone
+          </h2>
+          <ul className="mt-10">
+            {PRINCIPLES.map(([title, text]) => (
+              <li key={title} data-reveal className="row-line py-6">
+                <h3 className="text-[1.25rem] font-semibold tracking-tight">{title}</h3>
+                <p className="mt-2 max-w-xl text-[16px] text-muted">{text}</p>
               </li>
             ))}
           </ul>
         </div>
-      </section>
+      </Band>
 
-      {/* 6 · Dark slate band: the client area */}
-      <div className="band-slate">
-        <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6">
-          <h2 data-reveal className="text-center text-[1.75rem] text-white">
-            Area riservata per i clienti
-          </h2>
-          <p className="mx-auto mt-3 max-w-xl text-center text-[15px] text-white/80">
-            Tutto quello che riguarda il lavoro con noi, in un unico posto.
-          </p>
-          <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {CLIENT_AREA.map(([title, text]) => (
-              <li key={title} data-reveal className="band-card p-6">
-                <h3 className="text-[17px] text-white">{title}</h3>
-                <p className="mt-2 text-[14px] text-white/80">{text}</p>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-10 flex justify-center">
-            <Link href="/area-riservata" data-magnet className="btn btn-light">
-              Scopri l&apos;area riservata
-            </Link>
-          </div>
-        </section>
-      </div>
-
-      {/* 7 · Closing call to action */}
-      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6">
-        <div className="glass-panel px-6 py-10 text-center sm:px-12">
-          <h2 data-reveal className="text-[1.75rem]">
-            Parliamo della tua organizzazione
-          </h2>
-          <p className="mx-auto mt-3 max-w-xl text-[16px] text-muted">
-            Raccontaci il contesto: ti rispondiamo con una proposta chiara.
-          </p>
-          <div className="mt-6 flex justify-center">
-            <Link href="/contatti" data-magnet className="btn btn-primary">
-              Contattaci
-            </Link>
-          </div>
+      {/* 6 · Warm band: the client area */}
+      <Band tone="warm" label="Area riservata" className="band-pad">
+        <h2 data-reveal className="band-title max-w-3xl">
+          Un posto tuo, per seguire il lavoro
+        </h2>
+        <p className="mt-5 max-w-xl text-[17px] text-muted">
+          Tutto quello che riguarda il lavoro con noi, in un unico spazio riservato ai clienti.
+        </p>
+        <ul className="col-rule mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+          {CLIENT_AREA.map(([title, text]) => (
+            <li key={title} data-reveal>
+              <h3 className="text-[1.2rem] font-semibold tracking-tight">{title}</h3>
+              <p className="mt-2 text-[15px] text-muted">{text}</p>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-12">
+          <Link href="/area-riservata" data-magnet className="btn btn-outline">
+            Scopri l&apos;area riservata
+          </Link>
         </div>
-      </section>
+      </Band>
+
+      {/* 7 · Terracotta band: the one thing to do */}
+      <Band tone="clay" label="Contattaci" className="band-pad">
+        <h2 data-reveal className="band-title max-w-4xl">
+          Parliamo di persone.
+        </h2>
+        <p className="mt-5 max-w-xl text-[18px] text-muted">
+          Raccontaci il contesto: ti rispondiamo con una proposta chiara.
+        </p>
+        <div className="mt-10">
+          <Link href="/contatti" data-magnet className="btn btn-primary">
+            Richiedi un colloquio
+          </Link>
+        </div>
+      </Band>
     </PageShell>
   );
 }

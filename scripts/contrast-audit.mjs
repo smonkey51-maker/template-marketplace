@@ -100,7 +100,12 @@ const COLLECT = () => {
     // Floating UI and the sticky nav: text that scrolls under them is not fully visible there.
     // (The pointer-events:none lens canvas lets elementFromPoint see through to that text.)
     if (fr.width > 0 && fr.height > 0 && (fcs.position === "sticky" || fr.width < innerWidth * 0.9))
-      floating.push(fr);
+      floating.push(
+        fcs.position === "sticky"
+          ? fr
+          : // Fixed UI casts a soft shadow around itself: text within it is not measured either.
+            { left: fr.left - 28, right: fr.right + 28, top: fr.top - 28, bottom: fr.bottom + 28 },
+      );
   }
   const vw = innerWidth;
   const vh = innerHeight;
