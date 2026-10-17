@@ -5,6 +5,7 @@ import Link from "next/link";
 import { SITE } from "@/lib/site";
 import PageShell from "@/components/PageShell";
 import Band from "@/components/Band";
+import HeroReady from "@/components/HeroReady";
 
 export const metadata: Metadata = {
   title: { absolute: `${SITE.name} — ${SITE.tagline}` },
@@ -61,6 +62,7 @@ const PRINCIPLES = [
 export default function HomePage() {
   return (
     <PageShell>
+      <HeroReady />
       {/* 1 · Hero: a full-screen photo and a giant headline that rises word by word */}
       <div className="tone-blue relative isolate flex min-h-[calc(100svh-6rem)] flex-col overflow-hidden text-ink">
         {/* The photo is in the page flow on purpose: the glass lenses refract what the page
