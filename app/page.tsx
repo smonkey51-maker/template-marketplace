@@ -26,6 +26,16 @@ const SERVICES = [
   ["Organizzazione e clima aziendale", "Ruoli, processi e benessere organizzativo."],
 ];
 
+const CLIENT_AREA = [
+  ["Il tuo profilo", "Le tue generalità e i dati dell'azienda per cui lavori."],
+  [
+    "Gli appuntamenti",
+    "Il calendario degli incontri con il consulente, con il link per la videochiamata.",
+  ],
+  ["Le fatture", "Le fatture emesse, sempre consultabili e scaricabili."],
+  ["Il tuo consulente", "Un riferimento unico, raggiungibile dall'area riservata."],
+];
+
 const PRINCIPLES = [
   [
     "Un consulente di riferimento",
@@ -44,7 +54,7 @@ const PRINCIPLES = [
 export default function HomePage() {
   return (
     <PageShell>
-      {/* Hero */}
+      {/* 1 · Hero: headline, two actions, the photo behind the glass */}
       <div className="relative isolate overflow-hidden">
         {/* The photo is in the page flow on purpose: the glass lenses refract what the page
             snapshot contains, and the snapshot ignores fixed elements. */}
@@ -57,91 +67,141 @@ export default function HomePage() {
           className="-z-10 object-cover object-center"
         />
         <div aria-hidden className="hero-wash absolute inset-0 -z-10" />
-        <section className="mx-auto max-w-[1200px] px-4 py-12 sm:px-6 sm:py-20">
-          <div className="glass-panel grid gap-10 px-6 py-10 sm:px-10 sm:py-14 lg:grid-cols-12">
-            <div className="lg:col-span-7">
-              <h1 className="mt-3 text-[clamp(2rem,4.6vw,3.25rem)]">
-                Persone e organizzazione, al passo con la tua impresa.
-              </h1>
-              <p className="mt-5 max-w-xl text-[17px] text-muted">
-                Affianchiamo imprese e responsabili HR nella selezione, nella crescita delle persone
-                e nell&apos;organizzazione del lavoro, con un consulente di riferimento dedicato.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link href="/contatti" className="btn btn-primary">
-                  Richiedi un colloquio
-                </Link>
-                <Link href="/servizi" className="btn btn-outline">
-                  Scopri i servizi
-                </Link>
-              </div>
+        <section className="mx-auto max-w-[1200px] px-4 py-12 sm:px-6 sm:py-24">
+          <div className="glass-panel mx-auto max-w-3xl px-6 py-10 text-center sm:px-12 sm:py-14">
+            <h1 className="text-[clamp(2rem,4.6vw,3.25rem)]">
+              Persone e organizzazione, al passo con la tua impresa.
+            </h1>
+            <p className="mx-auto mt-5 max-w-xl text-[17px] text-muted">
+              Affianchiamo imprese e responsabili HR nella selezione, nella crescita delle persone e
+              nell&apos;organizzazione del lavoro, con un consulente di riferimento dedicato.
+            </p>
+            <div className="mt-8 flex flex-wrap justify-center gap-3">
+              <Link href="/contatti" className="btn btn-primary">
+                Richiedi un colloquio
+              </Link>
+              <Link href="/area-riservata" className="btn btn-outline">
+                Area riservata
+              </Link>
             </div>
-
-            <aside className="lg:col-span-5" aria-labelledby="come-iniziamo">
-              <h2
-                id="come-iniziamo"
-                className="font-mono text-[12px] font-medium uppercase tracking-[0.1em] text-muted"
-              >
-                Come iniziamo
-              </h2>
-              <ol className="mt-4 space-y-4">
-                {STEPS.map(([title, text]) => (
-                  <li key={title} className="flex gap-4">
-                    <span>
-                      <span className="block font-medium">{title}</span>
-                      <span className="block text-[14px] text-muted">{text}</span>
-                    </span>
-                  </li>
-                ))}
-              </ol>
-            </aside>
           </div>
         </section>
       </div>
 
-      {/* Services */}
+      {/* 2 · Highlight banner */}
       <section className="mx-auto max-w-[1200px] px-4 py-14 sm:px-6">
-        <h2 className="mt-2 text-[1.75rem]">Cosa facciamo per le imprese</h2>
-        <ul className="mt-8 grid gap-4 sm:grid-cols-2">
-          {SERVICES.map(([title, text]) => (
-            <li key={title}>
-              <Link
-                href="/servizi"
-                className="glass-panel block h-full p-6 hover:border-line-strong"
-              >
-                <span className="block text-[17px] font-semibold">{title}</span>
-                <span className="mt-2 block text-[14px] text-muted">{text}</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* Principles */}
-      <section className="mx-auto max-w-[1200px] px-4 pb-14 sm:px-6">
-        <h2 className="mt-2 text-[1.75rem]">Come lavoriamo</h2>
-        <ul className="mt-8 grid gap-4 md:grid-cols-3">
-          {PRINCIPLES.map(([title, text]) => (
-            <li key={title} className="border-t border-line-strong pt-4">
-              <h3 className="text-[17px]">{title}</h3>
-              <p className="mt-2 text-[14px] text-muted">{text}</p>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* Client area teaser */}
-      <section className="mx-auto max-w-[1200px] px-4 pb-6 sm:px-6">
-        <div className="glass-panel flex flex-col items-start justify-between gap-6 p-8 sm:flex-row sm:items-center">
-          <div>
-            <h2 className="text-[1.25rem]">Area riservata per i clienti</h2>
-            <p className="mt-2 max-w-xl text-[15px] text-muted">
-              Il tuo profilo, gli appuntamenti con il consulente e le fatture, in un unico posto.
+        <div className="glass-panel grid items-center gap-8 p-8 sm:p-10 lg:grid-cols-12">
+          <div className="lg:col-span-8">
+            <h2 className="text-[1.75rem]">Il primo passo è un colloquio conoscitivo</h2>
+            <p className="mt-3 max-w-2xl text-[16px] text-muted">
+              Ascoltiamo le esigenze dell&apos;azienda e il contesto in cui operate, poi definiamo
+              insieme obiettivi, attività e tempi.
             </p>
           </div>
-          <Link href="/area-riservata" className="btn btn-outline shrink-0">
-            Scopri l&apos;area riservata
-          </Link>
+          <div className="flex flex-wrap gap-3 lg:col-span-4 lg:justify-end">
+            <Link href="/contatti" className="btn btn-primary">
+              Richiedi un colloquio
+            </Link>
+            <Link href="/metodo" className="btn btn-outline">
+              Il metodo
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 3 · Services */}
+      <div className="band-tint">
+        <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6">
+          <h2 className="text-center text-[1.75rem]">Cosa facciamo per le imprese</h2>
+          <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {SERVICES.map(([title, text]) => (
+              <li key={title}>
+                <Link
+                  href="/servizi"
+                  className="glass-panel block h-full p-6 hover:border-line-strong"
+                >
+                  <span className="block text-[17px] font-semibold">{title}</span>
+                  <span className="mt-2 block text-[14px] text-muted">{text}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+
+      {/* 4 · Dark band: how we start, three connected steps */}
+      <div className="band-dark">
+        <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6">
+          <h2 className="text-center text-[1.75rem] text-white">Come iniziamo</h2>
+          <ol className="mt-10 grid gap-4 md:grid-cols-3">
+            {STEPS.map(([title, text]) => (
+              <li key={title} className="band-card p-6">
+                <h3 className="text-[17px] text-white">{title}</h3>
+                <p className="mt-2 text-[14px] text-white/80">{text}</p>
+              </li>
+            ))}
+          </ol>
+          <div className="mt-10 flex justify-center">
+            <Link href="/metodo" className="btn btn-light">
+              Scopri il metodo
+            </Link>
+          </div>
+        </section>
+      </div>
+
+      {/* 5 · Principles as a checklist */}
+      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6">
+        <div className="glass-panel grid gap-8 p-8 sm:p-10 lg:grid-cols-12">
+          <h2 className="text-[1.75rem] lg:col-span-4">Come lavoriamo</h2>
+          <ul className="space-y-5 lg:col-span-8">
+            {PRINCIPLES.map(([title, text]) => (
+              <li key={title} className="flex gap-4">
+                <span aria-hidden className="check-mark mt-1" />
+                <span>
+                  <span className="block text-[17px] font-semibold">{title}</span>
+                  <span className="mt-1 block text-[14px] text-muted">{text}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* 6 · Dark slate band: the client area */}
+      <div className="band-slate">
+        <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6">
+          <h2 className="text-center text-[1.75rem] text-white">Area riservata per i clienti</h2>
+          <p className="mx-auto mt-3 max-w-xl text-center text-[15px] text-white/80">
+            Tutto quello che riguarda il lavoro con noi, in un unico posto.
+          </p>
+          <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {CLIENT_AREA.map(([title, text]) => (
+              <li key={title} className="band-card p-6">
+                <h3 className="text-[17px] text-white">{title}</h3>
+                <p className="mt-2 text-[14px] text-white/80">{text}</p>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-10 flex justify-center">
+            <Link href="/area-riservata" className="btn btn-light">
+              Scopri l&apos;area riservata
+            </Link>
+          </div>
+        </section>
+      </div>
+
+      {/* 7 · Closing call to action */}
+      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6">
+        <div className="glass-panel px-6 py-10 text-center sm:px-12">
+          <h2 className="text-[1.75rem]">Parliamo della tua organizzazione</h2>
+          <p className="mx-auto mt-3 max-w-xl text-[16px] text-muted">
+            Raccontaci il contesto: ti rispondiamo con una proposta chiara.
+          </p>
+          <div className="mt-6 flex justify-center">
+            <Link href="/contatti" className="btn btn-primary">
+              Contattaci
+            </Link>
+          </div>
         </div>
       </section>
     </PageShell>
