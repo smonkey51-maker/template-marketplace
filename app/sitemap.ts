@@ -1,18 +1,14 @@
 import { MetadataRoute } from "next";
-import { LOCALES } from "@/lib/locales";
+import { SITE_URL } from "@/lib/site";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://sandbox.example.com";
-
-// /rickrolled is deliberately left out (it is noindex).
-const PATHS = ["/test", "/test-ma-di-piu"];
+// The test pages are internal and noindex, so they are left out.
+const PATHS = ["", "/servizi", "/metodo", "/chi-siamo", "/contatti", "/area-riservata", "/privacy"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return LOCALES.flatMap((lang) =>
-    PATHS.map((path) => ({
-      url: `${SITE_URL}/${lang}${path}`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: path === "/test" ? 1 : 0.6,
-    })),
-  );
+  return PATHS.map((path) => ({
+    url: `${SITE_URL}${path}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: path === "" ? 1 : 0.7,
+  }));
 }

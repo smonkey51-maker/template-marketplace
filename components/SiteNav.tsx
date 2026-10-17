@@ -4,108 +4,113 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Menu, Search, X } from "lucide-react";
-import { copy } from "@/lib/i18n";
-import { useLang } from "@/components/LanguageProvider";
+import { SITE } from "@/lib/site";
 import SiteLogo from "@/components/SiteLogo";
 import ThemeToggle from "@/components/ThemeToggle";
 import GlassNavLens from "@/components/GlassNavLens";
 
-const LINKS: { href: string; key: keyof typeof copy.it }[] = [
-  { href: "/test", key: "navTest" },
-  { href: "/test-ma-di-piu", key: "navTestPlus" },
-  { href: "/rickrolled", key: "navRick" },
+const LINKS = [
+  { href: "/servizi", label: "Servizi" },
+  { href: "/metodo", label: "Metodo" },
+  { href: "/chi-siamo", label: "Chi siamo" },
+  { href: "/contatti", label: "Contatti" },
 ];
 
 export default function SiteNav() {
-  const { lang, toggle } = useLang();
-  const t = (k: keyof typeof copy.it) => copy[lang][k];
   const pathname = usePathname();
-  const withoutLang = pathname.replace(/^\/(it|en)(?=\/|$)/, "");
   const [open, setOpen] = useState(false);
 
   useEffect(() => setOpen(false), [pathname]);
 
-  const isActive = (href: string) => withoutLang === href;
+  const isActive = (href: string) => pathname === href;
   const openSearch = () =>
     window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", ctrlKey: true, metaKey: true }));
 
   return (
     <>
-      {/* Environment bar: always visible, so the site never reads as production. */}
-      <div className="sticky top-0 z-50 h-8 bg-bar text-bar-fg">
-        <div className="mx-auto flex h-full max-w-[1200px] items-center justify-between gap-4 px-4 sm:px-6">
-          <p className="min-w-0 truncate font-mono text-[11px] uppercase tracking-[0.08em]">
-            <span className="font-medium text-white">{t("envLabel")}</span>
-            <span className="hidden sm:inline"> — {t("envNote")}</span>
-          </p>
-          <button
-            type="button"
-            onClick={toggle}
-            aria-label={lang === "it" ? "Switch to English" : "Passa all'italiano"}
-            className="shrink-0 font-mono text-[11px] uppercase tracking-[0.08em] hover:text-white"
-          >
-            {lang === "it" ? "IT | en" : "EN | it"}
-          </button>
+      {/* Draft bar: shown while the content is provisional (see lib/site.ts). */}
+      {SITE.draft && (
+        <div className="sticky top-0 z-50 h-8 bg-bar text-bar-fg">
+          <div className="mx-auto flex h-full max-w-[1200px] items-center px-4 sm:px-6">
+            <p className="min-w-0 truncate font-mono text-[11px] uppercase tracking-[0.08em]">
+              <span className="font-medium text-white">{SITE.draftLabel}</span>
+              <span className="hidden sm:inline"> — {SITE.draftNote}</span>
+            </p>
+          </div>
         </div>
-      </div>
+      )}
 
-      {/* Nav row: sticky under the env bar; liquid-gl turns it into a glass lens. */}
-      <header className="liquidGL glass-bar sticky top-8 z-50 border-b border-line">
-        <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between gap-6 px-4 sm:px-6">
-          <Link href={`/${lang}`} aria-label={`${copy[lang].siteName} — home`}>
-            <SiteLogo />
-          </Link>
+      {/* Nav row: sticky under the draft bar; liquid-gl turns it into a glass lens. */}
+      <header
+        className={`liquidGL sticky z-50 border-b border-line ${SITE.draft ? "top-8" : "top-0"}`}
+      >
+        <div className="glass-nav">
+          <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between gap-3 px-4 sm:gap-6 sm:px-6">
+            <Link href="/" aria-label={`${SITE.name} — home`}>
+              <SiteLogo />
+            </Link>
 
-          <nav className="hidden items-stretch gap-1 self-stretch md:flex" aria-label="Main">
-            {LINKS.map((l) => (
-              <Link
-                key={l.href}
-                href={`/${lang}${l.href}`}
-                aria-current={isActive(l.href) ? "page" : undefined}
-                className={`flex items-center border-b-2 px-3 text-sm font-medium transition-colors ${
-                  isActive(l.href)
-                    ? "border-brand text-ink dark:border-accent"
-                    : "border-transparent text-muted hover:text-ink"
-                }`}
+            <nav
+              className="hidden items-stretch gap-1 self-stretch md:flex"
+              aria-label="Principale"
+            >
+              {LINKS.map((l) => (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  aria-current={isActive(l.href) ? "page" : undefined}
+                  className={`flex items-center border-b-2 px-3 text-sm font-medium transition-colors ${
+                    isActive(l.href)
+                      ? "border-brand text-ink dark:border-accent"
+                      : "border-transparent text-muted hover:text-ink"
+                  }`}
+                >
+                  {l.label}
+                </Link>
+              ))}
+            </nav>
+
+            <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+              <button
+                type="button"
+                onClick={openSearch}
+                aria-label="Cerca nel sito"
+                className="glass-ctl hidden h-11 items-center gap-2 px-3.5 text-sm text-muted hover:text-ink lg:flex"
               >
-                {t(l.key)}
-              </Link>
-            ))}
-          </nav>
-
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={openSearch}
-              className="glass-ctl hidden h-10 items-center gap-2 px-3.5 text-sm text-muted hover:text-ink sm:flex"
-            >
-              <Search size={15} aria-hidden />
-              <span>{t("searchCta")}</span>
-              <kbd className="font-mono text-[11px]">⌘K</kbd>
-            </button>
-            <ThemeToggle />
-            <button
-              type="button"
-              onClick={() => setOpen((v) => !v)}
-              aria-label={lang === "it" ? "Menu" : "Menu"}
-              aria-expanded={open}
-              className="flex h-9 w-9 items-center justify-center md:hidden"
-            >
-              {open ? <X size={20} /> : <Menu size={20} />}
-            </button>
+                <Search size={15} aria-hidden />
+                <span>Cerca</span>
+                <kbd className="font-mono text-[11px]">⌘K</kbd>
+              </button>
+              {/* `.btn` sets its own display, which beats the `hidden` utility: hide a wrapper instead. */}
+              <div className="hidden sm:block">
+                <Link href="/area-riservata" className="btn btn-outline">
+                  Area riservata
+                </Link>
+              </div>
+              <ThemeToggle />
+              <button
+                type="button"
+                onClick={() => setOpen((v) => !v)}
+                aria-label="Menu"
+                aria-expanded={open}
+                className="flex h-11 w-11 items-center justify-center md:hidden"
+              >
+                {open ? <X size={20} /> : <Menu size={20} />}
+              </button>
+            </div>
           </div>
         </div>
 
         {open && (
-          <ul className="border-t border-line px-4 py-2 md:hidden sm:px-6">
-            {LINKS.map((l, i) => (
+          <ul className="menu-enter glass-nav border-t border-line px-4 py-2 md:hidden sm:px-6">
+            {[...LINKS, { href: "/area-riservata", label: "Area riservata" }].map((l, i) => (
               <li key={l.href} className={i > 0 ? "border-t border-line" : undefined}>
                 <Link
-                  href={`/${lang}${l.href}`}
+                  href={l.href}
                   aria-current={isActive(l.href) ? "page" : undefined}
                   className={`block py-3 text-[15px] ${isActive(l.href) ? "font-medium text-ink" : "text-muted"}`}
                 >
-                  {t(l.key)}
+                  {l.label}
                 </Link>
               </li>
             ))}

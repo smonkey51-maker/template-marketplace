@@ -1,23 +1,24 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { Search } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useLang } from "@/components/LanguageProvider";
 
 // Loaded on demand and only in the browser: the refraction layer is an extra
 // ~180 KB that no visitor needs for the first paint.
 const LiquidGlass = dynamic(() => import("liquid-glass-react"), { ssr: false });
 
 /**
- * A floating glass pill, fixed at the bottom centre, that opens the command
- * palette. liquid-glass-react draws real refraction (SVG displacement filter)
- * and is built for fixed, content-sized elements like this one — not for
- * panels in the page flow. Skipped for reduced motion/transparency and on
- * small screens, where it would sit on top of content.
+ * A floating glass pill, fixed at the bottom centre, linking to the contact
+ * page. liquid-glass-react draws real refraction (SVG displacement filter) and
+ * is built for fixed, content-sized elements like this one — not for panels in
+ * the page flow. The pill's content is a real link, so it is keyboard- and
+ * screen-reader-reachable. Skipped for reduced motion/transparency and on small
+ * screens, and on the contact page itself.
  */
 export default function GlassDock() {
-  const { lang } = useLang();
+  const pathname = usePathname();
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -30,10 +31,7 @@ export default function GlassDock() {
     return () => q.removeEventListener("change", update);
   }, []);
 
-  if (!show) return null;
-
-  const open = () =>
-    window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", ctrlKey: true, metaKey: true }));
+  if (!show || pathname === "/contatti") return null;
 
   return (
     <LiquidGlass
@@ -43,15 +41,12 @@ export default function GlassDock() {
       saturation={150}
       aberrationIntensity={1.4}
       elasticity={0.25}
-      padding="10px 20px"
-      onClick={open}
+      padding="0"
       style={{ position: "fixed", top: "calc(100% - 52px)", left: "50%", zIndex: 40 }}
     >
-      <span className="flex items-center gap-2 text-[14px] font-medium text-ink">
-        <Search size={15} aria-hidden />
-        {lang === "it" ? "Cerca" : "Search"}
-        <kbd className="font-mono text-[11px] text-muted">⌘K</kbd>
-      </span>
+      <Link href="/contatti" className="block px-5 py-2.5 text-[14px] font-medium text-ink">
+        Richiedi un colloquio
+      </Link>
     </LiquidGlass>
   );
 }

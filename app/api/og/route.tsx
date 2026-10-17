@@ -1,14 +1,9 @@
 import { ImageResponse } from "next/og";
-import { NextRequest } from "next/server";
-import { toLocale } from "@/lib/locales";
-import { copy } from "@/lib/i18n";
+import { SITE } from "@/lib/site";
 
 export const runtime = "edge";
 
-export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
-  const lang = toLocale(searchParams.get("lang"));
-
+export async function GET() {
   return new ImageResponse(
     <div
       style={{
@@ -31,13 +26,13 @@ export async function GET(req: NextRequest) {
           textTransform: "uppercase",
         }}
       >
-        {copy[lang].envLabel}
+        Consulenza HR
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
         <div style={{ fontSize: 88, fontWeight: 700, color: "#0B3558", letterSpacing: "0.04em" }}>
-          SANDBOX
+          {SITE.name.toUpperCase()}
         </div>
-        <div style={{ fontSize: 30, color: "#14202E" }}>{copy[lang].envNote}</div>
+        <div style={{ fontSize: 30, color: "#14202E" }}>{SITE.tagline}</div>
       </div>
     </div>,
     { width: 1200, height: 630 },

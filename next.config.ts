@@ -27,6 +27,21 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 31536000,
   },
+  // The site used to live under /it and /en. Keep those links, and the removed
+  // sections, working by sending them to the closest current page.
+  async redirects() {
+    return [
+      { source: "/it", destination: "/", permanent: true },
+      { source: "/en", destination: "/", permanent: true },
+      ...["articoli", "dossier", "guide-pratiche", "biblioteca", "lab", "terms"].flatMap((s) => [
+        { source: `/it/${s}/:path*`, destination: "/", permanent: true },
+        { source: `/en/${s}/:path*`, destination: "/", permanent: true },
+        { source: `/${s}/:path*`, destination: "/", permanent: true },
+      ]),
+      { source: "/it/:path*", destination: "/:path*", permanent: true },
+      { source: "/en/:path*", destination: "/:path*", permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

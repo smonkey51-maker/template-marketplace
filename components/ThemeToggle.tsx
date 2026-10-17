@@ -12,7 +12,7 @@ export default function ThemeToggle() {
       type="button"
       onClick={toggle}
       aria-label={isDark ? "Attiva tema chiaro" : "Attiva tema scuro"}
-      className="glass-ctl flex h-10 w-10 items-center justify-center text-ink"
+      className="glass-ctl flex h-11 w-11 items-center justify-center text-ink"
     >
       {isDark ? <Sun size={16} aria-hidden /> : <Moon size={16} aria-hidden />}
     </button>

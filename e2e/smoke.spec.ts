@@ -1,25 +1,42 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("Sandbox smoke", () => {
-  test("home redirects to the Test page", async ({ page }) => {
-    await page.goto("/it");
-    await expect(page).toHaveURL(/\/it\/test$/);
-    await expect(page.getByRole("heading", { level: 1, name: "Test" })).toBeVisible();
+test.describe("Smoke", () => {
+  test("home renders the hero and a link to the contact page", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Richiedi un colloquio" }).first()).toBeVisible();
   });
 
-  test("test-ma-di-piu renders the extra sections", async ({ page }) => {
-    await page.goto("/it/test-ma-di-piu");
-    await expect(page.getByRole("heading", { level: 1, name: "Test ma di più" })).toBeVisible();
-    await expect(page.getByRole("table")).toBeVisible();
+  test("every public page renders a heading", async ({ page }) => {
+    for (const path of [
+      "/servizi",
+      "/metodo",
+      "/chi-siamo",
+      "/contatti",
+      "/area-riservata",
+      "/privacy",
+    ]) {
+      await page.goto(path);
+      await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    }
   });
 
-  test("rickrolled page shows a single image", async ({ page }) => {
-    await page.goto("/it/rickrolled");
-    await expect(page.getByAltText("Rickrolled")).toBeVisible();
+  test("the contact form shows the consent checkbox and a submit button", async ({ page }) => {
+    await page.goto("/contatti");
+    await expect(page.getByLabel(/Nome e cognome/)).toBeVisible();
+    await expect(page.getByRole("checkbox")).toBeVisible();
+    await expect(page.getByRole("button", { name: "Invia richiesta" })).toBeVisible();
   });
 
-  test("the environment bar is always visible", async ({ page }) => {
-    await page.goto("/en/test");
-    await expect(page.getByText("Test environment").first()).toBeVisible();
+  test("old /it and /en links redirect to the new paths", async ({ page }) => {
+    await page.goto("/it/servizi");
+    await expect(page).toHaveURL(/\/servizi$/);
+    await page.goto("/en");
+    await expect(page).toHaveURL(/\/$/);
+  });
+
+  test("the draft bar is shown while the site is a draft", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.getByText("Sito in costruzione").first()).toBeVisible();
   });
 });
