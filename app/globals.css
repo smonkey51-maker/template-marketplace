@@ -33,6 +33,7 @@
   --glass-lo: rgb(11 53 88 / 0.06);
   --glass-sheen: rgb(255 255 255 / 0.55);
   --glass-shadow: 0 10px 34px rgb(11 53 88 / 0.13), 0 2px 6px rgb(11 53 88 / 0.07);
+  --glass-spot: rgb(15 95 166 / 0.1);
   --glass-blur: 18px;
 
   /* Motion: strong custom curves (the built-in CSS easings are too weak). */
@@ -62,6 +63,7 @@
   --glass-lo: rgb(0 0 0 / 0.25);
   --glass-sheen: rgb(255 255 255 / 0.1);
   --glass-shadow: 0 12px 38px rgb(0 0 0 / 0.5), 0 2px 6px rgb(0 0 0 / 0.35);
+  --glass-spot: rgb(125 180 234 / 0.15);
 }
 
 @theme inline {
@@ -137,6 +139,28 @@ body::before {
     radial-gradient(34% 34% at 4% 78%, rgb(47 111 176 / 0.36), transparent 70%);
 }
 
+/* A fine blueprint grid on the ground: glass only reads as glass when there is
+   something behind it to bend, and the grid shows the refraction at every panel
+   edge while staying corporate. Faded toward the edges so it never competes with text. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgb(11 53 88 / 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(11 53 88 / 0.06) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 35%, #000 25%, transparent 85%);
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 35%, #000 25%, transparent 85%);
+}
+.dark body::after {
+  background-image:
+    linear-gradient(to right, rgb(125 180 234 / 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(125 180 234 / 0.08) 1px, transparent 1px);
+}
+
 h1,
 h2,
 h3 {
@@ -191,6 +215,46 @@ h3 {
   pointer-events: auto;
 }
 
+/* Specular light that follows the pointer (see components/GlassLight.tsx). Only on
+   devices with a real pointer; --lx/--ly are set on the hovered panel. */
+.glass::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    260px circle at var(--lx, 50%) var(--ly, 0%),
+    var(--glass-spot),
+    transparent 62%
+  );
+  transition: opacity 240ms var(--ease-out);
+}
+.glass[data-lit]::after {
+  opacity: 1;
+}
+
+/* Panels materialise on load: a small rise and scale with a fade, compositor-only.
+   Applied to the glass element itself, never an ancestor: an ancestor with
+   opacity < 1 would switch its backdrop blur off for the duration. */
+@media (prefers-reduced-motion: no-preference) {
+  .glass {
+    animation: materialize 380ms var(--ease-out) both;
+  }
+}
+@keyframes materialize {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* Small control (icon buttons, search): glass at control size. */
 .glass-ctl {
   border: 1px solid var(--line-strong);
@@ -233,7 +297,8 @@ h3 {
     backdrop-filter: none;
     background: var(--surface);
   }
-  .glass::before {
+  .glass::before,
+  .glass::after {
     display: none;
   }
 }

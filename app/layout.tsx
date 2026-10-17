@@ -5,6 +5,7 @@ import { PostHogProvider } from "@/components/PostHogProvider";
 import PageTransition from "@/components/PageTransition";
 import CommandPalette from "@/components/CommandPalette";
 import GlassDock from "@/components/GlassDock";
+import GlassLight from "@/components/GlassLight";
 import { SITE, SITE_URL } from "@/lib/site";
 import "@/app/globals.css";
 
@@ -84,6 +85,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </PageTransition>
             <CommandPalette />
             <GlassDock />
+            <GlassLight />
           </ThemeProvider>
         </PostHogProvider>
       </body>

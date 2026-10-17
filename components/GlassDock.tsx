@@ -36,15 +36,21 @@ export default function GlassDock() {
   return (
     <LiquidGlass
       cornerRadius={999}
-      displacementScale={46}
-      blurAmount={0.12}
+      displacementScale={30}
+      blurAmount={0.2}
       saturation={150}
       aberrationIntensity={1.4}
       elasticity={0.25}
       padding="0"
       style={{ position: "fixed", top: "calc(100% - 52px)", left: "50%", zIndex: 40 }}
     >
-      <Link href="/contatti" className="block px-5 py-2.5 text-[14px] font-medium text-ink">
+      {/* The library layers blend modes and a dark shadow meant for photos; on a pale page they
+          read as grey. A light plate over them keeps the pill clean, with the refraction at its edge. The library
+          also sets its own system font, so the site font is restored on the link. */}
+      <Link
+        href="/contatti"
+        className="block rounded-full bg-bg/80 px-5 py-2.5 font-sans text-[14px] font-medium text-ink"
+      >
         Richiedi un colloquio
       </Link>
     </LiquidGlass>
