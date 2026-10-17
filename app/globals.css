@@ -602,3 +602,52 @@ div.glass {
     inset 0 1px 0 rgb(255 255 255 / 0.25),
     0 18px 50px rgb(0 0 0 / 0.4);
 }
+
+/* ── Motion accents (components/InteractionFx.tsx) ─────────────────────────── */
+[data-reveal] {
+  transition:
+    opacity 0.7s var(--ease-out),
+    transform 0.7s var(--ease-out);
+}
+html.reveal-ready [data-reveal]:not(.in) {
+  opacity: 0;
+  transform: translateY(24px);
+}
+.btn[data-magnet] {
+  /* The individual `translate` property composes with the :active scale. */
+  translate: var(--mx, 0) var(--my, 0);
+  transition:
+    translate 0.25s var(--ease-out),
+    background-color 0.15s,
+    transform 0.15s;
+}
+.fx-ring {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 60;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--brand);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    width 0.2s var(--ease-out),
+    height 0.2s var(--ease-out),
+    opacity 0.2s,
+    background-color 0.2s;
+}
+.fx-ring[data-on] {
+  opacity: 0.7;
+}
+.fx-ring[data-hot] {
+  width: 44px;
+  height: 44px;
+  background: color-mix(in srgb, var(--brand) 12%, transparent);
+}
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .fx-ring {
+    display: none;
+  }
+}

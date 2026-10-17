@@ -111,3 +111,5 @@ Before pushing: typecheck, lint, `npm test`, `npm run build`, `npx prettier --ch
 - **liquidGL returns an array when the target matches several elements** (nav + dock); destroy every lens, or the old ones stay on top with a stale snapshot (the nav vanished after toggling the theme).
 
 - **Hero photo:** `public/hero.webp` sits behind the home hero as an in-flow `next/image` (not a fixed background: the liquid-gl snapshot ignores fixed elements, so only in-flow content is refracted by the sticky nav and dock lenses), with a light/dark `.hero-wash`. Contrast audit on `/` passes (lowest 4.85:1).
+
+- **Motion accents** (`components/InteractionFx.tsx`, inspired by the interactions of diventaredesigner.com, own code): a pointer ring that grows over links (hover devices only, native cursor kept), `[data-magnet]` buttons that lean toward the pointer (CSS `translate`, composes with the `:active` scale), and `[data-reveal]` fade-up on first view (hidden only after JS runs and only if below the fold; all off for reduced motion). Do not put `data-reveal` on `.glass-panel`: an ancestor with opacity < 1 switches its backdrop blur off.

@@ -78,10 +78,10 @@ export default function HomePage() {
                 e nell&apos;organizzazione del lavoro, con un consulente di riferimento dedicato.
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-3">
-                <Link href="/contatti" className="btn btn-primary">
+                <Link href="/contatti" data-magnet className="btn btn-primary">
                   Richiedi un colloquio
                 </Link>
-                <Link href="/area-riservata" className="btn btn-outline">
+                <Link href="/area-riservata" data-magnet className="btn btn-outline">
                   Area riservata
                 </Link>
               </div>
@@ -94,17 +94,19 @@ export default function HomePage() {
       <section className="mx-auto max-w-[1200px] px-4 py-14 sm:px-6">
         <div className="glass-panel grid items-center gap-8 p-8 sm:p-10 lg:grid-cols-12">
           <div className="lg:col-span-8">
-            <h2 className="text-[1.75rem]">Il primo passo è un colloquio conoscitivo</h2>
+            <h2 data-reveal className="text-[1.75rem]">
+              Il primo passo è un colloquio conoscitivo
+            </h2>
             <p className="mt-3 max-w-2xl text-[16px] text-muted">
               Ascoltiamo le esigenze dell&apos;azienda e il contesto in cui operate, poi definiamo
               insieme obiettivi, attività e tempi.
             </p>
           </div>
           <div className="flex flex-wrap gap-3 lg:col-span-4 lg:justify-end">
-            <Link href="/contatti" className="btn btn-primary">
+            <Link href="/contatti" data-magnet className="btn btn-primary">
               Richiedi un colloquio
             </Link>
-            <Link href="/metodo" className="btn btn-outline">
+            <Link href="/metodo" data-magnet className="btn btn-outline">
               Il metodo
             </Link>
           </div>
@@ -114,7 +116,9 @@ export default function HomePage() {
       {/* 3 · Services */}
       <div className="band-tint">
         <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6">
-          <h2 className="text-center text-[1.75rem]">Cosa facciamo per le imprese</h2>
+          <h2 data-reveal className="text-center text-[1.75rem]">
+            Cosa facciamo per le imprese
+          </h2>
           <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {SERVICES.map(([title, text]) => (
               <li key={title}>
@@ -134,17 +138,19 @@ export default function HomePage() {
       {/* 4 · Dark band: how we start, three connected steps */}
       <div className="band-dark">
         <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6">
-          <h2 className="text-center text-[1.75rem] text-white">Come iniziamo</h2>
+          <h2 data-reveal className="text-center text-[1.75rem] text-white">
+            Come iniziamo
+          </h2>
           <ol className="mt-10 grid gap-4 md:grid-cols-3">
             {STEPS.map(([title, text]) => (
-              <li key={title} className="band-card p-6">
+              <li key={title} data-reveal className="band-card p-6">
                 <h3 className="text-[17px] text-white">{title}</h3>
                 <p className="mt-2 text-[14px] text-white/80">{text}</p>
               </li>
             ))}
           </ol>
           <div className="mt-10 flex justify-center">
-            <Link href="/metodo" className="btn btn-light">
+            <Link href="/metodo" data-magnet className="btn btn-light">
               Scopri il metodo
             </Link>
           </div>
@@ -154,7 +160,9 @@ export default function HomePage() {
       {/* 5 · Principles as a checklist */}
       <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6">
         <div className="glass-panel grid gap-8 p-8 sm:p-10 lg:grid-cols-12">
-          <h2 className="text-[1.75rem] lg:col-span-4">Come lavoriamo</h2>
+          <h2 data-reveal className="text-[1.75rem] lg:col-span-4">
+            Come lavoriamo
+          </h2>
           <ul className="space-y-5 lg:col-span-8">
             {PRINCIPLES.map(([title, text]) => (
               <li key={title} className="flex gap-4">
@@ -172,20 +180,22 @@ export default function HomePage() {
       {/* 6 · Dark slate band: the client area */}
       <div className="band-slate">
         <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6">
-          <h2 className="text-center text-[1.75rem] text-white">Area riservata per i clienti</h2>
+          <h2 data-reveal className="text-center text-[1.75rem] text-white">
+            Area riservata per i clienti
+          </h2>
           <p className="mx-auto mt-3 max-w-xl text-center text-[15px] text-white/80">
             Tutto quello che riguarda il lavoro con noi, in un unico posto.
           </p>
           <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {CLIENT_AREA.map(([title, text]) => (
-              <li key={title} className="band-card p-6">
+              <li key={title} data-reveal className="band-card p-6">
                 <h3 className="text-[17px] text-white">{title}</h3>
                 <p className="mt-2 text-[14px] text-white/80">{text}</p>
               </li>
             ))}
           </ul>
           <div className="mt-10 flex justify-center">
-            <Link href="/area-riservata" className="btn btn-light">
+            <Link href="/area-riservata" data-magnet className="btn btn-light">
               Scopri l&apos;area riservata
             </Link>
           </div>
@@ -195,12 +205,14 @@ export default function HomePage() {
       {/* 7 · Closing call to action */}
       <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6">
         <div className="glass-panel px-6 py-10 text-center sm:px-12">
-          <h2 className="text-[1.75rem]">Parliamo della tua organizzazione</h2>
+          <h2 data-reveal className="text-[1.75rem]">
+            Parliamo della tua organizzazione
+          </h2>
           <p className="mx-auto mt-3 max-w-xl text-[16px] text-muted">
             Raccontaci il contesto: ti rispondiamo con una proposta chiara.
           </p>
           <div className="mt-6 flex justify-center">
-            <Link href="/contatti" className="btn btn-primary">
+            <Link href="/contatti" data-magnet className="btn btn-primary">
               Contattaci
             </Link>
           </div>
