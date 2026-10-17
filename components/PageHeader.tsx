@@ -16,7 +16,7 @@ export default function PageHeader({
     <header className="band tone-blue">
       <div className="mx-auto max-w-[1200px] px-4 pb-14 pt-10 sm:px-6 sm:pb-20 sm:pt-14">
         <nav aria-label="Breadcrumb">
-          <ol className="flex flex-wrap items-center gap-2 text-[13px] text-muted">
+          <ol className="flex flex-wrap items-center justify-center gap-2 text-[13px] text-muted">
             {crumbs.map((c, i) => (
               <li key={`${c.label}-${i}`} className="flex items-center gap-2">
                 {c.href ? (
@@ -31,8 +31,10 @@ export default function PageHeader({
             ))}
           </ol>
         </nav>
-        <h1 className="band-title mt-8 max-w-4xl">{title}</h1>
-        {subtitle && <p className="mt-5 max-w-2xl text-[18px] text-muted">{subtitle}</p>}
+        <h1 className="band-title mx-auto mt-8 max-w-4xl text-center">{title}</h1>
+        {subtitle && (
+          <p className="mx-auto mt-5 max-w-2xl text-center text-[18px] text-muted">{subtitle}</p>
+        )}
       </div>
     </header>
   );

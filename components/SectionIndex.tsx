@@ -29,16 +29,14 @@ export default function SectionIndex({ items }: { items: SectionItem[] }) {
 
   return (
     <aside aria-label="In questa pagina" className="sticky top-32 hidden self-start lg:block">
-      <ul className="border-l border-line">
+      <ul>
         {items.map((i) => (
           <li key={i.id}>
             <a
               href={`#${i.id}`}
               aria-current={active === i.id ? "location" : undefined}
-              className={`-ml-px block border-l-2 py-2 pl-4 text-[14px] transition-colors ${
-                active === i.id
-                  ? "border-ink font-medium text-ink"
-                  : "border-transparent text-muted hover:text-ink"
+              className={`block py-2 text-[14px] transition-colors ${
+                active === i.id ? "font-medium text-ink" : "text-muted hover:text-ink"
               }`}
             >
               {i.label}

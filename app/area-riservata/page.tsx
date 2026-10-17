@@ -30,7 +30,7 @@ export default function AreaRiservataPage() {
       />
 
       <Band tone="soft" className="band-pad">
-        <ul className="col-rule grid gap-10 md:grid-cols-3 md:gap-8">
+        <ul className="grid gap-10 text-center md:grid-cols-3 md:gap-8">
           {CONTENTS.map(([title, text]) => (
             <li key={title}>
               <h2 className="text-[1.4rem] font-semibold tracking-tight">{title}</h2>
@@ -41,7 +41,7 @@ export default function AreaRiservataPage() {
       </Band>
 
       <Band tone="blue" label="Accesso" className="band-pad">
-        <div className="max-w-2xl">
+        <div className="mx-auto max-w-2xl text-center">
           <p className="text-[20px]">
             L&apos;accesso non è ancora attivo. Se sei già nostro cliente, contattaci: ti avviseremo
             appena potrai entrare.

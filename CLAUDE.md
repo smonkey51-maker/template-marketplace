@@ -1,4 +1,4 @@
-# CLAUDE.md — Studio HR
+# CLAUDE.md — N.Forcolin & Co.
 
 AI assistant reference for this codebase. Read it before making changes.
 
@@ -8,7 +8,7 @@ AI assistant reference for this codebase. Read it before making changes.
 
 A **showcase website for an HR consulting practice** (business-to-business), **Italian only**, with a contact form, a newsletter signup and — planned — a client area. Built with Next.js 16 (App Router).
 
-The business has **no name yet**: "Studio HR" is a working title kept in one place, `lib/site.ts`. The same file holds `SITE.draft`, a flag that, while `true`, shows a "Sito in costruzione" bar on every page, blocks indexing (`robots`) and marks placeholder sections. **Flip it to `false` at launch.** All copy is provisional; never invent facts (clients, figures, years, testimonials, certifications).
+The business is called **N.Forcolin & Co.** (HR consulting studio); the name lives in one place, `lib/site.ts`. The same file holds `SITE.draft`, a flag that, while `true`, shows a "Sito in costruzione" bar on every page, blocks indexing (`robots`) and marks placeholder sections. **Flip it to `false` at launch.** All copy is provisional; never invent facts (clients, figures, years, testimonials, certifications).
 
 **Tech stack:** Next.js 16 · React 19 · TypeScript 5 · Tailwind CSS 4 (CSS-first config) · Ark UI (headless primitives) · liquid-gl (refraction lenses) · Zod · Resend (email) · PostHog (analytics, optional) · Vitest · Playwright (e2e smoke)
 
@@ -30,7 +30,7 @@ The site used to have `/it` and `/en` prefixes and other sections; `next.config.
 ## Roadmap
 
 1. **Public site + contact form** — done (this is what exists).
-2. Newsletter, legal pages, SEO, launch (set `SITE.draft = false`, real name, real copy, real privacy notice).
+2. Newsletter, legal pages, SEO, launch (set `SITE.draft = false`, real copy, real privacy notice).
 3. **Client area** — not started. Planned: Supabase (auth + Postgres + file storage) with strict row-level security. Each client sees only: their profile (name, surname), their company name, their appointments (calendar with a Meet link and the consultant), and their invoices (PDFs). Open questions: who creates appointments and invoices (admin UI vs Supabase dashboard vs Google Calendar sync), and GDPR retention rules.
 
 ---
@@ -106,7 +106,7 @@ Before pushing: typecheck, lint, `npm test`, `npm run build`, `npx prettier --ch
 ## Common tasks
 
 - **Add a page:** `app/<route>/page.tsx` with `export const metadata = pageMeta(...)`, wrap in `<PageShell>`, add to `SiteNav.tsx`, `SiteFooter.tsx` and `app/sitemap.ts`.
-- **Rename the business / launch:** edit `lib/site.ts` (name, tagline, `draft: false`); replace placeholder copy and the privacy notice.
+- **Rename the business / launch:** edit `lib/site.ts` (tagline, `draft: false`); replace placeholder copy and the privacy notice.
 - **Animate the Rickrolled page:** add a GIF under `public/` and point the `<img>` in `app/rickrolled/page.tsx` at it.
 
 - **liquidGL returns an array when the target matches several elements** (nav + dock); destroy every lens, or the old ones stay on top with a stale snapshot (the nav vanished after toggling the theme).
@@ -124,5 +124,6 @@ Before pushing: typecheck, lint, `npm test`, `npm run build`, `npx prettier --ch
 - **Arrival, second pass (the first one was still heavy on a real machine):** the intro is short (≈ 1 s) and starts only when `HeroReady` says the hero photo is decoded (an inline script in `app/layout.tsx` sets `hero-pending` on `<html>` before the first paint, with a 2.5 s failsafe; CSS keeps the intro elements hidden until it is removed); `liquid-glass-react` was removed (its SVG displacement filter on the backdrop of the old CTA pill was the heaviest thing on screen) and the CTA is the flat `FloatingCta` (shown after scrolling past the first screen, wide screens only).
 
 - **No small label lines** ("Cosa include", "In arrivo", "In questa pagina"…): the owner removed them; headings and plain copy only. Footer column titles stay.
+- **No hairlines and centred layout:** no divider lines (rows, columns, nav, footer, section index) and no outlined panels (tinted fill only); headings, intros and calls to action are centred, columns are centred and vertically centred against each other. Space does the separating.
 - **Arrival, fourth pass:** the intro ends on a long expo-out tail (words 1 s, subtitle 1 s, photo 1.4 s, staggered) so it settles instead of stopping dead.
 - **Arrival, third pass:** the liquid-gl lens on the nav is gone (`GlassLenses` deleted; its page snapshot blocked the main thread right after the intro) — the nav is flat CSS glass with a light blur. The pointer dot has no `mix-blend-mode` (it forced whole-page re-compositing); it is yellow with a navy rim. The hero photo no longer drifts on scroll and fades in with opacity only.

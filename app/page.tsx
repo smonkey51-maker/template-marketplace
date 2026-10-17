@@ -122,10 +122,10 @@ export default function HomePage() {
 
       {/* 3 · Dark band: services as hairline rows */}
       <Band tone="white" label="Servizi" className="band-pad">
-        <h2 data-reveal className="band-title max-w-3xl">
+        <h2 data-reveal className="band-title mx-auto max-w-3xl text-center">
           Cosa facciamo per le imprese
         </h2>
-        <ul className="mt-12 sm:mt-16">
+        <ul className="mx-auto mt-12 max-w-4xl sm:mt-16">
           {SERVICES.map(([title, text]) => (
             <li key={title} data-reveal>
               <Link href="/servizi" className="row-link">
@@ -144,10 +144,10 @@ export default function HomePage() {
 
       {/* 4 · Warm band: how we start */}
       <Band tone="soft" label="Come iniziamo" className="band-pad">
-        <h2 data-reveal className="band-title max-w-3xl">
+        <h2 data-reveal className="band-title mx-auto max-w-3xl text-center">
           Si comincia ascoltando
         </h2>
-        <ol className="col-rule mt-12 grid gap-10 sm:mt-16 md:grid-cols-3 md:gap-8">
+        <ol className="mt-12 grid gap-10 text-center sm:mt-16 md:grid-cols-3 md:gap-8">
           {STEPS.map(([title, text]) => (
             <li key={title} data-reveal>
               <h3 className="text-[1.35rem] font-semibold tracking-tight">{title}</h3>
@@ -155,7 +155,7 @@ export default function HomePage() {
             </li>
           ))}
         </ol>
-        <div className="mt-12">
+        <div className="mt-12 flex justify-center">
           <Link href="/metodo" className="btn btn-primary">
             Scopri il metodo
           </Link>
@@ -167,7 +167,7 @@ export default function HomePage() {
         tone="white"
         label="Come lavoriamo"
         className="band-pad"
-        inner="grid gap-12 lg:grid-cols-12"
+        inner="grid items-center gap-12 lg:grid-cols-12"
       >
         <div className="relative aspect-[4/5] overflow-hidden lg:col-span-5">
           <Image
@@ -185,7 +185,7 @@ export default function HomePage() {
           </h2>
           <ul className="mt-10">
             {PRINCIPLES.map(([title, text]) => (
-              <li key={title} data-reveal className="row-line py-6">
+              <li key={title} data-reveal className="py-5">
                 <h3 className="text-[1.25rem] font-semibold tracking-tight">{title}</h3>
                 <p className="mt-2 max-w-xl text-[16px] text-muted">{text}</p>
               </li>
@@ -196,13 +196,13 @@ export default function HomePage() {
 
       {/* 6 · Warm band: the client area */}
       <Band tone="blue" label="Area riservata" className="band-pad">
-        <h2 data-reveal className="band-title max-w-3xl">
+        <h2 data-reveal className="band-title mx-auto max-w-3xl text-center">
           Un posto tuo, per seguire il lavoro
         </h2>
-        <p className="mt-5 max-w-xl text-[17px] text-muted">
+        <p className="mx-auto mt-5 max-w-xl text-center text-[17px] text-muted">
           Tutto quello che riguarda il lavoro con noi, in un unico spazio riservato ai clienti.
         </p>
-        <ul className="col-rule mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+        <ul className="mt-12 grid gap-10 text-center sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           {CLIENT_AREA.map(([title, text]) => (
             <li key={title} data-reveal>
               <h3 className="text-[1.2rem] font-semibold tracking-tight">{title}</h3>
@@ -210,7 +210,7 @@ export default function HomePage() {
             </li>
           ))}
         </ul>
-        <div className="mt-12">
+        <div className="mt-12 flex justify-center">
           <Link href="/area-riservata" className="btn btn-outline">
             Scopri l&apos;area riservata
           </Link>
@@ -219,13 +219,13 @@ export default function HomePage() {
 
       {/* 7 · Terracotta band: the one thing to do */}
       <Band tone="yellow" label="Contattaci" className="band-pad">
-        <h2 data-reveal className="band-title max-w-4xl">
+        <h2 data-reveal className="band-title mx-auto max-w-4xl text-center">
           Parliamo di persone.
         </h2>
-        <p className="mt-5 max-w-xl text-[18px] text-muted">
+        <p className="mx-auto mt-5 max-w-xl text-center text-[18px] text-muted">
           Raccontaci il contesto: ti rispondiamo con una proposta chiara.
         </p>
-        <div className="mt-10">
+        <div className="mt-10 flex justify-center">
           <Link href="/contatti" className="btn btn-primary">
             Richiedi un colloquio
           </Link>

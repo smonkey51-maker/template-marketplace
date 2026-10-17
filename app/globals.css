@@ -695,24 +695,19 @@ html.fx-cursor textarea {
 .band-pad {
   padding-block: clamp(4rem, 9vw, 8rem);
 }
-/* Hairline rows instead of cards. */
+/* Rows are separated by space, not lines. */
 .row-line {
-  border-top: 1px solid var(--line);
 }
 .row-link {
   display: grid;
   gap: 0.75rem 2rem;
-  padding-block: 1.75rem;
-  border-top: 1px solid var(--line);
+  padding-block: 1.5rem;
   color: var(--ink);
-}
-.row-link:last-child {
-  border-bottom: 1px solid var(--line);
 }
 @media (min-width: 768px) {
   .row-link {
     grid-template-columns: 5fr 5fr 1fr;
-    align-items: baseline;
+    align-items: center;
   }
 }
 .row-link .row-arrow {
@@ -728,20 +723,10 @@ html.fx-cursor textarea {
     text-underline-offset: 6px;
   }
 }
-/* A flat panel (forms, notes): a hairline box, square corners. */
+/* A flat panel (forms, notes): a tinted box, square corners, no outline. */
 .panel {
   background: var(--surface);
-  border: 1px solid var(--line);
   border-radius: 4px;
-}
-.col-rule > * + * {
-  border-left: 0;
-}
-@media (min-width: 768px) {
-  .col-rule > * + * {
-    border-left: 1px solid var(--line);
-    padding-left: 2rem;
-  }
 }
 
 /* ── Arrival: start only when the hero is ready; keep heavy glass out of the intro ─── */
