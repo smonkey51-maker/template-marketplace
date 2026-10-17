@@ -58,7 +58,7 @@ export default function SiteNav() {
                   aria-current={isActive(l.href) ? "page" : undefined}
                   className={`flex items-center border-b-2 px-3 text-sm font-medium transition-colors ${
                     isActive(l.href)
-                      ? "border-brand text-ink dark:border-accent"
+                      ? "border-brand text-ink"
                       : "border-transparent text-muted hover:text-ink"
                   }`}
                 >

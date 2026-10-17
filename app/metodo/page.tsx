@@ -33,7 +33,7 @@ export default function MetodoPage() {
         subtitle="Un percorso in quattro passaggi, uguale per ogni servizio."
       />
 
-      <Band tone="warm" className="band-pad">
+      <Band tone="soft" className="band-pad">
         <ol className="col-rule grid gap-10 md:grid-cols-4 md:gap-8">
           {STEPS.map(([title, text]) => (
             <li key={title}>
@@ -44,7 +44,7 @@ export default function MetodoPage() {
         </ol>
       </Band>
 
-      <Band tone="dark" label="Riservatezza" className="band-pad">
+      <Band tone="blue" label="Riservatezza" className="band-pad">
         <section aria-labelledby="riservatezza" className="max-w-3xl">
           <h2 id="riservatezza" className="band-title">
             Riservatezza e dati personali

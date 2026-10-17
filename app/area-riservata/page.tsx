@@ -29,7 +29,7 @@ export default function AreaRiservataPage() {
         subtitle="Uno spazio personale per seguire il lavoro con il tuo consulente."
       />
 
-      <Band tone="warm" className="band-pad">
+      <Band tone="soft" className="band-pad">
         <ul className="col-rule grid gap-10 md:grid-cols-3 md:gap-8">
           {CONTENTS.map(([title, text]) => (
             <li key={title}>
@@ -40,7 +40,7 @@ export default function AreaRiservataPage() {
         </ul>
       </Band>
 
-      <Band tone="dark" label="Accesso" className="band-pad">
+      <Band tone="blue" label="Accesso" className="band-pad">
         <div className="max-w-2xl">
           <p className="font-mono text-[12px] font-medium uppercase tracking-[0.1em] text-muted">
             In arrivo

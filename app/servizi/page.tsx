@@ -68,7 +68,11 @@ export default function ServiziPage() {
         subtitle="Quattro aree di lavoro, che si possono affrontare separatamente o come un unico percorso."
       />
 
-      <Band tone="warm" className="band-pad" inner="grid gap-12 lg:grid-cols-[minmax(0,1fr)_220px]">
+      <Band
+        tone="white"
+        className="band-pad"
+        inner="grid gap-12 lg:grid-cols-[minmax(0,1fr)_220px]"
+      >
         <div>
           {SERVICES.map((s) => (
             <section
@@ -104,7 +108,7 @@ export default function ServiziPage() {
         <SectionIndex items={SERVICES.map((s) => ({ id: s.id, label: s.title }))} />
       </Band>
 
-      <Band tone="clay" label="Contattaci" className="band-pad">
+      <Band tone="yellow" label="Contattaci" className="band-pad">
         <h2 className="band-title max-w-3xl">Non sai da dove partire?</h2>
         <p className="mt-5 max-w-xl text-[18px] text-muted">
           Parliamone in un primo colloquio: ascoltiamo, poi ti diciamo cosa ha senso fare.

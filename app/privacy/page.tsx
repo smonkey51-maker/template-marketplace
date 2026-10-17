@@ -50,7 +50,11 @@ export default function PrivacyPage() {
         subtitle="Come trattiamo i dati personali raccolti tramite questo sito."
       />
 
-      <Band tone="warm" className="band-pad" inner="grid gap-12 lg:grid-cols-[minmax(0,1fr)_220px]">
+      <Band
+        tone="white"
+        className="band-pad"
+        inner="grid gap-12 lg:grid-cols-[minmax(0,1fr)_220px]"
+      >
         <div className="space-y-10">
           {SITE.draft && (
             <aside className="panel max-w-2xl p-5" aria-label="Avviso sulla bozza">

@@ -180,7 +180,7 @@ const failures = [];
 let checked = 0;
 let lowest = { ratio: Infinity };
 
-for (const theme of ["dark"]) {
+for (const theme of ["light"]) {
   const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
   await context.addInitScript((t) => {
     try {

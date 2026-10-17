@@ -20,7 +20,7 @@ export default function ContattiPage() {
         subtitle="Raccontaci in breve l'esigenza: ti ricontatteremo per fissare un primo colloquio."
       />
 
-      <Band tone="warm" className="band-pad" inner="grid gap-12 lg:grid-cols-12">
+      <Band tone="soft" className="band-pad" inner="grid gap-12 lg:grid-cols-12">
         <div className="lg:col-span-8">
           <ContactForm />
         </div>

@@ -47,21 +47,21 @@ export const metadata: Metadata = {
 };
 
 // viewport-fit=cover lets env(safe-area-inset-*) work on notched phones; the
-// theme colour matches the dark page so the browser chrome does too.
+// theme colour matches the page so the browser chrome does too.
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
   interactiveWidget: "resizes-content",
-  themeColor: "#000000",
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="it"
-      className={`dark ${plexSans.variable} ${plexMono.variable}`}
-      style={{ colorScheme: "dark" }}
+      className={`${plexSans.variable} ${plexMono.variable}`}
+      style={{ colorScheme: "light" }}
     >
       <body className="min-h-screen text-ink antialiased">
         <PostHogProvider>

@@ -86,7 +86,8 @@ export default function GlassLenses() {
       }, delay);
     };
 
-    restart(400);
+    // Not during the arrival animation: the snapshot blocks the main thread for a while.
+    restart(2600);
 
     const theme = new MutationObserver(() => restart(250));
     theme.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
