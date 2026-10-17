@@ -551,14 +551,14 @@ html.fx-cursor textarea {
 }
 @media (prefers-reduced-motion: no-preference) {
   .hero-word {
-    animation: word-rise 0.7s var(--ease-out) both;
-    animation-delay: calc(0.05s + var(--i) * 0.05s);
+    animation: word-rise 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(0.05s + var(--i) * 0.07s);
   }
   .hero-sub {
-    animation: unblur 0.6s var(--ease-out) 0.45s both;
+    animation: unblur 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
   }
   .hero-wipe {
-    animation: wipe-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: wipe-up 1.4s cubic-bezier(0.25, 1, 0.5, 1) both;
   }
 }
 @keyframes word-rise {
