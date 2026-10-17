@@ -2,8 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import { PostHogProvider } from "@/components/PostHogProvider";
 import PageTransition from "@/components/PageTransition";
-import GlassDock from "@/components/GlassDock";
-import GlassLight from "@/components/GlassLight";
+import FloatingCta from "@/components/FloatingCta";
 import InteractionFx from "@/components/InteractionFx";
 import { SITE, SITE_URL } from "@/lib/site";
 import "@/app/globals.css";
@@ -62,14 +61,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="it"
       className={`${plexSans.variable} ${plexMono.variable}`}
       style={{ colorScheme: "light" }}
+      suppressHydrationWarning
     >
+      <head>
+        {/* Keeps the home page's intro hidden until HeroReady starts it (failsafe: 2.5 s). */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{if(location.pathname==='/'&&!matchMedia('(prefers-reduced-motion: reduce)').matches){var d=document.documentElement;d.classList.add('hero-pending');setTimeout(function(){d.classList.remove('hero-pending')},2500)}}catch(e){}})();",
+          }}
+        />
+      </head>
       <body className="min-h-screen text-ink antialiased">
         <PostHogProvider>
           <PageTransition>
             <div id="main-content">{children}</div>
           </PageTransition>
-          <GlassDock />
-          <GlassLight />
+          <FloatingCta />
           <InteractionFx />
         </PostHogProvider>
       </body>
