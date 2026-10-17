@@ -119,7 +119,7 @@ export default function TestPlusPage() {
             {SWATCHES.map((s) => (
               <li key={s}>
                 <div
-                  className="h-14 rounded-xl border border-line-strong"
+                  className="h-14 rounded-[4px] border border-line-strong"
                   style={{ background: `var(--${s})` }}
                 />
                 <p className="mt-1.5 font-mono text-[11px] text-muted">--{s}</p>

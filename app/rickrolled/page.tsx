@@ -19,7 +19,7 @@ export default function RickrolledPage() {
             alt="Rickrolled"
             width={447}
             height={447}
-            className="h-auto w-full rounded-2xl"
+            className="h-auto w-full rounded-[4px]"
           />
         </div>
       </div>

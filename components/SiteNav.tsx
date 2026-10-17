@@ -7,6 +7,7 @@ import { Menu, X } from "lucide-react";
 import { SITE } from "@/lib/site";
 import SiteLogo from "@/components/SiteLogo";
 import GlassLenses from "@/components/GlassLenses";
+import IndexMenu from "@/components/IndexMenu";
 
 const LINKS = [
   { href: "/servizi", label: "Servizi" },
@@ -69,6 +70,9 @@ export default function SiteNav() {
 
             <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
               {/* `.btn` sets its own display, which beats the `hidden` utility: hide a wrapper instead. */}
+              <div className="hidden md:block">
+                <IndexMenu className="btn btn-outline" />
+              </div>
               <div className="hidden sm:block">
                 <Link href="/area-riservata" className="btn btn-outline">
                   Area riservata
