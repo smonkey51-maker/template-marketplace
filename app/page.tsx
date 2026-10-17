@@ -1,8 +1,10 @@
+import { Fragment } from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { SITE } from "@/lib/site";
 import PageShell from "@/components/PageShell";
+import Marquee from "@/components/Marquee";
 
 export const metadata: Metadata = {
   title: { absolute: `${SITE.name} — ${SITE.tagline}` },
@@ -25,6 +27,9 @@ const SERVICES = [
   ["Formazione e leadership", "Percorsi per team e manager, costruiti sul vostro contesto."],
   ["Organizzazione e clima aziendale", "Ruoli, processi e benessere organizzativo."],
 ];
+
+const STATEMENT =
+  "Persone, ruoli e organizzazione: un lavoro concreto, fatto insieme a chi guida l'impresa, con obiettivi chiari e risultati che si possono verificare.";
 
 const CLIENT_AREA = [
   ["Il tuo profilo", "Le tue generalità e i dati dell'azienda per cui lavori."],
@@ -64,7 +69,7 @@ export default function HomePage() {
           fill
           priority
           sizes="100vw"
-          className="-z-10 object-cover object-center"
+          className="hero-photo -z-10 object-cover object-center"
         />
         <div aria-hidden className="hero-wash absolute inset-0 -z-10" />
         <section className="mx-auto max-w-[1200px] px-4 pb-24 pt-12 sm:px-6 sm:pt-20">
@@ -89,6 +94,31 @@ export default function HomePage() {
           </div>
         </section>
       </div>
+
+      {/* Marquee band */}
+      <Marquee
+        items={[
+          "Selezione",
+          "Sviluppo delle persone",
+          "Formazione",
+          "Leadership",
+          "Organizzazione",
+          "Clima aziendale",
+        ]}
+      />
+
+      {/* Statement: words light up as the paragraph scrolls into view */}
+      <section className="mx-auto max-w-[1200px] px-4 py-20 sm:px-6 sm:py-28">
+        <p className="statement">
+          {STATEMENT.split(" ").map((w, i) => (
+            <Fragment key={`${w}-${i}`}>
+              <span className="statement-word" style={{ ["--i" as string]: i }}>
+                {w}
+              </span>{" "}
+            </Fragment>
+          ))}
+        </p>
+      </section>
 
       {/* 2 · Highlight banner */}
       <section className="mx-auto max-w-[1200px] px-4 py-14 sm:px-6">
