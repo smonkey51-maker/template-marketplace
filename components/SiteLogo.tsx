@@ -6,7 +6,7 @@ export default function SiteLogo({ className = "" }: { className?: string }) {
     <span className={`inline-flex items-center gap-2.5 ${className}`}>
       <span
         aria-hidden
-        className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand font-mono text-[13px] font-medium text-brand-fg"
+        className="flex h-7 w-7 items-center justify-center rounded-[4px] bg-brand font-mono text-[13px] font-medium text-brand-fg"
       >
         {SITE.name.charAt(0)}
       </span>

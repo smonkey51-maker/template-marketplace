@@ -125,7 +125,7 @@ h3 {
   position: relative;
   isolation: isolate;
   border: 1px solid var(--glass-rim);
-  border-radius: 20px;
+  border-radius: 4px;
   box-shadow:
     inset 0 1px 0 var(--glass-hi),
     inset 0 -1px 0 var(--glass-lo),
@@ -143,8 +143,7 @@ h3 {
 
 /* liquid-gl sets pointer-events: none on the element it turns into a lens, which
    would make the whole nav unclickable. Give the content inside it back. */
-.lens-bar > *,
-.lens-dock > * {
+.lens-bar > * {
   pointer-events: auto;
 }
 
@@ -191,20 +190,11 @@ h3 {
 /* The legible glass inside a liquid-gl lens (nav, dock, section index). liquid-gl makes
    the lens element transparent, so the fill and blur that carry the text contrast live
    on this inner layer and hold with or without the lens. */
-.glass-lens {
-  background: var(--glass-fill-strong);
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(170%);
-  backdrop-filter: blur(var(--glass-blur)) saturate(170%);
-  border: 1px solid var(--glass-rim);
-  box-shadow:
-    inset 0 1px 0 var(--glass-hi),
-    var(--glass-shadow);
-}
 
 /* Small control (icon buttons): glass at control size. */
 .glass-ctl {
   border: 1px solid var(--line-strong);
-  border-radius: 12px;
+  border-radius: 4px;
   box-shadow: inset 0 1px 0 var(--glass-hi);
 }
 
@@ -228,9 +218,7 @@ h3 {
   .glass-panel,
   .glass-ctl,
   .glass-bar,
-  .glass-nav,
-  .glass-hero,
-  .glass-lens {
+  .glass-nav {
     background: var(--surface);
   }
 }
@@ -238,9 +226,7 @@ h3 {
   .glass-panel,
   .glass-ctl,
   .glass-bar,
-  .glass-nav,
-  .glass-hero,
-  .glass-lens {
+  .glass-nav {
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
     background: var(--surface);
@@ -349,7 +335,7 @@ h3 {
     inset 0 1px 0 var(--glass-hi),
     var(--glass-shadow);
   padding: 16px 20px;
-  border-radius: 14px;
+  border-radius: 4px;
 }
 .callout__title {
   margin-bottom: 6px;
@@ -427,20 +413,6 @@ h3 {
   border: solid var(--brand-fg);
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
-}
-
-/* The hero panel: plain CSS glass over the photo. A light frost and a thin veil, so the
-   photo stays visible; the veil is what carries the contrast. (A liquid-gl lens here hid
-   the panel's text, so the hero is not a lens.) */
-.glass-hero {
-  border-radius: 20px;
-  background: rgb(255 255 255 / 0.5);
-  border: 1px solid rgb(255 255 255 / 0.7);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.9),
-    0 18px 50px rgb(11 53 88 / 0.22);
-  -webkit-backdrop-filter: blur(3px) saturate(150%);
-  backdrop-filter: blur(3px) saturate(150%);
 }
 
 /* ── Motion accents (components/InteractionFx.tsx) ─────────────────────────── */
@@ -785,18 +757,5 @@ html.fx-cursor textarea {
   html.hero-pending .hero-wipe {
     animation: none;
     opacity: 0;
-  }
-  /* The dock sits over the animating hero and uses backdrop-filter: it appears (no fade, so
-     no per-frame blur) only once the intro is over. */
-  .lens-dock {
-    animation: appear 0s linear 1.3s both;
-  }
-}
-@keyframes appear {
-  from {
-    visibility: hidden;
-  }
-  to {
-    visibility: visible;
   }
 }
