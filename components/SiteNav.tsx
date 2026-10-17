@@ -3,19 +3,16 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Menu, Search, X } from "lucide-react";
 import { copy } from "@/lib/i18n";
 import { useLang } from "@/components/LanguageProvider";
-import { OsservatorioLogoAnimated } from "@/components/OsservatorioLogo";
-import BackLink from "@/components/BackLink";
+import SiteLogo from "@/components/SiteLogo";
 import ThemeToggle from "@/components/ThemeToggle";
-import { Menu, X } from "lucide-react";
 
 const LINKS: { href: string; key: keyof typeof copy.it }[] = [
-  { href: "/articoli", key: "navArticoli" },
-  { href: "/dossier", key: "navDossier" },
-  { href: "/guide-pratiche", key: "navGuide" },
-  { href: "/biblioteca", key: "navBiblioteca" },
-  { href: "/chi-siamo", key: "navChiSiamo" },
+  { href: "/test", key: "navTest" },
+  { href: "/test-ma-di-piu", key: "navTestPlus" },
+  { href: "/rickrolled", key: "navRick" },
 ];
 
 export default function SiteNav() {
@@ -23,115 +20,95 @@ export default function SiteNav() {
   const t = (k: keyof typeof copy.it) => copy[lang][k];
   const pathname = usePathname();
   const withoutLang = pathname.replace(/^\/(it|en)(?=\/|$)/, "");
-  const isHome = withoutLang === "" || withoutLang === "/";
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => setOpen(false), [pathname]);
 
-  const isActive = (href: string) => withoutLang.startsWith(href.split("?")[0]);
+  const isActive = (href: string) => withoutLang === href;
+  const openSearch = () =>
+    window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", ctrlKey: true, metaKey: true }));
 
   return (
-    <header
-      className="sticky top-0 z-50 border-b border-theme transition-shadow duration-300"
-      style={{
-        background: "var(--bg)",
-        paddingTop: "env(safe-area-inset-top, 0px)",
-        boxShadow: scrolled ? "var(--shadow-sm)" : "none",
-      }}
-    >
-      <div className="mx-auto flex max-w-[1400px] items-center justify-between px-4 py-4 sm:px-6 lg:px-10">
-        <div className="flex min-w-0 items-center gap-3">
-          {!isHome && <BackLink fallbackHref={`/${lang}`} />}
-          <Link
-            href={`/${lang}`}
-            aria-label={`${copy[lang].siteName} — home`}
-            className="flex min-w-0 items-center"
-          >
-            <OsservatorioLogoAnimated className="w-40 sm:w-44" />
-          </Link>
-        </div>
-
-        <nav className="hidden items-center gap-7 md:flex" aria-label="Main navigation">
-          {LINKS.map((l) => (
-            <Link
-              key={l.href}
-              href={`/${lang}${l.href}`}
-              aria-current={isActive(l.href) ? "page" : undefined}
-              className="text-sm transition-colors"
-              style={{ color: isActive(l.href) ? "var(--text)" : "var(--muted)" }}
-            >
-              {t(l.key)}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="flex items-center gap-2">
+    <header className="sticky top-0 z-50 bg-bg">
+      {/* Environment bar — always visible so the site never reads as production. */}
+      <div className="bg-bar text-bar-fg">
+        <div className="mx-auto flex max-w-[1200px] items-center justify-between gap-4 px-4 py-1.5 sm:px-6">
+          <p className="min-w-0 truncate font-mono text-[11px] uppercase tracking-[0.08em]">
+            <span className="font-medium text-white">{t("envLabel")}</span>
+            <span className="hidden sm:inline"> — {t("envNote")}</span>
+          </p>
           <button
             type="button"
             onClick={toggle}
             aria-label={lang === "it" ? "Switch to English" : "Passa all'italiano"}
-            className="r-sm border border-theme px-2.5 py-2 text-[11px] font-semibold transition-colors hover:bg-surface"
-            style={{ color: "var(--text)", letterSpacing: "0.08em" }}
+            className="shrink-0 font-mono text-[11px] uppercase tracking-[0.08em] hover:text-white"
           >
-            {lang === "it" ? "IT / EN" : "EN / IT"}
-          </button>
-          <ThemeToggle />
-          <button
-            onClick={() => setOpen((v) => !v)}
-            aria-label={
-              open
-                ? lang === "it"
-                  ? "Chiudi menu"
-                  : "Close menu"
-                : lang === "it"
-                  ? "Apri menu"
-                  : "Open menu"
-            }
-            aria-expanded={open}
-            className="flex h-9 w-9 items-center justify-center md:hidden"
-            style={{ color: "var(--text)" }}
-          >
-            {open ? <X size={22} /> : <Menu size={22} />}
+            {lang === "it" ? "IT | en" : "EN | it"}
           </button>
         </div>
       </div>
 
-      <div
-        className="overflow-hidden border-t border-theme md:hidden"
-        style={{
-          maxHeight: open ? 360 : 0,
-          transition: "max-height 0.28s ease",
-          background: "var(--bg)",
-        }}
-      >
-        <ul className="px-4 py-2 sm:px-6">
-          {LINKS.map((l, i) => (
-            <li key={l.href} className={i > 0 ? "border-t border-theme" : undefined}>
+      <div className="border-b border-line">
+        <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between gap-6 px-4 sm:px-6">
+          <Link href={`/${lang}`} aria-label={`${copy[lang].siteName} — home`}>
+            <SiteLogo />
+          </Link>
+
+          <nav className="hidden items-stretch gap-1 self-stretch md:flex" aria-label="Main">
+            {LINKS.map((l) => (
               <Link
+                key={l.href}
                 href={`/${lang}${l.href}`}
                 aria-current={isActive(l.href) ? "page" : undefined}
-                className="flex items-center justify-between py-4"
-                style={{ color: isActive(l.href) ? "var(--text)" : "var(--muted)" }}
+                className={`flex items-center border-b-2 px-3 text-sm font-medium transition-colors ${
+                  isActive(l.href)
+                    ? "border-brand text-ink dark:border-accent"
+                    : "border-transparent text-muted hover:text-ink"
+                }`}
               >
-                <span
-                  style={{ fontFamily: "var(--font-display), Georgia, serif", fontWeight: 500 }}
-                  className="text-[1.05rem]"
+                {t(l.key)}
+              </Link>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={openSearch}
+              className="hidden h-9 items-center gap-2 rounded-md border border-line-strong px-3 text-sm text-muted hover:bg-surface sm:flex"
+            >
+              <Search size={15} aria-hidden />
+              <span>{t("searchCta")}</span>
+              <kbd className="font-mono text-[11px]">⌘K</kbd>
+            </button>
+            <ThemeToggle />
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              aria-label={lang === "it" ? "Menu" : "Menu"}
+              aria-expanded={open}
+              className="flex h-9 w-9 items-center justify-center md:hidden"
+            >
+              {open ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
+        </div>
+
+        {open && (
+          <ul className="border-t border-line px-4 py-2 md:hidden sm:px-6">
+            {LINKS.map((l, i) => (
+              <li key={l.href} className={i > 0 ? "border-t border-line" : undefined}>
+                <Link
+                  href={`/${lang}${l.href}`}
+                  aria-current={isActive(l.href) ? "page" : undefined}
+                  className={`block py-3 text-[15px] ${isActive(l.href) ? "font-medium text-ink" : "text-muted"}`}
                 >
                   {t(l.key)}
-                </span>
-                <span aria-hidden>→</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </header>
   );

@@ -2,7 +2,7 @@
  * Renders the tiny markdown grammar used by `lib/articles.ts`: blank-line
  * paragraphs, "## " headings, "- " bullet lists, "**bold**" spans, and a
  * ":::callout Title" ... ":::" fenced block rendered as the
- * "L'Osservazione Chiave" / "The Key Observation" highlight box. No markdown
+ * callout box. No markdown
  * dependency — the grammar is deliberately small, so a hand-rolled parser is
  * simpler and safer than pulling one in.
  */
@@ -36,7 +36,7 @@ function renderCalloutContent(inner: string, keyPrefix: string) {
   });
 }
 
-const CALLOUT_DEFAULT_TITLE = "L'Osservazione Chiave";
+const CALLOUT_DEFAULT_TITLE = "Nota";
 
 type Block = { kind: "text"; content: string } | { kind: "callout"; title: string; body: string };
 
@@ -89,15 +89,12 @@ export default function ArticleBody({ body }: { body: string }) {
   const blocks = parseBlocks(body);
 
   return (
-    <div
-      className="article-body space-y-5 text-[16px] leading-relaxed"
-      style={{ color: "var(--text)" }}
-    >
+    <div className="article-body space-y-5 text-ink">
       {blocks.map((block, i) => {
         if (block.kind === "callout") {
           return (
-            <div key={i} className="fn-callout">
-              <p className="fn-callout__title">{block.title}</p>
+            <div key={i} className="callout">
+              <p className="callout__title">{block.title}</p>
               {renderCalloutContent(block.body, `callout-${i}`)}
             </div>
           );
@@ -106,15 +103,7 @@ export default function ArticleBody({ body }: { body: string }) {
         const { content } = block;
 
         if (content.startsWith("## ")) {
-          return (
-            <h2
-              key={i}
-              className="mt-10 mb-1 text-[1.4rem]"
-              style={{ fontFamily: "var(--font-display), Georgia, serif", fontWeight: 700 }}
-            >
-              {renderInline(content.slice(3), `h-${i}`)}
-            </h2>
-          );
+          return <h2 key={i}>{renderInline(content.slice(3), `h-${i}`)}</h2>;
         }
 
         const lines = content.split("\n").map((l) => l.trim());

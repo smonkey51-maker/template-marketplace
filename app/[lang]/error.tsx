@@ -1,36 +1,36 @@
 "use client";
 
-import { TriangleAlert } from "lucide-react";
 import { useEffect } from "react";
+import { useLang } from "@/components/LanguageProvider";
+import { copy } from "@/lib/i18n";
 
-export default function Error({
+export default function ErrorBoundary({
   error,
   reset,
 }: {
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const { lang } = useLang();
+  const t = (k: keyof typeof copy.it) => copy[lang][k];
+
   useEffect(() => {
     console.error("[error-boundary]", error);
   }, [error]);
 
   return (
-    <div className="min-h-[60vh] flex flex-col items-center justify-center gap-6 px-4 text-center">
-      <TriangleAlert aria-hidden size={40} strokeWidth={1.25} className="text-muted" />
-      <h2 className="text-[22px] font-bold text-theme">Qualcosa è andato storto</h2>
-      <p className="text-[14px] text-muted max-w-sm">
-        Si è verificato un errore imprevisto. Riprova o torna alla home.
-      </p>
-      <div className="flex gap-3">
-        <button onClick={reset} className="btn-brand-sm">
-          Riprova
-        </button>
-        <a
-          href="/"
-          className="px-4 py-2 text-[13px] font-semibold border border-theme r-pill text-muted hover:text-theme transition-colors"
-        >
-          ← Home
-        </a>
+    <div className="flex min-h-[60vh] items-center justify-center bg-bg px-6 py-16">
+      <div className="max-w-md">
+        <h1 className="text-[1.75rem]">{t("errorTitle")}</h1>
+        <p className="mt-3 text-muted">{t("errorSub")}</p>
+        <div className="mt-6 flex gap-3">
+          <button onClick={reset} className="btn btn-primary">
+            {t("errorRetry")}
+          </button>
+          <a href={`/${lang}/test`} className="btn btn-outline">
+            {t("errorHome")}
+          </a>
+        </div>
       </div>
     </div>
   );

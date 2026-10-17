@@ -1,24 +1,25 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("OSSERVATORIO smoke", () => {
-  test("homepage renders in Italian with the fan disclaimer", async ({ page }) => {
+test.describe("Sandbox smoke", () => {
+  test("home redirects to the Test page", async ({ page }) => {
     await page.goto("/it");
-    await expect(page).toHaveTitle(/./);
-    await expect(page.getByRole("contentinfo")).toContainText(/non ufficiale|non affiliat/i);
+    await expect(page).toHaveURL(/\/it\/test$/);
+    await expect(page.getByRole("heading", { level: 1, name: "Test" })).toBeVisible();
   });
 
-  test("article index lists articles and filters by category", async ({ page }) => {
-    await page.goto("/it/articoli");
-    await expect(page.getByRole("link", { name: /./ }).first()).toBeVisible();
+  test("test-ma-di-piu renders the extra sections", async ({ page }) => {
+    await page.goto("/it/test-ma-di-piu");
+    await expect(page.getByRole("heading", { level: 1, name: "Test ma di più" })).toBeVisible();
+    await expect(page.getByRole("table")).toBeVisible();
   });
 
-  test("an article page renders its content", async ({ page }) => {
-    await page.goto("/it/articoli/metodo-jane-osservazione");
-    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  test("rickrolled page shows a single image", async ({ page }) => {
+    await page.goto("/it/rickrolled");
+    await expect(page.getByAltText("Rickrolled")).toBeVisible();
   });
 
-  test("chi siamo page states the site is an unofficial fan project", async ({ page }) => {
-    await page.goto("/it/chi-siamo");
-    await expect(page.getByText(/affiliat/i).first()).toBeVisible();
+  test("the environment bar is always visible", async ({ page }) => {
+    await page.goto("/en/test");
+    await expect(page.getByText("Test environment").first()).toBeVisible();
   });
 });

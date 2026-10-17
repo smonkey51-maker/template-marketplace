@@ -2,6 +2,8 @@
 
 import { useEffect } from "react";
 
+/** Renders its own <html>: it only shows when the app itself has failed, so it
+ * depends on nothing — no fonts, no stylesheet, no providers. */
 export default function GlobalError({
   error,
   reset,
@@ -19,8 +21,8 @@ export default function GlobalError({
         style={{
           margin: 0,
           fontFamily: "system-ui, sans-serif",
-          background: "#10163B",
-          color: "#F9F3F2",
+          background: "#ffffff",
+          color: "#14202e",
         }}
       >
         <div
@@ -28,44 +30,26 @@ export default function GlobalError({
             minHeight: "100vh",
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
+            alignItems: "flex-start",
             justifyContent: "center",
-            gap: "1.5rem",
-            padding: "1rem",
-            textAlign: "center",
+            gap: "1rem",
+            padding: "2rem",
+            maxWidth: 480,
+            margin: "0 auto",
           }}
         >
-          {/* Inline SVG, not an emoji: this page renders its own <html> when
-              the app has already failed, so it must not depend on anything. */}
-          <svg
-            width="44"
-            height="44"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden
-          >
-            <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z" />
-            <path d="M12 9v4" />
-            <path d="M12 17h.01" />
-          </svg>
-          <h1 style={{ fontSize: "1.5rem", fontWeight: 700, margin: 0 }}>Errore critico</h1>
-          <p style={{ fontSize: "0.9rem", opacity: 0.6, maxWidth: "24rem", margin: 0 }}>
-            L&apos;applicazione ha riscontrato un errore critico. Ricarica la pagina.
-          </p>
+          <h1 style={{ fontSize: "1.5rem", margin: 0 }}>Si è verificato un errore</h1>
+          <p style={{ margin: 0, color: "#4a5968" }}>Qualcosa non ha funzionato. Riprova.</p>
           <button
             onClick={reset}
             style={{
-              padding: "0.625rem 1.5rem",
-              background: "#8A625E",
-              color: "#F9F3F2",
-              border: "none",
+              background: "#0b3558",
+              color: "#fff",
+              border: 0,
+              borderRadius: 4,
+              padding: "10px 18px",
+              fontSize: 14,
               cursor: "pointer",
-              fontWeight: 600,
-              fontSize: "0.875rem",
             }}
           >
             Riprova

@@ -2,842 +2,200 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ── Design tokens ───────────────────────────────────────────────────────────
+   One navy brand hue, cool neutrals, one link blue. Light is the default;
+   `.dark` swaps the same names. All text pairs are checked at >= 4.5:1, and
+   `--line-strong` (form controls, focus) at >= 3:1 against the page. */
+:root {
+  --bg: #ffffff;
+  --surface: #f4f6f9;
+  --surface-2: #e9edf2;
+  --ink: #14202e;
+  --muted: #4a5968;
+  --line: #d5dbe2;
+  --line-strong: #8795a4;
+  --brand: #0b3558;
+  --brand-fg: #ffffff;
+  --accent: #0f5fa6;
+  --bar: #0b3558;
+  --bar-fg: #dce6f0;
+  --focus: #0f5fa6;
+  /* Aliases kept for components that read the older token names. */
+  --text: var(--ink);
+  --border: var(--line);
+}
+
+.dark {
+  --bg: #0b1219;
+  --surface: #111b26;
+  --surface-2: #172433;
+  --ink: #e8eef4;
+  --muted: #9db0c2;
+  --line: #243447;
+  --line-strong: #5d7388;
+  --brand: #2f6fb0;
+  --brand-fg: #ffffff;
+  --accent: #7db4ea;
+  --bar: #060b10;
+  --bar-fg: #b9c9d9;
+  --focus: #7db4ea;
+}
+
 @theme inline {
-  --font-inter: var(--font-inter), system-ui, sans-serif;
-  --font-display: var(--font-display), Georgia, serif;
+  --font-sans: var(--font-sans), system-ui, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, monospace;
+
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-brand: var(--brand);
+  --color-brand-fg: var(--brand-fg);
+  --color-accent: var(--accent);
+  --color-bar: var(--bar);
+  --color-bar-fg: var(--bar-fg);
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 4px;
 }
 
-@theme {
-  --color-gold: #8a625e;
-  --color-gold-soft: #614542;
+/* ── Base ─────────────────────────────────────────────────────────────────── */
+html {
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-text-size-adjust: 100%;
 }
 
-/*
-  The default border color has changed to `currentcolor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
-@layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
-  }
+body {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-@utility bg-page {
-  background-color: var(--bg);
-
-  @property --angle {
-    syntax: "<angle>";
-    initial-value: 0deg;
-    inherits: false;
-  }
+h1,
+h2,
+h3 {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
 }
 
-@utility bg-surface {
-  background-color: var(--surface);
-
-  @property --angle {
-    syntax: "<angle>";
-    initial-value: 0deg;
-    inherits: false;
-  }
+::selection {
+  background: var(--brand);
+  color: var(--brand-fg);
 }
 
-@utility bg-card {
-  background-color: var(--card-bg);
-
-  @property --angle {
-    syntax: "<angle>";
-    initial-value: 0deg;
-    inherits: false;
-  }
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
 }
 
-@utility bg-input {
-  background-color: var(--input-bg);
-
-  @property --angle {
-    syntax: "<angle>";
-    initial-value: 0deg;
-    inherits: false;
-  }
+/* ── Buttons ──────────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 18px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    color 120ms ease;
 }
 
-@utility text-theme {
-  color: var(--text);
-
-  @property --angle {
-    syntax: "<angle>";
-    initial-value: 0deg;
-    inherits: false;
-  }
+.btn-primary {
+  background: var(--brand);
+  color: var(--brand-fg);
+}
+.btn-primary:hover {
+  background: color-mix(in srgb, var(--brand) 88%, black);
 }
 
-@utility text-muted {
+.btn-outline {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+.btn-outline:hover {
+  background: var(--surface);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Form controls ────────────────────────────────────────────────────────── */
+.field {
+  width: 100%;
+  min-height: 40px;
+  padding: 0 12px;
+  background: var(--bg);
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  font-size: 14px;
+}
+.field::placeholder {
   color: var(--muted);
-
-  @property --angle {
-    syntax: "<angle>";
-    initial-value: 0deg;
-    inherits: false;
-  }
 }
 
-@utility border-theme {
-  border-color: var(--border);
-
-  @property --angle {
-    syntax: "<angle>";
-    initial-value: 0deg;
-    inherits: false;
-  }
+/* ── Article body ─────────────────────────────────────────────────────────── */
+.article-body {
+  font-size: 17px;
+  line-height: 1.7;
+  max-width: 68ch;
+}
+.article-body h2 {
+  margin-top: 2.25rem;
+  font-size: 1.35rem;
+}
+.article-body ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+.article-body li + li {
+  margin-top: 0.4rem;
+}
+.callout {
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--brand);
+  background: var(--surface);
+  padding: 16px 20px;
+  border-radius: 2px;
+}
+.dark .callout {
+  border-left-color: var(--accent);
+}
+.callout__title {
+  margin-bottom: 6px;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
-@utility glass {
-  /* ── Surface utilities ── */
-  background: var(--glass-fill);
-  box-shadow: var(--glass-shadow);
-  border: 1px solid var(--glass-stroke);
-
-  @property --angle {
-    syntax: "<angle>";
-    initial-value: 0deg;
-    inherits: false;
-  }
-}
-
-@utility glass-subtle {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-
-  @property --angle {
-    syntax: "<angle>";
-    initial-value: 0deg;
-    inherits: false;
-  }
-}
-
-@utility glass-pill {
-  position: relative;
-  border-radius: var(--r-md);
-  background: var(--glass-fill);
-  box-shadow: var(--glass-cast-1);
-  border: 1px solid var(--glass-stroke);
-
-  @property --angle {
-    syntax: "<angle>";
-    initial-value: 0deg;
-    inherits: false;
-  }
-}
-
-@utility glass-panel {
-  position: relative;
-  border-radius: var(--r-md);
-  background: var(--glass-fill);
-  box-shadow: var(--glass-cast-1);
-  border: 1px solid var(--glass-stroke);
-
-  @property --angle {
-    syntax: "<angle>";
-    initial-value: 0deg;
-    inherits: false;
-  }
-}
-
-@utility ios-spring {
-  /* ── Springs & easing ──────────────────── */
-  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
-
-  @property --angle {
-    syntax: "<angle>";
-    initial-value: 0deg;
-    inherits: false;
-  }
-}
-
-@utility ease-premium {
-  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-
-  @property --angle {
-    syntax: "<angle>";
-    initial-value: 0deg;
-    inherits: false;
-  }
-}
-
-@utility anim-fade-up {
-  /* ── Entrance animations ───────────────── */
-  animation: fade-up 0.36s cubic-bezier(0.22, 1, 0.36, 1) both;
-
-  @property --angle {
-    syntax: "<angle>";
-    initial-value: 0deg;
-    inherits: false;
-  }
-}
-
-@utility anim-fade-in {
-  animation: fade-in 0.24s cubic-bezier(0.22, 1, 0.36, 1) both;
-
-  @property --angle {
-    syntax: "<angle>";
-    initial-value: 0deg;
-    inherits: false;
-  }
-}
-
-@utility sheet-enter {
-  /* ── Sheet / modal ─────────────────────────
-     `backwards`, not `both`. Both of these end on `transform: translateY(0)`
-     / `scale(1)`, and with `both` the element keeps that transform forever
-     once the animation finishes. A transform other than `none` makes an
-     element the containing block for every `position: fixed` descendant —
-     the exact bug that put the page wrapper's fixed children at the bottom
-     of the document instead of on screen. These two are dialogs, which is
-     where a fixed child is most likely to turn up next.
-
-     `backwards` still applies the first keyframe during any delay, so the
-     entrance cannot flash at full opacity before it starts; it simply stops
-     holding the last keyframe after the animation is over. The end state is
-     `opacity: 1` with no transform, which is the elements' natural resting
-     state anyway, so dropping the fill changes nothing visually. */
-  animation: sheet-up 0.32s cubic-bezier(0.32, 1.1, 0.64, 1) backwards;
-
-  @property --angle {
-    syntax: "<angle>";
-    initial-value: 0deg;
-    inherits: false;
-  }
-}
-
-@layer utilities {
-  /* ═══════════════════════════════════════════════════════════
-   Specular-highlight custom properties — kept registered (some card rules
-   still reference them) but pinned to zero. The OSSERVATORIO rebrand
-   retired the liquid-glass material (pointer-tracked highlight, idle sweep,
-   squircle masking); GlassEnhancements.tsx is no longer mounted, and
-   surfaces read as flat paper instead of glass.
-   ═══════════════════════════════════════════════════════════ */
-  @property --spec-x {
-    syntax: "<percentage>";
-    inherits: false;
-    initial-value: 30%;
-  }
-  @property --spec-y {
-    syntax: "<percentage>";
-    inherits: false;
-    initial-value: 0%;
-  }
-  @property --spec-o {
-    syntax: "<number>";
-    inherits: false;
-    initial-value: 0;
-  }
-
-  /* ═══════════════════════════════════════════════════════════
-   OSSERVATORIO homepage sections
-   ═══════════════════════════════════════════════════════════ */
-
-  /* One viewport tall as a floor, not a ceiling: `height` clipped any section
-   whose content did not fit — on short viewports, and whenever a translation
-   ran longer than the Italian original. Sections stack in normal document
-   flow and the page scrolls at 1:1. */
-  .forma-section {
-    min-height: 100svh;
-    position: relative;
-  }
-
-  @supports not (height: 100svh) {
-    .forma-section {
-      min-height: 100vh;
-    }
-  }
-
-  /* Prevent horizontal scroll from out-of-box elements */
-  body {
-    overflow-x: hidden;
-  }
-
-  /* ── Hero: floating mockup cards passive hover parallax ── */
-
-  /* Studio: micro-glitch on STUDIO oversized text (desktop hover) */
-
-  /* ── Global keyboard focus indicators (accessibility) ── */
-}
-@layer components {
-  button:focus-visible,
-  a:focus-visible,
-  input:focus-visible,
-  select:focus-visible,
-  textarea:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
-}
-
-@layer utilities {
-  /* ═══════════════════════════════════════════════════════════
-   THEME VARIABLES
-   ═══════════════════════════════════════════════════════════ */
-  :root {
-    /* ── Light mode: OSSERVATORIO — "Ultramarine & Dusty Rose" palette,
-     replacing the earlier "Il Taccuino di Jane" exact-hex pass. Two source
-     hues from the site owner's moodboard:
-       Ultramarine  #26348C  — headings, menus, body text, divider lines
-       Dusty Rose   #C08882  — the accent family (CTAs, links, highlights)
-     Everything else here is a literal tint/shade of one of the two, mixed
-     with white/black via color-mix() or plain rgba — never a third hue.
-     The raw swatch rose (#C08882) only measures ~2.7:1 against the page
-     background, well under the 4.5:1 AA floor for body-sized text, so
-     --accent is a darkened shade of it (#8A625E, 4.8:1) rather than the
-     undiluted swatch — same reasoning as the Pantone-swatch pass before
-     "Il Taccuino di Jane" (see git history for that version's comments).
-     --terra stays a backward-compat alias of --accent — there's no
-     separate "decorative, less legible" red/rose tier needed here, since
-     every place that used to need one (e.g. the active filter chip) pairs
-     --accent with light text, which already clears contrast. */
-    --bg: #f9f3f2;
-    --surface: #fcf9f8;
-    --surface-2: #e4e0e8;
-    --text: #26348c;
-    --muted: #5b64a6;
-    --border: rgba(38, 52, 140, 0.14);
-    --fn-border: rgba(38, 52, 140, 0.14);
-    --fn-menu-bg: rgba(252, 249, 248, 0.98);
-    --nav-bg: rgba(249, 243, 242, 0.97);
-    --card-bg: rgba(252, 249, 248, 0.98);
-    --card-border: rgba(38, 52, 140, 0.14);
-    --input-bg: rgba(38, 52, 140, 0.05);
-    --btn-ghost-border: rgba(38, 52, 140, 0.2);
-    --btn-ghost-border-hover: rgba(38, 52, 140, 0.72);
-    /* Border radius tokens — editorial scale, sharp corners on purpose. */
-    --r-sm: 2px;
-    --r-md: 4px;
-    --r-lg: 6px;
-    --r-xl: 8px;
-    --glass-shadow: 0 1px 2px rgba(38, 52, 140, 0.06), 0 8px 24px rgba(38, 52, 140, 0.08);
-    --glass-stroke: rgba(38, 52, 140, 0.12);
-    --glass-top-edge: none;
-    --glass-bright: 1;
-    --spec-hot: transparent;
-    --spec-mid: transparent;
-    --divider: rgba(38, 52, 140, 0.12);
-    /* One accent for the whole site (no per-room "gallery" accents).
-     --gold/--gold-soft keep their historical names for compat with
-     existing references, but now track dusty rose, not gold or red. */
-    --accent: #8a625e;
-    --gold: var(--accent);
-    --gold-soft: color-mix(in srgb, var(--accent) 80%, black 20%);
-    --accent-bg: rgba(138, 98, 94, 0.1);
-    --accent-rgb: 138, 98, 94;
-    --accent-muted: rgba(138, 98, 94, 0.18);
-    /* Backward-compat alias — see the palette note above. */
-    --terra: var(--accent);
-    --terra-dim: color-mix(in srgb, var(--terra) 12%, transparent);
-    /* Semantic state colors — reuse the two hues already in the palette
-     rather than introducing green-for-success/red-for-error as new
-     colours. */
-    --success: var(--text);
-    --success-dim: rgba(38, 52, 140, 0.12);
-    --error: var(--accent);
-    --error-dim: rgba(138, 98, 94, 0.15);
-    /* OSSERVATORIO spacing scale */
-    --sp-1: 8px;
-    --sp-2: 16px;
-    --sp-3: 24px;
-    --sp-4: 40px;
-    --sp-5: 64px;
-    --sp-6: 120px;
-  }
-
-  /* ── Font pairing: Fraunces (h1–h3, display) + Inter (everything else) ── */
-
-  /* Body + all default text: Inter */
-  body {
-    font-family:
-      var(--font-inter),
-      -apple-system,
-      sans-serif;
-    font-size: 15px;
-    line-height: 1.85;
-    letter-spacing: 0.005em;
-  }
-
-  p {
-    text-wrap: pretty;
-  }
-
-  /* h1–h3: Fraunces */
-  h1,
-  h2,
-  h3 {
-    font-family: var(--font-display), Georgia, serif;
-    font-weight: 600;
-    line-height: 1.15;
-    letter-spacing: -0.01em;
-    text-wrap: balance;
-  }
-
-  /* h4–h6 and all smaller: Inter */
-  h4,
-  h5,
-  h6 {
-    font-family: var(--font-inter), sans-serif;
-    line-height: 1.4;
-  }
-
-  html.dark {
-    /* ── Dark mode: the same two hues, re-mixed for a dark ground ──
-     --bg/--surface/--surface-2 are Ultramarine (#26348C) mixed toward
-     black; --text is the light-mode's pale blush background, reused as
-     dark-mode ink; --accent is Dusty Rose lightened (mixed ~78% toward
-     white) until it clears 4.5:1 against the dark ultramarine ground — the
-     raw swatch rose manages only ~2:1 there. --terra stays an alias of
-     --accent (see the light-mode note above). */
-    --bg: #10163b;
-    --surface: #151d4d;
-    --surface-2: #1b2462;
-    --text: #f9f3f2;
-    --muted: #9090a0;
-    --border: rgba(249, 243, 242, 0.14);
-    --fn-border: rgba(249, 243, 242, 0.14);
-    --fn-menu-bg: rgba(16, 22, 59, 0.98);
-    --nav-bg: rgba(16, 22, 59, 0.97);
-    --card-bg: rgba(21, 29, 77, 0.98);
-    --card-border: rgba(249, 243, 242, 0.14);
-    --input-bg: rgba(249, 243, 242, 0.06);
-    --btn-ghost-border: rgba(249, 243, 242, 0.18);
-    --btn-ghost-border-hover: rgba(249, 243, 242, 0.7);
-    --glass-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 32px rgba(0, 0, 0, 0.5);
-    --glass-stroke: rgba(249, 243, 242, 0.1);
-    --glass-top-edge: none;
-    --glass-bright: 1;
-    --spec-hot: transparent;
-    --spec-mid: transparent;
-    --divider: rgba(249, 243, 242, 0.1);
-    /* Same single-accent system as light mode; see the light :root note above. */
-    --accent: #cea29e;
-    --gold: var(--accent);
-    --gold-soft: color-mix(in srgb, var(--accent) 82%, white 18%);
-    --accent-bg: rgba(206, 162, 158, 0.14);
-    --accent-rgb: 206, 162, 158;
-    --accent-muted: rgba(206, 162, 158, 0.22);
-    --terra: var(--accent);
-    --terra-dim: color-mix(in srgb, var(--terra) 15%, transparent);
-    /* Semantic state colors */
-    --success: var(--text);
-    --success-dim: rgba(249, 243, 242, 0.12);
-    --error: var(--accent);
-    --error-dim: rgba(206, 162, 158, 0.16);
-  }
-
-  /* Dark mode is the same single accent everywhere too — see the
-   light-mode note above. No per-section overrides. */
-
-  /* ═══════════════════════════════════════════════════════════
-   DESIGN TOKENS — motion, space, elevation
-   ═══════════════════════════════════════════════════════════ */
-  :root {
-    /* Motion — 6 easings ispirati a Vision OS / iOS spring system */
-    --ease-glide: cubic-bezier(0.22, 1, 0.36, 1); /* generic smooth */
-    --ease-snap: cubic-bezier(0.32, 1.1, 0.64, 1); /* gentle spring */
-    --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1); /* overshoot */
-    --ease-brisk: cubic-bezier(0.45, 0, 0.15, 1); /* fast out, slow in */
-    --ease-fluid: cubic-bezier(0.4, 0, 0.2, 1); /* material standard */
-    --ease-linger: cubic-bezier(0.16, 1, 0.3, 1); /* very slow end */
-    /* Durations — 4pt-ish scale */
-    --t-xs: 120ms;
-    --t-sm: 200ms;
-    --t-md: 320ms;
-    --t-lg: 520ms;
-    --t-xl: 820ms;
-    /* Spacing scale — 4pt grid */
-    --s-1: 4px;
-    --s-2: 8px;
-    --s-3: 12px;
-    --s-4: 16px;
-    --s-5: 24px;
-    --s-6: 32px;
-    --s-7: 48px;
-    --s-8: 64px;
-    --s-9: 96px;
-    /* Elevation — 5-step shadow scale (respect theme) */
-    --elev-1: 0 1px 2px rgba(0, 0, 0, 0.05), 0 1px 1px rgba(0, 0, 0, 0.03);
-    --elev-2: 0 2px 6px rgba(0, 0, 0, 0.07), 0 1px 2px rgba(0, 0, 0, 0.04);
-    --elev-3: 0 8px 24px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.04);
-    --elev-4: 0 20px 50px rgba(0, 0, 0, 0.14), 0 4px 12px rgba(0, 0, 0, 0.06);
-    --elev-5: 0 40px 100px rgba(0, 0, 0, 0.22), 0 8px 24px rgba(0, 0, 0, 0.08);
-  }
-  html.dark {
-    --elev-1: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 1px rgba(0, 0, 0, 0.24);
-    --elev-2: 0 2px 6px rgba(0, 0, 0, 0.55), 0 1px 2px rgba(0, 0, 0, 0.3);
-    --elev-3: 0 8px 24px rgba(0, 0, 0, 0.6), 0 2px 6px rgba(0, 0, 0, 0.35);
-    --elev-4: 0 20px 50px rgba(0, 0, 0, 0.7), 0 4px 12px rgba(0, 0, 0, 0.4);
-    --elev-5: 0 40px 100px rgba(0, 0, 0, 0.85), 0 8px 24px rgba(0, 0, 0, 0.45);
-  }
-
-  /* ═══════════════════════════════════════════════════════════
-   DEPTH — ONE MATERIAL: LIQUID GLASS
-   ═══════════════════════════════════════════════════════════
-   Every raised surface on the site is the same material: a
-   translucent sheet that refracts what sits behind it, catches
-   a rim light along its top edge, and casts a shadow onto the
-   ground. Panels LIFT toward the viewer — nothing is ever
-   extruded out of the page or pressed into it.
-
-   Two tiers, differing only in how much they let through:
-
-   OVER-ART  (--glass-*)      panels floating above the
-                              paintings on the snap homepage.
-   ON-SURFACE (--glass-s-*)   controls and cards on the inner
-                              pages, whose ground is flat cream
-                              or near-black. Less transparent,
-                              because there is little behind
-                              them to refract — but the same
-                              rim light, cast shadow and lift.
-
-   State is never carried by shadow alone: a selected control
-   also changes fill, rim colour and text colour, so it survives
-   forced-colors mode and low-vision viewing (WCAG 1.4.11).
-
-   ⚠ ORDER MATTERS: -webkit-backdrop-filter must be written
-   BEFORE the unprefixed backdrop-filter, everywhere.
-
-   The production CSS pipeline collapses the two into one
-   declaration and keeps whichever came last. With the standard
-   property written first — which is how every one of these
-   rules used to read — the build shipped ONLY
-   -webkit-backdrop-filter, and engines that don't take the
-   prefixed alias dropped it entirely. So the blur, the one
-   property that makes this material glass rather than a tinted
-   box, was silently absent from every production build. Only
-   `npm run dev` ever showed it, because dev doesn't minify.
-   Rim, fill and shadow all worked, which is exactly why nobody
-   noticed the sheets weren't refracting anything.
-   ═══════════════════════════════════════════════════════════ */
-  :root {
-    /* Tier 1 — was "glass over artwork" on the old snap-scroll homepage.
-     Flattened to an opaque paper sheet: no blur, no translucency. */
-    --glass-fill: var(--card-bg);
-    --glass-fill-hi: var(--surface);
-    --glass-rim: var(--border);
-    --glass-rim-hi: rgba(28, 26, 23, 0.32);
-    --glass-blur: none;
-    --glass-cast-1: 0 1px 2px rgba(28, 26, 23, 0.06), 0 6px 16px rgba(28, 26, 23, 0.07);
-    --glass-cast-2: 0 2px 4px rgba(28, 26, 23, 0.08), 0 12px 28px rgba(28, 26, 23, 0.1);
-
-    /* Tier 2 — cards and controls on inner pages */
-    --glass-s-fill: var(--card-bg);
-    --glass-s-fill-hi: var(--surface);
-    --glass-s-fill-sunk: var(--surface-2);
-    --glass-s-rim: var(--border);
-    --glass-s-rim-hi: rgba(28, 26, 23, 0.28);
-    --glass-s-sheen: transparent;
-    --glass-s-blur: none;
-    --glass-s-cast-1: 0 1px 2px rgba(28, 26, 23, 0.05), 0 4px 12px rgba(28, 26, 23, 0.06);
-    --glass-s-cast-2: 0 2px 4px rgba(28, 26, 23, 0.07), 0 8px 20px rgba(28, 26, 23, 0.08);
-
-    /* Tier 3 — sheet pinned to the bottom edge (mobile nav / buy bars).
-     Solid --surface, not --nav-bg (which carries alpha): these bars sit
-     directly over an embedded template <iframe> on /bundle and /preview,
-     and Chromium doesn't reliably respect z-index stacking against an
-     iframe's own compositing layer — even a few percent of alpha let the
-     iframe's content show crisply through once --glass-bar-blur stopped
-     smearing it away. Fully opaque removes the possibility outright. */
-    --glass-bar-fill: var(--surface);
-    --glass-bar-blur: none;
-
-    /* OSSERVATORIO editorial radius — sharp corners, not rounded glass. */
-    --glass-radius: var(--r-md);
-  }
-  html.dark {
-    --glass-bar-fill: var(--surface);
-    --glass-s-fill: var(--card-bg);
-    --glass-s-fill-hi: var(--surface);
-    --glass-s-fill-sunk: var(--surface-2);
-    --glass-s-rim: var(--border);
-    --glass-s-rim-hi: rgba(242, 236, 224, 0.24);
-    --glass-s-sheen: transparent;
-    --glass-s-cast-1: 0 1px 2px rgba(0, 0, 0, 0.35), 0 4px 14px rgba(0, 0, 0, 0.4);
-    --glass-s-cast-2: 0 2px 4px rgba(0, 0, 0, 0.4), 0 10px 26px rgba(0, 0, 0, 0.5);
-  }
-
-  /* Radius utilities — every surface picks one of these, never a raw pixel
-   value, so the whole site rounds together if the token moves. */
-  .r-glass {
-    border-radius: var(--glass-radius);
-  }
-  .r-md {
-    border-radius: var(--r-md, 16px);
-  }
-  .r-sm {
-    border-radius: var(--r-sm, 10px);
-  }
-  .r-pill {
-    /* Kept for compat with existing className references; the pill shape
-     itself was retired in the OSSERVATORIO rebrand, so this now renders
-     the same sharp radius as everything else. */
-    border-radius: var(--r-md);
-  }
-
-  /* The shared sheet. Anything raised on an inner page builds on this — a flat
-   paper card: opaque fill, one load-bearing rim border, a small cast shadow.
-   No blur, no specular highlight, no squircle mask: the liquid-glass material
-   was retired in the OSSERVATORIO rebrand. */
-  .glass-surface {
-    background-color: var(--glass-s-fill);
-    border: 1px solid var(--glass-s-rim);
-    border-radius: var(--glass-radius);
-    box-shadow: var(--glass-s-cast-1);
-    transition:
-      background-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-      border-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-      box-shadow var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-      transform var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
-  }
-  @media (hover: hover) {
-    .glass-surface:hover {
-      background-color: var(--glass-s-fill-hi);
-      border-color: var(--glass-s-rim-hi);
-      transform: translateY(-2px);
-      box-shadow: var(--glass-s-cast-2);
-    }
-  }
-
-  /* Same material as .glass-surface, pill-shaped, no hover lift — for
-   segmented toggles and small controls that shouldn't jump on hover. */
-  .glass-surface-pill {
-    background-color: var(--glass-s-fill);
-    border: 1px solid var(--glass-s-rim);
-    border-radius: var(--r-md);
-    box-shadow: var(--glass-s-cast-1);
-    transition:
-      background-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-      border-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-      box-shadow var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
-  }
-  @media (hover: hover) {
-    .glass-surface-pill:hover {
-      background-color: var(--glass-s-fill-hi);
-      border-color: var(--glass-s-rim-hi);
-      box-shadow: var(--glass-s-cast-2);
-    }
-  }
-
-  /* The same flat material, pinned to the bottom edge of the viewport (mobile
-   nav, sticky buy bars). Rounds and catches its border on the top edge only;
-   the other three sides run off the viewport. No hover lift: a bar pinned to
-   an edge cannot lift toward the viewer, and these are containers, not
-   buttons. */
-  .glass-bar {
-    background-color: var(--glass-bar-fill);
-    border-top: 1px solid var(--glass-s-rim);
-    border-radius: var(--glass-radius) var(--glass-radius) 0 0;
-    /* The cast is thrown upward, onto the content the bar overlaps — the only
-     direction there is anything to cast onto. */
-    box-shadow:
-      0 -6px 16px -4px rgba(28, 26, 23, 0.1),
-      0 -18px 40px -12px rgba(28, 26, 23, 0.12);
-    transition:
-      background-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-      border-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
-  }
-  html.dark .glass-bar {
-    box-shadow:
-      0 -6px 18px -4px rgba(0, 0, 0, 0.5),
-      0 -20px 44px -12px rgba(0, 0, 0, 0.6);
-  }
-
-  /* ═══════════════════════════════════════════════════════════
-   GLOBAL TRANSITIONS & FONT
-   ═══════════════════════════════════════════════════════════ */
-  html,
-  body {
-    font-family:
-      var(--font-inter),
-      -apple-system,
-      BlinkMacSystemFont,
-      "SF Pro Display",
-      system-ui,
-      sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-    scrollbar-gutter: stable;
-    background-color: var(--bg);
-    color: var(--text);
-    scroll-behavior: smooth;
-    scroll-padding-top: 80px;
-    transition:
-      background-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-      color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-      border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  /* Tutti gli elementi che usano i colori semantici devono avere la transizione */
-  .bg-page,
-  .bg-surface,
-  .bg-card,
-  .text-theme,
-  .text-muted,
-  .border-theme,
-  .glass {
-    transition:
-      background-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-      background 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-      color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-      border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.4s cubic-bezier(0.32, 1.1, 0.64, 1),
-      /* Bouncier for tactile feedback */ --spec-x 0.4s
-        var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-      --spec-y 0.4s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-      --spec-o 0.4s var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
-  }
-
-  /* ── iOS-Like Haptic Feedback ── */
-  /* Tutti gli elementi interattivi principali reagiscono alla pressione */
-  button:active,
-  .fn-btn:active,
-  .fn-card:active {
-    transform: scale(0.96) !important;
-    transition-duration: 0.15s !important;
-  }
-
-  /* ── Dark mode: OSSERVATORIO ink, flat (no ambient glow) ── */
-  html.dark {
-    background-color: var(--bg);
-    background-image: none;
-    background-attachment: fixed;
-  }
-  html:not(.dark) {
-    background-color: var(--bg);
-    background-image: none;
-  }
-
-  * {
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  /* ── Shimmer skeleton loader ── */
-  @keyframes shimmer {
-    0% {
-      background-position: -400px 0;
-    }
-    100% {
-      background-position: 400px 0;
-    }
-  }
-  .skeleton-shimmer {
-    background: linear-gradient(90deg, var(--surface) 25%, var(--input-bg) 50%, var(--surface) 75%);
-    background-size: 800px 100%;
-    border-radius: var(--r-sm, 10px);
-    animation: shimmer 1.4s ease-in-out infinite;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .skeleton-shimmer {
-      animation: none;
-      background: var(--surface);
-    }
-  }
-
-  /* ── Staggered card entrance ── */
-
-  @media (prefers-reduced-motion: reduce) {
-    @keyframes cardEntrance {
-      from {
-        opacity: 1;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-  }
-
-  /* ═══════════════════════════════════════════════════════════
-   SCROLLBAR — visible on page, hidden on inner elements
-   ═══════════════════════════════════════════════════════════ */
-
-  /* Hide on everything by default */
-  * {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  *::-webkit-scrollbar {
-    display: none;
-  }
-
-  /* Show branded scrollbar on the page itself */
-  html {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(var(--accent-rgb), 0.35) transparent;
-  }
-  html::-webkit-scrollbar {
-    display: block;
-    width: 3px;
-  }
-  html::-webkit-scrollbar-thumb {
-    background: rgba(var(--accent-rgb), 0.35);
-    border-radius: 99px;
-    transition: background 0.2s ease;
-  }
-  html::-webkit-scrollbar-thumb:hover {
-    background: rgba(var(--accent-rgb), 0.65);
-  }
-  html::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  /* ═══════════════════════════════════════════════════════════
-   SEMANTIC THEME UTILITIES
-   ═══════════════════════════════════════════════════════════ */
-}
-@layer utilities {
-  @property --angle {
-    syntax: "<angle>";
-    initial-value: 0deg;
-    inherits: false;
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════
-   DISPLAY TYPE — Playfair Display editorial hero
-   Playfair Display ships as static weight cuts, not a variable font, so
-   (unlike the Fraunces version this replaced) there is no
-   font-variation-settings axis to tune — weight/style do the work instead.
-   ═══════════════════════════════════════════════════════════ */
-.display-serif {
-  font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.05;
-  font-variant-numeric: tabular-nums;
-}
-.display-serif em {
-  font-style: italic;
-  color: var(--accent);
-}
-
-/* ═══════════════════════════════════════════════════════════
-   COMMAND PALETTE — Cmd+K overlay
-   ═══════════════════════════════════════════════════════════ */
+/* ── Command palette (Ctrl/Cmd-K) ─────────────────────────────────────────── */
 .cmdk-backdrop {
   position: fixed;
   inset: 0;
   z-index: 100;
-  background: color-mix(in oklab, var(--bg) 70%, transparent);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  animation: fade-in var(--t-sm) var(--ease-glide) forwards;
+  background: rgb(11 18 25 / 0.55);
 }
 .cmdk-panel {
   position: fixed;
@@ -846,1284 +204,50 @@
   transform: translateX(-50%);
   width: min(640px, calc(100vw - 32px));
   z-index: 101;
-  background: var(--surface-2);
-  border: 1px solid var(--accent-muted);
-  border-radius: var(--glass-radius);
+  background: var(--bg);
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
   overflow: hidden;
-  box-shadow: var(--elev-5);
-  animation: cmdk-pop var(--t-md) var(--ease-snap) forwards;
+  box-shadow: 0 12px 32px rgb(11 18 25 / 0.25);
 }
-@keyframes cmdk-pop {
-  from {
-    opacity: 0;
-    transform: translateX(-50%) translateY(-12px) scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0) scale(1);
-  }
-}
-/* A palette row reads like the nav menu rows: circular badge, title, hint.
-   Selection is a filled rounded chip rather than a 2px bar down the left edge —
-   the bar was the one place on the site where a selected thing was marked by an
-   accent on one edge instead of by filling it. The radius no longer appears
-   only when selected, either; a shape that changes on hover reads as a
-   different component. */
 .cmdk-item {
   display: flex;
   align-items: center;
-  gap: 11px;
-  padding: 9px 12px 9px 9px;
-  margin: 0 5px;
-  border-radius: var(--r-md, 16px);
+  gap: 12px;
+  padding: 10px 14px;
   cursor: pointer;
-  transition:
-    background var(--t-xs) var(--ease-glide),
-    color var(--t-xs) var(--ease-glide);
-  color: var(--text);
+  color: var(--ink);
 }
 .cmdk-item[data-active="true"],
 .cmdk-item:hover {
-  background: color-mix(in srgb, var(--cat-guide-ink) 11%, transparent);
+  background: var(--surface-2);
 }
-.cmdk-item[data-active="true"] .cmdk-item__badge,
-.cmdk-item:hover .cmdk-item__badge {
-  background: color-mix(in srgb, var(--cat-guide-ink) 22%, transparent);
-}
-
 .cmdk-item__badge {
   flex-shrink: 0;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
-  font-weight: 700;
-  /* --cat-guide-ink is just an alias for --accent now — see the CATEGORY
-     COLOUR block above. */
-  color: var(--cat-guide-ink);
-  background: color-mix(in srgb, var(--cat-guide-ink) 14%, transparent);
-  border: 1px solid color-mix(in srgb, var(--cat-guide-ink) 26%, transparent);
-  transition: background var(--t-xs) var(--ease-glide);
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  color: var(--accent);
 }
 .cmdk-kbd {
-  font-family: var(--font-display), Georgia, serif;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  padding: 2px 6px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  color: var(--muted);
-  background: var(--input-bg);
-}
-
-/* ═══════════════════════════════════════════════════════════
-   SHINE SWEEP — hover light pass on cards
-   ═══════════════════════════════════════════════════════════ */
-.shine-sweep {
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-}
-.shine-sweep::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    115deg,
-    transparent 30%,
-    rgba(255, 255, 255, 0.1) 48%,
-    rgba(255, 255, 255, 0.18) 50%,
-    rgba(255, 255, 255, 0.1) 52%,
-    transparent 70%
-  );
-  transform: translateX(-120%);
-  transition: transform var(--t-xl) var(--ease-glide);
-  pointer-events: none;
-  z-index: 1;
-}
-.shine-sweep:hover::after {
-  transform: translateX(120%);
-}
-@media (prefers-reduced-motion: reduce) {
-  .shine-sweep::after {
-    display: none;
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════
-   KEYFRAMES
-   ═══════════════════════════════════════════════════════════ */
-@keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(7px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes sheet-up {
-  from {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-/* ── Theme toggle icon swap ── */
-@keyframes theme-toggle-spin {
-  from {
-    opacity: 0;
-    transform: rotate(-90deg) scale(0.5);
-  }
-  to {
-    opacity: 1;
-    transform: rotate(0deg) scale(1);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  @keyframes theme-toggle-spin {
-    from {
-      opacity: 1;
-      transform: none;
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-}
-
-/* ── Heart pop — wishlist spring animation ── */
-@keyframes heart-pop {
-  0% {
-    transform: scale(1);
-  }
-  35% {
-    transform: scale(1.45);
-  }
-  65% {
-    transform: scale(0.85);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  @keyframes heart-pop {
-    from {
-      transform: scale(1);
-    }
-    to {
-      transform: scale(1);
-    }
-  }
-}
-
-/* ── Heart burst — small particles thrown on wishlist save ── */
-@keyframes heart-burst {
-  0% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(calc(-50% + var(--bx)), calc(-50% + var(--by))) scale(0.3);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  @keyframes heart-burst {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 0;
-    }
-  }
-}
-
-/* ── Count badge — pop when the count it displays changes ── */
-@keyframes badge-pop {
-  0% {
-    transform: scale(0.4);
-  }
-  60% {
-    transform: scale(1.3);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  @keyframes badge-pop {
-    from {
-      transform: scale(1);
-    }
-    to {
-      transform: scale(1);
-    }
-  }
-}
-
-/* ── CTA bar slide-up entrance (preview page) ── */
-/* Ends at `none`, not `translateY(0)`.
-   These animations run with fill-mode `both`, which retains the final keyframe
-   forever — and `translateY(0)` is a transform, not the absence of one. An
-   element with any transform becomes the containing block for every
-   `position: fixed` descendant it has, which is exactly the bug that once put
-   the catalogue's quick-view sheet below the end of the page and left the buy
-   bars at the bottom of a long document instead of on screen (see the note in
-   PageTransition.tsx, where the same trap was fixed on the JS side with
-   gsap's clearProps). `none` animates identically and retains nothing. */
-@keyframes cta-slide-up {
-  from {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-  to {
-    transform: none;
-    opacity: 1;
-  }
-}
-.cta-bar-enter {
-  animation: cta-slide-up 0.42s cubic-bezier(0.32, 1.1, 0.64, 1) both;
-}
-@media (prefers-reduced-motion: reduce) {
-  .cta-bar-enter {
-    animation: none;
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════
-   FOCUS VISIBLE — keyboard navigation
-   ═══════════════════════════════════════════════════════════ */
-:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-  border-radius: 6px;
-}
-/* Remove default outline for mouse users */
-:focus:not(:focus-visible) {
-  outline: none;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   REDUCED MOTION
-   ═══════════════════════════════════════════════════════════ */
-@media (prefers-reduced-motion: reduce) {
-  .anim-fade-up,
-  .anim-fade-in,
-  .sheet-enter {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-  }
-  .ios-spring {
-    transition-timing-function: linear !important;
-    transition-duration: 150ms !important;
-  }
-  .ease-premium {
-    transition-timing-function: linear !important;
-    transition-duration: 150ms !important;
-  }
-  .animate-spin {
-    animation: none !important;
-  }
-  /* Card tilt — disable 3D on reduced-motion */
-  .card-tilt {
-    transform-style: flat !important;
-  }
-  .card-tilt:hover {
-    transform: none !important;
-  }
-  .card-tilt:active {
-    transform: scale(0.98) !important;
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════
-   CARD TILT (3-D perspective on hover)
-   ═══════════════════════════════════════════════════════════ */
-.card-tilt {
-  transform-style: preserve-3d;
-  transition:
-    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.4s ease;
-}
-@media (hover: hover) {
-  .card-tilt:hover {
-    transform: perspective(800px) rotateX(2deg) rotateY(-1.5deg) translateY(-4px);
-  }
-}
-.card-tilt:active {
-  transform: scale(0.98);
-}
-
-/* ═══════════════════════════════════════════════════════════
-   ANIMATION ADDITIONS
-   ═══════════════════════════════════════════════════════════ */
-
-/* CTA shimmer sweep */
-
-/* Ambient glow pulse */
-
-/* Floating particles */
-
-/* SVG check draw */
-
-/* Hero title reveal */
-
-/* Ripple */
-
-/* Drill-in from right */
-
-/* Drill-back from left */
-
-/* Confetti fall */
-@keyframes confetti-fall {
-  0% {
-    transform: translateY(-10px) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(100vh) rotate(720deg);
-    opacity: 0;
-  }
-}
-@keyframes confetti-sway {
-  0%,
-  100% {
-    margin-left: 0;
-  }
-  25% {
-    margin-left: 20px;
-  }
-  75% {
-    margin-left: -20px;
-  }
-}
-
-/* Also disable new animations under reduced-motion */
-
-/* ═══════════════════════════════════════════════════════════
-   LOADING STATE — dot-pulse per bottoni / spinner leggero
-   ═══════════════════════════════════════════════════════════ */
-
-/* ── blink — pulsing indicator dot ── */
-
-/* ── reveal — scroll-triggered section entrance ──
-   IntersectionObserver adds `.visible` when 10% of element enters viewport.
-   Delays allow staggered children (add reveal-delay-1/2/3 on siblings).
-── */
-.reveal {
-  opacity: 0;
-  transform: translateY(20px);
-  transition:
-    opacity 0.6s ease,
-    transform 0.6s ease;
-  will-change: opacity, transform;
-}
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-  will-change: auto;
-}
-
-/* ── card-sweep — gold top border sweeps in on hover ──
-   Requires `position: relative` on the element (shoji-card already has it).
-   Uses ::before — compatible with shoji-card which only uses ::after.
-── */
-.card-sweep::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--accent), var(--terra));
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.3s ease;
-  z-index: 50;
-}
-.card-sweep:hover::before {
-  transform: scaleX(1);
-}
-
-/* ── Reduced motion overrides ── */
-@media (prefers-reduced-motion: reduce) {
-  .reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-  .card-sweep::before {
-    transition: none;
-  }
-}
-
-/* ── Shoji inner frame (障子) ──
-   Thin inset border appears on hover — evokes shoji screen wooden grid.
-── */
-.shoji-card {
-  border-radius: var(--glass-radius);
-  overflow: hidden;
-}
-.shoji-card::after {
-  content: "";
-  position: absolute;
-  inset: 5px;
-  border: 1px solid rgba(255, 255, 255, 0);
-  /* Inset by 5px, so its radius is the card's minus that inset. */
-  border-radius: calc(var(--glass-radius) - 5px);
-  pointer-events: none;
-  transition: border-color 0.35s ease;
-  z-index: 40;
-}
-.shoji-card:hover::after {
-  border-color: rgba(255, 255, 255, 0.18);
-}
-
-/* Warm grain overlay — a barely-perceptible paper/notebook texture behind
-   every page, "Il Taccuino di Jane" brief calls for "una texture leggera che
-   ricordi la carta ruvida di un taccuino". Same turbulence filter both
-   themes, tuned even fainter on the cream ground (paper reads noisier at a
-   given opacity than a near-black ground does) — z-index below modals/toasts. */
-html.dark body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1000;
-  opacity: 0.022;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 180px 180px;
-}
-html:not(.dark) body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1000;
-  opacity: 0.014;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 180px 180px;
-}
-
-/* ── Retro section separator — "Il Taccuino di Jane" brief calls for a
-   small classic graphic detail (a stylised diamond, or a line with a
-   centred dot) between article sections instead of a plain <hr>. Both a
-   utility class (.fn-separator) for markup and the ArticleBody callout
-   grammar use this. */
-.fn-separator {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  margin: 40px 0;
-  color: var(--text);
-  opacity: 0.5;
-}
-.fn-separator::before,
-.fn-separator::after {
-  content: "";
-  height: 1px;
-  width: 64px;
-  background: var(--text);
-  opacity: 0.35;
-}
-.fn-separator__glyph {
+  font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 11px;
-  transform: rotate(45deg);
-  display: inline-block;
-  border: 1px solid currentColor;
-  width: 7px;
-  height: 7px;
-}
-
-/* ── "L'Osservazione Chiave" callout box — see ArticleBody.tsx's ":::callout"
-   grammar. Salvia background, load-bearing accent-red left rule (WCAG
-   1.4.11 — never dropped), small uppercase title treatment. */
-.fn-callout {
-  background: var(--surface-2);
-  border-left: 3px solid var(--accent);
-  border-radius: var(--r-md);
-  padding: 20px 22px;
-  margin: 28px 0;
-}
-.fn-callout__title {
-  font-family: var(--font-inter), sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--accent);
-  margin: 0 0 8px;
-}
-.fn-callout p,
-.fn-callout ul {
-  margin: 0;
-}
-/* Spacing between any two body blocks inside a callout — not just p+p, since
-   a callout can mix paragraphs and bullet lists (e.g. a closing sentence
-   after a "- " list) and both need the same gap. */
-.fn-callout > * + * {
-  margin-top: 10px;
-}
-
-/* Hybrid ticker animation */
-
-/* ═══════════════════════════════════════════════════════════
-   SHADOW TOKENS — tinted with the palette's ULTRAMARINE rather than a
-   generic near-black, so shadows read as part of the same 2-hue
-   system instead of a stray third neutral.
-   ═══════════════════════════════════════════════════════════ */
-:root {
-  --shadow-sm: 0 1px 3px rgba(38, 52, 140, 0.08), 0 1px 2px rgba(38, 52, 140, 0.05);
-  --shadow-md: 0 4px 16px rgba(38, 52, 140, 0.1), 0 2px 6px rgba(38, 52, 140, 0.06);
-  --shadow-lg: 0 8px 40px rgba(38, 52, 140, 0.12), 0 4px 12px rgba(38, 52, 140, 0.07);
-  --shadow-xl: 0 20px 60px rgba(38, 52, 140, 0.16), 0 8px 20px rgba(38, 52, 140, 0.09);
-  --overlay: rgba(16, 22, 59, 0.8);
-  --overlay-light: rgba(16, 22, 59, 0.5);
-}
-html.dark {
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.14);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.28), 0 2px 6px rgba(0, 0, 0, 0.18);
-  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.35), 0 4px 12px rgba(0, 0, 0, 0.22);
-  --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.45), 0 8px 20px rgba(0, 0, 0, 0.28);
-  --overlay: rgba(3, 4, 12, 0.85);
-  --overlay-light: rgba(3, 4, 12, 0.55);
-}
-
-/* ═══════════════════════════════════════════════════════════
-   BTN-BRAND — primary CTA with ring animation
-   ═══════════════════════════════════════════════════════════ */
-.btn-brand {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  white-space: nowrap;
-  font-family: var(--font-inter), sans-serif;
-  font-weight: 700;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.13em;
-  background: var(--accent);
-  color: var(--bg);
-  padding: 14px 30px;
-  border-radius: var(--r-md);
-  transition:
-    background var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    transform var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    box-shadow var(--t-lg, 520ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
-  overflow: hidden;
-  isolation: isolate;
-}
-
-@media (hover: hover) {
-  .btn-brand:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 32px color-mix(in srgb, var(--accent) 34%, transparent);
-  }
-}
-
-.btn-brand:active {
-  animation: btn-spring 0.38s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-}
-
-@keyframes btn-spring {
-  0% {
-    transform: scale(1);
-  }
-  30% {
-    transform: scale(0.93);
-  }
-  55% {
-    transform: scale(1.03);
-  }
-  75% {
-    transform: scale(0.98);
-  }
-  90% {
-    transform: scale(1.01);
-  }
-  100% {
-    transform: none;
-  }
-}
-
-.btn-brand:disabled {
-  opacity: 0.55;
-  pointer-events: none;
-}
-
-.btn-brand:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-}
-
-/* Compact variant — smaller padding */
-.btn-brand-sm {
-  padding: 9px 20px;
-  font-size: 10px;
+  padding: 1px 6px;
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  color: var(--muted);
+  background: var(--surface);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .btn-brand::before {
-    display: none;
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
-  .btn-brand::after {
-    animation: none;
-  }
-  .btn-brand:active {
-    animation: none;
-    transform: scale(0.97);
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════
-   ANIM-FADE-UP-SLOW — cinematic hero entrance (longer)
-   ═══════════════════════════════════════════════════════════ */
-
-/* ── Typing cursor blink ── */
-
-/* Mobile: always single column */
-
-/* ── OSSERVATORIO masthead — responsive letter-spacing for mobile ── */
-
-/* ── News ticker animation ── */
-
-/* ── Responsive ── */
-
-/* ═══════════════════════════════════════════════════════════
-   INSPO — editorial system
-   Palette adapts to theme via CSS vars — see the THEME VARIABLES
-   block near the top of this file for the 3-colour source values
-   (Pantone 2411 U green / 2347 U red / P179-1 U cream).
-   ═══════════════════════════════════════════════════════════ */
-
-/* ── Background — theme-aware + Caravaggio tenebrism overlay ── */
-.fn-bg {
-  min-height: 100vh;
-  background: var(--bg);
-  position: relative;
-  overflow: hidden;
-}
-.fn-bg::before {
-  content: none;
-}
-
-.fn-shell {
-  position: relative;
-  z-index: 2;
-  min-height: 100vh;
-}
-
-/* "Indietro" — see components/BackLink.tsx. One appearance for every page,
-   whether it sits in the utility bar of an inner page or floats over a
-   chromeless one. Glass, like every other control on a flat ground. */
-.fn-back {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-height: 32px;
-  padding: 5px 14px 5px 10px;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  /* Both explicit: this sits inside .fn-utility, which uppercases and widely
-     tracks its text. The floating copies on the chromeless pages do not, and
-     the point of one component is that the control reads the same everywhere. */
-  text-transform: none;
-  color: var(--muted);
-  border: 1px solid var(--glass-s-rim);
-  background: var(--glass-s-fill);
-  -webkit-backdrop-filter: var(--glass-s-blur);
-  backdrop-filter: var(--glass-s-blur);
-  box-shadow: inset 0 1px 0 var(--glass-s-sheen);
-  cursor: pointer;
-  transition:
-    color var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    border-color var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
-}
-.fn-back:hover {
-  color: var(--text);
-}
-
-.fn-kicker {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.26em;
-  color: var(--accent);
-  font-weight: 600;
-  font-family: var(--font-inter), sans-serif;
-  transition: color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
-}
-
-/* ── Buttons ── */
-.fn-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-family: var(--font-inter), sans-serif;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  padding: 13px 24px;
-  text-decoration: none;
-  cursor: pointer;
-  border: 1px solid var(--fn-border, rgba(234, 234, 234, 0.18));
-  color: var(--text);
-  border-radius: var(--r-md);
-  background: transparent;
-  white-space: nowrap;
-  transition:
-    background var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    border-color var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    transform var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
-}
-@media (hover: hover) {
-  .fn-btn:hover {
-    transform: translateY(-1px);
-  }
-}
-.fn-btn.gold:hover {
-  transform: none;
-}
-.fn-btn:hover {
-  background: rgba(var(--accent-rgb), 0.07);
-  border-color: rgba(var(--accent-rgb), 0.3);
-}
-.fn-btn.primary {
-  background: linear-gradient(135deg, var(--accent), var(--gold-soft));
-  color: var(--bg);
-  border: 0;
-  font-weight: 700;
-  transition:
-    background var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    transform var(--t-sm, 200ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
-}
-.fn-btn.primary:hover {
-  background: linear-gradient(
-    135deg,
-    color-mix(in srgb, var(--accent) 85%, white 15%),
-    color-mix(in srgb, var(--gold-soft) 85%, white 15%)
-  );
-}
-.fn-btn.gold {
-  color: var(--accent);
-  border: 0;
-  background: transparent;
-  padding-left: 0;
-  transition: color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
-}
-.fn-btn.gold:hover {
-  color: color-mix(in srgb, var(--accent) 85%, white 15%);
-}
-
-/* ── Section ── */
-.fn-section {
-  max-width: 1220px;
-  margin: 0 auto;
-  padding: 72px 36px;
-}
-.fn-section h2 {
-  font-family: var(--font-display), Georgia, serif;
-  font-weight: 300;
-  font-size: clamp(38px, 5vw, 60px);
-  margin: 0 0 8px;
-  color: var(--text);
-}
-.fn-section > p {
-  color: var(--muted);
-  font-size: 17px;
-}
-
-/* ── Search / toolbar ── */
-.fn-toolbar {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-/* ── Glass controls (inner pages) ──
-   Same material as the panels over the paintings, tuned for a flat ground:
-   a touch less transparent, since there is little behind them to refract.
-   The rim border is load-bearing — it is what keeps a glass control
-   findable against the page (WCAG 1.4.11), so it is never dropped. */
-.fn-search {
-  flex: 1;
-  min-width: 200px;
-  background: var(--glass-s-fill-sunk);
-  border: 1px solid var(--glass-s-rim);
-  border-radius: var(--r-md);
-  color: var(--text);
-  padding: 14px 20px;
-  outline: none;
-  font: inherit;
-  -webkit-backdrop-filter: var(--glass-s-blur);
-  backdrop-filter: var(--glass-s-blur);
-  box-shadow: inset 0 1px 0 var(--glass-s-sheen);
-  transition:
-    background var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    box-shadow var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    border-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
-}
-.fn-search::placeholder {
-  color: var(--muted);
-}
-.fn-search:focus {
-  background: var(--glass-s-fill);
-  border-color: rgba(var(--accent-rgb), 0.45);
-  box-shadow:
-    inset 0 1px 0 var(--glass-s-sheen),
-    0 0 0 3px rgba(var(--accent-rgb), 0.14);
-}
-
-/* ── Grid ── */
-/* Cards are extruded surfaces now, so the grid gives them room to cast a
-   shadow instead of drawing hairline rules through 1px gaps.
-   minmax(0,1fr) — without it, a wide child (the scaled preview iframe)
-   sets the track's min-content size and blows the grid past its container. */
-.fn-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 28px;
-  background: transparent;
-}
-
-/* No double-width cards. An editor's pick used to span two tracks, which gave
-   the grid a bento rhythm but cost it evenness: the wide cards stranded a gap
-   whenever one arrived with a single track left, and two products at two
-   different sizes invite a comparison of size rather than of substance. Every
-   card is one track now, so the grid tiles on its own and the products are read
-   against each other rather than against the layout. `editorsPick` still shows,
-   as a badge. */
-@media (max-width: 900px) {
-  .fn-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 22px;
-  }
-}
-@media (max-width: 600px) {
-  .fn-grid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 20px;
-  }
-}
-
-/* ── Card — glass sheet ──
-   Rests just above the page and lifts toward the viewer on hover. Same
-   gesture as the panels over the paintings; only the transparency differs. */
-.fn-card {
-  background: var(--glass-s-fill);
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-  border: 1px solid var(--glass-s-rim);
-  border-radius: var(--glass-radius);
-  /* No backdrop-filter here, unlike .glass-surface — and the material is
-     unchanged, because behind these cards there is nothing to refract. The
-     catalogue ground is a flat --bg plus one very large, very soft gold radial
-     (alpha 0.07); blurring a flat fill and a gradient that gentle at 20px is
-     visually indistinguishable from not blurring them. What it did cost was a
-     compositor layer and a blur pass per card, sixteen times over, on the page
-     that felt slowest. Fill, rim, cast shadow and hover lift all stay, which is
-     what the on-flat-ground tier in CLAUDE.md actually asks for. */
-  box-shadow:
-    var(--glass-s-cast-1),
-    inset 0 1px 0 var(--glass-s-sheen);
-  transition:
-    background var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    border-color var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    box-shadow var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    transform var(--t-md, 320ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
-}
-@media (hover: hover) {
-  .fn-card:hover {
-    background: var(--glass-s-fill-hi);
-    border-color: var(--glass-s-rim-hi);
-    transform: translateY(-3px);
-    box-shadow:
-      var(--glass-s-cast-2),
-      inset 0 1px 0 var(--glass-s-sheen);
-  }
-}
-.fn-card:focus-within {
-  border-color: var(--glass-s-rim-hi);
-  box-shadow:
-    var(--glass-s-cast-2),
-    inset 0 1px 0 var(--glass-s-sheen);
-}
-
-.fn-body {
-  padding: 20px 18px 22px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-.fn-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-  margin-top: auto;
-  padding-top: 14px;
-}
-.fn-meta span {
-  color: var(--muted);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   CATEGORY COLOUR
-   Used only by the command-palette result badge now — the
-   marketplace's per-category (prompt/guide/sheet) colour-coding
-   this once distinguished is gone along with the catalogue.
-   --cat-guide-ink is kept as an alias for the one site accent
-   rather than a separate hue, so the badge still tracks the
-   3-colour palette automatically in both themes.
-   ═══════════════════════════════════════════════════════════ */
-:root {
-  --cat-guide-ink: var(--accent);
-}
-
-/* ── Badge ── */
-/* Plain mono category label — no per-category hue. Matches the Figma
-   editorial prototype's ProductCard eyebrow (muted uppercase text, no
-   colour-coding) and the site's single-accent rule; a saturated colour per
-   category was the busiest thing on the catalogue card next to the
-   thumbnail itself. */
-.fn-badge {
-  display: inline-block;
-  font-size: 9px;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  padding: 5px 11px;
-  border-radius: var(--r-md);
-  background: transparent;
-  color: var(--muted);
-  border: 1px solid var(--border);
-  font-family: var(--font-inter), sans-serif;
-  font-weight: 600;
-}
-
-.fn-card-actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-/* ── Detail page ── */
-.fn-detail {
-  max-width: 1160px;
-  margin: 0 auto;
-  padding: 56px 36px 90px;
-  display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
-  gap: 24px;
-  align-items: start;
-}
-
-/* ── Simple pages ── */
-.fn-simple {
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 88px 36px 80px;
-}
-.fn-simple h1 {
-  font-family: var(--font-display), Georgia, serif;
-  font-size: clamp(44px, 8vw, 80px);
-  font-weight: 300;
-  margin: 0 0 18px;
-  color: var(--text);
-  line-height: 1.05;
-}
-.fn-simple p {
-  color: var(--muted);
-  font-size: 18px;
-  line-height: 1.65;
-  max-width: 680px;
-}
-
-/* ── Responsive ── */
-@media (max-width: 900px) {
-  .fn-detail {
-    grid-template-columns: minmax(0, 1fr);
-    padding: 40px 20px 100px;
-  }
-
-  .fn-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .fn-toolbar {
-    grid-template-columns: 1fr;
-  }
-  .fn-section {
-    padding: 48px 20px;
-  }
-
-  .fn-simple {
-    padding: 64px 20px 100px;
-  }
-
-  .fn-bg {
-    padding-bottom: 80px;
-  }
-}
-@media (max-width: 600px) {
-  .fn-grid {
-    grid-template-columns: 1fr;
-  }
-  .fn-detail {
-    padding-top: 24px;
-  }
-  .fn-simple h1 {
-    font-size: clamp(40px, 12vw, 56px);
-  }
-}
-
-/* Hover lift comes from .glass-surface. The media query there already gates it
-   on a real pointer, so a tap on mobile does not leave a cell stuck raised. */
-
-/* ═══════════════════════════════════════════════════════════
-   BENTO MOBILE — full-width CTAs + cell ordering
-   ═══════════════════════════════════════════════════════════ */
-
-/* On mobile, make the hero CTA buttons full-width */
-
-/* ═══════════════════════════════════════════════════════════
-   FOOTER ACCORDION — mobile collapsible sections
-   ═══════════════════════════════════════════════════════════ */
-
-/* On desktop (≥640px): hide the +/- icon, always show content,
-   make the trigger non-interactive */
-
-/* Below 640px the trigger is a real button, and its 10px label left it 19px
-   tall — under WCAG 2.2's 24×24 target floor (SC 2.5.8). It is already full
-   width, so only the height was ever the problem. */
-
-/* ═══════════════════════════════════════════════════════════
-   CATALOGUE FILTERS
-   A single-select segmented control. The groups don't overlap,
-   so multi-select would be meaningless.
-   ═══════════════════════════════════════════════════════════ */
-
-.fn-filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 0 0 40px;
-}
-
-.fn-filter {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 9px 16px;
-  border-radius: var(--r-md);
-  border: 1px solid var(--glass-s-rim);
-  background-color: var(--glass-s-fill);
-  background-image: radial-gradient(
-    circle at var(--spec-x) var(--spec-y),
-    rgba(255, 255, 255, var(--spec-o)),
-    transparent 60%
-  );
-  -webkit-backdrop-filter: var(--glass-s-blur);
-  backdrop-filter: var(--glass-s-blur);
-  box-shadow:
-    var(--glass-s-cast-1),
-    inset 0 1px 0 var(--glass-s-sheen);
-  color: var(--muted);
-  font: inherit;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  cursor: pointer;
-  /* Colour, border and shadow only. Animating size would reflow the whole
-     row every time the selection moves. */
-  transition:
-    background-color var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    border-color var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    box-shadow var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    color var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    --spec-x var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    --spec-y var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1)),
-    --spec-o var(--t-sm, 180ms) var(--ease-linger, cubic-bezier(0.16, 1, 0.3, 1));
-}
-@media (hover: hover) {
-  .fn-filter:hover {
-    color: var(--text);
-    background-color: var(--glass-s-fill-hi);
-    border-color: var(--glass-s-rim-hi);
-    box-shadow:
-      var(--glass-s-cast-2),
-      inset 0 1px 0 var(--glass-s-sheen);
-  }
-}
-.fn-filter:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-/* Selection is carried by fill, border AND text colour together — never by one
-   of them alone, so it survives forced-colors mode and low-vision viewing. */
-.fn-filter.is-active {
-  /* --accent (the darkened dusty rose), not the raw swatch — see the
-     palette note in the THEME VARIABLES block: #8A625E clears 4.5:1 with
-     cream text directly, so this needs no separate near-black "legibility
-     exception" ink colour on top of it. */
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--bg);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
-}
-
-/* Every group chip takes the same house accent when selected — one accent
-   site-wide (see CLAUDE.md "Brand Colors"), not a colour per category. The
-   per-category hue system this used to carry (prompt/guide/sheet each in
-   their own colour, active and idle) read as busy next to the rest of the
-   site's single-accent minimal language, so selection is back to being
-   carried by fill + border + colour together, same as every other chip. */
-
-.fn-filter__count {
-  font-size: 11px;
-  font-variant-numeric: tabular-nums;
-  opacity: 0.65;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   CATALOGUE CARD — uniform
-   Every card the same size, so the eye compares products
-   rather than boxes.
-   ═══════════════════════════════════════════════════════════ */
-
-/* The thumbnail sets the card's top block at a fixed ratio, so a row of cards
-   lines up on the same horizontal regardless of how long the titles are. */
-.fn-card > *:first-child {
-  flex-shrink: 0;
-}
-
-/* Body grows to absorb the difference in text length, which is what keeps the
-   price and the button on the same baseline across a row. */
-.fn-card .fn-body {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-/* Push the price row and the action to the bottom of whatever height the row
-   settles at — the alternative is buttons floating at different heights, which
-   is the single thing that makes a product grid look unfinished. */
-.fn-card .fn-meta {
-  margin-top: auto;
-}
-
-/* Two lines of description, then ellipsis. Uncapped copy is what made cards
-   different heights in the first place. */
-.fn-card .fn-body > p {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* Facet rows stack; chips wrap within a row. */
-.fn-facets {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: 0 0 40px;
-}
-.fn-facets .fn-filters {
-  margin: 0;
-}
-
-/* A combination that would yield nothing stays visible but unusable, rather
-   than disappearing — a chip row that reshuffles while you filter is
-   disorienting, and the whole point of the counts is to see a dead end before
-   walking into it. */
-.fn-filter:disabled {
-  opacity: 0.38;
-  cursor: not-allowed;
-}
-@media (hover: hover) {
-  .fn-filter:disabled:hover {
-    color: var(--muted);
-    border-color: var(--glass-s-rim);
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════
-   PRODUCT SHOTS
-   The template as an image, not as a nested document scaled
-   to a quarter of its design width.
-   ═══════════════════════════════════════════════════════════ */
-
-.fn-detail-shot,
-.fn-sheet-shot {
-  position: relative;
-  width: 100%;
-  /* A ratio rather than a viewport height. `60vh` on a tall phone reserved most
-     of the screen for a product shot and pushed the name, the price and the buy
-     button below the fold — the three things the page exists to show. */
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-}
-
-/* Cap it on large screens so the shot stays a product image and does not become
-   a hero band. */
-@media (min-width: 768px) {
-  .fn-detail-shot {
-    aspect-ratio: 2 / 1;
-    max-height: 460px;
-  }
-  .fn-sheet-shot {
-    aspect-ratio: 2 / 1;
-    max-height: 380px;
-  }
-}
-
-/* ── Catalogue detail sheet ───────────────────────────────────────────────
-   The sheet keeps the glass material — rim light, blur, cast shadow — but not
-   the standard 0.65 fill. It opens directly over the catalogue grid, and the
-   thumbnails behind it are now photographs of the products: bright, busy, full
-   of type. At 0.65 the product name, description and price were read against
-   other products' covers, which is the one place on the site where that cannot
-   be allowed, because it is where the buying decision is made.
-   The rim border is untouched; it is what keeps the panel findable (WCAG
-   1.4.11), and dropping it for a cleaner look is never the fix. */
-.fn-sheet-panel {
-  background: rgba(10, 9, 7, 0.94);
-}
-:root:not(.dark) .fn-sheet-panel {
-  background: rgba(253, 250, 245, 0.96);
 }
