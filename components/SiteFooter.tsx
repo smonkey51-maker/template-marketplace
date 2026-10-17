@@ -57,7 +57,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-[1200px] px-4 py-12 sm:px-6">
         <div className="grid gap-10 md:grid-cols-12">
           <div className="md:col-span-4">
-            <SiteLogo />
+            <SiteLogo tile />
             <p className="mt-4 max-w-sm text-[14px] text-muted">{SITE.tagline}.</p>
           </div>
 
