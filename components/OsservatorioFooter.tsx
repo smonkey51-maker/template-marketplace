@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { Button, Input, TextField } from "@heroui/react";
 import { useLang } from "@/components/LanguageProvider";
 import { copy } from "@/lib/i18n";
 import { OsservatorioLogoStatic } from "@/components/OsservatorioLogo";
@@ -88,21 +89,20 @@ export function OsservatorioFooter() {
                 onSubmit={handleSubscribe}
                 className="mt-7 flex max-w-xl flex-col gap-3 sm:flex-row"
               >
-                <input
+                <TextField
+                  fullWidth
+                  isRequired
                   type="email"
-                  required
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder={t("newsletterPlaceholder")}
-                  className="min-w-0 flex-1 bg-transparent px-0 py-3 text-sm outline-hidden"
-                  style={{
-                    borderBottom: "1px solid var(--border)",
-                    color: "var(--text)",
-                  }}
-                />
-                <button type="submit" className="btn-brand-sm shrink-0 whitespace-nowrap">
+                  onChange={setEmail}
+                  aria-label={t("newsletterPlaceholder")}
+                  className="min-w-0 flex-1"
+                >
+                  <Input placeholder={t("newsletterPlaceholder")} />
+                </TextField>
+                <Button type="submit" variant="primary" className="shrink-0 whitespace-nowrap">
                   {t("newsletterCta")}
-                </button>
+                </Button>
               </form>
             ) : (
               <p
