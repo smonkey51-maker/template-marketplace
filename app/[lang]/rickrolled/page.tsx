@@ -20,18 +20,22 @@ export default async function RickrolledPage({ params }: { params: Promise<{ lan
   const lang = toLocale((await params).lang);
 
   return (
-    <div className="flex min-h-screen flex-col bg-bg">
+    <div className="flex min-h-screen flex-col">
       <SiteNav />
       <main className="flex flex-1 items-center justify-center px-4 py-12">
         {/* A plain <img>, so a GIF dropped in later would still animate. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/rickrolled.png"
-          alt="Rickrolled"
-          width={447}
-          height={447}
-          className="h-auto w-full max-w-[447px] rounded-sm border border-line"
-        />
+        <div className="w-full max-w-[463px]">
+          <div className="glass p-2">
+            <img
+              src="/rickrolled.png"
+              alt="Rickrolled"
+              width={447}
+              height={447}
+              className="h-auto w-full rounded-2xl"
+            />
+          </div>
+        </div>
       </main>
       <SiteFooter />
     </div>

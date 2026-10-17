@@ -60,7 +60,7 @@ export function SiteFooter() {
   );
 
   return (
-    <footer className="border-t border-line bg-surface text-ink">
+    <footer className="glass-bar mt-12 border-t border-line text-ink">
       <div className="mx-auto max-w-[1200px] px-4 py-12 sm:px-6">
         <div className="grid gap-10 md:grid-cols-12">
           <div className="md:col-span-5">
