@@ -65,7 +65,7 @@ The site used to have `/it` and `/en` prefixes and other sections; `next.config.
 
 ### Interaction and motion rules (from the vendored skills)
 
-Press feedback `scale(0.97)` on `:active`; custom `--ease-out`; transitions name their properties (never `transition: all`); UI motion under 300 ms; **hover only inside `@media (hover: hover) and (pointer: fine)`**; no animation on keyboard-initiated actions (the ⌘K palette has none); reduced motion keeps fades and drops movement. Mobile: inputs are 16 px (no iOS zoom), tap targets ≥ 44 px, `min-h-dvh`, safe-area padding, `viewport-fit=cover`, per-scheme `theme-color`.
+Press feedback `scale(0.97)` on `:active`; custom `--ease-out`; transitions name their properties (never `transition: all`); UI motion under 300 ms; **hover only inside `@media (hover: hover) and (pointer: fine)`**; reduced motion keeps fades and drops movement. Mobile: inputs are 16 px (no iOS zoom), tap targets ≥ 44 px, `min-h-dvh`, safe-area padding, `viewport-fit=cover`, per-scheme `theme-color`.
 
 ### Refraction libraries (MIT, lazy-loaded; none on first paint)
 
@@ -81,7 +81,7 @@ Press feedback `scale(0.97)` on `:active`; custom `--ease-out`; transitions name
 app/            layout.tsx · page.tsx · servizi/ metodo/ chi-siamo/ contatti/ area-riservata/ privacy/
                 test/ test-ma-di-piu/ rickrolled/ · not-found · error · global-error · icon · robots · sitemap
                 api/{contact,subscribe,og}/route.ts
-components/     SiteNav · SiteFooter · SiteLogo · PageShell · PageHeader · ContactForm · CommandPalette
+components/     SiteNav · SiteFooter · SiteLogo · PageShell · PageHeader · ContactForm
                 GlassLenses · NavDock · SectionIndex · GlassDock · GlassLight · ArticleBody · TestBase · lab/ArkDemo
 lib/            site.ts · meta.ts · schemas.ts · email.ts · rateLimit.ts · siteUrl.ts · reducedMotion.ts
 types/          liquid-gl.d.ts
@@ -104,7 +104,7 @@ Before pushing: typecheck, lint, `npm test`, `npm run build`, `npx prettier --ch
 
 ## Common tasks
 
-- **Add a page:** `app/<route>/page.tsx` with `export const metadata = pageMeta(...)`, wrap in `<PageShell>`, add to `SiteNav.tsx`, `SiteFooter.tsx`, `CommandPalette.tsx` and `app/sitemap.ts`.
+- **Add a page:** `app/<route>/page.tsx` with `export const metadata = pageMeta(...)`, wrap in `<PageShell>`, add to `SiteNav.tsx`, `SiteFooter.tsx` and `app/sitemap.ts`.
 - **Rename the business / launch:** edit `lib/site.ts` (name, tagline, `draft: false`); replace placeholder copy and the privacy notice.
 - **Animate the Rickrolled page:** add a GIF under `public/` and point the `<img>` in `app/rickrolled/page.tsx` at it.
 
@@ -113,3 +113,5 @@ Before pushing: typecheck, lint, `npm test`, `npm run build`, `npx prettier --ch
 - **Hero photo:** `public/hero.webp` sits behind the home hero as an in-flow `next/image` (not a fixed background: the liquid-gl snapshot ignores fixed elements, so only in-flow content is refracted by the sticky nav and dock lenses), with a light/dark `.hero-wash`. Contrast audit on `/` passes (lowest 4.85:1).
 
 - **Motion accents** (`components/InteractionFx.tsx`, inspired by the interactions of diventaredesigner.com, own code): a dot that replaces the pointer arrow and grows over links (hover devices only; fields keep the text cursor), `[data-magnet]` buttons that lean toward the pointer (CSS `translate`, composes with the `:active` scale), and `[data-reveal]` fade-up on first view (hidden only after JS runs and only if below the fold; all off for reduced motion). Do not put `data-reveal` on `.glass-panel`: an ancestor with opacity < 1 switches its backdrop blur off.
+
+- **Scenic layer** (home): a hero photo that drifts and zooms with the scroll, a `Marquee` band of outlined service names, a statement whose words brighten as it scrolls in (resting state stays ≥ 4.5:1), and a `BigWordmark` (the name fitted to the footer width). Scroll-driven animations are `@supports (animation-timeline: …)` progressive enhancement; reduced motion keeps everything still. Decorative pieces are `aria-hidden`. There is no site search / command palette any more.

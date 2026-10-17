@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { SITE } from "@/lib/site";
 import SiteLogo from "@/components/SiteLogo";
+import BigWordmark from "@/components/BigWordmark";
 
 const SERVICES = [
   { href: "/servizi", label: "Servizi" },
@@ -103,6 +104,10 @@ export function SiteFooter() {
               .
             </p>
           </div>
+        </div>
+
+        <div className="mt-14">
+          <BigWordmark text={SITE.name.toUpperCase()} />
         </div>
 
         <div className="mt-10 flex flex-col gap-2 border-t border-line pt-6 font-mono text-[12px] text-muted sm:flex-row sm:justify-between">

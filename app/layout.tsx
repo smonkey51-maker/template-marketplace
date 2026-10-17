@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import { PostHogProvider } from "@/components/PostHogProvider";
 import PageTransition from "@/components/PageTransition";
-import CommandPalette from "@/components/CommandPalette";
 import GlassDock from "@/components/GlassDock";
 import GlassLight from "@/components/GlassLight";
 import InteractionFx from "@/components/InteractionFx";
@@ -69,7 +68,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <PageTransition>
             <div id="main-content">{children}</div>
           </PageTransition>
-          <CommandPalette />
           <GlassDock />
           <GlassLight />
           <InteractionFx />

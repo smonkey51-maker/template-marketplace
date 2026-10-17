@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Menu, Search, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { SITE } from "@/lib/site";
 import SiteLogo from "@/components/SiteLogo";
 import GlassLenses from "@/components/GlassLenses";
@@ -22,8 +22,6 @@ export default function SiteNav() {
   useEffect(() => setOpen(false), [pathname]);
 
   const isActive = (href: string) => pathname === href;
-  const openSearch = () =>
-    window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", ctrlKey: true, metaKey: true }));
 
   return (
     <>
@@ -70,16 +68,6 @@ export default function SiteNav() {
             </nav>
 
             <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
-              <button
-                type="button"
-                onClick={openSearch}
-                aria-label="Cerca nel sito"
-                className="glass-ctl hidden h-11 items-center gap-2 px-3.5 text-sm text-muted hover:text-ink lg:flex"
-              >
-                <Search size={15} aria-hidden />
-                <span>Cerca</span>
-                <kbd className="font-mono text-[11px]">⌘K</kbd>
-              </button>
               {/* `.btn` sets its own display, which beats the `hidden` utility: hide a wrapper instead. */}
               <div className="hidden sm:block">
                 <Link href="/area-riservata" className="btn btn-outline">

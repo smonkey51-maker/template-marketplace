@@ -47,7 +47,6 @@ const ROWS: [string, string, string][] = [
   ["Tabs", "Ark UI", "Attivo"],
   ["Accordion", "Ark UI", "Attivo"],
   ["Switch", "Ark UI", "Attivo"],
-  ["Palette comandi", "Ctrl/Cmd + K", "Attivo"],
   ["Tema scuro", "class .dark", "Attivo"],
 ];
 
